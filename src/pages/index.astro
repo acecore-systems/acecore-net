@@ -14,6 +14,12 @@ const posts = (await getCollection('blog'))
     title="技術でつながる、クリエイティブで広がる"
     subtitle="Acecore（エースコア）は、システム開発・Web制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
     showCTA={true}
+    images={[
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80',
+    ]}
   />
 
   <!-- サービス紹介 -->
@@ -86,18 +92,28 @@ const posts = (await getCollection('blog'))
             {posts.map((post) => (
               <a
                 href={`/blog/${post.slug}/`}
-                class="ac-card p-6 no-underline hover:shadow-md transition-shadow group"
+                class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
               >
-                <div class="flex items-center gap-2 text-xs text-slate-400">
-                  <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
-                  {post.data.author && <span>by {post.data.author}</span>}
+                {post.data.image && (
+                  <img
+                    src={post.data.image}
+                    alt={post.data.title}
+                    class="w-full h-40 object-cover"
+                    loading="lazy"
+                  />
+                )}
+                <div class="p-6">
+                  <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+                    {post.data.author && <span>by {post.data.author}</span>}
+                  </div>
+                  <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm text-slate-600 line-clamp-3">
+                    {post.data.description}
+                  </p>
                 </div>
-                <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
-                  {post.data.title}
-                </h3>
-                <p class="text-sm text-slate-600 line-clamp-3">
-                  {post.data.description}
-                </p>
               </a>
             ))}
           </div>

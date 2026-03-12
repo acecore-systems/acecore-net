@@ -34,4 +34,5 @@ content:
       - name: body
         label: 本文
         type: code
-        language: markdown
+        options:
+          language: markdown

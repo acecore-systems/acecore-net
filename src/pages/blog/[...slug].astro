@@ -32,8 +32,7 @@ const { Content } = await post.render()
           <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
           {post.data.author && <span>by {post.data.author}</span>}
         </div>
-        {
-          post.data.tags && (
+        {post.data.tags && (
             <div class="flex flex-wrap gap-2 mt-4">
               {post.data.tags.map((tag: string) => (
                 <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
@@ -44,6 +43,15 @@ const { Content } = await post.render()
           )
         }
       </div>
+      {post.data.image && (
+        <div class="mb-8 rounded-xl overflow-hidden">
+          <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full h-auto"
+          />
+        </div>
+      )}
       <div class="prose prose-slate prose-lg max-w-none">
         <Content />
       </div>

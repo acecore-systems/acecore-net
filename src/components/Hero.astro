@@ -3,21 +3,68 @@ interface Props {
   title: string
   subtitle?: string
   showCTA?: boolean
+  images?: string[]
 }
 
-const { title, subtitle, showCTA = false } = Astro.props
+const { title, subtitle, showCTA = false, images } = Astro.props
+const hasSlider = images && images.length > 0
 ---
 
 <section
-  class="bg-gradient-to-br from-brand-700 via-brand-500 to-brand-400 text-white py-20 sm:py-28 lg:py-36"
+  class:list={[
+    'relative text-white overflow-hidden',
+    hasSlider ? 'py-24 sm:py-32 lg:py-40' : 'py-20 sm:py-28 lg:py-36',
+    !hasSlider && 'bg-gradient-to-br from-brand-700 via-brand-500 to-brand-400',
+  ]}
 >
-  <div class="ac-container text-center">
+  {
+    hasSlider && (
+      <div class="absolute inset-0" id="hero-slider">
+        {images.map((src, i) => (
+          <div
+            class:list={[
+              'hero-slide absolute inset-0 transition-opacity duration-1000',
+              i === 0 ? 'opacity-100' : 'opacity-0',
+            ]}
+            data-index={i}
+          >
+            <img
+              src={src}
+              alt=""
+              class="w-full h-full object-cover"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ))}
+        <div class="absolute inset-0 bg-brand-900/60" />
+      </div>
+    )
+  }
+
+  {
+    hasSlider && images.length > 1 && (
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {images.map((_, i) => (
+          <button
+            class:list={[
+              'hero-dot w-2.5 h-2.5 rounded-full transition-all cursor-pointer',
+              i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+            ]}
+            data-index={i}
+            aria-label={`スライド ${i + 1}`}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  <div class="ac-container text-center relative z-10">
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-800 tracking-tight mb-6">
       {title}
     </h1>
     {
       subtitle && (
-        <p class="text-lg sm:text-xl text-brand-100 max-w-2xl mx-auto mb-8">
+        <p class="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto mb-8">
           {subtitle}
         </p>
       )
@@ -42,3 +89,59 @@ const { title, subtitle, showCTA = false } = Astro.props
     }
   </div>
 </section>
+
+<script>
+  const slider = document.getElementById('hero-slider')
+  if (slider) {
+    const slides = slider.querySelectorAll<HTMLDivElement>('.hero-slide')
+    const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
+    const total = slides.length
+    if (total <= 1) throw null // no need to run
+
+    let current = 0
+    let timer: ReturnType<typeof setInterval>
+
+    function goTo(index: number) {
+      slides[current].classList.replace('opacity-100', 'opacity-0')
+      dots[current]?.classList.replace('bg-white', 'bg-white/50')
+      dots[current]?.classList.remove('scale-125')
+      current = index
+      slides[current].classList.replace('opacity-0', 'opacity-100')
+      dots[current]?.classList.replace('bg-white/50', 'bg-white')
+      dots[current]?.classList.add('scale-125')
+    }
+
+    function next() {
+      goTo((current + 1) % total)
+    }
+
+    function startAutoPlay() {
+      timer = setInterval(next, 5000)
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        clearInterval(timer)
+        goTo(Number(dot.dataset.index))
+        startAutoPlay()
+      })
+    })
+
+    // Swipe support
+    let startX = 0
+    const section = slider.closest('section')!
+    section.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX
+      clearInterval(timer)
+    }, { passive: true })
+    section.addEventListener('touchend', (e) => {
+      const diff = startX - e.changedTouches[0].clientX
+      if (Math.abs(diff) > 50) {
+        goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
+      }
+      startAutoPlay()
+    }, { passive: true })
+
+    startAutoPlay()
+  }
+</script>
