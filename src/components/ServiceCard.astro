@@ -3,13 +3,18 @@ interface Props {
   icon: string
   title: string
   description: string
+  href?: string
 }
 
-const { icon, title, description } = Astro.props
+const { icon, title, description, href } = Astro.props
+const Tag = href ? 'a' : 'div'
 ---
 
-<div class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow">
+<Tag
+  {...(href ? { href } : {})}
+  class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow block no-underline group"
+>
   <div class={`${icon} text-3xl text-brand-500 mb-4`}></div>
-  <h3 class="text-lg font-700 text-slate-900 mb-3">{title}</h3>
+  <h3 class="text-lg font-700 text-slate-900 mb-3 group-hover:text-brand-500 transition-colors">{title}</h3>
   <p class="text-sm text-slate-600 leading-relaxed">{description}</p>
-</div>
+</Tag>
