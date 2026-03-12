@@ -30,7 +30,8 @@ content:
         type: string
       - name: image
         label: アイキャッチ画像
-        type: image
+        type: string
+        description: 画像のURLを入力してください（例：https://images.unsplash.com/...）
       - name: body
         label: 本文
         type: code
