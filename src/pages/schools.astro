@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+---
+
+<BaseLayout
+  title="Acecore Schools"
+  description="Acecore Schoolsは、学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ・高卒認定など幅広い教育プログラムを提供するITスクールです。"
+>
+  <Hero
+    title="Acecore Schools"
+    subtitle="一人ひとりに合わせた指導で、確かなスキルを"
+    images={['https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1400&h=600&fit=crop&q=80']}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        AceCore Schoolsは、学習塾、ロボットプログラミング、実践プログラミング、パソコン・スマホの操作技術、高卒認定試験対策など、幅広い教育プログラムを提供しています。一人ひとりの生徒に合わせた指導を行い、生徒の成長をサポートします。
+      </p>
+
+      <!-- 学習塾 -->
+      <div class="mb-16" id="juku">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-book-open text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">学習塾</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          私たちの学習塾では、一人ひとりの生徒に合わせた指導を行い、基礎から応用までの学力を身につけることができます。経験豊富な講師陣が、生徒の成長をサポートします。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">特徴</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              個別指導で一人ひとりの理解度に合わせた丁寧な授業
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              基礎の定着から応用力の養成まで段階的にサポート
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              定期テスト・受験対策にも対応
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ロボット/プログラミング -->
+      <div class="mb-16" id="robot-programming">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-bot text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">ロボット / プログラミング</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          最先端の技術を取り入れたロボットプログラミングの授業を提供しています。実際のロボットを使用して、プログラミングの基礎を学ぶことができます。
+        </p>
+        <div class="space-y-4">
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">ロボットコース</h3>
+            <p class="text-sm text-slate-600">
+              タミヤ工作シリーズなどを使用した実際のロボット工作を通じて、ものづくりの楽しさと基本的な仕組みを学びます。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">ロボット プログラミングコース</h3>
+            <p class="text-sm text-slate-600">
+              ロボットをプログラムで制御する技術を学びます。センサーやモーターの制御を通じて、論理的思考力を育みます。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">マインクラフト プログラミングコース</h3>
+            <p class="text-sm text-slate-600">
+              大人気ゲーム「マインクラフト」を活用してプログラミングの基礎を学びます。遊びながら自然とプログラミング的思考が身につきます。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 実践プログラミング -->
+      <div class="mb-16" id="practical-programming">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-code-2 text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">実践プログラミング</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          実際の業務で使用されるプログラミング技術を学ぶことができるカリキュラムを提供しています。実践的なスキルを身につけることで、即戦力として活躍できます。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">学べる内容</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              HTML / CSS / JavaScript によるWebフロントエンド開発
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Python / Node.js などを使ったバックエンド開発
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              データベース設計・API構築・クラウド活用
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Git / チーム開発のワークフロー
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- パソコン/スマホ -->
+      <div class="mb-16" id="pc-smartphone">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-monitor-smartphone text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">パソコン / スマホ</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          日常生活やビジネスシーンで必要とされるパソコン・スマホの操作技術を学ぶことができます。初心者から上級者まで、幅広いレベルの授業を提供しています。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">対応レベル</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              パソコン・スマホの基本操作（初心者歓迎）
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Word / Excel / PowerPoint などオフィスソフトの活用
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              メール・SNS・オンライン会議のセットアップと使い方
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              セキュリティ対策・トラブルシューティング
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 高卒認定 -->
+      <div class="mb-16" id="ged">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-file-badge text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">高卒認定</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          高等学校を卒業していない方を対象とした、高卒認定試験の対策授業を行っています。専門的な知識や技術を身につけ、高卒の資格を取得するサポートをします。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">サポート内容</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              各科目ごとの試験対策（国語・数学・英語・社会・理科）
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              個人の学力に合わせた学習計画の作成
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              模擬試験・過去問演習による実践的な対策
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- お問い合わせ・申し込み -->
+      <div class="bg-brand-50 rounded-xl p-8 text-center">
+        <h2 class="text-xl ac-heading mb-4">お問い合わせ・お申し込み</h2>
+        <p class="text-slate-600 mb-6">
+          各コースの詳細やお申し込みは、お電話・メール・LINEで受け付けています。
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-phone text-brand-500"></div>
+            <span class="font-600 text-slate-800">050-8890-2788</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-mail text-brand-500"></div>
+            <a href="mailto:info@acecore.net" class="font-600 text-brand-500 hover:underline">info@acecore.net</a>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/contact/" class="ac-btn-primary">お問い合わせフォーム</a>
+          <a
+            href="https://lin.ee/DjIrdqj"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline"
+          >
+            LINEで問い合わせる
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

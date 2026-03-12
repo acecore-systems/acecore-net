@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+---
+
+<BaseLayout
+  title="AceStudio"
+  description="AceStudio（エーススタジオ）は、Acecoreが開発中のクリエイティブプラットフォームです。詳細は近日公開予定。"
+>
+  <Hero
+    title="AceStudio"
+    subtitle="Coming Soon"
+    images={['https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80']}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl text-center">
+      <div class="mb-12">
+        <div class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6"></div>
+        <h2 class="text-2xl ac-heading mb-6">新しいクリエイティブ体験を、まもなく。</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          クリエイターの力を最大限に引き出すプラットフォームとして、
+          デザイン・映像・音楽・開発など幅広い領域でのクリエイティブ活動を支援します。
+        </p>
+        <p class="text-slate-500">
+          サービスの詳細は、準備が整い次第このページで公開いたします。
+        </p>
+      </div>
+
+      <div class="bg-slate-50 rounded-xl p-8 mb-12">
+        <h3 class="font-700 text-lg text-slate-900 mb-4">最新情報をお届けします</h3>
+        <p class="text-slate-600 mb-6">
+          リリース情報や最新の開発状況は、AcecoreのXアカウントやブログで随時お知らせしていきます。
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="https://x.com/acecorenet"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline"
+          >
+            Xでフォローする
+          </a>
+          <a href="/blog/" class="ac-btn-outline">
+            ブログを見る
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-slate-600 mb-4">
+          AceStudioに関するお問い合わせやご要望はこちらから
+        </p>
+        <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

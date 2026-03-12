@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+---
+
+<BaseLayout
+  title="Aceserver"
+  description="Aceserver（エースサーバー）は、Acecoreが運営するマインクラフト無料公開サーバーです。JAVA版・統合版どちらでも参加可能で、自由度の高い遊び方ができます。"
+>
+  <Hero
+    title="Aceserver"
+    subtitle="誰でも参加可能なマインクラフト無料公開サーバー"
+    images={['https://images.unsplash.com/photo-1563207153-f403bf289096?w=1400&h=600&fit=crop&q=80']}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        Aceserver（エースサーバー）は、Acecoreが運営するマインクラフトの無料公開サーバーです。
+        「みんなの居場所で有ること」を理念に、JAVA版・統合版のどちらからでも参加でき、バニラに近い自由な環境でマルチプレイを楽しめます。
+      </p>
+
+      <!-- 特徴 -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+        <div class="ac-card p-6 text-center">
+          <div class="i-lucide-users text-3xl text-brand-500 mx-auto mb-3"></div>
+          <h3 class="font-700 text-lg mb-2">誰でも参加可能</h3>
+          <p class="text-sm text-slate-600">
+            アカウントさえあれば誰でも無料で参加できます。初心者も大歓迎です。
+          </p>
+        </div>
+        <div class="ac-card p-6 text-center">
+          <div class="i-lucide-gamepad-2 text-3xl text-brand-500 mx-auto mb-3"></div>
+          <h3 class="font-700 text-lg mb-2">JAVA版・統合版対応</h3>
+          <p class="text-sm text-slate-600">
+            クロスプレイに対応し、どちらのエディションからでも同じワールドで遊べます。
+          </p>
+        </div>
+        <div class="ac-card p-6 text-center">
+          <div class="i-lucide-sparkles text-3xl text-brand-500 mx-auto mb-3"></div>
+          <h3 class="font-700 text-lg mb-2">自由でバニラに近い</h3>
+          <p class="text-sm text-slate-600">
+            必要最低限のルールで、マインクラフト本来の自由な遊び方を大切にしています。
+          </p>
+        </div>
+      </div>
+
+      <!-- サーバー理念 -->
+      <div class="mb-16">
+        <h2 class="text-2xl ac-heading mb-6">サーバー理念</h2>
+        <div class="bg-brand-50 rounded-xl p-8 mb-6">
+          <p class="text-xl font-600 text-brand-700 text-center">
+            「みんなの居場所で有ること」
+          </p>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          ここで言う「みんな」とはサーバー内にいる人だけではなく、サーバーにまだ来ていない人もさします。
+          また、運営やサポーターも例外ではありません。居場所であるという事はもちろん、「居心地が良い」という事も含まれています。
+          そして、そこにあり続ける事を最大の理念としています。
+        </p>
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="i-lucide-scale text-xl text-brand-500 shrink-0 mt-1"></div>
+            <div>
+              <h3 class="font-700 mb-1">自由と秩序の両立</h3>
+              <p class="text-sm text-slate-600">
+                ルールや制限で縛りすぎず、自由と秩序が両立できる環境を目指します。必要最低限のルールを見極め、設定しています。
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="i-lucide-equal text-xl text-brand-500 shrink-0 mt-1"></div>
+            <div>
+              <h3 class="font-700 mb-1">平等であること</h3>
+              <p class="text-sm text-slate-600">
+                運営陣だけではなく参加者の方を含め、対等で別け隔てのない環境を作ります。特定の個人に固執せず、和の心を持った対応を心がけます。
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="i-lucide-heart text-xl text-brand-500 shrink-0 mt-1"></div>
+            <div>
+              <h3 class="font-700 mb-1">より沢山の人に楽しんでもらう</h3>
+              <p class="text-sm text-slate-600">
+                エースサーバーの良さを知ってもらうため、各種サイトでの宣伝やゲーム配信なども大歓迎しています。申請不要で自由にご活用ください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 参加方法 -->
+      <div class="mb-16">
+        <h2 class="text-2xl ac-heading mb-6">参加方法</h2>
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="bg-brand-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-700 shrink-0">1</div>
+            <div>
+              <h3 class="font-700 mb-1">Discordに参加</h3>
+              <p class="text-sm text-slate-600">
+                まずは<a href="https://discord.gg/vKTdU4k8ur" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">公式Discordサーバー</a>に参加してください。サーバーアドレスや最新情報はDiscordで確認できます。
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="bg-brand-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-700 shrink-0">2</div>
+            <div>
+              <h3 class="font-700 mb-1">マインクラフトから接続</h3>
+              <p class="text-sm text-slate-600">
+                JAVA版・統合版どちらからでも接続可能です。詳しい接続方法はWIKIの参加方法ページをご覧ください。
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="bg-brand-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-700 shrink-0">3</div>
+            <div>
+              <h3 class="font-700 mb-1">自由に遊ぶ！</h3>
+              <p class="text-sm text-slate-600">
+                建築、冒険、交流、レッドストーン回路…… 好きなスタイルで自由に楽しんでください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 関連リンク -->
+      <div class="mb-16">
+        <h2 class="text-2xl ac-heading mb-6">Aceserver リンク</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a
+            href="https://aceserver.acecore.systems/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div class="i-lucide-globe text-xl text-brand-500"></div>
+              <h3 class="font-700 text-brand-500">ポータルサイト</h3>
+            </div>
+            <p class="text-sm text-slate-600">
+              エースサーバーの公式ポータルサイトです。最新情報やワールドマップなどを掲載しています。
+            </p>
+          </a>
+          <a
+            href="https://aceserver-wiki.acecore.systems/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div class="i-lucide-book-open text-xl text-brand-500"></div>
+              <h3 class="font-700 text-brand-500">WIKI</h3>
+            </div>
+            <p class="text-sm text-slate-600">
+              誰でも編集可能なエースサーバーのWIKIです。参加方法・遊び方・サーバー理念などを掲載しています。
+            </p>
+          </a>
+          <a
+            href="https://discord.gg/vKTdU4k8ur"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div class="i-lucide-message-circle text-xl text-brand-500"></div>
+              <h3 class="font-700 text-brand-500">Discord</h3>
+            </div>
+            <p class="text-sm text-slate-600">
+              エースサーバーの公式Discordコミュニティです。参加申請やイベント情報はこちらから。
+            </p>
+          </a>
+          <a
+            href="https://aceserver.acecore.systems/youtube-search-aceserver/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div class="i-lucide-play text-xl text-brand-500"></div>
+              <h3 class="font-700 text-brand-500">動画</h3>
+            </div>
+            <p class="text-sm text-slate-600">
+              エースサーバーに関する動画コンテンツを検索・閲覧できます。
+            </p>
+          </a>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center bg-brand-50 rounded-xl p-8">
+        <p class="text-lg text-slate-700 mb-6">
+          エースサーバーに興味がありますか？まずはDiscordへ！
+        </p>
+        <a
+          href="https://discord.gg/vKTdU4k8ur"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-btn-primary"
+        >
+          Discordに参加する
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

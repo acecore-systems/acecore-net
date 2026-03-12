@@ -84,29 +84,36 @@ import Hero from '../components/Hero.astro'
       <h2 class="text-xl ac-heading mb-6 text-center">
         その他のお問い合わせ方法
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="ac-card p-6 text-center">
+          <div class="i-lucide-mail text-2xl text-brand-500 mx-auto mb-2"></div>
+          <h3 class="font-600 text-slate-900 mb-1">メール</h3>
+          <p class="text-sm text-slate-600">
+            <a href="mailto:info@acecore.net" class="text-brand-500 hover:underline">info@acecore.net</a>
+          </p>
+        </div>
         <a
-          href="https://discord.gg/acsv"
+          href="https://x.com/acecorenet"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+        >
+          <div class="i-lucide-at-sign text-2xl text-brand-500 mx-auto mb-2"></div>
+          <h3 class="font-600 text-slate-900 mb-1">X</h3>
+          <p class="text-sm text-slate-600">
+            DMでのお問い合わせも受け付けています
+          </p>
+        </a>
+        <a
+          href="https://discord.gg/vKTdU4k8ur"
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
         >
           <div class="i-lucide-message-circle text-2xl text-brand-500 mx-auto mb-2"></div>
-          <h3 class="font-600 text-slate-900 mb-1">Discord</h3>
+          <h3 class="font-600 text-slate-900 mb-1">Aceserver Discord</h3>
           <p class="text-sm text-slate-600">
-            コミュニティに参加してお気軽にお声がけください
-          </p>
-        </a>
-        <a
-          href="https://twitter.com/AceCoreS"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
-        >
-          <div class="i-lucide-twitter text-2xl text-brand-500 mx-auto mb-2"></div>
-          <h3 class="font-600 text-slate-900 mb-1">X（旧Twitter）</h3>
-          <p class="text-sm text-slate-600">
-            DMでのお問い合わせも受け付けています
+            ゲームコミュニティからもお声がけいただけます
           </p>
         </a>
       </div>

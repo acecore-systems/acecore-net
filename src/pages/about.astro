@@ -91,13 +91,11 @@ import Hero from '../components/Hero.astro'
         </div>
       </div>
 
-      <!-- 関連サービス -->
-      <h2 class="text-2xl ac-heading mb-6">関連サービス</h2>
+      <!-- 関連サービス・プロジェクト -->
+      <h2 class="text-2xl ac-heading mb-6">関連サービス・プロジェクト</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
         <a
-          href="https://aceserver.acecore.systems"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/aceserver/"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
@@ -105,22 +103,45 @@ import Hero from '../components/Hero.astro'
             <h3 class="font-700 text-brand-500">Aceserver</h3>
           </div>
           <p class="text-sm text-slate-600">
-            マインクラフト公開サーバー。安定運用と活発なコミュニティが特徴です。
+            マインクラフト無料公開サーバー。JAVA版・統合版対応で、誰でも参加可能です。
           </p>
         </a>
         <a
-          href="https://discord.gg/acsv"
+          href="/schools/"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div class="i-lucide-graduation-cap text-xl text-brand-500"></div>
+            <h3 class="font-700 text-brand-500">Acecore Schools</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            学習塾・ロボプロ・実践プログラミング・パソコン教室・高卒認定の各コースを提供しています。
+          </p>
+        </a>
+        <a
+          href="/acestudio/"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div class="i-lucide-clapperboard text-xl text-brand-500"></div>
+            <h3 class="font-700 text-brand-500">AceStudio</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            Acecoreが開発中のクリエイティブプラットフォーム。Coming Soon。
+          </p>
+        </a>
+        <a
+          href="https://x.com/acecorenet"
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="i-lucide-message-circle text-xl text-brand-500">
-            </div>
-            <h3 class="font-700 text-brand-500">Discord コミュニティ</h3>
+            <div class="i-lucide-at-sign text-xl text-brand-500"></div>
+            <h3 class="font-700 text-brand-500">X</h3>
           </div>
           <p class="text-sm text-slate-600">
-            Aceserverをはじめとする各種コミュニティの交流の場です。
+            Acecoreの最新情報をXで発信しています。
           </p>
         </a>
       </div>
