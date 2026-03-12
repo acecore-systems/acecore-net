@@ -3,7 +3,7 @@ title: 'エースサーバー、乗っ取られる。'
 description: 'エースサーバーで起きた「乗っ取り」イベントの記録。メンバーたちの理性が次々と侵食されていく、衝撃のドキュメント。'
 date: 2022-10-12
 tags: ['イベント']
-author: 'ハット'
+author: hatt
 imageUrl: https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=400&fit=crop&q=80
 ---
 

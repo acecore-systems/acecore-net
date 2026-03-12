@@ -3,7 +3,7 @@ title: 'メタバースは案外身近にあるよね'
 description: 'Facebookのメタバース戦略から、マインクラフトを使ったメタバースの可能性まで。身近なメタバースについて考えてみた。'
 date: 2023-03-23
 tags: ['コミュニティ']
-author: 'グイ'
+author: gui
 imageUrl: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
 ---
 

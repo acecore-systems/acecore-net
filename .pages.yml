@@ -41,3 +41,24 @@ content:
         type: code
         options:
           language: markdown
+
+  - name: authors
+    label: 著者
+    path: src/data/authors.json
+    type: file
+    format: json
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+      - name: name
+        label: 表示名
+        type: string
+        required: true
+      - name: avatar
+        label: アバター画像URL
+        type: string
+      - name: bio
+        label: 自己紹介
+        type: string
