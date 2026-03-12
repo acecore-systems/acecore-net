@@ -94,9 +94,9 @@ const posts = (await getCollection('blog'))
                 href={`/blog/${post.slug}/`}
                 class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
               >
-                {post.data.image && (
+                {(post.data.image || post.data.imageUrl) && (
                   <img
-                    src={post.data.image}
+                    src={post.data.image || post.data.imageUrl}
                     alt={post.data.title}
                     class="w-full h-40 object-cover"
                     loading="lazy"

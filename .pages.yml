@@ -29,9 +29,13 @@ content:
         label: 著者
         type: string
       - name: image
-        label: アイキャッチ画像
+        label: アイキャッチ画像（アップロード）
+        type: image
+        description: 画像をアップロードする場合はこちらを使用してください
+      - name: imageUrl
+        label: アイキャッチ画像（外部URL）
         type: string
-        description: 画像のURLを入力してください（例：https://images.unsplash.com/...）
+        description: 外部URLを使用する場合はこちらに入力してください（例：https://images.unsplash.com/...）
       - name: body
         label: 本文
         type: code

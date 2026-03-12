@@ -43,10 +43,10 @@ const { Content } = await post.render()
           )
         }
       </div>
-      {post.data.image && (
+      {(post.data.image || post.data.imageUrl) && (
         <div class="mb-8 rounded-xl overflow-hidden">
           <img
-            src={post.data.image}
+            src={post.data.image || post.data.imageUrl}
             alt={post.data.title}
             class="w-full h-auto"
           />
