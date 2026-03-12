@@ -1,0 +1,37 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: blog
+    label: ブログ記事
+    path: src/content/blog
+    type: collection
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: description
+        label: 概要
+        type: string
+        required: true
+      - name: date
+        label: 公開日
+        type: date
+        required: true
+      - name: tags
+        label: タグ
+        type: string
+        list: true
+      - name: author
+        label: 著者
+        type: string
+      - name: image
+        label: アイキャッチ画像
+        type: image
+      - name: body
+        label: 本文
+        type: code
+        language: markdown

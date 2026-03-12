@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await post.render()
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="ac-section">
+    <div class="ac-container max-w-3xl">
+      <div class="mb-8">
+        <a
+          href="/blog/"
+          class="text-sm text-brand-500 hover:underline inline-flex items-center gap-1 mb-4"
+        >
+          <div class="i-lucide-arrow-left text-sm"></div>
+          ブログ一覧に戻る
+        </a>
+        <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
+          {post.data.title}
+        </h1>
+        <div class="flex items-center gap-3 text-sm text-slate-400">
+          <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+          {post.data.author && <span>by {post.data.author}</span>}
+        </div>
+        {
+          post.data.tags && (
+            <div class="flex flex-wrap gap-2 mt-4">
+              {post.data.tags.map((tag: string) => (
+                <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+      <div class="prose prose-slate prose-lg max-w-none">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

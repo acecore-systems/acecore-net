@@ -1,0 +1,74 @@
+---
+const navLinks = [
+  { href: '/', label: 'ホーム' },
+  { href: '/services/', label: 'サービス' },
+  { href: '/about/', label: '会社概要' },
+  { href: '/blog/', label: 'ブログ' },
+  { href: '/contact/', label: 'お問い合わせ' },
+]
+const currentPath = Astro.url.pathname
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+  <div class="ac-container flex items-center justify-between h-16">
+    <a
+      href="/"
+      class="flex items-center gap-2 font-800 text-xl text-brand-500 no-underline"
+    >
+      <img src="/favicon.svg" alt="" class="h-8 w-8" />
+      Acecore
+    </a>
+    <nav class="hidden md:flex items-center gap-6">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'text-sm font-500 no-underline transition-colors',
+              currentPath === link.href
+                ? 'text-brand-500'
+                : 'text-slate-600 hover:text-brand-500',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden p-2 text-slate-600"
+      aria-label="メニューを開く"
+    >
+      <div class="i-lucide-menu text-xl"></div>
+    </button>
+  </div>
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-slate-200 bg-white"
+  >
+    <div class="ac-container py-4 flex flex-col gap-3">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'text-sm font-500 no-underline py-2',
+              currentPath === link.href
+                ? 'text-brand-500'
+                : 'text-slate-600',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden')
+  })
+</script>

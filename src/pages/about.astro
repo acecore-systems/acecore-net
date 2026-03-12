@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+---
+
+<BaseLayout
+  title="会社概要"
+  description="Acecore（エースコア）の会社概要・理念・活動についてご紹介します。"
+>
+  <Hero title="会社概要" subtitle="Acecoreが目指すこと、大切にしていること" />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <!-- 理念 -->
+      <h2 class="text-2xl ac-heading mb-6">理念</h2>
+      <div class="bg-brand-50 rounded-xl p-8 mb-12">
+        <p class="text-xl font-600 text-brand-700 text-center">
+          「技術でつながる、クリエイティブで広がる」
+        </p>
+      </div>
+
+      <p class="text-lg text-slate-600 leading-relaxed mb-4">
+        Acecore（エースコア）は、テクノロジーとクリエイティブの力で多様な価値を創出するテクノロジー集団です。
+        システム開発、Webサイト制作、サーバー運用、デザイン、IT教育をワンストップで提供し、
+        個人から法人まで幅広いお客様のニーズにお応えします。
+      </p>
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        私たちは「技術の力で人々をつなげ、クリエイティブの力で可能性を広げる」ことをミッションとしています。
+        単に技術を提供するだけでなく、お客様やコミュニティと共に成長し、
+        持続可能な価値を生み出すことを大切にしています。
+      </p>
+
+      <!-- 活動と取り組み -->
+      <h2 class="text-2xl ac-heading mb-6">活動と取り組み</h2>
+      <div class="space-y-6 mb-12">
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-users text-2xl text-brand-500 shrink-0 mt-1"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">コミュニティ活動</h3>
+            <p class="text-slate-600">
+              「つながり・発見・共創」をテーマに、技術勉強会やワークショップを定期開催しています。
+              参加者同士が刺激を受け合い、新しいアイデアが生まれる場を提供しています。
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-git-branch text-2xl text-brand-500 shrink-0 mt-1"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">オープンソース貢献</h3>
+            <p class="text-slate-600">
+              オープンソースソフトウェアの利活用と技術コミュニティへの還元を積極的に推進しています。
+              社内で開発したツールやライブラリの一部をGitHubで公開しています。
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-map-pin text-2xl text-brand-500 shrink-0 mt-1"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">地域連携</h3>
+            <p class="text-slate-600">
+              地域の教育機関やビジネスと連携し、IT活用の促進とデジタル人材の育成に取り組んでいます。
+              地方のIT化を支援し、地域経済の発展に貢献します。
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-handshake text-2xl text-brand-500 shrink-0 mt-1"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">パートナーシップ</h3>
+            <p class="text-slate-600">
+              プロジェクト協力やビジネスパートナーシップを歓迎しています。
+              技術・デザイン・教育など、幅広い分野で連携可能です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 関連サービス -->
+      <h2 class="text-2xl ac-heading mb-6">関連サービス</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        <a
+          href="https://aceserver.acecore.systems"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div class="i-lucide-gamepad-2 text-xl text-brand-500"></div>
+            <h3 class="font-700 text-brand-500">Aceserver</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            マインクラフト公開サーバー。安定運用と活発なコミュニティが特徴です。
+          </p>
+        </a>
+        <a
+          href="https://discord.gg/acsv"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div class="i-lucide-message-circle text-xl text-brand-500">
+            </div>
+            <h3 class="font-700 text-brand-500">Discord コミュニティ</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            Aceserverをはじめとする各種コミュニティの交流の場です。
+          </p>
+        </a>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center bg-slate-50 rounded-xl p-8">
+        <p class="text-lg text-slate-600 mb-6">
+          ご相談・ご依頼・ご参加、いつでもお待ちしています。
+        </p>
+        <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

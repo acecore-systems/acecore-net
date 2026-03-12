@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/Hero.astro'
+import { getCollection } from 'astro:content'
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+---
+
+<BaseLayout
+  title="ブログ"
+  description="Acecoreのブログ。技術情報、活動報告、お知らせなどを発信しています。"
+>
+  <Hero title="ブログ" subtitle="技術情報・活動報告・お知らせ" />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      {
+        posts.length === 0 ? (
+          <p class="text-center text-slate-500">記事の準備中です。</p>
+        ) : (
+          <div class="space-y-6">
+            {posts.map((post) => (
+              <a
+                href={`/blog/${post.slug}/`}
+                class="block ac-card p-6 sm:p-8 no-underline hover:shadow-md transition-shadow group"
+              >
+                <div class="flex items-center gap-3 text-sm text-slate-400">
+                  <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+                  {post.data.author && <span>by {post.data.author}</span>}
+                </div>
+                <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-slate-600">{post.data.description}</p>
+                {post.data.tags && (
+                  <div class="flex flex-wrap gap-2 mt-4">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

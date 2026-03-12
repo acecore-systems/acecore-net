@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+---
+
+<BaseLayout
+  title="サービス"
+  description="Acecoreが提供するシステム開発、Webサイト制作、サーバー運用、デザイン、IT教育サービスの詳細をご紹介します。"
+>
+  <Hero
+    title="サービス"
+    subtitle="ワンストップで提供する多彩なITソリューション"
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <!-- 業務システム・アプリ開発 -->
+      <div class="mb-16" id="system-development">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-code-2 text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">業務システム・アプリ開発</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          業務効率化・自動化・データ管理など、お客様の目的に応じたシステムやアプリケーションの開発を行います。
+          小規模な社内ツールから大規模なWebサービスまで幅広く対応可能です。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              業務管理システム・CRM・ERPの設計・構築
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Webアプリケーション・SPA・モバイルアプリの開発
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              API設計・外部サービス連携・データ基盤構築
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              レガシーシステムのモダナイゼーション
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- サーバー構築・運用 -->
+      <div class="mb-16" id="server">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-server text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">サーバー構築・運用</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          セキュアで安定したサーバー環境の構築と運用を得意としています。
+          Acecoreでは<a
+            href="https://aceserver.acecore.systems"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-brand-500 hover:underline">Aceserver（マインクラフト公開サーバー）</a
+          >を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              クラウドサーバー（AWS / Azure / GCP / Cloudflare）の設計・構築
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Linux / Windows サーバーの運用・監視・保守
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              ゲームサーバー・コミュニティサーバーの構築
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              セキュリティ対策・バックアップ体制の整備
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Webサイト制作・運用 -->
+      <div class="mb-16" id="web">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-globe text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">Webサイト制作・運用</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          コーポレートサイト、ポートフォリオ、ECサイト、コミュニティサイトなど、
+          各種Webサイトの企画から制作、運用保守までを一貫して対応します。
+          最新の技術スタックとSEO対策で、高品質なサイトを実現します。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              コーポレートサイト・ランディングページの制作
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              CMS構築・ブログ・メディアサイト
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              ECサイト・オンラインショップの構築
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              SEO対策・パフォーマンス最適化・アクセシビリティ改善
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- デザイン・クリエイティブ -->
+      <div class="mb-16" id="design">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-palette text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">デザイン・クリエイティブ</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。
+          お客様の「伝えたい」を的確に形にすることを大切にしています。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              ロゴ・ブランドアイデンティティの設計
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              名刺・パンフレット・ポスターなどの印刷物
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              Webバナー・SNS用クリエイティブ
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              キャラクターデザイン・イラスト制作
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ITスクール -->
+      <div class="mb-16" id="education">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-graduation-cap text-3xl text-brand-500"></div>
+          <h2 class="text-2xl ac-heading">ITスクール / Acecore Schools</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          実務で通用するITスキルを、現役エンジニアが直接指導するスクールです。
+          プログラミング、サーバー管理、Web制作など、受講者のレベルや目標に合わせたカリキュラムをご用意しています。
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">特徴</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              現役エンジニアによるマンツーマン指導
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              実務に直結するプロジェクトベースの学習
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              初心者から中上級者まで対応
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              オンライン・対面の柔軟な受講形態
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center bg-brand-50 rounded-xl p-8">
+        <p class="text-lg text-slate-700 mb-6">
+          サービスに関するご質問・ご相談はお気軽にどうぞ。
+        </p>
+        <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

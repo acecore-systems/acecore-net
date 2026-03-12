@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string
+  subtitle?: string
+  showCTA?: boolean
+}
+
+const { title, subtitle, showCTA = false } = Astro.props
+---
+
+<section
+  class="bg-gradient-to-br from-brand-700 via-brand-500 to-brand-400 text-white py-20 sm:py-28 lg:py-36"
+>
+  <div class="ac-container text-center">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-800 tracking-tight mb-6">
+      {title}
+    </h1>
+    {
+      subtitle && (
+        <p class="text-lg sm:text-xl text-brand-100 max-w-2xl mx-auto mb-8">
+          {subtitle}
+        </p>
+      )
+    }
+    {
+      showCTA && (
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/services/"
+            class="ac-btn bg-white text-brand-600 hover:bg-brand-50"
+          >
+            サービスを見る
+          </a>
+          <a
+            href="/contact/"
+            class="ac-btn border-2 border-white text-white hover:bg-white/10"
+          >
+            お問い合わせ
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>

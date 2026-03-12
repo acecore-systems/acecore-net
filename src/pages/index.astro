@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import ServiceCard from '../components/ServiceCard.astro'
+import { getCollection } from 'astro:content'
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+---
+
+<BaseLayout title="ホーム">
+  <Hero
+    title="技術でつながる、クリエイティブで広がる"
+    subtitle="Acecore（エースコア）は、システム開発・Web制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
+    showCTA={true}
+  />
+
+  <!-- サービス紹介 -->
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container">
+      <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-4">
+        主なサービス
+      </h2>
+      <p class="ac-muted text-center max-w-2xl mx-auto mb-12">
+        個人から法人まで、多様なニーズに合わせて柔軟にサポートします。
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ServiceCard
+          icon="i-lucide-code-2"
+          title="業務システム・アプリ開発"
+          description="業務効率化・自動化・データ管理など、目的に応じたシステム・アプリを開発。小規模案件から大規模プロジェクトまで幅広く対応します。"
+        />
+        <ServiceCard
+          icon="i-lucide-server"
+          title="サーバー構築・運用"
+          description="セキュアで安定したサーバー構築・運用をご提供。Aceserverなど公共性の高い運用実績も多数あります。"
+        />
+        <ServiceCard
+          icon="i-lucide-globe"
+          title="Webサイト制作・運用"
+          description="コーポレートサイト、ポートフォリオ、ECサイトなどを企画・制作。デザインから運用保守まで一貫対応します。"
+        />
+        <ServiceCard
+          icon="i-lucide-palette"
+          title="デザイン・クリエイティブ"
+          description="ロゴ、印刷物、バナー、キャラクターデザインなど幅広い制作実績。「伝えたい」を形にします。"
+        />
+        <ServiceCard
+          icon="i-lucide-graduation-cap"
+          title="ITスクール / Acecore Schools"
+          description="実務で使えるITスキル・プログラミング・サーバー管理を現役エンジニアが直接指導します。"
+        />
+      </div>
+      <div class="text-center mt-10">
+        <a href="/services/" class="ac-btn-outline">サービス詳細を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会社紹介 -->
+  <section class="ac-section">
+    <div class="ac-container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-3xl ac-heading mb-6">Acecoreについて</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          「つながり・発見・共創」をテーマに、コミュニティ活動や勉強会を定期開催しています。
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed mb-8">
+          オープンソース活用・地域連携・教育分野への貢献を通じて、技術と人をつなげるパートナーシップを築いています。
+        </p>
+        <a href="/about/" class="ac-btn-primary">会社概要を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ブログ最新記事 -->
+  {
+    posts.length > 0 && (
+      <section class="ac-section bg-slate-50">
+        <div class="ac-container">
+          <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-12">
+            最新のブログ
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <a
+                href={`/blog/${post.slug}/`}
+                class="ac-card p-6 no-underline hover:shadow-md transition-shadow group"
+              >
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                  <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+                  {post.data.author && <span>by {post.data.author}</span>}
+                </div>
+                <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-sm text-slate-600 line-clamp-3">
+                  {post.data.description}
+                </p>
+              </a>
+            ))}
+          </div>
+          <div class="text-center mt-10">
+            <a href="/blog/" class="ac-btn-outline">
+              すべての記事を見る
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

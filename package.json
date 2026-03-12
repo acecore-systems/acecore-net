@@ -1,0 +1,25 @@
+{
+  "name": "acecore-net",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
+    "astro": "^5.5.0"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.0",
+    "@unocss/astro": "^66.6.0",
+    "@unocss/preset-typography": "^66.6.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.0",
+    "unocss": "^66.6.0"
+  }
+}
