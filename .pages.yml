@@ -57,8 +57,13 @@ content:
         type: string
         required: true
       - name: avatar
-        label: アバター画像URL
+        label: アバター画像（外部URL）
         type: string
+        description: 外部URLを使用する場合はこちらに入力してください
+      - name: avatarImage
+        label: アバター画像（アップロード）
+        type: image
+        description: 画像をアップロードする場合はこちらを使用してください
       - name: bio
         label: 自己紹介
         type: string

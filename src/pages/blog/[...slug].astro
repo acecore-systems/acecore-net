@@ -63,9 +63,9 @@ const author = post.data.author
       {author && (
         <div class="mt-12 pt-8 border-t border-slate-200">
           <div class="flex items-start gap-4">
-            {author.avatar ? (
+            {(author.avatarImage || author.avatar) ? (
               <img
-                src={author.avatar}
+                src={author.avatarImage || author.avatar}
                 alt={author.name}
                 class="w-16 h-16 rounded-full object-cover shrink-0"
               />
