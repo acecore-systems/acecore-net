@@ -3,7 +3,7 @@ title: 'コミュニティ活動と教育への取り組み'
 description: 'Acecoreが推進するコミュニティ活動、教育支援、オープンソースへの貢献について紹介します。'
 date: 2026-03-08
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop&q=80
+imageUrl: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop&q=80
 ---
 
 Acecoreでは、「つながり・発見・共創」をテーマに、技術コミュニティの発展と教育分野への貢献に力を入れています。

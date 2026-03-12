@@ -4,7 +4,7 @@ description: 'エースサーバーで起きた「乗っ取り」イベントの
 date: 2022-10-12
 tags: ['イベント']
 author: 'ハット'
-image: https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=400&fit=crop&q=80
+imageUrl: https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=400&fit=crop&q=80
 ---
 
 ## **エースサーバーが乗っ取られた**
