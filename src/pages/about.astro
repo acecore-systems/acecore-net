@@ -7,16 +7,11 @@ import Hero from '../components/Hero.astro'
   title="会社概要"
   description="Acecore（エースコア）の会社概要・理念・活動についてご紹介します。"
 >
-  <Hero title="会社概要" subtitle="Acecoreが目指すこと、大切にしていること" />
-
-  <div class="w-full h-64 overflow-hidden">
-    <img
-      src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=400&fit=crop&q=80"
-      alt="チームワークの風景"
-      class="w-full h-full object-cover"
-      loading="eager"
-    />
-  </div>
+  <Hero
+    title="会社概要"
+    subtitle="Acecoreが目指すこと、大切にしていること"
+    images={['https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80']}
+  />
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
