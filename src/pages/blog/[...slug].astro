@@ -4,6 +4,17 @@ import { getCollection } from 'astro:content'
 import authors from '../../data/authors.json'
 import ProcessFigure from '../../components/ProcessFigure.astro'
 import InsightGrid from '../../components/InsightGrid.astro'
+import StatBar from '../../components/StatBar.astro'
+import Timeline from '../../components/Timeline.astro'
+import CompareTable from '../../components/CompareTable.astro'
+import Callout from '../../components/Callout.astro'
+import Testimonial from '../../components/Testimonial.astro'
+import Checklist from '../../components/Checklist.astro'
+import YouTubeEmbed from '../../components/YouTubeEmbed.astro'
+import Gallery from '../../components/Gallery.astro'
+import LinkCard from '../../components/LinkCard.astro'
+import Faq from '../../components/Faq.astro'
+import PullQuote from '../../components/PullQuote.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -20,81 +31,168 @@ const author = post.data.author
   : null
 
 /*
-  各記事のビジュアル定義
-  type:
-    - 'photo'  … 写真（Unsplash）+ キャプション
-    - 'grid'   … InsightGrid（インライン挿絵）
-    - 'flow'   … ProcessFigure（インライン挿絵）
+  各記事のビジュアル定義（配列で複数配置可）
+  photo / grid / flow / stat / timeline / compare / callout
+  testimonial / checklist / youtube / gallery / linkcard / faq / pullquote
 */
-const blogVisuals: Record<string, {
-  type: 'photo' | 'grid' | 'flow'
-  photo?: { src: string; alt: string; caption?: string }
-  grid?: Parameters<typeof InsightGrid>[0]
-  flow?: Parameters<typeof ProcessFigure>[0]
-}> = {
-  'service-introduction': {
-    type: 'photo',
-    photo: {
-      src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80',
-      alt: 'チームでのシステム開発イメージ',
-      caption: '課題整理から運用支援まで、ワンストップで対応する体制を整えています。',
+const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
+  'service-introduction': [
+    {
+      type: 'stat',
+      props: {
+        items: [
+          { value: '3', label: 'つの事業', icon: 'i-lucide-layers' },
+          { value: '100%', label: '静的サイト', icon: 'i-lucide-gauge' },
+          { value: '∞', label: 'サポート', icon: 'i-lucide-life-buoy' },
+        ],
+      },
     },
-  },
-  'community-and-education': {
-    type: 'grid',
-    grid: {
-      title: '活動の広がり',
-      items: [
-        { title: 'Aceserver', description: '交流の起点としてのMinecraftサーバー運営。', icon: 'i-lucide-gamepad-2', tone: 'brand' },
-        { title: '勉強会', description: '初心者でも参加しやすい技術イベントを定期開催。', icon: 'i-lucide-presentation', tone: 'amber' },
-        { title: 'Schools', description: '体験を実務スキルへつなぐ教育プログラム。', icon: 'i-lucide-school', tone: 'emerald' },
-        { title: 'OSS・地域', description: '得た知見を地域やコミュニティへ循環。', icon: 'i-lucide-git-branch-plus', tone: 'slate' },
-      ],
+    {
+      type: 'checklist',
+      props: {
+        title: '提供サービス一覧',
+        items: [
+          { text: 'Webサイト制作・運用支援' },
+          { text: 'ロボット・プログラミング教室' },
+          { text: 'Minecraftサーバー運営' },
+          { text: 'IT勉強会・技術イベント開催' },
+          { text: 'コミュニティ運営サポート' },
+        ],
+      },
     },
-  },
-  'aceserver-hijacked': {
-    type: 'photo',
-    photo: {
-      src: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=400&fit=crop&q=80',
-      alt: 'ゲーミング環境のイメージ',
-      caption: 'Aceserverで起きた、ある日の騒動の記録。',
+  ],
+  'community-and-education': [
+    {
+      type: 'grid',
+      props: {
+        title: '活動の広がり',
+        items: [
+          { title: 'Aceserver', description: '交流の起点としてのMinecraftサーバー運営。', icon: 'i-lucide-gamepad-2', tone: 'brand' },
+          { title: '勉強会', description: '初心者でも参加しやすい技術イベントを定期開催。', icon: 'i-lucide-presentation', tone: 'amber' },
+          { title: 'Schools', description: '体験を実務スキルへつなぐ教育プログラム。', icon: 'i-lucide-school', tone: 'emerald' },
+          { title: 'OSS・地域', description: '得た知見を地域やコミュニティへ循環。', icon: 'i-lucide-git-branch-plus', tone: 'slate' },
+        ],
+      },
     },
-  },
-  'metaverse-is-close': {
-    type: 'grid',
-    grid: {
-      title: 'メタバースの論点整理',
-      items: [
-        { title: '企業の動き', description: 'FacebookやMicrosoftが描く仮想空間戦略。', icon: 'i-lucide-building-2', tone: 'slate' },
-        { title: 'VR不要論', description: 'ヘッドセット前提ではない別の解釈。', icon: 'i-lucide-glasses', tone: 'amber' },
-        { title: 'Minecraftの可能性', description: '既にある交流空間としての再評価。', icon: 'i-lucide-cuboid', tone: 'brand' },
-        { title: '事業への接続', description: 'Acecoreがその文脈で何を作れるか。', icon: 'i-lucide-rocket', tone: 'emerald' },
-      ],
+    {
+      type: 'testimonial',
+      props: {
+        quote: '地域の人たちと技術を共有できる場があるのは本当にありがたい。独学では気づけないことがたくさんあります。',
+        name: '勉強会参加者',
+        role: 'コミュニティメンバー',
+      },
     },
-  },
-  'robot-workshop-event': {
-    type: 'photo',
-    photo: {
+    {
+      type: 'pullquote',
+      props: {
+        text: '学びの場は、一方通行じゃなくて、みんなで作っていくもの',
+        attribution: 'Acecore Schools',
+      },
+    },
+  ],
+  'aceserver-hijacked': [
+    {
+      type: 'callout',
+      props: {
+        type: 'warning',
+        title: 'セキュリティの教訓',
+        text: 'サーバー運営では、OP権限の管理やバックアップ体制の整備が不可欠です。今回の騒動を機に、セキュリティ対策を全面的に見直しました。',
+      },
+    },
+    {
+      type: 'timeline',
+      props: {
+        title: '事件の経緯',
+        items: [
+          { date: '発覚当日', title: '異変の発見', description: 'ログイン時に見慣れない構造物を確認。' },
+          { date: '調査開始', title: '被害状況の確認', description: 'ワールドデータとログを精査。' },
+          { date: '対策実施', title: '権限の見直し', description: 'OP権限の再整理とホワイトリスト導入。' },
+          { date: '復旧完了', title: '通常運営を再開', description: 'バックアップから復旧し、対策を反映。' },
+        ],
+      },
+    },
+    {
+      type: 'faq',
+      props: {
+        title: 'よくある疑問',
+        items: [
+          { question: 'Aceserverは今でも遊べますか？', answer: '再開に向けて準備を進めています。セキュリティ対策を強化した上で安全に運営できる体制を整えてから再公開する予定です。' },
+          { question: '乗っ取りの被害はどの程度でしたか？', answer: 'ワールドの一部が改変されましたが、バックアップからの復旧に成功しました。ユーザーの個人情報などの流出はありません。' },
+        ],
+      },
+    },
+  ],
+  'metaverse-is-close': [
+    {
+      type: 'gallery',
+      props: {
+        title: 'メタバースの世界',
+        items: [
+          { src: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80', alt: 'VRヘッドセット' },
+          { src: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80', alt: '仮想空間のイメージ' },
+          { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop&q=80', alt: 'ゲーミング環境' },
+          { src: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80', alt: 'デジタルワールド' },
+        ],
+      },
+    },
+    {
+      type: 'linkcard',
+      props: {
+        href: 'https://www.meta.com/ja-jp/quest/',
+        title: 'Meta Quest ─ メタバースへの入口',
+        description: 'Meta社のVRデバイスが切り拓く仮想空間体験。',
+        icon: 'i-lucide-glasses',
+      },
+    },
+  ],
+  'robot-workshop-event': [
+    {
+      type: 'photo',
       src: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80',
       alt: 'ロボット工作のイメージ',
       caption: 'タミヤ工作シリーズを使って、組み立てから改造まで体験できます。',
     },
-  },
-  'website-renewal': {
-    type: 'flow',
-    flow: {
-      title: 'リニューアルの流れ',
-      steps: [
-        { title: '課題整理', description: '旧サイトの不足点を洗い出し。', icon: 'i-lucide-clipboard-list', accent: 'slate' },
-        { title: '構造再設計', description: 'サービス・ブログ・会社情報を分離。', icon: 'i-lucide-waypoints', accent: 'brand' },
-        { title: '速度改善', description: 'Astro＋静的生成で軽量化。', icon: 'i-lucide-gauge', accent: 'emerald' },
-        { title: '継続発信', description: 'ブログ基盤で記事更新しやすく。', icon: 'i-lucide-pen-line', accent: 'amber' },
-      ],
+    {
+      type: 'youtube',
+      props: {
+        /* 実際の動画IDに置換してください */
+        videoId: 'MmB9b5njVbA',
+        title: 'ロボット工作の様子',
+        caption: '実際のワークショップの雰囲気をご覧いただけます。',
+      },
     },
-  },
+  ],
+  'website-renewal': [
+    {
+      type: 'flow',
+      props: {
+        title: 'リニューアルの流れ',
+        steps: [
+          { title: '課題整理', description: '旧サイトの不足点を洗い出し。', icon: 'i-lucide-clipboard-list', accent: 'slate' },
+          { title: '構造再設計', description: 'サービス・ブログ・会社情報を分離。', icon: 'i-lucide-waypoints', accent: 'brand' },
+          { title: '速度改善', description: 'Astro＋静的生成で軽量化。', icon: 'i-lucide-gauge', accent: 'emerald' },
+          { title: '継続発信', description: 'ブログ基盤で記事更新しやすく。', icon: 'i-lucide-pen-line', accent: 'amber' },
+        ],
+      },
+    },
+    {
+      type: 'compare',
+      props: {
+        title: 'リニューアル前後の比較',
+        before: {
+          label: '旧サイト',
+          items: ['単一ページ構成', '更新が手作業', '表示速度が遅い', 'モバイル非対応'],
+        },
+        after: {
+          label: '新サイト',
+          items: ['サービス別のページ構成', 'ブログで簡単に更新', 'Astroで高速表示', 'レスポンシブ対応'],
+        },
+      },
+    },
+  ],
 }
 
-const articleVisual = blogVisuals[post.slug]
+const articleVisuals = blogVisuals[post.slug] ?? []
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -137,24 +235,39 @@ const articleVisual = blogVisuals[post.slug]
       )}
       <div class="prose prose-slate prose-lg max-w-none">
         <Content />
-        {articleVisual && articleVisual.type === 'photo' && articleVisual.photo && (
-          <figure class="not-prose my-8">
-            <img
-              src={articleVisual.photo.src}
-              alt={articleVisual.photo.alt}
-              class="w-full rounded-lg"
-              loading="lazy"
-            />
-            {articleVisual.photo.caption && (
-              <figcaption class="text-sm text-slate-500 mt-2">{articleVisual.photo.caption}</figcaption>
-            )}
-          </figure>
-        )}
-        {articleVisual && articleVisual.type === 'grid' && articleVisual.grid && (
-          <InsightGrid {...articleVisual.grid} />
-        )}
-        {articleVisual && articleVisual.type === 'flow' && articleVisual.flow && (
-          <ProcessFigure {...articleVisual.flow} />
+        {articleVisuals.map((v: any) =>
+          v.type === 'photo' ? (
+            <figure class="not-prose my-8">
+              <img src={v.src} alt={v.alt} class="w-full rounded-lg" loading="lazy" />
+              {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
+            </figure>
+          ) : v.type === 'grid' ? (
+            <InsightGrid {...v.props} />
+          ) : v.type === 'flow' ? (
+            <ProcessFigure {...v.props} />
+          ) : v.type === 'stat' ? (
+            <StatBar {...v.props} />
+          ) : v.type === 'timeline' ? (
+            <Timeline {...v.props} />
+          ) : v.type === 'compare' ? (
+            <CompareTable {...v.props} />
+          ) : v.type === 'callout' ? (
+            <Callout {...v.props} />
+          ) : v.type === 'testimonial' ? (
+            <Testimonial {...v.props} />
+          ) : v.type === 'checklist' ? (
+            <Checklist {...v.props} />
+          ) : v.type === 'youtube' ? (
+            <YouTubeEmbed {...v.props} />
+          ) : v.type === 'gallery' ? (
+            <Gallery {...v.props} />
+          ) : v.type === 'linkcard' ? (
+            <LinkCard {...v.props} />
+          ) : v.type === 'faq' ? (
+            <Faq {...v.props} />
+          ) : v.type === 'pullquote' ? (
+            <PullQuote {...v.props} />
+          ) : null
         )}
       </div>
 

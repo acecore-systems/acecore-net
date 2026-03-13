@@ -1,0 +1,33 @@
+---
+interface TimelineItem {
+  date: string
+  title: string
+  description?: string
+}
+
+interface Props {
+  title?: string
+  items: TimelineItem[]
+}
+
+const { title, items } = Astro.props
+---
+
+<figure class="not-prose my-8" role="img" aria-label={title || 'タイムライン'}>
+  {title && <figcaption class="text-base font-700 text-slate-800 mb-4">{title}</figcaption>}
+  <div class="space-y-0">
+    {items.map((item, i) => (
+      <div class="flex gap-4">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 rounded-full bg-brand-500 shrink-0 mt-1.5"></div>
+          {i < items.length - 1 && <div class="w-px flex-1 bg-brand-200 my-1"></div>}
+        </div>
+        <div class="pb-5">
+          <p class="text-xs font-600 text-brand-500">{item.date}</p>
+          <p class="text-sm font-700 text-slate-800">{item.title}</p>
+          {item.description && <p class="text-[13px] text-slate-500 leading-relaxed mt-0.5">{item.description}</p>}
+        </div>
+      </div>
+    ))}
+  </div>
+</figure>

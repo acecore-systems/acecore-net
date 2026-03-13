@@ -1,0 +1,31 @@
+---
+interface CheckItem {
+  text: string
+  checked?: boolean
+}
+
+interface Props {
+  title?: string
+  items: CheckItem[]
+}
+
+const { title, items } = Astro.props
+---
+
+<figure class="not-prose my-8">
+  {title && <figcaption class="text-base font-700 text-slate-800 mb-3">{title}</figcaption>}
+  <ul class="space-y-2">
+    {items.map((item) => (
+      <li class="flex items-start gap-2.5">
+        {item.checked !== false ? (
+          <div class="i-lucide-circle-check text-emerald-500 text-sm mt-0.5 shrink-0"></div>
+        ) : (
+          <div class="i-lucide-circle text-slate-300 text-sm mt-0.5 shrink-0"></div>
+        )}
+        <span class:list={['text-sm', item.checked !== false ? 'text-slate-800' : 'text-slate-400']}>
+          {item.text}
+        </span>
+      </li>
+    ))}
+  </ul>
+</figure>

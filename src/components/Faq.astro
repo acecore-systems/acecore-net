@@ -1,0 +1,36 @@
+---
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+interface Props {
+  title?: string
+  items: FaqItem[]
+}
+
+const { title, items } = Astro.props
+---
+
+<figure class="not-prose my-8">
+  {title && <figcaption class="text-base font-700 text-slate-800 mb-3">{title}</figcaption>}
+  <div class="space-y-2">
+    {items.map((item) => (
+      <details class="rounded-lg border border-slate-200 overflow-hidden">
+        <summary class="px-4 py-3 text-sm font-600 text-slate-800 cursor-pointer select-none flex items-center justify-between hover:bg-slate-50 transition-colors">
+          <span>{item.question}</span>
+          <div class="i-lucide-chevron-down text-slate-400 transition-transform duration-200 faq-chevron shrink-0 ml-2"></div>
+        </summary>
+        <div class="px-4 pb-3 text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+          {item.answer}
+        </div>
+      </details>
+    ))}
+  </div>
+</figure>
+
+<style>
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+</style>

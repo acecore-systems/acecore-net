@@ -1,0 +1,30 @@
+---
+interface Props {
+  href: string
+  title: string
+  description?: string
+  icon?: string
+}
+
+const { href, title, description, icon } = Astro.props
+let hostname = ''
+try { hostname = new URL(href).hostname } catch { hostname = href }
+---
+
+<div class="not-prose my-8">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="block rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition p-4 no-underline group"
+  >
+    <div class="flex items-start gap-3">
+      <div class:list={['text-lg text-brand-500 mt-0.5 shrink-0', icon || 'i-lucide-external-link']}></div>
+      <div>
+        <p class="text-sm font-600 text-slate-800 group-hover:text-brand-600 transition-colors">{title}</p>
+        {description && <p class="text-xs text-slate-500 mt-0.5">{description}</p>}
+        <p class="text-xs text-brand-400 mt-1">{hostname}</p>
+      </div>
+    </div>
+  </a>
+</div>
