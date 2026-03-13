@@ -28,14 +28,12 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
      h2: 1.業務システム / 2.サーバー / 3.Web / 4.デザイン / 5.ITスクール ── */
   'service-introduction': [
     {
-      type: 'stat',
+      type: 'callout',
       afterSection: 0,
       props: {
-        items: [
-          { value: '3', label: 'つの事業', icon: 'i-lucide-layers' },
-          { value: '100%', label: '静的サイト', icon: 'i-lucide-gauge' },
-          { value: '∞', label: 'サポート', icon: 'i-lucide-life-buoy' },
-        ],
+        variant: 'info',
+        title: 'Acecoreのサービス体系',
+        body: 'Web制作・サーバー運用・教育支援まで、ワンストップで提供しています。',
       },
     },
     {

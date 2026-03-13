@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
-import StatBar from '../components/StatBar.astro'
 import { getCollection } from 'astro:content'
 import authors from '../data/authors.json'
 
@@ -36,13 +35,6 @@ const coreLayers = [
     icon: 'i-lucide-graduation-cap',
     tone: 'slate',
   },
-]
-
-const keyStats = [
-  { value: '5+', label: '事業領域', icon: 'i-lucide-layers' },
-  { value: '100%', label: '静的サイト配信', icon: 'i-lucide-gauge' },
-  { value: '∞', label: '継続サポート', icon: 'i-lucide-life-buoy' },
-  { value: '200+', label: 'コミュニティ参加者', icon: 'i-lucide-users' },
 ]
 ---
 
@@ -140,9 +132,22 @@ const keyStats = [
     </div>
   </section>
 
-  <section class="ac-section bg-slate-50">
+  <section class="ac-section">
     <div class="ac-container">
-      <StatBar items={keyStats} />
+      <div class="grid gap-4 sm:grid-cols-2">
+        <img
+          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop&q=80"
+          alt="チームのミーティング風景"
+          class="w-full rounded-lg object-cover aspect-video"
+          loading="lazy"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop&q=80"
+          alt="開発作業の風景"
+          class="w-full rounded-lg object-cover aspect-video"
+          loading="lazy"
+        />
+      </div>
     </div>
   </section>
 
