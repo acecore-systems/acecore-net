@@ -13,7 +13,7 @@ const currentPath = Astro.url.pathname
   <div class="ac-container flex items-center justify-between h-16">
     <a
       href="/"
-      class="flex items-center gap-2 font-700 text-xl text-brand-500 no-underline"
+      class="flex items-center gap-2 font-700 text-xl text-brand-500 no-underline min-h-11"
     >
       <img src="/favicon.svg" alt="" class="h-8 w-8" />
       Acecore
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname
           <a
             href={link.href}
             class:list={[
-              'text-sm font-600 no-underline transition-colors',
+              'text-sm font-600 no-underline transition-colors py-3 min-w-11 text-center',
               currentPath === link.href
                 ? 'text-brand-500'
                 : 'text-slate-600 hover:text-brand-500',

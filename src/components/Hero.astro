@@ -47,16 +47,21 @@ const hasSlider = images && images.length > 0
 
   {
     hasSlider && images.length > 1 && (
-      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-0 z-20">
         {images.map((_, i) => (
           <button
             class:list={[
-              'hero-dot w-2.5 h-2.5 rounded-full transition-all cursor-pointer',
-              i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+              'hero-dot rounded-full transition-all cursor-pointer min-w-11 min-h-11 flex items-center justify-center',
+              i === 0 ? 'bg-transparent' : 'bg-transparent',
             ]}
             data-index={i}
             aria-label={`スライド ${i + 1}`}
-          />
+          >
+            <span class:list={[
+              'block w-2.5 h-2.5 rounded-full transition-all',
+              i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+            ]} />
+          </button>
         ))}
       </div>
     )
@@ -107,12 +112,14 @@ const hasSlider = images && images.length > 0
 
     function goTo(index: number) {
       slides[current].classList.replace('opacity-100', 'opacity-0')
-      dots[current]?.classList.replace('bg-white', 'bg-white/50')
-      dots[current]?.classList.remove('scale-125')
+      const prevSpan = dots[current]?.querySelector('span')
+      prevSpan?.classList.replace('bg-white', 'bg-white/50')
+      prevSpan?.classList.remove('scale-125')
       current = index
       slides[current].classList.replace('opacity-0', 'opacity-100')
-      dots[current]?.classList.replace('bg-white/50', 'bg-white')
-      dots[current]?.classList.add('scale-125')
+      const nextSpan = dots[current]?.querySelector('span')
+      nextSpan?.classList.replace('bg-white/50', 'bg-white')
+      nextSpan?.classList.add('scale-125')
     }
 
     function next() {

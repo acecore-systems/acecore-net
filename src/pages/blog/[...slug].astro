@@ -251,7 +251,7 @@ const blogPostingLd = {
         <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
           {post.data.title}
         </h1>
-        <div class="flex items-center gap-3 text-sm text-slate-400">
+        <div class="flex items-center gap-3 text-sm text-slate-500">
           <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
           {author && <span>by {author.name}</span>}
         </div>
@@ -322,7 +322,7 @@ const blogPostingLd = {
               href={`/blog/${prevPost.slug}/`}
               class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
             >
-              <span class="text-xs text-slate-400 mb-1">← 前の記事</span>
+              <span class="text-xs text-slate-500 mb-1">← 前の記事</span>
               <span class="text-sm font-600 text-slate-700 group-hover:text-brand-600 transition-colors">
                 {prevPost.data.title}
               </span>
@@ -333,7 +333,7 @@ const blogPostingLd = {
               href={`/blog/${nextPost.slug}/`}
               class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
             >
-              <span class="text-xs text-slate-400 mb-1">次の記事 →</span>
+              <span class="text-xs text-slate-500 mb-1">次の記事 →</span>
               <span class="text-sm font-600 text-slate-700 group-hover:text-brand-600 transition-colors">
                 {nextPost.data.title}
               </span>
