@@ -18,6 +18,13 @@ const author = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
 
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)
+const currentIndex = allPosts.findIndex((p) => p.slug === post.slug)
+const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
+
 /*
   各記事のビジュアル定義
   afterSection: h2 で区切られたセクションの直後に配置
@@ -142,10 +149,10 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
       props: {
         title: 'メタバースの世界',
         items: [
-          { src: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80', alt: 'VRヘッドセット' },
-          { src: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80', alt: '仮想空間のイメージ' },
-          { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop&q=80', alt: 'ゲーミング環境' },
-          { src: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80', alt: 'デジタルワールド' },
+          { src: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'VRヘッドセット' },
+          { src: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80&fm=webp', alt: '仮想空間のイメージ' },
+          { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'ゲーミング環境' },
+          { src: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'デジタルワールド' },
         ],
       },
     },
@@ -167,7 +174,7 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
     {
       type: 'photo',
       afterSection: 3,
-      src: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80',
+      src: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80&fm=webp',
       alt: 'ロボット工作のイメージ',
       caption: 'タミヤ工作シリーズを使って、組み立てから改造まで体験できます。',
     },
@@ -208,9 +215,29 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
 }
 
 const articleVisuals = blogVisuals[post.slug] ?? []
+
+const ogImage = post.data.imageUrl || undefined
+const blogPostingLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "datePublished": post.data.date.toISOString(),
+  ...(ogImage && { "image": ogImage }),
+  ...(author && { "author": { "@type": "Person", "name": author.name } }),
+  "publisher": {
+    "@type": "Organization",
+    "name": "Acecore",
+    "url": "https://acecore.net"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://acecore.net/blog/${post.slug}/`
+  }
+}
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={blogPostingLd}>
   <article class="ac-section">
     <div class="ac-container max-w-3xl">
       <div class="mb-8">
@@ -245,6 +272,7 @@ const articleVisuals = blogVisuals[post.slug] ?? []
             src={post.data.image || post.data.imageUrl}
             alt={post.data.title}
             class="w-full h-auto"
+            decoding="async"
           />
         </div>
       )}
@@ -276,6 +304,42 @@ const articleVisuals = blogVisuals[post.slug] ?? []
             </div>
           </div>
         </div>
+      )}
+
+      <div class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center">
+        <p class="text-lg font-600 text-slate-800 mb-2">ご相談・ご依頼はお気軽に</p>
+        <p class="text-sm text-slate-600 mb-4">記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
+          <a href="/services/" class="ac-btn-outline">サービス一覧</a>
+        </div>
+      </div>
+
+      {(prevPost || nextPost) && (
+        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {prevPost ? (
+            <a
+              href={`/blog/${prevPost.slug}/`}
+              class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
+            >
+              <span class="text-xs text-slate-400 mb-1">← 前の記事</span>
+              <span class="text-sm font-600 text-slate-700 group-hover:text-brand-600 transition-colors">
+                {prevPost.data.title}
+              </span>
+            </a>
+          ) : <div />}
+          {nextPost && (
+            <a
+              href={`/blog/${nextPost.slug}/`}
+              class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
+            >
+              <span class="text-xs text-slate-400 mb-1">次の記事 →</span>
+              <span class="text-sm font-600 text-slate-700 group-hover:text-brand-600 transition-colors">
+                {nextPost.data.title}
+              </span>
+            </a>
+          )}
+        </nav>
       )}
     </div>
   </article>

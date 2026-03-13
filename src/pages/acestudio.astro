@@ -3,6 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import PullQuote from '../components/PullQuote.astro'
+import Faq from '../components/Faq.astro'
+
+const faqItems = [
+  { question: 'AceStudioはいつリリースされますか？', answer: '現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。' },
+  { question: '利用に費用はかかりますか？', answer: '料金体系は現在検討中です。無料で始められるプランも用意する予定です。' },
+  { question: 'どんなクリエイティブ活動が対象ですか？', answer: 'デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。' },
+  { question: '事前登録や予約はできますか？', answer: '現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。' },
+]
 
 const studioAreas = [
   {
@@ -39,7 +47,7 @@ const studioAreas = [
   <Hero
     title="AceStudio"
     subtitle="Coming Soon"
-    images={['https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80']}
+    images={['https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp']}
   />
 
   <section class="ac-section">
@@ -56,9 +64,12 @@ const studioAreas = [
 
       <div class="mb-12">
         <img
-          src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=450&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=450&fit=crop&q=80&fm=webp"
           alt="映像制作・クリエイティブワーク"
           class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
           loading="lazy"
         />
       </div>
@@ -82,6 +93,13 @@ const studioAreas = [
         <PullQuote
           text="作るだけで終わらない。届けて、育てて、回す。"
           attribution="AceStudioの設計思想"
+        />
+      </div>
+
+      <div class="text-left mb-12">
+        <Faq
+          title="AceStudioについてのよくある質問"
+          items={faqItems}
         />
       </div>
 

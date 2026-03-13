@@ -32,6 +32,10 @@ const hasSlider = images && images.length > 0
               src={src}
               alt=""
               class="w-full h-full object-cover"
+              width="1400"
+              height="600"
+              decoding="async"
+              fetchpriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
           </div>
@@ -59,7 +63,7 @@ const hasSlider = images && images.length > 0
   }
 
   <div class="ac-container text-center relative z-10">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-800 tracking-tight mb-6">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-700 tracking-tight mb-6">
       {title}
     </h1>
     {

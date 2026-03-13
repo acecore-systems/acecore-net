@@ -7,7 +7,7 @@ import Hero from '../components/Hero.astro'
   title="お問い合わせ"
   description="Acecoreへのお問い合わせはこちらから。サービスに関するご質問、お見積り、パートナーシップのご相談などお気軽にどうぞ。"
 >
-  <Hero title="お問い合わせ" subtitle="ご質問・ご相談・ご依頼はこちらから" images={['https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80']} />
+  <Hero title="お問い合わせ" subtitle="ご質問・ご相談・ご依頼はこちらから" images={['https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp']} />
 
   <section class="ac-section">
     <div class="ac-container max-w-2xl">
@@ -86,12 +86,31 @@ import Hero from '../components/Hero.astro'
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="ac-card p-6 text-center">
+          <div class="i-lucide-phone text-2xl text-brand-500 mx-auto mb-2"></div>
+          <h3 class="font-600 text-slate-900 mb-1">お電話</h3>
+          <p class="text-sm text-slate-600 font-600">
+            <a href="tel:05088902788" class="text-brand-500 hover:underline">050-8890-2788</a>
+          </p>
+        </div>
+        <div class="ac-card p-6 text-center">
           <div class="i-lucide-mail text-2xl text-brand-500 mx-auto mb-2"></div>
           <h3 class="font-600 text-slate-900 mb-1">メール</h3>
           <p class="text-sm text-slate-600">
             <a href="mailto:info@acecore.net" class="text-brand-500 hover:underline">info@acecore.net</a>
           </p>
         </div>
+        <a
+          href="https://lin.ee/DjIrdqj"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+        >
+          <div class="i-lucide-message-circle text-2xl text-brand-500 mx-auto mb-2"></div>
+          <h3 class="font-600 text-slate-900 mb-1">LINE</h3>
+          <p class="text-sm text-slate-600">
+            LINEでもお気軽にお問い合わせください
+          </p>
+        </a>
         <a
           href="https://x.com/acecorenet"
           target="_blank"

@@ -21,6 +21,9 @@ const { title, items, columns = 2 } = Astro.props
         src={item.src}
         alt={item.alt}
         class="w-full rounded-lg object-cover aspect-video"
+        width="400"
+        height="300"
+        decoding="async"
         loading="lazy"
       />
     ))}

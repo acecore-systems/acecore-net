@@ -3,16 +3,21 @@ interface Props {
   title: string
   description?: string
   image?: string
+  ogType?: string
+  jsonLd?: Record<string, any>
 }
 
 const {
   title,
   description = 'Acecore（エースコア）は、システム開発・Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。',
   image,
+  ogType = 'website',
+  jsonLd,
 } = Astro.props
 
 const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
 
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -29,22 +34,25 @@ import Footer from '../components/Footer.astro'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Acecore" />
-    {image && <meta property="og:image" content={image} />}
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919"
-      crossorigin="anonymous"></script>
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>\n    <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Acecore",
@@ -56,6 +64,7 @@ import Footer from '../components/Footer.astro'
         "https://asv.acecore.net"
       ]
     })} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
     <Header />
@@ -63,5 +72,9 @@ import Footer from '../components/Footer.astro'
       <slot />
     </main>
     <Footer />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919"
+      crossorigin="anonymous"></script>
   </body>
 </html>

@@ -18,7 +18,7 @@ const { items } = Astro.props
     {items.map((item) => (
       <div class="text-center min-w-20">
         {item.icon && <div class={`${item.icon} text-brand-400 text-lg mx-auto mb-1`}></div>}
-        <p class="text-2xl sm:text-3xl font-800 text-brand-600 leading-none">{item.value}</p>
+        <p class="text-2xl sm:text-3xl font-700 text-brand-600 leading-none">{item.value}</p>
         <p class="text-sm font-600 text-slate-700 mt-1">{item.label}</p>
         {item.description && <p class="text-xs text-slate-500 mt-0.5">{item.description}</p>}
       </div>

@@ -44,10 +44,10 @@ const coreLayers = [
     subtitle="Acecore（エースコア）は、システム開発・Web制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
     showCTA={true}
     images={[
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=80&fm=webp',
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=80&fm=webp',
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80&fm=webp',
     ]}
   />
 
@@ -136,15 +136,21 @@ const coreLayers = [
     <div class="ac-container">
       <div class="grid gap-4 sm:grid-cols-2">
         <img
-          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop&q=80&fm=webp"
           alt="チームのミーティング風景"
           class="w-full rounded-lg object-cover aspect-video"
+          width="600"
+          height="400"
+          decoding="async"
           loading="lazy"
         />
         <img
-          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop&q=80&fm=webp"
           alt="開発作業の風景"
           class="w-full rounded-lg object-cover aspect-video"
+          width="600"
+          height="400"
+          decoding="async"
           loading="lazy"
         />
       </div>
@@ -170,6 +176,7 @@ const coreLayers = [
                     src={post.data.image || post.data.imageUrl}
                     alt={post.data.title}
                     class="w-full h-40 object-cover"
+                    decoding="async"
                     loading="lazy"
                   />
                 )}

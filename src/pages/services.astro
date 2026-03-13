@@ -46,7 +46,7 @@ const deliveryTimeline = [
   <Hero
     title="サービス"
     subtitle="ワンストップで提供する多彩なITソリューション"
-    images={['https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80']}
+    images={['https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp']}
   />
 
   <section class="ac-section bg-slate-50">
@@ -63,6 +63,16 @@ const deliveryTimeline = [
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
+      <nav class="mb-12 flex flex-wrap gap-2 justify-center">
+        <a href="#system-development" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">開発</a>
+        <a href="#server" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">サーバー</a>
+        <a href="#web" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">Web制作</a>
+        <a href="#design" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">デザイン</a>
+        <a href="#education" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">ITスクール</a>
+        <a href="#aceserver" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">Aceserver</a>
+        <a href="#acestudio" class="text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">AceStudio</a>
+      </nav>
+
       <!-- 業務システム・アプリ開発 -->
       <div class="mb-16" id="system-development">
         <div class="flex items-center gap-3 mb-4">
@@ -98,9 +108,12 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp"
           alt="コードエディタでの開発作業のイメージ"
           class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
           loading="lazy"
         />
       </div>
@@ -179,9 +192,12 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp"
           alt="Webデザインの制作プロセス"
           class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
           loading="lazy"
         />
       </div>
@@ -228,9 +244,12 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp"
           alt="クリエイティブなデザインワークスペース"
           class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
           loading="lazy"
         />
       </div>
