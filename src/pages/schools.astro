@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
-import InsightGrid from '../components/InsightGrid.astro'
+import CompareTable from '../components/CompareTable.astro'
 
 const learningSteps = [
   {
@@ -31,32 +31,17 @@ const learningSteps = [
   },
 ]
 
-const learningAreas = [
-  {
-    title: '基礎学習',
-    description: '学校学習や高卒認定を含め、理解の土台を丁寧に固めます。',
-    icon: 'i-lucide-book-open-check',
-    tone: 'brand',
+const learningCompare = {
+  title: '学び方の違い',
+  before: {
+    label: '独学の場合',
+    items: ['何から始めればいいか迷う', 'つまずいても相談できない', 'モチベーション維持が難しい', '実践との接続が見えない'],
   },
-  {
-    title: 'ものづくり体験',
-    description: 'ロボット工作やマイクラ活用で、楽しく試せる環境を用意します。',
-    icon: 'i-lucide-cuboid',
-    tone: 'amber',
+  after: {
+    label: 'Acecore Schools',
+    items: ['一人ひとりに合った入口を提案', '講師にいつでも質問できる', '体験を通じて自然に継続', '受験・資格・実務に直結'],
   },
-  {
-    title: '実務スキル',
-    description: 'Web、バックエンド、データベースなど現場につながる内容を扱います。',
-    icon: 'i-lucide-briefcase-business',
-    tone: 'emerald',
-  },
-  {
-    title: '生活と進路',
-    description: 'パソコンやスマホの基本操作から将来設計まで伴走します。',
-    icon: 'i-lucide-compass',
-    tone: 'slate',
-  },
-]
+}
 ---
 
 <BaseLayout
@@ -145,12 +130,10 @@ const learningAreas = [
       </div>
 
       <div class="mb-16">
-        <InsightGrid
-          variant="card"
-          eyebrow="Learning Zones"
-          title="対応領域を図で整理する"
-          description="どの年代・目的でも相談しやすいように、学習領域を4つの塾で示しています。"
-          items={learningAreas}
+        <CompareTable
+          title={learningCompare.title}
+          before={learningCompare.before}
+          after={learningCompare.after}
         />
       </div>
 

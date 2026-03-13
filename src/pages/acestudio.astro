@@ -1,35 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
-import ProcessFigure from '../components/ProcessFigure.astro'
 import InsightGrid from '../components/InsightGrid.astro'
-
-const studioFlow = [
-  {
-    title: '発信の軸を定める',
-    description: '何を作り、誰に届け、どこで価値を生むかを整理して企画の核を作ります。',
-    icon: 'i-lucide-lightbulb',
-    accent: 'brand',
-  },
-  {
-    title: '制作環境を整える',
-    description: 'デザイン、映像、音楽、配信、開発をまたげる制作基盤と運用導線を構築します。',
-    icon: 'i-lucide-clapperboard',
-    accent: 'amber',
-  },
-  {
-    title: 'コミュニティを育てる',
-    description: '作品公開だけで終わらせず、参加者が集まり続ける場を育てていきます。',
-    icon: 'i-lucide-users-round',
-    accent: 'emerald',
-  },
-  {
-    title: '収益化へ接続する',
-    description: '案件化、サブスク、企画販売など継続的に回るモデルへつなげます。',
-    icon: 'i-lucide-chart-column-big',
-    accent: 'slate',
-  },
-]
+import PullQuote from '../components/PullQuote.astro'
 
 const studioAreas = [
   {
@@ -52,7 +25,7 @@ const studioAreas = [
   },
   {
     title: '収益モデル検証',
-    description: 'business-plan 側で詰めているモデルを、実際の運用へ落とし込んでいきます。',
+    description: '検討中の収益モデルを、実際の運用へ落とし込んでいきます。',
     icon: 'i-lucide-chart-no-axes-combined',
     tone: 'slate',
   },
@@ -97,12 +70,9 @@ const studioAreas = [
       </div>
 
       <div class="text-left mb-12">
-        <ProcessFigure
-          variant="card"
-          eyebrow="Studio Flow"
-          title="企画から収益化までの設計イメージ"
-          description="AceStudio が継続運用を前提にした仕組みであることを示しています。"
-          steps={studioFlow}
+        <PullQuote
+          text="作るだけで終わらない。届けて、育てて、回す。"
+          attribution="AceStudioの設計思想"
         />
       </div>
 

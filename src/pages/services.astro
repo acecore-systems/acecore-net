@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
-import ProcessFigure from '../components/ProcessFigure.astro'
 import InsightGrid from '../components/InsightGrid.astro'
+import Timeline from '../components/Timeline.astro'
 
 const serviceMap = [
   {
@@ -31,31 +31,11 @@ const serviceMap = [
   },
 ]
 
-const deliveryFlow = [
-  {
-    title: '課題を可視化する',
-    description: 'ヒアリングを通して、目的と制約を整理し、優先順位を明確にします。',
-    icon: 'i-lucide-search-code',
-    accent: 'brand',
-  },
-  {
-    title: '構成を設計する',
-    description: '必要な技術、画面、運用ルールを整理して、実行可能な形に落とし込みます。',
-    icon: 'i-lucide-layout-template',
-    accent: 'emerald',
-  },
-  {
-    title: '制作と構築を進める',
-    description: '開発、デザイン、インフラ構築を横断しながら、必要な成果物を組み上げます。',
-    icon: 'i-lucide-hammer',
-    accent: 'amber',
-  },
-  {
-    title: '公開後を支える',
-    description: '改善提案、保守、追加開発まで見据えて、継続的な運用につなげます。',
-    icon: 'i-lucide-life-buoy',
-    accent: 'slate',
-  },
+const deliveryTimeline = [
+  { date: 'Step 1', title: 'ヒアリング', description: '目的と制約を整理し、優先順位を明確に。' },
+  { date: 'Step 2', title: '設計・提案', description: '必要な技術・画面・運用ルールを整理。' },
+  { date: 'Step 3', title: '制作・構築', description: '開発・デザイン・インフラを横断して実装。' },
+  { date: 'Step 4', title: '公開・保守', description: '改善提案・追加開発まで含めた継続支援。' },
 ]
 ---
 
@@ -189,12 +169,9 @@ const deliveryFlow = [
       </div>
 
       <div class="mb-16">
-        <ProcessFigure
-          variant="card"
-          eyebrow="Delivery Flow"
+        <Timeline
           title="導入から改善までの伴走イメージ"
-          description="お問い合わせ後に何が起きるのかを先に見せることで、依頼時の不透明さを減らしています。"
-          steps={deliveryFlow}
+          items={deliveryTimeline}
         />
       </div>
 

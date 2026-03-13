@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
-import InsightGrid from '../components/InsightGrid.astro'
+import Checklist from '../components/Checklist.astro'
 
 const valueCycle = [
   {
@@ -31,31 +31,12 @@ const valueCycle = [
   },
 ]
 
-const activityAreas = [
-  {
-    title: 'コミュニティ',
-    description: '勉強会や交流の場をつくり、技術や興味の接点を増やしています。',
-    icon: 'i-lucide-message-circle-more',
-    tone: 'brand',
-  },
-  {
-    title: 'オープンソース',
-    description: '開発の知見を外へ返し、再利用できる形で社会に残すことを重視します。',
-    icon: 'i-lucide-github',
-    tone: 'slate',
-  },
-  {
-    title: '地域連携',
-    description: '教育機関や地域事業者との連携を通して、地元に技術の活用先を増やします。',
-    icon: 'i-lucide-map-pinned',
-    tone: 'emerald',
-  },
-  {
-    title: '共創支援',
-    description: '外部パートナーと組み、単独では届かない領域までプロジェクトを広げます。',
-    icon: 'i-lucide-handshake',
-    tone: 'amber',
-  },
+const activityChecklist = [
+  { text: '勉強会・ワークショップの定期開催' },
+  { text: 'オープンソースへのコード公開・貢献' },
+  { text: '地域教育機関との連携指導' },
+  { text: '外部パートナーとの共創プロジェクト' },
+  { text: 'Aceserverコミュニティ運営' },
 ]
 ---
 
@@ -101,12 +82,9 @@ const activityAreas = [
       </p>
 
       <div class="mb-12">
-        <InsightGrid
-          variant="card"
-          eyebrow="Activity Map"
-          title="活動領域を4つの視点で見る"
-          description="コミュニティ、OSS、地域連携、共創支援まで含めた活動の全体像です。"
-          items={activityAreas}
+        <Checklist
+          title="Acecoreの主な活動"
+          items={activityChecklist}
         />
       </div>
 
