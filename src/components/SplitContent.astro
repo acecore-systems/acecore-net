@@ -1,0 +1,74 @@
+---
+/*
+  <Content /> の HTML を <h2> 境界で分割し、
+  afterSection で指定されたセクションの直後にビジュアルを差し込む。
+
+  section 0 = 最初の <h2> より前（イントロ）
+  section 1 = 最初の <h2> とその内容
+  section N = N番目の <h2> とその内容
+*/
+import InsightGrid from './InsightGrid.astro'
+import ProcessFigure from './ProcessFigure.astro'
+import StatBar from './StatBar.astro'
+import Timeline from './Timeline.astro'
+import CompareTable from './CompareTable.astro'
+import Callout from './Callout.astro'
+import Testimonial from './Testimonial.astro'
+import Checklist from './Checklist.astro'
+import YouTubeEmbed from './YouTubeEmbed.astro'
+import Gallery from './Gallery.astro'
+import LinkCard from './LinkCard.astro'
+import Faq from './Faq.astro'
+import PullQuote from './PullQuote.astro'
+
+interface Props {
+  visuals: Array<{ type: string; afterSection: number; [k: string]: any }>
+}
+
+const { visuals = [] } = Astro.props
+const html = await Astro.slots.render('default')
+const sections = html.split(/(?=<h2[\s>])/)
+---
+
+{sections.map((sectionHtml, i) => {
+  const matched = visuals.filter((v) => v.afterSection === i)
+  return (
+    <>
+      <Fragment set:html={sectionHtml} />
+      {matched.map((v) =>
+        v.type === 'photo' ? (
+          <figure class="not-prose my-8">
+            <img src={v.src} alt={v.alt} class="w-full rounded-lg" loading="lazy" />
+            {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
+          </figure>
+        ) : v.type === 'grid' ? (
+          <InsightGrid {...v.props} />
+        ) : v.type === 'flow' ? (
+          <ProcessFigure {...v.props} />
+        ) : v.type === 'stat' ? (
+          <StatBar {...v.props} />
+        ) : v.type === 'timeline' ? (
+          <Timeline {...v.props} />
+        ) : v.type === 'compare' ? (
+          <CompareTable {...v.props} />
+        ) : v.type === 'callout' ? (
+          <Callout {...v.props} />
+        ) : v.type === 'testimonial' ? (
+          <Testimonial {...v.props} />
+        ) : v.type === 'checklist' ? (
+          <Checklist {...v.props} />
+        ) : v.type === 'youtube' ? (
+          <YouTubeEmbed {...v.props} />
+        ) : v.type === 'gallery' ? (
+          <Gallery {...v.props} />
+        ) : v.type === 'linkcard' ? (
+          <LinkCard {...v.props} />
+        ) : v.type === 'faq' ? (
+          <Faq {...v.props} />
+        ) : v.type === 'pullquote' ? (
+          <PullQuote {...v.props} />
+        ) : null
+      )}
+    </>
+  )
+})}

@@ -2,19 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import authors from '../../data/authors.json'
-import ProcessFigure from '../../components/ProcessFigure.astro'
-import InsightGrid from '../../components/InsightGrid.astro'
-import StatBar from '../../components/StatBar.astro'
-import Timeline from '../../components/Timeline.astro'
-import CompareTable from '../../components/CompareTable.astro'
-import Callout from '../../components/Callout.astro'
-import Testimonial from '../../components/Testimonial.astro'
-import Checklist from '../../components/Checklist.astro'
-import YouTubeEmbed from '../../components/YouTubeEmbed.astro'
-import Gallery from '../../components/Gallery.astro'
-import LinkCard from '../../components/LinkCard.astro'
-import Faq from '../../components/Faq.astro'
-import PullQuote from '../../components/PullQuote.astro'
+import SplitContent from '../../components/SplitContent.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -31,14 +19,17 @@ const author = post.data.author
   : null
 
 /*
-  各記事のビジュアル定義（配列で複数配置可）
-  photo / grid / flow / stat / timeline / compare / callout
-  testimonial / checklist / youtube / gallery / linkcard / faq / pullquote
+  各記事のビジュアル定義
+  afterSection: h2 で区切られたセクションの直後に配置
+    0 = イントロ直後 / 1 = 最初の h2 の後 / N = N番目の h2 の後
 */
-const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
+const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k: string]: any }>> = {
+  /* ── サービス紹介
+     h2: 1.業務システム / 2.サーバー / 3.Web / 4.デザイン / 5.ITスクール ── */
   'service-introduction': [
     {
       type: 'stat',
+      afterSection: 0,
       props: {
         items: [
           { value: '3', label: 'つの事業', icon: 'i-lucide-layers' },
@@ -49,6 +40,7 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'checklist',
+      afterSection: 5,
       props: {
         title: '提供サービス一覧',
         items: [
@@ -61,9 +53,13 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
       },
     },
   ],
+
+  /* ── コミュニティと教育
+     h2: Aceserver / 勉強会 / Schools / OSS / 地域連携 ── */
   'community-and-education': [
     {
       type: 'grid',
+      afterSection: 0,
       props: {
         title: '活動の広がり',
         items: [
@@ -76,6 +72,7 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'testimonial',
+      afterSection: 2,
       props: {
         quote: '地域の人たちと技術を共有できる場があるのは本当にありがたい。独学では気づけないことがたくさんあります。',
         name: '勉強会参加者',
@@ -84,15 +81,20 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'pullquote',
+      afterSection: 4,
       props: {
         text: '学びの場は、一方通行じゃなくて、みんなで作っていくもの',
         attribution: 'Acecore Schools',
       },
     },
   ],
+
+  /* ── Aceserver 乗っ取り事件
+     h2: エースサーバーが乗っ取られた ── */
   'aceserver-hijacked': [
     {
       type: 'callout',
+      afterSection: 0,
       props: {
         type: 'warning',
         title: 'セキュリティの教訓',
@@ -101,6 +103,7 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'timeline',
+      afterSection: 1,
       props: {
         title: '事件の経緯',
         items: [
@@ -112,7 +115,18 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
       },
     },
     {
+      type: 'youtube',
+      afterSection: 1,
+      props: {
+        /* AceserverのYouTubeチャンネルの動画IDに置換してください */
+        videoId: 'ACESERVER_CHANNEL_VIDEO_ID',
+        title: 'Aceserver YouTubeチャンネル',
+        caption: 'Aceserverの最新情報やコミュニティの様子を配信しています。',
+      },
+    },
+    {
       type: 'faq',
+      afterSection: 1,
       props: {
         title: 'よくある疑問',
         items: [
@@ -122,9 +136,12 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
       },
     },
   ],
+
+  /* ── メタバースは近い（h2 なし → セクション 0 のみ）── */
   'metaverse-is-close': [
     {
       type: 'gallery',
+      afterSection: 0,
       props: {
         title: 'メタバースの世界',
         items: [
@@ -137,6 +154,7 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'linkcard',
+      afterSection: 0,
       props: {
         href: 'https://www.meta.com/ja-jp/quest/',
         title: 'Meta Quest ─ メタバースへの入口',
@@ -145,26 +163,25 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
       },
     },
   ],
+
+  /* ── ロボット工作イベント
+     h2: イベント詳細 / 特典情報 / イベントの様子 / お問い合わせ ── */
   'robot-workshop-event': [
     {
       type: 'photo',
+      afterSection: 3,
       src: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80',
       alt: 'ロボット工作のイメージ',
       caption: 'タミヤ工作シリーズを使って、組み立てから改造まで体験できます。',
     },
-    {
-      type: 'youtube',
-      props: {
-        /* 実際の動画IDに置換してください */
-        videoId: 'MmB9b5njVbA',
-        title: 'ロボット工作の様子',
-        caption: '実際のワークショップの雰囲気をご覧いただけます。',
-      },
-    },
   ],
+
+  /* ── サイトリニューアル
+     h2: 背景 / 新サイトの特徴 / 今後の展望 ── */
   'website-renewal': [
     {
       type: 'flow',
+      afterSection: 1,
       props: {
         title: 'リニューアルの流れ',
         steps: [
@@ -177,6 +194,7 @@ const blogVisuals: Record<string, Array<{ type: string; [k: string]: any }>> = {
     },
     {
       type: 'compare',
+      afterSection: 2,
       props: {
         title: 'リニューアル前後の比較',
         before: {
@@ -234,41 +252,9 @@ const articleVisuals = blogVisuals[post.slug] ?? []
         </div>
       )}
       <div class="prose prose-slate prose-lg max-w-none">
-        <Content />
-        {articleVisuals.map((v: any) =>
-          v.type === 'photo' ? (
-            <figure class="not-prose my-8">
-              <img src={v.src} alt={v.alt} class="w-full rounded-lg" loading="lazy" />
-              {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
-            </figure>
-          ) : v.type === 'grid' ? (
-            <InsightGrid {...v.props} />
-          ) : v.type === 'flow' ? (
-            <ProcessFigure {...v.props} />
-          ) : v.type === 'stat' ? (
-            <StatBar {...v.props} />
-          ) : v.type === 'timeline' ? (
-            <Timeline {...v.props} />
-          ) : v.type === 'compare' ? (
-            <CompareTable {...v.props} />
-          ) : v.type === 'callout' ? (
-            <Callout {...v.props} />
-          ) : v.type === 'testimonial' ? (
-            <Testimonial {...v.props} />
-          ) : v.type === 'checklist' ? (
-            <Checklist {...v.props} />
-          ) : v.type === 'youtube' ? (
-            <YouTubeEmbed {...v.props} />
-          ) : v.type === 'gallery' ? (
-            <Gallery {...v.props} />
-          ) : v.type === 'linkcard' ? (
-            <LinkCard {...v.props} />
-          ) : v.type === 'faq' ? (
-            <Faq {...v.props} />
-          ) : v.type === 'pullquote' ? (
-            <PullQuote {...v.props} />
-          ) : null
-        )}
+        <SplitContent visuals={articleVisuals}>
+          <Content />
+        </SplitContent>
       </div>
 
       {author && (
