@@ -465,9 +465,10 @@ const articleVisual = blogVisuals[post.slug as keyof typeof blogVisuals]
           />
         </div>
       )}
-      {articleVisual && (
-        <div class="mb-8">
-          {articleVisual.prefer === 'flow' ? (
+      <div class="prose prose-slate prose-lg max-w-none">
+        <Content />
+        {articleVisual && (
+          articleVisual.prefer === 'flow' ? (
             <ProcessFigure
               eyebrow={articleVisual.flow.eyebrow}
               title={articleVisual.flow.title}
@@ -481,11 +482,8 @@ const articleVisual = blogVisuals[post.slug as keyof typeof blogVisuals]
               description={articleVisual.grid.description}
               items={articleVisual.grid.items}
             />
-          )}
-        </div>
-      )}
-      <div class="prose prose-slate prose-lg max-w-none">
-        <Content />
+          )
+        )}
       </div>
 
       {author && (

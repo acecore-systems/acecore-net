@@ -16,38 +16,32 @@ interface Props {
 const { eyebrow, title, description, items } = Astro.props
 
 const tones = {
-  brand: 'border-brand-100 bg-brand-50/70 text-brand-700',
-  emerald: 'border-emerald-100 bg-emerald-50/70 text-emerald-700',
-  amber: 'border-amber-100 bg-amber-50/70 text-amber-700',
-  slate: 'border-slate-200 bg-slate-50 text-slate-700',
+  brand: 'text-brand-600',
+  emerald: 'text-emerald-600',
+  amber: 'text-amber-600',
+  slate: 'text-slate-500',
 } satisfies Record<NonNullable<GridItem['tone']>, string>
 ---
 
-<div class="ac-card overflow-hidden">
-  <div class="grid gap-0 lg:grid-cols-[1.15fr_1fr]">
-    <div class="px-6 py-4 sm:px-8 sm:py-5">
-      {eyebrow && <p class="text-xs font-700 tracking-[0.18em] text-brand-500 uppercase mb-2">{eyebrow}</p>}
-      <h2 class="text-xl sm:text-2xl ac-heading mb-2">{title}</h2>
-      {description && <p class="text-sm ac-muted leading-relaxed max-w-2xl">{description}</p>}
-    </div>
-
-    <div class="relative border-t border-slate-200 bg-[radial-gradient(circle_at_top_right,_rgba(38,75,125,0.16),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(15,118,110,0.14),_transparent_28%),linear-gradient(135deg,rgba(248,250,252,1),rgba(255,255,255,1))] px-6 py-5 sm:px-8 lg:border-l lg:border-t-0">
-      <div class="grid gap-3 sm:grid-cols-2">
-        {items.map((item) => (
-          <article class="rounded-xl border border-slate-200/90 bg-white/90 px-4 py-3.5 shadow-sm backdrop-blur-sm">
-            <div class="flex items-center gap-3 mb-1.5">
-              <div class:list={[
-                'flex h-8 w-8 items-center justify-center rounded-lg border text-base shrink-0',
-                tones[item.tone ?? 'brand'],
-              ]}>
-                <div class={item.icon}></div>
-              </div>
-              <h3 class="text-sm font-700 text-slate-900">{item.title}</h3>
-            </div>
-            <p class="text-xs leading-5 text-slate-600 pl-11">{item.description}</p>
-          </article>
-        ))}
+<figure class="not-prose my-8" role="img" aria-label={title}>
+  {(eyebrow || title) && (
+    <figcaption class="mb-4">
+      {eyebrow && <p class="text-[11px] font-700 tracking-[0.18em] text-brand-400 uppercase mb-1">{eyebrow}</p>}
+      <p class="text-base font-700 text-slate-800">{title}</p>
+      {description && <p class="text-sm text-slate-500 mt-1">{description}</p>}
+    </figcaption>
+  )}
+  <div class="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+    {items.map((item) => (
+      <div class="flex gap-3">
+        <div class:list={['text-lg mt-0.5 shrink-0', tones[item.tone ?? 'brand']]}>
+          <div class={item.icon}></div>
+        </div>
+        <div>
+          <p class="text-sm font-600 text-slate-800">{item.title}</p>
+          <p class="text-[13px] leading-relaxed text-slate-500">{item.description}</p>
+        </div>
       </div>
-    </div>
+    ))}
   </div>
-</div>
+</figure>
