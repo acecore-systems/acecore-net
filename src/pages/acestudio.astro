@@ -71,18 +71,12 @@ const studioAreas = [
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl text-center">
-      <div class="space-y-8 text-left mb-12">
+      <div class="text-left mb-12">
         <InsightGrid
           eyebrow="Studio Scope"
           title="AceStudioが準備している4つの領域"
-          description="business-plan 側で整理している『コンテンツ × コミュニティ × 収益化』の考え方を、公開サイト向けに要約して見せています。"
+          description="コンテンツ × コミュニティ × 収益化の考え方を、公開サイト向けに要約しています。"
           items={studioAreas}
-        />
-        <ProcessFigure
-          eyebrow="Studio Flow"
-          title="企画から収益化までの設計イメージ"
-          description="まだ開発中ですが、AceStudio が単なる制作サービスではなく、継続運用を前提にした仕組みであることが分かるようにしています。"
-          steps={studioFlow}
         />
       </div>
 
@@ -99,6 +93,15 @@ const studioAreas = [
         <p class="text-slate-500">
           サービスの詳細は、準備が整い次第このページで公開いたします。
         </p>
+      </div>
+
+      <div class="text-left mb-12">
+        <ProcessFigure
+          eyebrow="Studio Flow"
+          title="企画から収益化までの設計イメージ"
+          description="AceStudio が継続運用を前提にした仕組みであることを示しています。"
+          steps={studioFlow}
+        />
       </div>
 
       <div class="bg-slate-50 rounded-xl p-8 mb-12">

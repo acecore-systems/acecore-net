@@ -21,6 +21,7 @@ const author = post.data.author
 
 const blogVisuals = {
   'service-introduction': {
+    prefer: 'grid',
     grid: {
       eyebrow: 'Service Overview',
       title: 'Acecoreのサービス全体像',
@@ -87,6 +88,7 @@ const blogVisuals = {
     },
   },
   'community-and-education': {
+    prefer: 'grid',
     grid: {
       eyebrow: 'Community Layers',
       title: '活動の広がりを4つに整理する',
@@ -153,6 +155,7 @@ const blogVisuals = {
     },
   },
   'aceserver-hijacked': {
+    prefer: 'flow',
     grid: {
       eyebrow: 'Event Snapshot',
       title: '今回の記事を3つの視点で読む',
@@ -219,6 +222,7 @@ const blogVisuals = {
     },
   },
   'metaverse-is-close': {
+    prefer: 'grid',
     grid: {
       eyebrow: 'Metaverse View',
       title: '記事の論点を4つに整理する',
@@ -285,6 +289,7 @@ const blogVisuals = {
     },
   },
   'robot-workshop-event': {
+    prefer: 'flow',
     grid: {
       eyebrow: 'Workshop Outline',
       title: 'イベント内容をひと目で把握する',
@@ -351,6 +356,7 @@ const blogVisuals = {
     },
   },
   'website-renewal': {
+    prefer: 'grid',
     grid: {
       eyebrow: 'Renewal Points',
       title: 'リニューアルの要点を整理する',
@@ -460,19 +466,22 @@ const articleVisual = blogVisuals[post.slug as keyof typeof blogVisuals]
         </div>
       )}
       {articleVisual && (
-        <div class="space-y-8 mb-10">
-          <InsightGrid
-            eyebrow={articleVisual.grid.eyebrow}
-            title={articleVisual.grid.title}
-            description={articleVisual.grid.description}
-            items={articleVisual.grid.items}
-          />
-          <ProcessFigure
-            eyebrow={articleVisual.flow.eyebrow}
-            title={articleVisual.flow.title}
-            description={articleVisual.flow.description}
-            steps={articleVisual.flow.steps}
-          />
+        <div class="mb-8">
+          {articleVisual.prefer === 'flow' ? (
+            <ProcessFigure
+              eyebrow={articleVisual.flow.eyebrow}
+              title={articleVisual.flow.title}
+              description={articleVisual.flow.description}
+              steps={articleVisual.flow.steps}
+            />
+          ) : (
+            <InsightGrid
+              eyebrow={articleVisual.grid.eyebrow}
+              title={articleVisual.grid.title}
+              description={articleVisual.grid.description}
+              items={articleVisual.grid.items}
+            />
+          )}
         </div>
       )}
       <div class="prose prose-slate prose-lg max-w-none">

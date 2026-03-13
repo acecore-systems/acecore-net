@@ -71,18 +71,12 @@ const learningAreas = [
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <div class="space-y-8 mb-12">
+      <div class="mb-12">
         <ProcessFigure
           eyebrow="Learning Flow"
           title="Acecore Schoolsの学びを流れで見る"
-          description="単にコースを並べるだけでなく、興味の入口から実践、継続までを一本の学習導線として見せています。"
+          description="興味の入口から実践、継続までを一本の学習導線として見せています。"
           steps={learningSteps}
-        />
-        <InsightGrid
-          eyebrow="Learning Zones"
-          title="対応領域を図で整理する"
-          description="business-plan の図表表現を流用し、どの年代・目的でも相談しやすいように、学習領域を4つの塊で示しました。"
-          items={learningAreas}
         />
       </div>
 
@@ -147,6 +141,15 @@ const learningAreas = [
             </p>
           </div>
         </div>
+      </div>
+
+      <div class="mb-16">
+        <InsightGrid
+          eyebrow="Learning Zones"
+          title="対応領域を図で整理する"
+          description="どの年代・目的でも相談しやすいように、学習領域を4つの塾で示しています。"
+          items={learningAreas}
+        />
       </div>
 
       <!-- 実践プログラミング -->

@@ -71,18 +71,12 @@ const activityAreas = [
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <div class="space-y-8 mb-12">
+      <div class="mb-12">
         <ProcessFigure
           eyebrow="Mission Loop"
           title="Acecoreの価値が循環する仕組み"
-          description="business-plan 側の構造図を踏まえて、Acecore が何を起点に価値を広げているのかを、会社概要ページ向けに図解化しました。"
+          description="Acecore が何を起点に価値を広げているのかを図解化しました。"
           steps={valueCycle}
-        />
-        <InsightGrid
-          eyebrow="Activity Map"
-          title="活動領域を4つの視点で見る"
-          description="受託だけの会社ではなく、コミュニティ、OSS、地域連携、共創支援まで含めて活動していることを、本文とは別レイヤーで見せています。"
-          items={activityAreas}
         />
       </div>
 
@@ -104,6 +98,15 @@ const activityAreas = [
         単に技術を提供するだけでなく、お客様やコミュニティと共に成長し、
         持続可能な価値を生み出すことを大切にしています。
       </p>
+
+      <div class="mb-12">
+        <InsightGrid
+          eyebrow="Activity Map"
+          title="活動領域を4つの視点で見る"
+          description="コミュニティ、OSS、地域連携、共創支援まで含めた活動の全体像です。"
+          items={activityAreas}
+        />
+      </div>
 
       <!-- 活動と取り組み -->
       <h2 class="text-2xl ac-heading mb-6">活動と取り組み</h2>

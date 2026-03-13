@@ -70,18 +70,12 @@ const deliveryFlow = [
   />
 
   <section class="ac-section bg-slate-50">
-    <div class="ac-container space-y-8">
+    <div class="ac-container">
       <InsightGrid
         eyebrow="Service Map"
         title="Acecoreの支援範囲を図で把握する"
-        description="単発の制作会社ではなく、開発・運用・発信・育成までを一続きの支援線として設計しています。business-plan で使っていた構造図の見せ方を、このページの文脈に合わせて流用しています。"
+        description="開発・運用・発信・育成までを一続きの支援線として設計しています。"
         items={serviceMap}
-      />
-      <ProcessFigure
-        eyebrow="Delivery Flow"
-        title="導入から改善までの伴走イメージ"
-        description="お問い合わせ後に何が起きるのかを先に見せることで、依頼時の不透明さを減らしています。"
-        steps={deliveryFlow}
       />
     </div>
   </section>
@@ -191,6 +185,15 @@ const deliveryFlow = [
             </li>
           </ul>
         </div>
+      </div>
+
+      <div class="mb-16">
+        <ProcessFigure
+          eyebrow="Delivery Flow"
+          title="導入から改善までの伴走イメージ"
+          description="お問い合わせ後に何が起きるのかを先に見せることで、依頼時の不透明さを減らしています。"
+          steps={deliveryFlow}
+        />
       </div>
 
       <!-- デザイン・クリエイティブ -->

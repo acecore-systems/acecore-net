@@ -133,18 +133,12 @@ const supportFlow = [
   </section>
 
   <section class="ac-section">
-    <div class="ac-container space-y-8">
+    <div class="ac-container">
       <InsightGrid
         eyebrow="Visual Overview"
         title="Acecoreが支える4つのレイヤー"
-        description="business-plan 側で使っていたような『構造を一目で見せる』考え方を、コーポレートサイト向けに再構成しました。技術、運用、表現、教育を分断せず、一つの支援線として扱っています。"
+        description="技術、運用、表現、教育を分断せず、一つの支援線として扱っています。"
         items={coreLayers}
-      />
-      <ProcessFigure
-        eyebrow="Support Flow"
-        title="相談から運用定着までの流れ"
-        description="案件単位の制作だけでなく、公開後に安定して使い続けられるところまでを支援範囲に含めています。"
-        steps={supportFlow}
       />
     </div>
   </section>
@@ -162,6 +156,17 @@ const supportFlow = [
         </p>
         <a href="/about/" class="ac-btn-primary">会社概要を見る</a>
       </div>
+    </div>
+  </section>
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container">
+      <ProcessFigure
+        eyebrow="Support Flow"
+        title="相談から運用定着までの流れ"
+        description="案件単位の制作だけでなく、公開後に安定して使い続けられるところまでを支援範囲に含めています。"
+        steps={supportFlow}
+      />
     </div>
   </section>
 
