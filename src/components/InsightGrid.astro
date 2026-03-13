@@ -1,0 +1,51 @@
+---
+interface GridItem {
+  title: string
+  description: string
+  icon: string
+  tone?: 'brand' | 'emerald' | 'amber' | 'slate'
+}
+
+interface Props {
+  eyebrow?: string
+  title: string
+  description?: string
+  items: GridItem[]
+}
+
+const { eyebrow, title, description, items } = Astro.props
+
+const tones = {
+  brand: 'border-brand-100 bg-brand-50/70 text-brand-700',
+  emerald: 'border-emerald-100 bg-emerald-50/70 text-emerald-700',
+  amber: 'border-amber-100 bg-amber-50/70 text-amber-700',
+  slate: 'border-slate-200 bg-slate-50 text-slate-700',
+} satisfies Record<NonNullable<GridItem['tone']>, string>
+---
+
+<div class="ac-card overflow-hidden">
+  <div class="grid gap-0 lg:grid-cols-[1.15fr_1fr]">
+    <div class="px-6 py-7 sm:px-8 sm:py-8">
+      {eyebrow && <p class="text-sm font-700 tracking-[0.18em] text-brand-500 uppercase mb-3">{eyebrow}</p>}
+      <h2 class="text-2xl sm:text-3xl ac-heading mb-4">{title}</h2>
+      {description && <p class="ac-muted leading-relaxed max-w-2xl">{description}</p>}
+    </div>
+
+    <div class="relative min-h-[280px] border-t border-slate-200 bg-[radial-gradient(circle_at_top_right,_rgba(38,75,125,0.16),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(15,118,110,0.14),_transparent_28%),linear-gradient(135deg,rgba(248,250,252,1),rgba(255,255,255,1))] px-6 py-6 sm:px-8 lg:border-l lg:border-t-0">
+      <div class="grid gap-4 sm:grid-cols-2">
+        {items.map((item) => (
+          <article class="rounded-2xl border border-slate-200/90 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
+            <div class:list={[
+              'mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border text-2xl',
+              tones[item.tone ?? 'brand'],
+            ]}>
+              <div class={item.icon}></div>
+            </div>
+            <h3 class="text-base font-700 text-slate-900 mb-2">{item.title}</h3>
+            <p class="text-sm leading-7 text-slate-600">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

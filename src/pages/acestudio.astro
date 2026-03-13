@@ -1,6 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+
+const studioFlow = [
+  {
+    title: '発信の軸を定める',
+    description: '何を作り、誰に届け、どこで価値を生むかを整理して企画の核を作ります。',
+    icon: 'i-lucide-lightbulb',
+    accent: 'brand',
+  },
+  {
+    title: '制作環境を整える',
+    description: 'デザイン、映像、音楽、配信、開発をまたげる制作基盤と運用導線を構築します。',
+    icon: 'i-lucide-clapperboard',
+    accent: 'amber',
+  },
+  {
+    title: 'コミュニティを育てる',
+    description: '作品公開だけで終わらせず、参加者が集まり続ける場を育てていきます。',
+    icon: 'i-lucide-users-round',
+    accent: 'emerald',
+  },
+  {
+    title: '収益化へ接続する',
+    description: '案件化、サブスク、企画販売など継続的に回るモデルへつなげます。',
+    icon: 'i-lucide-chart-column-big',
+    accent: 'slate',
+  },
+]
+
+const studioAreas = [
+  {
+    title: 'コンテンツ制作',
+    description: '映像、配信、デザイン、開発を横断しながら企画を形にします。',
+    icon: 'i-lucide-film',
+    tone: 'brand',
+  },
+  {
+    title: 'クリエイター支援',
+    description: '個人の発信や制作活動を仕組み面から支える設計を進めています。',
+    icon: 'i-lucide-badge-help',
+    tone: 'amber',
+  },
+  {
+    title: 'コミュニティ運営',
+    description: '作品のファンや参加者が継続的につながる場づくりを重視します。',
+    icon: 'i-lucide-messages-square',
+    tone: 'emerald',
+  },
+  {
+    title: '収益モデル検証',
+    description: 'business-plan 側で詰めているモデルを、実際の運用へ落とし込んでいきます。',
+    icon: 'i-lucide-chart-no-axes-combined',
+    tone: 'slate',
+  },
+]
 ---
 
 <BaseLayout
@@ -15,6 +71,21 @@ import Hero from '../components/Hero.astro'
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl text-center">
+      <div class="space-y-8 text-left mb-12">
+        <InsightGrid
+          eyebrow="Studio Scope"
+          title="AceStudioが準備している4つの領域"
+          description="business-plan 側で整理している『コンテンツ × コミュニティ × 収益化』の考え方を、公開サイト向けに要約して見せています。"
+          items={studioAreas}
+        />
+        <ProcessFigure
+          eyebrow="Studio Flow"
+          title="企画から収益化までの設計イメージ"
+          description="まだ開発中ですが、AceStudio が単なる制作サービスではなく、継続運用を前提にした仕組みであることが分かるようにしています。"
+          steps={studioFlow}
+        />
+      </div>
+
       <div class="mb-12">
         <div class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6"></div>
         <h2 class="text-2xl ac-heading mb-6">新しいクリエイティブ体験を、まもなく。</h2>

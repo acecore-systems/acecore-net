@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import authors from '../../data/authors.json'
+import ProcessFigure from '../../components/ProcessFigure.astro'
+import InsightGrid from '../../components/InsightGrid.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -16,6 +18,407 @@ const { Content } = await post.render()
 const author = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
+
+const blogVisuals = {
+  'service-introduction': {
+    grid: {
+      eyebrow: 'Service Overview',
+      title: 'Acecoreのサービス全体像',
+      description:
+        '記事本文に入る前に、Acecore の支援範囲を4つの塊で把握できるようにした導入図です。',
+      items: [
+        {
+          title: '業務改善',
+          description: 'システム開発やアプリ構築で、日々の業務を回しやすく整えます。',
+          icon: 'i-lucide-workflow',
+          tone: 'brand',
+        },
+        {
+          title: '安定運用',
+          description: 'サーバーやクラウドを安定運用し、止まりにくい基盤を作ります。',
+          icon: 'i-lucide-server-cog',
+          tone: 'emerald',
+        },
+        {
+          title: '情報発信',
+          description: 'Web制作やデザインで、必要な情報を適切な形で届けます。',
+          icon: 'i-lucide-panel-top',
+          tone: 'amber',
+        },
+        {
+          title: '人材育成',
+          description: '導入した技術を現場で使えるよう、教育と伴走支援まで行います。',
+          icon: 'i-lucide-graduation-cap',
+          tone: 'slate',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Delivery Path',
+      title: 'サービス提供の流れ',
+      description:
+        'ワンストップという言葉だけでは伝わりにくいので、相談から運用までの動きを先に図で示しています。',
+      steps: [
+        {
+          title: '課題を聞く',
+          description: 'まず現場の困りごとを整理し、何を優先すべきかを明確にします。',
+          icon: 'i-lucide-message-square-quote',
+          accent: 'brand',
+        },
+        {
+          title: '形を設計する',
+          description: '必要なシステム、サイト、運用体制を一つの構成として組み立てます。',
+          icon: 'i-lucide-drafting-compass',
+          accent: 'emerald',
+        },
+        {
+          title: '制作する',
+          description: '開発、デザイン、インフラ構築をまとめて前へ進めます。',
+          icon: 'i-lucide-hammer',
+          accent: 'amber',
+        },
+        {
+          title: '育てていく',
+          description: '公開後の改善や運用サポートまで継続して支えます。',
+          icon: 'i-lucide-trending-up',
+          accent: 'slate',
+        },
+      ],
+    },
+  },
+  'community-and-education': {
+    grid: {
+      eyebrow: 'Community Layers',
+      title: '活動の広がりを4つに整理する',
+      description:
+        'コミュニティ、教育、OSS、地域連携がどうつながっているかを、記事の導入で把握しやすくしました。',
+      items: [
+        {
+          title: 'Aceserver',
+          description: '交流の起点として機能し、技術実験や運用知見の蓄積にもつながっています。',
+          icon: 'i-lucide-gamepad-2',
+          tone: 'brand',
+        },
+        {
+          title: '勉強会・イベント',
+          description: '学びの入口を増やし、初心者でも参加しやすい接点を作っています。',
+          icon: 'i-lucide-presentation',
+          tone: 'amber',
+        },
+        {
+          title: 'Acecore Schools',
+          description: '体験を継続学習へつなぎ、実務に近いスキル習得を支援します。',
+          icon: 'i-lucide-school',
+          tone: 'emerald',
+        },
+        {
+          title: 'OSS・地域連携',
+          description: '得た知見を外に返し、地域や技術コミュニティへ循環させています。',
+          icon: 'i-lucide-git-branch-plus',
+          tone: 'slate',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Value Cycle',
+      title: '活動が価値へ変わる循環'
+      ,description:
+        '単発イベントではなく、コミュニティ活動が教育やサービス改善へ還元される流れを図で補強しています。',
+      steps: [
+        {
+          title: '人が集まる',
+          description: 'ゲームやイベントをきっかけに、多様な人が接点を持ちます。',
+          icon: 'i-lucide-users-round',
+          accent: 'brand',
+        },
+        {
+          title: '学びが生まれる',
+          description: '交流から勉強会や教育支援へ発展し、知識共有の機会が増えます。',
+          icon: 'i-lucide-book-open-text',
+          accent: 'amber',
+        },
+        {
+          title: '実践知になる',
+          description: '運用や開発の経験が現場のノウハウとして蓄積されます。',
+          icon: 'i-lucide-wrench',
+          accent: 'emerald',
+        },
+        {
+          title: '外へ還元する',
+          description: 'OSS や地域連携を通じて、得た知見を別の場へ返していきます。',
+          icon: 'i-lucide-share-2',
+          accent: 'slate',
+        },
+      ],
+    },
+  },
+  'aceserver-hijacked': {
+    grid: {
+      eyebrow: 'Event Snapshot',
+      title: '今回の記事を3つの視点で読む',
+      description:
+        'ネタ記事寄りでも、Aceserver の空気感とイベント性が伝わるように、状況整理の図を先に入れています。',
+      items: [
+        {
+          title: '異変の発生',
+          description: 'サーバー内で起きた異常事態を、参加者視点の熱量で描いています。',
+          icon: 'i-lucide-siren',
+          tone: 'amber',
+        },
+        {
+          title: 'コミュニティ反応',
+          description: 'メンバー同士の掛け合いと巻き込まれ方が、記事の面白さの中心です。',
+          icon: 'i-lucide-users',
+          tone: 'brand',
+        },
+        {
+          title: 'Aceserver文化',
+          description: '単なる事件ではなく、遊びと内輪ネタが生まれる場としての文化が見えます。',
+          icon: 'i-lucide-gamepad-2',
+          tone: 'emerald',
+        },
+        {
+          title: '記録として残す',
+          description: 'その瞬間の熱量を文章化して、後から振り返れる形にしています。',
+          icon: 'i-lucide-scroll-text',
+          tone: 'slate',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Chaos Flow',
+      title: '異変が広がる流れ',
+      description:
+        '短文の記事でも情景が立つように、混乱が感染していく流れを視覚的に補っています。',
+      steps: [
+        {
+          title: '異常に気付く',
+          description: '最初の違和感が現れ、状況が普通ではないことが共有されます。',
+          icon: 'i-lucide-eye',
+          accent: 'amber',
+        },
+        {
+          title: 'メンバーへ波及する',
+          description: '理性を失っていく描写を通じて、被害が広がる様子が強調されます。',
+          icon: 'i-lucide-zap',
+          accent: 'brand',
+        },
+        {
+          title: 'サーバーの空気になる',
+          description: '事件そのものが、コミュニティ全体のネタとテンションに変わっていきます。',
+          icon: 'i-lucide-laugh',
+          accent: 'emerald',
+        },
+        {
+          title: '記事として封じ込める',
+          description: '最後に記録へ変換することで、思い出として残るコンテンツになります。',
+          icon: 'i-lucide-file-text',
+          accent: 'slate',
+        },
+      ],
+    },
+  },
+  'metaverse-is-close': {
+    grid: {
+      eyebrow: 'Metaverse View',
+      title: '記事の論点を4つに整理する',
+      description:
+        '短い考察記事なので、マインクラフトとメタバースの接続点を先に見せて読みやすくしています。',
+      items: [
+        {
+          title: '巨大企業の動き',
+          description: 'Facebook や Microsoft の動きを踏まえて、潮流の存在を押さえます。',
+          icon: 'i-lucide-building-2',
+          tone: 'slate',
+        },
+        {
+          title: 'VRに限定しない',
+          description: 'メタバースは必ずしもヘッドセット前提ではない、という視点を置きます。',
+          icon: 'i-lucide-glasses',
+          tone: 'amber',
+        },
+        {
+          title: 'Minecraftの可能性',
+          description: '既に人が集まり交流できる場として、Minecraft を再解釈しています。',
+          icon: 'i-lucide-cuboid',
+          tone: 'brand',
+        },
+        {
+          title: '事業への接続',
+          description: 'Acecore がその文脈で何を作れるか、構想の入口として扱っています。',
+          icon: 'i-lucide-rocket',
+          tone: 'emerald',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Idea Path',
+      title: '身近なメタバースへ視点を移す流れ',
+      description:
+        '大きな話題から足元の可能性へ視点を引き寄せる記事なので、その発想の移動を図で補強しています。',
+      steps: [
+        {
+          title: '潮流を見る',
+          description: 'まずは世の中全体でメタバースがどう扱われているかを眺めます。',
+          icon: 'i-lucide-radar',
+          accent: 'slate',
+        },
+        {
+          title: '前提をほぐす',
+          description: 'VR 必須という固定観念を外し、もっと広い解釈へ切り替えます。',
+          icon: 'i-lucide-unplug',
+          accent: 'amber',
+        },
+        {
+          title: '既存の場を見直す',
+          description: 'Minecraft のような既にある空間を、別の角度から捉え直します。',
+          icon: 'i-lucide-search',
+          accent: 'brand',
+        },
+        {
+          title: '構想に変える',
+          description: 'その視点をもとに、Acecore としてどんな企業像を描けるかにつなげます。',
+          icon: 'i-lucide-lightbulb',
+          accent: 'emerald',
+        },
+      ],
+    },
+  },
+  'robot-workshop-event': {
+    grid: {
+      eyebrow: 'Workshop Outline',
+      title: 'イベント内容をひと目で把握する',
+      description:
+        '案内記事として必要な情報を、本文前に4つの塊で整理して分かりやすくしています。',
+      items: [
+        {
+          title: '対象と会場',
+          description: '参加対象、会場、開催日の情報をすぐ判断できるように整理しています。',
+          icon: 'i-lucide-map-pinned',
+          tone: 'slate',
+        },
+        {
+          title: '体験内容',
+          description: '工作と改造・動作体験の2段構成で、作って終わらない内容です。',
+          icon: 'i-lucide-bot',
+          tone: 'brand',
+        },
+        {
+          title: '学びの価値',
+          description: '自由研究や創造力の刺激など、参加メリットが見える設計です。',
+          icon: 'i-lucide-sparkles',
+          tone: 'amber',
+        },
+        {
+          title: '申し込み導線',
+          description: '電話、メール、LINE まで含めて、問い合わせ方法を明示しています。',
+          icon: 'i-lucide-phone-call',
+          tone: 'emerald',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Workshop Flow',
+      title: '当日の体験イメージ',
+      description:
+        'イベントの時間割をそのまま文章で読むより、参加の流れとして見せた方が理解しやすいため補っています。',
+      steps: [
+        {
+          title: '参加する',
+          description: '申し込み後、会場で教材を受け取りイベントが始まります。',
+          icon: 'i-lucide-door-open',
+          accent: 'slate',
+        },
+        {
+          title: '組み立てる',
+          description: '最初の45分でロボット工作に集中し、基本構造を理解します。',
+          icon: 'i-lucide-wrench',
+          accent: 'brand',
+        },
+        {
+          title: '改造して試す',
+          description: '完成後は改造や動作テストを行い、自分なりの工夫を試します。',
+          icon: 'i-lucide-settings-2',
+          accent: 'amber',
+        },
+        {
+          title: '学びを持ち帰る',
+          description: '教材を持ち帰り、自由研究や次の学習への関心につなげます。',
+          icon: 'i-lucide-backpack',
+          accent: 'emerald',
+        },
+      ],
+    },
+  },
+  'website-renewal': {
+    grid: {
+      eyebrow: 'Renewal Points',
+      title: 'リニューアルの要点を整理する',
+      description:
+        'お知らせ記事でも、何が変わったのかを冒頭で理解できるように構造図を付けています。',
+      items: [
+        {
+          title: '情報設計の改善',
+          description: 'サービスページやブログを分離し、必要な情報へたどり着きやすくしました。',
+          icon: 'i-lucide-layout-dashboard',
+          tone: 'brand',
+        },
+        {
+          title: '表示速度の向上',
+          description: 'Astro と静的生成で、軽く速いサイト構成へ更新しています。',
+          icon: 'i-lucide-gauge',
+          tone: 'emerald',
+        },
+        {
+          title: '発信基盤の整備',
+          description: 'ブログ機能の追加で、お知らせや技術情報を継続的に出せる形にしました。',
+          icon: 'i-lucide-rss',
+          tone: 'amber',
+        },
+        {
+          title: '今後の拡張余地',
+          description: '事例紹介やコミュニティ情報など、今後積み上げる前提で設計しています。',
+          icon: 'i-lucide-layers-3',
+          tone: 'slate',
+        },
+      ],
+    },
+    flow: {
+      eyebrow: 'Renewal Flow',
+      title: '今回の更新が目指した流れ',
+      description:
+        '単なるデザイン変更ではなく、見つける、読む、相談するまでを改善したことが伝わるようにしています。',
+      steps: [
+        {
+          title: '課題を整理する',
+          description: '旧サイトで伝わりにくかった点や不足していた機能を洗い出します。',
+          icon: 'i-lucide-clipboard-list',
+          accent: 'slate',
+        },
+        {
+          title: '構造を組み直す',
+          description: 'サービス、ブログ、会社情報を分けて、回遊しやすい情報構成へ更新します。',
+          icon: 'i-lucide-waypoints',
+          accent: 'brand',
+        },
+        {
+          title: '速く見やすくする',
+          description: '表示速度、レスポンシブ性、視認性をまとめて改善します。',
+          icon: 'i-lucide-monitor-up',
+          accent: 'emerald',
+        },
+        {
+          title: '継続発信へつなぐ',
+          description: '今後の記事更新や事例追加がしやすい土台として運用を始めます。',
+          icon: 'i-lucide-pen-line',
+          accent: 'amber',
+        },
+      ],
+    },
+  },
+} as const
+
+const articleVisual = blogVisuals[post.slug as keyof typeof blogVisuals]
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -53,6 +456,22 @@ const author = post.data.author
             src={post.data.image || post.data.imageUrl}
             alt={post.data.title}
             class="w-full h-auto"
+          />
+        </div>
+      )}
+      {articleVisual && (
+        <div class="space-y-8 mb-10">
+          <InsightGrid
+            eyebrow={articleVisual.grid.eyebrow}
+            title={articleVisual.grid.title}
+            description={articleVisual.grid.description}
+            items={articleVisual.grid.items}
+          />
+          <ProcessFigure
+            eyebrow={articleVisual.flow.eyebrow}
+            title={articleVisual.flow.title}
+            description={articleVisual.flow.description}
+            steps={articleVisual.flow.steps}
           />
         </div>
       )}

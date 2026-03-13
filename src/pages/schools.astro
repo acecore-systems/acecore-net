@@ -1,6 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+
+const learningSteps = [
+  {
+    title: '興味を見つける',
+    description: '学習塾やロボット体験を通して、学ぶ入口を個別に探します。',
+    icon: 'i-lucide-sparkles',
+    accent: 'amber',
+  },
+  {
+    title: '手を動かして理解する',
+    description: '実機、マインクラフト、プログラミング演習で体験と理解を結び付けます。',
+    icon: 'i-lucide-bot',
+    accent: 'brand',
+  },
+  {
+    title: '実践に接続する',
+    description: 'Web開発やツール活用など、現実の課題に使える学びへ引き上げます。',
+    icon: 'i-lucide-code-xml',
+    accent: 'emerald',
+  },
+  {
+    title: '継続できる形にする',
+    description: '受験、資格、日常のIT活用まで含めて、本人に合う継続導線を作ります。',
+    icon: 'i-lucide-flag',
+    accent: 'slate',
+  },
+]
+
+const learningAreas = [
+  {
+    title: '基礎学習',
+    description: '学校学習や高卒認定を含め、理解の土台を丁寧に固めます。',
+    icon: 'i-lucide-book-open-check',
+    tone: 'brand',
+  },
+  {
+    title: 'ものづくり体験',
+    description: 'ロボット工作やマイクラ活用で、楽しく試せる環境を用意します。',
+    icon: 'i-lucide-cuboid',
+    tone: 'amber',
+  },
+  {
+    title: '実務スキル',
+    description: 'Web、バックエンド、データベースなど現場につながる内容を扱います。',
+    icon: 'i-lucide-briefcase-business',
+    tone: 'emerald',
+  },
+  {
+    title: '生活と進路',
+    description: 'パソコンやスマホの基本操作から将来設計まで伴走します。',
+    icon: 'i-lucide-compass',
+    tone: 'slate',
+  },
+]
 ---
 
 <BaseLayout
@@ -15,6 +71,21 @@ import Hero from '../components/Hero.astro'
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
+      <div class="space-y-8 mb-12">
+        <ProcessFigure
+          eyebrow="Learning Flow"
+          title="Acecore Schoolsの学びを流れで見る"
+          description="単にコースを並べるだけでなく、興味の入口から実践、継続までを一本の学習導線として見せています。"
+          steps={learningSteps}
+        />
+        <InsightGrid
+          eyebrow="Learning Zones"
+          title="対応領域を図で整理する"
+          description="business-plan の図表表現を流用し、どの年代・目的でも相談しやすいように、学習領域を4つの塊で示しました。"
+          items={learningAreas}
+        />
+      </div>
+
       <p class="text-lg text-slate-600 leading-relaxed mb-12">
         AceCore Schoolsは、学習塾、ロボットプログラミング、実践プログラミング、パソコン・スマホの操作技術、高卒認定試験対策など、幅広い教育プログラムを提供しています。一人ひとりの生徒に合わせた指導を行い、生徒の成長をサポートします。
       </p>

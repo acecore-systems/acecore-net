@@ -1,6 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+
+const valueCycle = [
+  {
+    title: '技術を実装する',
+    description: 'システム開発やサーバー運用を通じて、現場で機能する基盤を作ります。',
+    icon: 'i-lucide-cpu',
+    accent: 'brand',
+  },
+  {
+    title: '表現へ変換する',
+    description: 'Web制作やデザインで、伝わる体験として外側へ届けます。',
+    icon: 'i-lucide-palette',
+    accent: 'amber',
+  },
+  {
+    title: '人と場を育てる',
+    description: 'コミュニティや教育の活動を通じて、新しい参加者や学びを生み出します。',
+    icon: 'i-lucide-users',
+    accent: 'emerald',
+  },
+  {
+    title: '次の挑戦へ還元する',
+    description: '得られた知見をまた開発や支援に戻し、活動全体を強くします。',
+    icon: 'i-lucide-repeat-2',
+    accent: 'slate',
+  },
+]
+
+const activityAreas = [
+  {
+    title: 'コミュニティ',
+    description: '勉強会や交流の場をつくり、技術や興味の接点を増やしています。',
+    icon: 'i-lucide-message-circle-more',
+    tone: 'brand',
+  },
+  {
+    title: 'オープンソース',
+    description: '開発の知見を外へ返し、再利用できる形で社会に残すことを重視します。',
+    icon: 'i-lucide-github',
+    tone: 'slate',
+  },
+  {
+    title: '地域連携',
+    description: '教育機関や地域事業者との連携を通して、地元に技術の活用先を増やします。',
+    icon: 'i-lucide-map-pinned',
+    tone: 'emerald',
+  },
+  {
+    title: '共創支援',
+    description: '外部パートナーと組み、単独では届かない領域までプロジェクトを広げます。',
+    icon: 'i-lucide-handshake',
+    tone: 'amber',
+  },
+]
 ---
 
 <BaseLayout
@@ -15,6 +71,21 @@ import Hero from '../components/Hero.astro'
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
+      <div class="space-y-8 mb-12">
+        <ProcessFigure
+          eyebrow="Mission Loop"
+          title="Acecoreの価値が循環する仕組み"
+          description="business-plan 側の構造図を踏まえて、Acecore が何を起点に価値を広げているのかを、会社概要ページ向けに図解化しました。"
+          steps={valueCycle}
+        />
+        <InsightGrid
+          eyebrow="Activity Map"
+          title="活動領域を4つの視点で見る"
+          description="受託だけの会社ではなく、コミュニティ、OSS、地域連携、共創支援まで含めて活動していることを、本文とは別レイヤーで見せています。"
+          items={activityAreas}
+        />
+      </div>
+
       <!-- 理念 -->
       <h2 class="text-2xl ac-heading mb-6">理念</h2>
       <div class="bg-brand-50 rounded-xl p-8 mb-12">

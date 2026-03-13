@@ -2,12 +2,68 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ServiceCard from '../components/ServiceCard.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import InsightGrid from '../components/InsightGrid.astro'
 import { getCollection } from 'astro:content'
 import authors from '../data/authors.json'
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3)
+
+const coreLayers = [
+  {
+    title: 'システム設計',
+    description: '業務課題を要件に落とし込み、実装と運用まで見据えて仕組みを作ります。',
+    icon: 'i-lucide-code-2',
+    tone: 'brand',
+  },
+  {
+    title: 'インフラ運用',
+    description: '公開サーバー運用の経験をもとに、止めにくい環境と改善サイクルを整えます。',
+    icon: 'i-lucide-server-cog',
+    tone: 'emerald',
+  },
+  {
+    title: '伝わるデザイン',
+    description: '見た目の装飾ではなく、情報整理と体験設計としてデザインを扱います。',
+    icon: 'i-lucide-swatch-book',
+    tone: 'amber',
+  },
+  {
+    title: '教育と伴走',
+    description: '現場で使える知識を学習支援に変換し、地域や次世代へ循環させます。',
+    icon: 'i-lucide-graduation-cap',
+    tone: 'slate',
+  },
+]
+
+const supportFlow = [
+  {
+    title: '相談を整理する',
+    description: '現状の課題、必要な機能、運用体制を整理して優先順位を定めます。',
+    icon: 'i-lucide-messages-square',
+    accent: 'brand',
+  },
+  {
+    title: '作るべき形を設計する',
+    description: 'Web、システム、サーバー、デザインを横断して最適な構成を組み立てます。',
+    icon: 'i-lucide-drafting-compass',
+    accent: 'emerald',
+  },
+  {
+    title: '公開と定着を進める',
+    description: '制作して終わりにせず、公開後の更新や保守も含めて整備します。',
+    icon: 'i-lucide-rocket',
+    accent: 'amber',
+  },
+  {
+    title: '成果を次へつなぐ',
+    description: '教育、改善提案、運用ノウハウ化まで含めて長く使える状態に育てます。',
+    icon: 'i-lucide-refresh-cw',
+    accent: 'slate',
+  },
+]
 ---
 
 <BaseLayout title="ホーム">
@@ -73,6 +129,23 @@ const posts = (await getCollection('blog'))
       <div class="text-center mt-10">
         <a href="/services/" class="ac-btn-outline">サービス詳細を見る</a>
       </div>
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container space-y-8">
+      <InsightGrid
+        eyebrow="Visual Overview"
+        title="Acecoreが支える4つのレイヤー"
+        description="business-plan 側で使っていたような『構造を一目で見せる』考え方を、コーポレートサイト向けに再構成しました。技術、運用、表現、教育を分断せず、一つの支援線として扱っています。"
+        items={coreLayers}
+      />
+      <ProcessFigure
+        eyebrow="Support Flow"
+        title="相談から運用定着までの流れ"
+        description="案件単位の制作だけでなく、公開後に安定して使い続けられるところまでを支援範囲に含めています。"
+        steps={supportFlow}
+      />
     </div>
   </section>
 

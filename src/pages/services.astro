@@ -1,6 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+
+const serviceMap = [
+  {
+    title: '開発',
+    description: '業務システムやアプリを、運用フローに合わせて設計・実装します。',
+    icon: 'i-lucide-code-2',
+    tone: 'brand',
+  },
+  {
+    title: '運用基盤',
+    description: 'クラウドやサーバーを安定運用し、監視や保守まで含めて整えます。',
+    icon: 'i-lucide-server',
+    tone: 'emerald',
+  },
+  {
+    title: '情報発信',
+    description: 'Webサイトやデザイン制作で、伝えるべき内容を整理して届けます。',
+    icon: 'i-lucide-globe',
+    tone: 'amber',
+  },
+  {
+    title: '育成支援',
+    description: '導入した技術を現場で回せるよう、教育と伴走支援まで接続します。',
+    icon: 'i-lucide-graduation-cap',
+    tone: 'slate',
+  },
+]
+
+const deliveryFlow = [
+  {
+    title: '課題を可視化する',
+    description: 'ヒアリングを通して、目的と制約を整理し、優先順位を明確にします。',
+    icon: 'i-lucide-search-code',
+    accent: 'brand',
+  },
+  {
+    title: '構成を設計する',
+    description: '必要な技術、画面、運用ルールを整理して、実行可能な形に落とし込みます。',
+    icon: 'i-lucide-layout-template',
+    accent: 'emerald',
+  },
+  {
+    title: '制作と構築を進める',
+    description: '開発、デザイン、インフラ構築を横断しながら、必要な成果物を組み上げます。',
+    icon: 'i-lucide-hammer',
+    accent: 'amber',
+  },
+  {
+    title: '公開後を支える',
+    description: '改善提案、保守、追加開発まで見据えて、継続的な運用につなげます。',
+    icon: 'i-lucide-life-buoy',
+    accent: 'slate',
+  },
+]
 ---
 
 <BaseLayout
@@ -12,6 +68,23 @@ import Hero from '../components/Hero.astro'
     subtitle="ワンストップで提供する多彩なITソリューション"
     images={['https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80']}
   />
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container space-y-8">
+      <InsightGrid
+        eyebrow="Service Map"
+        title="Acecoreの支援範囲を図で把握する"
+        description="単発の制作会社ではなく、開発・運用・発信・育成までを一続きの支援線として設計しています。business-plan で使っていた構造図の見せ方を、このページの文脈に合わせて流用しています。"
+        items={serviceMap}
+      />
+      <ProcessFigure
+        eyebrow="Delivery Flow"
+        title="導入から改善までの伴走イメージ"
+        description="お問い合わせ後に何が起きるのかを先に見せることで、依頼時の不透明さを減らしています。"
+        steps={deliveryFlow}
+      />
+    </div>
+  </section>
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
