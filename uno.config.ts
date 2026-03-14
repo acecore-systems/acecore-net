@@ -26,7 +26,7 @@ export default defineConfig({
       },
     },
     fontFamily: {
-      sans: "'Noto Sans JP', 'Noto Sans JP Fallback', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif",
+      sans: "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif",
       mono: "'Consolas', 'Monaco', monospace",
     },
   },
