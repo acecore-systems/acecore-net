@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "acecore-net",
+  "compatibility_date": "2025-03-14",
+  "compatibility_flags": ["nodejs_compat"]
+}

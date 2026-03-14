@@ -1,13 +1,12 @@
-media:
-  input: public/uploads
-  output: /uploads
-
 content:
   - name: blog
-    label: ブログ記事
+    label: ブログ
     path: src/content/blog
     type: collection
-    format: yaml-frontmatter
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
     fields:
       - name: title
         label: タイトル
@@ -15,7 +14,7 @@ content:
         required: true
       - name: description
         label: 概要
-        type: string
+        type: text
         required: true
       - name: date
         label: 公開日
@@ -25,45 +24,16 @@ content:
         label: タグ
         type: string
         list: true
+      - name: imageUrl
+        label: 画像URL
+        type: string
       - name: author
         label: 著者
         type: string
-      - name: image
-        label: アイキャッチ画像（アップロード）
-        type: image
-        description: 画像をアップロードする場合はこちらを使用してください
-      - name: imageUrl
-        label: アイキャッチ画像（外部URL）
-        type: string
-        description: 外部URLを使用する場合はこちらに入力してください（例：https://images.unsplash.com/...）
       - name: body
         label: 本文
-        type: code
-        options:
-          language: markdown
+        type: rich-text
 
-  - name: authors
-    label: 著者
-    path: src/data/authors.json
-    type: file
-    format: json
-    fields:
-      - name: id
-        label: ID
-        type: string
-        required: true
-      - name: name
-        label: 表示名
-        type: string
-        required: true
-      - name: avatar
-        label: アバター画像（外部URL）
-        type: string
-        description: 外部URLを使用する場合はこちらに入力してください
-      - name: avatarImage
-        label: アバター画像（アップロード）
-        type: image
-        description: 画像をアップロードする場合はこちらを使用してください
-      - name: bio
-        label: 自己紹介
-        type: string
+media:
+  input: public/uploads
+  output: /uploads
