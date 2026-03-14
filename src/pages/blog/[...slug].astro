@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import authors from '../../data/authors.json'
 import SplitContent from '../../components/SplitContent.astro'
+import { optimizeImage } from '../../utils/image'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -149,10 +150,10 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
       props: {
         title: 'メタバースの世界',
         items: [
-          { src: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'VRヘッドセット' },
-          { src: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80&fm=webp', alt: '仮想空間のイメージ' },
-          { src: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'ゲーミング環境' },
-          { src: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80&fm=webp', alt: 'デジタルワールド' },
+          { src: optimizeImage('https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80&fm=webp'), alt: 'VRヘッドセット' },
+          { src: optimizeImage('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80&fm=webp'), alt: '仮想空間のイメージ' },
+          { src: optimizeImage('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80&fm=webp'), alt: 'ゲーミング環境' },
+          { src: optimizeImage('https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80&fm=webp'), alt: 'デジタルワールド' },
         ],
       },
     },
@@ -174,7 +175,7 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
     {
       type: 'photo',
       afterSection: 3,
-      src: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80&fm=webp',
+      src: optimizeImage('https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=400&fit=crop&q=80&fm=webp'),
       alt: 'ロボット工作のイメージ',
       caption: 'タミヤ工作シリーズを使って、組み立てから改造まで体験できます。',
     },
@@ -216,7 +217,7 @@ const blogVisuals: Record<string, Array<{ type: string; afterSection: number; [k
 
 const articleVisuals = blogVisuals[post.slug] ?? []
 
-const ogImage = post.data.imageUrl || undefined
+const ogImage = post.data.imageUrl ? optimizeImage(post.data.imageUrl) : undefined
 const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -269,7 +270,7 @@ const blogPostingLd = {
       {(post.data.image || post.data.imageUrl) && (
         <div class="mb-8 rounded-xl overflow-hidden">
           <img
-            src={post.data.image || post.data.imageUrl}
+            src={optimizeImage(post.data.image || post.data.imageUrl)}
             alt={post.data.title}
             class="w-full h-auto"
             width="960"

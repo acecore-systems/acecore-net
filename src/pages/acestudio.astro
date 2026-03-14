@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import InsightGrid from '../components/InsightGrid.astro'
+import { optimizeImage } from '../utils/image'
 import PullQuote from '../components/PullQuote.astro'
 import Faq from '../components/Faq.astro'
 
@@ -47,7 +48,7 @@ const studioAreas = [
   <Hero
     title="AceStudio"
     subtitle="Coming Soon"
-    images={[{src: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp', alt: 'レトロテクノロジー'}]}
+    images={[{src: optimizeImage('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'レトロテクノロジー'}]}
   />
 
   <section class="ac-section">
@@ -64,7 +65,7 @@ const studioAreas = [
 
       <div class="mb-12">
         <img
-          src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="映像制作・クリエイティブワーク"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import Checklist from '../components/Checklist.astro'
+import { optimizeImage } from '../utils/image'
 
 const valueCycle = [
   {
@@ -47,7 +48,7 @@ const activityChecklist = [
   <Hero
     title="会社概要"
     subtitle="Acecoreが目指すこと、大切にしていること"
-    images={[{src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp', alt: 'チームディスカッション'}]}
+    images={[{src: optimizeImage('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'チームディスカッション'}]}
   />
 
   <section class="ac-section">
@@ -83,7 +84,7 @@ const activityChecklist = [
 
       <div class="mb-12">
         <img
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="チームでのコラボレーション作業"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -102,7 +103,7 @@ const activityChecklist = [
 
       <div class="mb-12">
         <img
-          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="勉強会・ワークショップの様子"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import { optimizeImage } from '../utils/image'
 ---
 
 <BaseLayout
   title="プライバシーポリシー"
   description="Acecore（エースコア）のプライバシーポリシー。個人情報の取り扱い、広告配信、アクセス解析、免責事項について記載しています。"
 >
-  <Hero title="プライバシーポリシー" images={[{src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp', alt: '書類とペン'}]} />
+  <Hero title="プライバシーポリシー" images={[{src: optimizeImage('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: '書類とペン'}]} />
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl">

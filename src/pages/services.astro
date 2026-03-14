@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Timeline from '../components/Timeline.astro'
+import { optimizeImage } from '../utils/image'
 
 const serviceMap = [
   {
@@ -46,7 +47,7 @@ const deliveryTimeline = [
   <Hero
     title="サービス"
     subtitle="ワンストップで提供する多彩なITソリューション"
-    images={[{src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp', alt: 'テクノロジーオフィス'}]}
+    images={[{src: optimizeImage('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'テクノロジーオフィス'}]}
   />
 
   <section class="ac-section bg-slate-50">
@@ -108,7 +109,7 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="コードエディタでの開発作業のイメージ"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -192,7 +193,7 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="Webデザインの制作プロセス"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -244,7 +245,7 @@ const deliveryTimeline = [
 
       <div class="mb-16">
         <img
-          src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp"
+          src={optimizeImage('https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp')}
           alt="クリエイティブなデザインワークスペース"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
