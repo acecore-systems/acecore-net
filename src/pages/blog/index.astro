@@ -34,6 +34,8 @@ const posts = (await getCollection('blog')).sort(
                         src={post.data.image || post.data.imageUrl}
                         alt={post.data.title}
                         class="w-full h-40 sm:h-full object-cover"
+                        width="192"
+                        height="160"
                         decoding="async"
                         loading="lazy"
                       />
