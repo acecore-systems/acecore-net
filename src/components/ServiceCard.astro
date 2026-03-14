@@ -8,10 +8,12 @@ interface Props {
 
 const { icon, title, description, href } = Astro.props
 const Tag = href ? 'a' : 'div'
+const isExternal = href?.startsWith('http')
 ---
 
 <Tag
   {...(href ? { href } : {})}
+  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
   class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow block no-underline group"
 >
   <div class={`${icon} text-3xl text-brand-500 mb-4`}></div>

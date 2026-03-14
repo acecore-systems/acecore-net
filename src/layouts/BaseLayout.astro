@@ -68,8 +68,9 @@ import Footer from '../components/Footer.astro'
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm">本文へスキップ</a>
     <Header />
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer />

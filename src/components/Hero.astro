@@ -3,7 +3,7 @@ interface Props {
   title: string
   subtitle?: string
   showCTA?: boolean
-  images?: string[]
+  images?: {src: string, alt: string}[]
 }
 
 const { title, subtitle, showCTA = false, images } = Astro.props
@@ -20,7 +20,7 @@ const hasSlider = images && images.length > 0
   {
     hasSlider && (
       <div class="absolute inset-0" id="hero-slider">
-        {images.map((src, i) => (
+        {images.map(({src, alt}, i) => (
           <div
             class:list={[
               'hero-slide absolute inset-0 transition-opacity duration-1000',
@@ -30,7 +30,7 @@ const hasSlider = images && images.length > 0
           >
             <img
               src={src}
-              alt=""
+              alt={alt}
               class="w-full h-full object-cover"
               width="1400"
               height="600"
