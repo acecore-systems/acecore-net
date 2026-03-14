@@ -21,7 +21,7 @@ try { hostname = new URL(href).hostname } catch { hostname = href }
     <div class="flex items-start gap-3">
       <div class:list={['text-lg text-brand-500 mt-0.5 shrink-0', icon || 'i-lucide-external-link']}></div>
       <div>
-        <p class="text-sm font-600 text-slate-800 group-hover:text-brand-600 transition-colors">{title}</p>
+        <p class="text-sm font-700 text-slate-800 group-hover:text-brand-600 transition-colors">{title}</p>
         {description && <p class="text-xs text-slate-500 mt-0.5">{description}</p>}
         <p class="text-xs text-brand-500 mt-1">{hostname}</p>
       </div>
