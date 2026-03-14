@@ -21,7 +21,6 @@ const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
 
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import '@fontsource-variable/noto-sans-jp/wght.css'
 ---
 
 <!doctype html>
@@ -40,7 +39,12 @@ import '@fontsource-variable/noto-sans-jp/wght.css'
     <meta property="og:site_name" content="Acecore" />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=optional"
+    />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",

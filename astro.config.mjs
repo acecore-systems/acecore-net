@@ -11,17 +11,4 @@ export default defineConfig({
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
     ],
   },
-  vite: {
-    plugins: [
-      {
-        name: 'font-display-optional',
-        transform(code, id) {
-          if (id.includes('@fontsource') && id.endsWith('.css')) {
-            return code.replaceAll('font-display:swap', 'font-display:optional')
-              .replaceAll('font-display: swap', 'font-display: optional')
-          }
-        },
-      },
-    ],
-  },
 })
