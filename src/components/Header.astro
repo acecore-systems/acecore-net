@@ -39,6 +39,8 @@ const currentPath = Astro.url.pathname
       id="mobile-menu-btn"
       class="md:hidden p-2 text-slate-600"
       aria-label="メニューを開く"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <div class="i-lucide-menu text-xl"></div>
     </button>
@@ -68,7 +70,19 @@ const currentPath = Astro.url.pathname
 </header>
 
 <script>
-  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.toggle('hidden')
+  const menuBtn = document.getElementById('mobile-menu-btn')
+  const menu = document.getElementById('mobile-menu')
+  menuBtn?.addEventListener('click', () => {
+    const expanded = menu?.classList.toggle('hidden') === false
+    menuBtn.setAttribute('aria-expanded', String(expanded))
+    menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
+      menu.classList.add('hidden')
+      menuBtn?.setAttribute('aria-expanded', 'false')
+      menuBtn?.setAttribute('aria-label', 'メニューを開く')
+      menuBtn?.focus()
+    }
   })
 </script>
