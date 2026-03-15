@@ -1,6 +1,12 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "acecore-net",
-  "compatibility_date": "2025-03-14",
-  "compatibility_flags": ["nodejs_compat"]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "acecore-net",
+	"compatibility_date": "2025-03-14",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"routes": [
+		{"pattern": "acecore.net/*", "zone_name": "acecore.net"},
+		{"pattern": "www.acecore.net/*", "zone_name": "acecore.net"}
+	]
 }
