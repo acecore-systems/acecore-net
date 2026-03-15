@@ -13,6 +13,16 @@ const faqItems = [
   { question: '事前登録や予約はできますか？', answer: '現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。' },
 ]
 
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+  })),
+}
+
 const studioAreas = [
   {
     title: 'コンテンツ制作',
@@ -44,6 +54,7 @@ const studioAreas = [
 <BaseLayout
   title="AceStudio"
   description="AceStudio（エーススタジオ）は、Acecoreが開発中のクリエイティブプラットフォームです。詳細は近日公開予定。"
+  jsonLd={faqLd}
 >
   <Hero
     title="AceStudio"

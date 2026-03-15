@@ -12,6 +12,37 @@ import { optimizeImage } from '../utils/image'
 
   <section class="ac-section">
     <div class="ac-container max-w-2xl">
+      <div class="bg-brand-50 rounded-lg p-6 mb-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-slate-700">
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-clock text-brand-500 shrink-0"></div>
+            <span>通常1〜2営業日以内にご返信</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-badge-check text-brand-500 shrink-0"></div>
+            <span>お見積り無料</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 text-sm">
+        <div class="flex items-center gap-2">
+          <div class="i-lucide-phone text-brand-500"></div>
+          <span class="font-600 text-slate-800">050-8890-2788</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="i-lucide-mail text-brand-500"></div>
+          <a href="mailto:info@acecore.net" class="font-600 text-brand-500 hover:underline">info@acecore.net</a>
+        </div>
+        <a
+          href="https://lin.ee/DjIrdqj"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 font-600 text-brand-500 hover:underline"
+        >
+          <div class="i-lucide-message-circle text-brand-500"></div>
+          LINEで問い合わせる
+        </a>
+      </div>
       <form action="https://ssgform.com/s/a4JOVjLjyygh" method="post" class="space-y-6">
         <div>
           <label for="category" class="block text-sm font-600 text-slate-700 mb-2">
@@ -94,6 +125,9 @@ import { optimizeImage } from '../utils/image'
           <button type="submit" class="ac-btn-primary w-full sm:w-auto">
             送信する
           </button>
+          <p class="text-xs text-slate-500 mt-3">
+            送信後、確認メールが届きます。届かない場合は迷惑メールフォルダもご確認ください。
+          </p>
         </div>
       </form>
     </div>

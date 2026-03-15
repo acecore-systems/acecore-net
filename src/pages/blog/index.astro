@@ -67,6 +67,15 @@ const posts = (await getCollection('blog')).sort(
           </div>
         )
       }
+
+      <div class="mt-12 bg-brand-50 rounded-xl p-6 sm:p-8 text-center">
+        <p class="text-lg font-700 text-slate-800 mb-2">サービスについてもっと知りたい方へ</p>
+        <p class="text-sm text-slate-600 mb-4">システム開発・Web制作・デザイン・ITスクールなど、幅広くサポートしています。</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="/services/" class="ac-btn-primary">サービス一覧を見る</a>
+          <a href="/contact/" class="ac-btn-outline">無料で相談する</a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -38,11 +38,23 @@ const deliveryTimeline = [
   { date: 'Step 3', title: '制作・構築', description: '開発・デザイン・インフラを横断して実装。' },
   { date: 'Step 4', title: '公開・保守', description: '改善提案・追加開発まで含めた継続支援。' },
 ]
+
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Service", "name": "業務システム・アプリ開発", "description": "業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#system-development" },
+    { "@type": "Service", "name": "サーバー構築・運用", "description": "セキュアで安定したサーバー環境の構築と運用を提供します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#server" },
+    { "@type": "Service", "name": "Webサイト制作・運用", "description": "コーポレートサイト、ECサイトなど各種Webサイトの企画から制作、運用保守までを一貫して対応します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#web" },
+    { "@type": "Service", "name": "デザイン・クリエイティブ", "description": "ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#design" },
+    { "@type": "Service", "name": "ITスクール / Acecore Schools", "description": "学習塾・ロボットプログラミング・実践プログラミング・パソコン教室・高卒認定対策など幅広い教育プログラムを提供します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/schools/" },
+  ],
+}
 ---
 
 <BaseLayout
   title="サービス"
   description="Acecoreが提供するシステム開発、Webサイト制作、サーバー運用、デザイン、IT教育サービスの詳細をご紹介します。"
+  jsonLd={serviceLd}
 >
   <Hero
     title="サービス"
@@ -81,8 +93,9 @@ const deliveryTimeline = [
           <h2 class="text-2xl ac-heading">業務システム・アプリ開発</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
-          業務効率化・自動化・データ管理など、お客様の目的に応じたシステムやアプリケーションの開発を行います。
+          業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。
           小規模な社内ツールから大規模なWebサービスまで幅広く対応可能です。
+          「何から始めればいいか分からない」という段階でも、<a href="/contact/" class="text-brand-500 hover:underline">お気軽にご相談ください</a>。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
@@ -133,6 +146,7 @@ const deliveryTimeline = [
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline">Aceserver（マインクラフト公開サーバー）</a
           >を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。
+          サーバーの移行やクラウド化のご相談も<a href="/contact/" class="text-brand-500 hover:underline">お待ちしています</a>。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
@@ -166,7 +180,7 @@ const deliveryTimeline = [
         <p class="text-slate-600 leading-relaxed mb-4">
           コーポレートサイト、ポートフォリオ、ECサイト、コミュニティサイトなど、
           各種Webサイトの企画から制作、運用保守までを一貫して対応します。
-          最新の技術スタックとSEO対策で、高品質なサイトを実現します。
+          このサイト自体も<a href="/blog/astro-performance-tuning/" class="text-brand-500 hover:underline">Astro + UnoCSS で PageSpeed 98点を達成</a>しており、最新の技術とSEO対策で高品質なサイトを実現します。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
@@ -218,8 +232,7 @@ const deliveryTimeline = [
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。
-          お客様の「伝えたい」を的確に形にすることを大切にしています。
-        </p>
+          お客様の「伝えたい」を的確に形にすることを大切にしています。          <a href="/services/#web" class="text-brand-500 hover:underline">Webサイト制作</a>と組み合わせれば、デザインから公開まで一貫でお任せいただけます。        </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
@@ -263,7 +276,8 @@ const deliveryTimeline = [
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           実務で通用するITスキルを、現役エンジニアが直接指導するスクールです。
-          学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ教室・高卒認定対策など、幅広い教育プログラムを提供しています。
+          学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ教室・高卒認定対策など、
+          <a href="/schools/" class="text-brand-500 hover:underline">一人ひとりに合わせた幅広い教育プログラム</a>を提供しています。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">コース一覧</h3>
@@ -406,10 +420,16 @@ const deliveryTimeline = [
 
       <!-- CTA -->
       <div class="text-center bg-brand-50 rounded-xl p-8">
-        <p class="text-lg text-slate-700 mb-6">
-          サービスに関するご質問・ご相談はお気軽にどうぞ。
+        <p class="text-lg font-700 text-slate-800 mb-2">
+          まずはお気軽にご相談ください
         </p>
-        <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
+        <p class="text-sm text-slate-600 mb-6">
+          「何を頼めるか分からない」という段階でも大丈夫です。お見積りは無料です。
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/contact/" class="ac-btn-primary">無料で相談する</a>
+          <a href="/schools/" class="ac-btn-outline">ITスクールの詳細を見る</a>
+        </div>
       </div>
     </div>
   </section>

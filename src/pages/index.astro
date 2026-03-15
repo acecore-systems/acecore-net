@@ -41,8 +41,8 @@ const coreLayers = [
 
 <BaseLayout title="ホーム">
   <Hero
-    title="技術でつながる、クリエイティブで広がる"
-    subtitle="Acecore（エースコア）は、システム開発・Web制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
+    title="開発からデザイン、教育まで。ワンストップで届けるIT支援"
+    subtitle="システム開発・Web制作・サーバー運用・デザイン・IT教育を、一つの窓口でまとめてお任せいただけます。"
     showCTA={true}
     images={[
       {src: optimizeImage('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'コワーキングスペースで働くチーム'},
@@ -59,43 +59,43 @@ const coreLayers = [
         主なサービス
       </h2>
       <p class="ac-muted text-center max-w-2xl mx-auto mb-12">
-        個人から法人まで、多様なニーズに合わせて柔軟にサポートします。
+        「何から頼めばいいか分からない」という方もご安心ください。個人から法人まで柔軟に対応します。
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <ServiceCard
           icon="i-lucide-code-2"
           title="業務システム・アプリ開発"
-          description="業務効率化・自動化・データ管理など、目的に応じたシステム・アプリを開発。小規模案件から大規模プロジェクトまで幅広く対応します。"
+          description="日々の業務を効率化したい、データ管理を改善したいといった課題を、最適なシステムで解決します。小規模ツールから大規模サービスまで対応可能です。"
           href="/services/#system-development"
         />
         <ServiceCard
           icon="i-lucide-server"
           title="サーバー構築・運用"
-          description="セキュアで安定したサーバー構築・運用をご提供。Aceserverなど公共性の高い運用実績も多数あります。"
+          description="サーバーが落ちない、遅くならない環境をお届けします。数百人規模の同時接続を支えてきた運用実績があります。"
           href="/services/#server"
         />
         <ServiceCard
           icon="i-lucide-globe"
           title="Webサイト制作・運用"
-          description="コーポレートサイト、ポートフォリオ、ECサイトなどを企画・制作。デザインから運用保守まで一貫対応します。"
+          description="見た目だけでなく集客や使いやすさまで考え抜いたWebサイトを制作。公開後の更新・保守もお任せください。"
           href="/services/#web"
         />
         <ServiceCard
           icon="i-lucide-palette"
           title="デザイン・クリエイティブ"
-          description="ロゴ、印刷物、バナー、キャラクターデザインなど幅広い制作実績。「伝えたい」を形にします。"
+          description="ロゴ・名刺・バナー・キャラクターなど、あなたの「伝えたい」を見える形にします。"
           href="/services/#design"
         />
         <ServiceCard
           icon="i-lucide-graduation-cap"
           title="ITスクール / Acecore Schools"
-          description="学習塾・ロボプロ・実践プログラミング・パソコン教室・高卒認定対策など、幅広い教育プログラムを提供。"
+          description="お子さまから大人まで、一人ひとりに合わせた個別指導。プログラミング・学習塾・高卒認定対策に対応しています。"
           href="/schools/"
         />
         <ServiceCard
           icon="i-lucide-gamepad-2"
           title="Aceserver"
-          description="誰でも参加可能なマインクラフト無料公開サーバー。JAVA版・統合版対応で、自由で活発なコミュニティを運営しています。"
+          description="誰でも無料で参加できるマインクラフト公開サーバー。JAVA版・統合版に対応し、活発なコミュニティがあなたを待っています。"
           href="https://asv.acecore.net/"
         />
       </div>
@@ -123,12 +123,15 @@ const coreLayers = [
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-2xl sm:text-3xl ac-heading mb-6">Acecoreについて</h2>
         <p class="text-lg text-slate-600 leading-relaxed mb-4">
-          「つながり・発見・共創」をテーマに、コミュニティ活動や勉強会を定期開催しています。
+          技術の勉強会やワークショップを定期開催し、お客様やコミュニティと一緒に学び合う場を大切にしています。
         </p>
         <p class="text-lg text-slate-600 leading-relaxed mb-8">
-          オープンソース活用・地域連携・教育分野への貢献を通じて、技術と人をつなげるパートナーシップを築いています。
+          オープンソース活用・地域連携・<a href="/schools/" class="text-brand-500 hover:underline">教育分野</a>への貢献を通じて、技術と人をつなげるパートナーシップを築いています。
         </p>
-        <a href="/about/" class="ac-btn-primary">会社概要を見る</a>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/about/" class="ac-btn-primary">会社概要を見る</a>
+          <a href="/services/" class="ac-btn-outline">サービス一覧を見る</a>
+        </div>
       </div>
     </div>
   </section>

@@ -43,11 +43,32 @@ const learningCompare = {
     items: ['一人ひとりに合った入口を提案', '講師にいつでも質問できる', '体験を通じて自然に継続', '受験・資格・実務に直結'],
   },
 }
+
+const schoolsLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "Acecore Schools",
+      "description": "学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ・高卒認定など幅広い教育プログラムを提供するITスクールです。",
+      "url": "https://acecore.net/schools/",
+      "parentOrganization": { "@type": "Organization", "name": "Acecore", "url": "https://acecore.net" },
+      "telephone": "050-8890-2788",
+      "email": "info@acecore.net",
+    },
+    { "@type": "Course", "name": "学習塾", "description": "一人ひとりの生徒に合わせた個別指導で、基礎から応用まで学力を身につけます。定期テスト・受験対策にも対応。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#juku" },
+    { "@type": "Course", "name": "ロボット / プログラミング", "description": "ロボット工作・ロボットプログラミング・マインクラフトプログラミングを通じてプログラミングの基礎を学びます。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#robot-programming" },
+    { "@type": "Course", "name": "実践プログラミング", "description": "HTML/CSS/JavaScript、Python/Node.js、データベース設計など実務で使えるプログラミング技術を習得します。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#practical-programming" },
+    { "@type": "Course", "name": "パソコン / スマホ", "description": "基本操作からオフィスソフト活用、セキュリティ対策まで、日常やビジネスに必要なITスキルを身につけます。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#pc-smartphone" },
+    { "@type": "Course", "name": "高卒認定", "description": "各科目ごとの試験対策、個人に合わせた学習計画、模擬試験で高卒認定試験合格をサポートします。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#ged" },
+  ],
+}
 ---
 
 <BaseLayout
   title="Acecore Schools"
   description="Acecore Schoolsは、学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ・高卒認定など幅広い教育プログラムを提供するITスクールです。"
+  jsonLd={schoolsLd}
 >
   <Hero
     title="Acecore Schools"
@@ -68,7 +89,7 @@ const learningCompare = {
       </div>
 
       <p class="text-lg text-slate-600 leading-relaxed mb-12">
-        AceCore Schoolsは、学習塾、ロボットプログラミング、実践プログラミング、パソコン・スマホの操作技術、高卒認定試験対策など、幅広い教育プログラムを提供しています。一人ひとりの生徒に合わせた指導を行い、生徒の成長をサポートします。
+        お子さまから大人の方まで、一人ひとりの目標やペースに合わせた個別指導を行っています。<a href="/services/#education" class="text-brand-500 hover:underline">サービス一覧</a>での位置づけもご覧いただけます。
       </p>
 
       <!-- 学習塾 -->
@@ -270,7 +291,7 @@ const learningCompare = {
       <div class="bg-brand-50 rounded-xl p-8 text-center">
         <h2 class="text-xl ac-heading mb-4">お問い合わせ・お申し込み</h2>
         <p class="text-slate-600 mb-6">
-          各コースの詳細やお申し込みは、お電話・メール・LINEで受け付けています。
+          各コースの詳細やお申し込みは、お電話・メール・LINEで受け付けています。「どのコースが合うか分からない」というご相談もお気軽にどうぞ。
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
           <div class="flex items-center gap-2">

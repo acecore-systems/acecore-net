@@ -19,6 +19,30 @@ const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
 
+const pageNameMap: Record<string, string> = {
+  services: 'サービス',
+  schools: 'Acecore Schools',
+  about: '会社概要',
+  contact: 'お問い合わせ',
+  blog: 'ブログ',
+  acestudio: 'AceStudio',
+  privacy: 'プライバシーポリシー',
+}
+const pathParts = Astro.url.pathname.split('/').filter(Boolean)
+const breadcrumbLd = pathParts.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://acecore.net/" },
+    ...pathParts.map((part, i) => ({
+      "@type": "ListItem",
+      "position": i + 2,
+      "name": pageNameMap[part] || title,
+      "item": `https://acecore.net/${pathParts.slice(0, i + 1).join('/')}/`,
+    })),
+  ],
+} : null
+
 import '@fontsource-variable/noto-sans-jp'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -60,6 +84,13 @@ import Footer from '../components/Footer.astro'
         "https://asv.acecore.net"
       ]
     })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Acecore",
+      "url": "https://acecore.net",
+    })} />
+    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
