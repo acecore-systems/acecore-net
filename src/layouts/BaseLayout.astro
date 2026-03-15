@@ -19,6 +19,7 @@ const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
 
+import '@fontsource-variable/noto-sans-jp'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 ---
@@ -32,6 +33,7 @@ import Footer from '../components/Footer.astro'
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="index, follow" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -45,16 +47,7 @@ import Footer from '../components/Footer.astro'
     <meta name="twitter:site" content="@acecorenet" />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://wsrv.nl" />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=optional"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=optional" /></noscript>
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -76,9 +69,15 @@ import Footer from '../components/Footer.astro'
       <slot />
     </main>
     <Footer />
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919"
-      crossorigin="anonymous"></script>
+    <script>
+      addEventListener('scroll', function loadAds() {
+        removeEventListener('scroll', loadAds)
+        const s = document.createElement('script')
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919'
+        s.async = true
+        s.crossOrigin = 'anonymous'
+        document.body.appendChild(s)
+      }, { once: true, passive: true })
+    </script>
   </body>
 </html>

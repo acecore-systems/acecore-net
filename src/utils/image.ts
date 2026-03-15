@@ -11,7 +11,7 @@ export function optimizeImage(url: string): string {
     const parts = [`url=${origin}`]
     if (w) parts.push(`w=${w}`)
     if (h) parts.push(`h=${h}`)
-    parts.push('fit=cover', 'output=auto', 'q=75')
+    parts.push('fit=cover', 'output=webp', 'q=70')
     return `https://wsrv.nl/?${parts.join('&')}`
   } catch {
     return url
