@@ -59,11 +59,7 @@ tags: ['タグ1', 'タグ2']
 
 ## お問い合わせフォーム
 
-`functions/api/contact.js` に Cloudflare Pages Function を設置しています。メール送信の実装は要件に応じて以下から選択してください：
-
-- [Resend](https://resend.com/)
-- [SendGrid](https://sendgrid.com/)
-- Cloudflare Email Workers
+[ssgform.com](https://ssgform.com/) を利用した外部フォーム送信 + Cloudflare Turnstile によるボット対策を実装しています。
 
 ## デプロイ
 
@@ -80,6 +76,6 @@ GitHub への push で自動デプロイされます。
 |----------|------|
 | `astro.config.mjs` | Astro 設定 |
 | `uno.config.ts` | UnoCSS テーマ・ショートカット |
-| `wrangler.toml` | Cloudflare Pages 設定 |
 | `.pages.yml` | Pages CMS 設定 |
 | `public/ads.txt` | Google AdSense 認証 |
+| `public/_headers` | Cloudflare Pages HTTPヘッダー（キャッシュ・セキュリティ・SEO） |
