@@ -55,7 +55,7 @@ const currentPath = Astro.url.pathname
           <a
             href={link.href}
             class:list={[
-              'text-sm font-600 no-underline py-2',
+              'text-sm font-600 no-underline py-3 min-h-11',
               currentPath === link.href
                 ? 'text-brand-500'
                 : 'text-slate-600',
