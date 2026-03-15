@@ -72,6 +72,14 @@ import Footer from '../components/Footer.astro'
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
     <link rel="dns-prefetch" href="https://wsrv.nl" />
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G79SGTMYEX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G79SGTMYEX');
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
