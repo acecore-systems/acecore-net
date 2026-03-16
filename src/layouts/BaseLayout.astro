@@ -18,6 +18,7 @@ const {
 const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
+const isMonetizedPage = Astro.url.pathname === '/blog/' || Astro.url.pathname.startsWith('/blog/')
 
 const pageNameMap: Record<string, string> = {
   services: 'サービス',
@@ -72,6 +73,19 @@ import Footer from '../components/Footer.astro'
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
     <link rel="dns-prefetch" href="https://wsrv.nl" />
+    {isMonetizedPage && (
+      <>
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin="anonymous" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919"
+          crossorigin="anonymous"
+        ></script>
+      </>
+    )}
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G79SGTMYEX"></script>
     <script is:inline>
@@ -108,15 +122,5 @@ import Footer from '../components/Footer.astro'
       <slot />
     </main>
     <Footer />
-    <script>
-      addEventListener('scroll', function loadAds() {
-        removeEventListener('scroll', loadAds)
-        const s = document.createElement('script')
-        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919'
-        s.async = true
-        s.crossOrigin = 'anonymous'
-        document.body.appendChild(s)
-      }, { once: true, passive: true })
-    </script>
   </body>
 </html>
