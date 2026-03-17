@@ -15,6 +15,7 @@ import Checklist from '../../components/Checklist.astro'
 import InsightGrid from '../../components/InsightGrid.astro'
 import Testimonial from '../../components/Testimonial.astro'
 import PullQuote from '../../components/PullQuote.astro'
+import AdUnit from '../../components/AdUnit.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -99,6 +100,7 @@ const blogPostingLd = {
           />
         </div>
       )}
+      <AdUnit slot="4541792182" />
       {post.data.callout && <Callout {...post.data.callout} />}
       {post.data.insightGrid && <InsightGrid {...post.data.insightGrid} />}
       <div class="prose prose-slate prose-lg max-w-none">
@@ -114,6 +116,8 @@ const blogPostingLd = {
       {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
       {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
       {post.data.faq && <Faq {...post.data.faq} />}
+
+      <AdUnit slot="3228710511" />
 
       {author && (
         <div class="mt-12 pt-8 border-t border-slate-200">
