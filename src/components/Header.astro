@@ -34,16 +34,33 @@ const currentPath = Astro.url.pathname
           </a>
         ))
       }
+      <button
+        onclick="window.openSearch?.()"
+        class="p-2 text-slate-500 hover:text-brand-500 transition-colors"
+        aria-label="記事を検索"
+        title="検索 (Ctrl+K)"
+      >
+        <div class="i-lucide-search text-lg"></div>
+      </button>
     </nav>
-    <button
-      id="mobile-menu-btn"
-      class="md:hidden p-2 text-slate-600"
+    <div class="flex items-center gap-1 md:hidden">
+      <button
+        onclick="window.openSearch?.()"
+        class="p-2 text-slate-500"
+        aria-label="記事を検索"
+      >
+        <div class="i-lucide-search text-lg"></div>
+      </button>
+      <button
+        id="mobile-menu-btn"
+        class="p-2 text-slate-600"
       aria-label="メニューを開く"
       aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <div class="i-lucide-menu text-xl"></div>
-    </button>
+        aria-controls="mobile-menu"
+      >
+        <div class="i-lucide-menu text-xl"></div>
+      </button>
+    </div>
   </div>
   <nav
     id="mobile-menu"

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
 import { optimizeImage } from '../utils/image'
 ---
 
@@ -11,8 +12,7 @@ import { optimizeImage } from '../utils/image'
   <Hero title="お問い合わせ" subtitle="ご質問・ご相談・ご依頼はこちらから" images={[{src: optimizeImage('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'コミュニケーションイメージ'}]} />
 
   <section class="ac-section">
-    <div class="ac-container max-w-2xl">
-      <div class="bg-brand-50 rounded-lg p-6 mb-8">
+    <div class="ac-container max-w-2xl">	    <Breadcrumb items={[{ label: 'お問い合わせ' }]} />      <div class="bg-brand-50 rounded-lg p-6 mb-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-slate-700">
           <div class="flex items-center gap-2">
             <div class="i-lucide-clock text-brand-500 shrink-0"></div>

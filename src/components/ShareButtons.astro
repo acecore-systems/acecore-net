@@ -1,0 +1,53 @@
+---
+interface Props {
+  url: string
+  title: string
+}
+const { url, title } = Astro.props
+const encodedUrl = encodeURIComponent(url)
+const encodedTitle = encodeURIComponent(title)
+---
+
+<div class="flex items-center gap-3 flex-wrap" data-pagefind-ignore>
+  <span class="text-sm font-600 text-slate-600">シェアする</span>
+  <a
+    href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#1d9bf0] hover:text-white transition-colors"
+    aria-label="Xで共有"
+  >
+    <div class="i-lucide-twitter text-sm"></div>
+    <span>X</span>
+  </a>
+  <a
+    href={`https://b.hatena.ne.jp/add?mode=confirm&url=${encodedUrl}&title=${encodedTitle}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#00a4de] hover:text-white transition-colors"
+    aria-label="はてなブックマークに追加"
+  >
+    <span class="font-700 text-xs">B!</span>
+    <span>はてブ</span>
+  </a>
+  <button
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer"
+    aria-label="リンクをコピー"
+    data-share-url={url}
+  >
+    <div class="i-lucide-link text-sm"></div>
+    <span>リンク</span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-share-url]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const url = btn.dataset.shareUrl!;
+      await navigator.clipboard.writeText(url);
+      const original = btn.querySelector('span')!.textContent;
+      btn.querySelector('span')!.textContent = 'コピーしました';
+      setTimeout(() => { btn.querySelector('span')!.textContent = original; }, 2000);
+    });
+  });
+</script>

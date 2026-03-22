@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import CompareTable from '../components/CompareTable.astro'
 import { optimizeImage } from '../utils/image'
@@ -78,6 +79,7 @@ const schoolsLd = {
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[{ label: 'Acecore Schools' }]} />
       <div class="mb-12">
         <ProcessFigure
           variant="card"

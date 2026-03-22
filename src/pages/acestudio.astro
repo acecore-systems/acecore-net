@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import { optimizeImage } from '../utils/image'
 import PullQuote from '../components/PullQuote.astro'
@@ -64,6 +65,7 @@ const studioAreas = [
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl text-center">
+      <div class="text-left"><Breadcrumb items={[{ label: 'AceStudio' }]} /></div>
       <div class="text-left mb-12">
         <InsightGrid
           variant="card"

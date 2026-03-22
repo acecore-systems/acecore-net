@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
 import { optimizeImage } from '../utils/image'
 ---
 
@@ -11,8 +12,7 @@ import { optimizeImage } from '../utils/image'
   <Hero title="プライバシーポリシー" images={[{src: optimizeImage('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: '書類とペン'}]} />
 
   <section class="ac-section">
-    <div class="ac-container max-w-3xl">
-      <div class="prose prose-slate prose-lg max-w-none">
+    <div class="ac-container max-w-3xl">	    <Breadcrumb items={[{ label: 'プライバシーポリシー' }]} />      <div class="prose prose-slate prose-lg max-w-none">
         <h2>広告配信について</h2>
         <p>
           当サイト（Acecore）は、第三者配信による広告サービス「Google

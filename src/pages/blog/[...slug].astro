@@ -17,6 +17,9 @@ import Testimonial from '../../components/Testimonial.astro'
 import PullQuote from '../../components/PullQuote.astro'
 import AdUnit from '../../components/AdUnit.astro'
 import TableOfContents from '../../components/TableOfContents.astro'
+import Breadcrumb from '../../components/Breadcrumb.astro'
+import ShareButtons from '../../components/ShareButtons.astro'
+import CopyCodeButton from '../../components/CopyCodeButton.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -83,15 +86,12 @@ const blogPostingLd = {
           <TableOfContents headings={tocHeadings} />
         </div>
       </aside>
-      <article class="min-w-0">
+      <article class="min-w-0" data-pagefind-body>
       <div class="mb-8">
-        <a
-          href="/blog/"
-          class="text-sm text-brand-500 hover:underline inline-flex items-center gap-1 mb-4"
-        >
-          <div class="i-lucide-arrow-left text-sm"></div>
-          ブログ一覧に戻る
-        </a>
+        <Breadcrumb items={[
+          { label: 'ブログ', href: '/blog/' },
+          { label: post.data.title },
+        ]} />
         <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
           {post.data.title}
         </h1>
@@ -100,7 +100,7 @@ const blogPostingLd = {
           {author && <span>by {author.name}</span>}
         </div>
         {post.data.tags && (
-            <div class="flex flex-wrap gap-2 mt-4">
+            <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
               {post.data.tags.map((tag: string) => (
                 <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
                   {tag}
@@ -111,7 +111,7 @@ const blogPostingLd = {
         }
       </div>
       {tocHeadings.length > 0 && (
-        <details class="lg:hidden mb-8 ac-card p-4">
+        <details class="lg:hidden mb-8 ac-card p-4" data-pagefind-ignore>
           <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
             <div class="i-lucide-list text-sm"></div>
             目次
@@ -158,12 +158,16 @@ const blogPostingLd = {
       {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
       {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
       {post.data.faq && <Faq {...post.data.faq} />}
-      <div class="my-8">
+      <div class="my-8" data-pagefind-ignore>
         <AdUnit adSlot="3228710511" />
       </div>
 
+      <div class="my-8 py-6 border-t border-slate-200">
+        <ShareButtons url={`https://acecore.net/blog/${post.id}/`} title={post.data.title} />
+      </div>
+
       {author && (
-        <div class="lg:hidden mt-12 pt-8 border-t border-slate-200">
+        <div class="lg:hidden mt-12 pt-8 border-t border-slate-200" data-pagefind-ignore>
           <div class="flex items-start gap-4">
             {(author.avatarImage || author.avatar) ? (
               <img
@@ -186,7 +190,7 @@ const blogPostingLd = {
         </div>
       )}
 
-      <div class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center">
+      <div class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center" data-pagefind-ignore>
         <p class="text-lg font-700 text-slate-800 mb-2">ご相談・ご依頼はお気軽に</p>
         <p class="text-sm text-slate-600 mb-4">記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -196,7 +200,7 @@ const blogPostingLd = {
       </div>
 
       {relatedPosts.length > 0 && (
-        <section class="mt-12 pt-8 border-t border-slate-200">
+        <section class="mt-12 pt-8 border-t border-slate-200" data-pagefind-ignore>
           <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
             <div class="i-lucide-newspaper text-lg text-brand-500"></div>
             関連記事
@@ -245,7 +249,7 @@ const blogPostingLd = {
       )}
 
       {(prevPost || nextPost) && (
-        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4" data-pagefind-ignore>
           {prevPost ? (
             <a
               href={`/blog/${prevPost.id}/`}
@@ -270,6 +274,7 @@ const blogPostingLd = {
           )}
         </nav>
       )}
+      <CopyCodeButton />
       </article>
       <aside class="hidden lg:block" aria-label="サイドバー">
         <div class="sticky top-20 space-y-6">
