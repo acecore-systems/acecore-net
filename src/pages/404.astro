@@ -8,7 +8,7 @@ const recentPosts = (await getCollection('blog'))
   .slice(0, 4)
 ---
 
-<BaseLayout title="ページが見つかりません" description="お探しのページは見つかりませんでした。URLをご確認いただくか、トップページからお探しください。">
+<BaseLayout title="ページが見つかりません" description="お探しのページは見つかりませんでした。URLをご確認いただくか、トップページからお探しください。" robots="noindex, nofollow">
   <section class="ac-section">
     <div class="ac-container text-center py-20">
       <p class="text-6xl font-700 text-brand-500 mb-4">404</p>

@@ -57,7 +57,7 @@ const relatedPosts = currentTags.length > 0
       .map((p) => p.post)
   : []
 
-const ogImage = `/blog/og/${post.id}.png`
+const ogImage = new URL(`/blog/og/${post.id}.png`, Astro.site).href
 const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -110,7 +110,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       : { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated}>
+<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated} tags={post.data.tags}>
   <div class="ac-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
       <aside class="hidden xl:block" aria-label="目次">
@@ -119,6 +119,13 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
         </div>
       </aside>
       <article class="min-w-0" data-pagefind-body>
+      <div class="hidden" aria-hidden="true">
+        {author && <span data-pagefind-filter="著者">{author.name}</span>}
+        <span data-pagefind-filter="年">{post.data.date.getFullYear()}</span>
+        {post.data.tags?.map((tag: string) => (
+          <span data-pagefind-filter="タグ">{tag}</span>
+        ))}
+      </div>
       <div class="mb-8">
         <Breadcrumb items={[
           { label: 'ブログ', href: '/blog/' },
@@ -308,7 +315,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       )}
 
       {(prevPost || nextPost) && (
-        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4" data-pagefind-ignore>
+        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="前後の記事" data-pagefind-ignore>
           {prevPost ? (
             <a
               href={`/blog/${prevPost.id}/`}

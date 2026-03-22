@@ -66,10 +66,15 @@ const latestPosts = allPosts.slice(0, 5)
         アーカイブ
       </h3>
       <ul class="space-y-0.5 text-sm list-none p-0 m-0">
-        {sortedArchive.map(([, { count, year, month }]) => (
-          <li class="flex items-center justify-between py-1">
-            <span class="text-slate-600">{year}年{month}月</span>
-            <span class="text-xs text-slate-400">{count}件</span>
+        {sortedArchive.map(([key, { count, year, month }]) => (
+          <li>
+            <a
+              href={`/blog/archive/${key}/`}
+              class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
+            >
+              <span>{year}年{month}月</span>
+              <span class="text-xs text-slate-400">{count}件</span>
+            </a>
           </li>
         ))}
       </ul>
@@ -84,7 +89,7 @@ const latestPosts = allPosts.slice(0, 5)
         {authors.map((author) => {
           const count = authorCounts.get(author.id) ?? 0
           return count > 0 && (
-            <div class="flex items-center gap-3">
+            <a href={`/blog/authors/${author.id}/`} class="flex items-center gap-3 no-underline hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors">
               {(author.avatarImage || author.avatar) ? (
                 <img
                   src={author.avatarImage || author.avatar}
@@ -100,7 +105,7 @@ const latestPosts = allPosts.slice(0, 5)
                 <p class="text-sm font-600 text-slate-800">{author.name}</p>
                 <p class="text-xs text-slate-500">{count}件の記事</p>
               </div>
-            </div>
+            </a>
           )
         })}
       </div>

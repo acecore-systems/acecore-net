@@ -9,6 +9,8 @@ interface Props {
   modifiedTime?: Date
   prevPage?: string
   nextPage?: string
+  robots?: string
+  tags?: string[]
 }
 
 const {
@@ -21,6 +23,8 @@ const {
   modifiedTime,
   prevPage,
   nextPage,
+  robots = 'index, follow',
+  tags,
 } = Astro.props
 
 const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
@@ -70,7 +74,8 @@ import AnchorAd from '../components/AnchorAd.astro'
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -86,10 +91,11 @@ import AnchorAd from '../components/AnchorAd.astro'
     <meta name="twitter:image:alt" content={title} />
     {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
     {prevPage && <link rel="prev" href={prevPage} />}
     {nextPage && <link rel="next" href={nextPage} />}
     <link rel="alternate" type="application/rss+xml" title="Acecore ブログ" href="/rss.xml" />
-    <link rel="preconnect" href="https://wsrv.nl" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://wsrv.nl" />
     {isMonetizedPage && (
       <>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />

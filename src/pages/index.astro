@@ -152,8 +152,8 @@ const coreLayers = [
               >
                 {(post.data.image || post.data.imageUrl) && (
                   <img
-                    src={post.data.image || post.data.imageUrl}
-                    alt={post.data.title}
+                    src={optimizeImage(post.data.image || post.data.imageUrl)}
+                    alt=""
                     class="w-full h-40 object-cover"
                     width="400"
                     height="160"
@@ -163,7 +163,7 @@ const coreLayers = [
                 )}
                 <div class="p-6">
                   <div class="flex items-center gap-2 text-xs text-slate-600">
-                    <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+                    <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
                     {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
                   </div>
                   <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">

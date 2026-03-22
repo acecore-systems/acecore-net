@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../../components/Breadcrumb.astro'
+import BlogPostCard from '../../../components/BlogPostCard.astro'
+import BlogSidebar from '../../../components/BlogSidebar.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  )
+  const monthMap = new Map<string, typeof posts>()
+  for (const post of posts) {
+    const d = post.data.date
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const list = monthMap.get(key) ?? []
+    list.push(post)
+    monthMap.set(key, list)
+  }
+  return [...monthMap.entries()].map(([month, posts]) => ({
+    params: { month },
+    props: { month, posts },
+  }))
+}
+
+const { month, posts } = Astro.props
+const [year, m] = month.split('-')
+const label = `${year}年${parseInt(m)}月`
+
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+---
+
+<BaseLayout
+  title={`${label}の記事一覧`}
+  description={`${label}に公開された記事の一覧です。`}
+>
+  <section class="ac-section">
+    <div class="ac-container">
+      <Breadcrumb items={[
+        { label: 'ブログ', href: '/blog/' },
+        { label: `${label}` },
+      ]} />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+        {label}の記事一覧
+        <span class="text-base text-slate-400 ml-2">({posts.length}件)</span>
+      </h1>
+      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+      <div class="space-y-6">
+        {posts.map((post) => (
+          <BlogPostCard post={post} />
+        ))}
+        <div class="mt-8 text-center">
+          <a href="/blog/" class="ac-btn-outline">ブログ一覧に戻る</a>
+        </div>
+      </div>
+      <BlogSidebar allPosts={allPosts} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
