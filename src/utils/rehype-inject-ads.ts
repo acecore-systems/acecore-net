@@ -5,7 +5,8 @@ const CLIENT_ID = 'ca-pub-3935803464310919'
 const INLINE_AD_SLOT = '4541792182'
 
 /**
- * h2 が 3 つ以上ある記事で、2 番目の h2 の直前にインライン広告を挿入する rehype プラグイン。
+ * h2 が 3 つ以上ある記事で、3 セクションごとにインライン広告を挿入する rehype プラグイン。
+ * 挿入位置: 2 番目・5 番目・8 番目 … の h2 直前（0-indexed: 1, 4, 7 …）
  */
 export default function rehypeInjectAds() {
   return (tree: Root) => {
@@ -17,8 +18,14 @@ export default function rehypeInjectAds() {
       }
     })
 
-    if (h2Positions.length >= 3) {
-      const { parent, index } = h2Positions[1]
+    if (h2Positions.length < 3) return
+
+    const targets = h2Positions
+      .map((pos, i) => ({ ...pos, h2Index: i }))
+      .filter(({ h2Index }) => h2Index >= 1 && (h2Index - 1) % 3 === 0)
+
+    // 後方から挿入してインデックスのずれを防ぐ
+    for (const { parent, index } of targets.reverse()) {
       const adNode = {
         type: 'element' as const,
         tagName: 'div',

@@ -40,6 +40,20 @@ const currentIndex = allPosts.findIndex((p) => p.id === post.id)
 const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
 const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
 
+const currentTags = post.data.tags ?? []
+const relatedPosts = currentTags.length > 0
+  ? allPosts
+      .filter((p) => p.id !== post.id)
+      .map((p) => ({
+        post: p,
+        score: (p.data.tags ?? []).filter((t: string) => currentTags.includes(t)).length,
+      }))
+      .filter((p) => p.score > 0)
+      .sort((a, b) => b.score - a.score || b.post.data.date.getTime() - a.post.data.date.getTime())
+      .slice(0, 4)
+      .map((p) => p.post)
+  : []
+
 const ogImage = post.data.imageUrl ? optimizeImage(post.data.imageUrl) : undefined
 const blogPostingLd = {
   "@context": "https://schema.org",
@@ -180,6 +194,55 @@ const blogPostingLd = {
           <a href="/services/" class="ac-btn-outline">サービス一覧</a>
         </div>
       </div>
+
+      {relatedPosts.length > 0 && (
+        <section class="mt-12 pt-8 border-t border-slate-200">
+          <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
+            <div class="i-lucide-newspaper text-lg text-brand-500"></div>
+            関連記事
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {relatedPosts.map((rp, i) => (
+              <Fragment>
+                {i === 2 && (
+                  <div class="sm:col-span-2">
+                    <AdUnit adSlot="3228710511" />
+                  </div>
+                )}
+                <a
+                  href={`/blog/${rp.id}/`}
+                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all"
+                >
+                  {(rp.data.image || rp.data.imageUrl) && (
+                    <img
+                      src={optimizeImage(rp.data.image || rp.data.imageUrl)}
+                      alt={rp.data.title}
+                      class="w-full h-32 object-cover rounded-md mb-3"
+                      width="400"
+                      height="128"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
+                    {rp.data.title}
+                  </span>
+                  <span class="text-xs text-slate-500 mt-1">{rp.data.date.toLocaleDateString('ja-JP')}</span>
+                  {rp.data.tags && (
+                    <div class="flex flex-wrap gap-1 mt-2">
+                      {rp.data.tags.slice(0, 3).map((tag: string) => (
+                        <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </a>
+              </Fragment>
+            ))}
+          </div>
+        </section>
+      )}
 
       {(prevPost || nextPost) && (
         <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
