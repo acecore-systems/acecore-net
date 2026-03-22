@@ -5,6 +5,10 @@ interface Props {
   image?: string
   ogType?: string
   jsonLd?: Record<string, any> | Record<string, any>[]
+  publishedTime?: Date
+  modifiedTime?: Date
+  prevPage?: string
+  nextPage?: string
 }
 
 const {
@@ -13,11 +17,15 @@ const {
   image,
   ogType = 'website',
   jsonLd,
+  publishedTime,
+  modifiedTime,
+  prevPage,
+  nextPage,
 } = Astro.props
 
 const pageTitle = title === 'ホーム' ? 'Acecore' : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const ogImage = image || new URL('/uploads/og-default.svg', Astro.site).href
+const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
 const isMonetizedPage = Astro.url.pathname === '/blog/' || Astro.url.pathname.startsWith('/blog/')
 
 const pageNameMap: Record<string, string> = {
@@ -76,6 +84,11 @@ import AnchorAd from '../components/AnchorAd.astro'
     <meta name="twitter:site" content="@acecorenet" />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    {prevPage && <link rel="prev" href={prevPage} />}
+    {nextPage && <link rel="next" href={nextPage} />}
+    <link rel="alternate" type="application/rss+xml" title="Acecore ブログ" href="/rss.xml" />
     <link rel="preconnect" href="https://wsrv.nl" crossorigin="anonymous" />
     {isMonetizedPage && (
       <>
@@ -129,6 +142,11 @@ import AnchorAd from '../components/AnchorAd.astro'
       "name": "Acecore",
       "url": "https://acecore.net",
       "description": description,
+      "logo": "https://acecore.net/favicon.svg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "JP"
+      },
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+81-50-8890-2788",
@@ -147,6 +165,11 @@ import AnchorAd from '../components/AnchorAd.astro'
       "@type": "WebSite",
       "name": "Acecore",
       "url": "https://acecore.net",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://acecore.net/blog/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     })} />
     {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
     {jsonLd && (
@@ -174,3 +197,10 @@ import AnchorAd from '../components/AnchorAd.astro'
     </script>
   </body>
 </html>
+<style is:global>
+  .prose a.external-link::after {
+    content: ' ↗';
+    font-size: 0.75em;
+    opacity: 0.5;
+  }
+</style>

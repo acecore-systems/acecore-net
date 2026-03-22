@@ -4,13 +4,21 @@
     "name": "ハット",
     "avatar": "",
     "avatarImage": "",
-    "bio": "Hatt、ハット、はっ、My_name_is_Hatt、この全てが名前。\n芸術家と小説家である。\n初代エースサーバーワールドの生成者。\n趣味は人と話をすること。"
+    "bio": "Hatt、ハット、はっ、My_name_is_Hatt、この全てが名前。\n芸術家と小説家である。\n初代エースサーバーワールドの生成者。\n趣味は人と話をすること。",
+    "url": "",
+    "github": "",
+    "twitter": "",
+    "skills": ["芸術", "小説", "コミュニティ運営"]
   },
   {
     "id": "gui",
     "name": "Gui",
     "avatar": "",
     "avatarImage": "",
-    "bio": "Acecore 代表。システム開発・Web制作・インフラ運用からIT教育まで幅広く手がけるエンジニア。\n技術で人と組織の課題を解きほぐすのが好き。"
+    "bio": "Acecore 代表。システム開発・Web制作・インフラ運用からIT教育まで幅広く手がけるエンジニア。\n技術で人と組織の課題を解きほぐすのが好き。",
+    "url": "https://acecore.net/about/",
+    "github": "https://github.com/acecore-systems",
+    "twitter": "https://x.com/acecorenet",
+    "skills": ["システム開発", "Web制作", "インフラ運用", "IT教育"]
   }
 ]

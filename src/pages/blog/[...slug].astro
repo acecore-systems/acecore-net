@@ -66,7 +66,14 @@ const blogPostingLd = {
   "datePublished": post.data.date.toISOString(),
   ...(post.data.lastUpdated && { "dateModified": post.data.lastUpdated.toISOString() }),
   ...(ogImage && { "image": ogImage }),
-  ...(author && { "author": { "@type": "Person", "name": author.name } }),
+  ...(author && { "author": {
+    "@type": "Person",
+    "name": author.name,
+    ...(author.url && { "url": author.url }),
+    ...([author.github, author.twitter].filter(Boolean).length > 0 && {
+      "sameAs": [author.github, author.twitter].filter(Boolean)
+    })
+  } }),
   "publisher": {
     "@type": "Organization",
     "name": "Acecore",
@@ -103,7 +110,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       : { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData}>
+<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated}>
   <div class="ac-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
       <aside class="hidden xl:block" aria-label="目次">
@@ -121,11 +128,11 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
           {post.data.title}
         </h1>
         <div class="flex items-center gap-3 text-sm text-slate-500">
-          <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+          <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
           {post.data.lastUpdated && (
             <span class="flex items-center gap-1">
               <span class="i-lucide-refresh-cw text-xs"></span>
-              <time>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
+              <time datetime={post.data.lastUpdated.toISOString()}>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
             </span>
           )}
           {author && <span>by {author.name}</span>}
@@ -215,6 +222,27 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
               <h3 class="font-700 text-lg text-slate-900">{author.name}</h3>
               {author.bio && (
                 <p class="text-sm text-slate-600 mt-1 whitespace-pre-line">{author.bio}</p>
+              )}
+              {author.skills?.length > 0 && (
+                <div class="flex flex-wrap gap-1 mt-2">
+                  {author.skills.map((skill: string) => (
+                    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">{skill}</span>
+                  ))}
+                </div>
+              )}
+              {(author.github || author.twitter) && (
+                <div class="flex items-center gap-3 mt-3">
+                  {author.github && (
+                    <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
+                      <div class="i-lucide-github text-lg"></div>
+                    </a>
+                  )}
+                  {author.twitter && (
+                    <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
+                      <div class="i-lucide-twitter text-lg"></div>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -333,7 +361,28 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
                 </div>
               </div>
               {author.bio && (
-                <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{author.bio}</p>
+                <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line mb-3">{author.bio}</p>
+              )}
+              {author.skills?.length > 0 && (
+                <div class="flex flex-wrap gap-1 mb-3">
+                  {author.skills.map((skill: string) => (
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">{skill}</span>
+                  ))}
+                </div>
+              )}
+              {(author.github || author.twitter) && (
+                <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+                  {author.github && (
+                    <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
+                      <div class="i-lucide-github text-base"></div>
+                    </a>
+                  )}
+                  {author.twitter && (
+                    <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
+                      <div class="i-lucide-twitter text-base"></div>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           )}

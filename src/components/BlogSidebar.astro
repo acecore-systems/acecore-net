@@ -1,0 +1,136 @@
+---
+import AdUnit from './AdUnit.astro'
+import authors from '../data/authors.json'
+
+interface Props {
+  allPosts: any[]
+}
+
+const { allPosts } = Astro.props
+
+const tagCounts = new Map<string, number>()
+for (const post of allPosts) {
+  for (const tag of (post.data.tags ?? [])) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
+  }
+}
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
+
+const archiveMap = new Map<string, { count: number; year: number; month: number }>()
+for (const post of allPosts) {
+  const d = post.data.date
+  const year = d.getFullYear()
+  const month = d.getMonth() + 1
+  const key = `${year}-${String(month).padStart(2, '0')}`
+  const entry = archiveMap.get(key)
+  if (entry) {
+    entry.count++
+  } else {
+    archiveMap.set(key, { count: 1, year, month })
+  }
+}
+const sortedArchive = [...archiveMap.entries()].sort((a, b) => b[0].localeCompare(a[0]))
+
+const authorCounts = new Map<string, number>()
+for (const post of allPosts) {
+  if (post.data.author) {
+    authorCounts.set(post.data.author, (authorCounts.get(post.data.author) ?? 0) + 1)
+  }
+}
+
+const latestPosts = allPosts.slice(0, 5)
+---
+
+<aside class="hidden lg:block" aria-label="サイドバー">
+  <div class="sticky top-20 space-y-6">
+    <div class="ac-card p-5">
+      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+        <div class="i-lucide-tags text-brand-500"></div>
+        タグ
+      </h3>
+      <div class="flex flex-wrap gap-1.5">
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={`/blog/tags/${tag}/`}
+            class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
+          >
+            {tag} <span class="text-brand-400">({count})</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="ac-card p-5">
+      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+        <div class="i-lucide-calendar text-brand-500"></div>
+        アーカイブ
+      </h3>
+      <ul class="space-y-0.5 text-sm list-none p-0 m-0">
+        {sortedArchive.map(([, { count, year, month }]) => (
+          <li class="flex items-center justify-between py-1">
+            <span class="text-slate-600">{year}年{month}月</span>
+            <span class="text-xs text-slate-400">{count}件</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="ac-card p-5">
+      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+        <div class="i-lucide-users text-brand-500"></div>
+        著者
+      </h3>
+      <div class="space-y-3">
+        {authors.map((author) => {
+          const count = authorCounts.get(author.id) ?? 0
+          return count > 0 && (
+            <div class="flex items-center gap-3">
+              {(author.avatarImage || author.avatar) ? (
+                <img
+                  src={author.avatarImage || author.avatar}
+                  alt={author.name}
+                  class="w-8 h-8 rounded-full object-cover shrink-0"
+                />
+              ) : (
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-700 shrink-0">
+                  {author.name.charAt(0)}
+                </div>
+              )}
+              <div>
+                <p class="text-sm font-600 text-slate-800">{author.name}</p>
+                <p class="text-xs text-slate-500">{count}件の記事</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+
+    <div class="ac-card p-5">
+      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+        <div class="i-lucide-newspaper text-brand-500"></div>
+        最新記事
+      </h3>
+      <ul class="space-y-3 list-none p-0 m-0">
+        {latestPosts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}/`}
+              class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
+            >
+              {post.data.title}
+            </a>
+            <time
+              datetime={post.data.date.toISOString()}
+              class="text-xs text-slate-400 mt-0.5 block"
+            >
+              {post.data.date.toLocaleDateString('ja-JP')}
+            </time>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <AdUnit adSlot="3228710511" />
+  </div>
+</aside>

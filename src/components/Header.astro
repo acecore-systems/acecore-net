@@ -95,6 +95,11 @@ const currentPath = Astro.url.pathname
     const expanded = menu?.classList.toggle('hidden') === false
     menuBtn.setAttribute('aria-expanded', String(expanded))
     menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+    const icon = menuBtn.querySelector('div')
+    if (icon) {
+      icon.classList.toggle('i-lucide-menu', !expanded)
+      icon.classList.toggle('i-lucide-x', expanded)
+    }
     if (expanded) {
       const first = menu?.querySelector<HTMLElement>('a')
       first?.focus()

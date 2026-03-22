@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../../components/Breadcrumb.astro'
+import { getCollection } from 'astro:content'
+
+const allPosts = await getCollection('blog')
+const tagCounts = new Map<string, number>()
+for (const post of allPosts) {
+  for (const tag of (post.data.tags ?? [])) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
+  }
+}
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
+---
+
+<BaseLayout title="タグ一覧" description="ブログ記事のタグ一覧です。">
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[
+        { label: 'ブログ', href: '/blog/' },
+        { label: 'タグ一覧' },
+      ]} />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">タグ一覧</h1>
+      <div class="flex flex-wrap gap-3">
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={`/blog/tags/${tag}/`}
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-300 hover:text-brand-600 hover:bg-brand-50 transition-colors no-underline"
+          >
+            <span class="font-600">{tag}</span>
+            <span class="text-sm text-slate-400">({count})</span>
+          </a>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/blog/" class="ac-btn-outline">ブログ一覧に戻る</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

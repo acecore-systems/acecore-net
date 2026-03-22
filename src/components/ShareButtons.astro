@@ -41,13 +41,15 @@ const encodedTitle = encodeURIComponent(title)
 </div>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[data-share-url]').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const url = btn.dataset.shareUrl!;
-      await navigator.clipboard.writeText(url);
-      const original = btn.querySelector('span')!.textContent;
-      btn.querySelector('span')!.textContent = 'コピーしました';
-      setTimeout(() => { btn.querySelector('span')!.textContent = original; }, 2000);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-share-url]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const url = btn.dataset.shareUrl!;
+        await navigator.clipboard.writeText(url);
+        const original = btn.querySelector('span')!.textContent;
+        btn.querySelector('span')!.textContent = 'コピーしました';
+        setTimeout(() => { btn.querySelector('span')!.textContent = original; }, 2000);
+      });
     });
   });
 </script>

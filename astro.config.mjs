@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [UnoCSS({ injectReset: true }), sitemap()],
   markdown: {
     rehypePlugins: [
-      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'], properties: { className: ['external-link'] } }],
       rehypeOptimizeImages,
       rehypeInjectAds,
     ],

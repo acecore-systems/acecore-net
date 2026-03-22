@@ -22,6 +22,13 @@ export function optimizeImage(url: string): string {
 export function optimizeImageWithWidth(url: string, width: number): string {
   try {
     const parsed = new URL(url)
+    // 既に wsrv.nl URL の場合は元画像URLを取り出して再構築
+    if (parsed.hostname === 'wsrv.nl') {
+      const originalUrl = parsed.searchParams.get('url')
+      if (originalUrl) {
+        return `https://wsrv.nl/?url=${originalUrl}&w=${width}&fit=cover&output=auto&q=60`
+      }
+    }
     const origin = `${parsed.origin}${parsed.pathname}`
     return `https://wsrv.nl/?url=${origin}&w=${width}&fit=cover&output=auto&q=60`
   } catch {

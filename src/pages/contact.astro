@@ -182,7 +182,23 @@ import { optimizeImage } from '../utils/image'
     </div>
   </section>
 
-  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script is:inline>
+  {
+    var turnstileEl = document.querySelector('.cf-turnstile');
+    if (turnstileEl) {
+      var io = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          io.disconnect();
+          var s = document.createElement('script');
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+          s.async = true;
+          document.head.appendChild(s);
+        }
+      }, { rootMargin: '200px' });
+      io.observe(turnstileEl);
+    }
+  }
+  </script>
   <script is:inline>
   {
     var form = document.querySelector('form[action*="ssgform"]');
