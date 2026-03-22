@@ -2,14 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Hero from '../../components/Hero.astro'
 import Breadcrumb from '../../components/Breadcrumb.astro'
+import BlogPostCard from '../../components/BlogPostCard.astro'
 import { getCollection } from 'astro:content'
-import authors from '../../data/authors.json'
 import { optimizeImage } from '../../utils/image'
 import AdUnit from '../../components/AdUnit.astro'
 
-const posts = (await getCollection('blog')).sort(
+const POSTS_PER_PAGE = 6
+
+const allPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
+const posts = allPosts.slice(0, POSTS_PER_PAGE)
 ---
 
 <BaseLayout
@@ -33,50 +37,23 @@ const posts = (await getCollection('blog')).sort(
                   <AdUnit adSlot="3228710511" />
                 </div>
               )}
-              <a
-                href={`/blog/${post.id}/`}
-                class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
-              >
-                <div class="flex flex-col sm:flex-row">
-                  {(post.data.image || post.data.imageUrl) && (
-                    <div class="sm:w-48 sm:shrink-0">
-                      <img
-                        src={optimizeImage(post.data.image || post.data.imageUrl)}
-                        alt={post.data.title}
-                        class="w-full h-40 sm:h-full object-cover"
-                        width="192"
-                        height="160"
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <div class="p-6 sm:p-8">
-                    <div class="flex items-center gap-3 text-sm text-slate-500">
-                      <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
-                      {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
-                    </div>
-                    <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
-                      {post.data.title}
-                    </h2>
-                    <p class="text-slate-600">{post.data.description}</p>
-                    {post.data.tags && (
-                      <div class="flex flex-wrap gap-2 mt-4">
-                        {post.data.tags.map((tag: string) => (
-                          <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </a>
+              <BlogPostCard post={post} />
               </Fragment>
             ))}
           </div>
         )
       }
+
+      {totalPages > 1 && (
+        <nav class="mt-10 flex justify-center items-center gap-2" aria-label="ページナビゲーション">
+          <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">1</span>
+          {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((page) => (
+            <a href={`/blog/page/${page}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">
+              {page}
+            </a>
+          ))}
+        </nav>
+      )}
 
       <div class="mt-12 bg-brand-50 rounded-xl p-6 sm:p-8 text-center">
         <p class="text-lg font-700 text-slate-800 mb-2">サービスについてもっと知りたい方へ</p>

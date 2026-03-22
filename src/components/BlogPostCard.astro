@@ -1,0 +1,61 @@
+---
+import { optimizeImage } from '../utils/image'
+import authors from '../data/authors.json'
+
+interface Props {
+  post: {
+    id: string
+    data: {
+      title: string
+      description: string
+      date: Date
+      image?: string
+      imageUrl?: string
+      author?: string
+      tags?: string[]
+    }
+  }
+}
+
+const { post } = Astro.props
+---
+
+<a
+  href={`/blog/${post.id}/`}
+  class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
+>
+  <div class="flex flex-col sm:flex-row">
+    {(post.data.image || post.data.imageUrl) && (
+      <div class="sm:w-48 sm:shrink-0">
+        <img
+          src={optimizeImage(post.data.image || post.data.imageUrl)}
+          alt={post.data.title}
+          class="w-full h-40 sm:h-full object-cover"
+          width="192"
+          height="160"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+    )}
+    <div class="p-6 sm:p-8">
+      <div class="flex items-center gap-3 text-sm text-slate-500">
+        <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+        {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
+      </div>
+      <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+        {post.data.title}
+      </h2>
+      <p class="text-slate-600">{post.data.description}</p>
+      {post.data.tags && (
+        <div class="flex flex-wrap gap-2 mt-4">
+          {post.data.tags.map((tag: string) => (
+            <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</a>

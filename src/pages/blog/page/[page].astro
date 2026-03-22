@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../../components/Breadcrumb.astro'
+import BlogPostCard from '../../../components/BlogPostCard.astro'
+import { getCollection } from 'astro:content'
+import AdUnit from '../../../components/AdUnit.astro'
+
+export async function getStaticPaths() {
+  const perPage = 6
+  const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  )
+  const totalPages = Math.ceil(allPosts.length / perPage)
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+    props: {
+      posts: allPosts.slice((i + 1) * perPage, (i + 2) * perPage),
+      currentPage: i + 2,
+      totalPages,
+    },
+  }))
+}
+
+const { posts, currentPage, totalPages } = Astro.props
+---
+
+<BaseLayout
+  title={`ブログ (${currentPage}ページ目)`}
+  description={`Acecore ブログの記事一覧 - ${currentPage}ページ目`}
+>
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[
+        { label: 'ブログ', href: '/blog/' },
+        { label: `${currentPage}ページ目` },
+      ]} />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+        ブログ <span class="text-base text-slate-400">({currentPage}/{totalPages}ページ)</span>
+      </h1>
+      <div class="space-y-6">
+        {posts.map((post: any, i: number) => (
+          <Fragment>
+          {i > 0 && i % 3 === 0 && (
+            <div class="ac-card overflow-hidden p-6">
+              <AdUnit adSlot="3228710511" />
+            </div>
+          )}
+          <BlogPostCard post={post} />
+          </Fragment>
+        ))}
+      </div>
+
+      <nav class="mt-10 flex justify-center items-center gap-2" aria-label="ページナビゲーション">
+        <a href="/blog/" class:list={["px-4 py-2 rounded text-sm transition-colors", currentPage === 1 ? "bg-brand-500 text-white font-600" : "border border-slate-300 text-slate-600 hover:bg-brand-50 hover:border-brand-300"]}>
+          1
+        </a>
+        {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((page) => (
+          page === currentPage ? (
+            <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{page}</span>
+          ) : (
+            <a href={`/blog/page/${page}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">
+              {page}
+            </a>
+          )
+        ))}
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
