@@ -25,3 +25,48 @@ const { headings } = Astro.props
     </ul>
   </nav>
 )}
+
+<script>
+  function initTocHighlight() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link')
+    if (!links.length) return
+
+    const slugs = [...links].map((l) => l.dataset.slug!)
+    const headingEls = slugs
+      .map((s) => document.getElementById(s))
+      .filter(Boolean) as HTMLElement[]
+    if (!headingEls.length) return
+
+    let activeSlug = ''
+
+    function setActive(slug: string) {
+      if (slug === activeSlug) return
+      activeSlug = slug
+      links.forEach((l) => {
+        const isActive = l.dataset.slug === slug
+        l.classList.toggle('text-brand-600', isActive)
+        l.classList.toggle('border-brand-500', isActive)
+        l.classList.toggle('font-600', isActive)
+        l.classList.toggle('text-slate-500', !isActive)
+        l.classList.toggle('border-transparent', !isActive)
+      })
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id)
+            break
+          }
+        }
+      },
+      { rootMargin: '0px 0px -70% 0px', threshold: 0 },
+    )
+
+    headingEls.forEach((el) => observer.observe(el))
+  }
+
+  initTocHighlight()
+  document.addEventListener('astro:after-swap', initTocHighlight)
+</script>

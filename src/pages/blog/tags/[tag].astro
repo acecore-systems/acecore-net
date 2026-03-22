@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../../components/Breadcrumb.astro'
+import { getCollection } from 'astro:content'
+import authors from '../../../data/authors.json'
+import { optimizeImage } from '../../../utils/image'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  const tagMap = new Map<string, typeof posts>()
+  for (const post of posts) {
+    for (const tag of post.data.tags ?? []) {
+      const list = tagMap.get(tag) ?? []
+      list.push(post)
+      tagMap.set(tag, list)
+    }
+  }
+  return [...tagMap.entries()].map(([tag, posts]) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }))
+}
+
+const { tag, posts } = Astro.props
+---
+
+<BaseLayout
+  title={`「${tag}」の記事一覧`}
+  description={`タグ「${tag}」に関連する記事の一覧です。`}
+>
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[
+        { label: 'ブログ', href: '/blog/' },
+        { label: `タグ: ${tag}` },
+      ]} />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+        <span class="text-brand-500">{tag}</span> の記事一覧
+        <span class="text-base text-slate-400 ml-2">({posts.length}件)</span>
+      </h1>
+      <div class="space-y-6">
+        {posts.map((post) => (
+          <a
+            href={`/blog/${post.id}/`}
+            class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
+          >
+            <div class="flex flex-col sm:flex-row">
+              {(post.data.image || post.data.imageUrl) && (
+                <div class="sm:w-48 sm:shrink-0">
+                  <img
+                    src={optimizeImage(post.data.image || post.data.imageUrl)}
+                    alt={post.data.title}
+                    class="w-full h-40 sm:h-full object-cover"
+                    width="192"
+                    height="160"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-6 sm:p-8">
+                <div class="flex items-center gap-3 text-sm text-slate-500">
+                  <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+                  {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
+                </div>
+                <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-slate-600">{post.data.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="/blog/" class="ac-btn-outline">ブログ一覧に戻る</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

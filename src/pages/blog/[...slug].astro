@@ -57,13 +57,14 @@ const relatedPosts = currentTags.length > 0
       .map((p) => p.post)
   : []
 
-const ogImage = post.data.imageUrl ? optimizeImage(post.data.imageUrl) : undefined
+const ogImage = `/blog/og/${post.id}.png`
 const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": post.data.title,
   "description": post.data.description,
   "datePublished": post.data.date.toISOString(),
+  ...(post.data.lastUpdated && { "dateModified": post.data.lastUpdated.toISOString() }),
   ...(ogImage && { "image": ogImage }),
   ...(author && { "author": { "@type": "Person", "name": author.name } }),
   "publisher": {
@@ -97,14 +98,20 @@ const blogPostingLd = {
         </h1>
         <div class="flex items-center gap-3 text-sm text-slate-500">
           <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
+          {post.data.lastUpdated && (
+            <span class="flex items-center gap-1">
+              <span class="i-lucide-refresh-cw text-xs"></span>
+              <time>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
+            </span>
+          )}
           {author && <span>by {author.name}</span>}
         </div>
         {post.data.tags && (
             <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
               {post.data.tags.map((tag: string) => (
-                <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
+                <a href={`/blog/tags/${tag}/`} class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors">
                   {tag}
-                </span>
+                </a>
               ))}
             </div>
           )

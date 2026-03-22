@@ -1,0 +1,45 @@
+---
+---
+
+<div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg" id="anchor-ad">
+  <div class="relative">
+    <button
+      id="anchor-ad-close"
+      class="absolute -top-8 right-2 bg-white/90 border border-slate-200 rounded-t px-2 py-0.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
+      aria-label="広告を閉じる"
+    >✕</button>
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3935803464310919"
+      data-ad-slot="3228710511"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+  </div>
+</div>
+
+<style>
+  #anchor-ad {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+</style>
+
+<script>
+  function initAnchorAd() {
+    const container = document.getElementById('anchor-ad')
+    const closeBtn = document.getElementById('anchor-ad-close')
+    if (!container || !closeBtn) return
+
+    try {
+      ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
+      ;(window as any).adsbygoogle.push({})
+    } catch {}
+
+    closeBtn.addEventListener('click', () => {
+      container.style.display = 'none'
+    })
+  }
+
+  initAnchorAd()
+  document.addEventListener('astro:after-swap', initAnchorAd)
+</script>
