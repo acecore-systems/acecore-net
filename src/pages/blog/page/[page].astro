@@ -22,11 +22,23 @@ export async function getStaticPaths() {
 }
 
 const { posts, currentPage, totalPages } = Astro.props
+
+const itemListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Acecore ブログ記事一覧 - ${currentPage}ページ目`,
+  "itemListElement": posts.map((post: any, i: number) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `https://acecore.net/blog/${post.id}/`,
+  })),
+}
 ---
 
 <BaseLayout
   title={`ブログ (${currentPage}ページ目)`}
   description={`Acecore ブログの記事一覧 - ${currentPage}ページ目`}
+  jsonLd={itemListLd}
 >
   <section class="ac-section">
     <div class="ac-container max-w-4xl">

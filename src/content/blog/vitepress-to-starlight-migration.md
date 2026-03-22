@@ -2,6 +2,7 @@
 title: 'VitePress から Starlight へ ― ドキュメントサイトのフレームワーク統一'
 description: 'VitePress + UnoCSS で構築していた事業計画ドキュメントを Astro + Starlight に移行し、2つのプロジェクトでフレームワークを統一した記録です。Mermaid 図表の CDN 移行も紹介します。'
 date: 2026-03-15
+author: gui
 tags: ['技術', 'Astro', 'Starlight']
 imageUrl: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
 processFigure:

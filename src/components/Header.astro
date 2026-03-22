@@ -29,6 +29,7 @@ const currentPath = Astro.url.pathname
                 ? 'text-brand-500'
                 : 'text-slate-600 hover:text-brand-500',
             ]}
+            {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
           >
             {link.label}
           </a>
@@ -77,6 +78,7 @@ const currentPath = Astro.url.pathname
                 ? 'text-brand-500'
                 : 'text-slate-600',
             ]}
+            {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
           >
             {link.label}
           </a>

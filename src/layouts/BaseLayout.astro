@@ -4,7 +4,7 @@ interface Props {
   description?: string
   image?: string
   ogType?: string
-  jsonLd?: Record<string, any>
+  jsonLd?: Record<string, any> | Record<string, any>[]
 }
 
 const {
@@ -83,11 +83,23 @@ import AnchorAd from '../components/AnchorAd.astro'
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="anonymous" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin="anonymous" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919"
-          crossorigin="anonymous"
-        ></script>
+        <script is:inline define:vars={{ isMonetizedPage }}>
+          (function() {
+            function loadAds() {
+              if (document.querySelector('script[src*="adsbygoogle"]')) return;
+              var s = document.createElement('script');
+              s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919';
+              s.crossOrigin = 'anonymous';
+              s.async = true;
+              document.head.appendChild(s);
+            }
+            if (typeof requestIdleCallback === 'function') {
+              requestIdleCallback(loadAds);
+            } else {
+              setTimeout(loadAds, 1500);
+            }
+          })();
+        </script>
       </>
     )}
     <!-- Google Analytics (GA4) -->
@@ -117,18 +129,28 @@ import AnchorAd from '../components/AnchorAd.astro'
       "url": "https://acecore.net",
     })} />
     {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {jsonLd && (
+      Array.isArray(jsonLd)
+        ? jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)
+        : <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
     <ClientRouter />
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm">本文へスキップ</a>
     <Header />
-    <main id="main" class="flex-1">
+    <main id="main" tabindex="-1" class="flex-1">
       <slot />
     </main>
     <Footer />
     <ScrollToTop />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
+    <script is:inline>
+      document.addEventListener('astro:after-swap', function() {
+        var main = document.getElementById('main');
+        if (main) main.focus({ preventScroll: true });
+      });
+    </script>
   </body>
 </html>

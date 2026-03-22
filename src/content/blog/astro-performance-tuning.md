@@ -2,6 +2,7 @@
 title: 'Astro + UnoCSS で PageSpeed 98点を達成した最適化テクニック'
 description: 'コーポレートサイトをAstro + UnoCSS で構築し、PageSpeed Insights でモバイル98点・デスクトップ100点を達成するまでに行った最適化手法をまとめました。'
 date: 2026-03-15
+author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 imageUrl: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
 processFigure:

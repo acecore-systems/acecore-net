@@ -14,11 +14,23 @@ const allPosts = (await getCollection('blog')).sort(
 )
 const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 const posts = allPosts.slice(0, POSTS_PER_PAGE)
+
+const itemListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Acecore ブログ記事一覧",
+  "itemListElement": posts.map((post, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `https://acecore.net/blog/${post.id}/`,
+  })),
+}
 ---
 
 <BaseLayout
   title="ブログ"
   description="Acecore（エースコア）のブログ。システム開発・Web制作・サーバー運用・IT教育に関する技術情報や活動報告、お知らせを発信しています。"
+  jsonLd={itemListLd}
 >
   <Hero title="ブログ" subtitle="技術情報・活動報告・お知らせ" images={[{src: optimizeImage('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'ブログ執筆のイメージ'}]} />
 

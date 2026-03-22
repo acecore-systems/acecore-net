@@ -77,9 +77,33 @@ const blogPostingLd = {
     "@id": `https://acecore.net/blog/${post.id}/`
   }
 }
+
+const faqLd = post.data.faq ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": post.data.faq.items.map((item: { question: string; answer: string }) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
+    },
+  })),
+} : null
+
+const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
+
+const tags = post.data.tags ?? []
+const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].includes(t))
+  ? { heading: 'ITスクールに興味がありますか？', body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。', primary: { label: 'スクール詳細を見る', href: '/schools/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } }
+  : tags.some((t: string) => ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'].includes(t))
+    ? { heading: '運用・インフラのお悩みはありませんか？', body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: '無料で相談する', href: '/contact/' } }
+    : tags.some((t: string) => ['システム開発', 'Web制作', 'Astro'].includes(t))
+      ? { heading: '開発・Web制作のご相談はお気軽に', body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } }
+      : { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={blogPostingLd}>
+<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData}>
   <div class="ac-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
       <aside class="hidden xl:block" aria-label="目次">
@@ -198,11 +222,11 @@ const blogPostingLd = {
       )}
 
       <div class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center" data-pagefind-ignore>
-        <p class="text-lg font-700 text-slate-800 mb-2">ご相談・ご依頼はお気軽に</p>
-        <p class="text-sm text-slate-600 mb-4">記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。</p>
+        <p class="text-lg font-700 text-slate-800 mb-2">{ctaConfig.heading}</p>
+        <p class="text-sm text-slate-600 mb-4">{ctaConfig.body}</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
-          <a href="/services/" class="ac-btn-outline">サービス一覧</a>
+          <a href={ctaConfig.primary.href} class="ac-btn-primary">{ctaConfig.primary.label}</a>
+          <a href={ctaConfig.secondary.href} class="ac-btn-outline">{ctaConfig.secondary.label}</a>
         </div>
       </div>
 

@@ -18,6 +18,8 @@ export default function rehypeOptimizeImages() {
       node.properties!.src = optimizeImage(src)
       if (!node.properties!.loading) node.properties!.loading = 'lazy'
       if (!node.properties!.decoding) node.properties!.decoding = 'async'
+      if (!node.properties!.width) node.properties!.width = '800'
+      if (!node.properties!.height) node.properties!.height = '450'
     })
   }
 }

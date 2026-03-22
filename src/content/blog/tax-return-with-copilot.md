@@ -2,6 +2,7 @@
 title: 'GitHub Copilot に確定申告を全部やらせてみた ― 仕訳837件から申告提出まで'
 description: 'クラウド会計のデータ連携で蓄積した仕訳837件の分類・検証から、社会保険料の突合、控除入力、申告提出まで。GitHub Copilot Agent Mode × Simple Browser に実作業をほぼ全振りした確定申告の全記録です。'
 date: 2026-03-17
+author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 imageUrl: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
 processFigure:

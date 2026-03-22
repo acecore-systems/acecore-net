@@ -2,6 +2,7 @@
 title: 'Cloudflare Pages で実現するセキュアな静的サイト配信'
 description: 'Cloudflare Pages での静的サイトデプロイと、_headers によるセキュリティヘッダー・CSP 設定の実践ガイドです。Worker から Pages に戻した経緯も紹介します。'
 date: 2026-03-15
+author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 imageUrl: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
 processFigure:
