@@ -4,6 +4,7 @@ import Hero from '../../components/Hero.astro'
 import { getCollection } from 'astro:content'
 import authors from '../../data/authors.json'
 import { optimizeImage } from '../../utils/image'
+import AdUnit from '../../components/AdUnit.astro'
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -23,7 +24,13 @@ const posts = (await getCollection('blog')).sort(
           <p class="text-center text-slate-500">記事の準備中です。</p>
         ) : (
           <div class="space-y-6">
-            {posts.map((post) => (
+            {posts.map((post, i) => (
+              <Fragment>
+              {i > 0 && i % 3 === 0 && (
+                <div class="ac-card overflow-hidden p-6">
+                  <AdUnit adSlot="3228710511" />
+                </div>
+              )}
               <a
                 href={`/blog/${post.id}/`}
                 class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
@@ -63,6 +70,7 @@ const posts = (await getCollection('blog')).sort(
                   </div>
                 </div>
               </a>
+              </Fragment>
             ))}
           </div>
         )

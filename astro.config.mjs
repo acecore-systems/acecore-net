@@ -3,6 +3,7 @@ import UnoCSS from '@unocss/astro'
 import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeOptimizeImages from './src/utils/rehype-optimize-images'
+import rehypeInjectAds from './src/utils/rehype-inject-ads'
 
 export default defineConfig({
   site: 'https://acecore.net',
@@ -11,6 +12,7 @@ export default defineConfig({
     rehypePlugins: [
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
       rehypeOptimizeImages,
+      rehypeInjectAds,
     ],
   },
 })

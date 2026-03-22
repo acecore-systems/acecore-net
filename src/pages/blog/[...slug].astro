@@ -15,6 +15,8 @@ import Checklist from '../../components/Checklist.astro'
 import InsightGrid from '../../components/InsightGrid.astro'
 import Testimonial from '../../components/Testimonial.astro'
 import PullQuote from '../../components/PullQuote.astro'
+import AdUnit from '../../components/AdUnit.astro'
+import TableOfContents from '../../components/TableOfContents.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -25,7 +27,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props
-const { Content } = await render(post)
+const { Content, headings } = await render(post)
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 const author = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
@@ -59,8 +62,14 @@ const blogPostingLd = {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={blogPostingLd}>
-  <article class="ac-section">
-    <div class="ac-container max-w-3xl">
+  <div class="ac-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
+      <aside class="hidden xl:block" aria-label="目次">
+        <div class="sticky top-20">
+          <TableOfContents headings={tocHeadings} />
+        </div>
+      </aside>
+      <article class="min-w-0">
       <div class="mb-8">
         <a
           href="/blog/"
@@ -87,6 +96,27 @@ const blogPostingLd = {
           )
         }
       </div>
+      {tocHeadings.length > 0 && (
+        <details class="lg:hidden mb-8 ac-card p-4">
+          <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
+            <div class="i-lucide-list text-sm"></div>
+            目次
+          </summary>
+          <ul class="mt-3 space-y-1 text-sm border-l-2 border-slate-200 ml-1">
+            {tocHeadings.map((h) => (
+              <li>
+                <a
+                  href={`#${h.slug}`}
+                  class="block py-1 text-slate-500 hover:text-brand-500 transition-colors"
+                  style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
       {(post.data.image || post.data.imageUrl) && (
         <div class="mb-8 rounded-xl overflow-hidden">
           <img
@@ -114,9 +144,12 @@ const blogPostingLd = {
       {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
       {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
       {post.data.faq && <Faq {...post.data.faq} />}
+      <div class="my-8">
+        <AdUnit adSlot="3228710511" />
+      </div>
 
       {author && (
-        <div class="mt-12 pt-8 border-t border-slate-200">
+        <div class="lg:hidden mt-12 pt-8 border-t border-slate-200">
           <div class="flex items-start gap-4">
             {(author.avatarImage || author.avatar) ? (
               <img
@@ -174,6 +207,68 @@ const blogPostingLd = {
           )}
         </nav>
       )}
+      </article>
+      <aside class="hidden lg:block" aria-label="サイドバー">
+        <div class="sticky top-20 space-y-6">
+          {tocHeadings.length > 0 && (
+            <div class="xl:hidden">
+              <TableOfContents headings={tocHeadings} />
+            </div>
+          )}
+          {author && (
+            <div class="ac-card p-5">
+              <div class="flex items-center gap-3 mb-3">
+                {(author.avatarImage || author.avatar) ? (
+                  <img
+                    src={author.avatarImage || author.avatar}
+                    alt={author.name}
+                    class="w-12 h-12 rounded-full object-cover shrink-0"
+                  />
+                ) : (
+                  <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-700 shrink-0">
+                    {author.name.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <p class="font-700 text-sm text-slate-900">{author.name}</p>
+                </div>
+              </div>
+              {author.bio && (
+                <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{author.bio}</p>
+              )}
+            </div>
+          )}
+          <AdUnit adSlot="4541792182" />
+        </div>
+      </aside>
     </div>
-  </article>
+  </div>
+  <script is:inline>
+  {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    if (tocLinks.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            tocLinks.forEach(l => l.classList.remove('toc-active'));
+            document.querySelectorAll('.toc-link[data-slug="' + CSS.escape(entry.target.id) + '"]:not([hidden])')
+              .forEach(link => link.classList.add('toc-active'));
+          }
+        }
+      }, { rootMargin: '-80px 0px -60% 0px' });
+      const slugs = new Set(Array.from(tocLinks).map(l => l.dataset.slug));
+      slugs.forEach(slug => {
+        const el = document.getElementById(slug);
+        if (el) observer.observe(el);
+      });
+    }
+  }
+  </script>
+  <style is:global>
+    .toc-active {
+      color: #264b7d !important;
+      border-left-color: #7fa4cf !important;
+      font-weight: 600 !important;
+    }
+  </style>
 </BaseLayout>
