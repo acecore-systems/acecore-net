@@ -122,13 +122,14 @@ import { optimizeImage } from '../utils/image'
         </div>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACrIzSf3oGLj_GwT" data-language="ja" data-theme="light"></div>
         <div>
-          <button type="submit" class="ac-btn-primary w-full sm:w-auto">
+          <button type="submit" id="contact-submit" class="ac-btn-primary w-full sm:w-auto">
             送信する
           </button>
-          <p class="text-xs text-slate-500 mt-3">
+          <p class="text-xs text-slate-600 mt-3">
             送信後、確認メールが届きます。届かない場合は迷惑メールフォルダもご確認ください。
           </p>
         </div>
+        <div id="form-feedback" class="hidden rounded-lg p-4 text-sm" role="alert"></div>
       </form>
     </div>
   </section>
@@ -182,4 +183,39 @@ import { optimizeImage } from '../utils/image'
   </section>
 
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script is:inline>
+  {
+    var form = document.querySelector('form[action*="ssgform"]');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = document.getElementById('contact-submit');
+        var feedback = document.getElementById('form-feedback');
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '送信中…';
+        feedback.className = 'hidden rounded-lg p-4 text-sm';
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+        }).then(function(res) {
+          if (res.ok) {
+            feedback.textContent = 'お問い合わせを送信しました。確認メールをご確認ください。';
+            feedback.className = 'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200';
+            form.reset();
+            if (typeof turnstile !== 'undefined') turnstile.reset();
+          } else {
+            throw new Error('送信に失敗しました');
+          }
+        }).catch(function() {
+          feedback.textContent = '送信に失敗しました。時間をおいて再度お試しいただくか、メール・お電話でお問い合わせください。';
+          feedback.className = 'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200';
+        }).finally(function() {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+      });
+    }
+  }
+  </script>
 </BaseLayout>

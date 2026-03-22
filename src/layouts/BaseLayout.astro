@@ -76,7 +76,7 @@ import AnchorAd from '../components/AnchorAd.astro'
     <meta name="twitter:site" content="@acecorenet" />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
-    <link rel="dns-prefetch" href="https://wsrv.nl" />
+    <link rel="preconnect" href="https://wsrv.nl" crossorigin="anonymous" />
     {isMonetizedPage && (
       <>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
@@ -103,12 +103,25 @@ import AnchorAd from '../components/AnchorAd.astro'
       </>
     )}
     <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G79SGTMYEX"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-G79SGTMYEX');
+      (function() {
+        function loadGA() {
+          if (document.querySelector('script[src*="googletagmanager"]')) return;
+          var s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-G79SGTMYEX';
+          s.async = true;
+          document.head.appendChild(s);
+        }
+        if (typeof requestIdleCallback === 'function') {
+          requestIdleCallback(loadGA);
+        } else {
+          setTimeout(loadGA, 1500);
+        }
+      })();
     </script>
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -116,6 +129,13 @@ import AnchorAd from '../components/AnchorAd.astro'
       "name": "Acecore",
       "url": "https://acecore.net",
       "description": description,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+81-50-8890-2788",
+        "email": "info@acecore.net",
+        "contactType": "customer service",
+        "availableLanguage": "Japanese"
+      },
       "sameAs": [
         "https://x.com/acecorenet",
         "https://github.com/acecore-systems",

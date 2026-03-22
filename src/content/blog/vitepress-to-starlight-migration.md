@@ -36,6 +36,15 @@ compareTable:
       - Starlight 組み込みのスタイリング
       - Mermaid は CDN で動作
       - メインサイトとフレームワーク統一
+faq:
+  title: よくある質問
+  items:
+    - question: VitePress から Starlight に移行するメリットは何ですか？
+      answer: メインサイトが Astro の場合、フレームワークを統一できるため学習コスト・依存管理・設定の一貫性が向上します。ビルドパイプラインも一本化できます。
+    - question: Mermaid の図表はどうやって表示しますか？
+      answer: プラグイン依存をやめ、CDN（jsdelivr）経由で Mermaid を読み込む方式に切り替えました。ビルド依存がゼロになり、図表のレンダリングも安定します。
+    - question: 移行作業にはどのくらいの手間がかかりますか？
+      answer: 主な作業はディレクトリ構造の変換（docs/ → src/content/docs/）とフロントマターの調整です。コンテンツ自体は Markdown なのでそのまま使えるため、比較的短時間で完了します。
 ---
 
 VitePress で作ったドキュメントサイトを、Astro + Starlight に移行する手順をまとめます。メインサイトが Astro で動いている場合、ドキュメントも Starlight に統一すると運用がシンプルになります。Mermaid 図表の CDN 移行についても紹介します。

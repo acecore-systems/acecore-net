@@ -24,6 +24,15 @@ callout:
   type: info
   title: Worker vs Pages
   text: Cloudflare Worker は柔軟ですが、静的サイトには Pages の方がキャッシュ効率やデプロイの簡潔さで優れています。サーバーサイド処理が不要なら Pages を選びましょう。
+faq:
+  title: よくある質問
+  items:
+    - question: Cloudflare Pages と Workers のどちらを選ぶべきですか？
+      answer: サーバーサイド処理が不要な静的サイトなら Pages が最適です。CDN との統合がシームレスで、デプロイも簡潔です。フォーム処理などは外部サービスで代替できます。
+    - question: _headers ファイルで設定すべきセキュリティヘッダーは何ですか？
+      answer: Content-Security-Policy、X-Frame-Options、X-Content-Type-Options、Referrer-Policy、Permissions-Policy が基本です。CSP はサイトで使用する外部リソースに合わせて調整してください。
+    - question: CSP の設定で AdSense や Analytics を許可するにはどうしますか？
+      answer: script-src に googletagmanager.com や googlesyndication.com のドメインを追加します。img-src や connect-src にも関連ドメインの許可が必要な場合があります。
 ---
 
 Cloudflare Pages は静的サイトのホスティングに最適なプラットフォームです。この記事では、実際のデプロイ構成と、`_headers` ファイルを使ったセキュリティ設定について紹介します。

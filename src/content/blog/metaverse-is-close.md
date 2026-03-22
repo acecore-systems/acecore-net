@@ -20,6 +20,15 @@ linkCards:
   - href: https://www.meta.com/ja-jp/quest/
     title: Meta Quest ─ メタバースへの入口
     description: Meta社のVRデバイスが切り拓く仮想空間体験。
+faq:
+  title: よくある質問
+  items:
+    - question: メタバースとは何ですか？
+      answer: 人が集まって交流できる仮想空間のことです。VR ゴーグルだけでなく、Minecraft のようにパソコンやスマホからアクセスできるものも含まれます。
+    - question: Minecraft はメタバースと言えますか？
+      answer: 月間アクティブユーザー1億人以上が参加し、建築・交流・経済活動が行われている点で、すでに巨大なメタバースと言えます。
+    - question: Aceserver もメタバースの一種ですか？
+      answer: 規模は小さいですが、参加者が集まり、交流やイベントが行われる仮想空間という意味ではメタバースの要素を持っています。
 ---
 
 「メタバース」と聞くと、VR ゴーグルをつけて仮想空間に入る――そんなイメージが強いかもしれません。Facebook が Meta に社名を変え、Horizon Worlds に力を入れていますが、正直なところあまりピンときていない人も多いのではないでしょうか。

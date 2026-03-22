@@ -25,6 +25,15 @@ callout:
   type: tip
   title: Turnstile のメリット
   text: Cloudflare Turnstile は reCAPTCHA と異なり、ユーザーに画像選択などの操作を求めません。バックグラウンドで自動検証が行われるため、UX を損なわずにボット対策ができます。
+faq:
+  title: よくある質問
+  items:
+    - question: Pages CMS とは何ですか？
+      answer: GitHub リポジトリの Markdown ファイルを GUI で直接編集できる軽量 CMS です。サーバー不要で .pages.yml だけで設定が完了し、非エンジニアでも記事更新ができます。
+    - question: Cloudflare Turnstile は reCAPTCHA と何が違いますか？
+      answer: Turnstile はユーザーに画像選択などの操作を求めず、バックグラウンドで自動検証します。UX を損なわず、プライバシーにも配慮され、無料で利用できます。
+    - question: 静的サイトでフォーム送信を処理するにはどうしますか？
+      answer: ssgform.com や Formspree などの外部フォームサービスを利用すれば、サーバーサイドコード不要でフォーム送信を処理できます。Turnstile と組み合わせてスパム対策も可能です。
 ---
 
 CMS の選定は地味ですが重要な意思決定です。この記事では、3つの CMS を実際に評価した過程と、お問い合わせフォームに Cloudflare Turnstile を導入したボット対策について紹介します。

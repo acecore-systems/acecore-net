@@ -1,4 +1,6 @@
 ---
+import { generateSrcSet } from '../utils/image'
+
 interface Props {
   title: string
   subtitle?: string
@@ -30,6 +32,8 @@ const hasSlider = images && images.length > 0
           >
             <img
               src={src}
+              srcset={generateSrcSet(src)}
+              sizes="100vw"
               alt={alt}
               class="w-full h-full object-cover"
               width="1400"

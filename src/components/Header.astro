@@ -95,6 +95,10 @@ const currentPath = Astro.url.pathname
     const expanded = menu?.classList.toggle('hidden') === false
     menuBtn.setAttribute('aria-expanded', String(expanded))
     menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+    if (expanded) {
+      const first = menu?.querySelector<HTMLElement>('a')
+      first?.focus()
+    }
   })
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
@@ -102,6 +106,22 @@ const currentPath = Astro.url.pathname
       menuBtn?.setAttribute('aria-expanded', 'false')
       menuBtn?.setAttribute('aria-label', 'メニューを開く')
       menuBtn?.focus()
+    }
+    if (e.key === 'Tab' && menu && !menu.classList.contains('hidden')) {
+      const focusable = menu.querySelectorAll<HTMLElement>('a, button')
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        menuBtn?.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      } else if (e.shiftKey && document.activeElement === menuBtn) {
+        e.preventDefault()
+        last.focus()
+      }
     }
   })
 </script>

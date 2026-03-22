@@ -36,6 +36,15 @@ compareTable:
       - wsrv.nl で AVIF/WebP 自動変換・品質60
       - AdSense を初回スクロール時に遅延読み込み
       - Mobile 98点 / Desktop 100点
+faq:
+  title: よくある質問
+  items:
+    - question: Astro + UnoCSS でどのくらいのスコアが出ますか？
+      answer: 適切に最適化すればモバイル98点・デスクトップ100点を達成できます。静的サイト生成による軽量なHTMLが高スコアの基盤です。
+    - question: wsrv.nl を使った画像最適化のメリットは何ですか？
+      answer: ビルド不要でAVIF/WebP自動変換・リサイズが可能です。無料で利用でき、Cloudflare CDN と組み合わせることで高速配信も実現します。
+    - question: AdSense を遅延読み込みしても収益に影響しませんか？
+      answer: ファーストビューに広告がない場合、初回スクロール時の読み込みでも表示タイミングはほぼ同じです。ページ速度改善によるSEO効果のほうがプラスに働きます。
 ---
 
 Acecoreの公式サイトは Astro + UnoCSS で構築しています。この記事では、PageSpeed Insights でモバイル98点・デスクトップ100点を達成するまでに行った最適化テクニックを紹介します。

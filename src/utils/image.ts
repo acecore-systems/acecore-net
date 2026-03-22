@@ -17,3 +17,19 @@ export function optimizeImage(url: string): string {
     return url
   }
 }
+
+/** 指定幅で wsrv.nl URL を生成する（srcset 用） */
+export function optimizeImageWithWidth(url: string, width: number): string {
+  try {
+    const parsed = new URL(url)
+    const origin = `${parsed.origin}${parsed.pathname}`
+    return `https://wsrv.nl/?url=${origin}&w=${width}&fit=cover&output=auto&q=60`
+  } catch {
+    return url
+  }
+}
+
+/** srcset 文字列を生成する */
+export function generateSrcSet(url: string, widths: number[] = [640, 960, 1280, 1600]): string {
+  return widths.map((w) => `${optimizeImageWithWidth(url, w)} ${w}w`).join(', ')
+}

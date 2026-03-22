@@ -162,7 +162,7 @@ const coreLayers = [
                   />
                 )}
                 <div class="p-6">
-                  <div class="flex items-center gap-2 text-xs text-slate-500">
+                  <div class="flex items-center gap-2 text-xs text-slate-600">
                     <time>{post.data.date.toLocaleDateString('ja-JP')}</time>
                     {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
                   </div>

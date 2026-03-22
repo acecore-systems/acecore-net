@@ -67,10 +67,29 @@ const AD_SLOT = '3228710511'
     }
   }
 
-  // Show ad when results appear
+  // Show ad & zero-results fallback when results change
   const observer = new MutationObserver(() => {
     const results = document.querySelector('.pagefind-ui__results-area');
     const ad = document.getElementById('search-ad');
+    const message = document.querySelector('.pagefind-ui__message');
+    // Add fallback links on zero results
+    var fallback = document.getElementById('search-fallback');
+    if (message && message.textContent && message.textContent.includes('見つかりません')) {
+      if (!fallback) {
+        fallback = document.createElement('div');
+        fallback.id = 'search-fallback';
+        fallback.className = 'px-1 py-3 text-sm text-slate-600';
+        fallback.innerHTML = '<p class="mb-2">以下もお試しください：</p>'
+          + '<ul class="space-y-1 list-none p-0 m-0">'
+          + '<li><a href="/blog/" class="text-brand-500 hover:underline">→ 記事一覧を見る</a></li>'
+          + '<li><a href="/services/" class="text-brand-500 hover:underline">→ サービス一覧を見る</a></li>'
+          + '<li><a href="/contact/" class="text-brand-500 hover:underline">→ お問い合わせ</a></li>'
+          + '</ul>';
+        message.parentNode.insertBefore(fallback, message.nextSibling);
+      }
+    } else if (fallback) {
+      fallback.remove();
+    }
     if (results && results.children.length > 0) {
       ad.classList.remove('hidden');
       if (!ad.dataset.pushed) {
@@ -109,7 +128,7 @@ const AD_SLOT = '3228710511'
     border-radius: 0.5rem !important;
     border-color: #e2e8f0 !important;
     font-size: 0.95rem !important;
-    padding: 0.625rem 1rem !important;
+    padding: 0.625rem 1rem 0.625rem 2.5rem !important;
   }
   .pagefind-ui__search-input:focus {
     border-color: #7fa4cf !important;

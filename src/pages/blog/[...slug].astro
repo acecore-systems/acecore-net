@@ -262,11 +262,11 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
                   <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
                     {rp.data.title}
                   </span>
-                  <span class="text-xs text-slate-500 mt-1">{rp.data.date.toLocaleDateString('ja-JP')}</span>
+                  <span class="text-xs text-slate-600 mt-1">{rp.data.date.toLocaleDateString('ja-JP')}</span>
                   {rp.data.tags && (
                     <div class="flex flex-wrap gap-1 mt-2">
                       {rp.data.tags.slice(0, 3).map((tag: string) => (
-                        <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
                           {tag}
                         </span>
                       ))}
@@ -286,7 +286,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
               href={`/blog/${prevPost.id}/`}
               class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
             >
-              <span class="text-xs text-slate-500 mb-1">← 前の記事</span>
+              <span class="text-xs text-slate-600 mb-1">← 前の記事</span>
               <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
                 {prevPost.data.title}
               </span>
@@ -297,7 +297,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
               href={`/blog/${nextPost.id}/`}
               class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
             >
-              <span class="text-xs text-slate-500 mb-1">次の記事 →</span>
+              <span class="text-xs text-slate-600 mb-1">次の記事 →</span>
               <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
                 {nextPost.data.title}
               </span>
