@@ -126,7 +126,7 @@ const coreLayers = [
           技術の勉強会やワークショップを定期開催し、お客様やコミュニティと一緒に学び合う場を大切にしています。
         </p>
         <p class="text-lg text-slate-600 leading-relaxed mb-8">
-          オープンソース活用・地域連携・<a href="/schools/" class="text-brand-500 hover:underline">教育分野</a>への貢献を通じて、技術と人をつなげるパートナーシップを築いています。
+          オープンソース活用・地域連携・<a href="/schools/" class="ac-link">教育分野</a>への貢献を通じて、技術と人をつなげるパートナーシップを築いています。
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a href="/about/" class="ac-btn-primary">会社概要を見る</a>
@@ -153,7 +153,7 @@ const coreLayers = [
                 {post.data.image && (
                   <img
                     src={optimizeImage(post.data.image)}
-                    alt=""
+                    alt={post.data.title}
                     class="w-full h-40 object-cover"
                     width="400"
                     height="160"

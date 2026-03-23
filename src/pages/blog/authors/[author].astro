@@ -49,6 +49,9 @@ const allPosts = (await getCollection('blog')).sort(
             src={author.avatarImage || author.avatar}
             alt={authorName}
             class="w-16 h-16 rounded-full object-cover shrink-0"
+            width="64"
+            height="64"
+            decoding="async"
           />
         ) : (
           <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">

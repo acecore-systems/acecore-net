@@ -7,7 +7,11 @@ import rehypeInjectAds from './src/utils/rehype-inject-ads'
 
 export default defineConfig({
   site: 'https://acecore.net',
-  integrations: [UnoCSS({ injectReset: true }), sitemap()],
+  integrations: [UnoCSS({ injectReset: true }), sitemap({
+    changefreq: 'weekly',
+    priority: 0.7,
+    lastmod: new Date(),
+  })],
   markdown: {
     rehypePlugins: [
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'], properties: { className: ['external-link'] } }],

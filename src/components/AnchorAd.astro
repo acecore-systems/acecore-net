@@ -5,7 +5,7 @@
   <div class="relative">
     <button
       id="anchor-ad-close"
-      class="absolute -top-8 right-2 bg-white/90 border border-slate-200 rounded-t px-2 py-0.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
+      class="absolute -top-8 right-2 bg-white/90 border border-slate-200 rounded-t px-2 py-0.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
       aria-label="広告を閉じる"
     >✕</button>
     <ins class="adsbygoogle"
@@ -33,7 +33,7 @@
     try {
       ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
       ;(window as any).adsbygoogle.push({})
-    } catch {}
+    } catch (e) { console.warn('AnchorAd load failed:', e) }
 
     closeBtn.addEventListener('click', () => {
       container.style.display = 'none'

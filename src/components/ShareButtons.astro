@@ -45,9 +45,13 @@ const encodedTitle = encodeURIComponent(title)
     document.querySelectorAll<HTMLButtonElement>('[data-share-url]').forEach(btn => {
       btn.addEventListener('click', async () => {
         const url = btn.dataset.shareUrl!;
-        await navigator.clipboard.writeText(url);
         const original = btn.querySelector('span')!.textContent;
-        btn.querySelector('span')!.textContent = 'コピーしました';
+        try {
+          await navigator.clipboard.writeText(url);
+          btn.querySelector('span')!.textContent = 'コピーしました';
+        } catch {
+          btn.querySelector('span')!.textContent = 'コピー失敗';
+        }
         setTimeout(() => { btn.querySelector('span')!.textContent = original; }, 2000);
       });
     });

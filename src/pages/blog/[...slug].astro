@@ -142,7 +142,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
               <time datetime={post.data.lastUpdated.toISOString()}>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
             </span>
           )}
-          {author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 hover:underline">by {author.name}</a>}
+          {author && <a href={`/blog/authors/${post.data.author}/`} class="ac-link">by {author.name}</a>}
         </div>
         {post.data.tags && (
             <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>

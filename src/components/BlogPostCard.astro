@@ -19,10 +19,7 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<a
-  href={`/blog/${post.id}/`}
-  class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
->
+<article class="ac-card overflow-hidden hover:shadow-md transition-shadow group relative">
   <div class="flex flex-col sm:flex-row">
     {post.data.image && (
       <div class="sm:w-48 sm:shrink-0">
@@ -40,10 +37,10 @@ const { post } = Astro.props
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-3 text-sm text-slate-500">
         <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
-        {post.data.author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 hover:underline" onclick="event.stopPropagation()">by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</a>}
+        {post.data.author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 underline underline-offset-2 relative z-10">by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</a>}
       </div>
       <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
-        {post.data.title}
+        <a href={`/blog/${post.id}/`} class="no-underline text-inherit after:absolute after:inset-0">{post.data.title}</a>
       </h2>
       <p class="text-slate-600">{post.data.description}</p>
       {post.data.tags && (
@@ -57,4 +54,4 @@ const { post } = Astro.props
       )}
     </div>
   </div>
-</a>
+</article>

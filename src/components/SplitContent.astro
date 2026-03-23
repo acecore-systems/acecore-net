@@ -21,8 +21,17 @@ import LinkCard from './LinkCard.astro'
 import Faq from './Faq.astro'
 import PullQuote from './PullQuote.astro'
 
+interface Visual {
+  type: 'photo' | 'grid' | 'flow' | 'stat' | 'timeline' | 'compare' | 'callout' | 'testimonial' | 'checklist' | 'youtube' | 'gallery' | 'linkcard' | 'faq' | 'pullquote'
+  afterSection: number
+  src?: string
+  alt?: string
+  caption?: string
+  props?: Record<string, unknown>
+}
+
 interface Props {
-  visuals: Array<{ type: string; afterSection: number; [k: string]: any }>
+  visuals: Visual[]
 }
 
 const { visuals = [] } = Astro.props
@@ -38,7 +47,7 @@ const sections = html.split(/(?=<h2[\s>])/)
       {matched.map((v) =>
         v.type === 'photo' ? (
           <figure class="not-prose my-8">
-            <img src={v.src} alt={v.alt} class="w-full rounded-lg" decoding="async" loading="lazy" />
+            <img src={v.src} alt={v.alt} class="w-full rounded-lg" width="800" height="450" decoding="async" loading="lazy" />
             {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
           </figure>
         ) : v.type === 'grid' ? (
