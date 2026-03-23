@@ -73,7 +73,7 @@ const hasSlider = images && images.length > 0
           class="ml-1 rounded-full cursor-pointer min-w-11 min-h-11 flex items-center justify-center bg-transparent text-white/70 hover:text-white transition-colors"
           aria-label="スライドの自動再生を一時停止"
         >
-          <div class="i-lucide-pause text-base" id="hero-pause-icon"></div>
+            <div class="i-lucide-pause text-base" id="hero-pause-icon" aria-hidden="true"></div>
         </button>
       </div>
     )
@@ -112,17 +112,22 @@ const hasSlider = images && images.length > 0
 </section>
 
 <script>
-  const slider = document.getElementById('hero-slider')
-  if (slider) {
+  let heroTimer: ReturnType<typeof setInterval> | null = null
+
+  function initHeroSlider() {
+    if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
+
+    const slider = document.getElementById('hero-slider')
+    if (!slider) return
+
     const slides = slider.querySelectorAll<HTMLDivElement>('.hero-slide')
     const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
     const pauseBtn = document.getElementById('hero-pause') as HTMLButtonElement | null
     const pauseIcon = document.getElementById('hero-pause-icon') as HTMLDivElement | null
     const total = slides.length
-    if (total <= 1) throw null // no need to run
+    if (total <= 1) return
 
     let current = 0
-    let timer: ReturnType<typeof setInterval> | null = null
     let paused = false
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -147,11 +152,11 @@ const hasSlider = images && images.length > 0
     function startAutoPlay() {
       if (paused || prefersReducedMotion) return
       stopAutoPlay()
-      timer = setInterval(next, 5000)
+      heroTimer = setInterval(next, 5000)
     }
 
     function stopAutoPlay() {
-      if (timer) { clearInterval(timer); timer = null }
+      if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
     }
 
     function setPaused(value: boolean) {
@@ -194,4 +199,7 @@ const hasSlider = images && images.length > 0
 
     startAutoPlay()
   }
+
+  initHeroSlider()
+  document.addEventListener('astro:after-swap', initHeroSlider)
 </script>

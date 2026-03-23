@@ -1,9 +1,10 @@
 ---
+import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
 import authors from '../data/authors.json'
 
 interface Props {
-  allPosts: any[]
+  allPosts: CollectionEntry<'blog'>[]
 }
 
 const { allPosts } = Astro.props
@@ -45,7 +46,7 @@ const latestPosts = allPosts.slice(0, 5)
   <div class="sticky top-20 space-y-6">
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-tags text-brand-500"></div>
+        <div class="i-lucide-tags text-brand-500" aria-hidden="true"></div>
         タグ
       </h3>
       <div class="flex flex-wrap gap-1.5">
@@ -62,7 +63,7 @@ const latestPosts = allPosts.slice(0, 5)
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-calendar text-brand-500"></div>
+        <div class="i-lucide-calendar text-brand-500" aria-hidden="true"></div>
         アーカイブ
       </h3>
       <ul class="space-y-0.5 text-sm list-none p-0 m-0">
@@ -82,7 +83,7 @@ const latestPosts = allPosts.slice(0, 5)
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-users text-brand-500"></div>
+        <div class="i-lucide-users text-brand-500" aria-hidden="true"></div>
         著者
       </h3>
       <div class="space-y-3">
@@ -113,7 +114,7 @@ const latestPosts = allPosts.slice(0, 5)
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-newspaper text-brand-500"></div>
+        <div class="i-lucide-newspaper text-brand-500" aria-hidden="true"></div>
         最新記事
       </h3>
       <ul class="space-y-3 list-none p-0 m-0">

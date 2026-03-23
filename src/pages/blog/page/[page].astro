@@ -38,11 +38,20 @@ const itemListLd = {
     "url": `https://acecore.net/blog/${post.id}/`,
   })),
 }
+
+const pageNumbers: (number | '...')[] = [];
+for (let i = 1; i <= totalPages; i++) {
+  if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+    pageNumbers.push(i);
+  } else if (pageNumbers[pageNumbers.length - 1] !== '...') {
+    pageNumbers.push('...');
+  }
+}
 ---
 
 <BaseLayout
   title={`ブログ (${currentPage}ページ目)`}
-  description={`Acecore ブログの記事一覧 - ${currentPage}ページ目`}
+  description={`Acecore ブログの記事一覧（${currentPage}/${totalPages}ページ目）。システム開発・Web制作・サーバー運用・IT教育に関する技術情報や活動報告を発信しています。`}
   jsonLd={itemListLd}
   prevPage={currentPage === 2 ? '/blog/' : `/blog/page/${currentPage - 1}/`}
   nextPage={currentPage < totalPages ? `/blog/page/${currentPage + 1}/` : undefined}
@@ -72,18 +81,13 @@ const itemListLd = {
       </div>
 
       <nav class="mt-10 flex justify-center items-center gap-2" aria-label="ページナビゲーション">
-        <a href="/blog/" class:list={["px-4 py-2 rounded text-sm transition-colors", currentPage === 1 ? "bg-brand-500 text-white font-600" : "border border-slate-300 text-slate-600 hover:bg-brand-50 hover:border-brand-300"]}>
-          1
-        </a>
-        {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((page) => (
-          page === currentPage ? (
-            <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{page}</span>
-          ) : (
-            <a href={`/blog/page/${page}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">
-              {page}
-            </a>
-          )
-        ))}
+        {pageNumbers.map((p) =>
+          p === '...'
+            ? <span class="px-2 text-slate-400">…</span>
+            : p === currentPage
+              ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{p}</span>
+              : <a href={p === 1 ? '/blog/' : `/blog/page/${p}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">{p}</a>
+        )}
       </nav>
       </div>
       <BlogSidebar allPosts={allPosts} />

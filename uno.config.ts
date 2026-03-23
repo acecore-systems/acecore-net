@@ -37,7 +37,7 @@ export default defineConfig({
     'ac-muted': 'text-slate-600',
     'ac-card': 'rounded-xl border border-slate-200 bg-white shadow-sm',
     'ac-btn':
-      'inline-flex items-center justify-center rounded-lg px-6 py-3 font-600 transition-all duration-200',
+      'inline-flex items-center justify-center rounded-lg px-6 py-3 font-600 transition-all duration-200 min-h-11',
     'ac-btn-primary': 'ac-btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700',
     'ac-btn-outline': 'ac-btn border-2 border-brand-500 text-brand-500 hover:bg-brand-50',
   },

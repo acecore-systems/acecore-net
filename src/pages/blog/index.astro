@@ -26,6 +26,15 @@ const itemListLd = {
     "url": `https://acecore.net/blog/${post.id}/`,
   })),
 }
+
+const pageNumbers: (number | '...')[] = [];
+for (let i = 1; i <= totalPages; i++) {
+  if (i === 1 || i === totalPages || Math.abs(i - 1) <= 1) {
+    pageNumbers.push(i);
+  } else if (pageNumbers[pageNumbers.length - 1] !== '...') {
+    pageNumbers.push('...');
+  }
+}
 ---
 
 <BaseLayout
@@ -62,12 +71,13 @@ const itemListLd = {
 
       {totalPages > 1 && (
         <nav class="mt-10 flex justify-center items-center gap-2" aria-label="ページナビゲーション">
-          <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">1</span>
-          {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((page) => (
-            <a href={`/blog/page/${page}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">
-              {page}
-            </a>
-          ))}
+          {pageNumbers.map((p) =>
+            p === '...'
+              ? <span class="px-2 text-slate-400">…</span>
+              : p === 1
+                ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{p}</span>
+                : <a href={`/blog/page/${p}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">{p}</a>
+          )}
         </nav>
       )}
 

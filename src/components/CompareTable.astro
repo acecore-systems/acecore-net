@@ -13,13 +13,13 @@ const { title, before, after } = Astro.props
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     <div class="rounded-lg bg-slate-50 border border-slate-200 p-4">
       <p class="text-sm font-700 text-slate-500 mb-2 flex items-center gap-1.5">
-        <div class="i-lucide-circle-x text-red-400 shrink-0"></div>
+        <div class="i-lucide-circle-x text-red-400 shrink-0" aria-hidden="true"></div>
         {before.label}
       </p>
       <ul class="space-y-1.5">
         {before.items.map((item) => (
           <li class="text-[13px] text-slate-600 flex items-start gap-1.5">
-            <div class="i-lucide-minus text-slate-300 mt-0.5 shrink-0"></div>
+            <div class="i-lucide-minus text-slate-300 mt-0.5 shrink-0" aria-hidden="true"></div>
             <span>{item}</span>
           </li>
         ))}
@@ -27,13 +27,13 @@ const { title, before, after } = Astro.props
     </div>
     <div class="rounded-lg bg-brand-50/80 border border-brand-100 p-4">
       <p class="text-sm font-700 text-brand-600 mb-2 flex items-center gap-1.5">
-        <div class="i-lucide-circle-check text-brand-500 shrink-0"></div>
+        <div class="i-lucide-circle-check text-brand-500 shrink-0" aria-hidden="true"></div>
         {after.label}
       </p>
       <ul class="space-y-1.5">
         {after.items.map((item) => (
           <li class="text-[13px] text-brand-700 flex items-start gap-1.5">
-            <div class="i-lucide-check text-brand-500 mt-0.5 shrink-0"></div>
+            <div class="i-lucide-check text-brand-500 mt-0.5 shrink-0" aria-hidden="true"></div>
             <span>{item}</span>
           </li>
         ))}

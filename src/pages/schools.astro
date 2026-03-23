@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import CompareTable from '../components/CompareTable.astro'
 import { optimizeImage } from '../utils/image'
+import { SITE } from '../data/site'
 
 const learningSteps = [
   {
@@ -54,8 +55,8 @@ const schoolsLd = {
       "description": "学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ・高卒認定など幅広い教育プログラムを提供するITスクールです。",
       "url": "https://acecore.net/schools/",
       "parentOrganization": { "@type": "Organization", "name": "Acecore", "url": "https://acecore.net" },
-      "telephone": "050-8890-2788",
-      "email": "info@acecore.net",
+      "telephone": SITE.phoneIntl,
+      "email": SITE.email,
     },
     { "@type": "Course", "name": "学習塾", "description": "一人ひとりの生徒に合わせた個別指導で、基礎から応用まで学力を身につけます。定期テスト・受験対策にも対応。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#juku" },
     { "@type": "Course", "name": "ロボット / プログラミング", "description": "ロボット工作・ロボットプログラミング・マインクラフトプログラミングを通じてプログラミングの基礎を学びます。", "provider": { "@type": "EducationalOrganization", "name": "Acecore Schools" }, "url": "https://acecore.net/schools/#robot-programming" },
@@ -97,7 +98,7 @@ const schoolsLd = {
       <!-- 学習塾 -->
       <div class="mb-16" id="juku">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-book-open text-3xl text-brand-500"></div>
+          <div class="i-lucide-book-open text-3xl text-brand-500" aria-hidden="true"></div>
           <h2 class="text-2xl ac-heading">学習塾</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -107,15 +108,15 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">特徴</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               個別指導で一人ひとりの理解度に合わせた丁寧な授業
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               基礎の定着から応用力の養成まで段階的にサポート
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               定期テスト・受験対策にも対応
             </li>
           </ul>
@@ -137,7 +138,7 @@ const schoolsLd = {
       <!-- ロボット/プログラミング -->
       <div class="mb-16" id="robot-programming">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-bot text-3xl text-brand-500"></div>
+          <div class="i-lucide-bot text-3xl text-brand-500" aria-hidden="true"></div>
           <h2 class="text-2xl ac-heading">ロボット / プログラミング</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -188,7 +189,7 @@ const schoolsLd = {
       <!-- 実践プログラミング -->
       <div class="mb-16" id="practical-programming">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-code-2 text-3xl text-brand-500"></div>
+          <div class="i-lucide-code-2 text-3xl text-brand-500" aria-hidden="true"></div>
           <h2 class="text-2xl ac-heading">実践プログラミング</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -198,19 +199,19 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">学べる内容</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               HTML / CSS / JavaScript によるWebフロントエンド開発
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               Python / Node.js などを使ったバックエンド開発
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               データベース設計・API構築・クラウド活用
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               Git / チーム開発のワークフロー
             </li>
           </ul>
@@ -220,7 +221,7 @@ const schoolsLd = {
       <!-- パソコン/スマホ -->
       <div class="mb-16" id="pc-smartphone">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-monitor-smartphone text-3xl text-brand-500"></div>
+          <div class="i-lucide-monitor-smartphone text-3xl text-brand-500" aria-hidden="true"></div>
           <h2 class="text-2xl ac-heading">パソコン / スマホ</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -230,19 +231,19 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応レベル</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               パソコン・スマホの基本操作（初心者歓迎）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               Word / Excel / PowerPoint などオフィスソフトの活用
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               メール・SNS・オンライン会議のセットアップと使い方
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               セキュリティ対策・トラブルシューティング
             </li>
           </ul>
@@ -264,7 +265,7 @@ const schoolsLd = {
       <!-- 高卒認定 -->
       <div class="mb-16" id="ged">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-file-badge text-3xl text-brand-500"></div>
+          <div class="i-lucide-file-badge text-3xl text-brand-500" aria-hidden="true"></div>
           <h2 class="text-2xl ac-heading">高卒認定</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -274,15 +275,15 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">サポート内容</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               各科目ごとの試験対策（国語・数学・英語・社会・理科）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               個人の学力に合わせた学習計画の作成
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0"></div>
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
               模擬試験・過去問演習による実践的な対策
             </li>
           </ul>
@@ -297,23 +298,23 @@ const schoolsLd = {
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
           <div class="flex items-center gap-2">
-            <div class="i-lucide-phone text-brand-500"></div>
-            <span class="font-600 text-slate-800">050-8890-2788</span>
+            <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
+            <span class="font-600 text-slate-800">{SITE.phone}</span>
           </div>
           <div class="flex items-center gap-2">
-            <div class="i-lucide-mail text-brand-500"></div>
-            <a href="mailto:info@acecore.net" class="font-600 text-brand-500 hover:underline">info@acecore.net</a>
+            <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
+            <a href={`mailto:${SITE.email}`} class="font-600 text-brand-500 hover:underline">{SITE.email}</a>
           </div>
         </div>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a href="/contact/" class="ac-btn-primary">お問い合わせフォーム</a>
           <a
-            href="https://lin.ee/DjIrdqj"
+            href={SITE.line}
             target="_blank"
             rel="noopener noreferrer"
             class="ac-btn-outline"
           >
-            LINEで問い合わせる
+            LINEで問い合わせる<span class="sr-only">（新しいタブで開きます）</span>
           </a>
         </div>
       </div>

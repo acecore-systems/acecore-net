@@ -22,23 +22,22 @@ import ShareButtons from '../../components/ShareButtons.astro'
 import CopyCodeButton from '../../components/CopyCodeButton.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog')
-  return posts.map((post) => ({
+  const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  )
+  return allPosts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts },
   }))
 }
 
-const { post } = Astro.props
+const { post, allPosts } = Astro.props
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 const author = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
 
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-)
 const currentIndex = allPosts.findIndex((p) => p.id === post.id)
 const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
 const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
@@ -101,16 +100,17 @@ const faqLd = post.data.faq ? {
 const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
 
 const tags = post.data.tags ?? []
-const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].includes(t))
-  ? { heading: 'ITスクールに興味がありますか？', body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。', primary: { label: 'スクール詳細を見る', href: '/schools/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } }
-  : tags.some((t: string) => ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'].includes(t))
-    ? { heading: '運用・インフラのお悩みはありませんか？', body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: '無料で相談する', href: '/contact/' } }
-    : tags.some((t: string) => ['システム開発', 'Web制作', 'Astro'].includes(t))
-      ? { heading: '開発・Web制作のご相談はお気軽に', body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } }
-      : { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
+
+const ctaVariants = [
+  { match: ['教育', 'Acecore Schools'], heading: 'ITスクールに興味がありますか？', body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。', primary: { label: 'スクール詳細を見る', href: '/schools/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } },
+  { match: ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'], heading: '運用・インフラのお悩みはありませんか？', body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: '無料で相談する', href: '/contact/' } },
+  { match: ['システム開発', 'Web制作', 'Astro'], heading: '開発・Web制作のご相談はお気軽に', body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } },
+]
+const defaultCta = { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
+const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.includes(t))) ?? defaultCta
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated} tags={post.data.tags}>
+<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated} tags={post.data.tags} author={author?.name}>
   <div class="ac-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
       <aside class="hidden xl:block" aria-label="目次">
@@ -138,7 +138,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
           <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
           {post.data.lastUpdated && (
             <span class="flex items-center gap-1">
-              <span class="i-lucide-refresh-cw text-xs"></span>
+              <span class="i-lucide-refresh-cw text-xs" aria-hidden="true"></span>
               <time datetime={post.data.lastUpdated.toISOString()}>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
             </span>
           )}
@@ -158,7 +158,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       {tocHeadings.length > 0 && (
         <details class="lg:hidden mb-8 ac-card p-4" data-pagefind-ignore>
           <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
-            <div class="i-lucide-list text-sm"></div>
+            <div class="i-lucide-list text-sm" aria-hidden="true"></div>
             目次
           </summary>
           <ul class="mt-3 space-y-1 text-sm border-l-2 border-slate-200 ml-1">
@@ -241,12 +241,12 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
                 <div class="flex items-center gap-3 mt-3">
                   {author.github && (
                     <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
-                      <div class="i-lucide-github text-lg"></div>
+                      <div class="i-lucide-github text-lg" aria-hidden="true"></div>
                     </a>
                   )}
                   {author.twitter && (
                     <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
-                      <div class="i-lucide-twitter text-lg"></div>
+                      <div class="i-lucide-twitter text-lg" aria-hidden="true"></div>
                     </a>
                   )}
                 </div>
@@ -268,7 +268,7 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       {relatedPosts.length > 0 && (
         <section class="mt-12 pt-8 border-t border-slate-200" data-pagefind-ignore>
           <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
-            <div class="i-lucide-newspaper text-lg text-brand-500"></div>
+            <div class="i-lucide-newspaper text-lg text-brand-500" aria-hidden="true"></div>
             関連記事
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -381,12 +381,12 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
                 <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
                   {author.github && (
                     <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
-                      <div class="i-lucide-github text-base"></div>
+                      <div class="i-lucide-github text-base" aria-hidden="true"></div>
                     </a>
                   )}
                   {author.twitter && (
                     <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
-                      <div class="i-lucide-twitter text-base"></div>
+                      <div class="i-lucide-twitter text-base" aria-hidden="true"></div>
                     </a>
                   )}
                 </div>
@@ -398,26 +398,29 @@ const ctaConfig = tags.some((t: string) => ['教育', 'Acecore Schools'].include
       </aside>
     </div>
   </div>
-  <script is:inline>
-  {
+  <script>
+  function initTocScroll() {
     const tocLinks = document.querySelectorAll('.toc-link');
-    if (tocLinks.length > 0) {
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            tocLinks.forEach(l => l.classList.remove('toc-active'));
-            document.querySelectorAll('.toc-link[data-slug="' + CSS.escape(entry.target.id) + '"]:not([hidden])')
-              .forEach(link => link.classList.add('toc-active'));
-          }
+    if (tocLinks.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('toc-active'));
+          document.querySelectorAll('.toc-link[data-slug="' + CSS.escape(entry.target.id) + '"]:not([hidden])')
+            .forEach(link => link.classList.add('toc-active'));
         }
-      }, { rootMargin: '-80px 0px -60% 0px' });
-      const slugs = new Set(Array.from(tocLinks).map(l => l.dataset.slug));
-      slugs.forEach(slug => {
-        const el = document.getElementById(slug);
-        if (el) observer.observe(el);
-      });
-    }
+      }
+    }, { rootMargin: '-80px 0px -60% 0px' });
+    const slugs = new Set(Array.from(tocLinks).map(l => (l as HTMLElement).dataset.slug!));
+    slugs.forEach(slug => {
+      const el = document.getElementById(slug);
+      if (el) observer.observe(el);
+    });
   }
+
+  initTocScroll();
+  document.addEventListener('astro:after-swap', initTocScroll);
   </script>
   <style is:global>
     .toc-active {

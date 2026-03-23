@@ -41,7 +41,7 @@ const currentPath = Astro.url.pathname
         aria-label="記事を検索"
         title="検索 (Ctrl+K)"
       >
-        <div class="i-lucide-search text-lg"></div>
+        <div class="i-lucide-search text-lg" aria-hidden="true"></div>
       </button>
     </nav>
     <div class="flex items-center gap-1 md:hidden">
@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname
         class="p-2 text-slate-500"
         aria-label="記事を検索"
       >
-        <div class="i-lucide-search text-lg"></div>
+        <div class="i-lucide-search text-lg" aria-hidden="true"></div>
       </button>
       <button
         id="mobile-menu-btn"
@@ -59,7 +59,7 @@ const currentPath = Astro.url.pathname
       aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <div class="i-lucide-menu text-xl"></div>
+        <div class="i-lucide-menu text-xl" aria-hidden="true"></div>
       </button>
     </div>
   </div>
@@ -89,44 +89,68 @@ const currentPath = Astro.url.pathname
 </header>
 
 <script>
-  const menuBtn = document.getElementById('mobile-menu-btn')
-  const menu = document.getElementById('mobile-menu')
-  menuBtn?.addEventListener('click', () => {
-    const expanded = menu?.classList.toggle('hidden') === false
-    menuBtn.setAttribute('aria-expanded', String(expanded))
-    menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+  function initHeader() {
+    const menuBtn = document.getElementById('mobile-menu-btn')
+    const menu = document.getElementById('mobile-menu')
+    if (!menuBtn || !menu) return
+
+    // Reset state after VT swap
+    menu.classList.add('hidden')
+    menuBtn.setAttribute('aria-expanded', 'false')
+    menuBtn.setAttribute('aria-label', 'メニューを開く')
     const icon = menuBtn.querySelector('div')
     if (icon) {
-      icon.classList.toggle('i-lucide-menu', !expanded)
-      icon.classList.toggle('i-lucide-x', expanded)
+      icon.classList.add('i-lucide-menu')
+      icon.classList.remove('i-lucide-x')
     }
-    if (expanded) {
-      const first = menu?.querySelector<HTMLElement>('a')
-      first?.focus()
-    }
-  })
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
-      menu.classList.add('hidden')
-      menuBtn?.setAttribute('aria-expanded', 'false')
-      menuBtn?.setAttribute('aria-label', 'メニューを開く')
-      menuBtn?.focus()
-    }
-    if (e.key === 'Tab' && menu && !menu.classList.contains('hidden')) {
-      const focusable = menu.querySelectorAll<HTMLElement>('a, button')
-      if (focusable.length === 0) return
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault()
-        menuBtn?.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault()
-        first.focus()
-      } else if (e.shiftKey && document.activeElement === menuBtn) {
-        e.preventDefault()
-        last.focus()
+
+    menuBtn.addEventListener('click', () => {
+      const expanded = menu.classList.toggle('hidden') === false
+      menuBtn.setAttribute('aria-expanded', String(expanded))
+      menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+      const icon = menuBtn.querySelector('div')
+      if (icon) {
+        icon.classList.toggle('i-lucide-menu', !expanded)
+        icon.classList.toggle('i-lucide-x', expanded)
       }
-    }
-  })
+      if (expanded) {
+        const first = menu.querySelector<HTMLElement>('a')
+        first?.focus()
+      }
+    })
+  }
+
+  function initHeaderKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      const menu = document.getElementById('mobile-menu')
+      const menuBtn = document.getElementById('mobile-menu-btn')
+      if (!menu || !menuBtn) return
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden')
+        menuBtn.setAttribute('aria-expanded', 'false')
+        menuBtn.setAttribute('aria-label', 'メニューを開く')
+        menuBtn.focus()
+      }
+      if (e.key === 'Tab' && !menu.classList.contains('hidden')) {
+        const focusable = menu.querySelectorAll<HTMLElement>('a, button')
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          menuBtn.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        } else if (e.shiftKey && document.activeElement === menuBtn) {
+          e.preventDefault()
+          last.focus()
+        }
+      }
+    })
+  }
+
+  initHeader()
+  initHeaderKeyboard()
+  document.addEventListener('astro:after-swap', initHeader)
 </script>
