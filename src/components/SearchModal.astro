@@ -1,5 +1,5 @@
 ---
-const CLIENT_ID = 'ca-pub-3935803464310919'
+import { SITE } from '../data/site'
 const AD_SLOT = '3228710511'
 ---
 
@@ -19,7 +19,7 @@ const AD_SLOT = '3228710511'
       <div id="search-ad" class="hidden px-4 pb-4 border-t border-slate-100 mt-2 pt-3">
         <ins class="adsbygoogle"
           style="display:block"
-          data-ad-client={CLIENT_ID}
+          data-ad-client={SITE.adsenseClientId}
           data-ad-slot={AD_SLOT}
           data-ad-format="auto"
           data-full-width-responsive="true"></ins>
@@ -37,7 +37,14 @@ const AD_SLOT = '3228710511'
     const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
     const closeBtn = document.getElementById('search-close')
     const container = document.getElementById('search-container')
+    const ad = document.getElementById('search-ad')
     if (!dialog || !closeBtn || !container) return
+
+    // Reset ad state on View Transition
+    if (ad) {
+      delete ad.dataset.pushed
+      ad.classList.add('hidden')
+    }
 
     function openSearch(query?: string) {
       dialog!.showModal()

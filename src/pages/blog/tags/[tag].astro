@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro'
 import Breadcrumb from '../../../components/Breadcrumb.astro'
+import BlogPostCard from '../../../components/BlogPostCard.astro'
 import BlogSidebar from '../../../components/BlogSidebar.astro'
 import { getCollection } from 'astro:content'
-import authors from '../../../data/authors.json'
-import { optimizeImage } from '../../../utils/image'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog')
-  const tagMap = new Map<string, typeof posts>()
-  for (const post of posts) {
+  const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  )
+  const tagMap = new Map<string, typeof allPosts>()
+  for (const post of allPosts) {
     for (const tag of post.data.tags ?? []) {
       const list = tagMap.get(tag) ?? []
       list.push(post)
@@ -20,16 +21,13 @@ export async function getStaticPaths() {
     params: { tag },
     props: {
       tag,
-      posts: posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+      posts,
+      allPosts,
     },
   }))
 }
 
-const { tag, posts } = Astro.props
-
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
+const { tag, posts, allPosts } = Astro.props
 ---
 
 <BaseLayout
@@ -50,36 +48,7 @@ const allPosts = (await getCollection('blog')).sort(
       <div>
       <div class="space-y-6">
         {posts.map((post) => (
-          <a
-            href={`/blog/${post.id}/`}
-            class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
-          >
-            <div class="flex flex-col sm:flex-row">
-              {post.data.image && (
-                <div class="sm:w-48 sm:shrink-0">
-                  <img
-                    src={optimizeImage(post.data.image)}
-                    alt={post.data.title}
-                    class="w-full h-40 sm:h-full object-cover"
-                    width="192"
-                    height="160"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div class="p-6 sm:p-8">
-                <div class="flex items-center gap-3 text-sm text-slate-500">
-                  <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
-                  {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
-                </div>
-                <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
-                  {post.data.title}
-                </h2>
-                <p class="text-slate-600">{post.data.description}</p>
-              </div>
-            </div>
-          </a>
+          <BlogPostCard post={post} />
         ))}
       </div>
 

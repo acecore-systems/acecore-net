@@ -7,11 +7,11 @@ import { getCollection } from 'astro:content'
 import authors from '../../../data/authors.json'
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).sort(
+  const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const authorMap = new Map<string, typeof posts>()
-  for (const post of posts) {
+  const authorMap = new Map<string, typeof allPosts>()
+  for (const post of allPosts) {
     if (post.data.author) {
       const list = authorMap.get(post.data.author) ?? []
       list.push(post)
@@ -20,17 +20,13 @@ export async function getStaticPaths() {
   }
   return [...authorMap.entries()].map(([authorId, posts]) => ({
     params: { author: authorId },
-    props: { authorId, posts },
+    props: { authorId, posts, allPosts },
   }))
 }
 
-const { authorId, posts } = Astro.props
+const { authorId, posts, allPosts } = Astro.props
 const author = authors.find((a) => a.id === authorId)
 const authorName = author?.name ?? authorId
-
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
 ---
 
 <BaseLayout

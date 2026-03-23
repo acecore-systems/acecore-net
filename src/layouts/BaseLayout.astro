@@ -42,19 +42,27 @@ const pageNameMap: Record<string, string> = {
   blog: 'ブログ',
   acestudio: 'AceStudio',
   privacy: 'プライバシーポリシー',
+  tags: 'タグ',
+  authors: '著者',
+  archive: 'アーカイブ',
+  page: 'ページ',
 }
+const knownRoutes = new Set(['', 'services', 'schools', 'about', 'contact', 'blog', 'acestudio', 'privacy'])
 const pathParts = Astro.url.pathname.split('/').filter(Boolean)
 const breadcrumbLd = pathParts.length > 0 ? {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://acecore.net/" },
-    ...pathParts.map((part, i) => ({
-      "@type": "ListItem",
-      "position": i + 2,
-      "name": pageNameMap[part] || title,
-      "item": `https://acecore.net/${pathParts.slice(0, i + 1).join('/')}/`,
-    })),
+    ...pathParts.map((part, i) => {
+      const path = pathParts.slice(0, i + 1).join('/')
+      return {
+        "@type": "ListItem",
+        "position": i + 2,
+        "name": pageNameMap[part] || decodeURIComponent(part),
+        ...(i < pathParts.length - 1 && knownRoutes.has(path) ? { "item": `https://acecore.net/${path}/` } : i === pathParts.length - 1 ? { "item": `https://acecore.net/${path}/` } : {}),
+      }
+    }),
   ],
 } : null
 
@@ -108,12 +116,12 @@ import { SITE } from '../data/site'
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="anonymous" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin="anonymous" />
-        <script is:inline>
+        <script is:inline set:html={`
           (function() {
             function loadAds() {
               if (document.querySelector('script[src*="adsbygoogle"]')) return;
               var s = document.createElement('script');
-              s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3935803464310919';
+              s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsenseClientId}';
               s.crossOrigin = 'anonymous';
               s.async = true;
               document.head.appendChild(s);
@@ -124,20 +132,20 @@ import { SITE } from '../data/site'
               setTimeout(loadAds, 1500);
             }
           })();
-        </script>
+        `} />
       </>
     )}
     <!-- Google Analytics (GA4) -->
-    <script is:inline>
+    <script is:inline set:html={`
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-G79SGTMYEX');
+      gtag('config', '${SITE.ga4Id}');
       (function() {
         function loadGA() {
           if (document.querySelector('script[src*="googletagmanager"]')) return;
           var s = document.createElement('script');
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-G79SGTMYEX';
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=${SITE.ga4Id}';
           s.async = true;
           document.head.appendChild(s);
         }
@@ -147,7 +155,7 @@ import { SITE } from '../data/site'
           setTimeout(loadGA, 1500);
         }
       })();
-    </script>
+    `} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",

@@ -180,8 +180,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
         <div class="mb-8 rounded-xl overflow-hidden">
           <img
             src={optimizeImage(post.data.image)}
-            alt=""
-            role="presentation"
+            alt={post.data.title}
             class="w-full h-auto"
             width="960"
             height="400"
@@ -219,15 +218,16 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
               <img
                 src={author.avatarImage || author.avatar}
                 alt={author.name}
-                class="w-16 h-16 rounded-full object-cover shrink-0"
-              />
+                class="w-16 h-16 rounded-full object-cover shrink-0"                width="64"
+                height="64"
+                decoding="async"              />
             ) : (
               <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
                 {author.name.charAt(0)}
               </div>
             )}
             <div>
-              <h3 class="font-700 text-lg text-slate-900">{author.name}</h3>
+              <h3 class="font-700 text-lg text-slate-900"><a href={`/blog/authors/${post.data.author}/`} class="no-underline text-inherit hover:text-brand-500 transition-colors">{author.name}</a></h3>
               {author.bio && (
                 <p class="text-sm text-slate-600 mt-1 whitespace-pre-line">{author.bio}</p>
               )}
@@ -358,6 +358,9 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
                     src={author.avatarImage || author.avatar}
                     alt={author.name}
                     class="w-12 h-12 rounded-full object-cover shrink-0"
+                    width="48"
+                    height="48"
+                    decoding="async"
                   />
                 ) : (
                   <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-700 shrink-0">
@@ -365,7 +368,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
                   </div>
                 )}
                 <div>
-                  <p class="font-700 text-sm text-slate-900">{author.name}</p>
+                  <p class="font-700 text-sm text-slate-900"><a href={`/blog/authors/${post.data.author}/`} class="no-underline text-inherit hover:text-brand-500 transition-colors">{author.name}</a></p>
                 </div>
               </div>
               {author.bio && (

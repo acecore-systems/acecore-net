@@ -1,4 +1,5 @@
 ---
+import { SITE } from '../data/site'
 ---
 
 <div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg" id="anchor-ad">
@@ -10,7 +11,7 @@
     >✕</button>
     <ins class="adsbygoogle"
       style="display:block"
-      data-ad-client="ca-pub-3935803464310919"
+      data-ad-client={SITE.adsenseClientId}
       data-ad-slot="3228710511"
       data-ad-format="auto"
       data-full-width-responsive="true"

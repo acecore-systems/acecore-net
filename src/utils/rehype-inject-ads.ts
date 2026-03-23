@@ -1,7 +1,8 @@
-import type { Root } from 'hast'
+import type { Root, Element } from 'hast'
+import type { Parent } from 'unist'
 import { visit } from 'unist-util-visit'
+import { SITE } from '../data/site'
 
-const CLIENT_ID = 'ca-pub-3935803464310919'
 const INLINE_AD_SLOT = '4541792182'
 
 /**
@@ -10,10 +11,10 @@ const INLINE_AD_SLOT = '4541792182'
  */
 export default function rehypeInjectAds() {
   return (tree: Root) => {
-    const h2Positions: { parent: any; index: number }[] = []
+    const h2Positions: { parent: Parent; index: number }[] = []
 
     visit(tree, 'element', (node, index, parent) => {
-      if (node.tagName === 'h2' && index !== undefined && parent) {
+      if ((node as Element).tagName === 'h2' && index !== undefined && parent) {
         h2Positions.push({ parent, index })
       }
     })
@@ -37,7 +38,7 @@ export default function rehypeInjectAds() {
             properties: {
               className: ['adsbygoogle'],
               style: 'display:block',
-              dataAdClient: CLIENT_ID,
+              dataAdClient: SITE.adsenseClientId,
               dataAdSlot: INLINE_AD_SLOT,
               dataAdFormat: 'auto',
               dataFullWidthResponsive: 'true',

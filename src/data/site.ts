@@ -5,6 +5,8 @@ export const SITE = {
   phoneIntl: '+81-50-8890-2788',
   email: 'info@acecore.net',
   line: 'https://lin.ee/DjIrdqj',
+  adsenseClientId: 'ca-pub-3935803464310919',
+  ga4Id: 'G-G79SGTMYEX',
   social: {
     x: 'https://x.com/acecorenet',
     github: 'https://github.com/acecore-systems',

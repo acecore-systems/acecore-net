@@ -1,16 +1,17 @@
 ---
+import { SITE } from '../data/site'
+
 interface Props {
   adSlot: string
 }
 
 const { adSlot } = Astro.props
-const CLIENT_ID = 'ca-pub-3935803464310919'
 ---
 
 <ins
   class="adsbygoogle"
   style="display:block"
-  data-ad-client={CLIENT_ID}
+  data-ad-client={SITE.adsenseClientId}
   data-ad-slot={adSlot}
   data-ad-format="auto"
   data-full-width-responsive="true"
