@@ -142,7 +142,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
               <time datetime={post.data.lastUpdated.toISOString()}>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
             </span>
           )}
-          {author && <span>by {author.name}</span>}
+          {author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 hover:underline">by {author.name}</a>}
         </div>
         {post.data.tags && (
             <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
@@ -176,11 +176,12 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
           </ul>
         </details>
       )}
-      {(post.data.image || post.data.imageUrl) && (
+      {post.data.image && (
         <div class="mb-8 rounded-xl overflow-hidden">
           <img
-            src={optimizeImage(post.data.image || post.data.imageUrl)}
-            alt={post.data.title}
+            src={optimizeImage(post.data.image)}
+            alt=""
+            role="presentation"
             class="w-full h-auto"
             width="960"
             height="400"
@@ -283,9 +284,9 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
                   href={`/blog/${rp.id}/`}
                   class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all"
                 >
-                  {(rp.data.image || rp.data.imageUrl) && (
+                  {rp.data.image && (
                     <img
-                      src={optimizeImage(rp.data.image || rp.data.imageUrl)}
+                      src={optimizeImage(rp.data.image)}
                       alt={rp.data.title}
                       class="w-full h-32 object-cover rounded-md mb-3"
                       width="400"

@@ -4,7 +4,7 @@ description: 'AceCore Schoolsでは、夏休みを利用して子供たちにロ
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-imageUrl: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
+image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
 faq:
   title: よくある質問
   items:

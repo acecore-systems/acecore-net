@@ -4,7 +4,7 @@ description: 'Facebook（Meta）のメタバース戦略がいまいちピンと
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-imageUrl: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
 gallery:
   title: メタバースの世界
   items:

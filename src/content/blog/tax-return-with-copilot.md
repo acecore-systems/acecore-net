@@ -4,7 +4,7 @@ description: 'クラウド会計のデータ連携で蓄積した仕訳837件の
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-imageUrl: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
 processFigure:
   title: Copilot 確定申告の全体フロー
   steps:

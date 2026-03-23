@@ -79,7 +79,7 @@ import { SITE } from '../data/site'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content={robots} />
     <meta property="og:locale" content="ja_JP" />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
@@ -108,7 +108,7 @@ import { SITE } from '../data/site'
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="anonymous" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin="anonymous" />
-        <script is:inline define:vars={{ isMonetizedPage }}>
+        <script is:inline>
           (function() {
             function loadAds() {
               if (document.querySelector('script[src*="adsbygoogle"]')) return;

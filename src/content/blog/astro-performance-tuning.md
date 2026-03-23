@@ -4,7 +4,7 @@ description: 'コーポレートサイトをAstro + UnoCSS で構築し、PageSp
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-imageUrl: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
 processFigure:
   title: 最適化の流れ
   steps:

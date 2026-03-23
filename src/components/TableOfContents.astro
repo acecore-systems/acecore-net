@@ -49,6 +49,9 @@ const { headings } = Astro.props
         l.classList.toggle('font-600', isActive)
         l.classList.toggle('text-slate-500', !isActive)
         l.classList.toggle('border-transparent', !isActive)
+        if (isActive) {
+          l.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+        }
       })
     }
 

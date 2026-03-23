@@ -74,7 +74,7 @@ const latestPosts = allPosts.slice(0, 5)
               class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
             >
               <span>{year}年{month}月</span>
-              <span class="text-xs text-slate-400">{count}件</span>
+              <span class="text-xs text-slate-500">{count}件</span>
             </a>
           </li>
         ))}
@@ -128,7 +128,7 @@ const latestPosts = allPosts.slice(0, 5)
             </a>
             <time
               datetime={post.data.date.toISOString()}
-              class="text-xs text-slate-400 mt-0.5 block"
+              class="text-xs text-slate-500 mt-0.5 block"
             >
               {post.data.date.toLocaleDateString('ja-JP')}
             </time>

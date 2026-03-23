@@ -10,7 +10,6 @@ interface Props {
       description: string
       date: Date
       image?: string
-      imageUrl?: string
       author?: string
       tags?: string[]
     }
@@ -25,10 +24,10 @@ const { post } = Astro.props
   class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
 >
   <div class="flex flex-col sm:flex-row">
-    {(post.data.image || post.data.imageUrl) && (
+    {post.data.image && (
       <div class="sm:w-48 sm:shrink-0">
         <img
-          src={optimizeImage(post.data.image || post.data.imageUrl)}
+          src={optimizeImage(post.data.image)}
           alt={post.data.title}
           class="w-full h-40 sm:h-full object-cover"
           width="192"
@@ -41,7 +40,7 @@ const { post } = Astro.props
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-3 text-sm text-slate-500">
         <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
-        {post.data.author && <span>by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</span>}
+        {post.data.author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 hover:underline" onclick="event.stopPropagation()">by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</a>}
       </div>
       <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
         {post.data.title}

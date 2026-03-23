@@ -55,10 +55,10 @@ const allPosts = (await getCollection('blog')).sort(
             class="block ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
           >
             <div class="flex flex-col sm:flex-row">
-              {(post.data.image || post.data.imageUrl) && (
+              {post.data.image && (
                 <div class="sm:w-48 sm:shrink-0">
                   <img
-                    src={optimizeImage(post.data.image || post.data.imageUrl)}
+                    src={optimizeImage(post.data.image)}
                     alt={post.data.title}
                     class="w-full h-40 sm:h-full object-cover"
                     width="192"

@@ -39,7 +39,7 @@ const AD_SLOT = '3228710511'
     const container = document.getElementById('search-container')
     if (!dialog || !closeBtn || !container) return
 
-    function openSearch() {
+    function openSearch(query?: string) {
       dialog!.showModal()
       if (!(window as any).__pagefindLoaded) {
         (window as any).__pagefindLoaded = true
@@ -65,12 +65,22 @@ const AD_SLOT = '3228710511'
             },
           })
           const input = dialog!.querySelector<HTMLInputElement>('.pagefind-ui__search-input')
-          input?.focus()
+          if (query && input) {
+            input.value = query
+            input.dispatchEvent(new Event('input', { bubbles: true }))
+          } else {
+            input?.focus()
+          }
         }
         document.head.appendChild(script)
       } else {
         const input = dialog!.querySelector<HTMLInputElement>('.pagefind-ui__search-input')
-        input?.focus()
+        if (query && input) {
+          input.value = query
+          input.dispatchEvent(new Event('input', { bubbles: true }))
+        } else {
+          input?.focus()
+        }
       }
     }
 
@@ -117,6 +127,13 @@ const AD_SLOT = '3228710511'
 
     // Expose for header button
     ;(window as any).openSearch = openSearch
+
+    // Auto-open search when ?q= parameter is present (for SearchAction structured data)
+    const searchParams = new URLSearchParams(window.location.search)
+    const queryParam = searchParams.get('q')
+    if (queryParam) {
+      openSearch(queryParam)
+    }
   }
 
   function initSearchShortcuts() {

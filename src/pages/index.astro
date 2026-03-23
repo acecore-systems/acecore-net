@@ -150,9 +150,9 @@ const coreLayers = [
                 href={`/blog/${post.id}/`}
                 class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
               >
-                {(post.data.image || post.data.imageUrl) && (
+                {post.data.image && (
                   <img
-                    src={optimizeImage(post.data.image || post.data.imageUrl)}
+                    src={optimizeImage(post.data.image)}
                     alt=""
                     class="w-full h-40 object-cover"
                     width="400"

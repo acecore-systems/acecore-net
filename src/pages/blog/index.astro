@@ -75,7 +75,7 @@ for (let i = 1; i <= totalPages; i++) {
             p === '...'
               ? <span class="px-2 text-slate-400">…</span>
               : p === 1
-                ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{p}</span>
+                ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600" aria-current="page">{p}</span>
                 : <a href={`/blog/page/${p}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">{p}</a>
           )}
         </nav>

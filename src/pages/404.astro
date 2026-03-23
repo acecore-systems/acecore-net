@@ -41,9 +41,9 @@ const recentPosts = (await getCollection('blog'))
         <div class="space-y-3">
           {recentPosts.map((post) => (
             <a href={`/blog/${post.id}/`} class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group">
-              {(post.data.image || post.data.imageUrl) && (
+              {post.data.image && (
                 <img
-                  src={optimizeImage(post.data.image || post.data.imageUrl)}
+                  src={optimizeImage(post.data.image)}
                   alt={post.data.title}
                   class="w-16 h-16 rounded-lg object-cover shrink-0"
                   width="64"
@@ -54,7 +54,7 @@ const recentPosts = (await getCollection('blog'))
               )}
               <div>
                 <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">{post.data.title}</p>
-                <p class="text-xs text-slate-400 mt-1">{post.data.date.toLocaleDateString('ja-JP')}</p>
+                <p class="text-xs text-slate-500 mt-1">{post.data.date.toLocaleDateString('ja-JP')}</p>
               </div>
             </a>
           ))}

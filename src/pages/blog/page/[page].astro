@@ -6,6 +6,8 @@ import BlogSidebar from '../../../components/BlogSidebar.astro'
 import { getCollection } from 'astro:content'
 import AdUnit from '../../../components/AdUnit.astro'
 
+import type { CollectionEntry } from 'astro:content'
+
 export async function getStaticPaths() {
   const perPage = 6
   const allPosts = (await getCollection('blog')).sort(
@@ -18,21 +20,18 @@ export async function getStaticPaths() {
       posts: allPosts.slice((i + 1) * perPage, (i + 2) * perPage),
       currentPage: i + 2,
       totalPages,
+      allPosts,
     },
   }))
 }
 
-const { posts, currentPage, totalPages } = Astro.props
-
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
+const { posts, currentPage, totalPages, allPosts } = Astro.props
 
 const itemListLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": `Acecore ブログ記事一覧 - ${currentPage}ページ目`,
-  "itemListElement": posts.map((post: any, i: number) => ({
+  "itemListElement": posts.map((post: CollectionEntry<'blog'>, i: number) => ({
     "@type": "ListItem",
     "position": i + 1,
     "url": `https://acecore.net/blog/${post.id}/`,
@@ -68,7 +67,7 @@ for (let i = 1; i <= totalPages; i++) {
       <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
       <div>
       <div class="space-y-6">
-        {posts.map((post: any, i: number) => (
+        {posts.map((post: CollectionEntry<'blog'>, i: number) => (
           <Fragment>
           {i > 0 && i % 3 === 0 && (
             <div class="ac-card overflow-hidden p-6">
@@ -85,7 +84,7 @@ for (let i = 1; i <= totalPages; i++) {
           p === '...'
             ? <span class="px-2 text-slate-400">…</span>
             : p === currentPage
-              ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600">{p}</span>
+              ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600" aria-current="page">{p}</span>
               : <a href={p === 1 ? '/blog/' : `/blog/page/${p}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">{p}</a>
         )}
       </nav>
