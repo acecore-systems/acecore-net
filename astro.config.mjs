@@ -7,6 +7,9 @@ import rehypeInjectAds from './src/utils/rehype-inject-ads'
 
 export default defineConfig({
   site: 'https://acecore.net',
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [UnoCSS({ injectReset: true }), sitemap({
     changefreq: 'weekly',
     priority: 0.7,
