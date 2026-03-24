@@ -36,23 +36,6 @@ export function optimizeImageWithWidth(url: string, width: number): string {
   }
 }
 
-/** LQIP 用の超低解像度ぼかし URL を生成する */
-export function generatePlaceholder(url: string): string {
-  try {
-    const parsed = new URL(url)
-    if (parsed.hostname === 'wsrv.nl') {
-      parsed.searchParams.set('w', '32')
-      parsed.searchParams.delete('h')
-      parsed.searchParams.set('q', '20')
-      parsed.searchParams.set('blur', '5')
-      return parsed.toString()
-    }
-    return url
-  } catch {
-    return url
-  }
-}
-
 /** srcset 文字列を生成する */
 export function generateSrcSet(
   url: string,
