@@ -12,7 +12,15 @@ async function loadFont(): Promise<ArrayBuffer> {
   return fontCache
 }
 
+function sanitizeForFont(text: string): string {
+  return text
+    .replace(/[\u2015\u2014\u2013]/g, ' - ')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+}
+
 export async function generateOgImage(title: string): Promise<Buffer> {
+  const safeTitle = sanitizeForFont(title)
   const fontData = await loadFont()
 
   const svg = await satori(
@@ -56,7 +64,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                       fontSize: '24px',
                       color: 'white',
                     },
-                    children: '✦',
+                    children: '◆',
                   },
                 },
                 {
@@ -77,14 +85,14 @@ export async function generateOgImage(title: string): Promise<Buffer> {
             type: 'div',
             props: {
               style: {
-                fontSize: title.length > 30 ? '44px' : '52px',
+                fontSize: safeTitle.length > 30 ? '44px' : '52px',
                 fontWeight: 700,
                 color: 'white',
                 lineHeight: 1.4,
                 maxWidth: '1040px',
                 wordBreak: 'break-word',
               },
-              children: title,
+              children: safeTitle,
             },
           },
           {
