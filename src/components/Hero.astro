@@ -1,5 +1,5 @@
 ---
-import { generateSrcSet } from '../utils/image'
+import { generateSrcSet, generatePlaceholder } from '../utils/image'
 
 interface Props {
   title: string
@@ -35,6 +35,7 @@ const hasSlider = images && images.length > 0
               i === 0 ? 'opacity-100' : 'opacity-0',
             ]}
             data-index={i}
+            style={`background:url(${generatePlaceholder(src)}) center/cover no-repeat`}
           >
             <img
               src={src}
