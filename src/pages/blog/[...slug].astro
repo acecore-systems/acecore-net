@@ -204,7 +204,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
       {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
       {post.data.faq && <Faq {...post.data.faq} />}
       <div class="my-8" data-pagefind-ignore>
-        <AdUnit adSlot="3228710511" />
+        <AdUnit />
       </div>
 
       <div class="my-8 py-6 border-t border-slate-200">
@@ -277,7 +277,7 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
               <Fragment>
                 {i === 2 && (
                   <div class="sm:col-span-2">
-                    <AdUnit adSlot="3228710511" />
+                    <AdUnit />
                   </div>
                 )}
                 <a

@@ -8,6 +8,8 @@ export const SITE = {
   adsenseClientId: 'ca-pub-3935803464310919',
   ga4Id: 'G-G79SGTMYEX',
   adSlotId: '3228710511',
+  inlineAdSlotId: '4541792182',
+  turnstileSiteKey: '0x4AAAAAACrIzSf3oGLj_GwT',
   social: {
     x: 'https://x.com/acecorenet',
     github: 'https://github.com/acecore-systems',

@@ -138,7 +138,7 @@ import { SITE } from '../data/site'
           ></textarea>
           <p class="text-xs text-red-600 mt-1 hidden" id="message-error" role="alert"></p>
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAACrIzSf3oGLj_GwT" data-language="ja" data-theme="light"></div>
+        <div class="cf-turnstile" data-sitekey={SITE.turnstileSiteKey} data-language="ja" data-theme="light"></div>
         <div>
           <button type="submit" id="contact-submit" class="ac-btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed">
             送信する

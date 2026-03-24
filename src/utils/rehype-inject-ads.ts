@@ -3,7 +3,7 @@ import type { Parent } from 'unist'
 import { visit } from 'unist-util-visit'
 import { SITE } from '../data/site'
 
-const INLINE_AD_SLOT = '4541792182'
+const INLINE_AD_SLOT = SITE.inlineAdSlotId
 
 /**
  * h2 が 3 つ以上ある記事で、3 セクションごとにインライン広告を挿入する rehype プラグイン。
