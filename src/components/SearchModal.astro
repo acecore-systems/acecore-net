@@ -214,6 +214,7 @@ import { SITE } from '../data/site'
     delete container.dataset.pagefindReady
 
     async function openSearch(query?: string) {
+      if (!dialog || !container) return
       if (!dialog.open) {
         dialog.showModal()
       }
