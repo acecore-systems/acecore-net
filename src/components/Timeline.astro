@@ -13,7 +13,7 @@ interface Props {
 const { title, items } = Astro.props
 ---
 
-<figure class="not-prose my-8" role="img" aria-label={title || 'タイムライン'}>
+<figure class="not-prose my-8" role="group" aria-label={title || 'タイムライン'}>
   {title && <figcaption class="text-base font-700 text-slate-800 mb-4">{title}</figcaption>}
   <div class="space-y-0">
     {items.map((item, i) => (

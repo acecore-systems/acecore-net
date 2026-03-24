@@ -59,7 +59,7 @@ const isCard = variant === 'card'
     </div>
   </div>
 ) : (
-  <figure class="not-prose my-8" role="img" aria-label={title}>
+  <figure class="not-prose my-8" role="group" aria-label={title}>
     {(eyebrow || title) && (
       <figcaption class="mb-4">
         {eyebrow && <p class="text-[11px] font-700 tracking-[0.18em] text-brand-500 uppercase mb-1">{eyebrow}</p>}

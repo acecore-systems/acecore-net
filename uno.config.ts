@@ -10,6 +10,11 @@ import presetTypography from '@unocss/preset-typography'
 export default defineConfig({
   presets: [presetUno(), presetAttributify(), presetIcons(), presetTypography()],
   transformers: [transformerDirectives()],
+  preflights: [
+    {
+      getCSS: () => 'html { scroll-behavior: smooth } [id] { scroll-margin-top: 5rem }',
+    },
+  ],
   theme: {
     colors: {
       brand: {

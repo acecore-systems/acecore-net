@@ -62,7 +62,10 @@ const blog = defineCollection({
       .optional(),
     processFigure: z
       .object({
+        eyebrow: z.string().optional(),
         title: z.string(),
+        description: z.string().optional(),
+        variant: z.enum(['card', 'inline']).optional(),
         steps: z.array(
           z.object({
             title: z.string(),
@@ -90,7 +93,10 @@ const blog = defineCollection({
       .optional(),
     insightGrid: z
       .object({
+        eyebrow: z.string().optional(),
         title: z.string(),
+        description: z.string().optional(),
+        variant: z.enum(['card', 'inline']).optional(),
         items: z.array(
           z.object({
             title: z.string(),

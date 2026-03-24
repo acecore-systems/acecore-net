@@ -9,6 +9,19 @@ import { SITE } from '../data/site'
 <BaseLayout
   title="お問い合わせ"
   description="Acecoreへのお問い合わせはこちらから。サービスに関するご質問、お見積り、パートナーシップのご相談などお気軽にどうぞ。"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "お問い合わせ | Acecore",
+    "description": "Acecoreへのお問い合わせはこちらから。サービスに関するご質問、お見積り、パートナーシップのご相談などお気軽にどうぞ。",
+    "url": "https://acecore.net/contact/",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Acecore",
+      "telephone": SITE.phoneIntl,
+      "email": SITE.email
+    }
+  }}
 >
   <Hero title="お問い合わせ" subtitle="ご質問・ご相談・ご依頼はこちらから" images={[{src: optimizeImage('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'コミュニケーションイメージ'}]} />
 
@@ -191,12 +204,12 @@ import { SITE } from '../data/site'
 
   <script is:inline>
   {
-    var turnstileEl = document.querySelector('.cf-turnstile');
+    const turnstileEl = document.querySelector('.cf-turnstile');
     if (turnstileEl) {
-      var io = new IntersectionObserver(function(entries) {
+      const io = new IntersectionObserver(function(entries) {
         if (entries[0].isIntersecting) {
           io.disconnect();
-          var s = document.createElement('script');
+          const s = document.createElement('script');
           s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
           s.async = true;
           document.head.appendChild(s);
@@ -208,15 +221,15 @@ import { SITE } from '../data/site'
   </script>
   <script is:inline>
   {
-    var rules = {
+    const rules = {
       category: function(v) { return v ? '' : 'お問い合わせ種別を選択してください'; },
       name: function(v) { return v.trim() ? '' : 'お名前を入力してください'; },
       email: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : '正しいメールアドレスを入力してください'; },
       message: function(v) { return v.trim() ? '' : 'お問い合わせ内容を入力してください'; }
     };
     function showError(id, msg) {
-      var el = document.getElementById(id + '-error');
-      var input = document.getElementById(id);
+      const el = document.getElementById(id + '-error');
+      const input = document.getElementById(id);
       if (!el || !input) return;
       if (msg) {
         el.textContent = msg;
@@ -247,13 +260,13 @@ import { SITE } from '../data/site'
   </script>
   <script is:inline>
   {
-    var form = document.querySelector('form[action*="ssgform"]');
+    const form = document.querySelector('form[action*="ssgform"]');
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        var btn = document.getElementById('contact-submit');
-        var feedback = document.getElementById('form-feedback');
-        var originalText = btn.textContent;
+        const btn = document.getElementById('contact-submit');
+        const feedback = document.getElementById('form-feedback');
+        const originalText = btn.textContent;
         btn.disabled = true;
         btn.textContent = '送信中…';
         feedback.className = 'hidden rounded-lg p-4 text-sm';

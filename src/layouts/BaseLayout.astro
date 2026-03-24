@@ -12,6 +12,7 @@ interface Props {
   robots?: string
   tags?: string[]
   author?: string
+  preloadImage?: { src: string; srcset?: string; sizes?: string }
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   robots = 'index, follow',
   tags,
   author,
+  preloadImage,
 } = Astro.props
 
 const pageTitle = title === 'ホーム' ? 'Acecore | システム開発・Web制作・IT教育' : `${title} | Acecore`
@@ -110,6 +112,9 @@ import { SITE } from '../data/site'
     {nextPage && <link rel="next" href={nextPage} />}
     <link rel="alternate" type="application/rss+xml" title="Acecore ブログ" href="/rss.xml" />
     <link rel="preconnect" href="https://wsrv.nl" />
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage.src} imagesrcset={preloadImage.srcset} imagesizes={preloadImage.sizes} fetchpriority="high" />
+    )}
     {isMonetizedPage && (
       <>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />

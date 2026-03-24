@@ -402,35 +402,4 @@ const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.include
       </aside>
     </div>
   </div>
-  <script>
-  function initTocScroll() {
-    const tocLinks = document.querySelectorAll('.toc-link');
-    if (tocLinks.length === 0) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          tocLinks.forEach(l => l.classList.remove('toc-active'));
-          document.querySelectorAll('.toc-link[data-slug="' + CSS.escape(entry.target.id) + '"]:not([hidden])')
-            .forEach(link => link.classList.add('toc-active'));
-        }
-      }
-    }, { rootMargin: '-80px 0px -60% 0px' });
-    const slugs = new Set(Array.from(tocLinks).map(l => (l as HTMLElement).dataset.slug!));
-    slugs.forEach(slug => {
-      const el = document.getElementById(slug);
-      if (el) observer.observe(el);
-    });
-  }
-
-  initTocScroll();
-  document.addEventListener('astro:after-swap', initTocScroll);
-  </script>
-  <style is:global>
-    .toc-active {
-      color: #264b7d !important;
-      border-left-color: #7fa4cf !important;
-      font-weight: 600 !important;
-    }
-  </style>
 </BaseLayout>

@@ -45,6 +45,7 @@ const hasSlider = images && images.length > 0
           </div>
         ))}
         <div class="absolute inset-0 bg-brand-900/60" />
+        <div id="hero-slide-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
       </div>
     )
   }
@@ -133,6 +134,8 @@ const hasSlider = images && images.length > 0
     let paused = false
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+    const announceEl = document.getElementById('hero-slide-announce')
+
     function goTo(index: number) {
       dots[current]?.removeAttribute('aria-current')
       slides[current].classList.replace('opacity-100', 'opacity-0')
@@ -145,6 +148,10 @@ const hasSlider = images && images.length > 0
       const nextSpan = dots[current]?.querySelector('span')
       nextSpan?.classList.replace('bg-white/50', 'bg-white')
       nextSpan?.classList.add('scale-125')
+      if (announceEl) {
+        const alt = slides[current].querySelector('img')?.alt || ''
+        announceEl.textContent = `スライド ${current + 1} / ${total}${alt ? `: ${alt}` : ''}`
+      }
     }
 
     function next() {

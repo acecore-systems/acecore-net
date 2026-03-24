@@ -5,7 +5,7 @@ import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import { getCollection } from 'astro:content'
 import authors from '../data/authors.json'
-import { optimizeImage } from '../utils/image'
+import { optimizeImage, generateSrcSet } from '../utils/image'
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -37,9 +37,18 @@ const coreLayers = [
     tone: 'slate',
   },
 ]
+const firstHeroSrc = optimizeImage('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp')
+
+const webPageLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Acecore | システム開発・Web制作・IT教育",
+  "description": "Acecore（エースコア）は、システム開発・Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。",
+  "url": "https://acecore.net/",
+}
 ---
 
-<BaseLayout title="ホーム">
+<BaseLayout title="ホーム" jsonLd={webPageLd} preloadImage={{ src: firstHeroSrc, srcset: generateSrcSet(firstHeroSrc), sizes: '100vw' }}>
   <Hero
     title="開発からデザイン、教育まで。ワンストップで届けるIT支援"
     subtitle="システム開発・Web制作・サーバー運用・デザイン・IT教育を、一つの窓口でまとめてお任せいただけます。"

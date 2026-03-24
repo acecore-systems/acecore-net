@@ -1,6 +1,6 @@
 ---
-title: 'Acecore公式サイトを11段階で徹底改善 ― SEO・アクセシビリティ・パフォーマンスの全記録'
-description: 'リニューアル後のAcecore公式サイトに対し、SEO・アクセシビリティ・パフォーマンス・UX・コード品質の5軸で120項目超の改善を実施しました。具体的な施策と成果をすべて公開します。'
+title: 'Acecore公式サイトを12段階で徹底改善 ― SEO・アクセシビリティ・パフォーマンスの全記録'
+description: 'リニューアル後のAcecore公式サイトに対し、SEO・アクセシビリティ・パフォーマンス・UX・コード品質の5軸で130項目超の改善を実施しました。具体的な施策と成果をすべて公開します。'
 date: 2026-03-24
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO']
@@ -271,13 +271,47 @@ Batch 10でSEO・アクセシビリティ・ベストプラクティスは100点
 
 ---
 
+## Batch 12：PageSpeed改善・アクセシビリティ強化・構造化データ拡充
+
+Batch 11 まで全項目100点だったPageSpeedモバイルが98点に低下。LCP 2.4s が主因と判明し、ヒーロー画像の `<link rel="preload">` 追加で対処しました。さらに、アクセシビリティ・SEO・コード品質を13項目にわたり改善しています。
+
+### パフォーマンス
+
+- **ヒーロー画像preload**：LCP要素（Heroスライダー第1画像）のResource Load Delayを解消するため、BaseLayoutに `preloadImage` propsを追加し、トップページから `<link rel="preload" as="image">` を出力
+- **コンテンツ画像srcset**：about / services / schools の各ページ画像に `srcset` と `sizes` を追加し、画面幅に応じた最適サイズを配信
+
+### アクセシビリティ
+
+- **figure要素のrole修正**：InsightGrid・ProcessFigure・Timelineのインライン表示で `role="img"`（子要素をSRから隠す）を `role="group"` に変更し、内部コンテンツをアクセシブルに
+- **Heroスライダーaria-live**：スライド切替時に `aria-live="polite"` 領域で「スライド 1 / 4: 〇〇」と通知し、スクリーンリーダーで操作状況を把握可能に
+- **Header navラベル**：デスクトップ・モバイル両方の `<nav>` に `aria-label` を追加し、ナビゲーションランドマークを識別可能に
+- **日付のtime要素**：プライバシーポリシーの制定日・更新日を `<time datetime="...">` で機械可読に
+
+### SEO
+
+- **WebPage JSON-LD**：トップページに `WebPage` 構造化データを追加
+- **ContactPage JSON-LD**：お問い合わせページに `ContactPage` 構造化データを追加
+- **Organization JSON-LD強化**：会社概要ページに `knowsAbout` フィールドを含む詳細な `Organization` 構造化データを追加
+
+### UX
+
+- **scroll-margin-top**：UnoCSS preflightに `[id] { scroll-margin-top: 5rem }` と `html { scroll-behavior: smooth }` を追加し、スティッキーヘッダーでのアンカーリンクずれを解消
+
+### コード品質
+
+- **ToC Observer二重登録解消**：`blog/[...slug].astro` の `initTocScroll` を削除し、`TableOfContents.astro` の `initTocHighlight` に一本化
+- **content.configスキーマ補完**：`processFigure` と `insightGrid` に `eyebrow` / `description` / `variant` フィールドを追加し、コンポーネント側と整合
+- **var宣言の排除**：contact.astroの3つのインラインスクリプトで `var` を `const` に置き換え
+
+---
+
 ## 改善の成果
 
 | 指標 | 改善前 | 改善後 |
 |------|--------|--------|
 | 総ページ数 | 1ページ | 55ページ以上 |
 | PageSpeed（モバイル） | 未測定 | 全項目100点 |
-| 構造化データ | なし | Organization / BreadcrumbList / BlogPosting / FAQPage / SearchAction |
+| 構造化データ | なし | Organization / BreadcrumbList / BlogPosting / FAQPage / SearchAction / WebPage / ContactPage |
 | アクセシビリティ | 未対応 | WCAG AA準拠（コントラスト・aria・SR通知・キーボード操作） |
 | 全文検索 | なし | Pagefind（3軸フィルタ・ゼロ結果導線・SearchAction連携） |
 | View Transitions | スクリプト不動作 | 全コンポーネント正常動作 |
@@ -287,7 +321,7 @@ Batch 10でSEO・アクセシビリティ・ベストプラクティスは100点
 
 ## まとめ
 
-リニューアル後のサイトに対して11バッチにわたる改善を実施し、SEO・アクセシビリティ・パフォーマンス・UX・コード品質のすべてを底上げしました。
+リニューアル後のサイトに対して12バッチにわたる改善を実施し、SEO・アクセシビリティ・パフォーマンス・UX・コード品質のすべてを底上げしました。
 
 特に重要だったのは以下の3点です。
 

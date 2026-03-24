@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import Checklist from '../components/Checklist.astro'
-import { optimizeImage } from '../utils/image'
+import { optimizeImage, generateSrcSet } from '../utils/image'
 
 const valueCycle = [
   {
@@ -40,11 +40,39 @@ const activityChecklist = [
   { text: '外部パートナーとの共創プロジェクト' },
   { text: 'Aceserverコミュニティ運営' },
 ]
+import { SITE } from '../data/site'
+
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Acecore",
+  "url": "https://acecore.net",
+  "logo": "https://acecore.net/favicon.svg",
+  "description": "Acecore（エースコア）は、テクノロジーとクリエイティブの力で多様な価値を創出するテクノロジー集団です。",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "JP",
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": SITE.phoneIntl,
+    "email": SITE.email,
+    "contactType": "customer service",
+    "availableLanguage": "Japanese",
+  },
+  "sameAs": [
+    "https://x.com/acecorenet",
+    "https://github.com/acecore-systems",
+    "https://asv.acecore.net",
+  ],
+  "knowsAbout": ["システム開発", "Web制作", "サーバー運用", "デザイン", "IT教育"],
+}
 ---
 
 <BaseLayout
   title="会社概要"
   description="Acecore（エースコア）の会社概要・理念・活動内容をご紹介。技術とクリエイティブの循環を軸に、開発・教育・コミュニティ活動を展開しています。"
+  jsonLd={organizationLd}
 >
   <Hero
     title="会社概要"
@@ -87,6 +115,8 @@ const activityChecklist = [
       <div class="mb-12">
         <img
           src={optimizeImage('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp')}
+          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          sizes="(min-width: 1024px) 56rem, 100vw"
           alt="チームでのコラボレーション作業"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -106,6 +136,8 @@ const activityChecklist = [
       <div class="mb-12">
         <img
           src={optimizeImage('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp')}
+          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          sizes="(min-width: 1024px) 56rem, 100vw"
           alt="勉強会・ワークショップの様子"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"

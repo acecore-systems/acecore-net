@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import CompareTable from '../components/CompareTable.astro'
-import { optimizeImage } from '../utils/image'
+import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 
 const learningSteps = [
@@ -126,6 +126,8 @@ const schoolsLd = {
       <div class="mb-16">
         <img
           src={optimizeImage('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp')}
+          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          sizes="(min-width: 1024px) 56rem, 100vw"
           alt="教室での個別指導の様子"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -177,6 +179,8 @@ const schoolsLd = {
       <div class="mb-16">
         <img
           src={optimizeImage('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp')}
+          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          sizes="(min-width: 1024px) 56rem, 100vw"
           alt="プログラミング学習に取り組む生徒"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -253,6 +257,8 @@ const schoolsLd = {
       <div class="mb-16">
         <img
           src={optimizeImage('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp')}
+          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          sizes="(min-width: 1024px) 56rem, 100vw"
           alt="パソコンで学習する受講生"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
