@@ -26,7 +26,7 @@ const recentPosts = (await getCollection('blog'))
 
       <div class="max-w-md mx-auto mb-10">
         <button
-          onclick="window.openSearch?.()"
+          data-search-trigger
           class="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-300 text-slate-500 hover:border-brand-300 hover:text-brand-500 transition-colors cursor-pointer text-left"
         >
           <div class="i-lucide-search text-lg" aria-hidden="true"></div>
@@ -79,3 +79,11 @@ const recentPosts = (await getCollection('blog'))
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  document
+    .querySelector<HTMLElement>('[data-search-trigger]')
+    ?.addEventListener('click', () => {
+      ;(window as any).openSearch?.()
+    })
+</script>

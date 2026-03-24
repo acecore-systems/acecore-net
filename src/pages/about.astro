@@ -63,11 +63,7 @@ const organizationLd = {
     contactType: 'customer service',
     availableLanguage: 'Japanese',
   },
-  sameAs: [
-    'https://x.com/acecorenet',
-    'https://github.com/acecore-systems',
-    'https://asv.acecore.net',
-  ],
+  sameAs: [SITE.social.x, SITE.social.github, SITE.social.aceserver],
   knowsAbout: ['システム開発', 'Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
 }
 ---
@@ -235,7 +231,7 @@ const organizationLd = {
       <h2 class="text-2xl ac-heading mb-6">関連リンク</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
         <a
-          href="https://asv.acecore.net/"
+          href={SITE.social.aceserver}
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
@@ -254,7 +250,7 @@ const organizationLd = {
           <span class="sr-only">（新しいタブで開きます）</span>
         </a>
         <a
-          href="https://x.com/acecorenet"
+          href={SITE.social.x}
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
@@ -273,7 +269,7 @@ const organizationLd = {
           <span class="sr-only">（新しいタブで開きます）</span>
         </a>
         <a
-          href="https://github.com/acecore-systems"
+          href={SITE.social.github}
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
@@ -292,7 +288,7 @@ const organizationLd = {
           <span class="sr-only">（新しいタブで開きます）</span>
         </a>
         <a
-          href="https://discord.gg/acsv"
+          href={SITE.social.discord}
           target="_blank"
           rel="noopener noreferrer"
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"

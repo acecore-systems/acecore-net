@@ -14,5 +14,6 @@ export const SITE = {
     x: 'https://x.com/acecorenet',
     github: 'https://github.com/acecore-systems',
     aceserver: 'https://asv.acecore.net',
+    discord: 'https://discord.gg/acsv',
   },
 } as const

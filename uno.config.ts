@@ -1,6 +1,6 @@
 import {
   defineConfig,
-  presetUno,
+  presetWind3,
   presetAttributify,
   presetIcons,
   transformerDirectives,
@@ -9,7 +9,7 @@ import presetTypography from '@unocss/preset-typography'
 
 export default defineConfig({
   presets: [
-    presetUno(),
+    presetWind3(),
     presetAttributify(),
     presetIcons(),
     presetTypography(),

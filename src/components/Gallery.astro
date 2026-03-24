@@ -1,5 +1,5 @@
 ---
-import { optimizeImage } from '../utils/image'
+import { optimizeImage, generateSrcSet } from '../utils/image'
 
 interface GalleryImage {
   src: string
@@ -30,6 +30,12 @@ const { title, items, columns = 2 } = Astro.props
       items.map((item) => (
         <img
           src={optimizeImage(item.src)}
+          srcset={generateSrcSet(item.src, [200, 400, 800])}
+          sizes={
+            columns === 3
+              ? '(min-width: 768px) 33vw, 50vw'
+              : '(min-width: 768px) 50vw, 100vw'
+          }
           alt={item.alt}
           class="w-full rounded-lg object-cover aspect-video"
           width="400"

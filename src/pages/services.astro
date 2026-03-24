@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
 
 const serviceMap = [
   {
@@ -270,7 +271,7 @@ const serviceLd = {
         <p class="text-slate-600 leading-relaxed mb-4">
           セキュアで安定したサーバー環境の構築と運用を得意としています。
           Acecoreでは<a
-            href="https://asv.acecore.net"
+            href={SITE.social.aceserver}
             target="_blank"
             rel="noopener noreferrer"
             class="ac-link"
@@ -619,7 +620,7 @@ const serviceLd = {
         </div>
         <div class="flex flex-wrap gap-3 mb-4">
           <a
-            href="https://asv.acecore.net/"
+            href={SITE.social.aceserver}
             target="_blank"
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
@@ -641,7 +642,7 @@ const serviceLd = {
             Aceserver Wiki<span class="sr-only">（新しいタブで開きます）</span>
           </a>
           <a
-            href="https://discord.gg/acsv"
+            href={SITE.social.discord}
             target="_blank"
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
@@ -705,7 +706,7 @@ const serviceLd = {
         </div>
         <p class="text-sm text-slate-500 mb-4">
           サービスの詳細は、準備が整い次第公開いたします。最新情報は<a
-            href="https://x.com/acecorenet"
+            href={SITE.social.x}
             target="_blank"
             rel="noopener noreferrer"
             class="ac-link"

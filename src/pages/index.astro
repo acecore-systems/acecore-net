@@ -6,6 +6,7 @@ import InsightGrid from '../components/InsightGrid.astro'
 import { getCollection } from 'astro:content'
 import authors from '../data/authors.json'
 import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -140,7 +141,7 @@ const webPageLd = {
           icon="i-lucide-gamepad-2"
           title="Aceserver"
           description="誰でも無料で参加できるマインクラフト公開サーバー。JAVA版・統合版に対応し、活発なコミュニティがあなたを待っています。"
-          href="https://asv.acecore.net/"
+          href={SITE.social.aceserver}
         />
       </div>
       <div class="text-center mt-10">
@@ -201,6 +202,8 @@ const webPageLd = {
                 {post.data.image && (
                   <img
                     src={optimizeImage(post.data.image)}
+                    srcset={generateSrcSet(post.data.image, [200, 400, 800])}
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     alt={post.data.title}
                     class="w-full h-40 object-cover"
                     width="400"

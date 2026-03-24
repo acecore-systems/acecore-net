@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection, render } from 'astro:content'
 import authors from '../../data/authors.json'
-import { optimizeImage } from '../../utils/image'
+import { optimizeImage, generateSrcSet } from '../../utils/image'
 import Callout from '../../components/Callout.astro'
 import Timeline from '../../components/Timeline.astro'
 import YouTubeEmbed from '../../components/YouTubeEmbed.astro'
@@ -259,6 +259,8 @@ const ctaConfig =
             <div class="mb-8 rounded-xl overflow-hidden">
               <img
                 src={optimizeImage(post.data.image)}
+                srcset={generateSrcSet(post.data.image, [400, 800, 1200])}
+                sizes="(min-width: 768px) 56rem, 100vw"
                 alt={post.data.title}
                 class="w-full h-auto"
                 width="960"
@@ -428,6 +430,8 @@ const ctaConfig =
                       {rp.data.image && (
                         <img
                           src={optimizeImage(rp.data.image)}
+                          srcset={generateSrcSet(rp.data.image, [200, 400])}
+                          sizes="(min-width: 640px) 50vw, 100vw"
                           alt={rp.data.title}
                           class="w-full h-32 object-cover rounded-md mb-3"
                           width="400"

@@ -11,7 +11,7 @@ export function optimizeImage(url: string): string {
     const parts = [`url=${origin}`]
     if (w) parts.push(`w=${w}`)
     if (h) parts.push(`h=${h}`)
-    parts.push('fit=cover', 'output=auto', 'q=60')
+    parts.push('fit=cover', 'output=auto', 'q=50')
     return `https://wsrv.nl/?${parts.join('&')}`
   } catch {
     return url
@@ -26,11 +26,11 @@ export function optimizeImageWithWidth(url: string, width: number): string {
     if (parsed.hostname === 'wsrv.nl') {
       const originalUrl = parsed.searchParams.get('url')
       if (originalUrl) {
-        return `https://wsrv.nl/?url=${originalUrl}&w=${width}&fit=cover&output=auto&q=60`
+        return `https://wsrv.nl/?url=${originalUrl}&w=${width}&fit=cover&output=auto&q=50`
       }
     }
     const origin = `${parsed.origin}${parsed.pathname}`
-    return `https://wsrv.nl/?url=${origin}&w=${width}&fit=cover&output=auto&q=60`
+    return `https://wsrv.nl/?url=${origin}&w=${width}&fit=cover&output=auto&q=50`
   } catch {
     return url
   }
@@ -39,7 +39,7 @@ export function optimizeImageWithWidth(url: string, width: number): string {
 /** srcset 文字列を生成する */
 export function generateSrcSet(
   url: string,
-  widths: number[] = [640, 960, 1280, 1600],
+  widths: number[] = [480, 640, 960, 1280, 1600],
 ): string {
   return widths.map((w) => `${optimizeImageWithWidth(url, w)} ${w}w`).join(', ')
 }

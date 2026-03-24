@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import InsightGrid from '../components/InsightGrid.astro'
-import { optimizeImage } from '../utils/image'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
 import PullQuote from '../components/PullQuote.astro'
 import Faq from '../components/Faq.astro'
 
@@ -106,6 +107,11 @@ const studioAreas = [
           src={optimizeImage(
             'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
           )}
+          srcset={generateSrcSet(
+            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
+            [400, 800],
+          )}
+          sizes="(min-width: 768px) 48rem, 100vw"
           alt="映像制作・クリエイティブワーク"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -158,7 +164,7 @@ const studioAreas = [
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://x.com/acecorenet"
+            href={SITE.social.x}
             target="_blank"
             rel="noopener noreferrer"
             class="ac-btn-outline"
