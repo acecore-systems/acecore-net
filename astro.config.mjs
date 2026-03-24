@@ -8,7 +8,7 @@ import rehypeInjectAds from './src/utils/rehype-inject-ads'
 export default defineConfig({
   site: 'https://acecore.net',
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
   },
   integrations: [
     UnoCSS({ injectReset: true }),
