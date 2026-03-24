@@ -93,6 +93,7 @@ const breadcrumbLd =
       }
     : null
 
+import '@fontsource-variable/noto-sans-jp'
 import { ClientRouter } from 'astro:transitions'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -156,20 +157,6 @@ import { SITE } from '../data/site'
       href="/rss.xml"
     />
     <link rel="preconnect" href="https://wsrv.nl" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400..900&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400..900&display=swap"
-      />
-    </noscript>
     {
       preloadImage && (
         <link
