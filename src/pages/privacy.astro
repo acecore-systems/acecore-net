@@ -9,10 +9,22 @@ import { optimizeImage } from '../utils/image'
   title="プライバシーポリシー"
   description="Acecore（エースコア）のプライバシーポリシー。個人情報の取り扱い、広告配信、アクセス解析、免責事項について記載しています。"
 >
-  <Hero title="プライバシーポリシー" images={[{src: optimizeImage('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: '書類とペン'}]} />
+  <Hero
+    title="プライバシーポリシー"
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: '書類とペン',
+      },
+    ]}
+  />
 
   <section class="ac-section">
-    <div class="ac-container max-w-3xl">	    <Breadcrumb items={[{ label: 'プライバシーポリシー' }]} />      <div class="prose prose-slate prose-lg max-w-none">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb items={[{ label: 'プライバシーポリシー' }]} />
+      <div class="prose prose-slate prose-lg max-w-none">
         <h2>広告配信について</h2>
         <p>
           当サイト（Acecore）は、第三者配信による広告サービス「Google
@@ -25,7 +37,10 @@ import { optimizeImage } from '../utils/image'
           Cookieを無効にする設定およびGoogle AdSenseに関する詳細は「<a
             href="https://policies.google.com/technologies/ads?hl=ja"
             target="_blank"
-            rel="noopener noreferrer">Googleポリシーと規約<span class="sr-only">（新しいタブで開きます）</span></a
+            rel="noopener noreferrer"
+            >Googleポリシーと規約<span class="sr-only"
+              >（新しいタブで開きます）</span
+            ></a
           >」をご覧ください。
         </p>
 
@@ -71,7 +86,11 @@ import { optimizeImage } from '../utils/image'
           >よりご連絡ください。
         </p>
 
-        <p class="text-sm text-slate-500 mt-12">制定日：<time datetime="2025-01-01">2025年1月1日</time> ／ 最終更新日：<time datetime="2025-01-01">2025年1月1日</time></p>
+        <p class="text-sm text-slate-500 mt-12">
+          制定日：<time datetime="2025-01-01">2025年1月1日</time> ／ 最終更新日：<time
+            datetime="2025-01-01">2025年1月1日</time
+          >
+        </p>
       </div>
     </div>
   </section>

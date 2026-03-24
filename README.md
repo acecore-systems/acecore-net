@@ -25,14 +25,14 @@ npm run preview
 
 ## サイト構成
 
-| ページ | パス | 説明 |
-|--------|------|------|
-| ホーム | `/` | トップページ |
-| サービス | `/services/` | サービス詳細 |
-| 会社概要 | `/about/` | 理念・活動 |
-| ブログ | `/blog/` | 記事一覧 |
-| お問い合わせ | `/contact/` | フォーム |
-| プライバシーポリシー | `/privacy/` | 個人情報方針 |
+| ページ               | パス         | 説明         |
+| -------------------- | ------------ | ------------ |
+| ホーム               | `/`          | トップページ |
+| サービス             | `/services/` | サービス詳細 |
+| 会社概要             | `/about/`    | 理念・活動   |
+| ブログ               | `/blog/`     | 記事一覧     |
+| お問い合わせ         | `/contact/`  | フォーム     |
+| プライバシーポリシー | `/privacy/`  | 個人情報方針 |
 
 ## ブログ記事の追加
 
@@ -72,10 +72,10 @@ GitHub への push で自動デプロイされます。
 
 ## 関連ファイル
 
-| ファイル | 説明 |
-|----------|------|
-| `astro.config.mjs` | Astro 設定 |
-| `uno.config.ts` | UnoCSS テーマ・ショートカット |
-| `.pages.yml` | Pages CMS 設定 |
-| `public/ads.txt` | Google AdSense 認証 |
-| `public/_headers` | Cloudflare Pages HTTPヘッダー（キャッシュ・セキュリティ・SEO） |
+| ファイル           | 説明                                                           |
+| ------------------ | -------------------------------------------------------------- |
+| `astro.config.mjs` | Astro 設定                                                     |
+| `uno.config.ts`    | UnoCSS テーマ・ショートカット                                  |
+| `.pages.yml`       | Pages CMS 設定                                                 |
+| `public/ads.txt`   | Google AdSense 認証                                            |
+| `public/_headers`  | Cloudflare Pages HTTPヘッダー（キャッシュ・セキュリティ・SEO） |

@@ -9,7 +9,9 @@ const navLinks = [
 const currentPath = Astro.url.pathname
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+<header
+  class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200"
+>
   <div class="ac-container flex items-center justify-between h-16">
     <a
       href="/"
@@ -18,7 +20,10 @@ const currentPath = Astro.url.pathname
       <img src="/favicon.svg" alt="" class="h-8 w-8" />
       Acecore
     </a>
-    <nav class="hidden md:flex items-center gap-6" aria-label="メインナビゲーション">
+    <nav
+      class="hidden md:flex items-center gap-6"
+      aria-label="メインナビゲーション"
+    >
       {
         navLinks.map((link) => (
           <a
@@ -55,8 +60,8 @@ const currentPath = Astro.url.pathname
       <button
         id="mobile-menu-btn"
         class="p-2 text-slate-600"
-      aria-label="メニューを開く"
-      aria-expanded="false"
+        aria-label="メニューを開く"
+        aria-expanded="false"
         aria-controls="mobile-menu"
       >
         <div class="i-lucide-menu text-xl" aria-hidden="true"></div>
@@ -75,9 +80,7 @@ const currentPath = Astro.url.pathname
             href={link.href}
             class:list={[
               'text-sm font-600 no-underline py-3 min-h-11',
-              currentPath === link.href
-                ? 'text-brand-500'
-                : 'text-slate-600',
+              currentPath === link.href ? 'text-brand-500' : 'text-slate-600',
             ]}
             {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
           >
@@ -108,7 +111,10 @@ const currentPath = Astro.url.pathname
     menuBtn.addEventListener('click', () => {
       const expanded = menu.classList.toggle('hidden') === false
       menuBtn.setAttribute('aria-expanded', String(expanded))
-      menuBtn.setAttribute('aria-label', expanded ? 'メニューを閉じる' : 'メニューを開く')
+      menuBtn.setAttribute(
+        'aria-label',
+        expanded ? 'メニューを閉じる' : 'メニューを開く',
+      )
       const icon = menuBtn.querySelector('div')
       if (icon) {
         icon.classList.toggle('i-lucide-menu', !expanded)

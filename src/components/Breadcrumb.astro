@@ -12,20 +12,32 @@ const { items } = Astro.props
 <nav aria-label="パンくずリスト" class="text-sm mb-4" data-pagefind-ignore>
   <ol class="flex flex-wrap items-center gap-1 text-slate-500" role="list">
     <li>
-      <a href="/" class="hover:text-brand-500 transition-colors inline-flex items-center gap-1">
+      <a
+        href="/"
+        class="hover:text-brand-500 transition-colors inline-flex items-center gap-1"
+      >
         <div class="i-lucide-home text-xs" aria-hidden="true"></div>
         <span>ホーム</span>
       </a>
     </li>
-    {items.map((item, i) => (
-      <li class="flex items-center gap-1">
-        <div class="i-lucide-chevron-right text-xs text-slate-400" aria-hidden="true"></div>
-        {item.href ? (
-          <a href={item.href} class="hover:text-brand-500 transition-colors">{item.label}</a>
-        ) : (
-          <span class="text-slate-700 font-600 truncate max-w-60 sm:max-w-none">{item.label}</span>
-        )}
-      </li>
-    ))}
+    {
+      items.map((item, i) => (
+        <li class="flex items-center gap-1">
+          <div
+            class="i-lucide-chevron-right text-xs text-slate-400"
+            aria-hidden="true"
+          />
+          {item.href ? (
+            <a href={item.href} class="hover:text-brand-500 transition-colors">
+              {item.label}
+            </a>
+          ) : (
+            <span class="text-slate-700 font-600 truncate max-w-60 sm:max-w-none">
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
   </ol>
 </nav>

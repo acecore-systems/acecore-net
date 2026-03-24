@@ -8,19 +8,21 @@
 
 <script>
   function initScrollToTop() {
-    const btn = document.getElementById('scroll-to-top');
-    if (!btn) return;
-    const threshold = 400;
+    const btn = document.getElementById('scroll-to-top')
+    if (!btn) return
+    const threshold = 400
 
     const toggle = () => {
-      btn.style.display = window.scrollY > threshold ? 'flex' : 'none';
-    };
+      btn.style.display = window.scrollY > threshold ? 'flex' : 'none'
+    }
 
-    window.addEventListener('scroll', toggle, { passive: true });
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    toggle();
+    window.addEventListener('scroll', toggle, { passive: true })
+    btn.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: 'smooth' }),
+    )
+    toggle()
   }
 
-  initScrollToTop();
-  document.addEventListener('astro:after-swap', initScrollToTop);
+  initScrollToTop()
+  document.addEventListener('astro:after-swap', initScrollToTop)
 </script>

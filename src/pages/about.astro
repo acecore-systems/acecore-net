@@ -9,7 +9,8 @@ import { optimizeImage, generateSrcSet } from '../utils/image'
 const valueCycle = [
   {
     title: '技術を実装する',
-    description: 'システム開発やサーバー運用を通じて、現場で機能する基盤を作ります。',
+    description:
+      'システム開発やサーバー運用を通じて、現場で機能する基盤を作ります。',
     icon: 'i-lucide-cpu',
     accent: 'brand',
   },
@@ -21,7 +22,8 @@ const valueCycle = [
   },
   {
     title: '人と場を育てる',
-    description: 'コミュニティや教育の活動を通じて、新しい参加者や学びを生み出します。',
+    description:
+      'コミュニティや教育の活動を通じて、新しい参加者や学びを生み出します。',
     icon: 'i-lucide-users',
     accent: 'emerald',
   },
@@ -43,29 +45,30 @@ const activityChecklist = [
 import { SITE } from '../data/site'
 
 const organizationLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Acecore",
-  "url": "https://acecore.net",
-  "logo": "https://acecore.net/favicon.svg",
-  "description": "Acecore（エースコア）は、テクノロジーとクリエイティブの力で多様な価値を創出するテクノロジー集団です。",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "JP",
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Acecore',
+  url: 'https://acecore.net',
+  logo: 'https://acecore.net/favicon.svg',
+  description:
+    'Acecore（エースコア）は、テクノロジーとクリエイティブの力で多様な価値を創出するテクノロジー集団です。',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'JP',
   },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": SITE.phoneIntl,
-    "email": SITE.email,
-    "contactType": "customer service",
-    "availableLanguage": "Japanese",
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: SITE.phoneIntl,
+    email: SITE.email,
+    contactType: 'customer service',
+    availableLanguage: 'Japanese',
   },
-  "sameAs": [
-    "https://x.com/acecorenet",
-    "https://github.com/acecore-systems",
-    "https://asv.acecore.net",
+  sameAs: [
+    'https://x.com/acecorenet',
+    'https://github.com/acecore-systems',
+    'https://asv.acecore.net',
   ],
-  "knowsAbout": ["システム開発", "Web制作", "サーバー運用", "デザイン", "IT教育"],
+  knowsAbout: ['システム開発', 'Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
 }
 ---
 
@@ -77,7 +80,14 @@ const organizationLd = {
   <Hero
     title="会社概要"
     subtitle="Acecoreが目指すこと、大切にしていること"
-    images={[{src: optimizeImage('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'チームディスカッション'}]}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: 'チームディスカッション',
+      },
+    ]}
   />
 
   <section class="ac-section">
@@ -114,8 +124,14 @@ const organizationLd = {
 
       <div class="mb-12">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp')}
-          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
           sizes="(min-width: 1024px) 56rem, 100vw"
           alt="チームでのコラボレーション作業"
           class="w-full rounded-lg object-cover aspect-video"
@@ -127,16 +143,19 @@ const organizationLd = {
       </div>
 
       <div class="mb-12">
-        <Checklist
-          title="Acecoreの主な活動"
-          items={activityChecklist}
-        />
+        <Checklist title="Acecoreの主な活動" items={activityChecklist} />
       </div>
 
       <div class="mb-12">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp')}
-          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
           sizes="(min-width: 1024px) 56rem, 100vw"
           alt="勉強会・ワークショップの様子"
           class="w-full rounded-lg object-cover aspect-video"
@@ -152,7 +171,8 @@ const organizationLd = {
       <div class="space-y-6 mb-12">
         <div class="flex gap-4 items-start">
           <div
-            class="i-lucide-users text-2xl text-brand-500 shrink-0 mt-1" aria-hidden="true"
+            class="i-lucide-users text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
           >
           </div>
           <div>
@@ -160,13 +180,15 @@ const organizationLd = {
             <p class="text-slate-600">
               「つながり・発見・共創」をテーマに、技術勉強会やワークショップを定期開催しています。
               参加者同士が刺激を受け合い、新しいアイデアが生まれる場を提供しています。
-              <a href="/blog/" class="ac-link">ブログ</a>でも活動報告を発信しています。
+              <a href="/blog/" class="ac-link">ブログ</a
+              >でも活動報告を発信しています。
             </p>
           </div>
         </div>
         <div class="flex gap-4 items-start">
           <div
-            class="i-lucide-git-branch text-2xl text-brand-500 shrink-0 mt-1" aria-hidden="true"
+            class="i-lucide-git-branch text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
           >
           </div>
           <div>
@@ -179,27 +201,31 @@ const organizationLd = {
         </div>
         <div class="flex gap-4 items-start">
           <div
-            class="i-lucide-map-pin text-2xl text-brand-500 shrink-0 mt-1" aria-hidden="true"
+            class="i-lucide-map-pin text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
           >
           </div>
           <div>
             <h3 class="font-700 text-lg mb-1">地域連携</h3>
             <p class="text-slate-600">
               地域の教育機関やビジネスと連携し、IT活用の促進とデジタル人材の育成に取り組んでいます。
-              <a href="/schools/" class="ac-link">Acecore Schools</a>での指導もその一環です。
+              <a href="/schools/" class="ac-link">Acecore Schools</a
+              >での指導もその一環です。
             </p>
           </div>
         </div>
         <div class="flex gap-4 items-start">
           <div
-            class="i-lucide-handshake text-2xl text-brand-500 shrink-0 mt-1" aria-hidden="true"
+            class="i-lucide-handshake text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
           >
           </div>
           <div>
             <h3 class="font-700 text-lg mb-1">パートナーシップ</h3>
             <p class="text-slate-600">
               プロジェクト協力やビジネスパートナーシップを歓迎しています。
-              <a href="/services/" class="ac-link">技術・デザイン・教育</a>など幅広い分野で連携可能です。
+              <a href="/services/" class="ac-link">技術・デザイン・教育</a
+              >など幅広い分野で連携可能です。
             </p>
           </div>
         </div>
@@ -215,7 +241,11 @@ const organizationLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="i-lucide-gamepad-2 text-xl text-brand-500" aria-hidden="true"></div>
+            <div
+              class="i-lucide-gamepad-2 text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
             <h3 class="font-700 text-brand-500">Aceserver ポータル</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -230,7 +260,11 @@ const organizationLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="i-lucide-at-sign text-xl text-brand-500" aria-hidden="true"></div>
+            <div
+              class="i-lucide-at-sign text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
             <h3 class="font-700 text-brand-500">X（旧Twitter）</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -245,7 +279,11 @@ const organizationLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="i-lucide-github text-xl text-brand-500" aria-hidden="true"></div>
+            <div
+              class="i-lucide-github text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
             <h3 class="font-700 text-brand-500">GitHub</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -260,7 +298,11 @@ const organizationLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="i-lucide-message-circle text-xl text-brand-500" aria-hidden="true"></div>
+            <div
+              class="i-lucide-message-circle text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
             <h3 class="font-700 text-brand-500">Aceserver Discord</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -278,7 +320,9 @@ const organizationLd = {
         <p class="text-sm text-slate-600 mb-6">
           サービスのご相談、パートナーシップのご提案、いつでもお待ちしています。
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <a href="/contact/" class="ac-btn-primary">お問い合わせ</a>
           <a href="/services/" class="ac-btn-outline">サービス一覧を見る</a>
         </div>

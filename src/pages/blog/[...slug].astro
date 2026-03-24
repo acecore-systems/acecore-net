@@ -23,7 +23,7 @@ import CopyCodeButton from '../../components/CopyCodeButton.astro'
 
 export async function getStaticPaths() {
   const allPosts = (await getCollection('blog')).sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   )
   return allPosts.map((post) => ({
     params: { slug: post.id },
@@ -39,364 +39,549 @@ const author = post.data.author
   : null
 
 const currentIndex = allPosts.findIndex((p) => p.id === post.id)
-const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+const prevPost =
+  currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
 const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
 
 const currentTags = post.data.tags ?? []
-const relatedPosts = currentTags.length > 0
-  ? allPosts
-      .filter((p) => p.id !== post.id)
-      .map((p) => ({
-        post: p,
-        score: (p.data.tags ?? []).filter((t: string) => currentTags.includes(t)).length,
-      }))
-      .filter((p) => p.score > 0)
-      .sort((a, b) => b.score - a.score || b.post.data.date.getTime() - a.post.data.date.getTime())
-      .slice(0, 4)
-      .map((p) => p.post)
-  : []
+const relatedPosts =
+  currentTags.length > 0
+    ? allPosts
+        .filter((p) => p.id !== post.id)
+        .map((p) => ({
+          post: p,
+          score: (p.data.tags ?? []).filter((t: string) =>
+            currentTags.includes(t),
+          ).length,
+        }))
+        .filter((p) => p.score > 0)
+        .sort(
+          (a, b) =>
+            b.score - a.score ||
+            b.post.data.date.getTime() - a.post.data.date.getTime(),
+        )
+        .slice(0, 4)
+        .map((p) => p.post)
+    : []
 
 const ogImage = new URL(`/blog/og/${post.id}.png`, Astro.site).href
 const blogPostingLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": post.data.title,
-  "description": post.data.description,
-  "datePublished": post.data.date.toISOString(),
-  ...(post.data.lastUpdated && { "dateModified": post.data.lastUpdated.toISOString() }),
-  ...(ogImage && { "image": ogImage }),
-  ...(author && { "author": {
-    "@type": "Person",
-    "name": author.name,
-    ...(author.url && { "url": author.url }),
-    ...([author.github, author.twitter].filter(Boolean).length > 0 && {
-      "sameAs": [author.github, author.twitter].filter(Boolean)
-    })
-  } }),
-  "publisher": {
-    "@type": "Organization",
-    "name": "Acecore",
-    "url": "https://acecore.net"
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.lastUpdated && {
+    dateModified: post.data.lastUpdated.toISOString(),
+  }),
+  ...(ogImage && { image: ogImage }),
+  ...(author && {
+    author: {
+      '@type': 'Person',
+      name: author.name,
+      ...(author.url && { url: author.url }),
+      ...([author.github, author.twitter].filter(Boolean).length > 0 && {
+        sameAs: [author.github, author.twitter].filter(Boolean),
+      }),
+    },
+  }),
+  publisher: {
+    '@type': 'Organization',
+    name: 'Acecore',
+    url: 'https://acecore.net',
   },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": `https://acecore.net/blog/${post.id}/`
-  }
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://acecore.net/blog/${post.id}/`,
+  },
 }
 
-const faqLd = post.data.faq ? {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": post.data.faq.items.map((item: { question: string; answer: string }) => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer,
-    },
-  })),
-} : null
+const faqLd = post.data.faq
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.data.faq.items.map(
+        (item: { question: string; answer: string }) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        }),
+      ),
+    }
+  : null
 
 const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
 
 const tags = post.data.tags ?? []
 
 const ctaVariants = [
-  { match: ['教育', 'Acecore Schools'], heading: 'ITスクールに興味がありますか？', body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。', primary: { label: 'スクール詳細を見る', href: '/schools/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } },
-  { match: ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'], heading: '運用・インフラのお悩みはありませんか？', body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: '無料で相談する', href: '/contact/' } },
-  { match: ['システム開発', 'Web制作', 'Astro'], heading: '開発・Web制作のご相談はお気軽に', body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。', primary: { label: 'サービス一覧', href: '/services/' }, secondary: { label: 'お問い合わせ', href: '/contact/' } },
+  {
+    match: ['教育', 'Acecore Schools'],
+    heading: 'ITスクールに興味がありますか？',
+    body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。',
+    primary: { label: 'スクール詳細を見る', href: '/schools/' },
+    secondary: { label: 'お問い合わせ', href: '/contact/' },
+  },
+  {
+    match: ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'],
+    heading: '運用・インフラのお悩みはありませんか？',
+    body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。',
+    primary: { label: 'サービス一覧', href: '/services/' },
+    secondary: { label: '無料で相談する', href: '/contact/' },
+  },
+  {
+    match: ['システム開発', 'Web制作', 'Astro'],
+    heading: '開発・Web制作のご相談はお気軽に',
+    body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。',
+    primary: { label: 'サービス一覧', href: '/services/' },
+    secondary: { label: 'お問い合わせ', href: '/contact/' },
+  },
 ]
-const defaultCta = { heading: 'ご相談・ご依頼はお気軽に', body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。', primary: { label: 'お問い合わせ', href: '/contact/' }, secondary: { label: 'サービス一覧', href: '/services/' } }
-const ctaConfig = ctaVariants.find(v => tags.some((t: string) => v.match.includes(t))) ?? defaultCta
+const defaultCta = {
+  heading: 'ご相談・ご依頼はお気軽に',
+  body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。',
+  primary: { label: 'お問い合わせ', href: '/contact/' },
+  secondary: { label: 'サービス一覧', href: '/services/' },
+}
+const ctaConfig =
+  ctaVariants.find((v) => tags.some((t: string) => v.match.includes(t))) ??
+  defaultCta
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={ogImage} ogType="article" jsonLd={jsonLdData} publishedTime={post.data.date} modifiedTime={post.data.lastUpdated} tags={post.data.tags} author={author?.name}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={ogImage}
+  ogType="article"
+  jsonLd={jsonLdData}
+  publishedTime={post.data.date}
+  modifiedTime={post.data.lastUpdated}
+  tags={post.data.tags}
+  author={author?.name}
+>
   <div class="ac-section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]"
+    >
       <aside class="hidden xl:block" aria-label="目次">
         <div class="sticky top-20">
           <TableOfContents headings={tocHeadings} />
         </div>
       </aside>
       <article class="min-w-0" data-pagefind-body>
-      <div class="hidden" aria-hidden="true">
-        {author && <span data-pagefind-filter="著者">{author.name}</span>}
-        <span data-pagefind-filter="年">{post.data.date.getFullYear()}</span>
-        {post.data.tags?.map((tag: string) => (
-          <span data-pagefind-filter="タグ">{tag}</span>
-        ))}
-      </div>
-      <div class="mb-8">
-        <Breadcrumb items={[
-          { label: 'ブログ', href: '/blog/' },
-          { label: post.data.title },
-        ]} />
-        <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
-          {post.data.title}
-        </h1>
-        <div class="flex items-center gap-3 text-sm text-slate-500">
-          <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
-          {post.data.lastUpdated && (
-            <span class="flex items-center gap-1">
-              <span class="i-lucide-refresh-cw text-xs" aria-hidden="true"></span>
-              <time datetime={post.data.lastUpdated.toISOString()}>{post.data.lastUpdated.toLocaleDateString('ja-JP')}</time>
-            </span>
-          )}
-          {author && <a href={`/blog/authors/${post.data.author}/`} class="ac-link">by {author.name}</a>}
+        <div class="hidden" aria-hidden="true">
+          {author && <span data-pagefind-filter="著者">{author.name}</span>}
+          <span data-pagefind-filter="年">{post.data.date.getFullYear()}</span>
+          {
+            post.data.tags?.map((tag: string) => (
+              <span data-pagefind-filter="タグ">{tag}</span>
+            ))
+          }
         </div>
-        {post.data.tags && (
-            <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
-              {post.data.tags.map((tag: string) => (
-                <a href={`/blog/tags/${tag}/`} class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors">
-                  {tag}
+        <div class="mb-8">
+          <Breadcrumb
+            items={[
+              { label: 'ブログ', href: '/blog/' },
+              { label: post.data.title },
+            ]}
+          />
+          <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
+            {post.data.title}
+          </h1>
+          <div class="flex items-center gap-3 text-sm text-slate-500">
+            <time datetime={post.data.date.toISOString()}
+              >{post.data.date.toLocaleDateString('ja-JP')}</time
+            >
+            {
+              post.data.lastUpdated && (
+                <span class="flex items-center gap-1">
+                  <span
+                    class="i-lucide-refresh-cw text-xs"
+                    aria-hidden="true"
+                  />
+                  <time datetime={post.data.lastUpdated.toISOString()}>
+                    {post.data.lastUpdated.toLocaleDateString('ja-JP')}
+                  </time>
+                </span>
+              )
+            }
+            {
+              author && (
+                <a href={`/blog/authors/${post.data.author}/`} class="ac-link">
+                  by {author.name}
                 </a>
-              ))}
+              )
+            }
+          </div>
+          {
+            post.data.tags && (
+              <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
+                {post.data.tags.map((tag: string) => (
+                  <a
+                    href={`/blog/tags/${tag}/`}
+                    class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+        {
+          tocHeadings.length > 0 && (
+            <details class="lg:hidden mb-8 ac-card p-4" data-pagefind-ignore>
+              <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
+                <div class="i-lucide-list text-sm" aria-hidden="true" />
+                目次
+              </summary>
+              <ul class="mt-3 space-y-1 text-sm border-l-2 border-slate-200 ml-1">
+                {tocHeadings.map((h) => (
+                  <li>
+                    <a
+                      href={`#${h.slug}`}
+                      class="block py-1 text-slate-500 hover:text-brand-500 transition-colors"
+                      style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )
+        }
+        {
+          post.data.image && (
+            <div class="mb-8 rounded-xl overflow-hidden">
+              <img
+                src={optimizeImage(post.data.image)}
+                alt={post.data.title}
+                class="w-full h-auto"
+                width="960"
+                height="400"
+                decoding="async"
+              />
             </div>
           )
         }
-      </div>
-      {tocHeadings.length > 0 && (
-        <details class="lg:hidden mb-8 ac-card p-4" data-pagefind-ignore>
-          <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
-            <div class="i-lucide-list text-sm" aria-hidden="true"></div>
-            目次
-          </summary>
-          <ul class="mt-3 space-y-1 text-sm border-l-2 border-slate-200 ml-1">
-            {tocHeadings.map((h) => (
-              <li>
-                <a
-                  href={`#${h.slug}`}
-                  class="block py-1 text-slate-500 hover:text-brand-500 transition-colors"
-                  style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
-                >
-                  {h.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
-      {post.data.image && (
-        <div class="mb-8 rounded-xl overflow-hidden">
-          <img
-            src={optimizeImage(post.data.image)}
-            alt={post.data.title}
-            class="w-full h-auto"
-            width="960"
-            height="400"
-            decoding="async"
+        {post.data.callout && <Callout {...post.data.callout} />}
+        {post.data.insightGrid && <InsightGrid {...post.data.insightGrid} />}
+        <div class="prose prose-slate prose-lg max-w-none">
+          <Content />
+        </div>
+        {post.data.timeline && <Timeline {...post.data.timeline} />}
+        {
+          post.data.processFigure && (
+            <ProcessFigure {...post.data.processFigure} />
+          )
+        }
+        {post.data.compareTable && <CompareTable {...post.data.compareTable} />}
+        {post.data.gallery && <Gallery {...post.data.gallery} />}
+        {post.data.youtube && <YouTubeEmbed {...post.data.youtube} />}
+        {post.data.checklist && <Checklist {...post.data.checklist} />}
+        {post.data.testimonials?.map((t) => <Testimonial {...t} />)}
+        {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
+        {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
+        {post.data.faq && <Faq {...post.data.faq} />}
+        <div class="my-8" data-pagefind-ignore>
+          <AdUnit />
+        </div>
+
+        <div class="my-8 py-6 border-t border-slate-200">
+          <ShareButtons
+            url={`https://acecore.net/blog/${post.id}/`}
+            title={post.data.title}
           />
         </div>
-      )}
-      {post.data.callout && <Callout {...post.data.callout} />}
-      {post.data.insightGrid && <InsightGrid {...post.data.insightGrid} />}
-      <div class="prose prose-slate prose-lg max-w-none">
-        <Content />
-      </div>
-      {post.data.timeline && <Timeline {...post.data.timeline} />}
-      {post.data.processFigure && <ProcessFigure {...post.data.processFigure} />}
-      {post.data.compareTable && <CompareTable {...post.data.compareTable} />}
-      {post.data.gallery && <Gallery {...post.data.gallery} />}
-      {post.data.youtube && <YouTubeEmbed {...post.data.youtube} />}
-      {post.data.checklist && <Checklist {...post.data.checklist} />}
-      {post.data.testimonials?.map((t) => <Testimonial {...t} />)}
-      {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
-      {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
-      {post.data.faq && <Faq {...post.data.faq} />}
-      <div class="my-8" data-pagefind-ignore>
-        <AdUnit />
-      </div>
 
-      <div class="my-8 py-6 border-t border-slate-200">
-        <ShareButtons url={`https://acecore.net/blog/${post.id}/`} title={post.data.title} />
-      </div>
-
-      {author && (
-        <div class="lg:hidden mt-12 pt-8 border-t border-slate-200" data-pagefind-ignore>
-          <div class="flex items-start gap-4">
-            {(author.avatarImage || author.avatar) ? (
-              <img
-                src={author.avatarImage || author.avatar}
-                alt={author.name}
-                class="w-16 h-16 rounded-full object-cover shrink-0"                width="64"
-                height="64"
-                decoding="async"              />
-            ) : (
-              <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
-                {author.name.charAt(0)}
-              </div>
-            )}
-            <div>
-              <h3 class="font-700 text-lg text-slate-900"><a href={`/blog/authors/${post.data.author}/`} class="no-underline text-inherit hover:text-brand-500 transition-colors">{author.name}</a></h3>
-              {author.bio && (
-                <p class="text-sm text-slate-600 mt-1 whitespace-pre-line">{author.bio}</p>
-              )}
-              {author.skills?.length > 0 && (
-                <div class="flex flex-wrap gap-1 mt-2">
-                  {author.skills.map((skill: string) => (
-                    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">{skill}</span>
-                  ))}
-                </div>
-              )}
-              {(author.github || author.twitter) && (
-                <div class="flex items-center gap-3 mt-3">
-                  {author.github && (
-                    <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
-                      <div class="i-lucide-github text-lg" aria-hidden="true"></div>
-                    </a>
-                  )}
-                  {author.twitter && (
-                    <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
-                      <div class="i-lucide-twitter text-lg" aria-hidden="true"></div>
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center" data-pagefind-ignore>
-        <p class="text-lg font-700 text-slate-800 mb-2">{ctaConfig.heading}</p>
-        <p class="text-sm text-slate-600 mb-4">{ctaConfig.body}</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href={ctaConfig.primary.href} class="ac-btn-primary">{ctaConfig.primary.label}</a>
-          <a href={ctaConfig.secondary.href} class="ac-btn-outline">{ctaConfig.secondary.label}</a>
-        </div>
-      </div>
-
-      {relatedPosts.length > 0 && (
-        <section class="mt-12 pt-8 border-t border-slate-200" data-pagefind-ignore>
-          <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
-            <div class="i-lucide-newspaper text-lg text-brand-500" aria-hidden="true"></div>
-            関連記事
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {relatedPosts.map((rp, i) => (
-              <Fragment>
-                {i === 2 && (
-                  <div class="sm:col-span-2">
-                    <AdUnit />
-                  </div>
-                )}
-                <a
-                  href={`/blog/${rp.id}/`}
-                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all"
-                >
-                  {rp.data.image && (
-                    <img
-                      src={optimizeImage(rp.data.image)}
-                      alt={rp.data.title}
-                      class="w-full h-32 object-cover rounded-md mb-3"
-                      width="400"
-                      height="128"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
-                  <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
-                    {rp.data.title}
-                  </span>
-                  <span class="text-xs text-slate-600 mt-1">{rp.data.date.toLocaleDateString('ja-JP')}</span>
-                  {rp.data.tags && (
-                    <div class="flex flex-wrap gap-1 mt-2">
-                      {rp.data.tags.slice(0, 3).map((tag: string) => (
-                        <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </a>
-              </Fragment>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {(prevPost || nextPost) && (
-        <nav class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="前後の記事" data-pagefind-ignore>
-          {prevPost ? (
-            <a
-              href={`/blog/${prevPost.id}/`}
-              class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
+        {
+          author && (
+            <div
+              class="lg:hidden mt-12 pt-8 border-t border-slate-200"
+              data-pagefind-ignore
             >
-              <span class="text-xs text-slate-600 mb-1">← 前の記事</span>
-              <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
-                {prevPost.data.title}
-              </span>
-            </a>
-          ) : <div />}
-          {nextPost && (
-            <a
-              href={`/blog/${nextPost.id}/`}
-              class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
-            >
-              <span class="text-xs text-slate-600 mb-1">次の記事 →</span>
-              <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
-                {nextPost.data.title}
-              </span>
-            </a>
-          )}
-        </nav>
-      )}
-      <CopyCodeButton />
-      </article>
-      <aside class="hidden lg:block" aria-label="サイドバー">
-        <div class="sticky top-20 space-y-6">
-          {tocHeadings.length > 0 && (
-            <div class="xl:hidden">
-              <TableOfContents headings={tocHeadings} />
-            </div>
-          )}
-          {author && (
-            <div class="ac-card p-5">
-              <div class="flex items-center gap-3 mb-3">
-                {(author.avatarImage || author.avatar) ? (
+              <div class="flex items-start gap-4">
+                {author.avatarImage || author.avatar ? (
                   <img
                     src={author.avatarImage || author.avatar}
                     alt={author.name}
-                    class="w-12 h-12 rounded-full object-cover shrink-0"
-                    width="48"
-                    height="48"
+                    class="w-16 h-16 rounded-full object-cover shrink-0"
+                    width="64"
+                    height="64"
                     decoding="async"
                   />
                 ) : (
-                  <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-700 shrink-0">
+                  <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
                     {author.name.charAt(0)}
                   </div>
                 )}
                 <div>
-                  <p class="font-700 text-sm text-slate-900"><a href={`/blog/authors/${post.data.author}/`} class="no-underline text-inherit hover:text-brand-500 transition-colors">{author.name}</a></p>
+                  <h3 class="font-700 text-lg text-slate-900">
+                    <a
+                      href={`/blog/authors/${post.data.author}/`}
+                      class="no-underline text-inherit hover:text-brand-500 transition-colors"
+                    >
+                      {author.name}
+                    </a>
+                  </h3>
+                  {author.bio && (
+                    <p class="text-sm text-slate-600 mt-1 whitespace-pre-line">
+                      {author.bio}
+                    </p>
+                  )}
+                  {author.skills?.length > 0 && (
+                    <div class="flex flex-wrap gap-1 mt-2">
+                      {author.skills.map((skill: string) => (
+                        <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {(author.github || author.twitter) && (
+                    <div class="flex items-center gap-3 mt-3">
+                      {author.github && (
+                        <a
+                          href={author.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-slate-400 hover:text-slate-600 transition-colors"
+                          aria-label="GitHub"
+                        >
+                          <div
+                            class="i-lucide-github text-lg"
+                            aria-hidden="true"
+                          />
+                        </a>
+                      )}
+                      {author.twitter && (
+                        <a
+                          href={author.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-slate-400 hover:text-slate-600 transition-colors"
+                          aria-label="X"
+                        >
+                          <div
+                            class="i-lucide-twitter text-lg"
+                            aria-hidden="true"
+                          />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
-              {author.bio && (
-                <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line mb-3">{author.bio}</p>
-              )}
-              {author.skills?.length > 0 && (
-                <div class="flex flex-wrap gap-1 mb-3">
-                  {author.skills.map((skill: string) => (
-                    <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">{skill}</span>
-                  ))}
-                </div>
-              )}
-              {(author.github || author.twitter) && (
-                <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
-                  {author.github && (
-                    <a href={author.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="GitHub">
-                      <div class="i-lucide-github text-base" aria-hidden="true"></div>
-                    </a>
-                  )}
-                  {author.twitter && (
-                    <a href={author.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-600 transition-colors" aria-label="X">
-                      <div class="i-lucide-twitter text-base" aria-hidden="true"></div>
-                    </a>
-                  )}
-                </div>
-              )}
             </div>
-          )}
+          )
+        }
+
+        <div
+          class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center"
+          data-pagefind-ignore
+        >
+          <p class="text-lg font-700 text-slate-800 mb-2">
+            {ctaConfig.heading}
+          </p>
+          <p class="text-sm text-slate-600 mb-4">{ctaConfig.body}</p>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center gap-3"
+          >
+            <a href={ctaConfig.primary.href} class="ac-btn-primary"
+              >{ctaConfig.primary.label}</a
+            >
+            <a href={ctaConfig.secondary.href} class="ac-btn-outline"
+              >{ctaConfig.secondary.label}</a
+            >
+          </div>
+        </div>
+
+        {
+          relatedPosts.length > 0 && (
+            <section
+              class="mt-12 pt-8 border-t border-slate-200"
+              data-pagefind-ignore
+            >
+              <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
+                <div
+                  class="i-lucide-newspaper text-lg text-brand-500"
+                  aria-hidden="true"
+                />
+                関連記事
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedPosts.map((rp, i) => (
+                  <Fragment>
+                    {i === 2 && (
+                      <div class="sm:col-span-2">
+                        <AdUnit />
+                      </div>
+                    )}
+                    <a
+                      href={`/blog/${rp.id}/`}
+                      class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all"
+                    >
+                      {rp.data.image && (
+                        <img
+                          src={optimizeImage(rp.data.image)}
+                          alt={rp.data.title}
+                          class="w-full h-32 object-cover rounded-md mb-3"
+                          width="400"
+                          height="128"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
+                      <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
+                        {rp.data.title}
+                      </span>
+                      <span class="text-xs text-slate-600 mt-1">
+                        {rp.data.date.toLocaleDateString('ja-JP')}
+                      </span>
+                      {rp.data.tags && (
+                        <div class="flex flex-wrap gap-1 mt-2">
+                          {rp.data.tags.slice(0, 3).map((tag: string) => (
+                            <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </a>
+                  </Fragment>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          (prevPost || nextPost) && (
+            <nav
+              class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4"
+              aria-label="前後の記事"
+              data-pagefind-ignore
+            >
+              {prevPost ? (
+                <a
+                  href={`/blog/${prevPost.id}/`}
+                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
+                >
+                  <span class="text-xs text-slate-600 mb-1">← 前の記事</span>
+                  <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
+                    {prevPost.data.title}
+                  </span>
+                </a>
+              ) : (
+                <div />
+              )}
+              {nextPost && (
+                <a
+                  href={`/blog/${nextPost.id}/`}
+                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
+                >
+                  <span class="text-xs text-slate-600 mb-1">次の記事 →</span>
+                  <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
+                    {nextPost.data.title}
+                  </span>
+                </a>
+              )}
+            </nav>
+          )
+        }
+        <CopyCodeButton />
+      </article>
+      <aside class="hidden lg:block" aria-label="サイドバー">
+        <div class="sticky top-20 space-y-6">
+          {
+            tocHeadings.length > 0 && (
+              <div class="xl:hidden">
+                <TableOfContents headings={tocHeadings} />
+              </div>
+            )
+          }
+          {
+            author && (
+              <div class="ac-card p-5">
+                <div class="flex items-center gap-3 mb-3">
+                  {author.avatarImage || author.avatar ? (
+                    <img
+                      src={author.avatarImage || author.avatar}
+                      alt={author.name}
+                      class="w-12 h-12 rounded-full object-cover shrink-0"
+                      width="48"
+                      height="48"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-700 shrink-0">
+                      {author.name.charAt(0)}
+                    </div>
+                  )}
+                  <div>
+                    <p class="font-700 text-sm text-slate-900">
+                      <a
+                        href={`/blog/authors/${post.data.author}/`}
+                        class="no-underline text-inherit hover:text-brand-500 transition-colors"
+                      >
+                        {author.name}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                {author.bio && (
+                  <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line mb-3">
+                    {author.bio}
+                  </p>
+                )}
+                {author.skills?.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mb-3">
+                    {author.skills.map((skill: string) => (
+                      <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {(author.github || author.twitter) && (
+                  <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+                    {author.github && (
+                      <a
+                        href={author.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-slate-600 transition-colors"
+                        aria-label="GitHub"
+                      >
+                        <div
+                          class="i-lucide-github text-base"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )}
+                    {author.twitter && (
+                      <a
+                        href={author.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-slate-600 transition-colors"
+                        aria-label="X"
+                      >
+                        <div
+                          class="i-lucide-twitter text-base"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            )
+          }
           <AdUnit adSlot="4541792182" />
         </div>
       </aside>

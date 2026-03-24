@@ -11,13 +11,16 @@ const { allPosts } = Astro.props
 
 const tagCounts = new Map<string, number>()
 for (const post of allPosts) {
-  for (const tag of (post.data.tags ?? [])) {
+  for (const tag of post.data.tags ?? []) {
     tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
   }
 }
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
 
-const archiveMap = new Map<string, { count: number; year: number; month: number }>()
+const archiveMap = new Map<
+  string,
+  { count: number; year: number; month: number }
+>()
 for (const post of allPosts) {
   const d = post.data.date
   const year = d.getFullYear()
@@ -30,12 +33,17 @@ for (const post of allPosts) {
     archiveMap.set(key, { count: 1, year, month })
   }
 }
-const sortedArchive = [...archiveMap.entries()].sort((a, b) => b[0].localeCompare(a[0]))
+const sortedArchive = [...archiveMap.entries()].sort((a, b) =>
+  b[0].localeCompare(a[0]),
+)
 
 const authorCounts = new Map<string, number>()
 for (const post of allPosts) {
   if (post.data.author) {
-    authorCounts.set(post.data.author, (authorCounts.get(post.data.author) ?? 0) + 1)
+    authorCounts.set(
+      post.data.author,
+      (authorCounts.get(post.data.author) ?? 0) + 1,
+    )
   }
 }
 
@@ -50,14 +58,16 @@ const latestPosts = allPosts.slice(0, 5)
         タグ
       </h3>
       <div class="flex flex-wrap gap-1.5">
-        {sortedTags.map(([tag, count]) => (
-          <a
-            href={`/blog/tags/${tag}/`}
-            class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
-          >
-            {tag} <span class="text-brand-400">({count})</span>
-          </a>
-        ))}
+        {
+          sortedTags.map(([tag, count]) => (
+            <a
+              href={`/blog/tags/${tag}/`}
+              class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
+            >
+              {tag} <span class="text-brand-400">({count})</span>
+            </a>
+          ))
+        }
       </div>
     </div>
 
@@ -67,17 +77,21 @@ const latestPosts = allPosts.slice(0, 5)
         アーカイブ
       </h3>
       <ul class="space-y-0.5 text-sm list-none p-0 m-0" role="list">
-        {sortedArchive.map(([key, { count, year, month }]) => (
-          <li>
-            <a
-              href={`/blog/archive/${key}/`}
-              class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
-            >
-              <span>{year}年{month}月</span>
-              <span class="text-xs text-slate-500">{count}件</span>
-            </a>
-          </li>
-        ))}
+        {
+          sortedArchive.map(([key, { count, year, month }]) => (
+            <li>
+              <a
+                href={`/blog/archive/${key}/`}
+                class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
+              >
+                <span>
+                  {year}年{month}月
+                </span>
+                <span class="text-xs text-slate-500">{count}件</span>
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
 
@@ -87,31 +101,38 @@ const latestPosts = allPosts.slice(0, 5)
         著者
       </h3>
       <div class="space-y-3">
-        {authors.map((author) => {
-          const count = authorCounts.get(author.id) ?? 0
-          return count > 0 && (
-            <a href={`/blog/authors/${author.id}/`} class="flex items-center gap-3 no-underline hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors">
-              {(author.avatarImage || author.avatar) ? (
-                <img
-                  src={author.avatarImage || author.avatar}
-                  alt={author.name}
-                  class="w-8 h-8 rounded-full object-cover shrink-0"
-                  width="32"
-                  height="32"
-                  decoding="async"
-                />
-              ) : (
-                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-700 shrink-0">
-                  {author.name.charAt(0)}
-                </div>
-              )}
-              <div>
-                <p class="text-sm font-600 text-slate-800">{author.name}</p>
-                <p class="text-xs text-slate-500">{count}件の記事</p>
-              </div>
-            </a>
-          )
-        })}
+        {
+          authors.map((author) => {
+            const count = authorCounts.get(author.id) ?? 0
+            return (
+              count > 0 && (
+                <a
+                  href={`/blog/authors/${author.id}/`}
+                  class="flex items-center gap-3 no-underline hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors"
+                >
+                  {author.avatarImage || author.avatar ? (
+                    <img
+                      src={author.avatarImage || author.avatar}
+                      alt={author.name}
+                      class="w-8 h-8 rounded-full object-cover shrink-0"
+                      width="32"
+                      height="32"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-700 shrink-0">
+                      {author.name.charAt(0)}
+                    </div>
+                  )}
+                  <div>
+                    <p class="text-sm font-600 text-slate-800">{author.name}</p>
+                    <p class="text-xs text-slate-500">{count}件の記事</p>
+                  </div>
+                </a>
+              )
+            )
+          })
+        }
       </div>
     </div>
 
@@ -121,22 +142,24 @@ const latestPosts = allPosts.slice(0, 5)
         最新記事
       </h3>
       <ul class="space-y-3 list-none p-0 m-0" role="list">
-        {latestPosts.map((post) => (
-          <li>
-            <a
-              href={`/blog/${post.id}/`}
-              class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
-            >
-              {post.data.title}
-            </a>
-            <time
-              datetime={post.data.date.toISOString()}
-              class="text-xs text-slate-500 mt-0.5 block"
-            >
-              {post.data.date.toLocaleDateString('ja-JP')}
-            </time>
-          </li>
-        ))}
+        {
+          latestPosts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.id}/`}
+                class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
+              >
+                {post.data.title}
+              </a>
+              <time
+                datetime={post.data.date.toISOString()}
+                class="text-xs text-slate-500 mt-0.5 block"
+              >
+                {post.data.date.toLocaleDateString('ja-JP')}
+              </time>
+            </li>
+          ))
+        }
       </ul>
     </div>
 

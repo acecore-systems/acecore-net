@@ -2,20 +2,23 @@
 import { SITE } from '../data/site'
 ---
 
-<div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg" id="anchor-ad">
+<div
+  class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg"
+  id="anchor-ad"
+>
   <div class="relative">
     <button
       id="anchor-ad-close"
       class="absolute -top-8 right-2 bg-white/90 border border-slate-200 rounded-t px-2 py-0.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-      aria-label="広告を閉じる"
-    >✕</button>
-    <ins class="adsbygoogle"
+      aria-label="広告を閉じる">✕</button
+    >
+    <ins
+      class="adsbygoogle"
       style="display:block"
       data-ad-client={SITE.adsenseClientId}
       data-ad-slot={SITE.adSlotId}
       data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
+      data-full-width-responsive="true"></ins>
   </div>
 </div>
 
@@ -34,7 +37,9 @@ import { SITE } from '../data/site'
     try {
       ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
       ;(window as any).adsbygoogle.push({})
-    } catch (e) { console.warn('AnchorAd load failed:', e) }
+    } catch (e) {
+      console.warn('AnchorAd load failed:', e)
+    }
 
     closeBtn.addEventListener('click', () => {
       container.style.display = 'none'

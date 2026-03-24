@@ -9,11 +9,17 @@ const { text, attribution } = Astro.props
 
 <figure class="not-prose my-10 text-center px-4">
   <blockquote>
-    <p class="text-lg sm:text-xl font-700 text-brand-700 leading-relaxed italic">
+    <p
+      class="text-lg sm:text-xl font-700 text-brand-700 leading-relaxed italic"
+    >
       &ldquo;{text}&rdquo;
     </p>
   </blockquote>
-  {attribution && (
-    <figcaption class="text-sm text-slate-500 mt-3">── {attribution}</figcaption>
-  )}
+  {
+    attribution && (
+      <figcaption class="text-sm text-slate-500 mt-3">
+        ── {attribution}
+      </figcaption>
+    )
+  }
 </figure>

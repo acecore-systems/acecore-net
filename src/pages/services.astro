@@ -9,45 +9,99 @@ import { optimizeImage, generateSrcSet } from '../utils/image'
 const serviceMap = [
   {
     title: '開発',
-    description: '業務システムやアプリを、運用フローに合わせて設計・実装します。',
+    description:
+      '業務システムやアプリを、運用フローに合わせて設計・実装します。',
     icon: 'i-lucide-code-2',
     tone: 'brand',
   },
   {
     title: '運用基盤',
-    description: 'クラウドやサーバーを安定運用し、監視や保守まで含めて整えます。',
+    description:
+      'クラウドやサーバーを安定運用し、監視や保守まで含めて整えます。',
     icon: 'i-lucide-server',
     tone: 'emerald',
   },
   {
     title: '情報発信',
-    description: 'Webサイトやデザイン制作で、伝えるべき内容を整理して届けます。',
+    description:
+      'Webサイトやデザイン制作で、伝えるべき内容を整理して届けます。',
     icon: 'i-lucide-globe',
     tone: 'amber',
   },
   {
     title: '育成支援',
-    description: '導入した技術を現場で回せるよう、教育と伴走支援まで接続します。',
+    description:
+      '導入した技術を現場で回せるよう、教育と伴走支援まで接続します。',
     icon: 'i-lucide-graduation-cap',
     tone: 'slate',
   },
 ] as const
 
 const deliveryTimeline = [
-  { date: 'Step 1', title: 'ヒアリング', description: '目的と制約を整理し、優先順位を明確に。' },
-  { date: 'Step 2', title: '設計・提案', description: '必要な技術・画面・運用ルールを整理。' },
-  { date: 'Step 3', title: '制作・構築', description: '開発・デザイン・インフラを横断して実装。' },
-  { date: 'Step 4', title: '公開・保守', description: '改善提案・追加開発まで含めた継続支援。' },
+  {
+    date: 'Step 1',
+    title: 'ヒアリング',
+    description: '目的と制約を整理し、優先順位を明確に。',
+  },
+  {
+    date: 'Step 2',
+    title: '設計・提案',
+    description: '必要な技術・画面・運用ルールを整理。',
+  },
+  {
+    date: 'Step 3',
+    title: '制作・構築',
+    description: '開発・デザイン・インフラを横断して実装。',
+  },
+  {
+    date: 'Step 4',
+    title: '公開・保守',
+    description: '改善提案・追加開発まで含めた継続支援。',
+  },
 ]
 
 const serviceLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    { "@type": "Service", "name": "業務システム・アプリ開発", "description": "業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#system-development" },
-    { "@type": "Service", "name": "サーバー構築・運用", "description": "セキュアで安定したサーバー環境の構築と運用を提供します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#server" },
-    { "@type": "Service", "name": "Webサイト制作・運用", "description": "コーポレートサイト、ECサイトなど各種Webサイトの企画から制作、運用保守までを一貫して対応します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#web" },
-    { "@type": "Service", "name": "デザイン・クリエイティブ", "description": "ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/services/#design" },
-    { "@type": "Service", "name": "ITスクール / Acecore Schools", "description": "学習塾・ロボットプログラミング・実践プログラミング・パソコン教室・高卒認定対策など幅広い教育プログラムを提供します。", "provider": { "@type": "Organization", "name": "Acecore" }, "url": "https://acecore.net/schools/" },
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: '業務システム・アプリ開発',
+      description:
+        '業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。',
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#system-development',
+    },
+    {
+      '@type': 'Service',
+      name: 'サーバー構築・運用',
+      description: 'セキュアで安定したサーバー環境の構築と運用を提供します。',
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#server',
+    },
+    {
+      '@type': 'Service',
+      name: 'Webサイト制作・運用',
+      description:
+        'コーポレートサイト、ECサイトなど各種Webサイトの企画から制作、運用保守までを一貫して対応します。',
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#web',
+    },
+    {
+      '@type': 'Service',
+      name: 'デザイン・クリエイティブ',
+      description:
+        'ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。',
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#design',
+    },
+    {
+      '@type': 'Service',
+      name: 'ITスクール / Acecore Schools',
+      description:
+        '学習塾・ロボットプログラミング・実践プログラミング・パソコン教室・高卒認定対策など幅広い教育プログラムを提供します。',
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/schools/',
+    },
   ],
 }
 ---
@@ -60,7 +114,14 @@ const serviceLd = {
   <Hero
     title="サービス"
     subtitle="ワンストップで提供する多彩なITソリューション"
-    images={[{src: optimizeImage('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'テクノロジーオフィス'}]}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: 'テクノロジーオフィス',
+      },
+    ]}
   />
 
   <div class="ac-container mt-4">
@@ -82,43 +143,94 @@ const serviceLd = {
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
       <nav class="mb-12 flex flex-wrap gap-2 justify-center">
-        <a href="#system-development" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">開発</a>
-        <a href="#server" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">サーバー</a>
-        <a href="#web" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">Web制作</a>
-        <a href="#design" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">デザイン</a>
-        <a href="#education" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">ITスクール</a>
-        <a href="#aceserver" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">Aceserver</a>
-        <a href="#acestudio" class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors">AceStudio</a>
+        <a
+          href="#system-development"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >開発</a
+        >
+        <a
+          href="#server"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >サーバー</a
+        >
+        <a
+          href="#web"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >Web制作</a
+        >
+        <a
+          href="#design"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >デザイン</a
+        >
+        <a
+          href="#education"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >ITスクール</a
+        >
+        <a
+          href="#aceserver"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >Aceserver</a
+        >
+        <a
+          href="#acestudio"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >AceStudio</a
+        >
       </nav>
 
       <!-- 業務システム・アプリ開発 -->
       <div class="mb-16" id="system-development">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-code-2 text-3xl text-brand-500" aria-hidden="true"></div>
+          <div
+            class="i-lucide-code-2 text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
           <h2 class="text-2xl ac-heading">業務システム・アプリ開発</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。
           小規模な社内ツールから大規模なWebサービスまで幅広く対応可能です。
-          「何から始めればいいか分からない」という段階でも、<a href="/contact/" class="ac-link">お気軽にご相談ください</a>。
+          「何から始めればいいか分からない」という段階でも、<a
+            href="/contact/"
+            class="ac-link">お気軽にご相談ください</a
+          >。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               業務管理システム・CRM・ERPの設計・構築
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               Webアプリケーション・SPA・モバイルアプリの開発
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               API設計・外部サービス連携・データ基盤構築
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               レガシーシステムのモダナイゼーション
             </li>
           </ul>
@@ -127,8 +239,14 @@ const serviceLd = {
 
       <div class="mb-16">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp')}
-          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
           sizes="(min-width: 1024px) 56rem, 100vw"
           alt="コードエディタでの開発作業のイメージ"
           class="w-full rounded-lg object-cover aspect-video"
@@ -142,7 +260,11 @@ const serviceLd = {
       <!-- サーバー構築・運用 -->
       <div class="mb-16" id="server">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-server text-3xl text-brand-500" aria-hidden="true"></div>
+          <div
+            class="i-lucide-server text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
           <h2 class="text-2xl ac-heading">サーバー構築・運用</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -151,27 +273,49 @@ const serviceLd = {
             href="https://asv.acecore.net"
             target="_blank"
             rel="noopener noreferrer"
-            class="ac-link">Aceserver（マインクラフト公開サーバー）<span class="sr-only">（新しいタブで開きます）</span></a
+            class="ac-link"
+            >Aceserver（マインクラフト公開サーバー）<span class="sr-only"
+              >（新しいタブで開きます）</span
+            ></a
           >を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。
-          サーバーの移行やクラウド化のご相談も<a href="/contact/" class="ac-link">お待ちしています</a>。
+          サーバーの移行やクラウド化のご相談も<a
+            href="/contact/"
+            class="ac-link">お待ちしています</a
+          >。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               クラウドサーバー（AWS / Azure / GCP / Cloudflare）の設計・構築
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               Linux / Windows サーバーの運用・監視・保守
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               ゲームサーバー・コミュニティサーバーの構築
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               セキュリティ対策・バックアップ体制の整備
             </li>
           </ul>
@@ -181,31 +325,54 @@ const serviceLd = {
       <!-- Webサイト制作・運用 -->
       <div class="mb-16" id="web">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-globe text-3xl text-brand-500" aria-hidden="true"></div>
+          <div
+            class="i-lucide-globe text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
           <h2 class="text-2xl ac-heading">Webサイト制作・運用</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           コーポレートサイト、ポートフォリオ、ECサイト、コミュニティサイトなど、
           各種Webサイトの企画から制作、運用保守までを一貫して対応します。
-          このサイト自体も<a href="/blog/astro-performance-tuning/" class="ac-link">Astro + UnoCSS で PageSpeed 98点を達成</a>しており、最新の技術とSEO対策で高品質なサイトを実現します。
+          このサイト自体も<a
+            href="/blog/astro-performance-tuning/"
+            class="ac-link">Astro + UnoCSS で PageSpeed 98点を達成</a
+          >しており、最新の技術とSEO対策で高品質なサイトを実現します。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               コーポレートサイト・ランディングページの制作
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               CMS構築・ブログ・メディアサイト
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               ECサイト・オンラインショップの構築
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               SEO対策・パフォーマンス最適化・アクセシビリティ改善
             </li>
           </ul>
@@ -214,8 +381,14 @@ const serviceLd = {
 
       <div class="mb-16">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp')}
-          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
           sizes="(min-width: 1024px) 56rem, 100vw"
           alt="Webデザインの制作プロセス"
           class="w-full rounded-lg object-cover aspect-video"
@@ -236,29 +409,53 @@ const serviceLd = {
       <!-- デザイン・クリエイティブ -->
       <div class="mb-16" id="design">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-palette text-3xl text-brand-500" aria-hidden="true"></div>
+          <div
+            class="i-lucide-palette text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
           <h2 class="text-2xl ac-heading">デザイン・クリエイティブ</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。
-          お客様の「伝えたい」を的確に形にすることを大切にしています。          <a href="/services/#web" class="ac-link">Webサイト制作</a>と組み合わせれば、デザインから公開まで一貫でお任せいただけます。        </p>
+          お客様の「伝えたい」を的確に形にすることを大切にしています。 <a
+            href="/services/#web"
+            class="ac-link">Webサイト制作</a
+          >と組み合わせれば、デザインから公開まで一貫でお任せいただけます。
+        </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">対応例</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               ロゴ・ブランドアイデンティティの設計
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               名刺・パンフレット・ポスターなどの印刷物
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               Webバナー・SNS用クリエイティブ
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               キャラクターデザイン・イラスト制作
             </li>
           </ul>
@@ -267,8 +464,14 @@ const serviceLd = {
 
       <div class="mb-16">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp')}
-          srcset={generateSrcSet(optimizeImage('https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp'))}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
           sizes="(min-width: 1024px) 56rem, 100vw"
           alt="クリエイティブなデザインワークスペース"
           class="w-full rounded-lg object-cover aspect-video"
@@ -282,41 +485,70 @@ const serviceLd = {
       <!-- ITスクール -->
       <div class="mb-16" id="education">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-graduation-cap text-3xl text-brand-500" aria-hidden="true"></div>
+          <div
+            class="i-lucide-graduation-cap text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
           <h2 class="text-2xl ac-heading">ITスクール / Acecore Schools</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           実務で通用するITスキルを、現役エンジニアが直接指導するスクールです。
           学習塾・ロボットプログラミング・実践プログラミング・パソコン/スマホ教室・高卒認定対策など、
-          <a href="/schools/" class="ac-link">一人ひとりに合わせた幅広い教育プログラム</a>を提供しています。
+          <a href="/schools/" class="ac-link"
+            >一人ひとりに合わせた幅広い教育プログラム</a
+          >を提供しています。
         </p>
         <div class="bg-slate-50 rounded-lg p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">コース一覧</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               学習塾（個別指導・定期テスト/受験対策）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               ロボット / プログラミング（ロボット工作・マイクラプログラミング）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               実践プログラミング（Web開発・バックエンド・データベース）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               パソコン / スマホ（基本操作・オフィスソフト・セキュリティ）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               高卒認定（試験対策・個別学習計画）
             </li>
           </ul>
         </div>
         <div class="mt-4">
-          <a href="/schools/" class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1">
+          <a
+            href="/schools/"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
             <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
             Acecore Schools の詳細を見る
           </a>
@@ -326,8 +558,14 @@ const serviceLd = {
       <!-- Aceserver -->
       <div class="mb-16" id="aceserver">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-gamepad-2 text-3xl text-brand-500" aria-hidden="true"></div>
-          <h2 class="text-2xl ac-heading">Aceserver（マインクラフト公開サーバー）</h2>
+          <div
+            class="i-lucide-gamepad-2 text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
+          <h2 class="text-2xl ac-heading">
+            Aceserver（マインクラフト公開サーバー）
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           Aceserver（エースサーバー）は、Acecoreが運営するマインクラフトの無料公開サーバーです。
@@ -338,23 +576,43 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">特徴</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               誰でも無料で参加可能（アカウントさえあればOK）
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               JAVA版・統合版クロスプレイ対応
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               バニラに近い自由度の高いゲーム環境
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               活発なDiscordコミュニティで交流・情報共有
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               配信・宣伝OK（申請不要で自由にご活用いただけます）
             </li>
           </ul>
@@ -366,8 +624,11 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
-            Aceserver ポータル<span class="sr-only">（新しいタブで開きます）</span>
+            <div class="i-lucide-external-link text-sm" aria-hidden="true">
+            </div>
+            Aceserver ポータル<span class="sr-only"
+              >（新しいタブで開きます）</span
+            >
           </a>
           <a
             href="https://aceserver-wiki.acecore.systems/"
@@ -375,7 +636,8 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            <div class="i-lucide-external-link text-sm" aria-hidden="true">
+            </div>
             Aceserver Wiki<span class="sr-only">（新しいタブで開きます）</span>
           </a>
           <a
@@ -384,7 +646,8 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            <div class="i-lucide-external-link text-sm" aria-hidden="true">
+            </div>
             Discord<span class="sr-only">（新しいタブで開きます）</span>
           </a>
         </div>
@@ -393,8 +656,16 @@ const serviceLd = {
       <!-- AceStudio -->
       <div class="mb-16" id="acestudio">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-clapperboard text-3xl text-brand-500" aria-hidden="true"></div>
-          <h2 class="text-2xl ac-heading">AceStudio <span class="text-sm font-400 text-slate-500 ml-2">Coming Soon</span></h2>
+          <div
+            class="i-lucide-clapperboard text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
+          <h2 class="text-2xl ac-heading">
+            AceStudio <span class="text-sm font-400 text-slate-500 ml-2"
+              >Coming Soon</span
+            >
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。
@@ -402,27 +673,50 @@ const serviceLd = {
           デザイン・映像・音楽・開発など幅広い領域でのクリエイティブ活動を支援します。
         </p>
         <div class="bg-slate-50 rounded-lg p-6 mb-4">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">想定する機能・領域</h3>
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            想定する機能・領域
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               クリエイター向けのコラボレーション環境
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               デザイン・映像・音楽・プログラミングなど多領域対応
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <div
+                class="i-lucide-check text-brand-500 shrink-0"
+                aria-hidden="true"
+              >
+              </div>
               制作から公開までをシームレスに支援するワークフロー
             </li>
           </ul>
         </div>
         <p class="text-sm text-slate-500 mb-4">
-          サービスの詳細は、準備が整い次第公開いたします。最新情報は<a href="https://x.com/acecorenet" target="_blank" rel="noopener noreferrer" class="ac-link">X<span class="sr-only">（新しいタブで開きます）</span></a>やブログで随時お知らせします。
+          サービスの詳細は、準備が整い次第公開いたします。最新情報は<a
+            href="https://x.com/acecorenet"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-link"
+            >X<span class="sr-only">（新しいタブで開きます）</span></a
+          >やブログで随時お知らせします。
         </p>
         <div class="mt-2">
-          <a href="/acestudio/" class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1">
+          <a
+            href="/acestudio/"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
             <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
             AceStudio の詳細を見る
           </a>
@@ -437,7 +731,9 @@ const serviceLd = {
         <p class="text-sm text-slate-600 mb-6">
           「何を頼めるか分からない」という段階でも大丈夫です。お見積りは無料です。
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <a href="/contact/" class="ac-btn-primary">無料で相談する</a>
           <a href="/schools/" class="ac-btn-outline">ITスクールの詳細を見る</a>
         </div>
@@ -447,34 +743,49 @@ const serviceLd = {
 
   <script>
     function initServicesSpy() {
-      const nav = document.querySelector<HTMLElement>('section.ac-section nav.mb-12');
-      if (!nav) return;
-      const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')];
-      const ids = links.map(a => a.getAttribute('href')!.slice(1));
-      const sections = ids.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-      if (!sections.length) return;
+      const nav = document.querySelector<HTMLElement>(
+        'section.ac-section nav.mb-12',
+      )
+      if (!nav) return
+      const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')]
+      const ids = links.map((a) => a.getAttribute('href')!.slice(1))
+      const sections = ids
+        .map((id) => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[]
+      if (!sections.length) return
 
-      const activeClass = 'border-brand-400 text-brand-600 bg-brand-50';
-      const inactiveClass = 'border-slate-200 text-slate-600';
+      const activeClass = 'border-brand-400 text-brand-600 bg-brand-50'
+      const inactiveClass = 'border-slate-200 text-slate-600'
 
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          const idx = sections.indexOf(entry.target as HTMLElement);
-          if (idx === -1) continue;
-          const link = links[idx];
-          if (entry.isIntersecting) {
-            links.forEach(l => {
-              l.className = l.className.replace(/border-brand-400|text-brand-600|bg-brand-50/g, '').trim();
-              if (!l.className.includes('border-slate-200')) l.className += ' ' + inactiveClass;
-            });
-            link.className = link.className.replace(/border-slate-200|text-slate-600/g, '').trim() + ' ' + activeClass;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const idx = sections.indexOf(entry.target as HTMLElement)
+            if (idx === -1) continue
+            const link = links[idx]
+            if (entry.isIntersecting) {
+              links.forEach((l) => {
+                l.className = l.className
+                  .replace(/border-brand-400|text-brand-600|bg-brand-50/g, '')
+                  .trim()
+                if (!l.className.includes('border-slate-200'))
+                  l.className += ' ' + inactiveClass
+              })
+              link.className =
+                link.className
+                  .replace(/border-slate-200|text-slate-600/g, '')
+                  .trim() +
+                ' ' +
+                activeClass
+            }
           }
-        }
-      }, { rootMargin: '-20% 0px -60% 0px' });
+        },
+        { rootMargin: '-20% 0px -60% 0px' },
+      )
 
-      sections.forEach(s => observer.observe(s));
+      sections.forEach((s) => observer.observe(s))
     }
-    initServicesSpy();
-    document.addEventListener('astro:after-swap', initServicesSpy);
+    initServicesSpy()
+    document.addEventListener('astro:after-swap', initServicesSpy)
   </script>
 </BaseLayout>

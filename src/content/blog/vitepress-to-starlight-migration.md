@@ -166,13 +166,13 @@ graph TD
 
 ## 移行結果
 
-| 項目 | Before | After |
-|------|--------|-------|
-| フレームワーク | VitePress 1.x | Astro 6 + Starlight |
-| CSS | UnoCSS | Starlight 組み込み |
-| Mermaid | vitepress-plugin-mermaid | CDN（jsdelivr） |
-| ビルド出力先 | `docs/.vitepress/dist` | `dist` |
-| デプロイ先 | Cloudflare Pages | Cloudflare Pages（変更なし） |
+| 項目           | Before                   | After                        |
+| -------------- | ------------------------ | ---------------------------- |
+| フレームワーク | VitePress 1.x            | Astro 6 + Starlight          |
+| CSS            | UnoCSS                   | Starlight 組み込み           |
+| Mermaid        | vitepress-plugin-mermaid | CDN（jsdelivr）              |
+| ビルド出力先   | `docs/.vitepress/dist`   | `dist`                       |
+| デプロイ先     | Cloudflare Pages         | Cloudflare Pages（変更なし） |
 
 フレームワークの統一により、`astro.config.mjs` の設定パターンやデプロイ設定を複数プロジェクト間で共有できるようになります。
 

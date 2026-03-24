@@ -19,39 +19,64 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<article class="ac-card overflow-hidden hover:shadow-md transition-shadow group relative">
+<article
+  class="ac-card overflow-hidden hover:shadow-md transition-shadow group relative"
+>
   <div class="flex flex-col sm:flex-row">
-    {post.data.image && (
-      <div class="sm:w-48 sm:shrink-0">
-        <img
-          src={optimizeImage(post.data.image)}
-          alt={post.data.title}
-          class="w-full h-40 sm:h-full object-cover"
-          width="192"
-          height="160"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
-    )}
+    {
+      post.data.image && (
+        <div class="sm:w-48 sm:shrink-0">
+          <img
+            src={optimizeImage(post.data.image)}
+            alt={post.data.title}
+            class="w-full h-40 sm:h-full object-cover"
+            width="192"
+            height="160"
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
+      )
+    }
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-3 text-sm text-slate-500">
-        <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP')}</time>
-        {post.data.author && <a href={`/blog/authors/${post.data.author}/`} class="text-brand-500 underline underline-offset-2 relative z-10">by {authors.find((a) => a.id === post.data.author)?.name || post.data.author}</a>}
+        <time datetime={post.data.date.toISOString()}
+          >{post.data.date.toLocaleDateString('ja-JP')}</time
+        >
+        {
+          post.data.author && (
+            <a
+              href={`/blog/authors/${post.data.author}/`}
+              class="text-brand-500 underline underline-offset-2 relative z-10"
+            >
+              by{' '}
+              {authors.find((a) => a.id === post.data.author)?.name ||
+                post.data.author}
+            </a>
+          )
+        }
       </div>
-      <h2 class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
-        <a href={`/blog/${post.id}/`} class="no-underline text-inherit after:absolute after:inset-0">{post.data.title}</a>
+      <h2
+        class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors"
+      >
+        <a
+          href={`/blog/${post.id}/`}
+          class="no-underline text-inherit after:absolute after:inset-0"
+          >{post.data.title}</a
+        >
       </h2>
       <p class="text-slate-600">{post.data.description}</p>
-      {post.data.tags && (
-        <div class="flex flex-wrap gap-2 mt-4">
-          {post.data.tags.map((tag: string) => (
-            <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
+      {
+        post.data.tags && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {post.data.tags.map((tag: string) => (
+              <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
     </div>
   </div>
 </article>

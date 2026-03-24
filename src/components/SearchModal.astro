@@ -2,21 +2,40 @@
 import { SITE } from '../data/site'
 ---
 
-<dialog id="search-dialog" class="fixed inset-0 z-100 m-0 h-full w-full max-h-full max-w-full bg-transparent backdrop:bg-black/50" aria-labelledby="search-dialog-title">
-  <div class="flex items-start justify-center min-h-full pt-16 sm:pt-24 px-4 pb-8">
+<dialog
+  id="search-dialog"
+  class="fixed inset-0 z-100 m-0 h-full w-full max-h-full max-w-full bg-transparent backdrop:bg-black/50"
+  aria-labelledby="search-dialog-title"
+>
+  <div
+    class="flex items-start justify-center min-h-full pt-16 sm:pt-24 px-4 pb-8"
+  >
     <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden">
-      <div class="flex items-center justify-between px-4 pt-4 pb-2 border-b border-slate-200">
-        <span id="search-dialog-title" class="text-sm font-700 text-slate-700 flex items-center gap-2">
+      <div
+        class="flex items-center justify-between px-4 pt-4 pb-2 border-b border-slate-200"
+      >
+        <span
+          id="search-dialog-title"
+          class="text-sm font-700 text-slate-700 flex items-center gap-2"
+        >
           <div class="i-lucide-search text-sm" aria-hidden="true"></div>
           記事を検索
         </span>
-        <button id="search-close" class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="閉じる">
+        <button
+          id="search-close"
+          class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          aria-label="閉じる"
+        >
           <div class="i-lucide-x text-lg" aria-hidden="true"></div>
         </button>
       </div>
       <div id="search-container" class="px-4 pt-4 pb-2"></div>
-      <div id="search-ad" class="hidden px-4 pb-4 border-t border-slate-100 mt-2 pt-3">
-        <ins class="adsbygoogle"
+      <div
+        id="search-ad"
+        class="hidden px-4 pb-4 border-t border-slate-100 mt-2 pt-3"
+      >
+        <ins
+          class="adsbygoogle"
           style="display:block"
           data-ad-client={SITE.adsenseClientId}
           data-ad-slot={SITE.adSlotId}
@@ -33,7 +52,9 @@ import { SITE } from '../data/site'
   function initSearchModal() {
     searchObserver?.disconnect()
 
-    const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
+    const dialog = document.getElementById(
+      'search-dialog',
+    ) as HTMLDialogElement | null
     const closeBtn = document.getElementById('search-close')
     const container = document.getElementById('search-container')
     const ad = document.getElementById('search-ad')
@@ -48,7 +69,7 @@ import { SITE } from '../data/site'
     function openSearch(query?: string) {
       dialog!.showModal()
       if (!(window as any).__pagefindLoaded) {
-        (window as any).__pagefindLoaded = true
+        ;(window as any).__pagefindLoaded = true
         const link = document.createElement('link')
         link.rel = 'stylesheet'
         link.href = '/pagefind/pagefind-ui.css'
@@ -64,13 +85,16 @@ import { SITE } from '../data/site'
             showFilters: true,
             translations: {
               placeholder: 'キーワードを入力…',
-              zero_results: '「[SEARCH_TERM]」に一致する記事が見つかりませんでした',
+              zero_results:
+                '「[SEARCH_TERM]」に一致する記事が見つかりませんでした',
               many_results: '[COUNT] 件の記事が見つかりました',
               one_result: '1 件の記事が見つかりました',
               filters_label: '絞り込み',
             },
           })
-          const input = dialog!.querySelector<HTMLInputElement>('.pagefind-ui__search-input')
+          const input = dialog!.querySelector<HTMLInputElement>(
+            '.pagefind-ui__search-input',
+          )
           if (query && input) {
             input.value = query
             input.dispatchEvent(new Event('input', { bubbles: true }))
@@ -80,7 +104,9 @@ import { SITE } from '../data/site'
         }
         document.head.appendChild(script)
       } else {
-        const input = dialog!.querySelector<HTMLInputElement>('.pagefind-ui__search-input')
+        const input = dialog!.querySelector<HTMLInputElement>(
+          '.pagefind-ui__search-input',
+        )
         if (query && input) {
           input.value = query
           input.dispatchEvent(new Event('input', { bubbles: true }))
@@ -101,12 +127,13 @@ import { SITE } from '../data/site'
           fallback = document.createElement('div')
           fallback.id = 'search-fallback'
           fallback.className = 'px-1 py-3 text-sm text-slate-600'
-          fallback.innerHTML = '<p class="mb-2">以下もお試しください：</p>'
-            + '<ul class="space-y-1 list-none p-0 m-0">'
-            + '<li><a href="/blog/" class="ac-link">→ 記事一覧を見る</a></li>'
-            + '<li><a href="/services/" class="ac-link">→ サービス一覧を見る</a></li>'
-            + '<li><a href="/contact/" class="ac-link">→ お問い合わせ</a></li>'
-            + '</ul>'
+          fallback.innerHTML =
+            '<p class="mb-2">以下もお試しください：</p>' +
+            '<ul class="space-y-1 list-none p-0 m-0">' +
+            '<li><a href="/blog/" class="ac-link">→ 記事一覧を見る</a></li>' +
+            '<li><a href="/services/" class="ac-link">→ サービス一覧を見る</a></li>' +
+            '<li><a href="/contact/" class="ac-link">→ お問い合わせ</a></li>' +
+            '</ul>'
           message.parentNode?.insertBefore(fallback, message.nextSibling)
         }
       } else {
@@ -116,8 +143,9 @@ import { SITE } from '../data/site'
         if (results && results.children.length > 0) {
           ad.classList.remove('hidden')
           if (!ad.dataset.pushed) {
-            ad.dataset.pushed = '1';
-            ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
+            ad.dataset.pushed = '1'
+            ;((window as any).adsbygoogle =
+              (window as any).adsbygoogle || []).push({})
           }
         } else {
           ad.classList.add('hidden')
@@ -148,7 +176,9 @@ import { SITE } from '../data/site'
         e.preventDefault()
         ;(window as any).openSearch?.()
       }
-      const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
+      const dialog = document.getElementById(
+        'search-dialog',
+      ) as HTMLDialogElement | null
       if (e.key === 'Escape' && dialog?.open) {
         dialog.close()
       }

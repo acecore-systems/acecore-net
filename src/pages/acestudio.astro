@@ -8,19 +8,35 @@ import PullQuote from '../components/PullQuote.astro'
 import Faq from '../components/Faq.astro'
 
 const faqItems = [
-  { question: 'AceStudioはいつリリースされますか？', answer: '現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。' },
-  { question: '利用に費用はかかりますか？', answer: '料金体系は現在検討中です。無料で始められるプランも用意する予定です。' },
-  { question: 'どんなクリエイティブ活動が対象ですか？', answer: 'デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。' },
-  { question: '事前登録や予約はできますか？', answer: '現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。' },
+  {
+    question: 'AceStudioはいつリリースされますか？',
+    answer:
+      '現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。',
+  },
+  {
+    question: '利用に費用はかかりますか？',
+    answer:
+      '料金体系は現在検討中です。無料で始められるプランも用意する予定です。',
+  },
+  {
+    question: 'どんなクリエイティブ活動が対象ですか？',
+    answer:
+      'デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。',
+  },
+  {
+    question: '事前登録や予約はできますか？',
+    answer:
+      '現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。',
+  },
 ]
 
 const faqLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqItems.map((item) => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 }
 
@@ -60,12 +76,21 @@ const studioAreas = [
   <Hero
     title="AceStudio"
     subtitle="Coming Soon"
-    images={[{src: optimizeImage('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp'), alt: 'レトロテクノロジー'}]}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: 'レトロテクノロジー',
+      },
+    ]}
   />
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl text-center">
-      <div class="text-left"><Breadcrumb items={[{ label: 'AceStudio' }]} /></div>
+      <div class="text-left">
+        <Breadcrumb items={[{ label: 'AceStudio' }]} />
+      </div>
       <div class="text-left mb-12">
         <InsightGrid
           variant="card"
@@ -78,7 +103,9 @@ const studioAreas = [
 
       <div class="mb-12">
         <img
-          src={optimizeImage('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp')}
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
           alt="映像制作・クリエイティブワーク"
           class="w-full rounded-lg object-cover aspect-video"
           width="800"
@@ -89,8 +116,14 @@ const studioAreas = [
       </div>
 
       <div class="mb-12">
-        <div class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6" aria-hidden="true"></div>
-        <h2 class="text-2xl ac-heading mb-6">新しいクリエイティブ体験を、まもなく。</h2>
+        <div
+          class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6"
+          aria-hidden="true"
+        >
+        </div>
+        <h2 class="text-2xl ac-heading mb-6">
+          新しいクリエイティブ体験を、まもなく。
+        </h2>
         <p class="text-lg text-slate-600 leading-relaxed mb-4">
           AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。
         </p>
@@ -111,18 +144,19 @@ const studioAreas = [
       </div>
 
       <div class="text-left mb-12">
-        <Faq
-          title="AceStudioについてのよくある質問"
-          items={faqItems}
-        />
+        <Faq title="AceStudioについてのよくある質問" items={faqItems} />
       </div>
 
       <div class="bg-slate-50 rounded-xl p-8 mb-12">
-        <h3 class="font-700 text-lg text-slate-900 mb-4">最新情報をお届けします</h3>
+        <h3 class="font-700 text-lg text-slate-900 mb-4">
+          最新情報をお届けします
+        </h3>
         <p class="text-slate-600 mb-6">
           リリース情報や最新の開発状況は、AcecoreのXアカウントやブログで随時お知らせしていきます。
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <a
             href="https://x.com/acecorenet"
             target="_blank"
@@ -131,9 +165,7 @@ const studioAreas = [
           >
             Xでフォローする<span class="sr-only">（新しいタブで開きます）</span>
           </a>
-          <a href="/blog/" class="ac-btn-outline">
-            ブログを見る
-          </a>
+          <a href="/blog/" class="ac-btn-outline"> ブログを見る </a>
         </div>
       </div>
 

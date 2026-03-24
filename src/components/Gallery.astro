@@ -16,18 +16,28 @@ const { title, items, columns = 2 } = Astro.props
 ---
 
 <figure class="not-prose my-8">
-  {title && <figcaption class="text-base font-700 text-slate-800 mb-3">{title}</figcaption>}
-  <div class:list={['grid gap-2', columns === 3 ? 'grid-cols-3' : 'grid-cols-2']}>
-    {items.map((item) => (
-      <img
-        src={optimizeImage(item.src)}
-        alt={item.alt}
-        class="w-full rounded-lg object-cover aspect-video"
-        width="400"
-        height="225"
-        decoding="async"
-        loading="lazy"
-      />
-    ))}
+  {
+    title && (
+      <figcaption class="text-base font-700 text-slate-800 mb-3">
+        {title}
+      </figcaption>
+    )
+  }
+  <div
+    class:list={['grid gap-2', columns === 3 ? 'grid-cols-3' : 'grid-cols-2']}
+  >
+    {
+      items.map((item) => (
+        <img
+          src={optimizeImage(item.src)}
+          alt={item.alt}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="400"
+          height="225"
+          decoding="async"
+          loading="lazy"
+        />
+      ))
+    }
   </div>
 </figure>

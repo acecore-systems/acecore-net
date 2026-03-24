@@ -44,19 +44,23 @@ const encodedTitle = encodeURIComponent(title)
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll<HTMLButtonElement>('[data-share-url]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const url = btn.dataset.shareUrl!;
-        const span = btn.querySelector('span');
-        const original = span?.textContent;
-        try {
-          await navigator.clipboard.writeText(url);
-          if (span) span.textContent = 'コピーしました';
-        } catch {
-          if (span) span.textContent = 'コピー失敗';
-        }
-        setTimeout(() => { if (span) span.textContent = original ?? 'リンク'; }, 2000);
-      });
-    });
-  });
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-share-url]')
+      .forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const url = btn.dataset.shareUrl!
+          const span = btn.querySelector('span')
+          const original = span?.textContent
+          try {
+            await navigator.clipboard.writeText(url)
+            if (span) span.textContent = 'コピーしました'
+          } catch {
+            if (span) span.textContent = 'コピー失敗'
+          }
+          setTimeout(() => {
+            if (span) span.textContent = original ?? 'リンク'
+          }, 2000)
+        })
+      })
+  })
 </script>

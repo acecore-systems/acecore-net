@@ -5,7 +5,7 @@ interface Props {
   title: string
   subtitle?: string
   showCTA?: boolean
-  images?: {src: string, alt: string}[]
+  images?: { src: string; alt: string }[]
 }
 
 const { title, subtitle, showCTA = false, images } = Astro.props
@@ -21,8 +21,14 @@ const hasSlider = images && images.length > 0
 >
   {
     hasSlider && (
-      <div class="absolute inset-0" id="hero-slider" role="region" aria-roledescription="carousel" aria-label="ヒーロー画像スライダー">
-        {images.map(({src, alt}, i) => (
+      <div
+        class="absolute inset-0"
+        id="hero-slider"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="ヒーロー画像スライダー"
+      >
+        {images.map(({ src, alt }, i) => (
           <div
             class:list={[
               'hero-slide absolute inset-0 transition-opacity duration-1000',
@@ -45,7 +51,12 @@ const hasSlider = images && images.length > 0
           </div>
         ))}
         <div class="absolute inset-0 bg-brand-900/60" />
-        <div id="hero-slide-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+        <div
+          id="hero-slide-announce"
+          class="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+        />
       </div>
     )
   }
@@ -63,10 +74,12 @@ const hasSlider = images && images.length > 0
             aria-label={`スライド ${i + 1}`}
             aria-current={i === 0 ? 'true' : undefined}
           >
-            <span class:list={[
-              'block w-2.5 h-2.5 rounded-full transition-all',
-              i === 0 ? 'bg-white scale-125' : 'bg-white/50',
-            ]} />
+            <span
+              class:list={[
+                'block w-2.5 h-2.5 rounded-full transition-all',
+                i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+              ]}
+            />
           </button>
         ))}
         <button
@@ -74,7 +87,11 @@ const hasSlider = images && images.length > 0
           class="ml-1 rounded-full cursor-pointer min-w-11 min-h-11 flex items-center justify-center bg-transparent text-white/70 hover:text-white transition-colors"
           aria-label="スライドの自動再生を一時停止"
         >
-            <div class="i-lucide-pause text-base" id="hero-pause-icon" aria-hidden="true"></div>
+          <div
+            class="i-lucide-pause text-base"
+            id="hero-pause-icon"
+            aria-hidden="true"
+          />
         </button>
       </div>
     )
@@ -118,21 +135,30 @@ const hasSlider = images && images.length > 0
   let heroTimer: ReturnType<typeof setInterval> | null = null
 
   function initHeroSlider() {
-    if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
+    if (heroTimer) {
+      clearInterval(heroTimer)
+      heroTimer = null
+    }
 
     const slider = document.getElementById('hero-slider')
     if (!slider) return
 
     const slides = slider.querySelectorAll<HTMLDivElement>('.hero-slide')
     const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
-    const pauseBtn = document.getElementById('hero-pause') as HTMLButtonElement | null
-    const pauseIcon = document.getElementById('hero-pause-icon') as HTMLDivElement | null
+    const pauseBtn = document.getElementById(
+      'hero-pause',
+    ) as HTMLButtonElement | null
+    const pauseIcon = document.getElementById(
+      'hero-pause-icon',
+    ) as HTMLDivElement | null
     const total = slides.length
     if (total <= 1) return
 
     let current = 0
     let paused = false
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
 
     const announceEl = document.getElementById('hero-slide-announce')
 
@@ -165,7 +191,10 @@ const hasSlider = images && images.length > 0
     }
 
     function stopAutoPlay() {
-      if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
+      if (heroTimer) {
+        clearInterval(heroTimer)
+        heroTimer = null
+      }
     }
 
     function setPaused(value: boolean) {
@@ -194,17 +223,25 @@ const hasSlider = images && images.length > 0
     // Swipe support
     let startX = 0
     const section = slider.closest('section')!
-    section.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX
-      stopAutoPlay()
-    }, { passive: true })
-    section.addEventListener('touchend', (e) => {
-      const diff = startX - e.changedTouches[0].clientX
-      if (Math.abs(diff) > SWIPE_THRESHOLD) {
-        goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
-      }
-      startAutoPlay()
-    }, { passive: true })
+    section.addEventListener(
+      'touchstart',
+      (e) => {
+        startX = e.touches[0].clientX
+        stopAutoPlay()
+      },
+      { passive: true },
+    )
+    section.addEventListener(
+      'touchend',
+      (e) => {
+        const diff = startX - e.changedTouches[0].clientX
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+          goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
+        }
+        startAutoPlay()
+      },
+      { passive: true },
+    )
 
     startAutoPlay()
   }

@@ -37,6 +37,9 @@ export function optimizeImageWithWidth(url: string, width: number): string {
 }
 
 /** srcset 文字列を生成する */
-export function generateSrcSet(url: string, widths: number[] = [640, 960, 1280, 1600]): string {
+export function generateSrcSet(
+  url: string,
+  widths: number[] = [640, 960, 1280, 1600],
+): string {
   return widths.map((w) => `${optimizeImageWithWidth(url, w)} ${w}w`).join(', ')
 }

@@ -8,7 +8,11 @@ const recentPosts = (await getCollection('blog'))
   .slice(0, 4)
 ---
 
-<BaseLayout title="ページが見つかりません" description="お探しのページは見つかりませんでした。URLをご確認いただくか、トップページからお探しください。" robots="noindex, nofollow">
+<BaseLayout
+  title="ページが見つかりません"
+  description="お探しのページは見つかりませんでした。URLをご確認いただくか、トップページからお探しください。"
+  robots="noindex, nofollow"
+>
   <section class="ac-section">
     <div class="ac-container text-center py-20">
       <p class="text-6xl font-700 text-brand-500 mb-4">404</p>
@@ -27,7 +31,10 @@ const recentPosts = (await getCollection('blog'))
         >
           <div class="i-lucide-search text-lg" aria-hidden="true"></div>
           <span>サイト内を検索する...</span>
-          <kbd class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline">Ctrl+K</kbd>
+          <kbd
+            class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline"
+            >Ctrl+K</kbd
+          >
         </button>
       </div>
 
@@ -39,25 +46,34 @@ const recentPosts = (await getCollection('blog'))
       <div class="max-w-2xl mx-auto text-left">
         <h2 class="text-lg font-700 text-slate-700 mb-4">最新の記事</h2>
         <div class="space-y-3">
-          {recentPosts.map((post) => (
-            <a href={`/blog/${post.id}/`} class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group">
-              {post.data.image && (
-                <img
-                  src={optimizeImage(post.data.image)}
-                  alt={post.data.title}
-                  class="w-16 h-16 rounded-lg object-cover shrink-0"
-                  width="64"
-                  height="64"
-                  decoding="async"
-                  loading="lazy"
-                />
-              )}
-              <div>
-                <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">{post.data.title}</p>
-                <p class="text-xs text-slate-500 mt-1">{post.data.date.toLocaleDateString('ja-JP')}</p>
-              </div>
-            </a>
-          ))}
+          {
+            recentPosts.map((post) => (
+              <a
+                href={`/blog/${post.id}/`}
+                class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group"
+              >
+                {post.data.image && (
+                  <img
+                    src={optimizeImage(post.data.image)}
+                    alt={post.data.title}
+                    class="w-16 h-16 rounded-lg object-cover shrink-0"
+                    width="64"
+                    height="64"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                )}
+                <div>
+                  <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <p class="text-xs text-slate-500 mt-1">
+                    {post.data.date.toLocaleDateString('ja-JP')}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import satori from 'satori'
 import sharp from 'sharp'
 
-const FONT_URL = 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf'
+const FONT_URL =
+  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf'
 let fontCache: ArrayBuffer | null = null
 
 async function loadFont(): Promise<ArrayBuffer> {
@@ -26,7 +27,8 @@ export async function generateOgImage(title: string): Promise<Buffer> {
           justifyContent: 'center',
           alignItems: 'flex-start',
           padding: '60px 80px',
-          background: 'linear-gradient(135deg, #1e3a5f 0%, #264b7d 50%, #3b6fb5 100%)',
+          background:
+            'linear-gradient(135deg, #1e3a5f 0%, #264b7d 50%, #3b6fb5 100%)',
           fontFamily: 'Noto Sans JP',
         },
         children: [

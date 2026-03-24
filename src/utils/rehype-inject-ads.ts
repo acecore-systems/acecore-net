@@ -30,7 +30,10 @@ export default function rehypeInjectAds() {
       const adNode = {
         type: 'element' as const,
         tagName: 'div',
-        properties: { className: ['ad-inline', 'not-prose'], style: 'margin:2rem 0' },
+        properties: {
+          className: ['ad-inline', 'not-prose'],
+          style: 'margin:2rem 0',
+        },
         children: [
           {
             type: 'element' as const,

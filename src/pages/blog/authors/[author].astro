@@ -35,42 +35,48 @@ const authorName = author?.name ?? authorId
 >
   <section class="ac-section">
     <div class="ac-container">
-      <Breadcrumb items={[
-        { label: 'ブログ', href: '/blog/' },
-        { label: `著者: ${authorName}` },
-      ]} />
+      <Breadcrumb
+        items={[
+          { label: 'ブログ', href: '/blog/' },
+          { label: `著者: ${authorName}` },
+        ]}
+      />
       <div class="flex items-center gap-4 mb-8">
-        {author && (author.avatarImage || author.avatar) ? (
-          <img
-            src={author.avatarImage || author.avatar}
-            alt={authorName}
-            class="w-16 h-16 rounded-full object-cover shrink-0"
-            width="64"
-            height="64"
-            decoding="async"
-          />
-        ) : (
-          <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
-            {authorName.charAt(0)}
-          </div>
-        )}
+        {
+          author && (author.avatarImage || author.avatar) ? (
+            <img
+              src={author.avatarImage || author.avatar}
+              alt={authorName}
+              class="w-16 h-16 rounded-full object-cover shrink-0"
+              width="64"
+              height="64"
+              decoding="async"
+            />
+          ) : (
+            <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
+              {authorName.charAt(0)}
+            </div>
+          )
+        }
         <div>
           <h1 class="text-2xl sm:text-3xl ac-heading">
             {authorName}
           </h1>
           <p class="text-sm text-slate-500 mt-1">{posts.length}件の記事</p>
-          {author?.bio && (
-            <p class="text-sm text-slate-600 mt-2 whitespace-pre-line">{author.bio}</p>
-          )}
+          {
+            author?.bio && (
+              <p class="text-sm text-slate-600 mt-2 whitespace-pre-line">
+                {author.bio}
+              </p>
+            )
+          }
         </div>
       </div>
       <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
-      <div class="space-y-6">
-        {posts.map((post) => (
-          <BlogPostCard post={post} />
-        ))}
-      </div>
-      <BlogSidebar allPosts={allPosts} />
+        <div class="space-y-6">
+          {posts.map((post) => <BlogPostCard post={post} />)}
+        </div>
+        <BlogSidebar allPosts={allPosts} />
       </div>
     </div>
   </section>

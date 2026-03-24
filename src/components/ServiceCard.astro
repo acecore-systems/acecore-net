@@ -12,12 +12,16 @@ const isExternal = href?.startsWith('http')
 ---
 
 <Tag
-  {...(href ? { href } : {})}
-  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  {...href ? { href } : {}}
+  {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
   class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow block no-underline group"
 >
   <div class={`${icon} text-3xl text-brand-500 mb-4`} aria-hidden="true"></div>
-  <h3 class="text-lg font-700 text-slate-900 mb-3 group-hover:text-brand-500 transition-colors">{title}</h3>
+  <h3
+    class="text-lg font-700 text-slate-900 mb-3 group-hover:text-brand-500 transition-colors"
+  >
+    {title}
+  </h3>
   <p class="text-sm text-slate-600 leading-relaxed">{description}</p>
   {isExternal && <span class="sr-only">（新しいタブで開きます）</span>}
 </Tag>

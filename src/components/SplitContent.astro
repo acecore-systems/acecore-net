@@ -22,7 +22,21 @@ import Faq from './Faq.astro'
 import PullQuote from './PullQuote.astro'
 
 interface Visual {
-  type: 'photo' | 'grid' | 'flow' | 'stat' | 'timeline' | 'compare' | 'callout' | 'testimonial' | 'checklist' | 'youtube' | 'gallery' | 'linkcard' | 'faq' | 'pullquote'
+  type:
+    | 'photo'
+    | 'grid'
+    | 'flow'
+    | 'stat'
+    | 'timeline'
+    | 'compare'
+    | 'callout'
+    | 'testimonial'
+    | 'checklist'
+    | 'youtube'
+    | 'gallery'
+    | 'linkcard'
+    | 'faq'
+    | 'pullquote'
   afterSection: number
   src?: string
   alt?: string
@@ -39,45 +53,59 @@ const html = await Astro.slots.render('default')
 const sections = html.split(/(?=<h2[\s>])/)
 ---
 
-{sections.map((sectionHtml, i) => {
-  const matched = visuals.filter((v) => v.afterSection === i)
-  return (
-    <>
-      <Fragment set:html={sectionHtml} />
-      {matched.map((v) =>
-        v.type === 'photo' ? (
-          <figure class="not-prose my-8">
-            <img src={v.src} alt={v.alt} class="w-full rounded-lg" width="800" height="450" decoding="async" loading="lazy" />
-            {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
-          </figure>
-        ) : v.type === 'grid' ? (
-          <InsightGrid {...v.props as any} />
-        ) : v.type === 'flow' ? (
-          <ProcessFigure {...v.props as any} />
-        ) : v.type === 'stat' ? (
-          <StatBar {...v.props as any} />
-        ) : v.type === 'timeline' ? (
-          <Timeline {...v.props as any} />
-        ) : v.type === 'compare' ? (
-          <CompareTable {...v.props as any} />
-        ) : v.type === 'callout' ? (
-          <Callout {...v.props as any} />
-        ) : v.type === 'testimonial' ? (
-          <Testimonial {...v.props as any} />
-        ) : v.type === 'checklist' ? (
-          <Checklist {...v.props as any} />
-        ) : v.type === 'youtube' ? (
-          <YouTubeEmbed {...v.props as any} />
-        ) : v.type === 'gallery' ? (
-          <Gallery {...v.props as any} />
-        ) : v.type === 'linkcard' ? (
-          <LinkCard {...v.props as any} />
-        ) : v.type === 'faq' ? (
-          <Faq {...v.props as any} />
-        ) : v.type === 'pullquote' ? (
-          <PullQuote {...v.props as any} />
-        ) : null
-      )}
-    </>
-  )
-})}
+{
+  sections.map((sectionHtml, i) => {
+    const matched = visuals.filter((v) => v.afterSection === i)
+    return (
+      <>
+        <Fragment set:html={sectionHtml} />
+        {matched.map((v) =>
+          v.type === 'photo' ? (
+            <figure class="not-prose my-8">
+              <img
+                src={v.src}
+                alt={v.alt}
+                class="w-full rounded-lg"
+                width="800"
+                height="450"
+                decoding="async"
+                loading="lazy"
+              />
+              {v.caption && (
+                <figcaption class="text-sm text-slate-500 mt-2">
+                  {v.caption}
+                </figcaption>
+              )}
+            </figure>
+          ) : v.type === 'grid' ? (
+            <InsightGrid {...(v.props as any)} />
+          ) : v.type === 'flow' ? (
+            <ProcessFigure {...(v.props as any)} />
+          ) : v.type === 'stat' ? (
+            <StatBar {...(v.props as any)} />
+          ) : v.type === 'timeline' ? (
+            <Timeline {...(v.props as any)} />
+          ) : v.type === 'compare' ? (
+            <CompareTable {...(v.props as any)} />
+          ) : v.type === 'callout' ? (
+            <Callout {...(v.props as any)} />
+          ) : v.type === 'testimonial' ? (
+            <Testimonial {...(v.props as any)} />
+          ) : v.type === 'checklist' ? (
+            <Checklist {...(v.props as any)} />
+          ) : v.type === 'youtube' ? (
+            <YouTubeEmbed {...(v.props as any)} />
+          ) : v.type === 'gallery' ? (
+            <Gallery {...(v.props as any)} />
+          ) : v.type === 'linkcard' ? (
+            <LinkCard {...(v.props as any)} />
+          ) : v.type === 'faq' ? (
+            <Faq {...(v.props as any)} />
+          ) : v.type === 'pullquote' ? (
+            <PullQuote {...(v.props as any)} />
+          ) : null,
+        )}
+      </>
+    )
+  })
+}

@@ -13,20 +13,41 @@ const { title, items } = Astro.props
 ---
 
 <figure class="not-prose my-8">
-  {title && <figcaption class="text-base font-700 text-slate-800 mb-3">{title}</figcaption>}
+  {
+    title && (
+      <figcaption class="text-base font-700 text-slate-800 mb-3">
+        {title}
+      </figcaption>
+    )
+  }
   <ul class="space-y-2">
-    {items.map((item) => (
-      <li class="flex items-start gap-2.5">
-        {item.checked !== false ? (
-          <div class="i-lucide-circle-check text-emerald-500 text-sm mt-0.5 shrink-0" aria-hidden="true"></div>
-        ) : (
-          <div class="i-lucide-circle text-slate-300 text-sm mt-0.5 shrink-0" aria-hidden="true"></div>
-        )}
-        <span class="sr-only">{item.checked !== false ? '完了: ' : '未完了: '}</span>
-        <span class:list={['text-sm', item.checked !== false ? 'text-slate-800' : 'text-slate-500']}>
-          {item.text}
-        </span>
-      </li>
-    ))}
+    {
+      items.map((item) => (
+        <li class="flex items-start gap-2.5">
+          {item.checked !== false ? (
+            <div
+              class="i-lucide-circle-check text-emerald-500 text-sm mt-0.5 shrink-0"
+              aria-hidden="true"
+            />
+          ) : (
+            <div
+              class="i-lucide-circle text-slate-300 text-sm mt-0.5 shrink-0"
+              aria-hidden="true"
+            />
+          )}
+          <span class="sr-only">
+            {item.checked !== false ? '完了: ' : '未完了: '}
+          </span>
+          <span
+            class:list={[
+              'text-sm',
+              item.checked !== false ? 'text-slate-800' : 'text-slate-500',
+            ]}
+          >
+            {item.text}
+          </span>
+        </li>
+      ))
+    }
   </ul>
 </figure>
