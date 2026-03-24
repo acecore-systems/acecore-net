@@ -108,6 +108,7 @@ import { SITE } from '../data/site'
     {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
     {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+    {tags?.[0] && <meta property="article:section" content={tags[0]} />}
     {prevPage && <link rel="prev" href={prevPage} />}
     {nextPage && <link rel="next" href={nextPage} />}
     <link rel="alternate" type="application/rss+xml" title="Acecore ブログ" href="/rss.xml" />

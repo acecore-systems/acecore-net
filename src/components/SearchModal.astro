@@ -1,13 +1,12 @@
 ---
 import { SITE } from '../data/site'
-const AD_SLOT = '3228710511'
 ---
 
-<dialog id="search-dialog" class="fixed inset-0 z-100 m-0 h-full w-full max-h-full max-w-full bg-transparent backdrop:bg-black/50">
+<dialog id="search-dialog" class="fixed inset-0 z-100 m-0 h-full w-full max-h-full max-w-full bg-transparent backdrop:bg-black/50" aria-labelledby="search-dialog-title">
   <div class="flex items-start justify-center min-h-full pt-16 sm:pt-24 px-4 pb-8">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden">
       <div class="flex items-center justify-between px-4 pt-4 pb-2 border-b border-slate-200">
-        <span class="text-sm font-700 text-slate-700 flex items-center gap-2">
+        <span id="search-dialog-title" class="text-sm font-700 text-slate-700 flex items-center gap-2">
           <div class="i-lucide-search text-sm" aria-hidden="true"></div>
           記事を検索
         </span>
@@ -20,7 +19,7 @@ const AD_SLOT = '3228710511'
         <ins class="adsbygoogle"
           style="display:block"
           data-ad-client={SITE.adsenseClientId}
-          data-ad-slot={AD_SLOT}
+          data-ad-slot={SITE.adSlotId}
           data-ad-format="auto"
           data-full-width-responsive="true"></ins>
       </div>

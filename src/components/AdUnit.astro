@@ -2,10 +2,10 @@
 import { SITE } from '../data/site'
 
 interface Props {
-  adSlot: string
+  adSlot?: string
 }
 
-const { adSlot } = Astro.props
+const { adSlot = SITE.adSlotId } = Astro.props
 ---
 
 <ins

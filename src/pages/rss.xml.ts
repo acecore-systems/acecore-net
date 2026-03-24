@@ -16,6 +16,7 @@ export async function GET(context: APIContext) {
       pubDate: post.data.date,
       link: `/blog/${post.id}/`,
       ...(post.data.author ? { author: post.data.author } : {}),
+      categories: post.data.tags ?? [],
     })),
   })
 }

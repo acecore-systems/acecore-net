@@ -66,7 +66,7 @@ const latestPosts = allPosts.slice(0, 5)
         <div class="i-lucide-calendar text-brand-500" aria-hidden="true"></div>
         アーカイブ
       </h3>
-      <ul class="space-y-0.5 text-sm list-none p-0 m-0">
+      <ul class="space-y-0.5 text-sm list-none p-0 m-0" role="list">
         {sortedArchive.map(([key, { count, year, month }]) => (
           <li>
             <a
@@ -120,7 +120,7 @@ const latestPosts = allPosts.slice(0, 5)
         <div class="i-lucide-newspaper text-brand-500" aria-hidden="true"></div>
         最新記事
       </h3>
-      <ul class="space-y-3 list-none p-0 m-0">
+      <ul class="space-y-3 list-none p-0 m-0" role="list">
         {latestPosts.map((post) => (
           <li>
             <a

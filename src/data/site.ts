@@ -7,6 +7,7 @@ export const SITE = {
   line: 'https://lin.ee/DjIrdqj',
   adsenseClientId: 'ca-pub-3935803464310919',
   ga4Id: 'G-G79SGTMYEX',
+  adSlotId: '3228710511',
   social: {
     x: 'https://x.com/acecorenet',
     github: 'https://github.com/acecore-systems',

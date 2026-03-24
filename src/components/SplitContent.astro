@@ -27,7 +27,7 @@ interface Visual {
   src?: string
   alt?: string
   caption?: string
-  props?: Record<string, unknown>
+  props?: Record<string, any>
 }
 
 interface Props {
@@ -51,31 +51,31 @@ const sections = html.split(/(?=<h2[\s>])/)
             {v.caption && <figcaption class="text-sm text-slate-500 mt-2">{v.caption}</figcaption>}
           </figure>
         ) : v.type === 'grid' ? (
-          <InsightGrid {...v.props} />
+          <InsightGrid {...v.props as any} />
         ) : v.type === 'flow' ? (
-          <ProcessFigure {...v.props} />
+          <ProcessFigure {...v.props as any} />
         ) : v.type === 'stat' ? (
-          <StatBar {...v.props} />
+          <StatBar {...v.props as any} />
         ) : v.type === 'timeline' ? (
-          <Timeline {...v.props} />
+          <Timeline {...v.props as any} />
         ) : v.type === 'compare' ? (
-          <CompareTable {...v.props} />
+          <CompareTable {...v.props as any} />
         ) : v.type === 'callout' ? (
-          <Callout {...v.props} />
+          <Callout {...v.props as any} />
         ) : v.type === 'testimonial' ? (
-          <Testimonial {...v.props} />
+          <Testimonial {...v.props as any} />
         ) : v.type === 'checklist' ? (
-          <Checklist {...v.props} />
+          <Checklist {...v.props as any} />
         ) : v.type === 'youtube' ? (
-          <YouTubeEmbed {...v.props} />
+          <YouTubeEmbed {...v.props as any} />
         ) : v.type === 'gallery' ? (
-          <Gallery {...v.props} />
+          <Gallery {...v.props as any} />
         ) : v.type === 'linkcard' ? (
-          <LinkCard {...v.props} />
+          <LinkCard {...v.props as any} />
         ) : v.type === 'faq' ? (
-          <Faq {...v.props} />
+          <Faq {...v.props as any} />
         ) : v.type === 'pullquote' ? (
-          <PullQuote {...v.props} />
+          <PullQuote {...v.props as any} />
         ) : null
       )}
     </>

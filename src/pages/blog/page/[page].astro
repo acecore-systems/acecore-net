@@ -5,19 +5,19 @@ import BlogPostCard from '../../../components/BlogPostCard.astro'
 import BlogSidebar from '../../../components/BlogSidebar.astro'
 import { getCollection } from 'astro:content'
 import AdUnit from '../../../components/AdUnit.astro'
+import { POSTS_PER_PAGE, buildPageNumbers } from '../../../utils/pagination'
 
 import type { CollectionEntry } from 'astro:content'
 
 export async function getStaticPaths() {
-  const perPage = 6
   const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const totalPages = Math.ceil(allPosts.length / perPage)
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
   return Array.from({ length: totalPages - 1 }, (_, i) => ({
     params: { page: String(i + 2) },
     props: {
-      posts: allPosts.slice((i + 1) * perPage, (i + 2) * perPage),
+      posts: allPosts.slice((i + 1) * POSTS_PER_PAGE, (i + 2) * POSTS_PER_PAGE),
       currentPage: i + 2,
       totalPages,
       allPosts,
@@ -38,14 +38,7 @@ const itemListLd = {
   })),
 }
 
-const pageNumbers: (number | '...')[] = [];
-for (let i = 1; i <= totalPages; i++) {
-  if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
-    pageNumbers.push(i);
-  } else if (pageNumbers[pageNumbers.length - 1] !== '...') {
-    pageNumbers.push('...');
-  }
-}
+const pageNumbers = buildPageNumbers(currentPage, totalPages)
 ---
 
 <BaseLayout
@@ -80,6 +73,7 @@ for (let i = 1; i <= totalPages; i++) {
       </div>
 
       <nav class="mt-10 flex justify-center items-center gap-2" aria-label="ページナビゲーション">
+        <a href={currentPage === 2 ? '/blog/' : `/blog/page/${currentPage - 1}/`} class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors">← 前へ</a>
         {pageNumbers.map((p) =>
           p === '...'
             ? <span class="px-2 text-slate-400">…</span>
@@ -87,6 +81,7 @@ for (let i = 1; i <= totalPages; i++) {
               ? <span class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600" aria-current="page">{p}</span>
               : <a href={p === 1 ? '/blog/' : `/blog/page/${p}/`} class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors">{p}</a>
         )}
+        {currentPage < totalPages ? <a href={`/blog/page/${currentPage + 1}/`} class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors">次へ →</a> : <span class="px-3 py-2 text-sm text-slate-300" aria-disabled="true">次へ →</span>}
       </nav>
       </div>
       <BlogSidebar allPosts={allPosts} />

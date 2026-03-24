@@ -19,6 +19,7 @@ const encodedTitle = encodeURIComponent(title)
   >
     <div class="i-lucide-twitter text-sm" aria-hidden="true"></div>
     <span>X</span>
+    <span class="sr-only">（新しいタブで開きます）</span>
   </a>
   <a
     href={`https://b.hatena.ne.jp/add?mode=confirm&url=${encodedUrl}&title=${encodedTitle}`}
@@ -29,6 +30,7 @@ const encodedTitle = encodeURIComponent(title)
   >
     <span class="font-700 text-xs">B!</span>
     <span>はてブ</span>
+    <span class="sr-only">（新しいタブで開きます）</span>
   </a>
   <button
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer"

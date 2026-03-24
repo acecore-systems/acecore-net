@@ -47,7 +47,7 @@ const blog = defineCollection({
       .object({
         title: z.string().optional(),
         items: z.array(z.object({ src: z.string(), alt: z.string() })),
-        columns: z.number().optional(),
+        columns: z.union([z.literal(2), z.literal(3)]).optional(),
       })
       .optional(),
     linkCards: z

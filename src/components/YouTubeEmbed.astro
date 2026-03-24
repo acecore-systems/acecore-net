@@ -40,8 +40,9 @@ const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
 </figure>
 
 <script>
-  document.querySelectorAll<HTMLDivElement>('.yt-facade').forEach((el) => {
-    el.addEventListener('click', () => {
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLDivElement>('.yt-facade').forEach((el) => {
+      el.addEventListener('click', () => {
       const id = el.dataset.videoId
       const t = el.dataset.videoTitle ?? 'YouTube動画'
       const iframe = document.createElement('iframe')
@@ -53,5 +54,6 @@ const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
       el.replaceChildren(iframe)
       el.classList.remove('cursor-pointer')
     }, { once: true })
+  })
   })
 </script>
