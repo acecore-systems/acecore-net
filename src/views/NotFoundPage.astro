@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+import { optimizeImage } from '../utils/image'
+import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const recentPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4)
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'pages.notFound.title')}
+  description={t(locale, 'pages.notFound.description')}
+  robots="noindex, nofollow"
+>
+  <section class="ac-section">
+    <div class="ac-container text-center py-20">
+      <p class="text-6xl font-700 text-brand-500 mb-4">404</p>
+      <h1 class="text-2xl sm:text-3xl font-700 text-slate-800 mb-4">
+        {t(locale, 'pages.notFound.heading')}
+      </h1>
+      <p class="text-slate-600 mb-8 max-w-md mx-auto">
+        {t(locale, 'pages.notFound.body')}<br />
+        {t(locale, 'pages.notFound.searchHint')}
+      </p>
+
+      <div class="max-w-md mx-auto mb-10">
+        <button
+          data-search-trigger
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-300 text-slate-500 hover:border-brand-300 hover:text-brand-500 transition-colors cursor-pointer text-left"
+        >
+          <div class="i-lucide-search text-lg" aria-hidden="true"></div>
+          <span>{t(locale, 'pages.notFound.searchPlaceholder')}</span>
+          <kbd
+            class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline"
+            >Ctrl+K</kbd
+          >
+        </button>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <a href={u('/')} class="ac-btn-primary">{t(locale, 'pages.notFound.goHome')}</a>
+        <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'pages.notFound.viewBlog')}</a>
+      </div>
+
+      <div class="max-w-2xl mx-auto text-left">
+        <h2 class="text-lg font-700 text-slate-700 mb-4">{t(locale, 'pages.notFound.latestArticles')}</h2>
+        <div class="space-y-3">
+          {
+            recentPosts.map((post) => (
+              <a
+                href={u(`/blog/${post.id}/`)}
+                class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group"
+              >
+                {post.data.image && (
+                  <img
+                    src={optimizeImage(post.data.image)}
+                    alt={post.data.title}
+                    class="w-16 h-16 rounded-lg object-cover shrink-0"
+                    width="64"
+                    height="64"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                )}
+                <div>
+                  <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <p class="text-xs text-slate-500 mt-1">
+                    {formatDate(post.data.date, locale)}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document
+    .querySelector<HTMLElement>('[data-search-trigger]')
+    ?.addEventListener('click', () => {
+      ;(window as any).openSearch?.()
+    })
+</script>

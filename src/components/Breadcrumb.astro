@@ -1,23 +1,27 @@
 ---
+import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+
 interface BreadcrumbItem {
   label: string
   href?: string
 }
 interface Props {
   items: BreadcrumbItem[]
+  locale?: Locale
 }
 const { items } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
-<nav aria-label="パンくずリスト" class="text-sm mb-4" data-pagefind-ignore>
+<nav aria-label={t(locale, 'common.breadcrumb')} class="text-sm mb-4" data-pagefind-ignore>
   <ol class="flex flex-wrap items-center gap-1 text-slate-500" role="list">
     <li>
       <a
-        href="/"
+        href={getLocalizedUrl('/', locale)}
         class="hover:text-brand-500 transition-colors inline-flex items-center gap-1"
       >
         <div class="i-lucide-home text-xs" aria-hidden="true"></div>
-        <span>ホーム</span>
+        <span>{t(locale, 'common.home')}</span>
       </a>
     </li>
     {

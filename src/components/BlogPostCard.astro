@@ -1,6 +1,7 @@
 ---
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import authors from '../data/authors.json'
+import { formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   post: {
@@ -14,9 +15,11 @@ interface Props {
       tags?: string[]
     }
   }
+  locale?: Locale
 }
 
 const { post } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
 <article
@@ -43,12 +46,12 @@ const { post } = Astro.props
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-3 text-sm text-slate-500">
         <time datetime={post.data.date.toISOString()}
-          >{post.data.date.toLocaleDateString('ja-JP')}</time
+          >{formatDate(post.data.date, locale)}</time
         >
         {
           post.data.author && (
             <a
-              href={`/blog/authors/${post.data.author}/`}
+              href={getLocalizedUrl(`/blog/authors/${post.data.author}/`, locale)}
               class="text-brand-500 underline underline-offset-2 relative z-10"
             >
               by{' '}
@@ -62,7 +65,7 @@ const { post } = Astro.props
         class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors"
       >
         <a
-          href={`/blog/${post.id}/`}
+          href={getLocalizedUrl(`/blog/${post.id}/`, locale)}
           class="no-underline text-inherit after:absolute after:inset-0"
           >{post.data.title}</a
         >

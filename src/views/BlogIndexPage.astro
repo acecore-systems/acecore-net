@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import BlogPostCard from '../components/BlogPostCard.astro'
+import BlogSidebar from '../components/BlogSidebar.astro'
+import { getCollection } from 'astro:content'
+import { optimizeImage } from '../utils/image'
+import AdUnit from '../components/AdUnit.astro'
+import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
+const posts = allPosts.slice(0, POSTS_PER_PAGE)
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: t(locale, 'blog.itemListName'),
+  itemListElement: posts.map((post: CollectionEntry<'blog'>, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://acecore.net/blog/${post.id}/`,
+  })),
+}
+
+const pageNumbers = buildPageNumbers(1, totalPages)
+---
+
+<BaseLayout
+  title={t(locale, 'blog.title')}
+  description={t(locale, 'blog.indexDescription')}
+  jsonLd={itemListLd}
+  nextPage={totalPages > 1 ? u('/blog/page/2/') : undefined}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'blog.title')}
+    subtitle={t(locale, 'blog.subtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'blog.heroAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container">
+      <Breadcrumb items={[{ label: t(locale, 'blog.title') }]} locale={locale} />
+      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+        <div>
+          {
+            posts.length === 0 ? (
+              <p class="text-center text-slate-500">{t(locale, 'blog.noPosts')}</p>
+            ) : (
+              <div class="space-y-6">
+                {posts.map((post, i: number) => (
+                  <Fragment>
+                    {i > 0 && i % 3 === 0 && (
+                      <div class="ac-card overflow-hidden p-6">
+                        <AdUnit />
+                      </div>
+                    )}
+                    <BlogPostCard post={post} locale={locale} />
+                  </Fragment>
+                ))}
+              </div>
+            )
+          }
+
+          {
+            totalPages > 1 && (
+              <nav
+                class="mt-10 flex justify-center items-center gap-2"
+                aria-label={t(locale, 'blog.pageNav')}
+              >
+                <span
+                  class="px-3 py-2 text-sm text-slate-300"
+                  aria-disabled="true"
+                >
+                  {t(locale, 'blog.prev')}
+                </span>
+                {pageNumbers.map((p) =>
+                  p === '...' ? (
+                    <span class="px-2 text-slate-400">…</span>
+                  ) : p === 1 ? (
+                    <span
+                      class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600"
+                      aria-current="page"
+                    >
+                      {p}
+                    </span>
+                  ) : (
+                    <a
+                      href={u(`/blog/page/${p}/`)}
+                      class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors"
+                    >
+                      {p}
+                    </a>
+                  ),
+                )}
+                {totalPages > 1 && (
+                  <a
+                    href={u('/blog/page/2/')}
+                    class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors"
+                  >
+                    {t(locale, 'blog.next')}
+                  </a>
+                )}
+              </nav>
+            )
+          }
+
+          <div class="mt-12 bg-brand-50 rounded-xl p-6 sm:p-8 text-center">
+            <p class="text-lg font-700 text-slate-800 mb-2">
+              {t(locale, 'blog.blogCtaHeading')}
+            </p>
+            <p class="text-sm text-slate-600 mb-4">
+              {t(locale, 'blog.blogCtaBody')}
+            </p>
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-3"
+            >
+              <a href={u('/services/')} class="ac-btn-primary"
+                >{t(locale, 'blog.blogCtaServices')}</a
+              >
+              <a href={u('/contact/')} class="ac-btn-outline"
+                >{t(locale, 'blog.blogCtaContact')}</a
+              >
+            </div>
+          </div>
+        </div>
+        <BlogSidebar allPosts={allPosts} locale={locale} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,604 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+import Timeline from '../components/Timeline.astro'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const serviceMap = [
+  {
+    title: t(locale, 'pages.services.mapDevTitle'),
+    description: t(locale, 'pages.services.mapDevDesc'),
+    icon: 'i-lucide-code-2',
+    tone: 'brand',
+  },
+  {
+    title: t(locale, 'pages.services.mapInfraTitle'),
+    description: t(locale, 'pages.services.mapInfraDesc'),
+    icon: 'i-lucide-server',
+    tone: 'emerald',
+  },
+  {
+    title: t(locale, 'pages.services.mapPublishTitle'),
+    description: t(locale, 'pages.services.mapPublishDesc'),
+    icon: 'i-lucide-globe',
+    tone: 'amber',
+  },
+  {
+    title: t(locale, 'pages.services.mapEducationTitle'),
+    description: t(locale, 'pages.services.mapEducationDesc'),
+    icon: 'i-lucide-graduation-cap',
+    tone: 'slate',
+  },
+] as const
+
+const deliveryTimeline = [
+  {
+    date: 'Step 1',
+    title: t(locale, 'pages.services.timelineStep1Title'),
+    description: t(locale, 'pages.services.timelineStep1Desc'),
+  },
+  {
+    date: 'Step 2',
+    title: t(locale, 'pages.services.timelineStep2Title'),
+    description: t(locale, 'pages.services.timelineStep2Desc'),
+  },
+  {
+    date: 'Step 3',
+    title: t(locale, 'pages.services.timelineStep3Title'),
+    description: t(locale, 'pages.services.timelineStep3Desc'),
+  },
+  {
+    date: 'Step 4',
+    title: t(locale, 'pages.services.timelineStep4Title'),
+    description: t(locale, 'pages.services.timelineStep4Desc'),
+  },
+]
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.systemDev.title'),
+      description: t(locale, 'pages.services.systemDev.desc'),
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#system-development',
+    },
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.server.title'),
+      description: t(locale, 'pages.services.server.desc'),
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#server',
+    },
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.web.title'),
+      description: t(locale, 'pages.services.web.desc'),
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#web',
+    },
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.design.title'),
+      description: t(locale, 'pages.services.design.desc'),
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/services/#design',
+    },
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.education.title'),
+      description: t(locale, 'pages.services.education.desc'),
+      provider: { '@type': 'Organization', name: 'Acecore' },
+      url: 'https://acecore.net/schools/',
+    },
+  ],
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.services.title')}
+  description={t(locale, 'pages.services.description')}
+  jsonLd={serviceLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.services.heroTitle')}
+    subtitle={t(locale, 'pages.services.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.services.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <div class="ac-container mt-4">
+    <Breadcrumb items={[{ label: t(locale, 'pages.services.title') }]} locale={locale} />
+  </div>
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container">
+      <InsightGrid
+        variant="card"
+        eyebrow={t(locale, 'pages.services.serviceMapEyebrow')}
+        title={t(locale, 'pages.services.serviceMapTitle')}
+        description={t(locale, 'pages.services.serviceMapDesc')}
+        items={serviceMap}
+      />
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <nav class="mb-12 flex flex-wrap gap-2 justify-center">
+        <a
+          href="#system-development"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navDev')}</a
+        >
+        <a
+          href="#server"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navServer')}</a
+        >
+        <a
+          href="#web"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navWeb')}</a
+        >
+        <a
+          href="#design"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navDesign')}</a
+        >
+        <a
+          href="#education"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navEducation')}</a
+        >
+        <a
+          href="#aceserver"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navAceserver')}</a
+        >
+        <a
+          href="#acestudio"
+          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+          >{t(locale, 'pages.services.navAcestudio')}</a
+        >
+      </nav>
+
+      <!-- System Development -->
+      <div class="mb-16" id="system-development">
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="i-lucide-code-2 text-3xl text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.systemDev.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.systemDev.desc')}
+          <a href={u('/contact/')} class="ac-link">{t(locale, 'pages.services.ctaContact')}</a>
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.systemDev.examplesLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.systemDev.example1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.systemDev.example2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.systemDev.example3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.systemDev.example4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.services.systemDev.imgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Server -->
+      <div class="mb-16" id="server">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-server text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.server.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.server.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.server.examplesLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.server.example1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.server.example2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.server.example3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.server.example4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Web -->
+      <div class="mb-16" id="web">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-globe text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.web.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.web.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.web.examplesLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.web.example1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.web.example2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.web.example3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.web.example4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.services.web.imgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="mb-16">
+        <Timeline
+          title={t(locale, 'pages.services.timelineTitle')}
+          items={deliveryTimeline}
+        />
+      </div>
+
+      <!-- Design -->
+      <div class="mb-16" id="design">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-palette text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.design.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.design.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.design.examplesLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.design.example1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.design.example2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.design.example3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.design.example4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.services.design.imgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Education -->
+      <div class="mb-16" id="education">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-graduation-cap text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.education.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.education.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.education.coursesLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.education.course1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.education.course2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.education.course3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.education.course4')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.education.course5')}
+            </li>
+          </ul>
+        </div>
+        <div class="mt-4">
+          <a
+            href={u('/schools/')}
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
+            {t(locale, 'pages.services.education.detailLink')}
+          </a>
+        </div>
+      </div>
+
+      <!-- Aceserver -->
+      <div class="mb-16" id="aceserver">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-gamepad-2 text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.aceserver.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.aceserver.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6 mb-4">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.aceserver.featuresLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.aceserver.feature1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.aceserver.feature2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.aceserver.feature3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.aceserver.feature4')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.aceserver.feature5')}
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-wrap gap-3 mb-4">
+          <a
+            href={SITE.social.aceserver}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            {t(locale, 'pages.services.aceserver.portalLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+          <a
+            href="https://aceserver-wiki.acecore.systems/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            {t(locale, 'pages.services.aceserver.wikiLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+          <a
+            href={SITE.social.discord}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            {t(locale, 'pages.services.aceserver.discordLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- AceStudio -->
+      <div class="mb-16" id="acestudio">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-clapperboard text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">
+            AceStudio <span class="text-sm font-400 text-slate-500 ml-2">{t(locale, 'pages.services.acestudio.comingSoon')}</span>
+          </h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.acestudio.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6 mb-4">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.acestudio.featuresLabel')}
+          </h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.acestudio.feature1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.acestudio.feature2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.services.acestudio.feature3')}
+            </li>
+          </ul>
+        </div>
+        <p class="text-sm text-slate-500 mb-4">
+          {t(locale, 'pages.services.acestudio.note')}
+        </p>
+        <div class="mt-2">
+          <a
+            href={u('/acestudio/')}
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
+            {t(locale, 'pages.services.acestudio.detailLink')}
+          </a>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center bg-brand-50 rounded-xl p-8">
+        <p class="text-lg font-700 text-slate-800 mb-2">
+          {t(locale, 'pages.services.ctaHeading')}
+        </p>
+        <p class="text-sm text-slate-600 mb-6">
+          {t(locale, 'pages.services.ctaBody')}
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.services.ctaContact')}</a>
+          <a href={u('/schools/')} class="ac-btn-outline">{t(locale, 'pages.services.ctaSchools')}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function initServicesSpy() {
+      const nav = document.querySelector<HTMLElement>(
+        'section.ac-section nav.mb-12',
+      )
+      if (!nav) return
+      const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')]
+      const ids = links.map((a) => a.getAttribute('href')!.slice(1))
+      const sections = ids
+        .map((id) => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[]
+      if (!sections.length) return
+
+      const activeClass = 'border-brand-400 text-brand-600 bg-brand-50'
+      const inactiveClass = 'border-slate-200 text-slate-600'
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const idx = sections.indexOf(entry.target as HTMLElement)
+            if (idx === -1) continue
+            const link = links[idx]
+            if (entry.isIntersecting) {
+              links.forEach((l) => {
+                l.className = l.className
+                  .replace(/border-brand-400|text-brand-600|bg-brand-50/g, '')
+                  .trim()
+                if (!l.className.includes('border-slate-200'))
+                  l.className += ' ' + inactiveClass
+              })
+              link.className =
+                link.className
+                  .replace(/border-slate-200|text-slate-600/g, '')
+                  .trim() +
+                ' ' +
+                activeClass
+            }
+          }
+        },
+        { rootMargin: '-20% 0px -60% 0px' },
+      )
+
+      sections.forEach((s) => observer.observe(s))
+    }
+    initServicesSpy()
+    document.addEventListener('astro:after-swap', initServicesSpy)
+  </script>
+</BaseLayout>

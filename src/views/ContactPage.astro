@@ -1,0 +1,423 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import { optimizeImage } from '../utils/image'
+import { SITE } from '../data/site'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+---
+
+<BaseLayout
+  title={t(locale, 'pages.contact.title')}
+  description={t(locale, 'pages.contact.description')}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: `${t(locale, 'pages.contact.title')} | Acecore`,
+    description: t(locale, 'pages.contact.description'),
+    url: 'https://acecore.net/contact/',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Acecore',
+      telephone: SITE.phoneIntl,
+      email: SITE.email,
+    },
+  }}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.contact.heroTitle')}
+    subtitle={t(locale, 'pages.contact.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.contact.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-2xl">
+      <Breadcrumb items={[{ label: t(locale, 'pages.contact.title') }]} locale={locale} />
+      <div class="bg-brand-50 rounded-lg p-6 mb-8">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-slate-700"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="i-lucide-clock text-brand-500 shrink-0"
+              aria-hidden="true"
+            >
+            </div>
+            <span>{t(locale, 'pages.contact.responseTime')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div
+              class="i-lucide-badge-check text-brand-500 shrink-0"
+              aria-hidden="true"
+            >
+            </div>
+            <span>{t(locale, 'pages.contact.freeEstimate')}</span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 text-sm"
+      >
+        <div class="flex items-center gap-2">
+          <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
+          <span class="font-600 text-slate-800">{SITE.phone}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
+          <a
+            href={`mailto:${SITE.email}`}
+            class="font-600 text-brand-500 hover:underline">{SITE.email}</a
+          >
+        </div>
+        <a
+          href={SITE.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 font-600 text-brand-500 hover:underline"
+        >
+          <div
+            class="i-lucide-message-circle text-brand-500"
+            aria-hidden="true"
+          >
+          </div>
+          {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+        </a>
+      </div>
+      <form
+        action="https://ssgform.com/s/a4JOVjLjyygh"
+        method="post"
+        class="space-y-6"
+        data-t-sending={t(locale, 'pages.contact.formSending') || '送信中…'}
+        data-t-success={t(locale, 'pages.contact.formSuccess') || 'お問い合わせを送信しました。確認メールをご確認ください。'}
+        data-t-error={t(locale, 'pages.contact.formError') || '送信に失敗しました。時間をおいて再度お試しいただくか、メール・お電話でお問い合わせください。'}
+      >
+        <div>
+          <label
+            for="category"
+            class="block text-sm font-600 text-slate-700 mb-2"
+          >
+            {t(locale, 'pages.contact.formCategoryLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+          </label>
+          <select
+            id="category"
+            name="お問い合わせ種別"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+          >
+            <option value="" disabled selected>{t(locale, 'pages.contact.formCategoryPlaceholder')}</option>
+            <option value="サービスについて">{t(locale, 'pages.contact.formCategoryService')}</option>
+            <option value="お見積り依頼">{t(locale, 'pages.contact.formCategoryEstimate')}</option>
+            <option value="パートナーシップ">{t(locale, 'pages.contact.formCategoryPartnership')}</option>
+            <option value="採用について">{t(locale, 'pages.contact.formCategoryRecruit')}</option>
+            <option value="その他">{t(locale, 'pages.contact.formCategoryOther')}</option>
+          </select>
+          <p
+            class="text-xs text-red-600 mt-1 hidden"
+            id="category-error"
+            role="alert"
+          >
+          </p>
+        </div>
+        <div>
+          <label for="name" class="block text-sm font-600 text-slate-700 mb-2">
+            {t(locale, 'pages.contact.formNameLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="お名前"
+            required
+            autocomplete="name"
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+          />
+          <p
+            class="text-xs text-red-600 mt-1 hidden"
+            id="name-error"
+            role="alert"
+          >
+          </p>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-600 text-slate-700 mb-2">
+            {t(locale, 'pages.contact.formEmailLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="メールアドレス"
+            required
+            autocomplete="email"
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+          />
+          <p
+            class="text-xs text-red-600 mt-1 hidden"
+            id="email-error"
+            role="alert"
+          >
+          </p>
+        </div>
+        <div>
+          <label
+            for="subject"
+            class="block text-sm font-600 text-slate-700 mb-2"
+          >
+            {t(locale, 'pages.contact.formSubjectLabel')}
+          </label>
+          <input
+            type="text"
+            id="subject"
+            name="件名"
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+          />
+        </div>
+        <div>
+          <label
+            for="message"
+            class="block text-sm font-600 text-slate-700 mb-2"
+          >
+            {t(locale, 'pages.contact.formMessageLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+          </label>
+          <textarea
+            id="message"
+            name="お問い合わせ内容"
+            rows="6"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-y"
+          ></textarea>
+          <p
+            class="text-xs text-red-600 mt-1 hidden"
+            id="message-error"
+            role="alert"
+          >
+          </p>
+        </div>
+        <div
+          class="cf-turnstile"
+          data-sitekey={SITE.turnstileSiteKey}
+          data-language={locale}
+          data-theme="light"
+        >
+        </div>
+        <div>
+          <button
+            type="submit"
+            id="contact-submit"
+            class="ac-btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {t(locale, 'pages.contact.formSubmit')}
+          </button>
+          <p class="text-xs text-slate-600 mt-3">
+            {t(locale, 'pages.contact.formSubmitNote')}
+          </p>
+        </div>
+        <div
+          id="form-feedback"
+          class="hidden rounded-lg p-4 text-sm"
+          role="alert"
+        >
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-12">
+    <div class="ac-container max-w-2xl">
+      <h2 class="text-xl ac-heading mb-6 text-center">
+        {t(locale, 'pages.contact.otherMethodsHeading')}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="ac-card p-6 text-center">
+          <div
+            class="i-lucide-phone text-2xl text-brand-500 mx-auto mb-2"
+            aria-hidden="true"
+          >
+          </div>
+          <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodPhone')}</h3>
+          <p class="text-sm text-slate-600 font-600">
+            <a
+              href={`tel:${SITE.phone.replace(/-/g, '')}`}
+              class="text-brand-500 hover:underline">{SITE.phone}</a
+            >
+          </p>
+        </div>
+        <div class="ac-card p-6 text-center">
+          <div
+            class="i-lucide-mail text-2xl text-brand-500 mx-auto mb-2"
+            aria-hidden="true"
+          >
+          </div>
+          <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodEmail')}</h3>
+          <p class="text-sm text-slate-600">
+            <a
+              href={`mailto:${SITE.email}`}
+              class="text-brand-500 hover:underline">{SITE.email}</a
+            >
+          </p>
+        </div>
+        <a
+          href={SITE.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+        >
+          <div
+            class="i-lucide-message-circle text-2xl text-brand-500 mx-auto mb-2"
+            aria-hidden="true"
+          >
+          </div>
+          <h3 class="font-600 text-slate-900 mb-1">LINE</h3>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.contact.methodLineDesc')}
+          </p>
+          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+        </a>
+        <a
+          href={SITE.social.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+        >
+          <div
+            class="i-lucide-at-sign text-2xl text-brand-500 mx-auto mb-2"
+            aria-hidden="true"
+          >
+          </div>
+          <h3 class="font-600 text-slate-900 mb-1">X</h3>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.contact.methodXDesc')}
+          </p>
+          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    {
+      const turnstileEl = document.querySelector('.cf-turnstile')
+      if (turnstileEl) {
+        const io = new IntersectionObserver(
+          function (entries) {
+            if (entries[0].isIntersecting) {
+              io.disconnect()
+              const s = document.createElement('script')
+              s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+              s.async = true
+              document.head.appendChild(s)
+            }
+          },
+          { rootMargin: '200px' },
+        )
+        io.observe(turnstileEl)
+      }
+    }
+  </script>
+  <script is:inline>
+    {
+      const rules = {
+        category: function (v) {
+          return v ? '' : 'お問い合わせ種別を選択してください'
+        },
+        name: function (v) {
+          return v.trim() ? '' : 'お名前を入力してください'
+        },
+        email: function (v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+            ? ''
+            : '正しいメールアドレスを入力してください'
+        },
+        message: function (v) {
+          return v.trim() ? '' : 'お問い合わせ内容を入力してください'
+        },
+      }
+      function showError(id, msg) {
+        const el = document.getElementById(id + '-error')
+        const input = document.getElementById(id)
+        if (!el || !input) return
+        if (msg) {
+          el.textContent = msg
+          el.classList.remove('hidden')
+          input.classList.add('border-red-400')
+          input.setAttribute('aria-invalid', 'true')
+          input.setAttribute('aria-describedby', id + '-error')
+        } else {
+          el.textContent = ''
+          el.classList.add('hidden')
+          input.classList.remove('border-red-400')
+          input.removeAttribute('aria-invalid')
+          input.removeAttribute('aria-describedby')
+        }
+      }
+      Object.keys(rules).forEach(function (id) {
+        var el = document.getElementById(id)
+        if (el) {
+          el.addEventListener('blur', function () {
+            showError(id, rules[id](el.value))
+          })
+          el.addEventListener('input', function () {
+            if (el.getAttribute('aria-invalid'))
+              showError(id, rules[id](el.value))
+          })
+        }
+      })
+    }
+  </script>
+  <script is:inline>
+    {
+      const form = document.querySelector('form[action*="ssgform"]')
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault()
+          const btn = document.getElementById('contact-submit')
+          const feedback = document.getElementById('form-feedback')
+          const sendingText = form.getAttribute('data-t-sending') || '送信中…'
+          const successText = form.getAttribute('data-t-success') || 'お問い合わせを送信しました。'
+          const errorText = form.getAttribute('data-t-error') || '送信に失敗しました。'
+          const originalText = btn.textContent
+          btn.disabled = true
+          btn.textContent = sendingText
+          feedback.className = 'hidden rounded-lg p-4 text-sm'
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+          })
+            .then(function (res) {
+              if (res.ok) {
+                feedback.textContent = successText
+                feedback.className =
+                  'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
+                form.reset()
+                if (typeof turnstile !== 'undefined') turnstile.reset()
+              } else {
+                throw new Error('Failed')
+              }
+            })
+            .catch(function () {
+              feedback.textContent = errorText
+              feedback.className =
+                'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200'
+            })
+            .finally(function () {
+              btn.disabled = false
+              btn.textContent = originalText
+            })
+        })
+      }
+    }
+  </script>
+</BaseLayout>

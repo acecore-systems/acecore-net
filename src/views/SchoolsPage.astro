@@ -1,0 +1,414 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import CompareTable from '../components/CompareTable.astro'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const learningSteps = [
+  {
+    title: t(locale, 'pages.schools.flowDiscoverTitle'),
+    description: t(locale, 'pages.schools.flowDiscoverDesc'),
+    icon: 'i-lucide-sparkles',
+    accent: 'amber',
+  },
+  {
+    title: t(locale, 'pages.schools.flowPracticeTitle'),
+    description: t(locale, 'pages.schools.flowPracticeDesc'),
+    icon: 'i-lucide-bot',
+    accent: 'brand',
+  },
+  {
+    title: t(locale, 'pages.schools.flowApplyTitle'),
+    description: t(locale, 'pages.schools.flowApplyDesc'),
+    icon: 'i-lucide-code-xml',
+    accent: 'emerald',
+  },
+  {
+    title: t(locale, 'pages.schools.flowContinueTitle'),
+    description: t(locale, 'pages.schools.flowContinueDesc'),
+    icon: 'i-lucide-flag',
+    accent: 'slate',
+  },
+] as const
+
+const learningCompare = {
+  title: t(locale, 'pages.schools.compareTitle'),
+  before: {
+    label: t(locale, 'pages.schools.compareBefore'),
+    items: [
+      t(locale, 'pages.schools.compareBefore1'),
+      t(locale, 'pages.schools.compareBefore2'),
+      t(locale, 'pages.schools.compareBefore3'),
+      t(locale, 'pages.schools.compareBefore4'),
+    ],
+  },
+  after: {
+    label: t(locale, 'pages.schools.compareAfter'),
+    items: [
+      t(locale, 'pages.schools.compareAfter1'),
+      t(locale, 'pages.schools.compareAfter2'),
+      t(locale, 'pages.schools.compareAfter3'),
+      t(locale, 'pages.schools.compareAfter4'),
+    ],
+  },
+}
+
+const schoolsLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'EducationalOrganization',
+      name: 'Acecore Schools',
+      description: t(locale, 'pages.schools.description'),
+      url: 'https://acecore.net/schools/',
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'Acecore',
+        url: 'https://acecore.net',
+      },
+      telephone: SITE.phoneIntl,
+      email: SITE.email,
+    },
+    {
+      '@type': 'Course',
+      name: t(locale, 'pages.schools.juku.title'),
+      description: t(locale, 'pages.schools.juku.desc'),
+      provider: { '@type': 'EducationalOrganization', name: 'Acecore Schools' },
+      url: 'https://acecore.net/schools/#juku',
+    },
+    {
+      '@type': 'Course',
+      name: t(locale, 'pages.schools.robotProgramming.title'),
+      description: t(locale, 'pages.schools.robotProgramming.desc'),
+      provider: { '@type': 'EducationalOrganization', name: 'Acecore Schools' },
+      url: 'https://acecore.net/schools/#robot-programming',
+    },
+    {
+      '@type': 'Course',
+      name: t(locale, 'pages.schools.practicalProgramming.title'),
+      description: t(locale, 'pages.schools.practicalProgramming.desc'),
+      provider: { '@type': 'EducationalOrganization', name: 'Acecore Schools' },
+      url: 'https://acecore.net/schools/#practical-programming',
+    },
+    {
+      '@type': 'Course',
+      name: t(locale, 'pages.schools.pcSmartphone.title'),
+      description: t(locale, 'pages.schools.pcSmartphone.desc'),
+      provider: { '@type': 'EducationalOrganization', name: 'Acecore Schools' },
+      url: 'https://acecore.net/schools/#pc-smartphone',
+    },
+    {
+      '@type': 'Course',
+      name: t(locale, 'pages.schools.ged.title'),
+      description: t(locale, 'pages.schools.ged.desc'),
+      provider: { '@type': 'EducationalOrganization', name: 'Acecore Schools' },
+      url: 'https://acecore.net/schools/#ged',
+    },
+  ],
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.schools.title')}
+  description={t(locale, 'pages.schools.description')}
+  jsonLd={schoolsLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.schools.heroTitle')}
+    subtitle={t(locale, 'pages.schools.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.schools.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[{ label: t(locale, 'pages.schools.title') }]} locale={locale} />
+      <div class="mb-12">
+        <ProcessFigure
+          variant="card"
+          eyebrow={t(locale, 'pages.schools.learningFlowEyebrow')}
+          title={t(locale, 'pages.schools.learningFlowTitle')}
+          description={t(locale, 'pages.schools.learningFlowDesc')}
+          steps={learningSteps}
+        />
+      </div>
+
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        {t(locale, 'pages.schools.intro')}
+      </p>
+
+      <!-- Juku -->
+      <div class="mb-16" id="juku">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-book-open text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.juku.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.schools.juku.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.juku.featuresLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.juku.feature1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.juku.feature2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.juku.feature3')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.schools.juku.imgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Robot Programming -->
+      <div class="mb-16" id="robot-programming">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-bot text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.robotProgramming.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.schools.robotProgramming.desc')}
+        </p>
+        <div class="space-y-4">
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.robotCourseTitle')}</h3>
+            <p class="text-sm text-slate-600">
+              {t(locale, 'pages.schools.robotProgramming.robotCourseDesc')}
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.robotProgCourseTitle')}</h3>
+            <p class="text-sm text-slate-600">
+              {t(locale, 'pages.schools.robotProgramming.robotProgCourseDesc')}
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-6">
+            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.minecraftCourseTitle')}</h3>
+            <p class="text-sm text-slate-600">
+              {t(locale, 'pages.schools.robotProgramming.minecraftCourseDesc')}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <CompareTable
+          title={learningCompare.title}
+          before={learningCompare.before}
+          after={learningCompare.after}
+        />
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.schools.robotProgramming.progImgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Practical Programming -->
+      <div class="mb-16" id="practical-programming">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-code-2 text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.practicalProgramming.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.schools.practicalProgramming.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.practicalProgramming.contentsLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.practicalProgramming.content1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.practicalProgramming.content2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.practicalProgramming.content3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.practicalProgramming.content4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PC / Smartphone -->
+      <div class="mb-16" id="pc-smartphone">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-monitor-smartphone text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.pcSmartphone.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.schools.pcSmartphone.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.pcSmartphone.levelsLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.pcSmartphone.level1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.pcSmartphone.level2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.pcSmartphone.level3')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.pcSmartphone.level4')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.schools.pcSmartphone.imgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- GED -->
+      <div class="mb-16" id="ged">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="i-lucide-file-badge text-3xl text-brand-500" aria-hidden="true"></div>
+          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.ged.title')}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.schools.ged.desc')}
+        </p>
+        <div class="bg-slate-50 rounded-lg p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.ged.supportLabel')}</h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.ged.support1')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.ged.support2')}
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              {t(locale, 'pages.schools.ged.support3')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-brand-50 rounded-xl p-8 text-center">
+        <h2 class="text-xl ac-heading mb-4">{t(locale, 'pages.schools.ctaHeading')}</h2>
+        <p class="text-slate-600 mb-6">
+          {t(locale, 'pages.schools.ctaBody')}
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6"
+        >
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
+            <span class="font-600 text-slate-800">{SITE.phone}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
+            <a
+              href={`mailto:${SITE.email}`}
+              class="font-600 text-brand-500 hover:underline">{SITE.email}</a
+            >
+          </div>
+        </div>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.schools.ctaForm')}</a>
+          <a
+            href={SITE.line}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline"
+          >
+            {t(locale, 'pages.schools.ctaLine')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

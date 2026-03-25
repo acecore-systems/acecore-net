@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import ServiceCard from '../components/ServiceCard.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+import { getCollection } from 'astro:content'
+import authors from '../data/authors.json'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
+import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+
+const coreLayers = [
+  {
+    title: t(locale, 'pages.home.layerDesign'),
+    description: t(locale, 'pages.home.layerDesignDesc'),
+    icon: 'i-lucide-code-2',
+    tone: 'brand',
+  },
+  {
+    title: t(locale, 'pages.home.layerInfra'),
+    description: t(locale, 'pages.home.layerInfraDesc'),
+    icon: 'i-lucide-server-cog',
+    tone: 'emerald',
+  },
+  {
+    title: t(locale, 'pages.home.layerExpression'),
+    description: t(locale, 'pages.home.layerExpressionDesc'),
+    icon: 'i-lucide-swatch-book',
+    tone: 'amber',
+  },
+  {
+    title: t(locale, 'pages.home.layerEducation'),
+    description: t(locale, 'pages.home.layerEducationDesc'),
+    icon: 'i-lucide-graduation-cap',
+    tone: 'slate',
+  },
+] as const
+const firstHeroSrc = optimizeImage(
+  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+)
+
+const webPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: t(locale, 'meta.siteTitle'),
+  description: t(locale, 'meta.defaultDescription'),
+  url: 'https://acecore.net/',
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'nav.home')}
+  jsonLd={webPageLd}
+  preloadImage={{
+    src: firstHeroSrc,
+    srcset: generateSrcSet(firstHeroSrc),
+    sizes: '100vw',
+  }}
+>
+  <Hero
+    title={t(locale, 'pages.home.heroTitle')}
+    subtitle={t(locale, 'pages.home.heroSubtitle')}
+    showCTA={true}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.home.heroImgTeam'),
+      },
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.home.heroImgCollaboration'),
+      },
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.home.heroImgMeeting'),
+      },
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.home.heroImgStrategy'),
+      },
+    ]}
+  />
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container">
+      <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-4">
+        {t(locale, 'pages.home.servicesHeading')}
+      </h2>
+      <p class="ac-muted text-center max-w-2xl mx-auto mb-12">
+        {t(locale, 'pages.home.servicesLead')}
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ServiceCard
+          icon="i-lucide-code-2"
+          title={t(locale, 'pages.home.serviceSystem')}
+          description={t(locale, 'pages.home.serviceSystemDesc')}
+          href={u('/services/#system-development')}
+        />
+        <ServiceCard
+          icon="i-lucide-server"
+          title={t(locale, 'pages.home.serviceServer')}
+          description={t(locale, 'pages.home.serviceServerDesc')}
+          href={u('/services/#server')}
+        />
+        <ServiceCard
+          icon="i-lucide-globe"
+          title={t(locale, 'pages.home.serviceWeb')}
+          description={t(locale, 'pages.home.serviceWebDesc')}
+          href={u('/services/#web')}
+        />
+        <ServiceCard
+          icon="i-lucide-palette"
+          title={t(locale, 'pages.home.serviceDesign')}
+          description={t(locale, 'pages.home.serviceDesignDesc')}
+          href={u('/services/#design')}
+        />
+        <ServiceCard
+          icon="i-lucide-graduation-cap"
+          title={t(locale, 'pages.home.serviceSchools')}
+          description={t(locale, 'pages.home.serviceSchoolsDesc')}
+          href={u('/schools/')}
+        />
+        <ServiceCard
+          icon="i-lucide-gamepad-2"
+          title={t(locale, 'pages.home.serviceAceserver')}
+          description={t(locale, 'pages.home.serviceAceserverDesc')}
+          href={SITE.social.aceserver}
+        />
+      </div>
+      <div class="text-center mt-10">
+        <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.home.viewServicesDetail')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container">
+      <InsightGrid
+        variant="card"
+        eyebrow={t(locale, 'pages.home.layersEyebrow')}
+        title={t(locale, 'pages.home.layersTitle')}
+        description={t(locale, 'pages.home.layersDescription')}
+        items={coreLayers}
+      />
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-3xl ac-heading mb-6">{t(locale, 'pages.home.aboutHeading')}</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.home.aboutBody1')}
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed mb-8" set:html={
+          t(locale, 'pages.home.aboutBody2', {
+            link: `<a href="${u('/schools/')}" class="ac-link">${t(locale, 'pages.home.aboutEducationLink')}</a>`
+          })
+        } />
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a href={u('/about/')} class="ac-btn-primary">{t(locale, 'pages.home.viewAbout')}</a>
+          <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.home.viewServices')}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="ac-section bg-slate-50">
+        <div class="ac-container">
+          <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-12">
+            {t(locale, 'pages.home.latestBlog')}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <a
+                href={u(`/blog/${post.id}/`)}
+                class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
+              >
+                {post.data.image && (
+                  <img
+                    src={optimizeImage(post.data.image)}
+                    srcset={generateSrcSet(post.data.image, [200, 400, 800])}
+                    sizes="(min-width: 768px) calc(33vw - 2rem), calc(100vw - 2rem)"
+                    alt={post.data.title}
+                    class="w-full h-40 object-cover"
+                    width="400"
+                    height="160"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                )}
+                <div class="p-6">
+                  <div class="flex items-center gap-2 text-xs text-slate-600">
+                    <time datetime={post.data.date.toISOString()}>
+                      {formatDate(post.data.date, locale)}
+                    </time>
+                    {post.data.author && (
+                      <span>
+                        by{' '}
+                        {authors.find((a) => a.id === post.data.author)?.name ||
+                          post.data.author}
+                      </span>
+                    )}
+                  </div>
+                  <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm text-slate-600 line-clamp-3">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div class="text-center mt-10">
+            <a href={u('/blog/')} class="ac-btn-outline">
+              {t(locale, 'pages.home.viewAllPosts')}
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

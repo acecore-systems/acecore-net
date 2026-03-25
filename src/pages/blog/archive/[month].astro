@@ -1,8 +1,5 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro'
-import Breadcrumb from '../../../components/Breadcrumb.astro'
-import BlogPostCard from '../../../components/BlogPostCard.astro'
-import BlogSidebar from '../../../components/BlogSidebar.astro'
+import BlogArchivePage from '../../../views/BlogArchivePage.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -24,32 +21,6 @@ export async function getStaticPaths() {
 }
 
 const { month, posts, allPosts } = Astro.props
-const [year, m] = month.split('-')
-const label = `${year}年${parseInt(m)}月`
 ---
 
-<BaseLayout
-  title={`${label}の記事一覧`}
-  description={`${label}に公開された記事の一覧です。`}
->
-  <section class="ac-section">
-    <div class="ac-container">
-      <Breadcrumb
-        items={[{ label: 'ブログ', href: '/blog/' }, { label: `${label}` }]}
-      />
-      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
-        {label}の記事一覧
-        <span class="text-base text-slate-400 ml-2">({posts.length}件)</span>
-      </h1>
-      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
-        <div class="space-y-6">
-          {posts.map((post) => <BlogPostCard post={post} />)}
-          <div class="mt-8 text-center">
-            <a href="/blog/" class="ac-btn-outline">ブログ一覧に戻る</a>
-          </div>
-        </div>
-        <BlogSidebar allPosts={allPosts} />
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+<BlogArchivePage locale="ja" month={month} posts={posts} allPosts={allPosts} />

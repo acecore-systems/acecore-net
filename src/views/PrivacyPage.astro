@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import { optimizeImage } from '../utils/image'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+---
+
+<BaseLayout
+  title={t(locale, 'pages.privacy.title')}
+  description={t(locale, 'pages.privacy.description')}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.privacy.heroTitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.privacy.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb items={[{ label: t(locale, 'pages.privacy.title') }]} locale={locale} />
+      <div class="prose prose-slate prose-lg max-w-none">
+        <h2>{t(locale, 'pages.privacy.adHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.adBody1')}</p>
+        <p>{t(locale, 'pages.privacy.adBody2')}</p>
+        <p>
+          {t(locale, 'pages.privacy.adBody3')}
+          <a
+            href="https://policies.google.com/technologies/ads?hl=ja"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Policies<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        </p>
+
+        <h2>{t(locale, 'pages.privacy.analyticsHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.analyticsBody1')}</p>
+        <p>{t(locale, 'pages.privacy.analyticsBody2')}</p>
+        <p>{t(locale, 'pages.privacy.analyticsBody3')}</p>
+
+        <h2>{t(locale, 'pages.privacy.personalInfoHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.personalInfoBody')}</p>
+
+        <h2>{t(locale, 'pages.privacy.disclosureHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.disclosureBody')}</p>
+        <ul>
+          <li>{t(locale, 'pages.privacy.disclosureItem1')}</li>
+          <li>{t(locale, 'pages.privacy.disclosureItem2')}</li>
+        </ul>
+
+        <h2>{t(locale, 'pages.privacy.disclaimerHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.disclaimerBody')}</p>
+
+        <h2>{t(locale, 'pages.privacy.copyrightHeading')}</h2>
+        <p>{t(locale, 'pages.privacy.copyrightBody')}</p>
+
+        <h2>{t(locale, 'pages.privacy.contactHeading')}</h2>
+        <p>
+          {t(locale, 'pages.privacy.contactBody')}
+          <a href={u('/contact/')}>{t(locale, 'pages.contact.title')}</a>
+        </p>
+
+        <p class="text-sm text-slate-500 mt-12">
+          {t(locale, 'pages.privacy.effectiveDate')}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

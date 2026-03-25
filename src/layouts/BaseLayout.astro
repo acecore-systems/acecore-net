@@ -1,4 +1,7 @@
 ---
+import { getLocaleFromUrl, t, getAlternateUrls, getLocalizedUrl, type Locale } from '../i18n'
+import { defaultLocale, locales, ogLocaleMap, htmlLangMap } from '../i18n'
+
 interface Props {
   title: string
   description?: string
@@ -13,11 +16,13 @@ interface Props {
   tags?: string[]
   author?: string
   preloadImage?: { src: string; srcset?: string; sizes?: string }
+  locale?: Locale
 }
 
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const {
   title,
-  description = 'Acecore（エースコア）は、システム開発・Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。',
+  description = t(locale, 'meta.defaultDescription'),
   image,
   ogType = 'website',
   jsonLd,
@@ -31,28 +36,30 @@ const {
   preloadImage,
 } = Astro.props
 
-const pageTitle =
-  title === 'ホーム'
-    ? 'Acecore | システム開発・Web制作・IT教育'
-    : `${title} | Acecore`
+const isHome = title === t(locale, 'nav.home') || title === 'ホーム'
+const pageTitle = isHome
+  ? t(locale, 'meta.siteTitle')
+  : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
 const isMonetizedPage =
   Astro.url.pathname === '/blog/' || Astro.url.pathname.startsWith('/blog/')
 
-const pageNameMap: Record<string, string> = {
-  services: 'サービス',
-  schools: 'Acecore Schools',
-  about: '会社概要',
-  contact: 'お問い合わせ',
-  blog: 'ブログ',
-  acestudio: 'AceStudio',
-  privacy: 'プライバシーポリシー',
-  tags: 'タグ',
-  authors: '著者',
-  archive: 'アーカイブ',
-  page: 'ページ',
-}
+const pageNameMap: Record<string, string> = Object.fromEntries(
+  Object.entries({
+    services: t(locale, 'pageNames.services'),
+    schools: t(locale, 'pageNames.schools'),
+    about: t(locale, 'pageNames.about'),
+    contact: t(locale, 'pageNames.contact'),
+    blog: t(locale, 'pageNames.blog'),
+    acestudio: t(locale, 'pageNames.acestudio'),
+    privacy: t(locale, 'pageNames.privacy'),
+    tags: t(locale, 'pageNames.tags'),
+    authors: t(locale, 'pageNames.authors'),
+    archive: t(locale, 'pageNames.archive'),
+    page: t(locale, 'pageNames.page'),
+  }),
+)
 const knownRoutes = new Set([
   '',
   'services',
@@ -63,7 +70,12 @@ const knownRoutes = new Set([
   'acestudio',
   'privacy',
 ])
-const pathParts = Astro.url.pathname.split('/').filter(Boolean)
+// locale プレフィクスを除外してパスパーツを取得
+const rawParts = Astro.url.pathname.split('/').filter(Boolean)
+const pathParts = (rawParts[0] && (locales as readonly string[]).includes(rawParts[0]) && rawParts[0] !== defaultLocale)
+  ? rawParts.slice(1)
+  : rawParts
+const siteOrigin = Astro.site?.origin || 'https://acecore.net'
 const breadcrumbLd =
   pathParts.length > 0
     ? {
@@ -73,8 +85,8 @@ const breadcrumbLd =
           {
             '@type': 'ListItem',
             position: 1,
-            name: 'ホーム',
-            item: 'https://acecore.net/',
+            name: t(locale, 'common.home'),
+            item: `${siteOrigin}${getLocalizedUrl('/', locale)}`,
           },
           ...pathParts.map((part, i) => {
             const path = pathParts.slice(0, i + 1).join('/')
@@ -83,15 +95,17 @@ const breadcrumbLd =
               position: i + 2,
               name: pageNameMap[part] || decodeURIComponent(part),
               ...(i < pathParts.length - 1 && knownRoutes.has(path)
-                ? { item: `https://acecore.net/${path}/` }
+                ? { item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}` }
                 : i === pathParts.length - 1
-                  ? { item: `https://acecore.net/${path}/` }
+                  ? { item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}` }
                   : {}),
             }
           }),
         ],
       }
     : null
+
+const alternateUrls = getAlternateUrls(Astro.url.pathname, siteOrigin)
 
 import '@fontsource-variable/noto-sans-jp'
 import { ClientRouter } from 'astro:transitions'
@@ -104,7 +118,7 @@ import { SITE } from '../data/site'
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={htmlLangMap[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -113,7 +127,10 @@ import { SITE } from '../data/site'
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content={robots} />
-    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:locale" content={ogLocaleMap[locale]} />
+    {locales.filter(l => l !== locale).map(l => (
+      <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
+    ))}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -153,9 +170,13 @@ import { SITE } from '../data/site'
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Acecore ブログ"
+      title={t(locale, 'blog.rssTitle')}
       href="/rss.xml"
     />
+    {alternateUrls.map(({ locale: l, url }) => (
+      <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={alternateUrls.find(a => a.locale === defaultLocale)?.url} />
     <link rel="preconnect" href="https://wsrv.nl" />
     {
       preloadImage && (
@@ -293,19 +314,36 @@ import { SITE } from '../data/site'
         ))
     }
     <ClientRouter />
+    <script is:inline>
+      (function() {
+        if (localStorage.getItem('preferred-locale')) return;
+        var path = location.pathname;
+        if (path !== '/' && path !== '') return;
+        var lang = (navigator.language || '').toLowerCase();
+        var map = {
+          en:'en',de:'de',fr:'fr',es:'es',pt:'pt',ko:'ko',ru:'ru',
+          'zh-cn':'zh-cn','zh-hans':'zh-cn','zh':'zh-cn'
+        };
+        var detected = map[lang] || map[lang.split('-')[0]];
+        if (detected && detected !== 'ja') {
+          localStorage.setItem('preferred-locale', detected);
+          location.replace('/' + detected + '/');
+        }
+      })();
+    </script>
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm"
-      >本文へスキップ</a
+      >{t(locale, 'common.skipToContent')}</a
     >
-    <Header />
+    <Header locale={locale} />
     <main id="main" tabindex="-1" class="flex-1">
       <slot />
     </main>
-    <Footer />
-    <ScrollToTop />
+    <Footer locale={locale} />
+    <ScrollToTop locale={locale} />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
     <script is:inline>

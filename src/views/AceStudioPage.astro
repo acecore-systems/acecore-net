@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import InsightGrid from '../components/InsightGrid.astro'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
+import PullQuote from '../components/PullQuote.astro'
+import Faq from '../components/Faq.astro'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const faqItems = [
+  {
+    question: t(locale, 'pages.acestudio.faqQ1'),
+    answer: t(locale, 'pages.acestudio.faqA1'),
+  },
+  {
+    question: t(locale, 'pages.acestudio.faqQ2'),
+    answer: t(locale, 'pages.acestudio.faqA2'),
+  },
+  {
+    question: t(locale, 'pages.acestudio.faqQ3'),
+    answer: t(locale, 'pages.acestudio.faqA3'),
+  },
+  {
+    question: t(locale, 'pages.acestudio.faqQ4'),
+    answer: t(locale, 'pages.acestudio.faqA4'),
+  },
+]
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+}
+
+const studioAreas = [
+  {
+    title: t(locale, 'pages.acestudio.areaContentTitle'),
+    description: t(locale, 'pages.acestudio.areaContentDesc'),
+    icon: 'i-lucide-film',
+    tone: 'brand',
+  },
+  {
+    title: t(locale, 'pages.acestudio.areaCreatorTitle'),
+    description: t(locale, 'pages.acestudio.areaCreatorDesc'),
+    icon: 'i-lucide-badge-help',
+    tone: 'amber',
+  },
+  {
+    title: t(locale, 'pages.acestudio.areaCommunityTitle'),
+    description: t(locale, 'pages.acestudio.areaCommunityDesc'),
+    icon: 'i-lucide-messages-square',
+    tone: 'emerald',
+  },
+  {
+    title: t(locale, 'pages.acestudio.areaRevenueTitle'),
+    description: t(locale, 'pages.acestudio.areaRevenueDesc'),
+    icon: 'i-lucide-chart-no-axes-combined',
+    tone: 'slate',
+  },
+] as const
+---
+
+<BaseLayout
+  title={t(locale, 'pages.acestudio.title')}
+  description={t(locale, 'pages.acestudio.description')}
+  jsonLd={faqLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.acestudio.heroTitle')}
+    subtitle={t(locale, 'pages.acestudio.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.acestudio.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl text-center">
+      <div class="text-left">
+        <Breadcrumb items={[{ label: 'AceStudio' }]} locale={locale} />
+      </div>
+      <div class="text-left mb-12">
+        <InsightGrid
+          variant="card"
+          eyebrow={t(locale, 'pages.acestudio.studioScopeEyebrow')}
+          title={t(locale, 'pages.acestudio.studioScopeTitle')}
+          description={t(locale, 'pages.acestudio.studioScopeDesc')}
+          items={studioAreas}
+        />
+      </div>
+
+      <div class="mb-12">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
+            [400, 800],
+          )}
+          sizes="(min-width: 768px) 48rem, 100vw"
+          alt={t(locale, 'pages.acestudio.creativeImgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="mb-12">
+        <div
+          class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6"
+          aria-hidden="true"
+        >
+        </div>
+        <h2 class="text-2xl ac-heading mb-6">
+          {t(locale, 'pages.acestudio.comingSoonHeading')}
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.acestudio.comingSoonBody1')}
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.acestudio.comingSoonBody2')}
+        </p>
+        <p class="text-slate-500">
+          {t(locale, 'pages.acestudio.comingSoonBody3')}
+        </p>
+      </div>
+
+      <div class="text-left mb-12">
+        <PullQuote
+          text={t(locale, 'pages.acestudio.pullQuoteText')}
+          attribution={t(locale, 'pages.acestudio.pullQuoteAttribution')}
+        />
+      </div>
+
+      <div class="text-left mb-12">
+        <Faq title={t(locale, 'pages.acestudio.faqTitle')} items={faqItems} />
+      </div>
+
+      <div class="bg-slate-50 rounded-xl p-8 mb-12">
+        <h3 class="font-700 text-lg text-slate-900 mb-4">
+          {t(locale, 'pages.acestudio.newsHeading')}
+        </h3>
+        <p class="text-slate-600 mb-6">
+          {t(locale, 'pages.acestudio.newsBody')}
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href={SITE.social.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline"
+          >
+            {t(locale, 'pages.acestudio.followX')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+          <a href={u('/blog/')} class="ac-btn-outline">
+            {t(locale, 'pages.acestudio.viewBlog')}
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-slate-600 mb-4">
+          {t(locale, 'pages.acestudio.inquiryText')}
+        </p>
+        <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.acestudio.inquiryButton')}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

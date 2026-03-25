@@ -1,11 +1,36 @@
 ---
 import { SITE } from '../data/site'
+import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
 <dialog
   id="search-dialog"
   class="fixed inset-0 z-100 m-0 h-full w-full max-h-full max-w-full bg-transparent backdrop:bg-black/50"
   aria-labelledby="search-dialog-title"
+  data-locale={locale}
+  data-t-search-title={t(locale, 'common.search')}
+  data-t-close={t(locale, 'common.close')}
+  data-t-loading={t(locale, 'blog.searchLoading')}
+  data-t-error={t(locale, 'blog.searchError')}
+  data-t-retry={t(locale, 'blog.searchRetry')}
+  data-t-placeholder={t(locale, 'common.searchPlaceholder')}
+  data-t-zero-results={t(locale, 'blog.zeroResults')}
+  data-t-many-results={t(locale, 'blog.manyResults')}
+  data-t-one-result={t(locale, 'blog.oneResult')}
+  data-t-filters={t(locale, 'blog.filtersLabel')}
+  data-t-fallback-heading={t(locale, 'blog.searchFallbackHeading')}
+  data-t-fallback-blog={t(locale, 'blog.searchFallbackBlogList')}
+  data-t-fallback-services={t(locale, 'blog.searchFallbackServiceList')}
+  data-t-fallback-contact={t(locale, 'blog.searchFallbackContact')}
+  data-link-blog={getLocalizedUrl('/blog/', locale)}
+  data-link-services={getLocalizedUrl('/services/', locale)}
+  data-link-contact={getLocalizedUrl('/contact/', locale)}
 >
   <div
     class="flex items-start justify-center min-h-full pt-16 sm:pt-24 px-4 pb-8"
@@ -19,12 +44,12 @@ import { SITE } from '../data/site'
           class="text-sm font-700 text-slate-700 flex items-center gap-2"
         >
           <div class="i-lucide-search text-sm" aria-hidden="true"></div>
-          記事を検索
+          {t(locale, 'common.search')}
         </span>
         <button
           id="search-close"
           class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-          aria-label="閉じる"
+          aria-label={t(locale, 'common.close')}
         >
           <div class="i-lucide-x text-lg" aria-hidden="true"></div>
         </button>
@@ -149,15 +174,20 @@ import { SITE } from '../data/site'
   }
 
   function showSearchLoading(container: HTMLElement) {
+    const dialog = document.getElementById('search-dialog')
+    const loadingText = dialog?.dataset.tLoading ?? 'Loading search...'
     container.innerHTML =
-      '<p class="px-1 py-4 text-sm text-slate-600">検索を読み込んでいます...</p>'
+      `<p class="px-1 py-4 text-sm text-slate-600">${loadingText}</p>`
   }
 
   function showSearchError(container: HTMLElement, retry: () => void) {
+    const dialog = document.getElementById('search-dialog')
+    const errorText = dialog?.dataset.tError ?? 'Failed to load search.'
+    const retryText = dialog?.dataset.tRetry ?? 'Retry'
     container.innerHTML =
       '<div class="px-1 py-4 space-y-3">' +
-      '<p class="text-sm text-red-700">検索の読み込みに失敗しました。通信状態をご確認のうえ、もう一度お試しください。</p>' +
-      '<button type="button" class="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-600 text-slate-700 hover:bg-slate-50 transition-colors" data-search-retry>再読み込みする</button>' +
+      `<p class="text-sm text-red-700">${errorText}</p>` +
+      `<button type="button" class="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-600 text-slate-700 hover:bg-slate-50 transition-colors" data-search-retry>${retryText}</button>` +
       '</div>'
 
     container
@@ -177,17 +207,18 @@ import { SITE } from '../data/site'
     await loadPagefindScript()
 
     container.innerHTML = ''
+    const d = dialog?.dataset ?? {}
     new (window as any).PagefindUI({
       element: '#search-container',
       showSubResults: false,
       showImages: false,
       showFilters: true,
       translations: {
-        placeholder: 'キーワードを入力…',
-        zero_results: '「[SEARCH_TERM]」に一致する記事が見つかりませんでした',
-        many_results: '[COUNT] 件の記事が見つかりました',
-        one_result: '1 件の記事が見つかりました',
-        filters_label: '絞り込み',
+        placeholder: d.tPlaceholder ?? 'Enter keywords…',
+        zero_results: d.tZeroResults ?? 'No articles found matching "[SEARCH_TERM]"',
+        many_results: d.tManyResults ?? '[COUNT] articles found',
+        one_result: d.tOneResult ?? '1 article found',
+        filters_label: d.tFilters ?? 'Filters',
       },
     })
     container.dataset.pagefindReady = 'true'
@@ -240,17 +271,21 @@ import { SITE } from '../data/site'
       const ad = document.getElementById('search-ad')
       const message = document.querySelector('.pagefind-ui__message')
       let fallback = document.getElementById('search-fallback')
-      if (message?.textContent?.includes('見つかりません')) {
+      const d = dialog?.dataset ?? {}
+      if (message?.textContent?.includes('見つかりません') || message?.textContent?.includes('No ') || message?.textContent?.includes('0')) {
         if (!fallback) {
           fallback = document.createElement('div')
           fallback.id = 'search-fallback'
           fallback.className = 'px-1 py-3 text-sm text-slate-600'
+          const blogLink = d.linkBlog ?? '/blog/'
+          const servicesLink = d.linkServices ?? '/services/'
+          const contactLink = d.linkContact ?? '/contact/'
           fallback.innerHTML =
-            '<p class="mb-2">以下もお試しください：</p>' +
+            `<p class="mb-2">${d.tFallbackHeading ?? 'You may also try:'}</p>` +
             '<ul class="space-y-1 list-none p-0 m-0">' +
-            '<li><a href="/blog/" class="ac-link">→ 記事一覧を見る</a></li>' +
-            '<li><a href="/services/" class="ac-link">→ サービス一覧を見る</a></li>' +
-            '<li><a href="/contact/" class="ac-link">→ お問い合わせ</a></li>' +
+            `<li><a href="${blogLink}" class="ac-link">${d.tFallbackBlog ?? '→ Browse all articles'}</a></li>` +
+            `<li><a href="${servicesLink}" class="ac-link">${d.tFallbackServices ?? '→ View services'}</a></li>` +
+            `<li><a href="${contactLink}" class="ac-link">${d.tFallbackContact ?? '→ Contact us'}</a></li>` +
             '</ul>'
           message.parentNode?.insertBefore(fallback, message.nextSibling)
         }

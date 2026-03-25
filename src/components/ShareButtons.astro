@@ -1,44 +1,51 @@
 ---
+import { t, getLocaleFromUrl, type Locale } from '../i18n'
+
 interface Props {
   url: string
   title: string
+  locale?: Locale
 }
 const { url, title } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const encodedUrl = encodeURIComponent(url)
 const encodedTitle = encodeURIComponent(title)
 ---
 
 <div class="flex items-center gap-3 flex-wrap" data-pagefind-ignore>
-  <span class="text-sm font-600 text-slate-600">シェアする</span>
+  <span class="text-sm font-600 text-slate-600">{t(locale, 'blog.share')}</span>
   <a
     href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
     target="_blank"
     rel="noopener noreferrer"
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#1d9bf0] hover:text-white transition-colors"
-    aria-label="Xで共有"
+    aria-label={t(locale, 'blog.shareOnX')}
   >
     <div class="i-lucide-twitter text-sm" aria-hidden="true"></div>
     <span>X</span>
-    <span class="sr-only">（新しいタブで開きます）</span>
+    <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
   </a>
   <a
     href={`https://b.hatena.ne.jp/add?mode=confirm&url=${encodedUrl}&title=${encodedTitle}`}
     target="_blank"
     rel="noopener noreferrer"
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#00a4de] hover:text-white transition-colors"
-    aria-label="はてなブックマークに追加"
+    aria-label={t(locale, 'blog.addToHatena')}
   >
     <span class="font-700 text-xs">B!</span>
-    <span>はてブ</span>
-    <span class="sr-only">（新しいタブで開きます）</span>
+    <span>{t(locale, 'blog.addToHatena')}</span>
+    <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
   </a>
   <button
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer"
-    aria-label="リンクをコピー"
+    aria-label={t(locale, 'blog.copyLink')}
     data-share-url={url}
+    data-label-default={t(locale, 'blog.copyLink')}
+    data-label-copied={t(locale, 'blog.linkCopied')}
+    data-label-failed={t(locale, 'blog.linkCopyFailed')}
   >
     <div class="i-lucide-link text-sm" aria-hidden="true"></div>
-    <span>リンク</span>
+    <span>{t(locale, 'blog.copyLink')}</span>
   </button>
 </div>
 
@@ -50,15 +57,17 @@ const encodedTitle = encodeURIComponent(title)
         btn.addEventListener('click', async () => {
           const url = btn.dataset.shareUrl!
           const span = btn.querySelector('span')
-          const original = span?.textContent
+          const defaultLabel = btn.dataset.labelDefault ?? 'Link'
+          const copiedLabel = btn.dataset.labelCopied ?? 'Copied!'
+          const failedLabel = btn.dataset.labelFailed ?? 'Copy failed'
           try {
             await navigator.clipboard.writeText(url)
-            if (span) span.textContent = 'コピーしました'
+            if (span) span.textContent = copiedLabel
           } catch {
-            if (span) span.textContent = 'コピー失敗'
+            if (span) span.textContent = failedLabel
           }
           setTimeout(() => {
-            if (span) span.textContent = original ?? 'リンク'
+            if (span) span.textContent = defaultLabel
           }, 2000)
         })
       })

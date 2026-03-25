@@ -1,6 +1,14 @@
 ---
 import { SITE } from '../data/site'
+import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const currentYear = new Date().getFullYear()
+const u = (path: string) => getLocalizedUrl(path, locale)
 ---
 
 <footer class="bg-slate-900 text-slate-300">
@@ -9,73 +17,73 @@ const currentYear = new Date().getFullYear()
       <div>
         <h3 class="font-700 text-white text-lg mb-4">Acecore</h3>
         <p class="text-sm leading-relaxed">
-          技術でつながる、クリエイティブで広がる。<br />
-          多様な価値を創出するテクノロジー集団です。
+          {t(locale, 'footer.tagline')}<br />
+          {t(locale, 'footer.description')}
         </p>
       </div>
       <div>
-        <h3 class="font-700 text-white text-lg mb-4">サイトマップ</h3>
+        <h3 class="font-700 text-white text-lg mb-4">{t(locale, 'footer.sitemap')}</h3>
         <ul class="space-y-0 text-sm list-none p-0 m-0" role="list">
           <li>
             <a
-              href="/"
+              href={u('/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
-              >ホーム</a
+              >{t(locale, 'nav.home')}</a
             >
           </li>
           <li>
             <a
-              href="/services/"
+              href={u('/services/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >サービス</a
+              >{t(locale, 'nav.services')}</a
             >
           </li>
           <li>
             <a
-              href="/schools/"
+              href={u('/schools/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >Acecore Schools</a
+              >{t(locale, 'footer.schools')}</a
             >
           </li>
           <li>
             <a
-              href="/acestudio/"
+              href={u('/acestudio/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
               >AceStudio</a
             >
           </li>
           <li>
             <a
-              href="/about/"
+              href={u('/about/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >会社概要</a
+              >{t(locale, 'nav.about')}</a
             >
           </li>
           <li>
             <a
-              href="/blog/"
+              href={u('/blog/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
-              >ブログ</a
+              >{t(locale, 'nav.blog')}</a
             >
           </li>
           <li>
             <a
-              href="/contact/"
+              href={u('/contact/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >お問い合わせ</a
+              >{t(locale, 'nav.contact')}</a
             >
           </li>
           <li>
             <a
-              href="/privacy/"
+              href={u('/privacy/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >プライバシーポリシー</a
+              >{t(locale, 'footer.privacy')}</a
             >
           </li>
         </ul>
       </div>
       <div>
-        <h3 class="font-700 text-white text-lg mb-4">関連リンク</h3>
+        <h3 class="font-700 text-white text-lg mb-4">{t(locale, 'footer.relatedLinks')}</h3>
         <ul class="space-y-0 text-sm list-none p-0 m-0" role="list">
           <li>
             <a
@@ -83,7 +91,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >Aceserver<span class="sr-only">（新しいタブで開きます）</span></a
+              >Aceserver<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>
           <li>
@@ -92,7 +100,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
-              >X<span class="sr-only">（新しいタブで開きます）</span></a
+              >X<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>
           <li>
@@ -101,7 +109,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
-              >GitHub<span class="sr-only">（新しいタブで開きます）</span></a
+              >GitHub<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>
         </ul>

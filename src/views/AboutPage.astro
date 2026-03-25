@@ -1,0 +1,326 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import ProcessFigure from '../components/ProcessFigure.astro'
+import Checklist from '../components/Checklist.astro'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { SITE } from '../data/site'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const valueCycle = [
+  {
+    title: t(locale, 'pages.about.cycleImplementTitle'),
+    description: t(locale, 'pages.about.cycleImplementDesc'),
+    icon: 'i-lucide-cpu',
+    accent: 'brand',
+  },
+  {
+    title: t(locale, 'pages.about.cycleExpressTitle'),
+    description: t(locale, 'pages.about.cycleExpressDesc'),
+    icon: 'i-lucide-palette',
+    accent: 'amber',
+  },
+  {
+    title: t(locale, 'pages.about.cycleNurtureTitle'),
+    description: t(locale, 'pages.about.cycleNurtureDesc'),
+    icon: 'i-lucide-users',
+    accent: 'emerald',
+  },
+  {
+    title: t(locale, 'pages.about.cycleReturnTitle'),
+    description: t(locale, 'pages.about.cycleReturnDesc'),
+    icon: 'i-lucide-repeat-2',
+    accent: 'slate',
+  },
+] as const
+
+const activityChecklist = [
+  { text: t(locale, 'pages.about.activity1') },
+  { text: t(locale, 'pages.about.activity2') },
+  { text: t(locale, 'pages.about.activity3') },
+  { text: t(locale, 'pages.about.activity4') },
+  { text: t(locale, 'pages.about.activity5') },
+]
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Acecore',
+  url: 'https://acecore.net',
+  logo: 'https://acecore.net/favicon.svg',
+  description: t(locale, 'pages.about.description'),
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'JP',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: SITE.phoneIntl,
+    email: SITE.email,
+    contactType: 'customer service',
+    availableLanguage: 'Japanese',
+  },
+  sameAs: [SITE.social.x, SITE.social.github, SITE.social.aceserver],
+  knowsAbout: ['システム開発', 'Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.about.title')}
+  description={t(locale, 'pages.about.description')}
+  jsonLd={organizationLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.about.heroTitle')}
+    subtitle={t(locale, 'pages.about.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.about.heroImgAlt'),
+      },
+    ]}
+    locale={locale}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb items={[{ label: t(locale, 'pages.about.title') }]} locale={locale} />
+      <div class="mb-12">
+        <ProcessFigure
+          variant="card"
+          eyebrow={t(locale, 'pages.about.missionLoopEyebrow')}
+          title={t(locale, 'pages.about.missionLoopTitle')}
+          description={t(locale, 'pages.about.missionLoopDesc')}
+          steps={valueCycle}
+        />
+      </div>
+
+      <!-- 理念 -->
+      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.philosophyHeading')}</h2>
+      <div class="bg-brand-50 rounded-xl p-8 mb-12">
+        <p class="text-xl font-600 text-brand-700 text-center">
+          {t(locale, 'pages.about.philosophyMotto')}
+        </p>
+      </div>
+
+      <p class="text-lg text-slate-600 leading-relaxed mb-4">
+        {t(locale, 'pages.about.philosophyBody1')}
+      </p>
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        {t(locale, 'pages.about.philosophyBody2')}
+      </p>
+
+      <div class="mb-12">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.about.collaborationImgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="mb-12">
+        <Checklist title={t(locale, 'pages.about.activitiesTitle')} items={activityChecklist} />
+      </div>
+
+      <div class="mb-12">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+          )}
+          srcset={generateSrcSet(
+            optimizeImage(
+              'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+            ),
+          )}
+          sizes="(min-width: 1024px) 56rem, 100vw"
+          alt={t(locale, 'pages.about.workshopImgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="800"
+          height="450"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- 活動と取り組み -->
+      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.initiativesHeading')}</h2>
+      <div class="space-y-6 mb-12">
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-users text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.communityTitle')}</h3>
+            <p class="text-slate-600">
+              {t(locale, 'pages.about.communityDesc')}
+              <a href={u('/blog/')} class="ac-link">{t(locale, 'nav.blog')}</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-git-branch text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.ossTitle')}</h3>
+            <p class="text-slate-600">
+              {t(locale, 'pages.about.ossDesc')}
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-map-pin text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.regionalTitle')}</h3>
+            <p class="text-slate-600">
+              {t(locale, 'pages.about.regionalDesc')}
+              <a href={u('/schools/')} class="ac-link">Acecore Schools</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div
+            class="i-lucide-handshake text-2xl text-brand-500 shrink-0 mt-1"
+            aria-hidden="true"
+          >
+          </div>
+          <div>
+            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.partnershipTitle')}</h3>
+            <p class="text-slate-600">
+              {t(locale, 'pages.about.partnershipDesc')}
+              <a href={u('/services/')} class="ac-link">{t(locale, 'nav.services')}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 関連リンク -->
+      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.relatedLinksHeading')}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        <a
+          href={SITE.social.aceserver}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div
+              class="i-lucide-gamepad-2 text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
+            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkAceserver')}</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.about.linkAceserverDesc')}
+          </p>
+          <span class="sr-only">（新しいタブで開きます）</span>
+        </a>
+        <a
+          href={SITE.social.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div
+              class="i-lucide-at-sign text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
+            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkX')}</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.about.linkXDesc')}
+          </p>
+          <span class="sr-only">（新しいタブで開きます）</span>
+        </a>
+        <a
+          href={SITE.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div
+              class="i-lucide-github text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
+            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkGithub')}</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.about.linkGithubDesc')}
+          </p>
+          <span class="sr-only">（新しいタブで開きます）</span>
+        </a>
+        <a
+          href={SITE.social.discord}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <div
+              class="i-lucide-message-circle text-xl text-brand-500"
+              aria-hidden="true"
+            >
+            </div>
+            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkDiscord')}</h3>
+          </div>
+          <p class="text-sm text-slate-600">
+            {t(locale, 'pages.about.linkDiscordDesc')}
+          </p>
+          <span class="sr-only">（新しいタブで開きます）</span>
+        </a>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center bg-slate-50 rounded-xl p-8">
+        <p class="text-lg font-700 text-slate-800 mb-2">
+          {t(locale, 'pages.about.ctaHeading')}
+        </p>
+        <p class="text-sm text-slate-600 mb-6">
+          {t(locale, 'pages.about.ctaBody')}
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.about.ctaContact')}</a>
+          <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.about.ctaServices')}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

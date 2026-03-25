@@ -7,6 +7,13 @@ import rehypeInjectAds from './src/utils/rehype-inject-ads'
 
 export default defineConfig({
   site: 'https://acecore.net',
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   build: {
     inlineStylesheets: 'auto',
   },

@@ -1,10 +1,18 @@
 ---
+import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
+import LanguageSwitcher from './LanguageSwitcher.astro'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const navLinks = [
-  { href: '/', label: 'ホーム' },
-  { href: '/services/', label: 'サービス' },
-  { href: '/about/', label: '会社概要' },
-  { href: '/blog/', label: 'ブログ' },
-  { href: '/contact/', label: 'お問い合わせ' },
+  { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
+  { href: getLocalizedUrl('/services/', locale), label: t(locale, 'nav.services') },
+  { href: getLocalizedUrl('/about/', locale), label: t(locale, 'nav.about') },
+  { href: getLocalizedUrl('/blog/', locale), label: t(locale, 'nav.blog') },
+  { href: getLocalizedUrl('/contact/', locale), label: t(locale, 'nav.contact') },
 ]
 const currentPath = Astro.url.pathname
 ---
@@ -14,7 +22,7 @@ const currentPath = Astro.url.pathname
 >
   <div class="ac-container flex items-center justify-between h-16">
     <a
-      href="/"
+      href={getLocalizedUrl('/', locale)}
       class="flex items-center gap-2 font-700 text-xl text-brand-500 no-underline min-h-11"
     >
       <img src="/favicon.svg" alt="" class="h-8 w-8" />
@@ -22,7 +30,7 @@ const currentPath = Astro.url.pathname
     </a>
     <nav
       class="hidden md:flex items-center gap-6"
-      aria-label="メインナビゲーション"
+      aria-label={t(locale, 'common.mainNav')}
     >
       {
         navLinks.map((link) => (
@@ -43,26 +51,29 @@ const currentPath = Astro.url.pathname
       <button
         data-search-trigger
         class="p-2 text-slate-500 hover:text-brand-500 transition-colors"
-        aria-label="記事を検索"
-        title="検索 (Ctrl+K)"
+        aria-label={t(locale, 'common.search')}
+        title={t(locale, 'common.searchShortcut')}
       >
         <div class="i-lucide-search text-lg" aria-hidden="true"></div>
       </button>
+      <LanguageSwitcher locale={locale} />
     </nav>
     <div class="flex items-center gap-1 md:hidden">
       <button
         data-search-trigger
         class="p-2 text-slate-500"
-        aria-label="記事を検索"
+        aria-label={t(locale, 'common.search')}
       >
         <div class="i-lucide-search text-lg" aria-hidden="true"></div>
       </button>
       <button
         id="mobile-menu-btn"
         class="p-2 text-slate-600"
-        aria-label="メニューを開く"
+        aria-label={t(locale, 'common.openMenu')}
         aria-expanded="false"
         aria-controls="mobile-menu"
+        data-label-open={t(locale, 'common.openMenu')}
+        data-label-close={t(locale, 'common.closeMenu')}
       >
         <div class="i-lucide-menu text-xl" aria-hidden="true"></div>
       </button>
@@ -71,7 +82,7 @@ const currentPath = Astro.url.pathname
   <nav
     id="mobile-menu"
     class="hidden md:hidden border-t border-slate-200 bg-white"
-    aria-label="モバイルナビゲーション"
+    aria-label={t(locale, 'common.mobileNav')}
   >
     <div class="ac-container py-4 flex flex-col gap-3">
       {
@@ -88,6 +99,9 @@ const currentPath = Astro.url.pathname
           </a>
         ))
       }
+      <div class="border-t border-slate-100 pt-3">
+        <LanguageSwitcher locale={locale} />
+      </div>
     </div>
   </nav>
 </header>
@@ -101,7 +115,7 @@ const currentPath = Astro.url.pathname
     // Reset state after VT swap
     menu.classList.add('hidden')
     menuBtn.setAttribute('aria-expanded', 'false')
-    menuBtn.setAttribute('aria-label', 'メニューを開く')
+    menuBtn.setAttribute('aria-label', menuBtn.dataset.labelOpen || 'Open menu')
     const icon = menuBtn.querySelector('div')
     if (icon) {
       icon.classList.add('i-lucide-menu')
@@ -113,7 +127,7 @@ const currentPath = Astro.url.pathname
       menuBtn.setAttribute('aria-expanded', String(expanded))
       menuBtn.setAttribute(
         'aria-label',
-        expanded ? 'メニューを閉じる' : 'メニューを開く',
+        expanded ? (menuBtn.dataset.labelClose || 'Close menu') : (menuBtn.dataset.labelOpen || 'Open menu'),
       )
       const icon = menuBtn.querySelector('div')
       if (icon) {
@@ -135,7 +149,7 @@ const currentPath = Astro.url.pathname
       if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
         menu.classList.add('hidden')
         menuBtn.setAttribute('aria-expanded', 'false')
-        menuBtn.setAttribute('aria-label', 'メニューを開く')
+        menuBtn.setAttribute('aria-label', menuBtn.dataset.labelOpen || 'Open menu')
         menuBtn.focus()
       }
       if (e.key === 'Tab' && !menu.classList.contains('hidden')) {

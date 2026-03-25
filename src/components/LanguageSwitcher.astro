@@ -1,0 +1,93 @@
+---
+import { locales, localeLabels, type Locale } from '../i18n'
+import { getLocalizedUrl, getLocaleFromUrl } from '../i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const currentPath = Astro.url.pathname
+---
+
+<div class="relative" data-lang-switcher>
+  <button
+    class="flex items-center gap-1 px-2 py-1.5 text-sm text-slate-600 hover:text-brand-500 transition-colors rounded-md hover:bg-slate-50"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-label={localeLabels[locale]}
+  >
+    <div class="i-lucide-globe text-base" aria-hidden="true"></div>
+    <span class="hidden sm:inline text-xs">{localeLabels[locale]}</span>
+    <div class="i-lucide-chevron-down text-xs" aria-hidden="true"></div>
+  </button>
+  <ul
+    class="hidden absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 rounded-lg shadow-lg py-1 z-50"
+    role="listbox"
+    aria-label="Language"
+  >
+    {
+      locales.map((l) => (
+        <li role="option" aria-selected={l === locale}>
+          <a
+            href={getLocalizedUrl(currentPath, l)}
+            class:list={[
+              'block px-4 py-2 text-sm no-underline transition-colors',
+              l === locale
+                ? 'bg-brand-50 text-brand-600 font-600'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-500',
+            ]}
+            data-locale={l}
+          >
+            {localeLabels[l]}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  function initLangSwitcher() {
+    document
+      .querySelectorAll<HTMLElement>('[data-lang-switcher]')
+      .forEach((sw) => {
+        const btn = sw.querySelector('button')
+        const list = sw.querySelector('ul')
+        if (!btn || !list) return
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation()
+          const expanded = list.classList.toggle('hidden') === false
+          btn.setAttribute('aria-expanded', String(expanded))
+        })
+
+        list
+          .querySelectorAll<HTMLAnchorElement>('a[data-locale]')
+          .forEach((a) => {
+            a.addEventListener('click', () => {
+              const locale = a.dataset.locale
+              if (locale) localStorage.setItem('preferred-locale', locale)
+            })
+          })
+
+        document.addEventListener('click', (e) => {
+          if (!sw.contains(e.target as Node)) {
+            list.classList.add('hidden')
+            btn.setAttribute('aria-expanded', 'false')
+          }
+        })
+
+        sw.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            list.classList.add('hidden')
+            btn.setAttribute('aria-expanded', 'false')
+            btn.focus()
+          }
+        })
+      })
+  }
+
+  initLangSwitcher()
+  document.addEventListener('astro:after-swap', initLangSwitcher)
+</script>

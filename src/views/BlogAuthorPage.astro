@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import BlogPostCard from '../components/BlogPostCard.astro'
+import BlogSidebar from '../components/BlogSidebar.astro'
+import authors from '../data/authors.json'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  locale: Locale
+  authorId: string
+  posts: CollectionEntry<'blog'>[]
+  allPosts: CollectionEntry<'blog'>[]
+}
+
+const { locale, authorId, posts, allPosts } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const author = authors.find((a) => a.id === authorId)
+const authorName = author?.name ?? authorId
+---
+
+<BaseLayout
+  title={t(locale, 'blog.articlesByAuthor', { author: authorName })}
+  description={t(locale, 'blog.authorDescription', { author: authorName })}
+  locale={locale}
+>
+  <section class="ac-section">
+    <div class="ac-container">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'blog.title'), href: u('/blog/') },
+          { label: t(locale, 'blog.authorPrefix', { author: authorName }) },
+        ]}
+        locale={locale}
+      />
+      <div class="flex items-center gap-4 mb-8">
+        {
+          author && (author.avatarImage || author.avatar) ? (
+            <img
+              src={author.avatarImage || author.avatar}
+              alt={authorName}
+              class="w-16 h-16 rounded-full object-cover shrink-0"
+              width="64"
+              height="64"
+              decoding="async"
+            />
+          ) : (
+            <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
+              {authorName.charAt(0)}
+            </div>
+          )
+        }
+        <div>
+          <h1 class="text-2xl sm:text-3xl ac-heading">
+            {authorName}
+          </h1>
+          <p class="text-sm text-slate-500 mt-1">
+            {t(locale, 'blog.postsCount', { count: posts.length })}
+          </p>
+          {
+            author?.bio && (
+              <p class="text-sm text-slate-600 mt-2 whitespace-pre-line">
+                {author.bio}
+              </p>
+            )
+          }
+        </div>
+      </div>
+      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+        <div class="space-y-6">
+          {posts.map((post) => <BlogPostCard post={post} locale={locale} />)}
+        </div>
+        <BlogSidebar allPosts={allPosts} locale={locale} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

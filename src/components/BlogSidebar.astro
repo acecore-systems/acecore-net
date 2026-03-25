@@ -2,12 +2,15 @@
 import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
 import authors from '../data/authors.json'
+import { t, formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   allPosts: CollectionEntry<'blog'>[]
+  locale?: Locale
 }
 
 const { allPosts } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 
 const tagCounts = new Map<string, number>()
 for (const post of allPosts) {
@@ -50,18 +53,18 @@ for (const post of allPosts) {
 const latestPosts = allPosts.slice(0, 5)
 ---
 
-<aside class="hidden lg:block" aria-label="サイドバー">
+<aside class="hidden lg:block" aria-label={t(locale, 'blog.sidebar')}>
   <div class="sticky top-20 space-y-6">
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-tags text-brand-500" aria-hidden="true"></div>
-        タグ
+        {t(locale, 'blog.tags')}
       </h3>
       <div class="flex flex-wrap gap-1.5">
         {
           sortedTags.map(([tag, count]) => (
             <a
-              href={`/blog/tags/${tag}/`}
+              href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
               class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
             >
               {tag} <span class="text-brand-400">({count})</span>
@@ -74,20 +77,20 @@ const latestPosts = allPosts.slice(0, 5)
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-calendar text-brand-500" aria-hidden="true"></div>
-        アーカイブ
+        {t(locale, 'blog.archive')}
       </h3>
       <ul class="space-y-0.5 text-sm list-none p-0 m-0" role="list">
         {
           sortedArchive.map(([key, { count, year, month }]) => (
             <li>
               <a
-                href={`/blog/archive/${key}/`}
+                href={getLocalizedUrl(`/blog/archive/${key}/`, locale)}
                 class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
               >
                 <span>
-                  {year}年{month}月
+                  {t(locale, 'blog.yearMonth', { year: String(year), month: String(month) })}
                 </span>
-                <span class="text-xs text-slate-500">{count}件</span>
+                <span class="text-xs text-slate-500">{t(locale, 'blog.nArticles', { count: String(count) })}</span>
               </a>
             </li>
           ))
@@ -98,7 +101,7 @@ const latestPosts = allPosts.slice(0, 5)
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-users text-brand-500" aria-hidden="true"></div>
-        著者
+        {t(locale, 'blog.authors')}
       </h3>
       <div class="space-y-3">
         {
@@ -107,7 +110,7 @@ const latestPosts = allPosts.slice(0, 5)
             return (
               count > 0 && (
                 <a
-                  href={`/blog/authors/${author.id}/`}
+                  href={getLocalizedUrl(`/blog/authors/${author.id}/`, locale)}
                   class="flex items-center gap-3 no-underline hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors"
                 >
                   {author.avatarImage || author.avatar ? (
@@ -126,7 +129,7 @@ const latestPosts = allPosts.slice(0, 5)
                   )}
                   <div>
                     <p class="text-sm font-600 text-slate-800">{author.name}</p>
-                    <p class="text-xs text-slate-500">{count}件の記事</p>
+                    <p class="text-xs text-slate-500">{t(locale, 'blog.postsCount', { count: String(count) })}</p>
                   </div>
                 </a>
               )
@@ -139,14 +142,14 @@ const latestPosts = allPosts.slice(0, 5)
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-newspaper text-brand-500" aria-hidden="true"></div>
-        最新記事
+        {t(locale, 'blog.latestPosts')}
       </h3>
       <ul class="space-y-3 list-none p-0 m-0" role="list">
         {
           latestPosts.map((post) => (
             <li>
               <a
-                href={`/blog/${post.id}/`}
+                href={getLocalizedUrl(`/blog/${post.id}/`, locale)}
                 class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
               >
                 {post.data.title}
@@ -155,7 +158,7 @@ const latestPosts = allPosts.slice(0, 5)
                 datetime={post.data.date.toISOString()}
                 class="text-xs text-slate-500 mt-0.5 block"
               >
-                {post.data.date.toLocaleDateString('ja-JP')}
+                {formatDate(post.data.date, locale)}
               </time>
             </li>
           ))

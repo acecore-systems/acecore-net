@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import BlogPostCard from '../components/BlogPostCard.astro'
+import BlogSidebar from '../components/BlogSidebar.astro'
+import { getCollection } from 'astro:content'
+import AdUnit from '../components/AdUnit.astro'
+import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  locale: Locale
+  posts: CollectionEntry<'blog'>[]
+  currentPage: number
+  totalPages: number
+  allPosts: CollectionEntry<'blog'>[]
+}
+
+const { locale, posts, currentPage, totalPages, allPosts } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${t(locale, 'blog.itemListName')} - ${t(locale, 'blog.pageN', { n: currentPage })}`,
+  itemListElement: posts.map((post: CollectionEntry<'blog'>, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://acecore.net/blog/${post.id}/`,
+  })),
+}
+
+const pageNumbers = buildPageNumbers(currentPage, totalPages)
+---
+
+<BaseLayout
+  title={`${t(locale, 'blog.title')} ${t(locale, 'blog.pageOf', { current: currentPage, total: totalPages })}`}
+  description={t(locale, 'blog.pageDescription', { current: currentPage, total: totalPages })}
+  jsonLd={itemListLd}
+  prevPage={currentPage === 2 ? u('/blog/') : u(`/blog/page/${currentPage - 1}/`)}
+  nextPage={currentPage < totalPages ? u(`/blog/page/${currentPage + 1}/`) : undefined}
+  locale={locale}
+>
+  <section class="ac-section">
+    <div class="ac-container">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'blog.title'), href: u('/blog/') },
+          { label: t(locale, 'blog.pageN', { n: currentPage }) },
+        ]}
+        locale={locale}
+      />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+        {t(locale, 'blog.title')} <span class="text-base text-slate-400">
+          {t(locale, 'blog.pageOf', { current: currentPage, total: totalPages })}
+        </span>
+      </h1>
+      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+        <div>
+          <div class="space-y-6">
+            {
+              posts.map((post, i: number) => (
+                <Fragment>
+                  {i > 0 && i % 3 === 0 && (
+                    <div class="ac-card overflow-hidden p-6">
+                      <AdUnit />
+                    </div>
+                  )}
+                  <BlogPostCard post={post} locale={locale} />
+                </Fragment>
+              ))
+            }
+          </div>
+
+          <nav
+            class="mt-10 flex justify-center items-center gap-2"
+            aria-label={t(locale, 'blog.pageNav')}
+          >
+            <a
+              href={currentPage === 2
+                ? u('/blog/')
+                : u(`/blog/page/${currentPage - 1}/`)}
+              class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors"
+            >
+              {t(locale, 'blog.prev')}
+            </a>
+            {
+              pageNumbers.map((p) =>
+                p === '...' ? (
+                  <span class="px-2 text-slate-400">…</span>
+                ) : p === currentPage ? (
+                  <span
+                    class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600"
+                    aria-current="page"
+                  >
+                    {p}
+                  </span>
+                ) : (
+                  <a
+                    href={p === 1 ? u('/blog/') : u(`/blog/page/${p}/`)}
+                    class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors"
+                  >
+                    {p}
+                  </a>
+                ),
+              )
+            }
+            {
+              currentPage < totalPages ? (
+                <a
+                  href={u(`/blog/page/${currentPage + 1}/`)}
+                  class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors"
+                >
+                  {t(locale, 'blog.next')}
+                </a>
+              ) : (
+                <span
+                  class="px-3 py-2 text-sm text-slate-300"
+                  aria-disabled="true"
+                >
+                  {t(locale, 'blog.next')}
+                </span>
+              )
+            }
+          </nav>
+        </div>
+        <BlogSidebar allPosts={allPosts} locale={locale} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,16 +1,20 @@
 ---
+import { t, getLocaleFromUrl, type Locale } from '../i18n'
+
 interface Props {
   headings: { depth: number; slug: string; text: string }[]
+  locale?: Locale
 }
 
 const { headings } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
 {
   headings.length > 0 && (
-    <nav aria-label="目次" class="max-h-[calc(100vh-6rem)] overflow-y-auto">
+    <nav aria-label={t(locale, 'blog.tocLabel')} class="max-h-[calc(100vh-6rem)] overflow-y-auto">
       <p class="text-xs font-700 text-slate-400 uppercase tracking-wider mb-3">
-        目次
+        {t(locale, 'blog.toc')}
       </p>
       <ul class="space-y-1 text-sm">
         {headings.map((h) => (

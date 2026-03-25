@@ -1,8 +1,5 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro'
-import Breadcrumb from '../../../components/Breadcrumb.astro'
-import BlogPostCard from '../../../components/BlogPostCard.astro'
-import BlogSidebar from '../../../components/BlogSidebar.astro'
+import BlogTagPage from '../../../views/BlogTagPage.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -19,42 +16,11 @@ export async function getStaticPaths() {
   }
   return [...tagMap.entries()].map(([tag, posts]) => ({
     params: { tag },
-    props: {
-      tag,
-      posts,
-      allPosts,
-    },
+    props: { tag, posts, allPosts },
   }))
 }
 
 const { tag, posts, allPosts } = Astro.props
 ---
 
-<BaseLayout
-  title={`「${tag}」の記事一覧`}
-  description={`タグ「${tag}」に関連する記事の一覧です。`}
->
-  <section class="ac-section">
-    <div class="ac-container">
-      <Breadcrumb
-        items={[{ label: 'ブログ', href: '/blog/' }, { label: `タグ: ${tag}` }]}
-      />
-      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
-        <span class="text-brand-500">{tag}</span> の記事一覧
-        <span class="text-base text-slate-400 ml-2">({posts.length}件)</span>
-      </h1>
-      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
-        <div>
-          <div class="space-y-6">
-            {posts.map((post) => <BlogPostCard post={post} />)}
-          </div>
-
-          <div class="mt-8 text-center">
-            <a href="/blog/" class="ac-btn-outline">ブログ一覧に戻る</a>
-          </div>
-        </div>
-        <BlogSidebar allPosts={allPosts} />
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+<BlogTagPage locale="ja" tag={tag} posts={posts} allPosts={allPosts} />

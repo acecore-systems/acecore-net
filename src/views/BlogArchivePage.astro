@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import BlogPostCard from '../components/BlogPostCard.astro'
+import BlogSidebar from '../components/BlogSidebar.astro'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  locale: Locale
+  month: string
+  posts: CollectionEntry<'blog'>[]
+  allPosts: CollectionEntry<'blog'>[]
+}
+
+const { locale, month, posts, allPosts } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const [year, m] = month.split('-')
+const label = t(locale, 'blog.yearMonth', { year, month: String(parseInt(m)) })
+---
+
+<BaseLayout
+  title={t(locale, 'blog.articlesInMonth', { label })}
+  description={t(locale, 'blog.monthDescription', { label })}
+  locale={locale}
+>
+  <section class="ac-section">
+    <div class="ac-container">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'blog.title'), href: u('/blog/') },
+          { label },
+        ]}
+        locale={locale}
+      />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+        {t(locale, 'blog.articlesInMonth', { label })}
+        <span class="text-base text-slate-400 ml-2">
+          {t(locale, 'blog.nArticles', { count: posts.length })}
+        </span>
+      </h1>
+      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+        <div class="space-y-6">
+          {posts.map((post) => <BlogPostCard post={post} locale={locale} />)}
+          <div class="mt-8 text-center">
+            <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'blog.backToBlog')}</a>
+          </div>
+        </div>
+        <BlogSidebar allPosts={allPosts} locale={locale} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
