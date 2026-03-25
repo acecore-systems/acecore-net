@@ -1,6 +1,6 @@
 content:
   - name: blog
-    label: ブログ
+    label: ブログ（日本語）
     path: src/content/blog
     type: collection
     view:
@@ -33,6 +33,313 @@ content:
       - name: body
         label: 本文
         type: rich-text
+  - name: blog-en
+    label: Blog（English）
+    path: src/content/blog/en
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: image
+        label: Image URL
+        type: string
+      - name: author
+        label: Author
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+  - name: blog-zh-cn
+    label: 博客（简体中文）
+    path: src/content/blog/zh-cn
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 摘要
+        type: text
+        required: true
+      - name: date
+        label: 日期
+        type: date
+        required: true
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: image
+        label: 图片URL
+        type: string
+      - name: author
+        label: 作者
+        type: string
+      - name: body
+        label: 正文
+        type: rich-text
+  - name: blog-es
+    label: Blog（Español）
+    path: src/content/blog/es
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: description
+        label: Descripción
+        type: text
+        required: true
+      - name: date
+        label: Fecha
+        type: date
+        required: true
+      - name: tags
+        label: Etiquetas
+        type: string
+        list: true
+      - name: image
+        label: URL de imagen
+        type: string
+      - name: author
+        label: Autor
+        type: string
+      - name: body
+        label: Contenido
+        type: rich-text
+  - name: blog-pt
+    label: Blog（Português）
+    path: src/content/blog/pt
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: description
+        label: Descrição
+        type: text
+        required: true
+      - name: date
+        label: Data
+        type: date
+        required: true
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: image
+        label: URL da imagem
+        type: string
+      - name: author
+        label: Autor
+        type: string
+      - name: body
+        label: Conteúdo
+        type: rich-text
+  - name: blog-fr
+    label: Blog（Français）
+    path: src/content/blog/fr
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Titre
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: tags
+        label: Étiquettes
+        type: string
+        list: true
+      - name: image
+        label: URL de l'image
+        type: string
+      - name: author
+        label: Auteur
+        type: string
+      - name: body
+        label: Contenu
+        type: rich-text
+  - name: blog-ko
+    label: 블로그（한국어）
+    path: src/content/blog/ko
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: description
+        label: 설명
+        type: text
+        required: true
+      - name: date
+        label: 날짜
+        type: date
+        required: true
+      - name: tags
+        label: 태그
+        type: string
+        list: true
+      - name: image
+        label: 이미지 URL
+        type: string
+      - name: author
+        label: 작성자
+        type: string
+      - name: body
+        label: 본문
+        type: rich-text
+  - name: blog-de
+    label: Blog（Deutsch）
+    path: src/content/blog/de
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: description
+        label: Beschreibung
+        type: text
+        required: true
+      - name: date
+        label: Datum
+        type: date
+        required: true
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: image
+        label: Bild-URL
+        type: string
+      - name: author
+        label: Autor
+        type: string
+      - name: body
+        label: Inhalt
+        type: rich-text
+  - name: blog-ru
+    label: Блог（Русский）
+    path: src/content/blog/ru
+    type: collection
+    view:
+      fields: [title, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Заголовок
+        type: string
+        required: true
+      - name: description
+        label: Описание
+        type: text
+        required: true
+      - name: date
+        label: Дата
+        type: date
+        required: true
+      - name: tags
+        label: Теги
+        type: string
+        list: true
+      - name: image
+        label: URL изображения
+        type: string
+      - name: author
+        label: Автор
+        type: string
+      - name: body
+        label: Содержание
+        type: rich-text
+  - name: authors
+    label: 著者情報
+    path: src/data/authors.json
+    type: file
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+      - name: name
+        label: 名前
+        type: string
+        required: true
+      - name: avatar
+        label: アバターURL
+        type: string
+      - name: avatarImage
+        label: アバター画像
+        type: image
+      - name: bio
+        label: 自己紹介（日本語）
+        type: text
+      - name: url
+        label: WebサイトURL
+        type: string
+      - name: github
+        label: GitHub URL
+        type: string
+      - name: twitter
+        label: X (Twitter) URL
+        type: string
+      - name: skills
+        label: スキル（日本語）
+        type: string
+        list: true
 
 media:
   input: public/uploads

@@ -518,5 +518,32 @@
     "authors": "作者",
     "archive": "归档",
     "page": "页面"
+  },
+  "tags": {
+    "技術": "技术",
+    "Astro": "Astro",
+    "アクセシビリティ": "无障碍访问",
+    "パフォーマンス": "性能",
+    "SEO": "SEO",
+    "Web制作": "Web制作",
+    "Webサイト": "网站",
+    "セキュリティ": "安全",
+    "Cloudflare": "Cloudflare",
+    "CMS": "CMS",
+    "DNS": "DNS",
+    "メール": "邮件",
+    "インフラ": "基础设施",
+    "コミュニティ": "社区",
+    "教育": "教育",
+    "イベント": "活动",
+    "お知らせ": "公告",
+    "サービス": "服务",
+    "システム開発": "系统开发",
+    "オープンソース": "开源",
+    "Starlight": "Starlight",
+    "GitHub Copilot": "GitHub Copilot",
+    "VS Code": "VS Code",
+    "i18n": "i18n",
+    "Acecore Schools": "Acecore Schools"
   }
 }

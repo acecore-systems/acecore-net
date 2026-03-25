@@ -1,7 +1,7 @@
 ---
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import authors from '../data/authors.json'
-import { formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { formatDate, getLocaleFromUrl, getLocalizedUrl, translateTag, type Locale } from '../i18n'
 import { getBaseSlug } from '../utils/blog-i18n'
 
 interface Props {
@@ -78,7 +78,7 @@ const baseSlug = getBaseSlug(post.id)
           <div class="flex flex-wrap gap-2 mt-4">
             {post.data.tags.map((tag: string) => (
               <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
-                {tag}
+                {translateTag(tag, locale)}
               </span>
             ))}
           </div>

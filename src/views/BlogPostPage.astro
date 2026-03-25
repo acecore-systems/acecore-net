@@ -20,9 +20,9 @@ import TableOfContents from '../components/TableOfContents.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
-import { t, getLocalizedUrl, formatDate, defaultLocale, type Locale } from '../i18n'
+import { t, getLocalizedUrl, formatDate, defaultLocale, translateTag, type Locale } from '../i18n'
 import { getCollection } from 'astro:content'
-import { localizePost, isBasePost } from '../utils/blog-i18n'
+import { localizePost, isBasePost, getLocalizedAuthor } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -44,9 +44,10 @@ const baseSlug = basePost.id
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
-const author = post.data.author
+const rawAuthor = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
+const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 
 const basePosts = allRawPosts.filter(isBasePost)
 
@@ -250,7 +251,7 @@ const ctaHeading = isDefaultLocale
                     href={u(`/blog/tags/${tag}/`)}
                     class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors"
                   >
-                    {tag}
+                    {translateTag(tag, locale)}
                   </a>
                 ))}
               </div>
@@ -477,7 +478,7 @@ const ctaHeading = isDefaultLocale
                         <div class="flex flex-wrap gap-1 mt-2">
                           {rp.data.tags.slice(0, 3).map((tag: string) => (
                             <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                              {tag}
+                              {translateTag(tag, locale)}
                             </span>
                           ))}
                         </div>

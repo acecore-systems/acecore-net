@@ -107,3 +107,14 @@ export function formatDate(date: Date, locale: Locale): string {
     day: 'numeric',
   })
 }
+
+/**
+ * タグ名をロケールに合わせて翻訳する。tags マップに未定義ならそのまま返す。
+ */
+export function translateTag(tag: string, locale: Locale): string {
+  const translated = getNestedValue(
+    translations[locale] as unknown as Record<string, unknown>,
+    `tags.${tag}`,
+  )
+  return translated !== `tags.${tag}` ? translated : tag
+}

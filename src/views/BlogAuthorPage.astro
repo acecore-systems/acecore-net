@@ -5,7 +5,7 @@ import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
 import authors from '../data/authors.json'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
-import { localizePost } from '../utils/blog-i18n'
+import { localizePost, getLocalizedAuthor } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -18,7 +18,8 @@ interface Props {
 
 const { locale, authorId, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const author = authors.find((a) => a.id === authorId)
+const rawAuthor = authors.find((a) => a.id === authorId)
+const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const authorName = author?.name ?? authorId
 ---
 

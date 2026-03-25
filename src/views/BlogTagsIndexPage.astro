@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { getCollection } from 'astro:content'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, translateTag, type Locale } from '../i18n'
 import { isBasePost } from '../utils/blog-i18n'
 
 interface Props {
@@ -44,7 +44,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
               href={u(`/blog/tags/${tag}/`)}
               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-300 hover:text-brand-600 hover:bg-brand-50 transition-colors no-underline"
             >
-              <span class="font-600">{tag}</span>
+              <span class="font-600">{translateTag(tag, locale)}</span>
               <span class="text-sm text-slate-400">({count})</span>
             </a>
           ))

@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
 import authors from '../data/authors.json'
-import { t, formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { t, formatDate, getLocaleFromUrl, getLocalizedUrl, translateTag, type Locale } from '../i18n'
 import { isBasePost, localizePost, getBaseSlug } from '../utils/blog-i18n'
 
 interface Props {
@@ -69,7 +69,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
               href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
               class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
             >
-              {tag} <span class="text-brand-400">({count})</span>
+              {translateTag(tag, locale)} <span class="text-brand-400">({count})</span>
             </a>
           ))
         }

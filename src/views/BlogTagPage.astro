@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, translateTag, type Locale } from '../i18n'
 import { localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
@@ -17,11 +17,12 @@ interface Props {
 
 const { locale, tag, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const displayTag = translateTag(tag, locale)
 ---
 
 <BaseLayout
-  title={t(locale, 'blog.articlesByTag', { tag })}
-  description={t(locale, 'blog.tagDescription', { tag })}
+  title={t(locale, 'blog.articlesByTag', { tag: displayTag })}
+  description={t(locale, 'blog.tagDescription', { tag: displayTag })}
   locale={locale}
 >
   <section class="ac-section">
@@ -29,12 +30,12 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       <Breadcrumb
         items={[
           { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.tagPrefix', { tag }) },
+          { label: t(locale, 'blog.tagPrefix', { tag: displayTag }) },
         ]}
         locale={locale}
       />
       <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
-        {t(locale, 'blog.articlesByTag', { tag })}
+        {t(locale, 'blog.articlesByTag', { tag: displayTag })}
       </h1>
       <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
         <div class="space-y-6">

@@ -8,7 +8,41 @@
     "url": "",
     "github": "",
     "twitter": "",
-    "skills": ["芸術", "小説", "コミュニティ運営"]
+    "skills": ["芸術", "小説", "コミュニティ運営"],
+    "i18n": {
+      "en": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — all of these are my name.\nAn artist and novelist.\nCreator of the original Ace Server world.\nMy hobby is talking with people.",
+        "skills": ["Art", "Novel writing", "Community management"]
+      },
+      "zh-cn": {
+        "bio": "Hatt、ハット、はっ、My_name_is_Hatt，这些都是我的名字。\n艺术家兼小说家。\n初代Ace Server世界的创建者。\n爱好是与人交流。",
+        "skills": ["艺术", "小说", "社区运营"]
+      },
+      "es": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt: todos estos son mi nombre.\nArtista y novelista.\nCreador del mundo original de Ace Server.\nMi pasatiempo es hablar con la gente.",
+        "skills": ["Arte", "Novela", "Gestión de comunidades"]
+      },
+      "pt": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — todos esses são meu nome.\nArtista e romancista.\nCriador do mundo original do Ace Server.\nMeu hobby é conversar com pessoas.",
+        "skills": ["Arte", "Romance", "Gestão de comunidades"]
+      },
+      "fr": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — ce sont tous mes noms.\nArtiste et romancier.\nCréateur du monde originel d'Ace Server.\nMon passe-temps est de discuter avec les gens.",
+        "skills": ["Art", "Roman", "Gestion de communauté"]
+      },
+      "ko": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — 이 모든 것이 제 이름입니다.\n예술가이자 소설가입니다.\n초대 에이스 서버 월드의 생성자입니다.\n취미는 사람들과 이야기하는 것입니다.",
+        "skills": ["예술", "소설", "커뮤니티 운영"]
+      },
+      "de": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — all das sind meine Namen.\nKünstler und Romanautor.\nSchöpfer der ursprünglichen Ace Server-Welt.\nMein Hobby ist es, mit Menschen zu reden.",
+        "skills": ["Kunst", "Roman", "Community-Management"]
+      },
+      "ru": {
+        "bio": "Hatt, ハット, はっ, My_name_is_Hatt — всё это мои имена.\nХудожник и романист.\nСоздатель оригинального мира Ace Server.\nМоё хобби — общение с людьми.",
+        "skills": ["Искусство", "Роман", "Управление сообществом"]
+      }
+    }
   },
   {
     "id": "gui",
@@ -19,6 +53,40 @@
     "url": "https://acecore.net/about/",
     "github": "https://github.com/acecore-systems",
     "twitter": "https://x.com/acecorenet",
-    "skills": ["システム開発", "Web制作", "インフラ運用", "IT教育"]
+    "skills": ["システム開発", "Web制作", "インフラ運用", "IT教育"],
+    "i18n": {
+      "en": {
+        "bio": "CEO of Acecore. A versatile engineer covering system development, web production, infrastructure operations, and IT education.\nEnjoys solving organizational and human challenges through technology.",
+        "skills": ["System development", "Web production", "Infrastructure operations", "IT education"]
+      },
+      "zh-cn": {
+        "bio": "Acecore 代表。从系统开发、Web制作、基础设施运维到IT教育，涉猎广泛的工程师。\n喜欢用技术解决人和组织的课题。",
+        "skills": ["系统开发", "Web制作", "基础设施运维", "IT教育"]
+      },
+      "es": {
+        "bio": "CEO de Acecore. Un ingeniero versátil que abarca desarrollo de sistemas, producción web, operaciones de infraestructura y educación en TI.\nDisfruta resolviendo desafíos organizacionales y humanos a través de la tecnología.",
+        "skills": ["Desarrollo de sistemas", "Producción web", "Operaciones de infraestructura", "Educación en TI"]
+      },
+      "pt": {
+        "bio": "CEO da Acecore. Engenheiro versátil que trabalha com desenvolvimento de sistemas, produção web, operações de infraestrutura e educação em TI.\nGosta de resolver desafios organizacionais e humanos por meio da tecnologia.",
+        "skills": ["Desenvolvimento de sistemas", "Produção web", "Operações de infraestrutura", "Educação em TI"]
+      },
+      "fr": {
+        "bio": "PDG d'Acecore. Ingénieur polyvalent couvrant le développement de systèmes, la production web, les opérations d'infrastructure et l'enseignement informatique.\nAime résoudre les défis organisationnels et humains grâce à la technologie.",
+        "skills": ["Développement de systèmes", "Production web", "Opérations d'infrastructure", "Enseignement informatique"]
+      },
+      "ko": {
+        "bio": "Acecore 대표. 시스템 개발, 웹 제작, 인프라 운영부터 IT 교육까지 폭넓게 다루는 엔지니어.\n기술로 사람과 조직의 과제를 풀어가는 것을 좋아합니다.",
+        "skills": ["시스템 개발", "웹 제작", "인프라 운영", "IT 교육"]
+      },
+      "de": {
+        "bio": "CEO von Acecore. Ein vielseitiger Ingenieur, der Systementwicklung, Webproduktion, Infrastrukturbetrieb und IT-Bildung abdeckt.\nLöst gerne organisatorische und menschliche Herausforderungen durch Technologie.",
+        "skills": ["Systementwicklung", "Webproduktion", "Infrastrukturbetrieb", "IT-Bildung"]
+      },
+      "ru": {
+        "bio": "Генеральный директор Acecore. Универсальный инженер, охватывающий разработку систем, веб-производство, управление инфраструктурой и IT-образование.\nЛюбит решать организационные и человеческие задачи с помощью технологий.",
+        "skills": ["Разработка систем", "Веб-производство", "Управление инфраструктурой", "IT-образование"]
+      }
+    }
   }
 ]
