@@ -21,7 +21,20 @@
     "breadcrumb": "Breadcrumb",
     "home": "Home",
     "loading": "Loading...",
-    "required": "(required)"
+    "required": "(required)",
+    "closeAd": "Close ad"
+  },
+  "hero": {
+    "ctaServices": "View Services",
+    "ctaContact": "Free Consultation",
+    "sliderLabel": "Hero image slider",
+    "slide": "Slide",
+    "pauseAutoplay": "Pause slideshow",
+    "resumeAutoplay": "Resume slideshow"
+  },
+  "checklist": {
+    "done": "Done: ",
+    "pending": "Pending: "
   },
   "footer": {
     "tagline": "Connected by technology, expanded by creativity.",

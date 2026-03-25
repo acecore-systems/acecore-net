@@ -1,5 +1,12 @@
 ---
 import { SITE } from '../data/site'
+import { t, getLocaleFromUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
 <div
@@ -10,7 +17,7 @@ import { SITE } from '../data/site'
     <button
       id="anchor-ad-close"
       class="absolute -top-8 right-2 bg-white/90 border border-slate-200 rounded-t px-2 py-0.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-      aria-label="広告を閉じる">✕</button
+      aria-label={t(locale, 'common.closeAd')}>✕</button
     >
     <ins
       class="adsbygoogle"

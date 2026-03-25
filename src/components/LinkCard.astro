@@ -1,12 +1,16 @@
 ---
+import { t, getLocaleFromUrl, type Locale } from '../i18n'
+
 interface Props {
   href: string
   title: string
   description?: string
   icon?: string
+  locale?: Locale
 }
 
 const { href, title, description, icon } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 let hostname = ''
 try {
   hostname = new URL(href).hostname
@@ -45,6 +49,6 @@ try {
         <p class="text-xs text-brand-500 mt-1">{hostname}</p>
       </div>
     </div>
-    <span class="sr-only">（新しいタブで開きます）</span>
+    <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
   </a>
 </div>

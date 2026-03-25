@@ -21,7 +21,20 @@
     "breadcrumb": "Migas de pan",
     "home": "Inicio",
     "loading": "Cargando...",
-    "required": "(obligatorio)"
+    "required": "(obligatorio)",
+    "closeAd": "Cerrar anuncio"
+  },
+  "hero": {
+    "ctaServices": "Ver servicios",
+    "ctaContact": "Consulta gratuita",
+    "sliderLabel": "Carrusel de imágenes principales",
+    "slide": "Diapositiva",
+    "pauseAutoplay": "Pausar reproducción automática",
+    "resumeAutoplay": "Reanudar reproducción automática"
+  },
+  "checklist": {
+    "done": "Completado: ",
+    "pending": "Pendiente: "
   },
   "footer": {
     "tagline": "Conectados por la tecnología, expandidos por la creatividad.",

@@ -1,14 +1,18 @@
 ---
 import { generateSrcSet } from '../utils/image'
+import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 
 interface Props {
   title: string
   subtitle?: string
   showCTA?: boolean
   images?: {src: string, alt: string}[]
+  locale?: Locale
 }
 
 const { title, subtitle, showCTA = false, images } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const u = (path: string) => getLocalizedUrl(path, locale)
 const hasSlider = images && images.length > 0
 ---
 
@@ -21,7 +25,7 @@ const hasSlider = images && images.length > 0
 >
   {
     hasSlider && (
-      <div class="absolute inset-0" id="hero-slider" role="region" aria-roledescription="carousel" aria-label="ヒーロー画像スライダー">
+      <div class="absolute inset-0" id="hero-slider" role="region" aria-roledescription="carousel" aria-label={t(locale, 'hero.sliderLabel')}>
         {images.map(({src, alt}, i) => (
           <div
             class:list={[
@@ -60,7 +64,7 @@ const hasSlider = images && images.length > 0
               i === 0 ? 'bg-transparent' : 'bg-transparent',
             ]}
             data-index={i}
-            aria-label={`スライド ${i + 1}`}
+            aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
             aria-current={i === 0 ? 'true' : undefined}
           >
             <span class:list={[
@@ -72,7 +76,9 @@ const hasSlider = images && images.length > 0
         <button
           id="hero-pause"
           class="ml-1 rounded-full cursor-pointer min-w-11 min-h-11 flex items-center justify-center bg-transparent text-white/70 hover:text-white transition-colors"
-          aria-label="スライドの自動再生を一時停止"
+          aria-label={t(locale, 'hero.pauseAutoplay')}
+          data-label-pause={t(locale, 'hero.pauseAutoplay')}
+          data-label-resume={t(locale, 'hero.resumeAutoplay')}
         >
             <div class="i-lucide-pause text-base" id="hero-pause-icon" aria-hidden="true"></div>
         </button>
@@ -95,16 +101,16 @@ const hasSlider = images && images.length > 0
       showCTA && (
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/services/"
+            href={u('/services/')}
             class="ac-btn bg-white text-brand-600 hover:bg-brand-50"
           >
-            サービスを詳しく見る
+            {t(locale, 'hero.ctaServices')}
           </a>
           <a
-            href="/contact/"
+            href={u('/contact/')}
             class="ac-btn border-2 border-white text-white hover:bg-white/10"
           >
-            無料で相談する
+            {t(locale, 'hero.ctaContact')}
           </a>
         </div>
       )
@@ -150,7 +156,7 @@ const hasSlider = images && images.length > 0
       nextSpan?.classList.add('scale-125')
       if (announceEl) {
         const alt = slides[current].querySelector('img')?.alt || ''
-        announceEl.textContent = `スライド ${current + 1} / ${total}${alt ? `: ${alt}` : ''}`
+        announceEl.textContent = `${current + 1} / ${total}${alt ? `: ${alt}` : ''}`
       }
     }
 
@@ -173,10 +179,10 @@ const hasSlider = images && images.length > 0
       if (paused) {
         stopAutoPlay()
         pauseIcon?.classList.replace('i-lucide-pause', 'i-lucide-play')
-        pauseBtn?.setAttribute('aria-label', 'スライドの自動再生を再開')
+        pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelResume ?? '')
       } else {
         pauseIcon?.classList.replace('i-lucide-play', 'i-lucide-pause')
-        pauseBtn?.setAttribute('aria-label', 'スライドの自動再生を一時停止')
+        pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelPause ?? '')
         startAutoPlay()
       }
     }

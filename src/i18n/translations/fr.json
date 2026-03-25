@@ -21,7 +21,20 @@
     "breadcrumb": "Fil d'Ariane",
     "home": "Accueil",
     "loading": "Chargement...",
-    "required": "(obligatoire)"
+    "required": "(obligatoire)",
+    "closeAd": "Fermer la publicité"
+  },
+  "hero": {
+    "ctaServices": "Voir les services",
+    "ctaContact": "Consultation gratuite",
+    "sliderLabel": "Carrousel d'images principales",
+    "slide": "Diapositive",
+    "pauseAutoplay": "Mettre en pause le diaporama",
+    "resumeAutoplay": "Reprendre le diaporama"
+  },
+  "checklist": {
+    "done": "Terminé : ",
+    "pending": "En attente : "
   },
   "footer": {
     "tagline": "Connectés par la technologie, élargis par la créativité.",

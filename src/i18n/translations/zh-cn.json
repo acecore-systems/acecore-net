@@ -21,7 +21,20 @@
     "breadcrumb": "面包屑导航",
     "home": "首页",
     "loading": "加载中...",
-    "required": "（必填）"
+    "required": "（必填）",
+    "closeAd": "关闭广告"
+  },
+  "hero": {
+    "ctaServices": "查看服务",
+    "ctaContact": "免费咨询",
+    "sliderLabel": "主图轮播",
+    "slide": "幻灯片",
+    "pauseAutoplay": "暂停自动播放",
+    "resumeAutoplay": "恢复自动播放"
+  },
+  "checklist": {
+    "done": "已完成：",
+    "pending": "未完成："
   },
   "footer": {
     "tagline": "以技术连接，以创意拓展。",

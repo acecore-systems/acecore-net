@@ -21,7 +21,20 @@
     "breadcrumb": "경로 탐색",
     "home": "홈",
     "loading": "로딩 중...",
-    "required": "(필수)"
+    "required": "(필수)",
+    "closeAd": "광고 닫기"
+  },
+  "hero": {
+    "ctaServices": "서비스 보기",
+    "ctaContact": "무료 상담",
+    "sliderLabel": "히어로 이미지 슬라이더",
+    "slide": "슬라이드",
+    "pauseAutoplay": "자동 재생 일시정지",
+    "resumeAutoplay": "자동 재생 재개"
+  },
+  "checklist": {
+    "done": "완료: ",
+    "pending": "미완료: "
   },
   "footer": {
     "tagline": "기술로 연결하고, 창의력으로 확장하다.",

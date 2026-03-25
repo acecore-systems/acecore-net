@@ -21,7 +21,20 @@
     "breadcrumb": "Caminho de navegação",
     "home": "Início",
     "loading": "Carregando...",
-    "required": "(obrigatório)"
+    "required": "(obrigatório)",
+    "closeAd": "Fechar anúncio"
+  },
+  "hero": {
+    "ctaServices": "Ver serviços",
+    "ctaContact": "Consulta gratuita",
+    "sliderLabel": "Carrossel de imagens principais",
+    "slide": "Slide",
+    "pauseAutoplay": "Pausar reprodução automática",
+    "resumeAutoplay": "Retomar reprodução automática"
+  },
+  "checklist": {
+    "done": "Concluído: ",
+    "pending": "Pendente: "
   },
   "footer": {
     "tagline": "Conectados pela tecnologia, expandidos pela criatividade.",

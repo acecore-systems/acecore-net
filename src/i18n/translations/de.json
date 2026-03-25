@@ -21,7 +21,20 @@
     "breadcrumb": "Brotkrümelnavigation",
     "home": "Startseite",
     "loading": "Wird geladen...",
-    "required": "(Pflichtfeld)"
+    "required": "(Pflichtfeld)",
+    "closeAd": "Anzeige schließen"
+  },
+  "hero": {
+    "ctaServices": "Dienstleistungen ansehen",
+    "ctaContact": "Kostenlose Beratung",
+    "sliderLabel": "Hero-Bildkarussell",
+    "slide": "Folie",
+    "pauseAutoplay": "Automatische Wiedergabe pausieren",
+    "resumeAutoplay": "Automatische Wiedergabe fortsetzen"
+  },
+  "checklist": {
+    "done": "Erledigt: ",
+    "pending": "Ausstehend: "
   },
   "footer": {
     "tagline": "Verbunden durch Technologie, erweitert durch Kreativität.",

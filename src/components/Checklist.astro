@@ -1,4 +1,6 @@
 ---
+import { t, getLocaleFromUrl, type Locale } from '../i18n'
+
 interface CheckItem {
   text: string
   checked?: boolean
@@ -7,9 +9,11 @@ interface CheckItem {
 interface Props {
   title?: string
   items: CheckItem[]
+  locale?: Locale
 }
 
 const { title, items } = Astro.props
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
 <figure class="not-prose my-8">
@@ -36,7 +40,7 @@ const { title, items } = Astro.props
             />
           )}
           <span class="sr-only">
-            {item.checked !== false ? '完了: ' : '未完了: '}
+            {item.checked !== false ? t(locale, 'checklist.done') : t(locale, 'checklist.pending')}
           </span>
           <span
             class:list={[

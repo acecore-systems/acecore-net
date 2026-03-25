@@ -21,7 +21,20 @@
     "breadcrumb": "パンくずリスト",
     "home": "ホーム",
     "loading": "読み込み中...",
-    "required": "（必須）"
+    "required": "（必須）",
+    "closeAd": "広告を閉じる"
+  },
+  "hero": {
+    "ctaServices": "サービスを詳しく見る",
+    "ctaContact": "無料で相談する",
+    "sliderLabel": "ヒーロー画像スライダー",
+    "slide": "スライド",
+    "pauseAutoplay": "スライドの自動再生を一時停止",
+    "resumeAutoplay": "スライドの自動再生を再開"
+  },
+  "checklist": {
+    "done": "完了: ",
+    "pending": "未完了: "
   },
   "footer": {
     "tagline": "技術でつながる、クリエイティブで広がる。",
