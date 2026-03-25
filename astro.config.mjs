@@ -21,6 +21,20 @@ export default defineConfig({
     UnoCSS({ injectReset: true }),
     sitemap({
       lastmod: new Date(),
+      i18n: {
+        defaultLocale: 'ja',
+        locales: {
+          ja: 'ja',
+          en: 'en',
+          'zh-cn': 'zh-CN',
+          es: 'es',
+          pt: 'pt',
+          fr: 'fr',
+          ko: 'ko',
+          de: 'de',
+          ru: 'ru',
+        },
+      },
       serialize(item) {
         if (item.url === 'https://acecore.net/') {
           item.changefreq = 'daily'

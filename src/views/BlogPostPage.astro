@@ -20,7 +20,7 @@ import TableOfContents from '../components/TableOfContents.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
-import { t, getLocalizedUrl, formatDate, defaultLocale, translateTag, type Locale } from '../i18n'
+import { t, getLocalizedUrl, formatDate, defaultLocale, translateTag, htmlLangMap, type Locale } from '../i18n'
 import { getCollection } from 'astro:content'
 import { localizePost, isBasePost, getLocalizedAuthor } from '../utils/blog-i18n'
 
@@ -107,6 +107,7 @@ const blogPostingLd = {
     '@type': 'WebPage',
     '@id': `https://acecore.net/blog/${baseSlug}/`,
   },
+  inLanguage: htmlLangMap[locale],
 }
 
 const faqLd = post.data.faq

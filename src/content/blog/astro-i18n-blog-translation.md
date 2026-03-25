@@ -29,13 +29,17 @@ compareTable:
       - ブログ記事17本
       - 523ページ生成（UI多言語化後）
       - Pages CMS はブログ1コレクション
+      - タグ・著者データは日本語のみ
+      - RSS フィードは1つ
   after:
     label: 9言語対応
     items:
       - 日本語 + 8言語（en, zh-cn, es, pt, fr, ko, de, ru）
       - ブログ記事17本 + 翻訳136本 = 153本
-      - 523ページ生成（翻訳記事はフォールバック付き）
+      - 541ページ生成（翻訳記事はフォールバック付き）
       - Pages CMS に言語別の9コレクション
+      - タグ25種・著者データを各言語に翻訳
+      - 多言語 RSS フィード（9言語分）
 callout:
   type: info
   title: 対応言語
@@ -46,7 +50,7 @@ statBar:
       label: 対応言語数
     - value: '136'
       label: 翻訳記事数
-    - value: '523'
+    - value: '541'
       label: 生成ページ数
 faq:
   title: よくある質問
@@ -291,6 +295,120 @@ content:
 
 ヘッダーに `LanguageSwitcher` コンポーネントを追加し、デスクトップ・モバイル両対応の言語切り替え UI を実装しています。言語切り替え時は同じページの対応ロケールに遷移し、初回訪問時にはブラウザの `navigator.language` を検出して自動リダイレクトする仕組みです。
 
+## タグの多言語表示
+
+記事のタグはURL上は日本語のスラッグをそのまま使用し、**表示名のみ翻訳**する方式を採用しました。これにより、ルーティングの複雑化を避けつつ、ユーザーには母国語でタグが表示されます。
+
+```typescript
+// src/i18n/utils.ts
+export function translateTag(tag: string, locale: Locale): string {
+  return t(locale, `tags.${tag}`) !== `tags.${tag}`
+    ? t(locale, `tags.${tag}`)
+    : tag
+}
+```
+
+各言語の翻訳 JSON に `tags` セクションを追加し、25種類のタグすべてに翻訳を定義しています。
+
+```json
+// en.json（抜粋）
+{
+  "tags": {
+    "技術": "Technology",
+    "セキュリティ": "Security",
+    "パフォーマンス": "Performance",
+    "アクセシビリティ": "Accessibility"
+  }
+}
+```
+
+記事カード・サイドバー・タグ一覧・記事詳細の6か所で `translateTag()` を使用しており、タグの表示はすべてロケールに応じた言語で統一されています。
+
+## 著者データの多言語対応
+
+著者の自己紹介（bio）やスキル一覧も言語ごとに切り替える仕組みを導入しました。`src/data/authors.json` に `i18n` フィールドを追加し、各言語の翻訳を保持します。
+
+```json
+{
+  "id": "hatt",
+  "name": "hatt",
+  "bio": "代表取締役。Web制作・システム開発…",
+  "skills": ["TypeScript", "Astro", "..."]
+  "i18n": {
+    "en": {
+      "bio": "CEO and representative director. Web development...",
+      "skills": ["TypeScript", "Astro", "..."]
+    }
+  }
+}
+```
+
+`getLocalizedAuthor()` ユーティリティで、ロケールに応じた著者情報を取得します。
+
+```typescript
+// src/utils/blog-i18n.ts
+export function getLocalizedAuthor(author: Author, locale: Locale) {
+  const localized = author.i18n?.[locale]
+  return localized ? { ...author, ...localized } : author
+}
+```
+
+## 多言語サイトの SEO 対策
+
+多言語化の SEO メリットを最大化するため、検索エンジンが各言語版を正しく認識・インデックスするための仕組みを整備しました。
+
+### サイトマップの hreflang 対応
+
+`@astrojs/sitemap` の `i18n` オプションを設定し、サイトマップに `xhtml:link rel="alternate"` タグを自動出力しています。
+
+```javascript
+// astro.config.mjs
+sitemap({
+  i18n: {
+    defaultLocale: 'ja',
+    locales: {
+      ja: 'ja',
+      en: 'en',
+      'zh-cn': 'zh-CN',
+      es: 'es',
+      pt: 'pt',
+      fr: 'fr',
+      ko: 'ko',
+      de: 'de',
+      ru: 'ru',
+    },
+  },
+})
+```
+
+これにより、すべてのURLに対して9言語分の hreflang リンクが出力され、Google が各言語版の対応関係を正確に把握できます。
+
+### JSON-LD 構造化データの言語対応
+
+ブログ記事の `BlogPosting` 構造化データに `inLanguage` フィールドを追加し、各記事がどの言語で書かれているかを検索エンジンに伝えています。
+
+```javascript
+// BlogPostPage.astro（JSON-LD 抜粋）
+{
+  "@type": "BlogPosting",
+  "inLanguage": htmlLangMap[locale],  // "ja", "en", "zh-CN" など
+  "headline": post.data.title,
+  // ...
+}
+```
+
+### 多言語 RSS フィード
+
+日本語版の `/rss.xml` に加え、各言語版の RSS フィード（`/en/rss.xml`、`/zh-cn/rss.xml` 等）を生成しています。フィードのタイトルや説明も各言語に翻訳し、`<language>` タグで BCP47 準拠の言語コードを出力しています。
+
+```typescript
+// src/pages/[locale]/rss.xml.ts
+export const getStaticPaths = () =>
+  locales.filter((l) => l !== defaultLocale).map((l) => ({ params: { locale: l } }))
+```
+
+`BaseLayout.astro` の `<link rel="alternate" type="application/rss+xml">` もロケールに応じた RSS URL を自動設定しています。
+
 ## まとめ
 
 Astro 6 の組み込み i18n 機能を活用することで、静的サイトでも高品質な多言語対応が実現できました。
@@ -298,6 +416,9 @@ Astro 6 の組み込み i18n 機能を活用することで、静的サイトで
 - **i18n 基盤**：Astro の `prefixDefaultLocale: false` で日本語はプレフィックスなし
 - **UI 翻訳**：View コンポーネントパターンでロジック重複ゼロ
 - **コンテンツ翻訳**：サブディレクトリ方式で既存スキーマに変更なし
+- **タグ翻訳**：URL は日本語スラッグのまま、表示名のみ各言語に翻訳
+- **著者データ翻訳**：bio・skills を言語ごとに切り替え
+- **SEO 対策**：サイトマップ hreflang・JSON-LD `inLanguage`・多言語 RSS フィード
 - **フォールバック**：翻訳が無い記事は日本語版を自動表示
 - **CMS 対応**：Pages CMS で各言語の記事を個別に編集可能
 

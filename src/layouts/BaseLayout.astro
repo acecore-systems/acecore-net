@@ -171,7 +171,7 @@ import { SITE } from '../data/site'
       rel="alternate"
       type="application/rss+xml"
       title={t(locale, 'blog.rssTitle')}
-      href="/rss.xml"
+      href={locale === defaultLocale ? '/rss.xml' : `/${locale}/rss.xml`}
     />
     {alternateUrls.map(({ locale: l, url }) => (
       <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />

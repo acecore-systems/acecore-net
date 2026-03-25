@@ -61,10 +61,18 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '24px',
-                      color: 'white',
                     },
-                    children: '◆',
+                    children: {
+                      type: 'div',
+                      props: {
+                        style: {
+                          width: '18px',
+                          height: '18px',
+                          background: 'white',
+                          transform: 'rotate(45deg)',
+                        },
+                      },
+                    },
                   },
                 },
                 {
