@@ -1,42 +1,12 @@
 ---
-title: 'エースサーバー、乗っ取られる。'
-description: 'エースサーバーで起きた「乗っ取り」イベントの記録。メンバーたちの理性が次々と侵食されていく、衝撃のドキュメント。'
+title: エースサーバー、乗っ取られる。
+description: エースサーバーで起きた「乗っ取り」イベントの記録。メンバーたちの理性が次々と侵食されていく、衝撃のドキュメント。
 date: 2022-10-12
-tags: ['イベント']
+tags:
+  - イベント
+imageUrl: https://cdn.discordapp.com/attachments/1453747205612638269/1486165293456818276/eresutourehawa.png?ex=69c482c9&is=69c33149&hm=7e2f7c6e52b55ebe9af8bc7f844e1ddeea4f5fa36b943b8547a2c96875ede4dd&
 author: hatt
-image: https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=400&fit=crop&q=80
-callout:
-  type: warning
-  title: セキュリティの教訓
-  text: サーバー運営では、OP権限の管理やバックアップ体制の整備が不可欠です。今回の騒動を機に、セキュリティ対策を全面的に見直しました。
-timeline:
-  title: 事件の経緯
-  items:
-    - date: 発覚当日
-      title: 異変の発見
-      description: ログイン時に見慣れない構造物を確認。
-    - date: 調査開始
-      title: 被害状況の確認
-      description: ワールドデータとログを精査。
-    - date: 対策実施
-      title: 権限の見直し
-      description: OP権限の再整理とホワイトリスト導入。
-    - date: 復旧完了
-      title: 通常運営を再開
-      description: バックアップから復旧し、対策を反映。
-youtube:
-  videoId: 03XvopRIHCc
-  title: Aceserver YouTubeチャンネル
-  caption: Aceserverの最新情報やコミュニティの様子を配信しています。
-faq:
-  title: よくある疑問
-  items:
-    - question: Aceserverは今でも遊べますか？
-      answer: 再開に向けて準備を進めています。セキュリティ対策を強化した上で安全に運営できる体制を整えてから再公開する予定です。
-    - question: 乗っ取りの被害はどの程度でしたか？
-      answer: ワールドの一部が改変されましたが、バックアップからの復旧に成功しました。ユーザーの個人情報などの流出はありません。
 ---
-
 ## **エースサーバーが乗っ取られた**
 
 私が持てる最後の理性でこの文章を書いている。きっとこの文章が世にでるころには、このなけなしの理性も侵食され尽くしているだろう。
