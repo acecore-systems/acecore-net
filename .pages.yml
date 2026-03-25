@@ -24,9 +24,9 @@ content:
         label: タグ
         type: string
         list: true
-      - name: imageUrl
-        label: 画像URL
-        type: string
+      - name: image
+        label: 画像
+        type: image
       - name: author
         label: 著者
         type: string
@@ -59,8 +59,8 @@ content:
         type: string
         list: true
       - name: image
-        label: Image URL
-        type: string
+        label: Image
+        type: image
       - name: author
         label: Author
         type: string
@@ -93,8 +93,8 @@ content:
         type: string
         list: true
       - name: image
-        label: 图片URL
-        type: string
+        label: 图片
+        type: image
       - name: author
         label: 作者
         type: string
@@ -127,8 +127,8 @@ content:
         type: string
         list: true
       - name: image
-        label: URL de imagen
-        type: string
+        label: Imagen
+        type: image
       - name: author
         label: Autor
         type: string
@@ -161,8 +161,8 @@ content:
         type: string
         list: true
       - name: image
-        label: URL da imagem
-        type: string
+        label: Imagem
+        type: image
       - name: author
         label: Autor
         type: string
@@ -195,8 +195,8 @@ content:
         type: string
         list: true
       - name: image
-        label: URL de l'image
-        type: string
+        label: Image
+        type: image
       - name: author
         label: Auteur
         type: string
@@ -229,8 +229,8 @@ content:
         type: string
         list: true
       - name: image
-        label: 이미지 URL
-        type: string
+        label: 이미지
+        type: image
       - name: author
         label: 작성자
         type: string
@@ -263,8 +263,8 @@ content:
         type: string
         list: true
       - name: image
-        label: Bild-URL
-        type: string
+        label: Bild
+        type: image
       - name: author
         label: Autor
         type: string
@@ -297,8 +297,8 @@ content:
         type: string
         list: true
       - name: image
-        label: URL изображения
-        type: string
+        label: Изображение
+        type: image
       - name: author
         label: Автор
         type: string
