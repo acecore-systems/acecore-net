@@ -9,6 +9,7 @@ import { optimizeImage } from '../utils/image'
 import AdUnit from '../components/AdUnit.astro'
 import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { isBasePost, localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -19,9 +20,10 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const allPosts = (await getCollection('blog')).sort(
+const allRawPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )
+const allPosts = allRawPosts.filter(isBasePost)
 const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 const posts = allPosts.slice(0, POSTS_PER_PAGE)
 
@@ -76,7 +78,7 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                         <AdUnit />
                       </div>
                     )}
-                    <BlogPostCard post={post} locale={locale} />
+                    <BlogPostCard post={localizePost(post, allRawPosts, locale)} locale={locale} />
                   </Fragment>
                 ))}
               </div>

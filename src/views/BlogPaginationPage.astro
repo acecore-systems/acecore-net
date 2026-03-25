@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content'
 import AdUnit from '../components/AdUnit.astro'
 import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -68,7 +69,7 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
                       <AdUnit />
                     </div>
                   )}
-                  <BlogPostCard post={post} locale={locale} />
+                  <BlogPostCard post={localizePost(post, allPosts, locale)} locale={locale} />
                 </Fragment>
               ))
             }

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { getCollection } from 'astro:content'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { isBasePost } from '../utils/blog-i18n'
 
 interface Props {
   locale: Locale
@@ -11,7 +12,7 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const allPosts = await getCollection('blog')
+const allPosts = (await getCollection('blog')).filter(isBasePost)
 const tagCounts = new Map<string, number>()
 for (const post of allPosts) {
   for (const tag of post.data.tags ?? []) {

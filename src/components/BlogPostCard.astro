@@ -2,6 +2,7 @@
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import authors from '../data/authors.json'
 import { formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { getBaseSlug } from '../utils/blog-i18n'
 
 interface Props {
   post: {
@@ -20,6 +21,7 @@ interface Props {
 
 const { post } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const baseSlug = getBaseSlug(post.id)
 ---
 
 <article
@@ -65,7 +67,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
         class="text-xl font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors"
       >
         <a
-          href={getLocalizedUrl(`/blog/${post.id}/`, locale)}
+          href={getLocalizedUrl(`/blog/${baseSlug}/`, locale)}
           class="no-underline text-inherit after:absolute after:inset-0"
           >{post.data.title}</a
         >

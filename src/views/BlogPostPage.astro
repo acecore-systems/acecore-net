@@ -21,6 +21,8 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
 import { t, getLocalizedUrl, formatDate, defaultLocale, type Locale } from '../i18n'
+import { getCollection } from 'astro:content'
+import { localizePost, isBasePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -30,9 +32,15 @@ interface Props {
   allPosts: CollectionEntry<'blog'>[]
 }
 
-const { locale, post, allPosts } = Astro.props
+const { locale, post: basePost, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const isDefaultLocale = locale === defaultLocale
+
+const allRawPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+const post = localizePost(basePost, allRawPosts, locale)
+const baseSlug = basePost.id
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
@@ -40,16 +48,18 @@ const author = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
 
-const currentIndex = allPosts.findIndex((p) => p.id === post.id)
+const basePosts = allRawPosts.filter(isBasePost)
+
+const currentIndex = basePosts.findIndex((p) => p.id === baseSlug)
 const prevPost =
-  currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
-const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
+  currentIndex < basePosts.length - 1 ? basePosts[currentIndex + 1] : null
+const nextPost = currentIndex > 0 ? basePosts[currentIndex - 1] : null
 
 const currentTags = post.data.tags ?? []
 const relatedPosts =
   currentTags.length > 0
-    ? allPosts
-        .filter((p) => p.id !== post.id)
+    ? basePosts
+        .filter((p) => p.id !== baseSlug)
         .map((p) => ({
           post: p,
           score: (p.data.tags ?? []).filter((tag: string) =>
@@ -66,7 +76,7 @@ const relatedPosts =
         .map((p) => p.post)
     : []
 
-const ogImage = new URL(`/blog/og/${post.id}.png`, Astro.site).href
+const ogImage = new URL(`/blog/og/${baseSlug}.png`, Astro.site).href
 const blogPostingLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -94,7 +104,7 @@ const blogPostingLd = {
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://acecore.net/blog/${post.id}/`,
+    '@id': `https://acecore.net/blog/${baseSlug}/`,
   },
 }
 
@@ -311,7 +321,7 @@ const ctaHeading = isDefaultLocale
 
         <div class="my-8 py-6 border-t border-slate-200">
           <ShareButtons
-            url={`https://acecore.net/blog/${post.id}/`}
+            url={`https://acecore.net/blog/${baseSlug}/`}
             title={post.data.title}
             locale={locale}
           />

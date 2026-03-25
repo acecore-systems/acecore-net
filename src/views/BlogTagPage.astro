@@ -4,6 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -37,7 +38,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       </h1>
       <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
         <div class="space-y-6">
-          {posts.map((post) => <BlogPostCard post={post} locale={locale} />)}
+          {posts.map((post) => <BlogPostCard post={localizePost(post, allPosts, locale)} locale={locale} />)}
         </div>
         <BlogSidebar allPosts={allPosts} locale={locale} />
       </div>

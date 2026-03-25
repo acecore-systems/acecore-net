@@ -3,14 +3,16 @@ import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
 import authors from '../data/authors.json'
 import { t, formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { isBasePost, localizePost, getBaseSlug } from '../utils/blog-i18n'
 
 interface Props {
   allPosts: CollectionEntry<'blog'>[]
   locale?: Locale
 }
 
-const { allPosts } = Astro.props
+const { allPosts: rawPosts } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const allPosts = rawPosts.filter(isBasePost)
 
 const tagCounts = new Map<string, number>()
 for (const post of allPosts) {
@@ -50,7 +52,7 @@ for (const post of allPosts) {
   }
 }
 
-const latestPosts = allPosts.slice(0, 5)
+const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, locale))
 ---
 
 <aside class="hidden lg:block" aria-label={t(locale, 'blog.sidebar')}>
@@ -149,7 +151,7 @@ const latestPosts = allPosts.slice(0, 5)
           latestPosts.map((post) => (
             <li>
               <a
-                href={getLocalizedUrl(`/blog/${post.id}/`, locale)}
+                href={getLocalizedUrl(`/blog/${getBaseSlug(post.id)}/`, locale)}
                 class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
               >
                 {post.data.title}
