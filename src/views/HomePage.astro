@@ -8,6 +8,7 @@ import authors from '../data/authors.json'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
+import { isBasePost, localizePost, getBaseSlug } from '../utils/blog-i18n'
 
 interface Props {
   locale: Locale
@@ -16,9 +17,12 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const posts = (await getCollection('blog'))
+const allPosts = await getCollection('blog')
+const posts = allPosts
+  .filter(isBasePost)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3)
+  .map((p) => localizePost(p, allPosts, locale))
 
 const coreLayers = [
   {
@@ -197,7 +201,7 @@ const webPageLd = {
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {posts.map((post) => (
               <a
-                href={u(`/blog/${post.id}/`)}
+                href={u(`/blog/${getBaseSlug(post.id)}/`)}
                 class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
               >
                 {post.data.image && (
