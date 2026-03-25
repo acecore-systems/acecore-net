@@ -1,9 +1,11 @@
 import type { APIRoute, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import { generateOgImage } from '../../../utils/og-image'
+import { isBasePost } from '../../../utils/blog-i18n'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getCollection('blog')
+  const allPosts = await getCollection('blog')
+  const posts = allPosts.filter(isBasePost)
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { title: post.data.title },
