@@ -177,7 +177,7 @@ import { SITE } from '../data/site'
       <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
     ))}
     <link rel="alternate" hreflang="x-default" href={alternateUrls.find(a => a.locale === defaultLocale)?.url} />
-    <link rel="preconnect" href="https://wsrv.nl" />
+    <link rel="preconnect" href={SITE.url} />
     {
       preloadImage && (
         <link
