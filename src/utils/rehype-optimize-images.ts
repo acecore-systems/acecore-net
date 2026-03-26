@@ -14,7 +14,7 @@ export default function rehypeOptimizeImages() {
       const src = node.properties?.src
       if (typeof src !== 'string') return
       if (!src.startsWith('http')) return
-      if (src.includes('wsrv.nl') || src.includes('/cdn-cgi/image/')) return
+      if (src.includes('/cdn-cgi/image/')) return
       node.properties!.src = optimizeImage(src)
       if (!node.properties!.loading) node.properties!.loading = 'lazy'
       if (!node.properties!.decoding) node.properties!.decoding = 'async'

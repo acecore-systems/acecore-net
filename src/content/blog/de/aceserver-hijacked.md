@@ -4,7 +4,6 @@ description: Ein Bericht über den „Kapern"-Vorfall auf dem Aceserver. Ein sch
 date: 2022-10-12
 tags:
   - イベント
-imageUrl: https://cdn.discordapp.com/attachments/1453747205612638269/1486165293456818276/eresutourehawa.png?ex=69c482c9&is=69c33149&hm=7e2f7c6e52b55ebe9af8bc7f844e1ddeea4f5fa36b943b8547a2c96875ede4dd&
 author: hatt
 ---
 ## **Aceserver wurde gekapert**

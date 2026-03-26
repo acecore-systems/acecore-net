@@ -20,7 +20,7 @@ processFigure:
       description: 通过自托管消除外部CDN的延迟。
       icon: i-lucide-type
     - title: 图片优化
-      description: 使用wsrv.nl + srcset + sizes分发最优尺寸。
+      description: 使用 Cloudflare Images + srcset + sizes 分发最优尺寸。
       icon: i-lucide-image
     - title: 延迟加载
       description: 在首次交互时注入AdSense和GA4。
@@ -50,8 +50,8 @@ faq:
       answer: '取决于CSS的总量。20 KiB以下时内联化更有优势。超过此大小时，外部文件化并利用浏览器缓存，第二次及后续访问会大幅加速。'
     - question: Google Fonts CDN为什么慢？
       answer: 'PageSpeed Insights模拟的是slow 4G（约1.6 Mbps，RTT 150ms）。连接外部域名需要DNS查询 + TCP连接 + TLS握手，这个延迟会造成渲染阻塞。自托管从同一域名分发，这个延迟为零。'
-    - question: wsrv.nl慢的话怎么办？
-      answer: 'wsrv.nl通过Cloudflare CDN分发，通常速度很快。但在PageSpeed测试时，如果CDN缓存未命中，LCP可能会恶化。对重要图片设置 <link rel="preload">，指示浏览器提前获取。'
+    - question: Cloudflare Images 较慢时怎么办？
+      answer: 'Cloudflare Images 通常很快，但首次转换或缓存未命中时仍需回源抓取原图。若在 PageSpeed 测试中 LCP 变差，请为关键图片设置 <link rel="preload">，让浏览器尽早发起请求。'
     - question: 延迟加载AdSense会影响收入吗？
       answer: '如果首屏没有广告，首次滚动时加载的显示时机几乎相同。页面速度改善带来的SEO效果反而更有利。'
 ---
@@ -165,11 +165,11 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## 图片优化：wsrv.nl + srcset + sizes
+## 图片优化：Cloudflare Images + srcset + sizes
 
-### wsrv.nl代理
+### Cloudflare Images Transformations
 
-外部图片通过 [wsrv.nl](https://images.weserv.nl/) 代理分发。只需添加URL参数即可自动完成以下处理：
+外部图片通过 Cloudflare Images 的 `/cdn-cgi/image/` 转换 URL 分发。只需添加转换参数即可自动完成以下处理：
 
 - **格式转换**：`output=auto` 根据浏览器支持自动选择AVIF / WebP
 - **质量调整**：`q=50` 在保持足够画质的同时将文件大小减少约10%
@@ -181,13 +181,13 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

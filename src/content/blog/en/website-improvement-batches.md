@@ -110,7 +110,7 @@ PageSpeed scores are not linear:
 
 Even for the same site, scores can fluctuate by **2–5 points** between measurements. Causes include:
 
-- Image CDN response times (e.g., wsrv.nl)
+- Image transformation response times (e.g., Cloudflare Images)
 - Cloudflare Pages edge server cache status
 - Lighthouse's own measurement error
 
@@ -167,7 +167,7 @@ We resolved script breakage issues caused by View Transitions (ClientRouter) acr
 | UnoCSS (presetWind3) | Utility-first CSS |
 | Cloudflare Pages | Hosting, CDN, header control |
 | @fontsource-variable/noto-sans-jp | Self-hosted Japanese font |
-| wsrv.nl | Image proxy (auto AVIF/WebP conversion) |
+| Cloudflare Images | Image transformations (auto AVIF/WebP conversion) |
 | Pagefind | Full-text search for static sites |
 
 ---

@@ -41,30 +41,9 @@ function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
   }
 }
 
-function parseLegacyWsrvUrl(url: string): ParsedImageSource | null {
-  try {
-    const parsed = new URL(url)
-    if (parsed.hostname !== 'wsrv.nl') return null
-
-    const sourceUrl = parsed.searchParams.get('url')
-    if (!sourceUrl) return null
-
-    return {
-      sourceUrl,
-      width: parsed.searchParams.get('w') ?? undefined,
-      height: parsed.searchParams.get('h') ?? undefined,
-    }
-  } catch {
-    return null
-  }
-}
-
 function parseImageSource(url: string): ParsedImageSource | null {
   const cloudflareImage = parseCloudflareImageUrl(url)
   if (cloudflareImage) return cloudflareImage
-
-  const legacyWsrvImage = parseLegacyWsrvUrl(url)
-  if (legacyWsrvImage) return legacyWsrvImage
 
   try {
     const parsed = new URL(url)

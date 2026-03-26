@@ -20,7 +20,7 @@ processFigure:
       description: Schriften selbst hosten, um externe CDN-Latenz zu eliminieren.
       icon: i-lucide-type
     - title: Bildoptimierung
-      description: Optimale Größen über wsrv.nl + srcset + sizes bereitstellen.
+      description: Optimale Größen über Cloudflare Images + srcset + sizes bereitstellen.
       icon: i-lucide-image
     - title: Lazy Loading
       description: AdSense und GA4 bei der ersten Benutzerinteraktion einbinden.
@@ -50,8 +50,8 @@ faq:
       answer: 'Es hängt von der gesamten CSS-Größe ab. Unter 20 KiB ist Inlining vorteilhaft. Darüber beschleunigt das Externalisieren und die Nutzung des Browser-Caches nachfolgende Besuche erheblich.'
     - question: Warum ist Google Fonts CDN langsam?
       answer: 'PageSpeed Insights simuliert langsames 4G (~1,6 Mbit/s, RTT 150ms). Die Verbindung zu einer externen Domain erfordert DNS-Lookup + TCP-Verbindung + TLS-Handshake, und diese Latenz wird zum Render-Blocking. Self-Hosting eliminiert diese Latenz durch Bereitstellung von derselben Domain.'
-    - question: Was wenn wsrv.nl langsam ist?
-      answer: 'wsrv.nl wird über Cloudflare CDN bereitgestellt und ist normalerweise schnell. Wenn der CDN-Cache jedoch während des PageSpeed-Tests fehlt, kann sich der LCP verschlechtern. Setzen Sie <link rel="preload"> für kritische Bilder, um den Browser anzuweisen, diese frühzeitig abzurufen.'
+    - question: Was tun, wenn Cloudflare Images langsam ist?
+      answer: 'Cloudflare Images ist normalerweise schnell, aber bei der ersten Transformation oder bei Cache-Misses muss das Quellbild erneut geladen werden. Wenn sich der LCP in PageSpeed verschlechtert, setzen Sie für kritische Bilder <link rel="preload">, damit der Browser früher mit dem Abruf beginnt.'
     - question: Beeinflusst Lazy Loading von AdSense die Einnahmen?
       answer: 'Wenn es keine Anzeigen im ersten Sichtbereich gibt, ist der Anzeigetiming beim Laden beim ersten Scrollen nahezu identisch. Die SEO-Vorteile durch verbesserte Seitengeschwindigkeit haben eine positivere Auswirkung.'
 ---
@@ -165,11 +165,11 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## Bildoptimierung: wsrv.nl + srcset + sizes
+## Bildoptimierung: Cloudflare Images + srcset + sizes
 
-### wsrv.nl-Proxy
+### Cloudflare Images Transformations
 
-Externe Bilder werden über [wsrv.nl](https://images.weserv.nl/) bereitgestellt. Durch einfaches Hinzufügen von URL-Parametern erhalten Sie:
+Externe Bilder werden über die `/cdn-cgi/image/`-Transformations-URLs von Cloudflare Images bereitgestellt. Durch Hinzufügen von Transformationsparametern erhalten Sie:
 
 - **Formatkonvertierung**: `output=auto` wählt automatisch AVIF/WebP basierend auf der Browser-Unterstützung
 - **Qualitätsanpassung**: `q=50` behält ausreichende Qualität bei und reduziert die Dateigröße um ~10%
@@ -181,13 +181,13 @@ Setzen Sie `srcset` und `sizes` auf alle Bilder, um optimale Größen basierend 
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

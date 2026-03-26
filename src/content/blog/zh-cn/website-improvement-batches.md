@@ -110,7 +110,7 @@ PageSpeed 的评分不是线性的。
 
 同一站点每次测量评分可能**波动2~5分**。原因如下：
 
-- wsrv.nl 等图片 CDN 的响应速度
+- Cloudflare Images 等图片转换服务的响应速度
 - Cloudflare Pages 边缘服务器的缓存状态
 - Lighthouse 本身的测量误差
 
@@ -167,7 +167,7 @@ PageSpeed Accessibility 100分通过清除 axe DevTools 和 Lighthouse 的自动
 | UnoCSS (presetWind3) | 实用优先 CSS |
 | Cloudflare Pages | 托管·CDN·头部控制 |
 | @fontsource-variable/noto-sans-jp | 日语字体自托管 |
-| wsrv.nl | 图片代理（AVIF/WebP 自动转换） |
+| Cloudflare Images | 图片转换（AVIF/WebP 自动转换） |
 | Pagefind | 静态站点全文搜索 |
 
 ---

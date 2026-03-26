@@ -20,7 +20,7 @@ processFigure:
       description: Eliminar latência de CDN externo com self-hosting.
       icon: i-lucide-type
     - title: Otimização de imagens
-      description: Entregar tamanho ideal com wsrv.nl + srcset + sizes.
+      description: Entregar tamanho ideal com Cloudflare Images + srcset + sizes.
       icon: i-lucide-image
     - title: Carregamento lazy
       description: Injetar AdSense e GA4 na primeira interação.
@@ -50,8 +50,8 @@ faq:
       answer: 'Depende do tamanho total do CSS. Abaixo de 20 KiB, inline é vantajoso. Acima disso, arquivo externo aproveitando o cache do navegador é muito mais rápido a partir do segundo acesso.'
     - question: Por que o Google Fonts CDN é lento?
       answer: 'O PageSpeed Insights simula slow 4G (aprox. 1.6 Mbps, RTT 150ms). Conectar a um domínio externo requer DNS lookup + conexão TCP + handshake TLS, e essa latência causa bloqueio de renderização. Com self-hosting, é entregue do mesmo domínio, eliminando essa latência.'
-    - question: O que fazer se o wsrv.nl estiver lento?
-      answer: 'O wsrv.nl é entregue via CDN do Cloudflare, então normalmente é rápido. No entanto, se o cache do CDN não acertar durante a medição do PageSpeed, o LCP pode piorar. Para imagens importantes, configure <link rel="preload"> para instruir o navegador a buscar antecipadamente.'
+    - question: O que fazer se o Cloudflare Images estiver lento?
+      answer: 'O Cloudflare Images costuma ser rápido, mas a primeira transformação e os cache misses ainda precisam buscar a imagem original. Se o LCP piorar no PageSpeed, configure <link rel="preload"> nas imagens críticas para iniciar a busca mais cedo.'
     - question: Carregar AdSense com lazy loading afeta a receita?
       answer: 'Quando não há anúncios no first view, o carregamento no primeiro scroll tem timing de exibição praticamente igual. O efeito SEO da melhoria na velocidade da página tende a ser mais positivo.'
 ---
@@ -165,11 +165,11 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## Otimização de imagens: wsrv.nl + srcset + sizes
+## Otimização de imagens: Cloudflare Images + srcset + sizes
 
-### Proxy wsrv.nl
+### Transformações do Cloudflare Images
 
-Imagens externas são entregues via [wsrv.nl](https://images.weserv.nl/). Apenas adicionando parâmetros na URL, o seguinte processamento é realizado automaticamente:
+Imagens externas são entregues pelas URLs de transformação `/cdn-cgi/image/` do Cloudflare Images. Apenas adicionando parâmetros de transformação, o seguinte processamento é realizado automaticamente:
 
 - **Conversão de formato**: `output=auto` seleciona automaticamente AVIF / WebP conforme o suporte do navegador
 - **Ajuste de qualidade**: `q=50` mantém qualidade suficiente enquanto reduz o tamanho do arquivo em cerca de 10%
@@ -181,13 +181,13 @@ Configure `srcset` e `sizes` em todas as imagens para entregar o tamanho ideal c
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

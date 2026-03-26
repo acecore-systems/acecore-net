@@ -61,7 +61,7 @@ Le CSP est un en-tête crucial pour prévenir les attaques de type cross-site sc
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://wsrv.nl https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net https://images.unsplash.com data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -70,7 +70,7 @@ Content-Security-Policy: default-src 'self';
 Points clés :
 
 - **script-src** : autorisation de Cloudflare Turnstile (`challenges.cloudflare.com`) et AdSense
-- **img-src** : autorisation du proxy d'images wsrv.nl et d'Unsplash
+- **img-src** : autorisation du point d'entrée Cloudflare Images sur la même origine et d'Unsplash
 - **form-action** : envoi de formulaire limité à ssgform.com uniquement
 - **frame-src** : autorisation des iframes Turnstile et des cadres publicitaires AdSense
 

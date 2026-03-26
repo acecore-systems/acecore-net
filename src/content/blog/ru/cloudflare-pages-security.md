@@ -61,7 +61,7 @@ CSP — критически важный заголовок для предот
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://wsrv.nl https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net https://images.unsplash.com data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -70,7 +70,7 @@ Content-Security-Policy: default-src 'self';
 Ключевые моменты:
 
 - **script-src**: Разрешить Cloudflare Turnstile (`challenges.cloudflare.com`) и AdSense
-- **img-src**: Разрешить прокси изображений wsrv.nl и Unsplash
+- **img-src**: Разрешить same-origin endpoint Cloudflare Images и Unsplash
 - **form-action**: Ограничить отправку форм только на ssgform.com
 - **frame-src**: Разрешить iframe Turnstile и рекламные фреймы AdSense
 

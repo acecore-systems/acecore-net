@@ -20,7 +20,7 @@ processFigure:
       description: セルフホストで外部CDNの遅延を排除する。
       icon: i-lucide-type
     - title: 画像の最適化
-      description: wsrv.nl + srcset + sizes で最適サイズを配信。
+      description: Cloudflare Images + srcset + sizes で最適サイズを配信。
       icon: i-lucide-image
     - title: 遅延読み込み
       description: AdSense・GA4を初回操作時に注入する。
@@ -50,8 +50,8 @@ faq:
       answer: 'CSSの総量によります。20 KiB 以下ならインライン化が有利です。それ以上の場合は外部ファイル化してブラウザキャッシュを活かすほうが、2回目以降のアクセスが大幅に高速化します。'
     - question: Google Fonts CDN はなぜ遅いのですか？
       answer: 'PageSpeed Insights はslow 4G（約1.6 Mbps、RTT 150ms）をシミュレートします。外部ドメインへの接続にはDNS lookup + TCP接続 + TLSハンドシェイクが必要で、この遅延がレンダーブロッキングになります。セルフホストなら同一ドメインから配信されるため、この遅延がゼロになります。'
-    - question: wsrv.nl が遅い場合はどうすればいいですか？
-      answer: 'wsrv.nlはCloudflare CDN経由で配信されるため、通常は高速です。ただしPageSpeed計測時にCDNキャッシュがヒットしない場合、LCPが悪化することがあります。重要な画像には <link rel="preload"> を設定し、ブラウザに早期取得を指示しましょう。'
+    - question: Cloudflare Images が遅い場合はどうすればいいですか？
+      answer: 'Cloudflare Images は通常は高速ですが、初回変換やキャッシュミス時は元画像の取得待ちが発生します。PageSpeed計測時にLCPが悪化する場合は、重要な画像に <link rel="preload"> を設定し、ブラウザに早期取得を指示しましょう。'
     - question: AdSense を遅延読み込みしても収益に影響しませんか？
       answer: 'ファーストビューに広告がない場合、初回スクロール時の読み込みでも表示タイミングはほぼ同じです。ページ速度改善によるSEO効果のほうがプラスに働きます。'
 ---
@@ -165,15 +165,15 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## 画像の最適化：wsrv.nl + srcset + sizes
+## 画像の最適化：Cloudflare Images + srcset + sizes
 
-### wsrv.nl プロキシ
+### Cloudflare Images Transformations
 
-外部画像は [wsrv.nl](https://images.weserv.nl/) を経由して配信します。URLパラメータを付けるだけで以下の処理が自動的に行われます。
+外部画像は Cloudflare Images の `/_cdn-cgi/image/` 変換URLを経由して配信します。変換パラメータを付けるだけで以下の処理が自動的に行われます。
 
-- **フォーマット変換**：`output=auto` でブラウザ対応に応じて AVIF / WebP を自動選択
-- **品質調整**：`q=50` で十分な画質を維持しつつファイルサイズを約10%削減
-- **リサイズ**：`w=` パラメータで指定幅にリサイズ
+- **フォーマット変換**：`format=auto` でブラウザ対応に応じて AVIF / WebP を自動選択
+- **品質調整**：`quality=50` で十分な画質を維持しつつファイルサイズを削減
+- **リサイズ**：`width=` / `height=` パラメータで指定サイズに変換
 
 ### srcset と sizes の設定
 
@@ -181,13 +181,13 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

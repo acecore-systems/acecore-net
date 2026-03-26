@@ -20,7 +20,7 @@ processFigure:
       description: Self-host fonts to eliminate external CDN latency.
       icon: i-lucide-type
     - title: Image Optimization
-      description: Deliver optimal sizes via wsrv.nl + srcset + sizes.
+      description: Deliver optimal sizes via Cloudflare Images + srcset + sizes.
       icon: i-lucide-image
     - title: Lazy Loading
       description: Inject AdSense and GA4 on first user interaction.
@@ -50,8 +50,8 @@ faq:
       answer: 'It depends on total CSS size. Below 20 KiB, inlining is advantageous. Above that, externalizing and leveraging browser cache significantly speeds up subsequent visits.'
     - question: Why is Google Fonts CDN slow?
       answer: 'PageSpeed Insights simulates slow 4G (~1.6 Mbps, RTT 150ms). Connecting to an external domain requires DNS lookup + TCP connection + TLS handshake, and this latency becomes render-blocking. Self-hosting eliminates this latency by serving from the same domain.'
-    - question: What if wsrv.nl is slow?
-      answer: 'wsrv.nl is served via Cloudflare CDN and is usually fast. However, if the CDN cache misses during PageSpeed testing, LCP can degrade. Set <link rel="preload"> for critical images to instruct the browser to fetch them early.'
+    - question: What if Cloudflare Images is slow?
+      answer: 'Cloudflare Images is usually fast, but first-time transformations and cache misses still have to fetch the source image. If LCP degrades during PageSpeed testing, set <link rel="preload"> on critical images so the browser starts fetching them earlier.'
     - question: Does lazy-loading AdSense affect revenue?
       answer: 'If there are no ads in the first view, loading on first scroll results in nearly the same display timing. The SEO benefits from improved page speed have a more positive impact.'
 ---
@@ -165,15 +165,15 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## Image Optimization: wsrv.nl + srcset + sizes
+## Image Optimization: Cloudflare Images + srcset + sizes
 
-### wsrv.nl Proxy
+### Cloudflare Images Transformations
 
-External images are served through [wsrv.nl](https://images.weserv.nl/). Simply adding URL parameters provides:
+External images are served through Cloudflare Images transformation URLs under `/cdn-cgi/image/`. Simply adding transformation parameters provides:
 
-- **Format conversion**: `output=auto` automatically selects AVIF/WebP based on browser support
-- **Quality adjustment**: `q=50` maintains sufficient quality while reducing file size by ~10%
-- **Resizing**: `w=` parameter resizes to the specified width
+- **Format conversion**: `format=auto` automatically selects AVIF/WebP based on browser support
+- **Quality adjustment**: `quality=50` reduces file size while maintaining sufficient quality
+- **Resizing**: `width=` / `height=` parameters transform the image to the required size
 
 ### srcset and sizes Configuration
 
@@ -181,13 +181,13 @@ Set `srcset` and `sizes` on all images to deliver optimal sizes based on screen 
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

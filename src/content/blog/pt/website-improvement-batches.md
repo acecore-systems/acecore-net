@@ -110,7 +110,7 @@ A pontuação do PageSpeed não é linear:
 
 Mesmo para o mesmo site, a pontuação pode variar **2-5 pontos** entre medições. As causas incluem:
 
-- Velocidade de resposta de CDNs de imagem como wsrv.nl
+- Velocidade de resposta de serviços de transformação de imagem como o Cloudflare Images
 - Estado do cache do edge server do Cloudflare Pages
 - Margem de erro do próprio Lighthouse
 
@@ -167,7 +167,7 @@ Resolvemos o problema de interrupção de scripts causado pela introdução de V
 | UnoCSS (presetWind3) | CSS utility-first |
 | Cloudflare Pages | Hospedagem, CDN, controle de headers |
 | @fontsource-variable/noto-sans-jp | Self-hosting de fonte japonesa |
-| wsrv.nl | Proxy de imagens (conversão automática AVIF/WebP) |
+| Cloudflare Images | Transformações de imagem (conversão automática AVIF/WebP) |
 | Pagefind | Busca de texto completo para sites estáticos |
 
 ---

@@ -20,7 +20,7 @@ processFigure:
       description: Размещение шрифтов на своём сервере для устранения задержки внешнего CDN.
       icon: i-lucide-type
     - title: Оптимизация изображений
-      description: Доставка оптимальных размеров через wsrv.nl + srcset + sizes.
+      description: Доставка оптимальных размеров через Cloudflare Images + srcset + sizes.
       icon: i-lucide-image
     - title: Ленивая загрузка
       description: Внедрение AdSense и GA4 при первом взаимодействии пользователя.
@@ -50,8 +50,8 @@ faq:
       answer: 'Зависит от общего размера CSS. Меньше 20 КиБ — встраивание выгоднее. Больше — вынесение во внешний файл с использованием кэша браузера значительно ускоряет последующие визиты.'
     - question: Почему Google Fonts CDN работает медленно?
       answer: 'PageSpeed Insights симулирует медленный 4G (~1,6 Мбит/с, RTT 150 мс). Подключение к внешнему домену требует DNS-запрос + TCP-соединение + TLS-рукопожатие, и эта задержка блокирует рендеринг. Самостоятельное размещение устраняет эту задержку, обслуживая шрифты с того же домена.'
-    - question: Что делать, если wsrv.nl работает медленно?
-      answer: 'wsrv.nl обслуживается через Cloudflare CDN и обычно работает быстро. Однако если кэш CDN промахивается во время тестирования PageSpeed, LCP может ухудшиться. Установите <link rel="preload"> для критически важных изображений, чтобы дать браузеру команду загрузить их заранее.'
+    - question: Что делать, если Cloudflare Images работает медленно?
+      answer: 'Cloudflare Images обычно работает быстро, но при первой трансформации и при промахах кеша всё равно нужно заново получить исходное изображение. Если LCP ухудшается в PageSpeed, добавьте <link rel="preload"> для критически важных изображений, чтобы браузер начал загрузку раньше.'
     - question: Влияет ли ленивая загрузка AdSense на доход?
       answer: 'Если в первом экране нет рекламы, загрузка при первой прокрутке даёт практически такое же время показа. Преимущества SEO от повышения скорости страницы оказывают более положительное влияние.'
 ---
@@ -165,11 +165,11 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## Оптимизация изображений: wsrv.nl + srcset + sizes
+## Оптимизация изображений: Cloudflare Images + srcset + sizes
 
-### Прокси wsrv.nl
+### Transformations Cloudflare Images
 
-Внешние изображения обслуживаются через [wsrv.nl](https://images.weserv.nl/). Простое добавление параметров URL обеспечивает:
+Внешние изображения обслуживаются через URL преобразования `/cdn-cgi/image/` от Cloudflare Images. Добавление параметров преобразования даёт:
 
 - **Конвертацию формата**: `output=auto` автоматически выбирает AVIF/WebP в зависимости от поддержки браузера
 - **Настройку качества**: `q=50` сохраняет достаточное качество при уменьшении размера файла на ~10%
@@ -181,13 +181,13 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

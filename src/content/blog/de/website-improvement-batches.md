@@ -110,7 +110,7 @@ PageSpeed-Bewertungen sind nicht linear:
 
 Selbst für dieselbe Website können die Bewertungen zwischen den Messungen um **2–5 Punkte** schwanken. Ursachen sind:
 
-- Bild-CDN-Antwortzeiten (z.B. wsrv.nl)
+- Antwortzeiten von Bild-Transformationsdiensten (z.B. Cloudflare Images)
 - Cloudflare Pages Edge-Server-Cache-Status
 - Lighthouses eigener Messfehler
 
@@ -167,7 +167,7 @@ Wir haben Skriptabbruch-Probleme gelöst, die durch View Transitions (ClientRout
 | UnoCSS (presetWind3) | Utility-First CSS |
 | Cloudflare Pages | Hosting, CDN, Header-Steuerung |
 | @fontsource-variable/noto-sans-jp | Selbst gehostete japanische Schriftart |
-| wsrv.nl | Bild-Proxy (automatische AVIF/WebP-Konvertierung) |
+| Cloudflare Images | Bild-Transformationen (automatische AVIF/WebP-Konvertierung) |
 | Pagefind | Volltextsuche für statische Websites |
 
 ---

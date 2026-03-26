@@ -61,7 +61,7 @@ CSP ist ein kritischer Header zur Verhinderung von Cross-Site-Scripting (XSS)-An
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://wsrv.nl https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net https://images.unsplash.com data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -70,7 +70,7 @@ Content-Security-Policy: default-src 'self';
 Wichtige Punkte:
 
 - **script-src**: Cloudflare Turnstile (`challenges.cloudflare.com`) und AdSense erlauben
-- **img-src**: Den Bild-Proxy wsrv.nl und Unsplash erlauben
+- **img-src**: Den same-origin-Endpunkt von Cloudflare Images und Unsplash erlauben
 - **form-action**: Formulareinsendungen ausschließlich auf ssgform.com beschränken
 - **frame-src**: Turnstile-Iframes und AdSense-Werbeframes erlauben
 

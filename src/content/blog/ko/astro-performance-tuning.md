@@ -20,7 +20,7 @@ processFigure:
       description: 외부 CDN 지연을 제거하기 위해 폰트를 셀프 호스팅합니다.
       icon: i-lucide-type
     - title: 이미지 최적화
-      description: wsrv.nl + srcset + sizes로 최적 크기를 전달합니다.
+      description: Cloudflare Images + srcset + sizes로 최적 크기를 전달합니다.
       icon: i-lucide-image
     - title: 지연 로딩
       description: 첫 사용자 인터랙션 시 AdSense와 GA4를 주입합니다.
@@ -50,8 +50,8 @@ faq:
       answer: 'CSS 전체 크기에 따라 다릅니다. 20 KiB 이하면 인라인이 유리합니다. 그 이상이면 외부화하고 브라우저 캐시를 활용하는 것이 이후 방문 속도를 크게 향상시킵니다.'
     - question: Google Fonts CDN은 왜 느린가요?
       answer: 'PageSpeed Insights는 저속 4G(~1.6 Mbps, RTT 150ms)를 시뮬레이션합니다. 외부 도메인 연결에는 DNS 조회 + TCP 연결 + TLS 핸드셰이크가 필요하며, 이 지연이 렌더링을 차단합니다. 셀프 호스팅은 같은 도메인에서 제공하므로 이 지연을 제거합니다.'
-    - question: wsrv.nl이 느리면 어떻게 하나요?
-      answer: 'wsrv.nl은 Cloudflare CDN을 통해 제공되므로 보통 빠릅니다. 다만, PageSpeed 테스트 시 CDN 캐시가 미스되면 LCP가 저하될 수 있습니다. 크리티컬 이미지에 <link rel="preload">를 설정하여 브라우저에 조기 페치를 지시하세요.'
+    - question: Cloudflare Images가 느리면 어떻게 하나요?
+      answer: 'Cloudflare Images는 보통 빠르지만, 최초 변환이나 캐시 미스 시에는 원본 이미지를 다시 가져와야 합니다. PageSpeed 테스트에서 LCP가 나빠지면 중요한 이미지에 <link rel="preload">를 설정해 브라우저가 더 일찍 가져오도록 하세요.'
     - question: AdSense를 지연 로딩하면 수익에 영향이 있나요?
       answer: '첫 화면에 광고가 없다면, 첫 스크롤 시 로딩해도 거의 같은 표시 타이밍입니다. 페이지 속도 개선으로 인한 SEO 효과가 더 긍정적인 영향을 미칩니다.'
 ---
@@ -165,11 +165,11 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ---
 
-## 이미지 최적화: wsrv.nl + srcset + sizes
+## 이미지 최적화: Cloudflare Images + srcset + sizes
 
-### wsrv.nl 프록시
+### Cloudflare Images Transformations
 
-외부 이미지는 [wsrv.nl](https://images.weserv.nl/)을 통해 제공합니다. URL 매개변수를 추가하기만 하면 다음을 제공합니다:
+외부 이미지는 Cloudflare Images의 `/cdn-cgi/image/` 변환 URL을 통해 제공합니다. 변환 매개변수를 추가하면 다음이 자동으로 적용됩니다:
 
 - **포맷 변환**: `output=auto`로 브라우저 지원에 따라 AVIF/WebP를 자동 선택
 - **품질 조정**: `q=50`으로 충분한 품질을 유지하면서 파일 크기를 약 10% 감소
@@ -181,13 +181,13 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ```html
 <img
-  src="https://wsrv.nl/?url=...&w=800&output=auto&q=50"
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
   srcset="
-    https://wsrv.nl/?url=...&w=480&output=auto&q=50 480w,
-    https://wsrv.nl/?url=...&w=640&output=auto&q=50 640w,
-    https://wsrv.nl/?url=...&w=960&output=auto&q=50 960w,
-    https://wsrv.nl/?url=...&w=1280&output=auto&q=50 1280w,
-    https://wsrv.nl/?url=...&w=1600&output=auto&q=50 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

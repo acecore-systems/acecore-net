@@ -110,7 +110,7 @@ Les scores PageSpeed ne sont pas linéaires.
 
 Même pour un site identique, le score peut **varier de 2 à 5 points** d'une mesure à l'autre. Causes :
 
-- Vitesse de réponse du CDN d'images (wsrv.nl, etc.)
+- Vitesse de réponse des services de transformation d'images (Cloudflare Images, etc.)
 - État du cache du serveur edge Cloudflare Pages
 - Marges d'erreur de Lighthouse lui-même
 
@@ -167,7 +167,7 @@ Résolution des problèmes d'arrêt de scripts causés par View Transitions (Cli
 | UnoCSS (presetWind3) | CSS utility-first |
 | Cloudflare Pages | Hébergement, CDN, contrôle des headers |
 | @fontsource-variable/noto-sans-jp | Auto-hébergement de la police japonaise |
-| wsrv.nl | Proxy d'images (conversion automatique AVIF/WebP) |
+| Cloudflare Images | Transformations d'images (conversion automatique AVIF/WebP) |
 | Pagefind | Recherche plein texte pour sites statiques |
 
 ---
