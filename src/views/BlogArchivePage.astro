@@ -19,11 +19,25 @@ const { locale, month, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const [year, m] = month.split('-')
 const label = t(locale, 'blog.yearMonth', { year, month: String(parseInt(m)) })
+const archiveUrl = `https://acecore.net${u('/blog/archive/' + month + '/')}/`
+const archivePageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: t(locale, 'blog.articlesInMonth', { label }),
+  description: t(locale, 'blog.monthDescription', { label }),
+  url: archiveUrl,
+  hasPart: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    headline: localizePost(post, allPosts, locale).data.title,
+    url: `https://acecore.net${u('/blog/' + post.id + '/')}/`,
+  })),
+}
 ---
 
 <BaseLayout
   title={t(locale, 'blog.articlesInMonth', { label })}
   description={t(locale, 'blog.monthDescription', { label })}
+  jsonLd={archivePageLd}
   locale={locale}
 >
   <section class="ac-section">

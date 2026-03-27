@@ -71,12 +71,25 @@ const organizationLd = {
   sameAs: [SITE.social.x, SITE.social.github, SITE.social.aceserver],
   knowsAbout: ['システム開発', 'Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
 }
+
+const aboutPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: t(locale, 'pages.about.title'),
+  description: t(locale, 'pages.about.description'),
+  url: `https://acecore.net${u('/about/')}/`,
+  about: {
+    '@type': 'Organization',
+    name: 'Acecore',
+    url: 'https://acecore.net/',
+  },
+}
 ---
 
 <BaseLayout
   title={t(locale, 'pages.about.title')}
   description={t(locale, 'pages.about.description')}
-  jsonLd={organizationLd}
+  jsonLd={[organizationLd, aboutPageLd]}
   locale={locale}
 >
   <Hero
