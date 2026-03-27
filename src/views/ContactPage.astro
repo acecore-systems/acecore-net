@@ -102,9 +102,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         action="https://ssgform.com/s/a4JOVjLjyygh"
         method="post"
         class="space-y-6"
-        data-t-sending={t(locale, 'pages.contact.formSending') || '送信中…'}
-        data-t-success={t(locale, 'pages.contact.formSuccess') || 'お問い合わせを送信しました。確認メールをご確認ください。'}
-        data-t-error={t(locale, 'pages.contact.formError') || '送信に失敗しました。時間をおいて再度お試しいただくか、メール・お電話でお問い合わせください。'}
+        data-t-sending={t(locale, 'pages.contact.formSending')}
+        data-t-success={t(locale, 'pages.contact.formSuccess')}
+        data-t-error={t(locale, 'pages.contact.formError')}
+        data-t-validation-category={t(locale, 'pages.contact.validationCategory')}
+        data-t-validation-name={t(locale, 'pages.contact.validationName')}
+        data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
+        data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
       >
         <div>
           <label
@@ -329,20 +333,25 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </script>
   <script is:inline>
     {
+      const contactForm = document.querySelector('form[action*="ssgform"]')
+      const vCat = contactForm?.getAttribute('data-t-validation-category') || ''
+      const vName = contactForm?.getAttribute('data-t-validation-name') || ''
+      const vEmail = contactForm?.getAttribute('data-t-validation-email') || ''
+      const vMsg = contactForm?.getAttribute('data-t-validation-message') || ''
       const rules = {
         category: function (v) {
-          return v ? '' : 'お問い合わせ種別を選択してください'
+          return v ? '' : vCat
         },
         name: function (v) {
-          return v.trim() ? '' : 'お名前を入力してください'
+          return v.trim() ? '' : vName
         },
         email: function (v) {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
             ? ''
-            : '正しいメールアドレスを入力してください'
+            : vEmail
         },
         message: function (v) {
-          return v.trim() ? '' : 'お問い合わせ内容を入力してください'
+          return v.trim() ? '' : vMsg
         },
       }
       function showError(id, msg) {
@@ -385,9 +394,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           e.preventDefault()
           const btn = document.getElementById('contact-submit')
           const feedback = document.getElementById('form-feedback')
-          const sendingText = form.getAttribute('data-t-sending') || '送信中…'
-          const successText = form.getAttribute('data-t-success') || 'お問い合わせを送信しました。'
-          const errorText = form.getAttribute('data-t-error') || '送信に失敗しました。'
+          const sendingText = form.getAttribute('data-t-sending') || 'Sending…'
+          const successText = form.getAttribute('data-t-success') || 'Message sent.'
+          const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
           const originalText = btn.textContent
           btn.disabled = true
           btn.textContent = sendingText

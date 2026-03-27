@@ -272,7 +272,10 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
       const message = document.querySelector('.pagefind-ui__message')
       let fallback = document.getElementById('search-fallback')
       const d = dialog?.dataset ?? {}
-      if (message?.textContent?.includes('見つかりません') || message?.textContent?.includes('No ') || message?.textContent?.includes('0')) {
+      if (
+        message?.textContent &&
+        !document.querySelector('.pagefind-ui__result')
+      ) {
         if (!fallback) {
           fallback = document.createElement('div')
           fallback.id = 'search-fallback'

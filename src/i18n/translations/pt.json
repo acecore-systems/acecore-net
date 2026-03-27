@@ -22,7 +22,13 @@
     "home": "Início",
     "loading": "Carregando...",
     "required": "(obrigatório)",
-    "closeAd": "Fechar anúncio"
+    "closeAd": "Fechar anúncio",
+    "youtubeDefaultTitle": "Vídeo do YouTube",
+    "playVideo": "Reproduzir {title}",
+    "timeline": "Linha do tempo",
+    "copyCode": "Copiar código",
+    "codeCopied": "Copiado!",
+    "copyFailed": "Falha ao copiar"
   },
   "hero": {
     "ctaServices": "Ver serviços",
@@ -202,7 +208,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "Fique à vontade para nos contatar via LINE",
       "methodX": "X",
-      "methodXDesc": "Também aceitamos consultas via DM"
+      "methodXDesc": "Também aceitamos consultas via DM",
+      "validationCategory": "Selecione uma categoria",
+      "validationName": "Insira seu nome",
+      "validationEmail": "Insira um e-mail válido",
+      "validationMessage": "Insira sua mensagem"
     },
     "schools": {
       "robotProgramming": {

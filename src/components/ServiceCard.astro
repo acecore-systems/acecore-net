@@ -1,12 +1,16 @@
 ---
+import { t } from '../i18n/utils'
+import type { Locale } from '../i18n'
+
 interface Props {
   icon: string
   title: string
   description: string
   href?: string
+  locale?: Locale
 }
 
-const { icon, title, description, href } = Astro.props
+const { icon, title, description, href, locale = 'ja' } = Astro.props
 const Tag = href ? 'a' : 'div'
 const isExternal = href?.startsWith('http')
 ---
@@ -23,5 +27,5 @@ const isExternal = href?.startsWith('http')
     {title}
   </h3>
   <p class="text-sm text-slate-600 leading-relaxed">{description}</p>
-  {isExternal && <span class="sr-only">（新しいタブで開きます）</span>}
+  {isExternal && <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>}
 </Tag>

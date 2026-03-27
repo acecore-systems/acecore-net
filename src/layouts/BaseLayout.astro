@@ -36,7 +36,7 @@ const {
   preloadImage,
 } = Astro.props
 
-const isHome = title === t(locale, 'nav.home') || title === 'ホーム'
+const isHome = title === t(locale, 'nav.home')
 const pageTitle = isHome
   ? t(locale, 'meta.siteTitle')
   : `${title} | Acecore`

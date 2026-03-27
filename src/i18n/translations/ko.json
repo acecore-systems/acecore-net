@@ -22,7 +22,13 @@
     "home": "홈",
     "loading": "로딩 중...",
     "required": "(필수)",
-    "closeAd": "광고 닫기"
+    "closeAd": "광고 닫기",
+    "youtubeDefaultTitle": "YouTube 동영상",
+    "playVideo": "{title} 재생",
+    "timeline": "타임라인",
+    "copyCode": "코드 복사",
+    "codeCopied": "복사 완료!",
+    "copyFailed": "복사 실패"
   },
   "hero": {
     "ctaServices": "서비스 보기",
@@ -202,7 +208,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "LINE으로도 편하게 문의해 주세요",
       "methodX": "X",
-      "methodXDesc": "DM으로도 문의를 받고 있습니다"
+      "methodXDesc": "DM으로도 문의를 받고 있습니다",
+      "validationCategory": "문의 유형을 선택해 주세요",
+      "validationName": "이름을 입력해 주세요",
+      "validationEmail": "유효한 이메일 주소를 입력해 주세요",
+      "validationMessage": "문의 내용을 입력해 주세요"
     },
     "schools": {
       "robotProgramming": {

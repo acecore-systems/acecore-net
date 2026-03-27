@@ -1,4 +1,7 @@
 ---
+import { t } from '../i18n/utils'
+import type { Locale } from '../i18n'
+
 interface TimelineItem {
   date: string
   title: string
@@ -8,15 +11,16 @@ interface TimelineItem {
 interface Props {
   title?: string
   items: TimelineItem[]
+  locale?: Locale
 }
 
-const { title, items } = Astro.props
+const { title, items, locale = 'ja' } = Astro.props
 ---
 
 <figure
   class="not-prose my-8"
   role="group"
-  aria-label={title || 'タイムライン'}
+  aria-label={title || t(locale, 'common.timeline')}
 >
   {
     title && (

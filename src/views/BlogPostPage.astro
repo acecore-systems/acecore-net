@@ -52,9 +52,11 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const basePosts = allRawPosts.filter(isBasePost)
 
 const currentIndex = basePosts.findIndex((p) => p.id === baseSlug)
-const prevPost =
+const prevBasePost =
   currentIndex < basePosts.length - 1 ? basePosts[currentIndex + 1] : null
-const nextPost = currentIndex > 0 ? basePosts[currentIndex - 1] : null
+const nextBasePost = currentIndex > 0 ? basePosts[currentIndex - 1] : null
+const prevPost = prevBasePost ? { id: prevBasePost.id, data: localizePost(prevBasePost, allRawPosts, locale).data } : null
+const nextPost = nextBasePost ? { id: nextBasePost.id, data: localizePost(nextBasePost, allRawPosts, locale).data } : null
 
 const currentTags = post.data.tags ?? []
 const relatedPosts =
@@ -74,7 +76,10 @@ const relatedPosts =
             b.post.data.date.getTime() - a.post.data.date.getTime(),
         )
         .slice(0, 4)
-        .map((p) => p.post)
+        .map((p) => {
+          const lp = localizePost(p.post, allRawPosts, locale)
+          return { id: p.post.id, data: lp.data }
+        })
     : []
 
 const ogImage = new URL(`/blog/og/${baseSlug}.png`, Astro.site).href
@@ -303,7 +308,7 @@ const ctaHeading = isDefaultLocale
         <div class="prose prose-slate prose-lg max-w-none">
           <Content />
         </div>
-        {post.data.timeline && <Timeline {...post.data.timeline} />}
+        {post.data.timeline && <Timeline {...post.data.timeline} locale={locale} />}
         {
           post.data.processFigure && (
             <ProcessFigure {...post.data.processFigure} />
@@ -311,7 +316,7 @@ const ctaHeading = isDefaultLocale
         }
         {post.data.compareTable && <CompareTable {...post.data.compareTable} />}
         {post.data.gallery && <Gallery {...post.data.gallery} />}
-        {post.data.youtube && <YouTubeEmbed {...post.data.youtube} />}
+        {post.data.youtube && <YouTubeEmbed {...post.data.youtube} locale={locale} />}
         {post.data.checklist && <Checklist {...post.data.checklist} />}
         {post.data.testimonials?.map((testimonial) => <Testimonial {...testimonial} />)}
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
@@ -526,7 +531,7 @@ const ctaHeading = isDefaultLocale
             </nav>
           )
         }
-        <CopyCodeButton />
+        <CopyCodeButton locale={locale} />
       </article>
       <aside class="hidden lg:block" aria-label={t(locale, 'blog.sidebar')}>
         <div class="sticky top-20 space-y-6">

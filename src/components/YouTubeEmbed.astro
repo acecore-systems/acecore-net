@@ -1,13 +1,19 @@
 ---
+import { t } from '../i18n/utils'
+import type { Locale } from '../i18n'
+
 interface Props {
   videoId: string
   title?: string
   caption?: string
+  locale?: Locale
 }
 
-const { videoId, title = 'YouTube動画', caption } = Astro.props
+const { videoId, title, caption, locale = 'ja' } = Astro.props
+const displayTitle = title || t(locale, 'common.youtubeDefaultTitle')
 const safeId = videoId.replace(/[^a-zA-Z0-9_-]/g, '')
 const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
+const ariaLabel = t(locale, 'common.playVideo').replace('{title}', displayTitle)
 ---
 
 <figure class="not-prose my-8">
@@ -15,11 +21,11 @@ const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
     class="yt-facade relative w-full rounded-lg overflow-hidden cursor-pointer group"
     style="padding-bottom:56.25%"
     data-video-id={safeId}
-    data-video-title={title}
+    data-video-title={displayTitle}
   >
     <img
       src={thumbnailUrl}
-      alt={title}
+      alt={displayTitle}
       class="absolute inset-0 w-full h-full object-cover"
       width="480"
       height="360"
@@ -28,7 +34,7 @@ const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
     />
     <button
       class="absolute inset-0 w-full h-full flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors"
-      aria-label={`${title}を再生`}
+      aria-label={ariaLabel}
     >
       <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true">
         <path
@@ -52,7 +58,7 @@ const thumbnailUrl = `https://i.ytimg.com/vi/${safeId}/hqdefault.jpg`
         'click',
         () => {
           const id = el.dataset.videoId
-          const t = el.dataset.videoTitle ?? 'YouTube動画'
+          const t = el.dataset.videoTitle ?? 'YouTube video'
           const iframe = document.createElement('iframe')
           iframe.className = 'absolute inset-0 w-full h-full'
           iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`

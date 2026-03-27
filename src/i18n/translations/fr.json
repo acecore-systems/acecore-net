@@ -22,7 +22,13 @@
     "home": "Accueil",
     "loading": "Chargement...",
     "required": "(obligatoire)",
-    "closeAd": "Fermer la publicité"
+    "closeAd": "Fermer la publicité",
+    "youtubeDefaultTitle": "Vidéo YouTube",
+    "playVideo": "Lire {title}",
+    "timeline": "Chronologie",
+    "copyCode": "Copier le code",
+    "codeCopied": "Copié !",
+    "copyFailed": "Échec de la copie"
   },
   "hero": {
     "ctaServices": "Voir les services",
@@ -202,7 +208,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "N'hésitez pas à nous contacter via LINE",
       "methodX": "X",
-      "methodXDesc": "Nous acceptons aussi les consultations par DM"
+      "methodXDesc": "Nous acceptons aussi les consultations par DM",
+      "validationCategory": "Veuillez sélectionner une catégorie",
+      "validationName": "Veuillez entrer votre nom",
+      "validationEmail": "Veuillez entrer une adresse e-mail valide",
+      "validationMessage": "Veuillez entrer votre message"
     },
     "schools": {
       "robotProgramming": {

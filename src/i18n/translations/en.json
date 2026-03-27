@@ -22,7 +22,13 @@
     "home": "Home",
     "loading": "Loading...",
     "required": "(required)",
-    "closeAd": "Close ad"
+    "closeAd": "Close ad",
+    "youtubeDefaultTitle": "YouTube video",
+    "playVideo": "Play {title}",
+    "timeline": "Timeline",
+    "copyCode": "Copy code",
+    "codeCopied": "Copied!",
+    "copyFailed": "Copy failed"
   },
   "hero": {
     "ctaServices": "View Services",
@@ -363,7 +369,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "Feel free to contact us via LINE",
       "methodX": "X",
-      "methodXDesc": "We also accept inquiries via DM"
+      "methodXDesc": "We also accept inquiries via DM",
+      "validationCategory": "Please select a category",
+      "validationName": "Please enter your name",
+      "validationEmail": "Please enter a valid email address",
+      "validationMessage": "Please enter your message"
     },
     "schools": {
       "title": "Acecore Schools",

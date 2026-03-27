@@ -22,7 +22,13 @@
     "home": "Главная",
     "loading": "Загрузка...",
     "required": "(обязательно)",
-    "closeAd": "Закрыть рекламу"
+    "closeAd": "Закрыть рекламу",
+    "youtubeDefaultTitle": "Видео YouTube",
+    "playVideo": "Воспроизвести {title}",
+    "timeline": "Хронология",
+    "copyCode": "Копировать код",
+    "codeCopied": "Скопировано!",
+    "copyFailed": "Ошибка копирования"
   },
   "hero": {
     "ctaServices": "Посмотреть услуги",
@@ -202,7 +208,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "Не стесняйтесь обращаться через LINE",
       "methodX": "X",
-      "methodXDesc": "Мы также принимаем обращения через DM"
+      "methodXDesc": "Мы также принимаем обращения через DM",
+      "validationCategory": "Выберите категорию",
+      "validationName": "Введите ваше имя",
+      "validationEmail": "Введите корректный адрес электронной почты",
+      "validationMessage": "Введите сообщение"
     },
     "schools": {
       "robotProgramming": {

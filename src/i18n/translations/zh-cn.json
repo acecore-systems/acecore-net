@@ -22,7 +22,13 @@
     "home": "首页",
     "loading": "加载中...",
     "required": "（必填）",
-    "closeAd": "关闭广告"
+    "closeAd": "关闭广告",
+    "youtubeDefaultTitle": "YouTube 视频",
+    "playVideo": "播放 {title}",
+    "timeline": "时间线",
+    "copyCode": "复制代码",
+    "codeCopied": "已复制！",
+    "copyFailed": "复制失败"
   },
   "hero": {
     "ctaServices": "查看服务",
@@ -202,7 +208,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "也可通过LINE联系我们",
       "methodX": "X",
-      "methodXDesc": "也接受通过私信咨询"
+      "methodXDesc": "也接受通过私信咨询",
+      "validationCategory": "请选择咨询类别",
+      "validationName": "请输入您的姓名",
+      "validationEmail": "请输入有效的电子邮件地址",
+      "validationMessage": "请输入咨询内容"
     },
     "schools": {
       "robotProgramming": {

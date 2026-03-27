@@ -22,7 +22,13 @@
     "home": "ホーム",
     "loading": "読み込み中...",
     "required": "（必須）",
-    "closeAd": "広告を閉じる"
+    "closeAd": "広告を閉じる",
+    "youtubeDefaultTitle": "YouTube動画",
+    "playVideo": "{title}を再生",
+    "timeline": "タイムライン",
+    "copyCode": "コードをコピー",
+    "codeCopied": "コピーしました",
+    "copyFailed": "コピー失敗"
   },
   "hero": {
     "ctaServices": "サービスを詳しく見る",
@@ -363,7 +369,11 @@
       "methodLine": "LINE",
       "methodLineDesc": "LINEでもお気軽にお問い合わせください",
       "methodX": "X",
-      "methodXDesc": "DMでのお問い合わせも受け付けています"
+      "methodXDesc": "DMでのお問い合わせも受け付けています",
+      "validationCategory": "お問い合わせ種別を選択してください",
+      "validationName": "お名前を入力してください",
+      "validationEmail": "正しいメールアドレスを入力してください",
+      "validationMessage": "お問い合わせ内容を入力してください"
     },
     "schools": {
       "title": "Acecore Schools",

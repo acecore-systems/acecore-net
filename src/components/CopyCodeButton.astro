@@ -1,10 +1,28 @@
+---
+import { t } from '../i18n/utils'
+import type { Locale } from '../i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'ja' } = Astro.props
+---
+
+<div
+  id="copy-code-i18n"
+  hidden
+  data-copy={t(locale, 'common.copyCode')}
+  data-copied={t(locale, 'common.codeCopied')}
+  data-failed={t(locale, 'common.copyFailed')}
+></div>
+
 <script>
   document.addEventListener('astro:page-load', () => {
-    const lang = document.documentElement.lang || 'ja'
-    const isJa = lang === 'ja'
-    const labelCopy = isJa ? 'コードをコピー' : 'Copy code'
-    const labelCopied = isJa ? 'コピーしました' : 'Copied'
-    const labelFailed = isJa ? 'コピー失敗' : 'Copy failed'
+    const i18nEl = document.getElementById('copy-code-i18n')
+    const labelCopy = i18nEl?.dataset.copy || 'Copy code'
+    const labelCopied = i18nEl?.dataset.copied || 'Copied!'
+    const labelFailed = i18nEl?.dataset.failed || 'Copy failed'
 
     document.querySelectorAll('article pre').forEach((pre) => {
       const wrapper = document.createElement('div')
