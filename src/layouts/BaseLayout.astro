@@ -94,9 +94,7 @@ const breadcrumbLd =
               '@type': 'ListItem',
               position: i + 2,
               name: pageNameMap[part] || decodeURIComponent(part),
-              ...(i < pathParts.length - 1
-                ? { item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}` }
-                : {}),
+              item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}/`,
             }
           }),
         ],

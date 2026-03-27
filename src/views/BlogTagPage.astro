@@ -24,6 +24,18 @@ const displayTag = translateTag(tag, locale)
   title={t(locale, 'blog.articlesByTag', { tag: displayTag })}
   description={t(locale, 'blog.tagDescription', { tag: displayTag })}
   locale={locale}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t(locale, 'blog.articlesByTag', { tag: displayTag }),
+    url: `https://acecore.net${u(`/blog/tags/${tag}/`)}`,
+    description: t(locale, 'blog.tagDescription', { tag: displayTag }),
+    hasPart: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: localizePost(post, allPosts, locale).data.title,
+      url: `https://acecore.net${u(`/blog/${post.id}/`)}`,
+    })),
+  }}
 >
   <section class="ac-section">
     <div class="ac-container">

@@ -27,6 +27,14 @@ const authorName = author?.name ?? authorId
   title={t(locale, 'blog.articlesByAuthor', { author: authorName })}
   description={t(locale, 'blog.authorDescription', { author: authorName })}
   locale={locale}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: authorName,
+    url: `https://acecore.net${u(`/blog/authors/${authorId}/`)}`,
+    ...(author?.bio && { description: author.bio }),
+    ...(author?.avatarImage || author?.avatar ? { image: author.avatarImage || author.avatar } : {}),
+  }}
 >
   <section class="ac-section">
     <div class="ac-container">
