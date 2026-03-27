@@ -103,12 +103,20 @@ const hasSlider = images && images.length > 0
           <a
             href={u('/services/')}
             class="ac-btn bg-white text-brand-600 hover:bg-brand-50"
+            data-ga-event="cta_click"
+            data-ga-label="hero_services"
+            data-ga-location="hero"
+            data-ga-destination={u('/services/')}
           >
             {t(locale, 'hero.ctaServices')}
           </a>
           <a
             href={u('/contact/')}
             class="ac-btn border-2 border-white text-white hover:bg-white/10"
+            data-ga-event="cta_click"
+            data-ga-label="hero_contact"
+            data-ga-location="hero"
+            data-ga-destination={u('/contact/')}
           >
             {t(locale, 'hero.ctaContact')}
           </a>

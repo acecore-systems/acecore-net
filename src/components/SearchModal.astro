@@ -248,10 +248,16 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
       if (!dialog || !container) return
       if (!dialog.open) {
         dialog.showModal()
+        ;(window as any).aceTrackEvent?.('search_open', {
+          location: 'search_modal',
+          page_path: window.location.pathname,
+          page_title: document.title,
+        })
       }
 
       try {
         const input = await ensureSearchUi(dialog, container)
+        bindSearchInputAnalytics(input)
         if (query && input) {
           input.value = query
           input.dispatchEvent(new Event('input', { bubbles: true }))
@@ -310,6 +316,29 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
     })
     searchObserver.observe(container, { childList: true, subtree: true })
 
+    if (container.dataset.gaClickBound !== 'true') {
+      container.dataset.gaClickBound = 'true'
+      container.addEventListener('click', (event) => {
+        const target = event.target as Element | null
+        const resultLink = target?.closest('.pagefind-ui__result-link') as
+          | HTMLAnchorElement
+          | null
+        if (!resultLink) return
+
+        const searchInput = dialog.querySelector<HTMLInputElement>(
+          '.pagefind-ui__search-input',
+        )
+        ;(window as any).aceTrackEvent?.('search_result_click', {
+          location: 'search_modal',
+          page_path: window.location.pathname,
+          page_title: document.title,
+          search_term: searchInput?.value.trim() || '',
+          result_title: resultLink.textContent?.trim() || '',
+          destination: resultLink.href,
+        })
+      })
+    }
+
     closeBtn.onclick = () => dialog.close()
     dialog.onclick = (e) => {
       if (e.target === dialog) dialog.close()
@@ -324,6 +353,30 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
     if (queryParam) {
       openSearch(queryParam)
     }
+  }
+
+  function bindSearchInputAnalytics(input: HTMLInputElement | null) {
+    if (!input || input.dataset.gaBound === 'true') return
+
+    input.dataset.gaBound = 'true'
+    let debounceTimer = 0
+    let lastTrackedQuery = ''
+
+    input.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer)
+      debounceTimer = window.setTimeout(() => {
+        const value = input.value.trim()
+        if (value.length < 2 || value === lastTrackedQuery) return
+
+        lastTrackedQuery = value
+        ;(window as any).aceTrackEvent?.('search_submit', {
+          location: 'search_modal',
+          page_path: window.location.pathname,
+          page_title: document.title,
+          search_term: value,
+        })
+      }, 400)
+    })
   }
 
   function initSearchShortcuts() {

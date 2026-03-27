@@ -19,6 +19,14 @@ const isExternal = href?.startsWith('http')
   {...href ? { href } : {}}
   {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
   class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow block no-underline group"
+  {...href
+    ? {
+        'data-ga-event': 'cta_click',
+        'data-ga-label': title,
+        'data-ga-location': 'service_card',
+        'data-ga-destination': href,
+      }
+    : {}}
 >
   <div class={`${icon} text-3xl text-brand-500 mb-4`} aria-hidden="true"></div>
   <h3

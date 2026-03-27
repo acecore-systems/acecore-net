@@ -232,6 +232,10 @@ import { SITE } from '../data/site'
       set:html={`
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      window.aceTrackEvent = function(name, params) {
+        if (!name) return;
+        gtag('event', name, params || {});
+      };
       gtag('js', new Date());
       gtag('config', '${SITE.ga4Id}');
       (function() {
@@ -324,6 +328,91 @@ import { SITE } from '../data/site'
           localStorage.setItem('preferred-locale', detected);
           location.replace('/' + detected + '/');
         }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        if (window.__aceAnalyticsClickTrackingInitialized) return;
+        window.__aceAnalyticsClickTrackingInitialized = true;
+
+        function camelToSnake(value) {
+          return value.replace(/[A-Z]/g, function (match) {
+            return '_' + match.toLowerCase();
+          });
+        }
+
+        function getLabel(element) {
+          return (
+            element.dataset.gaLabel ||
+            (element.getAttribute('aria-label') || '').trim() ||
+            (element.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120)
+          );
+        }
+
+        function buildParams(element) {
+          var params = {
+            page_path: location.pathname,
+            page_title: document.title,
+          };
+
+          Object.keys(element.dataset).forEach(function (key) {
+            if (!key.startsWith('ga') || key === 'gaEvent') return;
+            var paramName = camelToSnake(key.slice(2).replace(/^./, function (char) {
+              return char.toLowerCase();
+            }));
+            params[paramName] = element.dataset[key];
+          });
+
+          return params;
+        }
+
+        document.addEventListener('click', function (event) {
+          var target = event.target;
+          if (!(target instanceof Element)) return;
+
+          var trackedElement = target.closest('[data-ga-event]');
+          if (trackedElement) {
+            window.aceTrackEvent(
+              trackedElement.dataset.gaEvent,
+              buildParams(trackedElement),
+            );
+            return;
+          }
+
+          var anchor = target.closest('a[href]');
+          if (!(anchor instanceof HTMLAnchorElement)) return;
+
+          var href = anchor.getAttribute('href') || '';
+          if (!href || href.startsWith('#')) return;
+
+          if (anchor.className.indexOf('ac-btn') !== -1) {
+            window.aceTrackEvent('cta_click', {
+              page_path: location.pathname,
+              page_title: document.title,
+              label: getLabel(anchor),
+              destination: anchor.href,
+              location: 'generic_cta',
+            });
+            return;
+          }
+
+          var destination;
+          try {
+            destination = new URL(anchor.href, location.origin);
+          } catch {
+            return;
+          }
+
+          if (destination.origin !== location.origin) {
+            window.aceTrackEvent('external_link_click', {
+              page_path: location.pathname,
+              page_title: document.title,
+              label: getLabel(anchor),
+              destination: destination.href,
+              location: 'generic_external_link',
+            });
+          }
+        }, true);
       })();
     </script>
   </head>

@@ -70,6 +70,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             <a
               href={u('/contact/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              data-ga-event="cta_click"
+              data-ga-label="footer_contact"
+              data-ga-location="footer"
+              data-ga-destination={u('/contact/')}
               >{t(locale, 'nav.contact')}</a
             >
           </li>
@@ -91,6 +95,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              data-ga-event="external_link_click"
+              data-ga-label="footer_aceserver"
+              data-ga-location="footer"
+              data-ga-destination={SITE.social.aceserver}
               >Aceserver<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>
@@ -100,6 +108,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
+              data-ga-event="external_link_click"
+              data-ga-label="footer_x"
+              data-ga-location="footer"
+              data-ga-destination={SITE.social.x}
               >X<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>
@@ -109,6 +121,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               target="_blank"
               rel="noopener noreferrer"
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              data-ga-event="external_link_click"
+              data-ga-label="footer_github"
+              data-ga-location="footer"
+              data-ga-destination={SITE.social.github}
               >GitHub<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
             >
           </li>

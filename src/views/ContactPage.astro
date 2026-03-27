@@ -75,12 +75,23 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       >
         <div class="flex items-center gap-2">
           <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
-          <span class="font-600 text-slate-800">{SITE.phone}</span>
+          <a
+            href={`tel:${SITE.phone.replace(/-/g, '')}`}
+            class="font-600 text-slate-800 hover:underline"
+            data-ga-event="contact_phone_click"
+            data-ga-label="contact_summary_phone"
+            data-ga-location="contact_summary"
+            data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
+          >{SITE.phone}</a>
         </div>
         <div class="flex items-center gap-2">
           <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
           <a
             href={`mailto:${SITE.email}`}
+            data-ga-event="contact_email_click"
+            data-ga-label="contact_summary_email"
+            data-ga-location="contact_summary"
+            data-ga-destination={`mailto:${SITE.email}`}
             class="font-600 text-brand-500 hover:underline">{SITE.email}</a
           >
         </div>
@@ -88,6 +99,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           href={SITE.line}
           target="_blank"
           rel="noopener noreferrer"
+          data-ga-event="contact_line_click"
+          data-ga-label="contact_summary_line"
+          data-ga-location="contact_summary"
+          data-ga-destination={SITE.line}
           class="flex items-center gap-2 font-600 text-brand-500 hover:underline"
         >
           <div
@@ -255,6 +270,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           <p class="text-sm text-slate-600 font-600">
             <a
               href={`tel:${SITE.phone.replace(/-/g, '')}`}
+              data-ga-event="contact_phone_click"
+              data-ga-label="contact_card_phone"
+              data-ga-location="contact_methods"
+              data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
               class="text-brand-500 hover:underline">{SITE.phone}</a
             >
           </p>
@@ -269,6 +288,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           <p class="text-sm text-slate-600">
             <a
               href={`mailto:${SITE.email}`}
+              data-ga-event="contact_email_click"
+              data-ga-label="contact_card_email"
+              data-ga-location="contact_methods"
+              data-ga-destination={`mailto:${SITE.email}`}
               class="text-brand-500 hover:underline">{SITE.email}</a
             >
           </p>
@@ -277,6 +300,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           href={SITE.line}
           target="_blank"
           rel="noopener noreferrer"
+          data-ga-event="contact_line_click"
+          data-ga-label="contact_card_line"
+          data-ga-location="contact_methods"
+          data-ga-destination={SITE.line}
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
         >
           <div
@@ -294,6 +321,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           href={SITE.social.x}
           target="_blank"
           rel="noopener noreferrer"
+          data-ga-event="contact_x_click"
+          data-ga-label="contact_card_x"
+          data-ga-location="contact_methods"
+          data-ga-destination={SITE.social.x}
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
         >
           <div
@@ -392,6 +423,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       if (form) {
         form.addEventListener('submit', function (e) {
           e.preventDefault()
+          const formData = new FormData(form)
           const btn = document.getElementById('contact-submit')
           const feedback = document.getElementById('form-feedback')
           const sendingText = form.getAttribute('data-t-sending') || 'Sending…'
@@ -403,10 +435,19 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           feedback.className = 'hidden rounded-lg p-4 text-sm'
           fetch(form.action, {
             method: 'POST',
-            body: new FormData(form),
+            body: formData,
           })
             .then(function (res) {
               if (res.ok) {
+                if (window.aceTrackEvent) {
+                  window.aceTrackEvent('generate_lead', {
+                    page_path: window.location.pathname,
+                    page_title: document.title,
+                    location: 'contact_form',
+                    contact_category:
+                      String(formData.get('お問い合わせ種別') || ''),
+                  })
+                }
                 feedback.textContent = successText
                 feedback.className =
                   'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
