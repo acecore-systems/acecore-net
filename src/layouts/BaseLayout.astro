@@ -103,7 +103,6 @@ const breadcrumbLd =
 
 const alternateUrls = getAlternateUrls(Astro.url.pathname, siteOrigin)
 
-import '@fontsource-variable/noto-sans-jp'
 import { ClientRouter } from 'astro:transitions'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -227,32 +226,11 @@ import { SITE } from '../data/site'
         </>
       )
     }
-    <!-- Google Tag Manager -->
+    <!-- Google Analytics (GA4) -->
     <script
       is:inline
       set:html={`
       window.dataLayer = window.dataLayer || [];
-      (function() {
-        function loadGTM() {
-          if (document.querySelector('script[src*="gtm.js"]')) return;
-          dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-          var s = document.createElement('script');
-          s.src = 'https://www.googletagmanager.com/gtm.js?id=${SITE.gtmId}';
-          s.async = true;
-          document.head.appendChild(s);
-        }
-        if (typeof requestIdleCallback === 'function') {
-          requestIdleCallback(loadGTM);
-        } else {
-          setTimeout(loadGTM, 1500);
-        }
-      })();
-    `}
-    />
-    <!-- Google Analytics (GA4) — GTM設定完了後に削除可 -->
-    <script
-      is:inline
-      set:html={`
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', '${SITE.ga4Id}');
@@ -350,8 +328,6 @@ import { SITE } from '../data/site'
     </script>
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${SITE.gtmId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm"

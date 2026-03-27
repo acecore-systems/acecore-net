@@ -7,7 +7,6 @@ export const SITE = {
   line: 'https://lin.ee/DjIrdqj',
   adsenseClientId: 'ca-pub-3935803464310919',
   ga4Id: 'G-G79SGTMYEX',
-  gtmId: 'GTM-KKSQM3KX',
   adSlotId: '3228710511',
   inlineAdSlotId: '4541792182',
   turnstileSiteKey: '0x4AAAAAACrIzSf3oGLj_GwT',
