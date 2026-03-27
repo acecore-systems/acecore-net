@@ -94,11 +94,9 @@ const breadcrumbLd =
               '@type': 'ListItem',
               position: i + 2,
               name: pageNameMap[part] || decodeURIComponent(part),
-              ...(i < pathParts.length - 1 && knownRoutes.has(path)
+              ...(i < pathParts.length - 1
                 ? { item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}` }
-                : i === pathParts.length - 1
-                  ? { item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}` }
-                  : {}),
+                : {}),
             }
           }),
         ],

@@ -191,6 +191,7 @@ const ctaHeading = isDefaultLocale
   tags={post.data.tags}
   author={author?.name}
   locale={locale}
+  preloadImage={post.data.image ? { src: optimizeImage(post.data.image), srcset: generateSrcSet(post.data.image, [400, 800, 1200]), sizes: '(min-width: 768px) 56rem, 100vw' } : undefined}
 >
   <div class="ac-section">
     <div
@@ -299,6 +300,8 @@ const ctaHeading = isDefaultLocale
                 width="960"
                 height="400"
                 decoding="async"
+                loading="eager"
+                fetchpriority="high"
               />
             </div>
           )
