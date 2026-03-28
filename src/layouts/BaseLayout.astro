@@ -38,6 +38,7 @@ const {
 
 const isHome = title === t(locale, 'nav.home')
 const enableClientRouter = !isHome
+const gaFallbackDelay = isHome ? 12000 : 4000
 const pageTitle = isHome
   ? t(locale, 'meta.siteTitle')
   : `${title} | Acecore`
@@ -222,6 +223,7 @@ import { SITE } from '../data/site'
       gtag('config', '${SITE.ga4Id}');
       (function() {
         var gaLoaded = false;
+        var gaLoadQueued = false;
         function loadGA() {
           if (gaLoaded || document.querySelector('script[src*="gtag/js"]')) return;
           gaLoaded = true;
@@ -231,14 +233,30 @@ import { SITE } from '../data/site'
           document.head.appendChild(s);
         }
 
+        function queueGA() {
+          if (gaLoaded || gaLoadQueued) return;
+          gaLoadQueued = true;
+          if (typeof requestIdleCallback === 'function') {
+            requestIdleCallback(function() {
+              gaLoadQueued = false;
+              loadGA();
+            }, { timeout: 2500 });
+          } else {
+            setTimeout(function() {
+              gaLoadQueued = false;
+              loadGA();
+            }, 1200);
+          }
+        }
+
         function bindInteractionLoad() {
           ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(eventName) {
-            window.addEventListener(eventName, loadGA, { once: true, passive: true });
+            window.addEventListener(eventName, queueGA, { once: true, passive: true });
           });
         }
 
         bindInteractionLoad();
-        setTimeout(loadGA, 4000);
+        setTimeout(queueGA, ${gaFallbackDelay});
       })();
     `}
     />

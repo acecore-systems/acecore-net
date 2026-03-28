@@ -14,6 +14,18 @@ interface Props {
   locale: Locale
 }
 
+type HomeLayer = {
+  title: string
+  description: string
+  icon: string
+  tone: 'brand' | 'emerald' | 'amber' | 'slate'
+}
+
+type HeroImage = {
+  src: string
+  alt: string
+}
+
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
@@ -24,7 +36,7 @@ const posts = allPosts
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const coreLayers = [
+const coreLayers: HomeLayer[] = [
   {
     title: t(locale, 'pages.home.layerDesign'),
     description: t(locale, 'pages.home.layerDesignDesc'),
@@ -50,7 +62,7 @@ const coreLayers = [
     tone: 'slate',
   },
 ]
-const homeHeroImages = [
+const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
@@ -75,7 +87,7 @@ const homeHeroImages = [
     ),
     alt: t(locale, 'pages.home.heroImgStrategy'),
   },
-] as const
+]
 const firstHeroSrc = optimizeImage(
   'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
 )

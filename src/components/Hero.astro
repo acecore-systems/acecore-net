@@ -13,7 +13,13 @@ interface Props {
 const { title, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
-const hasSlider = images && images.length > 0
+const sliderImages = (images ?? []).map((image) => ({
+  ...image,
+  srcset: generateSrcSet(image.src),
+  sizes: '100vw',
+}))
+const hasSlider = sliderImages.length > 0
+const firstSliderImage = sliderImages[0]
 ---
 
 <section
@@ -25,29 +31,35 @@ const hasSlider = images && images.length > 0
 >
   {
     hasSlider && (
-      <div class="absolute inset-0" id="hero-slider" role="region" aria-roledescription="carousel" aria-label={t(locale, 'hero.sliderLabel')}>
-        {images.map(({src, alt}, i) => (
-          <div
-            class:list={[
-              'hero-slide absolute inset-0 transition-opacity duration-1000',
-              i === 0 ? 'opacity-100' : 'opacity-0',
-            ]}
-            data-index={i}
-          >
-            <img
-              src={src}
-              srcset={generateSrcSet(src)}
-              sizes="100vw"
-              alt={alt}
-              class="w-full h-full object-cover"
-              width="1400"
-              height="600"
-              decoding="async"
-              fetchpriority={i === 0 ? 'high' : 'low'}
-              loading={i === 0 ? 'eager' : 'lazy'}
-            />
-          </div>
-        ))}
+      <div
+        class="absolute inset-0"
+        id="hero-slider"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={t(locale, 'hero.sliderLabel')}
+        data-hero-images={JSON.stringify(sliderImages)}
+      >
+        {
+          firstSliderImage && (
+            <div
+              class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
+              data-index="0"
+            >
+              <img
+                src={firstSliderImage.src}
+                srcset={firstSliderImage.srcset}
+                sizes={firstSliderImage.sizes}
+                alt={firstSliderImage.alt}
+                class="w-full h-full object-cover"
+                width="1400"
+                height="600"
+                decoding="async"
+                fetchpriority="high"
+                loading="eager"
+              />
+            </div>
+          )
+        }
         <div class="absolute inset-0 bg-brand-900/60" />
         <div id="hero-slide-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
       </div>
@@ -55,9 +67,9 @@ const hasSlider = images && images.length > 0
   }
 
   {
-    hasSlider && images.length > 1 && (
+    hasSlider && sliderImages.length > 1 && (
       <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-0 z-20">
-        {images.map((_, i) => (
+        {sliderImages.map((_, i) => (
           <button
             class:list={[
               'hero-dot rounded-full transition-all cursor-pointer min-w-11 min-h-11 flex items-center justify-center',
@@ -127,21 +139,90 @@ const hasSlider = images && images.length > 0
 </section>
 
 <script>
+  const HERO_HYDRATE_DELAY = 2500
   const SLIDE_INTERVAL = 5000
   const SWIPE_THRESHOLD = 50
   let heroTimer: ReturnType<typeof setInterval> | null = null
+  let heroHydrateTimer: ReturnType<typeof setTimeout> | null = null
+
+  function parseHeroImages(slider: HTMLElement) {
+    try {
+      return JSON.parse(slider.dataset.heroImages || '[]') as Array<{
+        src: string
+        srcset?: string
+        sizes?: string
+        alt: string
+      }>
+    } catch {
+      return []
+    }
+  }
+
+  function ensureHeroSlides(slider: HTMLElement) {
+    if (slider.dataset.heroPrepared === 'true') return
+
+    const images = parseHeroImages(slider)
+    if (images.length <= 1) {
+      slider.dataset.heroPrepared = 'true'
+      return
+    }
+
+    const existingIndexes = new Set(
+      Array.from(slider.querySelectorAll<HTMLElement>('.hero-slide')).map((slide) => slide.dataset.index),
+    )
+
+    images.slice(1).forEach((image, offset) => {
+      const index = String(offset + 1)
+      if (existingIndexes.has(index)) return
+
+      const slide = document.createElement('div')
+      slide.className = 'hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0'
+      slide.dataset.index = index
+
+      const img = document.createElement('img')
+      img.src = image.src
+      if (image.srcset) img.srcset = image.srcset
+      if (image.sizes) img.sizes = image.sizes
+      img.alt = image.alt
+      img.className = 'w-full h-full object-cover'
+      img.width = 1400
+      img.height = 600
+      img.decoding = 'async'
+      img.fetchPriority = 'low'
+      img.loading = 'lazy'
+
+      slide.appendChild(img)
+      slider.insertBefore(slide, slider.querySelector('#hero-slide-announce'))
+    })
+
+    slider.dataset.heroPrepared = 'true'
+  }
+
+  function scheduleHeroHydration(slider: HTMLElement) {
+    if (slider.dataset.heroHydrationScheduled === 'true') return
+
+    slider.dataset.heroHydrationScheduled = 'true'
+    heroHydrateTimer = setTimeout(() => ensureHeroSlides(slider), HERO_HYDRATE_DELAY)
+  }
 
   function initHeroSlider() {
     if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
+    if (heroHydrateTimer) { clearTimeout(heroHydrateTimer); heroHydrateTimer = null }
 
     const slider = document.getElementById('hero-slider')
-    if (!slider) return
+    if (!(slider instanceof HTMLElement)) return
+    const sliderElement: HTMLElement = slider
 
-    const slides = slider.querySelectorAll<HTMLDivElement>('.hero-slide')
+    const images = parseHeroImages(sliderElement)
+    if (images.length === 0) return
+
+    scheduleHeroHydration(sliderElement)
+
+    const getSlides = () => sliderElement.querySelectorAll<HTMLDivElement>('.hero-slide')
     const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
     const pauseBtn = document.getElementById('hero-pause') as HTMLButtonElement | null
     const pauseIcon = document.getElementById('hero-pause-icon') as HTMLDivElement | null
-    const total = slides.length
+    const total = images.length
     if (total <= 1) return
 
     let current = 0
@@ -151,6 +232,8 @@ const hasSlider = images && images.length > 0
     const announceEl = document.getElementById('hero-slide-announce')
 
     function goTo(index: number) {
+      ensureHeroSlides(sliderElement)
+      const slides = getSlides()
       dots[current]?.removeAttribute('aria-current')
       slides[current].classList.replace('opacity-100', 'opacity-0')
       const prevSpan = dots[current]?.querySelector('span')
@@ -199,6 +282,7 @@ const hasSlider = images && images.length > 0
 
     dots.forEach((dot) => {
       dot.addEventListener('click', () => {
+        ensureHeroSlides(sliderElement)
         stopAutoPlay()
         goTo(Number(dot.dataset.index))
         startAutoPlay()
@@ -207,8 +291,9 @@ const hasSlider = images && images.length > 0
 
     // Swipe support
     let startX = 0
-    const section = slider.closest('section')!
+    const section = sliderElement.closest('section')!
     section.addEventListener('touchstart', (e) => {
+      ensureHeroSlides(sliderElement)
       startX = e.touches[0].clientX
       stopAutoPlay()
     }, { passive: true })
