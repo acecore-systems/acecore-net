@@ -25,6 +25,10 @@ const iconName = iconToken.startsWith('i-lucide-')
     ? iconToken.slice('lucide:'.length)
     : iconToken
 
+const iconAliases: Record<string, string> = {
+  'check-circle': 'circle-check',
+}
+
 const mergedClassName = [
   tokens.filter((token) => token !== iconToken).join(' '),
   className,
@@ -32,7 +36,7 @@ const mergedClassName = [
   .filter(Boolean)
   .join(' ')
 
-const iconData = lucideIcons.icons[iconName]
+const iconData = lucideIcons.icons[iconAliases[iconName] ?? iconName]
 ---
 
 {
