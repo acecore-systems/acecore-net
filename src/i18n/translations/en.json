@@ -116,6 +116,7 @@
     "indexDescription": "The Acecore blog. Tech insights, reports, and news on system development, web design, server operations, and IT education.",
     "pageDescription": "Acecore blog article list (page {current} of {total}). Tech insights and activity reports on system development, web design, server operations, and IT education.",
     "tagListDescription": "A list of all blog tags.",
+    "archiveListDescription": "A monthly archive of blog posts.",
     "itemListName": "Acecore Blog Article List",
     "language": "Language"
   },

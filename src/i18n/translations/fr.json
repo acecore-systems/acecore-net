@@ -116,6 +116,7 @@
     "indexDescription": "Le blog d'Acecore. Éclairages techniques, rapports et actualités sur le développement de systèmes, le web design, l'exploitation de serveurs et l'éducation informatique.",
     "pageDescription": "Liste des articles du blog Acecore (page {current} sur {total}). Éclairages techniques et rapports d'activité sur le développement de systèmes, le web design, l'exploitation de serveurs et l'éducation informatique.",
     "tagListDescription": "Liste de tous les tags du blog.",
+    "archiveListDescription": "Archives mensuelles des articles du blog.",
     "itemListName": "Liste des articles du blog Acecore",
     "language": "Langue"
   },

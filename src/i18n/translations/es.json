@@ -116,6 +116,7 @@
     "indexDescription": "Blog de Acecore. Información técnica, informes de actividad y noticias sobre desarrollo de sistemas, diseño web, operaciones de servidores y educación IT.",
     "pageDescription": "Lista de artículos del blog de Acecore (página {current} de {total}). Información técnica e informes sobre desarrollo de sistemas, diseño web, operaciones de servidores y educación IT.",
     "tagListDescription": "Lista de todas las etiquetas del blog.",
+    "archiveListDescription": "Archivo mensual de artículos del blog.",
     "itemListName": "Lista de artículos del blog de Acecore",
     "language": "Idioma"
   },

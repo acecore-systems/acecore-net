@@ -116,6 +116,7 @@
     "indexDescription": "Acecore博客。关于系统开发、网站设计、服务器运维和IT教育的技术资讯、活动报告和公告。",
     "pageDescription": "Acecore博客文章列表（第{current}/{total}页）。关于系统开发、网站设计、服务器运维和IT教育的技术资讯和活动报告。",
     "tagListDescription": "博客文章标签一览。",
+    "archiveListDescription": "博客文章按月归档列表。",
     "itemListName": "Acecore博客文章列表",
     "language": "语言"
   },

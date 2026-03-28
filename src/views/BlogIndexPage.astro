@@ -26,6 +26,13 @@ const allRawPosts = (await getCollection('blog')).sort(
 const allPosts = allRawPosts.filter(isBasePost)
 const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 const posts = allPosts.slice(0, POSTS_PER_PAGE)
+const uniqueTagCount = new Set(allPosts.flatMap((post) => post.data.tags ?? [])).size
+const archiveCount = new Set(
+  allPosts.map((post) => {
+    const date = post.data.date
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+  }),
+).size
 
 const itemListLd = {
   '@context': 'https://schema.org',
@@ -64,6 +71,32 @@ const pageNumbers = buildPageNumbers(1, totalPages)
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb items={[{ label: t(locale, 'blog.title') }]} locale={locale} />
+      <div class="mb-8 grid gap-4 sm:grid-cols-2">
+        <a
+          href={u('/blog/tags/')}
+          class="ac-card p-5 no-underline hover:border-brand-300 hover:bg-brand-50 transition-colors"
+        >
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="text-sm font-700 text-slate-900 mb-1">{t(locale, 'blog.tagList')}</p>
+              <p class="text-sm text-slate-600">{t(locale, 'blog.tagListDescription')}</p>
+            </div>
+            <span class="text-xl font-700 text-brand-500">{uniqueTagCount}</span>
+          </div>
+        </a>
+        <a
+          href={u('/blog/archive/')}
+          class="ac-card p-5 no-underline hover:border-brand-300 hover:bg-brand-50 transition-colors"
+        >
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="text-sm font-700 text-slate-900 mb-1">{t(locale, 'blog.archive')}</p>
+              <p class="text-sm text-slate-600">{t(locale, 'blog.archiveListDescription')}</p>
+            </div>
+            <span class="text-xl font-700 text-brand-500">{archiveCount}</span>
+          </div>
+        </a>
+      </div>
       <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
         <div>
           {

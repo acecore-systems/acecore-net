@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import { getCollection } from 'astro:content'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { isBasePost } from '../utils/blog-i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const allPosts = (await getCollection('blog')).filter(isBasePost)
+const archiveMap = new Map<
+  string,
+  { count: number; year: number; month: number }
+>()
+
+for (const post of allPosts) {
+  const date = post.data.date
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const key = `${year}-${String(month).padStart(2, '0')}`
+  const entry = archiveMap.get(key)
+  if (entry) {
+    entry.count += 1
+  } else {
+    archiveMap.set(key, { count: 1, year, month })
+  }
+}
+
+const archives = [...archiveMap.entries()].sort((a, b) =>
+  b[0].localeCompare(a[0]),
+)
+
+const archiveIndexLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: t(locale, 'blog.archive'),
+  description: t(locale, 'blog.archiveListDescription'),
+  url: `https://acecore.net${u('/blog/archive/')}`,
+  hasPart: archives.map(([key]) => ({
+    '@type': 'CollectionPage',
+    url: `https://acecore.net${u(`/blog/archive/${key}/`)}`,
+  })),
+}
+---
+
+<BaseLayout
+  title={t(locale, 'blog.archive')}
+  description={t(locale, 'blog.archiveListDescription')}
+  jsonLd={archiveIndexLd}
+  locale={locale}
+>
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'blog.title'), href: u('/blog/') },
+          { label: t(locale, 'blog.archive') },
+        ]}
+        locale={locale}
+      />
+      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">{t(locale, 'blog.archive')}</h1>
+      <p class="text-slate-600 mb-8">{t(locale, 'blog.archiveListDescription')}</p>
+      <ul class="grid gap-3 sm:grid-cols-2 list-none p-0 m-0" role="list">
+        {
+          archives.map(([key, { count, year, month }]) => (
+            <li>
+              <a
+                href={u(`/blog/archive/${key}/`)}
+                class="ac-card flex items-center justify-between gap-4 p-5 no-underline hover:border-brand-300 hover:bg-brand-50 transition-colors"
+              >
+                <span class="font-600 text-slate-800">
+                  {t(locale, 'blog.yearMonth', { year: String(year), month: String(month) })}
+                </span>
+                <span class="text-sm text-slate-500">{t(locale, 'blog.nArticles', { count })}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 text-center">
+        <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'blog.backToBlog')}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -116,6 +116,7 @@
     "indexDescription": "Acecore（エースコア）のブログ。システム開発・Web制作・サーバー運用・IT教育に関する技術情報や活動報告、お知らせを発信しています。",
     "pageDescription": "Acecore ブログの記事一覧（{current}/{total}ページ目）。システム開発・Web制作・サーバー運用・IT教育に関する技術情報や活動報告を発信しています。",
     "tagListDescription": "ブログ記事のタグ一覧です。",
+    "archiveListDescription": "ブログ記事の月別アーカイブ一覧です。",
     "itemListName": "Acecore ブログ記事一覧",
     "language": "言語"
   },

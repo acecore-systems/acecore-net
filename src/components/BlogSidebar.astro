@@ -60,7 +60,9 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-tags text-brand-500" aria-hidden="true"></div>
-        {t(locale, 'blog.tags')}
+        <a href={getLocalizedUrl('/blog/tags/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
+          {t(locale, 'blog.tags')}
+        </a>
       </h3>
       <div class="flex flex-wrap gap-1.5">
         {
@@ -79,7 +81,9 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
         <div class="i-lucide-calendar text-brand-500" aria-hidden="true"></div>
-        {t(locale, 'blog.archive')}
+        <a href={getLocalizedUrl('/blog/archive/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
+          {t(locale, 'blog.archive')}
+        </a>
       </h3>
       <ul class="space-y-0.5 text-sm list-none p-0 m-0" role="list">
         {

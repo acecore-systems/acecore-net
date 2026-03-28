@@ -42,6 +42,7 @@ const displayTag = translateTag(tag, locale)
       <Breadcrumb
         items={[
           { label: t(locale, 'blog.title'), href: u('/blog/') },
+          { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },
           { label: t(locale, 'blog.tagPrefix', { tag: displayTag }) },
         ]}
         locale={locale}

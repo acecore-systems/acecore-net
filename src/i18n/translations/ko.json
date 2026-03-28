@@ -116,6 +116,7 @@
     "indexDescription": "Acecore 블로그. 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보, 활동 보고, 공지사항을 게시합니다.",
     "pageDescription": "Acecore 블로그 글 목록 ({current}/{total}페이지). 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고를 게시합니다.",
     "tagListDescription": "블로그 글 태그 목록입니다.",
+    "archiveListDescription": "블로그 글 월별 아카이브 목록입니다.",
     "itemListName": "Acecore 블로그 글 목록",
     "language": "언어"
   },
