@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 
 interface BreadcrumbItem {
@@ -21,17 +22,14 @@ const currentPath = Astro.url.pathname
         href={getLocalizedUrl('/', locale)}
         class="hover:text-brand-500 transition-colors inline-flex items-center gap-1"
       >
-        <div class="i-lucide-home text-xs" aria-hidden="true"></div>
+        <Icon name="home" class="text-xs" />
         <span>{t(locale, 'common.home')}</span>
       </a>
     </li>
     {
       items.map((item, i) => (
         <li class="flex items-center gap-1">
-          <div
-            class="i-lucide-chevron-right text-xs text-slate-400"
-            aria-hidden="true"
-          />
+          <Icon name="chevron-right" class="text-xs text-slate-400" />
           {(item.href || i === items.length - 1) ? (
             <a
               href={item.href ?? currentPath}

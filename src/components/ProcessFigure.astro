@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro'
+
 interface StepItem {
   title: string
   description: string
@@ -87,7 +89,7 @@ const isCard = variant === 'card'
                       ca.icon,
                     ]}
                   >
-                    <div class={step.icon} />
+                    <Icon name={step.icon} />
                   </div>
                   <span
                     class:list={[
@@ -112,10 +114,7 @@ const isCard = variant === 'card'
                     ca.arrow,
                   ]}
                 >
-                  <div
-                    class="i-lucide-arrow-right text-xs"
-                    aria-hidden="true"
-                  />
+                  <Icon name="arrow-right" class="text-xs" />
                 </div>
               )}
             </div>

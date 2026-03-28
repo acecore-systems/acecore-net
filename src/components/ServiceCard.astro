@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { t } from '../i18n/utils'
 import type { Locale } from '../i18n'
 
@@ -28,7 +29,7 @@ const isExternal = href?.startsWith('http')
       }
     : {}}
 >
-  <div class={`${icon} text-3xl text-brand-500 mb-4`} aria-hidden="true"></div>
+  <Icon name={icon} class="text-3xl text-brand-500 mb-4" />
   <h3
     class="text-lg font-700 text-slate-900 mb-3 group-hover:text-brand-500 transition-colors"
   >

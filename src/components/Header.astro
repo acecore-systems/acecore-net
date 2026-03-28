@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
 
@@ -54,7 +55,7 @@ const currentPath = Astro.url.pathname
         aria-label={t(locale, 'common.search')}
         title={t(locale, 'common.searchShortcut')}
       >
-        <div class="i-lucide-search text-lg" aria-hidden="true"></div>
+        <Icon name="search" class="text-lg" />
       </button>
       <LanguageSwitcher locale={locale} />
     </nav>
@@ -64,7 +65,7 @@ const currentPath = Astro.url.pathname
         class="p-2 text-slate-500"
         aria-label={t(locale, 'common.search')}
       >
-        <div class="i-lucide-search text-lg" aria-hidden="true"></div>
+        <Icon name="search" class="text-lg" />
       </button>
       <button
         id="mobile-menu-btn"

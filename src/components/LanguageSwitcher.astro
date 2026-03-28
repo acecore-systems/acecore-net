@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { locales, localeLabels, type Locale } from '../i18n'
 import { getLocalizedUrl, getLocaleFromUrl } from '../i18n'
 
@@ -17,9 +18,9 @@ const currentPath = Astro.url.pathname
     aria-haspopup="listbox"
     aria-label={localeLabels[locale]}
   >
-    <div class="i-lucide-globe text-base" aria-hidden="true"></div>
+    <Icon name="globe" class="text-base" />
     <span class="hidden sm:inline text-xs">{localeLabels[locale]}</span>
-    <div class="i-lucide-chevron-down text-xs" aria-hidden="true"></div>
+    <Icon name="chevron-down" class="text-xs" />
   </button>
   <ul
     class="hidden absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 rounded-lg shadow-lg py-1 z-50"

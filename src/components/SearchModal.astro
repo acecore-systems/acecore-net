@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { SITE } from '../data/site'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 
@@ -43,7 +44,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
           id="search-dialog-title"
           class="text-sm font-700 text-slate-700 flex items-center gap-2"
         >
-          <div class="i-lucide-search text-sm" aria-hidden="true"></div>
+          <Icon name="search" class="text-sm" />
           {t(locale, 'common.search')}
         </span>
         <button
@@ -51,7 +52,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
           class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
           aria-label={t(locale, 'common.close')}
         >
-          <div class="i-lucide-x text-lg" aria-hidden="true"></div>
+          <Icon name="x" class="text-lg" />
         </button>
       </div>
       <div id="search-container" class="px-4 pt-4 pb-2"></div>

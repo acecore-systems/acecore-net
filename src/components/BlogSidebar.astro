@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
 import authors from '../data/authors.json'
@@ -59,7 +60,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
   <div class="sticky top-20 space-y-6">
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-tags text-brand-500" aria-hidden="true"></div>
+        <Icon name="tags" class="text-brand-500" />
         <a href={getLocalizedUrl('/blog/tags/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
           {t(locale, 'blog.tags')}
         </a>
@@ -80,7 +81,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-calendar text-brand-500" aria-hidden="true"></div>
+        <Icon name="calendar" class="text-brand-500" />
         <a href={getLocalizedUrl('/blog/archive/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
           {t(locale, 'blog.archive')}
         </a>
@@ -106,7 +107,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-users text-brand-500" aria-hidden="true"></div>
+        <Icon name="users" class="text-brand-500" />
         {t(locale, 'blog.authors')}
       </h3>
       <div class="space-y-3">
@@ -147,7 +148,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
 
     <div class="ac-card p-5">
       <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
-        <div class="i-lucide-newspaper text-brand-500" aria-hidden="true"></div>
+        <Icon name="newspaper" class="text-brand-500" />
         {t(locale, 'blog.latestPosts')}
       </h3>
       <ul class="space-y-3 list-none p-0 m-0" role="list">

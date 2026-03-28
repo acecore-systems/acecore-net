@@ -18,7 +18,17 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   integrations: [
-    UnoCSS({ injectReset: true }),
+    UnoCSS({
+      injectReset: true,
+      content: {
+        pipeline: {
+          exclude: [
+            /\.(css|postcss|sass|scss|less|stylus|styl)($|\?)/,
+            /\/src\/content\/.*\.mdx?($|\?)/,
+          ],
+        },
+      },
+    }),
     sitemap({
       lastmod: new Date(),
       filter(page) {

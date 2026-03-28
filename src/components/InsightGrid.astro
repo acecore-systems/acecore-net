@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro'
+
 interface GridItem {
   title: string
   description: string
@@ -61,7 +63,7 @@ const isCard = variant === 'card'
                       cardTones[item.tone ?? 'brand'],
                     ]}
                   >
-                    <div class={item.icon} />
+                    <Icon name={item.icon} />
                   </div>
                   <p class="text-sm font-700 text-slate-900">{item.title}</p>
                 </div>
@@ -98,7 +100,7 @@ const isCard = variant === 'card'
                 tones[item.tone ?? 'brand'],
               ]}
             >
-              <div class={item.icon} />
+              <Icon name={item.icon} />
             </div>
             <div>
               <p class="text-sm font-600 text-slate-800">{item.title}</p>

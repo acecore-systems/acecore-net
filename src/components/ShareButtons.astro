@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { t, getLocaleFromUrl, type Locale } from '../i18n'
 
 interface Props {
@@ -21,7 +22,7 @@ const encodedTitle = encodeURIComponent(title)
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#1d9bf0] hover:text-white transition-colors"
     aria-label={t(locale, 'blog.shareOnX')}
   >
-    <div class="i-lucide-twitter text-sm" aria-hidden="true"></div>
+    <Icon name="twitter" class="text-sm" />
     <span>X</span>
     <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
   </a>
@@ -44,7 +45,7 @@ const encodedTitle = encodeURIComponent(title)
     data-label-copied={t(locale, 'blog.linkCopied')}
     data-label-failed={t(locale, 'blog.linkCopyFailed')}
   >
-    <div class="i-lucide-link text-sm" aria-hidden="true"></div>
+    <Icon name="link" class="text-sm" />
     <span>{t(locale, 'blog.copyLink')}</span>
   </button>
 </div>
