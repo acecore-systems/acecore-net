@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
@@ -127,11 +128,7 @@ const studioAreas = [
       </div>
 
       <div class="mb-12">
-        <div
-          class="i-lucide-clapperboard text-6xl text-brand-500 mx-auto mb-6"
-          aria-hidden="true"
-        >
-        </div>
+        <Icon name="clapperboard" class="text-6xl text-brand-500 mx-auto mb-6" />
         <h2 class="text-2xl ac-heading mb-6">
           {t(locale, 'pages.acestudio.comingSoonHeading')}
         </h2>

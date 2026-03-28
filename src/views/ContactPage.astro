@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
@@ -53,19 +54,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-slate-700"
         >
           <div class="flex items-center gap-2">
-            <div
-              class="i-lucide-clock text-brand-500 shrink-0"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="clock" class="text-brand-500 shrink-0" />
             <span>{t(locale, 'pages.contact.responseTime')}</span>
           </div>
           <div class="flex items-center gap-2">
-            <div
-              class="i-lucide-badge-check text-brand-500 shrink-0"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="badge-check" class="text-brand-500 shrink-0" />
             <span>{t(locale, 'pages.contact.freeEstimate')}</span>
           </div>
         </div>
@@ -74,7 +67,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 text-sm"
       >
         <div class="flex items-center gap-2">
-          <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
+          <Icon name="phone" class="text-brand-500" />
           <a
             href={`tel:${SITE.phone.replace(/-/g, '')}`}
             class="font-600 text-slate-800 hover:underline"
@@ -85,7 +78,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           >{SITE.phone}</a>
         </div>
         <div class="flex items-center gap-2">
-          <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
+          <Icon name="mail" class="text-brand-500" />
           <a
             href={`mailto:${SITE.email}`}
             data-ga-event="contact_email_click"
@@ -105,11 +98,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-destination={SITE.line}
           class="flex items-center gap-2 font-600 text-brand-500 hover:underline"
         >
-          <div
-            class="i-lucide-message-circle text-brand-500"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="message-circle" class="text-brand-500" />
           {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
         </a>
       </div>
@@ -262,11 +251,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="ac-card p-6 text-center">
-          <div
-            class="i-lucide-phone text-2xl text-brand-500 mx-auto mb-2"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="phone" class="text-2xl text-brand-500 mx-auto mb-2" />
           <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodPhone')}</h3>
           <p class="text-sm text-slate-600 font-600">
             <a
@@ -280,11 +265,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </p>
         </div>
         <div class="ac-card p-6 text-center">
-          <div
-            class="i-lucide-mail text-2xl text-brand-500 mx-auto mb-2"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="mail" class="text-2xl text-brand-500 mx-auto mb-2" />
           <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodEmail')}</h3>
           <p class="text-sm text-slate-600">
             <a
@@ -307,11 +288,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-destination={SITE.line}
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
         >
-          <div
-            class="i-lucide-message-circle text-2xl text-brand-500 mx-auto mb-2"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="message-circle" class="text-2xl text-brand-500 mx-auto mb-2" />
           <h3 class="font-600 text-slate-900 mb-1">LINE</h3>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.contact.methodLineDesc')}
@@ -328,11 +305,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-destination={SITE.social.x}
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
         >
-          <div
-            class="i-lucide-at-sign text-2xl text-brand-500 mx-auto mb-2"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="at-sign" class="text-2xl text-brand-500 mx-auto mb-2" />
           <h3 class="font-600 text-slate-900 mb-1">X</h3>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.contact.methodXDesc')}

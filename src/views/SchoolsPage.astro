@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import CompareTable from '../components/CompareTable.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
@@ -158,7 +159,7 @@ const schoolsLd = {
       <!-- Juku -->
       <div class="mb-16" id="juku">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-book-open text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="book-open" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.juku.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -168,15 +169,15 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.juku.featuresLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.juku.feature1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.juku.feature2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.juku.feature3')}
             </li>
           </ul>
@@ -206,7 +207,7 @@ const schoolsLd = {
       <!-- Robot Programming -->
       <div class="mb-16" id="robot-programming">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-bot text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="bot" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.robotProgramming.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -265,7 +266,7 @@ const schoolsLd = {
       <!-- Practical Programming -->
       <div class="mb-16" id="practical-programming">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-code-2 text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="code-2" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.practicalProgramming.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -275,19 +276,19 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.practicalProgramming.contentsLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.practicalProgramming.content1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.practicalProgramming.content2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.practicalProgramming.content3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.practicalProgramming.content4')}
             </li>
           </ul>
@@ -297,7 +298,7 @@ const schoolsLd = {
       <!-- PC / Smartphone -->
       <div class="mb-16" id="pc-smartphone">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-monitor-smartphone text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="monitor-smartphone" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.pcSmartphone.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -307,19 +308,19 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.pcSmartphone.levelsLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.pcSmartphone.level1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.pcSmartphone.level2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.pcSmartphone.level3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.pcSmartphone.level4')}
             </li>
           </ul>
@@ -349,7 +350,7 @@ const schoolsLd = {
       <!-- GED -->
       <div class="mb-16" id="ged">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-file-badge text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="file-badge" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.ged.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -359,15 +360,15 @@ const schoolsLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.ged.supportLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.ged.support1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.ged.support2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.schools.ged.support3')}
             </li>
           </ul>
@@ -384,11 +385,11 @@ const schoolsLd = {
           class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6"
         >
           <div class="flex items-center gap-2">
-            <div class="i-lucide-phone text-brand-500" aria-hidden="true"></div>
+            <Icon name="phone" class="text-brand-500" />
             <span class="font-600 text-slate-800">{SITE.phone}</span>
           </div>
           <div class="flex items-center gap-2">
-            <div class="i-lucide-mail text-brand-500" aria-hidden="true"></div>
+            <Icon name="mail" class="text-brand-500" />
             <a
               href={`mailto:${SITE.email}`}
               class="font-600 text-brand-500 hover:underline">{SITE.email}</a

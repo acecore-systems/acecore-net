@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
+import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
 
@@ -38,7 +39,7 @@ const recentPosts = (await getCollection('blog'))
           data-search-trigger
           class="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-300 text-slate-500 hover:border-brand-300 hover:text-brand-500 transition-colors cursor-pointer text-left"
         >
-          <div class="i-lucide-search text-lg" aria-hidden="true"></div>
+          <Icon name="search" class="text-lg" />
           <span>{t(locale, 'pages.notFound.searchPlaceholder')}</span>
           <kbd
             class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline"

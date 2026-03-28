@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
@@ -182,11 +183,7 @@ const aboutPageLd = {
       <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.initiativesHeading')}</h2>
       <div class="space-y-6 mb-12">
         <div class="flex gap-4 items-start">
-          <div
-            class="i-lucide-users text-2xl text-brand-500 shrink-0 mt-1"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="users" class="text-2xl text-brand-500 shrink-0 mt-1" />
           <div>
             <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.communityTitle')}</h3>
             <p class="text-slate-600">
@@ -196,11 +193,7 @@ const aboutPageLd = {
           </div>
         </div>
         <div class="flex gap-4 items-start">
-          <div
-            class="i-lucide-git-branch text-2xl text-brand-500 shrink-0 mt-1"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="git-branch" class="text-2xl text-brand-500 shrink-0 mt-1" />
           <div>
             <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.ossTitle')}</h3>
             <p class="text-slate-600">
@@ -209,11 +202,7 @@ const aboutPageLd = {
           </div>
         </div>
         <div class="flex gap-4 items-start">
-          <div
-            class="i-lucide-map-pin text-2xl text-brand-500 shrink-0 mt-1"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="map-pin" class="text-2xl text-brand-500 shrink-0 mt-1" />
           <div>
             <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.regionalTitle')}</h3>
             <p class="text-slate-600">
@@ -223,11 +212,7 @@ const aboutPageLd = {
           </div>
         </div>
         <div class="flex gap-4 items-start">
-          <div
-            class="i-lucide-handshake text-2xl text-brand-500 shrink-0 mt-1"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="handshake" class="text-2xl text-brand-500 shrink-0 mt-1" />
           <div>
             <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.partnershipTitle')}</h3>
             <p class="text-slate-600">
@@ -248,11 +233,7 @@ const aboutPageLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div
-              class="i-lucide-gamepad-2 text-xl text-brand-500"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="gamepad-2" class="text-xl text-brand-500" />
             <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkAceserver')}</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -267,11 +248,7 @@ const aboutPageLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div
-              class="i-lucide-at-sign text-xl text-brand-500"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="at-sign" class="text-xl text-brand-500" />
             <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkX')}</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -286,11 +263,7 @@ const aboutPageLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div
-              class="i-lucide-github text-xl text-brand-500"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="github" class="text-xl text-brand-500" />
             <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkGithub')}</h3>
           </div>
           <p class="text-sm text-slate-600">
@@ -305,11 +278,7 @@ const aboutPageLd = {
           class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div
-              class="i-lucide-message-circle text-xl text-brand-500"
-              aria-hidden="true"
-            >
-            </div>
+            <Icon name="message-circle" class="text-xl text-brand-500" />
             <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkDiscord')}</h3>
           </div>
           <p class="text-sm text-slate-600">

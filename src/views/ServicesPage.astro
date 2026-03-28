@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
@@ -185,11 +186,7 @@ const serviceLd = {
       <!-- System Development -->
       <div class="mb-16" id="system-development">
         <div class="flex items-center gap-3 mb-4">
-          <div
-            class="i-lucide-code-2 text-3xl text-brand-500"
-            aria-hidden="true"
-          >
-          </div>
+          <Icon name="code-2" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.systemDev.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -200,19 +197,19 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.systemDev.examplesLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.systemDev.example1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.systemDev.example2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.systemDev.example3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.systemDev.example4')}
             </li>
           </ul>
@@ -242,7 +239,7 @@ const serviceLd = {
       <!-- Server -->
       <div class="mb-16" id="server">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-server text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="server" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.server.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -252,19 +249,19 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.server.examplesLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.server.example1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.server.example2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.server.example3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.server.example4')}
             </li>
           </ul>
@@ -274,7 +271,7 @@ const serviceLd = {
       <!-- Web -->
       <div class="mb-16" id="web">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-globe text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="globe" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.web.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -284,19 +281,19 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.web.examplesLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.web.example1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.web.example2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.web.example3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.web.example4')}
             </li>
           </ul>
@@ -334,7 +331,7 @@ const serviceLd = {
       <!-- Design -->
       <div class="mb-16" id="design">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-palette text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="palette" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.design.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -344,19 +341,19 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.design.examplesLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.design.example1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.design.example2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.design.example3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.design.example4')}
             </li>
           </ul>
@@ -386,7 +383,7 @@ const serviceLd = {
       <!-- Education -->
       <div class="mb-16" id="education">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-graduation-cap text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="graduation-cap" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.education.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -396,23 +393,23 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.education.coursesLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.education.course1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.education.course2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.education.course3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.education.course4')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.education.course5')}
             </li>
           </ul>
@@ -422,7 +419,7 @@ const serviceLd = {
             href={u('/schools/')}
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
+            <Icon name="arrow-right" class="text-sm" />
             {t(locale, 'pages.services.education.detailLink')}
           </a>
         </div>
@@ -431,7 +428,7 @@ const serviceLd = {
       <!-- Aceserver -->
       <div class="mb-16" id="aceserver">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-gamepad-2 text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="gamepad-2" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.aceserver.title')}</h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
@@ -441,23 +438,23 @@ const serviceLd = {
           <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.aceserver.featuresLabel')}</h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.aceserver.feature1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.aceserver.feature2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.aceserver.feature3')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.aceserver.feature4')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.aceserver.feature5')}
             </li>
           </ul>
@@ -469,7 +466,7 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            <Icon name="external-link" class="text-sm" />
             {t(locale, 'pages.services.aceserver.portalLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
           </a>
           <a
@@ -478,7 +475,7 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            <Icon name="external-link" class="text-sm" />
             {t(locale, 'pages.services.aceserver.wikiLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
           </a>
           <a
@@ -487,7 +484,7 @@ const serviceLd = {
             rel="noopener noreferrer"
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-external-link text-sm" aria-hidden="true"></div>
+            <Icon name="external-link" class="text-sm" />
             {t(locale, 'pages.services.aceserver.discordLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
           </a>
         </div>
@@ -496,7 +493,7 @@ const serviceLd = {
       <!-- AceStudio -->
       <div class="mb-16" id="acestudio">
         <div class="flex items-center gap-3 mb-4">
-          <div class="i-lucide-clapperboard text-3xl text-brand-500" aria-hidden="true"></div>
+          <Icon name="clapperboard" class="text-3xl text-brand-500" />
           <h2 class="text-2xl ac-heading">
             AceStudio <span class="text-sm font-400 text-slate-500 ml-2">{t(locale, 'pages.services.acestudio.comingSoon')}</span>
           </h2>
@@ -510,15 +507,15 @@ const serviceLd = {
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.acestudio.feature1')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.acestudio.feature2')}
             </li>
             <li class="flex items-center gap-2">
-              <div class="i-lucide-check text-brand-500 shrink-0" aria-hidden="true"></div>
+              <Icon name="check" class="text-brand-500 shrink-0" />
               {t(locale, 'pages.services.acestudio.feature3')}
             </li>
           </ul>
@@ -531,7 +528,7 @@ const serviceLd = {
             href={u('/acestudio/')}
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
-            <div class="i-lucide-arrow-right text-sm" aria-hidden="true"></div>
+            <Icon name="arrow-right" class="text-sm" />
             {t(locale, 'pages.services.acestudio.detailLink')}
           </a>
         </div>
