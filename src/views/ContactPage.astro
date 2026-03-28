@@ -228,6 +228,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         <div
           id="turnstile-widget"
           class="cf-turnstile"
+          data-sitekey={SITE.turnstileSiteKey}
+          data-language={locale}
+          data-theme="light"
         >
         </div>
         <div>
@@ -344,6 +347,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
     {
       const turnstileEl = document.getElementById('turnstile-widget')
       if (turnstileEl) {
+        const turnstileTarget = turnstileEl.parentElement || turnstileEl
+
         function renderTurnstile() {
           if (
             typeof window.turnstile === 'undefined' ||
@@ -352,10 +357,16 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             return
           }
 
+          const sitekey = turnstileEl.dataset.sitekey
+          const language = turnstileEl.dataset.language
+          const theme = turnstileEl.dataset.theme || 'light'
+
+          if (!sitekey) return
+
           const widgetId = window.turnstile.render(turnstileEl, {
-            sitekey: '${SITE.turnstileSiteKey}',
-            language: '${locale}',
-            theme: 'light',
+            sitekey,
+            language,
+            theme,
           })
           turnstileEl.dataset.widgetId = String(widgetId)
         }
@@ -402,7 +413,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           },
           { rootMargin: '200px' },
         )
-        io.observe(turnstileEl)
+        io.observe(turnstileTarget)
       }
     }
   </script>
