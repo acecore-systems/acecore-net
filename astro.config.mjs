@@ -21,6 +21,9 @@ export default defineConfig({
     UnoCSS({ injectReset: true }),
     sitemap({
       lastmod: new Date(),
+      filter(page) {
+        return !page.includes('/blog/tags/') && !page.includes('/blog/archive/')
+      },
       i18n: {
         defaultLocale: 'ja',
         locales: {

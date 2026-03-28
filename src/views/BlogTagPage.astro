@@ -23,6 +23,7 @@ const displayTag = translateTag(tag, locale)
 <BaseLayout
   title={t(locale, 'blog.articlesByTag', { tag: displayTag })}
   description={t(locale, 'blog.tagDescription', { tag: displayTag })}
+  robots="noindex, follow"
   locale={locale}
   jsonLd={{
     '@context': 'https://schema.org',
