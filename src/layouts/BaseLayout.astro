@@ -203,26 +203,6 @@ import { SITE } from '../data/site'
             href="https://googleads.g.doubleclick.net"
             crossorigin="anonymous"
           />
-          <script
-            is:inline
-            set:html={`
-          (function() {
-            function loadAds() {
-              if (document.querySelector('script[src*="adsbygoogle"]')) return;
-              var s = document.createElement('script');
-              s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsenseClientId}';
-              s.crossOrigin = 'anonymous';
-              s.async = true;
-              document.head.appendChild(s);
-            }
-            if (typeof requestIdleCallback === 'function') {
-              requestIdleCallback(loadAds);
-            } else {
-              setTimeout(loadAds, 1500);
-            }
-          })();
-        `}
-          />
         </>
       )
     }
@@ -430,6 +410,62 @@ import { SITE } from '../data/site'
     <ScrollToTop locale={locale} />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
+    <script>
+      import { initAdsRuntime } from '../scripts/ads'
+
+      initAdsRuntime()
+    </script>
+    <script>
+      let searchModalModulePromise: Promise<
+        typeof import('../scripts/search-modal')
+      > | null = null
+
+      function loadSearchModalModule() {
+        if (!searchModalModulePromise) {
+          searchModalModulePromise = import('../scripts/search-modal')
+        }
+
+        return searchModalModulePromise
+      }
+
+      async function openSearch(query?: string) {
+        const module = await loadSearchModalModule()
+        await module.openSearch(query)
+      }
+
+      function initSearchBootstrap() {
+        ;(window as any).openSearch = openSearch
+
+        const queryParam = new URLSearchParams(window.location.search).get('q')
+        if (queryParam) {
+          void openSearch(queryParam)
+        }
+      }
+
+      function bindSearchShortcuts() {
+        if ((window as any).__aceSearchShortcutsBound) return
+
+        ;(window as any).__aceSearchShortcutsBound = true
+        document.addEventListener('keydown', (event) => {
+          if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+            event.preventDefault()
+            void openSearch()
+            return
+          }
+
+          const dialog = document.getElementById(
+            'search-dialog',
+          ) as HTMLDialogElement | null
+          if (event.key === 'Escape' && dialog?.open) {
+            dialog.close()
+          }
+        })
+      }
+
+      bindSearchShortcuts()
+      initSearchBootstrap()
+      document.addEventListener('astro:after-swap', initSearchBootstrap)
+    </script>
     <script is:inline>
       document.addEventListener('astro:after-swap', function () {
         var main = document.getElementById('main')

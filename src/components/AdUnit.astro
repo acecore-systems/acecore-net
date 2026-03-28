@@ -8,17 +8,13 @@ interface Props {
 const { adSlot = SITE.adSlotId } = Astro.props
 ---
 
-<ins
-  class="adsbygoogle"
-  style="display:block"
-  data-ad-client={SITE.adsenseClientId}
-  data-ad-slot={adSlot}
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script is:inline>
-  try {
-    ;(adsbygoogle = window.adsbygoogle || []).push({})
-  } catch (e) {
-    console.warn('AdSense load failed:', e)
-  }
-</script>
+<div data-ace-ad-container>
+  <ins
+    class="adsbygoogle"
+    data-ace-ad-slot
+    style="display:block"
+    data-ad-client={SITE.adsenseClientId}
+    data-ad-slot={adSlot}
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+</div>

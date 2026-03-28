@@ -21,6 +21,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
     >
     <ins
       class="adsbygoogle"
+      data-ace-ad-slot
       style="display:block"
       data-ad-client={SITE.adsenseClientId}
       data-ad-slot={SITE.adSlotId}
@@ -40,13 +41,6 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
     const container = document.getElementById('anchor-ad')
     const closeBtn = document.getElementById('anchor-ad-close')
     if (!container || !closeBtn) return
-
-    try {
-      ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
-      ;(window as any).adsbygoogle.push({})
-    } catch (e) {
-      console.warn('AnchorAd load failed:', e)
-    }
 
     closeBtn.addEventListener('click', () => {
       container.style.display = 'none'
