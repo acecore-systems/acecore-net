@@ -226,10 +226,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </p>
         </div>
         <div
+          id="turnstile-widget"
           class="cf-turnstile"
-          data-sitekey={SITE.turnstileSiteKey}
-          data-language={locale}
-          data-theme="light"
         >
         </div>
         <div>
@@ -344,16 +342,62 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
   <script is:inline>
     {
-      const turnstileEl = document.querySelector('.cf-turnstile')
+      const turnstileEl = document.getElementById('turnstile-widget')
       if (turnstileEl) {
+        function renderTurnstile() {
+          if (
+            typeof window.turnstile === 'undefined' ||
+            turnstileEl.dataset.widgetId
+          ) {
+            return
+          }
+
+          const widgetId = window.turnstile.render(turnstileEl, {
+            sitekey: '${SITE.turnstileSiteKey}',
+            language: '${locale}',
+            theme: 'light',
+          })
+          turnstileEl.dataset.widgetId = String(widgetId)
+        }
+
+        function loadTurnstile() {
+          if (typeof window.turnstile !== 'undefined') {
+            renderTurnstile()
+            return
+          }
+
+          const existingScript = document.querySelector(
+            'script[data-ace-turnstile-script]',
+          )
+
+          if (existingScript) {
+            let attempts = 0
+            const waitForTurnstile = function () {
+              if (typeof window.turnstile !== 'undefined') {
+                renderTurnstile()
+                return
+              }
+              if (attempts >= 50) return
+              attempts += 1
+              window.setTimeout(waitForTurnstile, 100)
+            }
+            waitForTurnstile()
+            return
+          }
+
+          const s = document.createElement('script')
+          s.dataset.aceTurnstileScript = 'true'
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+          s.async = true
+          s.addEventListener('load', renderTurnstile, { once: true })
+          document.head.appendChild(s)
+        }
+
         const io = new IntersectionObserver(
           function (entries) {
             if (entries[0].isIntersecting) {
               io.disconnect()
-              const s = document.createElement('script')
-              s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-              s.async = true
-              document.head.appendChild(s)
+              loadTurnstile()
             }
           },
           { rootMargin: '200px' },
@@ -452,7 +496,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
                 feedback.className =
                   'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
                 form.reset()
-                if (typeof turnstile !== 'undefined') turnstile.reset()
+                const turnstileEl = document.getElementById('turnstile-widget')
+                const widgetId = turnstileEl?.dataset.widgetId
+                if (typeof turnstile !== 'undefined' && widgetId) {
+                  turnstile.reset(widgetId)
+                }
               } else {
                 throw new Error('Failed')
               }
