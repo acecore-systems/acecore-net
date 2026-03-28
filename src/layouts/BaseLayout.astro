@@ -37,6 +37,7 @@ const {
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
+const enableClientRouter = !isHome
 const pageTitle = isHome
   ? t(locale, 'meta.siteTitle')
   : `${title} | Acecore`
@@ -76,6 +77,7 @@ const pathParts = (rawParts[0] && (locales as readonly string[]).includes(rawPar
   ? rawParts.slice(1)
   : rawParts
 const siteOrigin = Astro.site?.origin || 'https://acecore.net'
+const buildAbsoluteUrl = (path: string) => new URL(path, `${siteOrigin}/`).toString()
 const breadcrumbLd =
   pathParts.length > 0
     ? {
@@ -86,7 +88,7 @@ const breadcrumbLd =
             '@type': 'ListItem',
             position: 1,
             name: t(locale, 'common.home'),
-            item: `${siteOrigin}${getLocalizedUrl('/', locale)}`,
+            item: buildAbsoluteUrl(getLocalizedUrl('/', locale)),
           },
           ...pathParts.map((part, i) => {
             const path = pathParts.slice(0, i + 1).join('/')
@@ -94,7 +96,7 @@ const breadcrumbLd =
               '@type': 'ListItem',
               position: i + 2,
               name: pageNameMap[part] || decodeURIComponent(part),
-              item: `${siteOrigin}${getLocalizedUrl('/' + path + '/', locale)}/`,
+              item: buildAbsoluteUrl(`${getLocalizedUrl('/' + path + '/', locale)}/`.replace(/\/+/g, '/')),
             }
           }),
         ],
@@ -219,18 +221,24 @@ import { SITE } from '../data/site'
       gtag('js', new Date());
       gtag('config', '${SITE.ga4Id}');
       (function() {
+        var gaLoaded = false;
         function loadGA() {
-          if (document.querySelector('script[src*="gtag/js"]')) return;
+          if (gaLoaded || document.querySelector('script[src*="gtag/js"]')) return;
+          gaLoaded = true;
           var s = document.createElement('script');
           s.src = 'https://www.googletagmanager.com/gtag/js?id=${SITE.ga4Id}';
           s.async = true;
           document.head.appendChild(s);
         }
-        if (typeof requestIdleCallback === 'function') {
-          requestIdleCallback(loadGA);
-        } else {
-          setTimeout(loadGA, 1500);
+
+        function bindInteractionLoad() {
+          ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(eventName) {
+            window.addEventListener(eventName, loadGA, { once: true, passive: true });
+          });
         }
+
+        bindInteractionLoad();
+        setTimeout(loadGA, 4000);
       })();
     `}
     />
@@ -292,7 +300,7 @@ import { SITE } from '../data/site'
           />
         ))
     }
-    <ClientRouter />
+    {enableClientRouter && <ClientRouter />}
     <script is:inline>
       (function() {
         if (localStorage.getItem('preferred-locale')) return;
@@ -410,11 +418,13 @@ import { SITE } from '../data/site'
     <ScrollToTop locale={locale} />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
-    <script>
-      import { initAdsRuntime } from '../scripts/ads'
+    {isMonetizedPage && (
+      <script>
+        import { initAdsRuntime } from '../scripts/ads'
 
-      initAdsRuntime()
-    </script>
+        initAdsRuntime()
+      </script>
+    )}
     <script>
       let searchModalModulePromise: Promise<
         typeof import('../scripts/search-modal')

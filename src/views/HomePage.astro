@@ -49,9 +49,35 @@ const coreLayers = [
     icon: 'i-lucide-graduation-cap',
     tone: 'slate',
   },
+]
+const homeHeroImages = [
+  {
+    src: optimizeImage(
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
+    ),
+    alt: t(locale, 'pages.home.heroImgTeam'),
+  },
+  {
+    src: optimizeImage(
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=70&fm=webp',
+    ),
+    alt: t(locale, 'pages.home.heroImgCollaboration'),
+  },
+  {
+    src: optimizeImage(
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=70&fm=webp',
+    ),
+    alt: t(locale, 'pages.home.heroImgMeeting'),
+  },
+  {
+    src: optimizeImage(
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=70&fm=webp',
+    ),
+    alt: t(locale, 'pages.home.heroImgStrategy'),
+  },
 ] as const
 const firstHeroSrc = optimizeImage(
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
+  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
 )
 
 const webPageLd = {
@@ -77,32 +103,7 @@ const webPageLd = {
     title={t(locale, 'pages.home.heroTitle')}
     subtitle={t(locale, 'pages.home.heroSubtitle')}
     showCTA={true}
-    images={[
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.home.heroImgTeam'),
-      },
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.home.heroImgCollaboration'),
-      },
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.home.heroImgMeeting'),
-      },
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.home.heroImgStrategy'),
-      },
-    ]}
+    images={homeHeroImages}
   />
 
   <section class="ac-section bg-slate-50">

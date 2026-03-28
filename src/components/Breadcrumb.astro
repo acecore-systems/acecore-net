@@ -11,6 +11,7 @@ interface Props {
 }
 const { items } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const currentPath = Astro.url.pathname
 ---
 
 <nav aria-label={t(locale, 'common.breadcrumb')} class="text-sm mb-4" data-pagefind-ignore>
@@ -31,8 +32,17 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
             class="i-lucide-chevron-right text-xs text-slate-400"
             aria-hidden="true"
           />
-          {item.href ? (
-            <a href={item.href} class="hover:text-brand-500 transition-colors">
+          {(item.href || i === items.length - 1) ? (
+            <a
+              href={item.href ?? currentPath}
+              aria-current={i === items.length - 1 ? 'page' : undefined}
+              class:list={[
+                'transition-colors',
+                i === items.length - 1
+                  ? 'text-slate-700 font-600 truncate max-w-60 sm:max-w-none'
+                  : 'hover:text-brand-500',
+              ]}
+            >
               {item.label}
             </a>
           ) : (
