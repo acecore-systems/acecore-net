@@ -37,7 +37,6 @@ const {
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
-const enableClientRouter = !isHome
 const gaFallbackDelay = isHome ? 12000 : 4000
 const pageTitle = isHome
   ? t(locale, 'meta.siteTitle')
@@ -318,7 +317,7 @@ import { SITE } from '../data/site'
           />
         ))
     }
-    {enableClientRouter && <ClientRouter />}
+    <ClientRouter />
     <script is:inline>
       (function() {
         if (localStorage.getItem('preferred-locale')) return;
