@@ -24,10 +24,13 @@ type HomeLayer = {
 type HeroImage = {
   src: string
   alt: string
+  srcsetWidths?: number[]
+  sizes?: string
 }
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
 
 const allPosts = await getCollection('blog')
 const posts = allPosts
@@ -66,31 +69,41 @@ const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
+      { quality: 40 },
     ),
     alt: t(locale, 'pages.home.heroImgTeam'),
+    srcsetWidths: homeHeroSrcSetWidths,
+    sizes: '100vw',
   },
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&fit=crop&q=70&fm=webp',
+      { quality: 40 },
     ),
     alt: t(locale, 'pages.home.heroImgCollaboration'),
+    srcsetWidths: homeHeroSrcSetWidths,
+    sizes: '100vw',
   },
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=70&fm=webp',
+      { quality: 40 },
     ),
     alt: t(locale, 'pages.home.heroImgMeeting'),
+    srcsetWidths: homeHeroSrcSetWidths,
+    sizes: '100vw',
   },
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=70&fm=webp',
+      { quality: 40 },
     ),
     alt: t(locale, 'pages.home.heroImgStrategy'),
+    srcsetWidths: homeHeroSrcSetWidths,
+    sizes: '100vw',
   },
 ]
-const firstHeroSrc = optimizeImage(
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
-)
+const firstHeroImage = homeHeroImages[0]
 
 const webPageLd = {
   '@context': 'https://schema.org',
@@ -105,11 +118,13 @@ const webPageLd = {
   locale={locale}
   title={t(locale, 'nav.home')}
   jsonLd={webPageLd}
-  preloadImage={{
-    src: firstHeroSrc,
-    srcset: generateSrcSet(firstHeroSrc),
-    sizes: '100vw',
-  }}
+  preloadImage={firstHeroImage
+    ? {
+        src: firstHeroImage.src,
+        srcset: generateSrcSet(firstHeroImage.src, firstHeroImage.srcsetWidths),
+        sizes: firstHeroImage.sizes ?? '100vw',
+      }
+    : undefined}
 >
   <Hero
     title={t(locale, 'pages.home.heroTitle')}

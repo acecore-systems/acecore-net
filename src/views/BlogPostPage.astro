@@ -1,4 +1,5 @@
 ---
+import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { render } from 'astro:content'
 import authors from '../data/authors.json'
@@ -308,7 +309,7 @@ const ctaHeading = isDefaultLocale
         }
         {post.data.callout && <Callout {...post.data.callout} />}
         {post.data.insightGrid && <InsightGrid {...post.data.insightGrid} />}
-        <div class="prose prose-slate prose-lg max-w-none">
+        <div class="ac-prose max-w-none">
           <Content />
         </div>
         {post.data.timeline && <Timeline {...post.data.timeline} locale={locale} />}

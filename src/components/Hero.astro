@@ -6,7 +6,12 @@ interface Props {
   title: string
   subtitle?: string
   showCTA?: boolean
-  images?: {src: string, alt: string}[]
+  images?: {
+    src: string
+    alt: string
+    srcsetWidths?: number[]
+    sizes?: string
+  }[]
   locale?: Locale
 }
 
@@ -15,8 +20,8 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const sliderImages = (images ?? []).map((image) => ({
   ...image,
-  srcset: generateSrcSet(image.src),
-  sizes: '100vw',
+  srcset: generateSrcSet(image.src, image.srcsetWidths),
+  sizes: image.sizes ?? '100vw',
 }))
 const hasSlider = sliderImages.length > 0
 const firstSliderImage = sliderImages[0]

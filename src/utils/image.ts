@@ -7,6 +7,13 @@ type ParsedImageSource = {
   sourceUrl: string
   width?: string
   height?: string
+  quality?: string
+}
+
+type OptimizeImageOptions = {
+  width?: number | string
+  height?: number | string
+  quality?: number | string
 }
 
 function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
@@ -35,6 +42,7 @@ function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
       sourceUrl,
       width: options.get('width'),
       height: options.get('height'),
+      quality: options.get('quality'),
     }
   } catch {
     return null
@@ -60,39 +68,48 @@ function parseImageSource(url: string): ParsedImageSource | null {
 function buildCloudflareImageUrl(
   sourceUrl: string,
   dimensions: { width?: string; height?: string },
+  quality = '50',
 ): string {
   const { width, height } = dimensions
-  const options: string[] = []
+  const transformOptions: string[] = []
 
-  if (width) options.push(`width=${width}`)
-  if (height) options.push(`height=${height}`)
+  if (width) transformOptions.push(`width=${width}`)
+  if (height) transformOptions.push(`height=${height}`)
 
-  options.push(`fit=${width && height ? 'cover' : 'scale-down'}`)
-  options.push('format=auto', 'quality=50', 'metadata=none')
+  transformOptions.push(`fit=${width && height ? 'cover' : 'scale-down'}`)
+  transformOptions.push('format=auto', `quality=${quality}`, 'metadata=none')
 
-  return `${CLOUDFLARE_IMAGE_ORIGIN}${CLOUDFLARE_IMAGE_PREFIX}${options.join(',')}/${sourceUrl}`
+  return `${CLOUDFLARE_IMAGE_ORIGIN}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}/${sourceUrl}`
 }
 
 /**
  * 外部画像URLを Cloudflare Images のリモート変換URLに変換する。
  * 元画像は外部公開URLのまま使い、初回だけ Cloudflare が取得して以後はキャッシュされる。
  */
-export function optimizeImage(url: string): string {
+export function optimizeImage(url: string, overrides: OptimizeImageOptions = {}): string {
   const parsed = parseImageSource(url)
   if (!parsed) return url
 
   return buildCloudflareImageUrl(parsed.sourceUrl, {
-    width: parsed.width,
-    height: parsed.height,
-  })
+    width: overrides.width != null ? String(overrides.width) : parsed.width,
+    height: overrides.height != null ? String(overrides.height) : parsed.height,
+  }, overrides.quality != null ? String(overrides.quality) : (parsed.quality ?? '50'))
 }
 
 /** 指定幅で Cloudflare Images URL を生成する（srcset 用） */
-export function optimizeImageWithWidth(url: string, width: number): string {
+export function optimizeImageWithWidth(
+  url: string,
+  width: number,
+  overrides: Pick<OptimizeImageOptions, 'quality'> = {},
+): string {
   const parsed = parseImageSource(url)
   if (!parsed) return url
 
-  return buildCloudflareImageUrl(parsed.sourceUrl, { width: String(width) })
+  return buildCloudflareImageUrl(
+    parsed.sourceUrl,
+    { width: String(width) },
+    overrides.quality != null ? String(overrides.quality) : (parsed.quality ?? '50'),
+  )
 }
 
 /** srcset 文字列を生成する */
