@@ -344,78 +344,68 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </section>
 
   <script is:inline>
-    {
+    function initContactTurnstile() {
       const turnstileEl = document.getElementById('turnstile-widget')
-      if (turnstileEl) {
-        const turnstileTarget = turnstileEl.parentElement || turnstileEl
+      if (!turnstileEl) return
 
-        function renderTurnstile() {
-          if (
-            typeof window.turnstile === 'undefined' ||
-            turnstileEl.dataset.widgetId
-          ) {
-            return
-          }
+      if (turnstileEl.dataset.widgetId) return
 
-          const sitekey = turnstileEl.dataset.sitekey
-          const language = turnstileEl.dataset.language
-          const theme = turnstileEl.dataset.theme || 'light'
+      const sitekey = turnstileEl.dataset.sitekey
+      const language = turnstileEl.dataset.language
+      const theme = turnstileEl.dataset.theme || 'light'
 
-          if (!sitekey) return
+      if (!sitekey) return
 
-          const widgetId = window.turnstile.render(turnstileEl, {
-            sitekey,
-            language,
-            theme,
-          })
-          turnstileEl.dataset.widgetId = String(widgetId)
+      function renderTurnstile() {
+        if (
+          typeof window.turnstile === 'undefined' ||
+          turnstileEl.dataset.widgetId
+        ) {
+          return
         }
 
-        function loadTurnstile() {
+        const widgetId = window.turnstile.render(turnstileEl, {
+          sitekey,
+          language,
+          theme,
+        })
+        turnstileEl.dataset.widgetId = String(widgetId)
+      }
+
+      if (typeof window.turnstile !== 'undefined') {
+        renderTurnstile()
+        return
+      }
+
+      const existingScript = document.querySelector(
+        'script[data-ace-turnstile-script]',
+      )
+
+      if (existingScript) {
+        let attempts = 0
+        const waitForTurnstile = function () {
           if (typeof window.turnstile !== 'undefined') {
             renderTurnstile()
             return
           }
-
-          const existingScript = document.querySelector(
-            'script[data-ace-turnstile-script]',
-          )
-
-          if (existingScript) {
-            let attempts = 0
-            const waitForTurnstile = function () {
-              if (typeof window.turnstile !== 'undefined') {
-                renderTurnstile()
-                return
-              }
-              if (attempts >= 50) return
-              attempts += 1
-              window.setTimeout(waitForTurnstile, 100)
-            }
-            waitForTurnstile()
-            return
-          }
-
-          const s = document.createElement('script')
-          s.dataset.aceTurnstileScript = 'true'
-          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-          s.async = true
-          s.addEventListener('load', renderTurnstile, { once: true })
-          document.head.appendChild(s)
+          if (attempts >= 50) return
+          attempts += 1
+          window.setTimeout(waitForTurnstile, 100)
         }
-
-        const io = new IntersectionObserver(
-          function (entries) {
-            if (entries[0].isIntersecting) {
-              io.disconnect()
-              loadTurnstile()
-            }
-          },
-          { rootMargin: '200px' },
-        )
-        io.observe(turnstileTarget)
+        waitForTurnstile()
+        return
       }
+
+      const script = document.createElement('script')
+      script.dataset.aceTurnstileScript = 'true'
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      script.async = true
+      script.addEventListener('load', renderTurnstile, { once: true })
+      document.head.appendChild(script)
     }
+
+    document.addEventListener('astro:page-load', initContactTurnstile)
+    initContactTurnstile()
   </script>
   <script is:inline>
     {
