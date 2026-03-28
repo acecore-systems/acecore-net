@@ -34,7 +34,7 @@ const itemListLd = {
   itemListElement: posts.map((post: CollectionEntry<'blog'>, i: number) => ({
     '@type': 'ListItem',
     position: i + 1,
-    url: `https://acecore.net/blog/${post.id}/`,
+    url: `https://acecore.net${u(`/blog/${post.id}/`)}`,
   })),
 }
 
