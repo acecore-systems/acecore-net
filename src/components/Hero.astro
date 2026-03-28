@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro'
 import { generateSrcSet } from '../utils/image'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 
@@ -97,7 +98,12 @@ const firstSliderImage = sliderImages[0]
           data-label-pause={t(locale, 'hero.pauseAutoplay')}
           data-label-resume={t(locale, 'hero.resumeAutoplay')}
         >
-            <div class="i-lucide-pause text-base" id="hero-pause-icon" aria-hidden="true"></div>
+          <span id="hero-pause-icon-pause">
+            <Icon name="pause" class="text-base" />
+          </span>
+          <span id="hero-pause-icon-play" class="hidden">
+            <Icon name="play" class="text-base" />
+          </span>
         </button>
       </div>
     )
@@ -226,7 +232,8 @@ const firstSliderImage = sliderImages[0]
     const getSlides = () => sliderElement.querySelectorAll<HTMLDivElement>('.hero-slide')
     const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
     const pauseBtn = document.getElementById('hero-pause') as HTMLButtonElement | null
-    const pauseIcon = document.getElementById('hero-pause-icon') as HTMLDivElement | null
+    const pauseIconPause = document.getElementById('hero-pause-icon-pause') as HTMLElement | null
+    const pauseIconPlay = document.getElementById('hero-pause-icon-play') as HTMLElement | null
     const total = images.length
     if (total <= 1) return
 
@@ -270,14 +277,19 @@ const firstSliderImage = sliderImages[0]
       if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
     }
 
+    function syncPauseIcon(isPaused: boolean) {
+      pauseIconPause?.classList.toggle('hidden', isPaused)
+      pauseIconPlay?.classList.toggle('hidden', !isPaused)
+    }
+
     function setPaused(value: boolean) {
       paused = value
       if (paused) {
         stopAutoPlay()
-        pauseIcon?.classList.replace('i-lucide-pause', 'i-lucide-play')
+        syncPauseIcon(true)
         pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelResume ?? '')
       } else {
-        pauseIcon?.classList.replace('i-lucide-play', 'i-lucide-pause')
+        syncPauseIcon(false)
         pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelPause ?? '')
         startAutoPlay()
       }
@@ -310,6 +322,7 @@ const firstSliderImage = sliderImages[0]
       startAutoPlay()
     }, { passive: true })
 
+    syncPauseIcon(false)
     startAutoPlay()
   }
 

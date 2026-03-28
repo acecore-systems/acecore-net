@@ -76,7 +76,12 @@ const currentPath = Astro.url.pathname
         data-label-open={t(locale, 'common.openMenu')}
         data-label-close={t(locale, 'common.closeMenu')}
       >
-        <div class="i-lucide-menu text-xl" aria-hidden="true"></div>
+        <span data-menu-icon="menu">
+          <Icon name="menu" class="text-xl" />
+        </span>
+        <span data-menu-icon="close" class="hidden">
+          <Icon name="x" class="text-xl" />
+        </span>
       </button>
     </div>
   </div>
@@ -108,6 +113,14 @@ const currentPath = Astro.url.pathname
 </header>
 
 <script>
+  function syncMenuIcon(menuBtn: HTMLElement, expanded: boolean) {
+    const menuIcon = menuBtn.querySelector<HTMLElement>('[data-menu-icon="menu"]')
+    const closeIcon = menuBtn.querySelector<HTMLElement>('[data-menu-icon="close"]')
+
+    menuIcon?.classList.toggle('hidden', expanded)
+    closeIcon?.classList.toggle('hidden', !expanded)
+  }
+
   function initHeader() {
     const menuBtn = document.getElementById('mobile-menu-btn')
     const menu = document.getElementById('mobile-menu')
@@ -117,11 +130,7 @@ const currentPath = Astro.url.pathname
     menu.classList.add('hidden')
     menuBtn.setAttribute('aria-expanded', 'false')
     menuBtn.setAttribute('aria-label', menuBtn.dataset.labelOpen || 'Open menu')
-    const icon = menuBtn.querySelector('div')
-    if (icon) {
-      icon.classList.add('i-lucide-menu')
-      icon.classList.remove('i-lucide-x')
-    }
+    syncMenuIcon(menuBtn, false)
 
     menuBtn.addEventListener('click', () => {
       const expanded = menu.classList.toggle('hidden') === false
@@ -130,11 +139,7 @@ const currentPath = Astro.url.pathname
         'aria-label',
         expanded ? (menuBtn.dataset.labelClose || 'Close menu') : (menuBtn.dataset.labelOpen || 'Open menu'),
       )
-      const icon = menuBtn.querySelector('div')
-      if (icon) {
-        icon.classList.toggle('i-lucide-menu', !expanded)
-        icon.classList.toggle('i-lucide-x', expanded)
-      }
+      syncMenuIcon(menuBtn, expanded)
       if (expanded) {
         const first = menu.querySelector<HTMLElement>('a')
         first?.focus()
@@ -151,6 +156,7 @@ const currentPath = Astro.url.pathname
         menu.classList.add('hidden')
         menuBtn.setAttribute('aria-expanded', 'false')
         menuBtn.setAttribute('aria-label', menuBtn.dataset.labelOpen || 'Open menu')
+        syncMenuIcon(menuBtn, false)
         menuBtn.focus()
       }
       if (e.key === 'Tab' && !menu.classList.contains('hidden')) {
