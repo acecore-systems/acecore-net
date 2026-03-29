@@ -38,9 +38,9 @@ content:
         options:
           collection: tags
           multiple: true
-          search: "id,name"
-          value: "{name}"
-          label: "{name}"
+          search: [fields.id, fields.name]
+          value: "{fields.name}"
+          label: "{fields.name}"
       - name: image
         label: 画像URL
         type: string
@@ -52,9 +52,9 @@ content:
         type: reference
         options:
           collection: authors
-          search: "id,name"
-          value: "{id}"
-          label: "{name} ({id})"
+          search: [fields.id, fields.name]
+          value: "{fields.id}"
+          label: "{fields.name} ({fields.id})"
       - name: body
         label: 本文
         type: rich-text
