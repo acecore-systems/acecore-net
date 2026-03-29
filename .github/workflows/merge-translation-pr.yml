@@ -1,0 +1,66 @@
+name: Merge Translation PR
+
+on:
+  pull_request_target:
+    types:
+      - ready_for_review
+  workflow_run:
+    workflows:
+      - Translation PR Build
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request number to merge manually
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'pull_request_target' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Resolve pull request number
+        id: pr
+        run: |
+          pr_number=""
+
+          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
+            pr_number="${{ github.event.pull_request.number }}"
+          elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+            pr_number=$(jq -r '.workflow_run.pull_requests[0].number // ""' "$GITHUB_EVENT_PATH")
+          else
+            pr_number="${{ inputs.pr_number }}"
+          fi
+
+          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
+
+      - name: Stop when no pull request number is available
+        if: steps.pr.outputs.pr_number == ''
+        run: echo "No pull request number found for this event."
+
+      - name: Check out repository
+        if: steps.pr.outputs.pr_number != ''
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        if: steps.pr.outputs.pr_number != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Merge eligible translation PR
+        if: steps.pr.outputs.pr_number != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/merge-translation-pr.mjs --pr=${{ steps.pr.outputs.pr_number }}
