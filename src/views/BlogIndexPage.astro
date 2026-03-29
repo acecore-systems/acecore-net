@@ -8,7 +8,7 @@ import { getCollection } from 'astro:content'
 import { optimizeImage } from '../utils/image'
 import AdUnit from '../components/AdUnit.astro'
 import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, getYearMonthKey, type Locale } from '../i18n'
 import { isBasePost, localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
@@ -28,10 +28,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 const posts = allPosts.slice(0, POSTS_PER_PAGE)
 const uniqueTagCount = new Set(allPosts.flatMap((post) => post.data.tags ?? [])).size
 const archiveCount = new Set(
-  allPosts.map((post) => {
-    const date = post.data.date
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
-  }),
+  allPosts.map((post) => getYearMonthKey(post.data.date)),
 ).size
 
 const itemListLd = {

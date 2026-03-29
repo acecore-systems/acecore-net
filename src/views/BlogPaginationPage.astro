@@ -21,6 +21,11 @@ interface Props {
 
 const { locale, posts, currentPage, totalPages, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const currentPagePath = u(`/blog/page/${currentPage}/`)
+const breadcrumbItems = [
+  { label: t(locale, 'blog.title'), href: u('/blog/') },
+  { label: t(locale, 'blog.pageN', { n: currentPage }), href: currentPagePath },
+]
 
 const itemListLd = {
   '@context': 'https://schema.org',
@@ -39,18 +44,17 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
 <BaseLayout
   title={`${t(locale, 'blog.title')} ${t(locale, 'blog.pageOf', { current: currentPage, total: totalPages })}`}
   description={t(locale, 'blog.pageDescription', { current: currentPage, total: totalPages })}
+  robots="noindex, follow"
   jsonLd={itemListLd}
   prevPage={currentPage === 2 ? u('/blog/') : u(`/blog/page/${currentPage - 1}/`)}
   nextPage={currentPage < totalPages ? u(`/blog/page/${currentPage + 1}/`) : undefined}
   locale={locale}
+  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
 >
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb
-        items={[
-          { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.pageN', { n: currentPage }) },
-        ]}
+        items={breadcrumbItems}
         locale={locale}
       />
       <h1 class="text-2xl sm:text-3xl ac-heading mb-8">

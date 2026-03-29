@@ -23,6 +23,8 @@ const translations: Record<Locale, TranslationData> = {
   ru: ruTranslations,
 }
 
+const BLOG_TIME_ZONE = 'Asia/Tokyo'
+
 /**
  * ネストされたオブジェクトからドット区切りのキーで値を取得
  */
@@ -65,15 +67,17 @@ export function getLocaleFromUrl(url: URL | string): Locale {
  * 指定ロケール向けの URL パスを生成する。
  */
 export function getLocalizedUrl(path: string, locale: Locale): string {
+  const hasTrailingSlash = path.length > 1 && path.endsWith('/')
   // パスからロケールプレフィクスを除去
   const segments = path.split('/').filter(Boolean)
   if (segments[0] && (locales as readonly string[]).includes(segments[0]) && segments[0] !== defaultLocale) {
     segments.shift()
   }
   const cleanPath = '/' + segments.join('/')
+  const normalizedPath = hasTrailingSlash && cleanPath !== '/' ? `${cleanPath}/` : cleanPath
 
-  if (locale === defaultLocale) return cleanPath
-  return `/${locale}${cleanPath}`
+  if (locale === defaultLocale) return normalizedPath
+  return `/${locale}${normalizedPath}`
 }
 
 /**
@@ -84,6 +88,51 @@ export function getAlternateUrls(path: string, siteUrl: string): { locale: Local
     locale,
     url: `${siteUrl.replace(/\/$/, '')}${getLocalizedUrl(path, locale)}`,
   }))
+}
+
+type DateParts = {
+  year: number
+  month: number
+  day: number
+  hour: number
+  minute: number
+}
+
+function hasTime(date: Date): boolean {
+  const { hour, minute } = getDateParts(date)
+  return hour !== 0 || minute !== 0
+}
+
+export function getDateParts(date: Date): DateParts {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: BLOG_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+
+  const values = Object.fromEntries(
+    formatter
+      .formatToParts(date)
+      .filter((part) => part.type !== 'literal')
+      .map((part) => [part.type, part.value]),
+  )
+
+  return {
+    year: Number(values.year),
+    month: Number(values.month),
+    day: Number(values.day),
+    hour: Number(values.hour),
+    minute: Number(values.minute),
+  }
+}
+
+export function getYearMonthKey(date: Date): string {
+  const { year, month } = getDateParts(date)
+  return `${year}-${String(month).padStart(2, '0')}`
 }
 
 /**
@@ -101,11 +150,21 @@ export function formatDate(date: Date, locale: Locale): string {
     de: 'de-DE',
     ru: 'ru-RU',
   }
-  return date.toLocaleDateString(localeMap[locale], {
+
+  const baseOptions: Intl.DateTimeFormatOptions = {
+    timeZone: BLOG_TIME_ZONE,
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  })
+  }
+
+  return hasTime(date)
+    ? date.toLocaleString(localeMap[locale], {
+        ...baseOptions,
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : date.toLocaleDateString(localeMap[locale], baseOptions)
 }
 
 /**

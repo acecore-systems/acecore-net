@@ -1,7 +1,7 @@
 ---
 title: 'Astro 6 サイトを9言語対応に ― ブログ記事136本の自動翻訳と多言語アーキテクチャ'
 description: 'Astro 6 + UnoCSS + Cloudflare Pages 構成のサイトを9言語対応にした記録です。UI の国際化からブログ記事136本の翻訳、Pages CMS の多言語設定まで、全工程を解説します。'
-date: 2026-03-25
+date: 2026-03-25T10:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop&q=80

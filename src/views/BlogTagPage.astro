@@ -18,6 +18,11 @@ interface Props {
 const { locale, tag, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const displayTag = translateTag(tag, locale)
+const breadcrumbItems = [
+  { label: t(locale, 'blog.title'), href: u('/blog/') },
+  { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },
+  { label: t(locale, 'blog.tagPrefix', { tag: displayTag }), href: u(`/blog/tags/${tag}/`) },
+]
 ---
 
 <BaseLayout
@@ -25,6 +30,7 @@ const displayTag = translateTag(tag, locale)
   description={t(locale, 'blog.tagDescription', { tag: displayTag })}
   robots="noindex, follow"
   locale={locale}
+  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -41,11 +47,7 @@ const displayTag = translateTag(tag, locale)
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb
-        items={[
-          { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },
-          { label: t(locale, 'blog.tagPrefix', { tag: displayTag }) },
-        ]}
+        items={breadcrumbItems}
         locale={locale}
       />
       <h1 class="text-2xl sm:text-3xl ac-heading mb-8">

@@ -32,7 +32,12 @@ export default defineConfig({
     sitemap({
       lastmod: new Date(),
       filter(page) {
-        return !page.includes('/blog/tags/') && !page.includes('/blog/archive/')
+        return (
+          !page.includes('/blog/tags/') &&
+          !page.includes('/blog/archive/') &&
+          !page.includes('/blog/authors/') &&
+          !page.includes('/blog/page/')
+        )
       },
       i18n: {
         defaultLocale: 'ja',

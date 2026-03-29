@@ -1,7 +1,7 @@
 ---
 title: 'GitHub Copilot × Playwright でWebサイトをモンキーテストする実践手法'
 description: 'VS Codeのエージェントモード（GitHub Copilot）とPlaywrightブラウザツールを組み合わせ、静的サイトを体系的にモンキーテストした実践記録です。テスト設計の考え方から、実際に発見・修正したバグ、改善提案までを公開します。'
-date: 2026-03-25
+date: 2026-03-25T14:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
 image: https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&h=400&fit=crop&q=80

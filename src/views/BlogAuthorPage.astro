@@ -21,12 +21,18 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const rawAuthor = authors.find((a) => a.id === authorId)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const authorName = author?.name ?? authorId
+const breadcrumbItems = [
+  { label: t(locale, 'blog.title'), href: u('/blog/') },
+  { label: t(locale, 'blog.authorPrefix', { author: authorName }), href: u(`/blog/authors/${authorId}/`) },
+]
 ---
 
 <BaseLayout
   title={t(locale, 'blog.articlesByAuthor', { author: authorName })}
   description={t(locale, 'blog.authorDescription', { author: authorName })}
+  robots="noindex, follow"
   locale={locale}
+  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -39,10 +45,7 @@ const authorName = author?.name ?? authorId
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb
-        items={[
-          { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.authorPrefix', { author: authorName }) },
-        ]}
+        items={breadcrumbItems}
         locale={locale}
       />
       <div class="flex items-center gap-4 mb-8">

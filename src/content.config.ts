@@ -2,13 +2,42 @@ import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
 import { glob } from 'astro/loaders'
 
+const BLOG_TIMEZONE_OFFSET = '+09:00'
+const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+const LOCAL_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/
+
+function parseContentDate(value: string | Date): Date {
+  if (value instanceof Date) {
+    if (Number.isNaN(value.getTime())) {
+      throw new Error('Invalid date value in content frontmatter')
+    }
+    return new Date(value.getTime())
+  }
+
+  const raw = String(value).trim()
+  const normalized = DATE_ONLY_PATTERN.test(raw)
+    ? `${raw}T00:00:00${BLOG_TIMEZONE_OFFSET}`
+    : LOCAL_DATETIME_PATTERN.test(raw)
+      ? `${raw}${BLOG_TIMEZONE_OFFSET}`
+      : raw
+
+  const date = new Date(normalized)
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid date value in content frontmatter: ${raw}`)
+  }
+
+  return date
+}
+
+const contentDate = z.union([z.string(), z.date()]).transform(parseContentDate)
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    date: z.coerce.date(),
-    lastUpdated: z.coerce.date().optional(),
+    date: contentDate,
+    lastUpdated: contentDate.optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
     author: z.string(),

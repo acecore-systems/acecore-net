@@ -19,7 +19,12 @@ const { locale, month, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const [year, m] = month.split('-')
 const label = t(locale, 'blog.yearMonth', { year, month: String(parseInt(m)) })
-const archiveUrl = `https://acecore.net${u('/blog/archive/' + month + '/')}/`
+const archiveUrl = `https://acecore.net${u('/blog/archive/' + month + '/')}`
+const breadcrumbItems = [
+  { label: t(locale, 'blog.title'), href: u('/blog/') },
+  { label: t(locale, 'blog.archive'), href: u('/blog/archive/') },
+  { label, href: u(`/blog/archive/${month}/`) },
+]
 const archivePageLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -29,7 +34,7 @@ const archivePageLd = {
   hasPart: posts.map((post) => ({
     '@type': 'BlogPosting',
     headline: localizePost(post, allPosts, locale).data.title,
-    url: `https://acecore.net${u('/blog/' + post.id + '/')}/`,
+    url: `https://acecore.net${u('/blog/' + post.id + '/')}`,
   })),
 }
 ---
@@ -40,15 +45,12 @@ const archivePageLd = {
   robots="noindex, follow"
   jsonLd={archivePageLd}
   locale={locale}
+  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
 >
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb
-        items={[
-          { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.archive'), href: u('/blog/archive/') },
-          { label },
-        ]}
+        items={breadcrumbItems}
         locale={locale}
       />
       <h1 class="text-2xl sm:text-3xl ac-heading mb-8">

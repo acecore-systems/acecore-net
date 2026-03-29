@@ -22,7 +22,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
-import { t, getLocalizedUrl, formatDate, defaultLocale, translateTag, htmlLangMap, type Locale } from '../i18n'
+import { t, getLocalizedUrl, formatDate, getDateParts, defaultLocale, translateTag, htmlLangMap, type Locale } from '../i18n'
 import { getCollection } from 'astro:content'
 import { localizePost, isBasePost, getLocalizedAuthor } from '../utils/blog-i18n'
 
@@ -209,7 +209,7 @@ const ctaHeading = isDefaultLocale
           isDefaultLocale && (
             <div class="hidden" aria-hidden="true">
               {author && <span data-pagefind-filter="著者">{author.name}</span>}
-              <span data-pagefind-filter="年">{post.data.date.getFullYear()}</span>
+              <span data-pagefind-filter="年">{getDateParts(post.data.date).year}</span>
               {post.data.tags?.map((tag: string) => (
                 <span data-pagefind-filter="タグ">{tag}</span>
               ))}

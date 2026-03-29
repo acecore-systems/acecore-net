@@ -1,7 +1,7 @@
 ---
 title: 'Astroサイトに構造化データとOGPを実装するSEO改善ガイド'
 description: 'Astro + Cloudflare Pages 構成のサイトに JSON-LD 構造化データ・OGP・サイトマップ・RSSを正しく実装した手順をまとめました。Google のリッチリザルト対応からRSSフィードの最適化まで、実践的な SEO 改善を紹介します。'
-date: 2026-03-25
+date: 2026-03-25T11:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80

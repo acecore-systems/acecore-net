@@ -17,6 +17,7 @@ interface Props {
   author?: string
   preloadImage?: { src: string; srcset?: string; sizes?: string }
   locale?: Locale
+  breadcrumbItems?: { name: string; item?: string }[]
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
@@ -34,6 +35,7 @@ const {
   tags,
   author,
   preloadImage,
+  breadcrumbItems,
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
@@ -78,8 +80,32 @@ const pathParts = (rawParts[0] && (locales as readonly string[]).includes(rawPar
   : rawParts
 const siteOrigin = Astro.site?.origin || 'https://acecore.net'
 const buildAbsoluteUrl = (path: string) => new URL(path, `${siteOrigin}/`).toString()
+const breadcrumbLdFromProps =
+  breadcrumbItems && breadcrumbItems.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(locale, 'common.home'),
+            item: buildAbsoluteUrl(getLocalizedUrl('/', locale)),
+          },
+          ...breadcrumbItems.map((breadcrumbItem, i) => ({
+            '@type': 'ListItem',
+            position: i + 2,
+            name: breadcrumbItem.name,
+            item: breadcrumbItem.item
+              ? buildAbsoluteUrl(breadcrumbItem.item)
+              : canonicalURL.toString(),
+          })),
+        ],
+      }
+    : null
 const breadcrumbLd =
-  pathParts.length > 0
+  breadcrumbLdFromProps ??
+  (pathParts.length > 0
     ? {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
@@ -101,7 +127,7 @@ const breadcrumbLd =
           }),
         ],
       }
-    : null
+    : null)
 
 const alternateUrls = getAlternateUrls(Astro.url.pathname, siteOrigin)
 

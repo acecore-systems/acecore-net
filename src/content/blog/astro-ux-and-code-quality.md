@@ -1,7 +1,7 @@
 ---
 title: 'Astro View Transitionsの落とし穴と解決策 ― UX・コード品質改善ガイド'
 description: 'AstroのView Transitionsでスクリプトが動かなくなる問題の解決策、Pagefind全文検索の導入、TypeScript型安全性の向上、定数の一元管理など、UXとコード品質を改善した実践ガイドです。'
-date: 2026-03-25
+date: 2026-03-25T13:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop&q=80

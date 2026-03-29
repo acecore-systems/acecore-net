@@ -1,7 +1,7 @@
 ---
 title: 'AstroサイトのアクセシビリティをWCAG AA準拠にする実践ガイド'
 description: 'Astro + UnoCSS 構成のサイトで実施したアクセシビリティ改善の全手順を紹介します。aria属性・コントラスト・フォーカス管理・フォーム検証・スクリーンリーダー対応など、WCAG AA準拠に必要な施策を網羅しています。'
-date: 2026-03-25
+date: 2026-03-25T12:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
 image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80

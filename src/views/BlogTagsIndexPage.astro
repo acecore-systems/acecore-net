@@ -11,6 +11,10 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const breadcrumbItems = [
+  { label: t(locale, 'blog.title'), href: u('/blog/') },
+  { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },
+]
 
 const allPosts = (await getCollection('blog')).filter(isBasePost)
 const tagCounts = new Map<string, number>()
@@ -27,14 +31,12 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
   description={t(locale, 'blog.tagListDescription')}
   robots="noindex, follow"
   locale={locale}
+  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
 >
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
       <Breadcrumb
-        items={[
-          { label: t(locale, 'blog.title'), href: u('/blog/') },
-          { label: t(locale, 'blog.tagList') },
-        ]}
+        items={breadcrumbItems}
         locale={locale}
       />
       <h1 class="text-2xl sm:text-3xl ac-heading mb-8">{t(locale, 'blog.tagList')}</h1>

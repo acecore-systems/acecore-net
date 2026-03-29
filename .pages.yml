@@ -19,6 +19,7 @@ content:
       - name: date
         label: 公開日
         type: date
+        time: true
         required: true
       - name: tags
         label: タグ
@@ -53,6 +54,7 @@ content:
       - name: date
         label: Date
         type: date
+        time: true
         required: true
       - name: tags
         label: Tags
@@ -87,6 +89,7 @@ content:
       - name: date
         label: 日期
         type: date
+        time: true
         required: true
       - name: tags
         label: 标签
@@ -121,6 +124,7 @@ content:
       - name: date
         label: Fecha
         type: date
+        time: true
         required: true
       - name: tags
         label: Etiquetas
@@ -155,6 +159,7 @@ content:
       - name: date
         label: Data
         type: date
+        time: true
         required: true
       - name: tags
         label: Tags
@@ -189,6 +194,7 @@ content:
       - name: date
         label: Date
         type: date
+        time: true
         required: true
       - name: tags
         label: Étiquettes
@@ -223,6 +229,7 @@ content:
       - name: date
         label: 날짜
         type: date
+        time: true
         required: true
       - name: tags
         label: 태그
@@ -257,6 +264,7 @@ content:
       - name: date
         label: Datum
         type: date
+        time: true
         required: true
       - name: tags
         label: Tags
@@ -291,6 +299,7 @@ content:
       - name: date
         label: Дата
         type: date
+        time: true
         required: true
       - name: tags
         label: Теги
