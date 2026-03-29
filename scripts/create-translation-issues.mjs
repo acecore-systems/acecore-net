@@ -287,8 +287,8 @@ async function assignIssueToCopilot({ owner, repo, repository, issueNumber, issu
   }
 
   try {
-    await requestGitHub(`/repos/${owner}/${repo}/issues/${issueNumber}/assignees`, {
-      method: 'POST',
+    await requestGitHub(`/repos/${owner}/${repo}/issues/${issueNumber}`, {
+      method: 'PATCH',
       token: copilotToken,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
