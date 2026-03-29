@@ -48,6 +48,7 @@ jobs:
 
       - name: Create or update translation issues
         env:
+          COPILOT_AGENT_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}

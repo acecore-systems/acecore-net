@@ -225,9 +225,9 @@ function inferRepositoryFromGitRemote() {
   return null
 }
 
-async function requestGitHub(path, { method = 'GET', body } = {}) {
-  const token = process.env.GITHUB_TOKEN
-  if (!token) {
+async function requestGitHub(path, { method = 'GET', body, token, headers } = {}) {
+  const authToken = token ?? process.env.GITHUB_TOKEN
+  if (!authToken) {
     throw new Error('GITHUB_TOKEN is required')
   }
 
@@ -235,9 +235,10 @@ async function requestGitHub(path, { method = 'GET', body } = {}) {
     method,
     headers: {
       Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json',
       'User-Agent': 'acecore-net-translation-issue-bot',
+      ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,
   })
@@ -255,6 +256,58 @@ async function findOpenIssueByMarker(repository, marker) {
   const query = encodeURIComponent(`repo:${repository} is:issue is:open in:body ${marker}`)
   const response = await requestGitHub(`/search/issues?q=${query}`)
   return response.items?.[0] ?? null
+}
+
+function getCopilotAgentToken() {
+  const token = process.env.COPILOT_AGENT_TOKEN?.trim()
+  return token || null
+}
+
+function buildCopilotInstructions(issueKind) {
+  if (issueKind === 'author-profile') {
+    return [
+      'Update the author profile translations described in the issue.',
+      'Modify only src/data/authors.json i18n entries for the affected authors unless explicitly required otherwise.',
+      'Keep Japanese source fields unchanged and run npm run build before finishing.',
+    ].join(' ')
+  }
+
+  return [
+    'Translate the Japanese source article described in the issue into all requested locales.',
+    'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
+    'Run npm run build before finishing.',
+  ].join(' ')
+}
+
+async function assignIssueToCopilot({ owner, repo, repository, issueNumber, issueKind }) {
+  const copilotToken = getCopilotAgentToken()
+  if (!copilotToken) {
+    console.log('COPILOT_AGENT_TOKEN is not set; skipping Copilot assignment.')
+    return
+  }
+
+  try {
+    await requestGitHub(`/repos/${owner}/${repo}/issues/${issueNumber}/assignees`, {
+      method: 'POST',
+      token: copilotToken,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+      body: {
+        assignees: ['copilot-swe-agent[bot]'],
+        agent_assignment: {
+          target_repo: repository,
+          base_branch: 'main',
+          custom_instructions: buildCopilotInstructions(issueKind),
+          custom_agent: '',
+          model: '',
+        },
+      },
+    })
+    console.log(`Assigned issue #${issueNumber} to copilot-swe-agent[bot]`)
+  } catch (error) {
+    console.warn(`Could not assign issue #${issueNumber} to Copilot: ${error.message}`)
+  }
 }
 
 function buildBlogIssuePayload({ sourcePath, changeType, locales, headSha, repository }) {
@@ -292,6 +345,7 @@ function buildBlogIssuePayload({ sourcePath, changeType, locales, headSha, repos
     title: `[translation] ${titlePrefix} ${slug}`,
     body,
     marker,
+    issueKind: 'blog-post',
   }
 }
 
@@ -332,21 +386,7 @@ function buildAuthorIssuePayload({ changes, locales, headSha, repository }) {
     title: '[translation] Update author profile translations',
     body,
     marker,
-  }
-}
-
-async function applyOptionalAssignee({ owner, repo, issueNumber }) {
-  const assignee = process.env.TRANSLATION_ISSUE_ASSIGNEE?.trim()
-  if (!assignee) return
-
-  try {
-    await requestGitHub(`/repos/${owner}/${repo}/issues/${issueNumber}/assignees`, {
-      method: 'POST',
-      body: { assignees: [assignee] },
-    })
-    console.log(`Assigned issue #${issueNumber} to ${assignee}`)
-  } catch (error) {
-    console.warn(`Could not assign issue #${issueNumber} to ${assignee}: ${error.message}`)
+    issueKind: 'author-profile',
   }
 }
 
@@ -360,7 +400,13 @@ async function createOrUpdateIssue(payload) {
       body: { title: payload.title, body: payload.body },
     })
     console.log(`Updated translation issue #${issue.number}: ${issue.title}`)
-    await applyOptionalAssignee({ owner, repo, issueNumber: issue.number })
+    await assignIssueToCopilot({
+      owner,
+      repo,
+      repository,
+      issueNumber: issue.number,
+      issueKind: payload.issueKind,
+    })
     return issue
   }
 
@@ -369,7 +415,13 @@ async function createOrUpdateIssue(payload) {
     body: { title: payload.title, body: payload.body },
   })
   console.log(`Created translation issue #${issue.number}: ${issue.title}`)
-  await applyOptionalAssignee({ owner, repo, issueNumber: issue.number })
+  await assignIssueToCopilot({
+    owner,
+    repo,
+    repository,
+    issueNumber: issue.number,
+    issueKind: payload.issueKind,
+  })
   return issue
 }
 
