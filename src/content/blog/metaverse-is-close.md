@@ -1,7 +1,7 @@
 ---
 title: 'メタバースは案外身近にあるよね'
 description: 'Facebook（Meta）のメタバース戦略がいまいちピンとこない一方で、マインクラフトは1億人以上が参加する巨大な仮想空間。VRゴーグルだけがメタバースじゃない、という話。'
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80

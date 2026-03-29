@@ -1,7 +1,7 @@
 ---
 title: 'Acecore公式サイトをリニューアルしました'
 description: 'Acecoreの公式Webサイトを全面リニューアルしました。新しいサイトの特徴や今後の展望についてご紹介します。'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80

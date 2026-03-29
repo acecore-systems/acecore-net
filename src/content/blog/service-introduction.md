@@ -1,7 +1,7 @@
 ---
 title: 'Acecoreのサービス紹介：ワンストップITソリューション'
 description: 'システム開発からデザイン、IT教育まで。Acecoreが提供する5つの主要サービスについて詳しくご紹介します。'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80

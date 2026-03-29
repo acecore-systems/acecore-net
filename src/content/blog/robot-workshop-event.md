@@ -1,7 +1,7 @@
 ---
 title: '夏休みロボット工作体験イベントのご案内'
 description: 'AceCore Schoolsでは、夏休みを利用して子供たちにロボット工作の楽しさを体験してもらうイベントを開催しました。工作を通して技術的な知識や創造力を育んでいます。'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
