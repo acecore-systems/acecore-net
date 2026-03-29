@@ -1,0 +1,74 @@
+name: Create Translation Issues
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/content/blog/*.md
+      - src/data/authors.json
+  workflow_dispatch:
+    inputs:
+      base_sha:
+        description: Optional base SHA for diff detection
+        required: false
+        type: string
+      head_sha:
+        description: Optional head SHA for diff detection
+        required: false
+        type: string
+      changed_files:
+        description: Optional comma-separated changed files for dry runs or manual execution
+        required: false
+        type: string
+      dry_run:
+        description: Print issue payloads without creating issues
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-translation-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create or update translation issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          args=()
+
+          if [ -n "${{ inputs.base_sha }}" ]; then
+            args+=("--base=${{ inputs.base_sha }}")
+          fi
+
+          if [ -n "${{ inputs.head_sha }}" ]; then
+            args+=("--head=${{ inputs.head_sha }}")
+          fi
+
+          if [ -n "${{ inputs.changed_files }}" ]; then
+            args+=("--changed-files=${{ inputs.changed_files }}")
+          fi
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            args+=("--dry-run")
+          fi
+
+          node scripts/create-translation-issues.mjs "${args[@]}"

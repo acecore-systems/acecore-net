@@ -24,6 +24,7 @@ Acecore（エースコア）公式Webサイト。
 - デフォルトロケール（`ja`）は URL プレフィクスなし（`/blog/...`）
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
+- Pages CMS では日本語ソースのみ管理し、多言語記事は GitHub Issue ベースで AI に委譲
 - UI 文字列は `src/i18n/translations/` で管理
 
 ## 開発
@@ -95,7 +96,8 @@ src/
 
 1. [app.pagescms.org](https://app.pagescms.org/) にアクセス
 2. GitHub でログインし、`acecore-net` リポジトリを選択
-3. 「ブログ記事」から新規作成・編集
+3. 「ブログ記事」から日本語ソース記事のみ新規作成・編集
+4. 翻訳は GitHub の翻訳 issue を起票し、AI で `src/content/blog/{locale}/` に反映
 
 ### 手動
 
@@ -115,6 +117,25 @@ author: 'author-id'
 ```
 
 翻訳記事は `src/content/blog/{locale}/{slug}.md` に同名ファイルで配置します。
+
+## 翻訳ワークフロー
+
+Pages CMS は日本語ソースの編集に限定します。多言語記事と著者紹介の翻訳は GitHub Issue ベースで管理します。
+
+1. 日本語ソースを Pages CMS で更新する
+2. `main` へ反映されると GitHub Actions が translation issue を自動作成または更新する
+3. issue にソースパス、対象ロケール、翻訳条件が自動で入る
+4. AI に issue を処理させ、`src/content/blog/{locale}/` や `src/data/authors.json` の `i18n` を更新する
+
+著者情報の `i18n` は Pages CMS では非表示にしてあり、GitHub 側の翻訳フローでのみ更新する前提です。
+
+### 自動起票 workflow
+
+- Workflow: `.github/workflows/create-translation-issues.yml`
+- Script: `scripts/create-translation-issues.mjs`
+- Trigger: `src/content/blog/*.md` または `src/data/authors.json` の `main` 反映時
+- 日本語ソース記事ごとに 1 issue を作成し、同じソースの open issue があれば更新
+- `authors.json` は日本語ベースの差分だけ検出し、`i18n` の変更だけでは再起票しない
 
 ## お問い合わせフォーム
 
