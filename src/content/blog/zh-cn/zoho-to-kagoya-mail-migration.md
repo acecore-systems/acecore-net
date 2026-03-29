@@ -135,8 +135,8 @@ import email
 import glob
 
 # KAGOYA IMAP 连接
-imap = imaplib.IMAP4_SSL("メールサーバー名", 993)
-imap.login("アカウント名", "パスワード")
+imap = imaplib.IMAP4_SSL("邮件服务器名", 993)
+imap.login("账号名", "密码")
 imap.select("INBOX")
 
 # 批量上传 EML 文件
@@ -201,8 +201,8 @@ DNS 切换后，务必确认以下4点。
 import imaplib
 import email
 
-imap = imaplib.IMAP4_SSL("メールサーバー名", 993)
-imap.login("アカウント名", "パスワード")
+imap = imaplib.IMAP4_SSL("邮件服务器名", 993)
+imap.login("账号名", "密码")
 imap.select("INBOX")
 _, data = imap.search(None, "ALL")
 
