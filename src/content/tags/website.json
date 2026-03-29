@@ -1,0 +1,30 @@
+{
+	"id": "website",
+	"name": "Webサイト",
+	"i18n": {
+		"en": {
+			"name": "Website"
+		},
+		"zh-cn": {
+			"name": "网站"
+		},
+		"es": {
+			"name": "Sitio web"
+		},
+		"pt": {
+			"name": "Site"
+		},
+		"fr": {
+			"name": "Site web"
+		},
+		"ko": {
+			"name": "웹사이트"
+		},
+		"de": {
+			"name": "Website"
+		},
+		"ru": {
+			"name": "Веб-сайт"
+		}
+	}
+}

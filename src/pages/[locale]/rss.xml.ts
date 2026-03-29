@@ -2,7 +2,9 @@ import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
 import type { APIContext } from 'astro'
 import { locales, defaultLocale, type Locale } from '../../i18n'
-import { isBasePost, localizePost } from '../../utils/blog-i18n'
+import { isBasePost, localizePost, getLocalizedAuthor } from '../../utils/blog-i18n'
+import { getAllAuthors, findAuthorById } from '../../utils/authors'
+import { getAllTags, getLocalizedTagName } from '../../utils/tags'
 
 export function getStaticPaths() {
   return locales
@@ -54,6 +56,8 @@ const rssMeta: Record<string, { title: string; description: string }> = {
 
 export async function GET(context: APIContext) {
   const locale = context.params.locale as Locale
+  const authors = await getAllAuthors()
+  const tags = await getAllTags()
   const allPosts = await getCollection('blog')
   const basePosts = allPosts
     .filter(isBasePost)
@@ -72,8 +76,21 @@ export async function GET(context: APIContext) {
       description: post.data.description,
       pubDate: post.data.date,
       link: `/${locale}/blog/${post.id.includes('/') ? post.id.split('/').pop() : post.id}/`,
-      ...(post.data.author ? { author: post.data.author } : {}),
-      categories: post.data.tags ?? [],
+      ...(post.data.author
+        ? {
+            author:
+              getLocalizedAuthor(
+                findAuthorById(authors, post.data.author) ?? {
+                  id: post.data.author,
+                  name: post.data.author,
+                },
+                locale,
+              ).name,
+          }
+        : {}),
+      categories: (post.data.tags ?? []).map((tag) =>
+        getLocalizedTagName(tags, tag, locale),
+      ),
     })),
   })
 }

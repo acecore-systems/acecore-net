@@ -1,0 +1,30 @@
+{
+	"id": "system-development",
+	"name": "システム開発",
+	"i18n": {
+		"en": {
+			"name": "System Development"
+		},
+		"zh-cn": {
+			"name": "系统开发"
+		},
+		"es": {
+			"name": "Desarrollo de sistemas"
+		},
+		"pt": {
+			"name": "Desenvolvimento de sistemas"
+		},
+		"fr": {
+			"name": "Développement de systèmes"
+		},
+		"ko": {
+			"name": "시스템 개발"
+		},
+		"de": {
+			"name": "Systementwicklung"
+		},
+		"ru": {
+			"name": "Разработка систем"
+		}
+	}
+}

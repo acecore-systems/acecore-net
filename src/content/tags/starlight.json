@@ -1,0 +1,30 @@
+{
+	"id": "starlight",
+	"name": "Starlight",
+	"i18n": {
+		"en": {
+			"name": "Starlight"
+		},
+		"zh-cn": {
+			"name": "Starlight"
+		},
+		"es": {
+			"name": "Starlight"
+		},
+		"pt": {
+			"name": "Starlight"
+		},
+		"fr": {
+			"name": "Starlight"
+		},
+		"ko": {
+			"name": "Starlight"
+		},
+		"de": {
+			"name": "Starlight"
+		},
+		"ru": {
+			"name": "Starlight"
+		}
+	}
+}

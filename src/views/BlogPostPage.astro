@@ -2,7 +2,6 @@
 import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { render } from 'astro:content'
-import authors from '../data/authors.json'
 import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
 import Callout from '../components/Callout.astro'
 import Timeline from '../components/Timeline.astro'
@@ -22,9 +21,11 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
-import { t, getLocalizedUrl, formatDate, getDateParts, defaultLocale, translateTag, htmlLangMap, type Locale } from '../i18n'
+import { t, getLocalizedUrl, formatDate, getDateParts, defaultLocale, htmlLangMap, type Locale } from '../i18n'
 import { getCollection } from 'astro:content'
 import { localizePost, isBasePost, getLocalizedAuthor } from '../utils/blog-i18n'
+import { getAllAuthors, findAuthorById } from '../utils/authors'
+import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -41,15 +42,16 @@ const isDefaultLocale = locale === defaultLocale
 const allRawPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )
+const authors = await getAllAuthors()
+const tagsData = await getAllTags()
 const post = localizePost(basePost, allRawPosts, locale)
 const baseSlug = basePost.id
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
-const rawAuthor = post.data.author
-  ? authors.find((a) => a.id === post.data.author)
-  : null
+const rawAuthor = findAuthorById(authors, post.data.author)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
+const authorSkills = author?.skills ?? []
 const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
 
 const basePosts = allRawPosts.filter(isBasePost)
@@ -258,7 +260,7 @@ const ctaHeading = isDefaultLocale
                     href={u(`/blog/tags/${tag}/`)}
                     class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors"
                   >
-                    {translateTag(tag, locale)}
+                    {getLocalizedTagName(tagsData, tag, locale)}
                   </a>
                 ))}
               </div>
@@ -372,9 +374,9 @@ const ctaHeading = isDefaultLocale
                       {author.bio}
                     </p>
                   )}
-                  {author.skills?.length > 0 && (
+                  {authorSkills.length > 0 && (
                     <div class="flex flex-wrap gap-1 mt-2">
-                      {author.skills.map((skill: string) => (
+                      {authorSkills.map((skill: string) => (
                         <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
                           {skill}
                         </span>
@@ -484,7 +486,7 @@ const ctaHeading = isDefaultLocale
                           <div class="flex flex-wrap gap-1 mt-2">
                             {rp.data.tags.slice(0, 3).map((tag: string) => (
                               <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                                {translateTag(tag, locale)}
+                                {getLocalizedTagName(tagsData, tag, locale)}
                               </span>
                             ))}
                           </div>
@@ -577,9 +579,9 @@ const ctaHeading = isDefaultLocale
                     {author.bio}
                   </p>
                 )}
-                {author.skills?.length > 0 && (
+                {authorSkills.length > 0 && (
                   <div class="flex flex-wrap gap-1 mb-3">
-                    {author.skills.map((skill: string) => (
+                    {authorSkills.map((skill: string) => (
                       <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
                         {skill}
                       </span>

@@ -299,43 +299,34 @@ content:
 
 記事のタグはURL上は日本語のスラッグをそのまま使用し、**表示名のみ翻訳**する方式を採用しました。これにより、ルーティングの複雑化を避けつつ、ユーザーには母国語でタグが表示されます。
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-各言語の翻訳 JSON に `tags` セクションを追加し、25種類のタグすべてに翻訳を定義しています。
+タグ定義は `src/content/tags/{tagId}.json` に集約し、各タグが `i18n.name` を持つ構成にしています。これにより、タグ翻訳の source of truth を翻訳 JSON ではなくタグ collection 側へ寄せられます。
 
 ```json
-// en.json（抜粋）
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-記事カード・サイドバー・タグ一覧・記事詳細の6か所で `translateTag()` を使用しており、タグの表示はすべてロケールに応じた言語で統一されています。
+記事カード・サイドバー・タグ一覧・記事詳細では tags collection を参照して表示名を切り替えており、タグの表示はすべてロケールに応じた言語で統一されています。
 
 ## 著者データの多言語対応
 
-著者の自己紹介（bio）やスキル一覧も言語ごとに切り替える仕組みを導入しました。`src/data/authors.json` に `i18n` フィールドを追加し、各言語の翻訳を保持します。
+著者の名前、自己紹介（bio）、スキル一覧も言語ごとに切り替える仕組みを導入しました。`src/content/authors/{authorId}.json` に `i18n` フィールドを追加し、各言語の翻訳を保持します。
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }

@@ -1,0 +1,30 @@
+{
+	"id": "mail",
+	"name": "メール",
+	"i18n": {
+		"en": {
+			"name": "Email"
+		},
+		"zh-cn": {
+			"name": "邮件"
+		},
+		"es": {
+			"name": "Correo electrónico"
+		},
+		"pt": {
+			"name": "E-mail"
+		},
+		"fr": {
+			"name": "E-mail"
+		},
+		"ko": {
+			"name": "이메일"
+		},
+		"de": {
+			"name": "E-Mail"
+		},
+		"ru": {
+			"name": "Электронная почта"
+		}
+	}
+}

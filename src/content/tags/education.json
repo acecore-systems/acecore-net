@@ -1,0 +1,30 @@
+{
+	"id": "education",
+	"name": "教育",
+	"i18n": {
+		"en": {
+			"name": "Education"
+		},
+		"zh-cn": {
+			"name": "教育"
+		},
+		"es": {
+			"name": "Educación"
+		},
+		"pt": {
+			"name": "Educação"
+		},
+		"fr": {
+			"name": "Éducation"
+		},
+		"ko": {
+			"name": "교육"
+		},
+		"de": {
+			"name": "Bildung"
+		},
+		"ru": {
+			"name": "Образование"
+		}
+	}
+}

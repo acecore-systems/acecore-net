@@ -34,8 +34,13 @@ content:
           format: "yyyy-MM-dd'T'HH:mm"
       - name: tags
         label: タグ
-        type: string
-        list: true
+        type: reference
+        options:
+          collection: tags
+          multiple: true
+          search: "id,name"
+          value: "{name}"
+          label: "{name}"
       - name: image
         label: 画像URL
         type: string
@@ -54,11 +59,16 @@ content:
         label: 本文
         type: rich-text
   - name: authors
-    label: 著者情報
-    path: src/data/authors.json
-    type: file
+    label: 著者
+    path: src/content/authors
+    type: collection
     format: json
-    list: true
+    filename: "{fields.id}.json"
+    view:
+      primary: name
+      fields: [name, id]
+      sort: name
+      order: asc
     fields:
       - name: id
         label: ID
@@ -100,6 +110,9 @@ content:
             label: English
             type: object
             fields:
+              - name: name
+                label: Name
+                type: string
               - name: bio
                 label: Bio
                 type: text
@@ -111,6 +124,9 @@ content:
             label: 简体中文
             type: object
             fields:
+              - name: name
+                label: 名称
+                type: string
               - name: bio
                 label: 简介
                 type: text
@@ -122,6 +138,9 @@ content:
             label: Español
             type: object
             fields:
+              - name: name
+                label: Nombre
+                type: string
               - name: bio
                 label: Biografía
                 type: text
@@ -133,6 +152,9 @@ content:
             label: Português
             type: object
             fields:
+              - name: name
+                label: Nome
+                type: string
               - name: bio
                 label: Bio
                 type: text
@@ -144,6 +166,9 @@ content:
             label: Français
             type: object
             fields:
+              - name: name
+                label: Nom
+                type: string
               - name: bio
                 label: Bio
                 type: text
@@ -155,6 +180,9 @@ content:
             label: 한국어
             type: object
             fields:
+              - name: name
+                label: 이름
+                type: string
               - name: bio
                 label: 소개
                 type: text
@@ -166,6 +194,9 @@ content:
             label: Deutsch
             type: object
             fields:
+              - name: name
+                label: Name
+                type: string
               - name: bio
                 label: Bio
                 type: text
@@ -177,6 +208,9 @@ content:
             label: Русский
             type: object
             fields:
+              - name: name
+                label: Имя
+                type: string
               - name: bio
                 label: Описание
                 type: text
@@ -184,6 +218,88 @@ content:
                 label: Навыки
                 type: string
                 list: true
+  - name: tags
+    label: タグ
+    path: src/content/tags
+    type: collection
+    format: json
+    filename: "{fields.id}.json"
+    view:
+      primary: name
+      fields: [name, id]
+      sort: name
+      order: asc
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+      - name: name
+        label: タグ名
+        type: string
+        required: true
+      - name: i18n
+        label: 多言語
+        type: object
+        hidden: true
+        readonly: true
+        fields:
+          - name: en
+            label: English
+            type: object
+            fields:
+              - name: name
+                label: Name
+                type: string
+          - name: zh-cn
+            label: 简体中文
+            type: object
+            fields:
+              - name: name
+                label: 名称
+                type: string
+          - name: es
+            label: Español
+            type: object
+            fields:
+              - name: name
+                label: Nombre
+                type: string
+          - name: pt
+            label: Português
+            type: object
+            fields:
+              - name: name
+                label: Nome
+                type: string
+          - name: fr
+            label: Français
+            type: object
+            fields:
+              - name: name
+                label: Nom
+                type: string
+          - name: ko
+            label: 한국어
+            type: object
+            fields:
+              - name: name
+                label: 이름
+                type: string
+          - name: de
+            label: Deutsch
+            type: object
+            fields:
+              - name: name
+                label: Name
+                type: string
+          - name: ru
+            label: Русский
+            type: object
+            fields:
+              - name: name
+                label: Имя
+                type: string
 
 media:
   input: public/uploads

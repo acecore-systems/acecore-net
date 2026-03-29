@@ -1,0 +1,30 @@
+{
+	"id": "i18n",
+	"name": "i18n",
+	"i18n": {
+		"en": {
+			"name": "i18n"
+		},
+		"zh-cn": {
+			"name": "i18n"
+		},
+		"es": {
+			"name": "i18n"
+		},
+		"pt": {
+			"name": "i18n"
+		},
+		"fr": {
+			"name": "i18n"
+		},
+		"ko": {
+			"name": "i18n"
+		},
+		"de": {
+			"name": "i18n"
+		},
+		"ru": {
+			"name": "i18n"
+		}
+	}
+}

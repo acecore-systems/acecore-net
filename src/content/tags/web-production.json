@@ -1,0 +1,30 @@
+{
+	"id": "web-production",
+	"name": "Web制作",
+	"i18n": {
+		"en": {
+			"name": "Web Production"
+		},
+		"zh-cn": {
+			"name": "Web制作"
+		},
+		"es": {
+			"name": "Producción web"
+		},
+		"pt": {
+			"name": "Produção web"
+		},
+		"fr": {
+			"name": "Production web"
+		},
+		"ko": {
+			"name": "웹 제작"
+		},
+		"de": {
+			"name": "Webproduktion"
+		},
+		"ru": {
+			"name": "Веб-производство"
+		}
+	}
+}

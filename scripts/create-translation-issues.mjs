@@ -12,6 +12,7 @@ const AUTHOR_BASE_KEYS = [
   'twitter',
   'skills',
 ]
+const TAG_BASE_KEYS = ['name']
 const ZERO_SHA = '0000000000000000000000000000000000000000'
 
 function parseArgs(argv) {
@@ -20,6 +21,7 @@ function parseArgs(argv) {
     changedFiles: null,
     baseSha: null,
     headSha: null,
+    includeNonBlog: false,
   }
 
   for (const arg of argv) {
@@ -44,10 +46,21 @@ function parseArgs(argv) {
 
     if (arg.startsWith('--head=')) {
       options.headSha = arg.slice('--head='.length).trim() || null
+      continue
+    }
+
+    if (arg === '--include-non-blog') {
+      options.includeNonBlog = true
     }
   }
 
   return options
+}
+
+function getDiffTargets(includeNonBlog) {
+  return includeNonBlog
+    ? ['src/content/blog', 'src/content/authors', 'src/content/tags']
+    : ['src/content/blog']
 }
 
 function runGit(args) {
@@ -94,10 +107,12 @@ function parseNameStatusLine(line) {
   }
 }
 
-function getChangedEntries({ baseSha, headSha, changedFiles }) {
+function getChangedEntries({ baseSha, headSha, changedFiles, includeNonBlog }) {
   if (changedFiles) {
     return changedFiles.map((path) => ({ status: 'M', path, previousPath: null }))
   }
+
+  const targets = getDiffTargets(includeNonBlog)
 
   const diffArgs = baseSha
     ? [
@@ -107,8 +122,7 @@ function getChangedEntries({ baseSha, headSha, changedFiles }) {
         baseSha,
         headSha,
         '--',
-        'src/content/blog',
-        'src/data/authors.json',
+        ...targets,
       ]
     : [
         'diff-tree',
@@ -118,8 +132,7 @@ function getChangedEntries({ baseSha, headSha, changedFiles }) {
         '-r',
         headSha,
         '--',
-        'src/content/blog',
-        'src/data/authors.json',
+        ...targets,
       ]
 
   const output = safeRunGit(diffArgs)
@@ -135,6 +148,14 @@ function isJapaneseBlogPostPath(path) {
   return /^src\/content\/blog\/[^/]+\.md$/.test(path)
 }
 
+function isAuthorProfilePath(path) {
+  return /^src\/content\/authors\/[^/]+\.json$/.test(path)
+}
+
+function isTagDefinitionPath(path) {
+  return /^src\/content\/tags\/[^/]+\.json$/.test(path)
+}
+
 function loadTargetLocales() {
   const configPath = 'src/i18n/config.ts'
   const source = readFileSync(configPath, 'utf8')
@@ -146,6 +167,54 @@ function loadTargetLocales() {
   return [...match[1].matchAll(/'([^']+)'/g)]
     .map((entry) => entry[1])
     .filter((locale) => locale !== DEFAULT_SOURCE_LOCALE)
+}
+
+function readTextAtRef(ref, filePath) {
+  if (!ref || ref === 'WORKTREE') {
+    if (!existsSync(filePath)) return null
+    return readFileSync(filePath, 'utf8')
+  }
+
+  const source = safeRunGit(['show', `${ref}:${filePath}`])
+  return source || null
+}
+
+function splitMarkdownDocument(source) {
+  if (typeof source !== 'string') {
+    return { frontmatter: null, body: null }
+  }
+
+  const normalized = source.replace(/\r\n/g, '\n')
+  if (!normalized.startsWith('---\n')) {
+    return { frontmatter: '', body: normalized }
+  }
+
+  const endIndex = normalized.indexOf('\n---\n', 4)
+  if (endIndex === -1) {
+    return { frontmatter: '', body: normalized }
+  }
+
+  return {
+    frontmatter: normalized.slice(4, endIndex),
+    body: normalized.slice(endIndex + 5),
+  }
+}
+
+function getChangedBlogPost(entry, baseSha, headSha) {
+  if (entry.status === 'A' || entry.status === 'D') {
+    return entry
+  }
+
+  if (!baseSha || entry.status !== 'M') {
+    return entry
+  }
+
+  const before = splitMarkdownDocument(readTextAtRef(baseSha, entry.path))
+  const after = splitMarkdownDocument(
+    readTextAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, entry.path),
+  )
+
+  return before.body !== after.body ? entry : null
 }
 
 function readJsonAtRef(ref, filePath) {
@@ -165,41 +234,108 @@ function normalizeAuthor(author) {
   )
 }
 
-function getChangedAuthors(baseSha, headSha) {
-  const filePath = 'src/data/authors.json'
-  const beforeAuthors = readJsonAtRef(baseSha, filePath) ?? []
-  const afterAuthors = readJsonAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, filePath) ?? []
-  const beforeMap = new Map(beforeAuthors.map((author) => [author.id, author]))
-  const afterMap = new Map(afterAuthors.map((author) => [author.id, author]))
-  const ids = new Set([...beforeMap.keys(), ...afterMap.keys()])
-  const changes = []
+function getChangedAuthorProfile(filePath, baseSha, headSha, forceChanged = false) {
+  const before = readJsonAtRef(baseSha, filePath)
+  const after = readJsonAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, filePath)
 
-  for (const id of ids) {
-    const before = beforeMap.get(id)
-    const after = afterMap.get(id)
+  if (!before && !after) return null
 
-    if (!before && after) {
-      changes.push({ id, changeType: 'added', fields: [...AUTHOR_BASE_KEYS] })
-      continue
-    }
+  const id =
+    after?.id ??
+    before?.id ??
+    filePath.split('/').at(-1)?.replace(/\.json$/, '') ??
+    'unknown'
 
-    if (before && !after) {
-      changes.push({ id, changeType: 'removed', fields: [...AUTHOR_BASE_KEYS] })
-      continue
-    }
-
-    const beforeBase = normalizeAuthor(before)
-    const afterBase = normalizeAuthor(after)
-    const changedFields = AUTHOR_BASE_KEYS.filter(
-      (key) => JSON.stringify(beforeBase[key]) !== JSON.stringify(afterBase[key]),
-    )
-
-    if (changedFields.length > 0) {
-      changes.push({ id, changeType: 'updated', fields: changedFields })
+  if (!before && after) {
+    return {
+      id,
+      sourcePath: filePath,
+      changeType: 'added',
+      fields: [...AUTHOR_BASE_KEYS],
     }
   }
 
-  return changes
+  if (before && !after) {
+    return null
+  }
+
+  if (forceChanged && after) {
+    return {
+      id,
+      sourcePath: filePath,
+      changeType: 'updated',
+      fields: [...AUTHOR_BASE_KEYS],
+    }
+  }
+
+  const beforeBase = normalizeAuthor(before)
+  const afterBase = normalizeAuthor(after)
+  const changedFields = AUTHOR_BASE_KEYS.filter(
+    (key) => JSON.stringify(beforeBase[key]) !== JSON.stringify(afterBase[key]),
+  )
+
+  if (changedFields.length === 0) return null
+
+  return {
+    id,
+    sourcePath: filePath,
+    changeType: 'updated',
+    fields: changedFields,
+  }
+}
+
+function normalizeTag(tag) {
+  return Object.fromEntries(TAG_BASE_KEYS.map((key) => [key, tag?.[key] ?? null]))
+}
+
+function getChangedTagDefinition(filePath, baseSha, headSha, forceChanged = false) {
+  const before = readJsonAtRef(baseSha, filePath)
+  const after = readJsonAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, filePath)
+
+  if (!before && !after) return null
+
+  const id =
+    after?.id ??
+    before?.id ??
+    filePath.split('/').at(-1)?.replace(/\.json$/, '') ??
+    'unknown'
+
+  if (!before && after) {
+    return {
+      id,
+      sourcePath: filePath,
+      changeType: 'added',
+      fields: [...TAG_BASE_KEYS],
+    }
+  }
+
+  if (before && !after) {
+    return null
+  }
+
+  if (forceChanged && after) {
+    return {
+      id,
+      sourcePath: filePath,
+      changeType: 'updated',
+      fields: [...TAG_BASE_KEYS],
+    }
+  }
+
+  const beforeBase = normalizeTag(before)
+  const afterBase = normalizeTag(after)
+  const changedFields = TAG_BASE_KEYS.filter(
+    (key) => JSON.stringify(beforeBase[key]) !== JSON.stringify(afterBase[key]),
+  )
+
+  if (changedFields.length === 0) return null
+
+  return {
+    id,
+    sourcePath: filePath,
+    changeType: 'updated',
+    fields: changedFields,
+  }
 }
 
 function getRepositoryInfo() {
@@ -267,7 +403,15 @@ function buildCopilotInstructions(issueKind) {
   if (issueKind === 'author-profile') {
     return [
       'Update the author profile translations described in the issue.',
-      'Modify only src/data/authors.json i18n entries for the affected authors unless explicitly required otherwise.',
+      'Modify only the i18n entries in the affected src/content/authors/{author-id}.json files unless explicitly required otherwise.',
+      'Keep Japanese source fields unchanged and run npm run build before finishing.',
+    ].join(' ')
+  }
+
+  if (issueKind === 'tag-definition') {
+    return [
+      'Update the tag definition translations described in the issue.',
+      'Modify only the i18n.name entries in the affected src/content/tags/{tag-id}.json files unless explicitly required otherwise.',
       'Keep Japanese source fields unchanged and run npm run build before finishing.',
     ].join(' ')
   }
@@ -349,12 +493,8 @@ function buildBlogIssuePayload({ sourcePath, changeType, locales, headSha, repos
   }
 }
 
-function buildAuthorIssuePayload({ changes, locales, headSha, repository }) {
-  const sourcePath = 'src/data/authors.json'
-  const marker = 'translation-source:src/data/authors.json#authors-base'
-  const changeLines = changes.map(
-    (change) => `- ${change.id}: ${change.changeType} (${change.fields.join(', ')})`,
-  )
+function buildAuthorIssuePayload({ sourcePath, change, locales, headSha, repository }) {
+  const marker = `translation-source:${sourcePath}`
   const body = [
     `<!-- ${marker} -->`,
     '<!-- translation-kind:author-profile -->',
@@ -364,16 +504,16 @@ function buildAuthorIssuePayload({ changes, locales, headSha, repository }) {
     `- Source locale: ${DEFAULT_SOURCE_LOCALE}`,
     `- Source commit: ${headSha}`,
     '',
-    '## Changed Authors',
-    ...changeLines,
+    '## Changed Author',
+    `- ${change.id}: ${change.changeType} (${change.fields.join(', ')})`,
     '',
     '## Target Locales',
     ...locales.map((locale) => `- ${locale}`),
     '',
     '## Instructions',
-    '- Update only the `i18n` translations in `src/data/authors.json` for the affected authors.',
+    `- Update only the \`i18n\` translations in \`${sourcePath}\` for the affected author.`,
     '- Do not change the Japanese source fields unless the issue explicitly requires it.',
-    '- Keep `bio` and `skills` aligned with the updated Japanese source.',
+    '- Keep `name`, `bio`, and `skills` aligned with the updated Japanese source.',
     '- Run `npm run build` after the translation changes.',
     '',
     '## References',
@@ -383,10 +523,47 @@ function buildAuthorIssuePayload({ changes, locales, headSha, repository }) {
   ].join('\n')
 
   return {
-    title: '[translation] Update author profile translations',
+    title: `[translation] Update author profile ${change.id}`,
     body,
     marker,
     issueKind: 'author-profile',
+  }
+}
+
+function buildTagIssuePayload({ sourcePath, change, locales, headSha, repository }) {
+  const marker = `translation-source:${sourcePath}`
+  const body = [
+    `<!-- ${marker} -->`,
+    '<!-- translation-kind:tag-definition -->',
+    '',
+    '## Summary',
+    `- Source path: ${sourcePath}`,
+    `- Source locale: ${DEFAULT_SOURCE_LOCALE}`,
+    `- Source commit: ${headSha}`,
+    '',
+    '## Changed Tag',
+    `- ${change.id}: ${change.changeType} (${change.fields.join(', ')})`,
+    '',
+    '## Target Locales',
+    ...locales.map((locale) => `- ${locale}`),
+    '',
+    '## Instructions',
+    `- Update only the \`i18n.name\` translations in \`${sourcePath}\` for the affected tag.`,
+    '- Do not change the Japanese source fields unless the issue explicitly requires it.',
+    '- Keep localized tag names aligned with the updated Japanese source tag name.',
+    '- Run `npm run build` after the translation changes.',
+    '',
+    '## References',
+    `- Repository: ${repository}`,
+    `- Source file: ${sourcePath}`,
+    `- Suggested issue template: .github/ISSUE_TEMPLATE/translation-request.yml`,
+  ].join('\n')
+
+  return {
+    title: `[translation] Update tag definition ${change.id}`,
+    body,
+    marker,
+    issueKind: 'tag-definition',
   }
 }
 
@@ -429,17 +606,36 @@ async function main() {
   const args = parseArgs(process.argv.slice(2))
   const baseSha = getBaseSha(args)
   const headSha = getHeadSha(args)
+  const forceChanged = Boolean(args.changedFiles)
   const { repository } = getRepositoryInfo()
   const locales = loadTargetLocales()
   const changedEntries = getChangedEntries({
     baseSha,
     headSha,
     changedFiles: args.changedFiles,
+    includeNonBlog: args.includeNonBlog,
   })
 
-  const blogChanges = changedEntries.filter((entry) => isJapaneseBlogPostPath(entry.path))
-  const authorsEntry = changedEntries.find((entry) => entry.path === 'src/data/authors.json')
-  const authorChanges = authorsEntry ? getChangedAuthors(baseSha, headSha) : []
+  const blogChanges = changedEntries
+    .filter((entry) => isJapaneseBlogPostPath(entry.path))
+    .map((entry) => getChangedBlogPost(entry, baseSha, headSha))
+    .filter(Boolean)
+  const authorChanges = args.includeNonBlog
+    ? changedEntries
+        .filter((entry) => isAuthorProfilePath(entry.path))
+        .map((entry) =>
+          getChangedAuthorProfile(entry.path, baseSha, headSha, forceChanged),
+        )
+        .filter(Boolean)
+    : []
+  const tagChanges = args.includeNonBlog
+    ? changedEntries
+        .filter((entry) => isTagDefinitionPath(entry.path))
+        .map((entry) =>
+          getChangedTagDefinition(entry.path, baseSha, headSha, forceChanged),
+        )
+        .filter(Boolean)
+    : []
 
   const payloads = [
     ...blogChanges.map((entry) =>
@@ -451,18 +647,25 @@ async function main() {
         repository,
       }),
     ),
-  ]
-
-  if (authorChanges.length > 0) {
-    payloads.push(
+    ...authorChanges.map((change) =>
       buildAuthorIssuePayload({
-        changes: authorChanges,
+        sourcePath: change.sourcePath,
+        change,
         locales,
         headSha,
         repository,
       }),
-    )
-  }
+    ),
+    ...tagChanges.map((change) =>
+      buildTagIssuePayload({
+        sourcePath: change.sourcePath,
+        change,
+        locales,
+        headSha,
+        repository,
+      }),
+    ),
+  ]
 
   if (payloads.length === 0) {
     console.log('No Japanese source changes requiring translation issues were detected.')

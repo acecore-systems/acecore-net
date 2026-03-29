@@ -10,7 +10,8 @@ body:
 
         完了条件:
         - 指定ロケールの翻訳ファイルが追加または更新されている
-        - 必要なら `src/data/authors.json` の `i18n` も更新されている
+        - 必要なら `src/content/authors/{author-id}.json` の `i18n` も更新されている
+        - 必要なら `src/content/tags/{tag-id}.json` の `i18n` も更新されている
         - 画像や frontmatter は日本語ソースと整合している
 
   - type: dropdown
@@ -20,6 +21,7 @@ body:
       options:
         - Blog post
         - Author profile
+        - Tag definition
         - Both
         - Other
     validations:
@@ -59,7 +61,8 @@ body:
         - 日本語ソースを元に全文翻訳
         - タグは既存の翻訳ポリシーに合わせる
         - 画像は日本語ソースを踏襲
-        - 著者 bio / skills の i18n も必要なら更新
+        - 著者 name / bio / skills の i18n も必要なら更新
+        - タグ name の i18n も必要なら更新
     validations:
       required: true
 
@@ -81,5 +84,6 @@ body:
         - [ ] 対象ロケールのファイルを追加または更新
         - [ ] frontmatter の title / description / tags / image / author を確認
         - [ ] 本文中リンクと画像パスを確認
-        - [ ] 必要なら `src/data/authors.json` の i18n を更新
+        - [ ] 必要なら `src/content/authors/{author-id}.json` の i18n を更新
+        - [ ] 必要なら `src/content/tags/{tag-id}.json` の i18n を更新
         - [ ] `npm run build` 相当の整合性を確認

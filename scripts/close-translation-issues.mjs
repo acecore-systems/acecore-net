@@ -1,7 +1,5 @@
 import { execFileSync } from 'node:child_process'
 
-const AUTHORS_MARKER = 'translation-source:src/data/authors.json#authors-base'
-
 function parseArgs(argv) {
   const options = {
     prNumber: null,
@@ -118,8 +116,13 @@ function collectIssueMarkers(files) {
 
   for (const file of files) {
     const path = file.filename
-    if (path === 'src/data/authors.json') {
-      markers.add(AUTHORS_MARKER)
+    if (/^src\/content\/authors\/[^/]+\.json$/.test(path)) {
+      markers.add(`translation-source:${path}`)
+      continue
+    }
+
+    if (/^src\/content\/tags\/[^/]+\.json$/.test(path)) {
+      markers.add(`translation-source:${path}`)
       continue
     }
 
@@ -138,13 +141,19 @@ function collectIssueMarkers(files) {
 function collectIssueMarkersFromPullRequestBody(body) {
   const markers = new Set()
   const sourcePaths = body?.match(/src\/content\/blog\/[^/\s`]+\.md/g) ?? []
+  const authorPaths = body?.match(/src\/content\/authors\/[^/\s`]+\.json/g) ?? []
+  const tagPaths = body?.match(/src\/content\/tags\/[^/\s`]+\.json/g) ?? []
 
   for (const sourcePath of sourcePaths) {
     markers.add(`translation-source:${sourcePath}`)
   }
 
-  if (typeof body === 'string' && body.includes('src/data/authors.json')) {
-    markers.add(AUTHORS_MARKER)
+  for (const sourcePath of authorPaths) {
+    markers.add(`translation-source:${sourcePath}`)
+  }
+
+  for (const sourcePath of tagPaths) {
+    markers.add(`translation-source:${sourcePath}`)
   }
 
   return [...markers]

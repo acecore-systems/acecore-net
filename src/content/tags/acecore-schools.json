@@ -1,0 +1,30 @@
+{
+	"id": "acecore-schools",
+	"name": "Acecore Schools",
+	"i18n": {
+		"en": {
+			"name": "Acecore Schools"
+		},
+		"zh-cn": {
+			"name": "Acecore Schools"
+		},
+		"es": {
+			"name": "Acecore Schools"
+		},
+		"pt": {
+			"name": "Acecore Schools"
+		},
+		"fr": {
+			"name": "Acecore Schools"
+		},
+		"ko": {
+			"name": "Acecore Schools"
+		},
+		"de": {
+			"name": "Acecore Schools"
+		},
+		"ru": {
+			"name": "Acecore Schools"
+		}
+	}
+}

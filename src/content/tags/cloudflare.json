@@ -1,0 +1,30 @@
+{
+	"id": "cloudflare",
+	"name": "Cloudflare",
+	"i18n": {
+		"en": {
+			"name": "Cloudflare"
+		},
+		"zh-cn": {
+			"name": "Cloudflare"
+		},
+		"es": {
+			"name": "Cloudflare"
+		},
+		"pt": {
+			"name": "Cloudflare"
+		},
+		"fr": {
+			"name": "Cloudflare"
+		},
+		"ko": {
+			"name": "Cloudflare"
+		},
+		"de": {
+			"name": "Cloudflare"
+		},
+		"ru": {
+			"name": "Cloudflare"
+		}
+	}
+}

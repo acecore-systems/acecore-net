@@ -1,0 +1,30 @@
+{
+	"id": "accessibility",
+	"name": "アクセシビリティ",
+	"i18n": {
+		"en": {
+			"name": "Accessibility"
+		},
+		"zh-cn": {
+			"name": "无障碍访问"
+		},
+		"es": {
+			"name": "Accesibilidad"
+		},
+		"pt": {
+			"name": "Acessibilidade"
+		},
+		"fr": {
+			"name": "Accessibilité"
+		},
+		"ko": {
+			"name": "접근성"
+		},
+		"de": {
+			"name": "Barrierefreiheit"
+		},
+		"ru": {
+			"name": "Доступность"
+		}
+	}
+}

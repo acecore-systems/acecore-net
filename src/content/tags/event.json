@@ -1,0 +1,30 @@
+{
+	"id": "event",
+	"name": "イベント",
+	"i18n": {
+		"en": {
+			"name": "Events"
+		},
+		"zh-cn": {
+			"name": "活动"
+		},
+		"es": {
+			"name": "Eventos"
+		},
+		"pt": {
+			"name": "Eventos"
+		},
+		"fr": {
+			"name": "Événements"
+		},
+		"ko": {
+			"name": "이벤트"
+		},
+		"de": {
+			"name": "Veranstaltungen"
+		},
+		"ru": {
+			"name": "Мероприятия"
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"id": "security",
+	"name": "セキュリティ",
+	"i18n": {
+		"en": {
+			"name": "Security"
+		},
+		"zh-cn": {
+			"name": "安全"
+		},
+		"es": {
+			"name": "Seguridad"
+		},
+		"pt": {
+			"name": "Segurança"
+		},
+		"fr": {
+			"name": "Sécurité"
+		},
+		"ko": {
+			"name": "보안"
+		},
+		"de": {
+			"name": "Sicherheit"
+		},
+		"ru": {
+			"name": "Безопасность"
+		}
+	}
+}

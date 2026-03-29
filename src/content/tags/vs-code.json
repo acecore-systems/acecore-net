@@ -1,0 +1,30 @@
+{
+	"id": "vs-code",
+	"name": "VS Code",
+	"i18n": {
+		"en": {
+			"name": "VS Code"
+		},
+		"zh-cn": {
+			"name": "VS Code"
+		},
+		"es": {
+			"name": "VS Code"
+		},
+		"pt": {
+			"name": "VS Code"
+		},
+		"fr": {
+			"name": "VS Code"
+		},
+		"ko": {
+			"name": "VS Code"
+		},
+		"de": {
+			"name": "VS Code"
+		},
+		"ru": {
+			"name": "VS Code"
+		}
+	}
+}

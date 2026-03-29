@@ -2,8 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { getCollection } from 'astro:content'
-import { t, getLocalizedUrl, translateTag, type Locale } from '../i18n'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { isBasePost } from '../utils/blog-i18n'
+import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 interface Props {
   locale: Locale
@@ -17,6 +18,7 @@ const breadcrumbItems = [
 ]
 
 const allPosts = (await getCollection('blog')).filter(isBasePost)
+const tags = await getAllTags()
 const tagCounts = new Map<string, number>()
 for (const post of allPosts) {
   for (const tag of post.data.tags ?? []) {
@@ -47,7 +49,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
               href={u(`/blog/tags/${tag}/`)}
               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-300 hover:text-brand-600 hover:bg-brand-50 transition-colors no-underline"
             >
-              <span class="font-600">{translateTag(tag, locale)}</span>
+              <span class="font-600">{getLocalizedTagName(tags, tag, locale)}</span>
               <span class="text-sm text-slate-400">({count})</span>
             </a>
           ))

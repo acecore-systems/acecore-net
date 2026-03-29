@@ -1,0 +1,30 @@
+{
+	"id": "github-copilot",
+	"name": "GitHub Copilot",
+	"i18n": {
+		"en": {
+			"name": "GitHub Copilot"
+		},
+		"zh-cn": {
+			"name": "GitHub Copilot"
+		},
+		"es": {
+			"name": "GitHub Copilot"
+		},
+		"pt": {
+			"name": "GitHub Copilot"
+		},
+		"fr": {
+			"name": "GitHub Copilot"
+		},
+		"ko": {
+			"name": "GitHub Copilot"
+		},
+		"de": {
+			"name": "GitHub Copilot"
+		},
+		"ru": {
+			"name": "GitHub Copilot"
+		}
+	}
+}

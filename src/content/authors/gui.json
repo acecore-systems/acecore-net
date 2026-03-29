@@ -1,0 +1,53 @@
+{
+  "id": "gui",
+  "name": "Gui",
+  "avatar": "",
+  "avatarImage": "",
+  "bio": "Acecore 代表。システム開発・Web制作・インフラ運用からIT教育まで幅広く手がけるエンジニア。\n技術で人と組織の課題を解きほぐすのが好き。",
+  "url": "https://acecore.net/about/",
+  "github": "https://github.com/acecore-systems",
+  "twitter": "https://x.com/acecorenet",
+  "skills": ["システム開発", "Web制作", "インフラ運用", "IT教育"],
+  "i18n": {
+    "en": {
+      "name": "Gui",
+      "bio": "CEO of Acecore. A versatile engineer covering system development, web production, infrastructure operations, and IT education.\nEnjoys solving organizational and human challenges through technology.",
+      "skills": ["System development", "Web production", "Infrastructure operations", "IT education"]
+    },
+    "zh-cn": {
+      "name": "Gui",
+      "bio": "Acecore 代表。从系统开发、Web制作、基础设施运维到IT教育，涉猎广泛的工程师。\n喜欢用技术解决人和组织的课题。",
+      "skills": ["系统开发", "Web制作", "基础设施运维", "IT教育"]
+    },
+    "es": {
+      "name": "Gui",
+      "bio": "CEO de Acecore. Un ingeniero versátil que abarca desarrollo de sistemas, producción web, operaciones de infraestructura y educación en TI.\nDisfruta resolviendo desafíos organizacionales y humanos a través de la tecnología.",
+      "skills": ["Desarrollo de sistemas", "Producción web", "Operaciones de infraestructura", "Educación en TI"]
+    },
+    "pt": {
+      "name": "Gui",
+      "bio": "CEO da Acecore. Engenheiro versátil que trabalha com desenvolvimento de sistemas, produção web, operações de infraestrutura e educação em TI.\nGosta de resolver desafios organizacionais e humanos por meio da tecnologia.",
+      "skills": ["Desenvolvimento de sistemas", "Produção web", "Operações de infraestrutura", "Educação em TI"]
+    },
+    "fr": {
+      "name": "Gui",
+      "bio": "PDG d'Acecore. Ingénieur polyvalent couvrant le développement de systèmes, la production web, les opérations d'infrastructure et l'enseignement informatique.\nAime résoudre les défis organisationnels et humains grâce à la technologie.",
+      "skills": ["Développement de systèmes", "Production web", "Opérations d'infrastructure", "Enseignement informatique"]
+    },
+    "ko": {
+      "name": "Gui",
+      "bio": "Acecore 대표. 시스템 개발, 웹 제작, 인프라 운영부터 IT 교육까지 폭넓게 다루는 엔지니어.\n기술로 사람과 조직의 과제를 풀어가는 것을 좋아합니다.",
+      "skills": ["시스템 개발", "웹 제작", "인프라 운영", "IT 교육"]
+    },
+    "de": {
+      "name": "Gui",
+      "bio": "CEO von Acecore. Ein vielseitiger Ingenieur, der Systementwicklung, Webproduktion, Infrastrukturbetrieb und IT-Bildung abdeckt.\nLöst gerne organisatorische und menschliche Herausforderungen durch Technologie.",
+      "skills": ["Systementwicklung", "Webproduktion", "Infrastrukturbetrieb", "IT-Bildung"]
+    },
+    "ru": {
+      "name": "Gui",
+      "bio": "Генеральный директор Acecore. Универсальный инженер, охватывающий разработку систем, веб-производство, управление инфраструктурой и IT-образование.\nЛюбит решать организационные и человеческие задачи с помощью технологий.",
+      "skills": ["Разработка систем", "Веб-производство", "Управление инфраструктурой", "IT-образование"]
+    }
+  }
+}

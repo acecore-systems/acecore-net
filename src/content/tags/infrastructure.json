@@ -1,0 +1,30 @@
+{
+	"id": "infrastructure",
+	"name": "インフラ",
+	"i18n": {
+		"en": {
+			"name": "Infrastructure"
+		},
+		"zh-cn": {
+			"name": "基础设施"
+		},
+		"es": {
+			"name": "Infraestructura"
+		},
+		"pt": {
+			"name": "Infraestrutura"
+		},
+		"fr": {
+			"name": "Infrastructure"
+		},
+		"ko": {
+			"name": "인프라"
+		},
+		"de": {
+			"name": "Infrastruktur"
+		},
+		"ru": {
+			"name": "Инфраструктура"
+		}
+	}
+}

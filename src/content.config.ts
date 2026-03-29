@@ -31,6 +31,16 @@ function parseContentDate(value: string | Date): Date {
 
 const contentDate = z.union([z.string(), z.date()]).transform(parseContentDate)
 
+const localizedAuthorSchema = z.object({
+  name: z.string().optional(),
+  bio: z.string().optional(),
+  skills: z.array(z.string()).optional(),
+})
+
+const localizedTagSchema = z.object({
+  name: z.string().optional(),
+})
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
@@ -153,4 +163,29 @@ const blog = defineCollection({
   }),
 })
 
-export const collections = { blog }
+const authors = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/authors' }),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    avatar: z.string().optional(),
+    avatarImage: z.string().optional(),
+    bio: z.string().optional(),
+    url: z.string().optional(),
+    github: z.string().optional(),
+    twitter: z.string().optional(),
+    skills: z.array(z.string()).optional(),
+    i18n: z.record(z.string(), localizedAuthorSchema).optional(),
+  }),
+})
+
+const tags = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/tags' }),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    i18n: z.record(z.string(), localizedTagSchema).optional(),
+  }),
+})
+
+export const collections = { blog, authors, tags }

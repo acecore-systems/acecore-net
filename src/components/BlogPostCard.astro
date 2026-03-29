@@ -1,8 +1,9 @@
 ---
 import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
-import authors from '../data/authors.json'
-import { formatDate, getLocaleFromUrl, getLocalizedUrl, translateTag, type Locale } from '../i18n'
-import { getBaseSlug } from '../utils/blog-i18n'
+import { formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
+import { getAllAuthors, findAuthorById } from '../utils/authors'
+import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 interface Props {
   post: {
@@ -24,6 +25,10 @@ const { post } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const baseSlug = getBaseSlug(post.id)
 const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
+const authors = await getAllAuthors()
+const tags = await getAllTags()
+const rawAuthor = findAuthorById(authors, post.data.author)
+const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 ---
 
 <article
@@ -59,8 +64,7 @@ const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
               class="text-brand-500 underline underline-offset-2 relative z-10"
             >
               by{' '}
-              {authors.find((a) => a.id === post.data.author)?.name ||
-                post.data.author}
+              {author?.name || post.data.author}
             </a>
           )
         }
@@ -80,7 +84,7 @@ const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
           <div class="flex flex-wrap gap-2 mt-4">
             {post.data.tags.map((tag: string) => (
               <span class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full">
-                {translateTag(tag, locale)}
+                {getLocalizedTagName(tags, tag, locale)}
               </span>
             ))}
           </div>

@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - src/content/blog/*.md
-      - src/data/authors.json
   workflow_dispatch:
     inputs:
       base_sha:
@@ -21,6 +20,11 @@ on:
         description: Optional comma-separated changed files for dry runs or manual execution
         required: false
         type: string
+      include_non_blog_sources:
+        description: Also create translation issues for authors and tags during manual runs
+        required: false
+        default: false
+        type: boolean
       dry_run:
         description: Print issue payloads without creating issues
         required: false
@@ -66,6 +70,10 @@ jobs:
 
           if [ -n "${{ inputs.changed_files }}" ]; then
             args+=("--changed-files=${{ inputs.changed_files }}")
+          fi
+
+          if [ "${{ inputs.include_non_blog_sources }}" = "true" ]; then
+            args+=("--include-non-blog")
           fi
 
           if [ "${{ inputs.dry_run }}" = "true" ]; then

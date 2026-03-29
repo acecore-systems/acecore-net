@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
-import authors from '../data/authors.json'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { localizePost, getLocalizedAuthor } from '../utils/blog-i18n'
+import { getAllAuthors, findAuthorById } from '../utils/authors'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -18,7 +18,8 @@ interface Props {
 
 const { locale, authorId, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const rawAuthor = authors.find((a) => a.id === authorId)
+const authors = await getAllAuthors()
+const rawAuthor = findAuthorById(authors, authorId)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const authorName = author?.name ?? authorId
 const breadcrumbItems = [

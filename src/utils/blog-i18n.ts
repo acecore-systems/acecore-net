@@ -1,9 +1,8 @@
 import type { CollectionEntry } from 'astro:content'
 import { defaultLocale, type Locale } from '../i18n'
-import authors from '../data/authors.json'
+import type { AuthorData } from './authors'
 
-type Author = (typeof authors)[number]
-type LocalizedAuthor = { bio: string; skills: string[] }
+type LocalizedAuthor = { name?: string; bio?: string; skills?: string[] }
 
 /** Strip locale prefix from post id to get the base slug */
 export function getBaseSlug(postId: string): string {
@@ -27,12 +26,13 @@ export function localizePost(
 }
 
 /** Get localized author bio and skills, fallback to default (ja) */
-export function getLocalizedAuthor(author: Author, locale: Locale) {
+export function getLocalizedAuthor(author: AuthorData, locale: Locale) {
   if (locale === defaultLocale) return author
-  const i18n = (author as Author & { i18n?: Record<string, LocalizedAuthor> }).i18n
+  const i18n = (author as AuthorData & { i18n?: Record<string, LocalizedAuthor> }).i18n
   const localized = i18n?.[locale]
   return {
     ...author,
+    name: localized?.name ?? author.name,
     bio: localized?.bio ?? author.bio,
     skills: localized?.skills ?? author.skills,
   }

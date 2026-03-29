@@ -1,0 +1,30 @@
+{
+	"id": "announcement",
+	"name": "お知らせ",
+	"i18n": {
+		"en": {
+			"name": "Announcements"
+		},
+		"zh-cn": {
+			"name": "公告"
+		},
+		"es": {
+			"name": "Avisos"
+		},
+		"pt": {
+			"name": "Avisos"
+		},
+		"fr": {
+			"name": "Annonces"
+		},
+		"ko": {
+			"name": "공지"
+		},
+		"de": {
+			"name": "Ankündigungen"
+		},
+		"ru": {
+			"name": "Объявления"
+		}
+	}
+}

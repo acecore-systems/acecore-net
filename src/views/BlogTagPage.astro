@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
-import { t, getLocalizedUrl, translateTag, type Locale } from '../i18n'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { localizePost } from '../utils/blog-i18n'
+import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -17,7 +18,8 @@ interface Props {
 
 const { locale, tag, posts, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const displayTag = translateTag(tag, locale)
+const tags = await getAllTags()
+const displayTag = getLocalizedTagName(tags, tag, locale)
 const breadcrumbItems = [
   { label: t(locale, 'blog.title'), href: u('/blog/') },
   { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },

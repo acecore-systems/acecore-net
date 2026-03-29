@@ -1,0 +1,30 @@
+{
+	"id": "technology",
+	"name": "技術",
+	"i18n": {
+		"en": {
+			"name": "Technology"
+		},
+		"zh-cn": {
+			"name": "技术"
+		},
+		"es": {
+			"name": "Tecnología"
+		},
+		"pt": {
+			"name": "Tecnologia"
+		},
+		"fr": {
+			"name": "Technologie"
+		},
+		"ko": {
+			"name": "기술"
+		},
+		"de": {
+			"name": "Technologie"
+		},
+		"ru": {
+			"name": "Технологии"
+		}
+	}
+}

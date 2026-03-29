@@ -4,11 +4,11 @@ import Hero from '../components/Hero.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import { getCollection } from 'astro:content'
-import authors from '../data/authors.json'
 import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
-import { isBasePost, localizePost, getBaseSlug } from '../utils/blog-i18n'
+import { isBasePost, localizePost, getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
+import { getAllAuthors, findAuthorById, type AuthorData } from '../utils/authors'
 
 interface Props {
   locale: Locale
@@ -33,6 +33,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
 
 const allPosts = await getCollection('blog')
+const authors: AuthorData[] = await getAllAuthors()
 const posts = allPosts
   .filter(isBasePost)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -238,6 +239,8 @@ const webPageLd = {
                 post.data.uploadedImage,
                 post.data.image,
               )
+              const rawAuthor = findAuthorById(authors, post.data.author)
+              const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 
               return (
                 <a
@@ -265,8 +268,7 @@ const webPageLd = {
                       {post.data.author && (
                         <span>
                           by{' '}
-                          {authors.find((a) => a.id === post.data.author)?.name ||
-                            post.data.author}
+                          {author?.name || post.data.author}
                         </span>
                       )}
                     </div>

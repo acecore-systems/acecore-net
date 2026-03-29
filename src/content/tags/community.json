@@ -1,0 +1,30 @@
+{
+	"id": "community",
+	"name": "コミュニティ",
+	"i18n": {
+		"en": {
+			"name": "Community"
+		},
+		"zh-cn": {
+			"name": "社区"
+		},
+		"es": {
+			"name": "Comunidad"
+		},
+		"pt": {
+			"name": "Comunidade"
+		},
+		"fr": {
+			"name": "Communauté"
+		},
+		"ko": {
+			"name": "커뮤니티"
+		},
+		"de": {
+			"name": "Gemeinschaft"
+		},
+		"ru": {
+			"name": "Сообщество"
+		}
+	}
+}
