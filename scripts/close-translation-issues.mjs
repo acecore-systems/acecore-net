@@ -197,7 +197,7 @@ async function main() {
     ...collectIssueMarkersFromPullRequestBody(pullRequest.body ?? ''),
   ])
   if (markers.size === 0) {
-    console.log(`No translation issue markers derived from PR #${pullRequest.number}.`) 
+    console.log(`No translation issue markers derived from PR #${pullRequest.number}.`)
     return
   }
 
