@@ -3,6 +3,7 @@ content:
     label: ブログ
     path: src/content/blog
     type: collection
+    subfolders: false
     exclude:
       - en/**
       - zh-cn/**
@@ -13,7 +14,7 @@ content:
       - de/**
       - ru/**
     view:
-      fields: [title, date, author]
+      fields: [title, date]
       sort: date
       order: desc
     fields:
@@ -34,35 +35,13 @@ content:
           format: "yyyy-MM-dd'T'HH:mm"
       - name: tags
         label: タグ
-        type: select
+        type: reference
         options:
+          collection: tags
           multiple: true
-          values:
-            - Acecore Schools
-            - Astro
-            - Cloudflare
-            - CMS
-            - DNS
-            - GitHub Copilot
-            - i18n
-            - SEO
-            - Starlight
-            - VS Code
-            - Webサイト
-            - Web制作
-            - アクセシビリティ
-            - イベント
-            - インフラ
-            - オープンソース
-            - お知らせ
-            - コミュニティ
-            - サービス
-            - システム開発
-            - セキュリティ
-            - パフォーマンス
-            - メール
-            - 技術
-            - 教育
+          search: [fields.id, fields.name]
+          value: "{fields.name}"
+          label: "{fields.name}"
       - name: image
         label: 画像URL
         type: string
@@ -71,13 +50,12 @@ content:
         type: image
       - name: author
         label: 著者
-        type: select
+        type: reference
         options:
-          values:
-            - name: gui
-              label: Gui
-            - name: hatt
-              label: ハット
+          collection: authors
+          search: [fields.id, fields.name]
+          value: "{fields.id}"
+          label: "{fields.name} ({fields.id})"
       - name: body
         label: 本文
         type: rich-text
