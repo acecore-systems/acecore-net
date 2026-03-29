@@ -1,6 +1,6 @@
 ---
 title: 'Guía de mejora de calidad del sitio Astro, continuación - Ajustes finales para lograr 100 en todos los apartados de PageSpeed Insights'
-description: 'Registro del ajuste final realizado después del artículo anterior: desactivar Cloudflare Web Analytics, alcanzar 100 en las cuatro métricas de PageSpeed Insights tanto en móvil como en escritorio, interpretar el árbol de dependencias de red, migrar a iconos SVG compartidos y explicar qué optimizaciones adicionales se probaron pero no se adoptaron.'
+description: 'Seguimiento del artículo anterior con el ajuste final: desactivar Cloudflare Web Analytics, diferir la carga de GA4 y de la interfaz de búsqueda, alcanzar 100 en las cuatro métricas de PageSpeed Insights tanto en móvil como en escritorio, ordenar breadcrumbs e indexación en Search Console, migrar a iconos SVG compartidos y explicar qué optimizaciones adicionales se probaron pero no se adoptaron.'
 date: 2026-03-29T02:30
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
@@ -8,7 +8,7 @@ image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&
 callout:
   type: tip
   title: Continuación del artículo anterior
-  text: 'Como continuación del artículo anterior, "Guía de mejora de calidad del sitio Astro", este post documenta el ajuste final que llevó al sitio a 100 en las cuatro métricas de PageSpeed Insights. Además, explica cómo se interpretaron los diagnósticos restantes y qué optimizaciones adicionales se probaron pero no se adoptaron.'
+  text: 'Como continuación del artículo anterior, "Guía de mejora de calidad del sitio Astro", este post documenta el ajuste final que llevó al sitio a 100 en las cuatro métricas de PageSpeed Insights. Además, explica la carga diferida de GA4 y de la búsqueda, la limpieza en Search Console, cómo se interpretaron los diagnósticos restantes y qué optimizaciones adicionales se probaron pero no se adoptaron.'
 insightGrid:
   eyebrow: Por qué importa
   title: Por qué lograr 100 en todos los apartados de PageSpeed sigue siendo un nivel alto
@@ -23,11 +23,11 @@ insightGrid:
       description: No basta con optimizar solo Performance. Accessibility, Best Practices y SEO también deben quedar perfectamente alineados.
       icon: i-lucide-shield-check
       tone: emerald
-    - title: Reordenar los elementos de terceros
+    - title: Hubo que ordenar los terceros
       description: Hace falta reducir beacons externos y dependencias innecesarias sin perder elementos realmente necesarios como GA4 o los anuncios.
       icon: i-lucide-sparkles
       tone: amber
-    - title: Saber leer los diagnósticos
+    - title: Los diagnósticos deben leerse bien
       description: No se trata de llevar todos los insights a cero, sino de decidir si los diagnósticos restantes son aceptables.
       icon: i-lucide-search
       tone: slate
@@ -35,13 +35,16 @@ processFigure:
   title: Pasos del ajuste final
   steps:
     - title: Medir
-      description: Revisar los resultados móvil y escritorio de PageSpeed Insights y los diagnósticos que seguían presentes.
+      description: Revisar tanto PageSpeed Insights como Search Console para separar problemas reales de simple información diagnóstica.
       icon: i-lucide-gauge
     - title: Reorganizar
-      description: Replantear el papel de Cloudflare Web Analytics y detener el beacon innecesario.
+      description: Replantear el papel de Cloudflare Web Analytics y decidir qué debe quedarse entre GA4, anuncios y búsqueda.
       icon: i-lucide-shield-check
+    - title: Diferir
+      description: Sacar GA4 y la búsqueda basada en Pagefind de la carga inicial y moverlos al momento en que realmente se necesiten.
+      icon: i-lucide-timer-reset
     - title: Corregir
-      description: Unificar la renderización de iconos dinámicos en el componente SVG compartido Icon y resolver los iconos faltantes.
+      description: Limpiar breadcrumbs, canonical, reglas noindex, salida del sitemap y renderizado de iconos.
       icon: i-lucide-wrench
     - title: Decidir
       description: Comparar más división de CSS y más recortes de terceros, y descartar las opciones cuyo beneficio no compensa.
@@ -52,24 +55,35 @@ compareTable:
     label: Antes
     items:
       - La puntuación móvil ya era alta, pero el beacon de Cloudflare Web Analytics seguía presente
+      - GA4 y la interfaz de búsqueda seguían demasiado cerca de la carga inicial, así que la línea entre funciones necesarias y momento de carga era difusa
       - El significado de los diagnósticos restantes de PageSpeed era ambiguo y costaba decidir cuándo dejar de optimizar
       - Algunos artículos podían mostrar círculos vacíos por restos de icon class de UnoCSS
-      - Las publicaciones del mismo día se gestionaban solo por fecha y el orden podía variar
+      - Search Console seguía mostrando breadcrumbs inválidos y ruido de indexación en páginas de listado
   after:
     label: Después
     items:
       - Las cuatro métricas marcaron 100 tanto en móvil como en escritorio
-      - Cloudflare Web Analytics se desactivó y la medición se reorganizó en torno a GA4
+      - Cloudflare Web Analytics se desactivó, mientras que GA4 se mantuvo y pasó a carga diferida
+      - La búsqueda y Pagefind se movieron a carga bajo demanda, reduciendo el peso inicial
       - La renderización se unificó en el SVG compartido Icon y los nombres legacy se absorbieron mediante alias
+      - Breadcrumb, noindex, sitemap y canonical quedaron alineados para Search Console
       - Se descartaron optimizaciones adicionales de poco retorno y quedó claro dónde conviene detenerse
 checklist:
   title: Qué quedó resuelto
   items:
     - text: Se desactivó Cloudflare Web Analytics y se detuvo la inyección del beacon
       checked: true
+    - text: Se mantuvo GA4, pero se movió a carga diferida con requestIdleCallback y disparadores por interacción
+      checked: true
+    - text: La interfaz de búsqueda y los recursos de Pagefind salieron de la ruta de carga inicial
+      checked: true
     - text: Se confirmaron 100 puntos en las cuatro métricas de PageSpeed Insights tanto en móvil como en escritorio
       checked: true
     - text: Se interpretó el árbol de dependencias de red y se ordenó que BaseLayout.css es el único cuello de botella principal restante
+      checked: true
+    - text: Se corrigieron los errores de breadcrumbs en Search Console y se alinearon breadcrumb, canonical y trailing slash
+      checked: true
+    - text: Se aclaró la estrategia de indexación para etiquetas, archivos, autores y paginación con noindex y exclusión del sitemap
       checked: true
     - text: Se migraron las icon class dinámicas de ProcessFigure y StatBar al componente compartido Icon
       checked: true
@@ -103,6 +117,8 @@ faq:
       answer: 'Esos elementos no siempre son auditorías fallidas. También pueden mostrarse como información de diagnóstico. En este caso, solo BaseLayout.css permanece en la ruta crítica, pero el 100 móvil sigue estable, así que el coste-beneficio actual es aceptable.'
     - question: ¿Por qué se desactivó Cloudflare Web Analytics?
       answer: 'GA4 ya cubría suficientemente la medición de eventos como CTA, búsqueda y contacto, mientras que el lado de Cloudflare había quedado limitado sobre todo a observación de rendimiento. Esta vez también se tuvo en cuenta el efecto del beacon en PageSpeed, por lo que la medición se reorganizó alrededor de GA4.'
+    - question: ¿Qué se arregló exactamente para Search Console?
+      answer: 'La salida de BreadcrumbList se ajustó para que las páginas de listado emitan elementos de breadcrumb explícitos con item válidos. Al mismo tiempo, se alinearon los trailing slash, canonical, reglas noindex y sitemap para que páginas como etiquetas, archivos, autores y paginación tengan un papel de indexación más claro.'
     - question: ¿Hubo optimizaciones que se probaron pero no se adoptaron?
       answer: 'Sí. Se compararon ideas como dividir aún más BaseLayout.css, intentar hacer desaparecer por completo la visualización del network dependency tree, o incluso recortar todavía más los terceros hasta afectar a GA4. Con el móvil ya estable en 100, esas opciones aportaban menos valor práctico que la complejidad o la pérdida de medición que introducían, así que se descartaron.'
 ---
@@ -111,7 +127,7 @@ faq:
 
 En la anterior [Guía de mejora de calidad del sitio Astro](/blog/website-improvement-batches/), resumí el amplio conjunto de mejoras aplicadas al sitio renovado de Acecore. Este artículo es su continuación.
 
-Este artículo cierra los pequeños temas que quedaron pendientes tras publicar el artículo anterior y lleva el sitio a un estado en el que **las cuatro métricas de PageSpeed Insights marcan 100 tanto en móvil como en escritorio**. Además, no fue solo un ajuste de puntuación: también se reorganizó la base de medición, se estabilizó la renderización de iconos y se dejó claro dónde ya no tenía sentido seguir optimizando.
+Este artículo cierra los pequeños temas que quedaron pendientes tras publicar el artículo anterior y lleva el sitio a un estado en el que **las cuatro métricas de PageSpeed Insights marcan 100 tanto en móvil como en escritorio**. Además, no fue solo un ajuste de puntuación: también se sacaron GA4 y la búsqueda de la carga inicial, se reorganizaron breadcrumbs e indexación en Search Console, se estabilizó la renderización de iconos y se dejó claro dónde ya no tenía sentido seguir optimizando.
 
 ## Resultado de 100 en todos los apartados de PageSpeed Insights
 
@@ -156,13 +172,31 @@ Por supuesto, 100 no significa que sea absolutamente el sitio más rápido del m
 
 ## Ajustes finales para llegar a 100
 
-### 1. Desactivar Cloudflare Web Analytics y reorganizar la medición en torno a GA4
+### 1. Desactivar Cloudflare Web Analytics y aclarar el papel de la medición
 
 Cloudflare Web Analytics es útil como producto RUM ligero y privacy-first, pero en Acecore la parte de GA4 ya estaba ampliamente instrumentada para clics en CTA, búsquedas, acciones de contacto, generación de leads y otros eventos.
 
 Al revisar de nuevo el papel de cada herramienta, concluí que, del lado de Cloudflare, el coste de seguir inyectando un beacon innecesario en PageSpeed ya era mayor que el valor que aportaba. Desactivé RUM desde el panel y confirmé que `static.cloudflareinsights.com/beacon.min.js` había desaparecido del HTML de producción.
 
-### 2. Interpretar los diagnósticos restantes de PageSpeed
+Pero esto no significaba abandonar la medición por completo. Seguía siendo importante conservar la medición de CTA, enlaces externos, búsqueda y conversiones de contacto, así que el siguiente paso fue mantener GA4 cambiando el momento en que se carga.
+
+### 2. Mantener GA4, pero sacarlo de la carga inicial
+
+La distinción importante aquí no era solo entre “dejar GA4” o “quitarlo”, sino entre “dejarlo” y “cargarlo desde el primer momento”.
+
+En la práctica, el punto de entrada de `gtag` siguió disponible desde el inicio para poder recibir eventos, pero el script real `gtag/js` se movió a `requestIdleCallback` y a la interacción del usuario. Además, según la página se mantiene un fallback distinto para evitar que analytics quede sin cargar si no hay interacción.
+
+Con ese cambio, la medición de CTA, enlaces externos, búsqueda y contacto siguió intacta, pero sin meter ejecución de scripts de terceros en la fase más temprana del render. El resultado de 100, por tanto, no vino solo de quitar el beacon de Cloudflare, sino también de cargar GA4 de una forma más inteligente.
+
+### 3. Mover la búsqueda y Pagefind a carga bajo demanda
+
+La búsqueda es otra función que puede pesar en silencio sobre la carga inicial aunque el usuario no la abra enseguida. Acecore usa Pagefind para la búsqueda de texto completo, y en esta ronda se aplicó la misma lógica: mantener la funcionalidad, pero no pagar su coste por adelantado.
+
+El modal de búsqueda ahora carga `pagefind-ui.js` y su CSS solo cuando la búsqueda se abre de verdad. La promesa se almacena para evitar dobles cargas, y los atajos de teclado o la apertura mediante query string siguen funcionando normalmente.
+
+Esto no solo favorece la puntuación de Lighthouse. También hace más ligera la primera visualización cotidiana. La búsqueda sigue presente, pero ya no necesita ir montada en la carga crítica de cada página.
+
+### 4. Interpretar los diagnósticos restantes de PageSpeed
 
 Incluso después de llegar a 100, PageSpeed puede seguir mostrando diagnósticos como `Network dependency tree` o `render-blocking resources`. Si se malinterpretan como avisos que siempre deben eliminarse, es fácil acabar persiguiendo optimizaciones de bajo valor.
 
@@ -175,7 +209,15 @@ La cadena crítica en este caso era aproximadamente la siguiente:
 
 De esos elementos, el único que seguía siendo verdaderamente render-blocking era `BaseLayout.css`. Sin embargo, su tamaño ya es lo bastante pequeño y el 100 móvil se mantiene, así que por ahora lo clasifiqué como “diagnóstico restante aceptable”. Poder expresar ese juicio con palabras fue en sí mismo una ganancia importante, porque deja una regla clara para decidir cuándo detener futuras optimizaciones.
 
-### 3. Unificar la renderización de iconos en un componente SVG compartido
+### 5. Ordenar breadcrumbs e indexación en Search Console
+
+Cuando PageSpeed ya estaba estable en 100, volví a revisar el sitio desde el lado de búsqueda. Ahí seguía quedando una incoherencia real: Search Console mostraba breadcrumbs inválidos, aunque el marcado FAQ ya estaba en buen estado.
+
+Para corregirlo, la salida de `BreadcrumbList` en páginas de listado se rehízo para permitir pasar elementos explícitos en lugar de deducirlos demasiado libremente desde la URL. Al mismo tiempo, se alineó el manejo de trailing slash para que canonical, hreflang y breadcrumbs dejaran de divergir.
+
+También se aclaró el papel de indexación de etiquetas, archivos, autores y paginación. Son páginas útiles como navegación, pero es fácil que se comporten como objetivos de indexación delgados o duplicados. Por eso se alinearon con `noindex, follow` y exclusión del sitemap. Esto no borra de inmediato todos los informes de “rastreada, actualmente sin indexar”, pero sí significa que la intención de indexación ahora está expresada directamente en el código.
+
+### 6. Unificar la renderización de iconos en un componente SVG compartido
 
 Como parte del ajuste final, el proyecto ya estaba migrando desde las utilidades de iconos de UnoCSS hacia un componente `Icon` basado en SVG compartido. En esa transición, quedaron restos de icon class dinámicas en `ProcessFigure` y `StatBar`, lo que provocaba que en algunos artículos aparecieran solo círculos vacíos.
 
@@ -187,7 +229,9 @@ Como resultado, se obtuvieron tres beneficios prácticos:
 - Los atributos de accesibilidad como `aria-hidden` pueden unificarse en el lado SVG
 - La operación se vuelve más estable porque la renderización deja de depender del análisis estático de UnoCSS
 
-### 4. Lo que se probó pero no se adoptó
+Al mismo tiempo, el análisis y la visualización de fechas del blog también se normalizaron alrededor del horario JST. No es el punto central de este artículo, pero sí mejora la estabilidad del orden de publicaciones del mismo día y la precisión temporal del marcado estructurado.
+
+### 7. Lo que se probó pero no se adoptó
 
 Cuando aparece un 100, la tentación natural es seguir persiguiendo cada diagnóstico restante hasta que ya no quede nada en pantalla. Comparé varias opciones en esa dirección, pero no adopté las siguientes.
 
@@ -201,7 +245,9 @@ Esa comparación fue importante. El ajuste final quedó cerrado no porque se hub
 
 La mayor ganancia de esta vez no fue simplemente obtener 100 puntos. Fue haber llegado a un punto en el que **puedo explicar qué debe eliminarse y qué es razonable dejar**.
 
-Por ejemplo, Cloudflare Web Analytics merece retirarse si solo sigue presente por inercia, mientras que GA4 debe mantenerse porque es el núcleo de la medición de eventos de negocio. Del mismo modo, `network dependency tree` no es un fallo por sí mismo; hay que mirar su contenido y juzgar si la cadena restante es razonable.
+Por ejemplo, Cloudflare Web Analytics merece retirarse si solo sigue presente por inercia, mientras que GA4 debe mantenerse porque es el núcleo de la medición de eventos de negocio. Pero si GA4 se queda, eso no significa que tenga que ir en la carga inicial. La mejor solución es conservar la medición y cambiar el momento en que se carga.
+
+La misma lógica aplica a la búsqueda y al SEO. La búsqueda debe quedarse, pero no hace falta montarla en el payload inicial. Las páginas de listado siguen siendo útiles para navegar, pero no tienen por qué tratarse como objetivos principales de indexación. Y `network dependency tree` no es un fallo por sí mismo; hay que mirar dentro y juzgar si la cadena restante es razonable.
 
 También utilicé IA para ampliar el abanico de cambios candidatos, pero los criterios finales siguieron siendo tres preguntas muy concretas: si las mediciones mejoraban de verdad, si el coste operativo seguía siendo razonable y si las capacidades de medición necesarias permanecían intactas. La IA ayudó a abrir opciones; la decisión final siguió dependiendo de la medición y del juicio.
 
@@ -212,8 +258,10 @@ Si se optimiza pensando solo en la puntuación, el ajuste acaba yéndose demasia
 Como continuación del artículo anterior, el ajuste final dejó resuelto lo siguiente:
 
 - Confirmar 100 puntos en las cuatro métricas de PageSpeed Insights tanto en móvil como en escritorio
-- Desactivar Cloudflare Web Analytics y reorganizar la medición en torno a GA4
+- Desactivar Cloudflare Web Analytics, manteniendo GA4 pero pasándolo a carga diferida
+- Mover la búsqueda y Pagefind a carga bajo demanda y reducir el peso inicial
 - Interpretar los diagnósticos de red restantes y aclarar qué problemas residuales son aceptables
+- Limpiar la salida de breadcrumbs en Search Console y las reglas de indexación para páginas de listado
 - Eliminar la falta de renderización de iconos al unificar en el SVG compartido `Icon`
 - Descartar optimizaciones adicionales de poco retorno y dejar claro el punto razonable de parada
 
