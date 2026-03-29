@@ -299,43 +299,34 @@ content:
 
 文章标签在 URL 中保持日语 slug，**仅翻译显示名称**。这避免了路由复杂化，同时让用户看到母语显示的标签。
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-在每种语言的翻译 JSON 中添加了 `tags` 部分，为全部25种标签定义了翻译。
+标签定义集中在 `src/content/tags/{tagId}.json` 中，每个标签包含 `i18n.name` 字段。这将标签翻译的 source of truth 从翻译 JSON 文件迁移到了标签 collection。
 
 ```json
-// en.json（摘录）
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()` 在文章卡片、侧边栏、标签索引和文章详情等6处使用，确保所有标签显示统一为对应语言。
+文章卡片、侧边栏、标签索引和文章详情均通过引用 tags collection 来切换显示名称，确保所有标签显示统一为对应语言。
 
 ## 作者数据多语言支持
 
-作者简介（bio）和技能列表也实现了按语言切换。在 `src/data/authors.json` 中添加了 `i18n` 字段，保存各语言的翻译。
+作者姓名、简介（bio）和技能列表也实现了按语言切换。在 `src/content/authors/{authorId}.json` 中添加了 `i18n` 字段，保存各语言的翻译。
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }

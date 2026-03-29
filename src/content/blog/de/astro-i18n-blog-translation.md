@@ -299,43 +299,34 @@ Eine `LanguageSwitcher`-Komponente wurde im Header hinzugefügt und bietet eine 
 
 Artikel-Tags behalten ihre japanischen Slugs in den URLs, während **nur der Anzeigename übersetzt wird**. Dies vermeidet Routing-Komplexität und zeigt Tags in der Muttersprache des Benutzers an.
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-In jeder Übersetzungs-JSON wurde ein `tags`-Abschnitt hinzugefügt, der Übersetzungen für alle 25 Tag-Typen definiert.
+Tag-Definitionen werden in `src/content/tags/{tagId}.json` zusammengeführt, wobei jeder Tag ein `i18n.name`-Feld hat. Dies verschiebt die Quelle der Wahrheit für Tag-Übersetzungen von den Übersetzungs-JSON-Dateien zur Tags-Collection.
 
 ```json
-// en.json (Auszug)
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()` wird an 6 Stellen eingesetzt — Artikelkarten, Seitenleiste, Tag-Index und Artikeldetails — und stellt sicher, dass alle Tags einheitlich in der passenden Sprache angezeigt werden.
+Artikelkarten, Seitenleiste, Tag-Index und Artikeldetails referenzieren alle die Tags-Collection, um Anzeigenamen umzuschalten und sicherzustellen, dass alle Tags einheitlich in der passenden Sprache angezeigt werden.
 
 ## Mehrsprachige Autorendaten
 
-Auch Autorenbiografien und Skill-Listen wechseln je nach Sprache. In `src/data/authors.json` wurde ein `i18n`-Feld hinzugefügt, das die Übersetzungen für jede Sprache enthält.
+Auch Autorennamen, -biografien und Skill-Listen wechseln je nach Sprache. In `src/content/authors/{authorId}.json` wurde ein `i18n`-Feld hinzugefügt, das die Übersetzungen für jede Sprache enthält.
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }

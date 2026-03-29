@@ -299,43 +299,34 @@ A `LanguageSwitcher` component was added to the header, providing a language swi
 
 Article tags keep their Japanese slugs in URLs while **only translating the display name**. This avoids routing complexity while showing tags in the user's native language.
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-A `tags` section was added to each translation JSON, defining translations for all 25 tag types.
+Tag definitions are consolidated in `src/content/tags/{tagId}.json`, with each tag having an `i18n.name` field. This moves the source of truth for tag translations from the translation JSON files to the tags collection.
 
 ```json
-// en.json (excerpt)
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()` is used across 6 locations — article cards, sidebar, tag index, and article detail — ensuring all tag displays are unified in the locale-appropriate language.
+Article cards, sidebar, tag index, and article detail all reference the tags collection to switch display names, ensuring all tag displays are unified in the locale-appropriate language.
 
 ## Multilingual Author Data
 
-Author bios and skill lists also switch per language. An `i18n` field was added to `src/data/authors.json` to hold translations for each language.
+Author names, bios, and skill lists also switch per language. An `i18n` field was added to `src/content/authors/{authorId}.json` to hold translations for each language.
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }
