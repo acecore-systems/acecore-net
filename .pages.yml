@@ -44,7 +44,12 @@ content:
         type: image
       - name: author
         label: 著者
-        type: string
+        type: reference
+        options:
+          collection: authors
+          search: "id,name"
+          value: "{id}"
+          label: "{name} ({id})"
       - name: body
         label: 本文
         type: rich-text
