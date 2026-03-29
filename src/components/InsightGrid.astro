@@ -37,8 +37,8 @@ const isCard = variant === 'card'
 
 {
   isCard ? (
-    <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div class="grid gap-0 lg:grid-cols-[1.1fr_1fr]">
+    <div class="insight-grid-card rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div class="px-6 py-5 sm:px-8">
           {eyebrow && (
             <p class="text-[11px] font-700 tracking-[0.18em] text-brand-500 uppercase mb-2">
@@ -53,10 +53,10 @@ const isCard = variant === 'card'
           )}
         </div>
         <div class="border-t border-slate-200 bg-slate-50/40 px-6 py-5 sm:px-8 lg:border-l lg:border-t-0">
-          <div class="grid gap-3 sm:grid-cols-2">
+          <div class="insight-grid-card__items grid gap-3">
             {items.map((item) => (
-              <div class="rounded-lg border bg-white/80 px-3.5 py-3 shadow-sm">
-                <div class="flex items-center gap-3 mb-1">
+              <div class="rounded-xl border border-slate-200/80 bg-white px-4 py-4 shadow-sm">
+                <div class="flex items-start gap-3 mb-2">
                   <div
                     class:list={[
                       'flex h-7 w-7 items-center justify-center rounded-lg border text-sm shrink-0',
@@ -65,9 +65,11 @@ const isCard = variant === 'card'
                   >
                     <Icon name={item.icon} />
                   </div>
-                  <p class="text-sm font-700 text-slate-900">{item.title}</p>
+                  <p class="min-w-0 pt-0.5 text-sm font-700 leading-snug text-slate-900">
+                    {item.title}
+                  </p>
                 </div>
-                <p class="text-xs leading-relaxed text-slate-600 pl-10">
+                <p class="text-sm leading-relaxed text-slate-600">
                   {item.description}
                 </p>
               </div>
@@ -114,3 +116,15 @@ const isCard = variant === 'card'
     </figure>
   )
 }
+
+<style>
+  .insight-grid-card {
+    container-type: inline-size;
+  }
+
+  @container (min-width: 72rem) {
+    .insight-grid-card__items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
