@@ -11,16 +11,16 @@
     "format:check": "prettier . --check"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.17",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@fontsource/noto-sans-jp": "^5.2.9",
-    "astro": "^6.0.8",
+    "astro": "^6.1.1",
     "rehype-external-links": "^3.0.0",
     "satori": "^0.26.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.98",
+    "@iconify-json/lucide": "^1.2.100",
     "@unocss/astro": "^66.6.7",
     "@unocss/preset-typography": "^66.6.7",
     "pagefind": "^1.4.0",
