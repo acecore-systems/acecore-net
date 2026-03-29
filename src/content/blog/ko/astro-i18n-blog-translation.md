@@ -299,43 +299,34 @@ content:
 
 글의 태그는 URL에서 일본어 slug를 유지하면서 **표시 이름만 번역**합니다. 이로써 라우팅 복잡성을 피하면서 사용자의 모국어로 태그를 표시합니다.
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-각 번역 JSON에 `tags` 섹션을 추가하여 25개 태그 전체의 번역을 정의했습니다.
+태그 정의는 `src/content/tags/{tagId}.json`에 집약되며, 각 태그는 `i18n.name` 필드를 가집니다. 이로써 태그 번역의 source of truth가 번역 JSON이 아닌 태그 collection 쪽으로 이동됩니다.
 
 ```json
-// en.json (발췌)
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()`는 글 카드, 사이드바, 태그 인덱스, 글 상세 등 6곳에서 사용되어 모든 태그 표시를 해당 언어로 통일합니다.
+글 카드, 사이드바, 태그 목록, 글 상세 페이지에서는 tags collection을 참조하여 표시 이름을 전환하며, 태그 표시가 모두 해당 언어로 통일됩니다.
 
 ## 저자 데이터 다국어 지원
 
-저자 약력(bio)과 스킬 목록도 언어별로 전환됩니다. `src/data/authors.json`에 `i18n` 필드를 추가하여 각 언어의 번역을 저장합니다.
+저자 이름, 약력(bio), 스킬 목록도 언어별로 전환됩니다. `src/content/authors/{authorId}.json`에 `i18n` 필드를 추가하여 각 언어의 번역을 저장합니다.
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }
