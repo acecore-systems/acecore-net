@@ -54,8 +54,13 @@ jobs:
       - name: Check out repository
         if: steps.pr.outputs.pr_number != ''
         uses: actions/checkout@v4
+
+      - name: Check out ready translation PR head
+        if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
+        uses: actions/checkout@v4
         with:
-          ref: ${{ steps.pr.outputs.head_sha != '' && steps.pr.outputs.head_sha || github.ref }}
+          ref: ${{ steps.pr.outputs.head_sha }}
+          path: pr-head
 
       - name: Set up Node.js
         if: steps.pr.outputs.pr_number != ''
@@ -65,10 +70,12 @@ jobs:
 
       - name: Install dependencies for ready translation PR
         if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
+        working-directory: pr-head
         run: npm ci
 
       - name: Build ready translation PR
         if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
+        working-directory: pr-head
         run: npm run build
 
       - name: Merge eligible translation PR
