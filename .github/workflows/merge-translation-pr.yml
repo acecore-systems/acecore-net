@@ -1,9 +1,6 @@
 name: Merge Translation PR
 
 on:
-  pull_request_target:
-    types:
-      - ready_for_review
   workflow_run:
     workflows:
       - Translation PR Build
@@ -24,7 +21,6 @@ jobs:
   merge:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'pull_request_target' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
 
@@ -34,9 +30,7 @@ jobs:
         run: |
           pr_number=""
 
-          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
-            pr_number="${{ github.event.pull_request.number }}"
-          elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
             pr_number=$(jq -r '.workflow_run.pull_requests[0].number // ""' "$GITHUB_EVENT_PATH")
           else
             pr_number="${{ inputs.pr_number }}"
@@ -63,4 +57,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: node scripts/merge-translation-pr.mjs --pr=${{ steps.pr.outputs.pr_number }}
+        run: |
+          args=("--pr=${{ steps.pr.outputs.pr_number }}")
+
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            args+=("--skip-build-check")
+          fi
+
+          node scripts/merge-translation-pr.mjs "${args[@]}"

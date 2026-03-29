@@ -3,11 +3,17 @@ import { execFileSync } from 'node:child_process'
 function parseArgs(argv) {
   const options = {
     prNumber: null,
+    skipBuildCheck: false,
   }
 
   for (const arg of argv) {
     if (arg.startsWith('--pr=')) {
       options.prNumber = Number(arg.slice('--pr='.length)) || null
+      continue
+    }
+
+    if (arg === '--skip-build-check') {
+      options.skipBuildCheck = true
     }
   }
 
@@ -166,10 +172,12 @@ async function main() {
     return
   }
 
-  const checkRuns = await getCheckRuns(pullRequest.head.sha)
-  if (!hasSuccessfulTranslationBuild(checkRuns)) {
-    console.log(`Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`)
-    return
+  if (!args.skipBuildCheck) {
+    const checkRuns = await getCheckRuns(pullRequest.head.sha)
+    if (!hasSuccessfulTranslationBuild(checkRuns)) {
+      console.log(`Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`)
+      return
+    }
   }
 
   await mergePullRequest(pullRequest)
