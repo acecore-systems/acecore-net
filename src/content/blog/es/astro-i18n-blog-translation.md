@@ -299,43 +299,34 @@ Se añadió un componente `LanguageSwitcher` al encabezado, proporcionando una U
 
 Las etiquetas de los artículos mantienen sus slugs en japonés en las URLs mientras **solo se traduce el nombre visible**. Esto evita la complejidad de enrutamiento mientras muestra las etiquetas en el idioma nativo del usuario.
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-Se añadió una sección `tags` a cada JSON de traducción, definiendo traducciones para los 25 tipos de etiquetas.
+Las definiciones de etiquetas se centralizan en `src/content/tags/{tagId}.json`, con cada etiqueta conteniendo un campo `i18n.name`. Esto traslada la fuente de verdad de las traducciones de etiquetas de los JSON de traducción a la colección de etiquetas.
 
 ```json
-// en.json (extracto)
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()` se usa en 6 ubicaciones — tarjetas de artículos, barra lateral, índice de etiquetas y detalle de artículos — asegurando que todas las etiquetas se muestren unificadas en el idioma apropiado.
+Las tarjetas de artículos, la barra lateral, el listado de etiquetas y los detalles de artículos consultan la colección de etiquetas para cambiar el nombre visible, garantizando que la visualización de etiquetas esté unificada en el idioma correspondiente.
 
 ## Datos de autor multilingües
 
-Las biografías y listas de habilidades de los autores también cambian según el idioma. Se añadió un campo `i18n` a `src/data/authors.json` para almacenar las traducciones de cada idioma.
+Los nombres, biografías y listas de habilidades de los autores también cambian según el idioma. Se añadió un campo `i18n` a `src/content/authors/{authorId}.json` para almacenar las traducciones de cada idioma.
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }

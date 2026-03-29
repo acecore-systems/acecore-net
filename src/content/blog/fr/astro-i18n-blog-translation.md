@@ -299,43 +299,34 @@ Un composant `LanguageSwitcher` a été ajouté à l'en-tête, fournissant une U
 
 Les tags des articles conservent leurs slugs en japonais dans les URLs tandis que **seul le nom affiché est traduit**. Cela évite la complexité du routage tout en montrant les tags dans la langue maternelle de l'utilisateur.
 
-```typescript
-// src/i18n/utils.ts
-export function translateTag(tag: string, locale: Locale): string {
-  return t(locale, `tags.${tag}`) !== `tags.${tag}`
-    ? t(locale, `tags.${tag}`)
-    : tag
-}
-```
-
-Une section `tags` a été ajoutée à chaque JSON de traduction, définissant les traductions pour les 25 types de tags.
+Les définitions de tags sont centralisées dans `src/content/tags/{tagId}.json`, avec chaque tag contenant un champ `i18n.name`. Cela déplace la source de vérité des traductions de tags des JSON de traduction vers la collection de tags.
 
 ```json
-// en.json (extrait)
 {
-  "tags": {
-    "技術": "Technology",
-    "セキュリティ": "Security",
-    "パフォーマンス": "Performance",
-    "アクセシビリティ": "Accessibility"
+  "id": "technology",
+  "name": "技術",
+  "i18n": {
+    "en": { "name": "Technology" },
+    "fr": { "name": "Technologie" }
   }
 }
 ```
 
-`translateTag()` est utilisé à 6 endroits — cartes d'articles, barre latérale, index des tags et détail des articles — garantissant que tous les tags s'affichent de manière unifiée dans la langue appropriée.
+Les cartes d'articles, la barre latérale, la liste des tags et les détails d'articles consultent la collection de tags pour changer le nom affiché, garantissant que l'affichage des tags est unifié dans la langue appropriée.
 
 ## Données auteur multilingues
 
-Les biographies et listes de compétences des auteurs changent également selon la langue. Un champ `i18n` a été ajouté à `src/data/authors.json` pour stocker les traductions de chaque langue.
+Les noms, biographies et listes de compétences des auteurs changent également selon la langue. Un champ `i18n` a été ajouté à `src/content/authors/{authorId}.json` pour stocker les traductions de chaque langue.
 
 ```json
 {
   "id": "hatt",
-  "name": "hatt",
+  "name": "ハット",
   "bio": "代表取締役。Web制作・システム開発…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {
+      "name": "Hatt",
       "bio": "CEO and representative director. Web development...",
       "skills": ["TypeScript", "Astro", "..."]
     }
