@@ -28,6 +28,9 @@ content:
       - name: image
         label: 画像URL
         type: string
+      - name: uploadedImage
+        label: アップロード画像
+        type: image
       - name: author
         label: 著者
         type: string
@@ -63,6 +66,9 @@ content:
       - name: image
         label: Image URL
         type: string
+      - name: uploadedImage
+        label: Uploaded image
+        type: image
       - name: author
         label: Author
         type: string
@@ -98,6 +104,9 @@ content:
       - name: image
         label: 图片URL
         type: string
+      - name: uploadedImage
+        label: 上传图片
+        type: image
       - name: author
         label: 作者
         type: string
@@ -133,6 +142,9 @@ content:
       - name: image
         label: URL de imagen
         type: string
+      - name: uploadedImage
+        label: Imagen subida
+        type: image
       - name: author
         label: Autor
         type: string
@@ -168,6 +180,9 @@ content:
       - name: image
         label: URL da imagem
         type: string
+      - name: uploadedImage
+        label: Imagem enviada
+        type: image
       - name: author
         label: Autor
         type: string
@@ -203,6 +218,9 @@ content:
       - name: image
         label: URL de l'image
         type: string
+      - name: uploadedImage
+        label: Image importée
+        type: image
       - name: author
         label: Auteur
         type: string
@@ -238,6 +256,9 @@ content:
       - name: image
         label: 이미지 URL
         type: string
+      - name: uploadedImage
+        label: 업로드 이미지
+        type: image
       - name: author
         label: 작성자
         type: string
@@ -273,6 +294,9 @@ content:
       - name: image
         label: Bild-URL
         type: string
+      - name: uploadedImage
+        label: Hochgeladenes Bild
+        type: image
       - name: author
         label: Autor
         type: string
@@ -308,6 +332,9 @@ content:
       - name: image
         label: URL изображения
         type: string
+      - name: uploadedImage
+        label: Загруженное изображение
+        type: image
       - name: author
         label: Автор
         type: string

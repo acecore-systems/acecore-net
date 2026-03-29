@@ -16,6 +16,18 @@ type OptimizeImageOptions = {
   quality?: number | string
 }
 
+export function resolveImageSource(
+  ...candidates: Array<string | null | undefined>
+): string | undefined {
+  for (const candidate of candidates) {
+    if (typeof candidate !== 'string') continue
+    const normalized = candidate.trim()
+    if (normalized) return normalized
+  }
+
+  return undefined
+}
+
 function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
   try {
     const parsed = new URL(url, CLOUDFLARE_IMAGE_ORIGIN)
@@ -26,10 +38,11 @@ function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
     if (slashIndex === -1) return null
 
     const optionText = body.slice(0, slashIndex)
-    const sourceUrl = `${body.slice(slashIndex + 1)}${parsed.search}`
-    if (!sourceUrl.startsWith('http://') && !sourceUrl.startsWith('https://')) {
-      return null
-    }
+    const sourceUrlText = `${body.slice(slashIndex + 1)}${parsed.search}`
+    const sourceUrl =
+      sourceUrlText.startsWith('http://') || sourceUrlText.startsWith('https://')
+        ? sourceUrlText
+        : `/${sourceUrlText.replace(/^\/+/, '')}`
 
     const options = new Map(
       optionText
@@ -54,9 +67,13 @@ function parseImageSource(url: string): ParsedImageSource | null {
   if (cloudflareImage) return cloudflareImage
 
   try {
-    const parsed = new URL(url)
+    const parsed = new URL(url, CLOUDFLARE_IMAGE_ORIGIN)
+    const isLocalOrigin = parsed.origin === CLOUDFLARE_IMAGE_ORIGIN
+
     return {
-      sourceUrl: parsed.toString(),
+      sourceUrl: isLocalOrigin
+        ? `${parsed.pathname}${parsed.search}`
+        : parsed.toString(),
       width: parsed.searchParams.get('w') ?? undefined,
       height: parsed.searchParams.get('h') ?? undefined,
     }
@@ -79,12 +96,14 @@ function buildCloudflareImageUrl(
   transformOptions.push(`fit=${width && height ? 'cover' : 'scale-down'}`)
   transformOptions.push('format=auto', `quality=${quality}`, 'metadata=none')
 
-  return `${CLOUDFLARE_IMAGE_ORIGIN}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}/${sourceUrl}`
+  const separator = sourceUrl.startsWith('/') ? '' : '/'
+
+  return `${CLOUDFLARE_IMAGE_ORIGIN}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}${separator}${sourceUrl}`
 }
 
 /**
- * 外部画像URLを Cloudflare Images のリモート変換URLに変換する。
- * 元画像は外部公開URLのまま使い、初回だけ Cloudflare が取得して以後はキャッシュされる。
+ * 外部画像URLまたはローカル画像パスを Cloudflare Images の変換URLに変換する。
+ * 外部URLはリモート取得、ローカル画像は同一オリジン画像として最適化配信する。
  */
 export function optimizeImage(url: string, overrides: OptimizeImageOptions = {}): string {
   const parsed = parseImageSource(url)

@@ -3,7 +3,7 @@ import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { render } from 'astro:content'
 import authors from '../data/authors.json'
-import { optimizeImage, generateSrcSet } from '../utils/image'
+import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
 import Callout from '../components/Callout.astro'
 import Timeline from '../components/Timeline.astro'
 import YouTubeEmbed from '../components/YouTubeEmbed.astro'
@@ -50,6 +50,7 @@ const rawAuthor = post.data.author
   ? authors.find((a) => a.id === post.data.author)
   : null
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
+const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
 
 const basePosts = allRawPosts.filter(isBasePost)
 
@@ -193,7 +194,7 @@ const ctaHeading = isDefaultLocale
   tags={post.data.tags}
   author={author?.name}
   locale={locale}
-  preloadImage={post.data.image ? { src: optimizeImage(post.data.image), srcset: generateSrcSet(post.data.image, [400, 800, 1200]), sizes: '(min-width: 768px) 56rem, 100vw' } : undefined}
+  preloadImage={postImage ? { src: optimizeImage(postImage), srcset: generateSrcSet(postImage, [400, 800, 1200]), sizes: '(min-width: 768px) 56rem, 100vw' } : undefined}
 >
   <div class="ac-section">
     <div
@@ -288,11 +289,11 @@ const ctaHeading = isDefaultLocale
           )
         }
         {
-          post.data.image && (
+          postImage && (
             <div class="mb-8 rounded-xl overflow-hidden">
               <img
-                src={optimizeImage(post.data.image)}
-                srcset={generateSrcSet(post.data.image, [400, 800, 1200])}
+                src={optimizeImage(postImage)}
+                srcset={generateSrcSet(postImage, [400, 800, 1200])}
                 sizes="(min-width: 768px) 56rem, 100vw"
                 alt={post.data.title}
                 class="w-full h-auto"
@@ -443,48 +444,55 @@ const ctaHeading = isDefaultLocale
                 {t(locale, 'blog.relatedPosts')}
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {relatedPosts.map((rp, i) => (
-                  <Fragment>
-                    {i === 2 && (
-                      <div class="sm:col-span-2">
-                        <AdUnit />
-                      </div>
-                    )}
-                    <a
-                      href={u(`/blog/${rp.id}/`)}
-                      class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-colors transition-shadow"
-                    >
-                      {rp.data.image && (
-                        <img
-                          src={optimizeImage(rp.data.image)}
-                          srcset={generateSrcSet(rp.data.image, [200, 400])}
-                          sizes="(min-width: 640px) 50vw, 100vw"
-                          alt={rp.data.title}
-                          class="w-full h-32 object-cover rounded-md mb-3"
-                          width="400"
-                          height="128"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      )}
-                      <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
-                        {rp.data.title}
-                      </span>
-                      <span class="text-xs text-slate-600 mt-1">
-                        {formatDate(rp.data.date, locale)}
-                      </span>
-                      {rp.data.tags && (
-                        <div class="flex flex-wrap gap-1 mt-2">
-                          {rp.data.tags.slice(0, 3).map((tag: string) => (
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                              {translateTag(tag, locale)}
-                            </span>
-                          ))}
+                {relatedPosts.map((rp, i) => {
+                  const relatedImage = resolveImageSource(
+                    rp.data.uploadedImage,
+                    rp.data.image,
+                  )
+
+                  return (
+                    <Fragment>
+                      {i === 2 && (
+                        <div class="sm:col-span-2">
+                          <AdUnit />
                         </div>
                       )}
-                    </a>
-                  </Fragment>
-                ))}
+                      <a
+                        href={u(`/blog/${rp.id}/`)}
+                        class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-colors transition-shadow"
+                      >
+                        {relatedImage && (
+                          <img
+                            src={optimizeImage(relatedImage)}
+                            srcset={generateSrcSet(relatedImage, [200, 400])}
+                            sizes="(min-width: 640px) 50vw, 100vw"
+                            alt={rp.data.title}
+                            class="w-full h-32 object-cover rounded-md mb-3"
+                            width="400"
+                            height="128"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        )}
+                        <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
+                          {rp.data.title}
+                        </span>
+                        <span class="text-xs text-slate-600 mt-1">
+                          {formatDate(rp.data.date, locale)}
+                        </span>
+                        {rp.data.tags && (
+                          <div class="flex flex-wrap gap-1 mt-2">
+                            {rp.data.tags.slice(0, 3).map((tag: string) => (
+                              <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                                {translateTag(tag, locale)}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </a>
+                    </Fragment>
+                  )
+                })}
               </div>
             </section>
           )

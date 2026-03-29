@@ -40,6 +40,7 @@ const blog = defineCollection({
     lastUpdated: contentDate.optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
+    uploadedImage: z.string().optional(),
     author: z.string(),
     callout: z
       .object({

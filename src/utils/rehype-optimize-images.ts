@@ -3,9 +3,9 @@ import { visit } from 'unist-util-visit'
 import { optimizeImage } from './image'
 
 /**
- * Markdown 内の外部画像 URL を Cloudflare Images の変換URLに置き換える rehype プラグイン。
+ * Markdown 内の外部画像 URL とローカル画像パスを Cloudflare Images の変換URLに置き換える rehype プラグイン。
  * `![alt](https://images.unsplash.com/...)` のような記法で挿入した画像を
- * 自動で最適化配信する。ローカル画像（/uploads/ 等）はスキップ。
+ * 自動で最適化配信する。`/uploads/` のようなローカル画像も対象。
  */
 export default function rehypeOptimizeImages() {
   return (tree: Root) => {
@@ -13,7 +13,7 @@ export default function rehypeOptimizeImages() {
       if (node.tagName !== 'img') return
       const src = node.properties?.src
       if (typeof src !== 'string') return
-      if (!src.startsWith('http')) return
+      if (!src.startsWith('http') && !src.startsWith('/')) return
       if (src.includes('/cdn-cgi/image/')) return
       node.properties!.src = optimizeImage(src)
       if (!node.properties!.loading) node.properties!.loading = 'lazy'
