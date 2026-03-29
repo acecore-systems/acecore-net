@@ -404,7 +404,9 @@ function buildCopilotInstructions(issueKind) {
     return [
       'Update the author profile translations described in the issue.',
       'Modify only the i18n entries in the affected src/content/authors/{author-id}.json files unless explicitly required otherwise.',
-      'Keep Japanese source fields unchanged and run npm run build before finishing.',
+      'Keep Japanese source fields unchanged.',
+      'Use a pull request title that contains [translation].',
+      'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
     ].join(' ')
   }
 
@@ -412,14 +414,17 @@ function buildCopilotInstructions(issueKind) {
     return [
       'Update the tag definition translations described in the issue.',
       'Modify only the i18n.name entries in the affected src/content/tags/{tag-id}.json files unless explicitly required otherwise.',
-      'Keep Japanese source fields unchanged and run npm run build before finishing.',
+      'Keep Japanese source fields unchanged.',
+      'Use a pull request title that contains [translation].',
+      'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
     ].join(' ')
   }
 
   return [
     'Translate the Japanese source article described in the issue into all requested locales.',
     'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
-    'Run npm run build before finishing.',
+    'Use a pull request title that contains [translation].',
+    'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
   ].join(' ')
 }
 
@@ -477,7 +482,9 @@ function buildBlogIssuePayload({ sourcePath, changeType, locales, headSha, repos
       : '- Create or update translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.',
     '- Keep frontmatter aligned with the source article, including `title`, `description`, `date`, `tags`, `image`, `uploadedImage`, and `author`.',
     '- Preserve internal links, image references, and structured content blocks.',
+    '- Ensure the pull request title contains `[translation]`.',
     '- Run `npm run build` after the translation changes.',
+    '- Mark the pull request ready for review when the work is complete.',
     '',
     '## References',
     `- Repository: ${repository}`,
@@ -514,7 +521,9 @@ function buildAuthorIssuePayload({ sourcePath, change, locales, headSha, reposit
     `- Update only the \`i18n\` translations in \`${sourcePath}\` for the affected author.`,
     '- Do not change the Japanese source fields unless the issue explicitly requires it.',
     '- Keep `name`, `bio`, and `skills` aligned with the updated Japanese source.',
+    '- Ensure the pull request title contains `[translation]`.',
     '- Run `npm run build` after the translation changes.',
+    '- Mark the pull request ready for review when the work is complete.',
     '',
     '## References',
     `- Repository: ${repository}`,
@@ -551,7 +560,9 @@ function buildTagIssuePayload({ sourcePath, change, locales, headSha, repository
     `- Update only the \`i18n.name\` translations in \`${sourcePath}\` for the affected tag.`,
     '- Do not change the Japanese source fields unless the issue explicitly requires it.',
     '- Keep localized tag names aligned with the updated Japanese source tag name.',
+    '- Ensure the pull request title contains `[translation]`.',
     '- Run `npm run build` after the translation changes.',
+    '- Mark the pull request ready for review when the work is complete.',
     '',
     '## References',
     `- Repository: ${repository}`,

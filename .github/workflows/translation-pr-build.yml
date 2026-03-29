@@ -27,7 +27,7 @@ jobs:
       github.event.pull_request.user.login == 'app/copilot-swe-agent' ||
       github.event.pull_request.user.login == 'copilot-swe-agent[bot]' ||
       startsWith(github.event.pull_request.head.ref, 'copilot/')) &&
-      startsWith(github.event.pull_request.title, '[translation]'))
+      contains(github.event.pull_request.title, '[translation]'))
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
           steps.pr.outputs.author != 'app/copilot-swe-agent' &&
           steps.pr.outputs.author != 'copilot-swe-agent[bot]' &&
           !startsWith(steps.pr.outputs.head_ref, 'copilot/')) ||
-          !startsWith(steps.pr.outputs.title, '[translation]'))
+          !contains(steps.pr.outputs.title, '[translation]'))
         run: |
           echo "The specified PR is not an eligible translation PR."
           exit 1

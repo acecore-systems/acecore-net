@@ -90,6 +90,10 @@ async function getCheckRuns(headSha) {
   return response?.check_runs ?? []
 }
 
+function hasTranslationMarker(title) {
+  return typeof title === 'string' && title.includes('[translation]')
+}
+
 function isEligibleTranslationPullRequest(pr) {
   return (
     pr &&
@@ -101,8 +105,7 @@ function isEligibleTranslationPullRequest(pr) {
       pr.user?.login === 'copilot-swe-agent[bot]' ||
       pr.head?.ref?.startsWith('copilot/')
     ) &&
-    typeof pr.title === 'string' &&
-    pr.title.startsWith('[translation]')
+    hasTranslationMarker(pr.title)
   )
 }
 
