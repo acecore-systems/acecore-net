@@ -1,7 +1,18 @@
+/**
+ * ブログ記事の多言語対応ユーティリティ
+ *
+ * 記事の言語別バリアントの解決、ベーススラッグの抽出、
+ * 著者情報のローカライズを提供する。
+ *
+ * 記事 ID の構造:
+ *   - ベース記事（日本語）: "my-post.md"
+ *   - 翻訳記事: "en/my-post.md", "zh-cn/my-post.md" 等
+ */
 import type { CollectionEntry } from 'astro:content'
 import { defaultLocale, type Locale } from '../i18n'
 import type { AuthorData } from './authors'
 
+/** 著者の多言語フィールド型 */
 type LocalizedAuthor = { name?: string; bio?: string; skills?: string[] }
 
 /** Strip locale prefix from post id to get the base slug */
