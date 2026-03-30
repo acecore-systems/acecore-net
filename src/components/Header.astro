@@ -5,15 +5,23 @@ import LanguageSwitcher from './LanguageSwitcher.astro'
 
 interface Props {
   locale?: Locale
+  languageSwitcherPath?: string
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const languageSwitcherPath = Astro.props.languageSwitcherPath
 const navLinks = [
   { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
-  { href: getLocalizedUrl('/services/', locale), label: t(locale, 'nav.services') },
+  {
+    href: getLocalizedUrl('/services/', locale),
+    label: t(locale, 'nav.services'),
+  },
   { href: getLocalizedUrl('/about/', locale), label: t(locale, 'nav.about') },
   { href: getLocalizedUrl('/blog/', locale), label: t(locale, 'nav.blog') },
-  { href: getLocalizedUrl('/contact/', locale), label: t(locale, 'nav.contact') },
+  {
+    href: getLocalizedUrl('/contact/', locale),
+    label: t(locale, 'nav.contact'),
+  },
 ]
 const currentPath = Astro.url.pathname
 ---
@@ -57,7 +65,7 @@ const currentPath = Astro.url.pathname
       >
         <Icon name="search" class="text-lg" />
       </button>
-      <LanguageSwitcher locale={locale} />
+      <LanguageSwitcher locale={locale} path={languageSwitcherPath} />
     </nav>
     <div class="flex items-center gap-1 md:hidden">
       <button
@@ -106,7 +114,7 @@ const currentPath = Astro.url.pathname
         ))
       }
       <div class="border-t border-slate-100 pt-3">
-        <LanguageSwitcher locale={locale} />
+        <LanguageSwitcher locale={locale} path={languageSwitcherPath} />
       </div>
     </div>
   </nav>
@@ -114,8 +122,12 @@ const currentPath = Astro.url.pathname
 
 <script>
   function syncMenuIcon(menuBtn: HTMLElement, expanded: boolean) {
-    const menuIcon = menuBtn.querySelector<HTMLElement>('[data-menu-icon="menu"]')
-    const closeIcon = menuBtn.querySelector<HTMLElement>('[data-menu-icon="close"]')
+    const menuIcon = menuBtn.querySelector<HTMLElement>(
+      '[data-menu-icon="menu"]',
+    )
+    const closeIcon = menuBtn.querySelector<HTMLElement>(
+      '[data-menu-icon="close"]',
+    )
 
     menuIcon?.classList.toggle('hidden', expanded)
     closeIcon?.classList.toggle('hidden', !expanded)
@@ -137,7 +149,9 @@ const currentPath = Astro.url.pathname
       menuBtn.setAttribute('aria-expanded', String(expanded))
       menuBtn.setAttribute(
         'aria-label',
-        expanded ? (menuBtn.dataset.labelClose || 'Close menu') : (menuBtn.dataset.labelOpen || 'Open menu'),
+        expanded
+          ? menuBtn.dataset.labelClose || 'Close menu'
+          : menuBtn.dataset.labelOpen || 'Open menu',
       )
       syncMenuIcon(menuBtn, expanded)
       if (expanded) {
@@ -155,7 +169,10 @@ const currentPath = Astro.url.pathname
       if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
         menu.classList.add('hidden')
         menuBtn.setAttribute('aria-expanded', 'false')
-        menuBtn.setAttribute('aria-label', menuBtn.dataset.labelOpen || 'Open menu')
+        menuBtn.setAttribute(
+          'aria-label',
+          menuBtn.dataset.labelOpen || 'Open menu',
+        )
         syncMenuIcon(menuBtn, false)
         menuBtn.focus()
       }
