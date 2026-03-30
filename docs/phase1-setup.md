@@ -8,13 +8,13 @@ Cloudflare Pages 上で動作する。
 
 ## 採用技術
 
-| 役割 | 技術 |
-| --- | --- |
-| API フレームワーク | [Hono](https://hono.dev/) |
-| データベース | [Neon](https://neon.tech/)（PostgreSQL） |
-| ORM / マイグレーション | [Drizzle](https://orm.drizzle.team/) |
-| ホスティング | Cloudflare Pages |
-| 動的処理 | Cloudflare Pages Functions |
+| 役割                   | 技術                                     |
+| ---------------------- | ---------------------------------------- |
+| API フレームワーク     | [Hono](https://hono.dev/)                |
+| データベース           | [Neon](https://neon.tech/)（PostgreSQL） |
+| ORM / マイグレーション | [Drizzle](https://orm.drizzle.team/)     |
+| ホスティング           | Cloudflare Pages                         |
+| 動的処理               | Cloudflare Pages Functions               |
 
 ## アーキテクチャ
 
@@ -100,11 +100,11 @@ npm run dev
 
 ## 環境分離ルール
 
-| 環境 | DATABASE_URL の設定場所 |
-| --- | --- |
+| 環境       | DATABASE_URL の設定場所                                           |
+| ---------- | ----------------------------------------------------------------- |
 | Production | Cloudflare Pages > Settings > Environment Variables（Production） |
-| Preview | Cloudflare Pages > Settings > Environment Variables（Preview） |
-| Local dev | `.dev.vars` |
+| Preview    | Cloudflare Pages > Settings > Environment Variables（Preview）    |
+| Local dev  | `.dev.vars`                                                       |
 
 ### 禁止事項
 
@@ -136,20 +136,20 @@ npm run dev
 
 ## API 一覧
 
-| メソッド | パス | 説明 |
-| --- | --- | --- |
-| POST | `/api/auth/sign-in` | サインイン |
-| POST | `/api/auth/sign-out` | サインアウト |
-| GET | `/api/auth/session` | セッション状態確認 |
-| GET | `/api/me` | ユーザー情報取得 |
-| PATCH | `/api/me/profile` | プロフィール更新 |
+| メソッド | パス                 | 説明               |
+| -------- | -------------------- | ------------------ |
+| POST     | `/api/auth/sign-in`  | サインイン         |
+| POST     | `/api/auth/sign-out` | サインアウト       |
+| GET      | `/api/auth/session`  | セッション状態確認 |
+| GET      | `/api/me`            | ユーザー情報取得   |
+| PATCH    | `/api/me/profile`    | プロフィール更新   |
 
 ## 画面一覧
 
-| パス | 説明 | 認証 |
-| --- | --- | --- |
-| `/login` | ログインページ | 不要 |
-| `/mypage` | マイページ | 必要（ミドルウェアで保護） |
+| パス              | 説明             | 認証                       |
+| ----------------- | ---------------- | -------------------------- |
+| `/login`          | ログインページ   | 不要                       |
+| `/mypage`         | マイページ       | 必要（ミドルウェアで保護） |
 | `/mypage/profile` | プロフィール編集 | 必要（ミドルウェアで保護） |
 
 ## 認証フロー
@@ -167,44 +167,44 @@ npm run dev
 
 ### users
 
-| カラム | 型 | 制約 |
-| --- | --- | --- |
-| id | text | PRIMARY KEY |
-| email | text | UNIQUE NOT NULL |
-| password_hash | text | NOT NULL |
-| status | text | NOT NULL DEFAULT 'active' |
-| created_at | timestamp with time zone | NOT NULL DEFAULT now() |
-| updated_at | timestamp with time zone | NOT NULL DEFAULT now() |
+| カラム        | 型                       | 制約                      |
+| ------------- | ------------------------ | ------------------------- |
+| id            | text                     | PRIMARY KEY               |
+| email         | text                     | UNIQUE NOT NULL           |
+| password_hash | text                     | NOT NULL                  |
+| status        | text                     | NOT NULL DEFAULT 'active' |
+| created_at    | timestamp with time zone | NOT NULL DEFAULT now()    |
+| updated_at    | timestamp with time zone | NOT NULL DEFAULT now()    |
 
 ### profiles
 
-| カラム | 型 | 制約 |
-| --- | --- | --- |
-| user_id | text | PRIMARY KEY, FK → users.id |
-| display_name | text | |
-| avatar_url | text | |
-| phone | text | |
-| bio | text | |
-| created_at | timestamp with time zone | NOT NULL DEFAULT now() |
-| updated_at | timestamp with time zone | NOT NULL DEFAULT now() |
+| カラム       | 型                       | 制約                       |
+| ------------ | ------------------------ | -------------------------- |
+| user_id      | text                     | PRIMARY KEY, FK → users.id |
+| display_name | text                     |                            |
+| avatar_url   | text                     |                            |
+| phone        | text                     |                            |
+| bio          | text                     |                            |
+| created_at   | timestamp with time zone | NOT NULL DEFAULT now()     |
+| updated_at   | timestamp with time zone | NOT NULL DEFAULT now()     |
 
 ### sessions
 
-| カラム | 型 | 制約 |
-| --- | --- | --- |
-| id | text | PRIMARY KEY |
-| user_id | text | NOT NULL, FK → users.id |
-| token_hash | text | NOT NULL |
-| expires_at | timestamp with time zone | NOT NULL |
-| created_at | timestamp with time zone | NOT NULL DEFAULT now() |
-| updated_at | timestamp with time zone | NOT NULL DEFAULT now() |
+| カラム     | 型                       | 制約                    |
+| ---------- | ------------------------ | ----------------------- |
+| id         | text                     | PRIMARY KEY             |
+| user_id    | text                     | NOT NULL, FK → users.id |
+| token_hash | text                     | NOT NULL                |
+| expires_at | timestamp with time zone | NOT NULL                |
+| created_at | timestamp with time zone | NOT NULL DEFAULT now()  |
+| updated_at | timestamp with time zone | NOT NULL DEFAULT now()  |
 
 ### roles
 
-| カラム | 型 | 制約 |
-| --- | --- | --- |
-| user_id | text | FK → users.id, 複合PK |
-| role | text | NOT NULL, 複合PK |
+| カラム     | 型                       | 制約                   |
+| ---------- | ------------------------ | ---------------------- |
+| user_id    | text                     | FK → users.id, 複合PK  |
+| role       | text                     | NOT NULL, 複合PK       |
 | created_at | timestamp with time zone | NOT NULL DEFAULT now() |
 
 ## 将来拡張（Phase 2 以降）
