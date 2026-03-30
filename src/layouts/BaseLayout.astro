@@ -18,6 +18,7 @@ interface Props {
   preloadImage?: { src: string; srcset?: string; sizes?: string }
   locale?: Locale
   breadcrumbItems?: { name: string; item?: string }[]
+  languageSwitcherPath?: string
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
@@ -36,6 +37,7 @@ const {
   author,
   preloadImage,
   breadcrumbItems,
+  languageSwitcherPath,
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
@@ -453,7 +455,7 @@ import { SITE } from '../data/site'
       class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm"
       >{t(locale, 'common.skipToContent')}</a
     >
-    <Header locale={locale} />
+    <Header locale={locale} languageSwitcherPath={languageSwitcherPath} />
     <main id="main" tabindex="-1" class="flex-1">
       <slot />
     </main>

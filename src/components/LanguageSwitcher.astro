@@ -5,10 +5,11 @@ import { getLocalizedUrl, getLocaleFromUrl } from '../i18n'
 
 interface Props {
   locale?: Locale
+  path?: string
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const currentPath = Astro.url.pathname
+const currentPath = Astro.props.path ?? Astro.url.pathname
 ---
 
 <div class="relative" data-lang-switcher>

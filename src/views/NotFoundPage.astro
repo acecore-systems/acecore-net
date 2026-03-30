@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content'
 import Icon from '../components/Icon.astro'
 import { optimizeImage, resolveImageSource } from '../utils/image'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
+import { getBaseSlug, isBasePost, localizePost } from '../utils/blog-i18n'
 
 interface Props {
   locale: Locale
@@ -12,9 +13,10 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const recentPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 4)
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+const recentPosts = allPosts.filter(isBasePost).slice(0, 4)
 ---
 
 <BaseLayout
@@ -22,6 +24,7 @@ const recentPosts = (await getCollection('blog'))
   title={t(locale, 'pages.notFound.title')}
   description={t(locale, 'pages.notFound.description')}
   robots="noindex, nofollow"
+  languageSwitcherPath="/404"
 >
   <section class="ac-section">
     <div class="ac-container text-center py-20">
@@ -49,15 +52,23 @@ const recentPosts = (await getCollection('blog'))
       </div>
 
       <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <a href={u('/')} class="ac-btn-primary">{t(locale, 'pages.notFound.goHome')}</a>
-        <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'pages.notFound.viewBlog')}</a>
+        <a href={u('/')} class="ac-btn-primary"
+          >{t(locale, 'pages.notFound.goHome')}</a
+        >
+        <a href={u('/blog/')} class="ac-btn-outline"
+          >{t(locale, 'pages.notFound.viewBlog')}</a
+        >
       </div>
 
       <div class="max-w-2xl mx-auto text-left">
-        <h2 class="text-lg font-700 text-slate-700 mb-4">{t(locale, 'pages.notFound.latestArticles')}</h2>
+        <h2 class="text-lg font-700 text-slate-700 mb-4">
+          {t(locale, 'pages.notFound.latestArticles')}
+        </h2>
         <div class="space-y-3">
           {
-            recentPosts.map((post) => {
+            recentPosts.map((basePost) => {
+              const post = localizePost(basePost, allPosts, locale)
+              const postSlug = getBaseSlug(post.id)
               const postImage = resolveImageSource(
                 post.data.uploadedImage,
                 post.data.image,
@@ -65,7 +76,7 @@ const recentPosts = (await getCollection('blog'))
 
               return (
                 <a
-                  href={u(`/blog/${post.id}/`)}
+                  href={u(`/blog/${postSlug}/`)}
                   class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group"
                 >
                   {postImage && (
