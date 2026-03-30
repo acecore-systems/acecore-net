@@ -1,0 +1,10 @@
+# ローカル開発用環境変数テンプレート
+# このファイルを .dev.vars にコピーして値を設定してください。
+#
+#   cp .dev.vars.example .dev.vars
+#
+# .dev.vars は .gitignore に含まれ、リポジトリにはコミットされません。
+
+# Neon PostgreSQL 接続 URL（ローカル開発用 DB）
+# Neon コンソール → Connection Details から取得
+DATABASE_URL=postgresql://user:password@ep-xxx.region.aws.neon.tech/dbname?sslmode=require

@@ -1,0 +1,95 @@
+---
+/**
+ * ログインページ
+ *
+ * メールアドレスとパスワードによるサインインフォームを表示する。
+ * 認証済みの場合はクライアント側でマイページへリダイレクトする。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="ログイン" robots="noindex, nofollow">
+  <main class="max-w-md mx-auto px-4 py-16">
+    <h1 class="text-2xl font-bold text-center mb-8">ログイン</h1>
+
+    <div id="login-error" class="hidden bg-red-50 text-red-700 rounded-lg p-4 mb-6 text-sm"></div>
+
+    <form id="login-form" class="space-y-6">
+      <div>
+        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">
+          メールアドレス
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          autocomplete="email"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+        />
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-slate-700 mb-1">
+          パスワード
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          autocomplete="current-password"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-brand-500 text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-brand-600 transition-colors"
+      >
+        ログイン
+      </button>
+    </form>
+  </main>
+</BaseLayout>
+
+<script>
+  /** ページ読み込み時にセッション状態を確認し、認証済みならマイページへ遷移 */
+  async function checkSession() {
+    try {
+      const res = await fetch('/api/auth/session')
+      if (res.ok) {
+        const data = await res.json()
+        if (data.authenticated) {
+          window.location.href = '/mypage'
+        }
+      }
+    } catch {
+      /* セッション確認に失敗した場合はログイン画面を表示 */
+    }
+  }
+  checkSession()
+
+  const form = document.getElementById('login-form') as HTMLFormElement
+  const errorBox = document.getElementById('login-error') as HTMLDivElement
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    errorBox.classList.add('hidden')
+
+    const email = (form.querySelector('#email') as HTMLInputElement).value
+    const password = (form.querySelector('#password') as HTMLInputElement).value
+
+    const res = await fetch('/api/auth/sign-in', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+
+    if (res.ok) {
+      window.location.href = '/mypage'
+    } else {
+      const data = await res.json()
+      errorBox.textContent = data.error ?? '認証に失敗しました'
+      errorBox.classList.remove('hidden')
+    }
+  })
+</script>

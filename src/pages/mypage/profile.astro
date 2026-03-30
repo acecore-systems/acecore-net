@@ -1,0 +1,129 @@
+---
+/**
+ * プロフィール編集ページ
+ *
+ * ログイン済みユーザーが自身のプロフィールを更新できる。
+ * 認証チェックは functions/mypage/_middleware.ts で実施。
+ * 現在のプロフィール情報はクライアント側で API から取得する。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="プロフィール編集" robots="noindex, nofollow">
+  <main class="max-w-lg mx-auto px-4 py-16">
+    <h1 class="text-2xl font-bold mb-8">プロフィール編集</h1>
+
+    <div id="loading" class="text-center text-slate-500 py-8">読み込み中...</div>
+
+    <div id="profile-message" class="hidden rounded-lg p-4 mb-6 text-sm"></div>
+
+    <form id="profile-form" class="hidden space-y-6">
+      <div>
+        <label for="displayName" class="block text-sm font-medium text-slate-700 mb-1">
+          表示名
+        </label>
+        <input
+          type="text"
+          id="displayName"
+          name="displayName"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+        />
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-slate-700 mb-1">
+          電話番号
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+        />
+      </div>
+      <div>
+        <label for="bio" class="block text-sm font-medium text-slate-700 mb-1">
+          自己紹介
+        </label>
+        <textarea
+          id="bio"
+          name="bio"
+          rows="4"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+        ></textarea>
+      </div>
+      <div class="flex gap-4">
+        <button
+          type="submit"
+          class="bg-brand-500 text-white rounded-lg py-2 px-6 text-sm font-medium hover:bg-brand-600 transition-colors"
+        >
+          保存
+        </button>
+        <a
+          href="/mypage"
+          class="text-sm text-slate-500 hover:text-slate-700 py-2 px-4 transition-colors"
+        >
+          戻る
+        </a>
+      </div>
+    </form>
+  </main>
+</BaseLayout>
+
+<script>
+  async function loadProfile() {
+    const res = await fetch('/api/me')
+    if (!res.ok) {
+      window.location.href = '/login'
+      return
+    }
+
+    const data = await res.json()
+    const profile = data.profile
+
+    setInput('displayName', profile?.displayName ?? '')
+    setInput('phone', profile?.phone ?? '')
+    setTextarea('bio', profile?.bio ?? '')
+
+    document.getElementById('loading')?.classList.add('hidden')
+    document.getElementById('profile-form')?.classList.remove('hidden')
+  }
+
+  function setInput(id: string, value: string) {
+    const el = document.getElementById(id) as HTMLInputElement | null
+    if (el) el.value = value
+  }
+
+  function setTextarea(id: string, value: string) {
+    const el = document.getElementById(id) as HTMLTextAreaElement | null
+    if (el) el.value = value
+  }
+
+  loadProfile()
+
+  const form = document.getElementById('profile-form') as HTMLFormElement
+  const messageBox = document.getElementById('profile-message') as HTMLDivElement
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    messageBox.classList.add('hidden')
+
+    const displayName = (form.querySelector('#displayName') as HTMLInputElement).value
+    const phone = (form.querySelector('#phone') as HTMLInputElement).value
+    const bio = (form.querySelector('#bio') as HTMLTextAreaElement).value
+
+    const res = await fetch('/api/me/profile', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ displayName, phone, bio }),
+    })
+
+    if (res.ok) {
+      messageBox.textContent = 'プロフィールを更新しました'
+      messageBox.className = 'bg-green-50 text-green-700 rounded-lg p-4 mb-6 text-sm'
+    } else {
+      const data = await res.json()
+      messageBox.textContent = data.error ?? '更新に失敗しました'
+      messageBox.className = 'bg-red-50 text-red-700 rounded-lg p-4 mb-6 text-sm'
+    }
+  })
+</script>

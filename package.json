@@ -8,13 +8,19 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource/noto-sans-jp": "^5.2.9",
+    "@neondatabase/serverless": "^1.0.2",
     "astro": "^6.1.1",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.12.9",
     "rehype-external-links": "^3.0.0",
     "satori": "^0.26.0",
     "sharp": "^0.34.5"
@@ -23,9 +29,11 @@
     "@iconify-json/lucide": "^1.2.100",
     "@unocss/astro": "^66.6.7",
     "@unocss/preset-typography": "^66.6.7",
+    "drizzle-kit": "^0.31.10",
     "pagefind": "^1.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
-    "unocss": "^66.6.7"
+    "unocss": "^66.6.7",
+    "wrangler": "^4.78.0"
   }
 }
