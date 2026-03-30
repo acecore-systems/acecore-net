@@ -1,3 +1,12 @@
+/**
+ * i18n 翻訳・ロケールユーティリティ
+ *
+ * 翻訳文字列の取得、URL のロケール変換、日付フォーマットなど
+ * 多言語対応に必要な主要関数を提供する。
+ *
+ * 翻訳データ: src/i18n/translations/ 配下の JSON ファイルから静的にインポートする。
+ * タイムゾーン: 日付はすべて Asia/Tokyo (JST) で表示する。
+ */
 import { defaultLocale, locales, type Locale } from './config'
 import jaTranslations from './translations/ja.json'
 import enTranslations from './translations/en.json'
@@ -9,8 +18,10 @@ import koTranslations from './translations/ko.json'
 import deTranslations from './translations/de.json'
 import ruTranslations from './translations/ru.json'
 
+/** 日本語翻訳を基準型として使用する */
 type TranslationData = typeof jaTranslations
 
+/** 全ロケールの翻訳データマップ */
 const translations: Record<Locale, TranslationData> = {
   ja: jaTranslations,
   en: enTranslations,
@@ -23,6 +34,7 @@ const translations: Record<Locale, TranslationData> = {
   ru: ruTranslations,
 }
 
+/** 日付表示に使用するタイムゾーン（日本標準時） */
 const BLOG_TIME_ZONE = 'Asia/Tokyo'
 
 /**
@@ -98,11 +110,16 @@ type DateParts = {
   minute: number
 }
 
+/** 日付に時刻部分（0 時 0 分以外）があるかどうかを判定する */
 function hasTime(date: Date): boolean {
   const { hour, minute } = getDateParts(date)
   return hour !== 0 || minute !== 0
 }
 
+/**
+ * Date オブジェクトから JST ベースの年・月・日・時・分を取得する。
+ * Intl.DateTimeFormat を使用して正確なタイムゾーン変換を行う。
+ */
 export function getDateParts(date: Date): DateParts {
   const formatter = new Intl.DateTimeFormat('en-CA', {
     timeZone: BLOG_TIME_ZONE,
@@ -130,6 +147,7 @@ export function getDateParts(date: Date): DateParts {
   }
 }
 
+/** 日付から "YYYY-MM" 形式の年月キーを生成する（アーカイブページ用） */
 export function getYearMonthKey(date: Date): string {
   const { year, month } = getDateParts(date)
   return `${year}-${String(month).padStart(2, '0')}`

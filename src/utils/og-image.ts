@@ -1,10 +1,22 @@
+/**
+ * OG 画像生成モジュール
+ *
+ * ブログ記事のタイトルから動的に Open Graph 画像（1200×630px PNG）を生成する。
+ * Satori でタイトルテキストを SVG にレンダリングし、Sharp で PNG に変換する。
+ *
+ * フォント: Noto Sans JP（Bold 700）を CDN から取得しメモリにキャッシュする。
+ * デザイン: Acecore ブランドカラーのグラデーション背景にタイトルを白文字で表示する。
+ */
 import satori from 'satori'
 import sharp from 'sharp'
 
+/** Noto Sans JP Bold フォントの CDN URL */
 const FONT_URL =
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf'
+/** フォントデータのメモリキャッシュ（ビルド中に 1 度だけフェッチ） */
 let fontCache: ArrayBuffer | null = null
 
+/** フォントデータをフェッチしキャッシュに保存する */
 async function loadFont(): Promise<ArrayBuffer> {
   if (fontCache) return fontCache
   const res = await fetch(FONT_URL)
@@ -12,6 +24,10 @@ async function loadFont(): Promise<ArrayBuffer> {
   return fontCache
 }
 
+/**
+ * Satori がレンダリングできない特殊 Unicode 文字を安全な代替文字に置換する。
+ * ダッシュ類（—, –, ―）やスマートクォート（'' ""）が対象。
+ */
 function sanitizeForFont(text: string): string {
   return text
     .replace(/[\u2015\u2014\u2013]/g, ' - ')
@@ -19,6 +35,10 @@ function sanitizeForFont(text: string): string {
     .replace(/[\u201C\u201D]/g, '"')
 }
 
+/**
+ * ブログ記事タイトルから OG 画像（1200×630px PNG）を生成する。
+ * タイトルが 30 文字を超える場合はフォントサイズを自動で縮小する。
+ */
 export async function generateOgImage(title: string): Promise<Buffer> {
   const safeTitle = sanitizeForFont(title)
   const fontData = await loadFont()

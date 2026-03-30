@@ -1,3 +1,21 @@
+/**
+ * Google AdSense ランタイム管理モジュール
+ *
+ * ブログページで AdSense 広告スロットを遅延読み込み・初期化するためのスクリプト。
+ *
+ * 主な処理フロー:
+ *   1. initAdsRuntime() がエントリポイント。ページ内の広告スロットを検出し監視を開始する。
+ *   2. 各広告スロットに対して IntersectionObserver（ビューポート接近検知）と
+ *      ResizeObserver（コンテナサイズ変更検知）を設定する。
+ *   3. スロットが可視領域に近づくと AdSense スクリプトを遅延ロードし、広告リクエストを発行する。
+ *   4. 重複防止: data-ace-ad-pushed / data-ace-ad-observed 属性で二重初期化を防ぐ。
+ *   5. Astro View Transitions に対応し、ページ遷移後も自動で再初期化する。
+ *
+ * グローバル公開 API（window 経由でアクセス可能）:
+ *   - aceEnsureAdsScript(): AdSense スクリプトのロードを保証する
+ *   - aceInitAdSlots(root): 指定ルート内の広告スロットをまとめて初期化する
+ *   - aceRequestAdSlot(slot): 個別の広告スロットを初期化する
+ */
 declare global {
   interface Window {
     __aceAdsRuntimeInitialized?: boolean
@@ -10,9 +28,16 @@ declare global {
   }
 }
 
+/** AdSense スクリプト要素の識別用 ID */
 const ADS_SCRIPT_ID = 'ace-ads-script'
+/** リトライ可能な AdSense エラーの判定パターン（幅 0 やスロット重複など一時的なエラー） */
 const RETRYABLE_AD_ERROR_PATTERN = /availableWidth=0|No slot size|All ins elements in the DOM with class=adsbygoogle already have ads in them/i
 
+/**
+ * AdSense のメインスクリプトをページに挿入し、ロード完了を Promise で返す。
+ * 既にロード済みの場合はキャッシュされた Promise を返す。
+ * ロード失敗時はキャッシュをクリアして再試行可能にする。
+ */
 function ensureAdsScript() {
   if (window.__aceAdsScriptPromise) {
     return window.__aceAdsScriptPromise
@@ -64,6 +89,11 @@ function ensureAdsScript() {
   return window.__aceAdsScriptPromise
 }
 
+/**
+ * 広告スロットが広告リクエスト可能な状態かどうかを判定する。
+ * - すでに push 済み、または AdSense がステータスを設定済みなら false
+ * - コンテナ幅が最小幅 (160px) 未満、または非表示なら false
+ */
 function canPushAd(slot: HTMLElement) {
   if (slot.dataset.aceAdPushed === '1') return false
   if (slot.getAttribute('data-adsbygoogle-status')) return false
@@ -79,6 +109,11 @@ function canPushAd(slot: HTMLElement) {
   return true
 }
 
+/**
+ * 広告スロットに対して adsbygoogle.push() を実行する。
+ * AdSense スクリプトのロードを待ってから push し、
+ * リトライ可能なエラー（幅 0 等）は静かに無視する。
+ */
 async function pushAdSlot(slot: HTMLElement) {
   if (!canPushAd(slot)) return false
 
@@ -101,6 +136,12 @@ async function pushAdSlot(slot: HTMLElement) {
   }
 }
 
+/**
+ * 広告スロットに IntersectionObserver と ResizeObserver を設定する。
+ * スロットがビューポートに近づいた（rootMargin: 200px）とき、
+ * またはコンテナサイズが変わったときに広告リクエストを試行する。
+ * push 成功後は両 Observer を自動で切断する。
+ */
 function observeAdSlot(slot: HTMLElement) {
   if (slot.dataset.aceAdObserved === '1') return
 
@@ -150,6 +191,7 @@ function observeAdSlot(slot: HTMLElement) {
   void attemptInit()
 }
 
+/** 指定ルート内のすべての広告スロット要素を検出し、Observer を設定する */
 function initAdSlots(root: ParentNode = document) {
   root
     .querySelectorAll<HTMLElement>('[data-ace-ad-slot].adsbygoogle')
@@ -158,6 +200,13 @@ function initAdSlots(root: ParentNode = document) {
     })
 }
 
+/**
+ * AdSense ランタイムを初期化するエントリポイント。
+ * - グローバル API を window に公開する
+ * - 現在のページ内の広告スロットを初期化する
+ * - astro:page-load イベントで View Transitions 後も再初期化する
+ * - 二重初期化防止フラグ付き
+ */
 export function initAdsRuntime() {
   if (window.__aceAdsRuntimeInitialized) {
     return

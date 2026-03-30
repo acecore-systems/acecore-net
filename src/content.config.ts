@@ -1,11 +1,37 @@
+/**
+ * Astro Content Collections 定義
+ *
+ * blog・authors・tags の 3 コレクションを定義し、
+ * Zod スキーマでフロントマターのバリデーションを行う。
+ *
+ * blog コレクション:
+ *   - Markdown 記事（src/content/blog/）を言語別サブフォルダで管理
+ *   - title / description / date / author は必須、その他は任意の拡張フィールド
+ *   - 日付はタイムゾーン付き（JST +09:00）でパースされる
+ *
+ * authors / tags コレクション:
+ *   - JSON ファイル（src/content/authors/, src/content/tags/）で定義
+ *   - i18n フィールドでロケール別の表示名を持つ
+ */
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
 import { glob } from 'astro/loaders'
 
+/** ブログ記事の日付文字列に付与する JST タイムゾーンオフセット */
 const BLOG_TIMEZONE_OFFSET = '+09:00'
+/** 日付のみ (YYYY-MM-DD) にマッチする正規表現 */
 const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+/** 日時 (YYYY-MM-DDTHH:MM or YYYY-MM-DDTHH:MM:SS) にマッチする正規表現 */
 const LOCAL_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/
 
+/**
+ * フロントマターの日付文字列を JST として解釈し Date オブジェクトに変換する。
+ *
+ * - Date オブジェクトが渡された場合はそのままコピーして返す
+ * - "YYYY-MM-DD" → "YYYY-MM-DDT00:00:00+09:00" に正規化
+ * - "YYYY-MM-DDTHH:MM" → "YYYY-MM-DDTHH:MM+09:00" に正規化
+ * - すでにタイムゾーン情報を含む文字列はそのままパース
+ */
 function parseContentDate(value: string | Date): Date {
   if (value instanceof Date) {
     if (Number.isNaN(value.getTime())) {
@@ -29,18 +55,26 @@ function parseContentDate(value: string | Date): Date {
   return date
 }
 
+/** 文字列または Date を受け取り、JST 基準の Date に変換する Zod トランスフォーマー */
 const contentDate = z.union([z.string(), z.date()]).transform(parseContentDate)
 
+/** 著者の多言語フィールド（name / bio / skills を任意で上書き） */
 const localizedAuthorSchema = z.object({
   name: z.string().optional(),
   bio: z.string().optional(),
   skills: z.array(z.string()).optional(),
 })
 
+/** タグの多言語フィールド（name を任意で上書き） */
 const localizedTagSchema = z.object({
   name: z.string().optional(),
 })
 
+/**
+ * ブログ記事コレクション
+ * src/content/blog/ 配下の Markdown ファイルを読み込む。
+ * 言語別サブフォルダ（en/, zh-cn/ 等）で翻訳記事を管理する。
+ */
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
@@ -163,6 +197,11 @@ const blog = defineCollection({
   }),
 })
 
+/**
+ * 著者コレクション
+ * src/content/authors/ 配下の JSON ファイルを読み込む。
+ * i18n フィールドでロケール別の名前・経歴・スキルを持つ。
+ */
 const authors = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/authors' }),
   schema: z.object({
@@ -179,6 +218,11 @@ const authors = defineCollection({
   }),
 })
 
+/**
+ * タグコレクション
+ * src/content/tags/ 配下の JSON ファイルを読み込む。
+ * i18n フィールドでロケール別の表示名を持つ。
+ */
 const tags = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/tags' }),
   schema: z.object({
