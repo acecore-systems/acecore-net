@@ -105,6 +105,25 @@ npm run dev
 > 静的ページの両方を同時に開発できる。
 > Cloudflare Workers のバインディングにアクセスするには `.dev.vars` の設定が必要。
 
+### 5. デプロイ確認
+
+`@astrojs/cloudflare` アダプター採用後は、ビルド成果物が以下の 2 系統に分かれる。
+
+- `dist/client` — Cloudflare Pages がそのまま配信できる静的アセット
+- `dist/server/wrangler.json` — API / SSR を含む Cloudflare Worker のデプロイ設定
+
+そのため、**既存の Cloudflare Pages の Git 連携プレビューだけでは `/api/*` や `/mypage/*` は確認できない**。
+会員機能まで含めて確認する場合は、以下のどちらかが必要：
+
+1. `npm run deploy:worker` による Worker デプロイ
+2. PR / ブランチごとに Worker プレビューを発行する追加フロー
+
+ローカルで Worker 互換の挙動を確認する場合：
+
+```bash
+npm run preview:worker
+```
+
 ## 環境分離ルール
 
 | 環境       | DATABASE_URL の設定場所                                           |
