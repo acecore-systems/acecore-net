@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import cloudflare from '@astrojs/cloudflare'
 import UnoCSS from '@unocss/astro'
 import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -7,6 +8,10 @@ import rehypeInjectAds from './src/utils/rehype-inject-ads'
 
 export default defineConfig({
   site: 'https://acecore.net',
+  output: 'static',
+  adapter: cloudflare({
+    imageService: 'passthrough',
+  }),
   i18n: {
     defaultLocale: 'ja',
     locales: ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru'],

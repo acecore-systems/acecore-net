@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist/client",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
@@ -14,16 +14,17 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.1.6",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource/noto-sans-jp": "^5.2.9",
     "@neondatabase/serverless": "^1.0.2",
+    "@resvg/resvg-wasm": "^2.6.2",
     "astro": "^6.1.1",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.9",
     "rehype-external-links": "^3.0.0",
-    "satori": "^0.26.0",
-    "sharp": "^0.34.5"
+    "satori": "^0.26.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260329.1",

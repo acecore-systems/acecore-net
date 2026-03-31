@@ -2,13 +2,28 @@
  * OG 画像生成モジュール
  *
  * ブログ記事のタイトルから動的に Open Graph 画像（1200×630px PNG）を生成する。
- * Satori でタイトルテキストを SVG にレンダリングし、Sharp で PNG に変換する。
+ * Satori でタイトルテキストを SVG にレンダリングし、resvg-wasm で PNG に変換する。
  *
  * フォント: Noto Sans JP（Bold 700）を CDN から取得しメモリにキャッシュする。
  * デザイン: Acecore ブランドカラーのグラデーション背景にタイトルを白文字で表示する。
  */
 import satori from 'satori'
-import sharp from 'sharp'
+import { Resvg, initWasm } from '@resvg/resvg-wasm'
+import { readFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
+
+/** WASM 初期化状態 */
+let wasmInitialized = false
+
+/** resvg の WASM モジュールを初期化する（ビルド中に 1 度だけ実行） */
+async function ensureWasmInitialized(): Promise<void> {
+  if (wasmInitialized) return
+  const require = createRequire(import.meta.url)
+  const wasmPath = require.resolve('@resvg/resvg-wasm/index_bg.wasm')
+  const wasmBuffer = await readFile(wasmPath)
+  await initWasm(wasmBuffer)
+  wasmInitialized = true
+}
 
 /** Noto Sans JP Bold フォントの CDN URL */
 const FONT_URL =
@@ -39,7 +54,8 @@ function sanitizeForFont(text: string): string {
  * ブログ記事タイトルから OG 画像（1200×630px PNG）を生成する。
  * タイトルが 30 文字を超える場合はフォントサイズを自動で縮小する。
  */
-export async function generateOgImage(title: string): Promise<Buffer> {
+export async function generateOgImage(title: string): Promise<Uint8Array> {
+  await ensureWasmInitialized()
   const safeTitle = sanitizeForFont(title)
   const fontData = await loadFont()
 
@@ -153,5 +169,8 @@ export async function generateOgImage(title: string): Promise<Buffer> {
     },
   )
 
-  return sharp(Buffer.from(svg)).png().toBuffer()
+  const resvg = new Resvg(svg, {
+    fitTo: { mode: 'width', value: 1200 },
+  })
+  return resvg.render().asPng()
 }

@@ -3,10 +3,26 @@
  * プロフィール編集ページ
  *
  * ログイン済みユーザーが自身のプロフィールを更新できる。
- * 認証チェックは functions/mypage/_middleware.ts で実施。
+ * サーバーサイドでセッションを検証し、未認証ユーザーは /login へリダイレクトする。
  * 現在のプロフィール情報はクライアント側で API から取得する。
  */
+export const prerender = false
+
+import { createDb } from '../../db/client'
+import { validateSession, SESSION_COOKIE } from '../../server/auth'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const token = Astro.cookies.get(SESSION_COOKIE)?.value
+if (!token) {
+  return Astro.redirect('/login')
+}
+
+const { env } = await import('cloudflare:workers')
+const db = createDb((env as any).DATABASE_URL)
+const userId = await validateSession(db, token)
+if (!userId) {
+  return Astro.redirect('/login')
+}
 ---
 
 <BaseLayout title="プロフィール編集" robots="noindex, nofollow">

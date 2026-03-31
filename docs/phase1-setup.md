@@ -8,22 +8,32 @@ Cloudflare Pages 上で動作する。
 
 ## 採用技術
 
-| 役割                   | 技術                                     |
-| ---------------------- | ---------------------------------------- |
-| API フレームワーク     | [Hono](https://hono.dev/)                |
-| データベース           | [Neon](https://neon.tech/)（PostgreSQL） |
-| ORM / マイグレーション | [Drizzle](https://orm.drizzle.team/)     |
-| ホスティング           | Cloudflare Pages                         |
-| 動的処理               | Cloudflare Pages Functions               |
+| 役割                   | 技術                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ |
+| API フレームワーク     | [Hono](https://hono.dev/)                                                                                    |
+| データベース           | [Neon](https://neon.tech/)（PostgreSQL）                                                                     |
+| ORM / マイグレーション | [Drizzle](https://orm.drizzle.team/)                                                                         |
+| ホスティング           | Cloudflare Pages                                                                                             |
+| SSR アダプター         | [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)                     |
+| OG 画像生成            | [Satori](https://github.com/vercel/satori) + [@resvg/resvg-wasm](https://github.com/nicolo-ribaudo/resvg-js) |
 
 ## アーキテクチャ
 
-Astro で静的サイトをビルドし、Cloudflare Pages Functions で API と認証ミドルウェアを提供する構成。
+`@astrojs/cloudflare` アダプターによるハイブリッド構成。
+静的ページ（ブログ・コーポレート）はビルド時にプリレンダリングし、
+動的ページ（API・マイページ）は Cloudflare Workers 上で SSR する。
 
-- **静的ページ**: Astro がビルド時に HTML を生成（既存のコーポレートサイト・ブログ含む）
-- **API**: Hono アプリケーションが `functions/api/[[route]].ts` で動的リクエストを処理
-- **認証ミドルウェア**: `functions/mypage/_middleware.ts` で保護ページへのアクセスを制御
+- **静的ページ**: Astro がビルド時に HTML を生成（`prerender = true`、デフォルト）
+- **API**: Hono アプリケーションを Astro サーバーエンドポイント `src/pages/api/[...route].ts` で委譲
+- **認証保護**: マイページは `prerender = false` で SSR し、フロントマターでセッション検証
 - **データベース**: Neon サーバーレス PostgreSQL に Drizzle ORM で接続
+
+### 設計判断: `@astrojs/cloudflare` アダプター
+
+`sharp`（ネイティブ C++ バインディング）は Cloudflare Workers ランタイムでは動作しないため、
+OG 画像生成を `@resvg/resvg-wasm`（WASM ベース）に移行した。
+これにより `@astrojs/cloudflare` アダプターの制約が解消され、
+Astro ネイティブのルーティング・SSR を活用できる。
 
 ## ディレクトリ構成
 
@@ -44,20 +54,16 @@ src/
       index.ts
     app.ts         # Hono API アプリケーション
   pages/
-    login.astro    # ログインページ（静的 + クライアント JS）
+    api/
+      [...route].ts # Hono API エントリポイント（SSR）
+    login.astro    # ログインページ（プリレンダリング）
     mypage/
-      index.astro  # マイページ（静的シェル + クライアント JS）
-      profile.astro # プロフィール編集
-functions/
-  types.ts         # Cloudflare Pages Functions 型定義
-  api/
-    [[route]].ts   # Hono API エントリポイント
-  mypage/
-    _middleware.ts  # 認証ミドルウェア
+      index.astro  # マイページ（SSR + サーバーサイド認証）
+      profile.astro # プロフィール編集（SSR + サーバーサイド認証）
 drizzle/
   0000_init.sql    # 初期マイグレーション
 drizzle.config.ts  # Drizzle Kit 設定
-wrangler.jsonc     # Cloudflare Pages 設定
+wrangler.jsonc     # Cloudflare Workers 設定
 .dev.vars.example  # ローカル環境変数テンプレート
 ```
 
@@ -95,8 +101,9 @@ DATABASE_URL="..." npm run db:migrate
 npm run dev
 ```
 
-> 注: `npm run dev` は Astro の開発サーバーを起動する。
-> Pages Functions のローカル実行には `npx wrangler pages dev dist` を使用する。
+> `@astrojs/cloudflare` アダプターにより、`npm run dev` で API エンドポイント（SSR）と
+> 静的ページの両方を同時に開発できる。
+> Cloudflare Workers のバインディングにアクセスするには `.dev.vars` の設定が必要。
 
 ## 環境分離ルール
 
@@ -147,11 +154,11 @@ npm run dev
 
 ## 画面一覧
 
-| パス              | 説明                     | 認証                       |
-| ----------------- | ------------------------ | -------------------------- |
-| `/login`          | ログイン・新規登録ページ | 不要                       |
-| `/mypage`         | マイページ               | 必要（ミドルウェアで保護） |
-| `/mypage/profile` | プロフィール編集         | 必要（ミドルウェアで保護） |
+| パス              | 説明                     | レンダリング     | 認証                       |
+| ----------------- | ------------------------ | ---------------- | -------------------------- |
+| `/login`          | ログイン・新規登録ページ | プリレンダリング | 不要                       |
+| `/mypage`         | マイページ               | SSR              | 必要（サーバーサイド検証） |
+| `/mypage/profile` | プロフィール編集         | SSR              | 必要（サーバーサイド検証） |
 
 ## 認証フロー
 
@@ -160,7 +167,7 @@ npm run dev
 3. Hono API がパスワードを PBKDF2 で検証
 4. 成功時にセッショントークンを生成し、DB に保存（SHA-256 ハッシュ済み）
 5. `HttpOnly; SameSite=Lax` のクッキーでトークンを返却
-6. `/mypage` へのアクセス時、`functions/mypage/_middleware.ts` がセッションを検証
+6. `/mypage` へのアクセス時、SSR フロントマターでセッションクッキーを検証
 7. 未認証なら `/login` へ 302 リダイレクト
 8. 認証済みならクライアント JS が `GET /api/me` でユーザー情報を取得して描画
 
