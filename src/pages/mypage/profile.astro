@@ -18,7 +18,7 @@ if (!token) {
 }
 
 const { env } = await import('cloudflare:workers')
-const db = createDb((env as any).DATABASE_URL)
+const db = createDb(env.DATABASE_URL)
 const userId = await validateSession(db, token)
 if (!userId) {
   return Astro.redirect('/login')

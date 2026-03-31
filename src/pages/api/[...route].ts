@@ -11,5 +11,5 @@ import { app } from '../../server/app'
 
 export const ALL: APIRoute = async ({ request }) => {
   const { env } = await import('cloudflare:workers')
-  return app.fetch(request, { DATABASE_URL: (env as any).DATABASE_URL })
+  return app.fetch(request, { DATABASE_URL: env.DATABASE_URL })
 }
