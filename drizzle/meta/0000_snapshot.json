@@ -1,5 +1,5 @@
 {
-  "id": "9bac0945-4310-4b38-8419-d5948d416913",
+  "id": "79b269f3-bc13-4c51-9f02-13f5eba7b6c1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -172,7 +172,23 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "sessions_token_hash_idx": {
+          "name": "sessions_token_hash_idx",
+          "columns": [
+            {
+              "expression": "token_hash",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "sessions_user_id_users_id_fk": {
           "name": "sessions_user_id_users_id_fk",

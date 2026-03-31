@@ -5,9 +5,8 @@
  * Cloudflare Workers のバインディングを Bindings 型で受け取る。
  */
 import { Hono } from 'hono'
-import { createDb } from '../db/client'
+import { createDb, type AppDatabase } from '../db/client'
 import {
-  hashPassword,
   verifyPassword,
   createSession,
   validateSession,
@@ -32,8 +31,17 @@ export const app = new Hono<{ Bindings: Bindings }>().basePath('/api')
  * メールアドレスとパスワードで認証し、セッションクッキーを発行する。
  */
 app.post('/auth/sign-in', async (c) => {
-  const body = await c.req.json<{ email?: string; password?: string }>()
-  const { email, password } = body
+  let body: { email?: string; password?: string } | undefined
+  try {
+    body = await c.req.json<{ email?: string; password?: string }>()
+  } catch {
+    return c.json(
+      { error: 'リクエストボディは有効な JSON である必要があります' },
+      400,
+    )
+  }
+
+  const { email, password } = body ?? {}
 
   if (!email || !password) {
     return c.json({ error: 'email と password は必須です' }, 400)
@@ -58,14 +66,14 @@ app.post('/auth/sign-in', async (c) => {
 
   const token = await createSession(db, user.id)
 
-  const isProduction = new URL(c.req.url).hostname !== 'localhost'
+  const isSecure = new URL(c.req.url).protocol === 'https:'
   const cookie = [
     `${SESSION_COOKIE}=${token}`,
     'Path=/',
     'HttpOnly',
     'SameSite=Lax',
     `Max-Age=${30 * 24 * 60 * 60}`,
-    ...(isProduction ? ['Secure'] : []),
+    ...(isSecure ? ['Secure'] : []),
   ].join('; ')
 
   return c.json({ ok: true }, 200, { 'Set-Cookie': cookie })
@@ -126,12 +134,11 @@ app.get('/auth/session', async (c) => {
  * ログイン中のユーザー情報を返す。
  */
 app.get('/me', async (c) => {
-  const userId = await authenticateRequest(c)
+  const db = createDb(c.env.DATABASE_URL)
+  const userId = await authenticateRequest(c, db)
   if (!userId) {
     return c.json({ error: '認証が必要です' }, 401)
   }
-
-  const db = createDb(c.env.DATABASE_URL)
 
   const userRows = await db
     .select({
@@ -166,30 +173,34 @@ app.get('/me', async (c) => {
  * ログイン中のユーザーのプロフィールを更新する。
  */
 app.patch('/me/profile', async (c) => {
-  const userId = await authenticateRequest(c)
+  const db = createDb(c.env.DATABASE_URL)
+  const userId = await authenticateRequest(c, db)
   if (!userId) {
     return c.json({ error: '認証が必要です' }, 401)
   }
 
-  const body = await c.req.json<{
+  let body: {
     displayName?: string
     avatarUrl?: string
     phone?: string
     bio?: string
-  }>()
-
-  const db = createDb(c.env.DATABASE_URL)
-
-  const existing = await db
-    .select()
-    .from(profiles)
-    .where(eq(profiles.userId, userId))
-    .limit(1)
+  }
+  try {
+    body = await c.req.json<{
+      displayName?: string
+      avatarUrl?: string
+      phone?: string
+      bio?: string
+    }>()
+  } catch {
+    return c.json({ error: 'リクエストボディが不正な JSON です' }, 400)
+  }
 
   const now = new Date()
 
-  if (existing.length === 0) {
-    await db.insert(profiles).values({
+  await db
+    .insert(profiles)
+    .values({
       userId,
       displayName: body.displayName ?? null,
       avatarUrl: body.avatarUrl ?? null,
@@ -198,10 +209,9 @@ app.patch('/me/profile', async (c) => {
       createdAt: now,
       updatedAt: now,
     })
-  } else {
-    await db
-      .update(profiles)
-      .set({
+    .onConflictDoUpdate({
+      target: profiles.userId,
+      set: {
         ...(body.displayName !== undefined && {
           displayName: body.displayName,
         }),
@@ -209,9 +219,8 @@ app.patch('/me/profile', async (c) => {
         ...(body.phone !== undefined && { phone: body.phone }),
         ...(body.bio !== undefined && { bio: body.bio }),
         updatedAt: now,
-      })
-      .where(eq(profiles.userId, userId))
-  }
+      },
+    })
 
   const updated = await db
     .select()
@@ -229,15 +238,14 @@ app.patch('/me/profile', async (c) => {
 /**
  * リクエストからセッショントークンを取得し、ユーザー ID を返す
  */
-async function authenticateRequest(c: {
-  req: { header: (name: string) => string | undefined }
-  env: Bindings
-}): Promise<string | null> {
+async function authenticateRequest(
+  c: { req: { header: (name: string) => string | undefined } },
+  db: AppDatabase,
+): Promise<string | null> {
   const cookieHeader = c.req.header('Cookie') ?? ''
   const token = parseCookie(cookieHeader, SESSION_COOKIE)
   if (!token) return null
 
-  const db = createDb(c.env.DATABASE_URL)
   return validateSession(db, token)
 }
 
