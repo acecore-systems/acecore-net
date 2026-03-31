@@ -4,7 +4,9 @@
     "services": "Servicios",
     "about": "Acerca de",
     "blog": "Blog",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "mypage": "Mi página"
   },
   "common": {
     "skipToContent": "Ir al contenido",

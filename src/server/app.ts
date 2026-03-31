@@ -7,6 +7,7 @@
 import { Hono } from 'hono'
 import { createDb, type AppDatabase } from '../db/client'
 import {
+  hashPassword,
   verifyPassword,
   createSession,
   validateSession,
@@ -77,6 +78,68 @@ app.post('/auth/sign-in', async (c) => {
   ].join('; ')
 
   return c.json({ ok: true }, 200, { 'Set-Cookie': cookie })
+})
+
+/**
+ * POST /api/auth/sign-up
+ * 新規ユーザー登録。メールアドレスとパスワードでアカウントを作成し、セッションを発行する。
+ */
+app.post('/auth/sign-up', async (c) => {
+  let body: { email?: string; password?: string } | undefined
+  try {
+    body = await c.req.json<{ email?: string; password?: string }>()
+  } catch {
+    return c.json(
+      { error: 'リクエストボディは有効な JSON である必要があります' },
+      400,
+    )
+  }
+
+  const { email, password } = body ?? {}
+
+  if (!email || !password) {
+    return c.json({ error: 'email と password は必須です' }, 400)
+  }
+
+  if (password.length < 8) {
+    return c.json({ error: 'パスワードは8文字以上で入力してください' }, 400)
+  }
+
+  const db = createDb(c.env.DATABASE_URL)
+
+  const existing = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1)
+
+  if (existing.length > 0) {
+    return c.json({ error: 'このメールアドレスは既に登録されています' }, 409)
+  }
+
+  const id = crypto.randomUUID()
+  const passwordHash = await hashPassword(password)
+
+  await db.insert(users).values({
+    id,
+    email,
+    passwordHash,
+    status: 'active',
+  })
+
+  const token = await createSession(db, id)
+
+  const isSecure = new URL(c.req.url).protocol === 'https:'
+  const cookie = [
+    `${SESSION_COOKIE}=${token}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+    `Max-Age=${30 * 24 * 60 * 60}`,
+    ...(isSecure ? ['Secure'] : []),
+  ].join('; ')
+
+  return c.json({ ok: true }, 201, { 'Set-Cookie': cookie })
 })
 
 /**

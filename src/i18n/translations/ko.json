@@ -4,7 +4,9 @@
     "services": "서비스",
     "about": "회사 소개",
     "blog": "블로그",
-    "contact": "문의하기"
+    "contact": "문의하기",
+    "login": "로그인",
+    "mypage": "마이페이지"
   },
   "common": {
     "skipToContent": "본문으로 건너뛰기",

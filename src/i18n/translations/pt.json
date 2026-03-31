@@ -4,7 +4,9 @@
     "services": "Serviços",
     "about": "Sobre nós",
     "blog": "Blog",
-    "contact": "Contato"
+    "contact": "Contato",
+    "login": "Entrar",
+    "mypage": "Minha página"
   },
   "common": {
     "skipToContent": "Ir para o conteúdo",

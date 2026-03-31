@@ -57,6 +57,15 @@ const currentPath = Astro.url.pathname
           </a>
         ))
       }
+      <a
+        id="auth-link-desktop"
+        href="/login"
+        class="inline-flex items-center gap-1 text-sm font-600 no-underline text-slate-600 hover:text-brand-500 transition-colors py-3 min-w-11 text-center"
+        data-mypage-label={t(locale, 'nav.mypage')}
+      >
+        <Icon name="user" class="text-base" />
+        <span data-auth-label>{t(locale, 'nav.login')}</span>
+      </a>
       <button
         data-search-trigger
         class="p-2 text-slate-500 hover:text-brand-500 transition-colors"
@@ -113,6 +122,15 @@ const currentPath = Astro.url.pathname
           </a>
         ))
       }
+      <a
+        id="auth-link-mobile"
+        href="/login"
+        class="inline-flex items-center gap-2 text-sm font-600 no-underline text-slate-600 py-3 min-h-11"
+        data-mypage-label={t(locale, 'nav.mypage')}
+      >
+        <Icon name="user" class="text-base" />
+        <span data-auth-label>{t(locale, 'nav.login')}</span>
+      </a>
       <div class="border-t border-slate-100 pt-3">
         <LanguageSwitcher locale={locale} path={languageSwitcherPath} />
       </div>
@@ -203,11 +221,41 @@ const currentPath = Astro.url.pathname
       })
   }
 
+  /** セッション状態に応じてログインボタンの表示を切り替える */
+  async function initAuthLinks() {
+    const desktopLink = document.getElementById(
+      'auth-link-desktop',
+    ) as HTMLAnchorElement | null
+    const mobileLink = document.getElementById(
+      'auth-link-mobile',
+    ) as HTMLAnchorElement | null
+    if (!desktopLink && !mobileLink) return
+
+    try {
+      const res = await fetch('/api/auth/session')
+      if (!res.ok) return
+      const data = await res.json()
+      if (data.authenticated) {
+        const mypageLabel = desktopLink?.dataset.mypageLabel || 'マイページ'
+        ;[desktopLink, mobileLink].forEach((link) => {
+          if (!link) return
+          link.href = '/mypage'
+          const span = link.querySelector('[data-auth-label]')
+          if (span) span.textContent = mypageLabel
+        })
+      }
+    } catch {
+      /* セッション確認に失敗した場合はデフォルトのログインリンクを維持 */
+    }
+  }
+
   initHeader()
   initHeaderKeyboard()
   initSearchTriggers()
+  initAuthLinks()
   document.addEventListener('astro:after-swap', () => {
     initHeader()
     initSearchTriggers()
+    initAuthLinks()
   })
 </script>

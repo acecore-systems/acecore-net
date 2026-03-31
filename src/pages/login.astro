@@ -1,8 +1,8 @@
 ---
 /**
- * ログインページ
+ * ログイン・新規登録ページ
  *
- * メールアドレスとパスワードによるサインインフォームを表示する。
+ * メールアドレスとパスワードによるサインイン / サインアップフォームを表示する。
  * 認証済みの場合はクライアント側でマイページへリダイレクトする。
  */
 import BaseLayout from '../layouts/BaseLayout.astro'
@@ -10,54 +10,169 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 <BaseLayout title="ログイン" robots="noindex, nofollow">
   <main class="max-w-md mx-auto px-4 py-16">
-    <h1 class="text-2xl font-bold text-center mb-8">ログイン</h1>
+    <div class="flex border-b border-slate-200 mb-8" role="tablist">
+      <button
+        id="tab-login"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-login"
+        class="flex-1 py-3 text-sm font-600 text-center border-b-2 border-brand-500 text-brand-500 transition-colors"
+      >
+        ログイン
+      </button>
+      <button
+        id="tab-signup"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-signup"
+        class="flex-1 py-3 text-sm font-600 text-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-colors"
+      >
+        新規登録
+      </button>
+    </div>
 
     <div
-      id="login-error"
+      id="auth-error"
       class="hidden bg-red-50 text-red-700 rounded-lg p-4 mb-6 text-sm"
     >
     </div>
 
-    <form id="login-form" class="space-y-6">
-      <div>
-        <label
-          for="email"
-          class="block text-sm font-medium text-slate-700 mb-1"
+    <div
+      id="auth-success"
+      class="hidden bg-green-50 text-green-700 rounded-lg p-4 mb-6 text-sm"
+    >
+    </div>
+
+    <!-- ログインパネル -->
+    <div id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+      <form id="login-form" class="space-y-6">
+        <div>
+          <label
+            for="login-email"
+            class="block text-sm font-medium text-slate-700 mb-1"
+          >
+            メールアドレス
+          </label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            required
+            autocomplete="email"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        </div>
+        <div>
+          <label
+            for="login-password"
+            class="block text-sm font-medium text-slate-700 mb-1"
+          >
+            パスワード
+          </label>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            required
+            autocomplete="current-password"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-brand-500 text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-brand-600 transition-colors"
         >
-          メールアドレス
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          autocomplete="email"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
-        />
-      </div>
-      <div>
-        <label
-          for="password"
-          class="block text-sm font-medium text-slate-700 mb-1"
+          ログイン
+        </button>
+      </form>
+      <p class="mt-6 text-center text-sm text-slate-500">
+        アカウントをお持ちでない方は
+        <button
+          type="button"
+          id="switch-to-signup"
+          class="text-brand-500 hover:text-brand-600 font-medium"
         >
-          パスワード
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          autocomplete="current-password"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
-        />
-      </div>
-      <button
-        type="submit"
-        class="w-full bg-brand-500 text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-brand-600 transition-colors"
-      >
-        ログイン
-      </button>
-    </form>
+          新規登録
+        </button>
+      </p>
+    </div>
+
+    <!-- 新規登録パネル -->
+    <div
+      id="panel-signup"
+      role="tabpanel"
+      aria-labelledby="tab-signup"
+      class="hidden"
+    >
+      <form id="signup-form" class="space-y-6">
+        <div>
+          <label
+            for="signup-email"
+            class="block text-sm font-medium text-slate-700 mb-1"
+          >
+            メールアドレス
+          </label>
+          <input
+            type="email"
+            id="signup-email"
+            name="email"
+            required
+            autocomplete="email"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        </div>
+        <div>
+          <label
+            for="signup-password"
+            class="block text-sm font-medium text-slate-700 mb-1"
+          >
+            パスワード（8文字以上）
+          </label>
+          <input
+            type="password"
+            id="signup-password"
+            name="password"
+            required
+            minlength="8"
+            autocomplete="new-password"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        </div>
+        <div>
+          <label
+            for="signup-password-confirm"
+            class="block text-sm font-medium text-slate-700 mb-1"
+          >
+            パスワード（確認）
+          </label>
+          <input
+            type="password"
+            id="signup-password-confirm"
+            name="password-confirm"
+            required
+            minlength="8"
+            autocomplete="new-password"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-brand-500 text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-brand-600 transition-colors"
+        >
+          新規登録
+        </button>
+      </form>
+      <p class="mt-6 text-center text-sm text-slate-500">
+        すでにアカウントをお持ちの方は
+        <button
+          type="button"
+          id="switch-to-login"
+          class="text-brand-500 hover:text-brand-600 font-medium"
+        >
+          ログイン
+        </button>
+      </p>
+    </div>
   </main>
 </BaseLayout>
 
@@ -78,15 +193,64 @@ import BaseLayout from '../layouts/BaseLayout.astro'
   }
   checkSession()
 
-  const form = document.getElementById('login-form') as HTMLFormElement
-  const errorBox = document.getElementById('login-error') as HTMLDivElement
+  /* タブ切り替え */
+  const tabLogin = document.getElementById('tab-login') as HTMLButtonElement
+  const tabSignup = document.getElementById('tab-signup') as HTMLButtonElement
+  const panelLogin = document.getElementById('panel-login') as HTMLDivElement
+  const panelSignup = document.getElementById('panel-signup') as HTMLDivElement
+  const switchToSignup = document.getElementById(
+    'switch-to-signup',
+  ) as HTMLButtonElement
+  const switchToLogin = document.getElementById(
+    'switch-to-login',
+  ) as HTMLButtonElement
+  const errorBox = document.getElementById('auth-error') as HTMLDivElement
+  const successBox = document.getElementById('auth-success') as HTMLDivElement
 
-  form.addEventListener('submit', async (e) => {
+  function showLogin() {
+    tabLogin.setAttribute('aria-selected', 'true')
+    tabLogin.classList.add('border-brand-500', 'text-brand-500')
+    tabLogin.classList.remove('border-transparent', 'text-slate-500')
+    tabSignup.setAttribute('aria-selected', 'false')
+    tabSignup.classList.remove('border-brand-500', 'text-brand-500')
+    tabSignup.classList.add('border-transparent', 'text-slate-500')
+    panelLogin.classList.remove('hidden')
+    panelSignup.classList.add('hidden')
+    errorBox.classList.add('hidden')
+    successBox.classList.add('hidden')
+  }
+
+  function showSignup() {
+    tabSignup.setAttribute('aria-selected', 'true')
+    tabSignup.classList.add('border-brand-500', 'text-brand-500')
+    tabSignup.classList.remove('border-transparent', 'text-slate-500')
+    tabLogin.setAttribute('aria-selected', 'false')
+    tabLogin.classList.remove('border-brand-500', 'text-brand-500')
+    tabLogin.classList.add('border-transparent', 'text-slate-500')
+    panelSignup.classList.remove('hidden')
+    panelLogin.classList.add('hidden')
+    errorBox.classList.add('hidden')
+    successBox.classList.add('hidden')
+  }
+
+  tabLogin.addEventListener('click', showLogin)
+  tabSignup.addEventListener('click', showSignup)
+  switchToSignup.addEventListener('click', showSignup)
+  switchToLogin.addEventListener('click', showLogin)
+
+  /* ログインフォーム */
+  const loginForm = document.getElementById('login-form') as HTMLFormElement
+
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     errorBox.classList.add('hidden')
+    successBox.classList.add('hidden')
 
-    const email = (form.querySelector('#email') as HTMLInputElement).value
-    const password = (form.querySelector('#password') as HTMLInputElement).value
+    const email = (loginForm.querySelector('#login-email') as HTMLInputElement)
+      .value
+    const password = (
+      loginForm.querySelector('#login-password') as HTMLInputElement
+    ).value
 
     const res = await fetch('/api/auth/sign-in', {
       method: 'POST',
@@ -99,6 +263,51 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     } else {
       const data = await res.json()
       errorBox.textContent = data.error ?? '認証に失敗しました'
+      errorBox.classList.remove('hidden')
+    }
+  })
+
+  /* 新規登録フォーム */
+  const signupForm = document.getElementById('signup-form') as HTMLFormElement
+
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    errorBox.classList.add('hidden')
+    successBox.classList.add('hidden')
+
+    const email = (
+      signupForm.querySelector('#signup-email') as HTMLInputElement
+    ).value
+    const password = (
+      signupForm.querySelector('#signup-password') as HTMLInputElement
+    ).value
+    const confirm = (
+      signupForm.querySelector('#signup-password-confirm') as HTMLInputElement
+    ).value
+
+    if (password !== confirm) {
+      errorBox.textContent = 'パスワードが一致しません'
+      errorBox.classList.remove('hidden')
+      return
+    }
+
+    if (password.length < 8) {
+      errorBox.textContent = 'パスワードは8文字以上で入力してください'
+      errorBox.classList.remove('hidden')
+      return
+    }
+
+    const res = await fetch('/api/auth/sign-up', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+
+    if (res.ok) {
+      window.location.href = '/mypage'
+    } else {
+      const data = await res.json()
+      errorBox.textContent = data.error ?? '登録に失敗しました'
       errorBox.classList.remove('hidden')
     }
   })

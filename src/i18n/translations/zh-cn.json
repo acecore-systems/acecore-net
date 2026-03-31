@@ -4,7 +4,9 @@
     "services": "服务",
     "about": "关于我们",
     "blog": "博客",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "login": "登录",
+    "mypage": "我的页面"
   },
   "common": {
     "skipToContent": "跳至正文",

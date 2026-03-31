@@ -4,7 +4,9 @@
     "services": "Услуги",
     "about": "О нас",
     "blog": "Блог",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "login": "Войти",
+    "mypage": "Мой кабинет"
   },
   "common": {
     "skipToContent": "Перейти к содержанию",

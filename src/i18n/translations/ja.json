@@ -4,7 +4,9 @@
     "services": "サービス",
     "about": "会社概要",
     "blog": "ブログ",
-    "contact": "お問い合わせ"
+    "contact": "お問い合わせ",
+    "login": "ログイン",
+    "mypage": "マイページ"
   },
   "common": {
     "skipToContent": "本文へスキップ",
