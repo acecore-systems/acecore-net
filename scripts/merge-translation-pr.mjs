@@ -67,6 +67,34 @@ async function requestGitHub(path, { method = 'GET', body } = {}) {
   return response.json()
 }
 
+async function requestGitHubGraphQl(query, variables = {}) {
+  const token = process.env.GITHUB_TOKEN
+  if (!token) {
+    throw new Error('GITHUB_TOKEN is required')
+  }
+
+  const response = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'User-Agent': 'acecore-net-translation-pr-merge-bot',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+    body: JSON.stringify({ query, variables }),
+  })
+
+  const result = await response.json()
+  if (!response.ok || result.errors?.length) {
+    throw new Error(
+      `GitHub GraphQL request failed: ${response.status} ${JSON.stringify(result.errors ?? result)}`,
+    )
+  }
+
+  return result.data
+}
+
 function getRepositoryInfo() {
   const repository = process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
   if (!repository) {
@@ -152,6 +180,28 @@ async function mergePullRequest(pr) {
   return true
 }
 
+async function markPullRequestReadyForReview(pr) {
+  if (!pr.draft) return true
+  if (!pr.node_id) {
+    console.warn(`Pull request #${pr.number} has no node_id. Skipping draft conversion.`)
+    return false
+  }
+
+  await requestGitHubGraphQl(
+    `mutation MarkPullRequestReadyForReview($pullRequestId: ID!) {
+      markPullRequestReadyForReview(input: { pullRequestId: $pullRequestId }) {
+        pullRequest {
+          number
+          isDraft
+        }
+      }
+    }`,
+    { pullRequestId: pr.node_id },
+  )
+  console.log(`Marked PR #${pr.number} ready for review before auto-merge.`)
+  return true
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2))
   if (!args.prNumber) {
@@ -170,17 +220,17 @@ async function main() {
     return
   }
 
-  if (pullRequest.draft) {
-    console.log(`Pull request #${pullRequest.number} is still a draft. Skipping merge.`)
-    return
-  }
-
   if (!args.skipBuildCheck) {
     const checkRuns = await getCheckRuns(pullRequest.head.sha)
     if (!hasSuccessfulTranslationBuild(checkRuns)) {
       console.log(`Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`)
       return
     }
+  }
+
+  if (pullRequest.draft) {
+    const markedReady = await markPullRequestReadyForReview(pullRequest)
+    if (!markedReady) return
   }
 
   await mergePullRequest(pullRequest)
