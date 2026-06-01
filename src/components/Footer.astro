@@ -40,6 +40,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </li>
           <li>
             <a
+              href={u('/works/')}
+              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              >{t(locale, 'nav.works')}</a
+            >
+          </li>
+          <li>
+            <a
               href={u('/schools/')}
               class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
               >{t(locale, 'footer.schools')}</a

@@ -2,6 +2,7 @@
   "nav": {
     "home": "Inicio",
     "services": "Servicios",
+    "works": "Proyectos",
     "about": "Acerca de",
     "blog": "Blog",
     "contact": "Contacto"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "Servicios",
+    "works": "Proyectos y portafolio",
     "schools": "Acecore Schools",
     "about": "Acerca de",
     "contact": "Contacto",

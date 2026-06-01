@@ -2,6 +2,7 @@
   "nav": {
     "home": "홈",
     "services": "서비스",
+    "works": "실적",
     "about": "회사 소개",
     "blog": "블로그",
     "contact": "문의하기"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "서비스",
+    "works": "실적 및 포트폴리오",
     "schools": "Acecore Schools",
     "about": "회사 소개",
     "contact": "문의하기",

@@ -2,6 +2,7 @@
   "nav": {
     "home": "Главная",
     "services": "Услуги",
+    "works": "Проекты",
     "about": "О нас",
     "blog": "Блог",
     "contact": "Контакты"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "Услуги",
+    "works": "Проекты и портфолио",
     "schools": "Acecore Schools",
     "about": "О нас",
     "contact": "Контакты",

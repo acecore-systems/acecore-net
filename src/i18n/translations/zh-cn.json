@@ -2,6 +2,7 @@
   "nav": {
     "home": "首页",
     "services": "服务",
+    "works": "案例",
     "about": "关于我们",
     "blog": "博客",
     "contact": "联系我们"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "服务",
+    "works": "案例与作品集",
     "schools": "Acecore Schools",
     "about": "关于我们",
     "contact": "联系我们",

@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { getWorksCopy } from '../data/works'
+import { optimizeImage, generateSrcSet } from '../utils/image'
+import { getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const works = getWorksCopy(locale)
+
+const toneClasses = {
+  brand: 'border-brand-100 bg-brand-50 text-brand-700',
+  emerald: 'border-emerald-100 bg-emerald-50 text-emerald-700',
+  amber: 'border-amber-100 bg-amber-50 text-amber-700',
+  slate: 'border-slate-200 bg-slate-50 text-slate-600',
+} as const
+
+const worksLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: works.title,
+  description: works.description,
+  url: `https://acecore.net${u('/works/')}`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: works.cases.map((workCase, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `https://acecore.net${u(`/works/#case-${workCase.id}`)}`,
+      name: workCase.title,
+      description: workCase.summary,
+    })),
+  },
+}
+---
+
+<BaseLayout
+  title={works.title}
+  description={works.description}
+  jsonLd={worksLd}
+  locale={locale}
+>
+  <Hero
+    title={works.heroTitle}
+    subtitle={works.heroSubtitle}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: works.heroImgAlt,
+      },
+    ]}
+    locale={locale}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb items={[{ label: works.title }]} locale={locale} />
+
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end mb-12"
+      >
+        <div>
+          <p
+            class="text-[11px] font-700 tracking-[0.18em] text-brand-500 uppercase mb-2"
+          >
+            {works.introEyebrow}
+          </p>
+          <h2 class="text-2xl sm:text-3xl ac-heading mb-4">
+            {works.introTitle}
+          </h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed">
+          {works.introBody}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+        {
+          works.stats.map((stat) => (
+            <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div
+                class:list={[
+                  'mb-4 flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
+                  toneClasses[stat.tone],
+                ]}
+              >
+                <Icon name={stat.icon} />
+              </div>
+              <p class="text-2xl font-800 text-slate-900 mb-1">{stat.value}</p>
+              <p class="text-sm font-700 text-slate-800 mb-2">{stat.label}</p>
+              <p class="text-sm leading-relaxed text-slate-600">
+                {stat.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-10">
+        {works.casesHeading}
+      </h2>
+
+      <div class="space-y-10">
+        {
+          works.cases.map((workCase, index) => (
+            <article
+              id={`case-${workCase.id}`}
+              class="ac-card overflow-hidden scroll-mt-24"
+            >
+              <div
+                class:list={[
+                  'grid gap-0 lg:grid-cols-2',
+                  index % 2 === 1 ? 'lg:[&>div:first-child]:order-2' : '',
+                ]}
+              >
+                <div class="relative min-h-64">
+                  <img
+                    src={optimizeImage(workCase.image)}
+                    srcset={generateSrcSet(
+                      optimizeImage(workCase.image),
+                      [360, 640, 900],
+                    )}
+                    sizes="(min-width: 1024px) 32rem, calc(100vw - 2rem)"
+                    alt={workCase.imageAlt}
+                    class="h-full min-h-64 w-full object-cover"
+                    width="900"
+                    height="520"
+                    decoding="async"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
+                <div class="p-6 sm:p-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <span
+                      class:list={[
+                        'inline-flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
+                        toneClasses[workCase.tone],
+                      ]}
+                    >
+                      <Icon name={workCase.icon} />
+                    </span>
+                    <span class="text-sm font-700 text-brand-600">
+                      {workCase.category}
+                    </span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl ac-heading mb-3">
+                    {workCase.title}
+                  </h3>
+                  <p class="text-slate-600 leading-relaxed mb-5">
+                    {workCase.summary}
+                  </p>
+                  <div class="grid gap-4">
+                    <div>
+                      <p class="text-sm font-700 text-slate-900 mb-1">
+                        {works.challengeLabel}
+                      </p>
+                      <p class="text-sm leading-relaxed text-slate-600">
+                        {workCase.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-700 text-slate-900 mb-1">
+                        {works.proposalLabel}
+                      </p>
+                      <p class="text-sm leading-relaxed text-slate-600">
+                        {workCase.proposal}
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-700 text-slate-900 mb-1">
+                        {works.resultLabel}
+                      </p>
+                      <p class="text-sm leading-relaxed text-slate-600">
+                        {workCase.result}
+                      </p>
+                    </div>
+                  </div>
+                  <ul
+                    class="mt-5 flex flex-wrap gap-2 list-none p-0"
+                    role="list"
+                  >
+                    {workCase.tags.map((tag) => (
+                      <li class="rounded-full bg-slate-100 px-3 py-1 text-xs font-600 text-slate-600">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 rounded-xl bg-slate-50 p-6 sm:p-8 text-center">
+        <h2 class="text-xl sm:text-2xl ac-heading mb-3">
+          {works.relatedServicesHeading}
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+          {works.relatedServicesBody}
+        </p>
+        <a href={u('/services/')} class="ac-btn-outline">
+          {works.relatedServicesCta}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ac-section bg-brand-50">
+    <div class="ac-container max-w-3xl text-center">
+      <h2 class="text-2xl sm:text-3xl ac-heading mb-4">
+        {works.contactCtaHeading}
+      </h2>
+      <p class="text-slate-600 leading-relaxed mb-8">
+        {works.contactCtaBody}
+      </p>
+      <a href={u('/contact/')} class="ac-btn-primary">
+        {works.contactCtaButton}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

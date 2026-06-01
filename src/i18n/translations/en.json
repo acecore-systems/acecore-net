@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "services": "Services",
+    "works": "Works",
     "about": "About",
     "blog": "Blog",
     "contact": "Contact"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "Services",
+    "works": "Works & Portfolio",
     "schools": "Acecore Schools",
     "about": "About",
     "contact": "Contact",

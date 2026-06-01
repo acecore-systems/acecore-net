@@ -2,6 +2,7 @@
   "nav": {
     "home": "ホーム",
     "services": "サービス",
+    "works": "実績",
     "about": "会社概要",
     "blog": "ブログ",
     "contact": "お問い合わせ"
@@ -532,6 +533,7 @@
   },
   "pageNames": {
     "services": "サービス",
+    "works": "実績・ポートフォリオ",
     "schools": "Acecore Schools",
     "about": "会社概要",
     "contact": "お問い合わせ",

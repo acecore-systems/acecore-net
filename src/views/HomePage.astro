@@ -3,9 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
+import Icon from '../components/Icon.astro'
 import { getCollection } from 'astro:content'
 import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
 import { SITE } from '../data/site'
+import { getWorksCopy } from '../data/works'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
 import { isBasePost, localizePost, getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
 import { getAllAuthors, findAuthorById, type AuthorData } from '../utils/authors'
@@ -30,6 +32,7 @@ type HeroImage = {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const worksCopy = getWorksCopy(locale)
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
 
 const allPosts = await getCollection('blog')
@@ -133,6 +136,50 @@ const webPageLd = {
     showCTA={true}
     images={homeHeroImages}
   />
+
+  <section class="ac-section bg-slate-900 text-white">
+    <div class="ac-container">
+      <div
+        class="grid gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center"
+      >
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-800 mb-4">
+            {worksCopy.homeHeading}
+          </h2>
+          <p class="text-slate-300 leading-relaxed mb-6">
+            {worksCopy.homeLead}
+          </p>
+          <a
+            href={u('/works/')}
+            class="inline-flex items-center gap-2 rounded-lg border border-white/30 px-5 py-3 min-h-11 text-sm font-700 text-white no-underline hover:bg-white/10 transition-colors"
+          >
+            <Icon name="briefcase-business" class="text-lg" />
+            {worksCopy.homeCta}
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {
+            worksCopy.stats.map((stat) => (
+              <div class="rounded-xl border border-white/10 bg-white/10 p-5">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-white">
+                    <Icon name={stat.icon} class="text-lg" />
+                  </span>
+                  <p class="text-2xl sm:text-3xl font-800 leading-none">
+                    {stat.value}
+                  </p>
+                </div>
+                <h3 class="text-sm font-700 text-white mb-1">{stat.label}</h3>
+                <p class="text-sm leading-relaxed text-slate-300">
+                  {stat.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="ac-section bg-slate-50">
     <div class="ac-container">
