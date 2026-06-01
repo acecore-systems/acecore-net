@@ -15,14 +15,14 @@ processFigure:
     - title: Mettre à jour la source en japonais
       description: Modifiez uniquement l'article en japonais via Pages CMS ou Markdown et poussez-le vers main.
       icon: i-lucide-pencil-line
-    - title: Créer automatiquement des issues de traduction
-      description: GitHub Actions crée des issues avec le chemin source et les langues cibles intégrés.
-      icon: i-lucide-ticket
+    - title: Créer directement une tâche de PR de traduction
+      description: GitHub Actions crée une tâche Copilot avec le chemin source et les langues cibles intégrés.
+      icon: i-lucide-git-branch
     - title: Copilot crée des PRs de traduction
-      description: En recevant l'issue, Copilot génère les fichiers de traduction et ouvre un PR de traduction.
+      description: En recevant la tâche, Copilot génère les fichiers de traduction et ouvre un PR de traduction.
       icon: i-lucide-git-pull-request
-    - title: Compiler, fusionner et fermer l'issue
-      description: Après une compilation réussie, le PR est fusionné automatiquement et l'issue de traduction parente est fermée automatiquement.
+    - title: Compiler et fusionner automatiquement
+      description: Après une compilation réussie, le PR de traduction qui remplit toutes les conditions est fusionné automatiquement.
       icon: i-lucide-check-check
 compareTable:
   title: Flux de travail de traduction manuel vs. automatisé
@@ -32,34 +32,34 @@ compareTable:
       - Quelqu'un crée manuellement des tâches de traduction après la publication d'un article
       - Les responsables sont assignés par langue
       - Les compilations et les décisions de fusion sont gérées par des personnes
-      - Les issues parentes sont souvent oubliées et restent ouvertes
+      - Les tâches en double et le nettoyage des PRs ont tendance à s'accumuler
   after:
     label: Flux de travail de traduction automatisé
     items:
       - Un push vers l'article en japonais déclenche l'ensemble du flux
-      - Assigné automatiquement à Copilot
+      - Une tâche de PR de traduction Copilot est créée directement
       - Les PRs de traduction sont fusionnés automatiquement après une compilation réussie
-      - Les issues parentes sont fermées automatiquement après la fusion
+      - La création en double est évitée grâce à un marqueur dans le corps du PR
 checklist:
   title: Ce dont vous avez besoin avant de commencer
   items:
     - text: Une structure de contenu avec le japonais comme source de traduction
     - text: Une règle de disposition des fichiers de traduction comme src/content/blog/{locale}/{slug}.md
-    - text: GitHub Actions avec permission d'écriture sur les issues
-    - text: Un COPILOT_AGENT_TOKEN capable d'appeler l'API d'assignation de Copilot
+    - text: GitHub Actions avec permission de lecture sur les pull requests
+    - text: Un COPILOT_AGENT_TOKEN capable d'appeler l'API de l'agent de codage Copilot
     - text: Une commande de compilation stable comme npm run build
 faq:
   title: Questions fréquentes
   items:
     - question: En poussant un article en japonais, des articles dans d'autres langues seront-ils créés automatiquement?
-      answer: 'Oui. Le site actuel d''Acecore prend en charge 9 langues — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — donc pousser un article en japonais peut déclencher la création d''issues de traduction pour les 8 langues restantes, l''assignation à Copilot, la création de PRs de traduction, la compilation, la fusion automatique et la fermeture des issues. Même sans fichiers de traduction, chaque URL de langue est servie avec un fallback en japonais, vous pouvez donc publier d''abord et remplacer par de vraies traductions plus tard.'
-    - question: Pourquoi créer d'abord un issue plutôt qu'ouvrir directement un PR?
-      answer: 'Parce que cela permet de fixer le chemin source, la langue cible et les conditions de traduction dans l''issue. Cela facilite considérablement la réexécution, la révision de l''historique et la récupération après des échecs.'
+      answer: 'Oui. Le site actuel d''Acecore prend en charge 9 langues — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — donc pousser un article en japonais peut déclencher la création de tâches de PR de traduction Copilot pour les 8 langues restantes, la création de PRs de traduction, la compilation et la fusion automatique. Même sans fichiers de traduction, chaque URL de langue est servie avec un fallback en japonais, vous pouvez donc publier d''abord et remplacer par de vraies traductions plus tard.'
+    - question: Pourquoi créer une tâche de PR directement sans passer par un issue?
+      answer: 'Comme le résultat du travail de traduction est un PR, fixer le chemin source, la langue cible et les conditions de traduction directement dans l''énoncé du problème de la tâche Copilot et le marqueur du corps du PR rend le flux plus court. En recherchant les PRs ouverts avec le marqueur, vous pouvez également éviter la création en double pour le même chemin source.'
     - question: La fusion automatique n'est-elle pas risquée?
       answer: 'La fusion automatique inconditionnelle est risquée. En la limitant uniquement aux PRs de traduction — en exigeant que Copilot ait créé le PR, que le titre commence par [translation], que la compilation ait réussi et que ce ne soit pas un brouillon — vous pouvez la maintenir de manière assez sûre.'
 ---
 
-Pour aller droit au but : avec ce site, publier un seul article en japonais dans Pages CMS est suffisant pour avoir éventuellement cet article disponible en japonais plus 8 autres langues. GitHub Actions et GitHub Copilot s'occupent de la création des issues de traduction, de la création des PRs de traduction, de la compilation, de la fusion automatique et de la fermeture de l'issue parente.
+Pour aller droit au but : avec ce site, publier un seul article en japonais dans Pages CMS est suffisant pour avoir éventuellement cet article disponible en japonais plus 8 autres langues. GitHub Actions et GitHub Copilot s'occupent de la création des tâches de PR de traduction, de la création des PRs de traduction, de la compilation et de la fusion automatique.
 
 L'opérateur n'a besoin de gérer que les articles en japonais et les informations sur les auteurs au quotidien. Comme il n'est plus nécessaire de soumettre manuellement des tâches de traduction ou de trier les PRs à chaque fois, cela réduit considérablement la charge de gestion d'un blog multilingue.
 
@@ -130,21 +130,21 @@ La clé est de **garder le slug du fichier de traduction aligné avec le slug de
 
 Dans ce repo, même lorsque les fichiers de traduction n'existent pas encore, l'URL de chaque langue est toujours générée en utilisant un fallback en japonais. Cela signifie que vous pouvez opérer en mode "publier d'abord l'article en japonais, et laisser les PRs de traduction rattraper leur retard ensuite".
 
-## Étape 2. Convertir les pushs d'articles en japonais en issues de traduction
+## Étape 2. Convertir les pushs d'articles en japonais en tâches de PR de traduction
 
-La prochaine étape est d'utiliser GitHub Actions pour détecter les changements dans les articles en japonais et créer automatiquement des issues de traduction.
+La prochaine étape est d'utiliser GitHub Actions pour détecter les changements dans les articles en japonais et créer directement des tâches de PR de traduction Copilot.
 
 Les exigences minimales sont :
 
 - Surveiller les pushs vers `main`
-- Créer des issues automatiquement uniquement pour `src/content/blog/*.md`
-- Créer des issues uniquement lorsque le corps de l'article change, pas seulement le frontmatter
-- Si un issue ouvert avec le même chemin source existe, le mettre à jour plutôt que d'en créer un nouveau
-- Intégrer le chemin source comme marqueur dans le corps de l'issue
+- Créer des tâches automatiquement uniquement pour `src/content/blog/*.md`
+- Créer des tâches uniquement lorsque le corps de l'article change, pas seulement le frontmatter
+- Si un PR ouvert avec le même marqueur de chemin source existe, ne pas créer de tâche en double
+- Intégrer le chemin source comme marqueur dans le corps du PR de traduction
 
-Les informations sur les auteurs et les définitions des étiquettes sont des cibles de traduction, mais ne pas créer d'issues automatiquement lors des pushs normaux. Les exécuter uniquement via `workflow_dispatch` lorsque c'est explicitement nécessaire évite que des issues inutiles ne s'accumulent.
+Les informations sur les auteurs et les définitions des étiquettes sont des cibles de traduction, mais ne pas créer de tâches automatiquement lors des pushs normaux. Les exécuter uniquement via `workflow_dispatch` lorsque c'est explicitement nécessaire évite que des tâches inutiles ne s'accumulent.
 
-Par exemple, inclure des commentaires comme celui-ci dans le corps de l'issue le rend réutilisable dans l'automatisation en aval.
+Par exemple, inclure des commentaires comme celui-ci dans le corps du PR de traduction le rend réutilisable dans l'automatisation en aval.
 
 ```md
 <!-- translation-source:src/content/blog/my-post.md -->
@@ -162,29 +162,24 @@ on:
       - src/content/blog/*.md
 ```
 
-De plus, en comparant uniquement le corps Markdown pour décider quand créer des issues de traduction, vous pouvez éviter de générer accidentellement une avalanche d'issues à partir de petits ajustements comme la mise à jour d'une date de publication ou d'une étiquette.
+De plus, en comparant uniquement le corps Markdown pour décider quand créer des tâches de traduction, vous pouvez éviter de générer accidentellement une avalanche de tâches à partir de petits ajustements comme la mise à jour d'une date de publication ou d'une étiquette.
 
-L'important ici n'est pas de "créer des traductions directement", mais de **créer d'abord un issue**. En insérant un issue, le chemin source, la langue cible et les conditions de traduction sont fixés sous une forme visible à la fois pour les humains et l'IA.
+## Étape 3. Créer des tâches de PR via l'API de l'agent de codage Copilot
 
-## Étape 3. Assigner automatiquement les issues de traduction à Copilot
-
-Simplement créer l'issue laisse encore du travail manuel, c'est donc ici que vous assignez automatiquement Copilot.
+La tâche est créée directement en utilisant l'API de l'agent de codage Copilot — pas via la création d'issue.
 
 Il y a 2 choses à faire.
 
 1. Ajouter `COPILOT_AGENT_TOKEN` comme secret du référentiel
-2. Appeler l'API d'assignation après la création de l'issue
+2. Appeler l'API de tâche de job après avoir détecté un changement
 
-Conceptuellement, vous patcher l'issue pour définir Copilot comme cessionnaire.
+Conceptuellement, vous appelez le point de terminaison de création de tâche avec les paramètres appropriés.
 
 ```json
 {
-  "assignees": ["copilot-swe-agent[bot]"],
-  "agent_assignment": {
-    "target_repo": "OWNER/REPO",
-    "base_branch": "main",
-    "custom_instructions": "Translate the Japanese source article..."
-  }
+  "title": "[translation] Translate my-post.md",
+  "problem_statement": "Translate the Japanese source article...",
+  "event_type": "copilot_task"
 }
 ```
 
@@ -218,22 +213,21 @@ Lors de l'ajout de la fusion automatique, voici les conditions minimales recomma
 
 Avec ces 4 conditions en place, vous pouvez largement éviter l'accident d'attraper des PRs de développement normal dans le filet de fusion automatique.
 
-## Étape 5. Fermer automatiquement l'issue de traduction parente après la fusion
+## Étape 5. Éviter les doublons avec les marqueurs de corps de PR
 
-La dernière pièce qui maintient les opérations propres est la fermeture automatique de l'issue parente après une fusion.
+La dernière pièce qui maintient les opérations propres est la prévention des doublons avant de créer une tâche de traduction.
 
-L'approche est simple : pour les PRs de traduction fusionnés, faites ce qui suit.
+L'approche est simple : avant de créer une tâche de PR de traduction, faites ce qui suit.
 
-1. Obtenir les fichiers modifiés du PR
-2. Lire également le chemin source depuis le corps du PR
-3. Rechercher les issues ouvertes correspondant au marqueur `translation-source:`
-4. Ajouter un commentaire et fermer
+1. Rechercher les PRs ouverts qui contiennent le marqueur `translation-source:` dans leur corps
+2. Si un PR correspondant existe, ignorer et ne pas créer de tâche en double
+3. Sinon, procéder à la création de la tâche de PR de traduction
 
-La raison de regarder également le chemin source dans le corps du PR est que se fier uniquement aux fichiers modifiés des PRs créés par Copilot peut parfois rendre la recherche inverse de la source peu fiable. **Utiliser à la fois les fichiers modifiés et le corps du PR** maintient la stabilité.
+La raison de rechercher le marqueur dans le corps du PR est que se fier uniquement au titre peut parfois rendre la déduplication peu fiable. **Utiliser un marqueur unique dans le corps du PR** maintient la stabilité et garantit qu'une seule tâche de traduction est créée par article.
 
 ## Notes
 
-### Orienter la langue des PRs et issues de Copilot vers le japonais
+### Orienter la langue des PRs Copilot vers le japonais
 
 Si vous voulez stabiliser la langue de sortie de Copilot du côté de GitHub, utiliser des instructions au niveau du référentiel est l'approche la plus directe.
 
@@ -246,7 +240,7 @@ This repository is an Astro static site for Acecore, deployed on Cloudflare Page
 - For multilingual content work, treat Japanese source files as canonical and keep translated frontmatter aligned with the Japanese source.
 ```
 
-Avec juste ce fichier en place, la langue par défaut et le contexte lorsque l'agent de codage Copilot crée des issues et des PRs devient considérablement plus stable.
+Avec juste ce fichier en place, la langue par défaut et le contexte lorsque l'agent de codage Copilot crée des PRs devient considérablement plus stable.
 
 ## Résumé
 
@@ -255,13 +249,13 @@ Le cœur de cette configuration est de transformer la traduction de "quelque cho
 Voici à nouveau le flux.
 
 1. Écrire uniquement l'article en japonais
-2. Un push crée automatiquement des issues de traduction
-3. Assigner automatiquement à Copilot
+2. Un push crée directement une tâche de PR de traduction Copilot
+3. Copilot crée le PR de traduction
 4. Compiler le PR de traduction et le fusionner automatiquement
-5. Fermer automatiquement l'issue parente
+5. Éviter les doublons grâce aux marqueurs dans le corps du PR
 
 Une fois que tout cela est pleinement assemblé, la sensation du côté de l'opérateur est assez naturelle. **Une fois que vous poussez l'article en japonais, les articles dans d'autres langues sont créés un par un du côté de GitHub**.
 
-Bien sûr, en pratique, cela passe par des étapes asynchrones — création d'issues, exécution de Copilot, création de PRs, compilation et fusion — donc tout ne se passe pas "instantanément". Mais l'opérateur n'a plus besoin de soumettre manuellement des tâches de traduction ou d'oublier de fermer des PRs à chaque fois.
+Bien sûr, en pratique, cela passe par des étapes asynchrones — création de tâches de PR, exécution de Copilot, création de PRs, compilation et fusion — donc tout ne se passe pas "instantanément". Mais l'opérateur n'a plus besoin de soumettre manuellement des tâches de traduction ou d'oublier de fermer des PRs à chaque fois.
 
 Cet article lui-même est structuré de sorte que la version en japonais puisse être alimentée dans ce flux comme point de départ. Si vous gérez un site multilingue en continu, commencer avec environ ce niveau d'automatisation est probablement le plus approprié.
