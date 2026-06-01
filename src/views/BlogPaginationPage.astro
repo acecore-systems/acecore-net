@@ -43,26 +43,39 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
 
 <BaseLayout
   title={`${t(locale, 'blog.title')} ${t(locale, 'blog.pageOf', { current: currentPage, total: totalPages })}`}
-  description={t(locale, 'blog.pageDescription', { current: currentPage, total: totalPages })}
+  description={t(locale, 'blog.pageDescription', {
+    current: currentPage,
+    total: totalPages,
+  })}
   robots="noindex, follow"
   jsonLd={itemListLd}
-  prevPage={currentPage === 2 ? u('/blog/') : u(`/blog/page/${currentPage - 1}/`)}
-  nextPage={currentPage < totalPages ? u(`/blog/page/${currentPage + 1}/`) : undefined}
+  prevPage={currentPage === 2
+    ? u('/blog/')
+    : u(`/blog/page/${currentPage - 1}/`)}
+  nextPage={currentPage < totalPages
+    ? u(`/blog/page/${currentPage + 1}/`)
+    : undefined}
   locale={locale}
-  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
+  breadcrumbItems={breadcrumbItems.map((item) => ({
+    name: item.label,
+    item: item.href,
+  }))}
 >
   <section class="ac-section">
     <div class="ac-container">
-      <Breadcrumb
-        items={breadcrumbItems}
-        locale={locale}
-      />
-      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
-        {t(locale, 'blog.title')} <span class="text-base text-slate-400">
-          {t(locale, 'blog.pageOf', { current: currentPage, total: totalPages })}
+      <Breadcrumb items={breadcrumbItems} locale={locale} />
+      <h1 class="mb-8 text-2xl ac-heading sm:text-3xl">
+        {t(locale, 'blog.title')}
+        <span class="text-base text-slate-400">
+          {
+            t(locale, 'blog.pageOf', {
+              current: currentPage,
+              total: totalPages,
+            })
+          }
         </span>
       </h1>
-      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+      <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div>
           <div class="space-y-6">
             {
@@ -73,21 +86,24 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
                       <AdUnit />
                     </div>
                   )}
-                  <BlogPostCard post={localizePost(post, allPosts, locale)} locale={locale} />
+                  <BlogPostCard
+                    post={localizePost(post, allPosts, locale)}
+                    locale={locale}
+                  />
                 </Fragment>
               ))
             }
           </div>
 
           <nav
-            class="mt-10 flex justify-center items-center gap-2"
+            class="mt-10 flex flex-wrap items-center justify-center gap-2"
             aria-label={t(locale, 'blog.pageNav')}
           >
             <a
               href={currentPage === 2
                 ? u('/blog/')
                 : u(`/blog/page/${currentPage - 1}/`)}
-              class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors"
+              class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
             >
               {t(locale, 'blog.prev')}
             </a>
@@ -97,7 +113,7 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
                   <span class="px-2 text-slate-400">…</span>
                 ) : p === currentPage ? (
                   <span
-                    class="px-4 py-2 rounded bg-brand-500 text-white text-sm font-600"
+                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-700 text-white"
                     aria-current="page"
                   >
                     {p}
@@ -105,7 +121,7 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
                 ) : (
                   <a
                     href={p === 1 ? u('/blog/') : u(`/blog/page/${p}/`)}
-                    class="px-4 py-2 rounded border border-slate-300 text-sm text-slate-600 hover:bg-brand-50 hover:border-brand-300 transition-colors"
+                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 px-4 text-sm font-700 text-slate-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
                   >
                     {p}
                   </a>
@@ -116,13 +132,13 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
               currentPage < totalPages ? (
                 <a
                   href={u(`/blog/page/${currentPage + 1}/`)}
-                  class="px-3 py-2 text-sm text-slate-600 hover:text-brand-500 transition-colors"
+                  class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
                 >
                   {t(locale, 'blog.next')}
                 </a>
               ) : (
                 <span
-                  class="px-3 py-2 text-sm text-slate-300"
+                  class="inline-flex min-h-11 items-center px-3 text-sm text-slate-300"
                   aria-disabled="true"
                 >
                   {t(locale, 'blog.next')}

@@ -29,7 +29,7 @@ const { title, items, locale = 'ja' } = Astro.props
       </figcaption>
     )
   }
-  <div class="space-y-0">
+  <div class="space-y-1">
     {
       items.map((item, i) => (
         <div class="flex gap-4">
@@ -43,7 +43,7 @@ const { title, items, locale = 'ja' } = Astro.props
             <p class="text-xs font-600 text-brand-500">{item.date}</p>
             <p class="text-sm font-700 text-slate-800">{item.title}</p>
             {item.description && (
-              <p class="text-[13px] text-slate-500 leading-relaxed mt-0.5">
+              <p class="mt-1 text-sm leading-relaxed text-slate-500">
                 {item.description}
               </p>
             )}

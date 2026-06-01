@@ -23,7 +23,10 @@ const displayTag = getLocalizedTagName(tags, tag, locale)
 const breadcrumbItems = [
   { label: t(locale, 'blog.title'), href: u('/blog/') },
   { label: t(locale, 'blog.tagList'), href: u('/blog/tags/') },
-  { label: t(locale, 'blog.tagPrefix', { tag: displayTag }), href: u(`/blog/tags/${tag}/`) },
+  {
+    label: t(locale, 'blog.tagPrefix', { tag: displayTag }),
+    href: u(`/blog/tags/${tag}/`),
+  },
 ]
 ---
 
@@ -32,7 +35,10 @@ const breadcrumbItems = [
   description={t(locale, 'blog.tagDescription', { tag: displayTag })}
   robots="noindex, follow"
   locale={locale}
-  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
+  breadcrumbItems={breadcrumbItems.map((item) => ({
+    name: item.label,
+    item: item.href,
+  }))}
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -48,21 +54,27 @@ const breadcrumbItems = [
 >
   <section class="ac-section">
     <div class="ac-container">
-      <Breadcrumb
-        items={breadcrumbItems}
-        locale={locale}
-      />
-      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">
+      <Breadcrumb items={breadcrumbItems} locale={locale} />
+      <h1 class="mb-8 text-2xl ac-heading sm:text-3xl">
         {t(locale, 'blog.articlesByTag', { tag: displayTag })}
       </h1>
-      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+      <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
-          {posts.map((post) => <BlogPostCard post={localizePost(post, allPosts, locale)} locale={locale} />)}
+          {
+            posts.map((post) => (
+              <BlogPostCard
+                post={localizePost(post, allPosts, locale)}
+                locale={locale}
+              />
+            ))
+          }
         </div>
         <BlogSidebar allPosts={allPosts} locale={locale} />
       </div>
-      <div class="mt-8 text-center">
-        <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'blog.backToBlog')}</a>
+      <div class="mt-10 text-center">
+        <a href={u('/blog/')} class="ac-btn-outline"
+          >{t(locale, 'blog.backToBlog')}</a
+        >
       </div>
     </div>
   </section>

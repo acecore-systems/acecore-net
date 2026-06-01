@@ -5,12 +5,25 @@ import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Icon from '../components/Icon.astro'
 import { getCollection } from 'astro:content'
-import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
+import {
+  optimizeImage,
+  generateSrcSet,
+  resolveImageSource,
+} from '../utils/image'
 import { SITE } from '../data/site'
 import { getWorksCopy } from '../data/works'
 import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
-import { isBasePost, localizePost, getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
-import { getAllAuthors, findAuthorById, type AuthorData } from '../utils/authors'
+import {
+  isBasePost,
+  localizePost,
+  getBaseSlug,
+  getLocalizedAuthor,
+} from '../utils/blog-i18n'
+import {
+  getAllAuthors,
+  findAuthorById,
+  type AuthorData,
+} from '../utils/authors'
 
 interface Props {
   locale: Locale
@@ -157,12 +170,12 @@ const webPageLd = {
             {worksCopy.homeCta}
           </a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {
             worksCopy.stats.map((stat) => (
-              <div class="rounded-xl border border-white/10 bg-white/10 p-5">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-white">
+              <div class="rounded-lg border border-white/10 bg-white/10 p-6">
+                <div class="mb-4 flex items-center gap-3">
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
                     <Icon name={stat.icon} class="text-lg" />
                   </span>
                   <p class="text-2xl sm:text-3xl font-800 leading-none">
@@ -183,13 +196,15 @@ const webPageLd = {
 
   <section class="ac-section bg-slate-50">
     <div class="ac-container">
-      <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-4">
-        {t(locale, 'pages.home.servicesHeading')}
-      </h2>
-      <p class="ac-muted text-center max-w-2xl mx-auto mb-12">
-        {t(locale, 'pages.home.servicesLead')}
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="ac-section-intro">
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.home.servicesHeading')}
+        </h2>
+        <p class="ac-muted">
+          {t(locale, 'pages.home.servicesLead')}
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <ServiceCard
           icon="code-2"
           title={t(locale, 'pages.home.serviceSystem')}
@@ -233,8 +248,10 @@ const webPageLd = {
           locale={locale}
         />
       </div>
-      <div class="text-center mt-10">
-        <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.home.viewServicesDetail')}</a>
+      <div class="mt-10 text-center">
+        <a href={u('/services/')} class="ac-btn-outline"
+          >{t(locale, 'pages.home.viewServicesDetail')}</a
+        >
       </div>
     </div>
   </section>
@@ -253,21 +270,28 @@ const webPageLd = {
 
   <section class="ac-section">
     <div class="ac-container">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl sm:text-3xl ac-heading mb-6">{t(locale, 'pages.home.aboutHeading')}</h2>
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="mb-6 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.home.aboutHeading')}
+        </h2>
         <p class="text-lg text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.home.aboutBody1')}
         </p>
-        <p class="text-lg text-slate-600 leading-relaxed mb-8" set:html={
-          t(locale, 'pages.home.aboutBody2', {
-            link: `<a href="${u('/schools/')}" class="ac-link">${t(locale, 'pages.home.aboutEducationLink')}</a>`
-          })
-        } />
+        <p
+          class="text-lg text-slate-600 leading-relaxed mb-8"
+          set:html={t(locale, 'pages.home.aboutBody2', {
+            link: `<a href="${u('/schools/')}" class="ac-link">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
+          })}
+        />
         <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+          class="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
         >
-          <a href={u('/about/')} class="ac-btn-primary">{t(locale, 'pages.home.viewAbout')}</a>
-          <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.home.viewServices')}</a>
+          <a href={u('/about/')} class="ac-btn-primary"
+            >{t(locale, 'pages.home.viewAbout')}</a
+          >
+          <a href={u('/services/')} class="ac-btn-outline"
+            >{t(locale, 'pages.home.viewServices')}</a
+          >
         </div>
       </div>
     </div>
@@ -277,22 +301,26 @@ const webPageLd = {
     posts.length > 0 && (
       <section class="ac-section bg-slate-50">
         <div class="ac-container">
-          <h2 class="text-2xl sm:text-3xl ac-heading text-center mb-12">
-            {t(locale, 'pages.home.latestBlog')}
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="ac-section-intro">
+            <h2 class="text-2xl ac-heading sm:text-3xl">
+              {t(locale, 'pages.home.latestBlog')}
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             {posts.map((post) => {
               const postImage = resolveImageSource(
                 post.data.uploadedImage,
                 post.data.image,
               )
               const rawAuthor = findAuthorById(authors, post.data.author)
-              const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
+              const author = rawAuthor
+                ? getLocalizedAuthor(rawAuthor, locale)
+                : null
 
               return (
                 <a
                   href={u(`/blog/${getBaseSlug(post.id)}/`)}
-                  class="ac-card overflow-hidden no-underline hover:shadow-md transition-shadow group"
+                  class="ac-card group overflow-hidden no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                 >
                   {postImage && (
                     <img
@@ -300,7 +328,7 @@ const webPageLd = {
                       srcset={generateSrcSet(postImage, [200, 400, 800])}
                       sizes="(min-width: 768px) calc(33vw - 2rem), calc(100vw - 2rem)"
                       alt={post.data.title}
-                      class="w-full h-40 object-cover"
+                      class="h-44 w-full object-cover"
                       width="400"
                       height="160"
                       decoding="async"
@@ -308,21 +336,18 @@ const webPageLd = {
                     />
                   )}
                   <div class="p-6">
-                    <div class="flex items-center gap-2 text-xs text-slate-600">
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-600">
                       <time datetime={post.data.date.toISOString()}>
                         {formatDate(post.data.date, locale)}
                       </time>
                       {post.data.author && (
-                        <span>
-                          by{' '}
-                          {author?.name || post.data.author}
-                        </span>
+                        <span>by {author?.name || post.data.author}</span>
                       )}
                     </div>
-                    <h3 class="text-lg font-700 text-slate-900 mt-2 mb-3 group-hover:text-brand-500 transition-colors">
+                    <h3 class="mt-3 mb-3 text-lg font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600">
                       {post.data.title}
                     </h3>
-                    <p class="text-sm text-slate-600 line-clamp-3">
+                    <p class="line-clamp-3 text-sm leading-relaxed text-slate-600">
                       {post.data.description}
                     </p>
                   </div>
@@ -330,7 +355,7 @@ const webPageLd = {
               )
             })}
           </div>
-          <div class="text-center mt-10">
+          <div class="mt-10 text-center">
             <a href={u('/blog/')} class="ac-btn-outline">
               {t(locale, 'pages.home.viewAllPosts')}
             </a>

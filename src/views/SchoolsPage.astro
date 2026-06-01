@@ -141,7 +141,10 @@ const schoolsLd = {
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <Breadcrumb items={[{ label: t(locale, 'pages.schools.title') }]} locale={locale} />
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.schools.title') }]}
+        locale={locale}
+      />
       <div class="mb-12">
         <ProcessFigure
           variant="card"
@@ -160,13 +163,17 @@ const schoolsLd = {
       <div class="mb-16" id="juku">
         <div class="flex items-center gap-3 mb-4">
           <Icon name="book-open" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.juku.title')}</h2>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.juku.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.schools.juku.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.juku.featuresLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.schools.juku.featuresLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -208,26 +215,34 @@ const schoolsLd = {
       <div class="mb-16" id="robot-programming">
         <div class="flex items-center gap-3 mb-4">
           <Icon name="bot" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.robotProgramming.title')}</h2>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.robotProgramming.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.schools.robotProgramming.desc')}
         </p>
         <div class="space-y-4">
-          <div class="bg-slate-50 rounded-lg p-6">
-            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.robotCourseTitle')}</h3>
+          <div class="ac-surface bg-slate-50 p-6">
+            <h3 class="font-600 text-slate-900 mb-2">
+              {t(locale, 'pages.schools.robotProgramming.robotCourseTitle')}
+            </h3>
             <p class="text-sm text-slate-600">
               {t(locale, 'pages.schools.robotProgramming.robotCourseDesc')}
             </p>
           </div>
-          <div class="bg-slate-50 rounded-lg p-6">
-            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.robotProgCourseTitle')}</h3>
+          <div class="ac-surface bg-slate-50 p-6">
+            <h3 class="font-600 text-slate-900 mb-2">
+              {t(locale, 'pages.schools.robotProgramming.robotProgCourseTitle')}
+            </h3>
             <p class="text-sm text-slate-600">
               {t(locale, 'pages.schools.robotProgramming.robotProgCourseDesc')}
             </p>
           </div>
-          <div class="bg-slate-50 rounded-lg p-6">
-            <h3 class="font-600 text-slate-900 mb-2">{t(locale, 'pages.schools.robotProgramming.minecraftCourseTitle')}</h3>
+          <div class="ac-surface bg-slate-50 p-6">
+            <h3 class="font-600 text-slate-900 mb-2">
+              {t(locale, 'pages.schools.robotProgramming.minecraftCourseTitle')}
+            </h3>
             <p class="text-sm text-slate-600">
               {t(locale, 'pages.schools.robotProgramming.minecraftCourseDesc')}
             </p>
@@ -267,13 +282,17 @@ const schoolsLd = {
       <div class="mb-16" id="practical-programming">
         <div class="flex items-center gap-3 mb-4">
           <Icon name="code-2" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.practicalProgramming.title')}</h2>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.practicalProgramming.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.schools.practicalProgramming.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.practicalProgramming.contentsLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.schools.practicalProgramming.contentsLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -299,13 +318,17 @@ const schoolsLd = {
       <div class="mb-16" id="pc-smartphone">
         <div class="flex items-center gap-3 mb-4">
           <Icon name="monitor-smartphone" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.pcSmartphone.title')}</h2>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.pcSmartphone.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.schools.pcSmartphone.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.pcSmartphone.levelsLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.schools.pcSmartphone.levelsLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -351,13 +374,17 @@ const schoolsLd = {
       <div class="mb-16" id="ged">
         <div class="flex items-center gap-3 mb-4">
           <Icon name="file-badge" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.schools.ged.title')}</h2>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.ged.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.schools.ged.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.schools.ged.supportLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.schools.ged.supportLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -376,8 +403,10 @@ const schoolsLd = {
       </div>
 
       <!-- CTA -->
-      <div class="bg-brand-50 rounded-xl p-8 text-center">
-        <h2 class="text-xl ac-heading mb-4">{t(locale, 'pages.schools.ctaHeading')}</h2>
+      <div class="ac-surface bg-brand-50 p-8 text-center">
+        <h2 class="text-xl ac-heading mb-4">
+          {t(locale, 'pages.schools.ctaHeading')}
+        </h2>
         <p class="text-slate-600 mb-6">
           {t(locale, 'pages.schools.ctaBody')}
         </p>
@@ -399,14 +428,18 @@ const schoolsLd = {
         <div
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.schools.ctaForm')}</a>
+          <a href={u('/contact/')} class="ac-btn-primary"
+            >{t(locale, 'pages.schools.ctaForm')}</a
+          >
           <a
             href={SITE.line}
             target="_blank"
             rel="noopener noreferrer"
             class="ac-btn-outline"
           >
-            {t(locale, 'pages.schools.ctaLine')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            {t(locale, 'pages.schools.ctaLine')}<span class="sr-only"
+              >{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
         </div>
       </div>

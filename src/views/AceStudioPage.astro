@@ -128,7 +128,10 @@ const studioAreas = [
       </div>
 
       <div class="mb-12">
-        <Icon name="clapperboard" class="text-6xl text-brand-500 mx-auto mb-6" />
+        <Icon
+          name="clapperboard"
+          class="text-6xl text-brand-500 mx-auto mb-6"
+        />
         <h2 class="text-2xl ac-heading mb-6">
           {t(locale, 'pages.acestudio.comingSoonHeading')}
         </h2>
@@ -154,7 +157,7 @@ const studioAreas = [
         <Faq title={t(locale, 'pages.acestudio.faqTitle')} items={faqItems} />
       </div>
 
-      <div class="bg-slate-50 rounded-xl p-8 mb-12">
+      <div class="ac-surface mb-12 bg-slate-50 p-8">
         <h3 class="font-700 text-lg text-slate-900 mb-4">
           {t(locale, 'pages.acestudio.newsHeading')}
         </h3>
@@ -170,7 +173,9 @@ const studioAreas = [
             rel="noopener noreferrer"
             class="ac-btn-outline"
           >
-            {t(locale, 'pages.acestudio.followX')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            {t(locale, 'pages.acestudio.followX')}<span class="sr-only"
+              >{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
           <a href={u('/blog/')} class="ac-btn-outline">
             {t(locale, 'pages.acestudio.viewBlog')}
@@ -182,7 +187,9 @@ const studioAreas = [
         <p class="text-slate-600 mb-4">
           {t(locale, 'pages.acestudio.inquiryText')}
         </p>
-        <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.acestudio.inquiryButton')}</a>
+        <a href={u('/contact/')} class="ac-btn-primary"
+          >{t(locale, 'pages.acestudio.inquiryButton')}</a
+        >
       </div>
     </div>
   </section>

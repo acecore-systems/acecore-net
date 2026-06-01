@@ -2,8 +2,19 @@
 import Icon from './Icon.astro'
 import type { CollectionEntry } from 'astro:content'
 import AdUnit from './AdUnit.astro'
-import { t, formatDate, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
-import { isBasePost, localizePost, getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
+import {
+  t,
+  formatDate,
+  getLocaleFromUrl,
+  getLocalizedUrl,
+  type Locale,
+} from '../i18n'
+import {
+  isBasePost,
+  localizePost,
+  getBaseSlug,
+  getLocalizedAuthor,
+} from '../utils/blog-i18n'
 import { getAllAuthors, type AuthorData } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
@@ -56,26 +67,32 @@ for (const post of allPosts) {
   }
 }
 
-const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, locale))
+const latestPosts = allPosts
+  .slice(0, 5)
+  .map((p) => localizePost(p, rawPosts, locale))
 ---
 
 <aside class="hidden lg:block" aria-label={t(locale, 'blog.sidebar')}>
   <div class="sticky top-20 space-y-6">
     <div class="ac-card p-5">
-      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+      <h3 class="mb-4 flex items-center gap-2 text-sm font-700 text-slate-900">
         <Icon name="tags" class="text-brand-500" />
-        <a href={getLocalizedUrl('/blog/tags/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
+        <a
+          href={getLocalizedUrl('/blog/tags/', locale)}
+          class="text-inherit no-underline hover:text-brand-600 transition-colors"
+        >
           {t(locale, 'blog.tags')}
         </a>
       </h3>
-      <div class="flex flex-wrap gap-1.5">
+      <div class="flex flex-wrap gap-2">
         {
           sortedTags.map(([tag, count]) => (
             <a
               href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
-              class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors no-underline"
+              class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
             >
-              {getLocalizedTagName(tags, tag, locale)} <span class="text-brand-400">({count})</span>
+              {getLocalizedTagName(tags, tag, locale)}{' '}
+              <span class="text-brand-400">({count})</span>
             </a>
           ))
         }
@@ -83,24 +100,32 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
     </div>
 
     <div class="ac-card p-5">
-      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+      <h3 class="mb-4 flex items-center gap-2 text-sm font-700 text-slate-900">
         <Icon name="calendar" class="text-brand-500" />
-        <a href={getLocalizedUrl('/blog/archive/', locale)} class="text-inherit no-underline hover:text-brand-600 transition-colors">
+        <a
+          href={getLocalizedUrl('/blog/archive/', locale)}
+          class="text-inherit no-underline hover:text-brand-600 transition-colors"
+        >
           {t(locale, 'blog.archive')}
         </a>
       </h3>
-      <ul class="space-y-0.5 text-sm list-none p-0 m-0" role="list">
+      <ul class="m-0 list-none space-y-1 p-0 text-sm" role="list">
         {
           sortedArchive.map(([key, { count, year, month }]) => (
             <li>
               <a
                 href={getLocalizedUrl(`/blog/archive/${key}/`, locale)}
-                class="flex items-center justify-between py-1 text-slate-600 hover:text-brand-500 transition-colors no-underline"
+                class="flex min-h-10 items-center justify-between gap-3 rounded-md px-2 -mx-2 text-slate-600 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
               >
                 <span>
-                  {t(locale, 'blog.yearMonth', { year: String(year), month: String(month) })}
+                  {t(locale, 'blog.yearMonth', {
+                    year: String(year),
+                    month: String(month),
+                  })}
                 </span>
-                <span class="text-xs text-slate-500">{t(locale, 'blog.nArticles', { count: String(count) })}</span>
+                <span class="text-xs text-slate-500">
+                  {t(locale, 'blog.nArticles', { count: String(count) })}
+                </span>
               </a>
             </li>
           ))
@@ -109,7 +134,7 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
     </div>
 
     <div class="ac-card p-5">
-      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+      <h3 class="mb-4 flex items-center gap-2 text-sm font-700 text-slate-900">
         <Icon name="users" class="text-brand-500" />
         {t(locale, 'blog.authors')}
       </h3>
@@ -122,11 +147,13 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
               count > 0 && (
                 <a
                   href={getLocalizedUrl(`/blog/authors/${author.id}/`, locale)}
-                  class="flex items-center gap-3 no-underline hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors"
+                  class="flex min-h-12 items-center gap-3 rounded-lg p-2 -m-2 no-underline transition-colors hover:bg-slate-50"
                 >
                   {localizedAuthor.avatarImage || localizedAuthor.avatar ? (
                     <img
-                      src={localizedAuthor.avatarImage || localizedAuthor.avatar}
+                      src={
+                        localizedAuthor.avatarImage || localizedAuthor.avatar
+                      }
                       alt={localizedAuthor.name}
                       class="w-8 h-8 rounded-full object-cover shrink-0"
                       width="32"
@@ -139,8 +166,12 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
                     </div>
                   )}
                   <div>
-                    <p class="text-sm font-600 text-slate-800">{localizedAuthor.name}</p>
-                    <p class="text-xs text-slate-500">{t(locale, 'blog.postsCount', { count: String(count) })}</p>
+                    <p class="text-sm font-600 text-slate-800">
+                      {localizedAuthor.name}
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      {t(locale, 'blog.postsCount', { count: String(count) })}
+                    </p>
                   </div>
                 </a>
               )
@@ -151,17 +182,17 @@ const latestPosts = allPosts.slice(0, 5).map(p => localizePost(p, rawPosts, loca
     </div>
 
     <div class="ac-card p-5">
-      <h3 class="font-700 text-sm text-slate-900 mb-3 flex items-center gap-2">
+      <h3 class="mb-4 flex items-center gap-2 text-sm font-700 text-slate-900">
         <Icon name="newspaper" class="text-brand-500" />
         {t(locale, 'blog.latestPosts')}
       </h3>
-      <ul class="space-y-3 list-none p-0 m-0" role="list">
+      <ul class="m-0 list-none space-y-3 p-0" role="list">
         {
           latestPosts.map((post) => (
             <li>
               <a
                 href={getLocalizedUrl(`/blog/${getBaseSlug(post.id)}/`, locale)}
-                class="text-sm text-slate-700 hover:text-brand-500 transition-colors no-underline line-clamp-2"
+                class="block rounded-md px-2 py-2 -mx-2 text-sm leading-snug text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
               >
                 {post.data.title}
               </a>

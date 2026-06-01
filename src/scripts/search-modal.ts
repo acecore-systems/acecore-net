@@ -60,9 +60,10 @@ function ensurePagefindOverrideStyle() {
   style.textContent = `
     .pagefind-ui__search-input {
       border-radius: 0.5rem !important;
-      border-color: #e2e8f0 !important;
-      font-size: 0.95rem !important;
-      padding: 0.625rem 1rem 0.625rem 2.5rem !important;
+      border-color: #cbd5e1 !important;
+      font-size: 1rem !important;
+      min-height: 3rem !important;
+      padding: 0.75rem 1rem 0.75rem 2.75rem !important;
     }
     .pagefind-ui__search-input:focus {
       border-color: #7fa4cf !important;
@@ -76,9 +77,11 @@ function ensurePagefindOverrideStyle() {
     .pagefind-ui__result-excerpt {
       font-size: 0.875rem !important;
       color: #64748b !important;
+      line-height: 1.65 !important;
     }
     .pagefind-ui__result {
-      padding: 0.75rem 0 !important;
+      border-top: 1px solid #e2e8f0 !important;
+      padding: 1rem 0 !important;
     }
     #search-container .pagefind-ui {
       --pagefind-ui-primary: #264b7d;
@@ -179,27 +182,33 @@ function waitForSearchInput(dialog: HTMLDialogElement) {
     observer.observe(dialog, { childList: true, subtree: true })
     window.setTimeout(() => {
       observer.disconnect()
-      resolve(dialog.querySelector<HTMLInputElement>('.pagefind-ui__search-input'))
+      resolve(
+        dialog.querySelector<HTMLInputElement>('.pagefind-ui__search-input'),
+      )
     }, 3000)
   })
 }
 
 /** 検索 UI 読み込み中のローディングメッセージを表示する */
 function showSearchLoading(container: HTMLElement) {
-  const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
+  const dialog = document.getElementById(
+    'search-dialog',
+  ) as HTMLDialogElement | null
   const loadingText = dialog?.dataset.tLoading ?? 'Loading search...'
-  container.innerHTML = `<p class="px-1 py-4 text-sm text-slate-600">${loadingText}</p>`
+  container.innerHTML = `<p class="px-1 py-5 text-sm text-slate-600">${loadingText}</p>`
 }
 
 /** 検索 UI 読み込み失敗時のエラーメッセージとリトライボタンを表示する */
 function showSearchError(container: HTMLElement, retry: () => void) {
-  const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
+  const dialog = document.getElementById(
+    'search-dialog',
+  ) as HTMLDialogElement | null
   const errorText = dialog?.dataset.tError ?? 'Failed to load search.'
   const retryText = dialog?.dataset.tRetry ?? 'Retry'
   container.innerHTML =
-    '<div class="px-1 py-4 space-y-3">' +
+    '<div class="space-y-3 px-1 py-5">' +
     `<p class="text-sm text-red-700">${errorText}</p>` +
-    `<button type="button" class="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-600 text-slate-700 hover:bg-slate-50 transition-colors" data-search-retry>${retryText}</button>` +
+    `<button type="button" class="ac-btn-outline text-sm" data-search-retry>${retryText}</button>` +
     '</div>'
 
   container
@@ -233,7 +242,8 @@ async function ensureSearchUi(
     showFilters: true,
     translations: {
       placeholder: d.tPlaceholder ?? 'Enter keywords…',
-      zero_results: d.tZeroResults ?? 'No articles found matching "[SEARCH_TERM]"',
+      zero_results:
+        d.tZeroResults ?? 'No articles found matching "[SEARCH_TERM]"',
       many_results: d.tManyResults ?? '[COUNT] articles found',
       one_result: d.tOneResult ?? '1 article found',
       filters_label: d.tFilters ?? 'Filters',
@@ -289,15 +299,18 @@ function bindDialogChrome(dialog: HTMLDialogElement) {
 }
 
 /** 検索結果リンクのクリック時に GA4 の search_result_click イベントを送信する */
-function bindResultClickAnalytics(dialog: HTMLDialogElement, container: HTMLElement) {
+function bindResultClickAnalytics(
+  dialog: HTMLDialogElement,
+  container: HTMLElement,
+) {
   if (container.dataset.gaClickBound === 'true') return
 
   container.dataset.gaClickBound = 'true'
   container.addEventListener('click', (event) => {
     const target = event.target as Element | null
-    const resultLink = target?.closest('.pagefind-ui__result-link') as
-      | HTMLAnchorElement
-      | null
+    const resultLink = target?.closest(
+      '.pagefind-ui__result-link',
+    ) as HTMLAnchorElement | null
     if (!resultLink) return
 
     const searchInput = dialog.querySelector<HTMLInputElement>(
@@ -330,17 +343,20 @@ function bindSearchObserver(dialog: HTMLDialogElement, container: HTMLElement) {
     let fallback = document.getElementById('search-fallback')
     const d = dialog.dataset
 
-    if (message?.textContent && !document.querySelector('.pagefind-ui__result')) {
+    if (
+      message?.textContent &&
+      !document.querySelector('.pagefind-ui__result')
+    ) {
       if (!fallback) {
         fallback = document.createElement('div')
         fallback.id = 'search-fallback'
-        fallback.className = 'px-1 py-3 text-sm text-slate-600'
+        fallback.className = 'px-1 py-4 text-sm text-slate-600'
         const blogLink = d.linkBlog ?? '/blog/'
         const servicesLink = d.linkServices ?? '/services/'
         const contactLink = d.linkContact ?? '/contact/'
         fallback.innerHTML =
           `<p class="mb-2">${d.tFallbackHeading ?? 'You may also try:'}</p>` +
-          '<ul class="space-y-1 list-none p-0 m-0">' +
+          '<ul class="m-0 list-none space-y-2 p-0">' +
           `<li><a href="${blogLink}" class="ac-link">${d.tFallbackBlog ?? '→ Browse all articles'}</a></li>` +
           `<li><a href="${servicesLink}" class="ac-link">${d.tFallbackServices ?? '→ View services'}</a></li>` +
           `<li><a href="${contactLink}" class="ac-link">${d.tFallbackContact ?? '→ Contact us'}</a></li>` +
@@ -366,7 +382,9 @@ function bindSearchObserver(dialog: HTMLDialogElement, container: HTMLElement) {
 
 /** 検索ダイアログとコンテナの DOM 要素を取得する。見つからない場合は null を返す */
 function getDialogElements() {
-  const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null
+  const dialog = document.getElementById(
+    'search-dialog',
+  ) as HTMLDialogElement | null
   const container = document.getElementById('search-container')
 
   if (!dialog || !container) {

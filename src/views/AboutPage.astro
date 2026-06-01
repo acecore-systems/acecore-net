@@ -109,7 +109,10 @@ const aboutPageLd = {
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <Breadcrumb items={[{ label: t(locale, 'pages.about.title') }]} locale={locale} />
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.about.title') }]}
+        locale={locale}
+      />
       <div class="mb-12">
         <ProcessFigure
           variant="card"
@@ -121,8 +124,10 @@ const aboutPageLd = {
       </div>
 
       <!-- 理念 -->
-      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.philosophyHeading')}</h2>
-      <div class="bg-brand-50 rounded-xl p-8 mb-12">
+      <h2 class="text-2xl ac-heading mb-6">
+        {t(locale, 'pages.about.philosophyHeading')}
+      </h2>
+      <div class="ac-surface mb-12 bg-brand-50 p-8">
         <p class="text-xl font-600 text-brand-700 text-center">
           {t(locale, 'pages.about.philosophyMotto')}
         </p>
@@ -156,7 +161,10 @@ const aboutPageLd = {
       </div>
 
       <div class="mb-12">
-        <Checklist title={t(locale, 'pages.about.activitiesTitle')} items={activityChecklist} />
+        <Checklist
+          title={t(locale, 'pages.about.activitiesTitle')}
+          items={activityChecklist}
+        />
       </div>
 
       <div class="mb-12">
@@ -180,61 +188,83 @@ const aboutPageLd = {
       </div>
 
       <!-- 活動と取り組み -->
-      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.initiativesHeading')}</h2>
+      <h2 class="text-2xl ac-heading mb-6">
+        {t(locale, 'pages.about.initiativesHeading')}
+      </h2>
       <div class="space-y-6 mb-12">
-        <div class="flex gap-4 items-start">
-          <Icon name="users" class="text-2xl text-brand-500 shrink-0 mt-1" />
+        <div class="flex items-start gap-4">
+          <span class="ac-icon-box"><Icon name="users" class="text-xl" /></span>
           <div>
-            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.communityTitle')}</h3>
+            <h3 class="font-700 text-lg mb-1">
+              {t(locale, 'pages.about.communityTitle')}
+            </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.communityDesc')}
               <a href={u('/blog/')} class="ac-link">{t(locale, 'nav.blog')}</a>
             </p>
           </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <Icon name="git-branch" class="text-2xl text-brand-500 shrink-0 mt-1" />
+        <div class="flex items-start gap-4">
+          <span class="ac-icon-box"
+            ><Icon name="git-branch" class="text-xl" /></span
+          >
           <div>
-            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.ossTitle')}</h3>
+            <h3 class="font-700 text-lg mb-1">
+              {t(locale, 'pages.about.ossTitle')}
+            </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.ossDesc')}
             </p>
           </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <Icon name="map-pin" class="text-2xl text-brand-500 shrink-0 mt-1" />
+        <div class="flex items-start gap-4">
+          <span class="ac-icon-box"
+            ><Icon name="map-pin" class="text-xl" /></span
+          >
           <div>
-            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.regionalTitle')}</h3>
+            <h3 class="font-700 text-lg mb-1">
+              {t(locale, 'pages.about.regionalTitle')}
+            </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.regionalDesc')}
               <a href={u('/schools/')} class="ac-link">Acecore Schools</a>
             </p>
           </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <Icon name="handshake" class="text-2xl text-brand-500 shrink-0 mt-1" />
+        <div class="flex items-start gap-4">
+          <span class="ac-icon-box"
+            ><Icon name="handshake" class="text-xl" /></span
+          >
           <div>
-            <h3 class="font-700 text-lg mb-1">{t(locale, 'pages.about.partnershipTitle')}</h3>
+            <h3 class="font-700 text-lg mb-1">
+              {t(locale, 'pages.about.partnershipTitle')}
+            </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.partnershipDesc')}
-              <a href={u('/services/')} class="ac-link">{t(locale, 'nav.services')}</a>
+              <a href={u('/services/')} class="ac-link"
+                >{t(locale, 'nav.services')}</a
+              >
             </p>
           </div>
         </div>
       </div>
 
       <!-- 関連リンク -->
-      <h2 class="text-2xl ac-heading mb-6">{t(locale, 'pages.about.relatedLinksHeading')}</h2>
+      <h2 class="text-2xl ac-heading mb-6">
+        {t(locale, 'pages.about.relatedLinksHeading')}
+      </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
         <a
           href={SITE.social.aceserver}
           target="_blank"
           rel="noopener noreferrer"
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
           <div class="flex items-center gap-3 mb-2">
             <Icon name="gamepad-2" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkAceserver')}</h3>
+            <h3 class="font-700 text-brand-500">
+              {t(locale, 'pages.about.linkAceserver')}
+            </h3>
           </div>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.about.linkAceserverDesc')}
@@ -245,11 +275,13 @@ const aboutPageLd = {
           href={SITE.social.x}
           target="_blank"
           rel="noopener noreferrer"
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
           <div class="flex items-center gap-3 mb-2">
             <Icon name="at-sign" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkX')}</h3>
+            <h3 class="font-700 text-brand-500">
+              {t(locale, 'pages.about.linkX')}
+            </h3>
           </div>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.about.linkXDesc')}
@@ -260,11 +292,13 @@ const aboutPageLd = {
           href={SITE.social.github}
           target="_blank"
           rel="noopener noreferrer"
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
           <div class="flex items-center gap-3 mb-2">
             <Icon name="github" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkGithub')}</h3>
+            <h3 class="font-700 text-brand-500">
+              {t(locale, 'pages.about.linkGithub')}
+            </h3>
           </div>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.about.linkGithubDesc')}
@@ -275,11 +309,13 @@ const aboutPageLd = {
           href={SITE.social.discord}
           target="_blank"
           rel="noopener noreferrer"
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow"
+          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
           <div class="flex items-center gap-3 mb-2">
             <Icon name="message-circle" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">{t(locale, 'pages.about.linkDiscord')}</h3>
+            <h3 class="font-700 text-brand-500">
+              {t(locale, 'pages.about.linkDiscord')}
+            </h3>
           </div>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.about.linkDiscordDesc')}
@@ -289,7 +325,7 @@ const aboutPageLd = {
       </div>
 
       <!-- CTA -->
-      <div class="text-center bg-slate-50 rounded-xl p-8">
+      <div class="ac-surface bg-slate-50 p-8 text-center">
         <p class="text-lg font-700 text-slate-800 mb-2">
           {t(locale, 'pages.about.ctaHeading')}
         </p>
@@ -299,8 +335,12 @@ const aboutPageLd = {
         <div
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.about.ctaContact')}</a>
-          <a href={u('/services/')} class="ac-btn-outline">{t(locale, 'pages.about.ctaServices')}</a>
+          <a href={u('/contact/')} class="ac-btn-primary"
+            >{t(locale, 'pages.about.ctaContact')}</a
+          >
+          <a href={u('/services/')} class="ac-btn-outline"
+            >{t(locale, 'pages.about.ctaServices')}</a
+          >
         </div>
       </div>
     </div>

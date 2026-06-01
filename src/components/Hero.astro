@@ -31,7 +31,7 @@ const firstSliderImage = sliderImages[0]
 <section
   class:list={[
     'relative text-white overflow-hidden',
-    hasSlider ? 'py-24 sm:py-32 lg:py-40' : 'py-20 sm:py-28 lg:py-36',
+    hasSlider ? 'py-24 sm:py-28 lg:py-32' : 'py-16 sm:py-20 lg:py-28',
     !hasSlider && 'bg-gradient-to-br from-brand-700 via-brand-500 to-brand-400',
   ]}
 >
@@ -45,55 +45,60 @@ const firstSliderImage = sliderImages[0]
         aria-label={t(locale, 'hero.sliderLabel')}
         data-hero-images={JSON.stringify(sliderImages)}
       >
-        {
-          firstSliderImage && (
-            <div
-              class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
-              data-index="0"
-            >
-              <img
-                src={firstSliderImage.src}
-                srcset={firstSliderImage.srcset}
-                sizes={firstSliderImage.sizes}
-                alt={firstSliderImage.alt}
-                class="w-full h-full object-cover"
-                width="1400"
-                height="600"
-                decoding="async"
-                fetchpriority="high"
-                loading="eager"
-              />
-            </div>
-          )
-        }
-        <div class="absolute inset-0 bg-brand-900/60" />
-        <div id="hero-slide-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+        {firstSliderImage && (
+          <div
+            class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
+            data-index="0"
+          >
+            <img
+              src={firstSliderImage.src}
+              srcset={firstSliderImage.srcset}
+              sizes={firstSliderImage.sizes}
+              alt={firstSliderImage.alt}
+              class="w-full h-full object-cover"
+              width="1400"
+              height="600"
+              decoding="async"
+              fetchpriority="high"
+              loading="eager"
+            />
+          </div>
+        )}
+        <div class="absolute inset-0 bg-brand-900/65" />
+        <div
+          id="hero-slide-announce"
+          class="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+        />
       </div>
     )
   }
 
   {
     hasSlider && sliderImages.length > 1 && (
-      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-0 z-20">
+      <div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1">
         {sliderImages.map((_, i) => (
           <button
             class:list={[
-              'hero-dot rounded-full cursor-pointer min-w-11 min-h-11 flex items-center justify-center',
+              'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
               i === 0 ? 'bg-transparent' : 'bg-transparent',
             ]}
             data-index={i}
             aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
             aria-current={i === 0 ? 'true' : undefined}
           >
-            <span class:list={[
-              'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
-              i === 0 ? 'bg-white scale-125' : 'bg-white/50',
-            ]} />
+            <span
+              class:list={[
+                'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
+                i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+              ]}
+            />
           </button>
         ))}
         <button
           id="hero-pause"
-          class="ml-1 rounded-full cursor-pointer min-w-11 min-h-11 flex items-center justify-center bg-transparent text-white/70 hover:text-white transition-colors"
+          class="ac-touch ml-1 rounded-full bg-transparent text-white/70 transition-colors hover:text-white focus-visible:ring-white"
           aria-label={t(locale, 'hero.pauseAutoplay')}
           data-label-pause={t(locale, 'hero.pauseAutoplay')}
           data-label-resume={t(locale, 'hero.resumeAutoplay')}
@@ -109,20 +114,22 @@ const firstSliderImage = sliderImages[0]
     )
   }
 
-  <div class="ac-container text-center relative z-10">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-700 tracking-tight mb-6">
+  <div class="ac-container relative z-10 text-center">
+    <h1
+      class="mx-auto mb-5 max-w-4xl text-3xl font-800 leading-tight sm:text-4xl lg:text-5xl"
+    >
       {title}
     </h1>
     {
       subtitle && (
-        <p class="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto mb-8">
+        <p class="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-white/88 sm:text-xl">
           {subtitle}
         </p>
       )
     }
     {
       showCTA && (
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
           <a
             href={u('/services/')}
             class="ac-btn bg-white text-brand-600 hover:bg-brand-50"
@@ -179,7 +186,9 @@ const firstSliderImage = sliderImages[0]
     }
 
     const existingIndexes = new Set(
-      Array.from(slider.querySelectorAll<HTMLElement>('.hero-slide')).map((slide) => slide.dataset.index),
+      Array.from(slider.querySelectorAll<HTMLElement>('.hero-slide')).map(
+        (slide) => slide.dataset.index,
+      ),
     )
 
     images.slice(1).forEach((image, offset) => {
@@ -187,7 +196,8 @@ const firstSliderImage = sliderImages[0]
       if (existingIndexes.has(index)) return
 
       const slide = document.createElement('div')
-      slide.className = 'hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0'
+      slide.className =
+        'hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0'
       slide.dataset.index = index
 
       const img = document.createElement('img')
@@ -213,12 +223,21 @@ const firstSliderImage = sliderImages[0]
     if (slider.dataset.heroHydrationScheduled === 'true') return
 
     slider.dataset.heroHydrationScheduled = 'true'
-    heroHydrateTimer = setTimeout(() => ensureHeroSlides(slider), HERO_HYDRATE_DELAY)
+    heroHydrateTimer = setTimeout(
+      () => ensureHeroSlides(slider),
+      HERO_HYDRATE_DELAY,
+    )
   }
 
   function initHeroSlider() {
-    if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
-    if (heroHydrateTimer) { clearTimeout(heroHydrateTimer); heroHydrateTimer = null }
+    if (heroTimer) {
+      clearInterval(heroTimer)
+      heroTimer = null
+    }
+    if (heroHydrateTimer) {
+      clearTimeout(heroHydrateTimer)
+      heroHydrateTimer = null
+    }
 
     const slider = document.getElementById('hero-slider')
     if (!(slider instanceof HTMLElement)) return
@@ -229,17 +248,26 @@ const firstSliderImage = sliderImages[0]
 
     scheduleHeroHydration(sliderElement)
 
-    const getSlides = () => sliderElement.querySelectorAll<HTMLDivElement>('.hero-slide')
+    const getSlides = () =>
+      sliderElement.querySelectorAll<HTMLDivElement>('.hero-slide')
     const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
-    const pauseBtn = document.getElementById('hero-pause') as HTMLButtonElement | null
-    const pauseIconPause = document.getElementById('hero-pause-icon-pause') as HTMLElement | null
-    const pauseIconPlay = document.getElementById('hero-pause-icon-play') as HTMLElement | null
+    const pauseBtn = document.getElementById(
+      'hero-pause',
+    ) as HTMLButtonElement | null
+    const pauseIconPause = document.getElementById(
+      'hero-pause-icon-pause',
+    ) as HTMLElement | null
+    const pauseIconPlay = document.getElementById(
+      'hero-pause-icon-play',
+    ) as HTMLElement | null
     const total = images.length
     if (total <= 1) return
 
     let current = 0
     let paused = false
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
 
     const announceEl = document.getElementById('hero-slide-announce')
 
@@ -274,7 +302,10 @@ const firstSliderImage = sliderImages[0]
     }
 
     function stopAutoPlay() {
-      if (heroTimer) { clearInterval(heroTimer); heroTimer = null }
+      if (heroTimer) {
+        clearInterval(heroTimer)
+        heroTimer = null
+      }
     }
 
     function syncPauseIcon(isPaused: boolean) {
@@ -287,7 +318,10 @@ const firstSliderImage = sliderImages[0]
       if (paused) {
         stopAutoPlay()
         syncPauseIcon(true)
-        pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelResume ?? '')
+        pauseBtn?.setAttribute(
+          'aria-label',
+          pauseBtn?.dataset.labelResume ?? '',
+        )
       } else {
         syncPauseIcon(false)
         pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelPause ?? '')
@@ -309,18 +343,26 @@ const firstSliderImage = sliderImages[0]
     // Swipe support
     let startX = 0
     const section = sliderElement.closest('section')!
-    section.addEventListener('touchstart', (e) => {
-      ensureHeroSlides(sliderElement)
-      startX = e.touches[0].clientX
-      stopAutoPlay()
-    }, { passive: true })
-    section.addEventListener('touchend', (e) => {
-      const diff = startX - e.changedTouches[0].clientX
-      if (Math.abs(diff) > SWIPE_THRESHOLD) {
-        goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
-      }
-      startAutoPlay()
-    }, { passive: true })
+    section.addEventListener(
+      'touchstart',
+      (e) => {
+        ensureHeroSlides(sliderElement)
+        startX = e.touches[0].clientX
+        stopAutoPlay()
+      },
+      { passive: true },
+    )
+    section.addEventListener(
+      'touchend',
+      (e) => {
+        const diff = startX - e.changedTouches[0].clientX
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+          goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
+        }
+        startAutoPlay()
+      },
+      { passive: true },
+    )
 
     syncPauseIcon(false)
     startAutoPlay()

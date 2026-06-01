@@ -131,7 +131,10 @@ const serviceLd = {
   />
 
   <div class="ac-container mt-4">
-    <Breadcrumb items={[{ label: t(locale, 'pages.services.title') }]} locale={locale} />
+    <Breadcrumb
+      items={[{ label: t(locale, 'pages.services.title') }]}
+      locale={locale}
+    />
   </div>
 
   <section class="ac-section bg-slate-50">
@@ -148,56 +151,49 @@ const serviceLd = {
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <nav class="mb-12 flex flex-wrap gap-2 justify-center">
-        <a
-          href="#system-development"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+      <nav class="mb-12 flex flex-wrap justify-center gap-2">
+        <a href="#system-development" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navDev')}</a
         >
-        <a
-          href="#server"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#server" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navServer')}</a
         >
-        <a
-          href="#web"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#web" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navWeb')}</a
         >
-        <a
-          href="#design"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#design" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navDesign')}</a
         >
-        <a
-          href="#education"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#education" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navEducation')}</a
         >
-        <a
-          href="#aceserver"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#aceserver" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navAceserver')}</a
         >
-        <a
-          href="#acestudio"
-          class="text-sm px-4 py-2 min-h-11 inline-flex items-center rounded-full border border-slate-200 text-slate-600 hover:border-brand-400 hover:text-brand-600 transition-colors"
+        <a href="#acestudio" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navAcestudio')}</a
         >
       </nav>
 
       <!-- System Development -->
       <div class="mb-16" id="system-development">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="code-2" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.systemDev.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"><Icon name="code-2" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.systemDev.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.systemDev.desc')}
-          <a href={u('/contact/')} class="ac-link">{t(locale, 'pages.services.ctaContact')}</a>
+          <a href={u('/contact/')} class="ac-link"
+            >{t(locale, 'pages.services.ctaContact')}</a
+          >
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.systemDev.examplesLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.systemDev.examplesLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -250,15 +246,20 @@ const serviceLd = {
 
       <!-- Server -->
       <div class="mb-16" id="server">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="server" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.server.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"><Icon name="server" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.server.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.server.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.server.examplesLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.server.examplesLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -291,15 +292,19 @@ const serviceLd = {
 
       <!-- Web -->
       <div class="mb-16" id="web">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="globe" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.web.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"><Icon name="globe" class="text-xl" /></span>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.web.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.web.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.web.examplesLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.web.examplesLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -360,15 +365,21 @@ const serviceLd = {
 
       <!-- Design -->
       <div class="mb-16" id="design">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="palette" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.design.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="palette" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.design.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.design.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.design.examplesLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.design.examplesLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -421,15 +432,21 @@ const serviceLd = {
 
       <!-- Education -->
       <div class="mb-16" id="education">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="graduation-cap" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.education.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="graduation-cap" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.education.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.education.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.education.coursesLabel')}</h3>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.education.coursesLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -475,15 +492,21 @@ const serviceLd = {
 
       <!-- Aceserver -->
       <div class="mb-16" id="aceserver">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="gamepad-2" class="text-3xl text-brand-500" />
-          <h2 class="text-2xl ac-heading">{t(locale, 'pages.services.aceserver.title')}</h2>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="gamepad-2" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.aceserver.title')}
+          </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.aceserver.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6 mb-4">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">{t(locale, 'pages.services.aceserver.featuresLabel')}</h3>
+        <div class="ac-surface mb-4 bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.aceserver.featuresLabel')}
+          </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
             <li class="flex items-center gap-2">
               <Icon name="check" class="text-brand-500 shrink-0" />
@@ -515,7 +538,9 @@ const serviceLd = {
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
             <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.portalLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            {t(locale, 'pages.services.aceserver.portalLink')}<span
+              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
           <a
             href="https://aceserver-wiki.acecore.systems/"
@@ -524,7 +549,9 @@ const serviceLd = {
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
             <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.wikiLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            {t(locale, 'pages.services.aceserver.wikiLink')}<span
+              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
           <a
             href={SITE.social.discord}
@@ -533,7 +560,9 @@ const serviceLd = {
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
             <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.discordLink')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            {t(locale, 'pages.services.aceserver.discordLink')}<span
+              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
         </div>
         <div class="mt-2">
@@ -549,16 +578,20 @@ const serviceLd = {
 
       <!-- AceStudio -->
       <div class="mb-16" id="acestudio">
-        <div class="flex items-center gap-3 mb-4">
-          <Icon name="clapperboard" class="text-3xl text-brand-500" />
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="clapperboard" class="text-xl" /></span
+          >
           <h2 class="text-2xl ac-heading">
-            AceStudio <span class="text-sm font-400 text-slate-500 ml-2">{t(locale, 'pages.services.acestudio.comingSoon')}</span>
+            AceStudio <span class="text-sm font-400 text-slate-500 ml-2"
+              >{t(locale, 'pages.services.acestudio.comingSoon')}</span
+            >
           </h2>
         </div>
         <p class="text-slate-600 leading-relaxed mb-4">
           {t(locale, 'pages.services.acestudio.desc')}
         </p>
-        <div class="bg-slate-50 rounded-lg p-6 mb-4">
+        <div class="ac-surface mb-4 bg-slate-50 p-6">
           <h3 class="font-600 text-sm text-slate-900 mb-3">
             {t(locale, 'pages.services.acestudio.featuresLabel')}
           </h3>
@@ -592,7 +625,7 @@ const serviceLd = {
       </div>
 
       <!-- CTA -->
-      <div class="text-center bg-brand-50 rounded-xl p-8">
+      <div class="ac-surface bg-brand-50 p-8 text-center">
         <p class="text-lg font-700 text-slate-800 mb-2">
           {t(locale, 'pages.services.ctaHeading')}
         </p>
@@ -602,8 +635,12 @@ const serviceLd = {
         <div
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a href={u('/contact/')} class="ac-btn-primary">{t(locale, 'pages.services.ctaContact')}</a>
-          <a href={u('/schools/')} class="ac-btn-outline">{t(locale, 'pages.services.ctaSchools')}</a>
+          <a href={u('/contact/')} class="ac-btn-primary"
+            >{t(locale, 'pages.services.ctaContact')}</a
+          >
+          <a href={u('/schools/')} class="ac-btn-outline"
+            >{t(locale, 'pages.services.ctaSchools')}</a
+          >
         </div>
       </div>
     </div>
@@ -622,8 +659,8 @@ const serviceLd = {
         .filter(Boolean) as HTMLElement[]
       if (!sections.length) return
 
-      const activeClass = 'border-brand-400 text-brand-600 bg-brand-50'
-      const inactiveClass = 'border-slate-200 text-slate-600'
+      const activeClass = 'border-brand-300 text-brand-600 bg-brand-50'
+      const inactiveClass = 'border-slate-200 text-slate-600 bg-white'
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -634,14 +671,14 @@ const serviceLd = {
             if (entry.isIntersecting) {
               links.forEach((l) => {
                 l.className = l.className
-                  .replace(/border-brand-400|text-brand-600|bg-brand-50/g, '')
+                  .replace(/border-brand-300|text-brand-600|bg-brand-50/g, '')
                   .trim()
                 if (!l.className.includes('border-slate-200'))
                   l.className += ' ' + inactiveClass
               })
               link.className =
                 link.className
-                  .replace(/border-slate-200|text-slate-600/g, '')
+                  .replace(/border-slate-200|text-slate-600|bg-white/g, '')
                   .trim() +
                 ' ' +
                 activeClass

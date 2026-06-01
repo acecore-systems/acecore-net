@@ -19,7 +19,7 @@ const isExternal = href?.startsWith('http')
 <Tag
   {...href ? { href } : {}}
   {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
-  class="ac-card p-6 sm:p-8 hover:shadow-md transition-shadow block no-underline group"
+  class="ac-card group block h-full p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
   {...href
     ? {
         'data-ga-event': 'cta_click',
@@ -29,12 +29,18 @@ const isExternal = href?.startsWith('http')
       }
     : {}}
 >
-  <Icon name={icon} class="text-3xl text-brand-500 mb-4" />
+  <span class="ac-icon-box mb-5">
+    <Icon name={icon} class="text-xl" />
+  </span>
   <h3
-    class="text-lg font-700 text-slate-900 mb-3 group-hover:text-brand-500 transition-colors"
+    class="mb-3 text-lg font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600"
   >
     {title}
   </h3>
-  <p class="text-sm text-slate-600 leading-relaxed">{description}</p>
-  {isExternal && <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>}
+  <p class="text-sm leading-relaxed text-slate-600">{description}</p>
+  {
+    isExternal && (
+      <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+    )
+  }
 </Tag>

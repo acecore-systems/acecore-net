@@ -24,7 +24,10 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const authorName = author?.name ?? authorId
 const breadcrumbItems = [
   { label: t(locale, 'blog.title'), href: u('/blog/') },
-  { label: t(locale, 'blog.authorPrefix', { author: authorName }), href: u(`/blog/authors/${authorId}/`) },
+  {
+    label: t(locale, 'blog.authorPrefix', { author: authorName }),
+    href: u(`/blog/authors/${authorId}/`),
+  },
 ]
 ---
 
@@ -33,23 +36,25 @@ const breadcrumbItems = [
   description={t(locale, 'blog.authorDescription', { author: authorName })}
   robots="noindex, follow"
   locale={locale}
-  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
+  breadcrumbItems={breadcrumbItems.map((item) => ({
+    name: item.label,
+    item: item.href,
+  }))}
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
     url: `https://acecore.net${u(`/blog/authors/${authorId}/`)}`,
     ...(author?.bio && { description: author.bio }),
-    ...(author?.avatarImage || author?.avatar ? { image: author.avatarImage || author.avatar } : {}),
+    ...(author?.avatarImage || author?.avatar
+      ? { image: author.avatarImage || author.avatar }
+      : {}),
   }}
 >
   <section class="ac-section">
     <div class="ac-container">
-      <Breadcrumb
-        items={breadcrumbItems}
-        locale={locale}
-      />
-      <div class="flex items-center gap-4 mb-8">
+      <Breadcrumb items={breadcrumbItems} locale={locale} />
+      <div class="mb-10 flex items-center gap-4">
         {
           author && (author.avatarImage || author.avatar) ? (
             <img
@@ -67,7 +72,7 @@ const breadcrumbItems = [
           )
         }
         <div>
-          <h1 class="text-2xl sm:text-3xl ac-heading">
+          <h1 class="text-2xl ac-heading sm:text-3xl">
             {authorName}
           </h1>
           <p class="text-sm text-slate-500 mt-1">
@@ -75,16 +80,23 @@ const breadcrumbItems = [
           </p>
           {
             author?.bio && (
-              <p class="text-sm text-slate-600 mt-2 whitespace-pre-line">
+              <p class="mt-2 text-sm leading-relaxed text-slate-600 whitespace-pre-line">
                 {author.bio}
               </p>
             )
           }
         </div>
       </div>
-      <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-8">
+      <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
-          {posts.map((post) => <BlogPostCard post={localizePost(post, allPosts, locale)} locale={locale} />)}
+          {
+            posts.map((post) => (
+              <BlogPostCard
+                post={localizePost(post, allPosts, locale)}
+                locale={locale}
+              />
+            ))
+          }
         </div>
         <BlogSidebar allPosts={allPosts} locale={locale} />
       </div>

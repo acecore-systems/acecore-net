@@ -12,101 +12,106 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 ---
 
 <footer class="bg-slate-900 text-slate-300">
-  <div class="ac-container py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <div class="ac-container py-14">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
-        <h3 class="font-700 text-white text-lg mb-4">Acecore</h3>
+        <h3 class="mb-3 text-lg font-700 text-white">Acecore</h3>
         <p class="text-sm leading-relaxed">
           {t(locale, 'footer.tagline')}<br />
           {t(locale, 'footer.description')}
         </p>
       </div>
       <div>
-        <h3 class="font-700 text-white text-lg mb-4">{t(locale, 'footer.sitemap')}</h3>
-        <ul class="space-y-0 text-sm list-none p-0 m-0" role="list">
+        <h3 class="mb-3 text-lg font-700 text-white">
+          {t(locale, 'footer.sitemap')}
+        </h3>
+        <ul class="m-0 list-none p-0 text-sm" role="list">
           <li>
             <a
               href={u('/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'nav.home')}</a
             >
           </li>
           <li>
             <a
               href={u('/services/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'nav.services')}</a
             >
           </li>
           <li>
             <a
               href={u('/works/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'nav.works')}</a
             >
           </li>
           <li>
             <a
               href={u('/schools/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'footer.schools')}</a
             >
           </li>
           <li>
             <a
               href={u('/acestudio/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >AceStudio</a
             >
           </li>
           <li>
             <a
               href={u('/about/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'nav.about')}</a
             >
           </li>
           <li>
             <a
               href={u('/blog/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'nav.blog')}</a
             >
           </li>
           <li>
             <a
               href={u('/contact/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               data-ga-event="cta_click"
               data-ga-label="footer_contact"
               data-ga-location="footer"
-              data-ga-destination={u('/contact/')}
-              >{t(locale, 'nav.contact')}</a
+              data-ga-destination={u('/contact/')}>{t(locale, 'nav.contact')}</a
             >
           </li>
           <li>
             <a
               href={u('/privacy/')}
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'footer.privacy')}</a
             >
           </li>
         </ul>
       </div>
       <div>
-        <h3 class="font-700 text-white text-lg mb-4">{t(locale, 'footer.relatedLinks')}</h3>
-        <ul class="space-y-0 text-sm list-none p-0 m-0" role="list">
+        <h3 class="mb-3 text-lg font-700 text-white">
+          {t(locale, 'footer.relatedLinks')}
+        </h3>
+        <ul class="m-0 list-none p-0 text-sm" role="list">
           <li>
             <a
               href={SITE.social.aceserver}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               data-ga-event="external_link_click"
               data-ga-label="footer_aceserver"
               data-ga-location="footer"
               data-ga-destination={SITE.social.aceserver}
-              >Aceserver<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
+              >Aceserver<span class="sr-only"
+                >{t(locale, 'common.opensInNewTab')}</span
+              ></a
             >
           </li>
           <li>
@@ -114,12 +119,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               href={SITE.social.x}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3 min-w-11"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               data-ga-event="external_link_click"
               data-ga-label="footer_x"
               data-ga-location="footer"
               data-ga-destination={SITE.social.x}
-              >X<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
+              >X<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span
+              ></a
             >
           </li>
           <li>
@@ -127,18 +133,20 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               href={SITE.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-slate-300 hover:text-white no-underline transition-colors inline-block py-3"
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               data-ga-event="external_link_click"
               data-ga-label="footer_github"
               data-ga-location="footer"
               data-ga-destination={SITE.social.github}
-              >GitHub<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span></a
+              >GitHub<span class="sr-only"
+                >{t(locale, 'common.opensInNewTab')}</span
+              ></a
             >
           </li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-slate-700 mt-8 pt-8 text-center text-sm">
+    <div class="mt-10 border-t border-slate-700 pt-8 text-center text-sm">
       <p>&copy;{currentYear} Acecore</p>
     </div>
   </div>

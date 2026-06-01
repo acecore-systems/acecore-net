@@ -2,7 +2,11 @@
 import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { render } from 'astro:content'
-import { optimizeImage, generateSrcSet, resolveImageSource } from '../utils/image'
+import {
+  optimizeImage,
+  generateSrcSet,
+  resolveImageSource,
+} from '../utils/image'
 import Callout from '../components/Callout.astro'
 import Timeline from '../components/Timeline.astro'
 import YouTubeEmbed from '../components/YouTubeEmbed.astro'
@@ -21,9 +25,21 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
-import { t, getLocalizedUrl, formatDate, getDateParts, defaultLocale, htmlLangMap, type Locale } from '../i18n'
+import {
+  t,
+  getLocalizedUrl,
+  formatDate,
+  getDateParts,
+  defaultLocale,
+  htmlLangMap,
+  type Locale,
+} from '../i18n'
 import { getCollection } from 'astro:content'
-import { localizePost, isBasePost, getLocalizedAuthor } from '../utils/blog-i18n'
+import {
+  localizePost,
+  isBasePost,
+  getLocalizedAuthor,
+} from '../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
@@ -60,8 +76,18 @@ const currentIndex = basePosts.findIndex((p) => p.id === baseSlug)
 const prevBasePost =
   currentIndex < basePosts.length - 1 ? basePosts[currentIndex + 1] : null
 const nextBasePost = currentIndex > 0 ? basePosts[currentIndex - 1] : null
-const prevPost = prevBasePost ? { id: prevBasePost.id, data: localizePost(prevBasePost, allRawPosts, locale).data } : null
-const nextPost = nextBasePost ? { id: nextBasePost.id, data: localizePost(nextBasePost, allRawPosts, locale).data } : null
+const prevPost = prevBasePost
+  ? {
+      id: prevBasePost.id,
+      data: localizePost(prevBasePost, allRawPosts, locale).data,
+    }
+  : null
+const nextPost = nextBasePost
+  ? {
+      id: nextBasePost.id,
+      data: localizePost(nextBasePost, allRawPosts, locale).data,
+    }
+  : null
 
 const currentTags = post.data.tags ?? []
 const relatedPosts =
@@ -180,8 +206,14 @@ const ctaHeading = isDefaultLocale
   : {
       heading: t(locale, 'blog.blogCtaHeading'),
       body: t(locale, 'blog.blogCtaBody'),
-      primary: { label: t(locale, 'blog.blogCtaServices'), href: u('/services/') },
-      secondary: { label: t(locale, 'blog.blogCtaContact'), href: u('/contact/') },
+      primary: {
+        label: t(locale, 'blog.blogCtaServices'),
+        href: u('/services/'),
+      },
+      secondary: {
+        label: t(locale, 'blog.blogCtaContact'),
+        href: u('/contact/'),
+      },
     }
 ---
 
@@ -196,30 +228,41 @@ const ctaHeading = isDefaultLocale
   tags={post.data.tags}
   author={author?.name}
   locale={locale}
-  preloadImage={postImage ? { src: optimizeImage(postImage), srcset: generateSrcSet(postImage, [400, 800, 1200]), sizes: '(min-width: 768px) 56rem, 100vw' } : undefined}
+  preloadImage={postImage
+    ? {
+        src: optimizeImage(postImage),
+        srcset: generateSrcSet(postImage, [400, 800, 1200]),
+        sizes: '(min-width: 768px) 56rem, 100vw',
+      }
+    : undefined}
 >
   <div class="ac-section">
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-[1fr_260px] lg:gap-8 xl:grid-cols-[200px_1fr_280px]"
+      class="mx-auto max-w-[78rem] px-5 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10 lg:px-8 xl:grid-cols-[220px_minmax(0,48rem)_280px]"
     >
       <aside class="hidden xl:block" aria-label={t(locale, 'blog.toc')}>
         <div class="sticky top-20">
           <TableOfContents headings={tocHeadings} locale={locale} />
         </div>
       </aside>
-      <article class="min-w-0" {...(isDefaultLocale ? { 'data-pagefind-body': true } : {})}>
+      <article
+        class="min-w-0 w-full max-w-3xl"
+        {...isDefaultLocale ? { 'data-pagefind-body': true } : {}}
+      >
         {
           isDefaultLocale && (
             <div class="hidden" aria-hidden="true">
               {author && <span data-pagefind-filter="著者">{author.name}</span>}
-              <span data-pagefind-filter="年">{getDateParts(post.data.date).year}</span>
+              <span data-pagefind-filter="年">
+                {getDateParts(post.data.date).year}
+              </span>
               {post.data.tags?.map((tag: string) => (
                 <span data-pagefind-filter="タグ">{tag}</span>
               ))}
             </div>
           )
         }
-        <div class="mb-8">
+        <div class="mb-9">
           <Breadcrumb
             items={[
               { label: t(locale, 'blog.title'), href: u('/blog/') },
@@ -227,10 +270,12 @@ const ctaHeading = isDefaultLocale
             ]}
             locale={locale}
           />
-          <h1 class="text-3xl sm:text-4xl ac-heading mb-4">
+          <h1 class="mb-5 text-3xl ac-heading sm:text-4xl">
             {post.data.title}
           </h1>
-          <div class="flex items-center gap-3 text-sm text-slate-500">
+          <div
+            class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500"
+          >
             <time datetime={post.data.date.toISOString()}>
               {formatDate(post.data.date, locale)}
             </time>
@@ -246,7 +291,10 @@ const ctaHeading = isDefaultLocale
             }
             {
               author && (
-                <a href={u(`/blog/authors/${post.data.author}/`)} class="ac-link">
+                <a
+                  href={u(`/blog/authors/${post.data.author}/`)}
+                  class="ac-link"
+                >
                   by {author.name}
                 </a>
               )
@@ -254,11 +302,11 @@ const ctaHeading = isDefaultLocale
           </div>
           {
             post.data.tags && (
-              <div class="flex flex-wrap gap-2 mt-4" data-pagefind-ignore>
+              <div class="mt-5 flex flex-wrap gap-2" data-pagefind-ignore>
                 {post.data.tags.map((tag: string) => (
                   <a
                     href={u(`/blog/tags/${tag}/`)}
-                    class="text-xs bg-brand-50 text-brand-600 px-2 py-1 rounded-full hover:bg-brand-100 transition-colors"
+                    class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
                   >
                     {getLocalizedTagName(tagsData, tag, locale)}
                   </a>
@@ -269,17 +317,17 @@ const ctaHeading = isDefaultLocale
         </div>
         {
           tocHeadings.length > 0 && (
-            <details class="lg:hidden mb-8 ac-card p-4" data-pagefind-ignore>
-              <summary class="text-sm font-700 text-slate-700 cursor-pointer flex items-center gap-2">
+            <details class="mb-8 ac-card p-5 lg:hidden" data-pagefind-ignore>
+              <summary class="flex min-h-11 cursor-pointer items-center gap-2 text-sm font-700 text-slate-700">
                 <Icon name="list" class="text-sm" />
                 {t(locale, 'blog.toc')}
               </summary>
-              <ul class="mt-3 space-y-1 text-sm border-l-2 border-slate-200 ml-1">
+              <ul class="ml-1 mt-3 space-y-1 border-l-2 border-slate-200 text-sm">
                 {tocHeadings.map((h) => (
                   <li>
                     <a
                       href={`#${h.slug}`}
-                      class="block py-1 text-slate-500 hover:text-brand-500 transition-colors"
+                      class="block rounded-r-md py-2 text-slate-500 transition-colors hover:bg-brand-50 hover:text-brand-600"
                       style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
                     >
                       {h.text}
@@ -292,7 +340,7 @@ const ctaHeading = isDefaultLocale
         }
         {
           postImage && (
-            <div class="mb-8 rounded-xl overflow-hidden">
+            <div class="mb-9 overflow-hidden rounded-lg">
               <img
                 src={optimizeImage(postImage)}
                 srcset={generateSrcSet(postImage, [400, 800, 1200])}
@@ -313,7 +361,11 @@ const ctaHeading = isDefaultLocale
         <div class="ac-prose max-w-none">
           <Content />
         </div>
-        {post.data.timeline && <Timeline {...post.data.timeline} locale={locale} />}
+        {
+          post.data.timeline && (
+            <Timeline {...post.data.timeline} locale={locale} />
+          )
+        }
         {
           post.data.processFigure && (
             <ProcessFigure {...post.data.processFigure} />
@@ -321,9 +373,17 @@ const ctaHeading = isDefaultLocale
         }
         {post.data.compareTable && <CompareTable {...post.data.compareTable} />}
         {post.data.gallery && <Gallery {...post.data.gallery} />}
-        {post.data.youtube && <YouTubeEmbed {...post.data.youtube} locale={locale} />}
+        {
+          post.data.youtube && (
+            <YouTubeEmbed {...post.data.youtube} locale={locale} />
+          )
+        }
         {post.data.checklist && <Checklist {...post.data.checklist} />}
-        {post.data.testimonials?.map((testimonial) => <Testimonial {...testimonial} />)}
+        {
+          post.data.testimonials?.map((testimonial) => (
+            <Testimonial {...testimonial} />
+          ))
+        }
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
         {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
         {post.data.faq && <Faq {...post.data.faq} />}
@@ -331,7 +391,7 @@ const ctaHeading = isDefaultLocale
           <AdUnit />
         </div>
 
-        <div class="my-8 py-6 border-t border-slate-200">
+        <div class="my-10 border-t border-slate-200 py-6">
           <ShareButtons
             url={`https://acecore.net/blog/${baseSlug}/`}
             title={post.data.title}
@@ -342,7 +402,7 @@ const ctaHeading = isDefaultLocale
         {
           author && (
             <div
-              class="lg:hidden mt-12 pt-8 border-t border-slate-200"
+              class="mt-12 border-t border-slate-200 pt-8 lg:hidden"
               data-pagefind-ignore
             >
               <div class="flex items-start gap-4">
@@ -377,9 +437,7 @@ const ctaHeading = isDefaultLocale
                   {authorSkills.length > 0 && (
                     <div class="flex flex-wrap gap-1 mt-2">
                       {authorSkills.map((skill: string) => (
-                        <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                          {skill}
-                        </span>
+                        <span class="ac-chip bg-slate-50">{skill}</span>
                       ))}
                     </div>
                   )}
@@ -390,7 +448,7 @@ const ctaHeading = isDefaultLocale
                           href={author.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="text-slate-400 hover:text-slate-600 transition-colors"
+                          class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
                           aria-label="GitHub"
                         >
                           <Icon name="github" class="text-lg" />
@@ -401,7 +459,7 @@ const ctaHeading = isDefaultLocale
                           href={author.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="text-slate-400 hover:text-slate-600 transition-colors"
+                          class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
                           aria-label="X"
                         >
                           <Icon name="twitter" class="text-lg" />
@@ -416,21 +474,29 @@ const ctaHeading = isDefaultLocale
         }
 
         <div
-          class="mt-12 pt-8 border-t border-slate-200 bg-brand-50 rounded-xl p-6 sm:p-8 text-center"
+          class="ac-surface mt-12 bg-brand-50 p-6 text-center sm:p-8"
           data-pagefind-ignore
         >
-          <p class="text-lg font-700 text-slate-800 mb-2">
+          <p class="mb-2 text-lg font-700 text-slate-800">
             {ctaHeading.heading}
           </p>
-          <p class="text-sm text-slate-600 mb-4">{ctaHeading.body}</p>
+          <p class="mb-5 text-sm leading-relaxed text-slate-600">
+            {ctaHeading.body}
+          </p>
           <div
-            class="flex flex-col sm:flex-row items-center justify-center gap-3"
+            class="flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
-            <a href={isDefaultLocale ? ctaHeading.primary.href : u(ctaHeading.primary.href)} class="ac-btn-primary"
-              >{ctaHeading.primary.label}</a
+            <a
+              href={isDefaultLocale
+                ? ctaHeading.primary.href
+                : u(ctaHeading.primary.href)}
+              class="ac-btn-primary">{ctaHeading.primary.label}</a
             >
-            <a href={isDefaultLocale ? ctaHeading.secondary.href : u(ctaHeading.secondary.href)} class="ac-btn-outline"
-              >{ctaHeading.secondary.label}</a
+            <a
+              href={isDefaultLocale
+                ? ctaHeading.secondary.href
+                : u(ctaHeading.secondary.href)}
+              class="ac-btn-outline">{ctaHeading.secondary.label}</a
             >
           </div>
         </div>
@@ -438,14 +504,14 @@ const ctaHeading = isDefaultLocale
         {
           relatedPosts.length > 0 && (
             <section
-              class="mt-12 pt-8 border-t border-slate-200"
+              class="mt-12 border-t border-slate-200 pt-8"
               data-pagefind-ignore
             >
-              <h2 class="text-xl font-700 text-slate-800 mb-6 flex items-center gap-2">
+              <h2 class="mb-6 flex items-center gap-2 text-xl font-700 text-slate-800">
                 <Icon name="newspaper" class="text-lg text-brand-500" />
                 {t(locale, 'blog.relatedPosts')}
               </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {relatedPosts.map((rp, i) => {
                   const relatedImage = resolveImageSource(
                     rp.data.uploadedImage,
@@ -461,7 +527,7 @@ const ctaHeading = isDefaultLocale
                       )}
                       <a
                         href={u(`/blog/${rp.id}/`)}
-                        class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-colors transition-shadow"
+                        class="group flex flex-col rounded-lg border border-slate-200 p-4 no-underline transition-all hover:border-brand-300 hover:shadow-sm"
                       >
                         {relatedImage && (
                           <img
@@ -469,7 +535,7 @@ const ctaHeading = isDefaultLocale
                             srcset={generateSrcSet(relatedImage, [200, 400])}
                             sizes="(min-width: 640px) 50vw, 100vw"
                             alt={rp.data.title}
-                            class="w-full h-32 object-cover rounded-md mb-3"
+                            class="mb-3 h-32 w-full rounded-md object-cover"
                             width="400"
                             height="128"
                             loading="lazy"
@@ -483,9 +549,9 @@ const ctaHeading = isDefaultLocale
                           {formatDate(rp.data.date, locale)}
                         </span>
                         {rp.data.tags && (
-                          <div class="flex flex-wrap gap-1 mt-2">
+                          <div class="mt-3 flex flex-wrap gap-2">
                             {rp.data.tags.slice(0, 3).map((tag: string) => (
-                              <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                              <span class="ac-chip bg-slate-50">
                                 {getLocalizedTagName(tagsData, tag, locale)}
                               </span>
                             ))}
@@ -503,16 +569,18 @@ const ctaHeading = isDefaultLocale
         {
           (prevPost || nextPost) && (
             <nav
-              class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4"
+              class="mt-8 grid grid-cols-1 gap-4 border-t border-slate-200 pt-8 sm:grid-cols-2"
               aria-label={t(locale, 'blog.postNavLabel')}
               data-pagefind-ignore
             >
               {prevPost ? (
                 <a
                   href={u(`/blog/${prevPost.id}/`)}
-                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors"
+                  class="group flex flex-col rounded-lg border border-slate-200 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-brand-50"
                 >
-                  <span class="text-xs text-slate-600 mb-1">{t(locale, 'blog.prevPost')}</span>
+                  <span class="text-xs text-slate-600 mb-1">
+                    {t(locale, 'blog.prevPost')}
+                  </span>
                   <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
                     {prevPost.data.title}
                   </span>
@@ -523,9 +591,11 @@ const ctaHeading = isDefaultLocale
               {nextPost && (
                 <a
                   href={u(`/blog/${nextPost.id}/`)}
-                  class="group flex flex-col p-4 rounded-lg border border-slate-200 hover:border-brand-300 transition-colors sm:text-right"
+                  class="group flex flex-col rounded-lg border border-slate-200 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-brand-50 sm:text-right"
                 >
-                  <span class="text-xs text-slate-600 mb-1">{t(locale, 'blog.nextPost')}</span>
+                  <span class="text-xs text-slate-600 mb-1">
+                    {t(locale, 'blog.nextPost')}
+                  </span>
                   <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors">
                     {nextPost.data.title}
                   </span>
@@ -582,9 +652,7 @@ const ctaHeading = isDefaultLocale
                 {authorSkills.length > 0 && (
                   <div class="flex flex-wrap gap-1 mb-3">
                     {authorSkills.map((skill: string) => (
-                      <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                        {skill}
-                      </span>
+                      <span class="ac-chip bg-slate-50">{skill}</span>
                     ))}
                   </div>
                 )}
@@ -595,7 +663,7 @@ const ctaHeading = isDefaultLocale
                         href={author.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-slate-400 hover:text-slate-600 transition-colors"
+                        class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
                         aria-label="GitHub"
                       >
                         <Icon name="github" class="text-base" />
@@ -606,7 +674,7 @@ const ctaHeading = isDefaultLocale
                         href={author.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-slate-400 hover:text-slate-600 transition-colors"
+                        class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
                         aria-label="X"
                       >
                         <Icon name="twitter" class="text-base" />

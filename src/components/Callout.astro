@@ -36,11 +36,11 @@ const s = styles[type] ?? styles.info
 
 <aside
   role="note"
-  class:list={['not-prose my-8 rounded-lg border p-4 flex gap-3', s.bg]}
+  class:list={['not-prose my-8 flex gap-3 rounded-lg border p-5', s.bg]}
 >
   <Icon name={s.icon} class="text-lg mt-0.5 shrink-0" />
   <div>
     {title && <p class:list={['text-sm font-700 mb-1', s.heading]}>{title}</p>}
-    <p class="text-[13px] leading-relaxed text-slate-700">{text}</p>
+    <p class="text-sm leading-relaxed text-slate-700">{text}</p>
   </div>
 </aside>

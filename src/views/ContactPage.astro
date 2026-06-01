@@ -48,10 +48,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
   <section class="ac-section">
     <div class="ac-container max-w-2xl">
-      <Breadcrumb items={[{ label: t(locale, 'pages.contact.title') }]} locale={locale} />
-      <div class="bg-brand-50 rounded-lg p-6 mb-8">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.contact.title') }]}
+        locale={locale}
+      />
+      <div class="ac-surface mb-8 bg-brand-50 p-6">
         <div
-          class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-slate-700"
+          class="flex flex-col items-start gap-4 text-sm text-slate-700 sm:flex-row sm:items-center"
         >
           <div class="flex items-center gap-2">
             <Icon name="clock" class="text-brand-500 shrink-0" />
@@ -64,18 +67,19 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         </div>
       </div>
       <div
-        class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 text-sm"
+        class="mb-10 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:flex-wrap"
       >
         <div class="flex items-center gap-2">
           <Icon name="phone" class="text-brand-500" />
           <a
             href={`tel:${SITE.phone.replace(/-/g, '')}`}
-            class="font-600 text-slate-800 hover:underline"
+            class="ac-chip font-700"
             data-ga-event="contact_phone_click"
             data-ga-label="contact_summary_phone"
             data-ga-location="contact_summary"
             data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-          >{SITE.phone}</a>
+            >{SITE.phone}</a
+          >
         </div>
         <div class="flex items-center gap-2">
           <Icon name="mail" class="text-brand-500" />
@@ -85,7 +89,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             data-ga-label="contact_summary_email"
             data-ga-location="contact_summary"
             data-ga-destination={`mailto:${SITE.email}`}
-            class="font-600 text-brand-500 hover:underline">{SITE.email}</a
+            class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
+            >{SITE.email}</a
           >
         </div>
         <a
@@ -96,10 +101,12 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-label="contact_summary_line"
           data-ga-location="contact_summary"
           data-ga-destination={SITE.line}
-          class="flex items-center gap-2 font-600 text-brand-500 hover:underline"
+          class="ac-chip gap-2 border-brand-100 bg-brand-50 text-brand-600"
         >
           <Icon name="message-circle" class="text-brand-500" />
-          {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only"
+            >{t(locale, 'common.opensInNewTab')}</span
+          >
         </a>
       </div>
       <form
@@ -109,7 +116,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         data-t-sending={t(locale, 'pages.contact.formSending')}
         data-t-success={t(locale, 'pages.contact.formSuccess')}
         data-t-error={t(locale, 'pages.contact.formError')}
-        data-t-validation-category={t(locale, 'pages.contact.validationCategory')}
+        data-t-validation-category={t(
+          locale,
+          'pages.contact.validationCategory',
+        )}
         data-t-validation-name={t(locale, 'pages.contact.validationName')}
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
@@ -119,20 +129,35 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             for="category"
             class="block text-sm font-600 text-slate-700 mb-2"
           >
-            {t(locale, 'pages.contact.formCategoryLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+            {t(locale, 'pages.contact.formCategoryLabel')}
+            <span class="text-red-500" aria-hidden="true">*</span><span
+              class="sr-only">{t(locale, 'common.required')}</span
+            >
           </label>
           <select
             id="category"
             name="お問い合わせ種別"
             required
-            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            class="ac-input"
           >
-            <option value="" disabled selected>{t(locale, 'pages.contact.formCategoryPlaceholder')}</option>
-            <option value="サービスについて">{t(locale, 'pages.contact.formCategoryService')}</option>
-            <option value="お見積り依頼">{t(locale, 'pages.contact.formCategoryEstimate')}</option>
-            <option value="パートナーシップ">{t(locale, 'pages.contact.formCategoryPartnership')}</option>
-            <option value="採用について">{t(locale, 'pages.contact.formCategoryRecruit')}</option>
-            <option value="その他">{t(locale, 'pages.contact.formCategoryOther')}</option>
+            <option value="" disabled selected
+              >{t(locale, 'pages.contact.formCategoryPlaceholder')}</option
+            >
+            <option value="サービスについて"
+              >{t(locale, 'pages.contact.formCategoryService')}</option
+            >
+            <option value="お見積り依頼"
+              >{t(locale, 'pages.contact.formCategoryEstimate')}</option
+            >
+            <option value="パートナーシップ"
+              >{t(locale, 'pages.contact.formCategoryPartnership')}</option
+            >
+            <option value="採用について"
+              >{t(locale, 'pages.contact.formCategoryRecruit')}</option
+            >
+            <option value="その他"
+              >{t(locale, 'pages.contact.formCategoryOther')}</option
+            >
           </select>
           <p
             class="text-xs text-red-600 mt-1 hidden"
@@ -143,7 +168,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         </div>
         <div>
           <label for="name" class="block text-sm font-600 text-slate-700 mb-2">
-            {t(locale, 'pages.contact.formNameLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+            {t(locale, 'pages.contact.formNameLabel')}
+            <span class="text-red-500" aria-hidden="true">*</span><span
+              class="sr-only">{t(locale, 'common.required')}</span
+            >
           </label>
           <input
             type="text"
@@ -151,7 +179,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             name="お名前"
             required
             autocomplete="name"
-            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            class="ac-input"
           />
           <p
             class="text-xs text-red-600 mt-1 hidden"
@@ -162,7 +190,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         </div>
         <div>
           <label for="email" class="block text-sm font-600 text-slate-700 mb-2">
-            {t(locale, 'pages.contact.formEmailLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+            {t(locale, 'pages.contact.formEmailLabel')}
+            <span class="text-red-500" aria-hidden="true">*</span><span
+              class="sr-only">{t(locale, 'common.required')}</span
+            >
           </label>
           <input
             type="email"
@@ -170,7 +201,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             name="メールアドレス"
             required
             autocomplete="email"
-            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            class="ac-input"
           />
           <p
             class="text-xs text-red-600 mt-1 hidden"
@@ -186,27 +217,24 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           >
             {t(locale, 'pages.contact.formSubjectLabel')}
           </label>
-          <input
-            type="text"
-            id="subject"
-            name="件名"
-            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-          />
+          <input type="text" id="subject" name="件名" class="ac-input" />
         </div>
         <div>
           <label
             for="message"
             class="block text-sm font-600 text-slate-700 mb-2"
           >
-            {t(locale, 'pages.contact.formMessageLabel')} <span class="text-red-500" aria-hidden="true">*</span><span class="sr-only">{t(locale, 'common.required')}</span>
+            {t(locale, 'pages.contact.formMessageLabel')}
+            <span class="text-red-500" aria-hidden="true">*</span><span
+              class="sr-only">{t(locale, 'common.required')}</span
+            >
           </label>
           <textarea
             id="message"
             name="お問い合わせ内容"
             rows="6"
             required
-            class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-y"
-          ></textarea>
+            class="ac-input resize-y"></textarea>
           <p
             class="text-xs text-red-600 mt-1 hidden"
             id="message-error"
@@ -244,15 +272,19 @@ const u = (path: string) => getLocalizedUrl(path, locale)
     </div>
   </section>
 
-  <section class="bg-slate-50 py-12">
+  <section class="bg-slate-50 py-14 sm:py-16">
     <div class="ac-container max-w-2xl">
-      <h2 class="text-xl ac-heading mb-6 text-center">
+      <h2 class="mb-8 text-center text-xl ac-heading">
         {t(locale, 'pages.contact.otherMethodsHeading')}
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="ac-card p-6 text-center">
-          <Icon name="phone" class="text-2xl text-brand-500 mx-auto mb-2" />
-          <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodPhone')}</h3>
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="phone" class="text-xl" />
+          </span>
+          <h3 class="font-600 text-slate-900 mb-1">
+            {t(locale, 'pages.contact.methodPhone')}
+          </h3>
           <p class="text-sm text-slate-600 font-600">
             <a
               href={`tel:${SITE.phone.replace(/-/g, '')}`}
@@ -265,8 +297,12 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </p>
         </div>
         <div class="ac-card p-6 text-center">
-          <Icon name="mail" class="text-2xl text-brand-500 mx-auto mb-2" />
-          <h3 class="font-600 text-slate-900 mb-1">{t(locale, 'pages.contact.methodEmail')}</h3>
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="mail" class="text-xl" />
+          </span>
+          <h3 class="font-600 text-slate-900 mb-1">
+            {t(locale, 'pages.contact.methodEmail')}
+          </h3>
           <p class="text-sm text-slate-600">
             <a
               href={`mailto:${SITE.email}`}
@@ -286,9 +322,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-label="contact_card_line"
           data-ga-location="contact_methods"
           data-ga-destination={SITE.line}
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+          class="ac-card p-6 text-center no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
-          <Icon name="message-circle" class="text-2xl text-brand-500 mx-auto mb-2" />
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="message-circle" class="text-xl" />
+          </span>
           <h3 class="font-600 text-slate-900 mb-1">LINE</h3>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.contact.methodLineDesc')}
@@ -303,9 +341,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           data-ga-label="contact_card_x"
           data-ga-location="contact_methods"
           data-ga-destination={SITE.social.x}
-          class="ac-card p-6 no-underline hover:shadow-md transition-shadow text-center"
+          class="ac-card p-6 text-center no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
         >
-          <Icon name="at-sign" class="text-2xl text-brand-500 mx-auto mb-2" />
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="at-sign" class="text-xl" />
+          </span>
           <h3 class="font-600 text-slate-900 mb-1">X</h3>
           <p class="text-sm text-slate-600">
             {t(locale, 'pages.contact.methodXDesc')}
@@ -371,7 +411,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
       const script = document.createElement('script')
       script.dataset.aceTurnstileScript = 'true'
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      script.src =
+        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
       script.async = true
       script.addEventListener('load', renderTurnstile, { once: true })
       document.head.appendChild(script)
@@ -395,9 +436,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           return v.trim() ? '' : vName
         },
         email: function (v) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
-            ? ''
-            : vEmail
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : vEmail
         },
         message: function (v) {
           return v.trim() ? '' : vMsg
@@ -445,8 +484,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           const btn = document.getElementById('contact-submit')
           const feedback = document.getElementById('form-feedback')
           const sendingText = form.getAttribute('data-t-sending') || 'Sending…'
-          const successText = form.getAttribute('data-t-success') || 'Message sent.'
-          const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
+          const successText =
+            form.getAttribute('data-t-success') || 'Message sent.'
+          const errorText =
+            form.getAttribute('data-t-error') || 'Failed to send.'
           const originalText = btn.textContent
           btn.disabled = true
           btn.textContent = sendingText
@@ -462,8 +503,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
                     page_path: window.location.pathname,
                     page_title: document.title,
                     location: 'contact_form',
-                    contact_category:
-                      String(formData.get('お問い合わせ種別') || ''),
+                    contact_category: String(
+                      formData.get('お問い合わせ種別') || '',
+                    ),
                   })
                 }
                 feedback.textContent = successText

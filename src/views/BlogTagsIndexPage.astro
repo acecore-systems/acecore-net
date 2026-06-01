@@ -33,30 +33,39 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
   description={t(locale, 'blog.tagListDescription')}
   robots="noindex, follow"
   locale={locale}
-  breadcrumbItems={breadcrumbItems.map((item) => ({ name: item.label, item: item.href }))}
+  breadcrumbItems={breadcrumbItems.map((item) => ({
+    name: item.label,
+    item: item.href,
+  }))}
 >
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
-      <Breadcrumb
-        items={breadcrumbItems}
-        locale={locale}
-      />
-      <h1 class="text-2xl sm:text-3xl ac-heading mb-8">{t(locale, 'blog.tagList')}</h1>
+      <Breadcrumb items={breadcrumbItems} locale={locale} />
+      <h1 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        {t(locale, 'blog.tagList')}
+      </h1>
+      <p class="mb-8 max-w-2xl leading-relaxed text-slate-600">
+        {t(locale, 'blog.tagListDescription')}
+      </p>
       <div class="flex flex-wrap gap-3">
         {
           sortedTags.map(([tag, count]) => (
             <a
               href={u(`/blog/tags/${tag}/`)}
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-300 hover:text-brand-600 hover:bg-brand-50 transition-colors no-underline"
+              class="ac-chip gap-2 px-4 text-sm"
             >
-              <span class="font-600">{getLocalizedTagName(tags, tag, locale)}</span>
+              <span class="font-600">
+                {getLocalizedTagName(tags, tag, locale)}
+              </span>
               <span class="text-sm text-slate-400">({count})</span>
             </a>
           ))
         }
       </div>
-      <div class="mt-8 text-center">
-        <a href={u('/blog/')} class="ac-btn-outline">{t(locale, 'blog.backToBlog')}</a>
+      <div class="mt-10 text-center">
+        <a href={u('/blog/')} class="ac-btn-outline"
+          >{t(locale, 'blog.backToBlog')}</a
+        >
       </div>
     </div>
   </section>

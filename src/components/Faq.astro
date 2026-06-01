@@ -25,15 +25,15 @@ const { title, items } = Astro.props
   <div class="space-y-2">
     {
       items.map((item) => (
-        <details class="rounded-lg border border-slate-200 overflow-hidden">
-          <summary class="px-4 py-3 text-sm font-700 text-slate-800 cursor-pointer select-none flex items-center justify-between hover:bg-slate-50 transition-colors">
+        <details class="overflow-hidden rounded-lg border border-slate-200">
+          <summary class="flex min-h-12 cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-700 text-slate-800 transition-colors hover:bg-slate-50">
             <span>{item.question}</span>
             <Icon
               name="chevron-down"
               class="text-slate-500 transition-transform duration-200 faq-chevron shrink-0 ml-2"
             />
           </summary>
-          <div class="px-4 pb-3 text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+          <div class="border-t border-slate-100 px-4 pt-3 pb-4 text-sm leading-relaxed text-slate-600">
             {item.answer}
           </div>
         </details>

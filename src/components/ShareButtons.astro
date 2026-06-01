@@ -13,13 +13,13 @@ const encodedUrl = encodeURIComponent(url)
 const encodedTitle = encodeURIComponent(title)
 ---
 
-<div class="flex items-center gap-3 flex-wrap" data-pagefind-ignore>
+<div class="flex flex-wrap items-center gap-3" data-pagefind-ignore>
   <span class="text-sm font-600 text-slate-600">{t(locale, 'blog.share')}</span>
   <a
     href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#1d9bf0] hover:text-white transition-colors"
+    class="ac-touch gap-1.5 rounded-full bg-slate-100 px-4 text-sm text-slate-700 transition-colors hover:bg-[#1d9bf0] hover:text-white"
     aria-label={t(locale, 'blog.shareOnX')}
   >
     <Icon name="twitter" class="text-sm" />
@@ -30,7 +30,7 @@ const encodedTitle = encodeURIComponent(title)
     href={`https://b.hatena.ne.jp/add?mode=confirm&url=${encodedUrl}&title=${encodedTitle}`}
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-[#00a4de] hover:text-white transition-colors"
+    class="ac-touch gap-1.5 rounded-full bg-slate-100 px-4 text-sm text-slate-700 transition-colors hover:bg-[#00a4de] hover:text-white"
     aria-label={t(locale, 'blog.addToHatena')}
   >
     <span class="font-700 text-xs">B!</span>
@@ -38,7 +38,7 @@ const encodedTitle = encodeURIComponent(title)
     <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
   </a>
   <button
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer"
+    class="ac-touch cursor-pointer gap-1.5 rounded-full bg-slate-100 px-4 text-sm text-slate-700 transition-colors hover:bg-slate-200"
     aria-label={t(locale, 'blog.copyLink')}
     data-share-url={url}
     data-label-default={t(locale, 'blog.copyLink')}

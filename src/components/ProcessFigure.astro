@@ -57,13 +57,9 @@ const isCard = variant === 'card'
 
 {
   isCard ? (
-    <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-4 sm:px-8">
-        {eyebrow && (
-          <p class="text-[11px] font-700 tracking-[0.18em] text-brand-500 uppercase mb-2">
-            {eyebrow}
-          </p>
-        )}
+    <div class="ac-surface overflow-hidden">
+      <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-5 sm:px-8">
+        {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
         <div class="max-w-3xl">
           <h2 class="text-xl sm:text-2xl ac-heading mb-2">{title}</h2>
           {description && (
@@ -71,14 +67,14 @@ const isCard = variant === 'card'
           )}
         </div>
       </div>
-      <div class="grid gap-3 px-6 py-5 sm:px-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid gap-4 px-6 py-6 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
         {steps.map((step, index) => {
           const ca = cardAccents[step.accent ?? 'brand']
           return (
             <div class="relative">
               <div
                 class:list={[
-                  'h-full rounded-xl border bg-gradient-to-br px-4 py-3 shadow-sm',
+                  'h-full rounded-lg border bg-gradient-to-br px-4 py-4 shadow-sm',
                   ca.card,
                 ]}
               >
@@ -91,12 +87,7 @@ const isCard = variant === 'card'
                   >
                     <Icon name={step.icon} />
                   </div>
-                  <span
-                    class:list={[
-                      'text-[10px] font-700 tracking-[0.2em] uppercase',
-                      ca.badge,
-                    ]}
-                  >
+                  <span class:list={['text-xs font-700 uppercase', ca.badge]}>
                     Step {index + 1}
                   </span>
                 </div>
@@ -126,11 +117,7 @@ const isCard = variant === 'card'
     <figure class="not-prose my-8" role="group" aria-label={title}>
       {(eyebrow || title) && (
         <figcaption class="mb-4">
-          {eyebrow && (
-            <p class="text-[11px] font-700 tracking-[0.18em] text-brand-500 uppercase mb-1">
-              {eyebrow}
-            </p>
-          )}
+          {eyebrow && <p class="ac-eyebrow mb-1">{eyebrow}</p>}
           <p class="text-base font-700 text-slate-800">{title}</p>
           {description && (
             <p class="text-sm text-slate-500 mt-1">{description}</p>
@@ -161,7 +148,7 @@ const isCard = variant === 'card'
               </div>
               <div class="sm:mt-2 sm:px-2 py-1 sm:py-0">
                 <p class="text-sm font-600 text-slate-800">{step.title}</p>
-                <p class="text-[13px] leading-relaxed text-slate-500">
+                <p class="text-sm leading-relaxed text-slate-500">
                   {step.description}
                 </p>
               </div>

@@ -18,8 +18,8 @@ const { title, before, after } = Astro.props
       </figcaption>
     )
   }
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    <div class="rounded-lg bg-slate-50 border border-slate-200 p-4">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div class="rounded-lg border border-slate-200 bg-slate-50 p-5">
       <p class="text-sm font-700 text-slate-500 mb-2 flex items-center gap-1.5">
         <Icon name="circle-x" class="text-red-400 shrink-0" />
         {before.label}
@@ -27,7 +27,7 @@ const { title, before, after } = Astro.props
       <ul class="space-y-1.5">
         {
           before.items.map((item) => (
-            <li class="text-[13px] text-slate-600 flex items-start gap-1.5">
+            <li class="flex items-start gap-1.5 text-sm leading-relaxed text-slate-600">
               <Icon name="minus" class="text-slate-300 mt-0.5 shrink-0" />
               <span>{item}</span>
             </li>
@@ -35,7 +35,7 @@ const { title, before, after } = Astro.props
         }
       </ul>
     </div>
-    <div class="rounded-lg bg-brand-50/80 border border-brand-100 p-4">
+    <div class="rounded-lg border border-brand-100 bg-brand-50/80 p-5">
       <p class="text-sm font-700 text-brand-600 mb-2 flex items-center gap-1.5">
         <Icon name="circle-check" class="text-brand-500 shrink-0" />
         {after.label}
@@ -43,7 +43,7 @@ const { title, before, after } = Astro.props
       <ul class="space-y-1.5">
         {
           after.items.map((item) => (
-            <li class="text-[13px] text-brand-700 flex items-start gap-1.5">
+            <li class="flex items-start gap-1.5 text-sm leading-relaxed text-brand-700">
               <Icon name="check" class="text-brand-500 mt-0.5 shrink-0" />
               <span>{item}</span>
             </li>

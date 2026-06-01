@@ -34,31 +34,31 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
   data-link-contact={getLocalizedUrl('/contact/', locale)}
 >
   <div
-    class="flex items-start justify-center min-h-full pt-16 sm:pt-24 px-4 pb-8"
+    class="flex min-h-full items-start justify-center px-4 pb-8 pt-14 sm:pt-24"
   >
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden">
+    <div class="w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-xl">
       <div
-        class="flex items-center justify-between px-4 pt-4 pb-2 border-b border-slate-200"
+        class="flex items-center justify-between border-b border-slate-200 px-5 py-4"
       >
         <span
           id="search-dialog-title"
-          class="text-sm font-700 text-slate-700 flex items-center gap-2"
+          class="flex items-center gap-2 text-sm font-700 text-slate-700"
         >
           <Icon name="search" class="text-sm" />
           {t(locale, 'common.search')}
         </span>
         <button
           id="search-close"
-          class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
           aria-label={t(locale, 'common.close')}
         >
           <Icon name="x" class="text-lg" />
         </button>
       </div>
-      <div id="search-container" class="px-4 pt-4 pb-2"></div>
+      <div id="search-container" class="px-5 pt-5 pb-3"></div>
       <div
         id="search-ad"
-        class="hidden px-4 pb-4 border-t border-slate-100 mt-2 pt-3"
+        class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
       >
         <ins
           class="adsbygoogle"
