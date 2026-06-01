@@ -9,11 +9,26 @@ interface Props {
   description: string
   href?: string
   locale?: Locale
+  tone?: 'brand' | 'emerald' | 'amber' | 'slate'
 }
 
-const { icon, title, description, href, locale = 'ja' } = Astro.props
+const {
+  icon,
+  title,
+  description,
+  href,
+  locale = 'ja',
+  tone = 'brand',
+} = Astro.props
 const Tag = href ? 'a' : 'div'
 const isExternal = href?.startsWith('http')
+
+const iconToneClasses = {
+  brand: 'border-brand-100 bg-brand-50 text-brand-600',
+  emerald: 'border-emerald-100 bg-emerald-50 text-emerald-600',
+  amber: 'border-amber-100 bg-amber-50 text-amber-600',
+  slate: 'border-slate-200 bg-slate-50 text-slate-600',
+} satisfies Record<NonNullable<Props['tone']>, string>
 ---
 
 <Tag
@@ -29,7 +44,12 @@ const isExternal = href?.startsWith('http')
       }
     : {}}
 >
-  <span class="ac-icon-box mb-5">
+  <span
+    class:list={[
+      'mb-5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border',
+      iconToneClasses[tone],
+    ]}
+  >
     <Icon name={icon} class="text-xl" />
   </span>
   <h3

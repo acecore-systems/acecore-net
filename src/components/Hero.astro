@@ -55,7 +55,7 @@ const firstSliderImage = sliderImages[0]
               srcset={firstSliderImage.srcset}
               sizes={firstSliderImage.sizes}
               alt={firstSliderImage.alt}
-              class="w-full h-full object-cover"
+              class="h-full w-full object-cover saturate-110"
               width="1400"
               height="600"
               decoding="async"
@@ -64,7 +64,7 @@ const firstSliderImage = sliderImages[0]
             />
           </div>
         )}
-        <div class="absolute inset-0 bg-brand-900/65" />
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-900/70 via-brand-900/45 to-brand-900/55" />
         <div
           id="hero-slide-announce"
           class="sr-only"
@@ -205,7 +205,7 @@ const firstSliderImage = sliderImages[0]
       if (image.srcset) img.srcset = image.srcset
       if (image.sizes) img.sizes = image.sizes
       img.alt = image.alt
-      img.className = 'w-full h-full object-cover'
+      img.className = 'h-full w-full object-cover saturate-110'
       img.width = 1400
       img.height = 600
       img.decoding = 'async'

@@ -15,7 +15,9 @@ const tokens = String(name ?? '')
   .filter(Boolean)
 
 const iconToken =
-  tokens.find((token) => token.startsWith('i-lucide-') || token.startsWith('lucide:')) ??
+  tokens.find(
+    (token) => token.startsWith('i-lucide-') || token.startsWith('lucide:'),
+  ) ??
   tokens[0] ??
   ''
 
@@ -27,6 +29,7 @@ const iconName = iconToken.startsWith('i-lucide-')
 
 const iconAliases: Record<string, string> = {
   'check-circle': 'circle-check',
+  'code-2': 'code-xml',
 }
 
 const mergedClassName = [

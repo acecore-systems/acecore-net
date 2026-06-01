@@ -5,6 +5,7 @@ interface GridItem {
   title: string
   description: string
   icon: string
+  href?: string
   tone?: 'brand' | 'emerald' | 'amber' | 'slate'
 }
 
@@ -39,35 +40,79 @@ const isCard = variant === 'card'
   isCard ? (
     <div class="insight-grid-card ac-surface overflow-hidden">
       <div class="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <div class="px-6 py-6 sm:px-8 sm:py-7">
-          {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
-          <h2 class="mb-3 text-xl ac-heading sm:text-2xl">{title}</h2>
-          {description && (
-            <p class="text-sm ac-muted leading-relaxed max-w-2xl">
-              {description}
-            </p>
-          )}
+        <div class="flex flex-col justify-between px-6 py-6 sm:px-8 sm:py-7">
+          <div>
+            {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
+            <h2 class="mb-3 text-xl ac-heading sm:text-2xl">{title}</h2>
+            {description && (
+              <p class="text-sm ac-muted leading-relaxed max-w-2xl">
+                {description}
+              </p>
+            )}
+          </div>
+          <div class="mt-8 hidden grid-cols-4 gap-2 sm:grid" aria-hidden="true">
+            {items.map((item) => (
+              <div
+                class:list={[
+                  'flex h-12 items-center justify-center rounded-lg border text-base',
+                  cardTones[item.tone ?? 'brand'],
+                ]}
+              >
+                <Icon name={item.icon} />
+              </div>
+            ))}
+          </div>
         </div>
         <div class="border-t border-slate-200 bg-slate-50/60 px-6 py-6 sm:px-8 sm:py-7 lg:border-l lg:border-t-0">
           <div class="insight-grid-card__items grid gap-4">
             {items.map((item) => (
               <div class="border-b border-slate-200/80 pb-4 last:border-b-0 last:pb-0">
-                <div class="mb-2 flex items-start gap-3">
-                  <div
-                    class:list={[
-                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm',
-                      cardTones[item.tone ?? 'brand'],
-                    ]}
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    class="group -m-3 block rounded-lg p-3 no-underline transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                   >
-                    <Icon name={item.icon} />
-                  </div>
-                  <p class="min-w-0 pt-0.5 text-sm font-700 leading-snug text-slate-900">
-                    {item.title}
-                  </p>
-                </div>
-                <p class="text-sm leading-relaxed text-slate-600">
-                  {item.description}
-                </p>
+                    <div class="mb-2 flex items-start gap-3">
+                      <div
+                        class:list={[
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm',
+                          cardTones[item.tone ?? 'brand'],
+                        ]}
+                      >
+                        <Icon name={item.icon} />
+                      </div>
+                      <p class="min-w-0 flex-1 pt-0.5 text-sm font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600">
+                        {item.title}
+                      </p>
+                      <Icon
+                        name="arrow-right"
+                        class="mt-1 shrink-0 text-sm text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-500"
+                      />
+                    </div>
+                    <p class="text-sm leading-relaxed text-slate-600">
+                      {item.description}
+                    </p>
+                  </a>
+                ) : (
+                  <>
+                    <div class="mb-2 flex items-start gap-3">
+                      <div
+                        class:list={[
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm',
+                          cardTones[item.tone ?? 'brand'],
+                        ]}
+                      >
+                        <Icon name={item.icon} />
+                      </div>
+                      <p class="min-w-0 pt-0.5 text-sm font-700 leading-snug text-slate-900">
+                        {item.title}
+                      </p>
+                    </div>
+                    <p class="text-sm leading-relaxed text-slate-600">
+                      {item.description}
+                    </p>
+                  </>
+                )}
               </div>
             ))}
           </div>

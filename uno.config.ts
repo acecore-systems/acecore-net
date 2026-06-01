@@ -42,6 +42,8 @@ export default defineConfig({
     'ac-surface': 'rounded-lg border border-slate-200 bg-white shadow-sm',
     'ac-chip':
       'inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 min-h-8 text-xs font-600 text-slate-600 no-underline transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600',
+    'ac-chip-static':
+      'inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 min-h-8 text-xs font-600 text-slate-600',
     'ac-icon-box':
       'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-brand-100 bg-brand-50 text-brand-600',
     'ac-touch':

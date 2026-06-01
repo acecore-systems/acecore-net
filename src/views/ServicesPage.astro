@@ -23,25 +23,29 @@ const serviceMap = [
   {
     title: t(locale, 'pages.services.mapDevTitle'),
     description: t(locale, 'pages.services.mapDevDesc'),
-    icon: 'code-2',
+    icon: 'code-xml',
+    href: u('/services/#system-development'),
     tone: 'brand',
   },
   {
     title: t(locale, 'pages.services.mapInfraTitle'),
     description: t(locale, 'pages.services.mapInfraDesc'),
     icon: 'server',
+    href: u('/services/#server'),
     tone: 'emerald',
   },
   {
     title: t(locale, 'pages.services.mapPublishTitle'),
     description: t(locale, 'pages.services.mapPublishDesc'),
     icon: 'globe',
+    href: u('/services/#web'),
     tone: 'amber',
   },
   {
     title: t(locale, 'pages.services.mapEducationTitle'),
     description: t(locale, 'pages.services.mapEducationDesc'),
     icon: 'graduation-cap',
+    href: u('/schools/'),
     tone: 'slate',
   },
 ] as const
@@ -178,7 +182,8 @@ const serviceLd = {
       <!-- System Development -->
       <div class="mb-16" id="system-development">
         <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"><Icon name="code-2" class="text-xl" /></span
+          <span class="ac-icon-box"
+            ><Icon name="code-xml" class="text-xl" /></span
           >
           <h2 class="text-2xl ac-heading">
             {t(locale, 'pages.services.systemDev.title')}

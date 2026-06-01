@@ -33,6 +33,7 @@ type HomeLayer = {
   title: string
   description: string
   icon: string
+  href: string
   tone: 'brand' | 'emerald' | 'amber' | 'slate'
 }
 
@@ -60,28 +61,44 @@ const coreLayers: HomeLayer[] = [
   {
     title: t(locale, 'pages.home.layerDesign'),
     description: t(locale, 'pages.home.layerDesignDesc'),
-    icon: 'code-2',
+    icon: 'code-xml',
+    href: u('/services/#system-development'),
     tone: 'brand',
   },
   {
     title: t(locale, 'pages.home.layerInfra'),
     description: t(locale, 'pages.home.layerInfraDesc'),
     icon: 'server-cog',
+    href: u('/services/#server'),
     tone: 'emerald',
   },
   {
     title: t(locale, 'pages.home.layerExpression'),
     description: t(locale, 'pages.home.layerExpressionDesc'),
     icon: 'swatch-book',
+    href: u('/services/#design'),
     tone: 'amber',
   },
   {
     title: t(locale, 'pages.home.layerEducation'),
     description: t(locale, 'pages.home.layerEducationDesc'),
     icon: 'graduation-cap',
+    href: u('/schools/'),
     tone: 'slate',
   },
 ]
+const homeStatHrefByIcon: Record<string, string> = {
+  'layers-3': '/services/',
+  'server-cog': '/works/#case-aceserver',
+  'briefcase-business': '/works/',
+  'message-circle': '/contact/',
+}
+const homeStatToneClasses = {
+  brand: 'border-brand-100 bg-brand-50 text-brand-700',
+  emerald: 'border-emerald-100 bg-emerald-50 text-emerald-700',
+  amber: 'border-amber-100 bg-amber-50 text-amber-700',
+  slate: 'border-slate-200 bg-slate-50 text-slate-600',
+} satisfies Record<HomeLayer['tone'], string>
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
@@ -150,21 +167,21 @@ const webPageLd = {
     images={homeHeroImages}
   />
 
-  <section class="ac-section bg-slate-900 text-white">
+  <section class="ac-section bg-white">
     <div class="ac-container">
       <div
         class="grid gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center"
       >
         <div>
-          <h2 class="text-2xl sm:text-3xl font-800 mb-4">
+          <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
             {worksCopy.homeHeading}
           </h2>
-          <p class="text-slate-300 leading-relaxed mb-6">
+          <p class="mb-6 leading-relaxed text-slate-600">
             {worksCopy.homeLead}
           </p>
           <a
             href={u('/works/')}
-            class="inline-flex items-center gap-2 rounded-lg border border-white/30 px-5 py-3 min-h-11 text-sm font-700 text-white no-underline hover:bg-white/10 transition-colors"
+            class="ac-btn-primary gap-2 text-sm no-underline"
           >
             <Icon name="briefcase-business" class="text-lg" />
             {worksCopy.homeCta}
@@ -173,20 +190,30 @@ const webPageLd = {
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {
             worksCopy.stats.map((stat) => (
-              <div class="rounded-lg border border-white/10 bg-white/10 p-6">
+              <a
+                href={u(homeStatHrefByIcon[stat.icon] ?? '/works/')}
+                class="ac-card group block p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+              >
                 <div class="mb-4 flex items-center gap-3">
-                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
+                  <span
+                    class:list={[
+                      'inline-flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
+                      homeStatToneClasses[stat.tone],
+                    ]}
+                  >
                     <Icon name={stat.icon} class="text-lg" />
                   </span>
-                  <p class="text-2xl sm:text-3xl font-800 leading-none">
+                  <p class="text-2xl font-800 leading-none text-slate-900 sm:text-3xl">
                     {stat.value}
                   </p>
                 </div>
-                <h3 class="text-sm font-700 text-white mb-1">{stat.label}</h3>
-                <p class="text-sm leading-relaxed text-slate-300">
+                <h3 class="mb-1 text-sm font-700 text-slate-900 transition-colors group-hover:text-brand-600">
+                  {stat.label}
+                </h3>
+                <p class="text-sm leading-relaxed text-slate-600">
                   {stat.description}
                 </p>
-              </div>
+              </a>
             ))
           }
         </div>
@@ -194,7 +221,7 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="ac-section bg-slate-50">
+  <section class="bg-brand-50 pt-14 pb-8 sm:pt-16 sm:pb-10 lg:pt-20 lg:pb-10">
     <div class="ac-container">
       <div class="ac-section-intro">
         <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
@@ -206,11 +233,12 @@ const webPageLd = {
       </div>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <ServiceCard
-          icon="code-2"
+          icon="code-xml"
           title={t(locale, 'pages.home.serviceSystem')}
           description={t(locale, 'pages.home.serviceSystemDesc')}
           href={u('/services/#system-development')}
           locale={locale}
+          tone="brand"
         />
         <ServiceCard
           icon="server"
@@ -218,6 +246,7 @@ const webPageLd = {
           description={t(locale, 'pages.home.serviceServerDesc')}
           href={u('/services/#server')}
           locale={locale}
+          tone="emerald"
         />
         <ServiceCard
           icon="globe"
@@ -225,6 +254,7 @@ const webPageLd = {
           description={t(locale, 'pages.home.serviceWebDesc')}
           href={u('/services/#web')}
           locale={locale}
+          tone="amber"
         />
         <ServiceCard
           icon="palette"
@@ -232,6 +262,7 @@ const webPageLd = {
           description={t(locale, 'pages.home.serviceDesignDesc')}
           href={u('/services/#design')}
           locale={locale}
+          tone="slate"
         />
         <ServiceCard
           icon="graduation-cap"
@@ -239,6 +270,7 @@ const webPageLd = {
           description={t(locale, 'pages.home.serviceSchoolsDesc')}
           href={u('/schools/')}
           locale={locale}
+          tone="amber"
         />
         <ServiceCard
           icon="gamepad-2"
@@ -246,6 +278,7 @@ const webPageLd = {
           description={t(locale, 'pages.home.serviceAceserverDesc')}
           href={SITE.social.aceserver}
           locale={locale}
+          tone="emerald"
         />
       </div>
       <div class="mt-10 text-center">
@@ -256,7 +289,7 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="ac-section">
+  <section class="bg-white py-10 sm:py-12 lg:py-14">
     <div class="ac-container">
       <InsightGrid
         variant="card"
@@ -268,7 +301,7 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="ac-section">
+  <section class="ac-section bg-brand-50">
     <div class="ac-container">
       <div class="mx-auto max-w-3xl text-center">
         <h2 class="mb-6 text-2xl ac-heading sm:text-3xl">
@@ -299,7 +332,7 @@ const webPageLd = {
 
   {
     posts.length > 0 && (
-      <section class="ac-section bg-slate-50">
+      <section class="ac-section bg-white">
         <div class="ac-container">
           <div class="ac-section-intro">
             <h2 class="text-2xl ac-heading sm:text-3xl">

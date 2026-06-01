@@ -43,6 +43,10 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 <article
   class="ac-card group relative overflow-hidden transition-all duration-200 hover:border-brand-200 hover:shadow-md"
 >
+  <a
+    href={getLocalizedUrl(`/blog/${baseSlug}/`, locale)}
+    class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+    aria-label={post.data.title}></a>
   <div class="flex flex-col sm:flex-row">
     {
       postImage && (
@@ -75,7 +79,7 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
                 `/blog/authors/${post.data.author}/`,
                 locale,
               )}
-              class="relative z-10 text-brand-600 underline underline-offset-3 hover:text-brand-700"
+              class="relative z-20 text-brand-600 underline underline-offset-3 hover:text-brand-700"
             >
               by {author?.name || post.data.author}
             </a>
@@ -85,20 +89,19 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
       <h2
         class="mt-3 mb-3 text-xl font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600"
       >
-        <a
-          href={getLocalizedUrl(`/blog/${baseSlug}/`, locale)}
-          class="text-inherit no-underline after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-          >{post.data.title}</a
-        >
+        {post.data.title}
       </h2>
       <p class="leading-relaxed text-slate-600">{post.data.description}</p>
       {
         post.data.tags && (
           <div class="mt-5 flex flex-wrap gap-2">
             {post.data.tags.map((tag: string) => (
-              <span class="ac-chip bg-brand-50 text-brand-600 hover:bg-brand-50 hover:text-brand-600">
+              <a
+                href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
+                class="ac-chip relative z-20 border-brand-100 bg-brand-50 text-brand-600"
+              >
                 {getLocalizedTagName(tags, tag, locale)}
-              </span>
+              </a>
             ))}
           </div>
         )

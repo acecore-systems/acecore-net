@@ -14,7 +14,7 @@ const currentPath = Astro.props.path ?? Astro.url.pathname
 
 <div class="relative" data-lang-switcher>
   <button
-    class="flex items-center gap-1 px-2 py-1.5 text-sm text-slate-600 hover:text-brand-500 transition-colors rounded-md hover:bg-slate-50"
+    class="ac-touch gap-1 rounded-lg px-3 text-sm text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
     aria-expanded="false"
     aria-haspopup="listbox"
     aria-label={localeLabels[locale]}
@@ -24,7 +24,7 @@ const currentPath = Astro.props.path ?? Astro.url.pathname
     <Icon name="chevron-down" class="text-xs" />
   </button>
   <ul
-    class="hidden absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 rounded-lg shadow-lg py-1 z-50"
+    class="absolute right-0 top-full z-50 mt-2 hidden w-44 rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
     role="listbox"
     aria-label="Language"
   >
@@ -34,7 +34,7 @@ const currentPath = Astro.props.path ?? Astro.url.pathname
           <a
             href={getLocalizedUrl(currentPath, l)}
             class:list={[
-              'block px-4 py-2 text-sm no-underline transition-colors',
+              'block min-h-10 px-4 py-2.5 text-sm no-underline transition-colors',
               l === locale
                 ? 'bg-brand-50 text-brand-600 font-600'
                 : 'text-slate-700 hover:bg-slate-50 hover:text-brand-500',
