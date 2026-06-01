@@ -1,4 +1,4 @@
-name: Create Translation Issues
+name: Create Translation PRs
 
 on:
   push:
@@ -21,22 +21,22 @@ on:
         required: false
         type: string
       include_non_blog_sources:
-        description: Also create translation issues for authors and tags during manual runs
+        description: Also create translation PRs for authors and tags during manual runs
         required: false
         default: false
         type: boolean
       dry_run:
-        description: Print issue payloads without creating issues
+        description: Print Copilot task payloads without creating PRs
         required: false
         default: false
         type: boolean
 
 permissions:
   contents: read
-  issues: write
+  pull-requests: read
 
 jobs:
-  create-translation-issues:
+  create-translation-prs:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Create or update translation issues
+      - name: Create translation PR tasks
         env:
           COPILOT_AGENT_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,4 +80,4 @@ jobs:
             args+=("--dry-run")
           fi
 
-          node scripts/create-translation-issues.mjs "${args[@]}"
+          node scripts/create-translation-prs.mjs "${args[@]}"

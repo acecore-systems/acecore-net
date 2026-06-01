@@ -14,6 +14,9 @@ const AUTHOR_BASE_KEYS = [
 ]
 const TAG_BASE_KEYS = ['name']
 const ZERO_SHA = '0000000000000000000000000000000000000000'
+const COPILOT_API_BASE = 'https://api.githubcopilot.com'
+const COPILOT_API_VERSION = '2026-01-09'
+const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
 
 function parseArgs(argv) {
   const options = {
@@ -80,11 +83,15 @@ function normalizeSha(value) {
 }
 
 function getBaseSha(args) {
-  return normalizeSha(args.baseSha) ?? normalizeSha(process.env.GITHUB_EVENT_BEFORE)
+  return (
+    normalizeSha(args.baseSha) ?? normalizeSha(process.env.GITHUB_EVENT_BEFORE)
+  )
 }
 
 function getHeadSha(args) {
-  return normalizeSha(args.headSha) ?? normalizeSha(process.env.GITHUB_SHA) ?? 'HEAD'
+  return (
+    normalizeSha(args.headSha) ?? normalizeSha(process.env.GITHUB_SHA) ?? 'HEAD'
+  )
 }
 
 function parseNameStatusLine(line) {
@@ -109,7 +116,11 @@ function parseNameStatusLine(line) {
 
 function getChangedEntries({ baseSha, headSha, changedFiles, includeNonBlog }) {
   if (changedFiles) {
-    return changedFiles.map((path) => ({ status: 'M', path, previousPath: null }))
+    return changedFiles.map((path) => ({
+      status: 'M',
+      path,
+      previousPath: null,
+    }))
   }
 
   const targets = getDiffTargets(includeNonBlog)
@@ -138,10 +149,7 @@ function getChangedEntries({ baseSha, headSha, changedFiles, includeNonBlog }) {
   const output = safeRunGit(diffArgs)
   if (!output) return []
 
-  return output
-    .split(/\r?\n/)
-    .map(parseNameStatusLine)
-    .filter(Boolean)
+  return output.split(/\r?\n/).map(parseNameStatusLine).filter(Boolean)
 }
 
 function isJapaneseBlogPostPath(path) {
@@ -234,16 +242,27 @@ function normalizeAuthor(author) {
   )
 }
 
-function getChangedAuthorProfile(filePath, baseSha, headSha, forceChanged = false) {
+function getChangedAuthorProfile(
+  filePath,
+  baseSha,
+  headSha,
+  forceChanged = false,
+) {
   const before = readJsonAtRef(baseSha, filePath)
-  const after = readJsonAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, filePath)
+  const after = readJsonAtRef(
+    headSha === 'HEAD' ? 'WORKTREE' : headSha,
+    filePath,
+  )
 
   if (!before && !after) return null
 
   const id =
     after?.id ??
     before?.id ??
-    filePath.split('/').at(-1)?.replace(/\.json$/, '') ??
+    filePath
+      .split('/')
+      .at(-1)
+      ?.replace(/\.json$/, '') ??
     'unknown'
 
   if (!before && after) {
@@ -285,19 +304,32 @@ function getChangedAuthorProfile(filePath, baseSha, headSha, forceChanged = fals
 }
 
 function normalizeTag(tag) {
-  return Object.fromEntries(TAG_BASE_KEYS.map((key) => [key, tag?.[key] ?? null]))
+  return Object.fromEntries(
+    TAG_BASE_KEYS.map((key) => [key, tag?.[key] ?? null]),
+  )
 }
 
-function getChangedTagDefinition(filePath, baseSha, headSha, forceChanged = false) {
+function getChangedTagDefinition(
+  filePath,
+  baseSha,
+  headSha,
+  forceChanged = false,
+) {
   const before = readJsonAtRef(baseSha, filePath)
-  const after = readJsonAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, filePath)
+  const after = readJsonAtRef(
+    headSha === 'HEAD' ? 'WORKTREE' : headSha,
+    filePath,
+  )
 
   if (!before && !after) return null
 
   const id =
     after?.id ??
     before?.id ??
-    filePath.split('/').at(-1)?.replace(/\.json$/, '') ??
+    filePath
+      .split('/')
+      .at(-1)
+      ?.replace(/\.json$/, '') ??
     'unknown'
 
   if (!before && after) {
@@ -339,7 +371,8 @@ function getChangedTagDefinition(filePath, baseSha, headSha, forceChanged = fals
 }
 
 function getRepositoryInfo() {
-  const repository = process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
+  const repository =
+    process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
   if (!repository) {
     throw new Error('GITHUB_REPOSITORY is required')
   }
@@ -361,7 +394,10 @@ function inferRepositoryFromGitRemote() {
   return null
 }
 
-async function requestGitHub(path, { method = 'GET', body, token, headers } = {}) {
+async function requestGitHub(
+  path,
+  { method = 'GET', body, token, headers } = {},
+) {
   const authToken = token ?? process.env.GITHUB_TOKEN
   if (!authToken) {
     throw new Error('GITHUB_TOKEN is required')
@@ -373,7 +409,7 @@ async function requestGitHub(path, { method = 'GET', body, token, headers } = {}
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json',
-      'User-Agent': 'acecore-net-translation-issue-bot',
+      'User-Agent': COPILOT_INTEGRATION_ID,
       ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,
@@ -381,17 +417,42 @@ async function requestGitHub(path, { method = 'GET', body, token, headers } = {}
 
   if (!response.ok) {
     const errorText = await response.text()
-    throw new Error(`GitHub API ${method} ${path} failed: ${response.status} ${errorText}`)
+    throw new Error(
+      `GitHub API ${method} ${path} failed: ${response.status} ${errorText}`,
+    )
   }
 
   if (response.status === 204) return null
   return response.json()
 }
 
-async function findOpenIssueByMarker(repository, marker) {
-  const query = encodeURIComponent(`repo:${repository} is:issue is:open in:body ${marker}`)
-  const response = await requestGitHub(`/search/issues?q=${query}`)
-  return response.items?.[0] ?? null
+async function listOpenPullRequests(owner, repo) {
+  const pullRequests = []
+
+  for (let page = 1; ; page += 1) {
+    const batch = await requestGitHub(
+      `/repos/${owner}/${repo}/pulls?state=open&per_page=100&page=${page}`,
+    )
+    pullRequests.push(...batch)
+
+    if (batch.length < 100) {
+      return pullRequests
+    }
+  }
+}
+
+function isMatchingTranslationPullRequest(pullRequest, payload) {
+  return (
+    pullRequest?.title === payload.title ||
+    pullRequest?.body?.includes(payload.marker)
+  )
+}
+
+async function findOpenPullRequestForPayload(owner, repo, payload) {
+  const pullRequests = await listOpenPullRequests(owner, repo)
+  return pullRequests.find((pullRequest) =>
+    isMatchingTranslationPullRequest(pullRequest, payload),
+  )
 }
 
 function getCopilotAgentToken() {
@@ -399,218 +460,248 @@ function getCopilotAgentToken() {
   return token || null
 }
 
-function buildCopilotInstructions(issueKind) {
-  if (issueKind === 'author-profile') {
-    return [
-      'Update the author profile translations described in the issue.',
-      'Modify only the i18n entries in the affected src/content/authors/{author-id}.json files unless explicitly required otherwise.',
-      'Keep Japanese source fields unchanged.',
-      'Use a pull request title that contains [translation].',
-      'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
-    ].join(' ')
+async function requestCopilotAgentJob({
+  owner,
+  repo,
+  title,
+  problemStatement,
+}) {
+  const token = getCopilotAgentToken()
+  if (!token) {
+    throw new Error(
+      'COPILOT_AGENT_TOKEN is required to create translation PRs directly.',
+    )
   }
 
-  if (issueKind === 'tag-definition') {
+  const endpoint = `${COPILOT_API_BASE}/agents/swe/v1/jobs/${encodeURIComponent(
+    owner,
+  )}/${encodeURIComponent(repo)}`
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Copilot-Integration-Id': COPILOT_INTEGRATION_ID,
+      'X-Github-Api-Version': COPILOT_API_VERSION,
+      'User-Agent': COPILOT_INTEGRATION_ID,
+    },
+    body: JSON.stringify({
+      title,
+      problem_statement: problemStatement,
+      event_type: 'translation-pr',
+    }),
+  })
+
+  const responseText = await response.text()
+  if (!response.ok) {
+    throw new Error(
+      `Copilot agent API failed: ${response.status} ${response.statusText}: ${responseText}`,
+    )
+  }
+
+  if (!responseText) return {}
+
+  try {
+    return JSON.parse(responseText)
+  } catch {
+    return { raw: responseText }
+  }
+}
+
+function buildCopilotInstructions(taskKind) {
+  if (taskKind === 'author-profile') {
     return [
-      'Update the tag definition translations described in the issue.',
+      'Update the author profile translations described below.',
+      'Modify only the i18n entries in the affected src/content/authors/{author-id}.json files unless explicitly required otherwise.',
+      'Keep Japanese source fields unchanged.',
+    ]
+  }
+
+  if (taskKind === 'tag-definition') {
+    return [
+      'Update the tag definition translations described below.',
       'Modify only the i18n.name entries in the affected src/content/tags/{tag-id}.json files unless explicitly required otherwise.',
       'Keep Japanese source fields unchanged.',
-      'Use a pull request title that contains [translation].',
-      'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
-    ].join(' ')
+    ]
   }
 
   return [
-    'Translate the Japanese source article described in the issue into all requested locales.',
+    'Translate the Japanese source article described below into all requested locales.',
     'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
-    'Use a pull request title that contains [translation].',
-    'Run npm run build before finishing and mark the pull request ready for review when the work is complete.',
-  ].join(' ')
+  ]
 }
 
-async function assignIssueToCopilot({ owner, repo, repository, issueNumber, issueKind }) {
-  const copilotToken = getCopilotAgentToken()
-  if (!copilotToken) {
-    console.log('COPILOT_AGENT_TOKEN is not set; skipping Copilot assignment.')
-    return
-  }
-
-  try {
-    await requestGitHub(`/repos/${owner}/${repo}/issues/${issueNumber}`, {
-      method: 'PATCH',
-      token: copilotToken,
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      body: {
-        assignees: ['copilot-swe-agent[bot]'],
-        agent_assignment: {
-          target_repo: repository,
-          base_branch: 'main',
-          custom_instructions: buildCopilotInstructions(issueKind),
-          custom_agent: '',
-          model: '',
-        },
-      },
-    })
-    console.log(`Assigned issue #${issueNumber} to copilot-swe-agent[bot]`)
-  } catch (error) {
-    console.warn(`Could not assign issue #${issueNumber} to Copilot: ${error.message}`)
-  }
+function buildProblemStatement({
+  title,
+  marker,
+  summary,
+  targetLocales,
+  instructions,
+}) {
+  return [
+    `<!-- ${marker} -->`,
+    'You are handling an automated translation task for acecore-net.',
+    'Do not create or update GitHub Issues. Create or update the translation pull request only.',
+    '',
+    '## Summary',
+    ...summary.map((line) => `- ${line}`),
+    '',
+    '## Target Locales',
+    ...targetLocales.map((locale) => `- ${locale}`),
+    '',
+    '## Instructions',
+    ...instructions.map((instruction) =>
+      instruction.startsWith('- ') ? instruction : `- ${instruction}`,
+    ),
+    '',
+    '## Pull Request Requirements',
+    '- Use `main` as the base branch.',
+    `- Use this pull request title: ${title}`,
+    `- Include this exact marker in the pull request body: \`<!-- ${marker} -->\`.`,
+    '- Keep the pull request body concise and mention the translated source path.',
+    '- Run `npm run build` after the translation changes.',
+    '- Mark the pull request ready for review when the work is complete.',
+  ].join('\n')
 }
 
-function buildBlogIssuePayload({ sourcePath, changeType, locales, headSha, repository }) {
+function buildBlogTaskPayload({
+  sourcePath,
+  changeType,
+  locales,
+  headSha,
+  repository,
+}) {
   const marker = `translation-source:${sourcePath}`
   const slug = sourcePath.split('/').at(-1)
   const titlePrefix = changeType === 'D' ? 'Remove' : 'Translate'
-  const body = [
-    `<!-- ${marker} -->`,
-    '<!-- translation-kind:blog-post -->',
-    '',
-    '## Summary',
-    `- Source path: ${sourcePath}`,
-    `- Source locale: ${DEFAULT_SOURCE_LOCALE}`,
-    `- Change type: ${changeType}`,
-    `- Source commit: ${headSha}`,
-    '',
-    '## Target Locales',
-    ...locales.map((locale) => `- ${locale}`),
-    '',
-    '## Instructions',
+  const title = `[translation] ${titlePrefix} ${slug}`
+  const instructions = [
+    ...buildCopilotInstructions('blog-post'),
     changeType === 'D'
       ? '- Remove or close out the corresponding translated files under `src/content/blog/{locale}/`.'
       : '- Create or update translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.',
     '- Keep frontmatter aligned with the source article, including `title`, `description`, `date`, `tags`, `image`, `uploadedImage`, and `author`.',
     '- Preserve internal links, image references, and structured content blocks.',
-    '- Ensure the pull request title contains `[translation]`.',
-    '- Run `npm run build` after the translation changes.',
-    '- Mark the pull request ready for review when the work is complete.',
-    '',
-    '## References',
-    `- Repository: ${repository}`,
-    `- Source file: ${sourcePath}`,
-    `- Suggested issue template: .github/ISSUE_TEMPLATE/translation-request.yml`,
-  ].join('\n')
+  ]
 
   return {
-    title: `[translation] ${titlePrefix} ${slug}`,
-    body,
+    title,
     marker,
-    issueKind: 'blog-post',
+    taskKind: 'blog-post',
+    problemStatement: buildProblemStatement({
+      title,
+      marker,
+      summary: [
+        `Repository: ${repository}`,
+        `Source path: ${sourcePath}`,
+        `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
+        `Change type: ${changeType}`,
+        `Source commit: ${headSha}`,
+      ],
+      targetLocales: locales,
+      instructions,
+    }),
   }
 }
 
-function buildAuthorIssuePayload({ sourcePath, change, locales, headSha, repository }) {
+function buildAuthorTaskPayload({
+  sourcePath,
+  change,
+  locales,
+  headSha,
+  repository,
+}) {
   const marker = `translation-source:${sourcePath}`
-  const body = [
-    `<!-- ${marker} -->`,
-    '<!-- translation-kind:author-profile -->',
-    '',
-    '## Summary',
-    `- Source path: ${sourcePath}`,
-    `- Source locale: ${DEFAULT_SOURCE_LOCALE}`,
-    `- Source commit: ${headSha}`,
-    '',
-    '## Changed Author',
-    `- ${change.id}: ${change.changeType} (${change.fields.join(', ')})`,
-    '',
-    '## Target Locales',
-    ...locales.map((locale) => `- ${locale}`),
-    '',
-    '## Instructions',
+  const title = `[translation] Update author profile ${change.id}`
+  const instructions = [
+    ...buildCopilotInstructions('author-profile'),
     `- Update only the \`i18n\` translations in \`${sourcePath}\` for the affected author.`,
-    '- Do not change the Japanese source fields unless the issue explicitly requires it.',
     '- Keep `name`, `bio`, and `skills` aligned with the updated Japanese source.',
-    '- Ensure the pull request title contains `[translation]`.',
-    '- Run `npm run build` after the translation changes.',
-    '- Mark the pull request ready for review when the work is complete.',
-    '',
-    '## References',
-    `- Repository: ${repository}`,
-    `- Source file: ${sourcePath}`,
-    `- Suggested issue template: .github/ISSUE_TEMPLATE/translation-request.yml`,
-  ].join('\n')
+  ]
 
   return {
-    title: `[translation] Update author profile ${change.id}`,
-    body,
+    title,
     marker,
-    issueKind: 'author-profile',
+    taskKind: 'author-profile',
+    problemStatement: buildProblemStatement({
+      title,
+      marker,
+      summary: [
+        `Repository: ${repository}`,
+        `Source path: ${sourcePath}`,
+        `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
+        `Source commit: ${headSha}`,
+        `Changed author: ${change.id}`,
+        `Change type: ${change.changeType}`,
+        `Changed fields: ${change.fields.join(', ')}`,
+      ],
+      targetLocales: locales,
+      instructions,
+    }),
   }
 }
 
-function buildTagIssuePayload({ sourcePath, change, locales, headSha, repository }) {
+function buildTagTaskPayload({
+  sourcePath,
+  change,
+  locales,
+  headSha,
+  repository,
+}) {
   const marker = `translation-source:${sourcePath}`
-  const body = [
-    `<!-- ${marker} -->`,
-    '<!-- translation-kind:tag-definition -->',
-    '',
-    '## Summary',
-    `- Source path: ${sourcePath}`,
-    `- Source locale: ${DEFAULT_SOURCE_LOCALE}`,
-    `- Source commit: ${headSha}`,
-    '',
-    '## Changed Tag',
-    `- ${change.id}: ${change.changeType} (${change.fields.join(', ')})`,
-    '',
-    '## Target Locales',
-    ...locales.map((locale) => `- ${locale}`),
-    '',
-    '## Instructions',
+  const title = `[translation] Update tag definition ${change.id}`
+  const instructions = [
+    ...buildCopilotInstructions('tag-definition'),
     `- Update only the \`i18n.name\` translations in \`${sourcePath}\` for the affected tag.`,
-    '- Do not change the Japanese source fields unless the issue explicitly requires it.',
     '- Keep localized tag names aligned with the updated Japanese source tag name.',
-    '- Ensure the pull request title contains `[translation]`.',
-    '- Run `npm run build` after the translation changes.',
-    '- Mark the pull request ready for review when the work is complete.',
-    '',
-    '## References',
-    `- Repository: ${repository}`,
-    `- Source file: ${sourcePath}`,
-    `- Suggested issue template: .github/ISSUE_TEMPLATE/translation-request.yml`,
-  ].join('\n')
+  ]
 
   return {
-    title: `[translation] Update tag definition ${change.id}`,
-    body,
+    title,
     marker,
-    issueKind: 'tag-definition',
+    taskKind: 'tag-definition',
+    problemStatement: buildProblemStatement({
+      title,
+      marker,
+      summary: [
+        `Repository: ${repository}`,
+        `Source path: ${sourcePath}`,
+        `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
+        `Source commit: ${headSha}`,
+        `Changed tag: ${change.id}`,
+        `Change type: ${change.changeType}`,
+        `Changed fields: ${change.fields.join(', ')}`,
+      ],
+      targetLocales: locales,
+      instructions,
+    }),
   }
 }
 
-async function createOrUpdateIssue(payload) {
-  const { owner, repo, repository } = getRepositoryInfo()
-  const existingIssue = await findOpenIssueByMarker(repository, payload.marker)
-
-  if (existingIssue) {
-    const issue = await requestGitHub(`/repos/${owner}/${repo}/issues/${existingIssue.number}`, {
-      method: 'PATCH',
-      body: { title: payload.title, body: payload.body },
-    })
-    console.log(`Updated translation issue #${issue.number}: ${issue.title}`)
-    await assignIssueToCopilot({
-      owner,
-      repo,
-      repository,
-      issueNumber: issue.number,
-      issueKind: payload.issueKind,
-    })
-    return issue
-  }
-
-  const issue = await requestGitHub(`/repos/${owner}/${repo}/issues`, {
-    method: 'POST',
-    body: { title: payload.title, body: payload.body },
-  })
-  console.log(`Created translation issue #${issue.number}: ${issue.title}`)
-  await assignIssueToCopilot({
+async function createTranslationPullRequestTask(payload) {
+  const { owner, repo } = getRepositoryInfo()
+  const existingPullRequest = await findOpenPullRequestForPayload(
     owner,
     repo,
-    repository,
-    issueNumber: issue.number,
-    issueKind: payload.issueKind,
+    payload,
+  )
+
+  if (existingPullRequest) {
+    console.log(
+      `Open translation PR already exists #${existingPullRequest.number}: ${existingPullRequest.title}`,
+    )
+    return existingPullRequest
+  }
+
+  const job = await requestCopilotAgentJob({
+    owner,
+    repo,
+    title: payload.title,
+    problemStatement: payload.problemStatement,
   })
-  return issue
+  const jobId = job.id ?? job.job_id ?? 'unknown'
+  console.log(`Started Copilot translation PR task ${jobId}: ${payload.title}`)
+  return job
 }
 
 async function main() {
@@ -650,7 +741,7 @@ async function main() {
 
   const payloads = [
     ...blogChanges.map((entry) =>
-      buildBlogIssuePayload({
+      buildBlogTaskPayload({
         sourcePath: entry.path,
         changeType: entry.status,
         locales,
@@ -659,7 +750,7 @@ async function main() {
       }),
     ),
     ...authorChanges.map((change) =>
-      buildAuthorIssuePayload({
+      buildAuthorTaskPayload({
         sourcePath: change.sourcePath,
         change,
         locales,
@@ -668,7 +759,7 @@ async function main() {
       }),
     ),
     ...tagChanges.map((change) =>
-      buildTagIssuePayload({
+      buildTagTaskPayload({
         sourcePath: change.sourcePath,
         change,
         locales,
@@ -679,7 +770,9 @@ async function main() {
   ]
 
   if (payloads.length === 0) {
-    console.log('No Japanese source changes requiring translation issues were detected.')
+    console.log(
+      'No Japanese source changes requiring translation PRs were detected.',
+    )
     return
   }
 
@@ -689,7 +782,7 @@ async function main() {
   }
 
   for (const payload of payloads) {
-    await createOrUpdateIssue(payload)
+    await createTranslationPullRequestTask(payload)
   }
 }
 
