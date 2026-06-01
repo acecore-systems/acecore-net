@@ -15,14 +15,14 @@ processFigure:
     - title: 更新日语源文件
       description: 仅通过 Pages CMS 或 Markdown 编辑日语文章，并推送到 main 分支。
       icon: i-lucide-pencil-line
-    - title: 自动创建翻译 Issue
-      description: GitHub Actions 创建内嵌了源路径和目标语言的 Issue。
-      icon: i-lucide-ticket
+    - title: 直接创建翻译 PR 任务
+      description: GitHub Actions 创建包含源路径和目标语言的 Copilot 任务。
+      icon: i-lucide-git-branch
     - title: Copilot 创建翻译 PR
-      description: 收到 Issue 后，Copilot 生成翻译文件并提交翻译 PR。
+      description: 收到任务后，Copilot 生成翻译文件并提交翻译 PR。
       icon: i-lucide-git-pull-request
-    - title: 构建、合并并关闭 Issue
-      description: 构建成功后自动合并，并自动关闭父翻译 Issue。
+    - title: 构建并自动合并
+      description: 构建成功后，满足条件的翻译 PR 将被自动合并。
       icon: i-lucide-check-check
 compareTable:
   title: 手动与自动翻译工作流对比
@@ -32,34 +32,34 @@ compareTable:
       - 文章发布后由人工创建翻译任务
       - 按语言分配负责人
       - 构建和合并决策也由人工完成
-      - 父 Issue 容易被遗忘，长期未关闭
+      - 重复任务和 PR 整理问题容易积累
   after:
     label: 自动翻译工作流
     items:
       - 推送日语文章即触发整个流程
-      - 自动分配给 Copilot
+      - 直接创建 Copilot 翻译 PR 任务
       - 翻译 PR 在构建成功后自动合并
-      - 合并后父 Issue 也自动关闭
+      - 通过 PR body 中的标记防止重复创建
 checklist:
   title: 开始前需要准备的内容
   items:
     - text: 以日语为翻译源的内容结构
     - text: 如 src/content/blog/{locale}/{slug}.md 的翻译文件布局规则
-    - text: 具有 issues write 权限的 GitHub Actions
-    - text: 能够调用 Copilot 分配 API 的 COPILOT_AGENT_TOKEN
+    - text: 具有 pull requests read 权限的 GitHub Actions
+    - text: 能够调用 Copilot coding agent API 的 COPILOT_AGENT_TOKEN
     - text: 稳定的构建命令，如 npm run build
 faq:
   title: 常见问题
   items:
     - question: 只需推送日语文章，其他语言的文章就会自动生成吗？
-      answer: '是的。当前的 Acecore 网站支持9种语言 — `ja`、`en`、`zh-cn`、`es`、`pt`、`fr`、`ko`、`de`、`ru` — 因此推送日语文章可以触发为其余8种语言创建翻译 Issue、分配给 Copilot、创建翻译 PR、构建、自动合并和关闭 Issue 的完整流程。即使翻译文件尚不存在，每个语言的 URL 也会通过日语回退提供服务，因此可以先发布日语版，之后再替换为真正的翻译内容。'
-    - question: 为什么不直接创建 PR，而要先创建 Issue？
-      answer: '因为可以在 Issue 中固定源路径、目标语言和翻译条件。这使得重新运行、历史查看和失败恢复变得更加容易。'
+      answer: '是的。当前的 Acecore 网站支持9种语言 — `ja`、`en`、`zh-cn`、`es`、`pt`、`fr`、`ko`、`de`、`ru` — 因此推送日语文章可以触发为其余8种语言创建 Copilot 翻译 PR 任务、创建翻译 PR、构建和自动合并的完整流程。即使翻译文件尚不存在，每个语言的 URL 也会通过日语回退提供服务，因此可以先发布日语版，之后再替换为真正的翻译内容。'
+    - question: 为什么直接创建 PR 任务而不经过 Issue？
+      answer: '由于翻译工作的成果是 PR，直接将源路径、目标语言和翻译条件固定在 Copilot 任务的问题描述和 PR body 标记中，可以缩短流程。通过搜索带有该标记的 open PR，还可以防止同一源路径的重复创建。'
     - question: 自动合并不危险吗？
       answer: '无条件自动合并是危险的。通过将范围限定为仅翻译 PR — 要求 Copilot 创建的 PR、标题以 [translation] 开头、构建成功且非草稿 — 可以使其相当安全。'
 ---
 
-直接说结论：在这个网站上，只需在 Pages CMS 中发布一篇日语文章，就能逐步让该文章以日语 + 8种其他语言的形式呈现。GitHub Actions 和 GitHub Copilot 负责处理翻译 Issue 创建、翻译 PR 创建、构建、自动合并以及关闭父 Issue。
+直接说结论：在这个网站上，只需在 Pages CMS 中发布一篇日语文章，就能逐步让该文章以日语 + 8种其他语言的形式呈现。GitHub Actions 和 GitHub Copilot 负责处理翻译 PR 任务创建、翻译 PR 创建、构建和自动合并。
 
 运营人员日常只需处理日语文章和作者信息。由于不再需要每次手动提交翻译任务或整理 PR，多语言博客的运营负担可以大幅减轻。
 
@@ -130,21 +130,21 @@ src/content/blog/
 
 在这个仓库中，即使翻译文件尚不存在，每个语言的 URL 也会通过日语回退生成。这意味着可以采用"先发布日语文章，之后让翻译 PR 跟进"的运营方式。
 
-## Step 2. 将日语文章的推送转换为翻译 Issue
+## Step 2. 将日语文章的推送转换为翻译 PR 任务
 
-下一步是使用 GitHub Actions 检测日语文章的变更，并自动创建翻译 Issue。
+下一步是使用 GitHub Actions 检测日语文章的变更，并直接创建 Copilot 翻译 PR 任务。
 
 最低要求如下。
 
 - 监控对 `main` 分支的推送
-- 仅将 `src/content/blog/*.md` 作为常规自动创建 Issue 的目标
-- 只在文章正文发生变化时创建 Issue，而不是仅 frontmatter 变化时
-- 如果存在相同源路径的开放 Issue，则更新而不是创建新 Issue
-- 在 Issue 正文中嵌入源路径作为标记
+- 仅将 `src/content/blog/*.md` 作为常规自动创建任务的目标
+- 只在文章正文发生变化时创建任务，而不是仅 frontmatter 变化时
+- 如果存在相同源路径的 open PR，则不创建新任务
+- 在 Copilot 任务和 PR body 中嵌入源路径作为标记
 
-作者信息和标签定义虽然也是翻译目标，但在普通推送时不自动创建 Issue。仅在必要时通过 `workflow_dispatch` 明确触发，可以避免不必要的 Issue 积累。
+作者信息和标签定义虽然也是翻译目标，但在普通推送时不自动创建任务。仅在必要时通过 `workflow_dispatch` 明确触发，可以避免不必要的 PR 积累。
 
-例如，在 Issue 正文中加入这样的注释，可以在后续自动化中复用。
+例如，在 PR body 中加入这样的注释，可以在后续重复检测中复用。
 
 ```md
 <!-- translation-source:src/content/blog/my-post.md -->
@@ -162,29 +162,26 @@ on:
       - src/content/blog/*.md
 ```
 
-此外，通过仅比较 Markdown 正文来决定是否创建翻译 Issue，可以避免因更新发布日期或标签等小修改而大量生成翻译 Issue 的问题。
+此外，通过仅比较 Markdown 正文来决定是否创建翻译 PR 任务，可以避免因更新发布日期或标签等小修改而大量生成翻译 PR 的问题。
 
-这里重要的是不要"直接创建翻译"，而是**先创建 Issue**。通过插入 Issue，可以将源路径、目标语言和翻译条件以人和 AI 都可见的形式固定下来。
+这里重要的是将翻译条件**固定在 PR 任务输入和 PR body 标记中**。即使不经过 Issue，也可以将源路径、目标语言和翻译条件传递给 Copilot，并通过搜索 open PR 来避免同一源路径的重复创建。
 
-## Step 3. 将翻译 Issue 自动分配给 Copilot
+## Step 3. 通过 Copilot coding agent API 创建 PR 任务
 
-仅创建 Issue 还留有手动工作，因此这一步将 Issue 自动分配给 Copilot。
+在 GitHub Actions 侧，检测到变更后，向 Copilot coding agent API 发送任务。
 
 需要做2件事。
 
 1. 将 `COPILOT_AGENT_TOKEN` 添加为仓库 secret
-2. 在创建 Issue 后调用分配 API
+2. 针对每个变更的源路径调用 Copilot job API
 
-概念上是通过 patch Issue 将 Copilot 设置为受让人。
+概念上是将标题和问题描述传递给 Copilot job API。
 
 ```json
 {
-  "assignees": ["copilot-swe-agent[bot]"],
-  "agent_assignment": {
-    "target_repo": "OWNER/REPO",
-    "base_branch": "main",
-    "custom_instructions": "Translate the Japanese source article..."
-  }
+  "title": "[translation] Translate my-post.md",
+  "problem_statement": "Translate src/content/blog/my-post.md into all requested locales...",
+  "event_type": "translation-pr"
 }
 ```
 
@@ -218,22 +215,22 @@ on:
 
 有了这4个条件，就可以大大避免将普通开发 PR 纳入自动合并范围的问题。
 
-## Step 5. 合并后自动关闭父翻译 Issue
+## Step 5. 通过 PR body 标记防止重复创建
 
-最后，加入以下机制可以使运营更加整洁：合并后自动关闭父 Issue。
+不经过 Issue 时，重复控制移到 PR 侧。
 
-方法很简单，对已合并的翻译 PR 执行以下操作。
+方法很简单，在创建任务前执行以下操作。
 
-1. 获取 PR 的变更文件
-2. 同时读取 PR 正文中的源路径
-3. 搜索与 `translation-source:` 标记对应的开放 Issue
-4. 添加评论并关闭
+1. 从源路径生成 `translation-source:` 标记
+2. 通过 GitHub 搜索具有相同标记的 open PR
+3. 如果存在 open PR，则不创建任务
+4. 如果不存在 open PR，则创建 Copilot 翻译 PR 任务
 
-同时查看 PR 正文源路径的原因是，仅依赖 Copilot 创建的 PR 的变更文件，在某些情况下源文件的反向查找可能不够稳定。**同时使用变更文件和 PR 正文**可以保持稳定性。
+在 PR body 中嵌入源路径的原因是，仅查看翻译 PR 的变更文件，很难准确反向查找到原始日语文件。**将源路径作为标记明确写出**，可以避免为同一篇文章创建多个翻译 PR。
 
 ## 补充说明
 
-### 将 Copilot 创建的 PR 和 Issue 的语言引导为日语
+### 将 Copilot 创建的 PR 的语言引导为日语
 
 如果希望在 GitHub 侧稳定 Copilot 的输出语言，使用仓库级别的指令是最直接的方法。
 
@@ -246,7 +243,7 @@ This repository is an Astro static site for Acecore, deployed on Cloudflare Page
 - For multilingual content work, treat Japanese source files as canonical and keep translated frontmatter aligned with the Japanese source.
 ```
 
-仅凭这一个文件，Copilot coding agent 在创建 Issue 和 PR 时的默认语言和上下文就会相当稳定。
+仅凭这一个文件，Copilot coding agent 在创建 PR 时的默认语言和上下文就会相当稳定。
 
 ## 总结
 
@@ -255,13 +252,13 @@ This repository is an Astro static site for Acecore, deployed on Cloudflare Page
 再次总结流程如下。
 
 1. 只撰写日语文章
-2. 推送时自动创建翻译 Issue
-3. 自动分配给 Copilot
+2. 推送时直接创建翻译 PR 任务
+3. Copilot 创建翻译 PR
 4. 构建翻译 PR 并自动合并
-5. 自动关闭父 Issue
+5. 通过 PR body 标记防止重复创建
 
 完成这套配置后，从运营角度来看感觉相当自然。**只需推送日语文章，其他语言的文章就会在 GitHub 侧依次生成**。
 
-当然，实际上会经历 Issue 创建、Copilot 执行、PR 创建、构建和合并等异步步骤，所以并非"瞬间全部完成"。但是，运营人员不再需要每次手动提交翻译任务或忘记关闭 PR。
+当然，实际上会经历任务创建、PR 创建、构建和合并等异步步骤，所以并非"瞬间全部完成"。但是，运营人员不再需要每次手动提交翻译任务或整理 PR。
 
 本文本身也构建成可以以日语版为基准流入这一流程的结构。如果要持续运营多语言网站，首先从这种程度的自动化开始是最合适的。

@@ -15,14 +15,14 @@ processFigure:
     - title: Japanische Quelle aktualisieren
       description: Bearbeiten Sie nur den japanischen Artikel über Pages CMS oder Markdown und pushen Sie ihn nach main.
       icon: i-lucide-pencil-line
-    - title: Übersetzungs-Issues automatisch erstellen
-      description: GitHub Actions erstellt Issues mit dem Quellpfad und den Zielsprachen eingebettet.
-      icon: i-lucide-ticket
+    - title: Direkte Erstellung eines Übersetzungs-PR-Tasks
+      description: GitHub Actions erstellt direkt einen Copilot-Task mit dem Quellpfad und den Zielsprachen eingebettet.
+      icon: i-lucide-git-branch
     - title: Copilot erstellt Übersetzungs-PRs
-      description: Nach Erhalt des Issues generiert Copilot Übersetzungsdateien und öffnet einen Übersetzungs-PR.
+      description: Nach Erhalt des Tasks generiert Copilot Übersetzungsdateien und öffnet einen Übersetzungs-PR.
       icon: i-lucide-git-pull-request
-    - title: Bauen, zusammenführen und Issue schließen
-      description: Nach einem erfolgreichen Build wird der PR automatisch zusammengeführt und das übergeordnete Übersetzungs-Issue automatisch geschlossen.
+    - title: Erfolgreich bauen und automatisch zusammenführen
+      description: Nach einem erfolgreichen Build wird der Übersetzungs-PR automatisch zusammengeführt.
       icon: i-lucide-check-check
 compareTable:
   title: Manueller vs. automatisierter Übersetzungsworkflow
@@ -32,34 +32,34 @@ compareTable:
       - Jemand erstellt manuell Übersetzungsaufgaben nach der Veröffentlichung eines Artikels
       - Verantwortliche werden pro Sprache zugewiesen
       - Builds und Merge-Entscheidungen werden von Menschen verwaltet
-      - Übergeordnete Issues werden oft vergessen und bleiben offen
+      - Doppelte Tasks und PR-Bereinigung häufen sich an
   after:
     label: Automatisierter Übersetzungsworkflow
     items:
       - Ein Push zum japanischen Artikel löst den gesamten Ablauf aus
-      - Wird automatisch Copilot zugewiesen
+      - Ein Copilot-Übersetzungs-PR-Task wird direkt erstellt
       - Übersetzungs-PRs werden nach einem erfolgreichen Build automatisch zusammengeführt
-      - Übergeordnete Issues werden nach dem Merge automatisch geschlossen
+      - Doppelte Erstellung wird durch einen Marker im PR-Body verhindert
 checklist:
   title: Was Sie vor dem Start benötigen
   items:
     - text: Eine Inhaltsstruktur mit Japanisch als Übersetzungsquelle
     - text: Eine Übersetzungsdatei-Layoutregel wie src/content/blog/{locale}/{slug}.md
-    - text: GitHub Actions mit Issues-Schreibberechtigung
-    - text: Ein COPILOT_AGENT_TOKEN, der die Copilot-Zuweisungs-API aufrufen kann
+    - text: GitHub Actions mit Pull-Requests-Leseberechtigung
+    - text: Ein COPILOT_AGENT_TOKEN, der die Copilot-Coding-Agent-API aufrufen kann
     - text: Ein stabiler Build-Befehl wie npm run build
 faq:
   title: Häufig gestellte Fragen
   items:
     - question: Werden beim Pushen eines japanischen Artikels automatisch Artikel in anderen Sprachen erstellt?
-      answer: 'Ja. Die aktuelle Acecore-Website unterstützt 9 Sprachen — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — daher kann das Pushen eines japanischen Artikels die Erstellung von Übersetzungs-Issues für die verbleibenden 8 Sprachen, die Copilot-Zuweisung, die Erstellung von Übersetzungs-PRs, den Build, das automatische Merging und das Schließen von Issues auslösen. Auch ohne Übersetzungsdateien wird jede Sprach-URL mit einem japanischen Fallback bereitgestellt, sodass Sie zuerst veröffentlichen und später durch echte Übersetzungen ersetzen können.'
-    - question: Warum zuerst ein Issue erstellen, anstatt direkt einen PR zu öffnen?
-      answer: 'Weil es ermöglicht, den Quellpfad, die Zielsprache und die Übersetzungsbedingungen im Issue zu fixieren. Dies erleichtert das erneute Ausführen, die Überprüfung des Verlaufs und die Wiederherstellung nach Fehlern erheblich.'
+      answer: 'Ja. Die aktuelle Acecore-Website unterstützt 9 Sprachen — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — daher kann das Pushen eines japanischen Artikels die direkte Erstellung von Copilot-Übersetzungs-PR-Tasks für die verbleibenden 8 Sprachen, die Erstellung von Übersetzungs-PRs, den Build und das automatische Merging auslösen. Auch ohne Übersetzungsdateien wird jede Sprach-URL mit einem japanischen Fallback bereitgestellt, sodass Sie zuerst veröffentlichen und später durch echte Übersetzungen ersetzen können.'
+    - question: Warum einen PR-Task direkt erstellen, anstatt zuerst über ein Issue zu gehen?
+      answer: 'Da das Ergebnis der Übersetzungsarbeit ein PR ist, wird der Ablauf kürzer, wenn man den Quellpfad, die Zielsprache und die Übersetzungsbedingungen direkt im Problem-Statement des Copilot-Tasks und im PR-Body-Marker fixiert. Durch die Suche nach offenen PRs mit dem Marker kann man auch die Doppelerstellung für denselben Quellpfad vermeiden.'
     - question: Ist automatisches Merging nicht riskant?
       answer: 'Bedingungsloses automatisches Merging ist riskant. Indem man es nur auf Übersetzungs-PRs beschränkt — Copilot muss den PR erstellt haben, der Titel beginnt mit [translation], der Build ist erfolgreich und es ist kein Entwurf — kann man es recht sicher halten.'
 ---
 
-Um direkt zum Punkt zu kommen: Mit dieser Website reicht es aus, nur einen japanischen Artikel in Pages CMS zu veröffentlichen, damit dieser Artikel schließlich auf Japanisch plus 8 anderen Sprachen verfügbar ist. GitHub Actions und GitHub Copilot kümmern sich um die Erstellung von Übersetzungs-Issues, die Erstellung von Übersetzungs-PRs, das Bauen, das automatische Merging und das Schließen des übergeordneten Issues.
+Um direkt zum Punkt zu kommen: Mit dieser Website reicht es aus, nur einen japanischen Artikel in Pages CMS zu veröffentlichen, damit dieser Artikel schließlich auf Japanisch plus 8 anderen Sprachen verfügbar ist. GitHub Actions und GitHub Copilot kümmern sich um die Erstellung von Übersetzungs-PR-Tasks, die Erstellung von Übersetzungs-PRs, das Bauen und das automatische Merging.
 
 Der Betreiber muss im Alltag nur japanische Artikel und Autoreninformationen verwalten. Da es nicht mehr notwendig ist, jedes Mal manuell Übersetzungsaufgaben einzureichen oder PRs zu sortieren, reduziert dies die Last des Betriebs eines mehrsprachigen Blogs erheblich.
 
@@ -130,21 +130,21 @@ Der Schlüssel ist, **den Slug der Übersetzungsdatei mit dem Slug des japanisch
 
 In diesem Repo wird die URL jeder Sprache mit einem japanischen Fallback generiert, auch wenn Übersetzungsdateien noch nicht existieren. Das bedeutet, dass Sie im Modus "zuerst den japanischen Artikel veröffentlichen und Übersetzungs-PRs danach aufholen lassen" arbeiten können.
 
-## Schritt 2. Pushes japanischer Artikel in Übersetzungs-Issues umwandeln
+## Schritt 2. Pushes japanischer Artikel in Übersetzungs-PR-Tasks umwandeln
 
-Der nächste Schritt ist die Verwendung von GitHub Actions, um Änderungen an japanischen Artikeln zu erkennen und automatisch Übersetzungs-Issues zu erstellen.
+Der nächste Schritt ist die Verwendung von GitHub Actions, um Änderungen an japanischen Artikeln zu erkennen und direkt Copilot-Übersetzungs-PR-Tasks zu erstellen.
 
 Die Mindestanforderungen sind:
 
 - Pushes zu `main` überwachen
-- Issues nur automatisch für `src/content/blog/*.md` erstellen
-- Issues nur erstellen, wenn sich der Artikeltext ändert, nicht nur das Frontmatter
-- Wenn ein offenes Issue mit demselben Quellpfad existiert, es aktualisieren, anstatt ein neues zu erstellen
-- Den Quellpfad als Marker in den Issue-Body einbetten
+- Tasks nur automatisch für `src/content/blog/*.md` erstellen
+- Tasks nur erstellen, wenn sich der Artikeltext ändert, nicht nur das Frontmatter
+- Wenn ein offener PR mit demselben Quellpfad-Marker existiert, keine doppelten Tasks erstellen
+- Den Quellpfad als Marker in den PR-Body einbetten
 
-Autoreninformationen und Tag-Definitionen sind Übersetzungsziele, aber bei normalen Pushes werden keine Issues automatisch erstellt. Sie nur über `workflow_dispatch` auszuführen, wenn es explizit notwendig ist, verhindert, dass sich unnötige Issues ansammeln.
+Autoreninformationen und Tag-Definitionen sind Übersetzungsziele, aber bei normalen Pushes werden keine Tasks automatisch erstellt. Sie nur über `workflow_dispatch` auszuführen, wenn es explizit notwendig ist, verhindert, dass sich unnötige Tasks ansammeln.
 
-Zum Beispiel macht das Einfügen von Kommentaren wie diesem in den Issue-Body ihn in der nachgelagerten Automatisierung wiederverwendbar.
+Zum Beispiel macht das Einfügen von Kommentaren wie diesem in den PR-Body ihn in der nachgelagerten Automatisierung wiederverwendbar.
 
 ```md
 <!-- translation-source:src/content/blog/my-post.md -->
@@ -162,29 +162,24 @@ on:
       - src/content/blog/*.md
 ```
 
-Darüber hinaus können Sie durch den Vergleich nur des Markdown-Körpers bei der Entscheidung, wann Übersetzungs-Issues erstellt werden sollen, vermeiden, versehentlich eine Flut von Issues durch kleine Anpassungen wie das Aktualisieren eines Veröffentlichungsdatums oder eines Tags zu generieren.
+Darüber hinaus können Sie durch den Vergleich nur des Markdown-Körpers bei der Entscheidung, wann Übersetzungs-Tasks erstellt werden sollen, vermeiden, versehentlich eine Flut von Tasks durch kleine Anpassungen wie das Aktualisieren eines Veröffentlichungsdatums oder eines Tags zu generieren.
 
-Das Wichtige hier ist nicht "Übersetzungen direkt zu erstellen", sondern **zuerst ein Issue zu erstellen**. Durch das Einfügen eines Issues werden der Quellpfad, die Zielsprache und die Übersetzungsbedingungen in einer Form fixiert, die sowohl für Menschen als auch für KI sichtbar ist.
+## Schritt 3. PR-Tasks über die Copilot-Coding-Agent-API erstellen
 
-## Schritt 3. Übersetzungs-Issues automatisch Copilot zuweisen
-
-Das bloße Erstellen des Issues lässt noch manuelle Arbeit übrig, daher ist dies der Punkt, an dem Sie Copilot automatisch zuweisen.
+Der Task wird direkt über die Copilot-Coding-Agent-API erstellt — nicht über die Issue-Erstellung.
 
 Es gibt 2 Dinge zu tun.
 
 1. `COPILOT_AGENT_TOKEN` als Repository-Secret hinzufügen
-2. Nach der Issue-Erstellung die Zuweisungs-API aufrufen
+2. Nach der Erkennung einer Änderung die Job-Task-Erstellungs-API aufrufen
 
-Konzeptionell patchen Sie das Issue, um Copilot als Beauftragten festzulegen.
+Konzeptionell rufen Sie den Task-Erstellungsendpunkt mit den entsprechenden Parametern auf.
 
 ```json
 {
-  "assignees": ["copilot-swe-agent[bot]"],
-  "agent_assignment": {
-    "target_repo": "OWNER/REPO",
-    "base_branch": "main",
-    "custom_instructions": "Translate the Japanese source article..."
-  }
+  "title": "[translation] Translate my-post.md",
+  "problem_statement": "Translate the Japanese source article...",
+  "event_type": "copilot_task"
 }
 ```
 
@@ -218,22 +213,21 @@ Beim Hinzufügen von automatischem Merging sind dies die empfohlenen Mindestbedi
 
 Mit diesen 4 Bedingungen können Sie den Unfall, normale Entwicklungs-PRs in das automatische Merge-Netz zu ziehen, weitgehend vermeiden.
 
-## Schritt 5. Das übergeordnete Übersetzungs-Issue nach dem Merge automatisch schließen
+## Schritt 5. Duplikate mit PR-Body-Markern verhindern
 
-Das letzte Stück, das den Betrieb sauber hält, ist das automatische Schließen des übergeordneten Issues nach einem Merge.
+Das letzte Stück, das den Betrieb sauber hält, ist die Verhinderung von Duplikaten vor der Erstellung eines Übersetzungs-Tasks.
 
-Der Ansatz ist einfach: Für zusammengeführte Übersetzungs-PRs tun Sie Folgendes.
+Der Ansatz ist einfach: Bevor ein Übersetzungs-PR-Task erstellt wird, tun Sie Folgendes.
 
-1. Die geänderten Dateien des PRs abrufen
-2. Auch den Quellpfad aus dem PR-Body lesen
-3. Offene Issues suchen, die dem `translation-source:`-Marker entsprechen
-4. Einen Kommentar hinzufügen und schließen
+1. Offene PRs suchen, die den `translation-source:`-Marker in ihrem Body enthalten
+2. Wenn ein übereinstimmender PR existiert, ignorieren und keinen doppelten Task erstellen
+3. Andernfalls mit der Erstellung des Übersetzungs-PR-Tasks fortfahren
 
-Der Grund, auch nach dem Quellpfad im PR-Body zu schauen, ist, dass sich das ausschließliche Verlassen auf die geänderten Dateien von Copilot-erstellten PRs manchmal als unzuverlässig erweisen kann. **Sowohl die geänderten Dateien als auch den PR-Body zu verwenden** hält es stabil.
+Der Grund, den Marker im PR-Body zu verwenden, ist, dass sich das ausschließliche Verlassen auf den Titel manchmal als unzuverlässig für die Deduplizierung erweisen kann. **Die Verwendung eines eindeutigen Markers im PR-Body** hält es stabil und stellt sicher, dass nur ein Übersetzungs-Task pro Artikel erstellt wird.
 
 ## Hinweise
 
-### Die Sprache der PRs und Issues von Copilot auf Japanisch ausrichten
+### Die Sprache der PRs von Copilot auf Japanisch ausrichten
 
 Wenn Sie die Ausgabesprache von Copilot auf der GitHub-Seite stabilisieren möchten, ist die Verwendung von repository-weiten Anweisungen der direkteste Ansatz.
 
@@ -246,7 +240,7 @@ This repository is an Astro static site for Acecore, deployed on Cloudflare Page
 - For multilingual content work, treat Japanese source files as canonical and keep translated frontmatter aligned with the Japanese source.
 ```
 
-Allein mit dieser einen Datei wird die Standardsprache und der Kontext, wenn der Copilot-Coding-Agent Issues und PRs erstellt, erheblich stabiler.
+Allein mit dieser einen Datei wird die Standardsprache und der Kontext, wenn der Copilot-Coding-Agent PRs erstellt, erheblich stabiler.
 
 ## Zusammenfassung
 
@@ -255,13 +249,13 @@ Der Kern dieser Konfiguration ist es, die Übersetzung von "etwas, das Menschen 
 Hier ist der Ablauf noch einmal.
 
 1. Nur den japanischen Artikel schreiben
-2. Ein Push erstellt automatisch Übersetzungs-Issues
-3. Automatisch Copilot zuweisen
+2. Ein Push erstellt direkt einen Copilot-Übersetzungs-PR-Task
+3. Copilot erstellt den Übersetzungs-PR
 4. Den Übersetzungs-PR bauen und automatisch zusammenführen
-5. Das übergeordnete Issue automatisch schließen
+5. Duplikate durch Marker im PR-Body verhindern
 
 Sobald dies vollständig zusammengestellt ist, fühlt sich der Betrieb vom Betreiberstandpunkt aus recht natürlich an. **Sobald Sie den japanischen Artikel pushen, werden die Artikel in anderen Sprachen nach und nach auf der GitHub-Seite erstellt**.
 
-Natürlich geht es in der Praxis durch asynchrone Schritte — Issue-Erstellung, Copilot-Ausführung, PR-Erstellung, Build und Merge — sodass nicht alles "sofort" passiert. Aber der Betreiber muss nicht mehr jedes Mal manuell Übersetzungsaufgaben einreichen oder vergessen, PRs zu schließen.
+Natürlich geht es in der Praxis durch asynchrone Schritte — PR-Task-Erstellung, Copilot-Ausführung, PR-Erstellung, Build und Merge — sodass nicht alles "sofort" passiert. Aber der Betreiber muss nicht mehr jedes Mal manuell Übersetzungsaufgaben einreichen oder vergessen, PRs zu schließen.
 
 Dieser Artikel selbst ist so strukturiert, dass die japanische Version als Ausgangspunkt in diesen Ablauf eingespeist werden kann. Wenn Sie eine mehrsprachige Website kontinuierlich betreiben, ist es wahrscheinlich am besten, mit etwa diesem Automatisierungsgrad zu beginnen.
