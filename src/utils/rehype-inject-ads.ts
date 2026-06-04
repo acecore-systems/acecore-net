@@ -32,7 +32,6 @@ export default function rehypeInjectAds() {
         tagName: 'div',
         properties: {
           className: ['ad-inline', 'not-prose'],
-          style: 'margin:2rem 0',
         },
         children: [
           {

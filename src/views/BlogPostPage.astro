@@ -387,7 +387,7 @@ const ctaHeading = isDefaultLocale
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
         {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
         {post.data.faq && <Faq {...post.data.faq} />}
-        <div class="my-8" data-pagefind-ignore>
+        <div class="my-6" data-pagefind-ignore>
           <AdUnit />
         </div>
 
@@ -521,7 +521,7 @@ const ctaHeading = isDefaultLocale
                   return (
                     <Fragment>
                       {i === 2 && (
-                        <div class="sm:col-span-2">
+                        <div class="my-1 sm:col-span-2">
                           <AdUnit />
                         </div>
                       )}

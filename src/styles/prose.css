@@ -154,6 +154,10 @@
   margin-bottom: 2em;
 }
 
+.ac-prose :where(img, video):not(:where(.not-prose, .not-prose *)) {
+  border-radius: 0.5rem;
+}
+
 .ac-prose :where(picture):not(:where(.not-prose, .not-prose *)) {
   display: block;
 }
@@ -204,4 +208,12 @@
 
 .ac-prose > :where(:last-child):not(:where(.not-prose, .not-prose *)) {
   margin-bottom: 0;
+}
+
+.ac-prose .ad-inline {
+  margin: 1.15rem 0 0.85rem;
+}
+
+.ac-prose .ad-inline + :where(h2) {
+  margin-top: 1em;
 }
