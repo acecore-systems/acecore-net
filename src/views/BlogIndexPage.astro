@@ -86,7 +86,9 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                 {t(locale, 'blog.tagListDescription')}
               </p>
             </div>
-            <span class="text-xl font-700 text-brand-500">{uniqueTagCount}</span
+            <span
+              class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600"
+              >{uniqueTagCount}</span
             >
           </div>
         </a>
@@ -103,7 +105,10 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                 {t(locale, 'blog.archiveListDescription')}
               </p>
             </div>
-            <span class="text-xl font-700 text-brand-500">{archiveCount}</span>
+            <span
+              class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600"
+              >{archiveCount}</span
+            >
           </div>
         </a>
       </div>
