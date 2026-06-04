@@ -12,6 +12,8 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 <div
   class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg"
   id="anchor-ad"
+  data-ace-ad-container
+  data-ace-ad-state="pending"
 >
   <div class="relative">
     <button

@@ -124,9 +124,7 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                 {posts.map((post, i: number) => (
                   <Fragment>
                     {i > 0 && i % 3 === 0 && (
-                      <div class="ac-card overflow-hidden p-3">
-                        <AdUnit />
-                      </div>
+                      <AdUnit containerClass="ac-card overflow-hidden p-3" />
                     )}
                     <BlogPostCard
                       post={localizePost(post, allRawPosts, locale)}

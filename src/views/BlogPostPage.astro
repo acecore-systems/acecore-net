@@ -389,9 +389,7 @@ const ctaHeading = isDefaultLocale
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
         {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
         {post.data.faq && <Faq {...post.data.faq} />}
-        <div class="my-6" data-pagefind-ignore>
-          <AdUnit />
-        </div>
+        <AdUnit containerClass="my-6" />
 
         <div class="my-10 border-t border-slate-200 py-6">
           <ShareButtons
@@ -523,9 +521,7 @@ const ctaHeading = isDefaultLocale
                   return (
                     <Fragment>
                       {i === 2 && (
-                        <div class="my-1 sm:col-span-2">
-                          <AdUnit />
-                        </div>
+                        <AdUnit containerClass="my-1 sm:col-span-2" />
                       )}
                       <a
                         href={u(`/blog/${rp.id}/`)}
@@ -687,7 +683,10 @@ const ctaHeading = isDefaultLocale
               </div>
             )
           }
-          <AdUnit adSlot="4541792182" />
+          <AdUnit
+            adSlot="4541792182"
+            containerClass="ac-card overflow-hidden p-3"
+          />
         </div>
       </aside>
     </div>

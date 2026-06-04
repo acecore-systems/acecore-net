@@ -141,6 +141,7 @@ import Footer from '../components/Footer.astro'
 import SearchModal from '../components/SearchModal.astro'
 import ScrollToTop from '../components/ScrollToTop.astro'
 import AnchorAd from '../components/AnchorAd.astro'
+import AdsRuntime from '../components/AdsRuntime.astro'
 import { SITE } from '../data/site'
 ---
 
@@ -465,13 +466,7 @@ import { SITE } from '../data/site'
     <ScrollToTop locale={locale} />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
-    {isMonetizedPage && (
-      <script>
-        import { initAdsRuntime } from '../scripts/ads'
-
-        initAdsRuntime()
-      </script>
-    )}
+    {isMonetizedPage && <AdsRuntime />}
     <script>
       let searchModalModulePromise: Promise<
         typeof import('../scripts/search-modal')
@@ -531,3 +526,49 @@ import { SITE } from '../data/site'
     </script>
   </body>
 </html>
+
+<style is:global>
+  :where(
+    [data-ace-ad-container][data-ace-ad-state='pending'],
+    [data-ace-ad-container][data-ace-ad-state='requested']
+  ) {
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    height: 0 !important;
+    margin-block: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+  }
+
+  :where(
+    [data-ace-ad-container][data-ace-ad-state='empty'],
+    [data-ace-ad-container][data-ace-ad-state='error']
+  ) {
+    display: none !important;
+  }
+
+  :where(
+      [data-ace-ad-container][data-ace-ad-state='pending'],
+      [data-ace-ad-container][data-ace-ad-state='requested']
+    )
+    .adsbygoogle {
+    min-height: 0 !important;
+  }
+
+  #anchor-ad:where(
+    [data-ace-ad-state='pending'],
+    [data-ace-ad-state='requested']
+  ) {
+    pointer-events: none;
+  }
+
+  #anchor-ad:where(
+      [data-ace-ad-state='pending'],
+      [data-ace-ad-state='requested']
+    )
+    #anchor-ad-close {
+    display: none;
+  }
+</style>

@@ -31,7 +31,100 @@ declare global {
 /** AdSense スクリプト要素の識別用 ID */
 const ADS_SCRIPT_ID = 'ace-ads-script'
 /** リトライ可能な AdSense エラーの判定パターン（幅 0 やスロット重複など一時的なエラー） */
-const RETRYABLE_AD_ERROR_PATTERN = /availableWidth=0|No slot size|All ins elements in the DOM with class=adsbygoogle already have ads in them/i
+const RETRYABLE_AD_ERROR_PATTERN =
+  /availableWidth=0|No slot size|All ins elements in the DOM with class=adsbygoogle already have ads in them/i
+/** 広告リクエスト後、未配信判定を行うまでの待機時間 */
+const AD_OUTCOME_CHECK_DELAY_MS = 10000
+
+type AdSlotState = 'pending' | 'requested' | 'filled' | 'empty' | 'error'
+
+function getAdShell(slot: HTMLElement) {
+  return (
+    slot.closest<HTMLElement>(
+      '[data-ace-ad-container], [data-ace-ad-wrapper]',
+    ) ??
+    slot.parentElement ??
+    slot
+  )
+}
+
+function setAdSlotState(slot: HTMLElement, state: AdSlotState) {
+  const shell = getAdShell(slot)
+  slot.dataset.aceAdState = state
+  shell.dataset.aceAdState = state
+}
+
+function hideAdSlot(
+  slot: HTMLElement,
+  state: Extract<AdSlotState, 'empty' | 'error'>,
+) {
+  const shell = getAdShell(slot)
+  setAdSlotState(slot, state)
+  shell.hidden = true
+}
+
+function hasRenderableAd(slot: HTMLElement) {
+  if (slot.getAttribute('data-ad-status') === 'filled') return true
+
+  const rect = slot.getBoundingClientRect()
+  if (rect.width > 0 && rect.height > 0) return true
+
+  return [...slot.querySelectorAll<HTMLIFrameElement>('iframe')].some(
+    (iframe) => {
+      const iframeRect = iframe.getBoundingClientRect()
+      return iframeRect.width > 0 && iframeRect.height > 0
+    },
+  )
+}
+
+function updateAdSlotOutcome(slot: HTMLElement, forceEmptyCheck = false) {
+  const adStatus = slot.getAttribute('data-ad-status')
+  if (adStatus === 'unfilled') {
+    hideAdSlot(slot, 'empty')
+    return 'empty'
+  }
+
+  if (hasRenderableAd(slot)) {
+    setAdSlotState(slot, 'filled')
+    return 'filled'
+  }
+
+  if (
+    forceEmptyCheck &&
+    slot.getAttribute('data-adsbygoogle-status') === 'done'
+  ) {
+    hideAdSlot(slot, 'empty')
+    return 'empty'
+  }
+
+  return 'pending'
+}
+
+function observeAdOutcome(slot: HTMLElement) {
+  if (slot.dataset.aceAdOutcomeObserved === '1') return
+  slot.dataset.aceAdOutcomeObserved = '1'
+
+  const observer = new MutationObserver(() => {
+    const outcome = updateAdSlotOutcome(slot)
+    if (outcome === 'filled' || outcome === 'empty') {
+      observer.disconnect()
+    }
+  })
+
+  observer.observe(slot, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+    attributeFilter: ['data-ad-status', 'data-adsbygoogle-status', 'style'],
+  })
+
+  window.setTimeout(() => {
+    const outcome = updateAdSlotOutcome(slot, true)
+    if (outcome === 'filled' || outcome === 'empty') {
+      observer.disconnect()
+    }
+  }, AD_OUTCOME_CHECK_DELAY_MS)
+}
 
 /**
  * AdSense のメインスクリプトをページに挿入し、ロード完了を Promise で返す。
@@ -96,13 +189,19 @@ function ensureAdsScript() {
  */
 function canPushAd(slot: HTMLElement) {
   if (slot.dataset.aceAdPushed === '1') return false
+  if (
+    slot.dataset.aceAdState === 'empty' ||
+    slot.dataset.aceAdState === 'error'
+  ) {
+    return false
+  }
   if (slot.getAttribute('data-adsbygoogle-status')) return false
 
-  const container =
-    slot.closest<HTMLElement>('[data-ace-ad-container]') ?? slot
+  const container = slot.closest<HTMLElement>('[data-ace-ad-container]') ?? slot
   const rect = container.getBoundingClientRect()
   const style = window.getComputedStyle(container)
 
+  if (container.hidden) return false
   if (rect.width < 160) return false
   if (style.display === 'none' || style.visibility === 'hidden') return false
 
@@ -117,21 +216,32 @@ function canPushAd(slot: HTMLElement) {
 async function pushAdSlot(slot: HTMLElement) {
   if (!canPushAd(slot)) return false
 
-  await ensureAdsScript()
+  setAdSlotState(slot, 'requested')
+
+  try {
+    await ensureAdsScript()
+  } catch (error) {
+    hideAdSlot(slot, 'error')
+    return false
+  }
 
   if (!canPushAd(slot)) return false
 
   try {
     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
     slot.dataset.aceAdPushed = '1'
+    observeAdOutcome(slot)
     return true
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
 
-    if (!RETRYABLE_AD_ERROR_PATTERN.test(message)) {
-      console.warn('AdSense load failed:', error)
+    if (RETRYABLE_AD_ERROR_PATTERN.test(message)) {
+      setAdSlotState(slot, 'pending')
+      return false
     }
 
+    console.warn('AdSense load failed:', error)
+    hideAdSlot(slot, 'error')
     return false
   }
 }
@@ -147,8 +257,7 @@ function observeAdSlot(slot: HTMLElement) {
 
   slot.dataset.aceAdObserved = '1'
 
-  const container =
-    slot.closest<HTMLElement>('[data-ace-ad-container]') ?? slot
+  const container = slot.closest<HTMLElement>('[data-ace-ad-container]') ?? slot
   let intersectionObserver: IntersectionObserver | null = null
   let resizeObserver: ResizeObserver | null = null
 
@@ -158,6 +267,14 @@ function observeAdSlot(slot: HTMLElement) {
   }
 
   const attemptInit = async () => {
+    if (
+      slot.dataset.aceAdState === 'empty' ||
+      slot.dataset.aceAdState === 'error'
+    ) {
+      cleanup()
+      return
+    }
+
     if (slot.dataset.aceAdPushed === '1') {
       cleanup()
       return

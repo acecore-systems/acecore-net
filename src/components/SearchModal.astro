@@ -59,9 +59,12 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
       <div
         id="search-ad"
         class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
+        data-ace-ad-container
+        data-ace-ad-state="pending"
       >
         <ins
           class="adsbygoogle"
+          data-ace-ad-slot
           style="display:block"
           data-ad-client={SITE.adsenseClientId}
           data-ad-slot={SITE.adSlotId}

@@ -3,12 +3,18 @@ import { SITE } from '../data/site'
 
 interface Props {
   adSlot?: string
+  containerClass?: string
 }
 
-const { adSlot = SITE.adSlotId } = Astro.props
+const { adSlot = SITE.adSlotId, containerClass } = Astro.props
 ---
 
-<div data-ace-ad-container>
+<div
+  class={containerClass}
+  data-ace-ad-container
+  data-ace-ad-state="pending"
+  data-pagefind-ignore
+>
   <ins
     class="adsbygoogle"
     data-ace-ad-slot

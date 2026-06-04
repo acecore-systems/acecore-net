@@ -32,6 +32,9 @@ export default function rehypeInjectAds() {
         tagName: 'div',
         properties: {
           className: ['ad-inline', 'not-prose'],
+          dataAceAdContainer: '',
+          dataAceAdState: 'pending',
+          dataPagefindIgnore: '',
         },
         children: [
           {
@@ -39,6 +42,7 @@ export default function rehypeInjectAds() {
             tagName: 'ins',
             properties: {
               className: ['adsbygoogle'],
+              dataAceAdSlot: '',
               style: 'display:block',
               dataAdClient: SITE.adsenseClientId,
               dataAdSlot: INLINE_AD_SLOT,
@@ -46,17 +50,6 @@ export default function rehypeInjectAds() {
               dataFullWidthResponsive: 'true',
             },
             children: [],
-          },
-          {
-            type: 'element' as const,
-            tagName: 'script',
-            properties: {},
-            children: [
-              {
-                type: 'text' as const,
-                value: '(adsbygoogle = window.adsbygoogle || []).push({});',
-              },
-            ],
           },
         ],
       }
