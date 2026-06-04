@@ -64,7 +64,7 @@ const archiveIndexLd = {
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
-      <h1 class="mb-4 text-2xl ac-heading sm:text-3xl">
+      <h1 class="mb-4 break-words text-2xl ac-heading sm:text-3xl">
         {t(locale, 'blog.archive')}
       </h1>
       <p class="mb-8 max-w-2xl leading-relaxed text-slate-600">
@@ -76,7 +76,7 @@ const archiveIndexLd = {
             <li>
               <a
                 href={u(`/blog/archive/${key}/`)}
-                class="ac-card flex min-h-16 items-center justify-between gap-4 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+                class="ac-card flex min-h-16 items-center justify-between gap-4 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
               >
                 <span class="font-600 text-slate-800">
                   {t(locale, 'blog.yearMonth', {
@@ -84,8 +84,8 @@ const archiveIndexLd = {
                     month: String(month),
                   })}
                 </span>
-                <span class="text-sm text-slate-500">
-                  {t(locale, 'blog.nArticles', { count })}
+                <span class="inline-flex min-h-9 items-center rounded-lg bg-brand-50 px-3 text-sm font-700 text-brand-600">
+                  {t(locale, 'blog.postsCount', { count })}
                 </span>
               </a>
             </li>

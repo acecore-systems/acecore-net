@@ -53,12 +53,19 @@ const archivePageLd = {
   <section class="ac-section">
     <div class="ac-container">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
-      <h1 class="mb-8 text-2xl ac-heading sm:text-3xl">
-        {t(locale, 'blog.articlesInMonth', { label })}
-        <span class="text-base text-slate-400 ml-2">
-          {t(locale, 'blog.nArticles', { count: posts.length })}
-        </span>
-      </h1>
+      <div class="mb-8">
+        <h1 class="mb-3 break-words text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'blog.articlesInMonth', { label })}
+        </h1>
+        <p class="max-w-2xl leading-relaxed text-slate-600">
+          {t(locale, 'blog.monthDescription', { label })}
+          <span
+            class="ml-2 inline-flex rounded-lg bg-brand-50 px-3 py-1 text-sm font-700 text-brand-600"
+          >
+            {t(locale, 'blog.postsCount', { count: posts.length })}
+          </span>
+        </p>
+      </div>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
           {
