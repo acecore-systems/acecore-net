@@ -2,6 +2,7 @@
   color: #334155;
   font-size: 1.0625rem;
   line-height: 1.85;
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 640px) {
@@ -51,6 +52,8 @@
   font-weight: 700;
   margin-top: 2.15em;
   margin-bottom: 0.95em;
+  padding-inline-start: 0.7em;
+  border-inline-start: 0.2rem solid #b8d3f0;
 }
 
 .ac-prose :where(h3):not(:where(.not-prose, .not-prose *)) {
@@ -103,6 +106,9 @@
   margin-top: 1.9em;
   margin-bottom: 1.9em;
   padding-inline-start: 1.1em;
+  background: #f8fafc;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding-block: 0.1em;
 }
 
 .ac-prose :where(hr):not(:where(.not-prose, .not-prose *)) {
@@ -112,9 +118,12 @@
 }
 
 .ac-prose :where(code):not(:where(.not-prose, .not-prose *, pre code)) {
-  color: #0f172a;
+  color: #1e3f6b;
+  background: #eef4fb;
+  border-radius: 0.25rem;
   font-size: 0.8888889em;
   font-weight: 600;
+  padding: 0.08em 0.28em;
 }
 
 .ac-prose :where(code):not(:where(.not-prose, .not-prose *, pre code))::before {
@@ -128,6 +137,7 @@
 .ac-prose :where(pre):not(:where(.not-prose, .not-prose *)) {
   background: #1e293b;
   border-radius: 0.5rem;
+  border: 1px solid #334155;
   color: #e2e8f0;
   font-size: 0.8888889em;
   line-height: 1.75;
@@ -166,7 +176,8 @@
   color: #64748b;
   font-size: 0.8888889em;
   line-height: 1.5;
-  margin-top: 1em;
+  margin-top: 0.75em;
+  text-align: center;
 }
 
 .ac-prose :where(table):not(:where(.not-prose, .not-prose *)) {
@@ -211,9 +222,10 @@
 }
 
 .ac-prose .ad-inline {
-  margin: 1.15rem 0 0.85rem;
+  margin: 1rem 0 0.75rem;
+  padding-block: 0.25rem;
 }
 
 .ac-prose .ad-inline + :where(h2) {
-  margin-top: 1em;
+  margin-top: 0.9em;
 }

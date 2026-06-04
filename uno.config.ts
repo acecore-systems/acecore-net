@@ -51,11 +51,11 @@ export default defineConfig({
     'ac-input':
       'w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
     'ac-btn':
-      'inline-flex items-center justify-center rounded-lg px-5 py-3 font-700 transition-all duration-200 min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
+      'inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-700 no-underline transition-colors duration-200 min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
     'ac-btn-primary':
       'ac-btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700',
     'ac-btn-outline':
-      'ac-btn border-2 border-brand-500 text-brand-500 hover:bg-brand-50',
+      'ac-btn border-2 border-brand-500 bg-white text-brand-500 hover:bg-brand-50',
     'ac-link':
       'text-brand-500 underline underline-offset-2 hover:text-brand-600 transition-colors',
   },
