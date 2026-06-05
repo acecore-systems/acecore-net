@@ -59,6 +59,8 @@ Die Qualitätssicherung einer Website ist mit einer einmaligen Prüfung vor dem 
 
 Dieser Artikel dokumentiert eine praxisnahe Monkey-Testing-Sitzung, bei der der **VS Code Agent Mode (GitHub Copilot)** direkt einen Browser steuerte, um eine gesamte Website zu testen. Wir haben die Testmethodik systematisiert, die die KI konsistent ausführte – von der statischen Quellcode-Analyse bis zur dynamischen Browser-Überprüfung.
 
+Die in diesem Test identifizierten Verbesserungen sind eng mit dem [Astro-Website-Qualitätsverbesserungsleitfaden](/blog/website-improvement-batches/) und dem Artikel [UX & Code-Qualität](/blog/astro-ux-and-code-quality/) verknüpft.
+
 ---
 
 ## Testumgebung
@@ -298,3 +300,51 @@ Wenn man diesen KI-Monkey-Testing-Ansatz organisiert, lässt er sich in folgende
 ### Schicht 3: DOM-Schicht-Tests (Strukturüberprüfung)
 
 - Fehlerhafte Bilder, leere Links, unsichere externe Links
+- H1-Eindeutigkeit und Überschriften-Hierarchie
+- Meta-Tags (OGP, canonical, description)
+- Strukturierte Daten (JSON-LD)
+
+### Schicht 4: Interaktionsschicht-Tests (Verhaltensüberprüfung)
+
+- Klick-, Eingabe-, Tastaturoperationen
+- Modal öffnen/schließen, Formularvalidierung
+- JS-Neuinitialisierung nach View Transitions
+- Scroll-Ereignisse, Lazy Loading
+
+### Schicht 5: Barrierefreiheits-Schicht-Tests
+
+- alt-Attribute, Labels, ARIA
+- Überschriften-Hierarchie, Landmarks
+- Fokus-Management, tabindex
+- Skip-Links
+
+---
+
+## Einschränkungen und Grenzen
+
+KI-Monkey-Testing hat einige Einschränkungen:
+
+| Einschränkung          | Details                                                                                                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Viewport-Emulation     | Die Mobile-Breiten-Emulation funktioniert nicht im integrierten VS Code-Browser. Die CSS-Gültigkeit wurde stattdessen durch statische Analyse der Build-Ausgabe geprüft |
+| Netzwerkbedingungen    | Offline- und Langsamverbindungs-Simulation nicht möglich. Service Worker-Tests ebenfalls nicht abgedeckt                                                             |
+| Benutzer-„Gefühl"      | Designästhetik, Lesbarkeit und Markenkonsistenz erfordern menschliches Urteil                                                                                        |
+| Authentifizierungsflows | Seiten mit Login-Anforderung benötigen ein separates sicheres Credential-Management                                                                                  |
+
+Für das CSS-Responsive-Design haben wir als Ersatz die CSS-Dateien in der Build-Ausgabe direkt analysiert und bestätigt, dass `@media(min-width:768px)`-Media-Queries korrekt generiert wurden.
+
+---
+
+## Zusammenfassung
+
+GitHub Copilot Agent Mode kann einen vollständigen QA-Zyklus abschließen – von der Quellcode-Analyse → Testplanung → automatisierter Browser-Bedienung → Fehlerbehebung → Nachüberprüfung – ausgehend von einer einzigen Anweisung: „Bitte testen."
+
+Hier ist eine Zusammenfassung der Ergebnisse dieser Sitzung:
+
+- **Testziele**: 38 Routen + 25 Tags + 5 Archive + 2 Paginierung = 70 Routen
+- **Testelemente**: HTTP-Status, DOM-Struktur, Interaktionen, SEO, Barrierefreiheit, Sicherheit, View Transitions
+- **Gefundene Fehler**: 2 (Such-Modal, CSP-Header) → sofort behoben
+- **Barrierefreiheits-Verstöße**: 0
+- **Tote Links**: 0
+
+Die Kombination aus menschlicher Sichtprüfung und KI-automatisierter Überprüfung erreicht sowohl Testabdeckung als auch Effizienz.

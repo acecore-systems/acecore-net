@@ -59,6 +59,8 @@ faq:
 
 이 글은 **VS Code 에이전트 모드(GitHub Copilot)**가 직접 브라우저를 조작하여 사이트 전체를 테스트한 실전 몽키 테스트 세션을 문서화한 것입니다. AI가 일관되게 수행한 테스트 방법론을 정적 소스 코드 분석부터 동적 브라우저 검증까지 체계화했습니다.
 
+이 테스트에서 발견된 개선 사항은 [Astro 사이트 품질 개선 가이드](/blog/website-improvement-batches/)와 [UX・코드 품질](/blog/astro-ux-and-code-quality/) 글과 밀접하게 연결되어 있습니다.
+
 ---
 
 ## 테스트 환경

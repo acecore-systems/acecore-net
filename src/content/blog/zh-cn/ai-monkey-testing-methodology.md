@@ -59,6 +59,8 @@ faq:
 
 本文总结了 **VS Code的智能体模式（GitHub Copilot）** 直接操作浏览器，对整个网站进行猴子测试的实践记录。从源代码的静态分析到浏览器上的动态验证，系统地整理了AI一贯执行的测试方法。
 
+本次测试中发现的改进点，与[Astro网站质量改善指南](/blog/website-improvement-batches/)和[UX・代码质量篇](/blog/astro-ux-and-code-quality/)有着密切的关联。
+
 ---
 
 ## 测试环境

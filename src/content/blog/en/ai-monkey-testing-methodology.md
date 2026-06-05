@@ -59,6 +59,8 @@ Website quality assurance is not sufficient with a one-time check before release
 
 This article documents a hands-on monkey testing session where **VS Code Agent Mode (GitHub Copilot)** directly operated a browser to test an entire site. We've systematized the testing methodology that AI consistently executed, from static source code analysis to dynamic browser verification.
 
+The improvements identified in this test are closely connected to the [Astro Site Quality Improvement Guide](/blog/website-improvement-batches/) and the [UX & Code Quality](/blog/astro-ux-and-code-quality/) articles.
+
 ---
 
 ## Test Environment

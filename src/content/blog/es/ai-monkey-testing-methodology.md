@@ -59,6 +59,8 @@ El aseguramiento de calidad de un sitio web no es suficiente con una sola revisi
 
 En este artículo, resumimos el registro práctico en el que **el modo agente de VS Code (GitHub Copilot)** operó directamente el navegador para realizar monkey testing en todo el sitio. Desde el análisis estático del código fuente hasta la verificación dinámica en el navegador, sistematizamos los métodos de prueba ejecutados de forma consistente por la IA.
 
+Las mejoras identificadas en esta prueba están estrechamente relacionadas con la [Guía de mejora de calidad del sitio Astro](/blog/website-improvement-batches/) y el artículo [UX y calidad del código](/blog/astro-ux-and-code-quality/).
+
 ---
 
 ## Entorno de pruebas
