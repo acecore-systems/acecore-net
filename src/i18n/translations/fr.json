@@ -66,7 +66,7 @@
     "next": "Suivant →",
     "pageNav": "Navigation des pages",
     "pageOf": "Page {current} sur {total}",
-    "pageN": "Page {page}",
+    "pageN": "Page {n}",
     "articlesByTag": "Articles avec le tag « {tag} »",
     "tagDescription": "Liste des articles liés au tag « {tag} ».",
     "articlesByAuthor": "Articles de {author}",

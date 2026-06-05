@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
+    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet."
+  },
   "nav": {
     "home": "Startseite",
     "services": "Dienste",
@@ -51,6 +55,20 @@
     "schools": "Acecore Schools",
     "privacy": "Datenschutzerklärung"
   },
+  "pageNames": {
+    "services": "Dienste",
+    "works": "Projekte und Portfolio",
+    "schools": "Acecore Schools",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "blog": "Blog",
+    "acestudio": "AceStudio",
+    "privacy": "Datenschutzerklärung",
+    "tags": "Tags",
+    "authors": "Autoren",
+    "archive": "Archiv",
+    "page": "Seite"
+  },
   "blog": {
     "title": "Blog",
     "subtitle": "Technische Einblicke, Berichte & Neuigkeiten",
@@ -66,7 +84,7 @@
     "next": "Weiter →",
     "pageNav": "Seitennavigation",
     "pageOf": "Seite {current} von {total}",
-    "pageN": "Seite {page}",
+    "pageN": "{n}. Seite",
     "articlesByTag": "Artikel mit Tag \"{tag}\"",
     "tagDescription": "Eine Liste von Artikeln zum Tag \"{tag}\".",
     "articlesByAuthor": "Artikel von {author}",
@@ -119,25 +137,7 @@
     "tagListDescription": "Eine Liste aller Blog-Tags.",
     "archiveListDescription": "Monatliches Archiv der Blogartikel.",
     "itemListName": "Acecore Blog Artikelliste",
-    "language": "Sprache",
-    "description": "Blog-Archiv",
-    "readTime": "{min} Min. Lesezeit",
-    "shareTwitter": "Auf X teilen",
-    "shareFacebook": "Auf Facebook teilen",
-    "shareHatena": "Auf Hatena Bookmark teilen",
-    "shareLine": "Auf LINE teilen",
-    "shareMisskey": "Auf Misskey teilen",
-    "sharePocket": "In Pocket speichern",
-    "copiedLink": "Kopiert!",
-    "tagLabel": "Tags",
-    "authorLabel": "Autor",
-    "archiveTitle": "Archiv: {month}",
-    "archiveMeta": "Archiv der Artikel des Acecore-Blogs aus {month}.",
-    "tagListTitle": "Tag-Liste"
-  },
-  "meta": {
-    "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
-    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet."
+    "language": "Sprache"
   },
   "pages": {
     "home": {
@@ -180,39 +180,7 @@
       "viewAbout": "Über uns",
       "viewServices": "Dienste anzeigen",
       "latestBlog": "Neueste Blog-Artikel",
-      "viewAllPosts": "Alle Artikel anzeigen",
-      "title": "Acecore – Technologiekollektiv",
-      "description": "Acecore ist ein Technologiekollektiv, das Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als integrierten Service anbietet.",
-      "heroContact": "Kontakt",
-      "heroServices": "Dienste anzeigen",
-      "heroImgAlt": "Futuristische Technologie-Stadtlandschaft",
-      "insightTitle": "Einblick und Ansatz",
-      "insightDesc": "Acecores einzigartige Perspektive auf Technologie, Kreativität und Bildung.",
-      "insight1Title": "Maßgeschneiderte Integration",
-      "insight1Desc": "Wir bieten optimale Lösungen durch die Verknüpfung von Entwicklung, Infrastruktur, Design und Bildung.",
-      "insight2Title": "Praktische Unterstützung",
-      "insight2Desc": "Wir bieten echte Begleitung, die praktische Szenarien abdeckt — von der Einführung bis zum Betrieb.",
-      "insight3Title": "Community-Getrieben",
-      "insight3Desc": "Wir entdecken Bedürfnisse und Möglichkeiten durch Community-Aktivitäten und Bildungsinitiativen.",
-      "checklistTitle": "Dies zeichnet Acecore aus",
-      "checklistDesc": "Kernstärken, die Acecore definieren.",
-      "servicesTitle": "Dienste",
-      "servicesSubtitle": "Vom Aufbau bis zum Betrieb, in einem durchgehenden Setup",
-      "servicesDev": "Systementwicklung",
-      "servicesDevDesc": "Maßgeschneiderte System- und App-Entwicklung — von der Betriebseffizienz bis zur Datenanalyse.",
-      "servicesServer": "Serverbetrieb",
-      "servicesServerDesc": "Design, Aufbau und stabile Betriebsunterstützung für Cloud- und On-Premise-Umgebungen.",
-      "servicesWeb": "Webdesign",
-      "servicesWebDesc": "Hochwertige Website-Produktion — alles von der Planung bis zur SEO-Optimierung.",
-      "servicesDesign": "Design und Kreation",
-      "servicesDesignDesc": "Visuelles Design von Logos und Drucksachen bis hin zu Bannern und Charakter-Design.",
-      "servicesSchool": "IT-Schule / Acecore Schools",
-      "servicesSchoolDesc": "Praktischer IT-Unterricht für alle Altersgruppen — von Nachhilfe bis zu praktischer Programmierung.",
-      "servicesMore": "Alle Dienste anzeigen →",
-      "ctaHeading": "Beginnen Sie das Gespräch mit Acecore",
-      "ctaBody": "Ob Sie eine vage Idee haben oder bereit sind, ein Projekt zu starten — zögern Sie nicht, uns zu kontaktieren.",
-      "ctaContact": "Kontakt",
-      "ctaAbout": "Über Acecore"
+      "viewAllPosts": "Alle Artikel anzeigen"
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -223,13 +191,7 @@
       "searchPlaceholder": "Diese Seite durchsuchen...",
       "goHome": "Zur Startseite",
       "viewBlog": "Blog anzeigen",
-      "latestArticles": "Neueste Artikel",
-      "message": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
-      "heroImgAlt": "404-Landschaft",
-      "linkHome": "Startseite",
-      "linkBlog": "Blog",
-      "linkContact": "Kontakt",
-      "linkAbout": "Über uns"
+      "latestArticles": "Neueste Artikel"
     },
     "about": {
       "title": "Über uns",
@@ -513,9 +475,7 @@
       "ctaHeading": "Beratung und Anmeldung",
       "ctaBody": "Für Kursdetails und Anmeldung kontaktieren Sie uns per Telefon, E-Mail oder LINE. Zögern Sie nicht zu fragen, auch wenn Sie nicht wissen, welcher Kurs der richtige ist.",
       "ctaForm": "Kontaktformular",
-      "ctaLine": "Kontakt über LINE",
-      "contentsLabel": "Inhalte",
-      "levelsLabel": "Stufen"
+      "ctaLine": "Kontakt über LINE"
     },
     "privacy": {
       "title": "Datenschutzerklärung",
@@ -584,20 +544,6 @@
       "inquiryText": "Für Anfragen und Wünsche zu AceStudio",
       "inquiryButton": "Kontaktieren Sie uns"
     }
-  },
-  "pageNames": {
-    "services": "Dienste",
-    "works": "Projekte und Portfolio",
-    "schools": "Acecore Schools",
-    "about": "Über uns",
-    "contact": "Kontakt",
-    "blog": "Blog",
-    "acestudio": "AceStudio",
-    "privacy": "Datenschutzerklärung",
-    "tags": "Tags",
-    "authors": "Autoren",
-    "archive": "Archiv",
-    "page": "Seite"
   },
   "tags": {
     "技術": "Technologie",
