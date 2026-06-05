@@ -166,20 +166,20 @@ Darüber hinaus können Sie durch den Vergleich nur des Markdown-Körpers bei de
 
 ## Schritt 3. PR-Tasks über die Copilot-Coding-Agent-API erstellen
 
-Der Task wird direkt über die Copilot-Coding-Agent-API erstellt — nicht über die Issue-Erstellung.
+Auf der GitHub Actions-Seite wird nach dem Erkennen einer Änderung eine Aufgabe an die Copilot-Coding-Agent-API gesendet.
 
 Es gibt 2 Dinge zu tun.
 
 1. `COPILOT_AGENT_TOKEN` als Repository-Secret hinzufügen
-2. Nach der Erkennung einer Änderung die Job-Task-Erstellungs-API aufrufen
+2. Die Copilot-Job-API für jeden geänderten Quellpfad aufrufen
 
-Konzeptionell rufen Sie den Task-Erstellungsendpunkt mit den entsprechenden Parametern auf.
+Konzeptionell übergeben Sie einen Titel und ein Problem-Statement an die Copilot-Job-API.
 
 ```json
 {
   "title": "[translation] Translate my-post.md",
-  "problem_statement": "Translate the Japanese source article...",
-  "event_type": "copilot_task"
+  "problem_statement": "Translate src/content/blog/my-post.md into all requested locales...",
+  "event_type": "translation-pr"
 }
 ```
 
@@ -215,15 +215,16 @@ Mit diesen 4 Bedingungen können Sie den Unfall, normale Entwicklungs-PRs in das
 
 ## Schritt 5. Duplikate mit PR-Body-Markern verhindern
 
-Das letzte Stück, das den Betrieb sauber hält, ist die Verhinderung von Duplikaten vor der Erstellung eines Übersetzungs-Tasks.
+Wenn man nicht durch Issues geht, verschiebt sich die Duplikatsteuerung auf die PR-Seite.
 
-Der Ansatz ist einfach: Bevor ein Übersetzungs-PR-Task erstellt wird, tun Sie Folgendes.
+Der Ansatz ist einfach: Bevor eine Aufgabe erstellt wird, tun Sie Folgendes.
 
-1. Offene PRs suchen, die den `translation-source:`-Marker in ihrem Body enthalten
-2. Wenn ein übereinstimmender PR existiert, ignorieren und keinen doppelten Task erstellen
-3. Andernfalls mit der Erstellung des Übersetzungs-PR-Tasks fortfahren
+1. Einen `translation-source:`-Marker aus dem Quellpfad ableiten
+2. GitHub nach offenen PRs mit demselben Marker durchsuchen
+3. Wenn ein offener PR existiert, keinen Task erstellen
+4. Wenn kein offener PR existiert, einen Copilot-Übersetzungs-PR-Task erstellen
 
-Der Grund, den Marker im PR-Body zu verwenden, ist, dass sich das ausschließliche Verlassen auf den Titel manchmal als unzuverlässig für die Deduplizierung erweisen kann. **Die Verwendung eines eindeutigen Markers im PR-Body** hält es stabil und stellt sicher, dass nur ein Übersetzungs-Task pro Artikel erstellt wird.
+Der Grund, den Quellpfad in den PR-Body einzubetten, ist, dass nur die geänderten Dateien eines Übersetzungs-PRs zu betrachten es schwer macht, die ursprüngliche japanische Datei zuverlässig rückzuverfolgen. **Den Quellpfad als Marker explizit zu machen** verhindert die Erstellung mehrerer Übersetzungs-PRs für denselben Artikel.
 
 ## Hinweise
 

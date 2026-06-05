@@ -166,20 +166,20 @@ on:
 
 ## Step 3. Copilot coding agent API로 PR 태스크를 생성한다
 
-태스크는 issue를 거치지 않고, Copilot coding agent API를 직접 사용하여 생성합니다.
+GitHub Actions 측에서는, 변경을 감지한 후 Copilot coding agent API에 태스크를 던집니다.
 
 할 일은 2가지입니다.
 
 1. `COPILOT_AGENT_TOKEN`을 repository secret에 넣는다
-2. 변경을 감지한 후 job 태스크 생성 API를 호출한다
+2. 변경된 source path마다 Copilot job API를 호출한다
 
-개념으로는, 적절한 파라미터로 태스크 생성 엔드포인트를 호출합니다.
+개념적으로, Copilot job API에 타이틀과 problem statement를 전달합니다.
 
 ```json
 {
   "title": "[translation] Translate my-post.md",
-  "problem_statement": "Translate the Japanese source article...",
-  "event_type": "copilot_task"
+  "problem_statement": "Translate src/content/blog/my-post.md into all requested locales...",
+  "event_type": "translation-pr"
 }
 ```
 
@@ -215,15 +215,16 @@ ready for review가 된 타이밍에 PR head를 build하고, 성공하면 그대
 
 ## Step 5. PR body 마커로 중복 생성을 방지한다
 
-마지막으로 넣어두면 운영이 깔끔해지는 것이 번역 태스크 생성 전의 중복 체크입니다.
+issue를 거치지 않는 경우, 중복 제어는 PR 측으로 이동합니다.
 
-방법은 간단하게, 번역 PR 태스크를 생성하기 전에 다음을 합니다.
+방법은 간단하게, 태스크를 생성하기 전에 다음을 합니다.
 
-1. PR body에 `translation-source:` 마커가 있는 open PR을 검색한다
-2. 대응하는 PR이 있으면 무시하고 중복으로 태스크를 생성하지 않는다
-3. 없으면 번역 PR 태스크 생성을 진행한다
+1. source path에서 `translation-source:` 마커를 만든다
+2. GitHub 검색으로 같은 마커를 가진 open PR을 찾는다
+3. open PR이 있으면 태스크를 만들지 않는다
+4. open PR이 없으면 Copilot 번역 PR 태스크를 만든다
 
-PR body에 마커를 사용하는 이유는, 타이틀만으로 중복을 판별하면 상황에 따라 불안정할 수 있기 때문입니다. **PR body의 고유한 마커를 사용하면** 안정되고, 같은 글에 대한 번역 태스크가 하나만 생성됩니다.
+PR body에 source path를 넣는 이유는, 번역 PR의 변경 파일만으로는 원래 일본어 파일을 정확하게 역추적하기 어렵기 때문입니다. **source path를 마커로 명시하면**, 같은 기사의 번역 PR을 여러 개 만들지 않아도 됩니다.
 
 ## 보충
 

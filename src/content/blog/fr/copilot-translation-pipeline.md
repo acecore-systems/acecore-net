@@ -166,20 +166,20 @@ De plus, en comparant uniquement le corps Markdown pour décider quand créer de
 
 ## Étape 3. Créer des tâches de PR via l'API de l'agent de codage Copilot
 
-La tâche est créée directement en utilisant l'API de l'agent de codage Copilot — pas via la création d'issue.
+Sur le côté GitHub Actions, après avoir détecté un changement, vous lancez une tâche à l'API de l'agent de codage Copilot.
 
 Il y a 2 choses à faire.
 
 1. Ajouter `COPILOT_AGENT_TOKEN` comme secret du référentiel
-2. Appeler l'API de tâche de job après avoir détecté un changement
+2. Appeler l'API de job Copilot pour chaque chemin source modifié
 
-Conceptuellement, vous appelez le point de terminaison de création de tâche avec les paramètres appropriés.
+Conceptuellement, vous passez un titre et un énoncé de problème à l'API de job Copilot.
 
 ```json
 {
   "title": "[translation] Translate my-post.md",
-  "problem_statement": "Translate the Japanese source article...",
-  "event_type": "copilot_task"
+  "problem_statement": "Translate src/content/blog/my-post.md into all requested locales...",
+  "event_type": "translation-pr"
 }
 ```
 
@@ -215,15 +215,16 @@ Avec ces 4 conditions en place, vous pouvez largement éviter l'accident d'attra
 
 ## Étape 5. Éviter les doublons avec les marqueurs de corps de PR
 
-La dernière pièce qui maintient les opérations propres est la prévention des doublons avant de créer une tâche de traduction.
+Quand on ne passe pas par des issues, le contrôle des doublons se déplace du côté des PR.
 
-L'approche est simple : avant de créer une tâche de PR de traduction, faites ce qui suit.
+L'approche est simple : avant de créer une tâche, faites ce qui suit.
 
-1. Rechercher les PRs ouverts qui contiennent le marqueur `translation-source:` dans leur corps
-2. Si un PR correspondant existe, ignorer et ne pas créer de tâche en double
-3. Sinon, procéder à la création de la tâche de PR de traduction
+1. Dériver un marqueur `translation-source:` du chemin source
+2. Rechercher sur GitHub les PRs ouverts avec ce même marqueur
+3. Si un PR ouvert existe, ne pas créer de tâche
+4. Si aucun PR ouvert n'existe, créer une tâche de PR de traduction Copilot
 
-La raison de rechercher le marqueur dans le corps du PR est que se fier uniquement au titre peut parfois rendre la déduplication peu fiable. **Utiliser un marqueur unique dans le corps du PR** maintient la stabilité et garantit qu'une seule tâche de traduction est créée par article.
+La raison d'incorporer le chemin source dans le corps du PR est que regarder uniquement les fichiers modifiés d'un PR de traduction rend difficile la recherche inverse fiable du fichier japonais original. **Rendre le chemin source explicite comme marqueur** évite de créer plusieurs PRs de traduction pour le même article.
 
 ## Notes
 
