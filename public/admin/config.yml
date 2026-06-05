@@ -404,9 +404,9 @@ collections:
 
   - name: site_text
     label: ページ・サイト文言
-    label_singular: 翻訳ファイル
+    label_singular: 日本語文言
     icon: translate
-    description: 通常ページ、ナビ、フッター、SEO、UI文言をロケール別に編集します。タグ表示名は「タグ」コレクションで編集します。
+    description: 通常ページ、ナビ、フッター、SEO、UI文言の日本語ソースを編集します。他言語は Copilot translation PR task で更新します。タグ表示名は「タグ」コレクションで編集します。
     format: json
     files:
       - name: 'ja'
@@ -3326,38 +3326,6 @@ collections:
                 hint: 'hero.sliderLabel'
                 required: false
                 widget: string
-      - name: 'en'
-        label: 'English'
-        file: src/i18n/translations/en.json
-        fields: *site_translation_fields
-      - name: 'zh-cn'
-        label: '简体中文'
-        file: src/i18n/translations/zh-cn.json
-        fields: *site_translation_fields
-      - name: 'es'
-        label: 'Español'
-        file: src/i18n/translations/es.json
-        fields: *site_translation_fields
-      - name: 'pt'
-        label: 'Português'
-        file: src/i18n/translations/pt.json
-        fields: *site_translation_fields
-      - name: 'fr'
-        label: 'Français'
-        file: src/i18n/translations/fr.json
-        fields: *site_translation_fields
-      - name: 'ko'
-        label: '한국어'
-        file: src/i18n/translations/ko.json
-        fields: *site_translation_fields
-      - name: 'de'
-        label: 'Deutsch'
-        file: src/i18n/translations/de.json
-        fields: *site_translation_fields
-      - name: 'ru'
-        label: 'Русский'
-        file: src/i18n/translations/ru.json
-        fields: *site_translation_fields
   - name: authors
     label: 著者
     label_singular: 著者

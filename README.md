@@ -24,9 +24,9 @@ Acecore（エースコア）公式Webサイト。
 - デフォルトロケール（`ja`）は URL プレフィクスなし（`/blog/...`）
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
-- Sveltia CMS では日本語ソース記事、著者、タグ、ページ文言を管理
-- 多言語記事は Copilot translation PR task で AI に委譲
-- UI・固定ページ文字列は `src/i18n/translations/` で管理し、Sveltia CMS の「ページ・サイト文言」から編集
+- Sveltia CMS では日本語ソース記事、日本語ページ文言、著者、タグを管理
+- 多言語記事・ページ文言は Copilot translation PR task で AI に委譲
+- UI・固定ページ文字列は `src/i18n/translations/` で管理し、日本語ソースを Sveltia CMS の「ページ・サイト文言」から編集
 
 ## 開発
 
@@ -99,9 +99,9 @@ src/
 2. 本番編集は GitHub OAuth でサインインする
 3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
 4. 「ブログ」から日本語ソース記事のみ新規作成・編集
-5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページのテキストをロケール別に編集
+5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページの日本語テキストを編集
 6. 著者・タグは「著者」「タグ」から編集
-7. 多言語記事の翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
+7. 多言語記事・ページ文言の翻訳は Copilot translation PR task で反映
 
 ### 手動
 
@@ -124,21 +124,22 @@ author: 'author-id'
 
 ## 翻訳ワークフロー
 
-Sveltia CMS は日本語ソース記事と固定ページ文言を編集できます。多言語記事本文は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
+Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を編集できます。多言語記事本文とページ文言は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
 
 1. 日本語ソースを Sveltia CMS で更新する
 2. `main` へ反映されると GitHub Actions が Copilot translation PR task を自動作成する
-3. Copilot coding agent がソースパス、対象ロケール、翻訳条件に沿って `src/content/blog/{locale}/` を更新する
+3. Copilot coding agent がソースパス、対象ロケール、翻訳条件に沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
 4. 完了時に `[translation]` PR が ready for review になり、ビルド後に自動マージされる
 
-著者情報、タグ定義、固定ページ文言の多言語フィールドは Sveltia CMS から直接編集できます。多言語記事本文は必要なときだけ manual dispatch で翻訳 PR task を起こす前提です。
+著者情報、タグ定義の多言語フィールドは Sveltia CMS から直接編集できます。多言語記事本文とページ文言は日本語ソースの `main` 反映時に翻訳 PR task を起こす前提です。
 
 ### 自動 PR task workflow
 
 - Workflow: `.github/workflows/create-translation-prs.yml`
 - Script: `scripts/create-translation-prs.mjs`
-- Trigger: `src/content/blog/*.md` の `main` 反映時
+- Trigger: `src/content/blog/*.md` または `src/i18n/translations/ja.json` の `main` 反映時
 - 日本語ソース記事ごとに Copilot translation PR task を作成し、同じソースの open PR があれば重複作成しない
+- ページ文言は `src/i18n/translations/ja.json` の変更ごとに 1 つの Copilot translation PR task を作成する
 - blog 記事は frontmatter だけの変更では task を作成せず、Markdown 本文が変わったときだけ PR task を作成する
 - authors/tags の翻訳 PR task は `workflow_dispatch` で `include_non_blog_sources=true` を指定したときだけ作成する
 - `COPILOT_AGENT_TOKEN` secret を使い、GitHub Copilot coding agent API で issue を介さず直接 task を作成する

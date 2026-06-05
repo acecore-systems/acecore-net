@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { readFileSync, existsSync } from 'node:fs'
 
 const DEFAULT_SOURCE_LOCALE = 'ja'
+const SITE_TRANSLATION_SOURCE_PATH = 'src/i18n/translations/ja.json'
 const AUTHOR_BASE_KEYS = [
   'name',
   'avatar',
@@ -61,9 +62,13 @@ function parseArgs(argv) {
 }
 
 function getDiffTargets(includeNonBlog) {
-  return includeNonBlog
-    ? ['src/content/blog', 'src/content/authors', 'src/content/tags']
-    : ['src/content/blog']
+  const targets = ['src/content/blog', SITE_TRANSLATION_SOURCE_PATH]
+
+  if (includeNonBlog) {
+    targets.push('src/content/authors', 'src/content/tags')
+  }
+
+  return targets
 }
 
 function runGit(args) {
@@ -164,6 +169,10 @@ function isTagDefinitionPath(path) {
   return /^src\/content\/tags\/[^/]+\.json$/.test(path)
 }
 
+function isSiteTranslationSourcePath(path) {
+  return path === SITE_TRANSLATION_SOURCE_PATH
+}
+
 function loadTargetLocales() {
   const configPath = 'src/i18n/config.ts'
   const source = readFileSync(configPath, 'utf8')
@@ -223,6 +232,27 @@ function getChangedBlogPost(entry, baseSha, headSha) {
   )
 
   return before.body !== after.body ? entry : null
+}
+
+function getChangedSiteTranslationFile(
+  entry,
+  baseSha,
+  headSha,
+  forceChanged = false,
+) {
+  if (entry.status === 'D') return null
+
+  if (forceChanged || entry.status === 'A' || !baseSha) {
+    return entry
+  }
+
+  const before = readTextAtRef(baseSha, entry.path)
+  const after = readTextAtRef(
+    headSha === 'HEAD' ? 'WORKTREE' : headSha,
+    entry.path,
+  )
+
+  return before !== after ? entry : null
 }
 
 function readJsonAtRef(ref, filePath) {
@@ -525,6 +555,15 @@ function buildCopilotInstructions(taskKind) {
     ]
   }
 
+  if (taskKind === 'site-text') {
+    return [
+      'Update the site text translations described below.',
+      `Use ${SITE_TRANSLATION_SOURCE_PATH} as the canonical Japanese source.`,
+      'Modify only src/i18n/translations/{locale}.json files for the requested target locales.',
+      'Keep Japanese source fields unchanged.',
+    ]
+  }
+
   return [
     'Translate the Japanese source article described below into all requested locales.',
     'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
@@ -678,6 +717,41 @@ function buildTagTaskPayload({
   }
 }
 
+function buildSiteTextTaskPayload({
+  sourcePath,
+  locales,
+  headSha,
+  repository,
+}) {
+  const marker = `translation-source:${sourcePath}`
+  const title = '[translation] Update site text translations'
+  const instructions = [
+    ...buildCopilotInstructions('site-text'),
+    '- Keep the JSON key structure aligned with the Japanese source.',
+    '- Preserve placeholders such as `{count}`, `{title}`, URLs, route paths, product names, and code-like tokens exactly.',
+    '- Keep `tags` translations aligned if the top-level `tags` object changes, but tag source definitions remain under `src/content/tags`.',
+    '- Do not edit blog Markdown, author JSON, or tag JSON files for this task.',
+  ]
+
+  return {
+    title,
+    marker,
+    taskKind: 'site-text',
+    problemStatement: buildProblemStatement({
+      title,
+      marker,
+      summary: [
+        `Repository: ${repository}`,
+        `Source path: ${sourcePath}`,
+        `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
+        `Source commit: ${headSha}`,
+      ],
+      targetLocales: locales,
+      instructions,
+    }),
+  }
+}
+
 async function createTranslationPullRequestTask(payload) {
   const { owner, repo } = getRepositoryInfo()
   const existingPullRequest = await findOpenPullRequestForPayload(
@@ -738,12 +812,26 @@ async function main() {
         )
         .filter(Boolean)
     : []
+  const siteTextChanges = changedEntries
+    .filter((entry) => isSiteTranslationSourcePath(entry.path))
+    .map((entry) =>
+      getChangedSiteTranslationFile(entry, baseSha, headSha, forceChanged),
+    )
+    .filter(Boolean)
 
   const payloads = [
     ...blogChanges.map((entry) =>
       buildBlogTaskPayload({
         sourcePath: entry.path,
         changeType: entry.status,
+        locales,
+        headSha,
+        repository,
+      }),
+    ),
+    ...siteTextChanges.map((entry) =>
+      buildSiteTextTaskPayload({
+        sourcePath: entry.path,
         locales,
         headSha,
         repository,
