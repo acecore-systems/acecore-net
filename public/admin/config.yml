@@ -1,0 +1,586 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.166.0/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: acecore-systems/acecore-net
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    create: 'cms: create {{collection}} "{{slug}}"'
+    update: 'cms: update {{collection}} "{{slug}}"'
+    delete: 'cms: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'cms: upload "{{path}}"'
+    deleteMedia: 'cms: delete media "{{path}}"'
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: ブログ
+    label_singular: ブログ記事
+    icon: article
+    description: 日本語ソース記事のみを編集します。翻訳記事は Copilot translation PR task で更新します。
+    folder: src/content/blog
+    slug: '{{fields._slug}}'
+    preview_path: blog/{{slug}}/
+    summary: '{{title}} - {{date}}'
+    thumbnail: [uploadedImage, image]
+    sortable_fields:
+      fields: [date, title, author, slug]
+      default:
+        field: date
+        direction: descending
+    fields:
+      - name: title
+        label: タイトル
+        widget: string
+      - name: description
+        label: 概要
+        widget: text
+      - name: date
+        label: 公開日
+        widget: datetime
+        format: YYYY-MM-DDTHH:mm
+        default: '{{now}}'
+      - name: lastUpdated
+        label: 最終更新日
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        required: false
+      - name: tags
+        label: タグ
+        widget: relation
+        collection: tags
+        value_field: name
+        display_fields: ['{{name}} ({{id}})']
+        search_fields: [name, id]
+        multiple: true
+        required: false
+      - name: image
+        label: 外部画像URL
+        widget: string
+        required: false
+      - name: uploadedImage
+        label: アップロード画像
+        widget: image
+        required: false
+      - name: author
+        label: 著者
+        widget: relation
+        collection: authors
+        value_field: id
+        display_fields: ['{{name}} ({{id}})']
+        search_fields: [name, id]
+      - name: callout
+        label: コールアウト
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: type
+            label: 種別
+            widget: select
+            options: [info, warning, tip, note]
+            default: info
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: text
+            label: 本文
+            widget: text
+      - name: timeline
+        label: タイムライン
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: items
+            label: 項目
+            widget: list
+            collapsed: true
+            summary: '{{date}} {{title}}'
+            fields:
+              - name: date
+                label: 日付
+                widget: string
+              - name: title
+                label: タイトル
+                widget: string
+              - name: description
+                label: 説明
+                widget: text
+                required: false
+      - name: youtube
+        label: YouTube
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: videoId
+            label: Video ID
+            widget: string
+          - name: title
+            label: タイトル
+            widget: string
+            required: false
+          - name: caption
+            label: キャプション
+            widget: text
+            required: false
+      - name: faq
+        label: FAQ
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: items
+            label: 質問
+            widget: list
+            collapsed: true
+            summary: '{{question}}'
+            fields:
+              - name: question
+                label: 質問
+                widget: string
+              - name: answer
+                label: 回答
+                widget: text
+      - name: gallery
+        label: ギャラリー
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: items
+            label: 画像
+            widget: list
+            collapsed: true
+            summary: '{{alt}}'
+            fields:
+              - name: src
+                label: 画像
+                widget: image
+              - name: alt
+                label: 代替テキスト
+                widget: string
+          - name: columns
+            label: 列数
+            widget: select
+            options: [2, 3]
+            required: false
+      - name: linkCards
+        label: リンクカード
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{title}}'
+        fields:
+          - name: href
+            label: URL
+            widget: string
+          - name: title
+            label: タイトル
+            widget: string
+          - name: description
+            label: 説明
+            widget: text
+            required: false
+          - name: icon
+            label: アイコン
+            widget: string
+            required: false
+      - name: processFigure
+        label: プロセス図
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: eyebrow
+            label: 補助見出し
+            widget: string
+            required: false
+          - name: title
+            label: タイトル
+            widget: string
+          - name: description
+            label: 説明
+            widget: text
+            required: false
+          - name: variant
+            label: 表示形式
+            widget: select
+            options: [card, inline]
+            required: false
+          - name: steps
+            label: ステップ
+            widget: list
+            collapsed: true
+            summary: '{{title}}'
+            fields:
+              - name: title
+                label: タイトル
+                widget: string
+              - name: description
+                label: 説明
+                widget: text
+              - name: icon
+                label: アイコン
+                widget: string
+              - name: accent
+                label: アクセント
+                widget: select
+                options: [brand, emerald, amber, slate]
+                required: false
+      - name: compareTable
+        label: 比較表
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: before
+            label: Before
+            widget: object
+            fields:
+              - name: label
+                label: ラベル
+                widget: string
+              - name: items
+                label: 項目
+                widget: list
+          - name: after
+            label: After
+            widget: object
+            fields:
+              - name: label
+                label: ラベル
+                widget: string
+              - name: items
+                label: 項目
+                widget: list
+      - name: checklist
+        label: チェックリスト
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: title
+            label: 見出し
+            widget: string
+            required: false
+          - name: items
+            label: 項目
+            widget: list
+            collapsed: true
+            summary: '{{text}}'
+            fields:
+              - name: text
+                label: テキスト
+                widget: text
+              - name: checked
+                label: 完了
+                widget: boolean
+                required: false
+      - name: insightGrid
+        label: インサイトグリッド
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: eyebrow
+            label: 補助見出し
+            widget: string
+            required: false
+          - name: title
+            label: タイトル
+            widget: string
+          - name: description
+            label: 説明
+            widget: text
+            required: false
+          - name: variant
+            label: 表示形式
+            widget: select
+            options: [card, inline]
+            required: false
+          - name: items
+            label: 項目
+            widget: list
+            collapsed: true
+            summary: '{{title}}'
+            fields:
+              - name: title
+                label: タイトル
+                widget: string
+              - name: description
+                label: 説明
+                widget: text
+              - name: icon
+                label: アイコン
+                widget: string
+              - name: tone
+                label: トーン
+                widget: select
+                options: [brand, emerald, amber, slate]
+                required: false
+      - name: testimonials
+        label: お客様の声
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{name}}'
+        fields:
+          - name: quote
+            label: 引用
+            widget: text
+          - name: name
+            label: 名前
+            widget: string
+          - name: role
+            label: 肩書き
+            widget: string
+            required: false
+      - name: pullQuote
+        label: 引用強調
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: text
+            label: テキスト
+            widget: text
+          - name: attribution
+            label: 出典
+            widget: string
+            required: false
+      - name: statBar
+        label: 統計バー
+        widget: object
+        required: false
+        collapsed: auto
+        fields:
+          - name: items
+            label: 項目
+            widget: list
+            collapsed: true
+            summary: '{{value}} {{label}}'
+            fields:
+              - name: value
+                label: 値
+                widget: string
+              - name: label
+                label: ラベル
+                widget: string
+              - name: description
+                label: 説明
+                widget: text
+                required: false
+              - name: icon
+                label: アイコン
+                widget: string
+                required: false
+      - name: body
+        label: 本文
+        widget: richtext
+
+  - name: authors
+    label: 著者
+    label_singular: 著者
+    icon: person
+    folder: src/content/authors
+    format: json
+    extension: json
+    identifier_field: id
+    slug: '{{fields.id}}'
+    summary: '{{name}} ({{id}})'
+    sortable_fields:
+      fields: [name, id]
+      default:
+        field: name
+        direction: ascending
+    fields:
+      - name: id
+        label: ID
+        widget: string
+      - name: name
+        label: 名前
+        widget: string
+      - name: avatar
+        label: アバターURL
+        widget: string
+        required: false
+      - name: avatarImage
+        label: アバター画像
+        widget: image
+        required: false
+      - name: bio
+        label: 自己紹介（日本語）
+        widget: text
+        required: false
+      - name: url
+        label: WebサイトURL
+        widget: string
+        required: false
+      - name: github
+        label: GitHub URL
+        widget: string
+        required: false
+      - name: twitter
+        label: X (Twitter) URL
+        widget: string
+        required: false
+      - name: skills
+        label: スキル（日本語）
+        widget: list
+        required: false
+      - name: i18n
+        label: 多言語
+        widget: object
+        required: false
+        readonly: true
+        collapsed: true
+        fields:
+          - name: en
+            label: English
+            widget: object
+            required: false
+            fields: &author_locale_fields
+              - name: name
+                label: Name
+                widget: string
+                required: false
+              - name: bio
+                label: Bio
+                widget: text
+                required: false
+              - name: skills
+                label: Skills
+                widget: list
+                required: false
+          - name: zh-cn
+            label: 简体中文
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: es
+            label: Español
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: pt
+            label: Português
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: fr
+            label: Français
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: ko
+            label: 한국어
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: de
+            label: Deutsch
+            widget: object
+            required: false
+            fields: *author_locale_fields
+          - name: ru
+            label: Русский
+            widget: object
+            required: false
+            fields: *author_locale_fields
+
+  - name: tags
+    label: タグ
+    label_singular: タグ
+    icon: sell
+    folder: src/content/tags
+    format: json
+    extension: json
+    identifier_field: id
+    slug: '{{fields.id}}'
+    summary: '{{name}} ({{id}})'
+    sortable_fields:
+      fields: [name, id]
+      default:
+        field: name
+        direction: ascending
+    fields:
+      - name: id
+        label: ID
+        widget: string
+      - name: name
+        label: タグ名
+        widget: string
+      - name: i18n
+        label: 多言語
+        widget: object
+        required: false
+        readonly: true
+        collapsed: true
+        fields:
+          - name: en
+            label: English
+            widget: object
+            required: false
+            fields: &tag_locale_fields
+              - name: name
+                label: Name
+                widget: string
+                required: false
+          - name: zh-cn
+            label: 简体中文
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: es
+            label: Español
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: pt
+            label: Português
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: fr
+            label: Français
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: ko
+            label: 한국어
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: de
+            label: Deutsch
+            widget: object
+            required: false
+            fields: *tag_locale_fields
+          - name: ru
+            label: Русский
+            widget: object
+            required: false
+            fields: *tag_locale_fields

@@ -11,7 +11,7 @@ Acecore（エースコア）公式Webサイト。
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
 | [Pagefind](https://pagefind.app/)                                                               | 静的全文検索                              |
-| [Pages CMS](https://pagescms.org/)                                                              | Git ベース CMS（ブログ管理）              |
+| [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ管理）              |
 | [satori](https://github.com/vercel/satori) + [sharp](https://sharp.pixelplumbing.com/)          | OG 画像の自動生成                         |
 | [Google AdSense](https://adsense.google.com/)                                                   | 広告配信（ブログページ）                  |
 
@@ -24,7 +24,7 @@ Acecore（エースコア）公式Webサイト。
 - デフォルトロケール（`ja`）は URL プレフィクスなし（`/blog/...`）
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
-- Pages CMS では日本語ソースのみ管理し、多言語記事は Copilot translation PR task で AI に委譲
+- Sveltia CMS では日本語ソースのみ管理し、多言語記事は Copilot translation PR task で AI に委譲
 - UI 文字列は `src/i18n/translations/` で管理
 
 ## 開発
@@ -92,12 +92,13 @@ src/
 
 ## ブログ記事の追加
 
-### Pages CMS（推奨）
+### Sveltia CMS（推奨）
 
-1. [app.pagescms.org](https://app.pagescms.org/) にアクセス
-2. GitHub でログインし、`acecore-net` リポジトリを選択
-3. 「ブログ記事」から日本語ソース記事のみ新規作成・編集
-4. 翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
+1. 本番では `https://acecore.net/admin/index.html`、ローカルでは `http://localhost:4321/admin/index.html` にアクセス
+2. 本番編集は GitHub personal access token でサインインする
+3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
+4. 「ブログ」から日本語ソース記事のみ新規作成・編集
+5. 翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
 
 ### 手動
 
@@ -120,14 +121,14 @@ author: 'author-id'
 
 ## 翻訳ワークフロー
 
-Pages CMS は日本語ソースの編集に限定します。多言語記事と著者紹介の翻訳は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
+Sveltia CMS は日本語ソースの編集に限定します。多言語記事と著者紹介の翻訳は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
 
-1. 日本語ソースを Pages CMS で更新する
+1. 日本語ソースを Sveltia CMS で更新する
 2. `main` へ反映されると GitHub Actions が Copilot translation PR task を自動作成する
 3. Copilot coding agent がソースパス、対象ロケール、翻訳条件に沿って `src/content/blog/{locale}/` を更新する
 4. 完了時に `[translation]` PR が ready for review になり、ビルド後に自動マージされる
 
-著者情報とタグ定義の `i18n` は Pages CMS では非表示にしてあり、必要なときだけ manual dispatch で翻訳 PR task を起こす前提です。
+著者情報とタグ定義の `i18n` は Sveltia CMS では読み取り専用にしてあり、必要なときだけ manual dispatch で翻訳 PR task を起こす前提です。
 
 ### 自動 PR task workflow
 
@@ -166,11 +167,12 @@ GitHub への push で自動デプロイされます。
 
 ## 関連ファイル
 
-| ファイル                | 説明                                                            |
-| ----------------------- | --------------------------------------------------------------- |
-| `astro.config.mjs`      | Astro 設定（i18n・rehype プラグイン含む）                       |
-| `uno.config.ts`         | UnoCSS テーマ・ショートカット                                   |
-| `src/content.config.ts` | コンテンツコレクション定義                                      |
-| `.pages.yml`            | Pages CMS 設定                                                  |
-| `public/ads.txt`        | Google AdSense 認証                                             |
-| `public/_headers`       | Cloudflare Pages HTTP ヘッダー（キャッシュ・CSP・セキュリティ） |
+| ファイル                  | 説明                                                            |
+| ------------------------- | --------------------------------------------------------------- |
+| `astro.config.mjs`        | Astro 設定（i18n・rehype プラグイン含む）                       |
+| `uno.config.ts`           | UnoCSS テーマ・ショートカット                                   |
+| `src/content.config.ts`   | コンテンツコレクション定義                                      |
+| `public/admin/index.html` | Sveltia CMS 管理画面                                            |
+| `public/admin/config.yml` | Sveltia CMS 設定                                                |
+| `public/ads.txt`          | Google AdSense 認証                                             |
+| `public/_headers`         | Cloudflare Pages HTTP ヘッダー（キャッシュ・CSP・セキュリティ） |
