@@ -62,6 +62,8 @@ Le SEO évoque souvent l'image du « bourrage de mots-clés », mais le SEO mode
 
 Cet article explique les mesures SEO à implémenter sur un site Astro, réparties en 4 catégories. Toutes ces mesures produisent des effets continus une fois configurées.
 
+Pour une vue d'ensemble des améliorations incluant la vitesse d'affichage et l'accessibilité, consultez le [Guide d'amélioration de la qualité d'un site Astro](/blog/website-improvement-batches/).
+
 ---
 
 ## Configuration OGP et balises meta

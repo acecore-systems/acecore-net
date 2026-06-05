@@ -62,6 +62,8 @@ faq:
 
 本文将Astro网站应实施的SEO措施分为4个类别进行讲解。每一项都是一次性设置即可持续发挥效果的。
 
+关于包括显示速度和无障碍性在内的改善全貌，请参阅[Astro网站品质改善指南](/blog/website-improvement-batches/)。
+
 ---
 
 ## OGP和Meta标签设置

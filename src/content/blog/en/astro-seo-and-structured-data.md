@@ -62,6 +62,8 @@ When people think of SEO, they might imagine "keyword stuffing," but modern SEO 
 
 This article explains SEO measures to implement on an Astro site, divided into four categories. Each one provides ongoing benefits once configured.
 
+For an overview of improvements including display speed and accessibility, see the [Astro Site Quality Improvement Guide](/blog/website-improvement-batches/).
+
 ---
 
 ## Setting Up OGP and Meta Tags

@@ -62,6 +62,8 @@ Cuando se piensa en SEO, puede venir a la mente "rellenar con palabras clave", p
 
 En este artículo, explicamos las medidas SEO que deben implementarse en un sitio Astro, divididas en 4 categorías. Todas son medidas que, una vez configuradas, proporcionan resultados continuos.
 
+Para una visión general de las mejoras, incluyendo velocidad de visualización y accesibilidad, consulta la [Guía de mejora de calidad de sitios Astro](/blog/website-improvement-batches/).
+
 ---
 
 ## Configuración de OGP y meta tags

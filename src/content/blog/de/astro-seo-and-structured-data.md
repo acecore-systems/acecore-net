@@ -62,6 +62,8 @@ Wenn Menschen an SEO denken, stellen sie sich vielleicht „Keyword-Stuffing" vo
 
 Dieser Artikel erklärt SEO-Maßnahmen, die auf einer Astro-Website implementiert werden sollten, unterteilt in vier Kategorien. Jede einzelne bietet nach der Einrichtung langfristigen Nutzen.
 
+Einen Überblick über alle Verbesserungen einschließlich Anzeigegeschwindigkeit und Barrierefreiheit finden Sie im [Leitfaden zur Qualitätsverbesserung von Astro-Websites](/blog/website-improvement-batches/).
+
 ---
 
 ## OGP und Meta-Tags einrichten
