@@ -1506,38 +1506,6 @@ collections:
             label: 'Line Inquiry'
             hint: 'lineInquiry'
             widget: string
-          - name: 'flowFaqTitle'
-            label: 'Flow FAQ Title'
-            hint: 'flowFaqTitle'
-            widget: string
-          - name: 'flowFaqDesc'
-            label: 'Flow FAQ Desc'
-            hint: 'flowFaqDesc'
-            widget: string
-          - name: 'flowAiTitle'
-            label: 'Flow AI Title'
-            hint: 'flowAiTitle'
-            widget: string
-          - name: 'flowAiDesc'
-            label: 'Flow AI Desc'
-            hint: 'flowAiDesc'
-            widget: string
-          - name: 'flowFormTitle'
-            label: 'Flow Form Title'
-            hint: 'flowFormTitle'
-            widget: string
-          - name: 'flowFormDesc'
-            label: 'Flow Form Desc'
-            hint: 'flowFormDesc'
-            widget: string
-          - name: 'flowDirectTitle'
-            label: 'Flow Direct Title'
-            hint: 'flowDirectTitle'
-            widget: string
-          - name: 'flowDirectDesc'
-            label: 'Flow Direct Desc'
-            hint: 'flowDirectDesc'
-            widget: string
           - name: 'faqTitle'
             label: 'FAQ Title'
             hint: 'faqTitle'

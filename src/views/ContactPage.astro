@@ -15,29 +15,6 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const contactSteps = [
-  {
-    icon: 'circle-help',
-    title: t(locale, 'pages.contact.flowFaqTitle'),
-    body: t(locale, 'pages.contact.flowFaqDesc'),
-  },
-  {
-    icon: 'sparkles',
-    title: t(locale, 'pages.contact.flowAiTitle'),
-    body: t(locale, 'pages.contact.flowAiDesc'),
-  },
-  {
-    icon: 'send',
-    title: t(locale, 'pages.contact.flowFormTitle'),
-    body: t(locale, 'pages.contact.flowFormDesc'),
-  },
-  {
-    icon: 'phone',
-    title: t(locale, 'pages.contact.flowDirectTitle'),
-    body: t(locale, 'pages.contact.flowDirectDesc'),
-  },
-]
-
 const faqItems = [
   {
     question: t(locale, 'pages.contact.faqQ1'),
@@ -123,26 +100,6 @@ const faqLd = {
             <span>{t(locale, 'pages.contact.freeEstimate')}</span>
           </div>
         </div>
-      </div>
-
-      <div class="mb-10 grid gap-3 sm:grid-cols-2">
-        {
-          contactSteps.map((step, index) => (
-            <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
-              <span class="ac-icon-box mt-0.5 shrink-0">
-                <Icon name={step.icon} class="text-lg" />
-              </span>
-              <div>
-                <p class="text-xs font-700 text-brand-500">
-                  {index + 1}. {step.title}
-                </p>
-                <p class="mt-1 text-sm leading-relaxed text-slate-600">
-                  {step.body}
-                </p>
-              </div>
-            </div>
-          ))
-        }
       </div>
 
       <div class="mb-10">
