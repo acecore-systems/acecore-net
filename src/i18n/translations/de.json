@@ -435,8 +435,8 @@
       "flowAiDesc": "Geben Sie eine kurze Frage ein, um Ihr Anliegen vor der Kontaktaufnahme zu ordnen.",
       "flowFormTitle": "Formular nutzen",
       "flowFormDesc": "Angebote und konkrete Beratungen bitte über das Formular senden.",
-      "flowDirectTitle": "Direkter Kontakt zuletzt",
-      "flowDirectDesc": "Nutzen Sie E-Mail oder Telefon nur, wenn das Formular nicht verfügbar oder die Sache dringend ist.",
+      "flowDirectTitle": "Kontaktweg wählen",
+      "flowDirectDesc": "Wenn die Inhalte klar sind, können Sie uns per Formular, LINE, E-Mail oder Telefon kontaktieren.",
       "faqTitle": "Häufige Fragen",
       "faqQ1": "Ich weiß nicht, zu welchem Service ich fragen soll.",
       "faqA1": "Sie können Systementwicklung, Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation.",
@@ -445,7 +445,7 @@
       "faqQ3": "Kann ich hier auch Acecore Schools anfragen?",
       "faqA3": "Ja. Nennen Sie Lernziel, Alter oder Klasse und gewünschtes Lerntempo.",
       "faqQ4": "Wie lange dauert eine Antwort?",
-      "faqA4": "Normalerweise antworten wir innerhalb von 1-2 Werktagen. Nutzen Sie E-Mail oder Telefon nur bei Ausfall des Formulars oder Dringlichkeit.",
+      "faqA4": "Normalerweise antworten wir innerhalb von 1-2 Werktagen. Für Ergänzungen oder Rückfragen können Sie auch LINE, E-Mail oder Telefon nutzen.",
       "aiHeading": "Anfrage mit KI strukturieren",
       "aiLead": "Nutzen Sie dies vor dem Formular, um Frage oder Inhalt zu klären. Formale Antworten und Angebote werden nach dem Absenden bestätigt.",
       "aiQuestionLabel": "Frage an die KI",
@@ -456,7 +456,7 @@
       "lineHeading": "LINE ist ebenfalls möglich",
       "lineLead": "Folgen Sie dem offiziellen LINE-Konto für Neuigkeiten. Es eignet sich auch für kurze Fragen und schulbezogene Nachrichten.",
       "lineCta": "Auf LINE folgen",
-      "directMethodsNote": "Telefon und E-Mail bitte als letzte Option nutzen, wenn das Formular nicht funktioniert oder es dringend ist. LINE und X eignen sich für lockeren Kontakt und Updates."
+      "directMethodsNote": "Neben dem Formular nehmen wir auch kurze Fragen über LINE oder X sowie Rückfragen per E-Mail oder Telefon entgegen. Wählen Sie den passenden Kontaktweg."
     },
     "schools": {
       "title": "Acecore Schools",

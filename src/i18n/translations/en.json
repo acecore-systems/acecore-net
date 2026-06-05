@@ -383,8 +383,8 @@
       "flowAiDesc": "Enter a short question to organize what you need before contacting us.",
       "flowFormTitle": "Use the form",
       "flowFormDesc": "Send estimates and concrete consultations through the form.",
-      "flowDirectTitle": "Direct contact last",
-      "flowDirectDesc": "Use email or phone only when the form is unavailable or the matter is urgent.",
+      "flowDirectTitle": "Choose a contact method",
+      "flowDirectDesc": "Once your details are organized, contact us by the form, LINE, email, or phone in the way that fits best.",
       "faqTitle": "Frequently Asked Questions",
       "faqQ1": "I am not sure which service to ask about.",
       "faqA1": "You can ask about system development, web production, server operations, design, and IT education together. If unsure, choose Other and describe your situation.",
@@ -393,7 +393,7 @@
       "faqQ3": "Can I ask about Acecore Schools here?",
       "faqA3": "Yes. Please include what you want to learn, age or grade, and preferred learning pace.",
       "faqQ4": "How long does a reply take?",
-      "faqA4": "We usually reply within 1-2 business days. Use email or phone only when the form is unavailable or urgent.",
+      "faqA4": "We usually reply within 1-2 business days. You can also use LINE, email, or phone for follow-up details.",
       "aiHeading": "Organize your inquiry with AI",
       "aiLead": "Use this before sending the form to clarify your question or what to write. Formal replies and estimates are handled after form submission.",
       "aiQuestionLabel": "Question for AI",
@@ -404,7 +404,7 @@
       "lineHeading": "You can also use LINE",
       "lineLead": "Follow the official LINE account for updates. It is also useful for short questions and school-related messages.",
       "lineCta": "Follow on LINE",
-      "directMethodsNote": "Use phone and email as final fallback methods when the form is unavailable or urgent. LINE and X are useful for casual contact and updates."
+      "directMethodsNote": "Besides the form, we also accept short questions on LINE or X and follow-up checks by email or phone. Choose the method that fits your situation."
     },
     "schools": {
       "title": "Acecore Schools",

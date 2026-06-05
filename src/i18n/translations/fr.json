@@ -222,8 +222,8 @@
       "flowAiDesc": "Saisissez une question courte pour clarifier votre besoin avant de nous contacter.",
       "flowFormTitle": "Utiliser le formulaire",
       "flowFormDesc": "Envoyez les demandes de devis et consultations concrètes via le formulaire.",
-      "flowDirectTitle": "Contact direct en dernier",
-      "flowDirectDesc": "Utilisez l'email ou le téléphone seulement si le formulaire est indisponible ou en cas d'urgence.",
+      "flowDirectTitle": "Choisir un moyen de contact",
+      "flowDirectDesc": "Une fois votre demande clarifiée, contactez-nous par formulaire, LINE, e-mail ou téléphone selon ce qui vous convient.",
       "faqTitle": "Questions fréquentes",
       "faqQ1": "Je ne sais pas quel service choisir.",
       "faqA1": "Vous pouvez poser une question globale sur développement système, web, serveurs, design et formation IT. En cas de doute, choisissez Autre et décrivez la situation.",
@@ -232,7 +232,7 @@
       "faqQ3": "Puis-je aussi poser une question sur Acecore Schools ?",
       "faqA3": "Oui. Indiquez ce que vous souhaitez apprendre, l'âge ou le niveau, et le rythme souhaité.",
       "faqQ4": "Quel est le délai de réponse ?",
-      "faqA4": "Nous répondons généralement sous 1-2 jours ouvrés. Utilisez l'email ou le téléphone seulement si le formulaire est indisponible ou urgent.",
+      "faqA4": "Nous répondons généralement sous 1-2 jours ouvrés. Vous pouvez aussi utiliser LINE, l'e-mail ou le téléphone pour des compléments ou confirmations.",
       "aiHeading": "Clarifier votre demande avec l'IA",
       "aiLead": "À utiliser avant le formulaire pour clarifier la question ou le contenu à écrire. Les réponses formelles et devis sont confirmés après envoi du formulaire.",
       "aiQuestionLabel": "Question pour l'IA",
@@ -243,7 +243,7 @@
       "lineHeading": "Vous pouvez aussi utiliser LINE",
       "lineLead": "Suivez le compte LINE officiel pour recevoir les nouveautés. Il est aussi utile pour les questions courtes et les messages liés à l'école.",
       "lineCta": "Suivre sur LINE",
-      "directMethodsNote": "Utilisez téléphone et email en dernier recours si le formulaire est indisponible ou urgent. LINE et X sont utiles pour un contact léger et les nouveautés."
+      "directMethodsNote": "En plus du formulaire, nous acceptons les courtes questions via LINE ou X et les confirmations par e-mail ou téléphone. Choisissez le moyen le plus adapté."
     },
     "schools": {
       "robotProgramming": {

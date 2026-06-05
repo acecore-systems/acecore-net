@@ -222,8 +222,8 @@
       "flowAiDesc": "输入简短问题，在联系前整理要点。",
       "flowFormTitle": "使用表单咨询",
       "flowFormDesc": "报价和具体咨询请通过表单发送。",
-      "flowDirectTitle": "最后使用直接联系",
-      "flowDirectDesc": "仅在表单不可用或紧急时使用邮件或电话。",
+      "flowDirectTitle": "选择联系方式",
+      "flowDirectDesc": "内容整理好后，可根据情况通过表单、LINE、邮件或电话联系我们。",
       "faqTitle": "常见问题",
       "faqQ1": "我不知道应该咨询哪项服务。",
       "faqA1": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。",
@@ -232,7 +232,7 @@
       "faqQ3": "Acecore Schools 的咨询也可以用这个表单吗？",
       "faqA3": "可以。请填写想学习的内容、年龄或年级、希望的学习节奏。",
       "faqQ4": "多久会回复？",
-      "faqA4": "通常 1-2 个工作日内回复。表单不可用或紧急时再使用邮件或电话。",
+      "faqA4": "通常 1-2 个工作日内回复。补充说明或确认事项也可通过 LINE、邮件或电话联系。",
       "aiHeading": "用 AI 整理咨询内容",
       "aiLead": "发送表单前可用于整理问题和填写内容。正式回复和报价将在表单提交后确认。",
       "aiQuestionLabel": "想问 AI 的内容",
@@ -243,7 +243,7 @@
       "lineHeading": "也可以通过 LINE 咨询",
       "lineLead": "关注官方 LINE 可接收最新信息，也适合简短咨询和课程相关联系。",
       "lineCta": "关注官方 LINE",
-      "directMethodsNote": "电话和邮件仅作为表单不可用或紧急时的最终手段。LINE 和 X 可用于轻量联系和查看最新信息。"
+      "directMethodsNote": "除表单外，也可通过 LINE 或 X 进行简短咨询，通过邮件或电话确认事项。请按内容选择合适的方式。"
     },
     "schools": {
       "robotProgramming": {

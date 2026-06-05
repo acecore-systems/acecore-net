@@ -222,8 +222,8 @@
       "flowAiDesc": "Digite uma pergunta curta para organizar o que precisa antes do contato.",
       "flowFormTitle": "Usar o formulário",
       "flowFormDesc": "Envie orçamentos e consultas concretas pelo formulário.",
-      "flowDirectTitle": "Contato direto por último",
-      "flowDirectDesc": "Use email ou telefone apenas quando o formulário não funcionar ou for urgente.",
+      "flowDirectTitle": "Escolha o meio de contato",
+      "flowDirectDesc": "Quando os detalhes estiverem claros, fale conosco por formulário, LINE, email ou telefone.",
       "faqTitle": "Perguntas frequentes",
       "faqQ1": "Não sei qual serviço consultar.",
       "faqA1": "Você pode consultar desenvolvimento de sistemas, web, servidores, design e educação em IT juntos. Em caso de dúvida, escolha Outros e descreva a situação.",
@@ -232,7 +232,7 @@
       "faqQ3": "Também posso consultar sobre Acecore Schools aqui?",
       "faqA3": "Sim. Informe o que deseja aprender, idade ou série, e ritmo preferido.",
       "faqQ4": "Quanto tempo leva a resposta?",
-      "faqA4": "Normalmente respondemos em 1-2 dias úteis. Use email ou telefone apenas se o formulário não estiver disponível ou for urgente.",
+      "faqA4": "Normalmente respondemos em 1-2 dias úteis. Para complementos ou confirmações, você também pode usar LINE, email ou telefone.",
       "aiHeading": "Organize sua consulta com IA",
       "aiLead": "Use antes de enviar o formulário para esclarecer a pergunta ou o que escrever. Respostas formais e orçamentos são confirmados após o envio.",
       "aiQuestionLabel": "Pergunta para a IA",
@@ -243,7 +243,7 @@
       "lineHeading": "Também é possível usar LINE",
       "lineLead": "Siga a conta oficial do LINE para receber novidades. Também serve para dúvidas curtas e mensagens sobre a escola.",
       "lineCta": "Seguir no LINE",
-      "directMethodsNote": "Use telefone e email como último recurso quando o formulário não funcionar ou for urgente. LINE e X são úteis para contato casual e novidades."
+      "directMethodsNote": "Além do formulário, recebemos perguntas breves pelo LINE ou X e confirmações por email ou telefone. Escolha o meio que fizer mais sentido."
     },
     "schools": {
       "robotProgramming": {

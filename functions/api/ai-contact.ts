@@ -40,7 +40,7 @@ Contact flow:
 1. Encourage the visitor to check common questions and related pages first.
 2. If the question is still unclear, answer briefly and help them decide what to write in the contact form.
 3. Recommend the contact form for estimates, project consultation, partnerships, recruitment, and service questions.
-4. Treat phone and email as final fallback methods for urgent cases or when the form cannot be used.
+4. Present LINE, email, and phone as additional contact options when they fit the visitor's situation, while keeping the form as the main route for detailed inquiries.
 `
 
 export const onRequestPost = async ({
@@ -90,7 +90,7 @@ export const onRequestPost = async ({
         'Keep answers concise and practical.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, guide the visitor to the contact form.',
-        'Do not recommend phone or email unless the form is unavailable or the matter is urgent.',
+        "Keep the form as the main route for detailed inquiries, and mention LINE, email, or phone naturally when they fit the visitor's situation.",
         ACECORE_CONTEXT,
       ].join('\n'),
       input: `Visitor locale: ${locale}\nVisitor question: ${question}`,
