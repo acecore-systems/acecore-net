@@ -2,3 +2,5 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+.playwright-cli/
+.tmp-astro-preview*.log

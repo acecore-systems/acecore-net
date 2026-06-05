@@ -26,6 +26,11 @@ on:
         required: false
         default: false
         type: boolean
+      max_blog_tasks:
+        description: Maximum blog translation PR tasks to create in one run
+        required: false
+        default: '3'
+        type: string
       dry_run:
         description: Print Copilot task payloads without creating PRs
         required: false
@@ -75,6 +80,14 @@ jobs:
 
           if [ "${{ inputs.include_non_blog_sources }}" = "true" ]; then
             args+=("--include-non-blog")
+          fi
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            args+=("--cms-only")
+          fi
+
+          if [ -n "${{ inputs.max_blog_tasks }}" ]; then
+            args+=("--max-blog-tasks=${{ inputs.max_blog_tasks }}")
           fi
 
           if [ "${{ inputs.dry_run }}" = "true" ]; then

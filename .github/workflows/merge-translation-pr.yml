@@ -1,14 +1,6 @@
 name: Merge Translation PR
 
 on:
-  pull_request_target:
-    types:
-      - ready_for_review
-  workflow_run:
-    workflows:
-      - Translation PR Build
-    types:
-      - completed
   workflow_dispatch:
     inputs:
       pr_number:
@@ -22,30 +14,14 @@ permissions:
 
 jobs:
   merge:
-    if: >-
-      github.event_name == 'pull_request_target' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
 
     steps:
       - name: Resolve pull request metadata
         id: pr
         run: |
-          pr_number=""
-          head_sha=""
-
-          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
-            pr_number="${{ github.event.pull_request.number }}"
-            head_sha="${{ github.event.pull_request.head.sha }}"
-          elif [ "${{ github.event_name }}" = "workflow_run" ]; then
-            pr_number=$(jq -r '.workflow_run.pull_requests[0].number // ""' "$GITHUB_EVENT_PATH")
-          else
-            pr_number="${{ inputs.pr_number }}"
-          fi
-
+          pr_number="${{ inputs.pr_number }}"
           echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
-          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
 
       - name: Stop when no pull request number is available
         if: steps.pr.outputs.pr_number == ''
@@ -55,28 +31,11 @@ jobs:
         if: steps.pr.outputs.pr_number != ''
         uses: actions/checkout@v4
 
-      - name: Check out ready translation PR head
-        if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.pr.outputs.head_sha }}
-          path: pr-head
-
       - name: Set up Node.js
         if: steps.pr.outputs.pr_number != ''
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      - name: Install dependencies for ready translation PR
-        if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
-        working-directory: pr-head
-        run: npm ci
-
-      - name: Build ready translation PR
-        if: github.event_name == 'pull_request_target' && steps.pr.outputs.pr_number != ''
-        working-directory: pr-head
-        run: npm run build
 
       - name: Merge eligible translation PR
         if: steps.pr.outputs.pr_number != ''
@@ -85,9 +44,4 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           args=("--pr=${{ steps.pr.outputs.pr_number }}")
-
-          if [ "${{ github.event_name }}" = "workflow_run" ] || [ "${{ github.event_name }}" = "pull_request_target" ]; then
-            args+=("--skip-build-check")
-          fi
-
           node scripts/merge-translation-pr.mjs "${args[@]}"

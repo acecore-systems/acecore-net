@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Faq from '../components/Faq.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
@@ -13,24 +14,81 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+
+const contactSteps = [
+  {
+    icon: 'circle-help',
+    title: t(locale, 'pages.contact.flowFaqTitle'),
+    body: t(locale, 'pages.contact.flowFaqDesc'),
+  },
+  {
+    icon: 'sparkles',
+    title: t(locale, 'pages.contact.flowAiTitle'),
+    body: t(locale, 'pages.contact.flowAiDesc'),
+  },
+  {
+    icon: 'send',
+    title: t(locale, 'pages.contact.flowFormTitle'),
+    body: t(locale, 'pages.contact.flowFormDesc'),
+  },
+  {
+    icon: 'phone',
+    title: t(locale, 'pages.contact.flowDirectTitle'),
+    body: t(locale, 'pages.contact.flowDirectDesc'),
+  },
+]
+
+const faqItems = [
+  {
+    question: t(locale, 'pages.contact.faqQ1'),
+    answer: t(locale, 'pages.contact.faqA1'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ2'),
+    answer: t(locale, 'pages.contact.faqA2'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ3'),
+    answer: t(locale, 'pages.contact.faqA3'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ4'),
+    answer: t(locale, 'pages.contact.faqA4'),
+  },
+]
+
+const contactPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `${t(locale, 'pages.contact.title')} | Acecore`,
+  description: t(locale, 'pages.contact.description'),
+  url: 'https://acecore.net/contact/',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Acecore',
+    telephone: SITE.phoneIntl,
+    email: SITE.email,
+  },
+}
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+}
 ---
 
 <BaseLayout
   title={t(locale, 'pages.contact.title')}
   description={t(locale, 'pages.contact.description')}
-  jsonLd={{
-    '@context': 'https://schema.org',
-    '@type': 'ContactPage',
-    name: `${t(locale, 'pages.contact.title')} | Acecore`,
-    description: t(locale, 'pages.contact.description'),
-    url: 'https://acecore.net/contact/',
-    mainEntity: {
-      '@type': 'Organization',
-      name: 'Acecore',
-      telephone: SITE.phoneIntl,
-      email: SITE.email,
-    },
-  }}
+  jsonLd={[contactPageLd, faqLd]}
   locale={locale}
 >
   <Hero
@@ -66,51 +124,128 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </div>
         </div>
       </div>
-      <div
-        class="mb-10 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:flex-wrap"
-      >
-        <div class="flex items-center gap-2">
-          <Icon name="phone" class="text-brand-500" />
-          <a
-            href={`tel:${SITE.phone.replace(/-/g, '')}`}
-            class="ac-chip font-700"
-            data-ga-event="contact_phone_click"
-            data-ga-label="contact_summary_phone"
-            data-ga-location="contact_summary"
-            data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-            >{SITE.phone}</a
-          >
+
+      <div class="mb-10 grid gap-3 sm:grid-cols-2">
+        {
+          contactSteps.map((step, index) => (
+            <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
+              <span class="ac-icon-box mt-0.5 shrink-0">
+                <Icon name={step.icon} class="text-lg" />
+              </span>
+              <div>
+                <p class="text-xs font-700 text-brand-500">
+                  {index + 1}. {step.title}
+                </p>
+                <p class="mt-1 text-sm leading-relaxed text-slate-600">
+                  {step.body}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mb-10">
+        <Faq title={t(locale, 'pages.contact.faqTitle')} items={faqItems} />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <a href={u('/services/')} class="ac-chip">
+            {t(locale, 'pageNames.services')}
+          </a>
+          <a href={u('/schools/')} class="ac-chip">
+            {t(locale, 'pageNames.schools')}
+          </a>
+          <a href={u('/blog/')} class="ac-chip">
+            {t(locale, 'pageNames.blog')}
+          </a>
+          <a href={u('/privacy/')} class="ac-chip">
+            {t(locale, 'pageNames.privacy')}
+          </a>
         </div>
-        <div class="flex items-center gap-2">
-          <Icon name="mail" class="text-brand-500" />
-          <a
-            href={`mailto:${SITE.email}`}
-            data-ga-event="contact_email_click"
-            data-ga-label="contact_summary_email"
-            data-ga-location="contact_summary"
-            data-ga-destination={`mailto:${SITE.email}`}
-            class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
-            >{SITE.email}</a
+      </div>
+
+      <section
+        class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
+        aria-labelledby="ai-contact-heading"
+      >
+        <div class="mb-4 flex items-start gap-3">
+          <span class="ac-icon-box shrink-0">
+            <Icon name="sparkles" class="text-lg" />
+          </span>
+          <div>
+            <h2 id="ai-contact-heading" class="text-lg ac-heading">
+              {t(locale, 'pages.contact.aiHeading')}
+            </h2>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.contact.aiLead')}
+            </p>
+          </div>
+        </div>
+        <form
+          id="ai-contact-form"
+          class="space-y-3"
+          data-locale={locale}
+          data-t-loading={t(locale, 'pages.contact.aiLoading')}
+          data-t-error={t(locale, 'pages.contact.aiError')}
+        >
+          <label for="ai-question" class="sr-only">
+            {t(locale, 'pages.contact.aiQuestionLabel')}
+          </label>
+          <textarea
+            id="ai-question"
+            name="question"
+            rows="3"
+            maxlength="800"
+            class="ac-input resize-y bg-white"
+            placeholder={t(locale, 'pages.contact.aiPlaceholder')}></textarea>
+          <button type="submit" id="ai-contact-submit" class="ac-btn-primary">
+            <Icon name="sparkles" class="text-base" />
+            {t(locale, 'pages.contact.aiSubmit')}
+          </button>
+          <div
+            id="ai-contact-answer"
+            class="hidden rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700"
+            aria-live="polite"
           >
+          </div>
+        </form>
+      </section>
+
+      <div
+        class="mb-10 flex flex-col gap-4 rounded-lg border border-brand-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-start gap-3">
+          <span class="ac-icon-box shrink-0">
+            <Icon name="message-circle" class="text-lg" />
+          </span>
+          <div>
+            <h2 class="text-lg ac-heading">
+              {t(locale, 'pages.contact.lineHeading')}
+            </h2>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.contact.lineLead')}
+            </p>
+          </div>
         </div>
         <a
           href={SITE.line}
           target="_blank"
           rel="noopener noreferrer"
           data-ga-event="contact_line_click"
-          data-ga-label="contact_summary_line"
-          data-ga-location="contact_summary"
+          data-ga-label="contact_line_follow"
+          data-ga-location="contact_line_assist"
           data-ga-destination={SITE.line}
-          class="ac-chip gap-2 border-brand-100 bg-brand-50 text-brand-600"
+          class="ac-btn-secondary shrink-0"
         >
-          <Icon name="message-circle" class="text-brand-500" />
-          {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only"
+          <Icon name="message-circle" class="text-base" />
+          {t(locale, 'pages.contact.lineCta')}<span class="sr-only"
             >{t(locale, 'common.opensInNewTab')}</span
           >
         </a>
       </div>
+
       <form
-        action="https://ssgform.com/s/a4JOVjLjyygh"
+        id="contact-form"
+        action="/api/contact"
         method="post"
         class="space-y-6"
         data-t-sending={t(locale, 'pages.contact.formSending')}
@@ -124,6 +259,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
       >
+        <input type="hidden" name="_redirect" value={u('/contact/')} />
+        <input type="hidden" name="locale" value={locale} />
         <div>
           <label
             for="category"
@@ -266,6 +403,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           id="form-feedback"
           class="hidden rounded-lg p-4 text-sm"
           role="alert"
+          aria-live="polite"
         >
         </div>
       </form>
@@ -274,46 +412,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
   <section class="bg-slate-50 py-14 sm:py-16">
     <div class="ac-container max-w-2xl">
-      <h2 class="mb-8 text-center text-xl ac-heading">
+      <h2 class="text-center text-xl ac-heading">
         {t(locale, 'pages.contact.otherMethodsHeading')}
       </h2>
+      <p class="mx-auto mt-2 mb-8 max-w-xl text-center text-sm text-slate-600">
+        {t(locale, 'pages.contact.directMethodsNote')}
+      </p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="phone" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodPhone')}
-          </h3>
-          <p class="text-sm text-slate-600 font-600">
-            <a
-              href={`tel:${SITE.phone.replace(/-/g, '')}`}
-              data-ga-event="contact_phone_click"
-              data-ga-label="contact_card_phone"
-              data-ga-location="contact_methods"
-              data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-              class="text-brand-500 hover:underline">{SITE.phone}</a
-            >
-          </p>
-        </div>
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="mail" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodEmail')}
-          </h3>
-          <p class="text-sm text-slate-600">
-            <a
-              href={`mailto:${SITE.email}`}
-              data-ga-event="contact_email_click"
-              data-ga-label="contact_card_email"
-              data-ga-location="contact_methods"
-              data-ga-destination={`mailto:${SITE.email}`}
-              class="text-brand-500 hover:underline">{SITE.email}</a
-            >
-          </p>
-        </div>
         <a
           href={SITE.line}
           target="_blank"
@@ -352,6 +457,42 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </p>
           <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
         </a>
+        <div class="ac-card p-6 text-center">
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="mail" class="text-xl" />
+          </span>
+          <h3 class="font-600 text-slate-900 mb-1">
+            {t(locale, 'pages.contact.methodEmail')}
+          </h3>
+          <p class="text-sm text-slate-600">
+            <a
+              href={`mailto:${SITE.email}`}
+              data-ga-event="contact_email_click"
+              data-ga-label="contact_card_email"
+              data-ga-location="contact_methods"
+              data-ga-destination={`mailto:${SITE.email}`}
+              class="text-brand-500 hover:underline">{SITE.email}</a
+            >
+          </p>
+        </div>
+        <div class="ac-card p-6 text-center">
+          <span class="ac-icon-box mx-auto mb-3">
+            <Icon name="phone" class="text-xl" />
+          </span>
+          <h3 class="font-600 text-slate-900 mb-1">
+            {t(locale, 'pages.contact.methodPhone')}
+          </h3>
+          <p class="text-sm text-slate-600 font-600">
+            <a
+              href={`tel:${SITE.phone.replace(/-/g, '')}`}
+              data-ga-event="contact_phone_click"
+              data-ga-label="contact_card_phone"
+              data-ga-location="contact_methods"
+              data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
+              class="text-brand-500 hover:underline">{SITE.phone}</a
+            >
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -423,7 +564,82 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </script>
   <script is:inline>
     {
-      const contactForm = document.querySelector('form[action*="ssgform"]')
+      const aiForm = document.getElementById('ai-contact-form')
+      if (aiForm) {
+        const question = document.getElementById('ai-question')
+        const answer = document.getElementById('ai-contact-answer')
+        const submit = document.getElementById('ai-contact-submit')
+        const loadingText =
+          aiForm.getAttribute('data-t-loading') || 'Thinking...'
+        const errorText =
+          aiForm.getAttribute('data-t-error') ||
+          'AI assistant is unavailable. Please use the form.'
+        const locale = aiForm.getAttribute('data-locale') || 'ja'
+
+        function showAiAnswer(text, isError) {
+          if (!answer) return
+          answer.textContent = text
+          answer.className = isError
+            ? 'rounded-lg border border-red-200 bg-red-50 p-4 text-sm leading-relaxed text-red-800'
+            : 'rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700'
+        }
+
+        aiForm.addEventListener('submit', function (event) {
+          event.preventDefault()
+          if (!question || !submit) return
+
+          const text = question.value.trim()
+          if (!text) {
+            question.focus()
+            return
+          }
+
+          const originalText = submit.textContent
+          submit.disabled = true
+          submit.textContent = loadingText
+          showAiAnswer(loadingText, false)
+
+          fetch('/api/ai-contact', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              question: text,
+              locale,
+            }),
+          })
+            .then(async function (response) {
+              const payload = await response.json().catch(function () {
+                return null
+              })
+              if (!response.ok || !payload?.ok) {
+                throw new Error(payload?.answer || errorText)
+              }
+              showAiAnswer(payload.answer || errorText, false)
+              if (window.aceTrackEvent) {
+                window.aceTrackEvent('ai_contact_answer', {
+                  page_path: window.location.pathname,
+                  page_title: document.title,
+                  location: 'contact_ai',
+                })
+              }
+            })
+            .catch(function (error) {
+              showAiAnswer(error.message || errorText, true)
+            })
+            .finally(function () {
+              submit.disabled = false
+              submit.textContent = originalText
+            })
+        })
+      }
+    }
+  </script>
+  <script is:inline>
+    {
+      const contactForm = document.getElementById('contact-form')
       const vCat = contactForm?.getAttribute('data-t-validation-category') || ''
       const vName = contactForm?.getAttribute('data-t-validation-name') || ''
       const vEmail = contactForm?.getAttribute('data-t-validation-email') || ''
@@ -476,18 +692,47 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </script>
   <script is:inline>
     {
-      const form = document.querySelector('form[action*="ssgform"]')
+      const form = document.getElementById('contact-form')
       if (form) {
+        const feedback = document.getElementById('form-feedback')
+        const successText =
+          form.getAttribute('data-t-success') || 'Message sent.'
+        const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
+
+        function showFeedback(type, text) {
+          if (!feedback) return
+          feedback.textContent = text
+          feedback.className =
+            type === 'success'
+              ? 'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
+              : 'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200'
+        }
+
+        function resetTurnstile() {
+          const turnstileEl = document.getElementById('turnstile-widget')
+          const widgetId = turnstileEl?.dataset.widgetId
+          if (typeof turnstile !== 'undefined' && widgetId) {
+            turnstile.reset(widgetId)
+          }
+        }
+
+        const currentUrl = new URL(window.location.href)
+        const contactState = currentUrl.searchParams.get('contact')
+        if (contactState === 'sent' || contactState === 'error') {
+          showFeedback(
+            contactState === 'sent' ? 'success' : 'error',
+            contactState === 'sent' ? successText : errorText,
+          )
+          currentUrl.searchParams.delete('contact')
+          window.history.replaceState({}, '', currentUrl)
+        }
+
         form.addEventListener('submit', function (e) {
           e.preventDefault()
           const formData = new FormData(form)
           const btn = document.getElementById('contact-submit')
-          const feedback = document.getElementById('form-feedback')
+          if (!btn || !feedback) return
           const sendingText = form.getAttribute('data-t-sending') || 'Sending…'
-          const successText =
-            form.getAttribute('data-t-success') || 'Message sent.'
-          const errorText =
-            form.getAttribute('data-t-error') || 'Failed to send.'
           const originalText = btn.textContent
           btn.disabled = true
           btn.textContent = sendingText
@@ -495,36 +740,34 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           fetch(form.action, {
             method: 'POST',
             body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
           })
-            .then(function (res) {
-              if (res.ok) {
-                if (window.aceTrackEvent) {
-                  window.aceTrackEvent('generate_lead', {
-                    page_path: window.location.pathname,
-                    page_title: document.title,
-                    location: 'contact_form',
-                    contact_category: String(
-                      formData.get('お問い合わせ種別') || '',
-                    ),
-                  })
-                }
-                feedback.textContent = successText
-                feedback.className =
-                  'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
-                form.reset()
-                const turnstileEl = document.getElementById('turnstile-widget')
-                const widgetId = turnstileEl?.dataset.widgetId
-                if (typeof turnstile !== 'undefined' && widgetId) {
-                  turnstile.reset(widgetId)
-                }
-              } else {
+            .then(async function (res) {
+              const payload = await res.json().catch(function () {
+                return null
+              })
+              if (!res.ok || (payload && payload.ok === false)) {
                 throw new Error('Failed')
               }
+              if (window.aceTrackEvent) {
+                window.aceTrackEvent('generate_lead', {
+                  page_path: window.location.pathname,
+                  page_title: document.title,
+                  location: 'contact_form',
+                  contact_category: String(
+                    formData.get('お問い合わせ種別') || '',
+                  ),
+                })
+              }
+              showFeedback('success', successText)
+              form.reset()
+              resetTurnstile()
             })
             .catch(function () {
-              feedback.textContent = errorText
-              feedback.className =
-                'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200'
+              showFeedback('error', errorText)
+              resetTurnstile()
             })
             .finally(function () {
               btn.disabled = false
