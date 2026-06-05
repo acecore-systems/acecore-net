@@ -48,6 +48,8 @@ En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedic
 
 **Aceserver**, gestionado por Acecore, es utilizado por muchos jugadores como un servidor público de Minecraft. No solo funciona como un espacio de interacción a través del juego, sino también como un lugar de verificación técnica de operación de servidores y práctica de gestión comunitaria.
 
+Una descripción general de Aceserver y cómo unirse también está disponible en la [sección Aceserver de nuestra página de servicios](/services/#aceserver).
+
 En la [comunidad de Discord](https://discord.gg/acsv) de Aceserver, se llevan a cabo activamente intercambios que van más allá del juego, incluyendo temas técnicos y conversaciones cotidianas. Se caracteriza por su ambiente abierto donde cualquiera puede participar, sin importar edad o experiencia.
 
 ![En la comunidad de Aceserver se llevan a cabo intercambios sin importar edad o experiencia](https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=400&fit=crop&q=80)
@@ -67,6 +69,8 @@ La participación es gratuita o a bajo costo, y está abierta a todos. La inform
 ## Actividades educativas de Acecore Schools
 
 En la escuela de IT "Acecore Schools", ingenieros en activo brindan instrucción personalizada. El currículo se centra en ejercicios basados en proyectos reales, desarrollando la capacidad práctica de "poder usar inmediatamente lo aprendido".
+
+Los detalles del plan de estudios y la información de contacto también se pueden consultar en la [página Schools](/schools/).
 
 ### Características del currículo
 
