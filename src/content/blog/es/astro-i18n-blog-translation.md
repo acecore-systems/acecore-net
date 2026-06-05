@@ -1,7 +1,7 @@
 ---
 title: 'Cómo hacer que un sitio Astro 6 soporte 9 idiomas ― Traducción automática de 168 artículos y arquitectura multilingüe'
 description: 'Registro de la internacionalización de un sitio Astro 6 + UnoCSS + Cloudflare Pages a 9 idiomas. Cubre todo el proceso desde la internacionalización de la UI hasta la traducción de 168 artículos y la configuración multilingüe de Pages CMS.'
-date: 2026-03-25
+date: 2026-03-25T10:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop&q=80
@@ -93,6 +93,8 @@ Adoptamos `prefixDefaultLocale: false` de Astro, sirviendo japonés en la raíz 
 ```
 
 Usar el mismo slug en todos los idiomas mantiene simple el mapeo de URLs al cambiar de idioma.
+
+La automatización con Copilot para mantener de forma continua la operación de traducción está resumida en [Pipeline de traducción de blogs con GitHub Copilot](/blog/copilot-translation-pipeline/).
 
 ## Implementación de la base i18n
 

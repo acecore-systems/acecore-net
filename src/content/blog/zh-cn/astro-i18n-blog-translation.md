@@ -1,7 +1,7 @@
 ---
 title: '将 Astro 6 网站扩展至9种语言 ― 168篇博客文章的自动翻译与多语言架构'
 description: '记录了将 Astro 6 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到168篇博客文章翻译、Pages CMS多语言配置的全部流程。'
-date: 2026-03-25
+date: 2026-03-25T10:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop&q=80
@@ -93,6 +93,8 @@ faq:
 ```
 
 所有语言使用相同的 slug，使得语言切换时的 URL 映射非常简单。
+
+为持续推进翻译运营而进行的 Copilot 自动化，已整理在[使用 GitHub Copilot 的博客翻译流水线](/blog/copilot-translation-pipeline/)中。
 
 ## i18n 基础实现
 
