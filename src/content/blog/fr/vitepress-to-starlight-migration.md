@@ -49,6 +49,8 @@ faq:
 
 Voici les étapes de la migration d'un site documentaire construit avec VitePress vers Astro + Starlight. Lorsque le site principal fonctionne sous Astro, unifier également la documentation sous Starlight simplifie l'exploitation. La migration CDN des diagrammes Mermaid est également abordée.
 
+La mise en place multilingue et le système de traduction du blog côté Astro sont présentés en détail dans [Comment nous avons rendu le site Astro 6 compatible avec 9 langues](/blog/astro-i18n-blog-translation/).
+
 ## Pourquoi unifier le framework ?
 
 Lorsque le site principal et le site documentaire utilisent des frameworks différents, les problèmes suivants se posent :

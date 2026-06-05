@@ -49,6 +49,8 @@ faq:
 
 VitePress 문서 사이트를 Astro + Starlight로 마이그레이션하는 과정을 소개합니다. 메인 사이트가 Astro라면 Starlight로 문서를 통합하면 운용이 간소화됩니다. Mermaid 다이어그램의 CDN 이전도 함께 다룹니다.
 
+Astro 측의 다국어화 및 블로그 번역 시스템에 대해서는 [Astro 6 사이트를 9개 언어로 대응한 기록](/blog/astro-i18n-blog-translation/)에서 자세히 소개하고 있습니다.
+
 ## 왜 프레임워크를 통합하는가?
 
 메인 사이트와 문서 사이트에서 다른 프레임워크를 사용하면 다음과 같은 문제가 발생합니다:

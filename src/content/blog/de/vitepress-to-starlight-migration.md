@@ -49,6 +49,8 @@ faq:
 
 Hier ist eine Anleitung zur Migration einer VitePress-Dokumentationssite zu Astro + Starlight. Wenn Ihre Hauptseite auf Astro läuft, vereinfacht die Zusammenführung Ihrer Dokumentation unter Starlight den Betrieb. Wir behandeln auch die Migration von Mermaid-Diagrammen zum CDN.
 
+Das mehrsprachige Setup und das Blog-Übersetzungssystem auf der Astro-Seite werden in [Wie wir die Astro 6-Website mit 9 Sprachen kompatibel gemacht haben](/blog/astro-i18n-blog-translation/) ausführlich beschrieben.
+
 ## Warum Frameworks vereinheitlichen?
 
 Die Verwendung verschiedener Frameworks für die Hauptseite und die Dokumentationssite erzeugt folgende Probleme:

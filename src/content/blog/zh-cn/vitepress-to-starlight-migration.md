@@ -49,6 +49,8 @@ faq:
 
 本文总结了将使用 VitePress 创建的文档站点迁移到 Astro + Starlight 的步骤。如果主站使用 Astro，将文档也统一到 Starlight 可以简化运维。同时也介绍了 Mermaid 图表的 CDN 迁移。
 
+Astro 侧的多语言化及博客翻译机制，在[将 Astro 6 网站扩展到 9 种语言的记录](/blog/astro-i18n-blog-translation/)中有详细介绍。
+
 ## 为什么要统一框架
 
 当主站和文档站点使用不同的框架时，会出现以下问题：
