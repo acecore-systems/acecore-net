@@ -85,6 +85,8 @@ content:
 
 We introduced Cloudflare Turnstile as spam protection for the contact form.
 
+For security headers and Cloudflare Pages settings for static sites, these are covered in detail in [Achieving Secure Static Site Delivery with Cloudflare Pages](/blog/cloudflare-pages-security/).
+
 ### Why Turnstile Over reCAPTCHA
 
 Google reCAPTCHA v2 forces users to select images, and v3 is score-based but raises privacy concerns. Cloudflare Turnstile is superior in the following ways:

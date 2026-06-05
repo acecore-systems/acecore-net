@@ -85,6 +85,8 @@ content:
 
 Se implementó Cloudflare Turnstile como protección anti-spam para el formulario de contacto.
 
+Los encabezados de seguridad y la configuración en Cloudflare Pages para sitios estáticos están detallados en [Distribución segura de sitios estáticos con Cloudflare Pages](/blog/cloudflare-pages-security/).
+
 ### Por qué Turnstile en lugar de reCAPTCHA
 
 Google reCAPTCHA v2 obliga a los usuarios a seleccionar imágenes, y v3 es basado en puntuación pero tiene preocupaciones de privacidad. Cloudflare Turnstile es superior en los siguientes aspectos:

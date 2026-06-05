@@ -85,6 +85,8 @@ content:
 
 문의 폼의 스팸 방지로 Cloudflare Turnstile을 도입했습니다.
 
+정적 사이트의 보안 헤더 및 Cloudflare Pages 측 설정은 [Cloudflare Pages로 안전한 정적 사이트 배포 달성](/blog/cloudflare-pages-security/)에서 자세히 정리했습니다.
+
 ### reCAPTCHA 대신 Turnstile을 선택한 이유
 
 Google reCAPTCHA v2는 사용자에게 이미지 선택을 강제하고, v3는 점수 기반이지만 프라이버시 우려가 있습니다. Cloudflare Turnstile은 다음 면에서 우수합니다:

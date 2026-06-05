@@ -85,6 +85,8 @@ content:
 
 为了防范联系表单的垃圾信息，我们引入了 Cloudflare Turnstile。
 
+静态站点的安全标头和 Cloudflare Pages 侧的配置，在[使用 Cloudflare Pages 实现安全的静态站点部署](/blog/cloudflare-pages-security/)中有详细整理。
+
 ### 为什么选择 Turnstile 而非 reCAPTCHA
 
 Google reCAPTCHA v2 强制用户选择图片，v3 虽然基于评分但在隐私方面存在顾虑。Cloudflare Turnstile 在以下方面更为出色：
