@@ -53,6 +53,8 @@ linkCards:
 
 „Wie hieß nochmal die frühere kostenpflichtige SSL-Option bei Cloudflare?“ — das fragen sich viele. In diesem Artikel klären wir die genaue Bezeichnung sowie die heutigen Funktionen.
 
+Für die Auslieferung statischer Websites mit Cloudflare Pages und die Umsetzung von CSP siehe auch [Sichere Auslieferung statischer Websites mit Cloudflare Pages](/blog/cloudflare-pages-security/).
+
 ## Fazit: „Dedicated SSL“ → „Advanced Certificate Manager (ACM)“
 
 Die frühere kostenpflichtige SSL-Option bei Cloudflare hieß **Dedicated SSL Certificates**. Sie wurde **2021 überarbeitet und in „Advanced Certificate Manager (ACM)“ umbenannt**.

@@ -53,6 +53,8 @@ linkCards:
 
 “Qual era mesmo aquela opção SSL paga da Cloudflare?” — muita gente já pensou nisso. Neste artigo, organizamos a resposta, o nome atual e os recursos disponíveis.
 
+Para entrega de sites estáticos no Cloudflare Pages e implementação de CSP, veja também [Distribuição segura de sites estáticos com Cloudflare Pages](/blog/cloudflare-pages-security/).
+
 ## Conclusão: “Dedicated SSL” → “Advanced Certificate Manager (ACM)”
 
 A antiga opção SSL paga da Cloudflare era **Dedicated SSL Certificates**. Em **2021, ela foi reformulada e renomeada para “Advanced Certificate Manager (ACM)”**.

@@ -53,6 +53,8 @@ linkCards:
 
 «Как называлась прежняя платная SSL-опция Cloudflare?» — этим вопросом задаются многие. В этой статье разберём, что это за опция, как она называется сейчас и какие у неё функции.
 
+Для доставки статических сайтов через Cloudflare Pages и внедрения CSP также см. [Безопасная доставка статических сайтов с Cloudflare Pages](/blog/cloudflare-pages-security/).
+
 ## Вывод: «Dedicated SSL» → «Advanced Certificate Manager (ACM)»
 
 Прежняя платная SSL-опция Cloudflare называлась **Dedicated SSL Certificates**. В **2021 году она была обновлена и переименована в «Advanced Certificate Manager (ACM)»**.

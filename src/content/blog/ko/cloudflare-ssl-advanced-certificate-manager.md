@@ -53,6 +53,8 @@ linkCards:
 
 “Cloudflare에 예전에 있던 유료 SSL 옵션, 이름이 뭐였지?”라고 궁금했던 분이 많을 것입니다. 이 글에서 그 정체와 현재 명칭/기능을 정리합니다.
 
+Cloudflare Pages에서의 정적 사이트 배포와 CSP 구현은 [Cloudflare Pages로 구현하는 안전한 정적 사이트 배포](/blog/cloudflare-pages-security/)도 참고하세요.
+
 ## 결론: “Dedicated SSL” → “Advanced Certificate Manager(ACM)”
 
 Cloudflare에서 과거 유료였던 SSL 옵션의 이름은 **Dedicated SSL Certificates(전용 SSL 인증서)**입니다. 이는 **2021년에 “Advanced Certificate Manager(ACM)”로 개편 및 리브랜딩**되었습니다.

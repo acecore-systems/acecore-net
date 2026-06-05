@@ -53,6 +53,8 @@ linkCards:
 
 “Cloudflare 以前那个付费 SSL 选项叫什么来着？”——不少人都问过这个问题。本文将整理它的真实身份，以及现在的名称和功能。
 
+关于在 Cloudflare Pages 上进行静态站点发布以及 CSP 实现，也可参考[用 Cloudflare Pages 实现安全的静态站点发布](/blog/cloudflare-pages-security/)。
+
 ## 结论：从“Dedicated SSL”到“Advanced Certificate Manager（ACM）”
 
 Cloudflare 过去的付费 SSL 选项名称是 **Dedicated SSL Certificates（专用 SSL 证书）**。它在 **2021 年升级并更名为“Advanced Certificate Manager（ACM）”**。
