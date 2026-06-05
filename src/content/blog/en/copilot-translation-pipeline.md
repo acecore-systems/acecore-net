@@ -54,7 +54,7 @@ faq:
     - question: Will pushing a Japanese article automatically create articles in other languages?
       answer: 'Yes. The current Acecore site supports 9 languages — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — so pushing a Japanese article can trigger Copilot translation PR task creation for the remaining 8 languages, translation PR creation, build, and auto-merge. Even without translation files, each locale URL is served with a Japanese fallback, so you can publish first and replace with real translations later.'
     - question: Why create a PR task directly without going through an issue?
-      answer: 'Since the output of translation work is a PR, fixing the source path, target locale, and translation conditions directly in the Copilot task''s problem statement and PR body marker makes the flow shorter. By searching open PRs with the marker, you can also prevent duplicate creation for the same source path.'
+      answer: "Since the output of translation work is a PR, fixing the source path, target locale, and translation conditions directly in the Copilot task's problem statement and PR body marker makes the flow shorter. By searching open PRs with the marker, you can also prevent duplicate creation for the same source path."
     - question: Isn't auto-merging risky?
       answer: 'Unconditional auto-merging is risky. By scoping it to translation PRs only — requiring that Copilot created the PR, the title starts with [translation], the build passes, and the PR is not a draft — you can keep it quite safe.'
 ---
@@ -71,7 +71,7 @@ This approach assumes the following infrastructure is already in place on the As
 - A fallback that serves Japanese content for pages without translations
 - An operational setup where Japanese articles and author information can be updated via Pages CMS
 
-For how to set up this infrastructure itself, see [Making an Astro 6 Site Support 9 Languages — Auto-translating 136 Blog Articles and a Multilingual Architecture](/blog/astro-i18n-blog-translation/). This article focuses solely on how to layer the Copilot auto-translation workflow on top of that.
+For how to set up this infrastructure itself, see [Making an Astro 6 Site Support 9 Languages — Auto-translating 168 Blog Articles and a Multilingual Architecture](/blog/astro-i18n-blog-translation/). This article focuses solely on how to layer the Copilot auto-translation workflow on top of that.
 
 ## What This Enables
 

@@ -1,6 +1,6 @@
 ---
-title: "Como fazer um site Astro 6 suportar 9 idiomas ― Tradução automática de 136 artigos e arquitetura multilíngue"
-description: "Registro da internacionalização de um site Astro 6 + UnoCSS + Cloudflare Pages para 9 idiomas. Cobre todo o processo desde a internacionalização da UI até a tradução de 136 artigos e configuração multilíngue do Pages CMS."
+title: 'Como fazer um site Astro 6 suportar 9 idiomas ― Tradução automática de 168 artigos e arquitetura multilíngue'
+description: 'Registro da internacionalização de um site Astro 6 + UnoCSS + Cloudflare Pages para 9 idiomas. Cobre todo o processo desde a internacionalização da UI até a tradução de 168 artigos e configuração multilíngue do Pages CMS.'
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
@@ -15,7 +15,7 @@ processFigure:
       description: Traduzir textos do cabeçalho, rodapé e todos os componentes.
       icon: i-lucide-languages
     - title: Tradução de artigos
-      description: Gerar 136 arquivos de tradução (17 artigos × 8 idiomas).
+      description: Gerar 168 arquivos de tradução (21 artigos × 8 idiomas).
       icon: i-lucide-file-text
     - title: CMS e verificação de build
       description: Configuração multilíngue do Pages CMS e verificação da geração de todas as páginas.
@@ -26,7 +26,7 @@ compareTable:
     label: Apenas japonês
     items:
       - Apenas 1 idioma (japonês)
-      - 17 artigos de blog
+      - 23 artigos de blog
       - 523 páginas geradas (após suporte multilíngue da UI)
       - Pages CMS com 1 coleção de blog
       - Tags e dados de autor apenas em japonês
@@ -35,37 +35,37 @@ compareTable:
     label: 9 idiomas
     items:
       - Japonês + 8 idiomas (en, zh-cn, es, pt, fr, ko, de, ru)
-      - 17 artigos + 136 traduções = 153 no total
-      - 541 páginas geradas (artigos traduzidos com fallback)
+      - 23 artigos + 168 traduções = 191 no total
+      - 621 páginas geradas (artigos traduzidos com fallback)
       - Pages CMS com 9 coleções por idioma
       - 25 tags e dados de autor traduzidos por idioma
       - Feeds RSS multilíngues (9 idiomas)
 callout:
   type: info
   title: Idiomas suportados
-  text: "Suporta 9 idiomas: japonês (padrão), inglês, chinês simplificado, espanhol, português, francês, coreano, alemão e russo."
+  text: 'Suporta 9 idiomas: japonês (padrão), inglês, chinês simplificado, espanhol, português, francês, coreano, alemão e russo.'
 statBar:
   items:
     - value: '9'
       label: Idiomas suportados
-    - value: '136'
+    - value: '168'
       label: Artigos traduzidos
-    - value: '541'
+    - value: '621'
       label: Páginas geradas
 faq:
   title: Perguntas frequentes
   items:
     - question: Por que foram escolhidos 9 idiomas?
-      answer: "Para maximizar o alcance global, cobrimos os principais mercados linguísticos. Inglês, chinês, espanhol e português cobrem a maioria dos usuários da internet, enquanto francês, alemão, russo e coreano complementam os mercados principais restantes."
+      answer: 'Para maximizar o alcance global, cobrimos os principais mercados linguísticos. Inglês, chinês, espanhol e português cobrem a maioria dos usuários da internet, enquanto francês, alemão, russo e coreano complementam os mercados principais restantes.'
     - question: Como a qualidade da tradução é garantida?
-      answer: "Usamos tradução por IA com GitHub Copilot. Primeiro é criada a versão em inglês como idioma intermediário, depois traduzida do inglês para cada idioma alvo para reduzir a variação de qualidade. Os valores de tags no frontmatter são mantidos em japonês, e URLs, blocos de código e caminhos de imagens permanecem inalterados."
+      answer: 'Usamos tradução por IA com GitHub Copilot. Primeiro é criada a versão em inglês como idioma intermediário, depois traduzida do inglês para cada idioma alvo para reduzir a variação de qualidade. Os valores de tags no frontmatter são mantidos em japonês, e URLs, blocos de código e caminhos de imagens permanecem inalterados.'
     - question: O que acontece quando um artigo traduzido não existe?
-      answer: "O recurso de fallback exibe o artigo original em japonês quando não existe tradução. As traduções podem ser adicionadas incrementalmente."
+      answer: 'O recurso de fallback exibe o artigo original em japonês quando não existe tradução. As traduções podem ser adicionadas incrementalmente.'
     - question: É necessário traduzir ao adicionar um novo artigo?
-      answer: "Não é obrigatório — se não houver arquivo de tradução, a versão japonesa é exibida como fallback. Para adicionar uma tradução, basta colocar um arquivo Markdown com o mesmo nome no diretório do idioma correspondente."
+      answer: 'Não é obrigatório — se não houver arquivo de tradução, a versão japonesa é exibida como fallback. Para adicionar uma tradução, basta colocar um arquivo Markdown com o mesmo nome no diretório do idioma correspondente.'
 ---
 
-Atualizamos o site oficial da Acecore de apenas japonês para suporte a 9 idiomas. Este artigo cobre todo o processo: internacionalização da UI, tradução de 17 artigos × 8 idiomas = 136 arquivos, e configuração multilíngue do Pages CMS.
+Atualizamos o site oficial da Acecore de apenas japonês para suporte a 9 idiomas. Este artigo cobre todo o processo: internacionalização da UI, tradução de 21 artigos × 8 idiomas = 168 arquivos, e configuração multilíngue do Pages CMS.
 
 ## Estratégia multilíngue
 
@@ -75,7 +75,7 @@ Abordamos o suporte multilíngue em três fases:
 
 1. **Base i18n**: Configuração de roteamento i18n nativo do Astro, utilitários de tradução e arquivos JSON de tradução para 9 idiomas
 2. **Tradução de textos da UI**: Textos de componentes no cabeçalho, rodapé, barra lateral e todas as páginas
-3. **Tradução de artigos**: Todos os 17 artigos traduzidos para 8 idiomas (136 arquivos gerados)
+3. **Tradução de artigos**: Todos os 21 artigos traduzidos para 8 idiomas (168 arquivos gerados)
 
 ### Design de URLs
 
@@ -120,9 +120,7 @@ Arquivos de configuração, funções utilitárias e arquivos JSON de tradução
 ```typescript
 // src/i18n/utils.ts
 export function t(locale: Locale, key: string): string {
-  return translations[locale]?.[key]
-    ?? translations[defaultLocale][key]
-    ?? key
+  return translations[locale]?.[key] ?? translations[defaultLocale][key] ?? key
 }
 ```
 
@@ -138,6 +136,7 @@ A implementação de páginas usa o **Padrão View Component**. Layout e lógica
 import AboutPage from '../../views/AboutPage.astro'
 const { locale } = Astro.params
 ---
+
 <AboutPage locale={locale} />
 ```
 
@@ -236,7 +235,7 @@ Listas do blog, listas de tags, listas de autores e páginas de arquivo filtram 
 ---
 const allPosts = await getCollection('blog')
 const basePosts = allPosts.filter(isBasePost)
-const displayPosts = basePosts.map(p => localizePost(p, allPosts, locale))
+const displayPosts = basePosts.map((p) => localizePost(p, allPosts, locale))
 ---
 ```
 
@@ -395,7 +394,9 @@ Além do `/rss.xml` em japonês, feeds RSS são gerados para cada versão de idi
 ```typescript
 // src/pages/[locale]/rss.xml.ts
 export const getStaticPaths = () =>
-  locales.filter((l) => l !== defaultLocale).map((l) => ({ params: { locale: l } }))
+  locales
+    .filter((l) => l !== defaultLocale)
+    .map((l) => ({ params: { locale: l } }))
 ```
 
 O `<link rel="alternate" type="application/rss+xml">` no `BaseLayout.astro` também configura automaticamente a URL RSS apropriada para o locale.

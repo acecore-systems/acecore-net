@@ -1,6 +1,6 @@
 ---
-title: '将 Astro 6 网站扩展至9种语言 ― 136篇博客文章的自动翻译与多语言架构'
-description: '记录了将 Astro 6 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到136篇博客文章翻译、Pages CMS多语言配置的全部流程。'
+title: '将 Astro 6 网站扩展至9种语言 ― 168篇博客文章的自动翻译与多语言架构'
+description: '记录了将 Astro 6 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到168篇博客文章翻译、Pages CMS多语言配置的全部流程。'
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
@@ -15,7 +15,7 @@ processFigure:
       description: 将页头、页脚及所有组件的显示文本多语言化。
       icon: i-lucide-languages
     - title: 博客文章翻译
-      description: 生成 136 个翻译文件（17篇文章 × 8种语言）。
+      description: 生成 168 个翻译文件（21篇文章 × 8种语言）。
       icon: i-lucide-file-text
     - title: CMS 与构建验证
       description: Pages CMS 多语言配置及全部页面的构建验证。
@@ -26,7 +26,7 @@ compareTable:
     label: 仅日语
     items:
       - 仅日语1种语言
-      - 17篇博客文章
+      - 23篇博客文章
       - 生成523个页面（UI多语言化后）
       - Pages CMS 仅1个博客集合
       - 标签和作者数据仅日语
@@ -35,8 +35,8 @@ compareTable:
     label: 支持9种语言
     items:
       - 日语 + 8种语言（en、zh-cn、es、pt、fr、ko、de、ru）
-      - 17篇博客文章 + 136篇翻译 = 共153篇
-      - 生成541个页面（翻译文章带回退机制）
+      - 23篇博客文章 + 168篇翻译 = 共191篇
+      - 生成621个页面（翻译文章带回退机制）
       - Pages CMS 包含9个语言集合
       - 25种标签和作者数据翻译至各语言
       - 多语言 RSS 订阅源（9种语言）
@@ -48,9 +48,9 @@ statBar:
   items:
     - value: '9'
       label: 支持语言数
-    - value: '136'
+    - value: '168'
       label: 翻译文章数
-    - value: '541'
+    - value: '621'
       label: 生成页面数
 faq:
   title: 常见问题
@@ -65,7 +65,7 @@ faq:
       answer: '不是必须的——如果没有翻译文件，系统会回退显示日语版本。要添加翻译，只需在对应的语言目录中放置同名的 Markdown 文件即可。'
 ---
 
-我们将 Acecore 官方网站从仅支持日语升级为支持9种语言。本文介绍了完整的流程：UI 国际化、17篇博客文章 × 8种语言 = 136个翻译文件，以及 Pages CMS 的多语言配置。
+我们将 Acecore 官方网站从仅支持日语升级为支持9种语言。本文介绍了完整的流程：UI 国际化、21篇博客文章 × 8种语言 = 168个翻译文件，以及 Pages CMS 的多语言配置。
 
 ## 多语言化方针
 
@@ -75,7 +75,7 @@ faq:
 
 1. **i18n 基础搭建**：Astro 内置 i18n 路由配置、翻译工具、9种语言的翻译 JSON 文件
 2. **UI 文本翻译**：页头、页脚、侧边栏及所有页面的组件文本
-3. **博客文章翻译**：全部17篇文章翻译为8种语言（生成136个文件）
+3. **博客文章翻译**：全部21篇文章翻译为8种语言（生成168个文件）
 
 ### URL 设计
 
@@ -120,9 +120,7 @@ export default defineConfig({
 ```typescript
 // src/i18n/utils.ts
 export function t(locale: Locale, key: string): string {
-  return translations[locale]?.[key]
-    ?? translations[defaultLocale][key]
-    ?? key
+  return translations[locale]?.[key] ?? translations[defaultLocale][key] ?? key
 }
 ```
 
@@ -138,6 +136,7 @@ export function t(locale: Locale, key: string): string {
 import AboutPage from '../../views/AboutPage.astro'
 const { locale } = Astro.params
 ---
+
 <AboutPage locale={locale} />
 ```
 
@@ -236,7 +235,7 @@ const post = localizedPost // 现有模板引用直接可用
 ---
 const allPosts = await getCollection('blog')
 const basePosts = allPosts.filter(isBasePost)
-const displayPosts = basePosts.map(p => localizePost(p, allPosts, locale))
+const displayPosts = basePosts.map((p) => localizePost(p, allPosts, locale))
 ---
 ```
 
@@ -395,7 +394,9 @@ sitemap({
 ```typescript
 // src/pages/[locale]/rss.xml.ts
 export const getStaticPaths = () =>
-  locales.filter((l) => l !== defaultLocale).map((l) => ({ params: { locale: l } }))
+  locales
+    .filter((l) => l !== defaultLocale)
+    .map((l) => ({ params: { locale: l } }))
 ```
 
 `BaseLayout.astro` 中的 `<link rel="alternate" type="application/rss+xml">` 也会根据 locale 自动设置相应的 RSS URL。

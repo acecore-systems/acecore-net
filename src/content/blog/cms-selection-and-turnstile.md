@@ -85,6 +85,8 @@ content:
 
 お問い合わせフォームのスパム対策として、Cloudflare Turnstile を導入しました。
 
+静的サイトのセキュリティヘッダーや Cloudflare Pages 側の設定は、[Cloudflare Pages で実現するセキュアな静的サイト配信](/blog/cloudflare-pages-security/)で詳しく整理しています。
+
 ### なぜ reCAPTCHA ではなく Turnstile か
 
 Google reCAPTCHA v2 はユーザーに画像選択を強制し、v3 はスコアベースですがプライバシー面で懸念があります。Cloudflare Turnstile は以下の点で優れています：

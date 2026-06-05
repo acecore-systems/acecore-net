@@ -71,7 +71,7 @@ Esta abordagem assume que a seguinte infraestrutura já está em vigor no lado d
 - Um fallback que serve conteúdo em japonês para páginas sem traduções
 - Uma configuração operacional onde os artigos em japonês e a informação dos autores podem ser atualizados através do Pages CMS
 
-Para saber como configurar esta infraestrutura, consulta [Tornar um site Astro 6 compatível com 9 idiomas — Tradução automática de 136 artigos de blog e arquitetura multilingue](/blog/astro-i18n-blog-translation/). Este artigo foca-se apenas em como sobrepor o fluxo de trabalho de tradução automática do Copilot sobre essa base.
+Para saber como configurar esta infraestrutura, consulta [Tornar um site Astro 6 compatível com 9 idiomas — Tradução automática de 168 artigos de blog e arquitetura multilingue](/blog/astro-i18n-blog-translation/). Este artigo foca-se apenas em como sobrepor o fluxo de trabalho de tradução automática do Copilot sobre essa base.
 
 ## O que isto permite
 

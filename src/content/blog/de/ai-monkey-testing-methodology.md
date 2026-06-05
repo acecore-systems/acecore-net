@@ -63,13 +63,13 @@ Dieser Artikel dokumentiert eine praxisnahe Monkey-Testing-Sitzung, bei der der 
 
 ## Testumgebung
 
-| Element | Details |
-|---------|---------|
-| Editor | VS Code + GitHub Copilot (Agent Mode) |
-| KI-Modell | Claude Opus 4.6 |
-| Browsersteuerung | In VS Code integrierte Playwright-Tools |
-| Testobjekt | Statische Website gebaut mit Astro + UnoCSS + Cloudflare Pages |
-| Vorschau | `npm run preview` (lokal) + Produktions-URL |
+| Element          | Details                                                        |
+| ---------------- | -------------------------------------------------------------- |
+| Editor           | VS Code + GitHub Copilot (Agent Mode)                          |
+| KI-Modell        | Claude Opus 4.6                                                |
+| Browsersteuerung | In VS Code integrierte Playwright-Tools                        |
+| Testobjekt       | Statische Website gebaut mit Astro + UnoCSS + Cloudflare Pages |
+| Vorschau         | `npm run preview` (lokal) + Produktions-URL                    |
 
 Im Agent Mode führt Copilot selbstständig Terminal-Befehle aus, liest/schreibt Dateien und steuert den Browser. Der Tester gibt lediglich die Anweisung „bitte testen", und die KI führt den gesamten nachfolgenden Prozess automatisch aus.
 
@@ -84,7 +84,7 @@ Die KI scannt zunächst die Verzeichnisstruktur des Projekts und liest den gesam
 ```
 src/
 ├── components/    ← Alle 28 Komponenten gelesen
-├── content/blog/  ← Frontmatter von 16 Artikeln analysiert
+├── content/blog/  ← Frontmatter von 23 Artikeln analysiert
 ├── pages/         ← Alle Routing-Dateien identifiziert
 ├── layouts/       ← BaseLayout-Struktur verstanden
 └── utils/         ← rehype-Plugins & OG-Bildgenerierung geprüft
@@ -109,11 +109,11 @@ Aus den Analyseergebnissen des Quellcodes generiert die KI automatisch einen Tes
 Die gebaute Website wird mit `npm run preview` gestartet, und Playwright greift auf alle Routen zu.
 
 ```
-Testziele: 31 Routen
+Testziele: 38 Routen
 ├── Statische Seiten    7 (/, /about/, /services/, etc.)
-├── Blog-Beiträge      16
-├── Tag-Seiten         24
-├── Archiv              4
+├── Blog-Beiträge      23
+├── Tag-Seiten         25
+├── Archiv              5
 ├── Paginierung         2 (/blog/page/2/, /blog/page/3/)
 ├── Autorenseiten       2
 ├── RSS                 1
@@ -126,18 +126,18 @@ Ergebnis: Alle Routen 200 OK (außer beabsichtigter 404)
 
 Folgendes wird auf jeder Seite automatisch überprüft:
 
-| Prüfpunkt | Überprüfungsmethode | Ergebnis |
-|-----------|---------------------|----------|
-| Fehlerhafte Bilder | `img.complete && img.naturalWidth === 0` | 0 gefunden |
-| Leere Links | `href` ist leer, `#` oder nicht gesetzt | 0 gefunden |
-| Unsichere externe Links | `target="_blank"` ohne `rel="noopener"` | 0 gefunden |
-| H1-Anzahl | `document.querySelectorAll('h1').length === 1` | Alle Seiten OK |
-| Skip-Link | Vorhandensein von „Zum Inhalt springen" | Alle Seiten OK |
-| lang-Attribut | `html[lang="ja"]` | Alle Seiten OK |
+| Prüfpunkt               | Überprüfungsmethode                            | Ergebnis       |
+| ----------------------- | ---------------------------------------------- | -------------- |
+| Fehlerhafte Bilder      | `img.complete && img.naturalWidth === 0`       | 0 gefunden     |
+| Leere Links             | `href` ist leer, `#` oder nicht gesetzt        | 0 gefunden     |
+| Unsichere externe Links | `target="_blank"` ohne `rel="noopener"`        | 0 gefunden     |
+| H1-Anzahl               | `document.querySelectorAll('h1').length === 1` | Alle Seiten OK |
+| Skip-Link               | Vorhandensein von „Zum Inhalt springen"        | Alle Seiten OK |
+| lang-Attribut           | `html[lang="ja"]`                              | Alle Seiten OK |
 
 ### Dead-Link-Prüfung
 
-Interne Links wurden rekursiv von der Einstiegsseite gesammelt und die Erreichbarkeit aller 55 eindeutigen URLs bestätigt. **0 tote Links** wurden gefunden.
+Interne Links wurden rekursiv von der Einstiegsseite gesammelt und die Erreichbarkeit aller 69 eindeutigen URLs bestätigt. **0 tote Links** wurden gefunden.
 
 ---
 
@@ -149,7 +149,7 @@ Die KI manipuliert Browserelemente direkt mit Playwright, um JavaScript-gesteuer
 
 ```javascript
 // Beispiel-Testcode, der von der KI ausgeführt wird
-const details = document.querySelectorAll('details');
+const details = document.querySelectorAll('details')
 // Anfangszustand: alle geschlossen → OK
 // Klicken zum Öffnen → OK
 // Erneut klicken zum Schließen → OK
@@ -193,15 +193,15 @@ Folgendes wurde auf allen Seiten überprüft:
 
 JSON-LD auf jeder Seite wurde geparst, um Schema-Typen und Inhalte zu überprüfen.
 
-| Seitentyp | Strukturierte Daten |
-|-----------|---------------------|
-| Alle Seiten | Organization, WebSite |
-| Blog-Beiträge | BreadcrumbList, BlogPosting, FAQPage |
+| Seitentyp       | Strukturierte Daten                               |
+| --------------- | ------------------------------------------------- |
+| Alle Seiten     | Organization, WebSite                             |
+| Blog-Beiträge   | BreadcrumbList, BlogPosting, FAQPage              |
 | Artikel mit FAQ | FAQPage (mainEntity enthält Fragen und Antworten) |
 
 ### Sitemap
 
-Bestätigt, dass `sitemap-index.xml` → `sitemap-0.xml` alle 57 URLs enthält. Die Sitemap-Referenz aus `robots.txt` funktionierte ebenfalls korrekt.
+Bestätigt, dass `sitemap-index.xml` → `sitemap-0.xml` alle 288 URLs einschließlich mehrsprachiger Seiten enthält. Die Sitemap-Referenz aus `robots.txt` funktionierte ebenfalls korrekt.
 
 ---
 
@@ -209,15 +209,15 @@ Bestätigt, dass `sitemap-index.xml` → `sitemap-0.xml` alle 57 URLs enthält. 
 
 AXE-Engine-äquivalente Prüfungen wurden via Playwright auf mehreren Seiten durchgeführt.
 
-| Prüfpunkt | Getestete Seiten | Verstöße |
-|-----------|------------------|----------|
-| img alt-Attribute | 4 | 0 |
-| Button-Labels | 4 | 0 |
-| Überschriftenhierarchie (h1→h2→h3 Reihenfolge) | 4 | 0 |
-| Formular-Input-Labels | 1 (Kontakt) | 0 |
-| Landmark-Elemente | 4 | 0 |
-| Externe Link rel-Attribute | 4 | 0 |
-| tabindex-Werte | 4 | 0 |
+| Prüfpunkt                                      | Getestete Seiten | Verstöße |
+| ---------------------------------------------- | ---------------- | -------- |
+| img alt-Attribute                              | 4                | 0        |
+| Button-Labels                                  | 4                | 0        |
+| Überschriftenhierarchie (h1→h2→h3 Reihenfolge) | 4                | 0        |
+| Formular-Input-Labels                          | 1 (Kontakt)      | 0        |
+| Landmark-Elemente                              | 4                | 0        |
+| Externe Link rel-Attribute                     | 4                | 0        |
+| tabindex-Werte                                 | 4                | 0        |
 
 **Keine Verstöße auf allen 4 Seiten und allen Prüfpunkten.**
 
@@ -245,14 +245,14 @@ Nach jedem Übergang bestätigte Punkte:
 
 Überprüfung der Antwort-Header auf der Produktions-Website:
 
-| Header | Wert | Bewertung |
-|--------|------|-----------|
-| Content-Security-Policy | Vollständig konfiguriert | ◎ |
-| X-Frame-Options | SAMEORIGIN | ◎ |
-| X-Content-Type-Options | nosniff | ◎ |
-| Strict-Transport-Security | max-age=15552000 | ○ |
-| Referrer-Policy | strict-origin-when-cross-origin | ◎ |
-| Permissions-Policy | geolocation=(), camera=(), etc. | ◎ |
+| Header                    | Wert                            | Bewertung |
+| ------------------------- | ------------------------------- | --------- |
+| Content-Security-Policy   | Vollständig konfiguriert        | ◎         |
+| X-Frame-Options           | SAMEORIGIN                      | ◎         |
+| X-Content-Type-Options    | nosniff                         | ◎         |
+| Strict-Transport-Security | max-age=15552000                | ○         |
+| Referrer-Policy           | strict-origin-when-cross-origin | ◎         |
+| Permissions-Policy        | geolocation=(), camera=(), etc. | ◎         |
 
 ---
 

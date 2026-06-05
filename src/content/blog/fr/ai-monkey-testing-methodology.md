@@ -48,7 +48,7 @@ faq:
     - question: Peut-on faire la même chose avec un autre outil de navigation que Playwright ?
       answer: "Nous utilisons l'outil de navigateur intégré à VS Code (Simple Browser + intégration Playwright). Copilot pilote directement le navigateur via l'outil run_playwright_code, il n'est donc pas nécessaire d'installer Playwright séparément."
     - question: Cette méthode est-elle applicable aux sites autres que statiques ?
-      answer: "Oui. La même approche est possible pour les SPA et les sites SSR. Cependant, pour les pages nécessitant une authentification, un mécanisme de gestion sécurisée des identifiants de test est nécessaire."
+      answer: 'Oui. La même approche est possible pour les SPA et les sites SSR. Cependant, pour les pages nécessitant une authentification, un mécanisme de gestion sécurisée des identifiants de test est nécessaire.'
     - question: "Peut-on aussi confier la correction des bugs découverts à l'IA ?"
       answer: "Le mode agent permet la lecture et l'écriture de fichiers, ce qui permet de compléter l'ensemble du processus — de la détection du bug à sa correction et à la vérification du build — au sein d'une même session. Dans cet article, nous avons découvert 2 bugs et les avons corrigés sur-le-champ."
 ---
@@ -63,13 +63,13 @@ Cet article présente un retour d'expérience sur le monkey testing complet d'un
 
 ## Environnement de test
 
-| Élément | Détail |
-|---------|--------|
-| Éditeur | VS Code + GitHub Copilot (mode agent) |
-| Modèle IA | Claude Opus 4.6 |
-| Pilotage du navigateur | Outil Playwright intégré à VS Code |
-| Site testé | Site statique Astro + UnoCSS + Cloudflare Pages |
-| Prévisualisation | `npm run preview` (local) + URL de production |
+| Élément                | Détail                                          |
+| ---------------------- | ----------------------------------------------- |
+| Éditeur                | VS Code + GitHub Copilot (mode agent)           |
+| Modèle IA              | Claude Opus 4.6                                 |
+| Pilotage du navigateur | Outil Playwright intégré à VS Code              |
+| Site testé             | Site statique Astro + UnoCSS + Cloudflare Pages |
+| Prévisualisation       | `npm run preview` (local) + URL de production   |
 
 En mode agent, Copilot exécute de manière autonome les commandes terminal, la lecture/écriture de fichiers et le pilotage du navigateur. Le testeur n'a qu'à donner l'instruction « veuillez tester » et l'IA exécute automatiquement l'ensemble des étapes suivantes.
 
@@ -84,7 +84,7 @@ L'IA commence par analyser la structure des répertoires du projet et lit le cod
 ```
 src/
 ├── components/    ← Lecture de 28 composants
-├── content/blog/  ← Analyse du frontmatter de 16 articles
+├── content/blog/  ← Analyse du frontmatter de 23 articles
 ├── pages/         ← Identification de tous les fichiers de routage
 ├── layouts/       ← Compréhension de la structure du BaseLayout
 └── utils/         ← Vérification des plugins rehype et de la génération d'images OG
@@ -109,11 +109,11 @@ src/
 Le site compilé est lancé avec `npm run preview`, puis Playwright accède à toutes les routes.
 
 ```
-Cibles de test : 31 routes
+Cibles de test : 38 routes
 ├── Pages statiques      7 (/, /about/, /services/, etc.)
-├── Articles de blog    16
-├── Pages de tags       24
-├── Archives             4
+├── Articles de blog    23
+├── Pages de tags       25
+├── Archives             5
 ├── Pagination           2 (/blog/page/2/, /blog/page/3/)
 ├── Pages auteur         2
 ├── RSS                  1
@@ -126,18 +126,18 @@ Résultat : toutes les routes retournent 200 OK (sauf le 404 intentionnel)
 
 Pour chaque page, les éléments suivants sont automatiquement vérifiés :
 
-| Élément vérifié | Méthode de vérification | Résultat |
-|-----------------|------------------------|----------|
-| Images cassées | `img.complete && img.naturalWidth === 0` | 0 |
-| Liens vides | `href` vide, `#` ou non défini | 0 |
-| Liens externes non sécurisés | `target="_blank"` sans `rel="noopener"` | 0 |
-| Nombre de H1 | `document.querySelectorAll('h1').length === 1` | OK sur toutes les pages |
-| Lien d'évitement | Présence de « Aller au contenu » | OK sur toutes les pages |
-| Attribut lang | `html[lang="ja"]` | OK sur toutes les pages |
+| Élément vérifié              | Méthode de vérification                        | Résultat                |
+| ---------------------------- | ---------------------------------------------- | ----------------------- |
+| Images cassées               | `img.complete && img.naturalWidth === 0`       | 0                       |
+| Liens vides                  | `href` vide, `#` ou non défini                 | 0                       |
+| Liens externes non sécurisés | `target="_blank"` sans `rel="noopener"`        | 0                       |
+| Nombre de H1                 | `document.querySelectorAll('h1').length === 1` | OK sur toutes les pages |
+| Lien d'évitement             | Présence de « Aller au contenu »               | OK sur toutes les pages |
+| Attribut lang                | `html[lang="ja"]`                              | OK sur toutes les pages |
 
 ### Vérification des liens morts
 
-Les liens internes sont collectés récursivement à partir de la page d'accueil, et l'accessibilité des 55 URL uniques a été confirmée. **0 lien mort** détecté.
+Les liens internes sont collectés récursivement à partir de la page d'accueil, et l'accessibilité des 69 URL uniques a été confirmée. **0 lien mort** détecté.
 
 ---
 
@@ -149,7 +149,7 @@ L'IA manipule directement les éléments du navigateur avec Playwright pour vér
 
 ```javascript
 // Exemple de code de test exécuté par l'IA
-const details = document.querySelectorAll('details');
+const details = document.querySelectorAll('details')
 // État initial : tous fermés → OK
 // Clic pour ouvrir → OK
 // Re-clic pour fermer → OK
@@ -193,15 +193,15 @@ Vérifications effectuées sur toutes les pages :
 
 Le JSON-LD de chaque page a été analysé et le type de schéma ainsi que le contenu ont été vérifiés.
 
-| Type de page | Données structurées |
-|-------------|---------------------|
-| Commun à toutes les pages | Organization, WebSite |
-| Articles de blog | BreadcrumbList, BlogPosting, FAQPage |
-| Articles avec FAQ | FAQPage (questions et réponses dans mainEntity) |
+| Type de page              | Données structurées                             |
+| ------------------------- | ----------------------------------------------- |
+| Commun à toutes les pages | Organization, WebSite                           |
+| Articles de blog          | BreadcrumbList, BlogPosting, FAQPage            |
+| Articles avec FAQ         | FAQPage (questions et réponses dans mainEntity) |
 
 ### Sitemap
 
-Confirmation que `sitemap-index.xml` → `sitemap-0.xml` contient les 57 URL. La référence au sitemap depuis `robots.txt` est également correcte.
+Confirmation que `sitemap-index.xml` → `sitemap-0.xml` contient les 288 URL, y compris les pages multilingues. La référence au sitemap depuis `robots.txt` est également correcte.
 
 ---
 
@@ -209,15 +209,15 @@ Confirmation que `sitemap-index.xml` → `sitemap-0.xml` contient les 57 URL. La
 
 Des vérifications équivalentes au moteur AXE ont été exécutées avec Playwright sur plusieurs pages.
 
-| Élément vérifié | Nombre de pages | Violations |
-|-----------------|----------------|------------|
-| Attribut alt des images | 4 | 0 |
-| Label des boutons | 4 | 0 |
-| Hiérarchie des titres (h1→h2→h3) | 4 | 0 |
-| Label des champs de formulaire | 1 (contact) | 0 |
-| Éléments landmarks | 4 | 0 |
-| Attribut rel des liens externes | 4 | 0 |
-| Validité des tabindex | 4 | 0 |
+| Élément vérifié                  | Nombre de pages | Violations |
+| -------------------------------- | --------------- | ---------- |
+| Attribut alt des images          | 4               | 0          |
+| Label des boutons                | 4               | 0          |
+| Hiérarchie des titres (h1→h2→h3) | 4               | 0          |
+| Label des champs de formulaire   | 1 (contact)     | 0          |
+| Éléments landmarks               | 4               | 0          |
+| Attribut rel des liens externes  | 4               | 0          |
+| Validité des tabindex            | 4               | 0          |
 
 **Zéro violation sur les 4 pages testées pour tous les éléments vérifiés.**
 
@@ -245,14 +245,14 @@ Accueil → Liste du blog → Article → Tag → Auteur → Contact → Service
 
 Résultats de la vérification des en-têtes de réponse du site de production :
 
-| En-tête | Valeur | Évaluation |
-|---------|--------|-----------|
-| Content-Security-Policy | Configuration complète | ◎ |
-| X-Frame-Options | SAMEORIGIN | ◎ |
-| X-Content-Type-Options | nosniff | ◎ |
-| Strict-Transport-Security | max-age=15552000 | ○ |
-| Referrer-Policy | strict-origin-when-cross-origin | ◎ |
-| Permissions-Policy | geolocation=(), camera=(), etc. | ◎ |
+| En-tête                   | Valeur                          | Évaluation |
+| ------------------------- | ------------------------------- | ---------- |
+| Content-Security-Policy   | Configuration complète          | ◎          |
+| X-Frame-Options           | SAMEORIGIN                      | ◎          |
+| X-Content-Type-Options    | nosniff                         | ◎          |
+| Strict-Transport-Security | max-age=15552000                | ○          |
+| Referrer-Policy           | strict-origin-when-cross-origin | ◎          |
+| Permissions-Policy        | geolocation=(), camera=(), etc. | ◎          |
 
 ---
 
@@ -322,12 +322,12 @@ En structurant cette méthode de monkey testing IA, nous pouvons la classer en c
 
 Le monkey testing IA présente certaines contraintes.
 
-| Contrainte | Détail |
-|-----------|--------|
-| Émulation du viewport | Le navigateur intégré à VS Code ne prend pas en charge l'émulation de largeur mobile. La validité du CSS a été vérifiée par analyse statique de la sortie de build |
-| État du réseau | Simulation hors-ligne ou connexion lente impossible. Tests de Service Worker non couverts |
-| « Sensibilité » de l'utilisateur | La beauté du design, la lisibilité et la cohérence avec la marque nécessitent un jugement humain |
-| Flux d'authentification | Les pages nécessitant une connexion requièrent une gestion sécurisée séparée des identifiants |
+| Contrainte                       | Détail                                                                                                                                                             |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Émulation du viewport            | Le navigateur intégré à VS Code ne prend pas en charge l'émulation de largeur mobile. La validité du CSS a été vérifiée par analyse statique de la sortie de build |
+| État du réseau                   | Simulation hors-ligne ou connexion lente impossible. Tests de Service Worker non couverts                                                                          |
+| « Sensibilité » de l'utilisateur | La beauté du design, la lisibilité et la cohérence avec la marque nécessitent un jugement humain                                                                   |
+| Flux d'authentification          | Les pages nécessitant une connexion requièrent une gestion sécurisée séparée des identifiants                                                                      |
 
 La compatibilité responsive du CSS a été vérifiée en analysant directement les fichiers CSS de la sortie de build pour confirmer que les media queries `@media(min-width:768px)` sont correctement générées.
 
@@ -339,7 +339,7 @@ Le mode agent de GitHub Copilot peut accomplir un cycle complet d'assurance qual
 
 Voici le résumé des résultats de ce test :
 
-- **Cibles de test** : 31 routes + 24 tags + 4 archives + 2 paginations = 61 routes
+- **Cibles de test** : 38 routes + 25 tags + 5 archives + 2 paginations = 70 routes
 - **Éléments testés** : statut HTTP, structure DOM, interactions, SEO, accessibilité, sécurité, View Transitions
 - **Bugs découverts** : 2 (modale de recherche, en-tête CSP) → corrigés sur-le-champ
 - **Violations d'accessibilité** : 0

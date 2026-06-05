@@ -53,6 +53,8 @@ linkCards:
 
 「Cloudflare に以前あった有料の SSL オプション、なんだっけ？」——そう思ったことがある方は少なくないはずです。この記事では、その正体と現在の名称・機能について整理します。
 
+Cloudflare Pages での静的サイト配信や CSP の実装は、[Cloudflare Pages で実現するセキュアな静的サイト配信](/blog/cloudflare-pages-security/)も参考になります。
+
 ## 結論：「Dedicated SSL」→「Advanced Certificate Manager（ACM）」
 
 Cloudflare で以前有料だった SSL オプションの名称は **Dedicated SSL Certificates（専用 SSL 証明書）** です。これは **2021 年に「Advanced Certificate Manager（ACM）」として刷新・リネーム** されました。
@@ -135,13 +137,13 @@ Total TLS を有効にする場合は、同じ Edge Certificates ページの **
 
 ## まとめ
 
-| 項目 | Universal SSL（無料） | Advanced Certificate Manager（$10/月/ゾーン） |
-|---|---|---|
-| 多階層サブドメイン | ✗ | ✓ |
-| CA の選択 | ✗ | ✓ |
-| 有効期限指定 | ✗ | ✓ |
-| CN が独自ドメイン | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| 用途 | 個人・一般サイト | 企業・複雑なサブドメイン構成 |
+| 項目               | Universal SSL（無料） | Advanced Certificate Manager（$10/月/ゾーン） |
+| ------------------ | --------------------- | --------------------------------------------- |
+| 多階層サブドメイン | ✗                     | ✓                                             |
+| CA の選択          | ✗                     | ✓                                             |
+| 有効期限指定       | ✗                     | ✓                                             |
+| CN が独自ドメイン  | △                     | ✓                                             |
+| Total TLS          | ✗                     | ✓                                             |
+| 用途               | 個人・一般サイト      | 企業・複雑なサブドメイン構成                  |
 
 Cloudflare の「以前有料だった SSL オプション」は **Advanced Certificate Manager（旧 Dedicated SSL Certificates）** です。無料の Universal SSL で足りないケース——特に多階層サブドメインの保護や証明書の細かい制御が必要な場合——に有効な選択肢です。

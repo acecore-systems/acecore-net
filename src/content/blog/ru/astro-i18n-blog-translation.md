@@ -1,6 +1,6 @@
 ---
-title: 'Как сделать сайт на Astro 6 поддерживающим 9 языков ― Автоматический перевод 136 статей блога и мультиязычная архитектура'
-description: 'Документация интернационализации сайта на Astro 6 + UnoCSS + Cloudflare Pages на 9 языков. Охватывает весь процесс от интернационализации UI до перевода 136 статей блога и настройки мультиязычного Pages CMS.'
+title: 'Как сделать сайт на Astro 6 поддерживающим 9 языков ― Автоматический перевод 168 статей блога и мультиязычная архитектура'
+description: 'Документация интернационализации сайта на Astro 6 + UnoCSS + Cloudflare Pages на 9 языков. Охватывает весь процесс от интернационализации UI до перевода 168 статей блога и настройки мультиязычного Pages CMS.'
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
@@ -15,7 +15,7 @@ processFigure:
       description: Перевод отображаемых текстов в шапке, подвале и всех компонентах.
       icon: i-lucide-languages
     - title: Перевод статей блога
-      description: Генерация 136 файлов перевода (17 статей × 8 языков).
+      description: Генерация 168 файлов перевода (21 статей × 8 языков).
       icon: i-lucide-file-text
     - title: CMS и верификация сборки
       description: Мультиязычная настройка Pages CMS и верификация сборки всех страниц.
@@ -26,7 +26,7 @@ compareTable:
     label: Только японский
     items:
       - Только 1 язык (японский)
-      - 17 статей в блоге
+      - 23 статей в блоге
       - 523 сгенерированных страницы (после мультиязычной поддержки UI)
       - Pages CMS с 1 коллекцией блога
       - Теги и данные авторов только на японском
@@ -35,8 +35,8 @@ compareTable:
     label: 9 языков
     items:
       - Японский + 8 языков (en, zh-cn, es, pt, fr, ko, de, ru)
-      - 17 статей + 136 переводов = 153 всего
-      - 541 сгенерированная страница (переведённые статьи с фолбэком)
+      - 23 статей + 168 переводов = 191 всего
+      - 621 сгенерированная страница (переведённые статьи с фолбэком)
       - Pages CMS с 9 коллекциями по языкам
       - 25 тегов и данные авторов переведены на каждый язык
       - Мультиязычные RSS-ленты (9 языков)
@@ -48,9 +48,9 @@ statBar:
   items:
     - value: '9'
       label: Поддерживаемых языков
-    - value: '136'
+    - value: '168'
       label: Переведённых статей
-    - value: '541'
+    - value: '621'
       label: Сгенерированных страниц
 faq:
   title: Часто задаваемые вопросы
@@ -65,7 +65,7 @@ faq:
       answer: 'Перевод не обязателен — если файл перевода отсутствует, отображается японская версия как фолбэк. Чтобы добавить перевод, достаточно поместить файл Markdown с тем же именем в каталог соответствующего языка.'
 ---
 
-Мы обновили официальный сайт Acecore с поддержки только японского языка до поддержки 9 языков. Эта статья описывает весь процесс: интернационализация UI, перевод 17 статей блога × 8 языков = 136 файлов и мультиязычная настройка Pages CMS.
+Мы обновили официальный сайт Acecore с поддержки только японского языка до поддержки 9 языков. Эта статья описывает весь процесс: интернационализация UI, перевод 21 статей блога × 8 языков = 168 файлов и мультиязычная настройка Pages CMS.
 
 ## Стратегия мультиязычности
 
@@ -75,7 +75,7 @@ faq:
 
 1. **Основа i18n**: Настройка встроенной маршрутизации i18n в Astro, утилиты перевода и JSON-файлы переводов для 9 языков
 2. **Перевод текстов UI**: Тексты компонентов в шапке, подвале, боковой панели и на всех страницах
-3. **Перевод статей блога**: Все 17 статей переведены на 8 языков (сгенерировано 136 файлов)
+3. **Перевод статей блога**: Все 21 статей переведены на 8 языков (сгенерировано 168 файлов)
 
 ### Дизайн URL
 
@@ -120,9 +120,7 @@ export default defineConfig({
 ```typescript
 // src/i18n/utils.ts
 export function t(locale: Locale, key: string): string {
-  return translations[locale]?.[key]
-    ?? translations[defaultLocale][key]
-    ?? key
+  return translations[locale]?.[key] ?? translations[defaultLocale][key] ?? key
 }
 ```
 
@@ -138,6 +136,7 @@ export function t(locale: Locale, key: string): string {
 import AboutPage from '../../views/AboutPage.astro'
 const { locale } = Astro.params
 ---
+
 <AboutPage locale={locale} />
 ```
 
@@ -236,7 +235,7 @@ const post = localizedPost // существующие ссылки шаблон
 ---
 const allPosts = await getCollection('blog')
 const basePosts = allPosts.filter(isBasePost)
-const displayPosts = basePosts.map(p => localizePost(p, allPosts, locale))
+const displayPosts = basePosts.map((p) => localizePost(p, allPosts, locale))
 ---
 ```
 
@@ -395,7 +394,9 @@ sitemap({
 ```typescript
 // src/pages/[locale]/rss.xml.ts
 export const getStaticPaths = () =>
-  locales.filter((l) => l !== defaultLocale).map((l) => ({ params: { locale: l } }))
+  locales
+    .filter((l) => l !== defaultLocale)
+    .map((l) => ({ params: { locale: l } }))
 ```
 
 `<link rel="alternate" type="application/rss+xml">` в `BaseLayout.astro` также автоматически устанавливает соответствующий locale URL RSS.

@@ -1,6 +1,6 @@
 ---
 title: 'Comment gérer un blog en 9 langues en publiant un seul article en japonais'
-description: 'Un guide du flux de travail qui génère automatiquement des articles traduits en japonais + 8 langues, exécute des compilations et gère la fusion automatique — tout cela déclenché simplement par la mise à jour d''un article en japonais dans Pages CMS via GitHub Actions et GitHub Copilot.'
+description: "Un guide du flux de travail qui génère automatiquement des articles traduits en japonais + 8 langues, exécute des compilations et gère la fusion automatique — tout cela déclenché simplement par la mise à jour d'un article en japonais dans Pages CMS via GitHub Actions et GitHub Copilot."
 date: 2026-03-29T22:30
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS']
@@ -8,7 +8,7 @@ image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&
 callout:
   type: info
   title: Conclusion d'abord
-  text: 'Avec le site actuel d''Acecore, vous pouvez automatiser la gestion d''un blog en japonais + 8 langues en utilisant GitHub Actions et GitHub Copilot, en traitant les articles en japonais comme la source canonique.'
+  text: "Avec le site actuel d'Acecore, vous pouvez automatiser la gestion d'un blog en japonais + 8 langues en utilisant GitHub Actions et GitHub Copilot, en traitant les articles en japonais comme la source canonique."
 processFigure:
   title: Le flux d'1 article en japonais vers une exploitation en 9 langues
   steps:
@@ -52,9 +52,9 @@ faq:
   title: Questions fréquentes
   items:
     - question: En poussant un article en japonais, des articles dans d'autres langues seront-ils créés automatiquement?
-      answer: 'Oui. Le site actuel d''Acecore prend en charge 9 langues — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — donc pousser un article en japonais peut déclencher la création de tâches de PR de traduction Copilot pour les 8 langues restantes, la création de PRs de traduction, la compilation et la fusion automatique. Même sans fichiers de traduction, chaque URL de langue est servie avec un fallback en japonais, vous pouvez donc publier d''abord et remplacer par de vraies traductions plus tard.'
+      answer: "Oui. Le site actuel d'Acecore prend en charge 9 langues — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — donc pousser un article en japonais peut déclencher la création de tâches de PR de traduction Copilot pour les 8 langues restantes, la création de PRs de traduction, la compilation et la fusion automatique. Même sans fichiers de traduction, chaque URL de langue est servie avec un fallback en japonais, vous pouvez donc publier d'abord et remplacer par de vraies traductions plus tard."
     - question: Pourquoi créer une tâche de PR directement sans passer par un issue?
-      answer: 'Comme le résultat du travail de traduction est un PR, fixer le chemin source, la langue cible et les conditions de traduction directement dans l''énoncé du problème de la tâche Copilot et le marqueur du corps du PR rend le flux plus court. En recherchant les PRs ouverts avec le marqueur, vous pouvez également éviter la création en double pour le même chemin source.'
+      answer: "Comme le résultat du travail de traduction est un PR, fixer le chemin source, la langue cible et les conditions de traduction directement dans l'énoncé du problème de la tâche Copilot et le marqueur du corps du PR rend le flux plus court. En recherchant les PRs ouverts avec le marqueur, vous pouvez également éviter la création en double pour le même chemin source."
     - question: La fusion automatique n'est-elle pas risquée?
       answer: 'La fusion automatique inconditionnelle est risquée. En la limitant uniquement aux PRs de traduction — en exigeant que Copilot ait créé le PR, que le titre commence par [translation], que la compilation ait réussi et que ce ne soit pas un brouillon — vous pouvez la maintenir de manière assez sûre.'
 ---
@@ -71,7 +71,7 @@ Cette approche suppose que l'infrastructure suivante est déjà en place du côt
 - Un fallback qui sert le contenu en japonais pour les pages sans traductions
 - Une configuration opérationnelle où les articles en japonais et les informations sur les auteurs peuvent être mis à jour via Pages CMS
 
-Pour savoir comment configurer cette infrastructure, voir [Rendre un site Astro 6 compatible avec 9 langues — Traduction automatique de 136 articles de blog et architecture multilingue](/blog/astro-i18n-blog-translation/). Cet article se concentre uniquement sur la façon de superposer le flux de travail de traduction automatique de Copilot sur cette base.
+Pour savoir comment configurer cette infrastructure, voir [Rendre un site Astro 6 compatible avec 9 langues — Traduction automatique de 168 articles de blog et architecture multilingue](/blog/astro-i18n-blog-translation/). Cet article se concentre uniquement sur la façon de superposer le flux de travail de traduction automatique de Copilot sur cette base.
 
 ## Ce que cela permet
 

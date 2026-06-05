@@ -37,6 +37,8 @@ faq:
 
 Cloudflare Pages は静的サイトのホスティングに最適なプラットフォームです。この記事では、実際のデプロイ構成と、`_headers` ファイルを使ったセキュリティ設定について紹介します。
 
+SSL 証明書まわりの選定は、[Cloudflare の Advanced Certificate Manager 解説](/blog/cloudflare-ssl-advanced-certificate-manager/)もあわせて確認してください。お問い合わせフォームのボット対策は[Pages CMS と Turnstile の導入記](/blog/cms-selection-and-turnstile/)にまとめています。
+
 ## デプロイ構成：Worker をやめて Pages に戻した理由
 
 当初、お問い合わせフォームのバックエンド処理を Cloudflare Worker で行う予定でした。Worker であればサーバーサイドでメール送信やバリデーションが可能です。

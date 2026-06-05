@@ -46,7 +46,7 @@ faq:
     - question: Is GitHub Copilot Agent Mode free to use?
       answer: 'The GitHub Copilot Free plan has monthly usage limits for Agent Mode. Pro and Business plans have relaxed limits. The latest features are available early in VS Code Insiders.'
     - question: Can the same approach be used with browser tools other than Playwright?
-      answer: 'We use VS Code''s built-in browser tools (Simple Browser + Playwright integration). Since Copilot directly operates the browser via the run_playwright_code tool, there''s no need to install Playwright separately.'
+      answer: "We use VS Code's built-in browser tools (Simple Browser + Playwright integration). Since Copilot directly operates the browser via the run_playwright_code tool, there's no need to install Playwright separately."
     - question: Can this be applied to non-static sites?
       answer: 'Yes. The same approach works for SPAs and SSR sites. However, pages requiring login authentication need a mechanism to securely manage test credentials.'
     - question: Can the AI also fix bugs it discovers?
@@ -63,13 +63,13 @@ This article documents a hands-on monkey testing session where **VS Code Agent M
 
 ## Test Environment
 
-| Item | Details |
-|------|---------|
-| Editor | VS Code + GitHub Copilot (Agent Mode) |
-| AI Model | Claude Opus 4.6 |
-| Browser Control | VS Code built-in Playwright tools |
-| Test Target | Static site built with Astro + UnoCSS + Cloudflare Pages |
-| Preview | `npm run preview` (local) + production URL |
+| Item            | Details                                                  |
+| --------------- | -------------------------------------------------------- |
+| Editor          | VS Code + GitHub Copilot (Agent Mode)                    |
+| AI Model        | Claude Opus 4.6                                          |
+| Browser Control | VS Code built-in Playwright tools                        |
+| Test Target     | Static site built with Astro + UnoCSS + Cloudflare Pages |
+| Preview         | `npm run preview` (local) + production URL               |
 
 In Agent Mode, Copilot autonomously executes terminal commands, reads/writes files, and operates the browser. The tester simply instructs "please test," and the AI automatically executes the entire process below.
 
@@ -84,7 +84,7 @@ The AI first scans the project's directory structure and reads all source code f
 ```
 src/
 ├── components/    ← All 28 components read
-├── content/blog/  ← Frontmatter of 16 articles parsed
+├── content/blog/  ← Frontmatter of 23 articles parsed
 ├── pages/         ← All routing files identified
 ├── layouts/       ← BaseLayout structure understood
 └── utils/         ← rehype plugins & OG image generation reviewed
@@ -109,11 +109,11 @@ From the source code analysis results, the AI automatically generates a test pla
 The built site is launched with `npm run preview`, and Playwright accesses all routes.
 
 ```
-Test targets: 31 routes
+Test targets: 38 routes
 ├── Static pages       7 (/, /about/, /services/, etc.)
-├── Blog posts        16
-├── Tag pages         24
-├── Archive            4
+├── Blog posts        23
+├── Tag pages         25
+├── Archive            5
 ├── Pagination         2 (/blog/page/2/, /blog/page/3/)
 ├── Author pages       2
 ├── RSS                1
@@ -126,18 +126,18 @@ Result: All routes 200 OK (except intentional 404)
 
 The following are automatically verified on each page:
 
-| Check Item | Verification Method | Result |
-|-----------|---------------------|--------|
-| Broken images | `img.complete && img.naturalWidth === 0` | 0 found |
-| Empty links | `href` is empty, `#`, or unset | 0 found |
-| Unsafe external links | `target="_blank"` without `rel="noopener"` | 0 found |
-| H1 count | `document.querySelectorAll('h1').length === 1` | All pages OK |
-| Skip link | Presence of "Skip to content" | All pages OK |
-| lang attribute | `html[lang="ja"]` | All pages OK |
+| Check Item            | Verification Method                            | Result       |
+| --------------------- | ---------------------------------------------- | ------------ |
+| Broken images         | `img.complete && img.naturalWidth === 0`       | 0 found      |
+| Empty links           | `href` is empty, `#`, or unset                 | 0 found      |
+| Unsafe external links | `target="_blank"` without `rel="noopener"`     | 0 found      |
+| H1 count              | `document.querySelectorAll('h1').length === 1` | All pages OK |
+| Skip link             | Presence of "Skip to content"                  | All pages OK |
+| lang attribute        | `html[lang="ja"]`                              | All pages OK |
 
 ### Dead Link Check
 
-Internal links were recursively collected from the entry page, confirming reachability of all 55 unique URLs. **0 dead links** were found.
+Internal links were recursively collected from the entry page, confirming reachability of all 69 unique URLs. **0 dead links** were found.
 
 ---
 
@@ -149,7 +149,7 @@ The AI directly manipulates browser elements with Playwright to verify JavaScrip
 
 ```javascript
 // Example test code executed by the AI
-const details = document.querySelectorAll('details');
+const details = document.querySelectorAll('details')
 // Initial state: all closed → OK
 // Click to open → OK
 // Click again to close → OK
@@ -193,15 +193,15 @@ The following were verified on all pages:
 
 JSON-LD on each page was parsed to verify schema types and content.
 
-| Page Type | Structured Data |
-|-----------|----------------|
-| All pages | Organization, WebSite |
-| Blog posts | BreadcrumbList, BlogPosting, FAQPage |
+| Page Type         | Structured Data                                     |
+| ----------------- | --------------------------------------------------- |
+| All pages         | Organization, WebSite                               |
+| Blog posts        | BreadcrumbList, BlogPosting, FAQPage                |
 | Articles with FAQ | FAQPage (mainEntity contains questions and answers) |
 
 ### Sitemap
 
-Confirmed that `sitemap-index.xml` → `sitemap-0.xml` contains all 57 URLs. The sitemap reference from `robots.txt` was also working correctly.
+Confirmed that `sitemap-index.xml` → `sitemap-0.xml` contains all 288 URLs, including multilingual pages. The sitemap reference from `robots.txt` was also working correctly.
 
 ---
 
@@ -209,15 +209,15 @@ Confirmed that `sitemap-index.xml` → `sitemap-0.xml` contains all 57 URLs. The
 
 AXE engine-equivalent checks were run via Playwright on multiple pages.
 
-| Check Item | Pages Tested | Violations |
-|-----------|-------------|------------|
-| img alt attributes | 4 | 0 |
-| button labels | 4 | 0 |
-| Heading hierarchy (h1→h2→h3 order) | 4 | 0 |
-| Form input labels | 1 (Contact) | 0 |
-| Landmark elements | 4 | 0 |
-| External link rel attributes | 4 | 0 |
-| tabindex values | 4 | 0 |
+| Check Item                         | Pages Tested | Violations |
+| ---------------------------------- | ------------ | ---------- |
+| img alt attributes                 | 4            | 0          |
+| button labels                      | 4            | 0          |
+| Heading hierarchy (h1→h2→h3 order) | 4            | 0          |
+| Form input labels                  | 1 (Contact)  | 0          |
+| Landmark elements                  | 4            | 0          |
+| External link rel attributes       | 4            | 0          |
+| tabindex values                    | 4            | 0          |
 
 **Zero violations across all 4 pages and all check items.**
 
@@ -245,14 +245,14 @@ Items confirmed after each transition:
 
 Verification of response headers on the production site:
 
-| Header | Value | Rating |
-|--------|-------|--------|
-| Content-Security-Policy | Fully configured | ◎ |
-| X-Frame-Options | SAMEORIGIN | ◎ |
-| X-Content-Type-Options | nosniff | ◎ |
-| Strict-Transport-Security | max-age=15552000 | ○ |
-| Referrer-Policy | strict-origin-when-cross-origin | ◎ |
-| Permissions-Policy | geolocation=(), camera=(), etc. | ◎ |
+| Header                    | Value                           | Rating |
+| ------------------------- | ------------------------------- | ------ |
+| Content-Security-Policy   | Fully configured                | ◎      |
+| X-Frame-Options           | SAMEORIGIN                      | ◎      |
+| X-Content-Type-Options    | nosniff                         | ◎      |
+| Strict-Transport-Security | max-age=15552000                | ○      |
+| Referrer-Policy           | strict-origin-when-cross-origin | ◎      |
+| Permissions-Policy        | geolocation=(), camera=(), etc. | ◎      |
 
 ---
 
@@ -322,12 +322,12 @@ Organizing this AI monkey testing approach, it can be classified into the follow
 
 AI monkey testing has several limitations:
 
-| Constraint | Details |
-|-----------|---------|
-| Viewport emulation | Mobile-width emulation doesn't work in VS Code's built-in browser. CSS validity was verified through static analysis of build output instead |
-| Network conditions | Offline and slow connection simulation not possible. Service Worker testing also not covered |
-| User "feel" | Design beauty, readability, and brand consistency require human judgment |
-| Authentication flows | Pages requiring login need separate secure credential management |
+| Constraint           | Details                                                                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Viewport emulation   | Mobile-width emulation doesn't work in VS Code's built-in browser. CSS validity was verified through static analysis of build output instead |
+| Network conditions   | Offline and slow connection simulation not possible. Service Worker testing also not covered                                                 |
+| User "feel"          | Design beauty, readability, and brand consistency require human judgment                                                                     |
+| Authentication flows | Pages requiring login need separate secure credential management                                                                             |
 
 For CSS responsive design, we substituted by directly analyzing CSS files in the build output, confirming that `@media(min-width:768px)` media queries were correctly generated.
 
@@ -339,7 +339,7 @@ GitHub Copilot Agent Mode can complete an entire QA cycle—from source code ana
 
 Here's a summary of this session's results:
 
-- **Test targets**: 31 routes + 24 tags + 4 archives + 2 pagination = 61 routes
+- **Test targets**: 38 routes + 25 tags + 5 archives + 2 pagination = 70 routes
 - **Test items**: HTTP status, DOM structure, interactions, SEO, accessibility, security, View Transitions
 - **Bugs found**: 2 (search modal, CSP header) → fixed on the spot
 - **Accessibility violations**: 0

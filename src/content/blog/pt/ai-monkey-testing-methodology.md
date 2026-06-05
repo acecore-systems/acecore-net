@@ -63,13 +63,13 @@ Neste artigo, resumimos o registro prático de como o **modo agente do VS Code (
 
 ## Ambiente de teste
 
-| Item | Conteúdo |
-|------|----------|
-| Editor | VS Code + GitHub Copilot (modo agente) |
-| Modelo IA | Claude Opus 4.6 |
-| Operação do navegador | Ferramenta Playwright integrada ao VS Code |
-| Alvo dos testes | Site estático com Astro + UnoCSS + Cloudflare Pages |
-| Preview | `npm run preview` (local) + URL de produção |
+| Item                  | Conteúdo                                            |
+| --------------------- | --------------------------------------------------- |
+| Editor                | VS Code + GitHub Copilot (modo agente)              |
+| Modelo IA             | Claude Opus 4.6                                     |
+| Operação do navegador | Ferramenta Playwright integrada ao VS Code          |
+| Alvo dos testes       | Site estático com Astro + UnoCSS + Cloudflare Pages |
+| Preview               | `npm run preview` (local) + URL de produção         |
 
 No modo agente, o Copilot executa comandos no terminal, lê e escreve arquivos e opera o navegador de forma autônoma. O testador apenas instrui "por favor, teste" e a IA executa automaticamente todo o processo a seguir.
 
@@ -84,7 +84,7 @@ A IA primeiro percorre a estrutura de diretórios do projeto e lê o código-fon
 ```
 src/
 ├── components/    ← leitura completa de 28 componentes
-├── content/blog/  ← análise do frontmatter de 16 artigos
+├── content/blog/  ← análise do frontmatter de 23 artigos
 ├── pages/         ← mapeamento de todos os arquivos de roteamento
 ├── layouts/       ← compreensão da estrutura do BaseLayout
 └── utils/         ← verificação dos plugins rehype e geração de imagem OG
@@ -109,11 +109,11 @@ A partir dos resultados da análise do código-fonte, a IA gera automaticamente 
 O site buildado é iniciado com `npm run preview`, e o Playwright acessa todas as rotas.
 
 ```
-Alvos de teste: 31 rotas
+Alvos de teste: 38 rotas
 ├── Páginas estáticas      7 (/, /about/, /services/ etc.)
-├── Artigos do blog       16
-├── Páginas de tags        24
-├── Arquivo                4
+├── Artigos do blog       23
+├── Páginas de tags        25
+├── Arquivo                5
 ├── Paginação              2 (/blog/page/2/, /blog/page/3/)
 ├── Páginas de autores     2
 ├── RSS                    1
@@ -126,18 +126,18 @@ Resultado: Todas as rotas 200 OK (exceto 404 intencional)
 
 Em cada página, as seguintes verificações são executadas automaticamente:
 
-| Item verificado | Método de verificação | Resultado |
-|----------------|----------------------|-----------|
-| Imagens quebradas | `img.complete && img.naturalWidth === 0` | 0 |
-| Links vazios | `href` vazio, `#` ou não definido | 0 |
-| Links externos inseguros | `target="_blank"` sem `rel="noopener"` | 0 |
-| Quantidade de H1 | `document.querySelectorAll('h1').length === 1` | OK em todas |
-| Link de skip | Existência de "Pular para o conteúdo" | OK em todas |
-| Atributo lang | `html[lang="ja"]` | OK em todas |
+| Item verificado          | Método de verificação                          | Resultado   |
+| ------------------------ | ---------------------------------------------- | ----------- |
+| Imagens quebradas        | `img.complete && img.naturalWidth === 0`       | 0           |
+| Links vazios             | `href` vazio, `#` ou não definido              | 0           |
+| Links externos inseguros | `target="_blank"` sem `rel="noopener"`         | 0           |
+| Quantidade de H1         | `document.querySelectorAll('h1').length === 1` | OK em todas |
+| Link de skip             | Existência de "Pular para o conteúdo"          | OK em todas |
+| Atributo lang            | `html[lang="ja"]`                              | OK em todas |
 
 ### Verificação de links mortos
 
-Links internos foram coletados recursivamente a partir da página inicial, e a acessibilidade de todos os 55 URLs únicos foi confirmada. Links mortos: **0**.
+Links internos foram coletados recursivamente a partir da página inicial, e a acessibilidade de todos os 69 URLs únicos foi confirmada. Links mortos: **0**.
 
 ---
 
@@ -149,7 +149,7 @@ A IA opera elementos do navegador diretamente com Playwright para verificar func
 
 ```javascript
 // Exemplo de código de teste executado pela IA
-const details = document.querySelectorAll('details');
+const details = document.querySelectorAll('details')
 // Estado inicial: todos fechados → OK
 // Clique para abrir → OK
 // Clique novamente para fechar → OK
@@ -193,15 +193,15 @@ Em todas as páginas, o seguinte foi verificado:
 
 O JSON-LD de cada página foi analisado e o tipo e conteúdo do schema foram verificados.
 
-| Tipo de página | Dados estruturados |
-|---------------|-------------------|
-| Comum em todas | Organization, WebSite |
-| Artigo do blog | BreadcrumbList, BlogPosting, FAQPage |
+| Tipo de página | Dados estruturados                                |
+| -------------- | ------------------------------------------------- |
+| Comum em todas | Organization, WebSite                             |
+| Artigo do blog | BreadcrumbList, BlogPosting, FAQPage              |
 | Artigo com FAQ | FAQPage (mainEntity contém perguntas e respostas) |
 
 ### Sitemap
 
-Confirmado que `sitemap-index.xml` → `sitemap-0.xml` contém todas as 57 URLs registradas. A referência ao sitemap a partir do `robots.txt` também estava normal.
+Confirmado que `sitemap-index.xml` → `sitemap-0.xml` contém todas as 288 URLs registradas, incluindo páginas multilíngues. A referência ao sitemap a partir do `robots.txt` também estava normal.
 
 ---
 
@@ -209,15 +209,15 @@ Confirmado que `sitemap-index.xml` → `sitemap-0.xml` contém todas as 57 URLs 
 
 Verificações equivalentes ao motor AXE foram executadas com Playwright em múltiplas páginas.
 
-| Item verificado | Páginas testadas | Violações |
-|----------------|-----------------|-----------|
-| Atributo alt em img | 4 | 0 |
-| Label em button | 4 | 0 |
-| Hierarquia de títulos (h1→h2→h3) | 4 | 0 |
-| Label em input de formulário | 1 (contato) | 0 |
-| Elementos landmark | 4 | 0 |
-| Atributo rel em links externos | 4 | 0 |
-| Valores adequados de tabindex | 4 | 0 |
+| Item verificado                  | Páginas testadas | Violações |
+| -------------------------------- | ---------------- | --------- |
+| Atributo alt em img              | 4                | 0         |
+| Label em button                  | 4                | 0         |
+| Hierarquia de títulos (h1→h2→h3) | 4                | 0         |
+| Label em input de formulário     | 1 (contato)      | 0         |
+| Elementos landmark               | 4                | 0         |
+| Atributo rel em links externos   | 4                | 0         |
+| Valores adequados de tabindex    | 4                | 0         |
 
 **Zero violações em todas as 4 páginas e todos os itens verificados.**
 
@@ -245,14 +245,14 @@ Itens confirmados após cada transição:
 
 Resultado da verificação dos cabeçalhos de resposta do site em produção:
 
-| Cabeçalho | Valor | Avaliação |
-|----------|-------|-----------|
-| Content-Security-Policy | Configuração completa | ◎ |
-| X-Frame-Options | SAMEORIGIN | ◎ |
-| X-Content-Type-Options | nosniff | ◎ |
-| Strict-Transport-Security | max-age=15552000 | ○ |
-| Referrer-Policy | strict-origin-when-cross-origin | ◎ |
-| Permissions-Policy | geolocation=(), camera=() etc. | ◎ |
+| Cabeçalho                 | Valor                           | Avaliação |
+| ------------------------- | ------------------------------- | --------- |
+| Content-Security-Policy   | Configuração completa           | ◎         |
+| X-Frame-Options           | SAMEORIGIN                      | ◎         |
+| X-Content-Type-Options    | nosniff                         | ◎         |
+| Strict-Transport-Security | max-age=15552000                | ○         |
+| Referrer-Policy           | strict-origin-when-cross-origin | ◎         |
+| Permissions-Policy        | geolocation=(), camera=() etc.  | ◎         |
 
 ---
 
@@ -322,12 +322,12 @@ Organizando essa metodologia de monkey testing com IA, podemos classificar nas s
 
 O monkey testing com IA possui algumas restrições.
 
-| Restrição | Detalhes |
-|-----------|----------|
-| Emulação de viewport | No navegador integrado do VS Code, a emulação de largura mobile não funciona. A validade do CSS foi substituída por análise estática da saída do build |
-| Estado da rede | Simulação offline ou de conexão lenta não é possível. Testes de Service Worker também ficam fora do escopo |
-| "Sensibilidade" do usuário | Beleza do design, legibilidade e consistência com a marca requerem julgamento humano |
-| Fluxo de autenticação | Páginas que requerem login necessitam de gerenciamento seguro de credenciais separadamente |
+| Restrição                  | Detalhes                                                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Emulação de viewport       | No navegador integrado do VS Code, a emulação de largura mobile não funciona. A validade do CSS foi substituída por análise estática da saída do build |
+| Estado da rede             | Simulação offline ou de conexão lenta não é possível. Testes de Service Worker também ficam fora do escopo                                             |
+| "Sensibilidade" do usuário | Beleza do design, legibilidade e consistência com a marca requerem julgamento humano                                                                   |
+| Fluxo de autenticação      | Páginas que requerem login necessitam de gerenciamento seguro de credenciais separadamente                                                             |
 
 A responsividade CSS foi verificada de forma alternativa, analisando diretamente o arquivo CSS da saída do build e confirmando que as media queries `@media(min-width:768px)` foram geradas corretamente.
 
@@ -339,7 +339,7 @@ O modo agente do GitHub Copilot consegue completar todo o ciclo de QA a partir d
 
 Resumo dos resultados desta vez:
 
-- **Alvos testados**: 31 rotas + 24 tags + 4 arquivo + 2 paginação = 61 rotas
+- **Alvos testados**: 38 rotas + 25 tags + 5 arquivo + 2 paginação = 70 rotas
 - **Itens testados**: Status HTTP, estrutura DOM, interações, SEO, acessibilidade, segurança, View Transitions
 - **Bugs encontrados**: 2 (modal de busca, cabeçalho CSP) → corrigidos na hora
 - **Violações de acessibilidade**: 0

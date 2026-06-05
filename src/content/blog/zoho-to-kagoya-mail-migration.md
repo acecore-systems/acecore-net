@@ -86,6 +86,8 @@ faq:
 
 Zoho Workplace から別のメールサービスへ移行したいけど、DNS やメール認証の設定が不安――そんな方に向けた実践的な移行ガイドです。この記事では Zoho Mail から KAGOYA MAIL への移行を例に、DNS 切り替え・SPF/DKIM 認証・旧サービスのデータ棚卸しまでの手順を解説します。
 
+DNS や SSL を含めたWebインフラ全体の整理には、[Cloudflare の SSL オプション解説](/blog/cloudflare-ssl-advanced-certificate-manager/)や[サーバー構築・運用サービス](/services/#server)もあわせて確認してください。
+
 ## こんなケースに当てはまりませんか？
 
 Zoho Workplace は Mail・WorkDrive・Cliq・Calendar など多くのサービスがバンドルされたグループウェアです。しかし、こんな状況になっていないでしょうか：

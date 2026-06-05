@@ -1,6 +1,6 @@
 ---
-title: "Comment faire supporter 9 langues à un site Astro 6 ― Traduction automatique de 136 articles et architecture multilingue"
-description: "Retour d'expérience sur l'internationalisation d'un site Astro 6 + UnoCSS + Cloudflare Pages en 9 langues. Couvre l'ensemble du processus, de l'internationalisation de l'UI à la traduction de 136 articles et la configuration multilingue de Pages CMS."
+title: 'Comment faire supporter 9 langues à un site Astro 6 ― Traduction automatique de 168 articles et architecture multilingue'
+description: "Retour d'expérience sur l'internationalisation d'un site Astro 6 + UnoCSS + Cloudflare Pages en 9 langues. Couvre l'ensemble du processus, de l'internationalisation de l'UI à la traduction de 168 articles et la configuration multilingue de Pages CMS."
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
@@ -15,7 +15,7 @@ processFigure:
       description: Traduire les textes de l'en-tête, du pied de page et de tous les composants.
       icon: i-lucide-languages
     - title: Traduction des articles
-      description: Générer 136 fichiers de traduction (17 articles × 8 langues).
+      description: Générer 168 fichiers de traduction (21 articles × 8 langues).
       icon: i-lucide-file-text
     - title: CMS et vérification du build
       description: Configuration multilingue du Pages CMS et vérification de la génération de toutes les pages.
@@ -26,7 +26,7 @@ compareTable:
     label: Japonais uniquement
     items:
       - 1 seule langue (japonais)
-      - 17 articles de blog
+      - 23 articles de blog
       - 523 pages générées (après support multilingue de l'UI)
       - Pages CMS avec 1 collection de blog
       - Tags et données auteur en japonais uniquement
@@ -35,22 +35,22 @@ compareTable:
     label: 9 langues
     items:
       - Japonais + 8 langues (en, zh-cn, es, pt, fr, ko, de, ru)
-      - 17 articles + 136 traductions = 153 au total
-      - 541 pages générées (articles traduits avec fallback)
+      - 23 articles + 168 traductions = 191 au total
+      - 621 pages générées (articles traduits avec fallback)
       - Pages CMS avec 9 collections par langue
       - 25 tags et données auteur traduits par langue
       - Flux RSS multilingues (9 langues)
 callout:
   type: info
   title: Langues prises en charge
-  text: "Prend en charge 9 langues : japonais (par défaut), anglais, chinois simplifié, espagnol, portugais, français, coréen, allemand et russe."
+  text: 'Prend en charge 9 langues : japonais (par défaut), anglais, chinois simplifié, espagnol, portugais, français, coréen, allemand et russe.'
 statBar:
   items:
     - value: '9'
       label: Langues prises en charge
-    - value: '136'
+    - value: '168'
       label: Articles traduits
-    - value: '541'
+    - value: '621'
       label: Pages générées
 faq:
   title: Questions fréquentes
@@ -65,7 +65,7 @@ faq:
       answer: "La traduction n'est pas obligatoire — s'il n'y a pas de fichier de traduction, la version japonaise est affichée par défaut. Pour ajouter une traduction, il suffit de placer un fichier Markdown du même nom dans le répertoire de la langue correspondante."
 ---
 
-Nous avons mis à niveau le site officiel d'Acecore du japonais uniquement vers un support de 9 langues. Cet article couvre l'ensemble du processus : internationalisation de l'UI, traduction de 17 articles × 8 langues = 136 fichiers, et configuration multilingue du Pages CMS.
+Nous avons mis à niveau le site officiel d'Acecore du japonais uniquement vers un support de 9 langues. Cet article couvre l'ensemble du processus : internationalisation de l'UI, traduction de 21 articles × 8 langues = 168 fichiers, et configuration multilingue du Pages CMS.
 
 ## Stratégie multilingue
 
@@ -75,7 +75,7 @@ Nous avons abordé le support multilingue en trois phases :
 
 1. **Base i18n** : Configuration du routage i18n natif d'Astro, utilitaires de traduction et fichiers JSON de traduction pour 9 langues
 2. **Traduction des textes UI** : Textes des composants dans l'en-tête, le pied de page, la barre latérale et toutes les pages
-3. **Traduction des articles** : Les 17 articles traduits en 8 langues (136 fichiers générés)
+3. **Traduction des articles** : Les 21 articles traduits en 8 langues (168 fichiers générés)
 
 ### Conception des URLs
 
@@ -120,9 +120,7 @@ Les fichiers de configuration, fonctions utilitaires et fichiers JSON de traduct
 ```typescript
 // src/i18n/utils.ts
 export function t(locale: Locale, key: string): string {
-  return translations[locale]?.[key]
-    ?? translations[defaultLocale][key]
-    ?? key
+  return translations[locale]?.[key] ?? translations[defaultLocale][key] ?? key
 }
 ```
 
@@ -138,6 +136,7 @@ L'implémentation des pages utilise le **Pattern View Component**. Le layout et 
 import AboutPage from '../../views/AboutPage.astro'
 const { locale } = Astro.params
 ---
+
 <AboutPage locale={locale} />
 ```
 
@@ -236,7 +235,7 @@ Les listes du blog, listes de tags, listes d'auteurs et pages d'archives filtren
 ---
 const allPosts = await getCollection('blog')
 const basePosts = allPosts.filter(isBasePost)
-const displayPosts = basePosts.map(p => localizePost(p, allPosts, locale))
+const displayPosts = basePosts.map((p) => localizePost(p, allPosts, locale))
 ---
 ```
 
@@ -395,7 +394,9 @@ En plus du `/rss.xml` en japonais, des flux RSS sont générés pour chaque vers
 ```typescript
 // src/pages/[locale]/rss.xml.ts
 export const getStaticPaths = () =>
-  locales.filter((l) => l !== defaultLocale).map((l) => ({ params: { locale: l } }))
+  locales
+    .filter((l) => l !== defaultLocale)
+    .map((l) => ({ params: { locale: l } }))
 ```
 
 Le `<link rel="alternate" type="application/rss+xml">` dans `BaseLayout.astro` configure également automatiquement l'URL RSS appropriée pour le locale.
