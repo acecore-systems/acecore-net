@@ -87,21 +87,6 @@ const faqLd = {
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
-      <div class="ac-surface mb-8 bg-brand-50 p-6">
-        <div
-          class="flex flex-col items-start gap-4 text-sm text-slate-700 sm:flex-row sm:items-center"
-        >
-          <div class="flex items-center gap-2">
-            <Icon name="clock" class="text-brand-500 shrink-0" />
-            <span>{t(locale, 'pages.contact.responseTime')}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <Icon name="badge-check" class="text-brand-500 shrink-0" />
-            <span>{t(locale, 'pages.contact.freeEstimate')}</span>
-          </div>
-        </div>
-      </div>
-
       <div class="mb-10">
         <Faq title={t(locale, 'pages.contact.faqTitle')} items={faqItems} />
         <div class="mt-4 flex flex-wrap gap-2">
@@ -198,6 +183,21 @@ const faqLd = {
             >{t(locale, 'common.opensInNewTab')}</span
           >
         </a>
+      </div>
+
+      <div class="ac-surface mb-6 bg-brand-50 p-5">
+        <div
+          class="flex flex-col items-start gap-4 text-sm text-slate-700 sm:flex-row sm:items-center"
+        >
+          <div class="flex items-center gap-2">
+            <Icon name="clock" class="text-brand-500 shrink-0" />
+            <span>{t(locale, 'pages.contact.responseTime')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <Icon name="badge-check" class="text-brand-500 shrink-0" />
+            <span>{t(locale, 'pages.contact.freeEstimate')}</span>
+          </div>
+        </div>
       </div>
 
       <form
