@@ -1,7 +1,7 @@
 ---
 title: 'Cloudflare Pages로 안전한 정적 사이트 배포 달성'
 description: 'Cloudflare Pages에서의 정적 사이트 배포와 _headers를 사용한 보안 헤더/CSP 설정에 대한 실전 가이드. Workers에서 Pages로 되돌린 이유도 다룹니다.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages는 정적 사이트 호스팅에 훌륭한 플랫폼입니다. 이 글에서는 실제 배포 구성과 `_headers` 파일을 사용한 보안 설정을 다룹니다.
+
+SSL 인증서 선택에 대해서는 [Cloudflare Advanced Certificate Manager 해설](/blog/cloudflare-ssl-advanced-certificate-manager/)도 함께 확인하세요. 문의 폼의 봇 대책은 [Pages CMS와 Turnstile 도입기](/blog/cms-selection-and-turnstile/)에 정리되어 있습니다.
 
 ## 배포 아키텍처: Workers를 떠나 Pages로 돌아온 이유
 

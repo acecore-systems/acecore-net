@@ -1,7 +1,7 @@
 ---
 title: 'Distribución segura de sitios estáticos con Cloudflare Pages'
 description: 'Guía práctica de despliegue de sitios estáticos en Cloudflare Pages y configuración de cabeceras de seguridad y CSP mediante _headers. También presentamos la experiencia de volver de Worker a Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages es la plataforma óptima para el hosting de sitios estáticos. En este artículo, presentamos la configuración real de despliegue y la configuración de seguridad utilizando el archivo `_headers`.
+
+Para la selección de certificados SSL, consulte también nuestra [guía de Cloudflare Advanced Certificate Manager](/blog/cloudflare-ssl-advanced-certificate-manager/). La protección contra bots en el formulario de contacto se detalla en nuestra [guía de Pages CMS y Turnstile](/blog/cms-selection-and-turnstile/).
 
 ## Configuración de despliegue: Por qué dejamos Worker y volvimos a Pages
 

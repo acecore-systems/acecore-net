@@ -1,7 +1,7 @@
 ---
 title: 'Achieving Secure Static Site Delivery with Cloudflare Pages'
 description: 'A practical guide to static site deployment on Cloudflare Pages and security header/CSP configuration using _headers. Also covers why we switched back from Workers to Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages is an excellent platform for hosting static sites. This article covers our actual deployment setup and security configuration using the `_headers` file.
+
+For SSL certificate selection, also check out our [Cloudflare Advanced Certificate Manager guide](/blog/cloudflare-ssl-advanced-certificate-manager/). Contact form bot protection is covered in our [Pages CMS and Turnstile setup guide](/blog/cms-selection-and-turnstile/).
 
 ## Deployment Architecture: Why We Left Workers and Returned to Pages
 

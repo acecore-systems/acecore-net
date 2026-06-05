@@ -1,7 +1,7 @@
 ---
 title: 'Sichere statische Website-Bereitstellung mit Cloudflare Pages erreichen'
 description: 'Ein Praxisleitfaden zum statischen Website-Deployment auf Cloudflare Pages und zur Konfiguration von Sicherheitsheadern/CSP mittels _headers. Behandelt auch, warum wir von Workers zurück zu Pages gewechselt sind.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages ist eine hervorragende Plattform für das Hosting statischer Websites. Dieser Artikel behandelt unser tatsächliches Deployment-Setup und die Sicherheitskonfiguration mittels der `_headers`-Datei.
+
+Für die Auswahl des SSL-Zertifikats empfehlen wir auch unsere [Erläuterung zum Cloudflare Advanced Certificate Manager](/blog/cloudflare-ssl-advanced-certificate-manager/). Der Bot-Schutz für das Kontaktformular ist in unserem [Einrichtungsleitfaden für Pages CMS und Turnstile](/blog/cms-selection-and-turnstile/) beschrieben.
 
 ## Deployment-Architektur: Warum wir Workers verlassen und zu Pages zurückgekehrt sind
 

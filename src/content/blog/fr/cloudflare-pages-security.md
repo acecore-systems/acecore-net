@@ -1,7 +1,7 @@
 ---
 title: 'Distribution sécurisée de sites statiques avec Cloudflare Pages'
 description: "Guide pratique du déploiement de sites statiques sur Cloudflare Pages et de la configuration des en-têtes de sécurité et du CSP via _headers. Retour d'expérience sur le passage de Worker à Pages."
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages est une plateforme idéale pour l'hébergement de sites statiques. Cet article présente la configuration de déploiement concrète et la configuration de sécurité via le fichier `_headers`.
+
+Pour le choix du certificat SSL, consultez également notre [guide Cloudflare Advanced Certificate Manager](/blog/cloudflare-ssl-advanced-certificate-manager/). La protection contre les bots du formulaire de contact est détaillée dans notre [guide Pages CMS et Turnstile](/blog/cms-selection-and-turnstile/).
 
 ## Configuration de déploiement : pourquoi nous sommes revenus de Worker à Pages
 

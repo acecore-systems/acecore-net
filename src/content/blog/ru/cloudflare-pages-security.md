@@ -1,7 +1,7 @@
 ---
 title: 'Безопасная доставка статического сайта с помощью Cloudflare Pages'
 description: 'Практическое руководство по деплою статического сайта на Cloudflare Pages и настройке заголовков безопасности/CSP через _headers. Также рассматривается, почему мы вернулись с Workers на Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
@@ -36,6 +36,8 @@ faq:
 ---
 
 Cloudflare Pages — отличная платформа для хостинга статических сайтов. В этой статье рассматривается наша фактическая настройка деплоя и конфигурация безопасности с помощью файла `_headers`.
+
+Информацию о выборе SSL-сертификатов можно найти в нашем [руководстве по Cloudflare Advanced Certificate Manager](/blog/cloudflare-ssl-advanced-certificate-manager/). Защита формы обратной связи от ботов описана в [статье о настройке Pages CMS и Turnstile](/blog/cms-selection-and-turnstile/).
 
 ## Архитектура деплоя: почему мы ушли с Workers и вернулись на Pages
 
