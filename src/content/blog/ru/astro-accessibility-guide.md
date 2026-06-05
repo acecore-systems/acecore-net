@@ -58,6 +58,8 @@ faq:
 
 В этой статье представлены улучшения, сделанные для достижения оценки доступности PageSpeed 100 на сайте Astro + UnoCSS, организованные по категориям.
 
+Общий обзор, включающий производительность, SEO и UX, можно найти в [Руководстве по улучшению качества сайта на Astro](/blog/website-improvement-batches/).
+
 ---
 
 ## aria-hidden для декоративных иконок
@@ -69,8 +71,7 @@ faq:
 Добавьте `aria-hidden="true"` к декоративным иконкам.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Контакты
+<span class="i-lucide-mail" aria-hidden="true"></span> Контакты
 ```
 
 Это было применено к более чем 30 иконкам по всему сайту. Будьте внимательны, чтобы не пропустить иконки внутри компонентов StatBar, Callout, ServiceCard и ProcessFigure.
@@ -163,11 +164,7 @@ shortcuts: {
 - `aria-describedby` — ссылается на ID сообщения об ошибке
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
 <p id="email-error" role="alert">Пожалуйста, введите корректный адрес электронной почты</p>
 ```
 
@@ -176,8 +173,7 @@ shortcuts: {
 Одного визуального знака `*` недостаточно. Добавьте поясняющий текст для экранных читалок.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(обязательно)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(обязательно)</span>
 ```
 
 ---

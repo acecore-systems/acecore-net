@@ -58,6 +58,8 @@ faq:
 
 En este artículo, presentamos las mejoras realizadas por categoría para alcanzar una puntuación de 100 en PageSpeed Accessibility en un sitio Astro + UnoCSS.
 
+Para una visión general que incluye rendimiento, SEO y UX, consulte la [Guía de mejora de calidad de sitios Astro](/blog/website-improvement-batches/).
+
 ---
 
 ## aria-hidden para iconos decorativos
@@ -69,8 +71,7 @@ Los iconos de Iconify de UnoCSS (`i-lucide-*`) se usan frecuentemente como decor
 Agregar `aria-hidden="true"` a los iconos de propósito decorativo.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Contacto
+<span class="i-lucide-mail" aria-hidden="true"></span> Contacto
 ```
 
 Se aplicó esta medida en más de 30 iconos en todo el sitio. Hay que tener cuidado de no olvidar los iconos dentro de componentes como StatBar, Callout, ServiceCard y ProcessFigure.
@@ -163,11 +164,7 @@ Mostrar mensajes de error inmediatamente en eventos `blur` / `input`, y vincular
 - `aria-describedby` — referenciar el ID del mensaje de error
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
 <p id="email-error" role="alert">Por favor, introduzca una dirección de correo electrónico válida</p>
 ```
 
@@ -176,8 +173,7 @@ Mostrar mensajes de error inmediatamente en eventos `blur` / `input`, y vincular
 Solo el marcador visual `*` no es suficiente. Hay que agregar texto complementario para lectores de pantalla.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(obligatorio)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(obligatorio)</span>
 ```
 
 ---
