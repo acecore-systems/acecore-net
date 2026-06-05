@@ -11,7 +11,7 @@ Acecore（エースコア）公式Webサイト。
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
 | [Pagefind](https://pagefind.app/)                                                               | 静的全文検索                              |
-| [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ管理）              |
+| [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ・ページ文言管理）  |
 | [satori](https://github.com/vercel/satori) + [sharp](https://sharp.pixelplumbing.com/)          | OG 画像の自動生成                         |
 | [Google AdSense](https://adsense.google.com/)                                                   | 広告配信（ブログページ）                  |
 
@@ -24,8 +24,9 @@ Acecore（エースコア）公式Webサイト。
 - デフォルトロケール（`ja`）は URL プレフィクスなし（`/blog/...`）
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
-- Sveltia CMS では日本語ソースのみ管理し、多言語記事は Copilot translation PR task で AI に委譲
-- UI 文字列は `src/i18n/translations/` で管理
+- Sveltia CMS では日本語ソース記事、著者、タグ、ページ文言を管理
+- 多言語記事は Copilot translation PR task で AI に委譲
+- UI・固定ページ文字列は `src/i18n/translations/` で管理し、Sveltia CMS の「ページ・サイト文言」から編集
 
 ## 開発
 
@@ -98,7 +99,9 @@ src/
 2. 本番編集は GitHub OAuth でサインインする
 3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
 4. 「ブログ」から日本語ソース記事のみ新規作成・編集
-5. 翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
+5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページのテキストをロケール別に編集
+6. 著者・タグは「著者」「タグ」から編集
+7. 多言語記事の翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
 
 ### 手動
 
@@ -121,14 +124,14 @@ author: 'author-id'
 
 ## 翻訳ワークフロー
 
-Sveltia CMS は日本語ソースの編集に限定します。多言語記事と著者紹介の翻訳は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
+Sveltia CMS は日本語ソース記事と固定ページ文言を編集できます。多言語記事本文は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。
 
 1. 日本語ソースを Sveltia CMS で更新する
 2. `main` へ反映されると GitHub Actions が Copilot translation PR task を自動作成する
 3. Copilot coding agent がソースパス、対象ロケール、翻訳条件に沿って `src/content/blog/{locale}/` を更新する
 4. 完了時に `[translation]` PR が ready for review になり、ビルド後に自動マージされる
 
-著者情報とタグ定義の `i18n` は Sveltia CMS では読み取り専用にしてあり、必要なときだけ manual dispatch で翻訳 PR task を起こす前提です。
+著者情報、タグ定義、固定ページ文言の多言語フィールドは Sveltia CMS から直接編集できます。多言語記事本文は必要なときだけ manual dispatch で翻訳 PR task を起こす前提です。
 
 ### 自動 PR task workflow
 
