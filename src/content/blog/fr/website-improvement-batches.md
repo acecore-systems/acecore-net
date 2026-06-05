@@ -78,6 +78,8 @@ Le site officiel d'Acecore, relancé en mars 2026, est construit avec Astro 6 + 
 
 Cet article retrace la vue d'ensemble de plus de 150 améliorations ayant abouti à un **score PageSpeed Insights mobile de 99 et un score parfait sur tous les critères en desktop**.
 
+Pour en savoir plus sur les coûts de création de sites web et la portée des opérations, consultez également [Guide des coûts de production de sites web et points clés pour les devis](/blog/homepage-production-cost-guide/).
+
 ---
 
 ## Le mur du score PageSpeed mobile 99

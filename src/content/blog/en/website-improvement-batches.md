@@ -78,6 +78,8 @@ The Acecore official site, relaunched in March 2026, was built with Astro 6 + Un
 
 This article summarizes the journey through 150+ improvements to achieve **PageSpeed Insights mobile 99 and perfect 100 on all desktop metrics**.
 
+For guidance on website production costs and the scope of operations, see [Key Points on Website Production Costs and What to Look for in Estimates](/blog/homepage-production-cost-guide/).
+
 ---
 
 ## The PageSpeed Mobile 99 Challenge

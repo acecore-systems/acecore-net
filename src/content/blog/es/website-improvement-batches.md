@@ -78,6 +78,8 @@ El sitio oficial de Acecore, renovado en marzo de 2026, se publicó con la confi
 
 Este artículo resume la visión general del proceso de más de 150 mejoras hasta alcanzar **PageSpeed Insights móvil 99 puntos y escritorio 100 en todos los apartados**.
 
+Para orientación sobre los costos de producción web y el alcance de las operaciones, consulte también [Guía de costos de producción de sitios web y puntos clave en presupuestos](/blog/homepage-production-cost-guide/).
+
 ---
 
 ## La barrera del móvil 99 en PageSpeed

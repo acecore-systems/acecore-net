@@ -78,6 +78,8 @@ faq:
 
 本文总结了经过150多项改善，达成 **PageSpeed Insights 移动端99分、桌面端全项100分** 的全过程。
 
+关于网站制作费用和运营范围的整理，也可参阅[网站制作费用行情与估价要点](/blog/homepage-production-cost-guide/)。
+
 ---
 
 ## PageSpeed 移动端99分的瓶颈

@@ -78,6 +78,8 @@ O site oficial da Acecore, renovado em março de 2026, foi publicado com a confi
 
 Este artigo resume a visão geral de como alcançamos **99 pontos no PageSpeed Insights mobile e 100 em todos os itens no desktop** após mais de 150 itens de melhoria.
 
+Para orientação sobre os custos de produção de sites e o escopo das operações, consulte também [Guia de custos de produção de sites e pontos-chave em orçamentos](/blog/homepage-production-cost-guide/).
+
 ---
 
 ## A barreira dos 99 pontos no PageSpeed mobile

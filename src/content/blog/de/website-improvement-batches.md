@@ -78,6 +78,8 @@ Die offizielle Acecore-Website, die im März 2026 neu gestartet wurde, wurde mit
 
 Dieser Artikel fasst den Weg durch über 150 Verbesserungen zusammen, um **PageSpeed Insights Mobile 99 und perfekte 100 Punkte bei allen Desktop-Metriken** zu erreichen.
 
+Informationen zu den Kosten der Website-Erstellung und dem Umfang des Betriebs finden Sie auch in [Leitfaden zu Website-Produktionskosten und wichtigen Punkten in Kostenvoranschlägen](/blog/homepage-production-cost-guide/).
+
 ---
 
 ## Die PageSpeed Mobile 99-Herausforderung
