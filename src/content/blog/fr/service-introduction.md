@@ -38,6 +38,8 @@ Gestion des stocks, gestion de la relation client (CRM), gestion des commandes �
 
 En exploitant les dernières technologies cloud-native, nous construisons des systèmes robustes, maintenables et extensibles. Le support opérationnel post-déploiement est également assuré.
 
+Pour plus de détails sur la démarche d'organisation des besoins et de conduite du projet, consultez notre article [Organiser les besoins et piloter un projet système d'entreprise sans échec](/blog/business-system-implementation-tips/).
+
 ![Conception et développement de systèmes d'entreprise](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
 
 ## 2. Construction et gestion de serveurs
@@ -53,6 +55,8 @@ Surveillance 24h/24, 7j/7, mises à jour de sécurité régulières, plans de sa
 Un site Web est le « visage » d'une entreprise. Acecore conçoit des sites Web optimaux selon vos objectifs : sites institutionnels, landing pages, sites e-commerce, portfolios, etc.
 
 Au-delà de l'esthétique du design, nous accordons une attention particulière au **référencement SEO** et aux **performances d'affichage**. Optimisation des Core Web Vitals, implémentation de données structurées, design responsive mobile-first — nous construisons des sites conformes aux derniers standards du Web.
+
+Pour les tarifs habituels de création de sites et les points clés à vérifier dans un devis, consultez [Coûts de création de site Web et points à vérifier dans un devis](/blog/homepage-production-cost-guide/).
 
 La gestion et la maintenance post-lancement sont également assurées de bout en bout. De la mise à jour des contenus à l'application des correctifs de sécurité, en passant par les recommandations d'amélioration basées sur l'analyse du trafic, nous vous accompagnons pour augmenter continuellement la valeur de votre site.
 

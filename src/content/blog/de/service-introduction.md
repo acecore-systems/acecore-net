@@ -38,6 +38,8 @@ Wir realisieren Lagerverwaltung, CRM, Auftragsverwaltung und mehr in allen Branc
 
 Mit Einsatz modernster Cloud-nativer Technologien bauen wir Systeme mit hervorragender Wartbarkeit und Skalierbarkeit. Wir bieten zudem umfassende Betriebsunterstützung nach der Bereitstellung.
 
+Wie Sie Anforderungen strukturieren und die Einführung erfolgreich managen, erläutert unser Beitrag [Anforderungsanalyse und Projektmanagement für eine erfolgreiche Systemeinführung](/blog/business-system-implementation-tips/).
+
 ![Systementwurf und -entwicklung](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
 
 ## 2. Server-Infrastruktur & Betrieb
@@ -53,6 +55,8 @@ Wir bieten 24/7-Überwachung, regelmäßige Sicherheitsupdates und Disaster-Reco
 Ihre Webseite ist das Aushängeschild Ihres Unternehmens. Acecore erstellt die ideale Webseite für Ihre Bedürfnisse — Unternehmensseiten, Landingpages, E-Commerce-Shops, Portfolio-Seiten und mehr.
 
 Wir legen Wert nicht nur auf schönes Design, sondern auch auf **SEO** und **Performance**. Wir erstellen Seiten, die den aktuellen Webstandards entsprechen, einschließlich Core-Web-Vitals-Optimierung, Implementierung strukturierter Daten und Mobile-First-Responsive-Design.
+
+Informationen zu typischen Website-Entwicklungskosten und worauf bei einem Angebot zu achten ist, finden Sie in [Website-Entwicklungskosten und wichtige Punkte bei der Prüfung eines Angebots](/blog/homepage-production-cost-guide/).
 
 Zudem bieten wir einen Komplettservice für den laufenden Betrieb und die Wartung nach dem Launch — von Content-Updates und Sicherheitspatches bis hin zu analysebasierten Verbesserungsvorschlägen — und steigern so kontinuierlich den Wert Ihrer Seite.
 

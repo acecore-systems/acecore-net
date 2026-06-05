@@ -38,6 +38,8 @@ We handle inventory management, CRM, order management, and more across all indus
 
 Leveraging the latest cloud-native technologies, we build systems with excellent maintainability and scalability. We also provide comprehensive post-deployment operational support.
 
+For guidance on organizing requirements and managing the implementation process, see [How to Organize Requirements and Manage Enterprise System Implementation Without Failure](/blog/business-system-implementation-tips/).
+
 ![System design and development](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
 
 ## 2. Server Infrastructure & Operations
@@ -53,6 +55,8 @@ We offer 24/7 monitoring, regular security updates, and disaster recovery planni
 Your website is the face of your business. Acecore creates the ideal website for your needs — corporate sites, landing pages, e-commerce sites, portfolio sites, and more.
 
 We focus not only on beautiful design but also on **SEO** and **performance**. We build sites that comply with current web standards, including Core Web Vitals optimization, structured data implementation, and mobile-first responsive design.
+
+For information on typical website development costs and what to look for in a quote, see [Website Development Costs and Key Points in Reviewing a Quote](/blog/homepage-production-cost-guide/).
 
 We also provide one-stop post-launch operations and maintenance, from content updates and security patches to analytics-driven improvement proposals, continuously enhancing your site's value.
 

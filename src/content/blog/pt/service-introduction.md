@@ -38,6 +38,8 @@ Atendemos a diversos setores, incluindo gestão de estoque, CRM (gestão de clie
 
 Utilizando as mais recentes tecnologias cloud-native, construímos sistemas com excelente manutenibilidade e escalabilidade. O suporte operacional pós-implantação também é garantido.
 
+A forma de organizar os requisitos e conduzir a implementação é detalhada em [Como organizar requisitos e conduzir a implementação de sistemas corporativos sem falhas](/blog/business-system-implementation-tips/).
+
 ![Cenário de design e desenvolvimento de sistemas corporativos](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
 
 ## 2. Construção e operação de servidores
@@ -53,6 +55,8 @@ Oferecemos monitoramento 24/7, atualizações regulares de segurança, planos de
 O site é o "rosto" da empresa. Na Acecore, criamos sites otimizados para cada objetivo, incluindo sites corporativos, landing pages, e-commerce e portfólios.
 
 Não nos preocupamos apenas com a beleza do design, mas também com **otimização SEO** e **desempenho de carregamento**. Construímos sites em conformidade com os padrões web mais recentes, incluindo otimização de Core Web Vitals, implementação de dados estruturados e design responsivo mobile-first.
+
+Os custos típicos de criação de sites e como avaliar um orçamento estão resumidos em [Custo de criação de sites e pontos a observar no orçamento](/blog/homepage-production-cost-guide/).
 
 O suporte de operação e manutenção pós-criação também é integrado. Oferecemos desde atualização de conteúdo, aplicação de patches de segurança até propostas de melhoria baseadas em análise de acessos.
 

@@ -38,6 +38,8 @@ Gestión de inventario, gestión de clientes (CRM), gestión de pedidos y más: 
 
 Utilizamos tecnología cloud-native de última generación para construir sistemas con excelente mantenibilidad y escalabilidad. También contamos con un soporte operativo completo tras la implementación.
 
+La forma de organizar los requisitos y gestionar el proceso de implementación se explica en detalle en [Cómo organizar los requisitos y gestionar la implementación de un sistema empresarial sin fracasar](/blog/business-system-implementation-tips/).
+
 ![Escena de diseño y desarrollo de sistemas empresariales](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
 
 ## 2. Construcción y operación de servidores
@@ -53,6 +55,8 @@ Monitoreo 24/7, actualizaciones de seguridad periódicas, planes de backup y rec
 El sitio web es la "cara" de la empresa. En Acecore desarrollamos sitios web óptimos según el objetivo: sitios corporativos, landing pages, tiendas en línea, portafolios, entre otros.
 
 No solo nos enfocamos en la belleza del diseño, sino también en el **SEO** y el **rendimiento de carga**. Construimos sitios que cumplen con los estándares web más recientes, incluyendo optimización de Core Web Vitals, implementación de datos estructurados y diseño responsive mobile-first.
+
+Los costes típicos de desarrollo web y qué buscar en un presupuesto se detallan en [Costes de desarrollo de sitios web y puntos clave al revisar un presupuesto](/blog/homepage-production-cost-guide/).
 
 También nos encargamos de la operación y mantenimiento post-lanzamiento de forma integral. Desde la actualización de contenidos, aplicación de parches de seguridad hasta propuestas de mejora basadas en análisis de acceso, le ofrecemos soporte continuo para aumentar el valor de su sitio.
 
