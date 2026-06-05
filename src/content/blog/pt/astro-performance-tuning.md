@@ -1,7 +1,7 @@
 ---
 title: 'Técnicas práticas para alcançar 99 pontos no PageSpeed Mobile com site Astro'
 description: 'Apresentamos as técnicas de otimização realizadas para alcançar 99 pontos no PageSpeed Insights Mobile em um site com Astro + UnoCSS + Cloudflare Pages. Estratégia de entrega CSS, armadilhas de configuração de fontes, imagens responsivas, carregamento lazy de AdSense e configuração de cache — técnicas práticas compiladas.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
@@ -76,6 +76,8 @@ As pontuações finais alcançadas são:
 O que um site corporativo precisa é "velocidade" e "SEO". O Astro é especializado em geração de sites estáticos (SSG) e alcança zero JavaScript por padrão. Como não envia componentes de frameworks como React ou Vue para o cliente, a exibição inicial é extremamente rápida.
 
 Para o framework CSS, adotamos UnoCSS. Tem a mesma abordagem utility-first do Tailwind CSS, mas extrai apenas as classes utilizadas durante o build, resultando em CSS de tamanho mínimo. A partir da v66, `presetWind3()` é recomendado, então faça a migração.
+
+Para uma melhoria transversal de todo o site, incluindo SEO e dados estruturados, consulte o [Guia de melhoria de qualidade do site Astro](/blog/website-improvement-batches/).
 
 ---
 

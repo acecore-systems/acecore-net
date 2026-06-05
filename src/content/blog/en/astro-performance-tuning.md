@@ -1,7 +1,7 @@
 ---
 title: 'Practical Techniques for Achieving PageSpeed Mobile 99 on Your Astro Site'
 description: 'Optimization techniques used to achieve PageSpeed Insights Mobile 99 on an Astro + UnoCSS + Cloudflare Pages site. Covers CSS delivery strategy, font configuration pitfalls, responsive images, AdSense lazy loading, and cache settings.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
@@ -76,6 +76,8 @@ The final scores achieved:
 Corporate sites demand "speed" and "SEO." Astro specializes in static site generation (SSG) and achieves zero JavaScript by default. Unlike frameworks like React or Vue, no framework code is shipped to the client, resulting in extremely fast initial rendering.
 
 UnoCSS was chosen as the CSS framework. Like Tailwind CSS, it takes a utility-first approach, but extracts only used classes at build time to minimize CSS size. Since v66, `presetWind3()` is recommended, so be sure to migrate.
+
+For cross-cutting improvements to the overall website—including SEO and structured data—see the [Astro Site Quality Improvement Guide](/blog/website-improvement-batches/).
 
 ---
 
