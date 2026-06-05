@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { readFileSync, existsSync } from 'node:fs'
 
 const DEFAULT_SOURCE_LOCALE = 'ja'
-const SITE_TRANSLATION_SOURCE_PATH = 'src/i18n/translations/ja.json'
+const SITE_TRANSLATION_SOURCE_DIR = 'src/i18n/source/ja'
 const AUTHOR_BASE_KEYS = [
   'name',
   'avatar',
@@ -62,7 +62,7 @@ function parseArgs(argv) {
 }
 
 function getDiffTargets(includeNonBlog) {
-  const targets = ['src/content/blog', SITE_TRANSLATION_SOURCE_PATH]
+  const targets = ['src/content/blog', SITE_TRANSLATION_SOURCE_DIR]
 
   if (includeNonBlog) {
     targets.push('src/content/authors', 'src/content/tags')
@@ -170,7 +170,9 @@ function isTagDefinitionPath(path) {
 }
 
 function isSiteTranslationSourcePath(path) {
-  return path === SITE_TRANSLATION_SOURCE_PATH
+  return (
+    path.startsWith(`${SITE_TRANSLATION_SOURCE_DIR}/`) && path.endsWith('.json')
+  )
 }
 
 function loadTargetLocales() {
@@ -558,7 +560,7 @@ function buildCopilotInstructions(taskKind) {
   if (taskKind === 'site-text') {
     return [
       'Update the site text translations described below.',
-      `Use ${SITE_TRANSLATION_SOURCE_PATH} as the canonical Japanese source.`,
+      `Use all JSON files under ${SITE_TRANSLATION_SOURCE_DIR}/, including nested page files, as the canonical Japanese source.`,
       'Modify only src/i18n/translations/{locale}.json files for the requested target locales.',
       'Keep Japanese source fields unchanged.',
     ]
@@ -718,18 +720,19 @@ function buildTagTaskPayload({
 }
 
 function buildSiteTextTaskPayload({
-  sourcePath,
+  sourcePaths,
   locales,
   headSha,
   repository,
 }) {
-  const marker = `translation-source:${sourcePath}`
+  const marker = `translation-source:${SITE_TRANSLATION_SOURCE_DIR}`
   const title = '[translation] Update site text translations'
   const instructions = [
     ...buildCopilotInstructions('site-text'),
+    `- Build the Japanese source by merging the sections from ${SITE_TRANSLATION_SOURCE_DIR}/**/*.json.`,
     '- Keep the JSON key structure aligned with the Japanese source.',
     '- Preserve placeholders such as `{count}`, `{title}`, URLs, route paths, product names, and code-like tokens exactly.',
-    '- Keep `tags` translations aligned if the top-level `tags` object changes, but tag source definitions remain under `src/content/tags`.',
+    '- Keep `tags` translations aligned with `src/i18n/source/ja/legacy-tags.json` if that file changes, but tag source definitions remain under `src/content/tags`.',
     '- Do not edit blog Markdown, author JSON, or tag JSON files for this task.',
   ]
 
@@ -742,7 +745,8 @@ function buildSiteTextTaskPayload({
       marker,
       summary: [
         `Repository: ${repository}`,
-        `Source path: ${sourcePath}`,
+        `Source path: ${SITE_TRANSLATION_SOURCE_DIR}`,
+        `Changed source files: ${sourcePaths.join(', ')}`,
         `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
         `Source commit: ${headSha}`,
       ],
@@ -829,14 +833,16 @@ async function main() {
         repository,
       }),
     ),
-    ...siteTextChanges.map((entry) =>
-      buildSiteTextTaskPayload({
-        sourcePath: entry.path,
-        locales,
-        headSha,
-        repository,
-      }),
-    ),
+    ...(siteTextChanges.length > 0
+      ? [
+          buildSiteTextTaskPayload({
+            sourcePaths: siteTextChanges.map((entry) => entry.path),
+            locales,
+            headSha,
+            repository,
+          }),
+        ]
+      : []),
     ...authorChanges.map((change) =>
       buildAuthorTaskPayload({
         sourcePath: change.sourcePath,

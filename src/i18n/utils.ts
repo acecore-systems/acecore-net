@@ -4,11 +4,11 @@
  * 翻訳文字列の取得、URL のロケール変換、日付フォーマットなど
  * 多言語対応に必要な主要関数を提供する。
  *
- * 翻訳データ: src/i18n/translations/ 配下の JSON ファイルから静的にインポートする。
+ * 翻訳データ: 日本語は src/i18n/source/ja/、他言語は src/i18n/translations/ から静的にインポートする。
  * タイムゾーン: 日付はすべて Asia/Tokyo (JST) で表示する。
  */
 import { defaultLocale, locales, type Locale } from './config'
-import jaTranslations from './translations/ja.json'
+import jaTranslations from './source/ja'
 import enTranslations from './translations/en.json'
 import zhCnTranslations from './translations/zh-cn.json'
 import esTranslations from './translations/es.json'
@@ -53,8 +53,15 @@ function getNestedValue(obj: Record<string, unknown>, key: string): string {
 /**
  * 翻訳文字列を取得する。{placeholder} 形式の変数を置換可能。
  */
-export function t(locale: Locale, key: string, params?: Record<string, string | number>): string {
-  const value = getNestedValue(translations[locale] as unknown as Record<string, unknown>, key)
+export function t(
+  locale: Locale,
+  key: string,
+  params?: Record<string, string | number>,
+): string {
+  const value = getNestedValue(
+    translations[locale] as unknown as Record<string, unknown>,
+    key,
+  )
   if (!params) return value
   return Object.entries(params).reduce<string>(
     (result, [k, v]) => result.replaceAll(`{${k}}`, String(v)),
@@ -69,7 +76,11 @@ export function getLocaleFromUrl(url: URL | string): Locale {
   const pathname = typeof url === 'string' ? url : url.pathname
   const segments = pathname.split('/').filter(Boolean)
   const first = segments[0]
-  if (first && (locales as readonly string[]).includes(first) && first !== defaultLocale) {
+  if (
+    first &&
+    (locales as readonly string[]).includes(first) &&
+    first !== defaultLocale
+  ) {
     return first as Locale
   }
   return defaultLocale
@@ -82,11 +93,16 @@ export function getLocalizedUrl(path: string, locale: Locale): string {
   const hasTrailingSlash = path.length > 1 && path.endsWith('/')
   // パスからロケールプレフィクスを除去
   const segments = path.split('/').filter(Boolean)
-  if (segments[0] && (locales as readonly string[]).includes(segments[0]) && segments[0] !== defaultLocale) {
+  if (
+    segments[0] &&
+    (locales as readonly string[]).includes(segments[0]) &&
+    segments[0] !== defaultLocale
+  ) {
     segments.shift()
   }
   const cleanPath = '/' + segments.join('/')
-  const normalizedPath = hasTrailingSlash && cleanPath !== '/' ? `${cleanPath}/` : cleanPath
+  const normalizedPath =
+    hasTrailingSlash && cleanPath !== '/' ? `${cleanPath}/` : cleanPath
 
   if (locale === defaultLocale) return normalizedPath
   return `/${locale}${normalizedPath}`
@@ -95,7 +111,10 @@ export function getLocalizedUrl(path: string, locale: Locale): string {
 /**
  * hreflang 等で使う全ロケールの代替 URL を返す。
  */
-export function getAlternateUrls(path: string, siteUrl: string): { locale: Locale; url: string }[] {
+export function getAlternateUrls(
+  path: string,
+  siteUrl: string,
+): { locale: Locale; url: string }[] {
   return locales.map((locale) => ({
     locale,
     url: `${siteUrl.replace(/\/$/, '')}${getLocalizedUrl(path, locale)}`,
@@ -184,4 +203,3 @@ export function formatDate(date: Date, locale: Locale): string {
       })
     : date.toLocaleDateString(localeMap[locale], baseOptions)
 }
-

@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - src/content/blog/*.md
-      - src/i18n/translations/ja.json
+      - src/i18n/source/ja/**/*.json
   workflow_dispatch:
     inputs:
       base_sha:
