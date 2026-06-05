@@ -1,7 +1,7 @@
 ---
 title: 'Acecore Official Website Has Been Renewed'
 description: "Acecore's official website has been completely renewed. Here's an overview of the new site's features and future plans."
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
@@ -74,6 +74,8 @@ We will publish technical information, announcements, and activity reports in bl
 ### SEO and Accessibility
 
 The site is designed with search engine optimization (SEO) and web accessibility in mind. Structured data and semantic HTML improve discoverability through search engines.
+
+For ongoing improvements after the renewal, please also refer to the [Astro Site Quality Improvement Guide](/blog/website-improvement-batches/) and [Homepage Production Cost Guide](/blog/homepage-production-cost-guide/).
 
 ## Looking Ahead
 

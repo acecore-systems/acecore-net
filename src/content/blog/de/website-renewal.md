@@ -1,7 +1,7 @@
 ---
 title: 'Acecores offizielle Webseite wurde erneuert'
 description: 'Die offizielle Webseite von Acecore wurde komplett erneuert. Hier ist ein Überblick über die Funktionen der neuen Seite und zukünftige Pläne.'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
@@ -74,6 +74,8 @@ Wir werden technische Informationen, Ankündigungen und Aktivitätsberichte im B
 ### SEO und Barrierefreiheit
 
 Die Seite wurde mit Blick auf Suchmaschinenoptimierung (SEO) und Web-Barrierefreiheit gestaltet. Strukturierte Daten und semantisches HTML verbessern die Auffindbarkeit über Suchmaschinen.
+
+Für kontinuierliche Verbesserungen nach der Erneuerung lesen Sie bitte auch den [Leitfaden zur Qualitätsverbesserung von Astro-Websites](/blog/website-improvement-batches/) und den [Leitfaden zu den Kosten der Website-Erstellung](/blog/homepage-production-cost-guide/).
 
 ## Ausblick
 

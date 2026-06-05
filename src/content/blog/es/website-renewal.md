@@ -1,7 +1,7 @@
 ---
 title: 'Hemos renovado el sitio web oficial de Acecore'
 description: 'El sitio web oficial de Acecore ha sido completamente renovado. Presentamos las características del nuevo sitio y las perspectivas a futuro.'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
@@ -74,6 +74,8 @@ Se publicará información técnica, noticias y reportes de actividades en forma
 ### SEO y accesibilidad
 
 El diseño contempla la optimización para motores de búsqueda (SEO) y la accesibilidad web. La implementación de datos estructurados y HTML semántico mejoran la visibilidad desde los motores de búsqueda.
+
+Para las mejoras continuas tras la renovación, consulta también la [Guía de mejora de calidad para sitios con Astro](/blog/website-improvement-batches/) y la [Guía de costos de producción de sitios web](/blog/homepage-production-cost-guide/).
 
 ## Perspectivas a futuro
 

@@ -1,7 +1,7 @@
 ---
 title: "Le site officiel d'Acecore fait peau neuve"
 description: "Le site officiel d'Acecore a été entièrement repensé. Découvrez les caractéristiques du nouveau site et nos perspectives pour l'avenir."
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
@@ -74,6 +74,8 @@ Nous publierons des informations techniques, des actualités et des rapports d'a
 ### SEO et accessibilité
 
 Le site est conçu en tenant compte du référencement (SEO) et de l'accessibilité Web. L'implémentation de données structurées et une structure HTML sémantique améliorent la visibilité depuis les moteurs de recherche.
+
+Pour l'amélioration continue après la refonte, consultez aussi le [Guide d'amélioration de la qualité des sites Astro](/blog/website-improvement-batches/) et le [Guide des coûts de création de site web](/blog/homepage-production-cost-guide/).
 
 ## Perspectives
 

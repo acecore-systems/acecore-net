@@ -1,7 +1,7 @@
 ---
 title: 'Acecore 官网全面改版上线'
 description: 'Acecore 的官方网站已全面改版上线。介绍新站点的特色和未来展望。'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
@@ -74,6 +74,8 @@ Acecore 自成立以来，提供系统开发、网站制作、服务器运维等
 ### SEO 和无障碍性
 
 注重搜索引擎优化（SEO）和 Web 无障碍性的设计。通过结构化数据的实现和语义化 HTML 结构，提高了搜索引擎的可发现性。
+
+关于改版后的持续优化，也请参考[Astro 网站质量改进指南](/blog/website-improvement-batches/)和[官网制作费用参考](/blog/homepage-production-cost-guide/)。
 
 ## 未来展望
 
