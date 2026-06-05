@@ -95,7 +95,7 @@ src/
 ### Sveltia CMS（推奨）
 
 1. 本番では `https://acecore.net/admin/index.html`、ローカルでは `http://localhost:4321/admin/index.html` にアクセス
-2. 本番編集は GitHub personal access token でサインインする
+2. 本番編集は GitHub OAuth でサインインする
 3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
 4. 「ブログ」から日本語ソース記事のみ新規作成・編集
 5. 翻訳は Copilot translation PR task で `src/content/blog/{locale}/` に反映
@@ -167,12 +167,13 @@ GitHub への push で自動デプロイされます。
 
 ## 関連ファイル
 
-| ファイル                  | 説明                                                            |
-| ------------------------- | --------------------------------------------------------------- |
-| `astro.config.mjs`        | Astro 設定（i18n・rehype プラグイン含む）                       |
-| `uno.config.ts`           | UnoCSS テーマ・ショートカット                                   |
-| `src/content.config.ts`   | コンテンツコレクション定義                                      |
-| `public/admin/index.html` | Sveltia CMS 管理画面                                            |
-| `public/admin/config.yml` | Sveltia CMS 設定                                                |
-| `public/ads.txt`          | Google AdSense 認証                                             |
-| `public/_headers`         | Cloudflare Pages HTTP ヘッダー（キャッシュ・CSP・セキュリティ） |
+| ファイル                   | 説明                                                            |
+| -------------------------- | --------------------------------------------------------------- |
+| `astro.config.mjs`         | Astro 設定（i18n・rehype プラグイン含む）                       |
+| `uno.config.ts`            | UnoCSS テーマ・ショートカット                                   |
+| `src/content.config.ts`    | コンテンツコレクション定義                                      |
+| `public/admin/index.html`  | Sveltia CMS 管理画面                                            |
+| `public/admin/config.yml`  | Sveltia CMS 設定                                                |
+| `workers/sveltia-cms-auth` | Sveltia CMS GitHub OAuth 用 Cloudflare Worker                   |
+| `public/ads.txt`           | Google AdSense 認証                                             |
+| `public/_headers`          | Cloudflare Pages HTTP ヘッダー（キャッシュ・CSP・セキュリティ） |

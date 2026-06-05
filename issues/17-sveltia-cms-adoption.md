@@ -10,15 +10,16 @@ Sveltia CMS を採用する。
 
 - `/admin/index.html` に Sveltia CMS の管理画面を追加
 - `/admin/config.yml` に GitHub backend、ブログ、著者、タグのコレクションを定義
+- `workers/sveltia-cms-auth` に GitHub OAuth 用の Cloudflare Worker を追加
 - `.pages.yml` を削除し、Pages CMS から Sveltia CMS へ設定を移行
-- `public/_headers` で `/admin/*` 専用 CSP を設定する方針
+- `public/_headers` で `/admin/*` 専用 CSP と OAuth popup 用 COOP を設定する方針
 - README の運用手順を Sveltia CMS 前提へ更新
 
 ## 認証方針
 
-初期導入では `auth_methods: [token]` を採用する。GitHub OAuth は Sveltia CMS Authenticator などの OAuth client server と `backend.base_url` が必要になるため、編集者が増える段階で Cloudflare Workers に Auth Worker を追加する。
+非エンジニア編集者も扱いやすいように、`auth_methods: [oauth]` を採用する。GitHub OAuth は Cloudflare Workers 上の Auth Worker を `backend.base_url` として指定する。
 
-この判断により、今回の導入は追加インフラなしで進められる。非エンジニア編集者が増える場合は PAT 運用ではなく OAuth へ切り替える。
+この判断により、PAT の発行・scope 選択・失効管理を編集者へ委ねない運用にする。GitHub repo への権限付与と剥奪は GitHub 側のユーザー/organization 権限で管理する。
 
 ## 移行範囲
 
@@ -33,8 +34,7 @@ Sveltia CMS の管理対象は Pages CMS 時代と同じく次の 3 つに限定
 ## 残リスク
 
 - Sveltia CMS は 1.0 未到達なので、config schema や UI の変更リスクがある
-- GitHub OAuth を使う場合は Auth Worker の運用と GitHub OAuth App 設定が別途必要
-- PAT 認証は少人数向けで、編集者が増えた場合は権限管理とトークン管理の運用負荷が上がる
+- Auth Worker の運用と GitHub OAuth App の Client ID/Secret 管理が必要
 
 ## 採用条件への対応
 

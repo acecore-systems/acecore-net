@@ -4,7 +4,8 @@ backend:
   name: github
   repo: acecore-systems/acecore-net
   branch: main
-  auth_methods: [token]
+  base_url: https://sveltia-cms-auth.sparkling-tree-7cef.workers.dev
+  auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
     update: 'cms: update {{collection}} "{{slug}}"'

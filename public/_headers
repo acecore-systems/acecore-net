@@ -13,10 +13,12 @@
 # Sveltia CMS 管理画面
 /admin/*
   ! Content-Security-Policy
+  ! Cross-Origin-Opener-Policy
   ! X-Robots-Tag
   Cache-Control: public, max-age=0, must-revalidate
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
   X-Robots-Tag: noindex, nofollow
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*; media-src blob:; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://www.githubstatus.com; frame-src blob:; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*; media-src blob:; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://www.githubstatus.com https://sveltia-cms-auth.sparkling-tree-7cef.workers.dev; frame-src blob:; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com https://sveltia-cms-auth.sparkling-tree-7cef.workers.dev; frame-ancestors 'self'
 
 /admin/config.yml
   Content-Type: application/yaml; charset=utf-8

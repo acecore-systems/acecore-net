@@ -1,0 +1,13 @@
+{
+  "name": "sveltia-cms-auth",
+  "main": "src/index.js",
+  "compatibility_date": "2026-06-05",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true,
+  },
+  "vars": {
+    "ALLOWED_DOMAINS": "acecore.net,localhost,localhost:4321,127.0.0.1",
+    "GITHUB_SCOPE": "repo,user",
+  },
+}
