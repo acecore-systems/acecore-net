@@ -412,2615 +412,2118 @@ collections:
       - name: 'common'
         label: '共通UI・ナビ'
         file: src/i18n/source/ja/common.json
+        format: json
         fields:
           - name: 'meta'
             label: 'メタ情報'
             hint: 'meta'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'siteTitle'
                 label: 'Site Title'
                 hint: 'meta.siteTitle'
-                required: false
                 widget: string
               - name: 'defaultDescription'
                 label: 'Default Description'
                 hint: 'meta.defaultDescription'
-                required: false
                 widget: string
           - name: 'nav'
             label: 'ナビゲーション'
             hint: 'nav'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'home'
                 label: 'Home'
                 hint: 'nav.home'
-                required: false
                 widget: string
               - name: 'services'
                 label: 'Services'
                 hint: 'nav.services'
-                required: false
                 widget: string
               - name: 'works'
                 label: 'Works'
                 hint: 'nav.works'
-                required: false
                 widget: string
               - name: 'about'
                 label: 'About'
                 hint: 'nav.about'
-                required: false
                 widget: string
               - name: 'blog'
                 label: 'Blog'
                 hint: 'nav.blog'
-                required: false
                 widget: string
               - name: 'contact'
                 label: 'Contact'
                 hint: 'nav.contact'
-                required: false
                 widget: string
           - name: 'common'
             label: '共通UI'
             hint: 'common'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'skipToContent'
                 label: 'Skip To Content'
                 hint: 'common.skipToContent'
-                required: false
                 widget: string
               - name: 'search'
                 label: 'Search'
                 hint: 'common.search'
-                required: false
                 widget: string
               - name: 'searchPlaceholder'
                 label: 'Search Placeholder'
                 hint: 'common.searchPlaceholder'
-                required: false
                 widget: string
               - name: 'searchShortcut'
                 label: 'Search Shortcut'
                 hint: 'common.searchShortcut'
-                required: false
                 widget: string
               - name: 'openMenu'
                 label: 'Open Menu'
                 hint: 'common.openMenu'
-                required: false
                 widget: string
               - name: 'closeMenu'
                 label: 'Close Menu'
                 hint: 'common.closeMenu'
-                required: false
                 widget: string
               - name: 'close'
                 label: 'Close'
                 hint: 'common.close'
-                required: false
                 widget: string
               - name: 'scrollToTop'
                 label: 'Scroll To Top'
                 hint: 'common.scrollToTop'
-                required: false
                 widget: string
               - name: 'opensInNewTab'
                 label: 'Opens In New Tab'
                 hint: 'common.opensInNewTab'
-                required: false
                 widget: string
               - name: 'mainNav'
                 label: 'Main Nav'
                 hint: 'common.mainNav'
-                required: false
                 widget: string
               - name: 'mobileNav'
                 label: 'Mobile Nav'
                 hint: 'common.mobileNav'
-                required: false
                 widget: string
               - name: 'breadcrumb'
                 label: 'Breadcrumb'
                 hint: 'common.breadcrumb'
-                required: false
                 widget: string
               - name: 'home'
                 label: 'Home'
                 hint: 'common.home'
-                required: false
                 widget: string
               - name: 'loading'
                 label: 'Loading'
                 hint: 'common.loading'
-                required: false
                 widget: string
               - name: 'required'
                 label: 'Required'
                 hint: 'common.required'
-                required: false
                 widget: string
               - name: 'closeAd'
                 label: 'Close Ad'
                 hint: 'common.closeAd'
-                required: false
                 widget: string
               - name: 'youtubeDefaultTitle'
                 label: 'Youtube Default Title'
                 hint: 'common.youtubeDefaultTitle'
-                required: false
                 widget: string
               - name: 'playVideo'
                 label: 'Play Video'
                 hint: 'common.playVideo'
-                required: false
                 widget: string
               - name: 'timeline'
                 label: 'Timeline'
                 hint: 'common.timeline'
-                required: false
                 widget: string
               - name: 'copyCode'
                 label: 'Copy Code'
                 hint: 'common.copyCode'
-                required: false
                 widget: string
               - name: 'codeCopied'
                 label: 'Code Copied'
                 hint: 'common.codeCopied'
-                required: false
                 widget: string
               - name: 'copyFailed'
                 label: 'Copy Failed'
                 hint: 'common.copyFailed'
-                required: false
                 widget: string
           - name: 'hero'
             label: 'ヒーロー共通'
             hint: 'hero'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'ctaServices'
                 label: 'Cta Services'
                 hint: 'hero.ctaServices'
-                required: false
                 widget: string
               - name: 'ctaContact'
                 label: 'Cta Contact'
                 hint: 'hero.ctaContact'
-                required: false
                 widget: string
               - name: 'sliderLabel'
                 label: 'Slider Label'
                 hint: 'hero.sliderLabel'
-                required: false
                 widget: string
               - name: 'slide'
                 label: 'Slide'
                 hint: 'hero.slide'
-                required: false
                 widget: string
               - name: 'pauseAutoplay'
                 label: 'Pause Autoplay'
                 hint: 'hero.pauseAutoplay'
-                required: false
                 widget: string
               - name: 'resumeAutoplay'
                 label: 'Resume Autoplay'
                 hint: 'hero.resumeAutoplay'
-                required: false
                 widget: string
           - name: 'checklist'
             label: 'チェックリスト'
             hint: 'checklist'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'done'
                 label: 'Done'
                 hint: 'checklist.done'
-                required: false
                 widget: string
               - name: 'pending'
                 label: 'Pending'
                 hint: 'checklist.pending'
-                required: false
                 widget: string
           - name: 'footer'
             label: 'フッター'
             hint: 'footer'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'tagline'
                 label: 'Tagline'
                 hint: 'footer.tagline'
-                required: false
                 widget: string
               - name: 'description'
                 label: '説明'
                 hint: 'footer.description'
-                required: false
                 widget: string
               - name: 'sitemap'
                 label: 'Sitemap'
                 hint: 'footer.sitemap'
-                required: false
                 widget: string
               - name: 'relatedLinks'
                 label: 'Related Links'
                 hint: 'footer.relatedLinks'
-                required: false
                 widget: string
               - name: 'schools'
                 label: 'Schools'
                 hint: 'footer.schools'
-                required: false
                 widget: string
               - name: 'privacy'
                 label: 'Privacy'
                 hint: 'footer.privacy'
-                required: false
                 widget: string
           - name: 'pageNames'
             label: 'ページ名'
             hint: 'pageNames'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'services'
                 label: 'Services'
                 hint: 'pageNames.services'
-                required: false
                 widget: string
               - name: 'works'
                 label: 'Works'
                 hint: 'pageNames.works'
-                required: false
                 widget: string
               - name: 'schools'
                 label: 'Schools'
                 hint: 'pageNames.schools'
-                required: false
                 widget: string
               - name: 'about'
                 label: 'About'
                 hint: 'pageNames.about'
-                required: false
                 widget: string
               - name: 'contact'
                 label: 'Contact'
                 hint: 'pageNames.contact'
-                required: false
                 widget: string
               - name: 'blog'
                 label: 'Blog'
                 hint: 'pageNames.blog'
-                required: false
                 widget: string
               - name: 'acestudio'
                 label: 'Acestudio'
                 hint: 'pageNames.acestudio'
-                required: false
                 widget: string
               - name: 'privacy'
                 label: 'Privacy'
                 hint: 'pageNames.privacy'
-                required: false
                 widget: string
               - name: 'tags'
                 label: 'Tags'
                 hint: 'pageNames.tags'
-                required: false
                 widget: string
               - name: 'authors'
                 label: 'Authors'
                 hint: 'pageNames.authors'
-                required: false
                 widget: string
               - name: 'archive'
                 label: 'Archive'
                 hint: 'pageNames.archive'
-                required: false
                 widget: string
               - name: 'page'
                 label: 'Page'
                 hint: 'pageNames.page'
-                required: false
                 widget: string
       - name: 'home'
         label: 'トップページ'
         file: src/i18n/source/ja/pages/home.json
+        format: json
         fields:
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgTeam'
             label: 'Hero Img Team'
             hint: 'heroImgTeam'
-            required: false
             widget: string
           - name: 'heroImgCollaboration'
             label: 'Hero Img Collaboration'
             hint: 'heroImgCollaboration'
-            required: false
             widget: string
           - name: 'heroImgMeeting'
             label: 'Hero Img Meeting'
             hint: 'heroImgMeeting'
-            required: false
             widget: string
           - name: 'heroImgStrategy'
             label: 'Hero Img Strategy'
             hint: 'heroImgStrategy'
-            required: false
             widget: string
           - name: 'servicesHeading'
             label: 'Services Heading'
             hint: 'servicesHeading'
-            required: false
             widget: string
           - name: 'servicesLead'
             label: 'Services Lead'
             hint: 'servicesLead'
-            required: false
             widget: string
           - name: 'serviceSystem'
             label: 'Service System'
             hint: 'serviceSystem'
-            required: false
             widget: string
           - name: 'serviceSystemDesc'
             label: 'Service System Desc'
             hint: 'serviceSystemDesc'
-            required: false
             widget: string
           - name: 'serviceServer'
             label: 'Service Server'
             hint: 'serviceServer'
-            required: false
             widget: string
           - name: 'serviceServerDesc'
             label: 'Service Server Desc'
             hint: 'serviceServerDesc'
-            required: false
             widget: string
           - name: 'serviceWeb'
             label: 'Service Web'
             hint: 'serviceWeb'
-            required: false
             widget: string
           - name: 'serviceWebDesc'
             label: 'Service Web Desc'
             hint: 'serviceWebDesc'
-            required: false
             widget: string
           - name: 'serviceDesign'
             label: 'Service Design'
             hint: 'serviceDesign'
-            required: false
             widget: string
           - name: 'serviceDesignDesc'
             label: 'Service Design Desc'
             hint: 'serviceDesignDesc'
-            required: false
             widget: string
           - name: 'serviceSchools'
             label: 'Service Schools'
             hint: 'serviceSchools'
-            required: false
             widget: string
           - name: 'serviceSchoolsDesc'
             label: 'Service Schools Desc'
             hint: 'serviceSchoolsDesc'
-            required: false
             widget: string
           - name: 'serviceAceserver'
             label: 'Service Aceserver'
             hint: 'serviceAceserver'
-            required: false
             widget: string
           - name: 'serviceAceserverDesc'
             label: 'Service Aceserver Desc'
             hint: 'serviceAceserverDesc'
-            required: false
             widget: string
           - name: 'viewServicesDetail'
             label: 'View Services Detail'
             hint: 'viewServicesDetail'
-            required: false
             widget: string
           - name: 'layersEyebrow'
             label: 'Layers Eyebrow'
             hint: 'layersEyebrow'
-            required: false
             widget: string
           - name: 'layersTitle'
             label: 'Layers Title'
             hint: 'layersTitle'
-            required: false
             widget: string
           - name: 'layersDescription'
             label: 'Layers Description'
             hint: 'layersDescription'
-            required: false
             widget: string
           - name: 'layerDesign'
             label: 'Layer Design'
             hint: 'layerDesign'
-            required: false
             widget: string
           - name: 'layerDesignDesc'
             label: 'Layer Design Desc'
             hint: 'layerDesignDesc'
-            required: false
             widget: string
           - name: 'layerInfra'
             label: 'Layer Infra'
             hint: 'layerInfra'
-            required: false
             widget: string
           - name: 'layerInfraDesc'
             label: 'Layer Infra Desc'
             hint: 'layerInfraDesc'
-            required: false
             widget: string
           - name: 'layerExpression'
             label: 'Layer Expression'
             hint: 'layerExpression'
-            required: false
             widget: string
           - name: 'layerExpressionDesc'
             label: 'Layer Expression Desc'
             hint: 'layerExpressionDesc'
-            required: false
             widget: string
           - name: 'layerEducation'
             label: 'Layer Education'
             hint: 'layerEducation'
-            required: false
             widget: string
           - name: 'layerEducationDesc'
             label: 'Layer Education Desc'
             hint: 'layerEducationDesc'
-            required: false
             widget: string
           - name: 'aboutHeading'
             label: 'About Heading'
             hint: 'aboutHeading'
-            required: false
             widget: string
           - name: 'aboutBody1'
             label: 'About Body1'
             hint: 'aboutBody1'
-            required: false
             widget: string
           - name: 'aboutBody2'
             label: 'About Body2'
             hint: 'aboutBody2'
-            required: false
             widget: string
           - name: 'aboutEducationLink'
             label: 'About Education Link'
             hint: 'aboutEducationLink'
-            required: false
             widget: string
           - name: 'viewAbout'
             label: 'View About'
             hint: 'viewAbout'
-            required: false
             widget: string
           - name: 'viewServices'
             label: 'View Services'
             hint: 'viewServices'
-            required: false
             widget: string
           - name: 'latestBlog'
             label: 'Latest Blog'
             hint: 'latestBlog'
-            required: false
             widget: string
           - name: 'viewAllPosts'
             label: 'View All Posts'
             hint: 'viewAllPosts'
-            required: false
             widget: string
       - name: 'services'
         label: 'サービスページ'
         file: src/i18n/source/ja/pages/services.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'serviceMapEyebrow'
             label: 'Service Map Eyebrow'
             hint: 'serviceMapEyebrow'
-            required: false
             widget: string
           - name: 'serviceMapTitle'
             label: 'Service Map Title'
             hint: 'serviceMapTitle'
-            required: false
             widget: string
           - name: 'serviceMapDesc'
             label: 'Service Map Desc'
             hint: 'serviceMapDesc'
-            required: false
             widget: string
           - name: 'mapDevTitle'
             label: 'Map Dev Title'
             hint: 'mapDevTitle'
-            required: false
             widget: string
           - name: 'mapDevDesc'
             label: 'Map Dev Desc'
             hint: 'mapDevDesc'
-            required: false
             widget: string
           - name: 'mapInfraTitle'
             label: 'Map Infra Title'
             hint: 'mapInfraTitle'
-            required: false
             widget: string
           - name: 'mapInfraDesc'
             label: 'Map Infra Desc'
             hint: 'mapInfraDesc'
-            required: false
             widget: string
           - name: 'mapPublishTitle'
             label: 'Map Publish Title'
             hint: 'mapPublishTitle'
-            required: false
             widget: string
           - name: 'mapPublishDesc'
             label: 'Map Publish Desc'
             hint: 'mapPublishDesc'
-            required: false
             widget: string
           - name: 'mapEducationTitle'
             label: 'Map Education Title'
             hint: 'mapEducationTitle'
-            required: false
             widget: string
           - name: 'mapEducationDesc'
             label: 'Map Education Desc'
             hint: 'mapEducationDesc'
-            required: false
             widget: string
           - name: 'navDev'
             label: 'Nav Dev'
             hint: 'navDev'
-            required: false
             widget: string
           - name: 'navServer'
             label: 'Nav Server'
             hint: 'navServer'
-            required: false
             widget: string
           - name: 'navWeb'
             label: 'Nav Web'
             hint: 'navWeb'
-            required: false
             widget: string
           - name: 'navDesign'
             label: 'Nav Design'
             hint: 'navDesign'
-            required: false
             widget: string
           - name: 'navEducation'
             label: 'Nav Education'
             hint: 'navEducation'
-            required: false
             widget: string
           - name: 'navAceserver'
             label: 'Nav Aceserver'
             hint: 'navAceserver'
-            required: false
             widget: string
           - name: 'navAcestudio'
             label: 'Nav Acestudio'
             hint: 'navAcestudio'
-            required: false
             widget: string
           - name: 'systemDev'
             label: 'System Dev'
             hint: 'systemDev'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'systemDev.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'systemDev.desc'
-                required: false
                 widget: text
               - name: 'examplesLabel'
                 label: 'Examples Label'
                 hint: 'systemDev.examplesLabel'
-                required: false
                 widget: string
               - name: 'example1'
                 label: 'Example1'
                 hint: 'systemDev.example1'
-                required: false
                 widget: string
               - name: 'example2'
                 label: 'Example2'
                 hint: 'systemDev.example2'
-                required: false
                 widget: string
               - name: 'example3'
                 label: 'Example3'
                 hint: 'systemDev.example3'
-                required: false
                 widget: string
               - name: 'example4'
                 label: 'Example4'
                 hint: 'systemDev.example4'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'systemDev.imgAlt'
-                required: false
                 widget: string
           - name: 'server'
             label: 'Server'
             hint: 'server'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'server.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'server.desc'
-                required: false
                 widget: text
               - name: 'examplesLabel'
                 label: 'Examples Label'
                 hint: 'server.examplesLabel'
-                required: false
                 widget: string
               - name: 'example1'
                 label: 'Example1'
                 hint: 'server.example1'
-                required: false
                 widget: string
               - name: 'example2'
                 label: 'Example2'
                 hint: 'server.example2'
-                required: false
                 widget: string
               - name: 'example3'
                 label: 'Example3'
                 hint: 'server.example3'
-                required: false
                 widget: string
               - name: 'example4'
                 label: 'Example4'
                 hint: 'server.example4'
-                required: false
                 widget: string
           - name: 'web'
             label: 'Web'
             hint: 'web'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'web.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'web.desc'
-                required: false
                 widget: string
               - name: 'examplesLabel'
                 label: 'Examples Label'
                 hint: 'web.examplesLabel'
-                required: false
                 widget: string
               - name: 'example1'
                 label: 'Example1'
                 hint: 'web.example1'
-                required: false
                 widget: string
               - name: 'example2'
                 label: 'Example2'
                 hint: 'web.example2'
-                required: false
                 widget: string
               - name: 'example3'
                 label: 'Example3'
                 hint: 'web.example3'
-                required: false
                 widget: string
               - name: 'example4'
                 label: 'Example4'
                 hint: 'web.example4'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'web.imgAlt'
-                required: false
                 widget: string
           - name: 'timelineTitle'
             label: 'Timeline Title'
             hint: 'timelineTitle'
-            required: false
             widget: string
           - name: 'timelineStep1Title'
             label: 'Timeline Step1 Title'
             hint: 'timelineStep1Title'
-            required: false
             widget: string
           - name: 'timelineStep1Desc'
             label: 'Timeline Step1 Desc'
             hint: 'timelineStep1Desc'
-            required: false
             widget: string
           - name: 'timelineStep2Title'
             label: 'Timeline Step2 Title'
             hint: 'timelineStep2Title'
-            required: false
             widget: string
           - name: 'timelineStep2Desc'
             label: 'Timeline Step2 Desc'
             hint: 'timelineStep2Desc'
-            required: false
             widget: string
           - name: 'timelineStep3Title'
             label: 'Timeline Step3 Title'
             hint: 'timelineStep3Title'
-            required: false
             widget: string
           - name: 'timelineStep3Desc'
             label: 'Timeline Step3 Desc'
             hint: 'timelineStep3Desc'
-            required: false
             widget: string
           - name: 'timelineStep4Title'
             label: 'Timeline Step4 Title'
             hint: 'timelineStep4Title'
-            required: false
             widget: string
           - name: 'timelineStep4Desc'
             label: 'Timeline Step4 Desc'
             hint: 'timelineStep4Desc'
-            required: false
             widget: string
           - name: 'design'
             label: 'Design'
             hint: 'design'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'design.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'design.desc'
-                required: false
                 widget: text
               - name: 'examplesLabel'
                 label: 'Examples Label'
                 hint: 'design.examplesLabel'
-                required: false
                 widget: string
               - name: 'example1'
                 label: 'Example1'
                 hint: 'design.example1'
-                required: false
                 widget: string
               - name: 'example2'
                 label: 'Example2'
                 hint: 'design.example2'
-                required: false
                 widget: string
               - name: 'example3'
                 label: 'Example3'
                 hint: 'design.example3'
-                required: false
                 widget: string
               - name: 'example4'
                 label: 'Example4'
                 hint: 'design.example4'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'design.imgAlt'
-                required: false
                 widget: string
           - name: 'education'
             label: 'Education'
             hint: 'education'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'education.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'education.desc'
-                required: false
                 widget: text
               - name: 'coursesLabel'
                 label: 'Courses Label'
                 hint: 'education.coursesLabel'
-                required: false
                 widget: string
               - name: 'course1'
                 label: 'Course1'
                 hint: 'education.course1'
-                required: false
                 widget: string
               - name: 'course2'
                 label: 'Course2'
                 hint: 'education.course2'
-                required: false
                 widget: string
               - name: 'course3'
                 label: 'Course3'
                 hint: 'education.course3'
-                required: false
                 widget: string
               - name: 'course4'
                 label: 'Course4'
                 hint: 'education.course4'
-                required: false
                 widget: string
               - name: 'course5'
                 label: 'Course5'
                 hint: 'education.course5'
-                required: false
                 widget: string
               - name: 'detailLink'
                 label: 'Detail Link'
                 hint: 'education.detailLink'
-                required: false
                 widget: string
           - name: 'aceserver'
             label: 'Aceserver'
             hint: 'aceserver'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'aceserver.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'aceserver.desc'
-                required: false
                 widget: text
               - name: 'featuresLabel'
                 label: 'Features Label'
                 hint: 'aceserver.featuresLabel'
-                required: false
                 widget: string
               - name: 'feature1'
                 label: 'Feature1'
                 hint: 'aceserver.feature1'
-                required: false
                 widget: string
               - name: 'feature2'
                 label: 'Feature2'
                 hint: 'aceserver.feature2'
-                required: false
                 widget: string
               - name: 'feature3'
                 label: 'Feature3'
                 hint: 'aceserver.feature3'
-                required: false
                 widget: string
               - name: 'feature4'
                 label: 'Feature4'
                 hint: 'aceserver.feature4'
-                required: false
                 widget: string
               - name: 'feature5'
                 label: 'Feature5'
                 hint: 'aceserver.feature5'
-                required: false
                 widget: string
           - name: 'acestudio'
             label: 'Acestudio'
             hint: 'acestudio'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'acestudio.title'
-                required: false
                 widget: string
               - name: 'comingSoon'
                 label: 'Coming Soon'
                 hint: 'acestudio.comingSoon'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'acestudio.desc'
-                required: false
                 widget: text
               - name: 'areasLabel'
                 label: 'Areas Label'
                 hint: 'acestudio.areasLabel'
-                required: false
                 widget: string
               - name: 'area1'
                 label: 'Area1'
                 hint: 'acestudio.area1'
-                required: false
                 widget: string
               - name: 'area2'
                 label: 'Area2'
                 hint: 'acestudio.area2'
-                required: false
                 widget: string
               - name: 'area3'
                 label: 'Area3'
                 hint: 'acestudio.area3'
-                required: false
                 widget: string
               - name: 'note'
                 label: 'Note'
                 hint: 'acestudio.note'
-                required: false
                 widget: string
               - name: 'detailLink'
                 label: 'Detail Link'
                 hint: 'acestudio.detailLink'
-                required: false
                 widget: string
           - name: 'ctaHeading'
             label: 'Cta Heading'
             hint: 'ctaHeading'
-            required: false
             widget: string
           - name: 'ctaBody'
             label: 'Cta Body'
             hint: 'ctaBody'
-            required: false
             widget: string
           - name: 'ctaContact'
             label: 'Cta Contact'
             hint: 'ctaContact'
-            required: false
             widget: string
           - name: 'ctaSchools'
             label: 'Cta Schools'
             hint: 'ctaSchools'
-            required: false
             widget: string
       - name: 'about'
         label: '会社概要ページ'
         file: src/i18n/source/ja/pages/about.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'missionLoopEyebrow'
             label: 'Mission Loop Eyebrow'
             hint: 'missionLoopEyebrow'
-            required: false
             widget: string
           - name: 'missionLoopTitle'
             label: 'Mission Loop Title'
             hint: 'missionLoopTitle'
-            required: false
             widget: string
           - name: 'missionLoopDesc'
             label: 'Mission Loop Desc'
             hint: 'missionLoopDesc'
-            required: false
             widget: string
           - name: 'cycleImplementTitle'
             label: 'Cycle Implement Title'
             hint: 'cycleImplementTitle'
-            required: false
             widget: string
           - name: 'cycleImplementDesc'
             label: 'Cycle Implement Desc'
             hint: 'cycleImplementDesc'
-            required: false
             widget: string
           - name: 'cycleExpressTitle'
             label: 'Cycle Express Title'
             hint: 'cycleExpressTitle'
-            required: false
             widget: string
           - name: 'cycleExpressDesc'
             label: 'Cycle Express Desc'
             hint: 'cycleExpressDesc'
-            required: false
             widget: string
           - name: 'cycleNurtureTitle'
             label: 'Cycle Nurture Title'
             hint: 'cycleNurtureTitle'
-            required: false
             widget: string
           - name: 'cycleNurtureDesc'
             label: 'Cycle Nurture Desc'
             hint: 'cycleNurtureDesc'
-            required: false
             widget: string
           - name: 'cycleReturnTitle'
             label: 'Cycle Return Title'
             hint: 'cycleReturnTitle'
-            required: false
             widget: string
           - name: 'cycleReturnDesc'
             label: 'Cycle Return Desc'
             hint: 'cycleReturnDesc'
-            required: false
             widget: string
           - name: 'philosophyHeading'
             label: 'Philosophy Heading'
             hint: 'philosophyHeading'
-            required: false
             widget: string
           - name: 'philosophyMotto'
             label: 'Philosophy Motto'
             hint: 'philosophyMotto'
-            required: false
             widget: string
           - name: 'philosophyBody1'
             label: 'Philosophy Body1'
             hint: 'philosophyBody1'
-            required: false
             widget: text
           - name: 'philosophyBody2'
             label: 'Philosophy Body2'
             hint: 'philosophyBody2'
-            required: false
             widget: text
           - name: 'collaborationImgAlt'
             label: 'Collaboration Img Alt'
             hint: 'collaborationImgAlt'
-            required: false
             widget: string
           - name: 'activitiesTitle'
             label: 'Activities Title'
             hint: 'activitiesTitle'
-            required: false
             widget: string
           - name: 'activity1'
             label: 'Activity1'
             hint: 'activity1'
-            required: false
             widget: string
           - name: 'activity2'
             label: 'Activity2'
             hint: 'activity2'
-            required: false
             widget: string
           - name: 'activity3'
             label: 'Activity3'
             hint: 'activity3'
-            required: false
             widget: string
           - name: 'activity4'
             label: 'Activity4'
             hint: 'activity4'
-            required: false
             widget: string
           - name: 'activity5'
             label: 'Activity5'
             hint: 'activity5'
-            required: false
             widget: string
           - name: 'workshopImgAlt'
             label: 'Workshop Img Alt'
             hint: 'workshopImgAlt'
-            required: false
             widget: string
           - name: 'initiativesHeading'
             label: 'Initiatives Heading'
             hint: 'initiativesHeading'
-            required: false
             widget: string
           - name: 'communityTitle'
             label: 'Community Title'
             hint: 'communityTitle'
-            required: false
             widget: string
           - name: 'communityDesc'
             label: 'Community Desc'
             hint: 'communityDesc'
-            required: false
             widget: string
           - name: 'ossTitle'
             label: 'Oss Title'
             hint: 'ossTitle'
-            required: false
             widget: string
           - name: 'ossDesc'
             label: 'Oss Desc'
             hint: 'ossDesc'
-            required: false
             widget: string
           - name: 'regionalTitle'
             label: 'Regional Title'
             hint: 'regionalTitle'
-            required: false
             widget: string
           - name: 'regionalDesc'
             label: 'Regional Desc'
             hint: 'regionalDesc'
-            required: false
             widget: string
           - name: 'partnershipTitle'
             label: 'Partnership Title'
             hint: 'partnershipTitle'
-            required: false
             widget: string
           - name: 'partnershipDesc'
             label: 'Partnership Desc'
             hint: 'partnershipDesc'
-            required: false
             widget: string
           - name: 'relatedLinksHeading'
             label: 'Related Links Heading'
             hint: 'relatedLinksHeading'
-            required: false
             widget: string
           - name: 'linkAceserver'
             label: 'Link Aceserver'
             hint: 'linkAceserver'
-            required: false
             widget: string
           - name: 'linkAceserverDesc'
             label: 'Link Aceserver Desc'
             hint: 'linkAceserverDesc'
-            required: false
             widget: string
           - name: 'linkX'
             label: 'Link X'
             hint: 'linkX'
-            required: false
             widget: string
           - name: 'linkXDesc'
             label: 'Link XDesc'
             hint: 'linkXDesc'
-            required: false
             widget: string
           - name: 'linkGithub'
             label: 'Link Github'
             hint: 'linkGithub'
-            required: false
             widget: string
           - name: 'linkGithubDesc'
             label: 'Link Github Desc'
             hint: 'linkGithubDesc'
-            required: false
             widget: string
           - name: 'linkDiscord'
             label: 'Link Discord'
             hint: 'linkDiscord'
-            required: false
             widget: string
           - name: 'linkDiscordDesc'
             label: 'Link Discord Desc'
             hint: 'linkDiscordDesc'
-            required: false
             widget: string
           - name: 'ctaHeading'
             label: 'Cta Heading'
             hint: 'ctaHeading'
-            required: false
             widget: string
           - name: 'ctaBody'
             label: 'Cta Body'
             hint: 'ctaBody'
-            required: false
             widget: string
           - name: 'ctaContact'
             label: 'Cta Contact'
             hint: 'ctaContact'
-            required: false
             widget: string
           - name: 'ctaServices'
             label: 'Cta Services'
             hint: 'ctaServices'
-            required: false
             widget: string
       - name: 'contact'
         label: 'お問い合わせページ'
         file: src/i18n/source/ja/pages/contact.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'responseTime'
             label: 'Response Time'
             hint: 'responseTime'
-            required: false
             widget: string
           - name: 'freeEstimate'
             label: 'Free Estimate'
             hint: 'freeEstimate'
-            required: false
             widget: string
           - name: 'lineInquiry'
             label: 'Line Inquiry'
             hint: 'lineInquiry'
-            required: false
             widget: string
           - name: 'formCategoryLabel'
             label: 'Form Category Label'
             hint: 'formCategoryLabel'
-            required: false
             widget: string
           - name: 'formCategoryPlaceholder'
             label: 'Form Category Placeholder'
             hint: 'formCategoryPlaceholder'
-            required: false
             widget: string
           - name: 'formCategoryService'
             label: 'Form Category Service'
             hint: 'formCategoryService'
-            required: false
             widget: string
           - name: 'formCategoryEstimate'
             label: 'Form Category Estimate'
             hint: 'formCategoryEstimate'
-            required: false
             widget: string
           - name: 'formCategoryPartnership'
             label: 'Form Category Partnership'
             hint: 'formCategoryPartnership'
-            required: false
             widget: string
           - name: 'formCategoryRecruit'
             label: 'Form Category Recruit'
             hint: 'formCategoryRecruit'
-            required: false
             widget: string
           - name: 'formCategoryOther'
             label: 'Form Category Other'
             hint: 'formCategoryOther'
-            required: false
             widget: string
           - name: 'formNameLabel'
             label: 'Form Name Label'
             hint: 'formNameLabel'
-            required: false
             widget: string
           - name: 'formEmailLabel'
             label: 'Form Email Label'
             hint: 'formEmailLabel'
-            required: false
             widget: string
           - name: 'formSubjectLabel'
             label: 'Form Subject Label'
             hint: 'formSubjectLabel'
-            required: false
             widget: string
           - name: 'formMessageLabel'
             label: 'Form Message Label'
             hint: 'formMessageLabel'
-            required: false
             widget: string
           - name: 'formSubmit'
             label: 'Form Submit'
             hint: 'formSubmit'
-            required: false
             widget: string
           - name: 'formSending'
             label: 'Form Sending'
             hint: 'formSending'
-            required: false
             widget: string
           - name: 'formSuccess'
             label: 'Form Success'
             hint: 'formSuccess'
-            required: false
             widget: string
           - name: 'formError'
             label: 'Form Error'
             hint: 'formError'
-            required: false
             widget: string
           - name: 'formSubmitNote'
             label: 'Form Submit Note'
             hint: 'formSubmitNote'
-            required: false
             widget: string
           - name: 'otherMethodsHeading'
             label: 'Other Methods Heading'
             hint: 'otherMethodsHeading'
-            required: false
             widget: string
           - name: 'methodPhone'
             label: 'Method Phone'
             hint: 'methodPhone'
-            required: false
             widget: string
           - name: 'methodEmail'
             label: 'Method Email'
             hint: 'methodEmail'
-            required: false
             widget: string
           - name: 'methodLine'
             label: 'Method Line'
             hint: 'methodLine'
-            required: false
             widget: string
           - name: 'methodLineDesc'
             label: 'Method Line Desc'
             hint: 'methodLineDesc'
-            required: false
             widget: string
           - name: 'methodX'
             label: 'Method X'
             hint: 'methodX'
-            required: false
             widget: string
           - name: 'methodXDesc'
             label: 'Method XDesc'
             hint: 'methodXDesc'
-            required: false
             widget: string
           - name: 'validationCategory'
             label: 'Validation Category'
             hint: 'validationCategory'
-            required: false
             widget: string
           - name: 'validationName'
             label: 'Validation Name'
             hint: 'validationName'
-            required: false
             widget: string
           - name: 'validationEmail'
             label: 'Validation Email'
             hint: 'validationEmail'
-            required: false
             widget: string
           - name: 'validationMessage'
             label: 'Validation Message'
             hint: 'validationMessage'
-            required: false
             widget: string
       - name: 'schools'
         label: 'Schoolsページ'
         file: src/i18n/source/ja/pages/schools.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'learningFlowEyebrow'
             label: 'Learning Flow Eyebrow'
             hint: 'learningFlowEyebrow'
-            required: false
             widget: string
           - name: 'learningFlowTitle'
             label: 'Learning Flow Title'
             hint: 'learningFlowTitle'
-            required: false
             widget: string
           - name: 'learningFlowDesc'
             label: 'Learning Flow Desc'
             hint: 'learningFlowDesc'
-            required: false
             widget: string
           - name: 'flowDiscoverTitle'
             label: 'Flow Discover Title'
             hint: 'flowDiscoverTitle'
-            required: false
             widget: string
           - name: 'flowDiscoverDesc'
             label: 'Flow Discover Desc'
             hint: 'flowDiscoverDesc'
-            required: false
             widget: string
           - name: 'flowPracticeTitle'
             label: 'Flow Practice Title'
             hint: 'flowPracticeTitle'
-            required: false
             widget: string
           - name: 'flowPracticeDesc'
             label: 'Flow Practice Desc'
             hint: 'flowPracticeDesc'
-            required: false
             widget: string
           - name: 'flowApplyTitle'
             label: 'Flow Apply Title'
             hint: 'flowApplyTitle'
-            required: false
             widget: string
           - name: 'flowApplyDesc'
             label: 'Flow Apply Desc'
             hint: 'flowApplyDesc'
-            required: false
             widget: string
           - name: 'flowContinueTitle'
             label: 'Flow Continue Title'
             hint: 'flowContinueTitle'
-            required: false
             widget: string
           - name: 'flowContinueDesc'
             label: 'Flow Continue Desc'
             hint: 'flowContinueDesc'
-            required: false
             widget: string
           - name: 'intro'
             label: 'Intro'
             hint: 'intro'
-            required: false
             widget: string
           - name: 'juku'
             label: 'Juku'
             hint: 'juku'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'juku.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'juku.desc'
-                required: false
                 widget: string
               - name: 'featuresLabel'
                 label: 'Features Label'
                 hint: 'juku.featuresLabel'
-                required: false
                 widget: string
               - name: 'feature1'
                 label: 'Feature1'
                 hint: 'juku.feature1'
-                required: false
                 widget: string
               - name: 'feature2'
                 label: 'Feature2'
                 hint: 'juku.feature2'
-                required: false
                 widget: string
               - name: 'feature3'
                 label: 'Feature3'
                 hint: 'juku.feature3'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'juku.imgAlt'
-                required: false
                 widget: string
           - name: 'robotProgramming'
             label: 'Robot Programming'
             hint: 'robotProgramming'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'robotProgramming.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'robotProgramming.desc'
-                required: false
                 widget: string
               - name: 'robotCourseTitle'
                 label: 'Robot Course Title'
                 hint: 'robotProgramming.robotCourseTitle'
-                required: false
                 widget: string
               - name: 'robotCourseDesc'
                 label: 'Robot Course Desc'
                 hint: 'robotProgramming.robotCourseDesc'
-                required: false
                 widget: string
               - name: 'robotProgCourseTitle'
                 label: 'Robot Prog Course Title'
                 hint: 'robotProgramming.robotProgCourseTitle'
-                required: false
                 widget: string
               - name: 'robotProgCourseDesc'
                 label: 'Robot Prog Course Desc'
                 hint: 'robotProgramming.robotProgCourseDesc'
-                required: false
                 widget: string
               - name: 'mcProgCourseTitle'
                 label: 'Mc Prog Course Title'
                 hint: 'robotProgramming.mcProgCourseTitle'
-                required: false
                 widget: string
               - name: 'mcProgCourseDesc'
                 label: 'Mc Prog Course Desc'
                 hint: 'robotProgramming.mcProgCourseDesc'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'robotProgramming.imgAlt'
-                required: false
                 widget: string
               - name: 'minecraftCourseTitle'
                 label: 'Minecraft Course Title'
                 hint: 'robotProgramming.minecraftCourseTitle'
-                required: false
                 widget: string
               - name: 'minecraftCourseDesc'
                 label: 'Minecraft Course Desc'
                 hint: 'robotProgramming.minecraftCourseDesc'
-                required: false
                 widget: string
               - name: 'progImgAlt'
                 label: 'Prog Img Alt'
                 hint: 'robotProgramming.progImgAlt'
-                required: false
                 widget: string
           - name: 'compareTitle'
             label: 'Compare Title'
             hint: 'compareTitle'
-            required: false
             widget: string
           - name: 'compareBefore'
             label: 'Compare Before'
             hint: 'compareBefore'
-            required: false
             widget: string
           - name: 'compareBefore1'
             label: 'Compare Before1'
             hint: 'compareBefore1'
-            required: false
             widget: string
           - name: 'compareBefore2'
             label: 'Compare Before2'
             hint: 'compareBefore2'
-            required: false
             widget: string
           - name: 'compareBefore3'
             label: 'Compare Before3'
             hint: 'compareBefore3'
-            required: false
             widget: string
           - name: 'compareBefore4'
             label: 'Compare Before4'
             hint: 'compareBefore4'
-            required: false
             widget: string
           - name: 'compareAfter'
             label: 'Compare After'
             hint: 'compareAfter'
-            required: false
             widget: string
           - name: 'compareAfter1'
             label: 'Compare After1'
             hint: 'compareAfter1'
-            required: false
             widget: string
           - name: 'compareAfter2'
             label: 'Compare After2'
             hint: 'compareAfter2'
-            required: false
             widget: string
           - name: 'compareAfter3'
             label: 'Compare After3'
             hint: 'compareAfter3'
-            required: false
             widget: string
           - name: 'compareAfter4'
             label: 'Compare After4'
             hint: 'compareAfter4'
-            required: false
             widget: string
           - name: 'practicalProgramming'
             label: 'Practical Programming'
             hint: 'practicalProgramming'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'practicalProgramming.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'practicalProgramming.desc'
-                required: false
                 widget: string
               - name: 'contentLabel'
                 label: 'Content Label'
                 hint: 'practicalProgramming.contentLabel'
-                required: false
                 widget: string
               - name: 'content1'
                 label: 'Content1'
                 hint: 'practicalProgramming.content1'
-                required: false
                 widget: string
               - name: 'content2'
                 label: 'Content2'
                 hint: 'practicalProgramming.content2'
-                required: false
                 widget: string
               - name: 'content3'
                 label: 'Content3'
                 hint: 'practicalProgramming.content3'
-                required: false
                 widget: string
               - name: 'content4'
                 label: 'Content4'
                 hint: 'practicalProgramming.content4'
-                required: false
                 widget: string
               - name: 'contentsLabel'
                 label: 'Contents Label'
                 hint: 'practicalProgramming.contentsLabel'
-                required: false
                 widget: string
           - name: 'pcSmartphone'
             label: 'Pc Smartphone'
             hint: 'pcSmartphone'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'pcSmartphone.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'pcSmartphone.desc'
-                required: false
                 widget: string
               - name: 'levelLabel'
                 label: 'Level Label'
                 hint: 'pcSmartphone.levelLabel'
-                required: false
                 widget: string
               - name: 'level1'
                 label: 'Level1'
                 hint: 'pcSmartphone.level1'
-                required: false
                 widget: string
               - name: 'level2'
                 label: 'Level2'
                 hint: 'pcSmartphone.level2'
-                required: false
                 widget: string
               - name: 'level3'
                 label: 'Level3'
                 hint: 'pcSmartphone.level3'
-                required: false
                 widget: string
               - name: 'level4'
                 label: 'Level4'
                 hint: 'pcSmartphone.level4'
-                required: false
                 widget: string
               - name: 'imgAlt'
                 label: 'Img Alt'
                 hint: 'pcSmartphone.imgAlt'
-                required: false
                 widget: string
               - name: 'levelsLabel'
                 label: 'Levels Label'
                 hint: 'pcSmartphone.levelsLabel'
-                required: false
                 widget: string
           - name: 'ged'
             label: 'Ged'
             hint: 'ged'
-            required: false
             widget: object
             collapsed: true
             fields:
               - name: 'title'
                 label: 'タイトル'
                 hint: 'ged.title'
-                required: false
                 widget: string
               - name: 'desc'
                 label: 'Desc'
                 hint: 'ged.desc'
-                required: false
                 widget: string
               - name: 'supportLabel'
                 label: 'Support Label'
                 hint: 'ged.supportLabel'
-                required: false
                 widget: string
               - name: 'support1'
                 label: 'Support1'
                 hint: 'ged.support1'
-                required: false
                 widget: string
               - name: 'support2'
                 label: 'Support2'
                 hint: 'ged.support2'
-                required: false
                 widget: string
               - name: 'support3'
                 label: 'Support3'
                 hint: 'ged.support3'
-                required: false
                 widget: string
           - name: 'ctaHeading'
             label: 'Cta Heading'
             hint: 'ctaHeading'
-            required: false
             widget: string
           - name: 'ctaBody'
             label: 'Cta Body'
             hint: 'ctaBody'
-            required: false
             widget: string
           - name: 'ctaForm'
             label: 'Cta Form'
             hint: 'ctaForm'
-            required: false
             widget: string
           - name: 'ctaLine'
             label: 'Cta Line'
             hint: 'ctaLine'
-            required: false
             widget: string
       - name: 'acestudio'
         label: 'AceStudioページ'
         file: src/i18n/source/ja/pages/acestudio.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroSubtitle'
             label: 'Hero Subtitle'
             hint: 'heroSubtitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'studioScopeEyebrow'
             label: 'Studio Scope Eyebrow'
             hint: 'studioScopeEyebrow'
-            required: false
             widget: string
           - name: 'studioScopeTitle'
             label: 'Studio Scope Title'
             hint: 'studioScopeTitle'
-            required: false
             widget: string
           - name: 'studioScopeDesc'
             label: 'Studio Scope Desc'
             hint: 'studioScopeDesc'
-            required: false
             widget: string
           - name: 'areaContentTitle'
             label: 'Area Content Title'
             hint: 'areaContentTitle'
-            required: false
             widget: string
           - name: 'areaContentDesc'
             label: 'Area Content Desc'
             hint: 'areaContentDesc'
-            required: false
             widget: string
           - name: 'areaCreatorTitle'
             label: 'Area Creator Title'
             hint: 'areaCreatorTitle'
-            required: false
             widget: string
           - name: 'areaCreatorDesc'
             label: 'Area Creator Desc'
             hint: 'areaCreatorDesc'
-            required: false
             widget: string
           - name: 'areaCommunityTitle'
             label: 'Area Community Title'
             hint: 'areaCommunityTitle'
-            required: false
             widget: string
           - name: 'areaCommunityDesc'
             label: 'Area Community Desc'
             hint: 'areaCommunityDesc'
-            required: false
             widget: string
           - name: 'areaRevenueTitle'
             label: 'Area Revenue Title'
             hint: 'areaRevenueTitle'
-            required: false
             widget: string
           - name: 'areaRevenueDesc'
             label: 'Area Revenue Desc'
             hint: 'areaRevenueDesc'
-            required: false
             widget: string
           - name: 'creativeImgAlt'
             label: 'Creative Img Alt'
             hint: 'creativeImgAlt'
-            required: false
             widget: string
           - name: 'comingSoonHeading'
             label: 'Coming Soon Heading'
             hint: 'comingSoonHeading'
-            required: false
             widget: string
           - name: 'comingSoonBody1'
             label: 'Coming Soon Body1'
             hint: 'comingSoonBody1'
-            required: false
             widget: string
           - name: 'comingSoonBody2'
             label: 'Coming Soon Body2'
             hint: 'comingSoonBody2'
-            required: false
             widget: string
           - name: 'comingSoonBody3'
             label: 'Coming Soon Body3'
             hint: 'comingSoonBody3'
-            required: false
             widget: string
           - name: 'pullQuoteText'
             label: 'Pull Quote Text'
             hint: 'pullQuoteText'
-            required: false
             widget: string
           - name: 'pullQuoteAttribution'
             label: 'Pull Quote Attribution'
             hint: 'pullQuoteAttribution'
-            required: false
             widget: string
           - name: 'faqTitle'
             label: 'Faq Title'
             hint: 'faqTitle'
-            required: false
             widget: string
           - name: 'faqQ1'
             label: 'Faq Q1'
             hint: 'faqQ1'
-            required: false
             widget: string
           - name: 'faqA1'
             label: 'Faq A1'
             hint: 'faqA1'
-            required: false
             widget: string
           - name: 'faqQ2'
             label: 'Faq Q2'
             hint: 'faqQ2'
-            required: false
             widget: string
           - name: 'faqA2'
             label: 'Faq A2'
             hint: 'faqA2'
-            required: false
             widget: string
           - name: 'faqQ3'
             label: 'Faq Q3'
             hint: 'faqQ3'
-            required: false
             widget: string
           - name: 'faqA3'
             label: 'Faq A3'
             hint: 'faqA3'
-            required: false
             widget: string
           - name: 'faqQ4'
             label: 'Faq Q4'
             hint: 'faqQ4'
-            required: false
             widget: string
           - name: 'faqA4'
             label: 'Faq A4'
             hint: 'faqA4'
-            required: false
             widget: string
           - name: 'newsHeading'
             label: 'News Heading'
             hint: 'newsHeading'
-            required: false
             widget: string
           - name: 'newsBody'
             label: 'News Body'
             hint: 'newsBody'
-            required: false
             widget: string
           - name: 'followX'
             label: 'Follow X'
             hint: 'followX'
-            required: false
             widget: string
           - name: 'viewBlog'
             label: 'View Blog'
             hint: 'viewBlog'
-            required: false
             widget: string
           - name: 'inquiryText'
             label: 'Inquiry Text'
             hint: 'inquiryText'
-            required: false
             widget: string
           - name: 'inquiryButton'
             label: 'Inquiry Button'
             hint: 'inquiryButton'
-            required: false
             widget: string
       - name: 'privacy'
         label: 'プライバシーポリシー'
         file: src/i18n/source/ja/pages/privacy.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heroTitle'
             label: 'Hero Title'
             hint: 'heroTitle'
-            required: false
             widget: string
           - name: 'heroImgAlt'
             label: 'Hero Img Alt'
             hint: 'heroImgAlt'
-            required: false
             widget: string
           - name: 'adHeading'
             label: 'Ad Heading'
             hint: 'adHeading'
-            required: false
             widget: string
           - name: 'adBody1'
             label: 'Ad Body1'
             hint: 'adBody1'
-            required: false
             widget: string
           - name: 'adBody2'
             label: 'Ad Body2'
             hint: 'adBody2'
-            required: false
             widget: string
           - name: 'adBody3'
             label: 'Ad Body3'
             hint: 'adBody3'
-            required: false
             widget: string
           - name: 'analyticsHeading'
             label: 'Analytics Heading'
             hint: 'analyticsHeading'
-            required: false
             widget: string
           - name: 'analyticsBody1'
             label: 'Analytics Body1'
             hint: 'analyticsBody1'
-            required: false
             widget: string
           - name: 'analyticsBody2'
             label: 'Analytics Body2'
             hint: 'analyticsBody2'
-            required: false
             widget: string
           - name: 'analyticsBody3'
             label: 'Analytics Body3'
             hint: 'analyticsBody3'
-            required: false
             widget: string
           - name: 'personalInfoHeading'
             label: 'Personal Info Heading'
             hint: 'personalInfoHeading'
-            required: false
             widget: string
           - name: 'personalInfoBody'
             label: 'Personal Info Body'
             hint: 'personalInfoBody'
-            required: false
             widget: text
           - name: 'disclosureHeading'
             label: 'Disclosure Heading'
             hint: 'disclosureHeading'
-            required: false
             widget: string
           - name: 'disclosureBody'
             label: 'Disclosure Body'
             hint: 'disclosureBody'
-            required: false
             widget: string
           - name: 'disclosureItem1'
             label: 'Disclosure Item1'
             hint: 'disclosureItem1'
-            required: false
             widget: string
           - name: 'disclosureItem2'
             label: 'Disclosure Item2'
             hint: 'disclosureItem2'
-            required: false
             widget: string
           - name: 'disclaimerHeading'
             label: 'Disclaimer Heading'
             hint: 'disclaimerHeading'
-            required: false
             widget: string
           - name: 'disclaimerBody'
             label: 'Disclaimer Body'
             hint: 'disclaimerBody'
-            required: false
             widget: text
           - name: 'copyrightHeading'
             label: 'Copyright Heading'
             hint: 'copyrightHeading'
-            required: false
             widget: string
           - name: 'copyrightBody'
             label: 'Copyright Body'
             hint: 'copyrightBody'
-            required: false
             widget: string
           - name: 'contactHeading'
             label: 'Contact Heading'
             hint: 'contactHeading'
-            required: false
             widget: string
           - name: 'contactBody'
             label: 'Contact Body'
             hint: 'contactBody'
-            required: false
             widget: string
           - name: 'effectiveDate'
             label: 'Effective Date'
             hint: 'effectiveDate'
-            required: false
             widget: string
       - name: 'blog'
         label: 'ブログUI'
         file: src/i18n/source/ja/blog.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'subtitle'
             label: 'サブタイトル'
             hint: 'subtitle'
-            required: false
             widget: string
           - name: 'noPosts'
             label: 'No Posts'
             hint: 'noPosts'
-            required: false
             widget: string
           - name: 'tags'
             label: 'Tags'
             hint: 'tags'
-            required: false
             widget: string
           - name: 'tagList'
             label: 'Tag List'
             hint: 'tagList'
-            required: false
             widget: string
           - name: 'archive'
             label: 'Archive'
             hint: 'archive'
-            required: false
             widget: string
           - name: 'authors'
             label: 'Authors'
             hint: 'authors'
-            required: false
             widget: string
           - name: 'latestPosts'
             label: 'Latest Posts'
             hint: 'latestPosts'
-            required: false
             widget: string
           - name: 'postsCount'
             label: 'Posts Count'
             hint: 'postsCount'
-            required: false
             widget: string
           - name: 'backToBlog'
             label: 'Back To Blog'
             hint: 'backToBlog'
-            required: false
             widget: string
           - name: 'prev'
             label: 'Prev'
             hint: 'prev'
-            required: false
             widget: string
           - name: 'next'
             label: 'Next'
             hint: 'next'
-            required: false
             widget: string
           - name: 'pageNav'
             label: 'Page Nav'
             hint: 'pageNav'
-            required: false
             widget: string
           - name: 'pageOf'
             label: 'Page Of'
             hint: 'pageOf'
-            required: false
             widget: string
           - name: 'pageN'
             label: 'Page N'
             hint: 'pageN'
-            required: false
             widget: string
           - name: 'articlesByTag'
             label: 'Articles By Tag'
             hint: 'articlesByTag'
-            required: false
             widget: string
           - name: 'tagDescription'
             label: 'Tag Description'
             hint: 'tagDescription'
-            required: false
             widget: string
           - name: 'articlesByAuthor'
             label: 'Articles By Author'
             hint: 'articlesByAuthor'
-            required: false
             widget: string
           - name: 'authorDescription'
             label: 'Author Description'
             hint: 'authorDescription'
-            required: false
             widget: string
           - name: 'articlesInMonth'
             label: 'Articles In Month'
             hint: 'articlesInMonth'
-            required: false
             widget: string
           - name: 'monthDescription'
             label: 'Month Description'
             hint: 'monthDescription'
-            required: false
             widget: string
           - name: 'nArticles'
             label: 'N Articles'
             hint: 'nArticles'
-            required: false
             widget: string
           - name: 'yearMonth'
             label: 'Year Month'
             hint: 'yearMonth'
-            required: false
             widget: string
           - name: 'sidebar'
             label: 'Sidebar'
             hint: 'sidebar'
-            required: false
             widget: string
           - name: 'toc'
             label: 'Toc'
             hint: 'toc'
-            required: false
             widget: string
           - name: 'tocLabel'
             label: 'Toc Label'
             hint: 'tocLabel'
-            required: false
             widget: string
           - name: 'share'
             label: 'Share'
             hint: 'share'
-            required: false
             widget: string
           - name: 'shareOnX'
             label: 'Share On X'
             hint: 'shareOnX'
-            required: false
             widget: string
           - name: 'addToHatena'
             label: 'Add To Hatena'
             hint: 'addToHatena'
-            required: false
             widget: string
           - name: 'copyLink'
             label: 'Copy Link'
             hint: 'copyLink'
-            required: false
             widget: string
           - name: 'linkCopied'
             label: 'Link Copied'
             hint: 'linkCopied'
-            required: false
             widget: string
           - name: 'linkCopyFailed'
             label: 'Link Copy Failed'
             hint: 'linkCopyFailed'
-            required: false
             widget: string
           - name: 'relatedPosts'
             label: 'Related Posts'
             hint: 'relatedPosts'
-            required: false
             widget: string
           - name: 'readMore'
             label: 'Read More'
             hint: 'readMore'
-            required: false
             widget: string
           - name: 'publishedAt'
             label: 'Published At'
             hint: 'publishedAt'
-            required: false
             widget: string
           - name: 'updatedAt'
             label: 'Updated At'
             hint: 'updatedAt'
-            required: false
             widget: string
           - name: 'searchLoading'
             label: 'Search Loading'
             hint: 'searchLoading'
-            required: false
             widget: string
           - name: 'searchError'
             label: 'Search Error'
             hint: 'searchError'
-            required: false
             widget: string
           - name: 'searchRetry'
             label: 'Search Retry'
             hint: 'searchRetry'
-            required: false
             widget: string
           - name: 'zeroResults'
             label: 'Zero Results'
             hint: 'zeroResults'
-            required: false
             widget: string
           - name: 'manyResults'
             label: 'Many Results'
             hint: 'manyResults'
-            required: false
             widget: string
           - name: 'oneResult'
             label: 'One Result'
             hint: 'oneResult'
-            required: false
             widget: string
           - name: 'filtersLabel'
             label: 'Filters Label'
             hint: 'filtersLabel'
-            required: false
             widget: string
           - name: 'searchFallbackHeading'
             label: 'Search Fallback Heading'
             hint: 'searchFallbackHeading'
-            required: false
             widget: string
           - name: 'searchFallbackBlogList'
             label: 'Search Fallback Blog List'
             hint: 'searchFallbackBlogList'
-            required: false
             widget: string
           - name: 'searchFallbackServiceList'
             label: 'Search Fallback Service List'
             hint: 'searchFallbackServiceList'
-            required: false
             widget: string
           - name: 'searchFallbackContact'
             label: 'Search Fallback Contact'
             hint: 'searchFallbackContact'
-            required: false
             widget: string
           - name: 'blogCtaHeading'
             label: 'Blog Cta Heading'
             hint: 'blogCtaHeading'
-            required: false
             widget: string
           - name: 'blogCtaBody'
             label: 'Blog Cta Body'
             hint: 'blogCtaBody'
-            required: false
             widget: string
           - name: 'blogCtaServices'
             label: 'Blog Cta Services'
             hint: 'blogCtaServices'
-            required: false
             widget: string
           - name: 'blogCtaContact'
             label: 'Blog Cta Contact'
             hint: 'blogCtaContact'
-            required: false
             widget: string
           - name: 'rssTitle'
             label: 'Rss Title'
             hint: 'rssTitle'
-            required: false
             widget: string
           - name: 'rssDescription'
             label: 'Rss Description'
             hint: 'rssDescription'
-            required: false
             widget: string
           - name: 'pagefindFilterAuthor'
             label: 'Pagefind Filter Author'
             hint: 'pagefindFilterAuthor'
-            required: false
             widget: string
           - name: 'pagefindFilterYear'
             label: 'Pagefind Filter Year'
             hint: 'pagefindFilterYear'
-            required: false
             widget: string
           - name: 'pagefindFilterTag'
             label: 'Pagefind Filter Tag'
             hint: 'pagefindFilterTag'
-            required: false
             widget: string
           - name: 'prevPost'
             label: 'Prev Post'
             hint: 'prevPost'
-            required: false
             widget: string
           - name: 'nextPost'
             label: 'Next Post'
             hint: 'nextPost'
-            required: false
             widget: string
           - name: 'heroAlt'
             label: 'Hero Alt'
             hint: 'heroAlt'
-            required: false
             widget: string
           - name: 'postNavLabel'
             label: 'Post Nav Label'
             hint: 'postNavLabel'
-            required: false
             widget: string
           - name: 'tagPrefix'
             label: 'Tag Prefix'
             hint: 'tagPrefix'
-            required: false
             widget: string
           - name: 'authorPrefix'
             label: 'Author Prefix'
             hint: 'authorPrefix'
-            required: false
             widget: string
           - name: 'indexDescription'
             label: 'Index Description'
             hint: 'indexDescription'
-            required: false
             widget: string
           - name: 'pageDescription'
             label: 'Page Description'
             hint: 'pageDescription'
-            required: false
             widget: string
           - name: 'tagListDescription'
             label: 'Tag List Description'
             hint: 'tagListDescription'
-            required: false
             widget: string
           - name: 'archiveListDescription'
             label: 'Archive List Description'
             hint: 'archiveListDescription'
-            required: false
             widget: string
           - name: 'itemListName'
             label: 'Item List Name'
             hint: 'itemListName'
-            required: false
             widget: string
           - name: 'language'
             label: 'Language'
             hint: 'language'
-            required: false
             widget: string
       - name: 'not_found'
         label: '404ページ'
         file: src/i18n/source/ja/pages/not-found.json
+        format: json
         fields:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
-            required: false
             widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
-            required: false
             widget: string
           - name: 'heading'
             label: '見出し'
             hint: 'heading'
-            required: false
             widget: string
           - name: 'body'
             label: 'Body'
             hint: 'body'
-            required: false
             widget: string
           - name: 'searchHint'
             label: 'Search Hint'
             hint: 'searchHint'
-            required: false
             widget: string
           - name: 'searchPlaceholder'
             label: 'Search Placeholder'
             hint: 'searchPlaceholder'
-            required: false
             widget: string
           - name: 'goHome'
             label: 'Go Home'
             hint: 'goHome'
-            required: false
             widget: string
           - name: 'viewBlog'
             label: 'View Blog'
             hint: 'viewBlog'
-            required: false
             widget: string
           - name: 'latestArticles'
             label: 'Latest Articles'
             hint: 'latestArticles'
-            required: false
             widget: string
   - name: authors
     label: 著者
