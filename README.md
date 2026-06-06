@@ -193,7 +193,7 @@ Cloudflare Pages secret は以下を設定します。
 - `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile の secret key
 - `COMMENT_HASH_SALT`: IP/UA ハッシュ用 secret
 
-任意で `COMMENT_ALLOWED_HOSTNAMES` を設定すると、Turnstile 検証で許可する hostname をカンマ区切りで上書きできます。未設定時は `acecore.net,www.acecore.net,localhost,127.0.0.1` と `*.pages.dev` を許可します。
+`wrangler.jsonc` では production/preview の `COMMENT_ALLOWED_HOSTNAMES` を `acecore.net,www.acecore.net,acecore-net.pages.dev` に明示しています。未設定時はコード側で `acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1` にフォールバックします。登録した hostname とその配下のサブドメインを許可するため、`acecore-net.pages.dev` で Git プレビュー URL も通ります。ほかの Pages プロジェクトで共用する場合は、そのプロジェクトの `<project>.pages.dev` を `COMMENT_ALLOWED_HOSTNAMES` に追加してください。
 
 D1 schema は `migrations/0001_create_blog_comments.sql` です。初回は D1 database を作成後、以下で適用します。
 

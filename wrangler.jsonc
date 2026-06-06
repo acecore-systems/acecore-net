@@ -5,6 +5,7 @@
   "compatibility_date": "2026-03-12",
   "vars": {
     "OPENAI_MODEL": "gpt-5.4-mini",
+    "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
   },
   "d1_databases": [
     {
@@ -18,6 +19,7 @@
     "preview": {
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
+        "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
       },
       "d1_databases": [
         {
@@ -31,6 +33,7 @@
     "production": {
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
+        "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
       },
       "d1_databases": [
         {

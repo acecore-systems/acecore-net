@@ -165,6 +165,7 @@ const DUPLICATE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000
 const DEFAULT_ALLOWED_HOSTNAMES = [
   'acecore.net',
   'www.acecore.net',
+  'acecore-net.pages.dev',
   'localhost',
   '127.0.0.1',
 ]
@@ -681,8 +682,20 @@ function getCorsOrigin(request: Request, env: Env): string {
 
 function isAllowedVerifiedHostname(hostname: string, env: Env): boolean {
   const normalized = hostname.toLowerCase()
-  if (normalized.endsWith('.pages.dev')) return true
-  return getAllowedHostnames(env).includes(normalized)
+  return getAllowedHostnames(env).some((allowedHostname) =>
+    matchesAllowedHostname(normalized, allowedHostname),
+  )
+}
+
+function matchesAllowedHostname(
+  hostname: string,
+  allowedHostname: string,
+): boolean {
+  if (hostname === allowedHostname) return true
+  if (allowedHostname === 'localhost' || allowedHostname === '127.0.0.1') {
+    return false
+  }
+  return hostname.endsWith(`.${allowedHostname}`)
 }
 
 function getAllowedHostnames(env: Env): string[] {
