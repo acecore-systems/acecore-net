@@ -442,6 +442,10 @@ collections:
                 label: 'Services'
                 hint: 'nav.services'
                 widget: string
+              - name: 'pricing'
+                label: 'Pricing'
+                hint: 'nav.pricing'
+                widget: string
               - name: 'works'
                 label: 'Works'
                 hint: 'nav.works'
@@ -614,6 +618,10 @@ collections:
                 label: 'Sitemap'
                 hint: 'footer.sitemap'
                 widget: string
+              - name: 'pricing'
+                label: 'Pricing'
+                hint: 'footer.pricing'
+                widget: string
               - name: 'relatedLinks'
                 label: 'Related Links'
                 hint: 'footer.relatedLinks'
@@ -635,6 +643,10 @@ collections:
               - name: 'services'
                 label: 'Services'
                 hint: 'pageNames.services'
+                widget: string
+              - name: 'pricing'
+                label: 'Pricing'
+                hint: 'pageNames.pricing'
                 widget: string
               - name: 'works'
                 label: 'Works'
@@ -942,6 +954,10 @@ collections:
             label: 'Nav Acestudio'
             hint: 'navAcestudio'
             widget: string
+          - name: 'navPricing'
+            label: 'Nav Pricing'
+            hint: 'navPricing'
+            widget: string
           - name: 'systemDev'
             label: 'System Dev'
             hint: 'systemDev'
@@ -1248,6 +1264,124 @@ collections:
                 label: 'Detail Link'
                 hint: 'acestudio.detailLink'
                 widget: string
+          - name: 'miniCta'
+            label: 'Mini Cta'
+            hint: 'miniCta'
+            widget: string
+          - name: 'pricing'
+            label: 'Pricing'
+            hint: 'pricing'
+            widget: object
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Title'
+                hint: 'pricing.title'
+                widget: string
+              - name: 'body'
+                label: 'Body'
+                hint: 'pricing.body'
+                widget: text
+              - name: 'systemDevLabel'
+                label: 'System Dev Label'
+                hint: 'pricing.systemDevLabel'
+                widget: string
+              - name: 'systemDevPrice'
+                label: 'System Dev Price'
+                hint: 'pricing.systemDevPrice'
+                widget: string
+              - name: 'systemDevNote'
+                label: 'System Dev Note'
+                hint: 'pricing.systemDevNote'
+                widget: text
+              - name: 'serverLabel'
+                label: 'Server Label'
+                hint: 'pricing.serverLabel'
+                widget: string
+              - name: 'serverPrice'
+                label: 'Server Price'
+                hint: 'pricing.serverPrice'
+                widget: string
+              - name: 'serverNote'
+                label: 'Server Note'
+                hint: 'pricing.serverNote'
+                widget: text
+              - name: 'webLabel'
+                label: 'Web Label'
+                hint: 'pricing.webLabel'
+                widget: string
+              - name: 'webPrice'
+                label: 'Web Price'
+                hint: 'pricing.webPrice'
+                widget: string
+              - name: 'webNote'
+                label: 'Web Note'
+                hint: 'pricing.webNote'
+                widget: text
+              - name: 'designLabel'
+                label: 'Design Label'
+                hint: 'pricing.designLabel'
+                widget: string
+              - name: 'designPrice'
+                label: 'Design Price'
+                hint: 'pricing.designPrice'
+                widget: string
+              - name: 'designNote'
+                label: 'Design Note'
+                hint: 'pricing.designNote'
+                widget: text
+              - name: 'educationLabel'
+                label: 'Education Label'
+                hint: 'pricing.educationLabel'
+                widget: string
+              - name: 'educationPrice'
+                label: 'Education Price'
+                hint: 'pricing.educationPrice'
+                widget: string
+              - name: 'educationNote'
+                label: 'Education Note'
+                hint: 'pricing.educationNote'
+                widget: text
+              - name: 'aceserverLabel'
+                label: 'Aceserver Label'
+                hint: 'pricing.aceserverLabel'
+                widget: string
+              - name: 'aceserverPrice'
+                label: 'Aceserver Price'
+                hint: 'pricing.aceserverPrice'
+                widget: string
+              - name: 'aceserverNote'
+                label: 'Aceserver Note'
+                hint: 'pricing.aceserverNote'
+                widget: text
+              - name: 'acestudioLabel'
+                label: 'Acestudio Label'
+                hint: 'pricing.acestudioLabel'
+                widget: string
+              - name: 'acestudioPrice'
+                label: 'Acestudio Price'
+                hint: 'pricing.acestudioPrice'
+                widget: string
+              - name: 'acestudioNote'
+                label: 'Acestudio Note'
+                hint: 'pricing.acestudioNote'
+                widget: text
+              - name: 'ctaHeading'
+                label: 'Cta Heading'
+                hint: 'pricing.ctaHeading'
+                widget: string
+              - name: 'ctaBody'
+                label: 'Cta Body'
+                hint: 'pricing.ctaBody'
+                widget: text
+              - name: 'ctaPricing'
+                label: 'Cta Pricing'
+                hint: 'pricing.ctaPricing'
+                widget: string
+              - name: 'ctaContact'
+                label: 'Cta Contact'
+                hint: 'pricing.ctaContact'
+                widget: string
           - name: 'ctaHeading'
             label: 'Cta Heading'
             hint: 'ctaHeading'
@@ -1259,6 +1393,251 @@ collections:
           - name: 'ctaContact'
             label: 'Cta Contact'
             hint: 'ctaContact'
+            widget: string
+          - name: 'ctaSchools'
+            label: 'Cta Schools'
+            hint: 'ctaSchools'
+            widget: string
+      - name: 'pricing'
+        label: '料金ページ'
+        file: src/i18n/source/ja/pages/pricing.json
+        format: json
+        fields:
+          - name: 'title'
+            label: 'タイトル'
+            hint: 'title'
+            widget: string
+          - name: 'description'
+            label: '説明'
+            hint: 'description'
+            widget: text
+          - name: 'heroTitle'
+            label: 'Hero Title'
+            hint: 'heroTitle'
+            widget: string
+          - name: 'heroSubtitle'
+            label: 'Hero Subtitle'
+            hint: 'heroSubtitle'
+            widget: string
+          - name: 'heroImgAlt'
+            label: 'Hero Img Alt'
+            hint: 'heroImgAlt'
+            widget: string
+          - name: 'eyebrow'
+            label: 'Eyebrow'
+            hint: 'eyebrow'
+            widget: string
+          - name: 'introTitle'
+            label: 'Intro Title'
+            hint: 'introTitle'
+            widget: string
+          - name: 'introBody'
+            label: 'Intro Body'
+            hint: 'introBody'
+            widget: text
+          - name: 'serviceTitle'
+            label: 'Service Title'
+            hint: 'serviceTitle'
+            widget: string
+          - name: 'serviceBody'
+            label: 'Service Body'
+            hint: 'serviceBody'
+            widget: text
+          - name: 'systemDevTitle'
+            label: 'System Dev Title'
+            hint: 'systemDevTitle'
+            widget: string
+          - name: 'systemDevPrice'
+            label: 'System Dev Price'
+            hint: 'systemDevPrice'
+            widget: string
+          - name: 'systemDevBody'
+            label: 'System Dev Body'
+            hint: 'systemDevBody'
+            widget: text
+          - name: 'serverTitle'
+            label: 'Server Title'
+            hint: 'serverTitle'
+            widget: string
+          - name: 'serverPrice'
+            label: 'Server Price'
+            hint: 'serverPrice'
+            widget: string
+          - name: 'serverBody'
+            label: 'Server Body'
+            hint: 'serverBody'
+            widget: text
+          - name: 'webTitle'
+            label: 'Web Title'
+            hint: 'webTitle'
+            widget: string
+          - name: 'webPrice'
+            label: 'Web Price'
+            hint: 'webPrice'
+            widget: string
+          - name: 'webBody'
+            label: 'Web Body'
+            hint: 'webBody'
+            widget: text
+          - name: 'designTitle'
+            label: 'Design Title'
+            hint: 'designTitle'
+            widget: string
+          - name: 'designPrice'
+            label: 'Design Price'
+            hint: 'designPrice'
+            widget: string
+          - name: 'designBody'
+            label: 'Design Body'
+            hint: 'designBody'
+            widget: text
+          - name: 'schoolsTitle'
+            label: 'Schools Title'
+            hint: 'schoolsTitle'
+            widget: string
+          - name: 'schoolsPrice'
+            label: 'Schools Price'
+            hint: 'schoolsPrice'
+            widget: string
+          - name: 'schoolsBody'
+            label: 'Schools Body'
+            hint: 'schoolsBody'
+            widget: text
+          - name: 'acestudioTitle'
+            label: 'Acestudio Title'
+            hint: 'acestudioTitle'
+            widget: string
+          - name: 'acestudioPrice'
+            label: 'Acestudio Price'
+            hint: 'acestudioPrice'
+            widget: string
+          - name: 'acestudioBody'
+            label: 'Acestudio Body'
+            hint: 'acestudioBody'
+            widget: text
+          - name: 'aceserverTitle'
+            label: 'Aceserver Title'
+            hint: 'aceserverTitle'
+            widget: string
+          - name: 'aceserverPrice'
+            label: 'Aceserver Price'
+            hint: 'aceserverPrice'
+            widget: string
+          - name: 'aceserverBody'
+            label: 'Aceserver Body'
+            hint: 'aceserverBody'
+            widget: text
+          - name: 'detailLink'
+            label: 'Detail Link'
+            hint: 'detailLink'
+            widget: string
+          - name: 'schoolsFeeTitle'
+            label: 'Schools Fee Title'
+            hint: 'schoolsFeeTitle'
+            widget: string
+          - name: 'schoolsFeeBody'
+            label: 'Schools Fee Body'
+            hint: 'schoolsFeeBody'
+            widget: text
+          - name: 'feeItem'
+            label: 'Fee Item'
+            hint: 'feeItem'
+            widget: string
+          - name: 'feeAmount'
+            label: 'Fee Amount'
+            hint: 'feeAmount'
+            widget: string
+          - name: 'feeNote'
+            label: 'Fee Note'
+            hint: 'feeNote'
+            widget: string
+          - name: 'schoolAdmission'
+            label: 'School Admission'
+            hint: 'schoolAdmission'
+            widget: string
+          - name: 'schoolAdmissionPrice'
+            label: 'School Admission Price'
+            hint: 'schoolAdmissionPrice'
+            widget: string
+          - name: 'schoolAdmissionNote'
+            label: 'School Admission Note'
+            hint: 'schoolAdmissionNote'
+            widget: text
+          - name: 'schoolMonthly'
+            label: 'School Monthly'
+            hint: 'schoolMonthly'
+            widget: string
+          - name: 'schoolMonthlyPrice'
+            label: 'School Monthly Price'
+            hint: 'schoolMonthlyPrice'
+            widget: string
+          - name: 'schoolMonthlyNote'
+            label: 'School Monthly Note'
+            hint: 'schoolMonthlyNote'
+            widget: text
+          - name: 'schoolMaterials'
+            label: 'School Materials'
+            hint: 'schoolMaterials'
+            widget: string
+          - name: 'schoolMaterialsPrice'
+            label: 'School Materials Price'
+            hint: 'schoolMaterialsPrice'
+            widget: string
+          - name: 'schoolMaterialsNote'
+            label: 'School Materials Note'
+            hint: 'schoolMaterialsNote'
+            widget: text
+          - name: 'factorTitle'
+            label: 'Factor Title'
+            hint: 'factorTitle'
+            widget: string
+          - name: 'factor1'
+            label: 'Factor1'
+            hint: 'factor1'
+            widget: string
+          - name: 'factor2'
+            label: 'Factor2'
+            hint: 'factor2'
+            widget: string
+          - name: 'factor3'
+            label: 'Factor3'
+            hint: 'factor3'
+            widget: string
+          - name: 'factor4'
+            label: 'Factor4'
+            hint: 'factor4'
+            widget: string
+          - name: 'noteTitle'
+            label: 'Note Title'
+            hint: 'noteTitle'
+            widget: string
+          - name: 'note1'
+            label: 'Note1'
+            hint: 'note1'
+            widget: text
+          - name: 'note2'
+            label: 'Note2'
+            hint: 'note2'
+            widget: text
+          - name: 'note3'
+            label: 'Note3'
+            hint: 'note3'
+            widget: text
+          - name: 'ctaHeading'
+            label: 'Cta Heading'
+            hint: 'ctaHeading'
+            widget: string
+          - name: 'ctaBody'
+            label: 'Cta Body'
+            hint: 'ctaBody'
+            widget: text
+          - name: 'ctaContact'
+            label: 'Cta Contact'
+            hint: 'ctaContact'
+            widget: string
+          - name: 'ctaServices'
+            label: 'Cta Services'
+            hint: 'ctaServices'
             widget: string
           - name: 'ctaSchools'
             label: 'Cta Schools'
@@ -2012,6 +2391,72 @@ collections:
               - name: 'support3'
                 label: 'Support3'
                 hint: 'ged.support3'
+                widget: string
+          - name: 'pricing'
+            label: 'Pricing'
+            hint: 'pricing'
+            widget: object
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Title'
+                hint: 'pricing.title'
+                widget: string
+              - name: 'body'
+                label: 'Body'
+                hint: 'pricing.body'
+                widget: text
+              - name: 'admissionLabel'
+                label: 'Admission Label'
+                hint: 'pricing.admissionLabel'
+                widget: string
+              - name: 'admissionPrice'
+                label: 'Admission Price'
+                hint: 'pricing.admissionPrice'
+                widget: string
+              - name: 'admissionNote'
+                label: 'Admission Note'
+                hint: 'pricing.admissionNote'
+                widget: text
+              - name: 'monthlyLabel'
+                label: 'Monthly Label'
+                hint: 'pricing.monthlyLabel'
+                widget: string
+              - name: 'monthlyPrice'
+                label: 'Monthly Price'
+                hint: 'pricing.monthlyPrice'
+                widget: string
+              - name: 'monthlyNote'
+                label: 'Monthly Note'
+                hint: 'pricing.monthlyNote'
+                widget: text
+              - name: 'materialsLabel'
+                label: 'Materials Label'
+                hint: 'pricing.materialsLabel'
+                widget: string
+              - name: 'materialsPrice'
+                label: 'Materials Price'
+                hint: 'pricing.materialsPrice'
+                widget: string
+              - name: 'materialsNote'
+                label: 'Materials Note'
+                hint: 'pricing.materialsNote'
+                widget: text
+              - name: 'ctaHeading'
+                label: 'Cta Heading'
+                hint: 'pricing.ctaHeading'
+                widget: string
+              - name: 'ctaBody'
+                label: 'Cta Body'
+                hint: 'pricing.ctaBody'
+                widget: text
+              - name: 'ctaPricing'
+                label: 'Cta Pricing'
+                hint: 'pricing.ctaPricing'
+                widget: string
+              - name: 'ctaContact'
+                label: 'Cta Contact'
+                hint: 'pricing.ctaContact'
                 widget: string
           - name: 'ctaHeading'
             label: 'Cta Heading'
