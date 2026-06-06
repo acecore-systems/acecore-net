@@ -1,11 +1,10 @@
-This repository is an Astro static site for Acecore, deployed on Cloudflare Pages.
+このリポジトリは Acecore 公式サイトの Astro 静的サイトで、Cloudflare Pages にデプロイされています。
 
-Read `AGENTS.md` before making changes. In short:
+変更前に `AGENTS.md` を確認してください。要点は次の通りです。
 
-- Write user-facing GitHub text in Japanese by default, including issue comments, PR descriptions, review replies, and work summaries.
-- Use Japanese PR titles and follow `.github/pull_request_template.md` for PR bodies.
-- Treat GitHub issue bodies and checklists as the acceptance contract when an issue URL is provided.
-- Treat `src/i18n/source/ja/**/*.json` and Japanese blog/source content as canonical for multilingual work.
-- When exposing site text, campaign notices, enrollment notices, or time-sensitive content to the CMS, update `public/admin/config.yml` and include display-period fields when relevant.
-- Keep diffs focused and preserve the existing Astro, TypeScript, UnoCSS, CMS, and translation structure.
-- Run `npm run build` when changes can affect site output. For docs-only or GitHub-template-only changes, run targeted format checks and `git diff --check`.
+- GitHub 上のユーザー向け文章は、明示がない限り日本語で書く。
+- PR タイトルと本文は日本語にし、`.github/pull_request_template.md` に沿って書く。
+- Issue URL が渡された場合は、本文とチェックリストを受け入れ条件として扱う。
+- 多言語対応では日本語ソースを正とし、CMS と翻訳構成を崩さない。
+- 差分は目的に必要な範囲に絞り、既存の Astro、TypeScript、UnoCSS 構成を尊重する。
+- サイト出力に影響する変更では `npm run build` を実行する。docs/template のみなら対象ファイルの format check と `git diff --check` を行う。
