@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import InsightGrid from '../components/InsightGrid.astro'
+import ServiceSectionActions from '../components/ServiceSectionActions.astro'
 import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
@@ -218,15 +219,12 @@ const serviceLd = {
             </li>
           </ul>
         </div>
-        <div class="mt-4">
-          <a
-            href={u(serviceWorks.systemDev.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.systemDev.label}: {serviceWorks.systemDev.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_system_development_contact"
+          gaLocation="services_system_development"
+          workLink={serviceWorks.systemDev}
+        />
       </div>
 
       <div class="mb-16">
@@ -284,15 +282,12 @@ const serviceLd = {
             </li>
           </ul>
         </div>
-        <div class="mt-4">
-          <a
-            href={u(serviceWorks.server.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.server.label}: {serviceWorks.server.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_server_contact"
+          gaLocation="services_server"
+          workLink={serviceWorks.server}
+        />
       </div>
 
       <!-- Web -->
@@ -329,15 +324,12 @@ const serviceLd = {
             </li>
           </ul>
         </div>
-        <div class="mt-4">
-          <a
-            href={u(serviceWorks.web.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.web.label}: {serviceWorks.web.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_web_contact"
+          gaLocation="services_web"
+          workLink={serviceWorks.web}
+        />
       </div>
 
       <div class="mb-16">
@@ -404,15 +396,12 @@ const serviceLd = {
             </li>
           </ul>
         </div>
-        <div class="mt-4">
-          <a
-            href={u(serviceWorks.design.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.design.label}: {serviceWorks.design.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_design_contact"
+          gaLocation="services_design"
+          workLink={serviceWorks.design}
+        />
       </div>
 
       <div class="mb-16">
@@ -484,15 +473,12 @@ const serviceLd = {
             {t(locale, 'pages.services.education.detailLink')}
           </a>
         </div>
-        <div class="mt-3">
-          <a
-            href={u(serviceWorks.education.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.education.label}: {serviceWorks.education.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_education_contact"
+          gaLocation="services_education"
+          workLink={serviceWorks.education}
+        />
       </div>
 
       <!-- Aceserver -->
@@ -570,15 +556,12 @@ const serviceLd = {
             >
           </a>
         </div>
-        <div class="mt-2">
-          <a
-            href={u(serviceWorks.aceserver.href)}
-            class="inline-flex items-center gap-2 text-sm font-600 text-brand-600 hover:text-brand-700 hover:underline underline-offset-2"
-          >
-            <Icon name="briefcase-business" class="text-sm" />
-            {serviceWorks.aceserver.label}: {serviceWorks.aceserver.title}
-          </a>
-        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_aceserver_contact"
+          gaLocation="services_aceserver"
+          workLink={serviceWorks.aceserver}
+        />
       </div>
 
       <!-- AceStudio -->
@@ -627,6 +610,11 @@ const serviceLd = {
             {t(locale, 'pages.services.acestudio.detailLink')}
           </a>
         </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_acestudio_contact"
+          gaLocation="services_acestudio"
+        />
       </div>
 
       <!-- CTA -->
