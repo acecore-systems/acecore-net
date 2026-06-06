@@ -262,7 +262,7 @@ const phoneParts = SITE.phone.split('-')
 
       function appendInlineMarkdown(parent, text) {
         const pattern =
-          /(\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
+          /(\[([^\]]+)\]\(\s*([^)]+?)\s*\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
         let index = 0
         let match
 
@@ -273,11 +273,12 @@ const phoneParts = SITE.phone.split('-')
             )
           }
 
-          if (match[2] && isSafeMarkdownHref(match[3])) {
+          const href = String(match[3] || '').trim()
+          if (match[2] && isSafeMarkdownHref(href)) {
             const link = document.createElement('a')
-            link.href = match[3]
+            link.href = href
             link.rel = 'noopener noreferrer'
-            if (/^https?:\/\//i.test(match[3])) {
+            if (/^https?:\/\//i.test(href)) {
               link.target = '_blank'
             }
             link.textContent = match[2]
