@@ -17,6 +17,50 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const contactThanksUrl = u('/contact/thanks/')
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
 const phoneParts = SITE.phone.split('-')
+const serviceCategoryOptions = [
+  {
+    key: 'system-development',
+    value: '業務システム・アプリ開発について',
+    label: t(locale, 'pages.contact.formCategoryServiceSystemDev'),
+    subject: t(locale, 'pages.services.systemDev.title'),
+  },
+  {
+    key: 'server',
+    value: 'サーバー構築・運用について',
+    label: t(locale, 'pages.contact.formCategoryServiceServer'),
+    subject: t(locale, 'pages.services.server.title'),
+  },
+  {
+    key: 'web',
+    value: 'Webサイト制作・運用について',
+    label: t(locale, 'pages.contact.formCategoryServiceWeb'),
+    subject: t(locale, 'pages.services.web.title'),
+  },
+  {
+    key: 'design',
+    value: 'デザイン・クリエイティブについて',
+    label: t(locale, 'pages.contact.formCategoryServiceDesign'),
+    subject: t(locale, 'pages.services.design.title'),
+  },
+  {
+    key: 'education',
+    value: 'ITスクール / Acecore Schoolsについて',
+    label: t(locale, 'pages.contact.formCategoryServiceEducation'),
+    subject: t(locale, 'pages.services.education.title'),
+  },
+  {
+    key: 'aceserver',
+    value: 'Aceserverについて',
+    label: t(locale, 'pages.contact.formCategoryServiceAceserver'),
+    subject: t(locale, 'pages.services.aceserver.title'),
+  },
+  {
+    key: 'acestudio',
+    value: 'AceStudioについて',
+    label: t(locale, 'pages.contact.formCategoryServiceAcestudio'),
+    subject: t(locale, 'pages.services.acestudio.title'),
+  },
+]
 
 const faqItems = [
   {
@@ -205,6 +249,10 @@ const faqLd = {
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
         data-success-url={contactThanksUrl}
+        data-service-subject-template={t(
+          locale,
+          'pages.contact.serviceSubjectTemplate',
+        )}
       >
         <input type="hidden" name="locale" value={locale} />
         <div>
@@ -226,9 +274,20 @@ const faqLd = {
             <option value="" disabled selected
               >{t(locale, 'pages.contact.formCategoryPlaceholder')}</option
             >
-            <option value="サービスについて"
+            <option value="サービス全般について"
               >{t(locale, 'pages.contact.formCategoryService')}</option
             >
+            {
+              serviceCategoryOptions.map((option) => (
+                <option
+                  value={option.value}
+                  data-service-key={option.key}
+                  data-service-subject={option.subject}
+                >
+                  {option.label}
+                </option>
+              ))
+            }
             <option value="お見積り依頼"
               >{t(locale, 'pages.contact.formCategoryEstimate')}</option
             >
@@ -612,6 +671,56 @@ const faqLd = {
 
     document.addEventListener('astro:page-load', initContactTurnstile)
     initContactTurnstile()
+  </script>
+  <script is:inline>
+    function initContactServicePrefill() {
+      const form = document.getElementById('contact-form')
+      if (!form || form.dataset.servicePrefillInitialized === 'true') return
+
+      form.dataset.servicePrefillInitialized = 'true'
+
+      const url = new URL(window.location.href)
+      const requestedCategory = url.searchParams.get('category')
+      const requestedService = url.searchParams.get('service') || ''
+      const category = document.getElementById('category')
+      const subject = document.getElementById('subject')
+
+      if (
+        requestedCategory === 'service' &&
+        category instanceof HTMLSelectElement
+      ) {
+        const serviceOption = Array.from(category.options).find(
+          function (option) {
+            return option.dataset.serviceKey === requestedService
+          },
+        )
+
+        category.value = serviceOption?.value || 'サービス全般について'
+        category.dispatchEvent(new Event('input', { bubbles: true }))
+        category.dispatchEvent(new Event('change', { bubbles: true }))
+        if (
+          serviceOption &&
+          subject instanceof HTMLInputElement &&
+          !subject.value.trim()
+        ) {
+          const template = form.dataset.serviceSubjectTemplate || '{service}'
+          const serviceName =
+            serviceOption.dataset.serviceSubject ||
+            serviceOption.textContent?.trim() ||
+            ''
+          subject.value = template.replace('{service}', serviceName)
+        }
+      }
+
+      if (window.location.hash === '#contact-form') {
+        window.requestAnimationFrame(function () {
+          form.scrollIntoView({ block: 'start' })
+        })
+      }
+    }
+
+    document.addEventListener('astro:page-load', initContactServicePrefill)
+    initContactServicePrefill()
   </script>
   <script is:inline>
     {
