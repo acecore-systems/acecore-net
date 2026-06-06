@@ -1,0 +1,35 @@
+---
+const cmsBranch =
+  process.env.CF_PAGES_BRANCH ||
+  process.env.GITHUB_HEAD_REF ||
+  process.env.GITHUB_REF_NAME ||
+  process.env.BRANCH ||
+  'main'
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acecore CMS</title>
+    <script define:vars={{ cmsBranch }}>
+      window.CMS_MANUAL_INIT = true
+      window.ACECORE_CMS_BRANCH = cmsBranch
+    </script>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"
+    ></script>
+    <script is:inline>
+      CMS.init({
+        config: {
+          backend: {
+            branch: window.ACECORE_CMS_BRANCH || 'main',
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
