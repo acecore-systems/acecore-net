@@ -26,9 +26,6 @@ type CampaignEntry = {
   body?: string
   href?: string
   ctaLabel?: string
-  metricLabel?: string
-  metricValue?: number | string
-  metricUnit?: string
   icon?: string
   tone?: CampaignTone
   startsAt?: string
@@ -96,9 +93,6 @@ const campaignNotices = campaignEntries
       body,
       href,
       ctaLabel,
-      metricLabel,
-      metricValue,
-      metricUnit,
       icon,
       tone,
       startsAt,
@@ -118,9 +112,6 @@ const campaignNotices = campaignEntries
       body,
       href,
       ctaLabel,
-      metricLabel,
-      metricValue,
-      metricUnit,
       icon,
       tone,
       startsAt,

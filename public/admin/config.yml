@@ -483,21 +483,6 @@ collections:
         label: 'ボタン文言'
         widget: string
         required: false
-      - name: 'metricLabel'
-        label: '指標ラベル'
-        hint: 'ページ内通知で使います。例: 残り、先着'
-        widget: string
-        required: false
-      - name: 'metricValue'
-        label: '指標値'
-        hint: 'ページ内通知で使います。例: 3、10社、20%OFF'
-        widget: string
-        required: false
-      - name: 'metricUnit'
-        label: '指標単位'
-        hint: 'ページ内通知で使います。例: 名、枠'
-        widget: string
-        required: false
       - name: 'icon'
         label: 'アイコン'
         hint: 'ページ内通知で使います。lucide icon name'
