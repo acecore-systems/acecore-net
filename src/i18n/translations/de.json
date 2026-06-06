@@ -198,30 +198,84 @@
       "heroImgStrategy": "Geschäftsstrategie-Diskussion",
       "servicesHeading": "Unsere Dienste",
       "servicesLead": "Unsicher, wo Sie anfangen sollen? Wir bedienen flexibel sowohl Einzelpersonen als auch Unternehmen.",
-      "serviceSystem": "Unternehmenssystem- und App-Entwicklung",
-      "serviceSystemDesc": "Wir lösen Herausforderungen wie Prozessoptimierung und Datenverwaltung mit optimalen Systemen. Von kleinen Tools bis zu großen Services.",
-      "serviceServer": "Serverkonfiguration und -betrieb",
-      "serviceServerDesc": "Wir liefern zuverlässige, schnelle Serverumgebungen. Nachgewiesene Erfahrung mit hunderten gleichzeitigen Verbindungen.",
-      "serviceWeb": "Webdesign und -Verwaltung",
-      "serviceWebDesc": "Websites, die nicht nur gut aussehen, sondern auch für Benutzererfahrung und Kundengewinnung optimiert sind. Wartung nach dem Launch inklusive.",
-      "serviceDesign": "Design und Kreation",
-      "serviceDesignDesc": "Logos, Visitenkarten, Banner, Charaktere — wir geben Ihrer Botschaft sichtbare Form.",
-      "serviceSchools": "IT-Schule / Acecore Schools",
-      "serviceSchoolsDesc": "Individueller Unterricht für alle Altersgruppen — Programmierung, Nachhilfe und Vorbereitung auf den Schulabschluss.",
-      "serviceAceserver": "Aceserver",
-      "serviceAceserverDesc": "Ein kostenloser öffentlicher Minecraft-Server für alle. Unterstützt Java und Bedrock mit einer aktiven Community.",
+      "serviceCards": [
+        {
+          "title": "Unternehmenssystem- und App-Entwicklung",
+          "description": "Wir lösen Herausforderungen wie Prozessoptimierung und Datenverwaltung mit optimalen Systemen. Von kleinen Tools bis zu großen Services.",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "Serverkonfiguration und -betrieb",
+          "description": "Wir liefern zuverlässige, schnelle Serverumgebungen. Nachgewiesene Erfahrung mit hunderten gleichzeitigen Verbindungen.",
+          "href": "/services/#server",
+          "icon": "server",
+          "tone": "emerald"
+        },
+        {
+          "title": "Webdesign und -Verwaltung",
+          "description": "Websites, die nicht nur gut aussehen, sondern auch für Benutzererfahrung und Kundengewinnung optimiert sind. Wartung nach dem Launch inklusive.",
+          "href": "/services/#web",
+          "icon": "globe",
+          "tone": "amber"
+        },
+        {
+          "title": "Design und Kreation",
+          "description": "Logos, Visitenkarten, Banner, Charaktere — wir geben Ihrer Botschaft sichtbare Form.",
+          "href": "/services/#design",
+          "icon": "palette",
+          "tone": "slate"
+        },
+        {
+          "title": "IT-Schule / Acecore Schools",
+          "description": "Individueller Unterricht für alle Altersgruppen — Programmierung, Nachhilfe und Vorbereitung auf den Schulabschluss.",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "amber"
+        },
+        {
+          "title": "Aceserver",
+          "description": "Ein kostenloser öffentlicher Minecraft-Server für alle. Unterstützt Java und Bedrock mit einer aktiven Community.",
+          "href": "https://asv.acecore.net",
+          "icon": "gamepad-2",
+          "tone": "emerald"
+        }
+      ],
       "viewServicesDetail": "Dienstdetails anzeigen",
       "layersEyebrow": "Visual Overview",
       "layersTitle": "Vier Ebenen, die Acecore unterstützt",
       "layersDescription": "Wir behandeln Technologie, Betrieb, Kommunikation und Bildung als eine durchgehende Support-Linie.",
-      "layerDesign": "System-Design",
-      "layerDesignDesc": "Wir verwandeln geschäftliche Herausforderungen in Anforderungen und bauen Systeme mit Blick auf Implementierung und Betrieb.",
-      "layerInfra": "Infrastruktur-Betrieb",
-      "layerInfraDesc": "Basierend auf Erfahrung im öffentlichen Serverbetrieb schaffen wir belastbare Umgebungen und Verbesserungszyklen.",
-      "layerExpression": "Kommunikations-Design",
-      "layerExpressionDesc": "Wir verstehen Design als Informationsorganisation und Erlebnisgestaltung, nicht als Dekoration.",
-      "layerEducation": "Bildung und Mentoring",
-      "layerEducationDesc": "Wir verwandeln praktisches Wissen in Lernunterstützung und geben es an Communities und die nächste Generation weiter.",
+      "layerItems": [
+        {
+          "title": "System-Design",
+          "description": "Wir verwandeln geschäftliche Herausforderungen in Anforderungen und bauen Systeme mit Blick auf Implementierung und Betrieb.",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "Infrastruktur-Betrieb",
+          "description": "Basierend auf Erfahrung im öffentlichen Serverbetrieb schaffen wir belastbare Umgebungen und Verbesserungszyklen.",
+          "href": "/services/#server",
+          "icon": "server-cog",
+          "tone": "emerald"
+        },
+        {
+          "title": "Kommunikations-Design",
+          "description": "Wir verstehen Design als Informationsorganisation und Erlebnisgestaltung, nicht als Dekoration.",
+          "href": "/services/#design",
+          "icon": "swatch-book",
+          "tone": "amber"
+        },
+        {
+          "title": "Bildung und Mentoring",
+          "description": "Wir verwandeln praktisches Wissen in Lernunterstützung und geben es an Communities und die nächste Generation weiter.",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "slate"
+        }
+      ],
       "aboutHeading": "Über Acecore",
       "aboutBody1": "Wir veranstalten regelmäßig Studiengruppen und Workshops und fördern eine lernende Gemeinschaft mit unseren Kunden und Partnern.",
       "aboutBody2": "Durch Open-Source-Beiträge, regionale Zusammenarbeit und {link}-Initiativen bauen wir Partnerschaften auf, die Technologie und Menschen verbinden.",
@@ -289,25 +343,12 @@
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Wie Acecores Wert zirkuliert",
       "missionLoopDesc": "Ein visueller Überblick darüber, wie Acecore Wert schafft und erweitert.",
-      "cycleImplementTitle": "Technologie Implementieren",
-      "cycleImplementDesc": "Wir schaffen betriebliche Grundlagen durch Systementwicklung und Serverbetrieb.",
-      "cycleExpressTitle": "In Ausdruck Verwandeln",
-      "cycleExpressDesc": "Wir liefern ansprechende Erlebnisse durch Webdesign und kreative Arbeit.",
-      "cycleNurtureTitle": "Menschen und Räume Fördern",
-      "cycleNurtureDesc": "Wir fördern neue Teilnehmer und Lernen durch Community- und Bildungsaktivitäten.",
-      "cycleReturnTitle": "In Neue Herausforderungen Zurückfließen",
-      "cycleReturnDesc": "Wir leiten Erkenntnisse zurück in Entwicklung und Support und stärken so alle Aktivitäten.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "\"Verbunden durch Technologie, erweitert durch Kreativität\"",
       "philosophyBody1": "Acecore ist ein Technologiekollektiv, das durch die Kraft von Technologie und Kreativität vielfältigen Wert schafft. Wir bieten Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als integrierte Lösung — von Einzelpersonen bis zu Unternehmen.",
       "philosophyBody2": "Unsere Mission ist es, Menschen durch Technologie zu verbinden und Möglichkeiten durch Kreativität zu erweitern. Wir legen Wert darauf, nicht nur Technologie bereitzustellen, sondern gemeinsam mit unseren Kunden und der Community zu wachsen und nachhaltigen Wert zu schaffen.",
       "collaborationImgAlt": "Kollaborative Teamarbeit",
       "activitiesTitle": "Hauptaktivitäten von Acecore",
-      "activity1": "Regelmäßige Studiengruppen und Workshops",
-      "activity2": "Veröffentlichung und Beiträge zu Open-Source-Code",
-      "activity3": "Kooperativer Unterricht mit regionalen Bildungseinrichtungen",
-      "activity4": "Co-Creation-Projekte mit externen Partnern",
-      "activity5": "Verwaltung der Aceserver-Community",
       "workshopImgAlt": "Studiengruppe und Workshop-Szene",
       "initiativesHeading": "Aktivitäten und Initiativen",
       "communityTitle": "Community-Aktivitäten",
@@ -319,18 +360,69 @@
       "partnershipTitle": "Partnerschaften",
       "partnershipDesc": "Wir sind offen für Projektkooperationen und Geschäftspartnerschaften. Wir können in verschiedenen Bereichen kooperieren, darunter Technologie, Design und Bildung.",
       "relatedLinksHeading": "Verwandte Links",
-      "linkAceserver": "Aceserver-Portal",
-      "linkAceserverDesc": "Die offizielle Website unseres kostenlosen öffentlichen Minecraft-Servers.",
-      "linkX": "X (ehemals Twitter)",
-      "linkXDesc": "Bleiben Sie über die neuesten Nachrichten von Acecore informiert.",
-      "linkGithub": "GitHub",
-      "linkGithubDesc": "Unsere Open-Source-Projekte werden hier veröffentlicht.",
-      "linkDiscord": "Aceserver Discord",
-      "linkDiscordDesc": "Der Discord-Server, auf dem die Aceserver-Community aktiv ist.",
       "ctaHeading": "Machen Sie den nächsten Schritt mit Acecore",
       "ctaBody": "Wir sind immer offen für Beratungen zu Services und Partnerschaftsvorschläge.",
       "ctaContact": "Kontaktieren Sie uns",
-      "ctaServices": "Dienste anzeigen"
+      "ctaServices": "Dienste anzeigen",
+      "valueCycle": [
+        {
+          "title": "Technologie Implementieren",
+          "description": "Wir schaffen betriebliche Grundlagen durch Systementwicklung und Serverbetrieb.",
+          "icon": "cpu",
+          "accent": "brand"
+        },
+        {
+          "title": "In Ausdruck Verwandeln",
+          "description": "Wir liefern ansprechende Erlebnisse durch Webdesign und kreative Arbeit.",
+          "icon": "palette",
+          "accent": "amber"
+        },
+        {
+          "title": "Menschen und Räume Fördern",
+          "description": "Wir fördern neue Teilnehmer und Lernen durch Community- und Bildungsaktivitäten.",
+          "icon": "users",
+          "accent": "emerald"
+        },
+        {
+          "title": "In Neue Herausforderungen Zurückfließen",
+          "description": "Wir leiten Erkenntnisse zurück in Entwicklung und Support und stärken so alle Aktivitäten.",
+          "icon": "repeat-2",
+          "accent": "slate"
+        }
+      ],
+      "activities": [
+        "Regelmäßige Studiengruppen und Workshops",
+        "Veröffentlichung und Beiträge zu Open-Source-Code",
+        "Kooperativer Unterricht mit regionalen Bildungseinrichtungen",
+        "Co-Creation-Projekte mit externen Partnern",
+        "Verwaltung der Aceserver-Community"
+      ],
+      "relatedLinks": [
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver-Portal",
+          "description": "Die offizielle Website unseres kostenlosen öffentlichen Minecraft-Servers.",
+          "href": "aceserver"
+        },
+        {
+          "icon": "at-sign",
+          "title": "X (ehemals Twitter)",
+          "description": "Bleiben Sie über die neuesten Nachrichten von Acecore informiert.",
+          "href": "x"
+        },
+        {
+          "icon": "github",
+          "title": "GitHub",
+          "description": "Unsere Open-Source-Projekte werden hier veröffentlicht.",
+          "href": "github"
+        },
+        {
+          "icon": "message-circle",
+          "title": "Aceserver Discord",
+          "description": "Der Discord-Server, auf dem die Aceserver-Community aktiv ist.",
+          "href": "discord"
+        }
+      ]
     },
     "services": {
       "title": "Dienste",
@@ -360,81 +452,90 @@
         "title": "Unternehmenssystem- und App-Entwicklung",
         "desc": "Wir entwickeln maßgeschneiderte Systeme und Anwendungen für Ihre Herausforderungen — von Betriebseffizienz und Automatisierung bis zur Datenverwaltung. Von kleinen internen Tools bis zu großen Webservices. Beraten Sie sich mit uns, auch wenn Sie nicht wissen, wo Sie anfangen sollen.",
         "examplesLabel": "Beispiele",
-        "example1": "Entwurf und Entwicklung von Management-Systemen, CRM und ERP",
-        "example2": "Web-App-, SPA- und Mobile-Entwicklung",
-        "example3": "API-Design, Integration von Drittanbieter-Services und Dateninfrastruktur",
-        "example4": "Modernisierung bestehender Systeme",
-        "imgAlt": "Code-Editor zeigt Entwicklungsarbeit"
+        "imgAlt": "Code-Editor zeigt Entwicklungsarbeit",
+        "examples": [
+          "Entwurf und Entwicklung von Management-Systemen, CRM und ERP",
+          "Web-App-, SPA- und Mobile-Entwicklung",
+          "API-Design, Integration von Drittanbieter-Services und Dateninfrastruktur",
+          "Modernisierung bestehender Systeme"
+        ]
       },
       "server": {
         "title": "Serverkonfiguration und -betrieb",
         "desc": "Wir sind spezialisiert auf den Aufbau und Betrieb sicherer und stabiler Serverumgebungen. Acecore hat langjährige Erfahrung mit dem Betrieb von Aceserver (einem öffentlichen Minecraft-Server) und bringt diese Expertise auch für Geschäftskunden ein. Wir können auch Servermigration und Cloud-Einführung besprechen.",
         "examplesLabel": "Beispiele",
-        "example1": "Entwurf und Konfiguration von Cloud-Servern (AWS / Azure / GCP / Cloudflare)",
-        "example2": "Betrieb, Monitoring und Wartung von Linux / Windows-Servern",
-        "example3": "Einrichtung von Spiele- und Community-Servern",
-        "example4": "Sicherheitsmaßnahmen und Backup-Infrastruktur"
+        "examples": [
+          "Entwurf und Konfiguration von Cloud-Servern (AWS / Azure / GCP / Cloudflare)",
+          "Betrieb, Monitoring und Wartung von Linux / Windows-Servern",
+          "Einrichtung von Spiele- und Community-Servern",
+          "Sicherheitsmaßnahmen und Backup-Infrastruktur"
+        ]
       },
       "web": {
         "title": "Webdesign und -Verwaltung",
         "desc": "Wir kümmern uns um alles, von der Planung über die Produktion bis zur Wartung für Unternehmenswebsites, Portfolios, E-Commerce und Community-Sites. Wir liefern hochwertige Websites mit neuester Technologie und SEO-Best-Practices.",
         "examplesLabel": "Beispiele",
-        "example1": "Entwurf von Unternehmenswebsites und Landing Pages",
-        "example2": "CMS-, Blog- und Mediensite-Einrichtung",
-        "example3": "E-Commerce- und Online-Shop-Entwicklung",
-        "example4": "SEO-Optimierung, Performance-Tuning und Barrierefreiheitsverbesserungen",
-        "imgAlt": "Webdesign-Produktionsprozess"
+        "imgAlt": "Webdesign-Produktionsprozess",
+        "examples": [
+          "Entwurf von Unternehmenswebsites und Landing Pages",
+          "CMS-, Blog- und Mediensite-Einrichtung",
+          "E-Commerce- und Online-Shop-Entwicklung",
+          "SEO-Optimierung, Performance-Tuning und Barrierefreiheitsverbesserungen"
+        ]
       },
       "timelineTitle": "Von der Einführung zur kontinuierlichen Verbesserung",
-      "timelineStep1Title": "Diagnose",
-      "timelineStep1Desc": "Ziele und Einschränkungen organisieren, Prioritäten klären.",
-      "timelineStep2Title": "Entwurf und Vorschlag",
-      "timelineStep2Desc": "Benötigte Technologie, Bildschirme und Betriebsregeln definieren.",
-      "timelineStep3Title": "Produktion und Entwicklung",
-      "timelineStep3Desc": "In Entwicklung, Design und Infrastruktur implementieren.",
-      "timelineStep4Title": "Launch und Wartung",
-      "timelineStep4Desc": "Fortlaufender Support einschließlich Verbesserungsvorschlägen und Weiterentwicklung.",
       "design": {
         "title": "Design und Kreation",
         "desc": "Wir decken ein breites Spektrum kreativer Produktion ab, einschließlich Logo-Design, Druckmaterialien, Banner und Charakter-Design. Wir legen Wert darauf, Ihre Botschaft präzise zu formen. In Kombination mit unseren Webdesign-Services kümmern wir uns um alles vom Design bis zur Veröffentlichung.",
         "examplesLabel": "Beispiele",
-        "example1": "Logo-Design und Markenidentität",
-        "example2": "Visitenkarten, Broschüren, Poster und andere Druckmaterialien",
-        "example3": "Webbanner und Social-Media-Kreative",
-        "example4": "Charakter-Design und Illustration",
-        "imgAlt": "Kreativer Design-Arbeitsplatz"
+        "imgAlt": "Kreativer Design-Arbeitsplatz",
+        "examples": [
+          "Logo-Design und Markenidentität",
+          "Visitenkarten, Broschüren, Poster und andere Druckmaterialien",
+          "Webbanner und Social-Media-Kreative",
+          "Charakter-Design und Illustration"
+        ]
       },
       "education": {
         "title": "IT-Schule / Acecore Schools",
         "desc": "Eine Schule, in der aktive Ingenieure direkt praktische IT-Fähigkeiten vermitteln. Wir bieten eine breite Palette von Bildungsprogrammen, darunter Nachhilfe, Roboter-Programmierung, praktische Programmierung, PC/Smartphone-Kurse und Vorbereitung auf den Schulabschluss — alle individuell auf jeden Schüler zugeschnitten.",
         "coursesLabel": "Kursangebot",
-        "course1": "Nachhilfe (individuell, Prüfungs- und Klausurvorbereitung)",
-        "course2": "Robotik / Programmierung (Roboter-Montage und Minecraft-Programmierung)",
-        "course3": "Praktische Programmierung (Webentwicklung, Backend, Datenbanken)",
-        "course4": "PC / Smartphone (Grundlagen, Büroanwendungen, Sicherheit)",
-        "course5": "Schulabschluss-Vorbereitung (Prüfungsvorbereitung und Lernpläne)",
-        "detailLink": "Details zu Acecore Schools anzeigen"
+        "detailLink": "Details zu Acecore Schools anzeigen",
+        "courses": [
+          "Nachhilfe (individuell, Prüfungs- und Klausurvorbereitung)",
+          "Robotik / Programmierung (Roboter-Montage und Minecraft-Programmierung)",
+          "Praktische Programmierung (Webentwicklung, Backend, Datenbanken)",
+          "PC / Smartphone (Grundlagen, Büroanwendungen, Sicherheit)",
+          "Schulabschluss-Vorbereitung (Prüfungsvorbereitung und Lernpläne)"
+        ]
       },
       "aceserver": {
         "title": "Aceserver (Öffentlicher Minecraft-Server)",
         "desc": "Aceserver ist ein kostenloser öffentlicher Minecraft-Server, betrieben von Acecore. Mit der Philosophie 'ein Ort für alle' können Spieler über die Java- und Bedrock-Edition beitreten und Multiplayer in einer Vanilla-nahen Umgebung genießen. Mit nachgewiesener Erfahrung bei hunderten gleichzeitigen Verbindungen wird die hier erworbene Infrastruktur-Expertise auch auf unsere Geschäftsservices angewendet.",
         "featuresLabel": "Merkmale",
-        "feature1": "Kostenloser Zugang für alle (nur ein Account nötig)",
-        "feature2": "Cross-Play-Support für Java und Bedrock",
-        "feature3": "Vanilla-nahe Spielumgebung mit hoher Freiheit",
-        "feature4": "Aktive Discord-Community für Austausch und Information",
-        "feature5": "Streaming und Promotion willkommen (keine Anfrage nötig)"
+        "features": [
+          "Kostenloser Zugang für alle (nur ein Account nötig)",
+          "Cross-Play-Support für Java und Bedrock",
+          "Vanilla-nahe Spielumgebung mit hoher Freiheit",
+          "Aktive Discord-Community für Austausch und Information",
+          "Streaming und Promotion willkommen (keine Anfrage nötig)"
+        ],
+        "portalLink": "Offizielle Aceserver-Website",
+        "wikiLink": "Aceserver-Wiki",
+        "discordLink": "Aceserver-Discord"
       },
       "acestudio": {
         "title": "AceStudio",
         "comingSoon": "Coming Soon",
         "desc": "AceStudio ist ein neuer Service, der derzeit von Acecore entwickelt wird. Als Plattform zur Maximierung des kreativen Potenzials wird er kreative Aktivitäten in Design, Video, Musik, Entwicklung und mehr unterstützen.",
         "areasLabel": "Geplante Funktionen und Bereiche",
-        "area1": "Kollaborationsumgebung für Kreative",
-        "area2": "Multi-Domain-Support: Design, Video, Musik, Programmierung",
-        "area3": "Integrierter Workflow von der Erstellung bis zur Veröffentlichung",
         "note": "Servicedetails werden veröffentlicht, wenn die Vorbereitungen abgeschlossen sind. Folgen Sie uns auf X oder in unserem Blog für die neuesten Updates.",
-        "detailLink": "Details zu AceStudio anzeigen"
+        "detailLink": "Details zu AceStudio anzeigen",
+        "areas": [
+          "Kollaborationsumgebung für Kreative",
+          "Multi-Domain-Support: Design, Video, Musik, Programmierung",
+          "Integrierter Workflow von der Erstellung bis zur Veröffentlichung"
+        ]
       },
       "miniCta": "Zu diesem Dienst beraten lassen",
       "ctaHeading": "Kontaktieren Sie uns gerne",
@@ -500,7 +601,29 @@
             "href": "/acestudio/"
           }
         ]
-      }
+      },
+      "timeline": [
+        {
+          "date": "Step 1",
+          "title": "Diagnose",
+          "description": "Ziele und Einschränkungen organisieren, Prioritäten klären."
+        },
+        {
+          "date": "Step 2",
+          "title": "Entwurf und Vorschlag",
+          "description": "Benötigte Technologie, Bildschirme und Betriebsregeln definieren."
+        },
+        {
+          "date": "Step 3",
+          "title": "Produktion und Entwicklung",
+          "description": "In Entwicklung, Design und Infrastruktur implementieren."
+        },
+        {
+          "date": "Step 4",
+          "title": "Launch und Wartung",
+          "description": "Fortlaufender Support einschließlich Verbesserungsvorschlägen und Weiterentwicklung."
+        }
+      ]
     },
     "contact": {
       "title": "Kontakt",
@@ -548,14 +671,6 @@
       "validationEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
       "validationMessage": "Bitte geben Sie Ihre Nachricht ein",
       "faqTitle": "Häufige Fragen",
-      "faqQ1": "Ich weiß nicht, zu welchem Service ich fragen soll.",
-      "faqA1": "Sie können Systementwicklung, Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation.",
-      "faqQ2": "Kann ich nur ein Angebot anfragen?",
-      "faqA2": "Ja. Angebote sind kostenlos. Nennen Sie Ziel, Zeitraum, aktuelles Problem und grobes Budget, falls vorhanden.",
-      "faqQ3": "Kann ich hier auch Acecore Schools anfragen?",
-      "faqA3": "Ja. Nennen Sie Lernziel, Alter oder Klasse und gewünschtes Lerntempo.",
-      "faqQ4": "Wie lange dauert eine Antwort?",
-      "faqA4": "Normalerweise antworten wir innerhalb von 1-2 Werktagen. Für Ergänzungen nach dem Absenden können auch LINE oder die Kontaktoptionen unten genutzt werden.",
       "aiHeading": "KI-Chat ist ebenfalls verfügbar",
       "aiLead": "Nutzen Sie den KI-Chat unten rechts für Services, Entwicklungs- oder Website-Fragen, Schulen und Antwortzeiten. Für detaillierte Beratung können Sie mit dem Formular fortfahren.",
       "aiQuestionLabel": "Frage an die KI",
@@ -568,7 +683,25 @@
       "lineCta": "Auf LINE folgen",
       "directMethodsNote": "Für kurze Fragen nutzen Sie LINE. Für einfache Rückfragen in sozialen Medien ist auch X verfügbar. Detaillierte Anliegen lassen sich über das Formular besser prüfen.",
       "directContactSummary": "Wenn Sie direkt Kontakt aufnehmen möchten",
-      "directContactLead": "Öffnen Sie dies, wenn Sie nach dem Formular noch etwas ergänzen oder direkt bestätigen möchten."
+      "directContactLead": "Öffnen Sie dies, wenn Sie nach dem Formular noch etwas ergänzen oder direkt bestätigen möchten.",
+      "faqs": [
+        {
+          "question": "Ich weiß nicht, zu welchem Service ich fragen soll.",
+          "answer": "Sie können Systementwicklung, Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation."
+        },
+        {
+          "question": "Kann ich nur ein Angebot anfragen?",
+          "answer": "Ja. Angebote sind kostenlos. Nennen Sie Ziel, Zeitraum, aktuelles Problem und grobes Budget, falls vorhanden."
+        },
+        {
+          "question": "Kann ich hier auch Acecore Schools anfragen?",
+          "answer": "Ja. Nennen Sie Lernziel, Alter oder Klasse und gewünschtes Lerntempo."
+        },
+        {
+          "question": "Wie lange dauert eine Antwort?",
+          "answer": "Normalerweise antworten wir innerhalb von 1-2 Werktagen. Für Ergänzungen nach dem Absenden können auch LINE oder die Kontaktoptionen unten genutzt werden."
+        }
+      ]
     },
     "schools": {
       "title": "Acecore Schools",
@@ -579,77 +712,75 @@
       "learningFlowEyebrow": "Learning Flow",
       "learningFlowTitle": "Entdecken Sie den Lernweg bei Acecore Schools",
       "learningFlowDesc": "Vom ersten Interesse über die Praxis bis zur Kontinuität — dargestellt als ein einzigartiger Lernweg.",
-      "flowDiscoverTitle": "Finden Sie Ihr Interesse",
-      "flowDiscoverDesc": "Durch Nachhilfe und Roboter-Erfahrungen helfen wir, den Einstiegspunkt jedes Schülers zum Lernen zu finden.",
-      "flowPracticeTitle": "Lernen durch Handeln",
-      "flowPracticeDesc": "Verbinden Sie Erfahrung und Verständnis durch praktische Arbeit mit Robotern, Minecraft und Programmierübungen.",
-      "flowApplyTitle": "Mit der Praxis Verbinden",
-      "flowApplyDesc": "Heben Sie das Lernen auf die Ebene realer Problemlösung durch Webentwicklung und Tool-Nutzung.",
-      "flowContinueTitle": "Nachhaltig Gestalten",
-      "flowContinueDesc": "Schaffen Sie einen Weg der Kontinuität, der zu jedem Schüler passt, einschließlich Prüfungen, Zertifizierungen und alltäglicher IT-Nutzung.",
       "intro": "Wir bieten individuellen Unterricht, angepasst an die Ziele und das Tempo jedes Schülers, von Kindern bis zu Erwachsenen. Unsere Positionierung können Sie auch in der Dienstleistungsübersicht sehen.",
       "juku": {
         "title": "Nachhilfe",
         "desc": "Unser Nachhilfeprogramm bietet individuellen Unterricht, angepasst an jeden Schüler, und baut akademische Fähigkeiten vom Grundniveau bis zum Fortgeschrittenen auf. Erfahrene Lehrkräfte unterstützen das Wachstum jedes Schülers.",
         "featuresLabel": "Merkmale",
-        "feature1": "Personalisierte Stunden, angepasst an das Verständnisniveau jedes Schülers",
-        "feature2": "Schritt-für-Schritt-Unterstützung von Grundkenntnissen bis zur fortgeschrittenen Anwendung",
-        "feature3": "Vorbereitung auf Tests und Aufnahmeprüfungen verfügbar",
-        "imgAlt": "Einzelnachhilfestunde im Klassenzimmer"
+        "imgAlt": "Einzelnachhilfestunde im Klassenzimmer",
+        "features": [
+          "Personalisierte Stunden, angepasst an das Verständnisniveau jedes Schülers",
+          "Schritt-für-Schritt-Unterstützung von Grundkenntnissen bis zur fortgeschrittenen Anwendung",
+          "Vorbereitung auf Tests und Aufnahmeprüfungen verfügbar"
+        ]
       },
       "robotProgramming": {
         "title": "Robotik / Programmierung",
         "desc": "Wir bieten fortschrittliche Kurse in Roboter-Programmierung an. Die Schüler können Programmiergrundlagen mit echten Robotern erlernen.",
-        "robotCourseTitle": "Robotik-Kurs",
-        "robotCourseDesc": "Lernen Sie die Freude am Bauen und grundlegende Mechanismen durch praktischen Roboter-Zusammenbau mit Bausätzen wie der Tamiya-Serie.",
-        "robotProgCourseTitle": "Roboter-Programmierung-Kurs",
-        "robotProgCourseDesc": "Lernen Sie, Roboter mit Programmierung zu steuern. Entwickeln Sie logisches Denken durch die Steuerung von Sensoren und Motoren.",
-        "mcProgCourseTitle": "Minecraft-Programmierung-Kurs",
-        "mcProgCourseDesc": "Lernen Sie Programmiergrundlagen mit dem beliebten Spiel Minecraft. Entwickeln Sie auf natürliche Weise informatisches Denken beim Spielen.",
         "imgAlt": "Schüler beim Programmieren lernen",
-        "minecraftCourseTitle": "Minecraft-Programmierung-Kurs",
-        "minecraftCourseDesc": "Lernen Sie Programmiergrundlagen mit dem beliebten Spiel Minecraft. Entwickeln Sie auf natürliche Weise informatisches Denken beim Spielen.",
-        "progImgAlt": "Schüler beim Programmieren lernen"
+        "progImgAlt": "Schüler beim Programmieren lernen",
+        "courses": [
+          {
+            "title": "Robotik-Kurs",
+            "description": "Lernen Sie die Freude am Bauen und grundlegende Mechanismen durch praktischen Roboter-Zusammenbau mit Bausätzen wie der Tamiya-Serie."
+          },
+          {
+            "title": "Roboter-Programmierung-Kurs",
+            "description": "Lernen Sie, Roboter mit Programmierung zu steuern. Entwickeln Sie logisches Denken durch die Steuerung von Sensoren und Motoren."
+          },
+          {
+            "title": "Minecraft-Programmierung-Kurs",
+            "description": "Lernen Sie Programmiergrundlagen mit dem beliebten Spiel Minecraft. Entwickeln Sie auf natürliche Weise informatisches Denken beim Spielen."
+          }
+        ]
       },
       "compareTitle": "Lernansätze Vergleichen",
       "compareBefore": "Autodidakt",
-      "compareBefore1": "Weiß nicht, wo man anfangen soll",
-      "compareBefore2": "Niemand, den man bei Problemen fragen kann",
-      "compareBefore3": "Schwierig, die Motivation aufrechtzuerhalten",
-      "compareBefore4": "Keinen Zusammenhang zur Praxis erkennbar",
       "compareAfter": "Acecore Schools",
-      "compareAfter1": "Personalisierte Einstiegsvorschläge",
-      "compareAfter2": "Fragen Sie die Lehrkräfte jederzeit",
-      "compareAfter3": "Natürliche Kontinuität durch praktische Erfahrung",
-      "compareAfter4": "Direkt verbunden mit Prüfungen, Zertifizierungen und echter Arbeit",
       "practicalProgramming": {
         "title": "Praktische Programmierung",
         "desc": "Wir bieten ein Curriculum zum Erlernen von Programmierkenntnissen, die in realen Geschäftsumgebungen verwendet werden. Erwerben Sie praktische Fähigkeiten für den sofortigen Einsatz.",
         "contentLabel": "Was Sie lernen werden",
-        "content1": "Frontend-Webentwicklung mit HTML / CSS / JavaScript",
-        "content2": "Backend-Entwicklung mit Python / Node.js",
-        "content3": "Datenbank-Design, API-Entwicklung und Cloud-Nutzung",
-        "content4": "Git und Team-Entwicklungs-Workflows",
-        "contentsLabel": "Kursinhalte"
+        "contentsLabel": "Kursinhalte",
+        "contents": [
+          "Frontend-Webentwicklung mit HTML / CSS / JavaScript",
+          "Backend-Entwicklung mit Python / Node.js",
+          "Datenbank-Design, API-Entwicklung und Cloud-Nutzung",
+          "Git und Team-Entwicklungs-Workflows"
+        ]
       },
       "pcSmartphone": {
         "title": "PC / Smartphone",
         "desc": "Lernen Sie Computer- und Smartphone-Fähigkeiten, die im Alltag und Beruf benötigt werden. Wir bieten Kurse für alle Niveaus, von Anfängern bis Fortgeschrittenen.",
         "levelLabel": "Unterstützte Niveaus",
-        "level1": "Grundlegende PC- und Smartphone-Bedienung (Anfänger willkommen)",
-        "level2": "Büroanwendungen: Word / Excel / PowerPoint",
-        "level3": "E-Mail-, Social-Media- und Online-Meeting-Einrichtung und -Nutzung",
-        "level4": "Sicherheitsmaßnahmen und Problemlösung",
         "imgAlt": "Schüler lernt am Computer",
-        "levelsLabel": "Unterstützte Niveaus"
+        "levelsLabel": "Unterstützte Niveaus",
+        "levels": [
+          "Grundlegende PC- und Smartphone-Bedienung (Anfänger willkommen)",
+          "Büroanwendungen: Word / Excel / PowerPoint",
+          "E-Mail-, Social-Media- und Online-Meeting-Einrichtung und -Nutzung",
+          "Sicherheitsmaßnahmen und Problemlösung"
+        ]
       },
       "ged": {
         "title": "Schulabschluss-Vorbereitung",
         "desc": "Wir bieten Vorbereitungskurse für die Schulabschlussprüfung für diejenigen, die die Oberschule nicht abgeschlossen haben. Wir unterstützen Sie beim Erwerb der notwendigen Kenntnisse und Qualifikationen.",
         "supportLabel": "Unterstützungsinhalte",
-        "support1": "Vorbereitung nach Fachgebiet (Deutsch, Mathematik, Englisch, Sozialwissenschaften, Naturwissenschaften)",
-        "support2": "Individuelle Lernpläne basierend auf dem jeweiligen akademischen Niveau",
-        "support3": "Probeprüfungen und Übungen mit früheren Prüfungen zur praktischen Vorbereitung"
+        "supports": [
+          "Vorbereitung nach Fachgebiet (Deutsch, Mathematik, Englisch, Sozialwissenschaften, Naturwissenschaften)",
+          "Individuelle Lernpläne basierend auf dem jeweiligen akademischen Niveau",
+          "Probeprüfungen und Übungen mit früheren Prüfungen zur praktischen Vorbereitung"
+        ]
       },
       "ctaHeading": "Beratung und Anmeldung",
       "ctaBody": "Für Kursdetails und Anmeldung nutzen Sie bitte das Kontaktformular oder LINE. Sie können auch fragen, wenn Sie nicht wissen, welcher Kurs passt.",
@@ -684,7 +815,45 @@
             "note": "Für Materialien, Robotik-Teile, PC- oder Lizenzkosten können je nach Inhalt zusätzliche tatsächliche Kosten anfallen."
           }
         ]
-      }
+      },
+      "learningSteps": [
+        {
+          "title": "Finden Sie Ihr Interesse",
+          "description": "Durch Nachhilfe und Roboter-Erfahrungen helfen wir, den Einstiegspunkt jedes Schülers zum Lernen zu finden.",
+          "icon": "sparkles",
+          "accent": "amber"
+        },
+        {
+          "title": "Lernen durch Handeln",
+          "description": "Verbinden Sie Erfahrung und Verständnis durch praktische Arbeit mit Robotern, Minecraft und Programmierübungen.",
+          "icon": "bot",
+          "accent": "brand"
+        },
+        {
+          "title": "Mit der Praxis Verbinden",
+          "description": "Heben Sie das Lernen auf die Ebene realer Problemlösung durch Webentwicklung und Tool-Nutzung.",
+          "icon": "code-xml",
+          "accent": "emerald"
+        },
+        {
+          "title": "Nachhaltig Gestalten",
+          "description": "Schaffen Sie einen Weg der Kontinuität, der zu jedem Schüler passt, einschließlich Prüfungen, Zertifizierungen und alltäglicher IT-Nutzung.",
+          "icon": "flag",
+          "accent": "slate"
+        }
+      ],
+      "compareBeforeItems": [
+        "Weiß nicht, wo man anfangen soll",
+        "Niemand, den man bei Problemen fragen kann",
+        "Schwierig, die Motivation aufrechtzuerhalten",
+        "Keinen Zusammenhang zur Praxis erkennbar"
+      ],
+      "compareAfterItems": [
+        "Personalisierte Einstiegsvorschläge",
+        "Fragen Sie die Lehrkräfte jederzeit",
+        "Natürliche Kontinuität durch praktische Erfahrung",
+        "Direkt verbunden mit Prüfungen, Zertifizierungen und echter Arbeit"
+      ]
     },
     "privacy": {
       "title": "Datenschutzerklärung",
@@ -722,14 +891,6 @@
       "studioScopeEyebrow": "Studio Scope",
       "studioScopeTitle": "Vier Bereiche, die AceStudio vorbereitet",
       "studioScopeDesc": "Ein Überblick über unseren Ansatz bei Inhalten, Community und Monetarisierung für die öffentliche Website.",
-      "areaContentTitle": "Content-Produktion",
-      "areaContentDesc": "Wir bringen Projekte in Video, Streaming, Design und Entwicklung zum Leben.",
-      "areaCreatorTitle": "Creator-Unterstützung",
-      "areaCreatorDesc": "Wir bauen Systeme zur Unterstützung der Veröffentlichungs- und Produktionsaktivitäten einzelner Creator auf.",
-      "areaCommunityTitle": "Community-Management",
-      "areaCommunityDesc": "Wir priorisieren den Aufbau von Räumen, in denen Fans und Teilnehmer dauerhafte Verbindungen pflegen können.",
-      "areaRevenueTitle": "Validierung des Umsatzmodells",
-      "areaRevenueDesc": "Wir übersetzen in Betracht gezogene Umsatzmodelle in reale Operationen.",
       "creativeImgAlt": "Videoproduktion und kreative Arbeit",
       "comingSoonHeading": "Ein neues kreatives Erlebnis, bald verfügbar.",
       "comingSoonBody1": "AceStudio ist ein neuer Service, der derzeit von Acecore entwickelt wird.",
@@ -738,20 +899,56 @@
       "pullQuoteText": "Erschaffen Sie nicht nur. Liefern Sie, kultivieren Sie und halten Sie in Bewegung.",
       "pullQuoteAttribution": "AceStudio Design-Philosophie",
       "faqTitle": "FAQ zu AceStudio",
-      "faqQ1": "Wann wird AceStudio gestartet?",
-      "faqA1": "Derzeit in Vorbereitung. Wir werden das Startdatum auf X und in unserem Blog bekanntgeben, wenn es feststeht.",
-      "faqQ2": "Wird es Gebühren geben?",
-      "faqA2": "Die Preisstruktur wird derzeit geprüft. Wir planen, einen kostenlosen Plan anzubieten.",
-      "faqQ3": "Welche Arten von kreativen Aktivitäten werden abgedeckt?",
-      "faqA3": "Wir unterstützen breite digitale kreative Aktivitäten, darunter Design, Video, Musik und Programmierung.",
-      "faqQ4": "Kann ich mich vorab registrieren oder reservieren?",
-      "faqA4": "Eine Vorab-Registrierung ist derzeit nicht verfügbar, aber wenn Sie uns auf X folgen, bleiben Sie über die neuesten Nachrichten informiert.",
       "newsHeading": "Bleiben Sie Informiert",
       "newsBody": "Startinformationen und die neuesten Entwicklungsupdates werden auf dem X-Account von Acecore und im Blog geteilt.",
       "followX": "Auf X folgen",
       "viewBlog": "Blog anzeigen",
       "inquiryText": "Für Anfragen und Wünsche zu AceStudio",
-      "inquiryButton": "Kontaktieren Sie uns"
+      "inquiryButton": "Kontaktieren Sie uns",
+      "studioAreas": [
+        {
+          "title": "Content-Produktion",
+          "description": "Wir bringen Projekte in Video, Streaming, Design und Entwicklung zum Leben.",
+          "icon": "film",
+          "tone": "brand"
+        },
+        {
+          "title": "Creator-Unterstützung",
+          "description": "Wir bauen Systeme zur Unterstützung der Veröffentlichungs- und Produktionsaktivitäten einzelner Creator auf.",
+          "icon": "badge-help",
+          "tone": "amber"
+        },
+        {
+          "title": "Community-Management",
+          "description": "Wir priorisieren den Aufbau von Räumen, in denen Fans und Teilnehmer dauerhafte Verbindungen pflegen können.",
+          "icon": "messages-square",
+          "tone": "emerald"
+        },
+        {
+          "title": "Validierung des Umsatzmodells",
+          "description": "Wir übersetzen in Betracht gezogene Umsatzmodelle in reale Operationen.",
+          "icon": "chart-no-axes-combined",
+          "tone": "slate"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Wann wird AceStudio gestartet?",
+          "answer": "Derzeit in Vorbereitung. Wir werden das Startdatum auf X und in unserem Blog bekanntgeben, wenn es feststeht."
+        },
+        {
+          "question": "Wird es Gebühren geben?",
+          "answer": "Die Preisstruktur wird derzeit geprüft. Wir planen, einen kostenlosen Plan anzubieten."
+        },
+        {
+          "question": "Welche Arten von kreativen Aktivitäten werden abgedeckt?",
+          "answer": "Wir unterstützen breite digitale kreative Aktivitäten, darunter Design, Video, Musik und Programmierung."
+        },
+        {
+          "question": "Kann ich mich vorab registrieren oder reservieren?",
+          "answer": "Eine Vorab-Registrierung ist derzeit nicht verfügbar, aber wenn Sie uns auf X folgen, bleiben Sie über die neuesten Nachrichten informiert."
+        }
+      ]
     },
     "pricing": {
       "title": "Preisübersicht",

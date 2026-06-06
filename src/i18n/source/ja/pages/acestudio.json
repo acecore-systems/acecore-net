@@ -7,14 +7,6 @@
   "studioScopeEyebrow": "Studio Scope",
   "studioScopeTitle": "AceStudioが準備している4つの領域",
   "studioScopeDesc": "コンテンツ × コミュニティ × 収益化の考え方を、公開サイト向けに要約しています。",
-  "areaContentTitle": "コンテンツ制作",
-  "areaContentDesc": "映像、配信、デザイン、開発を横断しながら企画を形にします。",
-  "areaCreatorTitle": "クリエイター支援",
-  "areaCreatorDesc": "個人の発信や制作活動を仕組み面から支える設計を進めています。",
-  "areaCommunityTitle": "コミュニティ運営",
-  "areaCommunityDesc": "作品のファンや参加者が継続的につながる場づくりを重視します。",
-  "areaRevenueTitle": "収益モデル検証",
-  "areaRevenueDesc": "検討中の収益モデルを、実際の運用へ落とし込んでいきます。",
   "creativeImgAlt": "映像制作・クリエイティブワーク",
   "comingSoonHeading": "新しいクリエイティブ体験を、まもなく。",
   "comingSoonBody1": "AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。",
@@ -23,18 +15,54 @@
   "pullQuoteText": "作るだけで終わらない。届けて、育てて、回す。",
   "pullQuoteAttribution": "AceStudioの設計思想",
   "faqTitle": "AceStudioについてのよくある質問",
-  "faqQ1": "AceStudioはいつリリースされますか？",
-  "faqA1": "現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。",
-  "faqQ2": "利用に費用はかかりますか？",
-  "faqA2": "料金体系は現在検討中です。無料で始められるプランも用意する予定です。",
-  "faqQ3": "どんなクリエイティブ活動が対象ですか？",
-  "faqA3": "デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。",
-  "faqQ4": "事前登録や予約はできますか？",
-  "faqA4": "現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。",
   "newsHeading": "最新情報をお届けします",
   "newsBody": "リリース情報や最新の開発状況は、AcecoreのXアカウントやブログで随時お知らせしていきます。",
   "followX": "Xでフォローする",
   "viewBlog": "ブログを見る",
   "inquiryText": "AceStudioに関するお問い合わせやご要望はこちらから",
-  "inquiryButton": "お問い合わせ"
+  "inquiryButton": "お問い合わせ",
+  "studioAreas": [
+    {
+      "title": "コンテンツ制作",
+      "description": "映像、配信、デザイン、開発を横断しながら企画を形にします。",
+      "icon": "film",
+      "tone": "brand"
+    },
+    {
+      "title": "クリエイター支援",
+      "description": "個人の発信や制作活動を仕組み面から支える設計を進めています。",
+      "icon": "badge-help",
+      "tone": "amber"
+    },
+    {
+      "title": "コミュニティ運営",
+      "description": "作品のファンや参加者が継続的につながる場づくりを重視します。",
+      "icon": "messages-square",
+      "tone": "emerald"
+    },
+    {
+      "title": "収益モデル検証",
+      "description": "検討中の収益モデルを、実際の運用へ落とし込んでいきます。",
+      "icon": "chart-no-axes-combined",
+      "tone": "slate"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "AceStudioはいつリリースされますか？",
+      "answer": "現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。"
+    },
+    {
+      "question": "利用に費用はかかりますか？",
+      "answer": "料金体系は現在検討中です。無料で始められるプランも用意する予定です。"
+    },
+    {
+      "question": "どんなクリエイティブ活動が対象ですか？",
+      "answer": "デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。"
+    },
+    {
+      "question": "事前登録や予約はできますか？",
+      "answer": "現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。"
+    }
+  ]
 }

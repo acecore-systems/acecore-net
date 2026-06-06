@@ -24,58 +24,44 @@ interface SchoolPricingItem {
   note: string
 }
 
+interface LearningStep {
+  title: string
+  description: string
+  icon: string
+  accent: string
+}
+
+interface RobotProgrammingCourse {
+  title: string
+  description: string
+}
+
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
-const learningSteps = [
-  {
-    title: t(locale, 'pages.schools.flowDiscoverTitle'),
-    description: t(locale, 'pages.schools.flowDiscoverDesc'),
-    icon: 'sparkles',
-    accent: 'amber',
-  },
-  {
-    title: t(locale, 'pages.schools.flowPracticeTitle'),
-    description: t(locale, 'pages.schools.flowPracticeDesc'),
-    icon: 'bot',
-    accent: 'brand',
-  },
-  {
-    title: t(locale, 'pages.schools.flowApplyTitle'),
-    description: t(locale, 'pages.schools.flowApplyDesc'),
-    icon: 'code-xml',
-    accent: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.schools.flowContinueTitle'),
-    description: t(locale, 'pages.schools.flowContinueDesc'),
-    icon: 'flag',
-    accent: 'slate',
-  },
-] as const
+const learningSteps = getList<LearningStep>('pages.schools.learningSteps')
 
 const learningCompare = {
   title: t(locale, 'pages.schools.compareTitle'),
   before: {
     label: t(locale, 'pages.schools.compareBefore'),
-    items: [
-      t(locale, 'pages.schools.compareBefore1'),
-      t(locale, 'pages.schools.compareBefore2'),
-      t(locale, 'pages.schools.compareBefore3'),
-      t(locale, 'pages.schools.compareBefore4'),
-    ],
+    items: getList<string>('pages.schools.compareBeforeItems'),
   },
   after: {
     label: t(locale, 'pages.schools.compareAfter'),
-    items: [
-      t(locale, 'pages.schools.compareAfter1'),
-      t(locale, 'pages.schools.compareAfter2'),
-      t(locale, 'pages.schools.compareAfter3'),
-      t(locale, 'pages.schools.compareAfter4'),
-    ],
+    items: getList<string>('pages.schools.compareAfterItems'),
   },
 }
 
+const jukuFeatures = getList<string>('pages.schools.juku.features')
+const robotProgrammingCourses = getList<RobotProgrammingCourse>(
+  'pages.schools.robotProgramming.courses',
+)
+const practicalProgrammingContents = getList<string>(
+  'pages.schools.practicalProgramming.contents',
+)
+const pcSmartphoneLevels = getList<string>('pages.schools.pcSmartphone.levels')
+const gedSupports = getList<string>('pages.schools.ged.supports')
 const schoolPricingItems = getList<SchoolPricingItem>(
   'pages.schools.pricing.items',
 )
@@ -190,18 +176,14 @@ const schoolsLd = {
             {t(locale, 'pages.schools.juku.featuresLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.juku.feature1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.juku.feature2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.juku.feature3')}
-            </li>
+            {
+              jukuFeatures.map((feature) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {feature}
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -238,30 +220,14 @@ const schoolsLd = {
           {t(locale, 'pages.schools.robotProgramming.desc')}
         </p>
         <div class="space-y-4">
-          <div class="ac-surface bg-slate-50 p-6">
-            <h3 class="font-600 text-slate-900 mb-2">
-              {t(locale, 'pages.schools.robotProgramming.robotCourseTitle')}
-            </h3>
-            <p class="text-sm text-slate-600">
-              {t(locale, 'pages.schools.robotProgramming.robotCourseDesc')}
-            </p>
-          </div>
-          <div class="ac-surface bg-slate-50 p-6">
-            <h3 class="font-600 text-slate-900 mb-2">
-              {t(locale, 'pages.schools.robotProgramming.robotProgCourseTitle')}
-            </h3>
-            <p class="text-sm text-slate-600">
-              {t(locale, 'pages.schools.robotProgramming.robotProgCourseDesc')}
-            </p>
-          </div>
-          <div class="ac-surface bg-slate-50 p-6">
-            <h3 class="font-600 text-slate-900 mb-2">
-              {t(locale, 'pages.schools.robotProgramming.minecraftCourseTitle')}
-            </h3>
-            <p class="text-sm text-slate-600">
-              {t(locale, 'pages.schools.robotProgramming.minecraftCourseDesc')}
-            </p>
-          </div>
+          {
+            robotProgrammingCourses.map((course) => (
+              <div class="ac-surface bg-slate-50 p-6">
+                <h3 class="font-600 text-slate-900 mb-2">{course.title}</h3>
+                <p class="text-sm text-slate-600">{course.description}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
 
@@ -309,22 +275,14 @@ const schoolsLd = {
             {t(locale, 'pages.schools.practicalProgramming.contentsLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.practicalProgramming.content1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.practicalProgramming.content2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.practicalProgramming.content3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.practicalProgramming.content4')}
-            </li>
+            {
+              practicalProgrammingContents.map((content) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {content}
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -345,22 +303,14 @@ const schoolsLd = {
             {t(locale, 'pages.schools.pcSmartphone.levelsLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.pcSmartphone.level1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.pcSmartphone.level2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.pcSmartphone.level3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.pcSmartphone.level4')}
-            </li>
+            {
+              pcSmartphoneLevels.map((level) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {level}
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -401,18 +351,14 @@ const schoolsLd = {
             {t(locale, 'pages.schools.ged.supportLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.ged.support1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.ged.support2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.schools.ged.support3')}
-            </li>
+            {
+              gedSupports.map((support) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {support}
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>

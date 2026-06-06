@@ -184,30 +184,84 @@
       "heroImgStrategy": "비즈니스 전략 회의",
       "servicesHeading": "주요 서비스",
       "servicesLead": "어디서부터 시작해야 할지 모르시겠어요? 개인부터 기업까지 유연하게 대응합니다.",
-      "serviceSystem": "업무 시스템・앱 개발",
-      "serviceSystemDesc": "업무 효율화, 데이터 관리 개선 등의 과제를 최적의 시스템으로 해결합니다.",
-      "serviceServer": "서버 구축・운용",
-      "serviceServerDesc": "안정적이고 빠른 서버 환경을 제공합니다. 수백 명 동시 접속을 지원한 실적이 있습니다.",
-      "serviceWeb": "웹사이트 제작・운영",
-      "serviceWebDesc": "외관뿐 아니라 사용성과 고객 유치까지 고려한 웹사이트를 제작합니다.",
-      "serviceDesign": "디자인・크리에이티브",
-      "serviceDesignDesc": "로고, 명함, 배너, 캐릭터 등 전달하고자 하는 것을 보이는 형태로 만듭니다.",
-      "serviceSchools": "IT 스쿨 / Acecore Schools",
-      "serviceSchoolsDesc": "어린이부터 성인까지 맞춤형 개별 지도. 프로그래밍, 학습 지원, 검정고시 대비.",
-      "serviceAceserver": "Aceserver",
-      "serviceAceserverDesc": "누구나 무료로 참여할 수 있는 마인크래프트 공개 서버. Java 및 Bedrock 에디션 지원.",
+      "serviceCards": [
+        {
+          "title": "업무 시스템・앱 개발",
+          "description": "업무 효율화, 데이터 관리 개선 등의 과제를 최적의 시스템으로 해결합니다.",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "서버 구축・운용",
+          "description": "안정적이고 빠른 서버 환경을 제공합니다. 수백 명 동시 접속을 지원한 실적이 있습니다.",
+          "href": "/services/#server",
+          "icon": "server",
+          "tone": "emerald"
+        },
+        {
+          "title": "웹사이트 제작・운영",
+          "description": "외관뿐 아니라 사용성과 고객 유치까지 고려한 웹사이트를 제작합니다.",
+          "href": "/services/#web",
+          "icon": "globe",
+          "tone": "amber"
+        },
+        {
+          "title": "디자인・크리에이티브",
+          "description": "로고, 명함, 배너, 캐릭터 등 전달하고자 하는 것을 보이는 형태로 만듭니다.",
+          "href": "/services/#design",
+          "icon": "palette",
+          "tone": "slate"
+        },
+        {
+          "title": "IT 스쿨 / Acecore Schools",
+          "description": "어린이부터 성인까지 맞춤형 개별 지도. 프로그래밍, 학습 지원, 검정고시 대비.",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "amber"
+        },
+        {
+          "title": "Aceserver",
+          "description": "누구나 무료로 참여할 수 있는 마인크래프트 공개 서버. Java 및 Bedrock 에디션 지원.",
+          "href": "https://asv.acecore.net",
+          "icon": "gamepad-2",
+          "tone": "emerald"
+        }
+      ],
       "viewServicesDetail": "서비스 상세 보기",
       "layersEyebrow": "Visual Overview",
       "layersTitle": "Acecore가 지원하는 네 가지 레이어",
       "layersDescription": "기술, 운영, 표현, 교육을 분리하지 않고 하나의 지원 라인으로 다룹니다.",
-      "layerDesign": "시스템 설계",
-      "layerDesignDesc": "업무 과제를 요건으로 전환하고, 구현과 운영을 고려하여 시스템을 구축합니다.",
-      "layerInfra": "인프라 운영",
-      "layerInfraDesc": "공개 서버 운영 경험을 바탕으로 견고한 환경과 개선 사이클을 구축합니다.",
-      "layerExpression": "전달하는 디자인",
-      "layerExpressionDesc": "디자인을 장식이 아닌 정보 정리와 경험 설계로 다룹니다.",
-      "layerEducation": "교육과 동반",
-      "layerEducationDesc": "현장에서 활용 가능한 지식을 학습 지원으로 전환하여 지역 사회와 다음 세대에 전달합니다.",
+      "layerItems": [
+        {
+          "title": "시스템 설계",
+          "description": "업무 과제를 요건으로 전환하고, 구현과 운영을 고려하여 시스템을 구축합니다.",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "인프라 운영",
+          "description": "공개 서버 운영 경험을 바탕으로 견고한 환경과 개선 사이클을 구축합니다.",
+          "href": "/services/#server",
+          "icon": "server-cog",
+          "tone": "emerald"
+        },
+        {
+          "title": "전달하는 디자인",
+          "description": "디자인을 장식이 아닌 정보 정리와 경험 설계로 다룹니다.",
+          "href": "/services/#design",
+          "icon": "swatch-book",
+          "tone": "amber"
+        },
+        {
+          "title": "교육과 동반",
+          "description": "현장에서 활용 가능한 지식을 학습 지원으로 전환하여 지역 사회와 다음 세대에 전달합니다.",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "slate"
+        }
+      ],
       "aboutHeading": "Acecore 소개",
       "aboutBody1": "기술 스터디와 워크숍을 정기적으로 개최하며, 함께 배우는 장을 소중히 여깁니다.",
       "aboutBody2": "오픈소스 활용, 지역 연계, {link} 공헌을 통해 기술과 사람을 연결하는 파트너십을 구축합니다.",
@@ -274,14 +328,6 @@
       "validationEmail": "유효한 이메일 주소를 입력해 주세요",
       "validationMessage": "문의 내용을 입력해 주세요",
       "faqTitle": "자주 묻는 질문",
-      "faqQ1": "어떤 서비스로 문의해야 할지 모르겠습니다.",
-      "faqA1": "시스템 개발, 웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요.",
-      "faqQ2": "견적만 문의해도 되나요?",
-      "faqA2": "네. 견적은 무료입니다. 목적, 희망 시기, 현재 문제, 예산감을 적어 주세요.",
-      "faqQ3": "Acecore Schools 상담도 가능한가요?",
-      "faqA3": "가능합니다. 배우고 싶은 내용, 나이 또는 학년, 희망 학습 속도를 적어 주세요.",
-      "faqQ4": "답변은 얼마나 걸리나요?",
-      "faqA4": "보통 1-2영업일 이내에 답변합니다. 전송 후 보충 내용은 LINE이나 아래 연락 방법도 사용할 수 있습니다.",
       "aiHeading": "AI 채팅도 사용할 수 있습니다",
       "aiLead": "서비스, 개발 및 웹사이트 상담, 교육, 답변 소요 시간은 오른쪽 아래 AI 채팅에서 확인할 수 있습니다. 자세한 상담은 그대로 문의 폼으로 진행할 수 있습니다.",
       "aiQuestionLabel": "AI에게 물어볼 내용",
@@ -294,43 +340,71 @@
       "lineCta": "공식 LINE 팔로우",
       "directMethodsNote": "짧은 상담이나 교실 관련 연락은 LINE을, SNS의 간단한 확인은 X를 사용할 수 있습니다. 자세한 내용은 폼으로 보내면 정리해 확인하기 쉽습니다.",
       "directContactSummary": "직접 연락하고 싶은 경우",
-      "directContactLead": "폼 전송 후 보충하거나 직접 확인하고 싶은 내용이 있으면 여기를 열어 주세요."
+      "directContactLead": "폼 전송 후 보충하거나 직접 확인하고 싶은 내용이 있으면 여기를 열어 주세요.",
+      "faqs": [
+        {
+          "question": "어떤 서비스로 문의해야 할지 모르겠습니다.",
+          "answer": "시스템 개발, 웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요."
+        },
+        {
+          "question": "견적만 문의해도 되나요?",
+          "answer": "네. 견적은 무료입니다. 목적, 희망 시기, 현재 문제, 예산감을 적어 주세요."
+        },
+        {
+          "question": "Acecore Schools 상담도 가능한가요?",
+          "answer": "가능합니다. 배우고 싶은 내용, 나이 또는 학년, 희망 학습 속도를 적어 주세요."
+        },
+        {
+          "question": "답변은 얼마나 걸리나요?",
+          "answer": "보통 1-2영업일 이내에 답변합니다. 전송 후 보충 내용은 LINE이나 아래 연락 방법도 사용할 수 있습니다."
+        }
+      ]
     },
     "schools": {
       "robotProgramming": {
-        "minecraftCourseTitle": "마인크래프트 프로그래밍 과정",
-        "minecraftCourseDesc": "마인크래프트 세계에서 프로그래밍 기초를 즐겁게 배웁니다. 게임을 통해 논리적 사고력을 기릅니다.",
         "progImgAlt": "프로그래밍 학습 이미지",
         "title": "로봇 / 프로그래밍",
         "desc": "최첨단 기술을 도입한 로봇 프로그래밍 수업을 제공합니다. 실제 로봇을 사용하여 프로그래밍의 기초를 배울 수 있습니다.",
-        "robotCourseTitle": "로봇 코스",
-        "robotCourseDesc": "타미야 공작 시리즈 등을 사용한 실제 로봇 공작을 통해 만들기의 즐거움과 기본 원리를 배웁니다.",
-        "robotProgCourseTitle": "로봇 프로그래밍 코스",
-        "robotProgCourseDesc": "프로그래밍으로 로봇을 제어하는 기술을 배웁니다. 센서와 모터 제어를 통해 논리적 사고력을 기릅니다.",
-        "mcProgCourseTitle": "마인크래프트 프로그래밍 코스",
-        "mcProgCourseDesc": "인기 게임 마인크래프트를 활용하여 프로그래밍의 기초를 배웁니다. 놀면서 자연스럽게 프로그래밍적 사고가 몸에 배입니다.",
-        "imgAlt": "프로그래밍 학습에 몰두하는 학생"
+        "imgAlt": "프로그래밍 학습에 몰두하는 학생",
+        "courses": [
+          {
+            "title": "로봇 코스",
+            "description": "타미야 공작 시리즈 등을 사용한 실제 로봇 공작을 통해 만들기의 즐거움과 기본 원리를 배웁니다."
+          },
+          {
+            "title": "로봇 프로그래밍 코스",
+            "description": "프로그래밍으로 로봇을 제어하는 기술을 배웁니다. 센서와 모터 제어를 통해 논리적 사고력을 기릅니다."
+          },
+          {
+            "title": "마인크래프트 프로그래밍 과정",
+            "description": "마인크래프트 세계에서 프로그래밍 기초를 즐겁게 배웁니다. 게임을 통해 논리적 사고력을 기릅니다."
+          }
+        ]
       },
       "practicalProgramming": {
         "contentsLabel": "학습 내용",
         "title": "실습 프로그래밍",
         "desc": "실제 업무에서 사용되는 프로그래밍 기술을 배울 수 있는 커리큘럼을 제공합니다. 실전 기술을 익혀 즉시 활약할 수 있습니다.",
         "contentLabel": "배울 수 있는 내용",
-        "content1": "HTML / CSS / JavaScript를 사용한 웹 프론트엔드 개발",
-        "content2": "Python / Node.js 등을 사용한 백엔드 개발",
-        "content3": "데이터베이스 설계, API 구축, 클라우드 활용",
-        "content4": "Git 및 팀 개발 워크플로"
+        "contents": [
+          "HTML / CSS / JavaScript를 사용한 웹 프론트엔드 개발",
+          "Python / Node.js 등을 사용한 백엔드 개발",
+          "데이터베이스 설계, API 구축, 클라우드 활용",
+          "Git 및 팀 개발 워크플로"
+        ]
       },
       "pcSmartphone": {
         "levelsLabel": "지원 레벨",
         "title": "PC / 스마트폰",
         "desc": "일상생활과 비즈니스에서 필요한 PC와 스마트폰 조작 기술을 배울 수 있습니다. 초심자부터 상급자까지 폭넓은 수업을 제공합니다.",
         "levelLabel": "대응 레벨",
-        "level1": "PC・스마트폰 기본 조작 (초심자 환영)",
-        "level2": "오피스 소프트웨어: Word / Excel / PowerPoint 활용",
-        "level3": "이메일, SNS, 온라인 회의 설정 및 사용법",
-        "level4": "보안 대책 및 문제 해결",
-        "imgAlt": "PC로 학습하는 수강생"
+        "imgAlt": "PC로 학습하는 수강생",
+        "levels": [
+          "PC・스마트폰 기본 조작 (초심자 환영)",
+          "오피스 소프트웨어: Word / Excel / PowerPoint 활용",
+          "이메일, SNS, 온라인 회의 설정 및 사용법",
+          "보안 대책 및 문제 해결"
+        ]
       },
       "title": "Acecore Schools",
       "description": "Acecore Schools는 학습 지도, 로봇 프로그래밍, 실습 프로그래밍, PC/스마트폰 강좌, 고졸 인정 시험 대비 등 폭넓은 교육 프로그램을 제공하는 IT 스쿨입니다.",
@@ -340,42 +414,30 @@
       "learningFlowEyebrow": "Learning Flow",
       "learningFlowTitle": "Acecore Schools의 학습 과정 알아보기",
       "learningFlowDesc": "흥미 발견부터 실습, 지속까지를 하나의 학습 경로로 보여줍니다.",
-      "flowDiscoverTitle": "흥미 찾기",
-      "flowDiscoverDesc": "학습 지도와 로봇 체험을 통해 각 학생의 학습 입구를 찾습니다.",
-      "flowPracticeTitle": "직접 해보며 이해하기",
-      "flowPracticeDesc": "로봇 실습, 마인크래프트, 코딩 연습으로 경험과 이해를 연결합니다.",
-      "flowApplyTitle": "실전에 연결하기",
-      "flowApplyDesc": "웹 개발과 도구 활용으로 실제 문제 해결 역량으로 끌어올립니다.",
-      "flowContinueTitle": "지속 가능하게 만들기",
-      "flowContinueDesc": "시험, 자격증, 일상 IT 활용까지 포함하여 각자에게 맞는 지속 경로를 만듭니다.",
       "intro": "어린이부터 성인까지 각자의 목표와 속도에 맞춘 개별 지도를 하고 있습니다. 서비스 일람에서 위치도 확인하실 수 있습니다.",
       "juku": {
         "title": "학습 지도",
         "desc": "학생 한 명 한 명에 맞춘 지도로 기초부터 응용까지의 학력을 키웁니다. 경험 풍부한 강사진이 학생의 성장을 지원합니다.",
         "featuresLabel": "특징",
-        "feature1": "학생의 이해도에 맞춘 개별 수업",
-        "feature2": "기초 정착부터 응용력 양성까지 단계적 지원",
-        "feature3": "정기 시험 및 입시 대비 지원",
-        "imgAlt": "교실 개별 지도 풍경"
+        "imgAlt": "교실 개별 지도 풍경",
+        "features": [
+          "학생의 이해도에 맞춘 개별 수업",
+          "기초 정착부터 응용력 양성까지 단계적 지원",
+          "정기 시험 및 입시 대비 지원"
+        ]
       },
       "compareTitle": "학습 방식 비교",
       "compareBefore": "독학",
-      "compareBefore1": "무엇부터 시작해야 할지 모르겠다",
-      "compareBefore2": "막혀도 상담할 사람이 없다",
-      "compareBefore3": "동기 부여를 유지하기 어렵다",
-      "compareBefore4": "실전과의 연결이 보이지 않는다",
       "compareAfter": "Acecore Schools",
-      "compareAfter1": "개인에 맞는 입문 방법 제안",
-      "compareAfter2": "언제든 강사에게 질문 가능",
-      "compareAfter3": "체험을 통해 자연스럽게 지속",
-      "compareAfter4": "시험, 자격증, 실무에 직결",
       "ged": {
         "title": "고졸 인정",
         "desc": "고등학교를 졸업하지 않은 분을 대상으로 고졸 인정 시험 대비 수업을 제공합니다. 필요한 지식과 자격 취득을 지원합니다.",
         "supportLabel": "지원 내용",
-        "support1": "과목별 시험 대비 (국어, 수학, 영어, 사회, 과학)",
-        "support2": "개인 학력에 맞춘 학습 계획 수립",
-        "support3": "모의시험 및 기출문제 연습"
+        "supports": [
+          "과목별 시험 대비 (국어, 수학, 영어, 사회, 과학)",
+          "개인 학력에 맞춘 학습 계획 수립",
+          "모의시험 및 기출문제 연습"
+        ]
       },
       "ctaHeading": "문의 및 신청",
       "ctaBody": "각 코스의 상세 내용과 신청은 문의 폼 또는 LINE으로 상담해 주세요. 어떤 코스가 맞는지 모르더라도 괜찮습니다.",
@@ -408,7 +470,45 @@
             "note": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다."
           }
         ]
-      }
+      },
+      "learningSteps": [
+        {
+          "title": "흥미 찾기",
+          "description": "학습 지도와 로봇 체험을 통해 각 학생의 학습 입구를 찾습니다.",
+          "icon": "sparkles",
+          "accent": "amber"
+        },
+        {
+          "title": "직접 해보며 이해하기",
+          "description": "로봇 실습, 마인크래프트, 코딩 연습으로 경험과 이해를 연결합니다.",
+          "icon": "bot",
+          "accent": "brand"
+        },
+        {
+          "title": "실전에 연결하기",
+          "description": "웹 개발과 도구 활용으로 실제 문제 해결 역량으로 끌어올립니다.",
+          "icon": "code-xml",
+          "accent": "emerald"
+        },
+        {
+          "title": "지속 가능하게 만들기",
+          "description": "시험, 자격증, 일상 IT 활용까지 포함하여 각자에게 맞는 지속 경로를 만듭니다.",
+          "icon": "flag",
+          "accent": "slate"
+        }
+      ],
+      "compareBeforeItems": [
+        "무엇부터 시작해야 할지 모르겠다",
+        "막혀도 상담할 사람이 없다",
+        "동기 부여를 유지하기 어렵다",
+        "실전과의 연결이 보이지 않는다"
+      ],
+      "compareAfterItems": [
+        "개인에 맞는 입문 방법 제안",
+        "언제든 강사에게 질문 가능",
+        "체험을 통해 자연스럽게 지속",
+        "시험, 자격증, 실무에 직결"
+      ]
     },
     "about": {
       "title": "회사 소개",
@@ -419,25 +519,12 @@
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Acecore의 가치 순환 체계",
       "missionLoopDesc": "Acecore가 어떻게 가치를 창출하고 확장하는지를 도해로 나타냅니다.",
-      "cycleImplementTitle": "기술 구현",
-      "cycleImplementDesc": "시스템 개발과 서버 운영을 통해 현장에서 활용되는 기반을 구축합니다.",
-      "cycleExpressTitle": "표현으로 전환",
-      "cycleExpressDesc": "웹 제작과 디자인으로 전달되는 경험을 만들어 냅니다.",
-      "cycleNurtureTitle": "사람과 장소를 키우다",
-      "cycleNurtureDesc": "커뮤니티와 교육 활동을 통해 새로운 참여자와 배움을 만들어 냅니다.",
-      "cycleReturnTitle": "새로운 도전에 환원",
-      "cycleReturnDesc": "얻은 지식을 개발과 지원에 되돌려 전체 활동을 강화합니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "\"기술로 연결되고, 크리에이티브로 확장되다\"",
       "philosophyBody1": "Acecore는 기술과 크리에이티브의 힘으로 다양한 가치를 창출하는 테크놀로지 그룹입니다. 시스템 개발, 웹사이트 제작, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하며 개인부터 기업까지 폭넓은 고객에게 대응합니다.",
       "philosophyBody2": "기술의 힘으로 사람들을 연결하고 크리에이티브의 힘으로 가능성을 확장하는 것이 우리의 미션입니다. 단순히 기술을 제공하는 것이 아니라 고객 및 커뮤니티와 함께 성장하며 지속 가능한 가치를 만드는 것을 소중히 합니다.",
       "collaborationImgAlt": "팀 협업 작업",
       "activitiesTitle": "Acecore의 주요 활동",
-      "activity1": "스터디 그룹 및 워크숍 정기 개최",
-      "activity2": "오픈소스 코드 공개 및 기여",
-      "activity3": "지역 교육 기관과의 연계 지도",
-      "activity4": "외부 파트너와의 공동 창작 프로젝트",
-      "activity5": "Aceserver 커뮤니티 운영",
       "workshopImgAlt": "스터디 그룹 및 워크숍 풍경",
       "initiativesHeading": "활동과 이니셔티브",
       "communityTitle": "커뮤니티 활동",
@@ -449,18 +536,69 @@
       "partnershipTitle": "파트너십",
       "partnershipDesc": "프로젝트 협력과 비즈니스 파트너십을 환영합니다. 기술, 디자인, 교육 등 폭넓은 분야에서 연계 가능합니다.",
       "relatedLinksHeading": "관련 링크",
-      "linkAceserver": "Aceserver 포털",
-      "linkAceserverDesc": "마인크래프트 무료 공개 서버의 공식 사이트입니다.",
-      "linkX": "X (구 Twitter)",
-      "linkXDesc": "Acecore의 최신 정보를 전합니다.",
-      "linkGithub": "GitHub",
-      "linkGithubDesc": "오픈소스 프로젝트를 공개하고 있습니다.",
-      "linkDiscord": "Aceserver Discord",
-      "linkDiscordDesc": "Aceserver 커뮤니티가 활동하는 Discord 서버입니다.",
       "ctaHeading": "Acecore와 함께 다음 한 걸음을",
       "ctaBody": "서비스 상담, 파트너십 제안, 언제든 기다리고 있습니다.",
       "ctaContact": "문의하기",
-      "ctaServices": "서비스 일람 보기"
+      "ctaServices": "서비스 일람 보기",
+      "valueCycle": [
+        {
+          "title": "기술 구현",
+          "description": "시스템 개발과 서버 운영을 통해 현장에서 활용되는 기반을 구축합니다.",
+          "icon": "cpu",
+          "accent": "brand"
+        },
+        {
+          "title": "표현으로 전환",
+          "description": "웹 제작과 디자인으로 전달되는 경험을 만들어 냅니다.",
+          "icon": "palette",
+          "accent": "amber"
+        },
+        {
+          "title": "사람과 장소를 키우다",
+          "description": "커뮤니티와 교육 활동을 통해 새로운 참여자와 배움을 만들어 냅니다.",
+          "icon": "users",
+          "accent": "emerald"
+        },
+        {
+          "title": "새로운 도전에 환원",
+          "description": "얻은 지식을 개발과 지원에 되돌려 전체 활동을 강화합니다.",
+          "icon": "repeat-2",
+          "accent": "slate"
+        }
+      ],
+      "activities": [
+        "스터디 그룹 및 워크숍 정기 개최",
+        "오픈소스 코드 공개 및 기여",
+        "지역 교육 기관과의 연계 지도",
+        "외부 파트너와의 공동 창작 프로젝트",
+        "Aceserver 커뮤니티 운영"
+      ],
+      "relatedLinks": [
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver 포털",
+          "description": "마인크래프트 무료 공개 서버의 공식 사이트입니다.",
+          "href": "aceserver"
+        },
+        {
+          "icon": "at-sign",
+          "title": "X (구 Twitter)",
+          "description": "Acecore의 최신 정보를 전합니다.",
+          "href": "x"
+        },
+        {
+          "icon": "github",
+          "title": "GitHub",
+          "description": "오픈소스 프로젝트를 공개하고 있습니다.",
+          "href": "github"
+        },
+        {
+          "icon": "message-circle",
+          "title": "Aceserver Discord",
+          "description": "Aceserver 커뮤니티가 활동하는 Discord 서버입니다.",
+          "href": "discord"
+        }
+      ]
     },
     "services": {
       "title": "서비스",
@@ -490,81 +628,90 @@
         "title": "업무 시스템・앱 개발",
         "desc": "업무 효율화, 자동화, 데이터 관리 등 고객의 과제에 맞춘 시스템과 앱을 개발합니다. 소규모 도구부터 대규모 웹 서비스까지 대응 가능합니다. 무엇부터 시작하면 좋을지 모르겠다는 단계에서도 편하게 상담해 주세요.",
         "examplesLabel": "대응 사례",
-        "example1": "업무 관리 시스템, CRM, ERP 설계 및 구축",
-        "example2": "웹 앱, SPA 및 모바일 앱 개발",
-        "example3": "API 설계, 외부 서비스 연계, 데이터 기반 구축",
-        "example4": "레거시 시스템 모더나이제이션",
-        "imgAlt": "코드 에디터에서의 개발 작업 이미지"
+        "imgAlt": "코드 에디터에서의 개발 작업 이미지",
+        "examples": [
+          "업무 관리 시스템, CRM, ERP 설계 및 구축",
+          "웹 앱, SPA 및 모바일 앱 개발",
+          "API 설계, 외부 서비스 연계, 데이터 기반 구축",
+          "레거시 시스템 모더나이제이션"
+        ]
       },
       "server": {
         "title": "서버 구축・운영",
         "desc": "안전하고 안정된 서버 환경의 구축과 운영을 전문으로 합니다. Acecore는 Aceserver(마인크래프트 공개 서버)를 장기 운영하며 그 노하우를 기업 고객에게도 제공합니다. 서버 이전이나 클라우드화 상담도 환영합니다.",
         "examplesLabel": "대응 사례",
-        "example1": "클라우드 서버(AWS / Azure / GCP / Cloudflare) 설계 및 구축",
-        "example2": "Linux / Windows 서버 운영, 모니터링 및 보수",
-        "example3": "게임 서버 및 커뮤니티 서버 구축",
-        "example4": "보안 대책 및 백업 체제 정비"
+        "examples": [
+          "클라우드 서버(AWS / Azure / GCP / Cloudflare) 설계 및 구축",
+          "Linux / Windows 서버 운영, 모니터링 및 보수",
+          "게임 서버 및 커뮤니티 서버 구축",
+          "보안 대책 및 백업 체제 정비"
+        ]
       },
       "web": {
         "title": "웹사이트 제작・운영",
         "desc": "기업 사이트, 포트폴리오, EC 사이트, 커뮤니티 사이트 등 각종 웹사이트의 기획부터 제작, 운영 보수까지 일관되게 대응합니다. 최신 기술과 SEO 대책으로 고품질 사이트를 실현합니다.",
         "examplesLabel": "대응 사례",
-        "example1": "기업 사이트 및 랜딩 페이지 제작",
-        "example2": "CMS 구축, 블로그 및 미디어 사이트",
-        "example3": "EC 사이트 및 온라인 숍 구축",
-        "example4": "SEO 대책, 퍼포먼스 최적화 및 접근성 개선",
-        "imgAlt": "웹 디자인 제작 프로세스"
+        "imgAlt": "웹 디자인 제작 프로세스",
+        "examples": [
+          "기업 사이트 및 랜딩 페이지 제작",
+          "CMS 구축, 블로그 및 미디어 사이트",
+          "EC 사이트 및 온라인 숍 구축",
+          "SEO 대책, 퍼포먼스 최적화 및 접근성 개선"
+        ]
       },
       "timelineTitle": "도입부터 개선까지의 동행 이미지",
-      "timelineStep1Title": "히어링",
-      "timelineStep1Desc": "목적과 제약을 정리하고 우선순위를 명확히 합니다.",
-      "timelineStep2Title": "설계・제안",
-      "timelineStep2Desc": "필요한 기술, 화면, 운영 규칙을 정리합니다.",
-      "timelineStep3Title": "제작・구축",
-      "timelineStep3Desc": "개발, 디자인, 인프라를 횡단하여 구현합니다.",
-      "timelineStep4Title": "공개・보수",
-      "timelineStep4Desc": "개선 제안 및 추가 개발까지 포함한 지속 지원.",
       "design": {
         "title": "디자인・크리에이티브",
         "desc": "로고 디자인, 인쇄물, 배너, 캐릭터 디자인 등 폭넓은 크리에이티브 제작을 담당합니다. 고객이 전하고 싶은 것을 정확하게 형상화하는 것을 소중히 합니다. 웹사이트 제작과 결합하면 디자인부터 공개까지 일관 의뢰가 가능합니다.",
         "examplesLabel": "대응 사례",
-        "example1": "로고 및 브랜드 아이덴티티 설계",
-        "example2": "명함, 팸플릿, 포스터 등 인쇄물",
-        "example3": "웹 배너 및 SNS용 크리에이티브",
-        "example4": "캐릭터 디자인 및 일러스트 제작",
-        "imgAlt": "크리에이티브 디자인 작업 공간"
+        "imgAlt": "크리에이티브 디자인 작업 공간",
+        "examples": [
+          "로고 및 브랜드 아이덴티티 설계",
+          "명함, 팸플릿, 포스터 등 인쇄물",
+          "웹 배너 및 SNS용 크리에이티브",
+          "캐릭터 디자인 및 일러스트 제작"
+        ]
       },
       "education": {
         "title": "IT 스쿨 / Acecore Schools",
         "desc": "현역 엔지니어가 직접 지도하는 실무 IT 스킬 스쿨입니다. 학습 지도, 로봇 프로그래밍, 실습 프로그래밍, PC/스마트폰 강좌, 고졸 인정 대비 등 폭넓은 교육 프로그램을 제공합니다.",
         "coursesLabel": "코스 목록",
-        "course1": "학습 지도 (개별 지도, 시험 및 입시 대비)",
-        "course2": "로봇/프로그래밍 (로봇 공작 및 마인크래프트 프로그래밍)",
-        "course3": "실습 프로그래밍 (웹 개발, 백엔드, 데이터베이스)",
-        "course4": "PC/스마트폰 (기본 조작, 오피스 앱, 보안)",
-        "course5": "고졸 인정 (시험 대비 및 학습 계획)",
-        "detailLink": "Acecore Schools 상세 보기"
+        "detailLink": "Acecore Schools 상세 보기",
+        "courses": [
+          "학습 지도 (개별 지도, 시험 및 입시 대비)",
+          "로봇/프로그래밍 (로봇 공작 및 마인크래프트 프로그래밍)",
+          "실습 프로그래밍 (웹 개발, 백엔드, 데이터베이스)",
+          "PC/스마트폰 (기본 조작, 오피스 앱, 보안)",
+          "고졸 인정 (시험 대비 및 학습 계획)"
+        ]
       },
       "aceserver": {
         "title": "Aceserver (마인크래프트 공개 서버)",
         "desc": "Aceserver는 Acecore가 운영하는 마인크래프트 무료 공개 서버입니다. 「모두의 장소이기를」이라는 이념 아래 JAVA판・통합판 어디서든 참가할 수 있으며 바닐라에 가까운 자유로운 환경에서 멀티플레이를 즐길 수 있습니다. 수백 명 규모의 동시 접속을 지원한 안정 운영 실적이 있으며 여기서 쌓은 인프라 기술은 기업 서비스에도 활용되고 있습니다.",
         "featuresLabel": "특징",
-        "feature1": "누구나 무료로 참가 가능 (계정만 있으면 OK)",
-        "feature2": "JAVA판・통합판 크로스 플레이 대응",
-        "feature3": "바닐라에 가까운 자유도 높은 게임 환경",
-        "feature4": "활발한 Discord 커뮤니티에서 교류 및 정보 공유",
-        "feature5": "방송 및 홍보 OK (신청 불요)"
+        "features": [
+          "누구나 무료로 참가 가능 (계정만 있으면 OK)",
+          "JAVA판・통합판 크로스 플레이 대응",
+          "바닐라에 가까운 자유도 높은 게임 환경",
+          "활발한 Discord 커뮤니티에서 교류 및 정보 공유",
+          "방송 및 홍보 OK (신청 불요)"
+        ],
+        "portalLink": "Aceserver 공식 사이트",
+        "wikiLink": "Aceserver Wiki",
+        "discordLink": "Aceserver Discord"
       },
       "acestudio": {
         "title": "AceStudio",
         "comingSoon": "Coming Soon",
         "desc": "AceStudio는 Acecore가 개발 중인 새로운 서비스입니다. 크리에이터의 역량을 최대한 이끌어내는 플랫폼으로서 디자인, 영상, 음악, 개발 등 폭넓은 영역의 크리에이티브 활동을 지원합니다.",
         "areasLabel": "예상 기능・영역",
-        "area1": "크리에이터용 협업 환경",
-        "area2": "디자인, 영상, 음악, 프로그래밍 등 다영역 대응",
-        "area3": "제작부터 공개까지 원활한 워크플로",
         "note": "서비스 상세는 준비가 되는 대로 공개합니다. 최신 정보는 X나 블로그에서 수시로 알려드립니다.",
-        "detailLink": "AceStudio 상세 보기"
+        "detailLink": "AceStudio 상세 보기",
+        "areas": [
+          "크리에이터용 협업 환경",
+          "디자인, 영상, 음악, 프로그래밍 등 다영역 대응",
+          "제작부터 공개까지 원활한 워크플로"
+        ]
       },
       "miniCta": "이 서비스 상담하기",
       "ctaHeading": "부담 없이 상담해 주세요",
@@ -630,7 +777,29 @@
             "href": "/acestudio/"
           }
         ]
-      }
+      },
+      "timeline": [
+        {
+          "date": "Step 1",
+          "title": "히어링",
+          "description": "목적과 제약을 정리하고 우선순위를 명확히 합니다."
+        },
+        {
+          "date": "Step 2",
+          "title": "설계・제안",
+          "description": "필요한 기술, 화면, 운영 규칙을 정리합니다."
+        },
+        {
+          "date": "Step 3",
+          "title": "제작・구축",
+          "description": "개발, 디자인, 인프라를 횡단하여 구현합니다."
+        },
+        {
+          "date": "Step 4",
+          "title": "공개・보수",
+          "description": "개선 제안 및 추가 개발까지 포함한 지속 지원."
+        }
+      ]
     },
     "privacy": {
       "title": "개인정보 보호정책",
@@ -668,14 +837,6 @@
       "studioScopeEyebrow": "Studio Scope",
       "studioScopeTitle": "AceStudio가 준비하고 있는 4개 영역",
       "studioScopeDesc": "콘텐츠 × 커뮤니티 × 수익화의 사고를 공개 사이트용으로 요약합니다.",
-      "areaContentTitle": "콘텐츠 제작",
-      "areaContentDesc": "영상, 방송, 디자인, 개발을 횡단하며 기획을 형상화합니다.",
-      "areaCreatorTitle": "크리에이터 지원",
-      "areaCreatorDesc": "개인의 발신이나 제작 활동을 구조면에서 지원하는 설계를 진행 중입니다.",
-      "areaCommunityTitle": "커뮤니티 운영",
-      "areaCommunityDesc": "작품의 팬이나 참여자가 지속적으로 연결되는 장 만들기를 중시합니다.",
-      "areaRevenueTitle": "수익 모델 검증",
-      "areaRevenueDesc": "검토 중인 수익 모델을 실제 운영에 반영해 나갑니다.",
       "creativeImgAlt": "영상 제작・크리에이티브 작업",
       "comingSoonHeading": "새로운 크리에이티브 경험을, 곧.",
       "comingSoonBody1": "AceStudio는 Acecore가 개발 중인 새로운 서비스입니다.",
@@ -684,20 +845,56 @@
       "pullQuoteText": "만들기만으로 끝나지 않는다. 전달하고, 키우고, 돌리다.",
       "pullQuoteAttribution": "AceStudio의 설계 사상",
       "faqTitle": "AceStudio에 관한 자주 묻는 질문",
-      "faqQ1": "AceStudio는 언제 출시됩니까?",
-      "faqA1": "현재 준비 중입니다. 출시 시기가 정해지면 X나 블로그에서 안내드리겠습니다.",
-      "faqQ2": "이용에 비용이 듭니까?",
-      "faqA2": "요금 체계는 현재 검토 중입니다. 무료로 시작할 수 있는 플랜도 준비할 예정입니다.",
-      "faqQ3": "어떤 크리에이티브 활동이 대상입니까?",
-      "faqA3": "디자인, 영상, 음악, 프로그래밍 등 디지털 크리에이티브 전반을 폭넓게 지원합니다.",
-      "faqQ4": "사전 등록이나 예약이 가능합니까?",
-      "faqA4": "현재 사전 등록은 받고 있지 않지만 X를 팔로우하시면 최신 정보를 전해 드릴 수 있습니다.",
       "newsHeading": "최신 정보를 전해 드립니다",
       "newsBody": "출시 정보와 최신 개발 현황은 Acecore의 X 계정과 블로그에서 수시로 안내드립니다.",
       "followX": "X에서 팔로우하기",
       "viewBlog": "블로그 보기",
       "inquiryText": "AceStudio에 관한 문의 및 요청은 여기에서",
-      "inquiryButton": "문의하기"
+      "inquiryButton": "문의하기",
+      "studioAreas": [
+        {
+          "title": "콘텐츠 제작",
+          "description": "영상, 방송, 디자인, 개발을 횡단하며 기획을 형상화합니다.",
+          "icon": "film",
+          "tone": "brand"
+        },
+        {
+          "title": "크리에이터 지원",
+          "description": "개인의 발신이나 제작 활동을 구조면에서 지원하는 설계를 진행 중입니다.",
+          "icon": "badge-help",
+          "tone": "amber"
+        },
+        {
+          "title": "커뮤니티 운영",
+          "description": "작품의 팬이나 참여자가 지속적으로 연결되는 장 만들기를 중시합니다.",
+          "icon": "messages-square",
+          "tone": "emerald"
+        },
+        {
+          "title": "수익 모델 검증",
+          "description": "검토 중인 수익 모델을 실제 운영에 반영해 나갑니다.",
+          "icon": "chart-no-axes-combined",
+          "tone": "slate"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "AceStudio는 언제 출시됩니까?",
+          "answer": "현재 준비 중입니다. 출시 시기가 정해지면 X나 블로그에서 안내드리겠습니다."
+        },
+        {
+          "question": "이용에 비용이 듭니까?",
+          "answer": "요금 체계는 현재 검토 중입니다. 무료로 시작할 수 있는 플랜도 준비할 예정입니다."
+        },
+        {
+          "question": "어떤 크리에이티브 활동이 대상입니까?",
+          "answer": "디자인, 영상, 음악, 프로그래밍 등 디지털 크리에이티브 전반을 폭넓게 지원합니다."
+        },
+        {
+          "question": "사전 등록이나 예약이 가능합니까?",
+          "answer": "현재 사전 등록은 받고 있지 않지만 X를 팔로우하시면 최신 정보를 전해 드릴 수 있습니다."
+        }
+      ]
     },
     "pricing": {
       "title": "요금 안내",

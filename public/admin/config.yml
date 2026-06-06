@@ -1120,54 +1120,37 @@ collections:
             label: 'サービス・リード文'
             hint: 'servicesLead'
             widget: string
-          - name: 'serviceSystem'
-            label: 'サービス・システム'
-            hint: 'serviceSystem'
-            widget: string
-          - name: 'serviceSystemDesc'
-            label: 'サービス・システム・説明'
-            hint: 'serviceSystemDesc'
-            widget: string
-          - name: 'serviceServer'
-            label: 'サービス・サーバー'
-            hint: 'serviceServer'
-            widget: string
-          - name: 'serviceServerDesc'
-            label: 'サービス・サーバー・説明'
-            hint: 'serviceServerDesc'
-            widget: string
-          - name: 'serviceWeb'
-            label: 'サービス・Web'
-            hint: 'serviceWeb'
-            widget: string
-          - name: 'serviceWebDesc'
-            label: 'サービス・Web・説明'
-            hint: 'serviceWebDesc'
-            widget: string
-          - name: 'serviceDesign'
-            label: 'サービス・デザイン'
-            hint: 'serviceDesign'
-            widget: string
-          - name: 'serviceDesignDesc'
-            label: 'サービス・デザイン・説明'
-            hint: 'serviceDesignDesc'
-            widget: string
-          - name: 'serviceSchools'
-            label: 'サービス・Schools'
-            hint: 'serviceSchools'
-            widget: string
-          - name: 'serviceSchoolsDesc'
-            label: 'サービス・Schools・説明'
-            hint: 'serviceSchoolsDesc'
-            widget: string
-          - name: 'serviceAceserver'
-            label: 'サービス・AceServer'
-            hint: 'serviceAceserver'
-            widget: string
-          - name: 'serviceAceserverDesc'
-            label: 'サービス・AceServer・説明'
-            hint: 'serviceAceserverDesc'
-            widget: string
+          - name: 'serviceCards'
+            label: 'サービスカード'
+            hint: 'serviceCards'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'serviceCards[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'serviceCards[].description'
+                widget: text
+              - name: 'href'
+                label: 'リンク先'
+                hint: 'serviceCards[].href'
+                widget: string
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'serviceCards[].icon'
+                widget: string
+              - name: 'tone'
+                label: '色調'
+                hint: 'serviceCards[].tone'
+                widget: select
+                options:
+                  - { label: 'ブランド', value: 'brand' }
+                  - { label: 'エメラルド', value: 'emerald' }
+                  - { label: 'アンバー', value: 'amber' }
+                  - { label: 'スレート', value: 'slate' }
           - name: 'viewServicesDetail'
             label: 'サービス詳細を見る'
             hint: 'viewServicesDetail'
@@ -1184,38 +1167,37 @@ collections:
             label: 'レイヤー・説明'
             hint: 'layersDescription'
             widget: string
-          - name: 'layerDesign'
-            label: 'レイヤー・デザイン'
-            hint: 'layerDesign'
-            widget: string
-          - name: 'layerDesignDesc'
-            label: 'レイヤー・デザイン・説明'
-            hint: 'layerDesignDesc'
-            widget: string
-          - name: 'layerInfra'
-            label: 'レイヤー・インフラ'
-            hint: 'layerInfra'
-            widget: string
-          - name: 'layerInfraDesc'
-            label: 'レイヤー・インフラ・説明'
-            hint: 'layerInfraDesc'
-            widget: string
-          - name: 'layerExpression'
-            label: 'レイヤー・表現'
-            hint: 'layerExpression'
-            widget: string
-          - name: 'layerExpressionDesc'
-            label: 'レイヤー・表現・説明'
-            hint: 'layerExpressionDesc'
-            widget: string
-          - name: 'layerEducation'
-            label: 'レイヤー・教育'
-            hint: 'layerEducation'
-            widget: string
-          - name: 'layerEducationDesc'
-            label: 'レイヤー・教育・説明'
-            hint: 'layerEducationDesc'
-            widget: string
+          - name: 'layerItems'
+            label: 'レイヤーカード'
+            hint: 'layerItems'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'layerItems[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'layerItems[].description'
+                widget: text
+              - name: 'href'
+                label: 'リンク先'
+                hint: 'layerItems[].href'
+                widget: string
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'layerItems[].icon'
+                widget: string
+              - name: 'tone'
+                label: '色調'
+                hint: 'layerItems[].tone'
+                widget: select
+                options:
+                  - { label: 'ブランド', value: 'brand' }
+                  - { label: 'エメラルド', value: 'emerald' }
+                  - { label: 'アンバー', value: 'amber' }
+                  - { label: 'スレート', value: 'slate' }
           - name: 'aboutHeading'
             label: '会社概要・見出し'
             hint: 'aboutHeading'
@@ -1363,22 +1345,14 @@ collections:
                 label: '事例・ラベル'
                 hint: 'systemDev.examplesLabel'
                 widget: string
-              - name: 'example1'
-                label: '事例1'
-                hint: 'systemDev.example1'
-                widget: string
-              - name: 'example2'
-                label: '事例2'
-                hint: 'systemDev.example2'
-                widget: string
-              - name: 'example3'
-                label: '事例3'
-                hint: 'systemDev.example3'
-                widget: string
-              - name: 'example4'
-                label: '事例4'
-                hint: 'systemDev.example4'
-                widget: string
+              - name: 'examples'
+                label: '事例リスト'
+                hint: 'systemDev.examples'
+                widget: list
+                field:
+                  name: 'example'
+                  label: '事例'
+                  widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'systemDev.imgAlt'
@@ -1401,22 +1375,14 @@ collections:
                 label: '事例・ラベル'
                 hint: 'server.examplesLabel'
                 widget: string
-              - name: 'example1'
-                label: '事例1'
-                hint: 'server.example1'
-                widget: string
-              - name: 'example2'
-                label: '事例2'
-                hint: 'server.example2'
-                widget: string
-              - name: 'example3'
-                label: '事例3'
-                hint: 'server.example3'
-                widget: string
-              - name: 'example4'
-                label: '事例4'
-                hint: 'server.example4'
-                widget: string
+              - name: 'examples'
+                label: '事例リスト'
+                hint: 'server.examples'
+                widget: list
+                field:
+                  name: 'example'
+                  label: '事例'
+                  widget: string
           - name: 'web'
             label: 'Web'
             hint: 'web'
@@ -1435,22 +1401,14 @@ collections:
                 label: '事例・ラベル'
                 hint: 'web.examplesLabel'
                 widget: string
-              - name: 'example1'
-                label: '事例1'
-                hint: 'web.example1'
-                widget: string
-              - name: 'example2'
-                label: '事例2'
-                hint: 'web.example2'
-                widget: string
-              - name: 'example3'
-                label: '事例3'
-                hint: 'web.example3'
-                widget: string
-              - name: 'example4'
-                label: '事例4'
-                hint: 'web.example4'
-                widget: string
+              - name: 'examples'
+                label: '事例リスト'
+                hint: 'web.examples'
+                widget: list
+                field:
+                  name: 'example'
+                  label: '事例'
+                  widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'web.imgAlt'
@@ -1459,38 +1417,24 @@ collections:
             label: 'タイムライン・タイトル'
             hint: 'timelineTitle'
             widget: string
-          - name: 'timelineStep1Title'
-            label: 'タイムライン・Step1・タイトル'
-            hint: 'timelineStep1Title'
-            widget: string
-          - name: 'timelineStep1Desc'
-            label: 'タイムライン・Step1・説明'
-            hint: 'timelineStep1Desc'
-            widget: string
-          - name: 'timelineStep2Title'
-            label: 'タイムライン・Step2・タイトル'
-            hint: 'timelineStep2Title'
-            widget: string
-          - name: 'timelineStep2Desc'
-            label: 'タイムライン・Step2・説明'
-            hint: 'timelineStep2Desc'
-            widget: string
-          - name: 'timelineStep3Title'
-            label: 'タイムライン・Step3・タイトル'
-            hint: 'timelineStep3Title'
-            widget: string
-          - name: 'timelineStep3Desc'
-            label: 'タイムライン・Step3・説明'
-            hint: 'timelineStep3Desc'
-            widget: string
-          - name: 'timelineStep4Title'
-            label: 'タイムライン・Step4・タイトル'
-            hint: 'timelineStep4Title'
-            widget: string
-          - name: 'timelineStep4Desc'
-            label: 'タイムライン・Step4・説明'
-            hint: 'timelineStep4Desc'
-            widget: string
+          - name: 'timeline'
+            label: 'タイムライン項目'
+            hint: 'timeline'
+            widget: list
+            summary: '{{fields.date}} {{fields.title}}'
+            fields:
+              - name: 'date'
+                label: 'ステップ表示'
+                hint: 'timeline[].date'
+                widget: string
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'timeline[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'timeline[].description'
+                widget: string
           - name: 'design'
             label: 'デザイン'
             hint: 'design'
@@ -1509,22 +1453,14 @@ collections:
                 label: '事例・ラベル'
                 hint: 'design.examplesLabel'
                 widget: string
-              - name: 'example1'
-                label: '事例1'
-                hint: 'design.example1'
-                widget: string
-              - name: 'example2'
-                label: '事例2'
-                hint: 'design.example2'
-                widget: string
-              - name: 'example3'
-                label: '事例3'
-                hint: 'design.example3'
-                widget: string
-              - name: 'example4'
-                label: '事例4'
-                hint: 'design.example4'
-                widget: string
+              - name: 'examples'
+                label: '事例リスト'
+                hint: 'design.examples'
+                widget: list
+                field:
+                  name: 'example'
+                  label: '事例'
+                  widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'design.imgAlt'
@@ -1547,26 +1483,14 @@ collections:
                 label: '講座・ラベル'
                 hint: 'education.coursesLabel'
                 widget: string
-              - name: 'course1'
-                label: '講座1'
-                hint: 'education.course1'
-                widget: string
-              - name: 'course2'
-                label: '講座2'
-                hint: 'education.course2'
-                widget: string
-              - name: 'course3'
-                label: '講座3'
-                hint: 'education.course3'
-                widget: string
-              - name: 'course4'
-                label: '講座4'
-                hint: 'education.course4'
-                widget: string
-              - name: 'course5'
-                label: '講座5'
-                hint: 'education.course5'
-                widget: string
+              - name: 'courses'
+                label: '講座リスト'
+                hint: 'education.courses'
+                widget: list
+                field:
+                  name: 'course'
+                  label: '講座'
+                  widget: string
               - name: 'detailLink'
                 label: '詳細・リンク'
                 hint: 'education.detailLink'
@@ -1589,25 +1513,25 @@ collections:
                 label: '特徴・ラベル'
                 hint: 'aceserver.featuresLabel'
                 widget: string
-              - name: 'feature1'
-                label: '特徴1'
-                hint: 'aceserver.feature1'
+              - name: 'features'
+                label: '特徴リスト'
+                hint: 'aceserver.features'
+                widget: list
+                field:
+                  name: 'feature'
+                  label: '特徴'
+                  widget: string
+              - name: 'portalLink'
+                label: '公式サイト・リンク文言'
+                hint: 'aceserver.portalLink'
                 widget: string
-              - name: 'feature2'
-                label: '特徴2'
-                hint: 'aceserver.feature2'
+              - name: 'wikiLink'
+                label: 'Wiki・リンク文言'
+                hint: 'aceserver.wikiLink'
                 widget: string
-              - name: 'feature3'
-                label: '特徴3'
-                hint: 'aceserver.feature3'
-                widget: string
-              - name: 'feature4'
-                label: '特徴4'
-                hint: 'aceserver.feature4'
-                widget: string
-              - name: 'feature5'
-                label: '特徴5'
-                hint: 'aceserver.feature5'
+              - name: 'discordLink'
+                label: 'Discord・リンク文言'
+                hint: 'aceserver.discordLink'
                 widget: string
           - name: 'acestudio'
             label: 'AceStudio'
@@ -1631,18 +1555,14 @@ collections:
                 label: '領域・ラベル'
                 hint: 'acestudio.areasLabel'
                 widget: string
-              - name: 'area1'
-                label: '領域1'
-                hint: 'acestudio.area1'
-                widget: string
-              - name: 'area2'
-                label: '領域2'
-                hint: 'acestudio.area2'
-                widget: string
-              - name: 'area3'
-                label: '領域3'
-                hint: 'acestudio.area3'
-                widget: string
+              - name: 'areas'
+                label: '領域リスト'
+                hint: 'acestudio.areas'
+                widget: list
+                field:
+                  name: 'area'
+                  label: '領域'
+                  widget: string
               - name: 'note'
                 label: '補足'
                 hint: 'acestudio.note'
@@ -1936,38 +1856,33 @@ collections:
             label: 'ミッション・ループ・説明'
             hint: 'missionLoopDesc'
             widget: string
-          - name: 'cycleImplementTitle'
-            label: 'サイクル・実装・タイトル'
-            hint: 'cycleImplementTitle'
-            widget: string
-          - name: 'cycleImplementDesc'
-            label: 'サイクル・実装・説明'
-            hint: 'cycleImplementDesc'
-            widget: string
-          - name: 'cycleExpressTitle'
-            label: 'サイクル・表現・タイトル'
-            hint: 'cycleExpressTitle'
-            widget: string
-          - name: 'cycleExpressDesc'
-            label: 'サイクル・表現・説明'
-            hint: 'cycleExpressDesc'
-            widget: string
-          - name: 'cycleNurtureTitle'
-            label: 'サイクル・育成・タイトル'
-            hint: 'cycleNurtureTitle'
-            widget: string
-          - name: 'cycleNurtureDesc'
-            label: 'サイクル・育成・説明'
-            hint: 'cycleNurtureDesc'
-            widget: string
-          - name: 'cycleReturnTitle'
-            label: 'サイクル・還元・タイトル'
-            hint: 'cycleReturnTitle'
-            widget: string
-          - name: 'cycleReturnDesc'
-            label: 'サイクル・還元・説明'
-            hint: 'cycleReturnDesc'
-            widget: string
+          - name: 'valueCycle'
+            label: 'ミッションループ項目'
+            hint: 'valueCycle'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'valueCycle[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'valueCycle[].description'
+                widget: string
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'valueCycle[].icon'
+                widget: string
+              - name: 'accent'
+                label: '色'
+                hint: 'valueCycle[].accent'
+                widget: select
+                options:
+                  - { label: 'ブランド', value: brand }
+                  - { label: 'アンバー', value: amber }
+                  - { label: 'エメラルド', value: emerald }
+                  - { label: 'スレート', value: slate }
           - name: 'philosophyHeading'
             label: '理念・見出し'
             hint: 'philosophyHeading'
@@ -1992,26 +1907,14 @@ collections:
             label: '活動・タイトル'
             hint: 'activitiesTitle'
             widget: string
-          - name: 'activity1'
-            label: '活動1'
-            hint: 'activity1'
-            widget: string
-          - name: 'activity2'
-            label: '活動2'
-            hint: 'activity2'
-            widget: string
-          - name: 'activity3'
-            label: '活動3'
-            hint: 'activity3'
-            widget: string
-          - name: 'activity4'
-            label: '活動4'
-            hint: 'activity4'
-            widget: string
-          - name: 'activity5'
-            label: '活動5'
-            hint: 'activity5'
-            widget: string
+          - name: 'activities'
+            label: '活動リスト'
+            hint: 'activities'
+            widget: list
+            field:
+              name: 'activity'
+              label: '活動'
+              widget: string
           - name: 'workshopImgAlt'
             label: 'ワークショップ・画像・代替テキスト'
             hint: 'workshopImgAlt'
@@ -2056,38 +1959,28 @@ collections:
             label: '関連・リンク・見出し'
             hint: 'relatedLinksHeading'
             widget: string
-          - name: 'linkAceserver'
-            label: 'リンク・AceServer'
-            hint: 'linkAceserver'
-            widget: string
-          - name: 'linkAceserverDesc'
-            label: 'リンク・AceServer・説明'
-            hint: 'linkAceserverDesc'
-            widget: string
-          - name: 'linkX'
-            label: 'リンク・X'
-            hint: 'linkX'
-            widget: string
-          - name: 'linkXDesc'
-            label: 'リンク・X・説明'
-            hint: 'linkXDesc'
-            widget: string
-          - name: 'linkGithub'
-            label: 'リンク・GitHub'
-            hint: 'linkGithub'
-            widget: string
-          - name: 'linkGithubDesc'
-            label: 'リンク・GitHub・説明'
-            hint: 'linkGithubDesc'
-            widget: string
-          - name: 'linkDiscord'
-            label: 'リンク・Discord'
-            hint: 'linkDiscord'
-            widget: string
-          - name: 'linkDiscordDesc'
-            label: 'リンク・Discord・説明'
-            hint: 'linkDiscordDesc'
-            widget: string
+          - name: 'relatedLinks'
+            label: '関連リンクカード'
+            hint: 'relatedLinks'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'relatedLinks[].icon'
+                widget: string
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'relatedLinks[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'relatedLinks[].description'
+                widget: string
+              - name: 'href'
+                label: 'リンク先'
+                hint: 'relatedLinks[].href'
+                widget: string
           - name: 'ctaHeading'
             label: 'CTA見出し'
             hint: 'ctaHeading'
@@ -2145,38 +2038,20 @@ collections:
             label: 'FAQ・タイトル'
             hint: 'faqTitle'
             widget: string
-          - name: 'faqQ1'
-            label: 'FAQ質問1'
-            hint: 'faqQ1'
-            widget: string
-          - name: 'faqA1'
-            label: 'FAQ回答1'
-            hint: 'faqA1'
-            widget: text
-          - name: 'faqQ2'
-            label: 'FAQ質問2'
-            hint: 'faqQ2'
-            widget: string
-          - name: 'faqA2'
-            label: 'FAQ回答2'
-            hint: 'faqA2'
-            widget: text
-          - name: 'faqQ3'
-            label: 'FAQ質問3'
-            hint: 'faqQ3'
-            widget: string
-          - name: 'faqA3'
-            label: 'FAQ回答3'
-            hint: 'faqA3'
-            widget: text
-          - name: 'faqQ4'
-            label: 'FAQ質問4'
-            hint: 'faqQ4'
-            widget: string
-          - name: 'faqA4'
-            label: 'FAQ回答4'
-            hint: 'faqA4'
-            widget: text
+          - name: 'faqs'
+            label: 'FAQ項目'
+            hint: 'faqs'
+            widget: list
+            summary: '{{fields.question}}'
+            fields:
+              - name: 'question'
+                label: '質問'
+                hint: 'faqs[].question'
+                widget: string
+              - name: 'answer'
+                label: '回答'
+                hint: 'faqs[].answer'
+                widget: text
           - name: 'aiHeading'
             label: 'AI・見出し'
             hint: 'aiHeading'
@@ -2370,38 +2245,33 @@ collections:
             label: '学習・流れ・説明'
             hint: 'learningFlowDesc'
             widget: string
-          - name: 'flowDiscoverTitle'
-            label: '流れ・発見・タイトル'
-            hint: 'flowDiscoverTitle'
-            widget: string
-          - name: 'flowDiscoverDesc'
-            label: '流れ・発見・説明'
-            hint: 'flowDiscoverDesc'
-            widget: string
-          - name: 'flowPracticeTitle'
-            label: '流れ・練習・タイトル'
-            hint: 'flowPracticeTitle'
-            widget: string
-          - name: 'flowPracticeDesc'
-            label: '流れ・練習・説明'
-            hint: 'flowPracticeDesc'
-            widget: string
-          - name: 'flowApplyTitle'
-            label: '流れ・応用・タイトル'
-            hint: 'flowApplyTitle'
-            widget: string
-          - name: 'flowApplyDesc'
-            label: '流れ・応用・説明'
-            hint: 'flowApplyDesc'
-            widget: string
-          - name: 'flowContinueTitle'
-            label: '流れ・継続・タイトル'
-            hint: 'flowContinueTitle'
-            widget: string
-          - name: 'flowContinueDesc'
-            label: '流れ・継続・説明'
-            hint: 'flowContinueDesc'
-            widget: string
+          - name: 'learningSteps'
+            label: '学習フロー項目'
+            hint: 'learningSteps'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'learningSteps[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'learningSteps[].description'
+                widget: string
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'learningSteps[].icon'
+                widget: string
+              - name: 'accent'
+                label: '色'
+                hint: 'learningSteps[].accent'
+                widget: select
+                options:
+                  - { label: 'ブランド', value: brand }
+                  - { label: 'アンバー', value: amber }
+                  - { label: 'エメラルド', value: emerald }
+                  - { label: 'スレート', value: slate }
           - name: 'intro'
             label: '導入'
             hint: 'intro'
@@ -2424,18 +2294,14 @@ collections:
                 label: '特徴・ラベル'
                 hint: 'juku.featuresLabel'
                 widget: string
-              - name: 'feature1'
-                label: '特徴1'
-                hint: 'juku.feature1'
-                widget: string
-              - name: 'feature2'
-                label: '特徴2'
-                hint: 'juku.feature2'
-                widget: string
-              - name: 'feature3'
-                label: '特徴3'
-                hint: 'juku.feature3'
-                widget: string
+              - name: 'features'
+                label: '特徴リスト'
+                hint: 'juku.features'
+                widget: list
+                field:
+                  name: 'feature'
+                  label: '特徴'
+                  widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'juku.imgAlt'
@@ -2454,41 +2320,23 @@ collections:
                 label: '説明'
                 hint: 'robotProgramming.desc'
                 widget: string
-              - name: 'robotCourseTitle'
-                label: 'ロボット・講座・タイトル'
-                hint: 'robotProgramming.robotCourseTitle'
-                widget: string
-              - name: 'robotCourseDesc'
-                label: 'ロボット・講座・説明'
-                hint: 'robotProgramming.robotCourseDesc'
-                widget: string
-              - name: 'robotProgCourseTitle'
-                label: 'ロボット・プログラミング・講座・タイトル'
-                hint: 'robotProgramming.robotProgCourseTitle'
-                widget: string
-              - name: 'robotProgCourseDesc'
-                label: 'ロボット・プログラミング・講座・説明'
-                hint: 'robotProgramming.robotProgCourseDesc'
-                widget: string
-              - name: 'mcProgCourseTitle'
-                label: 'Minecraftプログラミング講座タイトル'
-                hint: 'robotProgramming.mcProgCourseTitle'
-                widget: string
-              - name: 'mcProgCourseDesc'
-                label: 'Minecraftプログラミング講座説明'
-                hint: 'robotProgramming.mcProgCourseDesc'
-                widget: string
+              - name: 'courses'
+                label: '講座カード'
+                hint: 'robotProgramming.courses'
+                widget: list
+                summary: '{{fields.title}}'
+                fields:
+                  - name: 'title'
+                    label: 'タイトル'
+                    hint: 'robotProgramming.courses[].title'
+                    widget: string
+                  - name: 'description'
+                    label: '説明'
+                    hint: 'robotProgramming.courses[].description'
+                    widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'robotProgramming.imgAlt'
-                widget: string
-              - name: 'minecraftCourseTitle'
-                label: 'Minecraft・講座・タイトル'
-                hint: 'robotProgramming.minecraftCourseTitle'
-                widget: string
-              - name: 'minecraftCourseDesc'
-                label: 'Minecraft・講座・説明'
-                hint: 'robotProgramming.minecraftCourseDesc'
                 widget: string
               - name: 'progImgAlt'
                 label: 'プログラミング・画像・代替テキスト'
@@ -2502,42 +2350,26 @@ collections:
             label: '比較・変更前'
             hint: 'compareBefore'
             widget: string
-          - name: 'compareBefore1'
-            label: '比較・変更前1'
-            hint: 'compareBefore1'
-            widget: string
-          - name: 'compareBefore2'
-            label: '比較・変更前2'
-            hint: 'compareBefore2'
-            widget: string
-          - name: 'compareBefore3'
-            label: '比較・変更前3'
-            hint: 'compareBefore3'
-            widget: string
-          - name: 'compareBefore4'
-            label: '比較・変更前4'
-            hint: 'compareBefore4'
-            widget: string
+          - name: 'compareBeforeItems'
+            label: '比較・変更前リスト'
+            hint: 'compareBeforeItems'
+            widget: list
+            field:
+              name: 'item'
+              label: '項目'
+              widget: string
           - name: 'compareAfter'
             label: '比較・変更後'
             hint: 'compareAfter'
             widget: string
-          - name: 'compareAfter1'
-            label: '比較・変更後1'
-            hint: 'compareAfter1'
-            widget: string
-          - name: 'compareAfter2'
-            label: '比較・変更後2'
-            hint: 'compareAfter2'
-            widget: string
-          - name: 'compareAfter3'
-            label: '比較・変更後3'
-            hint: 'compareAfter3'
-            widget: string
-          - name: 'compareAfter4'
-            label: '比較・変更後4'
-            hint: 'compareAfter4'
-            widget: string
+          - name: 'compareAfterItems'
+            label: '比較・変更後リスト'
+            hint: 'compareAfterItems'
+            widget: list
+            field:
+              name: 'item'
+              label: '項目'
+              widget: string
           - name: 'practicalProgramming'
             label: '実践・プログラミング'
             hint: 'practicalProgramming'
@@ -2556,22 +2388,14 @@ collections:
                 label: '内容・ラベル'
                 hint: 'practicalProgramming.contentLabel'
                 widget: string
-              - name: 'content1'
-                label: '内容1'
-                hint: 'practicalProgramming.content1'
-                widget: string
-              - name: 'content2'
-                label: '内容2'
-                hint: 'practicalProgramming.content2'
-                widget: string
-              - name: 'content3'
-                label: '内容3'
-                hint: 'practicalProgramming.content3'
-                widget: string
-              - name: 'content4'
-                label: '内容4'
-                hint: 'practicalProgramming.content4'
-                widget: string
+              - name: 'contents'
+                label: '内容リスト'
+                hint: 'practicalProgramming.contents'
+                widget: list
+                field:
+                  name: 'content'
+                  label: '内容'
+                  widget: string
               - name: 'contentsLabel'
                 label: '内容・ラベル'
                 hint: 'practicalProgramming.contentsLabel'
@@ -2594,22 +2418,14 @@ collections:
                 label: 'レベル・ラベル'
                 hint: 'pcSmartphone.levelLabel'
                 widget: string
-              - name: 'level1'
-                label: 'レベル1'
-                hint: 'pcSmartphone.level1'
-                widget: string
-              - name: 'level2'
-                label: 'レベル2'
-                hint: 'pcSmartphone.level2'
-                widget: string
-              - name: 'level3'
-                label: 'レベル3'
-                hint: 'pcSmartphone.level3'
-                widget: string
-              - name: 'level4'
-                label: 'レベル4'
-                hint: 'pcSmartphone.level4'
-                widget: string
+              - name: 'levels'
+                label: 'レベルリスト'
+                hint: 'pcSmartphone.levels'
+                widget: list
+                field:
+                  name: 'level'
+                  label: 'レベル'
+                  widget: string
               - name: 'imgAlt'
                 label: '画像・代替テキスト'
                 hint: 'pcSmartphone.imgAlt'
@@ -2636,18 +2452,14 @@ collections:
                 label: '支援・ラベル'
                 hint: 'ged.supportLabel'
                 widget: string
-              - name: 'support1'
-                label: '支援1'
-                hint: 'ged.support1'
-                widget: string
-              - name: 'support2'
-                label: '支援2'
-                hint: 'ged.support2'
-                widget: string
-              - name: 'support3'
-                label: '支援3'
-                hint: 'ged.support3'
-                widget: string
+              - name: 'supports'
+                label: '支援リスト'
+                hint: 'ged.supports'
+                widget: list
+                field:
+                  name: 'support'
+                  label: '支援'
+                  widget: string
           - name: 'pricing'
             label: '料金セクション'
             hint: 'pricing'
@@ -2758,38 +2570,33 @@ collections:
             label: 'スタジオ・範囲・説明'
             hint: 'studioScopeDesc'
             widget: string
-          - name: 'areaContentTitle'
-            label: '領域・内容・タイトル'
-            hint: 'areaContentTitle'
-            widget: string
-          - name: 'areaContentDesc'
-            label: '領域・内容・説明'
-            hint: 'areaContentDesc'
-            widget: string
-          - name: 'areaCreatorTitle'
-            label: '領域・クリエイター・タイトル'
-            hint: 'areaCreatorTitle'
-            widget: string
-          - name: 'areaCreatorDesc'
-            label: '領域・クリエイター・説明'
-            hint: 'areaCreatorDesc'
-            widget: string
-          - name: 'areaCommunityTitle'
-            label: '領域・コミュニティ・タイトル'
-            hint: 'areaCommunityTitle'
-            widget: string
-          - name: 'areaCommunityDesc'
-            label: '領域・コミュニティ・説明'
-            hint: 'areaCommunityDesc'
-            widget: string
-          - name: 'areaRevenueTitle'
-            label: '領域・収益・タイトル'
-            hint: 'areaRevenueTitle'
-            widget: string
-          - name: 'areaRevenueDesc'
-            label: '領域・収益・説明'
-            hint: 'areaRevenueDesc'
-            widget: string
+          - name: 'studioAreas'
+            label: 'スタジオ領域カード'
+            hint: 'studioAreas'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'studioAreas[].title'
+                widget: string
+              - name: 'description'
+                label: '説明'
+                hint: 'studioAreas[].description'
+                widget: string
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'studioAreas[].icon'
+                widget: string
+              - name: 'tone'
+                label: '色'
+                hint: 'studioAreas[].tone'
+                widget: select
+                options:
+                  - { label: 'ブランド', value: brand }
+                  - { label: 'アンバー', value: amber }
+                  - { label: 'エメラルド', value: emerald }
+                  - { label: 'スレート', value: slate }
           - name: 'creativeImgAlt'
             label: 'クリエイティブ・画像・代替テキスト'
             hint: 'creativeImgAlt'
@@ -2822,38 +2629,20 @@ collections:
             label: 'FAQ・タイトル'
             hint: 'faqTitle'
             widget: string
-          - name: 'faqQ1'
-            label: 'FAQ質問1'
-            hint: 'faqQ1'
-            widget: string
-          - name: 'faqA1'
-            label: 'FAQ回答1'
-            hint: 'faqA1'
-            widget: string
-          - name: 'faqQ2'
-            label: 'FAQ質問2'
-            hint: 'faqQ2'
-            widget: string
-          - name: 'faqA2'
-            label: 'FAQ回答2'
-            hint: 'faqA2'
-            widget: string
-          - name: 'faqQ3'
-            label: 'FAQ質問3'
-            hint: 'faqQ3'
-            widget: string
-          - name: 'faqA3'
-            label: 'FAQ回答3'
-            hint: 'faqA3'
-            widget: string
-          - name: 'faqQ4'
-            label: 'FAQ質問4'
-            hint: 'faqQ4'
-            widget: string
-          - name: 'faqA4'
-            label: 'FAQ回答4'
-            hint: 'faqA4'
-            widget: string
+          - name: 'faqs'
+            label: 'FAQ項目'
+            hint: 'faqs'
+            widget: list
+            summary: '{{fields.question}}'
+            fields:
+              - name: 'question'
+                label: '質問'
+                hint: 'faqs[].question'
+                widget: string
+              - name: 'answer'
+                label: '回答'
+                hint: 'faqs[].answer'
+                widget: string
           - name: 'newsHeading'
             label: 'ニュース・見出し'
             hint: 'newsHeading'

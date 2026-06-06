@@ -184,30 +184,84 @@
       "heroImgStrategy": "商业战略讨论",
       "servicesHeading": "主要服务",
       "servicesLead": "不确定从何开始？我们灵活地为个人和企业提供服务。",
-      "serviceSystem": "业务系统・应用开发",
-      "serviceSystemDesc": "通过最优系统解决业务效率化、数据管理改善等课题。从小型工具到大型服务均可对应。",
-      "serviceServer": "服务器搭建・运维",
-      "serviceServerDesc": "提供稳定、高速的服务器环境。拥有支撑数百人同时连接的运维实绩。",
-      "serviceWeb": "网站设计・运营",
-      "serviceWebDesc": "不仅注重外观，更考虑获客和用户体验。上线后的更新维护也可交给我们。",
-      "serviceDesign": "设计・创意",
-      "serviceDesignDesc": "Logo、名片、横幅、角色形象等，将您的「想要传达的」变为可见的形式。",
-      "serviceSchools": "IT学校 / Acecore Schools",
-      "serviceSchoolsDesc": "面向儿童到成人的个性化指导。对应编程、学习辅导、高中同等学力考试。",
-      "serviceAceserver": "Aceserver",
-      "serviceAceserverDesc": "人人可免费参加的Minecraft公开服务器。支持Java版和基岩版，活跃的社区等着您。",
+      "serviceCards": [
+        {
+          "title": "业务系统・应用开发",
+          "description": "通过最优系统解决业务效率化、数据管理改善等课题。从小型工具到大型服务均可对应。",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "服务器搭建・运维",
+          "description": "提供稳定、高速的服务器环境。拥有支撑数百人同时连接的运维实绩。",
+          "href": "/services/#server",
+          "icon": "server",
+          "tone": "emerald"
+        },
+        {
+          "title": "网站设计・运营",
+          "description": "不仅注重外观，更考虑获客和用户体验。上线后的更新维护也可交给我们。",
+          "href": "/services/#web",
+          "icon": "globe",
+          "tone": "amber"
+        },
+        {
+          "title": "设计・创意",
+          "description": "Logo、名片、横幅、角色形象等，将您的「想要传达的」变为可见的形式。",
+          "href": "/services/#design",
+          "icon": "palette",
+          "tone": "slate"
+        },
+        {
+          "title": "IT学校 / Acecore Schools",
+          "description": "面向儿童到成人的个性化指导。对应编程、学习辅导、高中同等学力考试。",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "amber"
+        },
+        {
+          "title": "Aceserver",
+          "description": "人人可免费参加的Minecraft公开服务器。支持Java版和基岩版，活跃的社区等着您。",
+          "href": "https://asv.acecore.net",
+          "icon": "gamepad-2",
+          "tone": "emerald"
+        }
+      ],
       "viewServicesDetail": "查看服务详情",
       "layersEyebrow": "Visual Overview",
       "layersTitle": "Acecore支撑的四个层面",
       "layersDescription": "我们将技术、运维、表达和教育作为一条完整的支援线来对待。",
-      "layerDesign": "系统设计",
-      "layerDesignDesc": "将业务课题转化为需求，着眼于实施和运维来构建系统。",
-      "layerInfra": "基础设施运维",
-      "layerInfraDesc": "基于公开服务器运维经验，构建高可用环境和改进循环。",
-      "layerExpression": "传达性设计",
-      "layerExpressionDesc": "将设计视为信息整理和体验设计，而非外观装饰。",
-      "layerEducation": "教育与陪伴",
-      "layerEducationDesc": "将实用知识转化为学习支持，传递给地区和下一代。",
+      "layerItems": [
+        {
+          "title": "系统设计",
+          "description": "将业务课题转化为需求，着眼于实施和运维来构建系统。",
+          "href": "/services/#system-development",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
+        {
+          "title": "基础设施运维",
+          "description": "基于公开服务器运维经验，构建高可用环境和改进循环。",
+          "href": "/services/#server",
+          "icon": "server-cog",
+          "tone": "emerald"
+        },
+        {
+          "title": "传达性设计",
+          "description": "将设计视为信息整理和体验设计，而非外观装饰。",
+          "href": "/services/#design",
+          "icon": "swatch-book",
+          "tone": "amber"
+        },
+        {
+          "title": "教育与陪伴",
+          "description": "将实用知识转化为学习支持，传递给地区和下一代。",
+          "href": "/schools/",
+          "icon": "graduation-cap",
+          "tone": "slate"
+        }
+      ],
       "aboutHeading": "关于Acecore",
       "aboutBody1": "我们定期举办学习会和工作坊，珍视与客户和社区一起学习的场所。",
       "aboutBody2": "通过开源活用、地域合作以及对{link}的贡献，构建连接技术与人的伙伴关系。",
@@ -274,14 +328,6 @@
       "validationEmail": "请输入有效的电子邮件地址",
       "validationMessage": "请输入咨询内容",
       "faqTitle": "常见问题",
-      "faqQ1": "我不知道应该咨询哪项服务。",
-      "faqA1": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。",
-      "faqQ2": "只咨询报价也可以吗？",
-      "faqA2": "可以。报价免费。请尽量填写目标、期望时间、当前问题和预算范围。",
-      "faqQ3": "Acecore Schools 的咨询也可以用这个表单吗？",
-      "faqA3": "可以。请填写想学习的内容、年龄或年级、希望的学习节奏。",
-      "faqQ4": "多久会回复？",
-      "faqA4": "通常会在 1-2 个工作日内回复。提交后的补充说明也可以使用 LINE 或下方联系方式。",
       "aiHeading": "也可以使用 AI 聊天",
       "aiLead": "可使用右下角 AI 聊天了解服务、开发或网站咨询、课程和回复时间。需要详细咨询时，可继续使用联系表单。",
       "aiQuestionLabel": "想问 AI 的内容",
@@ -294,43 +340,71 @@
       "lineCta": "关注官方 LINE",
       "directMethodsNote": "简短咨询和课程相关联系可使用 LINE，社交媒体上的简单确认也可使用 X。详细内容通过表单发送更便于整理确认。",
       "directContactSummary": "如果想直接联系",
-      "directContactLead": "提交表单后的补充说明，或需要直接确认的内容，请展开这里。"
+      "directContactLead": "提交表单后的补充说明，或需要直接确认的内容，请展开这里。",
+      "faqs": [
+        {
+          "question": "我不知道应该咨询哪项服务。",
+          "answer": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
+        },
+        {
+          "question": "只咨询报价也可以吗？",
+          "answer": "可以。报价免费。请尽量填写目标、期望时间、当前问题和预算范围。"
+        },
+        {
+          "question": "Acecore Schools 的咨询也可以用这个表单吗？",
+          "answer": "可以。请填写想学习的内容、年龄或年级、希望的学习节奏。"
+        },
+        {
+          "question": "多久会回复？",
+          "answer": "通常会在 1-2 个工作日内回复。提交后的补充说明也可以使用 LINE 或下方联系方式。"
+        }
+      ]
     },
     "schools": {
       "robotProgramming": {
-        "minecraftCourseTitle": "我的世界编程课程",
-        "minecraftCourseDesc": "在我的世界中快乐地学习编程基础。通过游戏培养逻辑思维能力。",
         "progImgAlt": "编程学习图片",
         "title": "机器人 / 编程",
         "desc": "我们提供融合先进技术的机器人编程课程。学生可以使用实际的机器人学习编程基础。",
-        "robotCourseTitle": "机器人课程",
-        "robotCourseDesc": "通过使用田宫工作套件等进行实际的机器人制作，学习制造的乐趣和基本原理。",
-        "robotProgCourseTitle": "机器人编程课程",
-        "robotProgCourseDesc": "学习通过编程控制机器人的技术。通过传感器和电机控制培养逻辑思维能力。",
-        "mcProgCourseTitle": "我的世界编程课程",
-        "mcProgCourseDesc": "利用人气游戏「我的世界」学习编程基础。在游戏中自然培养编程思维。",
-        "imgAlt": "学习编程的学生"
+        "imgAlt": "学习编程的学生",
+        "courses": [
+          {
+            "title": "机器人课程",
+            "description": "通过使用田宫工作套件等进行实际的机器人制作，学习制造的乐趣和基本原理。"
+          },
+          {
+            "title": "机器人编程课程",
+            "description": "学习通过编程控制机器人的技术。通过传感器和电机控制培养逻辑思维能力。"
+          },
+          {
+            "title": "我的世界编程课程",
+            "description": "在我的世界中快乐地学习编程基础。通过游戏培养逻辑思维能力。"
+          }
+        ]
       },
       "practicalProgramming": {
         "contentsLabel": "学习内容",
         "title": "实践编程",
         "desc": "我们提供学习实际业务中使用的编程技术的课程。掌握实践技能，让学员能够即刻独当一面。",
         "contentLabel": "学习内容",
-        "content1": "使用 HTML / CSS / JavaScript 进行Web前端开发",
-        "content2": "使用 Python / Node.js 等进行后端开发",
-        "content3": "数据库设计、API构建和云服务应用",
-        "content4": "Git和团队开发工作流"
+        "contents": [
+          "使用 HTML / CSS / JavaScript 进行Web前端开发",
+          "使用 Python / Node.js 等进行后端开发",
+          "数据库设计、API构建和云服务应用",
+          "Git和团队开发工作流"
+        ]
       },
       "pcSmartphone": {
         "levelsLabel": "支持级别",
         "title": "电脑 / 智能手机",
         "desc": "学习日常生活和商务场景中所需的电脑和智能手机操作技能。为从初学者到高级用户提供全方位课程。",
         "levelLabel": "适用级别",
-        "level1": "电脑和智能手机基本操作（欢迎初学者）",
-        "level2": "办公软件：Word / Excel / PowerPoint 的使用",
-        "level3": "邮件、社交媒体和在线会议的设置与使用",
-        "level4": "安全防护和故障排除",
-        "imgAlt": "使用电脑学习的学员"
+        "imgAlt": "使用电脑学习的学员",
+        "levels": [
+          "电脑和智能手机基本操作（欢迎初学者）",
+          "办公软件：Word / Excel / PowerPoint 的使用",
+          "邮件、社交媒体和在线会议的设置与使用",
+          "安全防护和故障排除"
+        ]
       },
       "title": "Acecore Schools",
       "description": "Acecore Schools是一所IT学校，提供学习辅导、机器人编程、实践编程、电脑/智能手机课程和高中同等学力考试准备等广泛的教育项目。",
@@ -340,42 +414,30 @@
       "learningFlowEyebrow": "Learning Flow",
       "learningFlowTitle": "了解Acecore Schools的学习流程",
       "learningFlowDesc": "从兴趣入门到实践再到持续学习——以一条学习路径展现。",
-      "flowDiscoverTitle": "发现兴趣",
-      "flowDiscoverDesc": "通过辅导和机器人体验，为每位学生找到学习的入口。",
-      "flowPracticeTitle": "动手理解",
-      "flowPracticeDesc": "通过机器人实操、我的世界和编程练习，将体验与理解结合。",
-      "flowApplyTitle": "连接实践",
-      "flowApplyDesc": "通过Web开发和工具运用，将学习提升到解决实际问题的层面。",
-      "flowContinueTitle": "持续学习",
-      "flowContinueDesc": "涵盖升学考试、资格证书和日常IT应用，为每位学员打造适合的持续学习路径。",
       "intro": "我们为从儿童到成人的学员提供个性化指导，根据每个人的目标和节奏量身定制。您也可以在服务一览中了解我们的定位。",
       "juku": {
         "title": "学习辅导",
         "desc": "我们的辅导课程为每位学生提供个性化指导，从基础到应用，培养全面的学习能力。经验丰富的讲师全力支持每位学生的成长。",
         "featuresLabel": "特色",
-        "feature1": "根据每位学生的理解程度提供个别辅导",
-        "feature2": "从基础巩固到应用能力培养的阶段性支持",
-        "feature3": "支持定期考试和升学考试备考",
-        "imgAlt": "教室个别辅导场景"
+        "imgAlt": "教室个别辅导场景",
+        "features": [
+          "根据每位学生的理解程度提供个别辅导",
+          "从基础巩固到应用能力培养的阶段性支持",
+          "支持定期考试和升学考试备考"
+        ]
       },
       "compareTitle": "学习方式对比",
       "compareBefore": "自学",
-      "compareBefore1": "不知道从何开始",
-      "compareBefore2": "遇到困难无人可问",
-      "compareBefore3": "难以保持学习动力",
-      "compareBefore4": "看不到与实际应用的联系",
       "compareAfter": "Acecore Schools",
-      "compareAfter1": "根据个人情况推荐入门方式",
-      "compareAfter2": "随时可以向讲师提问",
-      "compareAfter3": "通过体验自然地持续学习",
-      "compareAfter4": "直接对接升学、资格考试和实务",
       "ged": {
         "title": "高中同等学力考试",
         "desc": "为未高中毕业者提供高中同等学力考试备考课程。帮助掌握专业知识和技能，获取高中同等资格。",
         "supportLabel": "支持内容",
-        "support1": "各科目考试对策（语文、数学、英语、社会、理科）",
-        "support2": "根据个人学力制定学习计划",
-        "support3": "模拟考试和历年真题训练"
+        "supports": [
+          "各科目考试对策（语文、数学、英语、社会、理科）",
+          "根据个人学力制定学习计划",
+          "模拟考试和历年真题训练"
+        ]
       },
       "ctaHeading": "咨询与报名",
       "ctaBody": "课程详情和报名请通过联系表单或 LINE 咨询。即使不确定哪个课程适合，也可以直接询问。",
@@ -408,7 +470,45 @@
             "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
           }
         ]
-      }
+      },
+      "learningSteps": [
+        {
+          "title": "发现兴趣",
+          "description": "通过辅导和机器人体验，为每位学生找到学习的入口。",
+          "icon": "sparkles",
+          "accent": "amber"
+        },
+        {
+          "title": "动手理解",
+          "description": "通过机器人实操、我的世界和编程练习，将体验与理解结合。",
+          "icon": "bot",
+          "accent": "brand"
+        },
+        {
+          "title": "连接实践",
+          "description": "通过Web开发和工具运用，将学习提升到解决实际问题的层面。",
+          "icon": "code-xml",
+          "accent": "emerald"
+        },
+        {
+          "title": "持续学习",
+          "description": "涵盖升学考试、资格证书和日常IT应用，为每位学员打造适合的持续学习路径。",
+          "icon": "flag",
+          "accent": "slate"
+        }
+      ],
+      "compareBeforeItems": [
+        "不知道从何开始",
+        "遇到困难无人可问",
+        "难以保持学习动力",
+        "看不到与实际应用的联系"
+      ],
+      "compareAfterItems": [
+        "根据个人情况推荐入门方式",
+        "随时可以向讲师提问",
+        "通过体验自然地持续学习",
+        "直接对接升学、资格考试和实务"
+      ]
     },
     "about": {
       "title": "关于我们",
@@ -419,25 +519,12 @@
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Acecore的价值循环体系",
       "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
-      "cycleImplementTitle": "技术实施",
-      "cycleImplementDesc": "通过系统开发和服务器运维，构建可运作的基础设施。",
-      "cycleExpressTitle": "表达转化",
-      "cycleExpressDesc": "通过网站设计和创意作品，将内容转化为触动人心的体验。",
-      "cycleNurtureTitle": "培育人与场所",
-      "cycleNurtureDesc": "通过社区和教育活动，培养新的参与者和学习机会。",
-      "cycleReturnTitle": "反馈新挑战",
-      "cycleReturnDesc": "将获得的知识反馈到开发和支持中，强化整体活动。",
       "philosophyHeading": "理念",
       "philosophyMotto": "\"技术连接，创意拓展\"",
       "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供系统开发、网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
       "philosophyBody2": "我们的使命是通过技术连接人们、通过创意拓展可能性。重视的不仅是提供技术，更是与客户和社区共同成长，创造可持续的价值。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
-      "activity1": "定期举办学习会和工作坊",
-      "activity2": "开源代码发布和贡献",
-      "activity3": "与地区教育机构协作教学",
-      "activity4": "与外部合作伙伴的共创项目",
-      "activity5": "Aceserver社区运营",
       "workshopImgAlt": "学习会和工作坊场景",
       "initiativesHeading": "活动与倡议",
       "communityTitle": "社区活动",
@@ -449,18 +536,69 @@
       "partnershipTitle": "合作伙伴关系",
       "partnershipDesc": "欢迎项目合作和商业伙伴关系。可在技术、设计、教育等广泛领域展开合作。",
       "relatedLinksHeading": "相关链接",
-      "linkAceserver": "Aceserver门户",
-      "linkAceserverDesc": "Minecraft免费公开服务器的官方网站。",
-      "linkX": "X（原Twitter）",
-      "linkXDesc": "发布Acecore的最新资讯。",
-      "linkGithub": "GitHub",
-      "linkGithubDesc": "公开我们的开源项目。",
-      "linkDiscord": "Aceserver Discord",
-      "linkDiscordDesc": "Aceserver社区活动的Discord服务器。",
       "ctaHeading": "与Acecore一起迈出下一步",
       "ctaBody": "服务咨询、合作提案，随时恭候。",
       "ctaContact": "联系我们",
-      "ctaServices": "查看服务列表"
+      "ctaServices": "查看服务列表",
+      "valueCycle": [
+        {
+          "title": "技术实施",
+          "description": "通过系统开发和服务器运维，构建可运作的基础设施。",
+          "icon": "cpu",
+          "accent": "brand"
+        },
+        {
+          "title": "表达转化",
+          "description": "通过网站设计和创意作品，将内容转化为触动人心的体验。",
+          "icon": "palette",
+          "accent": "amber"
+        },
+        {
+          "title": "培育人与场所",
+          "description": "通过社区和教育活动，培养新的参与者和学习机会。",
+          "icon": "users",
+          "accent": "emerald"
+        },
+        {
+          "title": "反馈新挑战",
+          "description": "将获得的知识反馈到开发和支持中，强化整体活动。",
+          "icon": "repeat-2",
+          "accent": "slate"
+        }
+      ],
+      "activities": [
+        "定期举办学习会和工作坊",
+        "开源代码发布和贡献",
+        "与地区教育机构协作教学",
+        "与外部合作伙伴的共创项目",
+        "Aceserver社区运营"
+      ],
+      "relatedLinks": [
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver门户",
+          "description": "Minecraft免费公开服务器的官方网站。",
+          "href": "aceserver"
+        },
+        {
+          "icon": "at-sign",
+          "title": "X（原Twitter）",
+          "description": "发布Acecore的最新资讯。",
+          "href": "x"
+        },
+        {
+          "icon": "github",
+          "title": "GitHub",
+          "description": "公开我们的开源项目。",
+          "href": "github"
+        },
+        {
+          "icon": "message-circle",
+          "title": "Aceserver Discord",
+          "description": "Aceserver社区活动的Discord服务器。",
+          "href": "discord"
+        }
+      ]
     },
     "services": {
       "title": "服务",
@@ -490,81 +628,90 @@
         "title": "业务系统・应用开发",
         "desc": "根据客户的业务效率化、自动化和数据管理等挑战，定制开发系统和应用。从小型内部工具到大型Web服务均可对应。即使不确定从何开始，也请随时咨询。",
         "examplesLabel": "服务案例",
-        "example1": "业务管理系统、CRM和ERP的设计与构建",
-        "example2": "Web应用、SPA和移动应用开发",
-        "example3": "API设计、第三方服务集成和数据基础构建",
-        "example4": "旧系统的现代化改造",
-        "imgAlt": "代码编辑器中的开发工作"
+        "imgAlt": "代码编辑器中的开发工作",
+        "examples": [
+          "业务管理系统、CRM和ERP的设计与构建",
+          "Web应用、SPA和移动应用开发",
+          "API设计、第三方服务集成和数据基础构建",
+          "旧系统的现代化改造"
+        ]
       },
       "server": {
         "title": "服务器搭建・运维",
         "desc": "擅长构建和运维安全稳定的服务器环境。Acecore长期运营Aceserver（Minecraft公开服务器），并将积累的经验提供给企业客户。服务器迁移和云化咨询也欢迎联系。",
         "examplesLabel": "服务案例",
-        "example1": "云服务器（AWS / Azure / GCP / Cloudflare）的设计与搭建",
-        "example2": "Linux / Windows 服务器运维、监控和维护",
-        "example3": "游戏服务器和社区服务器的搭建",
-        "example4": "安全对策和备份体系建设"
+        "examples": [
+          "云服务器（AWS / Azure / GCP / Cloudflare）的设计与搭建",
+          "Linux / Windows 服务器运维、监控和维护",
+          "游戏服务器和社区服务器的搭建",
+          "安全对策和备份体系建设"
+        ]
       },
       "web": {
         "title": "网站设计・运营",
         "desc": "从企划到制作和运维，一站式处理企业网站、作品集、电商网站和社区网站等。通过最新技术和SEO优化，打造高品质网站。",
         "examplesLabel": "服务案例",
-        "example1": "企业网站和落地页设计",
-        "example2": "CMS构建、博客和媒体网站",
-        "example3": "电商网站和在线商店开发",
-        "example4": "SEO优化、性能调优和无障碍改善",
-        "imgAlt": "网站设计制作流程"
+        "imgAlt": "网站设计制作流程",
+        "examples": [
+          "企业网站和落地页设计",
+          "CMS构建、博客和媒体网站",
+          "电商网站和在线商店开发",
+          "SEO优化、性能调优和无障碍改善"
+        ]
       },
       "timelineTitle": "从导入到持续改善的陪伴",
-      "timelineStep1Title": "需求调查",
-      "timelineStep1Desc": "整理目标和约束，明确优先级。",
-      "timelineStep2Title": "设计・提案",
-      "timelineStep2Desc": "确定所需技术、界面和运营规则。",
-      "timelineStep3Title": "制作・构建",
-      "timelineStep3Desc": "跨越开发、设计和基础设施进行实施。",
-      "timelineStep4Title": "上线・维护",
-      "timelineStep4Desc": "包含改善提案和追加开发在内的持续支持。",
       "design": {
         "title": "设计・创意",
         "desc": "承接Logo设计、印刷品、横幅和角色设计等广泛的创意制作。致力于准确表达客户想要传达的信息。结合网站设计服务，从设计到上线一站式完成。",
         "examplesLabel": "服务案例",
-        "example1": "Logo和品牌识别设计",
-        "example2": "名片、宣传册、海报等印刷品",
-        "example3": "Web横幅和社交媒体创意",
-        "example4": "角色设计和插画制作",
-        "imgAlt": "创意设计工作空间"
+        "imgAlt": "创意设计工作空间",
+        "examples": [
+          "Logo和品牌识别设计",
+          "名片、宣传册、海报等印刷品",
+          "Web横幅和社交媒体创意",
+          "角色设计和插画制作"
+        ]
       },
       "education": {
         "title": "IT学校 / Acecore Schools",
         "desc": "由现役工程师直接教授实用IT技能的学校。提供学习辅导、机器人编程、实践编程、电脑/智能手机课程和高中同等学力考试备考等个性化教育项目。",
         "coursesLabel": "课程列表",
-        "course1": "学习辅导（个别指导、考试和升学备考）",
-        "course2": "机器人/编程（机器人制作和Minecraft编程）",
-        "course3": "实践编程（Web开发、后端、数据库）",
-        "course4": "电脑/智能手机（基本操作、办公软件、安全）",
-        "course5": "高中同等学力（考试对策和学习计划）",
-        "detailLink": "查看Acecore Schools详情"
+        "detailLink": "查看Acecore Schools详情",
+        "courses": [
+          "学习辅导（个别指导、考试和升学备考）",
+          "机器人/编程（机器人制作和Minecraft编程）",
+          "实践编程（Web开发、后端、数据库）",
+          "电脑/智能手机（基本操作、办公软件、安全）",
+          "高中同等学力（考试对策和学习计划）"
+        ]
       },
       "aceserver": {
         "title": "Aceserver（Minecraft公开服务器）",
         "desc": "Aceserver是Acecore运营的Minecraft免费公开服务器。秉持「成为每个人的归属」的理念，Java版和基岩版均可参加，在接近原版的自由环境中享受多人游戏。拥有支撑数百人同时连接的稳定运维实绩，在此积累的基础设施技术也反馈到了企业服务中。",
         "featuresLabel": "特点",
-        "feature1": "人人可免费参加（只需有账号）",
-        "feature2": "Java版和基岩版跨平台对战",
-        "feature3": "接近原版的高自由度游戏环境",
-        "feature4": "活跃的Discord社区交流和信息共享",
-        "feature5": "欢迎直播和宣传（无需申请）"
+        "features": [
+          "人人可免费参加（只需有账号）",
+          "Java版和基岩版跨平台对战",
+          "接近原版的高自由度游戏环境",
+          "活跃的Discord社区交流和信息共享",
+          "欢迎直播和宣传（无需申请）"
+        ],
+        "portalLink": "Aceserver 官方网站",
+        "wikiLink": "Aceserver Wiki",
+        "discordLink": "Aceserver Discord"
       },
       "acestudio": {
         "title": "AceStudio",
         "comingSoon": "即将推出",
         "desc": "AceStudio是Acecore正在开发的新服务。作为最大化创作者能力的平台，将支持设计、影像、音乐、开发等广泛领域的创意活动。",
         "areasLabel": "预设功能・领域",
-        "area1": "面向创作者的协作环境",
-        "area2": "设计、影像、音乐、编程等多领域支持",
-        "area3": "从制作到发布的无缝工作流",
         "note": "服务详情将在准备就绪后公布。最新信息将通过X和博客随时通知。",
-        "detailLink": "查看AceStudio详情"
+        "detailLink": "查看AceStudio详情",
+        "areas": [
+          "面向创作者的协作环境",
+          "设计、影像、音乐、编程等多领域支持",
+          "从制作到发布的无缝工作流"
+        ]
       },
       "miniCta": "咨询此服务",
       "ctaHeading": "欢迎随时咨询",
@@ -630,7 +777,29 @@
             "href": "/acestudio/"
           }
         ]
-      }
+      },
+      "timeline": [
+        {
+          "date": "Step 1",
+          "title": "需求调查",
+          "description": "整理目标和约束，明确优先级。"
+        },
+        {
+          "date": "Step 2",
+          "title": "设计・提案",
+          "description": "确定所需技术、界面和运营规则。"
+        },
+        {
+          "date": "Step 3",
+          "title": "制作・构建",
+          "description": "跨越开发、设计和基础设施进行实施。"
+        },
+        {
+          "date": "Step 4",
+          "title": "上线・维护",
+          "description": "包含改善提案和追加开发在内的持续支持。"
+        }
+      ]
     },
     "privacy": {
       "title": "隐私政策",
@@ -668,14 +837,6 @@
       "studioScopeEyebrow": "Studio Scope",
       "studioScopeTitle": "AceStudio正在准备的四个领域",
       "studioScopeDesc": "面向公开网站的内容×社区×变现思路概要。",
-      "areaContentTitle": "内容制作",
-      "areaContentDesc": "跨越影像、直播、设计和开发，将企划变为现实。",
-      "areaCreatorTitle": "创作者支持",
-      "areaCreatorDesc": "从机制层面支持个人的创作和发布活动。",
-      "areaCommunityTitle": "社区运营",
-      "areaCommunityDesc": "重视构建作品粉丝和参与者能持续连接的场所。",
-      "areaRevenueTitle": "收益模式验证",
-      "areaRevenueDesc": "将探讨中的收益模式落实到实际运营中。",
       "creativeImgAlt": "影像制作・创意工作",
       "comingSoonHeading": "全新创意体验，即将到来。",
       "comingSoonBody1": "AceStudio是Acecore正在开发的新服务。",
@@ -684,20 +845,56 @@
       "pullQuoteText": "不只是创作。传递、培育、循环。",
       "pullQuoteAttribution": "AceStudio的设计理念",
       "faqTitle": "关于AceStudio的常见问题",
-      "faqQ1": "AceStudio何时发布？",
-      "faqA1": "目前正在准备中。发布时间确定后将通过X和博客通知。",
-      "faqQ2": "使用是否收费？",
-      "faqA2": "收费体系目前正在规划中。计划提供免费入门方案。",
-      "faqQ3": "支持哪些创意活动？",
-      "faqA3": "广泛支持设计、影像、音乐、编程等数字创意活动。",
-      "faqQ4": "可以预注册或预约吗？",
-      "faqA4": "目前暂未开放预注册，但关注我们的X账号可获取最新信息。",
       "newsHeading": "为您传递最新消息",
       "newsBody": "发布信息和最新开发动态将通过Acecore的X账号和博客随时通知。",
       "followX": "关注X",
       "viewBlog": "浏览博客",
       "inquiryText": "关于AceStudio的咨询和需求请从这里",
-      "inquiryButton": "联系我们"
+      "inquiryButton": "联系我们",
+      "studioAreas": [
+        {
+          "title": "内容制作",
+          "description": "跨越影像、直播、设计和开发，将企划变为现实。",
+          "icon": "film",
+          "tone": "brand"
+        },
+        {
+          "title": "创作者支持",
+          "description": "从机制层面支持个人的创作和发布活动。",
+          "icon": "badge-help",
+          "tone": "amber"
+        },
+        {
+          "title": "社区运营",
+          "description": "重视构建作品粉丝和参与者能持续连接的场所。",
+          "icon": "messages-square",
+          "tone": "emerald"
+        },
+        {
+          "title": "收益模式验证",
+          "description": "将探讨中的收益模式落实到实际运营中。",
+          "icon": "chart-no-axes-combined",
+          "tone": "slate"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "AceStudio何时发布？",
+          "answer": "目前正在准备中。发布时间确定后将通过X和博客通知。"
+        },
+        {
+          "question": "使用是否收费？",
+          "answer": "收费体系目前正在规划中。计划提供免费入门方案。"
+        },
+        {
+          "question": "支持哪些创意活动？",
+          "answer": "广泛支持设计、影像、音乐、编程等数字创意活动。"
+        },
+        {
+          "question": "可以预注册或预约吗？",
+          "answer": "目前暂未开放预注册，但关注我们的X账号可获取最新信息。"
+        }
+      ]
     },
     "pricing": {
       "title": "费用参考",

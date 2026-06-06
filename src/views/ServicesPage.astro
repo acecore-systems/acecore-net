@@ -29,6 +29,12 @@ interface ServicePricingItem {
   href: string
 }
 
+interface TimelineItem {
+  date: string
+  title: string
+  description: string
+}
+
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
@@ -75,28 +81,14 @@ const serviceMap = [
   },
 ] as const
 
-const deliveryTimeline = [
-  {
-    date: 'Step 1',
-    title: t(locale, 'pages.services.timelineStep1Title'),
-    description: t(locale, 'pages.services.timelineStep1Desc'),
-  },
-  {
-    date: 'Step 2',
-    title: t(locale, 'pages.services.timelineStep2Title'),
-    description: t(locale, 'pages.services.timelineStep2Desc'),
-  },
-  {
-    date: 'Step 3',
-    title: t(locale, 'pages.services.timelineStep3Title'),
-    description: t(locale, 'pages.services.timelineStep3Desc'),
-  },
-  {
-    date: 'Step 4',
-    title: t(locale, 'pages.services.timelineStep4Title'),
-    description: t(locale, 'pages.services.timelineStep4Desc'),
-  },
-]
+const deliveryTimeline = getList<TimelineItem>('pages.services.timeline')
+const systemDevExamples = getList<string>('pages.services.systemDev.examples')
+const serverExamples = getList<string>('pages.services.server.examples')
+const webExamples = getList<string>('pages.services.web.examples')
+const designExamples = getList<string>('pages.services.design.examples')
+const educationCourses = getList<string>('pages.services.education.courses')
+const aceserverFeatures = getList<string>('pages.services.aceserver.features')
+const acestudioAreas = getList<string>('pages.services.acestudio.areas')
 
 const servicePricingItems = getList<ServicePricingItem>(
   'pages.services.pricing.items',
@@ -237,22 +229,14 @@ const serviceLd = {
             {t(locale, 'pages.services.systemDev.examplesLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.systemDev.example1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.systemDev.example2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.systemDev.example3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.systemDev.example4')}
-            </li>
+            {
+              systemDevExamples.map((example) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {example}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <ServiceSectionActions
@@ -301,22 +285,14 @@ const serviceLd = {
             {t(locale, 'pages.services.server.examplesLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.server.example1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.server.example2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.server.example3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.server.example4')}
-            </li>
+            {
+              serverExamples.map((example) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {example}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <ServiceSectionActions
@@ -344,22 +320,14 @@ const serviceLd = {
             {t(locale, 'pages.services.web.examplesLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.web.example1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.web.example2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.web.example3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.web.example4')}
-            </li>
+            {
+              webExamples.map((example) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {example}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <ServiceSectionActions
@@ -417,22 +385,14 @@ const serviceLd = {
             {t(locale, 'pages.services.design.examplesLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.design.example1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.design.example2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.design.example3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.design.example4')}
-            </li>
+            {
+              designExamples.map((example) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {example}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <ServiceSectionActions
@@ -482,26 +442,14 @@ const serviceLd = {
             {t(locale, 'pages.services.education.coursesLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.education.course1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.education.course2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.education.course3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.education.course4')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.education.course5')}
-            </li>
+            {
+              educationCourses.map((course) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {course}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div class="mt-4">
@@ -540,26 +488,14 @@ const serviceLd = {
             {t(locale, 'pages.services.aceserver.featuresLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.aceserver.feature1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.aceserver.feature2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.aceserver.feature3')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.aceserver.feature4')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.aceserver.feature5')}
-            </li>
+            {
+              aceserverFeatures.map((feature) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {feature}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div class="flex flex-wrap gap-3 mb-4">
@@ -626,18 +562,14 @@ const serviceLd = {
             {t(locale, 'pages.services.acestudio.areasLabel')}
           </h3>
           <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.acestudio.area1')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.acestudio.area2')}
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check" class="text-brand-500 shrink-0" />
-              {t(locale, 'pages.services.acestudio.area3')}
-            </li>
+            {
+              acestudioAreas.map((area) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {area}
+                </li>
+              ))
+            }
           </ul>
         </div>
         <p class="text-sm text-slate-500 mb-4">
