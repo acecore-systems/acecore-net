@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -13,88 +13,45 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const pricingItems = [
-  {
-    icon: 'code-xml',
-    title: t(locale, 'pages.pricing.systemDevTitle'),
-    price: t(locale, 'pages.pricing.systemDevPrice'),
-    body: t(locale, 'pages.pricing.systemDevBody'),
-    href: u('/services/#system-development'),
-  },
-  {
-    icon: 'server',
-    title: t(locale, 'pages.pricing.serverTitle'),
-    price: t(locale, 'pages.pricing.serverPrice'),
-    body: t(locale, 'pages.pricing.serverBody'),
-    href: u('/services/#server'),
-  },
-  {
-    icon: 'globe',
-    title: t(locale, 'pages.pricing.webTitle'),
-    price: t(locale, 'pages.pricing.webPrice'),
-    body: t(locale, 'pages.pricing.webBody'),
-    href: u('/services/#web'),
-  },
-  {
-    icon: 'palette',
-    title: t(locale, 'pages.pricing.designTitle'),
-    price: t(locale, 'pages.pricing.designPrice'),
-    body: t(locale, 'pages.pricing.designBody'),
-    href: u('/services/#design'),
-  },
-  {
-    icon: 'graduation-cap',
-    title: t(locale, 'pages.pricing.schoolsTitle'),
-    price: t(locale, 'pages.pricing.schoolsPrice'),
-    body: t(locale, 'pages.pricing.schoolsBody'),
-    href: u('/schools/#pricing'),
-  },
-  {
-    icon: 'clapperboard',
-    title: t(locale, 'pages.pricing.acestudioTitle'),
-    price: t(locale, 'pages.pricing.acestudioPrice'),
-    body: t(locale, 'pages.pricing.acestudioBody'),
-    href: u('/acestudio/'),
-  },
-  {
-    icon: 'gamepad-2',
-    title: t(locale, 'pages.pricing.aceserverTitle'),
-    price: t(locale, 'pages.pricing.aceserverPrice'),
-    body: t(locale, 'pages.pricing.aceserverBody'),
-    href: u('/services/#aceserver'),
-  },
-] as const
+interface PricingItem {
+  icon: string
+  title: string
+  price: string
+  body: string
+  href: string
+}
 
-const schoolFees = [
-  {
-    item: t(locale, 'pages.pricing.schoolAdmission'),
-    amount: t(locale, 'pages.pricing.schoolAdmissionPrice'),
-    note: t(locale, 'pages.pricing.schoolAdmissionNote'),
-  },
-  {
-    item: t(locale, 'pages.pricing.schoolMonthly'),
-    amount: t(locale, 'pages.pricing.schoolMonthlyPrice'),
-    note: t(locale, 'pages.pricing.schoolMonthlyNote'),
-  },
-  {
-    item: t(locale, 'pages.pricing.schoolMaterials'),
-    amount: t(locale, 'pages.pricing.schoolMaterialsPrice'),
-    note: t(locale, 'pages.pricing.schoolMaterialsNote'),
-  },
-] as const
+interface SchoolFee {
+  item: string
+  amount: string
+  note: string
+}
 
-const costFactors = [
-  t(locale, 'pages.pricing.factor1'),
-  t(locale, 'pages.pricing.factor2'),
-  t(locale, 'pages.pricing.factor3'),
-  t(locale, 'pages.pricing.factor4'),
-] as const
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
 
-const priceNotes = [
-  t(locale, 'pages.pricing.note1'),
-  t(locale, 'pages.pricing.note2'),
-  t(locale, 'pages.pricing.note3'),
-] as const
+const resolvePricingHref = (href: string) => {
+  const normalizedHref = href.trim()
+  if (
+    !normalizedHref ||
+    normalizedHref.startsWith('#') ||
+    /^[a-z][a-z\d+.-]*:/i.test(normalizedHref)
+  ) {
+    return normalizedHref
+  }
+  return normalizedHref.startsWith('/') ? u(normalizedHref) : normalizedHref
+}
+
+const pricingItems = getList<PricingItem>('pages.pricing.items').map(
+  (item) => ({
+    ...item,
+    href: resolvePricingHref(item.href),
+  }),
+)
+
+const schoolFees = getList<SchoolFee>('pages.pricing.schoolFees')
+const costFactors = getList<string>('pages.pricing.factors')
+const priceNotes = getList<string>('pages.pricing.notes')
 
 const pricingLd = {
   '@context': 'https://schema.org',

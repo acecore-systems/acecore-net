@@ -10,7 +10,7 @@ import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { getWorksCopy } from '../data/works'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -20,6 +20,29 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const worksCopy = getWorksCopy(locale)
 const serviceWorks = worksCopy.serviceLinks
+
+interface ServicePricingItem {
+  icon: string
+  label: string
+  price: string
+  note: string
+  href: string
+}
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
+const resolvePricingHref = (href: string) => {
+  const normalizedHref = href.trim()
+  if (
+    !normalizedHref ||
+    normalizedHref.startsWith('#') ||
+    /^[a-z][a-z\d+.-]*:/i.test(normalizedHref)
+  ) {
+    return normalizedHref
+  }
+  return normalizedHref.startsWith('/') ? u(normalizedHref) : normalizedHref
+}
 
 const serviceMap = [
   {
@@ -75,57 +98,12 @@ const deliveryTimeline = [
   },
 ]
 
-const servicePricingItems = [
-  {
-    icon: 'code-xml',
-    label: t(locale, 'pages.services.pricing.systemDevLabel'),
-    price: t(locale, 'pages.services.pricing.systemDevPrice'),
-    note: t(locale, 'pages.services.pricing.systemDevNote'),
-    href: u('/services/#system-development'),
-  },
-  {
-    icon: 'server',
-    label: t(locale, 'pages.services.pricing.serverLabel'),
-    price: t(locale, 'pages.services.pricing.serverPrice'),
-    note: t(locale, 'pages.services.pricing.serverNote'),
-    href: u('/services/#server'),
-  },
-  {
-    icon: 'globe',
-    label: t(locale, 'pages.services.pricing.webLabel'),
-    price: t(locale, 'pages.services.pricing.webPrice'),
-    note: t(locale, 'pages.services.pricing.webNote'),
-    href: u('/services/#web'),
-  },
-  {
-    icon: 'palette',
-    label: t(locale, 'pages.services.pricing.designLabel'),
-    price: t(locale, 'pages.services.pricing.designPrice'),
-    note: t(locale, 'pages.services.pricing.designNote'),
-    href: u('/services/#design'),
-  },
-  {
-    icon: 'graduation-cap',
-    label: t(locale, 'pages.services.pricing.educationLabel'),
-    price: t(locale, 'pages.services.pricing.educationPrice'),
-    note: t(locale, 'pages.services.pricing.educationNote'),
-    href: u('/schools/#pricing'),
-  },
-  {
-    icon: 'gamepad-2',
-    label: t(locale, 'pages.services.pricing.aceserverLabel'),
-    price: t(locale, 'pages.services.pricing.aceserverPrice'),
-    note: t(locale, 'pages.services.pricing.aceserverNote'),
-    href: u('/services/#aceserver'),
-  },
-  {
-    icon: 'clapperboard',
-    label: t(locale, 'pages.services.pricing.acestudioLabel'),
-    price: t(locale, 'pages.services.pricing.acestudioPrice'),
-    note: t(locale, 'pages.services.pricing.acestudioNote'),
-    href: u('/acestudio/'),
-  },
-] as const
+const servicePricingItems = getList<ServicePricingItem>(
+  'pages.services.pricing.items',
+).map((item) => ({
+  ...item,
+  href: resolvePricingHref(item.href),
+}))
 
 const serviceLd = {
   '@context': 'https://schema.org',

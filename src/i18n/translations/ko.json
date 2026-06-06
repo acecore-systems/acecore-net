@@ -384,19 +384,30 @@
       "pricing": {
         "title": "수업료 기준",
         "body": "수강 전에 비용감을 확인할 수 있도록 월 수업료, 입회금, 교재비 기준을 공개합니다. 금액은 세금 포함 예상가이며 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
-        "admissionLabel": "입회금",
-        "admissionPrice": "1.1만〜2.2만 엔",
-        "admissionNote": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라질 수 있습니다.",
-        "monthlyLabel": "월 수업료",
-        "monthlyPrice": "8천〜3.3만 엔",
-        "monthlyNote": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다.",
-        "materialsLabel": "교재 및 관리비",
-        "materialsPrice": "약 5천〜3만 엔",
-        "materialsNote": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다.",
         "ctaHeading": "자세한 비용은 편하게 문의해 주세요.",
         "ctaBody": "학년, 목표, 가능한 횟수를 확인해 무리 없는 학습 플랜과 비용감을 정리합니다.",
         "ctaPricing": "요금표 보기",
-        "ctaContact": "문의하기"
+        "ctaContact": "문의하기",
+        "items": [
+          {
+            "icon": "log-in",
+            "label": "입회금",
+            "price": "1.1만〜2.2만 엔",
+            "note": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라질 수 있습니다."
+          },
+          {
+            "icon": "calendar-days",
+            "label": "월 수업료",
+            "price": "8천〜3.3만 엔",
+            "note": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다."
+          },
+          {
+            "icon": "book-open",
+            "label": "교재 및 관리비",
+            "price": "약 5천〜3만 엔",
+            "note": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다."
+          }
+        ]
       }
     },
     "about": {
@@ -564,31 +575,61 @@
       "pricing": {
         "title": "요금 안내",
         "body": "초기 검토 단계에서 판단하기 쉽도록 대략적인 범위를 정리했습니다. 모든 금액은 세금 포함 기준의 예상가이며, 실제 견적은 범위 확정 후 달라질 수 있고 외부 실비는 별도입니다.",
-        "systemDevLabel": "업무 시스템 및 앱 개발",
-        "systemDevPrice": "30만 엔〜",
-        "systemDevNote": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-        "serverLabel": "서버 구축 및 운영",
-        "serverPrice": "초기 10만〜50만 엔",
-        "serverNote": "모니터링과 유지보수는 월 1만〜10만 엔이 기준입니다. 클라우드 이용료는 별도입니다.",
-        "webLabel": "웹사이트 제작 및 운영",
-        "webPrice": "15만 엔〜",
-        "webNote": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
-        "designLabel": "디자인 및 크리에이티브",
-        "designPrice": "2만 엔〜",
-        "designNote": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
-        "educationLabel": "Acecore Schools",
-        "educationPrice": "월 8천〜3.3만 엔",
-        "educationNote": "입회금, 교재비, 관리비의 기준은 Schools 페이지에도 안내되어 있습니다.",
-        "aceserverLabel": "Aceserver",
-        "aceserverPrice": "참가 무료",
-        "aceserverNote": "공개 서버 참가는 무료입니다. 법인용 구축 및 운영 상담은 별도 견적입니다.",
-        "acestudioLabel": "AceStudio / 영상 제작",
-        "acestudioPrice": "건당 3만〜30만 엔",
-        "acestudioNote": "숏폼 영상과 편집의 기준입니다. 기획과 촬영이 포함되는 경우는 별도 견적입니다.",
         "ctaHeading": "자세한 비용은 무료로 상담해 주세요.",
         "ctaBody": "목적과 예산감을 확인한 뒤 필요한 범위와 우선순위를 정리해 견적을 안내합니다.",
         "ctaPricing": "요금표 보기",
-        "ctaContact": "무료 상담"
+        "ctaContact": "무료 상담",
+        "items": [
+          {
+            "icon": "code-xml",
+            "label": "업무 시스템 및 앱 개발",
+            "price": "30만 엔〜",
+            "note": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "server",
+            "label": "서버 구축 및 운영",
+            "price": "초기 10만〜50만 엔",
+            "note": "모니터링과 유지보수는 월 1만〜10만 엔이 기준입니다. 클라우드 이용료는 별도입니다.",
+            "href": "/services/#server"
+          },
+          {
+            "icon": "globe",
+            "label": "웹사이트 제작 및 운영",
+            "price": "15만 엔〜",
+            "note": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "palette",
+            "label": "디자인 및 크리에이티브",
+            "price": "2만 엔〜",
+            "note": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
+            "href": "/services/#design"
+          },
+          {
+            "icon": "graduation-cap",
+            "label": "Acecore Schools",
+            "price": "월 8천〜3.3만 엔",
+            "note": "입회금, 교재비, 관리비의 기준은 Schools 페이지에도 안내되어 있습니다.",
+            "href": "/schools/#pricing"
+          },
+          {
+            "icon": "gamepad-2",
+            "label": "Aceserver",
+            "price": "참가 무료",
+            "note": "공개 서버 참가는 무료입니다. 법인용 구축 및 운영 상담은 별도 견적입니다.",
+            "href": "/services/#aceserver"
+          },
+          {
+            "icon": "clapperboard",
+            "label": "AceStudio / 영상 제작",
+            "price": "건당 3만〜30만 엔",
+            "note": "숏폼 영상과 편집의 기준입니다. 기획과 촬영이 포함되는 경우는 별도 견적입니다.",
+            "href": "/acestudio/"
+          }
+        ]
       }
     },
     "privacy": {
@@ -669,56 +710,98 @@
       "introBody": "표시 금액은 세금 포함 기준의 예상가입니다. 요구사항, 규모, 자료 준비 상태, 외부 서비스 사용 여부에 따라 정식 견적은 달라집니다.",
       "serviceTitle": "주요 서비스 비용감",
       "serviceBody": "작게 시작하는 상담부터 제작, 개발, 운영을 묶은 지원까지 대응합니다.",
-      "systemDevTitle": "업무 시스템 및 앱 개발",
-      "systemDevPrice": "30만 엔〜",
-      "systemDevBody": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-      "serverTitle": "서버 구축 및 운영",
-      "serverPrice": "초기 10만〜50만 엔",
-      "serverBody": "클라우드와 VPS 초기 구축, 모니터링, 백업 설계를 지원합니다. 모니터링 및 유지보수는 월 1만〜10만 엔이 기준입니다.",
-      "webTitle": "웹사이트 제작 및 운영",
-      "webPrice": "15만 엔〜",
-      "webBody": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
-      "designTitle": "디자인 및 크리에이티브",
-      "designPrice": "2만 엔〜",
-      "designBody": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsPrice": "월 8천〜3.3만 엔",
-      "schoolsBody": "입회금, 월 수업료, 교재 및 관리비의 기준을 공개합니다. 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
-      "acestudioTitle": "AceStudio / 영상 제작",
-      "acestudioPrice": "건당 3만〜30만 엔",
-      "acestudioBody": "숏폼 영상과 편집은 건당 3만〜30만 엔이 기준입니다. 기획과 촬영이 포함되는 제작은 내용에 따라 별도 견적입니다.",
-      "aceserverTitle": "Aceserver",
-      "aceserverPrice": "참가 무료",
-      "aceserverBody": "공개 서버 참가는 무료입니다. 법인용 게임 서버 구축 및 운영 상담은 별도 견적입니다.",
       "detailLink": "자세히 보기",
       "schoolsFeeTitle": "Schools 비용 내역",
       "schoolsFeeBody": "수업료뿐 아니라 입회 시 비용, 교재비, 관리비도 함께 검토할 수 있도록 기준을 안내합니다.",
       "feeItem": "항목",
       "feeAmount": "기준",
       "feeNote": "보충",
-      "schoolAdmission": "입회금",
-      "schoolAdmissionPrice": "1.1만〜2.2만 엔",
-      "schoolAdmissionNote": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라집니다.",
-      "schoolMonthly": "월 수업료",
-      "schoolMonthlyPrice": "8천〜3.3만 엔",
-      "schoolMonthlyNote": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다.",
-      "schoolMaterials": "교재 및 관리비",
-      "schoolMaterialsPrice": "약 5천〜3만 엔",
-      "schoolMaterialsNote": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다.",
       "factorTitle": "비용이 달라지는 주요 요소",
-      "factor1": "요구사항의 명확도, 화면 수, 기능 수, 외부 연동 여부",
-      "factor2": "디자인 완성도, 원고/사진/영상 자료 준비 상태",
-      "factor3": "공개 후 유지보수, 모니터링, 업데이트 대행, 개선 제안의 범위",
-      "factor4": "교재, 장비, 인쇄, 광고, 클라우드 이용료 등 외부 실비",
       "noteTitle": "표시 가격 안내",
-      "note1": "모든 금액은 세금 포함 예상가입니다. 정식 금액은 상담 후 개별 견적으로 안내합니다.",
-      "note2": "도메인, 서버, 광고, 인쇄, 교재, 장비, 교통비 등 외부 실비는 별도입니다.",
-      "note3": "예산이 정해져 있다면 그 범위 안에서 우선순위를 정리해 제안합니다.",
       "ctaHeading": "비용감이 맞는다면 먼저 무료로 상담해 주세요",
       "ctaBody": "목적, 희망 시기, 예산감을 아는 범위에서 알려주시면 됩니다. 필요한 범위를 정리하고 현실적인 진행 방식을 제안합니다.",
       "ctaContact": "무료 상담하기",
       "ctaServices": "서비스 자세히 보기",
-      "ctaSchools": "Schools 보기"
+      "ctaSchools": "Schools 보기",
+      "items": [
+        {
+          "icon": "code-xml",
+          "title": "업무 시스템 및 앱 개발",
+          "price": "30만 엔〜",
+          "body": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "server",
+          "title": "서버 구축 및 운영",
+          "price": "초기 10만〜50만 엔",
+          "body": "클라우드와 VPS 초기 구축, 모니터링, 백업 설계를 지원합니다. 모니터링 및 유지보수는 월 1만〜10만 엔이 기준입니다.",
+          "href": "/services/#server"
+        },
+        {
+          "icon": "globe",
+          "title": "웹사이트 제작 및 운영",
+          "price": "15만 엔〜",
+          "body": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "palette",
+          "title": "디자인 및 크리에이티브",
+          "price": "2만 엔〜",
+          "body": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
+          "href": "/services/#design"
+        },
+        {
+          "icon": "graduation-cap",
+          "title": "Acecore Schools",
+          "price": "월 8천〜3.3만 엔",
+          "body": "입회금, 월 수업료, 교재 및 관리비의 기준을 공개합니다. 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
+          "href": "/schools/#pricing"
+        },
+        {
+          "icon": "clapperboard",
+          "title": "AceStudio / 영상 제작",
+          "price": "건당 3만〜30만 엔",
+          "body": "숏폼 영상과 편집은 건당 3만〜30만 엔이 기준입니다. 기획과 촬영이 포함되는 제작은 내용에 따라 별도 견적입니다.",
+          "href": "/acestudio/"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver",
+          "price": "참가 무료",
+          "body": "공개 서버 참가는 무료입니다. 법인용 게임 서버 구축 및 운영 상담은 별도 견적입니다.",
+          "href": "/services/#aceserver"
+        }
+      ],
+      "schoolFees": [
+        {
+          "item": "입회금",
+          "amount": "1.1만〜2.2만 엔",
+          "note": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라집니다."
+        },
+        {
+          "item": "월 수업료",
+          "amount": "8천〜3.3만 엔",
+          "note": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다."
+        },
+        {
+          "item": "교재 및 관리비",
+          "amount": "약 5천〜3만 엔",
+          "note": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다."
+        }
+      ],
+      "factors": [
+        "요구사항의 명확도, 화면 수, 기능 수, 외부 연동 여부",
+        "디자인 완성도, 원고/사진/영상 자료 준비 상태",
+        "공개 후 유지보수, 모니터링, 업데이트 대행, 개선 제안의 범위",
+        "교재, 장비, 인쇄, 광고, 클라우드 이용료 등 외부 실비"
+      ],
+      "notes": [
+        "모든 금액은 세금 포함 예상가입니다. 정식 금액은 상담 후 개별 견적으로 안내합니다.",
+        "도메인, 서버, 광고, 인쇄, 교재, 장비, 교통비 등 외부 실비는 별도입니다.",
+        "예산이 정해져 있다면 그 범위 안에서 우선순위를 정리해 제안합니다."
+      ]
     }
   },
   "pageNames": {

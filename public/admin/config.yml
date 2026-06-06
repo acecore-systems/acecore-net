@@ -1665,90 +1665,41 @@ collections:
                 label: '本文'
                 hint: 'pricing.body'
                 widget: text
-              - name: 'systemDevLabel'
-                label: '業務システム項目名'
-                hint: 'pricing.systemDevLabel'
-                widget: string
-              - name: 'systemDevPrice'
-                label: '業務システム料金'
-                hint: 'pricing.systemDevPrice'
-                widget: string
-              - name: 'systemDevNote'
-                label: '業務システム補足'
-                hint: 'pricing.systemDevNote'
-                widget: text
-              - name: 'serverLabel'
-                label: 'サーバー項目名'
-                hint: 'pricing.serverLabel'
-                widget: string
-              - name: 'serverPrice'
-                label: 'サーバー料金'
-                hint: 'pricing.serverPrice'
-                widget: string
-              - name: 'serverNote'
-                label: 'サーバー補足'
-                hint: 'pricing.serverNote'
-                widget: text
-              - name: 'webLabel'
-                label: 'Web制作項目名'
-                hint: 'pricing.webLabel'
-                widget: string
-              - name: 'webPrice'
-                label: 'Web制作料金'
-                hint: 'pricing.webPrice'
-                widget: string
-              - name: 'webNote'
-                label: 'Web制作補足'
-                hint: 'pricing.webNote'
-                widget: text
-              - name: 'designLabel'
-                label: 'デザイン項目名'
-                hint: 'pricing.designLabel'
-                widget: string
-              - name: 'designPrice'
-                label: 'デザイン料金'
-                hint: 'pricing.designPrice'
-                widget: string
-              - name: 'designNote'
-                label: 'デザイン補足'
-                hint: 'pricing.designNote'
-                widget: text
-              - name: 'educationLabel'
-                label: '教育項目名'
-                hint: 'pricing.educationLabel'
-                widget: string
-              - name: 'educationPrice'
-                label: '教育料金'
-                hint: 'pricing.educationPrice'
-                widget: string
-              - name: 'educationNote'
-                label: '教育補足'
-                hint: 'pricing.educationNote'
-                widget: text
-              - name: 'aceserverLabel'
-                label: 'Aceserver項目名'
-                hint: 'pricing.aceserverLabel'
-                widget: string
-              - name: 'aceserverPrice'
-                label: 'Aceserver料金'
-                hint: 'pricing.aceserverPrice'
-                widget: string
-              - name: 'aceserverNote'
-                label: 'Aceserver補足'
-                hint: 'pricing.aceserverNote'
-                widget: text
-              - name: 'acestudioLabel'
-                label: 'AceStudio項目名'
-                hint: 'pricing.acestudioLabel'
-                widget: string
-              - name: 'acestudioPrice'
-                label: 'AceStudio料金'
-                hint: 'pricing.acestudioPrice'
-                widget: string
-              - name: 'acestudioNote'
-                label: 'AceStudio補足'
-                hint: 'pricing.acestudioNote'
-                widget: text
+              - name: 'items'
+                label: '料金カード'
+                hint: 'pricing.items'
+                widget: list
+                summary: '{{fields.label}}'
+                fields:
+                  - name: 'icon'
+                    label: 'アイコン'
+                    hint: 'pricing.items[].icon'
+                    widget: select
+                    options:
+                      - { label: '業務システム', value: code-xml }
+                      - { label: 'サーバー', value: server }
+                      - { label: 'Web制作', value: globe }
+                      - { label: 'デザイン', value: palette }
+                      - { label: 'Schools', value: graduation-cap }
+                      - { label: 'Aceserver', value: gamepad-2 }
+                      - { label: 'AceStudio', value: clapperboard }
+                      - { label: '相談', value: messages-square }
+                  - name: 'label'
+                    label: '項目名'
+                    hint: 'pricing.items[].label'
+                    widget: string
+                  - name: 'price'
+                    label: '料金'
+                    hint: 'pricing.items[].price'
+                    widget: string
+                  - name: 'note'
+                    label: '補足'
+                    hint: 'pricing.items[].note'
+                    widget: text
+                  - name: 'href'
+                    label: 'リンク先'
+                    hint: 'pricing.items[].href'
+                    widget: string
               - name: 'ctaHeading'
                 label: '問い合わせ見出し'
                 hint: 'pricing.ctaHeading'
@@ -1827,90 +1778,41 @@ collections:
             label: '主要サービス説明'
             hint: 'serviceBody'
             widget: text
-          - name: 'systemDevTitle'
-            label: '業務システム見出し'
-            hint: 'systemDevTitle'
-            widget: string
-          - name: 'systemDevPrice'
-            label: '業務システム料金'
-            hint: 'systemDevPrice'
-            widget: string
-          - name: 'systemDevBody'
-            label: '業務システム説明'
-            hint: 'systemDevBody'
-            widget: text
-          - name: 'serverTitle'
-            label: 'サーバー見出し'
-            hint: 'serverTitle'
-            widget: string
-          - name: 'serverPrice'
-            label: 'サーバー料金'
-            hint: 'serverPrice'
-            widget: string
-          - name: 'serverBody'
-            label: 'サーバー説明'
-            hint: 'serverBody'
-            widget: text
-          - name: 'webTitle'
-            label: 'Web制作見出し'
-            hint: 'webTitle'
-            widget: string
-          - name: 'webPrice'
-            label: 'Web制作料金'
-            hint: 'webPrice'
-            widget: string
-          - name: 'webBody'
-            label: 'Web制作説明'
-            hint: 'webBody'
-            widget: text
-          - name: 'designTitle'
-            label: 'デザイン見出し'
-            hint: 'designTitle'
-            widget: string
-          - name: 'designPrice'
-            label: 'デザイン料金'
-            hint: 'designPrice'
-            widget: string
-          - name: 'designBody'
-            label: 'デザイン説明'
-            hint: 'designBody'
-            widget: text
-          - name: 'schoolsTitle'
-            label: 'Schools見出し'
-            hint: 'schoolsTitle'
-            widget: string
-          - name: 'schoolsPrice'
-            label: 'Schools料金'
-            hint: 'schoolsPrice'
-            widget: string
-          - name: 'schoolsBody'
-            label: 'Schools説明'
-            hint: 'schoolsBody'
-            widget: text
-          - name: 'acestudioTitle'
-            label: 'AceStudio見出し'
-            hint: 'acestudioTitle'
-            widget: string
-          - name: 'acestudioPrice'
-            label: 'AceStudio料金'
-            hint: 'acestudioPrice'
-            widget: string
-          - name: 'acestudioBody'
-            label: 'AceStudio説明'
-            hint: 'acestudioBody'
-            widget: text
-          - name: 'aceserverTitle'
-            label: 'Aceserver見出し'
-            hint: 'aceserverTitle'
-            widget: string
-          - name: 'aceserverPrice'
-            label: 'Aceserver料金'
-            hint: 'aceserverPrice'
-            widget: string
-          - name: 'aceserverBody'
-            label: 'Aceserver説明'
-            hint: 'aceserverBody'
-            widget: text
+          - name: 'items'
+            label: '料金カード'
+            hint: 'items'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'items[].icon'
+                widget: select
+                options:
+                  - { label: '業務システム', value: code-xml }
+                  - { label: 'サーバー', value: server }
+                  - { label: 'Web制作', value: globe }
+                  - { label: 'デザイン', value: palette }
+                  - { label: 'Schools', value: graduation-cap }
+                  - { label: 'AceStudio', value: clapperboard }
+                  - { label: 'Aceserver', value: gamepad-2 }
+                  - { label: '相談', value: messages-square }
+              - name: 'title'
+                label: 'カード見出し'
+                hint: 'items[].title'
+                widget: string
+              - name: 'price'
+                label: '料金'
+                hint: 'items[].price'
+                widget: string
+              - name: 'body'
+                label: '説明'
+                hint: 'items[].body'
+                widget: text
+              - name: 'href'
+                label: 'リンク先'
+                hint: 'items[].href'
+                widget: string
           - name: 'detailLink'
             label: '詳細リンク文言'
             hint: 'detailLink'
@@ -1935,78 +1837,48 @@ collections:
             label: '補足見出し'
             hint: 'feeNote'
             widget: string
-          - name: 'schoolAdmission'
-            label: '入会金項目'
-            hint: 'schoolAdmission'
-            widget: string
-          - name: 'schoolAdmissionPrice'
-            label: '入会金'
-            hint: 'schoolAdmissionPrice'
-            widget: string
-          - name: 'schoolAdmissionNote'
-            label: '入会金補足'
-            hint: 'schoolAdmissionNote'
-            widget: text
-          - name: 'schoolMonthly'
-            label: '月謝項目'
-            hint: 'schoolMonthly'
-            widget: string
-          - name: 'schoolMonthlyPrice'
-            label: '月謝'
-            hint: 'schoolMonthlyPrice'
-            widget: string
-          - name: 'schoolMonthlyNote'
-            label: '月謝補足'
-            hint: 'schoolMonthlyNote'
-            widget: text
-          - name: 'schoolMaterials'
-            label: '教材・管理費項目'
-            hint: 'schoolMaterials'
-            widget: string
-          - name: 'schoolMaterialsPrice'
-            label: '教材・管理費'
-            hint: 'schoolMaterialsPrice'
-            widget: string
-          - name: 'schoolMaterialsNote'
-            label: '教材・管理費補足'
-            hint: 'schoolMaterialsNote'
-            widget: text
+          - name: 'schoolFees'
+            label: 'Schools費用行'
+            hint: 'schoolFees'
+            widget: list
+            summary: '{{fields.item}}'
+            fields:
+              - name: 'item'
+                label: '項目'
+                hint: 'schoolFees[].item'
+                widget: string
+              - name: 'amount'
+                label: '目安'
+                hint: 'schoolFees[].amount'
+                widget: string
+              - name: 'note'
+                label: '補足'
+                hint: 'schoolFees[].note'
+                widget: text
           - name: 'factorTitle'
             label: '費用変動要素見出し'
             hint: 'factorTitle'
             widget: string
-          - name: 'factor1'
-            label: '費用変動要素1'
-            hint: 'factor1'
-            widget: string
-          - name: 'factor2'
-            label: '費用変動要素2'
-            hint: 'factor2'
-            widget: string
-          - name: 'factor3'
-            label: '費用変動要素3'
-            hint: 'factor3'
-            widget: string
-          - name: 'factor4'
-            label: '費用変動要素4'
-            hint: 'factor4'
-            widget: string
+          - name: 'factors'
+            label: '費用変動要素'
+            hint: 'factors'
+            widget: list
+            field:
+              name: 'factor'
+              label: '要素'
+              widget: string
           - name: 'noteTitle'
             label: '注意事項見出し'
             hint: 'noteTitle'
             widget: string
-          - name: 'note1'
-            label: '注意事項1'
-            hint: 'note1'
-            widget: text
-          - name: 'note2'
-            label: '注意事項2'
-            hint: 'note2'
-            widget: text
-          - name: 'note3'
-            label: '注意事項3'
-            hint: 'note3'
-            widget: text
+          - name: 'notes'
+            label: '注意事項'
+            hint: 'notes'
+            widget: list
+            field:
+              name: 'note'
+              label: '注意事項'
+              widget: text
           - name: 'ctaHeading'
             label: '問い合わせ見出し'
             hint: 'ctaHeading'
@@ -2790,42 +2662,33 @@ collections:
                 label: '本文'
                 hint: 'pricing.body'
                 widget: text
-              - name: 'admissionLabel'
-                label: '入会金項目名'
-                hint: 'pricing.admissionLabel'
-                widget: string
-              - name: 'admissionPrice'
-                label: '入会金'
-                hint: 'pricing.admissionPrice'
-                widget: string
-              - name: 'admissionNote'
-                label: '入会金補足'
-                hint: 'pricing.admissionNote'
-                widget: text
-              - name: 'monthlyLabel'
-                label: '月謝項目名'
-                hint: 'pricing.monthlyLabel'
-                widget: string
-              - name: 'monthlyPrice'
-                label: '月謝'
-                hint: 'pricing.monthlyPrice'
-                widget: string
-              - name: 'monthlyNote'
-                label: '月謝補足'
-                hint: 'pricing.monthlyNote'
-                widget: text
-              - name: 'materialsLabel'
-                label: '教材・管理費項目名'
-                hint: 'pricing.materialsLabel'
-                widget: string
-              - name: 'materialsPrice'
-                label: '教材・管理費'
-                hint: 'pricing.materialsPrice'
-                widget: string
-              - name: 'materialsNote'
-                label: '教材・管理費補足'
-                hint: 'pricing.materialsNote'
-                widget: text
+              - name: 'items'
+                label: '費用カード'
+                hint: 'pricing.items'
+                widget: list
+                summary: '{{fields.label}}'
+                fields:
+                  - name: 'icon'
+                    label: 'アイコン'
+                    hint: 'pricing.items[].icon'
+                    widget: select
+                    options:
+                      - { label: '入会金', value: log-in }
+                      - { label: '月謝', value: calendar-days }
+                      - { label: '教材・管理費', value: book-open }
+                      - { label: '相談', value: messages-square }
+                  - name: 'label'
+                    label: '項目名'
+                    hint: 'pricing.items[].label'
+                    widget: string
+                  - name: 'price'
+                    label: '料金'
+                    hint: 'pricing.items[].price'
+                    widget: string
+                  - name: 'note'
+                    label: '補足'
+                    hint: 'pricing.items[].note'
+                    widget: text
               - name: 'ctaHeading'
                 label: '問い合わせ見出し'
                 hint: 'pricing.ctaHeading'

@@ -8,7 +8,7 @@ import CompareTable from '../components/CompareTable.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -16,6 +16,16 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+
+interface SchoolPricingItem {
+  icon: string
+  label: string
+  price: string
+  note: string
+}
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
 
 const learningSteps = [
   {
@@ -66,26 +76,9 @@ const learningCompare = {
   },
 }
 
-const schoolPricingItems = [
-  {
-    icon: 'log-in',
-    label: t(locale, 'pages.schools.pricing.admissionLabel'),
-    price: t(locale, 'pages.schools.pricing.admissionPrice'),
-    note: t(locale, 'pages.schools.pricing.admissionNote'),
-  },
-  {
-    icon: 'calendar-days',
-    label: t(locale, 'pages.schools.pricing.monthlyLabel'),
-    price: t(locale, 'pages.schools.pricing.monthlyPrice'),
-    note: t(locale, 'pages.schools.pricing.monthlyNote'),
-  },
-  {
-    icon: 'book-open',
-    label: t(locale, 'pages.schools.pricing.materialsLabel'),
-    price: t(locale, 'pages.schools.pricing.materialsPrice'),
-    note: t(locale, 'pages.schools.pricing.materialsNote'),
-  },
-] as const
+const schoolPricingItems = getList<SchoolPricingItem>(
+  'pages.schools.pricing.items',
+)
 
 const schoolsLd = {
   '@context': 'https://schema.org',

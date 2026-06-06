@@ -384,19 +384,30 @@
       "pricing": {
         "title": "学费参考",
         "body": "为了在报名前确认费用感，我们公开月费、入会金和教材费的参考。金额为含税预估，会根据年级、次数、教材和课程内容变动。",
-        "admissionLabel": "入会金",
-        "admissionPrice": "1.1万〜2.2万日元",
-        "admissionNote": "仅首次发生。会根据年级和课程变动。",
-        "monthlyLabel": "月费",
-        "monthlyPrice": "8千〜3.3万日元",
-        "monthlyNote": "会根据每周次数、课时和个别指导内容变动。",
-        "materialsLabel": "教材与管理费",
-        "materialsPrice": "约5千〜3万日元",
-        "materialsNote": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。",
         "ctaHeading": "详细费用欢迎咨询。",
         "ctaBody": "我们会了解年级、目标和可上课次数，整理合适的学习计划与费用感。",
         "ctaPricing": "查看费用参考",
-        "ctaContact": "联系我们"
+        "ctaContact": "联系我们",
+        "items": [
+          {
+            "icon": "log-in",
+            "label": "入会金",
+            "price": "1.1万〜2.2万日元",
+            "note": "仅首次发生。会根据年级和课程变动。"
+          },
+          {
+            "icon": "calendar-days",
+            "label": "月费",
+            "price": "8千〜3.3万日元",
+            "note": "会根据每周次数、课时和个别指导内容变动。"
+          },
+          {
+            "icon": "book-open",
+            "label": "教材与管理费",
+            "price": "约5千〜3万日元",
+            "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
+          }
+        ]
       }
     },
     "about": {
@@ -564,31 +575,61 @@
       "pricing": {
         "title": "费用参考",
         "body": "这些大致区间用于在早期判断是否合适。所有金额均为含税预估，正式报价会在范围确认后变动，外部实费另计。",
-        "systemDevLabel": "业务系统与应用开发",
-        "systemDevPrice": "30万日元起",
-        "systemDevNote": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
-        "serverLabel": "服务器构建与运维",
-        "serverPrice": "初期10万〜50万日元",
-        "serverNote": "监控与维护一般为每月1万〜10万日元。云服务费用另计。",
-        "webLabel": "网站制作与运营",
-        "webPrice": "15万日元起",
-        "webNote": "LP/小型网站15万日元起，企业网站50万〜150万日元，维护每月1万〜5万日元。",
-        "designLabel": "设计与创意",
-        "designPrice": "2万日元起",
-        "designNote": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌与网站联动10万日元起。",
-        "educationLabel": "Acecore Schools",
-        "educationPrice": "月费8千〜3.3万日元",
-        "educationNote": "入会金、教材费、管理费的参考也会在 Schools 页面说明。",
-        "aceserverLabel": "Aceserver",
-        "aceserverPrice": "免费参加",
-        "aceserverNote": "公开服务器可免费参加。面向企业的构建与运维咨询需单独报价。",
-        "acestudioLabel": "AceStudio / 视频制作",
-        "acestudioPrice": "每条3万〜30万日元",
-        "acestudioNote": "短视频与剪辑的参考。包含策划和拍摄时会单独报价。",
         "ctaHeading": "详细费用可免费咨询。",
         "ctaBody": "我们会了解目标和预算，整理必要范围与优先级后提供估算。",
         "ctaPricing": "查看费用参考",
-        "ctaContact": "免费咨询"
+        "ctaContact": "免费咨询",
+        "items": [
+          {
+            "icon": "code-xml",
+            "label": "业务系统与应用开发",
+            "price": "30万日元起",
+            "note": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "server",
+            "label": "服务器构建与运维",
+            "price": "初期10万〜50万日元",
+            "note": "监控与维护一般为每月1万〜10万日元。云服务费用另计。",
+            "href": "/services/#server"
+          },
+          {
+            "icon": "globe",
+            "label": "网站制作与运营",
+            "price": "15万日元起",
+            "note": "LP/小型网站15万日元起，企业网站50万〜150万日元，维护每月1万〜5万日元。",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "palette",
+            "label": "设计与创意",
+            "price": "2万日元起",
+            "note": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌与网站联动10万日元起。",
+            "href": "/services/#design"
+          },
+          {
+            "icon": "graduation-cap",
+            "label": "Acecore Schools",
+            "price": "月费8千〜3.3万日元",
+            "note": "入会金、教材费、管理费的参考也会在 Schools 页面说明。",
+            "href": "/schools/#pricing"
+          },
+          {
+            "icon": "gamepad-2",
+            "label": "Aceserver",
+            "price": "免费参加",
+            "note": "公开服务器可免费参加。面向企业的构建与运维咨询需单独报价。",
+            "href": "/services/#aceserver"
+          },
+          {
+            "icon": "clapperboard",
+            "label": "AceStudio / 视频制作",
+            "price": "每条3万〜30万日元",
+            "note": "短视频与剪辑的参考。包含策划和拍摄时会单独报价。",
+            "href": "/acestudio/"
+          }
+        ]
       }
     },
     "privacy": {
@@ -669,56 +710,98 @@
       "introBody": "页面中的金额均为含税预估。正式报价会根据需求、规模、素材准备情况以及外部服务使用情况变动。",
       "serviceTitle": "主要服务的费用感",
       "serviceBody": "从小规模咨询到制作、开发、运维组合支持均可对应。",
-      "systemDevTitle": "业务系统与应用开发",
-      "systemDevPrice": "30万日元起",
-      "systemDevBody": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
-      "serverTitle": "服务器构建与运维",
-      "serverPrice": "初期10万〜50万日元",
-      "serverBody": "支持云/VPS 初期构建、监控和备份设计。监控与维护一般为每月1万〜10万日元。",
-      "webTitle": "网站制作与运营",
-      "webPrice": "15万日元起",
-      "webBody": "LP/小型网站15万日元起，企业网站50万〜150万日元，运营维护每月1万〜5万日元。",
-      "designTitle": "设计与创意",
-      "designPrice": "2万日元起",
-      "designBody": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌设计与网站联动10万日元起。",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsPrice": "月费8千〜3.3万日元",
-      "schoolsBody": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
-      "acestudioTitle": "AceStudio / 视频制作",
-      "acestudioPrice": "每条3万〜30万日元",
-      "acestudioBody": "短视频和剪辑每条约3万〜30万日元。包含策划和拍摄的制作会按内容单独报价。",
-      "aceserverTitle": "Aceserver",
-      "aceserverPrice": "免费参加",
-      "aceserverBody": "公开服务器可免费参加。面向企业的游戏服务器构建与运维咨询需单独报价。",
       "detailLink": "查看详情",
       "schoolsFeeTitle": "Schools 费用明细",
       "schoolsFeeBody": "不仅是学费，也公开入会时费用、教材费和管理费的参考，方便整体判断。",
       "feeItem": "项目",
       "feeAmount": "参考",
       "feeNote": "补充",
-      "schoolAdmission": "入会金",
-      "schoolAdmissionPrice": "1.1万〜2.2万日元",
-      "schoolAdmissionNote": "仅首次发生。会根据年级和课程变动。",
-      "schoolMonthly": "月费",
-      "schoolMonthlyPrice": "8千〜3.3万日元",
-      "schoolMonthlyNote": "会根据每周次数、课时和个别指导内容变动。",
-      "schoolMaterials": "教材与管理费",
-      "schoolMaterialsPrice": "约5千〜3万日元",
-      "schoolMaterialsNote": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。",
       "factorTitle": "费用变动的主要因素",
-      "factor1": "需求明确度、页面数量、功能数量、是否有外部联动",
-      "factor2": "设计精细度、文案/照片/视频素材准备情况",
-      "factor3": "上线后的维护、监控、更新代行、改进提案范围",
-      "factor4": "教材、设备、印刷、广告、云服务费用等外部实费",
       "noteTitle": "关于显示价格",
-      "note1": "所有金额均为含税预估。正式金额会在沟通后单独报价。",
-      "note2": "域名、服务器、广告、印刷、教材、设备、交通费等外部实费另计。",
-      "note3": "如果预算已确定，我们会在该范围内整理优先级并提出方案。",
       "ctaHeading": "如果费用感合适，欢迎先免费咨询",
       "ctaBody": "只需告知目标、希望时间和大致预算。我们会整理必要范围，并提出现实的推进方式。",
       "ctaContact": "免费咨询",
       "ctaServices": "查看服务详情",
-      "ctaSchools": "查看 Schools"
+      "ctaSchools": "查看 Schools",
+      "items": [
+        {
+          "icon": "code-xml",
+          "title": "业务系统与应用开发",
+          "price": "30万日元起",
+          "body": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "server",
+          "title": "服务器构建与运维",
+          "price": "初期10万〜50万日元",
+          "body": "支持云/VPS 初期构建、监控和备份设计。监控与维护一般为每月1万〜10万日元。",
+          "href": "/services/#server"
+        },
+        {
+          "icon": "globe",
+          "title": "网站制作与运营",
+          "price": "15万日元起",
+          "body": "LP/小型网站15万日元起，企业网站50万〜150万日元，运营维护每月1万〜5万日元。",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "palette",
+          "title": "设计与创意",
+          "price": "2万日元起",
+          "body": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌设计与网站联动10万日元起。",
+          "href": "/services/#design"
+        },
+        {
+          "icon": "graduation-cap",
+          "title": "Acecore Schools",
+          "price": "月费8千〜3.3万日元",
+          "body": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
+          "href": "/schools/#pricing"
+        },
+        {
+          "icon": "clapperboard",
+          "title": "AceStudio / 视频制作",
+          "price": "每条3万〜30万日元",
+          "body": "短视频和剪辑每条约3万〜30万日元。包含策划和拍摄的制作会按内容单独报价。",
+          "href": "/acestudio/"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver",
+          "price": "免费参加",
+          "body": "公开服务器可免费参加。面向企业的游戏服务器构建与运维咨询需单独报价。",
+          "href": "/services/#aceserver"
+        }
+      ],
+      "schoolFees": [
+        {
+          "item": "入会金",
+          "amount": "1.1万〜2.2万日元",
+          "note": "仅首次发生。会根据年级和课程变动。"
+        },
+        {
+          "item": "月费",
+          "amount": "8千〜3.3万日元",
+          "note": "会根据每周次数、课时和个别指导内容变动。"
+        },
+        {
+          "item": "教材与管理费",
+          "amount": "约5千〜3万日元",
+          "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
+        }
+      ],
+      "factors": [
+        "需求明确度、页面数量、功能数量、是否有外部联动",
+        "设计精细度、文案/照片/视频素材准备情况",
+        "上线后的维护、监控、更新代行、改进提案范围",
+        "教材、设备、印刷、广告、云服务费用等外部实费"
+      ],
+      "notes": [
+        "所有金额均为含税预估。正式金额会在沟通后单独报价。",
+        "域名、服务器、广告、印刷、教材、设备、交通费等外部实费另计。",
+        "如果预算已确定，我们会在该范围内整理优先级并提出方案。"
+      ]
     }
   },
   "pageNames": {

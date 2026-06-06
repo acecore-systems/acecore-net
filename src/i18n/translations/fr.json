@@ -384,19 +384,30 @@
       "pricing": {
         "title": "Repères de frais de cours",
         "body": "Pour estimer le coût avant l'inscription, nous indiquons les repères de mensualité, frais d'inscription et supports. Les montants sont des estimations TTC et varient selon le niveau, la fréquence, les supports et le contenu.",
-        "admissionLabel": "Frais d'inscription",
-        "admissionPrice": "11 000-22 000 ¥",
-        "admissionNote": "Une seule fois au démarrage. Peut varier selon le niveau et le cours.",
-        "monthlyLabel": "Mensualité",
-        "monthlyPrice": "8 000-33 000 ¥",
-        "monthlyNote": "Varie selon la fréquence, la durée des cours et le niveau d'accompagnement individuel.",
-        "materialsLabel": "Supports et gestion",
-        "materialsPrice": "environ 5 000-30 000 ¥",
-        "materialsNote": "Les supports, pièces de robotique, PC ou licences peuvent entraîner des frais réels selon le contenu.",
         "ctaHeading": "Contactez-nous pour un coût détaillé.",
         "ctaBody": "Nous clarifions le niveau, l'objectif et la fréquence possible, puis proposons un plan d'apprentissage réaliste avec son coût.",
         "ctaPricing": "Voir le guide tarifaire",
-        "ctaContact": "Nous contacter"
+        "ctaContact": "Nous contacter",
+        "items": [
+          {
+            "icon": "log-in",
+            "label": "Frais d'inscription",
+            "price": "11 000-22 000 ¥",
+            "note": "Une seule fois au démarrage. Peut varier selon le niveau et le cours."
+          },
+          {
+            "icon": "calendar-days",
+            "label": "Mensualité",
+            "price": "8 000-33 000 ¥",
+            "note": "Varie selon la fréquence, la durée des cours et le niveau d'accompagnement individuel."
+          },
+          {
+            "icon": "book-open",
+            "label": "Supports et gestion",
+            "price": "environ 5 000-30 000 ¥",
+            "note": "Les supports, pièces de robotique, PC ou licences peuvent entraîner des frais réels selon le contenu."
+          }
+        ]
       }
     },
     "about": {
@@ -564,31 +575,61 @@
       "pricing": {
         "title": "Guide tarifaire",
         "body": "Ces fourchettes donnent un ordre d'idée dès le début. Tous les prix sont des estimations TTC; le devis final peut varier après définition du périmètre et les frais externes sont à part.",
-        "systemDevLabel": "Systèmes métier et développement d'applications",
-        "systemDevPrice": "à partir de 300 000 ¥",
-        "systemDevNote": "Petites automatisations dès 300 000 ¥, outils métier dès 500 000 ¥, systèmes moyens dès 1 500 000 ¥, intégrations dès 2 500 000 ¥.",
-        "serverLabel": "Mise en place et exploitation de serveurs",
-        "serverPrice": "initial 100 000-500 000 ¥",
-        "serverNote": "La supervision et la maintenance se situent généralement entre 10 000 et 100 000 ¥ par mois. Les frais cloud sont à part.",
-        "webLabel": "Création et exploitation de sites web",
-        "webPrice": "à partir de 150 000 ¥",
-        "webNote": "LP et petits sites dès 150 000 ¥, sites corporate 500 000-1 500 000 ¥, maintenance 10 000-50 000 ¥ par mois.",
-        "designLabel": "Design et création",
-        "designPrice": "à partir de 20 000 ¥",
-        "designNote": "Logos 50 000-150 000 ¥, flyers/bannières 20 000-120 000 ¥, branding avec liaison web dès 100 000 ¥.",
-        "educationLabel": "Acecore Schools",
-        "educationPrice": "8 000-33 000 ¥/mois",
-        "educationNote": "Les repères pour l'inscription, les supports et les frais de gestion sont aussi indiqués sur la page Schools.",
-        "aceserverLabel": "Aceserver",
-        "aceserverPrice": "participation gratuite",
-        "aceserverNote": "La participation au serveur public est gratuite. Les conseils d'exploitation pour entreprises font l'objet d'un devis séparé.",
-        "acestudioLabel": "AceStudio / production vidéo",
-        "acestudioPrice": "30 000-300 000 ¥ par vidéo",
-        "acestudioNote": "Repère pour les vidéos courtes et le montage. La planification et le tournage sont estimés séparément.",
         "ctaHeading": "Demandez gratuitement un coût détaillé.",
         "ctaBody": "Nous clarifions l'objectif et le budget, puis organisons le périmètre et les priorités avant le devis.",
         "ctaPricing": "Voir le guide tarifaire",
-        "ctaContact": "Consultation gratuite"
+        "ctaContact": "Consultation gratuite",
+        "items": [
+          {
+            "icon": "code-xml",
+            "label": "Systèmes métier et développement d'applications",
+            "price": "à partir de 300 000 ¥",
+            "note": "Petites automatisations dès 300 000 ¥, outils métier dès 500 000 ¥, systèmes moyens dès 1 500 000 ¥, intégrations dès 2 500 000 ¥.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "server",
+            "label": "Mise en place et exploitation de serveurs",
+            "price": "initial 100 000-500 000 ¥",
+            "note": "La supervision et la maintenance se situent généralement entre 10 000 et 100 000 ¥ par mois. Les frais cloud sont à part.",
+            "href": "/services/#server"
+          },
+          {
+            "icon": "globe",
+            "label": "Création et exploitation de sites web",
+            "price": "à partir de 150 000 ¥",
+            "note": "LP et petits sites dès 150 000 ¥, sites corporate 500 000-1 500 000 ¥, maintenance 10 000-50 000 ¥ par mois.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "palette",
+            "label": "Design et création",
+            "price": "à partir de 20 000 ¥",
+            "note": "Logos 50 000-150 000 ¥, flyers/bannières 20 000-120 000 ¥, branding avec liaison web dès 100 000 ¥.",
+            "href": "/services/#design"
+          },
+          {
+            "icon": "graduation-cap",
+            "label": "Acecore Schools",
+            "price": "8 000-33 000 ¥/mois",
+            "note": "Les repères pour l'inscription, les supports et les frais de gestion sont aussi indiqués sur la page Schools.",
+            "href": "/schools/#pricing"
+          },
+          {
+            "icon": "gamepad-2",
+            "label": "Aceserver",
+            "price": "participation gratuite",
+            "note": "La participation au serveur public est gratuite. Les conseils d'exploitation pour entreprises font l'objet d'un devis séparé.",
+            "href": "/services/#aceserver"
+          },
+          {
+            "icon": "clapperboard",
+            "label": "AceStudio / production vidéo",
+            "price": "30 000-300 000 ¥ par vidéo",
+            "note": "Repère pour les vidéos courtes et le montage. La planification et le tournage sont estimés séparément.",
+            "href": "/acestudio/"
+          }
+        ]
       }
     },
     "privacy": {
@@ -669,56 +710,98 @@
       "introBody": "Les montants affichés sont des estimations TTC. Le devis final varie selon les exigences, l'ampleur, la préparation des contenus et l'utilisation de services externes.",
       "serviceTitle": "Coûts estimés par service",
       "serviceBody": "Nous accompagnons aussi bien les petits démarrages que les projets combinant production, développement et exploitation.",
-      "systemDevTitle": "Systèmes métier et développement d'applications",
-      "systemDevPrice": "à partir de 300 000 ¥",
-      "systemDevBody": "Petites automatisations dès 300 000 ¥, outils métier dès 500 000 ¥, systèmes moyens dès 1 500 000 ¥ et intégrations dès 2 500 000 ¥.",
-      "serverTitle": "Mise en place et exploitation de serveurs",
-      "serverPrice": "initial 100 000-500 000 ¥",
-      "serverBody": "Nous prenons en charge cloud, VPS, supervision et conception des sauvegardes. La supervision et la maintenance se situent souvent entre 10 000 et 100 000 ¥ par mois.",
-      "webTitle": "Création et exploitation de sites web",
-      "webPrice": "à partir de 150 000 ¥",
-      "webBody": "LP et petits sites dès 150 000 ¥, sites corporate 500 000-1 500 000 ¥, maintenance 10 000-50 000 ¥ par mois.",
-      "designTitle": "Design et création",
-      "designPrice": "à partir de 20 000 ¥",
-      "designBody": "Logos 50 000-150 000 ¥, flyers/bannières 20 000-120 000 ¥, branding et liaison web dès 100 000 ¥.",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsPrice": "8 000-33 000 ¥/mois",
-      "schoolsBody": "Nous indiquons des repères pour l'inscription, la mensualité, les supports et la gestion. Ils varient selon le niveau, la fréquence, les supports et le contenu.",
-      "acestudioTitle": "AceStudio / production vidéo",
-      "acestudioPrice": "30 000-300 000 ¥ par vidéo",
-      "acestudioBody": "Les vidéos courtes et le montage se situent souvent entre 30 000 et 300 000 ¥ par vidéo. Les productions avec planification et tournage sont devisées séparément.",
-      "aceserverTitle": "Aceserver",
-      "aceserverPrice": "participation gratuite",
-      "aceserverBody": "La participation au serveur public est gratuite. La mise en place et l'exploitation de serveurs de jeu pour entreprises sont devisées séparément.",
       "detailLink": "Voir les détails",
       "schoolsFeeTitle": "Détail des coûts Schools",
       "schoolsFeeBody": "En plus de la mensualité, nous affichons les repères d'inscription, supports et gestion pour faciliter l'évaluation.",
       "feeItem": "Poste",
       "feeAmount": "Estimation",
       "feeNote": "Note",
-      "schoolAdmission": "Frais d'inscription",
-      "schoolAdmissionPrice": "11 000-22 000 ¥",
-      "schoolAdmissionNote": "Une seule fois au démarrage. Varie selon le niveau et le cours.",
-      "schoolMonthly": "Mensualité",
-      "schoolMonthlyPrice": "8 000-33 000 ¥",
-      "schoolMonthlyNote": "Dépend de la fréquence, de la durée des cours et de l'accompagnement individuel.",
-      "schoolMaterials": "Supports et gestion",
-      "schoolMaterialsPrice": "environ 5 000-30 000 ¥",
-      "schoolMaterialsNote": "Les supports, pièces de robotique, PC ou licences peuvent générer des frais réels selon le contenu.",
       "factorTitle": "Principaux facteurs de variation",
-      "factor1": "Clarté des exigences, nombre d'écrans, fonctions et intégrations externes",
-      "factor2": "Niveau de design et préparation des textes, photos et vidéos",
-      "factor3": "Périmètre de maintenance, supervision, mises à jour et amélioration après publication",
-      "factor4": "Frais externes comme supports, matériel, impression, publicité et cloud",
       "noteTitle": "À propos des prix affichés",
-      "note1": "Tous les montants sont des estimations TTC. Le prix officiel est établi individuellement après entretien.",
-      "note2": "Domaine, serveur, publicité, impression, supports, matériel, transport et autres frais externes sont à part.",
-      "note3": "Si un budget est fixé, nous organisons les priorités dans cette limite.",
       "ctaHeading": "Si la fourchette vous convient, commencez par une consultation gratuite.",
       "ctaBody": "Objectif, période souhaitée et budget approximatif suffisent au départ. Nous clarifions le périmètre nécessaire et proposons une progression réaliste.",
       "ctaContact": "Consultation gratuite",
       "ctaServices": "Voir les services",
-      "ctaSchools": "Voir Schools"
+      "ctaSchools": "Voir Schools",
+      "items": [
+        {
+          "icon": "code-xml",
+          "title": "Systèmes métier et développement d'applications",
+          "price": "à partir de 300 000 ¥",
+          "body": "Petites automatisations dès 300 000 ¥, outils métier dès 500 000 ¥, systèmes moyens dès 1 500 000 ¥ et intégrations dès 2 500 000 ¥.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "server",
+          "title": "Mise en place et exploitation de serveurs",
+          "price": "initial 100 000-500 000 ¥",
+          "body": "Nous prenons en charge cloud, VPS, supervision et conception des sauvegardes. La supervision et la maintenance se situent souvent entre 10 000 et 100 000 ¥ par mois.",
+          "href": "/services/#server"
+        },
+        {
+          "icon": "globe",
+          "title": "Création et exploitation de sites web",
+          "price": "à partir de 150 000 ¥",
+          "body": "LP et petits sites dès 150 000 ¥, sites corporate 500 000-1 500 000 ¥, maintenance 10 000-50 000 ¥ par mois.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "palette",
+          "title": "Design et création",
+          "price": "à partir de 20 000 ¥",
+          "body": "Logos 50 000-150 000 ¥, flyers/bannières 20 000-120 000 ¥, branding et liaison web dès 100 000 ¥.",
+          "href": "/services/#design"
+        },
+        {
+          "icon": "graduation-cap",
+          "title": "Acecore Schools",
+          "price": "8 000-33 000 ¥/mois",
+          "body": "Nous indiquons des repères pour l'inscription, la mensualité, les supports et la gestion. Ils varient selon le niveau, la fréquence, les supports et le contenu.",
+          "href": "/schools/#pricing"
+        },
+        {
+          "icon": "clapperboard",
+          "title": "AceStudio / production vidéo",
+          "price": "30 000-300 000 ¥ par vidéo",
+          "body": "Les vidéos courtes et le montage se situent souvent entre 30 000 et 300 000 ¥ par vidéo. Les productions avec planification et tournage sont devisées séparément.",
+          "href": "/acestudio/"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver",
+          "price": "participation gratuite",
+          "body": "La participation au serveur public est gratuite. La mise en place et l'exploitation de serveurs de jeu pour entreprises sont devisées séparément.",
+          "href": "/services/#aceserver"
+        }
+      ],
+      "schoolFees": [
+        {
+          "item": "Frais d'inscription",
+          "amount": "11 000-22 000 ¥",
+          "note": "Une seule fois au démarrage. Varie selon le niveau et le cours."
+        },
+        {
+          "item": "Mensualité",
+          "amount": "8 000-33 000 ¥",
+          "note": "Dépend de la fréquence, de la durée des cours et de l'accompagnement individuel."
+        },
+        {
+          "item": "Supports et gestion",
+          "amount": "environ 5 000-30 000 ¥",
+          "note": "Les supports, pièces de robotique, PC ou licences peuvent générer des frais réels selon le contenu."
+        }
+      ],
+      "factors": [
+        "Clarté des exigences, nombre d'écrans, fonctions et intégrations externes",
+        "Niveau de design et préparation des textes, photos et vidéos",
+        "Périmètre de maintenance, supervision, mises à jour et amélioration après publication",
+        "Frais externes comme supports, matériel, impression, publicité et cloud"
+      ],
+      "notes": [
+        "Tous les montants sont des estimations TTC. Le prix officiel est établi individuellement après entretien.",
+        "Domaine, serveur, publicité, impression, supports, matériel, transport et autres frais externes sont à part.",
+        "Si un budget est fixé, nous organisons les priorités dans cette limite."
+      ]
     }
   },
   "pageNames": {
