@@ -27,20 +27,15 @@ const DEFAULT_MODEL = 'gpt-5-nano'
 const MAX_QUESTION_LENGTH = 800
 
 const ACECORE_CONTEXT = `
-Acecore is a Japan-based technology collective.
-Main services:
-- Business system and app development
-- Server setup and operations
-- Website design and maintenance
-- Design and creative production
-- IT education through Acecore Schools
-- Aceserver, a public Minecraft server community
-
-Contact flow:
-1. Encourage the visitor to check common questions and related pages first.
-2. If the question is still unclear, answer briefly and help them decide what to write in the contact form.
-3. Recommend the contact form for estimates, project consultation, partnerships, recruitment, and service questions.
-4. Present LINE, email, and phone as additional contact options when they fit the visitor's situation, while keeping the form as the main route for detailed inquiries.
+Acecore public site context:
+- Acecore is a Japan-based technology collective that provides system development, website design, server operations, design, and IT education as a one-stop solution.
+- Services include business system and app development, server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
+- Acecore Schools handles IT learning consultations. Visitors should include what they want to learn, age or grade, and preferred learning pace.
+- Aceserver is Acecore's public Minecraft server community.
+- Estimates are free, and replies usually arrive within 1-2 business days.
+- LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
+- Useful site pages include services, works, schools, blog, privacy, and contact.
+- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, or private details not listed here, say what can be answered generally and guide the visitor to the contact form.
 `
 
 export const onRequestPost = async ({
@@ -87,9 +82,10 @@ export const onRequestPost = async ({
       instructions: [
         'You are Acecore contact page assistant.',
         'Answer in the visitor locale.',
-        'Keep answers concise and practical.',
+        'Answer ordinary questions about Acecore using the public site context below.',
+        'Keep answers concise, practical, and helpful for choosing the next action.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
-        'If a request needs a human decision, guide the visitor to the contact form.',
+        'If a request needs a human decision, detailed estimate, or formal reply, guide the visitor to the contact form after answering what you can.',
         "Keep the form as the main route for detailed inquiries, and mention LINE, email, or phone naturally when they fit the visitor's situation.",
         ACECORE_CONTEXT,
       ].join('\n'),
