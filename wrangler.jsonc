@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "acecore-net",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-03-12",
+  "vars": {
+    "OPENAI_MODEL": "gpt-5.4-mini",
+  },
+  "d1_databases": [
+    {
+      "binding": "COMMENTS_DB",
+      "database_name": "acecore-comments-preview",
+      "database_id": "03ad2e45-fdc9-43f6-a685-db0ee1513913",
+      "migrations_dir": "./migrations",
+    },
+  ],
+  "env": {
+    "preview": {
+      "vars": {
+        "OPENAI_MODEL": "gpt-5.4-mini",
+      },
+      "d1_databases": [
+        {
+          "binding": "COMMENTS_DB",
+          "database_name": "acecore-comments-preview",
+          "database_id": "03ad2e45-fdc9-43f6-a685-db0ee1513913",
+          "migrations_dir": "./migrations",
+        },
+      ],
+    },
+    "production": {
+      "vars": {
+        "OPENAI_MODEL": "gpt-5.4-mini",
+      },
+      "d1_databases": [
+        {
+          "binding": "COMMENTS_DB",
+          "database_name": "acecore-comments-production",
+          "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
+          "migrations_dir": "./migrations",
+        },
+      ],
+    },
+  },
+}
