@@ -10,7 +10,7 @@ Acecore（エースコア）公式Webサイト。
 | [UnoCSS](https://unocss.dev/)                                                                   | ユーティリティファースト CSS              |
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
-| [Cloudflare Email Service](https://developers.cloudflare.com/email-service/)                    | お問い合わせフォームのメール送信          |
+| [ssgform.com](https://ssgform.com/)                                                             | お問い合わせフォームのメール送信          |
 | [OpenAI API](https://platform.openai.com/docs/api-reference/responses/create)                   | 問い合わせ前の AI FAQ アシスタント        |
 | [Pagefind](https://pagefind.app/)                                                               | 静的全文検索                              |
 | [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ・ページ文言管理）  |
@@ -175,18 +175,9 @@ Cloudflare Pages 側で以下を設定してください。
 
 ## お問い合わせフォーム
 
-`functions/api/contact.ts` の Cloudflare Pages Function で送信を受け付け、Cloudflare Turnstile の Siteverify API でサーバーサイド検証した後、Cloudflare Email Service からメールを送信します。
+フォーム送信は現状どおり `ssgform.com` を利用します。Cloudflare Email Sending への移行は Workers Paid が必要なため、別Issueとして残しています。
 
-Cloudflare Pages 側で以下を設定してください。
-
-- `TURNSTILE_SECRET_KEY`: Turnstile ウィジェットのシークレットキー
-- `SEND_EMAIL`: Cloudflare Email Service の Email Sending binding
-- `CONTACT_TO_EMAIL`: 通知先メールアドレス（未設定時は `info@acecore.net`）
-- `CONTACT_FROM_EMAIL`: 送信元メールアドレス（未設定時は `info@acecore.net`）
-- `CONTACT_BCC_EMAIL`: 通知メールの BCC（任意）
-- `CONTACT_SEND_CONFIRMATION`: `false` にすると送信者への確認メールを停止
-
-Pages Function で `SEND_EMAIL` binding が利用できない環境では、`CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_EMAIL_API_TOKEN` を設定すると Cloudflare Email Sending REST API にフォールバックします。
+Cloudflare Turnstile はフォーム上に表示していますが、`ssgform.com` 利用中はサーバーサイド検証ではなく外部フォームサービス側の送信フローに委ねます。
 
 ## デプロイ
 
