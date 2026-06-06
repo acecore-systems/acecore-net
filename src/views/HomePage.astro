@@ -167,10 +167,10 @@ const webPageLd = {
     images={homeHeroImages}
   />
 
-  <section class="ac-section bg-white">
+  <section class="border-b border-brand-100 bg-white py-8 sm:py-10">
     <div class="ac-container">
       <div
-        class="grid gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center"
+        class="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center"
       >
         <div>
           <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
@@ -192,7 +192,7 @@ const webPageLd = {
             worksCopy.stats.map((stat) => (
               <a
                 href={u(homeStatHrefByIcon[stat.icon] ?? '/works/')}
-                class="ac-card group block p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+                class="ac-card ac-rule-top group block p-6 pt-7 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
               >
                 <div class="mb-4 flex items-center gap-3">
                   <span
@@ -221,7 +221,9 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="bg-brand-50 pt-14 pb-8 sm:pt-16 sm:pb-10 lg:pt-20 lg:pb-10">
+  <section
+    class="ac-blueprint-soft border-y border-brand-100 bg-brand-50/70 pt-14 pb-8 sm:pt-16 sm:pb-10 lg:pt-20 lg:pb-10"
+  >
     <div class="ac-container">
       <div class="ac-section-intro">
         <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
@@ -301,19 +303,19 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="ac-section bg-brand-50">
+  <section class="ac-section bg-brand-900 text-white">
     <div class="ac-container">
       <div class="mx-auto max-w-3xl text-center">
-        <h2 class="mb-6 text-2xl ac-heading sm:text-3xl">
+        <h2 class="mb-6 text-2xl font-800 leading-tight text-white sm:text-3xl">
           {t(locale, 'pages.home.aboutHeading')}
         </h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+        <p class="text-lg leading-relaxed text-white/80 mb-4">
           {t(locale, 'pages.home.aboutBody1')}
         </p>
         <p
-          class="text-lg text-slate-600 leading-relaxed mb-8"
+          class="text-lg leading-relaxed text-white/80 mb-8"
           set:html={t(locale, 'pages.home.aboutBody2', {
-            link: `<a href="${u('/schools/')}" class="ac-link">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
+            link: `<a href="${u('/schools/')}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
           })}
         />
         <div
@@ -322,7 +324,9 @@ const webPageLd = {
           <a href={u('/about/')} class="ac-btn-primary"
             >{t(locale, 'pages.home.viewAbout')}</a
           >
-          <a href={u('/services/')} class="ac-btn-outline"
+          <a
+            href={u('/services/')}
+            class="ac-btn border-2 border-white bg-transparent text-white hover:bg-white/10"
             >{t(locale, 'pages.home.viewServices')}</a
           >
         </div>
@@ -332,7 +336,7 @@ const webPageLd = {
 
   {
     posts.length > 0 && (
-      <section class="ac-section bg-white">
+      <section class="border-b border-brand-100 bg-white py-8 sm:py-10">
         <div class="ac-container">
           <div class="ac-section-intro">
             <h2 class="text-2xl ac-heading sm:text-3xl">
@@ -353,7 +357,7 @@ const webPageLd = {
               return (
                 <a
                   href={u(`/blog/${getBaseSlug(post.id)}/`)}
-                  class="ac-card group overflow-hidden no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+                  class="ac-card ac-rule-top group overflow-hidden pt-0 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                 >
                   {postImage && (
                     <img

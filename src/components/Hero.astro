@@ -29,132 +29,181 @@ const firstSliderImage = sliderImages[0]
 ---
 
 <section
-  class:list={[
-    'relative text-white overflow-hidden',
-    hasSlider ? 'py-24 sm:py-28 lg:py-32' : 'py-16 sm:py-20 lg:py-28',
-    !hasSlider && 'bg-gradient-to-br from-brand-700 via-brand-500 to-brand-400',
-  ]}
+  class="hero-workshop relative overflow-hidden border-b border-brand-100 bg-white text-slate-950"
 >
-  {
-    hasSlider && (
-      <div
-        class="absolute inset-0"
-        id="hero-slider"
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={t(locale, 'hero.sliderLabel')}
-        data-hero-images={JSON.stringify(sliderImages)}
+  <div class="absolute inset-0 ac-blueprint-soft opacity-70" aria-hidden="true">
+  </div>
+  <div
+    class="absolute left-0 top-0 h-full w-px bg-brand-200/80"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="ac-container relative grid min-h-[34rem] items-stretch gap-8 py-14 sm:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:py-0"
+  >
+    <div class="relative z-10 flex flex-col justify-center py-4 lg:py-20">
+      <div class="mb-8 h-px w-28 bg-brand-600" aria-hidden="true"></div>
+      <h1
+        class="max-w-3xl text-3xl font-800 leading-tight text-slate-950 sm:text-4xl lg:text-5xl"
       >
-        {firstSliderImage && (
+        {title}
+      </h1>
+      {
+        subtitle && (
+          <p class="mt-6 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
+            {subtitle}
+          </p>
+        )
+      }
+      {
+        showCTA && (
+          <div class="mt-8 flex flex-wrap gap-3 sm:gap-4">
+            <a
+              href={u('/services/')}
+              class="ac-btn-primary gap-2"
+              data-ga-event="cta_click"
+              data-ga-label="hero_services"
+              data-ga-location="hero"
+              data-ga-destination={u('/services/')}
+            >
+              {t(locale, 'hero.ctaServices')}
+              <Icon name="arrow-right" class="text-base" />
+            </a>
+            <a
+              href={u('/contact/')}
+              class="ac-btn-outline gap-2"
+              data-ga-event="cta_click"
+              data-ga-label="hero_contact"
+              data-ga-location="hero"
+              data-ga-destination={u('/contact/')}
+            >
+              {t(locale, 'hero.ctaContact')}
+              <Icon name="arrow-right" class="text-base" />
+            </a>
+          </div>
+        )
+      }
+      <div
+        class="mt-10 grid max-w-xl grid-cols-3 gap-3 text-xs font-700 text-slate-500"
+        aria-hidden="true"
+      >
+        <span class="border-t border-brand-200 pt-2">PLAN</span>
+        <span class="border-t border-brand-200 pt-2">BUILD</span>
+        <span class="border-t border-brand-200 pt-2">OPERATE</span>
+      </div>
+    </div>
+
+    <div
+      class="relative z-10 min-h-72 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0"
+    >
+      {
+        hasSlider ? (
           <div
-            class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
-            data-index="0"
+            class="absolute inset-0"
+            id="hero-slider"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label={t(locale, 'hero.sliderLabel')}
+            data-hero-images={JSON.stringify(sliderImages)}
           >
-            <img
-              src={firstSliderImage.src}
-              srcset={firstSliderImage.srcset}
-              sizes={firstSliderImage.sizes}
-              alt={firstSliderImage.alt}
-              class="h-full w-full object-cover saturate-110"
-              width="1400"
-              height="600"
-              decoding="async"
-              fetchpriority="high"
-              loading="eager"
+            {firstSliderImage && (
+              <div
+                class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
+                data-index="0"
+              >
+                <img
+                  src={firstSliderImage.src}
+                  srcset={firstSliderImage.srcset}
+                  sizes={firstSliderImage.sizes}
+                  alt={firstSliderImage.alt}
+                  class="h-full w-full object-cover saturate-110"
+                  width="1400"
+                  height="600"
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                />
+              </div>
+            )}
+            <div class="absolute inset-0 bg-gradient-to-l from-brand-950/28 via-transparent to-transparent" />
+            <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-950/55 to-transparent" />
+            <div
+              id="hero-slide-announce"
+              class="sr-only"
+              aria-live="polite"
+              aria-atomic="true"
             />
           </div>
-        )}
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-900/70 via-brand-900/45 to-brand-900/55" />
-        <div
-          id="hero-slide-announce"
-          class="sr-only"
-          aria-live="polite"
-          aria-atomic="true"
-        />
+        ) : (
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-600 to-brand-400" />
+        )
+      }
+      <div
+        class="pointer-events-none absolute inset-6 border border-white/25"
+        aria-hidden="true"
+      >
       </div>
-    )
-  }
-
-  {
-    hasSlider && sliderImages.length > 1 && (
-      <div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1">
-        {sliderImages.map((_, i) => (
-          <button
-            class:list={[
-              'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
-              i === 0 ? 'bg-transparent' : 'bg-transparent',
-            ]}
-            data-index={i}
-            aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
-            aria-current={i === 0 ? 'true' : undefined}
-          >
-            <span
-              class:list={[
-                'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
-                i === 0 ? 'bg-white scale-125' : 'bg-white/50',
-              ]}
-            />
-          </button>
-        ))}
-        <button
-          id="hero-pause"
-          class="ac-touch ml-1 rounded-full bg-transparent text-white/70 transition-colors hover:text-white focus-visible:ring-white"
-          aria-label={t(locale, 'hero.pauseAutoplay')}
-          data-label-pause={t(locale, 'hero.pauseAutoplay')}
-          data-label-resume={t(locale, 'hero.resumeAutoplay')}
-        >
-          <span id="hero-pause-icon-pause">
-            <Icon name="pause" class="text-base" />
-          </span>
-          <span id="hero-pause-icon-play" class="hidden">
-            <Icon name="play" class="text-base" />
-          </span>
-        </button>
+      <div
+        class="pointer-events-none absolute bottom-8 left-8 h-px w-24 bg-white/70"
+        aria-hidden="true"
+      >
       </div>
-    )
-  }
-
-  <div class="ac-container relative z-10 text-center">
-    <h1
-      class="mx-auto mb-5 max-w-4xl text-3xl font-800 leading-tight sm:text-4xl lg:text-5xl"
-    >
-      {title}
-    </h1>
-    {
-      subtitle && (
-        <p class="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-white/88 sm:text-xl">
-          {subtitle}
-        </p>
-      )
-    }
-    {
-      showCTA && (
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-          <a
-            href={u('/services/')}
-            class="ac-btn bg-white text-brand-600 hover:bg-brand-50"
-            data-ga-event="cta_click"
-            data-ga-label="hero_services"
-            data-ga-location="hero"
-            data-ga-destination={u('/services/')}
-          >
-            {t(locale, 'hero.ctaServices')}
-          </a>
-          <a
-            href={u('/contact/')}
-            class="ac-btn border-2 border-white text-white hover:bg-white/10"
-            data-ga-event="cta_click"
-            data-ga-label="hero_contact"
-            data-ga-location="hero"
-            data-ga-destination={u('/contact/')}
-          >
-            {t(locale, 'hero.ctaContact')}
-          </a>
-        </div>
-      )
-    }
+      <div
+        class="pointer-events-none absolute bottom-8 left-8 h-10 w-px bg-white/70"
+        aria-hidden="true"
+      >
+      </div>
+      {
+        hasSlider && sliderImages.length > 1 && (
+          <div class="absolute bottom-6 right-6 z-20 flex items-center gap-1">
+            {sliderImages.map((_, i) => (
+              <button
+                class:list={[
+                  'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
+                  i === 0 ? 'bg-transparent' : 'bg-transparent',
+                ]}
+                data-index={i}
+                aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              >
+                <span
+                  class:list={[
+                    'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
+                    i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+                  ]}
+                />
+              </button>
+            ))}
+            <button
+              id="hero-pause"
+              class="ac-touch ml-1 rounded-full bg-transparent text-white/80 transition-colors hover:text-white focus-visible:ring-white"
+              aria-label={t(locale, 'hero.pauseAutoplay')}
+              data-label-pause={t(locale, 'hero.pauseAutoplay')}
+              data-label-resume={t(locale, 'hero.resumeAutoplay')}
+            >
+              <span id="hero-pause-icon-pause">
+                <Icon name="pause" class="text-base" />
+              </span>
+              <span id="hero-pause-icon-play" class="hidden">
+                <Icon name="play" class="text-base" />
+              </span>
+            </button>
+          </div>
+        )
+      }
+    </div>
   </div>
 </section>
+
+<style>
+  @media (min-width: 1024px) {
+    .hero-workshop #hero-slider,
+    .hero-workshop .hero-slide,
+    .hero-workshop img {
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+</style>
 
 <script>
   const HERO_HYDRATE_DELAY = 2500

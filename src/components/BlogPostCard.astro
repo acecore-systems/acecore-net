@@ -13,6 +13,7 @@ import {
 import { getBaseSlug, getLocalizedAuthor } from '../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
+import Icon from './Icon.astro'
 
 interface Props {
   post: {
@@ -41,7 +42,7 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 ---
 
 <article
-  class="ac-card group relative overflow-hidden transition-colors duration-200 hover:border-brand-200 hover:bg-slate-50/40 hover:shadow-sm"
+  class="ac-card ac-rule-top group relative overflow-hidden transition-colors duration-200 hover:border-brand-200 hover:bg-slate-50/30 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)]"
 >
   <a
     href={getLocalizedUrl(`/blog/${baseSlug}/`, locale)}
@@ -50,15 +51,15 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
   <div class="flex flex-col sm:flex-row">
     {
       postImage && (
-        <div class="overflow-hidden bg-slate-100 sm:w-52 sm:shrink-0">
+        <div class="overflow-hidden border-b border-slate-200 bg-slate-100 sm:w-56 sm:shrink-0 sm:border-b-0 sm:border-r">
           <img
             src={optimizeImage(postImage)}
             srcset={generateSrcSet(postImage, [200, 400, 800])}
-            sizes="(min-width: 640px) 208px, 100vw"
+            sizes="(min-width: 640px) 224px, 100vw"
             alt={post.data.title}
-            class="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] sm:h-full"
-            width="208"
-            height="160"
+            class="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] sm:h-full"
+            width="224"
+            height="168"
             decoding="async"
             loading="lazy"
           />
@@ -67,7 +68,7 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
     }
     <div class="p-6 sm:p-7">
       <div
-        class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500"
+        class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-700 text-slate-500"
       >
         <time datetime={post.data.date.toISOString()}
           >{formatDate(post.data.date, locale)}</time
@@ -87,7 +88,7 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
         }
       </div>
       <h2
-        class="mt-3 mb-3 break-words text-xl font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600"
+        class="mt-3 mb-3 break-words text-xl font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600"
       >
         {post.data.title}
       </h2>
@@ -98,7 +99,7 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
             {post.data.tags.map((tag: string) => (
               <a
                 href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
-                class="ac-chip relative z-20 border-brand-100 bg-brand-50 text-brand-600"
+                class="ac-chip relative z-20 gap-1 border-brand-100 bg-brand-50 text-brand-600"
               >
                 {getLocalizedTagName(tags, tag, locale)}
               </a>
@@ -106,6 +107,12 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
           </div>
         )
       }
+      <span
+        class="mt-5 inline-flex text-brand-600 transition-transform group-hover:translate-x-1"
+        aria-hidden="true"
+      >
+        <Icon name="arrow-right" class="text-base" />
+      </span>
     </div>
   </div>
 </article>
