@@ -18,8 +18,8 @@ import koTranslations from './translations/ko.json'
 import deTranslations from './translations/de.json'
 import ruTranslations from './translations/ru.json'
 
-/** 日本語翻訳を基準型として使用する */
-type TranslationData = typeof jaTranslations
+/** 翻訳データはロケールごとに移行タイミングが異なるため、実行時にキーを解決する。 */
+type TranslationData = Record<string, unknown>
 
 /** 全ロケールの翻訳データマップ */
 const translations: Record<Locale, TranslationData> = {

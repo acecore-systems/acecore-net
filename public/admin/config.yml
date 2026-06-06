@@ -412,153 +412,118 @@ collections:
 
   - name: campaigns
     label: 告知・キャンペーン
-    label_singular: 告知設定
+    label_singular: 告知・キャンペーン
     icon: campaign
-    description: トップ告知バナーとページ内キャンペーン通知を編集します。他言語は Copilot translation PR task で更新します。
+    description: トップ告知バナーとページ内キャンペーン通知を1件ずつ編集します。他言語は Copilot translation PR task で更新します。
+    folder: src/i18n/source/ja/campaigns
+    extension: json
     format: json
-    files:
-      - name: 'campaign_settings'
-        label: '告知・キャンペーン設定'
-        file: src/i18n/source/ja/campaigns.json
-        format: json
-        fields:
-          - name: 'announcement'
-            label: 'トップ告知バナー'
-            hint: 'announcement'
-            widget: object
-            collapsed: false
-            fields:
-              - name: 'enabled'
-                label: '表示する'
-                hint: 'announcement.enabled'
-                widget: boolean
-              - name: 'eyebrow'
-                label: 'ラベル'
-                hint: 'announcement.eyebrow'
-                widget: string
-                required: false
-              - name: 'message'
-                label: '告知文'
-                hint: 'announcement.message'
-                widget: text
-              - name: 'href'
-                label: 'リンクURL'
-                hint: 'announcement.href'
-                widget: string
-                required: false
-              - name: 'ctaLabel'
-                label: 'ボタン文言'
-                hint: 'announcement.ctaLabel'
-                widget: string
-                required: false
-              - name: 'startsAt'
-                label: '表示開始日時'
-                hint: 'announcement.startsAt / 空欄なら開始制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
-              - name: 'endsAt'
-                label: '表示終了日時'
-                hint: 'announcement.endsAt / 空欄なら終了制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
-              - name: 'tone'
-                label: '表示トーン'
-                hint: 'announcement.tone'
-                widget: select
-                options:
-                  - { label: 'ブランド（通常）', value: brand }
-                  - { label: '募集・注意（黄）', value: amber }
-                  - { label: '受付中・成功（緑）', value: emerald }
-                  - { label: '控えめ（グレー）', value: slate }
-                default: amber
-          - name: 'campaignNotices'
-            label: 'ページ内キャンペーン通知'
-            hint: 'campaignNotices / ページ内に配置する汎用キャンペーン・募集・残数表示'
-            widget: list
-            collapsed: true
-            summary: '{{title}} / {{placement}}'
-            fields:
-              - name: 'id'
-                label: '管理ID'
-                hint: 'campaignNotices[].id / 例: schools-summer-2026'
-                widget: string
-              - name: 'placement'
-                label: '表示位置'
-                hint: 'CampaignNotice の placement と一致する値。例: schools-after-hero, services-after-hero'
-                widget: string
-              - name: 'enabled'
-                label: '表示する'
-                hint: 'campaignNotices[].enabled'
-                widget: boolean
-              - name: 'eyebrow'
-                label: 'ラベル'
-                hint: 'campaignNotices[].eyebrow'
-                widget: string
-                required: false
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'campaignNotices[].title'
-                widget: string
-              - name: 'body'
-                label: '本文'
-                hint: 'campaignNotices[].body'
-                widget: text
-                required: false
-              - name: 'href'
-                label: 'リンクURL'
-                hint: 'campaignNotices[].href'
-                widget: string
-                required: false
-              - name: 'ctaLabel'
-                label: 'ボタン文言'
-                hint: 'campaignNotices[].ctaLabel'
-                widget: string
-                required: false
-              - name: 'metricLabel'
-                label: '指標ラベル'
-                hint: 'campaignNotices[].metricLabel / 例: 残り、先着'
-                widget: string
-                required: false
-              - name: 'metricValue'
-                label: '指標値'
-                hint: 'campaignNotices[].metricValue / 例: 3、10社、20%OFF'
-                widget: string
-                required: false
-              - name: 'metricUnit'
-                label: '指標単位'
-                hint: 'campaignNotices[].metricUnit / 例: 名、枠'
-                widget: string
-                required: false
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'campaignNotices[].icon / lucide icon name'
-                widget: string
-                default: calendar-check
-                required: false
-              - name: 'tone'
-                label: '表示トーン'
-                hint: 'campaignNotices[].tone'
-                widget: select
-                options:
-                  - { label: 'ブランド（通常）', value: brand }
-                  - { label: '募集・注意（黄）', value: amber }
-                  - { label: '受付中・成功（緑）', value: emerald }
-                  - { label: '控えめ（グレー）', value: slate }
-                default: brand
-              - name: 'startsAt'
-                label: '表示開始日時'
-                hint: 'campaignNotices[].startsAt / 空欄なら開始制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
-              - name: 'endsAt'
-                label: '表示終了日時'
-                hint: 'campaignNotices[].endsAt / 空欄なら終了制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
+    create: true
+    identifier_field: adminTitle
+    slug: '{{fields.id}}'
+    summary: '{{adminTitle}}'
+    fields:
+      - name: 'id'
+        label: '管理ID'
+        hint: 'ファイル名にも使われます。例: schools-summer-2026'
+        widget: string
+      - name: 'type'
+        label: '種別'
+        hint: 'トップに出す告知か、ページ内の指定位置に出す通知かを選びます。'
+        widget: select
+        options:
+          - { label: 'トップ告知バナー', value: announcement }
+          - { label: 'ページ内キャンペーン通知', value: page-notice }
+        default: page-notice
+      - name: 'adminTitle'
+        label: '一覧表示名'
+        hint: 'CMSの一覧で見分けるための名前です。サイトには表示されません。'
+        widget: string
+      - name: 'enabled'
+        label: '表示する'
+        widget: boolean
+        default: true
+      - name: 'placement'
+        label: '表示位置'
+        hint: 'ページ内通知で使います。CampaignNotice の placement と一致する値。例: schools-after-hero, services-after-hero'
+        widget: string
+        required: false
+      - name: 'eyebrow'
+        label: 'ラベル'
+        widget: string
+        required: false
+      - name: 'message'
+        label: 'トップ告知文'
+        hint: 'トップ告知バナーで表示する本文です。ページ内通知では空でOKです。'
+        widget: text
+        required: false
+      - name: 'title'
+        label: 'ページ内タイトル'
+        hint: 'ページ内キャンペーン通知で表示するタイトルです。トップ告知では空でOKです。'
+        widget: string
+        required: false
+      - name: 'body'
+        label: 'ページ内本文'
+        hint: 'ページ内キャンペーン通知で表示する本文です。トップ告知では空でOKです。'
+        widget: text
+        required: false
+      - name: 'href'
+        label: 'リンクURL'
+        widget: string
+        required: false
+      - name: 'ctaLabel'
+        label: 'ボタン文言'
+        widget: string
+        required: false
+      - name: 'metricLabel'
+        label: '指標ラベル'
+        hint: 'ページ内通知で使います。例: 残り、先着'
+        widget: string
+        required: false
+      - name: 'metricValue'
+        label: '指標値'
+        hint: 'ページ内通知で使います。例: 3、10社、20%OFF'
+        widget: string
+        required: false
+      - name: 'metricUnit'
+        label: '指標単位'
+        hint: 'ページ内通知で使います。例: 名、枠'
+        widget: string
+        required: false
+      - name: 'icon'
+        label: 'アイコン'
+        hint: 'ページ内通知で使います。lucide icon name'
+        widget: string
+        default: calendar-check
+        required: false
+      - name: 'tone'
+        label: '表示トーン'
+        widget: select
+        options:
+          - { label: 'ブランド（通常）', value: brand }
+          - { label: '募集・注意（黄）', value: amber }
+          - { label: '受付中・成功（緑）', value: emerald }
+          - { label: '控えめ（グレー）', value: slate }
+        default: brand
+      - name: 'startsAt'
+        label: '表示開始日時'
+        hint: '空欄なら開始制限なし'
+        widget: datetime
+        format: YYYY-MM-DDTHH:mm
+        required: false
+      - name: 'endsAt'
+        label: '表示終了日時'
+        hint: '空欄なら終了制限なし'
+        widget: datetime
+        format: YYYY-MM-DDTHH:mm
+        required: false
+      - name: 'order'
+        label: '表示順'
+        hint: '数字が小さいほど先に表示されます。'
+        widget: number
+        value_type: int
+        default: 100
+        required: false
 
   - name: site_text
     label: ページ・サイト文言

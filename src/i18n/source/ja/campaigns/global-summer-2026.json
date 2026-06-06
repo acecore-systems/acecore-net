@@ -1,0 +1,14 @@
+{
+  "id": "global-summer-2026",
+  "type": "announcement",
+  "adminTitle": "夏相談受付トップ告知",
+  "enabled": true,
+  "eyebrow": "期間限定のお知らせ",
+  "message": "Web制作・システム開発・Acecore Schoolsの夏相談を受付中です。対応枠には限りがあるため、お早めにご相談ください。",
+  "href": "/contact/?category=estimate",
+  "ctaLabel": "相談する",
+  "startsAt": "2026-06-01T00:00",
+  "endsAt": "2026-08-31T23:59",
+  "tone": "amber",
+  "order": 10
+}

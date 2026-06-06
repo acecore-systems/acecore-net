@@ -21,21 +21,18 @@ type AnnouncementSettings = {
 }
 
 const { locale } = Astro.props
-const announcement = getTranslationValue<AnnouncementSettings>(
+const announcementEntries =
+  getTranslationValue<AnnouncementSettings[]>(locale, 'announcements') ?? []
+const fallbackAnnouncement = getTranslationValue<AnnouncementSettings>(
   locale,
   'announcement',
 )
-const message = announcement?.message?.trim() ?? ''
-const href = announcement?.href?.trim() ?? ''
-const ctaLabel = announcement?.ctaLabel?.trim() ?? ''
-const eyebrow = announcement?.eyebrow?.trim() ?? ''
-const tone = announcement?.tone ?? 'amber'
-const isVisible =
-  announcement?.enabled === true &&
-  message.length > 0 &&
-  isWithinPublicationWindow(announcement.startsAt, announcement.endsAt)
-const destination =
-  href && href.startsWith('/') ? getLocalizedUrl(href, locale) : href
+const announcements =
+  announcementEntries.length > 0
+    ? announcementEntries
+    : fallbackAnnouncement
+      ? [fallbackAnnouncement]
+      : []
 
 const toneClasses: Record<
   AnnouncementTone,
@@ -67,50 +64,84 @@ const toneClasses: Record<
   },
 }
 
-const classes = toneClasses[tone] ?? toneClasses.amber
+const isAnnouncementTone = (tone?: string): tone is AnnouncementTone =>
+  tone === 'brand' || tone === 'amber' || tone === 'emerald' || tone === 'slate'
+
+const visibleAnnouncements = announcements
+  .map((announcement) => {
+    const message = announcement?.message?.trim() ?? ''
+    const href = announcement?.href?.trim() ?? ''
+    const destination =
+      href && href.startsWith('/') ? getLocalizedUrl(href, locale) : href
+
+    return {
+      message,
+      destination,
+      ctaLabel: announcement?.ctaLabel?.trim() ?? '',
+      eyebrow: announcement?.eyebrow?.trim() ?? '',
+      tone: isAnnouncementTone(announcement?.tone)
+        ? announcement.tone
+        : 'amber',
+      enabled: announcement?.enabled === true,
+      startsAt: announcement?.startsAt,
+      endsAt: announcement?.endsAt,
+    }
+  })
+  .filter(
+    (announcement) =>
+      announcement.enabled &&
+      announcement.message.length > 0 &&
+      isWithinPublicationWindow(announcement.startsAt, announcement.endsAt),
+  )
 ---
 
 {
-  isVisible && (
-    <aside
-      class:list={['border-b text-sm', classes.wrap]}
-      aria-label={eyebrow || 'Announcement'}
-    >
-      <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <div class="flex min-w-0 items-start gap-3">
-          <Icon
-            name="megaphone"
-            class:list={['mt-0.5 shrink-0 text-lg', classes.icon]}
-          />
-          <div class="min-w-0">
-            {eyebrow && (
-              <p
-                class:list={[
-                  'mb-0.5 text-xs font-800 uppercase leading-tight',
-                  classes.eyebrow,
-                ]}
-              >
-                {eyebrow}
+  visibleAnnouncements.map((announcement) => {
+    const classes = toneClasses[announcement.tone]
+
+    return (
+      <aside
+        class:list={['border-b text-sm', classes.wrap]}
+        aria-label={announcement.eyebrow || 'Announcement'}
+      >
+        <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex min-w-0 items-start gap-3">
+            <Icon
+              name="megaphone"
+              class:list={['mt-0.5 shrink-0 text-lg', classes.icon]}
+            />
+            <div class="min-w-0">
+              {announcement.eyebrow && (
+                <p
+                  class:list={[
+                    'mb-0.5 text-xs font-800 uppercase leading-tight',
+                    classes.eyebrow,
+                  ]}
+                >
+                  {announcement.eyebrow}
+                </p>
+              )}
+              <p class="m-0 text-sm font-700 leading-relaxed">
+                {announcement.message}
               </p>
-            )}
-            <p class="m-0 text-sm font-700 leading-relaxed">{message}</p>
+            </div>
           </div>
+          {announcement.destination && announcement.ctaLabel && (
+            <a
+              href={announcement.destination}
+              class:list={[
+                'inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg px-4 text-xs font-800 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
+                classes.cta,
+              ]}
+              data-ga-event="announcement_click"
+              data-ga-label={announcement.ctaLabel}
+              data-ga-location="announcement_banner"
+            >
+              {announcement.ctaLabel}
+            </a>
+          )}
         </div>
-        {destination && ctaLabel && (
-          <a
-            href={destination}
-            class:list={[
-              'inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg px-4 text-xs font-800 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
-              classes.cta,
-            ]}
-            data-ga-event="announcement_click"
-            data-ga-label={ctaLabel}
-            data-ga-location="announcement_banner"
-          >
-            {ctaLabel}
-          </a>
-        )}
-      </div>
-    </aside>
-  )
+      </aside>
+    )
+  })
 }
