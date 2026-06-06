@@ -45,10 +45,7 @@ Através dessas experiências, queremos cultivar o interesse pela construção e
 
 ## Contato e inscrição
 
-Para informações sobre o evento, entre em contato pelos seguintes meios:
-
-- **Telefone**: 050-8890-2788
-- **E-mail**: [info@acecore.net](mailto:info@acecore.net)
-- **Contato pelo LINE** também é possível
+Para dúvidas ou inscrições sobre o evento, use o [formulário de contato](/contact/) ou a [LINE oficial](https://lin.ee/DjIrdqj).
+Se quiser confirmar algo diretamente, comece deixando um breve resumo no formulário para facilitar o encaminhamento.
 
 A Acecore Schools continuará realizando eventos regularmente. As informações mais recentes serão divulgadas na [página Schools](/schools/) e no blog.

@@ -45,10 +45,7 @@ A través de estas experiencias, buscamos despertar el interés por la creación
 
 ## Consultas e inscripción
 
-Las consultas sobre el evento se aceptan por los siguientes medios:
-
-- **Teléfono**: 050-8890-2788
-- **Correo electrónico**: [info@acecore.net](mailto:info@acecore.net)
-- También se puede consultar por **LINE**
+Para consultas o inscripciones del evento, utiliza el [formulario de contacto](/contact/) o la [LINE oficial](https://lin.ee/DjIrdqj).
+Si quieres confirmar algo directamente, primero deja un breve resumen en el formulario para que podamos responder con más claridad.
 
 En Acecore Schools seguiremos organizando eventos de forma periódica. La información más reciente se publica en la [página de Schools](/schools/) y en el blog.

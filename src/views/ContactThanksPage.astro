@@ -1,0 +1,291 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { SITE } from '../data/site'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+type ThanksCopy = {
+  title: string
+  description: string
+  eyebrow: string
+  heading: string
+  lead: string
+  responseTitle: string
+  responseBody: string
+  mailTitle: string
+  mailBody: string
+  lineTitle: string
+  lineBody: string
+  contactAgain: string
+  lineCta: string
+  servicesCta: string
+  homeCta: string
+}
+
+const thanksCopy: Record<Locale, ThanksCopy> = {
+  ja: {
+    title: 'お問い合わせを受け付けました',
+    description:
+      'Acecoreへのお問い合わせ送信後に、受付状況と次の確認事項を案内するページです。',
+    eyebrow: '送信完了',
+    heading: 'お問い合わせありがとうございます',
+    lead: '内容を確認し、通常1〜2営業日以内に返信します。',
+    responseTitle: '返信について',
+    responseBody:
+      '入力いただいたメールアドレス宛に確認メールを送信しています。届かない場合は迷惑メールフォルダもご確認ください。',
+    mailTitle: '補足がある場合',
+    mailBody:
+      '送信後に補足したい内容がある場合は、同じ内容が分かるようにフォームから再送してください。',
+    lineTitle: '短い確認はLINEでも可能です',
+    lineBody: '教室関連の連絡や短い相談は、公式LINEからも受け付けています。',
+    contactAgain: '追加で送る',
+    lineCta: '公式LINEを開く',
+    servicesCta: 'サービスを見る',
+    homeCta: 'ホームへ戻る',
+  },
+  en: {
+    title: 'Inquiry Sent',
+    description: 'Confirmation page after sending an inquiry to Acecore.',
+    eyebrow: 'Sent',
+    heading: 'Thank you for contacting Acecore',
+    lead: 'We will review your message and usually reply within 1-2 business days.',
+    responseTitle: 'About the reply',
+    responseBody:
+      'A confirmation email has been sent to the address you entered. If it does not arrive, please check your spam folder.',
+    mailTitle: 'If you need to add details',
+    mailBody:
+      'Please send the form again with enough context so we can match it to your original inquiry.',
+    lineTitle: 'Short follow-ups can use LINE',
+    lineBody:
+      'School-related messages and short consultations are also accepted through the official LINE account.',
+    contactAgain: 'Send another message',
+    lineCta: 'Open official LINE',
+    servicesCta: 'View services',
+    homeCta: 'Back to home',
+  },
+  'zh-cn': {
+    title: '咨询已发送',
+    description: '向 Acecore 发送咨询后的确认页面。',
+    eyebrow: '已发送',
+    heading: '感谢您联系 Acecore',
+    lead: '我们会确认内容，通常会在 1-2 个工作日内回复。',
+    responseTitle: '关于回复',
+    responseBody:
+      '确认邮件已发送到您填写的邮箱。如未收到，请检查垃圾邮件文件夹。',
+    mailTitle: '需要补充时',
+    mailBody: '如需补充说明，请再次提交表单，并写明相关背景。',
+    lineTitle: '简短确认也可使用 LINE',
+    lineBody: '课程相关联系和简短咨询也可通过官方 LINE 受理。',
+    contactAgain: '追加发送',
+    lineCta: '打开官方 LINE',
+    servicesCta: '查看服务',
+    homeCta: '返回首页',
+  },
+  es: {
+    title: 'Consulta enviada',
+    description: 'Página de confirmación tras enviar una consulta a Acecore.',
+    eyebrow: 'Enviado',
+    heading: 'Gracias por contactar con Acecore',
+    lead: 'Revisaremos tu mensaje y normalmente responderemos en 1-2 días hábiles.',
+    responseTitle: 'Sobre la respuesta',
+    responseBody:
+      'Hemos enviado un correo de confirmación a la dirección indicada. Si no llega, revisa la carpeta de spam.',
+    mailTitle: 'Si necesitas añadir detalles',
+    mailBody:
+      'Vuelve a enviar el formulario con suficiente contexto para poder relacionarlo con tu consulta original.',
+    lineTitle: 'También puedes usar LINE para consultas breves',
+    lineBody:
+      'También aceptamos mensajes sobre la escuela y consultas breves por la cuenta oficial de LINE.',
+    contactAgain: 'Enviar otro mensaje',
+    lineCta: 'Abrir LINE oficial',
+    servicesCta: 'Ver servicios',
+    homeCta: 'Volver al inicio',
+  },
+  pt: {
+    title: 'Mensagem enviada',
+    description: 'Página de confirmação após enviar uma consulta à Acecore.',
+    eyebrow: 'Enviado',
+    heading: 'Obrigado por entrar em contato com a Acecore',
+    lead: 'Vamos revisar sua mensagem e normalmente responderemos em 1-2 dias úteis.',
+    responseTitle: 'Sobre a resposta',
+    responseBody:
+      'Enviamos um e-mail de confirmação para o endereço informado. Se não chegar, verifique a pasta de spam.',
+    mailTitle: 'Se precisar acrescentar detalhes',
+    mailBody:
+      'Envie o formulário novamente com contexto suficiente para relacionarmos à consulta original.',
+    lineTitle: 'Consultas breves também podem usar LINE',
+    lineBody:
+      'Mensagens sobre a escola e consultas breves também são aceitas pela conta oficial do LINE.',
+    contactAgain: 'Enviar outra mensagem',
+    lineCta: 'Abrir LINE oficial',
+    servicesCta: 'Ver serviços',
+    homeCta: 'Voltar ao início',
+  },
+  fr: {
+    title: 'Demande envoyée',
+    description: 'Page de confirmation après l’envoi d’une demande à Acecore.',
+    eyebrow: 'Envoyé',
+    heading: 'Merci de contacter Acecore',
+    lead: 'Nous examinerons votre message et répondons généralement sous 1-2 jours ouvrés.',
+    responseTitle: 'À propos de la réponse',
+    responseBody:
+      'Un e-mail de confirmation a été envoyé à l’adresse indiquée. S’il n’arrive pas, vérifiez le dossier spam.',
+    mailTitle: 'Si vous devez ajouter des détails',
+    mailBody:
+      'Veuillez renvoyer le formulaire avec assez de contexte pour le relier à votre demande initiale.',
+    lineTitle: 'Les confirmations courtes peuvent aussi passer par LINE',
+    lineBody:
+      'Les messages liés à l’école et les consultations brèves sont aussi acceptés via le compte LINE officiel.',
+    contactAgain: 'Envoyer un autre message',
+    lineCta: 'Ouvrir le LINE officiel',
+    servicesCta: 'Voir les services',
+    homeCta: 'Retour à l’accueil',
+  },
+  ko: {
+    title: '문의가 접수되었습니다',
+    description: 'Acecore에 문의를 보낸 뒤 접수 상태를 안내하는 페이지입니다.',
+    eyebrow: '전송 완료',
+    heading: 'Acecore에 문의해 주셔서 감사합니다',
+    lead: '내용을 확인한 뒤 보통 1-2영업일 이내에 답변드립니다.',
+    responseTitle: '답변 안내',
+    responseBody:
+      '입력하신 이메일 주소로 확인 메일을 보냈습니다. 도착하지 않으면 스팸함도 확인해 주세요.',
+    mailTitle: '추가 내용이 있는 경우',
+    mailBody:
+      '원래 문의와 연결할 수 있도록 충분한 배경을 적어 폼을 다시 보내 주세요.',
+    lineTitle: '짧은 확인은 LINE도 가능합니다',
+    lineBody: '교실 관련 연락이나 짧은 상담은 공식 LINE으로도 받습니다.',
+    contactAgain: '추가로 보내기',
+    lineCta: '공식 LINE 열기',
+    servicesCta: '서비스 보기',
+    homeCta: '홈으로 돌아가기',
+  },
+  de: {
+    title: 'Anfrage gesendet',
+    description: 'Bestätigungsseite nach dem Senden einer Anfrage an Acecore.',
+    eyebrow: 'Gesendet',
+    heading: 'Vielen Dank für Ihre Anfrage an Acecore',
+    lead: 'Wir prüfen Ihre Nachricht und antworten normalerweise innerhalb von 1-2 Werktagen.',
+    responseTitle: 'Zur Antwort',
+    responseBody:
+      'Eine Bestätigung wurde an die eingegebene E-Mail-Adresse gesendet. Falls sie nicht ankommt, prüfen Sie bitte den Spam-Ordner.',
+    mailTitle: 'Wenn Sie Details ergänzen möchten',
+    mailBody:
+      'Senden Sie das Formular bitte erneut mit genug Kontext, damit wir es Ihrer ursprünglichen Anfrage zuordnen können.',
+    lineTitle: 'Kurze Rückfragen sind auch über LINE möglich',
+    lineBody:
+      'Schulbezogene Nachrichten und kurze Beratungen nehmen wir auch über das offizielle LINE-Konto entgegen.',
+    contactAgain: 'Weitere Nachricht senden',
+    lineCta: 'Offizielles LINE öffnen',
+    servicesCta: 'Services ansehen',
+    homeCta: 'Zur Startseite',
+  },
+  ru: {
+    title: 'Запрос отправлен',
+    description: 'Страница подтверждения после отправки запроса в Acecore.',
+    eyebrow: 'Отправлено',
+    heading: 'Спасибо за обращение в Acecore',
+    lead: 'Мы проверим сообщение и обычно отвечаем в течение 1-2 рабочих дней.',
+    responseTitle: 'О дальнейшей связи',
+    responseBody:
+      'Письмо с подтверждением отправлено на указанный адрес. Если оно не пришло, проверьте папку спама.',
+    mailTitle: 'Если нужно добавить детали',
+    mailBody:
+      'Отправьте форму еще раз с достаточным контекстом, чтобы мы могли связать ее с исходным запросом.',
+    lineTitle: 'Короткие уточнения можно отправить через LINE',
+    lineBody:
+      'Сообщения по школе и короткие консультации также принимаются через официальный LINE.',
+    contactAgain: 'Отправить еще сообщение',
+    lineCta: 'Открыть официальный LINE',
+    servicesCta: 'Посмотреть услуги',
+    homeCta: 'На главную',
+  },
+}
+
+const copy = thanksCopy[locale]
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  robots="noindex, nofollow"
+  locale={locale}
+  languageSwitcherPath="/contact/thanks/"
+>
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'pages.contact.title'), href: u('/contact/') },
+          { label: copy.title },
+        ]}
+        locale={locale}
+      />
+
+      <div
+        class="rounded-lg border border-emerald-100 bg-emerald-50 p-6 sm:p-8"
+      >
+        <div class="flex items-start gap-4">
+          <span
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-emerald-600 shadow-sm"
+          >
+            <Icon name="circle-check" class="text-2xl" />
+          </span>
+          <div>
+            <p class="ac-eyebrow mb-2 text-emerald-700">{copy.eyebrow}</p>
+            <h1 class="text-2xl ac-heading sm:text-3xl">{copy.heading}</h1>
+            <p class="mt-3 text-slate-700">{copy.lead}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <section class="ac-card p-5">
+          <Icon name="mail-check" class="mb-3 text-xl text-brand-500" />
+          <h2 class="font-600 text-slate-900">{copy.responseTitle}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            {copy.responseBody}
+          </p>
+        </section>
+        <section class="ac-card p-5">
+          <Icon name="file-plus-2" class="mb-3 text-xl text-brand-500" />
+          <h2 class="font-600 text-slate-900">{copy.mailTitle}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            {copy.mailBody}
+          </p>
+        </section>
+        <section class="ac-card p-5">
+          <Icon name="message-circle" class="mb-3 text-xl text-brand-500" />
+          <h2 class="font-600 text-slate-900">{copy.lineTitle}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            {copy.lineBody}
+          </p>
+        </section>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <a href={u('/contact/')} class="ac-btn-outline">{copy.contactAgain}</a>
+        <a
+          href={SITE.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ac-btn-secondary"
+        >
+          {copy.lineCta}<span class="sr-only"
+            >{t(locale, 'common.opensInNewTab')}</span
+          >
+        </a>
+        <a href={u('/services/')} class="ac-btn-outline">{copy.servicesCta}</a>
+        <a href={u('/')} class="ac-btn-outline">{copy.homeCta}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -78,8 +78,6 @@ const schoolsLd = {
         name: 'Acecore',
         url: 'https://acecore.net',
       },
-      telephone: SITE.phoneIntl,
-      email: SITE.email,
     },
     {
       '@type': 'Course',
@@ -410,21 +408,6 @@ const schoolsLd = {
         <p class="text-slate-600 mb-6">
           {t(locale, 'pages.schools.ctaBody')}
         </p>
-        <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6"
-        >
-          <div class="flex items-center gap-2">
-            <Icon name="phone" class="text-brand-500" />
-            <span class="font-600 text-slate-800">{SITE.phone}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <Icon name="mail" class="text-brand-500" />
-            <a
-              href={`mailto:${SITE.email}`}
-              class="font-600 text-brand-500 hover:underline">{SITE.email}</a
-            >
-          </div>
-        </div>
         <div
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >

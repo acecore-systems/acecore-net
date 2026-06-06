@@ -18,6 +18,16 @@ const ZERO_SHA = '0000000000000000000000000000000000000000'
 const COPILOT_API_BASE = 'https://api.githubcopilot.com'
 const COPILOT_API_VERSION = '2026-01-09'
 const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
+const PAGE_TRANSLATION_KEYS = {
+  'about.json': 'about',
+  'acestudio.json': 'acestudio',
+  'contact.json': 'contact',
+  'home.json': 'home',
+  'not-found.json': 'notFound',
+  'privacy.json': 'privacy',
+  'schools.json': 'schools',
+  'services.json': 'services',
+}
 
 function parseArgs(argv) {
   const options = {
@@ -26,6 +36,8 @@ function parseArgs(argv) {
     baseSha: null,
     headSha: null,
     includeNonBlog: false,
+    cmsOnly: false,
+    maxBlogTasks: 3,
   }
 
   for (const arg of argv) {
@@ -55,6 +67,20 @@ function parseArgs(argv) {
 
     if (arg === '--include-non-blog') {
       options.includeNonBlog = true
+      continue
+    }
+
+    if (arg === '--cms-only') {
+      options.cmsOnly = true
+      continue
+    }
+
+    if (arg.startsWith('--max-blog-tasks=')) {
+      const value = Number(arg.slice('--max-blog-tasks='.length).trim())
+      if (!Number.isInteger(value) || value < 0) {
+        throw new Error('--max-blog-tasks must be a non-negative integer')
+      }
+      options.maxBlogTasks = value
     }
   }
 
@@ -119,13 +145,62 @@ function parseNameStatusLine(line) {
   }
 }
 
-function getChangedEntries({ baseSha, headSha, changedFiles, includeNonBlog }) {
+function isCmsCommitSubject(subject) {
+  return /^cms: (create|update|delete) /.test(subject || '')
+}
+
+function listCommitSubjects(baseSha, headSha) {
+  const output = baseSha
+    ? safeRunGit(['log', '--format=%H%x00%s', `${baseSha}..${headSha}`])
+    : safeRunGit(['log', '--format=%H%x00%s', '-n', '1', headSha])
+
+  if (!output) return []
+
+  return output.split(/\r?\n/).map((line) => {
+    const [sha, subject] = line.split('\0')
+    return { sha, subject: subject || '' }
+  })
+}
+
+function ensureCmsOnlyChangeSet(baseSha, headSha) {
+  const commits = listCommitSubjects(baseSha, headSha)
+  if (commits.length === 0) return false
+
+  const cmsCommits = commits.filter((commit) =>
+    isCmsCommitSubject(commit.subject),
+  )
+
+  if (cmsCommits.length === 0) {
+    console.log('No CMS commits detected. Skipping translation PR tasks.')
+    return false
+  }
+
+  if (cmsCommits.length !== commits.length) {
+    throw new Error(
+      'CMS and non-CMS commits are mixed in this push. Skipping automatic translation PR tasks; re-run manually after reviewing the source diff.',
+    )
+  }
+
+  return true
+}
+
+function getChangedEntries({
+  baseSha,
+  headSha,
+  changedFiles,
+  includeNonBlog,
+  cmsOnly,
+}) {
   if (changedFiles) {
     return changedFiles.map((path) => ({
       status: 'M',
       path,
       previousPath: null,
     }))
+  }
+
+  if (cmsOnly && !ensureCmsOnlyChangeSet(baseSha, headSha)) {
+    return []
   }
 
   const targets = getDiffTargets(includeNonBlog)
@@ -219,6 +294,26 @@ function splitMarkdownDocument(source) {
   }
 }
 
+function truncateForPrompt(value, maxLength = 12000) {
+  if (!value || value.length <= maxLength) return value || ''
+  return `${value.slice(0, maxLength)}\n\n[diff truncated: ${value.length - maxLength} characters omitted]`
+}
+
+function getSourceDiff(filePath, baseSha, headSha) {
+  if (!baseSha) {
+    return safeRunGit([
+      'show',
+      '--format=',
+      '--unified=8',
+      headSha,
+      '--',
+      filePath,
+    ])
+  }
+
+  return safeRunGit(['diff', '--unified=8', baseSha, headSha, '--', filePath])
+}
+
 function getChangedBlogPost(entry, baseSha, headSha) {
   if (entry.status === 'A' || entry.status === 'D') {
     return entry
@@ -236,6 +331,86 @@ function getChangedBlogPost(entry, baseSha, headSha) {
   return before.body !== after.body ? entry : null
 }
 
+function getChangedBlogPostTask(entry, baseSha, headSha) {
+  const changedEntry = getChangedBlogPost(entry, baseSha, headSha)
+  if (!changedEntry) return null
+
+  return {
+    ...changedEntry,
+    sourceDiff: truncateForPrompt(getSourceDiff(entry.path, baseSha, headSha)),
+  }
+}
+
+function flattenJsonPaths(value, prefix = '') {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) {
+    return new Map([[prefix, value]])
+  }
+
+  const entries = new Map()
+  for (const [key, child] of Object.entries(value)) {
+    const childPrefix = prefix ? `${prefix}.${key}` : key
+    for (const [path, childValue] of flattenJsonPaths(child, childPrefix)) {
+      entries.set(path, childValue)
+    }
+  }
+  return entries
+}
+
+function getSourceTranslationKeyPrefix(filePath) {
+  const relativePath = filePath
+    .slice(`${SITE_TRANSLATION_SOURCE_DIR}/`.length)
+    .replace(/\\/g, '/')
+
+  if (relativePath === 'common.json') {
+    return ''
+  }
+
+  if (relativePath === 'blog.json') {
+    return 'blog'
+  }
+
+  if (relativePath === 'legacy-tags.json') {
+    return 'tags'
+  }
+
+  if (relativePath.startsWith('pages/')) {
+    const fileName = relativePath.slice('pages/'.length)
+    return `pages.${PAGE_TRANSLATION_KEYS[fileName] ?? fileName.replace(/\.json$/, '')}`
+  }
+
+  return relativePath.replace(/\.json$/, '').replace(/\//g, '.')
+}
+
+function buildTranslationKeyPath(filePath, sourceKeyPath) {
+  const prefix = getSourceTranslationKeyPrefix(filePath)
+  return [prefix, sourceKeyPath].filter(Boolean).join('.')
+}
+
+function getChangedJsonKeyPaths(before, after, filePath) {
+  const beforePaths = before ? flattenJsonPaths(before) : new Map()
+  const afterPaths = after ? flattenJsonPaths(after) : new Map()
+  const allPaths = new Set([...beforePaths.keys(), ...afterPaths.keys()])
+  const changes = []
+
+  for (const sourceKeyPath of [...allPaths].sort()) {
+    const beforeValue = beforePaths.get(sourceKeyPath)
+    const afterValue = afterPaths.get(sourceKeyPath)
+    if (JSON.stringify(beforeValue) === JSON.stringify(afterValue)) continue
+
+    changes.push({
+      sourceKeyPath,
+      translationKeyPath: buildTranslationKeyPath(filePath, sourceKeyPath),
+      changeType: beforePaths.has(sourceKeyPath)
+        ? afterPaths.has(sourceKeyPath)
+          ? 'updated'
+          : 'deleted'
+        : 'added',
+    })
+  }
+
+  return changes
+}
+
 function getChangedSiteTranslationFile(
   entry,
   baseSha,
@@ -244,17 +419,21 @@ function getChangedSiteTranslationFile(
 ) {
   if (entry.status === 'D') return null
 
-  if (forceChanged || entry.status === 'A' || !baseSha) {
-    return entry
-  }
-
-  const before = readTextAtRef(baseSha, entry.path)
-  const after = readTextAtRef(
+  const before =
+    forceChanged || entry.status === 'A' || !baseSha
+      ? null
+      : readJsonAtRef(baseSha, entry.path)
+  const after = readJsonAtRef(
     headSha === 'HEAD' ? 'WORKTREE' : headSha,
     entry.path,
   )
+  const keyChanges = getChangedJsonKeyPaths(before, after, entry.path)
+  if (keyChanges.length === 0) return null
 
-  return before !== after ? entry : null
+  return {
+    ...entry,
+    keyChanges,
+  }
 }
 
 function readJsonAtRef(ref, filePath) {
@@ -578,8 +757,10 @@ function buildProblemStatement({
   summary,
   targetLocales,
   instructions,
+  sourceDiff,
+  changedKeys,
 }) {
-  return [
+  const sections = [
     `<!-- ${marker} -->`,
     'You are handling an automated translation task for acecore-net.',
     'Do not create or update GitHub Issues. Create or update the translation pull request only.',
@@ -594,6 +775,24 @@ function buildProblemStatement({
     ...instructions.map((instruction) =>
       instruction.startsWith('- ') ? instruction : `- ${instruction}`,
     ),
+  ]
+
+  if (changedKeys?.length) {
+    sections.push(
+      '',
+      '## Changed Translation Keys',
+      ...changedKeys.map(
+        (change) =>
+          `- ${change.translationKeyPath} (${change.changeType}; source: ${change.sourceKeyPath})`,
+      ),
+    )
+  }
+
+  if (sourceDiff) {
+    sections.push('', '## Source Diff', '```diff', sourceDiff, '```')
+  }
+
+  sections.push(
     '',
     '## Pull Request Requirements',
     '- Use `main` as the base branch.',
@@ -602,26 +801,34 @@ function buildProblemStatement({
     '- Keep the pull request body concise and mention the translated source path.',
     '- Run `npm run build` after the translation changes.',
     '- Mark the pull request ready for review when the work is complete.',
-  ].join('\n')
+  )
+
+  return sections.join('\n')
 }
 
 function buildBlogTaskPayload({
   sourcePath,
   changeType,
+  sourceDiff,
   locales,
   headSha,
   repository,
 }) {
   const marker = `translation-source:${sourcePath}`
   const slug = sourcePath.split('/').at(-1)
-  const titlePrefix = changeType === 'D' ? 'Remove' : 'Translate'
+  const titlePrefix =
+    changeType === 'D' ? 'Remove' : changeType === 'M' ? 'Update' : 'Translate'
   const title = `[translation] ${titlePrefix} ${slug}`
   const instructions = [
     ...buildCopilotInstructions('blog-post'),
     changeType === 'D'
       ? '- Remove or close out the corresponding translated files under `src/content/blog/{locale}/`.'
-      : '- Create or update translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.',
-    '- Keep frontmatter aligned with the source article, including `title`, `description`, `date`, `tags`, `image`, `uploadedImage`, and `author`.',
+      : changeType === 'A'
+        ? '- Create translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.'
+        : '- Update only the translated passages affected by the Markdown body diff shown below; do not rewrite unchanged translated content.',
+    changeType === 'M'
+      ? '- Ignore frontmatter-only changes and keep existing translated frontmatter unless the changed body requires a title or description adjustment.'
+      : '- Keep frontmatter aligned with the source article, including `title`, `description`, `date`, `tags`, `image`, `uploadedImage`, and `author`.',
     '- Preserve internal links, image references, and structured content blocks.',
   ]
 
@@ -641,6 +848,7 @@ function buildBlogTaskPayload({
       ],
       targetLocales: locales,
       instructions,
+      sourceDiff: changeType === 'M' ? sourceDiff : null,
     }),
   }
 }
@@ -719,22 +927,19 @@ function buildTagTaskPayload({
   }
 }
 
-function buildSiteTextTaskPayload({
-  sourcePaths,
-  locales,
-  headSha,
-  repository,
-}) {
+function buildSiteTextTaskPayload({ changes, locales, headSha, repository }) {
   const marker = `translation-source:${SITE_TRANSLATION_SOURCE_DIR}`
   const title = '[translation] Update site text translations'
   const instructions = [
     ...buildCopilotInstructions('site-text'),
-    `- Build the Japanese source by merging the sections from ${SITE_TRANSLATION_SOURCE_DIR}/**/*.json.`,
-    '- Keep the JSON key structure aligned with the Japanese source.',
+    '- Update only the changed translation keys listed below.',
+    '- Do not rewrite unchanged translation keys.',
     '- Preserve placeholders such as `{count}`, `{title}`, URLs, route paths, product names, and code-like tokens exactly.',
-    '- Keep `tags` translations aligned with `src/i18n/source/ja/legacy-tags.json` if that file changes, but tag source definitions remain under `src/content/tags`.',
+    '- If a listed key was deleted from the Japanese source, remove only the matching translated key when it exists.',
     '- Do not edit blog Markdown, author JSON, or tag JSON files for this task.',
   ]
+  const sourcePaths = [...new Set(changes.map((change) => change.path))]
+  const changedKeys = changes.flatMap((change) => change.keyChanges)
 
   return {
     title,
@@ -747,11 +952,13 @@ function buildSiteTextTaskPayload({
         `Repository: ${repository}`,
         `Source path: ${SITE_TRANSLATION_SOURCE_DIR}`,
         `Changed source files: ${sourcePaths.join(', ')}`,
+        `Changed key count: ${changedKeys.length}`,
         `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
         `Source commit: ${headSha}`,
       ],
       targetLocales: locales,
       instructions,
+      changedKeys,
     }),
   }
 }
@@ -794,12 +1001,20 @@ async function main() {
     headSha,
     changedFiles: args.changedFiles,
     includeNonBlog: args.includeNonBlog,
+    cmsOnly: args.cmsOnly,
   })
 
   const blogChanges = changedEntries
     .filter((entry) => isJapaneseBlogPostPath(entry.path))
-    .map((entry) => getChangedBlogPost(entry, baseSha, headSha))
+    .map((entry) => getChangedBlogPostTask(entry, baseSha, headSha))
     .filter(Boolean)
+
+  if (blogChanges.length > args.maxBlogTasks) {
+    throw new Error(
+      `Detected ${blogChanges.length} blog translation tasks, but maxBlogTasks is ${args.maxBlogTasks}. Re-run manually with a higher limit after reviewing the source list.`,
+    )
+  }
+
   const authorChanges = args.includeNonBlog
     ? changedEntries
         .filter((entry) => isAuthorProfilePath(entry.path))
@@ -828,6 +1043,7 @@ async function main() {
       buildBlogTaskPayload({
         sourcePath: entry.path,
         changeType: entry.status,
+        sourceDiff: entry.sourceDiff,
         locales,
         headSha,
         repository,
@@ -836,7 +1052,7 @@ async function main() {
     ...(siteTextChanges.length > 0
       ? [
           buildSiteTextTaskPayload({
-            sourcePaths: siteTextChanges.map((entry) => entry.path),
+            changes: siteTextChanges,
             locales,
             headSha,
             repository,

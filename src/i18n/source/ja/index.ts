@@ -12,7 +12,7 @@ import servicesPageTranslations from './pages/services.json'
 
 const jaTranslations = {
   ...commonTranslations,
-  ...blogTranslations,
+  blog: blogTranslations,
   pages: {
     home: homePageTranslations,
     notFound: notFoundPageTranslations,

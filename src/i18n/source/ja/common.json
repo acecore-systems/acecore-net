@@ -35,6 +35,25 @@
     "codeCopied": "コピーしました",
     "copyFailed": "コピー失敗"
   },
+  "aiChat": {
+    "open": "AIチャットを開く",
+    "close": "AIチャットを閉じる",
+    "title": "AIに質問する",
+    "lead": "サイト内の情報をもとに短く答えます。",
+    "greeting": "Acecoreのサービス、制作・開発、教室、返信目安などを質問できます。詳しい見積りや正式な相談はフォームへ案内します。",
+    "inputLabel": "AIチャットへの質問",
+    "placeholder": "質問を入力...",
+    "send": "送信",
+    "loading": "回答を作成中...",
+    "error": "AIチャットを利用できません。問い合わせフォームまたはLINEをご利用ください。",
+    "quickServices": "どのサービスを選べばいい？",
+    "quickEstimate": "見積り相談の進め方は？",
+    "quickSchools": "教室について知りたい",
+    "contactForm": "問い合わせフォーム",
+    "line": "LINE",
+    "email": "メール",
+    "phone": "電話"
+  },
   "hero": {
     "ctaServices": "サービスを詳しく見る",
     "ctaContact": "無料で相談する",

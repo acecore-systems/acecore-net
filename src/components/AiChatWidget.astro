@@ -1,0 +1,512 @@
+---
+import Icon from './Icon.astro'
+import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
+import { SITE } from '../data/site'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const contactUrl = getLocalizedUrl('/contact/', locale)
+const [emailUser, emailDomain = ''] = SITE.email.split('@')
+const phoneParts = SITE.phone.split('-')
+---
+
+<div
+  id="ace-ai-chat"
+  class="fixed bottom-5 right-5 z-[60]"
+  data-locale={locale}
+  data-loading={t(locale, 'aiChat.loading')}
+  data-error={t(locale, 'aiChat.error')}
+  data-greeting={t(locale, 'aiChat.greeting')}
+  data-contact-url={contactUrl}
+  data-email-user={emailUser}
+  data-email-domain={emailDomain}
+  data-phone-parts={phoneParts.join('|')}
+>
+  <section
+    id="ace-ai-chat-panel"
+    class="mb-4 hidden w-[calc(100vw-2.5rem)] max-w-[23rem] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl"
+    aria-labelledby="ace-ai-chat-title"
+  >
+    <header
+      class="flex items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3"
+    >
+      <div class="flex items-start gap-3">
+        <span class="ac-icon-box shrink-0 bg-white">
+          <Icon name="sparkles" class="text-lg" />
+        </span>
+        <div>
+          <h2 id="ace-ai-chat-title" class="text-sm font-800 text-slate-900">
+            {t(locale, 'aiChat.title')}
+          </h2>
+          <p class="mt-0.5 text-xs leading-relaxed text-slate-600">
+            {t(locale, 'aiChat.lead')}
+          </p>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="ac-touch shrink-0 rounded-lg text-slate-500 hover:bg-white hover:text-brand-600"
+        data-ace-chat-close
+        aria-label={t(locale, 'aiChat.close')}
+      >
+        <Icon name="x" class="text-lg" />
+      </button>
+    </header>
+
+    <div
+      id="ace-ai-chat-messages"
+      class="max-h-[min(58vh,28rem)] space-y-3 overflow-y-auto px-4 py-4 text-sm"
+      aria-live="polite"
+    >
+    </div>
+
+    <div class="border-t border-slate-200 px-4 py-3">
+      <div class="mb-3 flex flex-wrap gap-2">
+        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
+          {t(locale, 'aiChat.quickServices')}
+        </button>
+        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
+          {t(locale, 'aiChat.quickEstimate')}
+        </button>
+        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
+          {t(locale, 'aiChat.quickSchools')}
+        </button>
+      </div>
+
+      <form id="ace-ai-chat-form" class="flex items-end gap-2">
+        <label for="ace-ai-chat-input" class="sr-only">
+          {t(locale, 'aiChat.inputLabel')}
+        </label>
+        <textarea
+          id="ace-ai-chat-input"
+          rows="2"
+          maxlength="800"
+          class="ac-input min-h-11 flex-1 resize-none text-sm"
+          placeholder={t(locale, 'aiChat.placeholder')}></textarea>
+        <button
+          type="submit"
+          id="ace-ai-chat-submit"
+          class="ac-btn-primary min-h-11 w-11 shrink-0 px-0"
+          aria-label={t(locale, 'aiChat.send')}
+        >
+          <Icon name="send" class="text-base" />
+        </button>
+      </form>
+
+      <div class="mt-3 flex flex-wrap gap-2 text-xs">
+        <a href={contactUrl} class="text-brand-600 hover:underline">
+          {t(locale, 'aiChat.contactForm')}
+        </a>
+        <a
+          href={SITE.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-600 hover:underline"
+        >
+          {t(locale, 'aiChat.line')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <button
+    type="button"
+    id="ace-ai-chat-toggle"
+    class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-white shadow-xl transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+    aria-controls="ace-ai-chat-panel"
+    aria-expanded="false"
+    aria-label={t(locale, 'aiChat.open')}
+    data-ace-chat-toggle
+  >
+    <Icon name="bot-message-square" class="text-2xl" />
+  </button>
+</div>
+
+<script is:inline>
+  ;(() => {
+    function initAceAiChat() {
+      const root = document.getElementById('ace-ai-chat')
+      if (!root || root.dataset.initialized === 'true') return
+      root.dataset.initialized = 'true'
+
+      const panel = document.getElementById('ace-ai-chat-panel')
+      const toggle = document.getElementById('ace-ai-chat-toggle')
+      const form = document.getElementById('ace-ai-chat-form')
+      const input = document.getElementById('ace-ai-chat-input')
+      const submit = document.getElementById('ace-ai-chat-submit')
+      const messagesEl = document.getElementById('ace-ai-chat-messages')
+      if (!panel || !toggle || !form || !input || !submit || !messagesEl) return
+
+      const locale = root.dataset.locale || 'ja'
+      const loadingText = root.dataset.loading || 'Thinking...'
+      const errorText = root.dataset.error || 'AI assistant is unavailable.'
+      const greetingText = root.dataset.greeting || ''
+      const contactUrl = root.dataset.contactUrl || '/contact/'
+      const emailUser = root.dataset.emailUser || ''
+      const emailDomain = root.dataset.emailDomain || ''
+      const directEmail =
+        emailUser && emailDomain ? `${emailUser}@${emailDomain}` : ''
+      const phoneDigits = (root.dataset.phoneParts || '')
+        .split('|')
+        .filter(Boolean)
+        .join('')
+      const messages = []
+
+      function track(name, params) {
+        if (window.aceTrackEvent) {
+          window.aceTrackEvent(name, {
+            page_path: window.location.pathname,
+            page_title: document.title,
+            location: 'ai_chat_widget',
+            ...(params || {}),
+          })
+        }
+      }
+
+      function scrollMessages() {
+        messagesEl.scrollTop = messagesEl.scrollHeight
+      }
+
+      function renderMessage(role, text, isError) {
+        const row = document.createElement('div')
+        row.className =
+          role === 'user' ? 'flex justify-end' : 'flex justify-start'
+
+        const bubble = document.createElement('div')
+        bubble.className =
+          role === 'user'
+            ? 'max-w-[85%] whitespace-pre-line rounded-lg bg-brand-500 px-3 py-2 text-white'
+            : isError
+              ? 'max-w-[85%] whitespace-pre-line rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800'
+              : 'ace-chat-markdown max-w-[85%] rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
+
+        if (role === 'assistant' && !isError) {
+          renderMarkdownText(bubble, text)
+        } else {
+          bubble.textContent = text
+        }
+
+        row.appendChild(bubble)
+        messagesEl.appendChild(row)
+        scrollMessages()
+        return row
+      }
+
+      function renderMarkdownText(container, text) {
+        container.textContent = ''
+        const lines = String(text || '')
+          .replace(/\r\n?/g, '\n')
+          .trim()
+          .split('\n')
+
+        let paragraphLines = []
+        let list = null
+        let listType = ''
+
+        function flushParagraph() {
+          if (paragraphLines.length === 0) return
+          const paragraph = document.createElement('p')
+          appendInlineMarkdown(paragraph, paragraphLines.join('\n'))
+          container.appendChild(paragraph)
+          paragraphLines = []
+        }
+
+        function flushList() {
+          list = null
+          listType = ''
+        }
+
+        function ensureList(type) {
+          if (list && listType === type) return list
+          flushParagraph()
+          list = document.createElement(type)
+          listType = type
+          container.appendChild(list)
+          return list
+        }
+
+        lines.forEach((line) => {
+          const trimmed = line.trim()
+          if (!trimmed) {
+            flushParagraph()
+            flushList()
+            return
+          }
+
+          const unorderedMatch = trimmed.match(/^[-*+・]\s+(.+)$/)
+          const orderedMatch = trimmed.match(/^\d+\.\s+(.+)$/)
+
+          if (unorderedMatch) {
+            const item = document.createElement('li')
+            appendInlineMarkdown(item, unorderedMatch[1])
+            ensureList('ul').appendChild(item)
+            return
+          }
+
+          if (orderedMatch) {
+            const item = document.createElement('li')
+            appendInlineMarkdown(item, orderedMatch[1])
+            ensureList('ol').appendChild(item)
+            return
+          }
+
+          flushList()
+          paragraphLines.push(trimmed.replace(/^#{1,3}\s+/, ''))
+        })
+
+        flushParagraph()
+      }
+
+      function appendInlineMarkdown(parent, text) {
+        const pattern =
+          /(\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
+        let index = 0
+        let match
+
+        while ((match = pattern.exec(text)) !== null) {
+          if (match.index > index) {
+            parent.appendChild(
+              document.createTextNode(text.slice(index, match.index)),
+            )
+          }
+
+          if (match[2] && isSafeMarkdownHref(match[3])) {
+            const link = document.createElement('a')
+            link.href = match[3]
+            link.rel = 'noopener noreferrer'
+            if (/^https?:\/\//i.test(match[3])) {
+              link.target = '_blank'
+            }
+            link.textContent = match[2]
+            parent.appendChild(link)
+          } else if (match[4] || match[5]) {
+            const strong = document.createElement('strong')
+            strong.textContent = match[4] || match[5]
+            parent.appendChild(strong)
+          } else if (match[6]) {
+            const code = document.createElement('code')
+            code.textContent = match[6]
+            parent.appendChild(code)
+          } else if (match[7] || match[8]) {
+            const emphasis = document.createElement('em')
+            emphasis.textContent = match[7] || match[8]
+            parent.appendChild(emphasis)
+          } else {
+            parent.appendChild(document.createTextNode(match[0]))
+          }
+
+          index = pattern.lastIndex
+        }
+
+        if (index < text.length) {
+          parent.appendChild(document.createTextNode(text.slice(index)))
+        }
+      }
+
+      function isSafeMarkdownHref(value) {
+        const href = String(value || '').trim()
+        if (!href) return false
+
+        if (directEmail) {
+          const allowedMailto = `mailto:${directEmail}`.toLowerCase()
+          const normalizedHref = href.toLowerCase()
+          if (
+            normalizedHref === allowedMailto ||
+            normalizedHref.startsWith(`${allowedMailto}?`)
+          ) {
+            return true
+          }
+        }
+        if (phoneDigits && href === `tel:${phoneDigits}`) return true
+        if (href.startsWith('/')) return !href.startsWith('//')
+
+        try {
+          const url = new URL(href)
+          if (url.origin === window.location.origin) return true
+          if (url.origin === 'https://acecore.net') return true
+          if (url.href === 'https://lin.ee/DjIrdqj') return true
+        } catch {
+          return false
+        }
+
+        return false
+      }
+
+      function addMessage(role, content, options) {
+        messages.push({ role, content })
+        return renderMessage(role, content, options?.isError)
+      }
+
+      function openChat() {
+        panel.classList.remove('hidden')
+        toggle.setAttribute('aria-expanded', 'true')
+        root.classList.add('is-open')
+        if (messages.length === 0 && greetingText) {
+          addMessage('assistant', greetingText)
+        }
+        window.setTimeout(() => input.focus(), 0)
+        track('ai_chat_open')
+      }
+
+      function closeChat() {
+        panel.classList.add('hidden')
+        toggle.setAttribute('aria-expanded', 'false')
+        root.classList.remove('is-open')
+      }
+
+      async function sendQuestion(text) {
+        const trimmed = text.trim()
+        if (!trimmed) {
+          input.focus()
+          return
+        }
+
+        input.value = ''
+        addMessage('user', trimmed)
+        const loadingRow = renderMessage('assistant', loadingText, false)
+        submit.disabled = true
+
+        try {
+          const response = await fetch('/api/ai-contact', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              locale,
+              messages: messages.slice(-8),
+              question: trimmed,
+            }),
+          })
+          const payload = await response.json().catch(() => null)
+          if (!response.ok || !payload?.ok) {
+            throw new Error(payload?.answer || errorText)
+          }
+          loadingRow.remove()
+          addMessage('assistant', payload.answer || errorText)
+          track('ai_chat_answer')
+        } catch (error) {
+          loadingRow.remove()
+          addMessage('assistant', error.message || errorText, { isError: true })
+        } finally {
+          submit.disabled = false
+          input.focus()
+        }
+      }
+
+      toggle.addEventListener('click', () => {
+        if (panel.classList.contains('hidden')) {
+          openChat()
+        } else {
+          closeChat()
+        }
+      })
+
+      root.querySelectorAll('[data-ace-chat-close]').forEach((button) => {
+        button.addEventListener('click', closeChat)
+      })
+
+      document.addEventListener('click', (event) => {
+        const target = event.target
+        if (!(target instanceof Element)) return
+        const opener = target.closest('[data-ace-chat-open]')
+        if (opener) {
+          event.preventDefault()
+          openChat()
+        }
+      })
+
+      root.querySelectorAll('[data-ace-chat-prompt]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (!(button instanceof HTMLButtonElement)) return
+          input.value = (button.textContent || '').trim()
+          void sendQuestion(input.value)
+        })
+      })
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault()
+        void sendQuestion(input.value)
+      })
+
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault()
+          void sendQuestion(input.value)
+        }
+      })
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !panel.classList.contains('hidden')) {
+          closeChat()
+          toggle.focus()
+        }
+      })
+
+      root.querySelectorAll('a[href]').forEach((link) => {
+        link.addEventListener('click', () => {
+          track('ai_chat_contact_link', {
+            destination: link.getAttribute('href') || contactUrl,
+          })
+        })
+      })
+    }
+
+    initAceAiChat()
+    document.addEventListener('astro:page-load', initAceAiChat)
+  })()
+</script>
+
+<style is:global>
+  #ace-ai-chat .ace-chat-markdown {
+    line-height: 1.65;
+  }
+
+  #ace-ai-chat .ace-chat-markdown p + p,
+  #ace-ai-chat .ace-chat-markdown p + ul,
+  #ace-ai-chat .ace-chat-markdown p + ol,
+  #ace-ai-chat .ace-chat-markdown ul + p,
+  #ace-ai-chat .ace-chat-markdown ol + p {
+    margin-top: 0.5rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ul,
+  #ace-ai-chat .ace-chat-markdown ol {
+    margin-block: 0.25rem;
+    padding-left: 1.25rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ul {
+    list-style: disc;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ol {
+    list-style: decimal;
+  }
+
+  #ace-ai-chat .ace-chat-markdown li + li {
+    margin-top: 0.25rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown strong {
+    color: rgb(15 23 42);
+    font-weight: 700;
+  }
+
+  #ace-ai-chat .ace-chat-markdown a {
+    color: rgb(37 99 235);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #ace-ai-chat .ace-chat-markdown code {
+    border-radius: 0.25rem;
+    background: rgb(226 232 240);
+    padding: 0.05rem 0.25rem;
+    font-size: 0.92em;
+  }
+</style>

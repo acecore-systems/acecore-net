@@ -44,10 +44,7 @@ Durch Erlebnisse wie diese möchten wir das Interesse am Bauen und Gestalten wec
 
 ## Anfragen & Anmeldung
 
-Für Anfragen zur Veranstaltung kontaktieren Sie uns über einen der folgenden Wege:
-
-- **Telefon**: 050-8890-2788
-- **E-Mail**: [info@acecore.net](mailto:info@acecore.net)
-- Anfragen über **LINE** sind ebenfalls willkommen
+Für Fragen oder Anmeldungen zur Veranstaltung nutzen Sie bitte das [Kontaktformular](/contact/) oder die [offizielle LINE](https://lin.ee/DjIrdqj).
+Wenn Sie etwas direkt klären möchten, hinterlassen Sie zunächst eine kurze Zusammenfassung im Formular, damit wir gezielt antworten können.
 
 AceCore Schools plant, regelmäßig Veranstaltungen durchzuführen. Aktuelle Informationen finden Sie auf der [Schools-Seite](/schools/) und im Blog.

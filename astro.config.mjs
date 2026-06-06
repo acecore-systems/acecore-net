@@ -36,7 +36,8 @@ export default defineConfig({
           !page.includes('/blog/tags/') &&
           !page.includes('/blog/archive/') &&
           !page.includes('/blog/authors/') &&
-          !page.includes('/blog/page/')
+          !page.includes('/blog/page/') &&
+          !page.includes('/contact/thanks/')
         )
       },
       i18n: {

@@ -1506,6 +1506,82 @@ collections:
             label: 'Line Inquiry'
             hint: 'lineInquiry'
             widget: string
+          - name: 'faqTitle'
+            label: 'FAQ Title'
+            hint: 'faqTitle'
+            widget: string
+          - name: 'faqQ1'
+            label: 'FAQ Q1'
+            hint: 'faqQ1'
+            widget: string
+          - name: 'faqA1'
+            label: 'FAQ A1'
+            hint: 'faqA1'
+            widget: text
+          - name: 'faqQ2'
+            label: 'FAQ Q2'
+            hint: 'faqQ2'
+            widget: string
+          - name: 'faqA2'
+            label: 'FAQ A2'
+            hint: 'faqA2'
+            widget: text
+          - name: 'faqQ3'
+            label: 'FAQ Q3'
+            hint: 'faqQ3'
+            widget: string
+          - name: 'faqA3'
+            label: 'FAQ A3'
+            hint: 'faqA3'
+            widget: text
+          - name: 'faqQ4'
+            label: 'FAQ Q4'
+            hint: 'faqQ4'
+            widget: string
+          - name: 'faqA4'
+            label: 'FAQ A4'
+            hint: 'faqA4'
+            widget: text
+          - name: 'aiHeading'
+            label: 'AI Heading'
+            hint: 'aiHeading'
+            widget: string
+          - name: 'aiLead'
+            label: 'AI Lead'
+            hint: 'aiLead'
+            widget: text
+          - name: 'aiQuestionLabel'
+            label: 'AI Question Label'
+            hint: 'aiQuestionLabel'
+            widget: string
+          - name: 'aiPlaceholder'
+            label: 'AI Placeholder'
+            hint: 'aiPlaceholder'
+            widget: string
+          - name: 'aiSubmit'
+            label: 'AI Submit'
+            hint: 'aiSubmit'
+            widget: string
+          - name: 'aiLoading'
+            label: 'AI Loading'
+            hint: 'aiLoading'
+            widget: string
+          - name: 'aiError'
+            label: 'AI Error'
+            hint: 'aiError'
+            widget: string
+          - name: 'lineHeading'
+            label: 'Line Heading'
+            hint: 'lineHeading'
+            widget: string
+          - name: 'lineLead'
+            label: 'Line Lead'
+            hint: 'lineLead'
+            widget: text
+          - name: 'lineCta'
+            label: 'Line CTA'
+            hint: 'lineCta'
+            widget: string
           - name: 'formCategoryLabel'
             label: 'Form Category Label'
             hint: 'formCategoryLabel'
@@ -1570,10 +1646,18 @@ collections:
             label: 'Form Submit Note'
             hint: 'formSubmitNote'
             widget: string
+          - name: 'formFaqHeading'
+            label: 'Form FAQ Heading'
+            hint: 'formFaqHeading'
+            widget: string
           - name: 'otherMethodsHeading'
             label: 'Other Methods Heading'
             hint: 'otherMethodsHeading'
             widget: string
+          - name: 'directMethodsNote'
+            label: 'Direct Methods Note'
+            hint: 'directMethodsNote'
+            widget: text
           - name: 'methodPhone'
             label: 'Method Phone'
             hint: 'methodPhone'

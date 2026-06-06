@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import Faq from '../components/Faq.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
@@ -13,24 +14,60 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const contactThanksUrl = u('/contact/thanks/')
+const [emailUser, emailDomain = ''] = SITE.email.split('@')
+const phoneParts = SITE.phone.split('-')
+
+const faqItems = [
+  {
+    question: t(locale, 'pages.contact.faqQ1'),
+    answer: t(locale, 'pages.contact.faqA1'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ2'),
+    answer: t(locale, 'pages.contact.faqA2'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ3'),
+    answer: t(locale, 'pages.contact.faqA3'),
+  },
+  {
+    question: t(locale, 'pages.contact.faqQ4'),
+    answer: t(locale, 'pages.contact.faqA4'),
+  },
+]
+
+const contactPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `${t(locale, 'pages.contact.title')} | Acecore`,
+  description: t(locale, 'pages.contact.description'),
+  url: 'https://acecore.net/contact/',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Acecore',
+    url: 'https://acecore.net',
+  },
+}
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+}
 ---
 
 <BaseLayout
   title={t(locale, 'pages.contact.title')}
   description={t(locale, 'pages.contact.description')}
-  jsonLd={{
-    '@context': 'https://schema.org',
-    '@type': 'ContactPage',
-    name: `${t(locale, 'pages.contact.title')} | Acecore`,
-    description: t(locale, 'pages.contact.description'),
-    url: 'https://acecore.net/contact/',
-    mainEntity: {
-      '@type': 'Organization',
-      name: 'Acecore',
-      telephone: SITE.phoneIntl,
-      email: SITE.email,
-    },
-  }}
+  jsonLd={[contactPageLd, faqLd]}
   locale={locale}
 >
   <Hero
@@ -52,7 +89,92 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
-      <div class="ac-surface mb-8 bg-brand-50 p-6">
+      <div id="contact-faq" class="mb-10 scroll-mt-24">
+        <Faq title={t(locale, 'pages.contact.faqTitle')} items={faqItems} />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <a href={u('/services/')} class="ac-chip">
+            {t(locale, 'pageNames.services')}
+          </a>
+          <a href={u('/schools/')} class="ac-chip">
+            {t(locale, 'pageNames.schools')}
+          </a>
+          <a href={u('/blog/')} class="ac-chip">
+            {t(locale, 'pageNames.blog')}
+          </a>
+          <a href={u('/privacy/')} class="ac-chip">
+            {t(locale, 'pageNames.privacy')}
+          </a>
+        </div>
+      </div>
+
+      <section
+        class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
+        aria-labelledby="ai-contact-heading"
+      >
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div class="flex items-start gap-3">
+            <span class="ac-icon-box shrink-0">
+              <Icon name="sparkles" class="text-lg" />
+            </span>
+            <div>
+              <h2 id="ai-contact-heading" class="text-lg ac-heading">
+                {t(locale, 'pages.contact.aiHeading')}
+              </h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">
+                {t(locale, 'pages.contact.aiLead')}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="ac-btn-primary shrink-0"
+            data-ace-chat-open
+            data-ga-event="ai_chat_open_click"
+            data-ga-label="contact_ai_chat"
+            data-ga-location="contact_ai_assist"
+          >
+            <Icon name="bot-message-square" class="text-base" />
+            {t(locale, 'pages.contact.aiSubmit')}
+          </button>
+        </div>
+      </section>
+
+      <div
+        class="mb-10 flex flex-col gap-4 rounded-lg border border-brand-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-start gap-3">
+          <span class="ac-icon-box shrink-0">
+            <Icon name="message-circle" class="text-lg" />
+          </span>
+          <div>
+            <h2 class="text-lg ac-heading">
+              {t(locale, 'pages.contact.lineHeading')}
+            </h2>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.contact.lineLead')}
+            </p>
+          </div>
+        </div>
+        <a
+          href={SITE.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ga-event="contact_line_click"
+          data-ga-label="contact_line_follow"
+          data-ga-location="contact_line_assist"
+          data-ga-destination={SITE.line}
+          class="ac-btn-secondary shrink-0"
+        >
+          <Icon name="message-circle" class="text-base" />
+          {t(locale, 'pages.contact.lineCta')}<span class="sr-only"
+            >{t(locale, 'common.opensInNewTab')}</span
+          >
+        </a>
+      </div>
+
+      <div class="ac-surface mb-6 bg-brand-50 p-5">
         <div
           class="flex flex-col items-start gap-4 text-sm text-slate-700 sm:flex-row sm:items-center"
         >
@@ -66,50 +188,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </div>
         </div>
       </div>
-      <div
-        class="mb-10 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:flex-wrap"
-      >
-        <div class="flex items-center gap-2">
-          <Icon name="phone" class="text-brand-500" />
-          <a
-            href={`tel:${SITE.phone.replace(/-/g, '')}`}
-            class="ac-chip font-700"
-            data-ga-event="contact_phone_click"
-            data-ga-label="contact_summary_phone"
-            data-ga-location="contact_summary"
-            data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-            >{SITE.phone}</a
-          >
-        </div>
-        <div class="flex items-center gap-2">
-          <Icon name="mail" class="text-brand-500" />
-          <a
-            href={`mailto:${SITE.email}`}
-            data-ga-event="contact_email_click"
-            data-ga-label="contact_summary_email"
-            data-ga-location="contact_summary"
-            data-ga-destination={`mailto:${SITE.email}`}
-            class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
-            >{SITE.email}</a
-          >
-        </div>
-        <a
-          href={SITE.line}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-ga-event="contact_line_click"
-          data-ga-label="contact_summary_line"
-          data-ga-location="contact_summary"
-          data-ga-destination={SITE.line}
-          class="ac-chip gap-2 border-brand-100 bg-brand-50 text-brand-600"
-        >
-          <Icon name="message-circle" class="text-brand-500" />
-          {t(locale, 'pages.contact.lineInquiry')}<span class="sr-only"
-            >{t(locale, 'common.opensInNewTab')}</span
-          >
-        </a>
-      </div>
+
       <form
+        id="contact-form"
         action="https://ssgform.com/s/a4JOVjLjyygh"
         method="post"
         class="space-y-6"
@@ -123,7 +204,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         data-t-validation-name={t(locale, 'pages.contact.validationName')}
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
+        data-success-url={contactThanksUrl}
       >
+        <input type="hidden" name="locale" value={locale} />
         <div>
           <label
             for="category"
@@ -260,12 +343,16 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </button>
           <p class="text-xs text-slate-600 mt-3">
             {t(locale, 'pages.contact.formSubmitNote')}
+            <a href="#contact-faq" class="ac-link ml-1"
+              >{t(locale, 'pages.contact.faqTitle')}</a
+            >
           </p>
         </div>
         <div
           id="form-feedback"
           class="hidden rounded-lg p-4 text-sm"
           role="alert"
+          aria-live="polite"
         >
         </div>
       </form>
@@ -274,46 +361,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
   <section class="bg-slate-50 py-14 sm:py-16">
     <div class="ac-container max-w-2xl">
-      <h2 class="mb-8 text-center text-xl ac-heading">
+      <h2 class="text-center text-xl ac-heading">
         {t(locale, 'pages.contact.otherMethodsHeading')}
       </h2>
+      <p class="mx-auto mt-2 mb-8 max-w-xl text-center text-sm text-slate-600">
+        {t(locale, 'pages.contact.directMethodsNote')}
+      </p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="phone" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodPhone')}
-          </h3>
-          <p class="text-sm text-slate-600 font-600">
-            <a
-              href={`tel:${SITE.phone.replace(/-/g, '')}`}
-              data-ga-event="contact_phone_click"
-              data-ga-label="contact_card_phone"
-              data-ga-location="contact_methods"
-              data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-              class="text-brand-500 hover:underline">{SITE.phone}</a
-            >
-          </p>
-        </div>
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="mail" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodEmail')}
-          </h3>
-          <p class="text-sm text-slate-600">
-            <a
-              href={`mailto:${SITE.email}`}
-              data-ga-event="contact_email_click"
-              data-ga-label="contact_card_email"
-              data-ga-location="contact_methods"
-              data-ga-destination={`mailto:${SITE.email}`}
-              class="text-brand-500 hover:underline">{SITE.email}</a
-            >
-          </p>
-        </div>
         <a
           href={SITE.line}
           target="_blank"
@@ -353,8 +407,146 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
         </a>
       </div>
+      <details
+        class="direct-contact-details mt-4 rounded-lg border border-slate-200 bg-white"
+        data-direct-contact
+        data-email-user={emailUser}
+        data-email-domain={emailDomain}
+        data-phone-parts={phoneParts.join('|')}
+      >
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-left"
+        >
+          <span class="flex items-center gap-3">
+            <span class="ac-icon-box shrink-0">
+              <Icon name="messages-square" class="text-lg" />
+            </span>
+            <span>
+              <span class="block font-700 text-slate-900">
+                {t(locale, 'pages.contact.directContactSummary')}
+              </span>
+              <span class="mt-1 block text-sm text-slate-600">
+                {t(locale, 'pages.contact.directContactLead')}
+              </span>
+            </span>
+          </span>
+          <Icon
+            name="chevron-down"
+            class="direct-contact-chevron shrink-0 text-lg text-slate-500 transition-transform"
+          />
+        </summary>
+        <div
+          class="grid grid-cols-1 gap-3 border-t border-slate-100 p-5 sm:grid-cols-2"
+        >
+          <a
+            href="#"
+            data-direct-email-link
+            data-ga-event="contact_email_click"
+            data-ga-label="contact_disclosure_email"
+            data-ga-location="contact_methods"
+            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
+          >
+            <span class="ac-icon-box shrink-0 bg-white">
+              <Icon name="mail" class="text-lg" />
+            </span>
+            <span>
+              <span class="block text-sm font-700 text-slate-900">
+                {t(locale, 'pages.contact.methodEmail')}
+              </span>
+              <span class="block text-sm text-brand-600" data-direct-email-value
+              ></span>
+            </span>
+          </a>
+          <a
+            href="#"
+            data-direct-phone-link
+            data-ga-event="contact_phone_click"
+            data-ga-label="contact_disclosure_phone"
+            data-ga-location="contact_methods"
+            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
+          >
+            <span class="ac-icon-box shrink-0 bg-white">
+              <Icon name="phone" class="text-lg" />
+            </span>
+            <span>
+              <span class="block text-sm font-700 text-slate-900">
+                {t(locale, 'pages.contact.methodPhone')}
+              </span>
+              <span class="block text-sm font-700 text-brand-600">
+                <span data-direct-phone-value></span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </details>
     </div>
   </section>
+
+  <style>
+    .direct-contact-details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .direct-contact-details[open] .direct-contact-chevron {
+      transform: rotate(180deg);
+    }
+  </style>
+
+  <script is:inline>
+    function initDirectContactDisclosure() {
+      document
+        .querySelectorAll('[data-direct-contact]')
+        .forEach(function (details) {
+          if (details.dataset.initialized === 'true') return
+          details.dataset.initialized = 'true'
+
+          function revealContact() {
+            if (details.dataset.revealed === 'true') return
+
+            const emailUser = details.dataset.emailUser || ''
+            const emailDomain = details.dataset.emailDomain || ''
+            const phoneParts = (details.dataset.phoneParts || '')
+              .split('|')
+              .filter(Boolean)
+            const phoneDigits = phoneParts.join('')
+            const phoneDisplay = phoneParts.join('-')
+
+            const email =
+              emailUser && emailDomain ? `${emailUser}@${emailDomain}` : ''
+            const emailLink = details.querySelector('[data-direct-email-link]')
+            const emailValue = details.querySelector(
+              '[data-direct-email-value]',
+            )
+            if (email && emailLink && emailValue) {
+              emailLink.href = `mailto:${email}`
+              emailLink.dataset.gaDestination = `mailto:${email}`
+              emailValue.textContent = email
+            }
+
+            const phoneLink = details.querySelector('[data-direct-phone-link]')
+            const phoneValue = details.querySelector(
+              '[data-direct-phone-value]',
+            )
+            if (phoneDigits && phoneDisplay && phoneLink && phoneValue) {
+              phoneLink.href = `tel:${phoneDigits}`
+              phoneLink.dataset.gaDestination = `tel:${phoneDigits}`
+              phoneValue.textContent = phoneDisplay
+            }
+
+            details.dataset.revealed = 'true'
+          }
+
+          details.addEventListener('toggle', function () {
+            if (details.open) revealContact()
+          })
+
+          if (details.open) revealContact()
+        })
+    }
+
+    document.addEventListener('astro:page-load', initDirectContactDisclosure)
+    initDirectContactDisclosure()
+  </script>
 
   <script is:inline>
     function initContactTurnstile() {
@@ -423,7 +615,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </script>
   <script is:inline>
     {
-      const contactForm = document.querySelector('form[action*="ssgform"]')
+      const contactForm = document.getElementById('contact-form')
       const vCat = contactForm?.getAttribute('data-t-validation-category') || ''
       const vName = contactForm?.getAttribute('data-t-validation-name') || ''
       const vEmail = contactForm?.getAttribute('data-t-validation-email') || ''
@@ -476,18 +668,48 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   </script>
   <script is:inline>
     {
-      const form = document.querySelector('form[action*="ssgform"]')
+      const form = document.getElementById('contact-form')
       if (form) {
+        const feedback = document.getElementById('form-feedback')
+        const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
+        const successText =
+          form.getAttribute('data-t-success') || 'Message sent.'
+        const successUrl =
+          form.getAttribute('data-success-url') || '/contact/thanks/'
+
+        function showFeedback(type, text) {
+          if (!feedback) return
+          feedback.textContent = text
+          feedback.className =
+            type === 'success'
+              ? 'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
+              : 'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200'
+        }
+
+        function resetTurnstile() {
+          const turnstileEl = document.getElementById('turnstile-widget')
+          const widgetId = turnstileEl?.dataset.widgetId
+          if (typeof turnstile !== 'undefined' && widgetId) {
+            turnstile.reset(widgetId)
+          }
+        }
+
+        const currentUrl = new URL(window.location.href)
+        const contactState = currentUrl.searchParams.get('contact')
+        if (contactState === 'sent') {
+          window.location.replace(successUrl)
+        } else if (contactState === 'error') {
+          showFeedback('error', errorText)
+          currentUrl.searchParams.delete('contact')
+          window.history.replaceState({}, '', currentUrl)
+        }
+
         form.addEventListener('submit', function (e) {
           e.preventDefault()
           const formData = new FormData(form)
           const btn = document.getElementById('contact-submit')
-          const feedback = document.getElementById('form-feedback')
+          if (!btn || !feedback) return
           const sendingText = form.getAttribute('data-t-sending') || 'Sending…'
-          const successText =
-            form.getAttribute('data-t-success') || 'Message sent.'
-          const errorText =
-            form.getAttribute('data-t-error') || 'Failed to send.'
           const originalText = btn.textContent
           btn.disabled = true
           btn.textContent = sendingText
@@ -496,35 +718,31 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             method: 'POST',
             body: formData,
           })
-            .then(function (res) {
-              if (res.ok) {
-                if (window.aceTrackEvent) {
-                  window.aceTrackEvent('generate_lead', {
-                    page_path: window.location.pathname,
-                    page_title: document.title,
-                    location: 'contact_form',
-                    contact_category: String(
-                      formData.get('お問い合わせ種別') || '',
-                    ),
-                  })
-                }
-                feedback.textContent = successText
-                feedback.className =
-                  'rounded-lg p-4 text-sm bg-emerald-50 text-emerald-800 border border-emerald-200'
-                form.reset()
-                const turnstileEl = document.getElementById('turnstile-widget')
-                const widgetId = turnstileEl?.dataset.widgetId
-                if (typeof turnstile !== 'undefined' && widgetId) {
-                  turnstile.reset(widgetId)
-                }
-              } else {
+            .then(async function (res) {
+              if (!res.ok) {
                 throw new Error('Failed')
+              }
+              if (window.aceTrackEvent) {
+                window.aceTrackEvent('generate_lead', {
+                  page_path: window.location.pathname,
+                  page_title: document.title,
+                  location: 'contact_form',
+                  contact_category: String(
+                    formData.get('お問い合わせ種別') || '',
+                  ),
+                })
+              }
+              if (successUrl) {
+                window.location.assign(successUrl)
+              } else {
+                showFeedback('success', successText)
+                form.reset()
+                resetTurnstile()
               }
             })
             .catch(function () {
-              feedback.textContent = errorText
-              feedback.className =
-                'rounded-lg p-4 text-sm bg-red-50 text-red-800 border border-red-200'
+              showFeedback('error', errorText)
+              resetTurnstile()
             })
             .finally(function () {
               btn.disabled = false

@@ -44,10 +44,7 @@ Through experiences like these, we aim to foster interest in making things and c
 
 ## Inquiries & Registration
 
-For inquiries about the event, please contact us through any of the following:
-
-- **Phone**: 050-8890-2788
-- **Email**: [info@acecore.net](mailto:info@acecore.net)
-- Inquiries via **LINE** are also welcome
+For event inquiries or registration, please use the [contact form](/contact/) or [official LINE](https://lin.ee/DjIrdqj).
+If you want to confirm something directly, starting with a short note in the form keeps the handoff clear.
 
 AceCore Schools plans to hold events regularly going forward. Check the [Schools page](/schools/) and blog for the latest information.
