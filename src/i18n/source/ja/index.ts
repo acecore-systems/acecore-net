@@ -1,4 +1,5 @@
 import blogTranslations from './blog.json'
+import campaignTranslations from './campaigns.json'
 import commonTranslations from './common.json'
 import legacyTagTranslations from './legacy-tags.json'
 import aboutPageTranslations from './pages/about.json'
@@ -12,6 +13,7 @@ import servicesPageTranslations from './pages/services.json'
 
 const jaTranslations = {
   ...commonTranslations,
+  ...campaignTranslations,
   blog: blogTranslations,
   pages: {
     home: homePageTranslations,

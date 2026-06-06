@@ -402,64 +402,20 @@ collections:
         label: 本文
         widget: richtext
 
-  - name: site_text
-    label: ページ・サイト文言
-    label_singular: ページ文言
-    icon: translate
-    description: ページや共通UIごとに日本語ソースを編集します。他言語は Copilot translation PR task で更新します。タグ表示名は「タグ」コレクションで編集します。
+  - name: campaigns
+    label: 告知・キャンペーン
+    label_singular: 告知設定
+    icon: campaign
+    description: トップ告知バナーとページ内キャンペーン通知を編集します。他言語は Copilot translation PR task で更新します。
     format: json
     files:
-      - name: 'common'
-        label: '共通UI・ナビ'
-        file: src/i18n/source/ja/common.json
+      - name: 'campaign_settings'
+        label: '告知・キャンペーン設定'
+        file: src/i18n/source/ja/campaigns.json
         format: json
         fields:
-          - name: 'meta'
-            label: 'メタ情報'
-            hint: 'meta'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'siteTitle'
-                label: 'Site Title'
-                hint: 'meta.siteTitle'
-                widget: string
-              - name: 'defaultDescription'
-                label: 'Default Description'
-                hint: 'meta.defaultDescription'
-                widget: string
-          - name: 'nav'
-            label: 'ナビゲーション'
-            hint: 'nav'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'home'
-                label: 'Home'
-                hint: 'nav.home'
-                widget: string
-              - name: 'services'
-                label: 'Services'
-                hint: 'nav.services'
-                widget: string
-              - name: 'works'
-                label: 'Works'
-                hint: 'nav.works'
-                widget: string
-              - name: 'about'
-                label: 'About'
-                hint: 'nav.about'
-                widget: string
-              - name: 'blog'
-                label: 'Blog'
-                hint: 'nav.blog'
-                widget: string
-              - name: 'contact'
-                label: 'Contact'
-                hint: 'nav.contact'
-                widget: string
           - name: 'announcement'
-            label: '告知バナー'
+            label: 'トップ告知バナー'
             hint: 'announcement'
             widget: object
             collapsed: false
@@ -506,7 +462,7 @@ collections:
                 options: [brand, amber, emerald, slate]
                 default: amber
           - name: 'campaignNotices'
-            label: 'キャンペーン通知'
+            label: 'ページ内キャンペーン通知'
             hint: 'campaignNotices / ページ内に配置する汎用キャンペーン・募集・残数表示'
             widget: list
             collapsed: true
@@ -587,6 +543,63 @@ collections:
                 widget: datetime
                 format: YYYY-MM-DDTHH:mm
                 required: false
+
+  - name: site_text
+    label: ページ・サイト文言
+    label_singular: ページ文言
+    icon: translate
+    description: ページや共通UIごとに日本語ソースを編集します。他言語は Copilot translation PR task で更新します。タグ表示名は「タグ」コレクションで編集します。
+    format: json
+    files:
+      - name: 'common'
+        label: '共通UI・ナビ'
+        file: src/i18n/source/ja/common.json
+        format: json
+        fields:
+          - name: 'meta'
+            label: 'メタ情報'
+            hint: 'meta'
+            widget: object
+            collapsed: true
+            fields:
+              - name: 'siteTitle'
+                label: 'Site Title'
+                hint: 'meta.siteTitle'
+                widget: string
+              - name: 'defaultDescription'
+                label: 'Default Description'
+                hint: 'meta.defaultDescription'
+                widget: string
+          - name: 'nav'
+            label: 'ナビゲーション'
+            hint: 'nav'
+            widget: object
+            collapsed: true
+            fields:
+              - name: 'home'
+                label: 'Home'
+                hint: 'nav.home'
+                widget: string
+              - name: 'services'
+                label: 'Services'
+                hint: 'nav.services'
+                widget: string
+              - name: 'works'
+                label: 'Works'
+                hint: 'nav.works'
+                widget: string
+              - name: 'about'
+                label: 'About'
+                hint: 'nav.about'
+                widget: string
+              - name: 'blog'
+                label: 'Blog'
+                hint: 'nav.blog'
+                widget: string
+              - name: 'contact'
+                label: 'Contact'
+                hint: 'nav.contact'
+                widget: string
           - name: 'common'
             label: '共通UI'
             hint: 'common'
