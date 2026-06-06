@@ -179,6 +179,31 @@ Cloudflare Pages 側で以下を設定してください。
 
 Cloudflare Turnstile はフォーム上に表示していますが、`ssgform.com` 利用中はサーバーサイド検証ではなく外部フォームサービス側の送信フローに委ねます。
 
+## ブログコメント
+
+記事詳細のコメントは Cloudflare Pages Function + D1 + Turnstile で実装しています。投稿は承認待ちにせず即時公開しますが、API 側で Turnstile サーバー検証、origin チェック、レート制限、URL・メールアドレス・HTML・宣伝語句の拒否を行います。
+
+Cloudflare Pages の Functions binding は `wrangler.jsonc` で管理します。
+
+- production: `COMMENTS_DB` -> `acecore-comments-production`
+- preview/local: `COMMENTS_DB` -> `acecore-comments-preview`
+
+Cloudflare Pages secret は以下を設定します。
+
+- `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile の secret key
+- `COMMENT_HASH_SALT`: IP/UA ハッシュ用 secret
+
+`wrangler.jsonc` では production/preview の `COMMENT_ALLOWED_HOSTNAMES` を `acecore.net,www.acecore.net,acecore-net.pages.dev` に明示しています。未設定時はコード側で `acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1` にフォールバックします。登録した hostname とその配下のサブドメインを許可するため、`acecore-net.pages.dev` で Git プレビュー URL も通ります。ほかの Pages プロジェクトで共用する場合は、そのプロジェクトの `<project>.pages.dev` を `COMMENT_ALLOWED_HOSTNAMES` に追加してください。
+
+D1 schema は `migrations/0001_create_blog_comments.sql` です。初回は D1 database を作成後、以下で適用します。
+
+```bash
+npx wrangler d1 execute acecore-comments-production --remote --file=./migrations/0001_create_blog_comments.sql
+npx wrangler d1 execute acecore-comments-preview --remote --file=./migrations/0001_create_blog_comments.sql
+```
+
+スパムなどを非表示にする場合は、対象レコードの `deleted_at` に ISO 8601 の日時を入れます。`deleted_at IS NULL` のコメントのみ表示されます。
+
 ## デプロイ
 
 Cloudflare Pages に接続し、以下を設定：
