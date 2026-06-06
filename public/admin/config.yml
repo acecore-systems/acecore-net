@@ -245,7 +245,11 @@ collections:
               - name: accent
                 label: アクセント
                 widget: select
-                options: [brand, emerald, amber, slate]
+                options:
+                  - { label: 'ブランド（通常）', value: brand }
+                  - { label: '受付中・成功（緑）', value: emerald }
+                  - { label: '募集・注意（黄）', value: amber }
+                  - { label: '控えめ（グレー）', value: slate }
                 required: false
       - name: compareTable
         label: 比較表
@@ -340,7 +344,11 @@ collections:
               - name: tone
                 label: トーン
                 widget: select
-                options: [brand, emerald, amber, slate]
+                options:
+                  - { label: 'ブランド（通常）', value: brand }
+                  - { label: '受付中・成功（緑）', value: emerald }
+                  - { label: '募集・注意（黄）', value: amber }
+                  - { label: '控えめ（グレー）', value: slate }
                 required: false
       - name: testimonials
         label: お客様の声
@@ -459,7 +467,11 @@ collections:
                 label: '表示トーン'
                 hint: 'announcement.tone'
                 widget: select
-                options: [brand, amber, emerald, slate]
+                options:
+                  - { label: 'ブランド（通常）', value: brand }
+                  - { label: '募集・注意（黄）', value: amber }
+                  - { label: '受付中・成功（緑）', value: emerald }
+                  - { label: '控えめ（グレー）', value: slate }
                 default: amber
           - name: 'campaignNotices'
             label: 'ページ内キャンペーン通知'
@@ -529,7 +541,11 @@ collections:
                 label: '表示トーン'
                 hint: 'campaignNotices[].tone'
                 widget: select
-                options: [brand, amber, emerald, slate]
+                options:
+                  - { label: 'ブランド（通常）', value: brand }
+                  - { label: '募集・注意（黄）', value: amber }
+                  - { label: '受付中・成功（緑）', value: emerald }
+                  - { label: '控えめ（グレー）', value: slate }
                 default: brand
               - name: 'startsAt'
                 label: '表示開始日時'
