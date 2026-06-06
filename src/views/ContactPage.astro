@@ -205,8 +205,47 @@ const faqLd = {
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
         data-success-url={contactThanksUrl}
+        data-service-category-value="サービスについて"
+        data-service-subject-template={t(
+          locale,
+          'pages.contact.serviceSubjectTemplate',
+        )}
+        data-service-target-system-development={t(
+          locale,
+          'pages.services.systemDev.title',
+        )}
+        data-service-target-server={t(locale, 'pages.services.server.title')}
+        data-service-target-web={t(locale, 'pages.services.web.title')}
+        data-service-target-design={t(locale, 'pages.services.design.title')}
+        data-service-target-education={t(
+          locale,
+          'pages.services.education.title',
+        )}
+        data-service-target-aceserver={t(
+          locale,
+          'pages.services.aceserver.title',
+        )}
+        data-service-target-acestudio={t(
+          locale,
+          'pages.services.acestudio.title',
+        )}
       >
         <input type="hidden" name="locale" value={locale} />
+        <input type="hidden" id="service-target" name="相談対象サービス" />
+        <div
+          id="service-target-note"
+          class="hidden rounded-lg border border-brand-100 bg-brand-50 p-4 text-sm text-slate-700"
+        >
+          <div class="flex items-start gap-2">
+            <Icon name="tag" class="mt-0.5 shrink-0 text-brand-500" />
+            <p>
+              <span class="font-700 text-slate-900">
+                {t(locale, 'pages.contact.serviceTargetNoteLabel')}
+              </span>
+              <span data-service-target-label></span>
+            </p>
+          </div>
+        </div>
         <div>
           <label
             for="category"
@@ -612,6 +651,62 @@ const faqLd = {
 
     document.addEventListener('astro:page-load', initContactTurnstile)
     initContactTurnstile()
+  </script>
+  <script is:inline>
+    function initContactServicePrefill() {
+      const form = document.getElementById('contact-form')
+      if (!form || form.dataset.servicePrefillInitialized === 'true') return
+
+      form.dataset.servicePrefillInitialized = 'true'
+
+      const url = new URL(window.location.href)
+      const requestedCategory = url.searchParams.get('category')
+      const requestedService = url.searchParams.get('service') || ''
+      const serviceTargets = {
+        'system-development': form.dataset.serviceTargetSystemDevelopment || '',
+        server: form.dataset.serviceTargetServer || '',
+        web: form.dataset.serviceTargetWeb || '',
+        design: form.dataset.serviceTargetDesign || '',
+        education: form.dataset.serviceTargetEducation || '',
+        aceserver: form.dataset.serviceTargetAceserver || '',
+        acestudio: form.dataset.serviceTargetAcestudio || '',
+      }
+      const serviceName = serviceTargets[requestedService] || ''
+      const category = document.getElementById('category')
+      const subject = document.getElementById('subject')
+      const serviceTarget = document.getElementById('service-target')
+      const note = document.getElementById('service-target-note')
+      const noteLabel = note?.querySelector('[data-service-target-label]')
+
+      if (
+        (requestedCategory === 'service' || serviceName) &&
+        category instanceof HTMLSelectElement
+      ) {
+        category.value = form.dataset.serviceCategoryValue || 'サービスについて'
+        category.dispatchEvent(new Event('input', { bubbles: true }))
+      }
+
+      if (serviceName) {
+        if (serviceTarget instanceof HTMLInputElement) {
+          serviceTarget.value = serviceName
+        }
+        if (subject instanceof HTMLInputElement && !subject.value.trim()) {
+          const template = form.dataset.serviceSubjectTemplate || '{service}'
+          subject.value = template.replace('{service}', serviceName)
+        }
+        if (noteLabel) noteLabel.textContent = serviceName
+        note?.classList.remove('hidden')
+      }
+
+      if (window.location.hash === '#contact-form') {
+        window.requestAnimationFrame(function () {
+          form.scrollIntoView({ block: 'start' })
+        })
+      }
+    }
+
+    document.addEventListener('astro:page-load', initContactServicePrefill)
+    initContactServicePrefill()
   </script>
   <script is:inline>
     {

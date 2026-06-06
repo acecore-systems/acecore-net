@@ -223,6 +223,8 @@
       "formMessageLabel": "Сообщение",
       "formSubmit": "Отправить",
       "formSubmitNote": "После отправки вы получите подтверждение по электронной почте. Если оно не пришло, проверьте папку спама.",
+      "serviceTargetNoteLabel": "Выбранная услуга: ",
+      "serviceSubjectTemplate": "О {service}",
       "formFaqHeading": "Перед отправкой можно проверить частые вопросы и связанную информацию.",
       "otherMethodsHeading": "Короткая связь помимо формы",
       "methodPhone": "Телефон",

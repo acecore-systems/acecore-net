@@ -42,6 +42,8 @@
   "formSuccess": "お問い合わせを送信しました。確認メールをご確認ください。",
   "formError": "送信に失敗しました。時間をおいて再度お試しいただくか、下部の連絡手段をご確認ください。",
   "formSubmitNote": "送信後、確認メールが届きます。届かない場合は迷惑メールフォルダもご確認ください。",
+  "serviceTargetNoteLabel": "相談対象サービス：",
+  "serviceSubjectTemplate": "{service}について",
   "formFaqHeading": "お問い合わせ前によくある質問・関連情報を確認できます",
   "otherMethodsHeading": "フォーム以外の軽い連絡",
   "directMethodsNote": "短い相談や教室関連はLINE、SNSでの簡単な確認はXも使えます。詳しい内容はフォームから送ると整理して確認できます。",

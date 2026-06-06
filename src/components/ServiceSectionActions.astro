@@ -7,12 +7,13 @@ interface Props {
   locale: Locale
   gaLabel: string
   gaLocation: string
+  serviceKey: string
   workLink?: ServiceWorkLink
 }
 
-const { locale, gaLabel, gaLocation, workLink } = Astro.props
+const { locale, gaLabel, gaLocation, serviceKey, workLink } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const contactUrl = u('/contact/')
+const contactUrl = `${u('/contact/')}?category=service&service=${encodeURIComponent(serviceKey)}#contact-form`
 ---
 
 <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">

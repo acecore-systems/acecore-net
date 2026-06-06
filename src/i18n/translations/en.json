@@ -385,6 +385,8 @@
       "formSuccess": "Your inquiry has been sent. Please check your confirmation email.",
       "formError": "Failed to send. Please try again later or check the contact options below.",
       "formSubmitNote": "You will receive a confirmation email after submission. If you don't receive it, please check your spam folder.",
+      "serviceTargetNoteLabel": "Selected service: ",
+      "serviceSubjectTemplate": "About {service}",
       "formFaqHeading": "You can check common questions and related information before sending.",
       "otherMethodsHeading": "Light Contact Options",
       "methodPhone": "Phone",

@@ -223,6 +223,8 @@
       "formMessageLabel": "Message",
       "formSubmit": "Envoyer",
       "formSubmitNote": "Vous recevrez un e-mail de confirmation après l'envoi. Si vous ne le recevez pas, vérifiez votre dossier spam.",
+      "serviceTargetNoteLabel": "Service sélectionné : ",
+      "serviceSubjectTemplate": "À propos de {service}",
       "formFaqHeading": "Vous pouvez consulter les questions fréquentes et les informations liées avant l'envoi.",
       "otherMethodsHeading": "Contacts légers hors formulaire",
       "methodPhone": "Téléphone",

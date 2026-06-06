@@ -223,6 +223,8 @@
       "formMessageLabel": "咨询内容",
       "formSubmit": "发送",
       "formSubmitNote": "提交后将收到确认邮件。如未收到，请检查垃圾邮件文件夹。",
+      "serviceTargetNoteLabel": "已选择的服务：",
+      "serviceSubjectTemplate": "关于{service}",
       "formFaqHeading": "发送前可以查看常见问题和相关信息。",
       "otherMethodsHeading": "表单以外的轻量联系",
       "methodPhone": "电话",
