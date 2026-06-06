@@ -3,51 +3,114 @@
   "name": "Gui",
   "avatar": "",
   "avatarImage": "",
-  "bio": "Acecore 代表。システム開発・Web制作・インフラ運用からIT教育まで幅広く手がけるエンジニア。\n技術で人と組織の課題を解きほぐすのが好き。",
+  "bio": "Acecore 代表。Webサイト制作、Astro/Cloudflare Pages を使った静的サイト構築、業務システム開発、インフラ運用、IT教育を横断して担当するエンジニア。\n要件整理から設計・実装・公開後の改善まで一貫して関わり、技術と運用の両面から人と組織の課題を解きほぐすことを大切にしている。",
   "url": "https://acecore.net/about/",
   "github": "https://github.com/acecore-systems",
   "twitter": "https://x.com/acecorenet",
-  "skills": ["システム開発", "Web制作", "インフラ運用", "IT教育"],
+  "skills": [
+    "システム開発",
+    "Web制作",
+    "Astro/Cloudflare",
+    "インフラ運用",
+    "AI活用支援",
+    "IT教育"
+  ],
   "i18n": {
     "en": {
       "name": "Gui",
-      "bio": "CEO of Acecore. A versatile engineer covering system development, web production, infrastructure operations, and IT education.\nEnjoys solving organizational and human challenges through technology.",
-      "skills": ["System development", "Web production", "Infrastructure operations", "IT education"]
+      "bio": "CEO of Acecore. An engineer working across website production, static site development with Astro and Cloudflare Pages, business system development, infrastructure operations, and IT education.\nInvolved from requirements and design through implementation and post-launch improvement, with a focus on solving human and organizational challenges from both technical and operational perspectives.",
+      "skills": [
+        "System development",
+        "Web production",
+        "Astro/Cloudflare",
+        "Infrastructure operations",
+        "AI enablement",
+        "IT education"
+      ]
     },
     "zh-cn": {
       "name": "Gui",
-      "bio": "Acecore 代表。从系统开发、Web制作、基础设施运维到IT教育，涉猎广泛的工程师。\n喜欢用技术解决人和组织的课题。",
-      "skills": ["系统开发", "Web制作", "基础设施运维", "IT教育"]
+      "bio": "Acecore 代表。负责 Web 制作、使用 Astro 与 Cloudflare Pages 的静态站点构建、业务系统开发、基础设施运维以及 IT 教育等多个领域的工程师。\n从需求整理、设计、实现到上线后的持续改进都会参与，重视从技术和运营两个角度解决人和组织面临的问题。",
+      "skills": [
+        "系统开发",
+        "Web制作",
+        "Astro/Cloudflare",
+        "基础设施运维",
+        "AI应用支持",
+        "IT教育"
+      ]
     },
     "es": {
       "name": "Gui",
-      "bio": "CEO de Acecore. Un ingeniero versátil que abarca desarrollo de sistemas, producción web, operaciones de infraestructura y educación en TI.\nDisfruta resolviendo desafíos organizacionales y humanos a través de la tecnología.",
-      "skills": ["Desarrollo de sistemas", "Producción web", "Operaciones de infraestructura", "Educación en TI"]
+      "bio": "CEO de Acecore. Ingeniero que trabaja en producción web, creación de sitios estáticos con Astro y Cloudflare Pages, desarrollo de sistemas empresariales, operaciones de infraestructura y educación en TI.\nParticipa desde la definición de requisitos y el diseño hasta la implementación y la mejora posterior al lanzamiento, con foco en resolver desafíos humanos y organizacionales desde la tecnología y la operación.",
+      "skills": [
+        "Desarrollo de sistemas",
+        "Producción web",
+        "Astro/Cloudflare",
+        "Operaciones de infraestructura",
+        "Uso de IA",
+        "Educación en TI"
+      ]
     },
     "pt": {
       "name": "Gui",
-      "bio": "CEO da Acecore. Engenheiro versátil que trabalha com desenvolvimento de sistemas, produção web, operações de infraestrutura e educação em TI.\nGosta de resolver desafios organizacionais e humanos por meio da tecnologia.",
-      "skills": ["Desenvolvimento de sistemas", "Produção web", "Operações de infraestrutura", "Educação em TI"]
+      "bio": "CEO da Acecore. Engenheiro que atua em produção web, criação de sites estáticos com Astro e Cloudflare Pages, desenvolvimento de sistemas de negócio, operações de infraestrutura e educação em TI.\nParticipa desde o levantamento de requisitos e o design até a implementação e a melhoria pós-lançamento, com foco em resolver desafios humanos e organizacionais pelos lados técnico e operacional.",
+      "skills": [
+        "Desenvolvimento de sistemas",
+        "Produção web",
+        "Astro/Cloudflare",
+        "Operações de infraestrutura",
+        "Uso de IA",
+        "Educação em TI"
+      ]
     },
     "fr": {
       "name": "Gui",
-      "bio": "PDG d'Acecore. Ingénieur polyvalent couvrant le développement de systèmes, la production web, les opérations d'infrastructure et l'enseignement informatique.\nAime résoudre les défis organisationnels et humains grâce à la technologie.",
-      "skills": ["Développement de systèmes", "Production web", "Opérations d'infrastructure", "Enseignement informatique"]
+      "bio": "PDG d'Acecore. Ingénieur intervenant sur la production web, la création de sites statiques avec Astro et Cloudflare Pages, le développement de systèmes métier, les opérations d'infrastructure et l'enseignement informatique.\nParticipe de la clarification des besoins et de la conception jusqu'à la mise en œuvre et l'amélioration après lancement, avec l'objectif de résoudre les défis humains et organisationnels par la technique et l'exploitation.",
+      "skills": [
+        "Développement de systèmes",
+        "Production web",
+        "Astro/Cloudflare",
+        "Opérations d'infrastructure",
+        "Usage de l'IA",
+        "Enseignement informatique"
+      ]
     },
     "ko": {
       "name": "Gui",
-      "bio": "Acecore 대표. 시스템 개발, 웹 제작, 인프라 운영부터 IT 교육까지 폭넓게 다루는 엔지니어.\n기술로 사람과 조직의 과제를 풀어가는 것을 좋아합니다.",
-      "skills": ["시스템 개발", "웹 제작", "인프라 운영", "IT 교육"]
+      "bio": "Acecore 대표. 웹 제작, Astro/Cloudflare Pages 기반 정적 사이트 구축, 업무 시스템 개발, 인프라 운영, IT 교육을 폭넓게 담당하는 엔지니어입니다.\n요구사항 정리와 설계부터 구현, 공개 이후 개선까지 함께하며 기술과 운영 양쪽에서 사람과 조직의 과제를 풀어가는 것을 중요하게 생각합니다.",
+      "skills": [
+        "시스템 개발",
+        "웹 제작",
+        "Astro/Cloudflare",
+        "인프라 운영",
+        "AI 활용 지원",
+        "IT 교육"
+      ]
     },
     "de": {
       "name": "Gui",
-      "bio": "CEO von Acecore. Ein vielseitiger Ingenieur, der Systementwicklung, Webproduktion, Infrastrukturbetrieb und IT-Bildung abdeckt.\nLöst gerne organisatorische und menschliche Herausforderungen durch Technologie.",
-      "skills": ["Systementwicklung", "Webproduktion", "Infrastrukturbetrieb", "IT-Bildung"]
+      "bio": "CEO von Acecore. Ingenieur mit Schwerpunkt auf Webproduktion, statischen Websites mit Astro und Cloudflare Pages, Entwicklung von Geschäftssystemen, Infrastrukturbetrieb und IT-Bildung.\nBegleitet Projekte von Anforderungen und Design bis zur Umsetzung und Verbesserung nach dem Launch und löst menschliche sowie organisatorische Herausforderungen aus technischer und betrieblicher Perspektive.",
+      "skills": [
+        "Systementwicklung",
+        "Webproduktion",
+        "Astro/Cloudflare",
+        "Infrastrukturbetrieb",
+        "KI-Nutzung",
+        "IT-Bildung"
+      ]
     },
     "ru": {
       "name": "Gui",
-      "bio": "Генеральный директор Acecore. Универсальный инженер, охватывающий разработку систем, веб-производство, управление инфраструктурой и IT-образование.\nЛюбит решать организационные и человеческие задачи с помощью технологий.",
-      "skills": ["Разработка систем", "Веб-производство", "Управление инфраструктурой", "IT-образование"]
+      "bio": "Генеральный директор Acecore. Инженер, работающий с веб-производством, статическими сайтами на Astro и Cloudflare Pages, разработкой бизнес-систем, эксплуатацией инфраструктуры и IT-образованием.\nУчаствует в проектах от уточнения требований и проектирования до реализации и улучшений после запуска, помогая решать человеческие и организационные задачи с технической и операционной стороны.",
+      "skills": [
+        "Разработка систем",
+        "Веб-производство",
+        "Astro/Cloudflare",
+        "Эксплуатация инфраструктуры",
+        "Использование ИИ",
+        "IT-образование"
+      ]
     }
   }
 }
