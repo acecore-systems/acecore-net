@@ -39,7 +39,217 @@ const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
 
-const ACECORE_CONTEXT = `
+const SUPPORTED_LOCALES = [
+  'ja',
+  'en',
+  'zh-cn',
+  'es',
+  'pt',
+  'fr',
+  'ko',
+  'de',
+  'ru',
+] as const
+
+type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
+
+type LocaleSettings = {
+  languageName: string
+  contactFormLabel: string
+  lineLabel: string
+  emailLabel: string
+  phoneLabel: string
+  messages: {
+    unconfigured: string
+    invalidRequest: string
+    required: string
+    questionTooLong: string
+    conversationTooLong: string
+    failed: string
+    emptyAnswer: string
+  }
+}
+
+const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
+  ja: {
+    languageName: 'Japanese',
+    contactFormLabel: '問い合わせフォーム',
+    lineLabel: 'LINE',
+    emailLabel: 'メール',
+    phoneLabel: '電話',
+    messages: {
+      unconfigured:
+        'AIチャットはまだ設定されていません。問い合わせフォームをご利用ください。',
+      invalidRequest: 'リクエスト形式が正しくありません。',
+      required: '質問を入力してください。',
+      questionTooLong: '質問が長すぎます。短く分けて入力してください。',
+      conversationTooLong:
+        '会話が長くなっています。質問を短く整理してください。',
+      failed:
+        'AIチャットで回答できませんでした。問い合わせフォームをご利用ください。',
+      emptyAnswer: 'この内容は問い合わせフォームからご相談ください。',
+    },
+  },
+  en: {
+    languageName: 'English',
+    contactFormLabel: 'contact form',
+    lineLabel: 'LINE',
+    emailLabel: 'email',
+    phoneLabel: 'phone',
+    messages: {
+      unconfigured:
+        'AI chat is not configured yet. Please use the contact form.',
+      invalidRequest: 'Invalid request body.',
+      required: 'Please enter a question.',
+      questionTooLong:
+        'The question is too long. Please split it into shorter messages.',
+      conversationTooLong:
+        'The conversation is too long. Please summarize your question.',
+      failed: 'AI chat failed. Please use the contact form.',
+      emptyAnswer: 'Please use the contact form for this question.',
+    },
+  },
+  'zh-cn': {
+    languageName: 'Simplified Chinese',
+    contactFormLabel: '咨询表单',
+    lineLabel: 'LINE',
+    emailLabel: '邮件',
+    phoneLabel: '电话',
+    messages: {
+      unconfigured: 'AI 聊天尚未设置。请使用咨询表单。',
+      invalidRequest: '请求格式不正确。',
+      required: '请输入问题。',
+      questionTooLong: '问题过长。请分成较短的内容发送。',
+      conversationTooLong: '对话过长。请简要整理您的问题。',
+      failed: 'AI 聊天无法回答。请使用咨询表单。',
+      emptyAnswer: '此问题请通过咨询表单联系我们。',
+    },
+  },
+  es: {
+    languageName: 'Spanish',
+    contactFormLabel: 'formulario de contacto',
+    lineLabel: 'LINE',
+    emailLabel: 'correo',
+    phoneLabel: 'teléfono',
+    messages: {
+      unconfigured:
+        'El chat de IA aún no está configurado. Utiliza el formulario de contacto.',
+      invalidRequest: 'El formato de la solicitud no es válido.',
+      required: 'Escribe una pregunta.',
+      questionTooLong:
+        'La pregunta es demasiado larga. Divídela en mensajes más cortos.',
+      conversationTooLong:
+        'La conversación es demasiado larga. Resume tu consulta.',
+      failed:
+        'El chat de IA no pudo responder. Utiliza el formulario de contacto.',
+      emptyAnswer: 'Para esta consulta, utiliza el formulario de contacto.',
+    },
+  },
+  pt: {
+    languageName: 'Portuguese',
+    contactFormLabel: 'formulário de contato',
+    lineLabel: 'LINE',
+    emailLabel: 'e-mail',
+    phoneLabel: 'telefone',
+    messages: {
+      unconfigured:
+        'O chat de IA ainda não está configurado. Use o formulário de contato.',
+      invalidRequest: 'O formato da solicitação é inválido.',
+      required: 'Digite uma pergunta.',
+      questionTooLong:
+        'A pergunta está longa demais. Divida em mensagens menores.',
+      conversationTooLong: 'A conversa está longa demais. Resuma sua pergunta.',
+      failed:
+        'O chat de IA não conseguiu responder. Use o formulário de contato.',
+      emptyAnswer: 'Para esta pergunta, use o formulário de contato.',
+    },
+  },
+  fr: {
+    languageName: 'French',
+    contactFormLabel: 'formulaire de contact',
+    lineLabel: 'LINE',
+    emailLabel: 'e-mail',
+    phoneLabel: 'téléphone',
+    messages: {
+      unconfigured:
+        "Le chat IA n'est pas encore configuré. Veuillez utiliser le formulaire de contact.",
+      invalidRequest: 'Le format de la requête est invalide.',
+      required: 'Veuillez saisir une question.',
+      questionTooLong:
+        'La question est trop longue. Divisez-la en messages plus courts.',
+      conversationTooLong:
+        'La conversation est trop longue. Résumez votre question.',
+      failed:
+        "Le chat IA n'a pas pu répondre. Veuillez utiliser le formulaire de contact.",
+      emptyAnswer:
+        'Pour cette question, veuillez utiliser le formulaire de contact.',
+    },
+  },
+  ko: {
+    languageName: 'Korean',
+    contactFormLabel: '문의 양식',
+    lineLabel: 'LINE',
+    emailLabel: '이메일',
+    phoneLabel: '전화',
+    messages: {
+      unconfigured:
+        'AI 채팅이 아직 설정되어 있지 않습니다. 문의 양식을 이용해 주세요.',
+      invalidRequest: '요청 형식이 올바르지 않습니다.',
+      required: '질문을 입력해 주세요.',
+      questionTooLong: '질문이 너무 깁니다. 짧게 나누어 입력해 주세요.',
+      conversationTooLong:
+        '대화가 너무 길어졌습니다. 질문을 짧게 정리해 주세요.',
+      failed: 'AI 채팅에서 답변할 수 없습니다. 문의 양식을 이용해 주세요.',
+      emptyAnswer: '이 내용은 문의 양식으로 상담해 주세요.',
+    },
+  },
+  de: {
+    languageName: 'German',
+    contactFormLabel: 'Kontaktformular',
+    lineLabel: 'LINE',
+    emailLabel: 'E-Mail',
+    phoneLabel: 'Telefon',
+    messages: {
+      unconfigured:
+        'Der KI-Chat ist noch nicht eingerichtet. Bitte nutzen Sie das Kontaktformular.',
+      invalidRequest: 'Das Anfrageformat ist ungültig.',
+      required: 'Bitte geben Sie eine Frage ein.',
+      questionTooLong:
+        'Die Frage ist zu lang. Bitte teilen Sie sie in kürzere Nachrichten auf.',
+      conversationTooLong:
+        'Der Verlauf ist zu lang. Bitte fassen Sie Ihre Frage zusammen.',
+      failed:
+        'Der KI-Chat konnte nicht antworten. Bitte nutzen Sie das Kontaktformular.',
+      emptyAnswer: 'Bitte nutzen Sie für diese Frage das Kontaktformular.',
+    },
+  },
+  ru: {
+    languageName: 'Russian',
+    contactFormLabel: 'форма обратной связи',
+    lineLabel: 'LINE',
+    emailLabel: 'email',
+    phoneLabel: 'телефон',
+    messages: {
+      unconfigured:
+        'AI-чат еще не настроен. Пожалуйста, используйте форму обратной связи.',
+      invalidRequest: 'Неверный формат запроса.',
+      required: 'Введите вопрос.',
+      questionTooLong:
+        'Вопрос слишком длинный. Разделите его на более короткие сообщения.',
+      conversationTooLong:
+        'Диалог слишком длинный. Кратко сформулируйте вопрос.',
+      failed:
+        'AI-чат не смог ответить. Пожалуйста, используйте форму обратной связи.',
+      emptyAnswer: 'По этому вопросу воспользуйтесь формой обратной связи.',
+    },
+  },
+}
+
+function buildAcecoreContext(locale: SupportedLocale): string {
+  const settings = LOCALE_SETTINGS[locale]
+  const servicesPath = localizedPath('/services/', locale)
+
+  return `
 Acecore public site context:
 - Acecore is a Japan-based technology collective that provides system development, website design, server operations, design, and IT education as a one-stop solution.
 - Services include business system and app development, server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
@@ -47,61 +257,79 @@ Acecore public site context:
 - Aceserver is Acecore's public Minecraft server community.
 - Estimates are free, and replies usually arrive within 1-2 business days.
 - LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
-- Useful site links:
-  - Services overview: /services/
-  - Business system and app development: /services/#system-development
-  - Server setup and operations: /services/#server
-  - Website design and maintenance: /services/#web
-  - Design and creative production: /services/#design
-  - Acecore Schools and IT education: /schools/
-  - Aceserver: /services/#aceserver
-  - AceStudio: /acestudio/
-  - Works and case studies: /works/
-  - Blog: /blog/
-  - Contact form: /contact/
+- Useful site links for the visitor locale. Use these exact internal URLs:
+  - Services overview: ${servicesPath}
+  - Business system and app development: ${servicesPath}#system-development
+  - Server setup and operations: ${servicesPath}#server
+  - Website design and maintenance: ${servicesPath}#web
+  - Design and creative production: ${servicesPath}#design
+  - Acecore Schools and IT education: ${localizedPath('/schools/', locale)}
+  - Aceserver: ${servicesPath}#aceserver
+  - AceStudio: ${localizedPath('/acestudio/', locale)}
+  - Works and case studies: ${localizedPath('/works/', locale)}
+  - Blog: ${localizedPath('/blog/', locale)}
+  - Contact form: ${localizedPath('/contact/', locale)}
   - Official LINE: https://lin.ee/DjIrdqj
   - Direct email fallback: mailto:info@acecore.net
   - Direct phone fallback: tel:05088902788
+- Localized contact labels:
+  - Contact form: ${settings.contactFormLabel}
+  - LINE: ${settings.lineLabel}
+  - Email: ${settings.emailLabel}
+  - Phone: ${settings.phoneLabel}
 - Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first.
 - Do not show email or phone by default. Include direct email or phone links only when the visitor asks for direct contact, says the AI did not resolve the issue, cannot use the form, or needs urgent confirmation.
 `
+}
 
 export const onRequestPost = async ({
   request,
   env,
 }: PagesContext): Promise<Response> => {
-  if (!env.OPENAI_API_KEY) {
-    return jsonResponse(
-      {
-        ok: false,
-        answer:
-          'AI assistant is not configured yet. Please use the contact form.',
-      },
-      503,
-    )
-  }
-
   let payload: AiContactPayload
   try {
     payload = (await request.json()) as AiContactPayload
   } catch {
-    return jsonResponse({ ok: false, answer: 'Invalid request body.' }, 400)
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
+      400,
+    )
   }
 
   const question = String(payload.question || '').trim()
-  const locale = String(payload.locale || 'ja').slice(0, 16)
+  const locale = normalizeLocale(payload.locale)
+  const localeSettings = LOCALE_SETTINGS[locale]
   const conversationInput = buildConversationInput(payload)
 
+  if (!env.OPENAI_API_KEY) {
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
+      503,
+    )
+  }
+
   if (!conversationInput) {
-    return jsonResponse({ ok: false, answer: 'Question is required.' }, 400)
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage(locale, 'required') },
+      400,
+    )
   }
 
   if (question.length > MAX_QUESTION_LENGTH) {
-    return jsonResponse({ ok: false, answer: 'Question is too long.' }, 400)
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage(locale, 'questionTooLong') },
+      400,
+    )
   }
 
   if (conversationInput.length > MAX_CONVERSATION_LENGTH) {
-    return jsonResponse({ ok: false, answer: 'Conversation is too long.' }, 400)
+    return jsonResponse(
+      {
+        ok: false,
+        answer: getLocalizedMessage(locale, 'conversationTooLong'),
+      },
+      400,
+    )
   }
 
   const response = await fetch(OPENAI_RESPONSES_ENDPOINT, {
@@ -114,14 +342,15 @@ export const onRequestPost = async ({
       model: env.OPENAI_MODEL || DEFAULT_MODEL,
       instructions: [
         'You are Acecore website chat assistant.',
-        'Answer in the visitor locale.',
+        `Answer in ${localeSettings.languageName}. The visitor locale code is ${locale}.`,
         'Answer ordinary questions about Acecore using the public site context below.',
         'Keep answers concise, practical, and helpful for choosing the next action.',
+        'Use the localized Acecore paths listed in the context exactly for internal links. Do not replace them with default-language URLs.',
         'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-        'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [メール](mailto:info@acecore.net) or [電話](tel:05088902788) only when appropriate.',
-        ACECORE_CONTEXT,
+        `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
+        buildAcecoreContext(locale),
       ].join('\n'),
       input: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
       max_output_tokens: 360,
@@ -136,9 +365,7 @@ export const onRequestPost = async ({
     return jsonResponse(
       {
         ok: false,
-        answer:
-          result?.error?.message ||
-          'AI assistant failed. Please use the contact form.',
+        answer: getLocalizedMessage(locale, 'failed'),
       },
       response.status,
     )
@@ -147,7 +374,7 @@ export const onRequestPost = async ({
   const answer = extractOutputText(result).trim()
   return jsonResponse({
     ok: true,
-    answer: answer || 'Please use the contact form for this question.',
+    answer: answer || getLocalizedMessage(locale, 'emptyAnswer'),
   })
 }
 
@@ -160,6 +387,29 @@ export const onRequestOptions = (): Response =>
       'Access-Control-Allow-Headers': 'Accept, Content-Type',
     },
   })
+
+function normalizeLocale(value: unknown): SupportedLocale {
+  const locale = String(value || 'ja')
+    .trim()
+    .toLowerCase()
+    .slice(0, 16)
+
+  return (SUPPORTED_LOCALES as readonly string[]).includes(locale)
+    ? (locale as SupportedLocale)
+    : 'ja'
+}
+
+function localizedPath(path: string, locale: SupportedLocale): string {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return locale === 'ja' ? normalizedPath : `/${locale}${normalizedPath}`
+}
+
+function getLocalizedMessage(
+  locale: SupportedLocale,
+  key: keyof LocaleSettings['messages'],
+): string {
+  return LOCALE_SETTINGS[locale].messages[key]
+}
 
 function extractOutputText(result: OpenAIResponse | null): string {
   if (!result) return ''
