@@ -25,6 +25,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import ShareButtons from '../components/ShareButtons.astro'
 import CopyCodeButton from '../components/CopyCodeButton.astro'
+import BlogComments from '../components/BlogComments.astro'
 import {
   t,
   getLocalizedUrl,
@@ -398,6 +399,8 @@ const ctaHeading = isDefaultLocale
             locale={locale}
           />
         </div>
+
+        <BlogComments locale={locale} slug={baseSlug} />
 
         {
           author && (
