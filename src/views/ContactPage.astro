@@ -20,43 +20,43 @@ const phoneParts = SITE.phone.split('-')
 const serviceCategoryOptions = [
   {
     key: 'system-development',
-    value: 'サービスについて（業務システム・アプリ開発）',
+    value: '業務システム・アプリ開発について',
     label: t(locale, 'pages.contact.formCategoryServiceSystemDev'),
     subject: t(locale, 'pages.services.systemDev.title'),
   },
   {
     key: 'server',
-    value: 'サービスについて（サーバー構築・運用）',
+    value: 'サーバー構築・運用について',
     label: t(locale, 'pages.contact.formCategoryServiceServer'),
     subject: t(locale, 'pages.services.server.title'),
   },
   {
     key: 'web',
-    value: 'サービスについて（Webサイト制作・運用）',
+    value: 'Webサイト制作・運用について',
     label: t(locale, 'pages.contact.formCategoryServiceWeb'),
     subject: t(locale, 'pages.services.web.title'),
   },
   {
     key: 'design',
-    value: 'サービスについて（デザイン・クリエイティブ）',
+    value: 'デザイン・クリエイティブについて',
     label: t(locale, 'pages.contact.formCategoryServiceDesign'),
     subject: t(locale, 'pages.services.design.title'),
   },
   {
     key: 'education',
-    value: 'サービスについて（ITスクール / Acecore Schools）',
+    value: 'ITスクール / Acecore Schoolsについて',
     label: t(locale, 'pages.contact.formCategoryServiceEducation'),
     subject: t(locale, 'pages.services.education.title'),
   },
   {
     key: 'aceserver',
-    value: 'サービスについて（Aceserver）',
+    value: 'Aceserverについて',
     label: t(locale, 'pages.contact.formCategoryServiceAceserver'),
     subject: t(locale, 'pages.services.aceserver.title'),
   },
   {
     key: 'acestudio',
-    value: 'サービスについて（AceStudio）',
+    value: 'AceStudioについて',
     label: t(locale, 'pages.contact.formCategoryServiceAcestudio'),
     subject: t(locale, 'pages.services.acestudio.title'),
   },
@@ -274,7 +274,7 @@ const faqLd = {
             <option value="" disabled selected
               >{t(locale, 'pages.contact.formCategoryPlaceholder')}</option
             >
-            <option value="サービスについて"
+            <option value="サービス全般について"
               >{t(locale, 'pages.contact.formCategoryService')}</option
             >
             {
@@ -695,7 +695,7 @@ const faqLd = {
           },
         )
 
-        category.value = serviceOption?.value || 'サービスについて'
+        category.value = serviceOption?.value || 'サービス全般について'
         category.dispatchEvent(new Event('input', { bubbles: true }))
         category.dispatchEvent(new Event('change', { bubbles: true }))
         if (
