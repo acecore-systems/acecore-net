@@ -17,6 +17,7 @@ type CampaignEntry = {
   id: string
   type: CampaignEntryType
   adminTitle?: string
+  page?: string
   placement?: string
   enabled?: boolean
   eyebrow?: string
@@ -44,6 +45,19 @@ const campaignEntries = Object.values(campaignEntryModules).sort(
   (a, b) =>
     (a.order ?? 100) - (b.order ?? 100) || a.id.localeCompare(b.id, 'ja'),
 )
+
+const pageNoticePlacements: Record<string, string> = {
+  home: 'home-after-hero',
+  services: 'services-after-hero',
+  works: 'works-after-hero',
+  about: 'about-after-hero',
+  contact: 'contact-after-hero',
+  schools: 'schools-after-hero',
+  acestudio: 'acestudio-after-hero',
+}
+
+const getCampaignPlacement = (entry: CampaignEntry): string | undefined =>
+  entry.placement ?? (entry.page ? pageNoticePlacements[entry.page] : undefined)
 
 const announcements = campaignEntries
   .filter((entry) => entry.type === 'announcement')
@@ -74,6 +88,7 @@ const campaignNotices = campaignEntries
   .map(
     ({
       id,
+      page,
       placement,
       enabled,
       eyebrow,
@@ -90,7 +105,13 @@ const campaignNotices = campaignEntries
       endsAt,
     }) => ({
       id,
-      placement,
+      page,
+      placement: getCampaignPlacement({
+        id,
+        type: 'page-notice',
+        page,
+        placement,
+      }),
       enabled,
       eyebrow,
       title,

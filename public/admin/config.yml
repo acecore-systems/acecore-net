@@ -443,10 +443,18 @@ collections:
         label: '表示する'
         widget: boolean
         default: true
-      - name: 'placement'
-        label: '表示位置'
-        hint: 'ページ内通知で使います。CampaignNotice の placement と一致する値。例: schools-after-hero, services-after-hero'
-        widget: string
+      - name: 'page'
+        label: '表示ページ'
+        hint: 'ページ内通知で使います。表示場所は各ページのヒーロー下に固定されます。'
+        widget: select
+        options:
+          - { label: 'トップページ', value: home }
+          - { label: 'サービス', value: services }
+          - { label: '実績', value: works }
+          - { label: '会社概要', value: about }
+          - { label: 'お問い合わせ', value: contact }
+          - { label: 'Acecore Schools', value: schools }
+          - { label: 'AceStudio', value: acestudio }
         required: false
       - name: 'eyebrow'
         label: 'ラベル'

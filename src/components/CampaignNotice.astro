@@ -5,14 +5,24 @@ import { isWithinPublicationWindow } from '../utils/publication-window'
 
 interface Props {
   locale: Locale
-  placement: string
+  placement?: string
+  page?: CampaignNoticePage
   campaignId?: string
 }
 
 type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
+type CampaignNoticePage =
+  | 'home'
+  | 'services'
+  | 'works'
+  | 'about'
+  | 'contact'
+  | 'schools'
+  | 'acestudio'
 
 type CampaignNoticeSettings = {
   id?: string
+  page?: string
   placement?: string
   enabled?: boolean
   eyebrow?: string
@@ -45,9 +55,21 @@ type VisibleCampaignNotice = {
   tone: CampaignTone
 }
 
-const { locale, placement, campaignId } = Astro.props
+const { locale, placement, page, campaignId } = Astro.props
 const notices =
   getTranslationValue<CampaignNoticeSettings[]>(locale, 'campaignNotices') ?? []
+
+const pageNoticePlacements: Record<CampaignNoticePage, string> = {
+  home: 'home-after-hero',
+  services: 'services-after-hero',
+  works: 'works-after-hero',
+  about: 'about-after-hero',
+  contact: 'contact-after-hero',
+  schools: 'schools-after-hero',
+  acestudio: 'acestudio-after-hero',
+}
+
+const targetPlacement = placement ?? (page ? pageNoticePlacements[page] : '')
 
 const toneClasses: Record<
   CampaignTone,
@@ -102,7 +124,11 @@ const getDestination = (href: string): string =>
 
 const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
   (result, notice) => {
-    const noticePlacement = notice.placement?.trim() ?? ''
+    const noticePagePlacement =
+      notice.page && notice.page in pageNoticePlacements
+        ? pageNoticePlacements[notice.page as CampaignNoticePage]
+        : ''
+    const noticePlacement = notice.placement?.trim() || noticePagePlacement
     const id = notice.id?.trim() ?? noticePlacement
     const title = notice.title?.trim() ?? ''
     const href = notice.href?.trim() ?? ''
@@ -116,7 +142,7 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
 
     if (
       notice.enabled !== true ||
-      noticePlacement !== placement ||
+      noticePlacement !== targetPlacement ||
       (campaignId && id !== campaignId) ||
       title.length === 0 ||
       !isWithinPublicationWindow(notice.startsAt, notice.endsAt)

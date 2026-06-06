@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import { getWorksCopy } from '../data/works'
@@ -60,6 +61,8 @@ const worksLd = {
     ]}
     locale={locale}
   />
+
+  <CampaignNotice locale={locale} page="works" />
 
   <section class="ac-section">
     <div class="ac-container max-w-5xl">
