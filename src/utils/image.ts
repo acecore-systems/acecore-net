@@ -121,7 +121,7 @@ function buildCloudflareImageUrl(
   dimensions: { width?: string; height?: string },
   quality = '50',
 ): string {
-  if (import.meta.env.DEV && sourceUrl.startsWith('/')) {
+  if (sourceUrl.startsWith('/')) {
     return sourceUrl
   }
 
