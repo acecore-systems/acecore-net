@@ -4,7 +4,7 @@ description: "Le site officiel d'Acecore a été entièrement repensé. Découvr
 date: 2026-03-12
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-website-renewal.webp
 processFigure:
   title: Les étapes de la refonte
   steps:
@@ -57,7 +57,7 @@ L'ancien site présentait le contenu sous forme de flux, alors que le nouveau si
 
 ## Caractéristiques du nouveau site
 
-![Le nouveau site construit avec une stack technique moderne](/uploads/acecore-generated/web-production-desk.webp)
+![Le nouveau site construit avec une stack technique moderne](/uploads/acecore-generated/blog-website-renewal.webp)
 
 ### Vitesse d'affichage élevée
 

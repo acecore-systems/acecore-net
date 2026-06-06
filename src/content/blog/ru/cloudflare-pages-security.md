@@ -4,7 +4,7 @@ description: 'Практическое руководство по деплою 
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp
 processFigure:
   title: Эволюция архитектуры деплоя
   steps:

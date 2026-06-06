@@ -4,7 +4,7 @@ description: 'VitePress + UnoCSS로 구축한 사업계획서를 Astro + Starlig
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: 마이그레이션 플로우
   steps:

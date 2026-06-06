@@ -4,7 +4,7 @@ description: 'Cloudflare で以前有料だった「Dedicated SSL Certificates�
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-ssl-advanced-certificate-manager.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:

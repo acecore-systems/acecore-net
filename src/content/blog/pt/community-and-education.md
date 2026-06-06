@@ -4,7 +4,7 @@ description: 'Sobre as atividades comunitárias, apoio educacional e contribuiç
 date: 2026-03-08
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-community-and-education.webp
 insightGrid:
   title: Alcance das atividades
   items:
@@ -50,7 +50,7 @@ O **Aceserver**, operado pela Acecore, é um servidor público de Minecraft util
 
 Na [comunidade Discord do Aceserver](https://discord.gg/acsv), conversas ativas acontecem não apenas sobre jogos, mas também sobre temas técnicos e interações do dia a dia. Uma atmosfera aberta onde qualquer pessoa pode participar, independente de idade ou experiência, é sua característica.
 
-![Na comunidade do Aceserver, a interação acontece independente de idade ou experiência](/uploads/acecore-generated/education-programming-class.webp)
+![Na comunidade do Aceserver, a interação acontece independente de idade ou experiência](/uploads/acecore-generated/blog-community-and-education.webp)
 
 O conhecimento obtido através da operação do servidor é retroalimentado nos serviços de infraestrutura empresarial. Contribui para o acúmulo de know-how prático como tuning de performance em ambientes de alta carga, proteção contra DDoS e gerenciamento seguro de dados de usuários.
 
@@ -76,7 +76,7 @@ Na escola de TI "Acecore Schools", engenheiros profissionais oferecem instruçã
 
 Entre os depoimentos dos alunos: "Ficou claro o que fazer na prática" e "Consegui entender de uma vez o que não conseguia sozinho".
 
-![Alunos aprendendo com currículo baseado na prática](/uploads/acecore-generated/education-programming-class.webp)
+![Alunos aprendendo com currículo baseado na prática](/uploads/acecore-generated/blog-community-and-education.webp)
 
 ## Contribuições ao open source
 

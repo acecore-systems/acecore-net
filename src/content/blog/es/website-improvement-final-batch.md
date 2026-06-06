@@ -5,7 +5,7 @@ date: 2026-03-29T02:30
 author: gui
 tags:
   ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: /uploads/acecore-generated/performance-seo-dashboard.webp
+image: /uploads/acecore-generated/blog-website-improvement-final-batch.webp
 callout:
   type: tip
   title: Continuación del artículo anterior

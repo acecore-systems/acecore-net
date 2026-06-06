@@ -4,7 +4,7 @@ description: 'ホームページ制作の費用相場を目的別に整理し、
 date: 2026-04-01T10:00
 author: gui
 tags: ['Web制作', 'Webサイト', 'SEO', 'サービス']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-homepage-production-cost-guide.webp
 callout:
   type: info
   title: 費用は「ページ数」より「目的」と「運用範囲」で変わります

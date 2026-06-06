@@ -6,7 +6,7 @@ tags:
   - イベント
   - 教育
   - Acecore Schools
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 author: gui
 ---
 

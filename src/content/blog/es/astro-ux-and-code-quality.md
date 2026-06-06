@@ -4,7 +4,7 @@ description: 'Soluciones para el problema de scripts que dejan de funcionar con 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/accessibility-ux-quality.webp
+image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp
 callout:
   type: warning
   title: Lectura imprescindible si usas View Transitions

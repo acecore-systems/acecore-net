@@ -4,7 +4,7 @@ description: '利用云会计数据对接积累的837条记账分录的分类验
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Copilot 报税的整体流程
   steps:

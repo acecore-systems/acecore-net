@@ -4,7 +4,7 @@ description: 'A guide to the workflow that automatically generates Japanese + 8-
 date: 2026-03-29T22:30
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS']
-image: /uploads/acecore-generated/i18n-localization-workbench.webp
+image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp
 callout:
   type: info
   title: Bottom Line First

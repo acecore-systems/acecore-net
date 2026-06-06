@@ -4,7 +4,7 @@ description: 'Ein praktischer Leitfaden mit Lösungen für Skriptprobleme bei As
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/accessibility-ux-quality.webp
+image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp
 callout:
   type: warning
   title: Pflichtlektüre bei Verwendung von View Transitions

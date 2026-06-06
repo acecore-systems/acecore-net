@@ -4,7 +4,7 @@ description: '将使用 VitePress + UnoCSS 构建的事业计划文档迁移到 
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: 迁移流程
   steps:

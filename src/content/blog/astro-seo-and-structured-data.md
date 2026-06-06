@@ -4,7 +4,7 @@ description: 'Astro + Cloudflare Pages 構成のサイトに JSON-LD 構造化�
 date: 2026-03-25T11:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: /uploads/acecore-generated/performance-seo-dashboard.webp
+image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp
 callout:
   type: tip
   title: この記事の対象読者

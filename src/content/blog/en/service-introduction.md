@@ -4,7 +4,7 @@ description: "From system development to design and IT education — a detailed 
 date: 2026-03-10
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
-image: /uploads/acecore-generated/system-development-workbench.webp
+image: /uploads/acecore-generated/blog-service-introduction.webp
 callout:
   type: info
   title: Acecore's Service Portfolio
@@ -38,7 +38,7 @@ We handle inventory management, CRM, order management, and more across all indus
 
 Leveraging the latest cloud-native technologies, we build systems with excellent maintainability and scalability. We also provide comprehensive post-deployment operational support.
 
-![System design and development](/uploads/acecore-generated/system-development-workbench.webp)
+![System design and development](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 2. Server Infrastructure & Operations
 
@@ -56,7 +56,7 @@ We focus not only on beautiful design but also on **SEO** and **performance**. W
 
 We also provide one-stop post-launch operations and maintenance, from content updates and security patches to analytics-driven improvement proposals, continuously enhancing your site's value.
 
-![End-to-end website planning and operations](/uploads/acecore-generated/system-development-workbench.webp)
+![End-to-end website planning and operations](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 4. Design & Creative
 

@@ -4,7 +4,7 @@ description: 'Sobre las actividades comunitarias, el apoyo educativo y las contr
 date: 2026-03-08
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-community-and-education.webp
 insightGrid:
   title: Alcance de las actividades
   items:
@@ -50,7 +50,7 @@ En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedic
 
 En la [comunidad de Discord](https://discord.gg/acsv) de Aceserver, se llevan a cabo activamente intercambios que van más allá del juego, incluyendo temas técnicos y conversaciones cotidianas. Se caracteriza por su ambiente abierto donde cualquiera puede participar, sin importar edad o experiencia.
 
-![En la comunidad de Aceserver se llevan a cabo intercambios sin importar edad o experiencia](/uploads/acecore-generated/education-programming-class.webp)
+![En la comunidad de Aceserver se llevan a cabo intercambios sin importar edad o experiencia](/uploads/acecore-generated/blog-community-and-education.webp)
 
 El conocimiento obtenido a través de la operación del servidor se retroalimenta en los servicios de infraestructura para empresas. Contribuye a la acumulación de know-how práctico como el ajuste de rendimiento en entornos de alta carga, la protección contra DDoS y la gestión segura de datos de usuarios.
 
@@ -76,7 +76,7 @@ En la escuela de IT "Acecore Schools", ingenieros en activo brindan instrucción
 
 Los estudiantes han expresado opiniones como "Me quedó claro qué debo hacer en el trabajo real" y "Comprendí de golpe las partes que no podía entender por mi cuenta".
 
-![Estudiantes aprendiendo con un currículo basado en la práctica](/uploads/acecore-generated/education-programming-class.webp)
+![Estudiantes aprendiendo con un currículo basado en la práctica](/uploads/acecore-generated/blog-community-and-education.webp)
 
 ## Contribuciones al código abierto
 

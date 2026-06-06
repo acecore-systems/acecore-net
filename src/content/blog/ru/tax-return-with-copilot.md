@@ -4,7 +4,7 @@ description: 'От классификации и проверки 837 бухга
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Общая схема подачи налоговой декларации с Copilot
   steps:

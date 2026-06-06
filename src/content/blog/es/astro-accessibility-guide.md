@@ -4,7 +4,7 @@ description: 'Presentamos todos los pasos de mejora de accesibilidad realizados 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: /uploads/acecore-generated/accessibility-ux-quality.webp
+image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp
 callout:
   type: info
   title: La accesibilidad es "mejora de UX para todos"

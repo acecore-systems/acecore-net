@@ -4,7 +4,7 @@ description: '总结了在Astro + Cloudflare Pages构成的网站上正确实现
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: /uploads/acecore-generated/performance-seo-dashboard.webp
+image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp
 callout:
   type: tip
   title: 本文的目标读者

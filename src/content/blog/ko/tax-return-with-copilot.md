@@ -4,7 +4,7 @@ description: '클라우드 회계의 데이터 연동으로 축적된 837건의 
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Copilot 확정신고 전체 플로우
   steps:

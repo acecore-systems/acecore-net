@@ -4,17 +4,17 @@ description: 'Стратегия метавселенной Facebook (Meta) не
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: /uploads/acecore-generated/metaverse-community-lab.webp
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: Мир метавселенной
   items:
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: VR-шлем
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Концепция виртуального пространства
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Игровая среда
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Цифровой мир
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ faq:
 
 Horizon Worlds от Meta также недавно стал доступен из браузера без VR. Я считаю, что вратами в метавселенную являются не «VR-устройства», а «виртуальные пространства, где собираются люди».
 
-![VR-шлемы — не единственные врата в метавселенную](/uploads/acecore-generated/metaverse-community-lab.webp)
+![VR-шлемы — не единственные врата в метавселенную](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## Потенциал сообществ на базе Minecraft
 

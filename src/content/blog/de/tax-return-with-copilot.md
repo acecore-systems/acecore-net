@@ -4,7 +4,7 @@ description: 'Von der Klassifizierung und Überprüfung von 837 Buchungseinträg
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Gesamtablauf der Copilot-Steuererklärung
   steps:

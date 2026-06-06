@@ -4,7 +4,7 @@ description: 'A practical guide covering the full migration from Zoho Workplace 
 date: 2026-03-16
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: /uploads/acecore-generated/mail-migration-operations.webp
+image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp
 processFigure:
   title: Overall Migration Flow
   steps:

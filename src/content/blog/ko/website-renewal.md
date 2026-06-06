@@ -5,7 +5,7 @@ date: 2023-07-18
 tags:
   - お知らせ
   - Webサイト
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-website-renewal.webp
 author: gui
 ---
 

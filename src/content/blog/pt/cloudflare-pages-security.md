@@ -4,7 +4,7 @@ description: 'Guia prático sobre deploy de sites estáticos no Cloudflare Pages
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp
 processFigure:
   title: Evolução da configuração de deploy
   steps:

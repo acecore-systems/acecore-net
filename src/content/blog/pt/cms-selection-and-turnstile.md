@@ -4,7 +4,7 @@ description: 'Registro da avaliação comparativa entre Keystatic, Sveltia CMS e
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: /uploads/acecore-generated/cms-form-operations.webp
+image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 compareTable:
   title: Comparação de CMS
   before:

@@ -4,7 +4,7 @@ description: 'AstroのView Transitionsでスクリプトが動かなくなる問
 date: 2026-03-25T13:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/accessibility-ux-quality.webp
+image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp
 callout:
   type: warning
   title: View Transitions を使うなら必読

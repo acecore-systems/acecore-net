@@ -6,7 +6,7 @@ tags:
   - サービス
   - システム開発
   - Web制作
-image: /uploads/acecore-generated/system-development-workbench.webp
+image: /uploads/acecore-generated/blog-service-introduction.webp
 author: gui
 ---
 

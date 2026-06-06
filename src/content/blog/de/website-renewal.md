@@ -4,7 +4,7 @@ description: 'Die offizielle Webseite von Acecore wurde komplett erneuert. Hier 
 date: 2026-03-12
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-website-renewal.webp
 processFigure:
   title: Erneuerungsprozess
   steps:
@@ -57,7 +57,7 @@ Die vorherige Seite präsentierte Inhalte in einem Feed-Format, aber die neue Se
 
 ## Merkmale der neuen Seite
 
-![Die neue Seite basiert auf einem modernen Tech-Stack](/uploads/acecore-generated/web-production-desk.webp)
+![Die neue Seite basiert auf einem modernen Tech-Stack](/uploads/acecore-generated/blog-website-renewal.webp)
 
 ### Schnelle Ladegeschwindigkeit
 

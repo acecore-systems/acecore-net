@@ -4,7 +4,7 @@ description: 'A AceCore Schools realizou um evento durante as férias de verão 
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 faq:
   title: Perguntas frequentes
   items:
@@ -41,7 +41,7 @@ O momento em que o robô se moveu pela primeira vez foi o melhor momento também
 
 Através dessas experiências, queremos cultivar o interesse pela construção e o pensamento computacional.
 
-![Experiência completa de montagem e customização com a série Tamiya](/uploads/acecore-generated/education-programming-class.webp)
+![Experiência completa de montagem e customização com a série Tamiya](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
 ## Contato e inscrição
 

@@ -4,7 +4,7 @@ description: 'A record of migrating a business plan document built with VitePres
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: Migration Flow
   steps:

@@ -4,17 +4,17 @@ description: 'Facebook（Meta）のメタバース戦略がいまいちピンと
 date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
-image: /uploads/acecore-generated/metaverse-community-lab.webp
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: メタバースの世界
   items:
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: VRヘッドセット
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: 仮想空間のイメージ
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: ゲーミング環境
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ faq:
 
 Meta の Horizon Worlds も、最近は VR なしでブラウザからアクセスできるようになりました。メタバースの入口は「VR デバイス」ではなく「人が集まる仮想空間」なのだと思います。
 
-![VRヘッドセットだけがメタバースへの入口ではない](/uploads/acecore-generated/metaverse-community-lab.webp)
+![VRヘッドセットだけがメタバースへの入口ではない](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## マインクラフトを活用したコミュニティの可能性
 

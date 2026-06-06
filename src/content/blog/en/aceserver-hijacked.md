@@ -6,6 +6,7 @@ tags:
   - イベント
 author: hatt
 ---
+
 ## **Aceserver Has Been Hijacked**
 
 I am writing this with the last shred of sanity I have left. By the time this reaches the public, even this pitiful remnant of reason will have been consumed.

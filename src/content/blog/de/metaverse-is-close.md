@@ -4,17 +4,17 @@ description: 'Während Facebooks (Meta) Metaverse-Strategie nicht ganz überzeug
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: /uploads/acecore-generated/metaverse-community-lab.webp
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: Die Welt des Metaverse
   items:
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: VR-Headset
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Konzept eines virtuellen Raums
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Gaming-Umgebung
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digitale Welt
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ Minecrafts monatlich aktive Nutzer übersteigen 100 Millionen. Spieler bauen, er
 
 Metas Horizon Worlds ist kürzlich ebenfalls ohne VR über einen Browser zugänglich geworden. Ich glaube, das Tor zum Metaverse sind nicht „VR-Geräte", sondern vielmehr „virtuelle Räume, in denen Menschen zusammenkommen."
 
-![VR-Headsets sind nicht das einzige Tor zum Metaverse](/uploads/acecore-generated/metaverse-community-lab.webp)
+![VR-Headsets sind nicht das einzige Tor zum Metaverse](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## Das Potenzial von Minecraft-basierten Communities
 

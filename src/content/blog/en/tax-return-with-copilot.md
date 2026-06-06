@@ -4,7 +4,7 @@ description: 'From classifying and verifying 837 journal entries accumulated thr
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Overall Copilot Tax Return Flow
   steps:

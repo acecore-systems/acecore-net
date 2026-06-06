@@ -5,7 +5,7 @@ date: 2026-03-25T15:00
 author: gui
 tags:
   ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: /uploads/acecore-generated/performance-seo-dashboard.webp
+image: /uploads/acecore-generated/blog-website-improvement-batches.webp
 callout:
   type: tip
   title: この記事の対象読者

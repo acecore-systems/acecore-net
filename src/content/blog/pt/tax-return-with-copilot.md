@@ -4,7 +4,7 @@ description: 'Da classificação e verificação de 837 lançamentos contábeis 
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: /uploads/acecore-generated/consultation-cost-planning.webp
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Fluxo geral da declaração com Copilot
   steps:

@@ -4,7 +4,7 @@ description: '关于在 Cloudflare Pages 上部署静态站点，以及通过 _h
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp
 processFigure:
   title: 部署架构的演变
   steps:

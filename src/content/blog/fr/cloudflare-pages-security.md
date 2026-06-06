@@ -4,7 +4,7 @@ description: "Guide pratique du déploiement de sites statiques sur Cloudflare P
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp
 processFigure:
   title: Évolution de la configuration de déploiement
   steps:

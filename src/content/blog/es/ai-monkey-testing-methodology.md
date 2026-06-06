@@ -4,7 +4,7 @@ description: 'Registro práctico de monkey testing sistemático en un sitio est�
 date: 2026-03-25
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/ai-testing-automation.webp
+image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology.webp
 callout:
   type: tip
   title: Público objetivo de este artículo

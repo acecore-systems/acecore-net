@@ -6,6 +6,7 @@ tags:
   - イベント
 author: hatt
 ---
+
 ## **Aceserver a été piraté**
 
 J'écris ce texte avec les dernières bribes de raison qu'il me reste. D'ici à ce que ce texte voie le jour, ce dernier résidu de lucidité aura certainement été entièrement corrompu.

@@ -4,7 +4,7 @@ description: 'A practical guide to static site deployment on Cloudflare Pages an
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: /uploads/acecore-generated/security-operations.webp
+image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp
 processFigure:
   title: Deployment Architecture Evolution
   steps:

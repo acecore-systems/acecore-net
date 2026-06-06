@@ -4,7 +4,7 @@ description: 'Astro 6 + UnoCSS + Cloudflare Pages 사이트를 9개 언어로 �
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
-image: /uploads/acecore-generated/i18n-localization-workbench.webp
+image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
 processFigure:
   title: 다국어 워크플로우
   steps:

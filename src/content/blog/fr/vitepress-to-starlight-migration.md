@@ -4,7 +4,7 @@ description: "Récit de la migration d'un site documentaire de plan d'affaires c
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: Étapes de la migration
   steps:

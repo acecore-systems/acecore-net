@@ -4,7 +4,7 @@ description: "Acecore's community activities, educational support, and open sour
 date: 2026-03-08
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-community-and-education.webp
 insightGrid:
   title: The Breadth of Our Activities
   items:
@@ -50,7 +50,7 @@ At Acecore, we are committed to advancing the tech community and contributing to
 
 The Aceserver [Discord community](https://discord.gg/acsv) hosts active exchanges on topics beyond gaming, including technical discussions and everyday interactions. It features an open atmosphere where anyone can participate regardless of age or experience, from beginners to veterans.
 
-![The Aceserver community fosters interaction regardless of age or experience](/uploads/acecore-generated/education-programming-class.webp)
+![The Aceserver community fosters interaction regardless of age or experience](/uploads/acecore-generated/blog-community-and-education.webp)
 
 The insights gained from server operations are fed back into our enterprise infrastructure services. This has led to the accumulation of practical know-how in performance tuning under high-load environments, DDoS protection, and secure user data management.
 
@@ -76,7 +76,7 @@ At our IT school "Acecore Schools," active engineers provide one-on-one instruct
 
 Students have shared feedback such as "It became clear what I need to do in practice" and "I instantly understood things I couldn't grasp on my own."
 
-![Students learning through a practice-based curriculum](/uploads/acecore-generated/education-programming-class.webp)
+![Students learning through a practice-based curriculum](/uploads/acecore-generated/blog-community-and-education.webp)
 
 ## Contributing to Open Source
 

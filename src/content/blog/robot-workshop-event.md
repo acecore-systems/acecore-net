@@ -4,7 +4,7 @@ description: 'AceCore Schoolsでは、夏休みを利用して子供たちにロ
 date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 faq:
   title: よくある質問
   items:
@@ -41,7 +41,7 @@ LINE登録をしていただくと、200円の割引が適用されます。
 
 こうした体験を通じて、ものづくりへの興味やプログラミング的思考の芽を育てていきたいと考えています。
 
-![タミヤ工作シリーズで組み立てから改造まで体験できる](/uploads/acecore-generated/education-programming-class.webp)
+![タミヤ工作シリーズで組み立てから改造まで体験できる](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
 ## お問い合わせ・申し込み
 

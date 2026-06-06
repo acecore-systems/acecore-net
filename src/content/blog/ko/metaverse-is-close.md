@@ -5,7 +5,7 @@ date: 2023-03-21
 author: gui
 tags:
   - コミュニティ
-image: /uploads/acecore-generated/metaverse-community-lab.webp
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 ---
 
 ## 메타버스는 이미 이렇게 가까이에

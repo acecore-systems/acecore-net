@@ -4,7 +4,7 @@ description: 'A comprehensive guide to accessibility improvements implemented on
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: /uploads/acecore-generated/accessibility-ux-quality.webp
+image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp
 callout:
   type: info
   title: Accessibility Is UX Improvement for Everyone

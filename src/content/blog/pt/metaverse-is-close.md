@@ -4,17 +4,17 @@ description: 'Enquanto a estratégia de metaverso do Facebook (Meta) não conven
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: /uploads/acecore-generated/metaverse-community-lab.webp
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: O mundo do metaverso
   items:
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Headset VR
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Imagem do espaço virtual
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Ambiente gamer
-    - src: /uploads/acecore-generated/metaverse-community-lab.webp
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ O Minecraft tem mais de 100 milhões de usuários ativos mensais. Os jogadores c
 
 O Horizon Worlds da Meta também passou a ser acessível pelo navegador, sem necessidade de VR. A porta de entrada para o metaverso não é o "dispositivo VR", mas sim o "espaço virtual onde as pessoas se reúnem".
 
-![Óculos VR não são a única porta de entrada para o metaverso](/uploads/acecore-generated/metaverse-community-lab.webp)
+![Óculos VR não são a única porta de entrada para o metaverso](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## O potencial das comunidades usando Minecraft
 

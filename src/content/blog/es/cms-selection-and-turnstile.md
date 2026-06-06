@@ -4,7 +4,7 @@ description: 'Registro del proceso de evaluación y comparación entre Keystatic
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: /uploads/acecore-generated/cms-form-operations.webp
+image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 compareTable:
   title: Comparación de CMS
   before:

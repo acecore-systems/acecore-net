@@ -4,7 +4,7 @@ description: 'Документация интернационализации с
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
-image: /uploads/acecore-generated/i18n-localization-workbench.webp
+image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
 processFigure:
   title: Мультиязычный рабочий процесс
   steps:

@@ -4,7 +4,7 @@ description: "Acecore's official website has been completely renewed. Here's an 
 date: 2026-03-12
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/acecore-generated/blog-website-renewal.webp
 processFigure:
   title: Renewal Process
   steps:
@@ -57,7 +57,7 @@ The previous site presented content in a feed format, but the new site features 
 
 ## Features of the New Site
 
-![The new site is built with a modern tech stack](/uploads/acecore-generated/web-production-desk.webp)
+![The new site is built with a modern tech stack](/uploads/acecore-generated/blog-website-renewal.webp)
 
 ### Fast Loading Speed
 

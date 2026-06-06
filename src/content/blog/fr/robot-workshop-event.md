@@ -4,7 +4,7 @@ description: "AceCore Schools a organisé un événement permettant aux enfants 
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: /uploads/acecore-generated/education-programming-class.webp
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 faq:
   title: Questions fréquentes
   items:
@@ -41,7 +41,7 @@ L'exclamation de joie au moment où le robot se met en marche est aussi un momen
 
 À travers ces expériences, nous souhaitons éveiller l'intérêt pour la fabrication et développer la pensée computationnelle.
 
-![De l'assemblage à la modification avec la série de construction Tamiya](/uploads/acecore-generated/education-programming-class.webp)
+![De l'assemblage à la modification avec la série de construction Tamiya](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
 ## Contact et inscription
 
