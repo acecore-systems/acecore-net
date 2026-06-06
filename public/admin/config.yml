@@ -476,8 +476,19 @@ collections:
         required: false
       - name: 'icon'
         label: 'アイコン'
-        hint: 'ページ内通知で使います。lucide icon name'
-        widget: string
+        hint: 'ページ内通知で使うアイコンです。用途に近いものを選んでください。'
+        widget: select
+        options:
+          - { label: '募集・受付（日程チェック）', value: calendar-check }
+          - { label: 'お知らせ（メガホン）', value: megaphone }
+          - { label: '相談・問い合わせ（吹き出し）', value: message-circle }
+          - { label: '学校・講座（卒業帽）', value: graduation-cap }
+          - { label: '締切・期限（時計）', value: alarm-clock }
+          - { label: '完了・受付中（チェック）', value: circle-check }
+          - { label: '注目・おすすめ（きらめき）', value: sparkles }
+          - { label: 'キャンペーン（タグ）', value: tag }
+          - { label: '法人・仕事（かばん）', value: briefcase-business }
+          - { label: '参加者・コミュニティ（人）', value: users }
         default: calendar-check
         required: false
       - name: 'tone'
