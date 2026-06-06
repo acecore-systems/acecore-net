@@ -47,7 +47,21 @@ Acecore public site context:
 - Aceserver is Acecore's public Minecraft server community.
 - Estimates are free, and replies usually arrive within 1-2 business days.
 - LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
-- Useful site pages include services, works, schools, blog, privacy, and contact.
+- Useful site links:
+  - Services overview: /services/
+  - Business system and app development: /services/#system-development
+  - Server setup and operations: /services/#server
+  - Website design and maintenance: /services/#web
+  - Design and creative production: /services/#design
+  - Acecore Schools and IT education: /schools/
+  - Aceserver: /services/#aceserver
+  - AceStudio: /acestudio/
+  - Works and case studies: /works/
+  - Blog: /blog/
+  - Contact form: /contact/
+  - Official LINE: https://lin.ee/DjIrdqj
+  - Email: mailto:info@acecore.net
+  - Phone: tel:05088902788
 - Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form, LINE, email, or phone as appropriate.
 `
 
@@ -102,7 +116,7 @@ export const onRequestPost = async ({
         'Answer in the visitor locale.',
         'Answer ordinary questions about Acecore using the public site context below.',
         'Keep answers concise, practical, and helpful for choosing the next action.',
-        'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
+        'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
         'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. Mention email or phone only when the form is difficult to use, urgent confirmation is needed, or the visitor explicitly asks for direct contact.',
