@@ -15,12 +15,10 @@ interface Props {
     sizes?: string
   }[]
   locale?: Locale
-  showProcess?: boolean
 }
 
 const { title, titleLines, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const showProcess = Astro.props.showProcess ?? showCTA
 const u = (path: string) => getLocalizedUrl(path, locale)
 const sliderImages = (images ?? []).map((image) => ({
   ...image,
@@ -89,18 +87,6 @@ const firstSliderImage = sliderImages[0]
               {t(locale, 'hero.ctaContact')}
               <Icon name="arrow-right" class="text-base" />
             </a>
-          </div>
-        )
-      }
-      {
-        showProcess && (
-          <div
-            class="mt-10 grid max-w-[20rem] grid-cols-3 gap-3 text-xs font-700 text-slate-500 sm:max-w-xl"
-            aria-hidden="true"
-          >
-            <span class="border-t border-brand-200 pt-2">PLAN</span>
-            <span class="border-t border-brand-200 pt-2">BUILD</span>
-            <span class="border-t border-brand-200 pt-2">OPERATE</span>
           </div>
         )
       }
