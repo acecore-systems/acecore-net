@@ -66,5 +66,22 @@
   "tagListDescription": "ブログ記事のタグ一覧です。",
   "archiveListDescription": "ブログ記事の月別アーカイブ一覧です。",
   "itemListName": "Acecore ブログ記事一覧",
-  "language": "言語"
+  "language": "言語",
+  "commentsTitle": "コメント",
+  "commentsCount": "{count}件のコメント",
+  "commentsNameLabel": "お名前",
+  "commentsNamePlaceholder": "表示名",
+  "commentsBodyLabel": "コメント",
+  "commentsBodyPlaceholder": "感想や補足を書いてください",
+  "commentsRule": "URL、メールアドレス、宣伝文は投稿できません。",
+  "commentsSubmit": "コメントする",
+  "commentsLoading": "コメントを読み込んでいます...",
+  "commentsEmpty": "まだコメントはありません。",
+  "commentsUnavailable": "コメント機能を一時的に利用できません。",
+  "commentsPosted": "コメントを投稿しました。",
+  "commentsError": "コメントを投稿できませんでした。",
+  "commentsValidationName": "お名前を入力してください。",
+  "commentsValidationBody": "8文字以上のコメントを入力してください。URLは含められません。",
+  "commentsValidationTurnstile": "送信前の確認を完了してください。",
+  "commentsSending": "送信中..."
 }
