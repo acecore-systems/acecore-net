@@ -3,7 +3,7 @@
   "name": "Gui",
   "avatar": "",
   "avatarImage": "",
-  "bio": "Acecore 代表。業務システム、Web、DB/インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善までつなげて推進している。\nC#/.NET を軸にした実装力を土台に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども踏まえ、要件整理、技術選定、品質基準、GitHubベースの開発運用まで一体で設計する。\n生成AIは、開発・検証・情報整理・多言語対応などの業務プロセスに取り入れ、小規模チームでも速く確かな成果を出すための実務基盤として活用している。",
+  "bio": "Acecore 代表。業務システム、Web、DB/インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善までつなげて推進している。\nC#/.NET を軸にした実装力を土台に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども踏まえ、要件整理、技術選定、品質基準、GitHubベースの開発運用まで一体で設計する。\n生成AIは、開発・検証・情報整理などの業務プロセスに取り入れ、小規模チームでも速く確かな成果を出すための実務基盤として活用している。",
   "url": "https://acecore.net/about/",
   "github": "https://github.com/acecore-systems",
   "twitter": "https://x.com/acecorenet",
@@ -22,7 +22,7 @@
   "i18n": {
     "en": {
       "name": "Gui",
-      "bio": "CEO of Acecore. Leads business systems, web, databases and infrastructure, quality assurance, and AI adoption from business problem framing through design, rollout, and post-launch improvement.\nBuilds on hands-on C#/.NET capability while also covering PHP/JavaScript, SQL Server/PostgreSQL/MySQL, and Linux/Windows Server, designing requirements, technology choices, quality standards, and GitHub-based development operations as one coherent workflow.\nUses generative AI across development, verification, information organization, and multilingual operations, treating it as practical infrastructure that helps small teams deliver faster and more reliably.",
+      "bio": "CEO of Acecore. Leads business systems, web, databases and infrastructure, quality assurance, and AI adoption from business problem framing through design, rollout, and post-launch improvement.\nBuilds on hands-on C#/.NET capability while also covering PHP/JavaScript, SQL Server/PostgreSQL/MySQL, and Linux/Windows Server, designing requirements, technology choices, quality standards, and GitHub-based development operations as one coherent workflow.\nUses generative AI across development, verification, and information organization, treating it as practical infrastructure that helps small teams deliver faster and more reliably.",
       "skills": [
         "Business problem framing",
         "Technology selection",
@@ -38,7 +38,7 @@
     },
     "zh-cn": {
       "name": "Gui",
-      "bio": "Acecore 代表。从业务课题梳理到设计、导入和上线后的改进，统筹推进业务系统、Web、数据库/基础设施、质量保证以及 AI 应用。\n以 C#/.NET 的实际开发能力为基础，同时理解 PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server，将需求整理、技术选型、质量标准和基于 GitHub 的开发运营作为整体流程来设计。\n将生成式 AI 用于开发、验证、信息整理和多语言对应等业务流程，作为帮助小团队更快、更可靠交付成果的实务基础。",
+      "bio": "Acecore 代表。从业务课题梳理到设计、导入和上线后的改进，统筹推进业务系统、Web、数据库/基础设施、质量保证以及 AI 应用。\n以 C#/.NET 的实际开发能力为基础，同时理解 PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server，将需求整理、技术选型、质量标准和基于 GitHub 的开发运营作为整体流程来设计。\n将生成式 AI 用于开发、验证和信息整理等业务流程，作为帮助小团队更快、更可靠交付成果的实务基础。",
       "skills": [
         "业务课题梳理",
         "技术选型",
@@ -54,7 +54,7 @@
     },
     "es": {
       "name": "Gui",
-      "bio": "CEO de Acecore. Lidera sistemas de negocio, web, bases de datos e infraestructura, calidad y adopción de IA desde la definición de problemas de negocio hasta el diseño, la puesta en marcha y la mejora posterior.\nSe apoya en capacidad práctica con C#/.NET y también cubre PHP/JavaScript, SQL Server/PostgreSQL/MySQL y Linux/Windows Server, diseñando requisitos, selección tecnológica, estándares de calidad y operaciones de desarrollo basadas en GitHub como un flujo coherente.\nIncorpora la IA generativa en procesos de desarrollo, verificación, organización de información y operación multilingüe, como una base práctica para que equipos pequeños entreguen más rápido y con mayor fiabilidad.",
+      "bio": "CEO de Acecore. Lidera sistemas de negocio, web, bases de datos e infraestructura, calidad y adopción de IA desde la definición de problemas de negocio hasta el diseño, la puesta en marcha y la mejora posterior.\nSe apoya en capacidad práctica con C#/.NET y también cubre PHP/JavaScript, SQL Server/PostgreSQL/MySQL y Linux/Windows Server, diseñando requisitos, selección tecnológica, estándares de calidad y operaciones de desarrollo basadas en GitHub como un flujo coherente.\nIncorpora la IA generativa en procesos de desarrollo, verificación y organización de información, como una base práctica para que equipos pequeños entreguen más rápido y con mayor fiabilidad.",
       "skills": [
         "Definición de problemas de negocio",
         "Selección tecnológica",
@@ -70,7 +70,7 @@
     },
     "pt": {
       "name": "Gui",
-      "bio": "CEO da Acecore. Lidera sistemas de negócio, web, bancos de dados e infraestrutura, qualidade e adoção de IA da definição de problemas de negócio ao design, implantação e melhoria após o lançamento.\nParte de capacidade prática em C#/.NET e também cobre PHP/JavaScript, SQL Server/PostgreSQL/MySQL e Linux/Windows Server, desenhando requisitos, escolhas tecnológicas, padrões de qualidade e operações de desenvolvimento baseadas em GitHub como um fluxo único.\nIncorpora IA generativa a processos de desenvolvimento, verificação, organização de informações e operação multilíngue, como uma base prática para que equipes pequenas entreguem mais rápido e com maior confiabilidade.",
+      "bio": "CEO da Acecore. Lidera sistemas de negócio, web, bancos de dados e infraestrutura, qualidade e adoção de IA da definição de problemas de negócio ao design, implantação e melhoria após o lançamento.\nParte de capacidade prática em C#/.NET e também cobre PHP/JavaScript, SQL Server/PostgreSQL/MySQL e Linux/Windows Server, desenhando requisitos, escolhas tecnológicas, padrões de qualidade e operações de desenvolvimento baseadas em GitHub como um fluxo único.\nIncorpora IA generativa a processos de desenvolvimento, verificação e organização de informações, como uma base prática para que equipes pequenas entreguem mais rápido e com maior confiabilidade.",
       "skills": [
         "Definição de problemas de negócio",
         "Seleção tecnológica",
@@ -86,7 +86,7 @@
     },
     "fr": {
       "name": "Gui",
-      "bio": "PDG d'Acecore. Pilote les systèmes métier, le web, les bases de données et l'infrastructure, la qualité et l'adoption de l'IA, du cadrage des enjeux métier à la conception, au déploiement et à l'amélioration continue.\nS'appuie sur une capacité pratique en C#/.NET tout en couvrant aussi PHP/JavaScript, SQL Server/PostgreSQL/MySQL et Linux/Windows Server, afin de concevoir les besoins, les choix technologiques, les standards de qualité et les opérations de développement basées sur GitHub comme un flux cohérent.\nIntègre l'IA générative aux processus de développement, de vérification, d'organisation de l'information et d'exploitation multilingue, comme une base pratique pour aider les petites équipes à livrer plus vite et plus sûrement.",
+      "bio": "PDG d'Acecore. Pilote les systèmes métier, le web, les bases de données et l'infrastructure, la qualité et l'adoption de l'IA, du cadrage des enjeux métier à la conception, au déploiement et à l'amélioration continue.\nS'appuie sur une capacité pratique en C#/.NET tout en couvrant aussi PHP/JavaScript, SQL Server/PostgreSQL/MySQL et Linux/Windows Server, afin de concevoir les besoins, les choix technologiques, les standards de qualité et les opérations de développement basées sur GitHub comme un flux cohérent.\nIntègre l'IA générative aux processus de développement, de vérification et d'organisation de l'information, comme une base pratique pour aider les petites équipes à livrer plus vite et plus sûrement.",
       "skills": [
         "Cadrage des enjeux métier",
         "Choix technologiques",
@@ -102,7 +102,7 @@
     },
     "ko": {
       "name": "Gui",
-      "bio": "Acecore 대표. 업무 시스템, 웹, DB/인프라, 품질, AI 활용을 사업 과제 정리부터 설계, 도입 후 개선까지 이어지는 흐름으로 추진합니다.\nC#/.NET 기반의 실무 구현력을 바탕으로 PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server도 고려하며, 요구사항 정리, 기술 선택, 품질 기준, GitHub 기반 개발 운영을 하나의 흐름으로 설계합니다.\n생성형 AI는 개발, 검증, 정보 정리, 다국어 대응 등 업무 프로세스에 도입해 소규모 팀도 빠르고 확실하게 성과를 낼 수 있는 실무 기반으로 활용하고 있습니다.",
+      "bio": "Acecore 대표. 업무 시스템, 웹, DB/인프라, 품질, AI 활용을 사업 과제 정리부터 설계, 도입 후 개선까지 이어지는 흐름으로 추진합니다.\nC#/.NET 기반의 실무 구현력을 바탕으로 PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server도 고려하며, 요구사항 정리, 기술 선택, 품질 기준, GitHub 기반 개발 운영을 하나의 흐름으로 설계합니다.\n생성형 AI는 개발, 검증, 정보 정리 등 업무 프로세스에 도입해 소규모 팀도 빠르고 확실하게 성과를 낼 수 있는 실무 기반으로 활용하고 있습니다.",
       "skills": [
         "사업 과제 정리",
         "기술 선택",
@@ -118,7 +118,7 @@
     },
     "de": {
       "name": "Gui",
-      "bio": "CEO von Acecore. Steuert Geschäftssysteme, Web, Datenbanken und Infrastruktur, Qualität und KI-Einsatz von der Analyse geschäftlicher Probleme über Design und Einführung bis zur Verbesserung nach dem Launch.\nBaut auf praktischer C#/.NET-Kompetenz auf und berücksichtigt zugleich PHP/JavaScript, SQL Server/PostgreSQL/MySQL und Linux/Windows Server, um Anforderungen, Technologieauswahl, Qualitätsstandards und GitHub-basierte Entwicklungsabläufe als kohärenten Prozess zu gestalten.\nIntegriert generative KI in Entwicklungs-, Prüfungs-, Informationsorganisations- und mehrsprachige Betriebsprozesse, als praktische Grundlage, damit kleine Teams schneller und verlässlicher liefern können.",
+      "bio": "CEO von Acecore. Steuert Geschäftssysteme, Web, Datenbanken und Infrastruktur, Qualität und KI-Einsatz von der Analyse geschäftlicher Probleme über Design und Einführung bis zur Verbesserung nach dem Launch.\nBaut auf praktischer C#/.NET-Kompetenz auf und berücksichtigt zugleich PHP/JavaScript, SQL Server/PostgreSQL/MySQL und Linux/Windows Server, um Anforderungen, Technologieauswahl, Qualitätsstandards und GitHub-basierte Entwicklungsabläufe als kohärenten Prozess zu gestalten.\nIntegriert generative KI in Entwicklungs-, Prüfungs- und Informationsorganisationsprozesse, als praktische Grundlage, damit kleine Teams schneller und verlässlicher liefern können.",
       "skills": [
         "Geschäftsproblem-Analyse",
         "Technologieauswahl",
@@ -134,7 +134,7 @@
     },
     "ru": {
       "name": "Gui",
-      "bio": "Генеральный директор Acecore. Руководит бизнес-системами, вебом, базами данных и инфраструктурой, качеством и внедрением ИИ от формулирования бизнес-задач до проектирования, запуска и дальнейшего улучшения.\nОпирается на практическую экспертизу C#/.NET и также учитывает PHP/JavaScript, SQL Server/PostgreSQL/MySQL и Linux/Windows Server, проектируя требования, технологический выбор, стандарты качества и GitHub-ориентированные процессы разработки как единую систему.\nВстраивает генеративный ИИ в процессы разработки, проверки, организации информации и многоязычной работы как практическую основу, помогающую небольшим командам быстрее и надежнее достигать результата.",
+      "bio": "Генеральный директор Acecore. Руководит бизнес-системами, вебом, базами данных и инфраструктурой, качеством и внедрением ИИ от формулирования бизнес-задач до проектирования, запуска и дальнейшего улучшения.\nОпирается на практическую экспертизу C#/.NET и также учитывает PHP/JavaScript, SQL Server/PostgreSQL/MySQL и Linux/Windows Server, проектируя требования, технологический выбор, стандарты качества и GitHub-ориентированные процессы разработки как единую систему.\nВстраивает генеративный ИИ в процессы разработки, проверки и организации информации как практическую основу, помогающую небольшим командам быстрее и надежнее достигать результата.",
       "skills": [
         "Формулирование бизнес-задач",
         "Технологический выбор",
