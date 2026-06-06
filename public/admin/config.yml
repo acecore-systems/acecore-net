@@ -496,10 +496,10 @@ collections:
         label: '表示トーン'
         widget: select
         options:
-          - { label: 'ブランド（通常）', value: brand }
-          - { label: '募集・注意（黄）', value: amber }
-          - { label: '受付中・成功（緑）', value: emerald }
-          - { label: '控えめ（グレー）', value: slate }
+          - { label: '🔵 ブランド（通常）', value: brand }
+          - { label: '🟡 募集・注意', value: amber }
+          - { label: '🟢 受付中・成功', value: emerald }
+          - { label: '⚪ 控えめ', value: slate }
         default: brand
       - name: 'startsAt'
         label: '表示開始日時'
