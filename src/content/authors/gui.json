@@ -3,7 +3,7 @@
   "name": "Gui",
   "avatar": "",
   "avatarImage": "",
-  "bio": "Acecore 代表。業務システム開発、Web制作、DB/インフラ、品質保証、現場機器連携、GitHub運用まで横断して扱うエンジニア。\nC#/.NET を軸に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども扱い、要件整理から設計・実装・テスト・導入・運用改善まで一気通貫で対応する。\n公開GitHubでは Astro/Cloudflare Pages のサイト運用、Microfeed系プロジェクト、ドキュメント/コミュニティ系リポジトリの整備にも関わっている。",
+  "bio": "Acecore 代表。業務システム開発、Web制作、DB/インフラ、品質保証、現場機器連携、GitHub運用、生成AI活用まで横断して扱うエンジニア。\nC#/.NET を軸に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども扱い、要件整理から設計・実装・テスト・導入・運用改善まで一気通貫で対応する。\nAIは開発補助に留めず、多言語翻訳フロー、問い合わせAIチャット、Playwrightを使ったモンキーテスト、調査・事務作業の整理まで、実際の運用に組み込んでいる。",
   "url": "https://acecore.net/about/",
   "github": "https://github.com/acecore-systems",
   "twitter": "https://x.com/acecorenet",
@@ -13,129 +13,138 @@
     "C#/.NET",
     "DB・インフラ",
     "GitHub運用",
+    "生成AI活用",
+    "AIワークフロー設計",
     "品質保証",
     "現場機器連携",
-    "AI活用支援",
     "IT教育"
   ],
   "i18n": {
     "en": {
       "name": "Gui",
-      "bio": "CEO of Acecore. An engineer working across business systems, web production, databases and infrastructure, quality assurance, on-site device integration, and GitHub-based development workflows.\nUses C#/.NET as a core stack while also handling PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server, and takes projects from requirements and design through implementation, testing, deployment, and operational improvement.\nPublic GitHub work includes Astro/Cloudflare Pages sites, Microfeed-related projects, and documentation/community repositories.",
+      "bio": "CEO of Acecore. An engineer working across business systems, web production, databases and infrastructure, quality assurance, on-site device integration, GitHub-based development workflows, and practical generative AI adoption.\nUses C#/.NET as a core stack while also handling PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server, and takes projects from requirements and design through implementation, testing, deployment, and operational improvement.\nUses AI beyond coding assistance, incorporating it into multilingual translation workflows, inquiry chatbots, Playwright-based monkey testing, research, and back-office task organization.",
       "skills": [
         "System development",
         "C#/.NET",
         "Web production",
         "Databases/infrastructure",
         "GitHub workflows",
+        "Generative AI",
+        "AI workflow design",
         "Quality assurance",
         "Device integration",
-        "AI enablement",
         "IT education"
       ]
     },
     "zh-cn": {
       "name": "Gui",
-      "bio": "Acecore 代表。横跨业务系统开发、Web 制作、数据库与基础设施、质量保证、现场设备联动以及基于 GitHub 的开发流程的工程师。\n以 C#/.NET 为主要技术栈，同时也使用 PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server，从需求整理、设计、实现、测试、导入到运维改进都能一贯对应。\n公开 GitHub 上也参与 Astro/Cloudflare Pages 网站、Microfeed 相关项目以及文档/社区类仓库的维护。",
+      "bio": "Acecore 代表。横跨业务系统开发、Web 制作、数据库与基础设施、质量保证、现场设备联动、基于 GitHub 的开发流程以及生成式 AI 实务应用的工程师。\n以 C#/.NET 为主要技术栈，同时也使用 PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server，从需求整理、设计、实现、测试、导入到运维改进都能一贯对应。\nAI 不只用于编码辅助，也实际用于多语言翻译流程、咨询 AI 聊天、基于 Playwright 的猴子测试、调查和后台事务整理。",
       "skills": [
         "系统开发",
         "C#/.NET",
         "Web制作",
         "数据库/基础设施",
         "GitHub流程",
+        "生成式AI",
+        "AI工作流设计",
         "质量保证",
         "设备联动",
-        "AI应用支持",
         "IT教育"
       ]
     },
     "es": {
       "name": "Gui",
-      "bio": "CEO de Acecore. Ingeniero que trabaja en sistemas empresariales, producción web, bases de datos e infraestructura, aseguramiento de calidad, integración con dispositivos en sitio y flujos de desarrollo basados en GitHub.\nUsa C#/.NET como stack principal, pero también trabaja con PHP/JavaScript, SQL Server/PostgreSQL/MySQL y Linux/Windows Server, cubriendo desde requisitos y diseño hasta implementación, pruebas, despliegue y mejora operativa.\nSu trabajo público en GitHub incluye sitios con Astro/Cloudflare Pages, proyectos relacionados con Microfeed y repositorios de documentación/comunidad.",
+      "bio": "CEO de Acecore. Ingeniero que trabaja en sistemas empresariales, producción web, bases de datos e infraestructura, aseguramiento de calidad, integración con dispositivos en sitio, flujos de desarrollo basados en GitHub y adopción práctica de IA generativa.\nUsa C#/.NET como stack principal, pero también trabaja con PHP/JavaScript, SQL Server/PostgreSQL/MySQL y Linux/Windows Server, cubriendo desde requisitos y diseño hasta implementación, pruebas, despliegue y mejora operativa.\nUsa la IA más allá de la asistencia al código, incorporándola en flujos de traducción multilingüe, chatbots de consulta, pruebas tipo monkey con Playwright, investigación y organización de tareas administrativas.",
       "skills": [
         "Desarrollo de sistemas",
         "C#/.NET",
         "Producción web",
         "Bases de datos/infraestructura",
         "Flujos de GitHub",
+        "IA generativa",
+        "Diseño de flujos de IA",
         "Aseguramiento de calidad",
         "Integración de dispositivos",
-        "Uso de IA",
         "Educación en TI"
       ]
     },
     "pt": {
       "name": "Gui",
-      "bio": "CEO da Acecore. Engenheiro que atua em sistemas de negócio, produção web, bancos de dados e infraestrutura, garantia de qualidade, integração com dispositivos em campo e fluxos de desenvolvimento baseados em GitHub.\nUsa C#/.NET como stack principal, mas também trabalha com PHP/JavaScript, SQL Server/PostgreSQL/MySQL e Linux/Windows Server, cobrindo requisitos, design, implementação, testes, implantação e melhoria operacional.\nO trabalho público no GitHub inclui sites com Astro/Cloudflare Pages, projetos relacionados ao Microfeed e repositórios de documentação/comunidade.",
+      "bio": "CEO da Acecore. Engenheiro que atua em sistemas de negócio, produção web, bancos de dados e infraestrutura, garantia de qualidade, integração com dispositivos em campo, fluxos de desenvolvimento baseados em GitHub e adoção prática de IA generativa.\nUsa C#/.NET como stack principal, mas também trabalha com PHP/JavaScript, SQL Server/PostgreSQL/MySQL e Linux/Windows Server, cobrindo requisitos, design, implementação, testes, implantação e melhoria operacional.\nUsa IA além da assistência de código, incorporando-a em fluxos de tradução multilíngue, chatbots de atendimento, testes monkey com Playwright, pesquisa e organização de tarefas administrativas.",
       "skills": [
         "Desenvolvimento de sistemas",
         "C#/.NET",
         "Produção web",
         "Bancos de dados/infraestrutura",
         "Fluxos de GitHub",
+        "IA generativa",
+        "Design de fluxos de IA",
         "Garantia de qualidade",
         "Integração de dispositivos",
-        "Uso de IA",
         "Educação em TI"
       ]
     },
     "fr": {
       "name": "Gui",
-      "bio": "PDG d'Acecore. Ingénieur intervenant sur les systèmes métier, la production web, les bases de données et l'infrastructure, l'assurance qualité, l'intégration d'équipements sur site et les flux de développement basés sur GitHub.\nTravaille principalement avec C#/.NET, tout en utilisant aussi PHP/JavaScript, SQL Server/PostgreSQL/MySQL et Linux/Windows Server, de la clarification des besoins et de la conception jusqu'à l'implémentation, aux tests, au déploiement et à l'amélioration opérationnelle.\nSon travail public sur GitHub comprend des sites Astro/Cloudflare Pages, des projets liés à Microfeed et des dépôts de documentation/communauté.",
+      "bio": "PDG d'Acecore. Ingénieur intervenant sur les systèmes métier, la production web, les bases de données et l'infrastructure, l'assurance qualité, l'intégration d'équipements sur site, les flux de développement basés sur GitHub et l'adoption concrète de l'IA générative.\nTravaille principalement avec C#/.NET, tout en utilisant aussi PHP/JavaScript, SQL Server/PostgreSQL/MySQL et Linux/Windows Server, de la clarification des besoins et de la conception jusqu'à l'implémentation, aux tests, au déploiement et à l'amélioration opérationnelle.\nUtilise l'IA au-delà de l'assistance au code, en l'intégrant aux flux de traduction multilingue, aux chatbots de demande, aux tests monkey avec Playwright, à la recherche et à l'organisation de tâches administratives.",
       "skills": [
         "Développement de systèmes",
         "C#/.NET",
         "Production web",
         "Bases de données/infrastructure",
         "Flux GitHub",
+        "IA générative",
+        "Conception de flux IA",
         "Assurance qualité",
         "Intégration d'équipements",
-        "Usage de l'IA",
         "Enseignement informatique"
       ]
     },
     "ko": {
       "name": "Gui",
-      "bio": "Acecore 대표. 업무 시스템 개발, 웹 제작, DB/인프라, 품질 보증, 현장 장비 연동, GitHub 기반 개발 흐름까지 폭넓게 다루는 엔지니어입니다.\nC#/.NET을 중심으로 PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server도 다루며, 요구사항 정리와 설계부터 구현, 테스트, 도입, 운영 개선까지 일관되게 대응합니다.\n공개 GitHub에서는 Astro/Cloudflare Pages 사이트 운영, Microfeed 관련 프로젝트, 문서/커뮤니티 계열 저장소 정비에도 참여하고 있습니다.",
+      "bio": "Acecore 대표. 업무 시스템 개발, 웹 제작, DB/인프라, 품질 보증, 현장 장비 연동, GitHub 기반 개발 흐름, 생성형 AI 실무 활용까지 폭넓게 다루는 엔지니어입니다.\nC#/.NET을 중심으로 PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server도 다루며, 요구사항 정리와 설계부터 구현, 테스트, 도입, 운영 개선까지 일관되게 대응합니다.\nAI를 코딩 보조에만 쓰지 않고 다국어 번역 흐름, 문의 AI 챗봇, Playwright 기반 몽키 테스트, 조사와 사무 작업 정리까지 실제 운영에 통합하고 있습니다.",
       "skills": [
         "시스템 개발",
         "C#/.NET",
         "웹 제작",
         "DB/인프라",
         "GitHub 워크플로",
+        "생성형 AI",
+        "AI 워크플로 설계",
         "품질 보증",
         "장비 연동",
-        "AI 활용 지원",
         "IT 교육"
       ]
     },
     "de": {
       "name": "Gui",
-      "bio": "CEO von Acecore. Ingenieur für Geschäftssysteme, Webproduktion, Datenbanken und Infrastruktur, Qualitätssicherung, Integration von Geräten vor Ort und GitHub-basierte Entwicklungsabläufe.\nArbeitet hauptsächlich mit C#/.NET, aber auch mit PHP/JavaScript, SQL Server/PostgreSQL/MySQL und Linux/Windows Server, von Anforderungen und Design bis Implementierung, Tests, Einführung und operativer Verbesserung.\nÖffentliche GitHub-Arbeiten umfassen Astro/Cloudflare-Pages-Websites, Microfeed-bezogene Projekte sowie Dokumentations- und Community-Repositories.",
+      "bio": "CEO von Acecore. Ingenieur für Geschäftssysteme, Webproduktion, Datenbanken und Infrastruktur, Qualitätssicherung, Integration von Geräten vor Ort, GitHub-basierte Entwicklungsabläufe und praktische Einführung generativer KI.\nArbeitet hauptsächlich mit C#/.NET, aber auch mit PHP/JavaScript, SQL Server/PostgreSQL/MySQL und Linux/Windows Server, von Anforderungen und Design bis Implementierung, Tests, Einführung und operativer Verbesserung.\nNutzt KI nicht nur als Coding-Hilfe, sondern integriert sie in mehrsprachige Übersetzungsabläufe, Anfrage-Chatbots, Monkey-Tests mit Playwright, Recherche und die Organisation administrativer Aufgaben.",
       "skills": [
         "Systementwicklung",
         "C#/.NET",
         "Webproduktion",
         "Datenbanken/Infrastruktur",
         "GitHub-Workflows",
+        "Generative KI",
+        "KI-Workflow-Design",
         "Qualitätssicherung",
         "Geräteintegration",
-        "KI-Nutzung",
         "IT-Bildung"
       ]
     },
     "ru": {
       "name": "Gui",
-      "bio": "Генеральный директор Acecore. Инженер, работающий с бизнес-системами, веб-разработкой, базами данных и инфраструктурой, обеспечением качества, интеграцией оборудования на местах и GitHub-ориентированными процессами разработки.\nОсновной стек — C#/.NET, но также использует PHP/JavaScript, SQL Server/PostgreSQL/MySQL и Linux/Windows Server, сопровождая проекты от требований и проектирования до реализации, тестирования, внедрения и операционных улучшений.\nПубличная работа на GitHub включает сайты на Astro/Cloudflare Pages, проекты, связанные с Microfeed, а также репозитории документации и сообщества.",
+      "bio": "Генеральный директор Acecore. Инженер, работающий с бизнес-системами, веб-разработкой, базами данных и инфраструктурой, обеспечением качества, интеграцией оборудования, GitHub-ориентированными процессами разработки и практическим внедрением генеративного ИИ.\nОсновной стек — C#/.NET, но также использует PHP/JavaScript, SQL Server/PostgreSQL/MySQL и Linux/Windows Server, сопровождая проекты от требований и проектирования до реализации, тестирования, внедрения и операционных улучшений.\nИспользует ИИ не только как помощника в кодинге, но и в многоязычных переводческих процессах, чатботах для обращений, monkey-тестировании с Playwright, исследованиях и организации административных задач.",
       "skills": [
         "Разработка систем",
         "C#/.NET",
         "Веб-производство",
         "Базы данных/инфраструктура",
         "GitHub-процессы",
+        "Генеративный ИИ",
+        "Проектирование ИИ-процессов",
         "Обеспечение качества",
         "Интеграция устройств",
-        "Использование ИИ",
         "IT-образование"
       ]
     }
