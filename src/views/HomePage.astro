@@ -102,7 +102,7 @@ const homeStatToneClasses = {
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
-      '/uploads/acecore-generated/home-hero-planning-workshop.webp',
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
       { quality: 40 },
     ),
     alt: t(locale, 'pages.home.heroImgTeam'),
@@ -120,10 +120,10 @@ const homeHeroImages: HeroImage[] = [
   },
   {
     src: optimizeImage(
-      '/uploads/acecore-generated/home-hero-operations-workshop.webp',
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=70&fm=webp',
       { quality: 40 },
     ),
-    alt: t(locale, 'pages.home.heroImgStrategy'),
+    alt: t(locale, 'pages.home.heroImgMeeting'),
     srcsetWidths: homeHeroSrcSetWidths,
     sizes: '100vw',
   },
@@ -154,7 +154,7 @@ const webPageLd = {
   <Hero
     title={t(locale, 'pages.home.heroTitle')}
     titleLines={locale === 'ja'
-      ? ['開発からデザイン、', '教育まで。', 'ワンストップで届けるIT支援']
+      ? ['開発・デザイン・教育', '一つの窓口で支える']
       : undefined}
     subtitle={t(locale, 'pages.home.heroSubtitle')}
     showCTA={true}
