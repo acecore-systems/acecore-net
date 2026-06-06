@@ -9,8 +9,8 @@
   },
   "announcement": {
     "enabled": true,
-    "eyebrow": "限时通知",
-    "message": "网站制作、系统开发与 Acecore Schools 夏季咨询正在受理中。名额有限，请尽早联系我们。",
+    "title": "限时通知",
+    "body": "网站制作、系统开发与 Acecore Schools 夏季咨询正在受理中。名额有限，请尽早联系我们。",
     "href": "/contact/?category=estimate",
     "ctaLabel": "咨询",
     "startsAt": "2026-06-01T00:00",
@@ -22,7 +22,6 @@
       "id": "schools-summer-2026",
       "placement": "schools-after-hero",
       "enabled": true,
-      "eyebrow": "受理中",
       "title": "2026年夏季班招生中",
       "body": "由于采用小班制，名额满后将停止本期招生。",
       "href": "/contact/?category=service-education",

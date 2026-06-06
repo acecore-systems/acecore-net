@@ -456,23 +456,14 @@ collections:
           - { label: 'Acecore Schools', value: schools }
           - { label: 'AceStudio', value: acestudio }
         required: false
-      - name: 'eyebrow'
-        label: 'ラベル'
-        widget: string
-        required: false
-      - name: 'message'
-        label: 'トップ告知文'
-        hint: 'トップ告知バナーで表示する本文です。ページ内通知では空でOKです。'
-        widget: text
-        required: false
       - name: 'title'
-        label: 'ページ内タイトル'
-        hint: 'ページ内キャンペーン通知で表示するタイトルです。トップ告知では空でOKです。'
+        label: 'タイトル'
+        hint: 'トップ告知バナーでは小さなラベル、ページ内キャンペーン通知では見出しとして表示します。'
         widget: string
         required: false
       - name: 'body'
-        label: 'ページ内本文'
-        hint: 'ページ内キャンペーン通知で表示する本文です。トップ告知では空でOKです。'
+        label: '本文'
+        hint: 'トップ告知バナーとページ内キャンペーン通知で表示する本文です。'
         widget: text
         required: false
       - name: 'href'

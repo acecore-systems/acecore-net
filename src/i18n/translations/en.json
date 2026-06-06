@@ -9,8 +9,8 @@
   },
   "announcement": {
     "enabled": true,
-    "eyebrow": "Limited-time notice",
-    "message": "Summer consultations are open for web production, system development, and Acecore Schools. Slots are limited, so please contact us early.",
+    "title": "Limited-time notice",
+    "body": "Summer consultations are open for web production, system development, and Acecore Schools. Slots are limited, so please contact us early.",
     "href": "/contact/?category=estimate",
     "ctaLabel": "Consult Us",
     "startsAt": "2026-06-01T00:00",
@@ -22,7 +22,6 @@
       "id": "schools-summer-2026",
       "placement": "schools-after-hero",
       "enabled": true,
-      "eyebrow": "Open",
       "title": "Now accepting students for Summer 2026",
       "body": "Because classes are small, this enrollment window will close once capacity is reached.",
       "href": "/contact/?category=service-education",

@@ -11,8 +11,12 @@ type AnnouncementTone = 'brand' | 'amber' | 'emerald' | 'slate'
 
 type AnnouncementSettings = {
   enabled?: boolean
+  /** @deprecated Use title instead. */
   eyebrow?: string
+  /** @deprecated Use body instead. */
   message?: string
+  title?: string
+  body?: string
   href?: string
   ctaLabel?: string
   startsAt?: string
@@ -36,30 +40,30 @@ const announcements =
 
 const toneClasses: Record<
   AnnouncementTone,
-  { wrap: string; icon: string; eyebrow: string; cta: string }
+  { wrap: string; icon: string; title: string; cta: string }
 > = {
   brand: {
     wrap: 'border-brand-200 bg-brand-50 text-slate-900',
     icon: 'text-brand-600',
-    eyebrow: 'text-brand-700',
+    title: 'text-brand-700',
     cta: 'bg-brand-600 text-white hover:bg-brand-700',
   },
   amber: {
     wrap: 'border-amber-200 bg-amber-50 text-slate-900',
     icon: 'text-amber-600',
-    eyebrow: 'text-amber-800',
+    title: 'text-amber-800',
     cta: 'bg-amber-500 text-slate-950 hover:bg-amber-400',
   },
   emerald: {
     wrap: 'border-emerald-200 bg-emerald-50 text-slate-900',
     icon: 'text-emerald-600',
-    eyebrow: 'text-emerald-700',
+    title: 'text-emerald-700',
     cta: 'bg-emerald-600 text-white hover:bg-emerald-700',
   },
   slate: {
     wrap: 'border-slate-200 bg-slate-50 text-slate-900',
     icon: 'text-slate-600',
-    eyebrow: 'text-slate-700',
+    title: 'text-slate-700',
     cta: 'bg-slate-800 text-white hover:bg-slate-900',
   },
 }
@@ -69,16 +73,19 @@ const isAnnouncementTone = (tone?: string): tone is AnnouncementTone =>
 
 const visibleAnnouncements = announcements
   .map((announcement) => {
-    const message = announcement?.message?.trim() ?? ''
+    const title =
+      announcement?.title?.trim() || announcement?.eyebrow?.trim() || ''
+    const body =
+      announcement?.body?.trim() || announcement?.message?.trim() || ''
     const href = announcement?.href?.trim() ?? ''
     const destination =
       href && href.startsWith('/') ? getLocalizedUrl(href, locale) : href
 
     return {
-      message,
+      title,
+      body,
       destination,
       ctaLabel: announcement?.ctaLabel?.trim() ?? '',
-      eyebrow: announcement?.eyebrow?.trim() ?? '',
       tone: isAnnouncementTone(announcement?.tone)
         ? announcement.tone
         : 'amber',
@@ -90,7 +97,7 @@ const visibleAnnouncements = announcements
   .filter(
     (announcement) =>
       announcement.enabled &&
-      announcement.message.length > 0 &&
+      announcement.body.length > 0 &&
       isWithinPublicationWindow(announcement.startsAt, announcement.endsAt),
   )
 ---
@@ -102,7 +109,7 @@ const visibleAnnouncements = announcements
     return (
       <aside
         class:list={['border-b text-sm', classes.wrap]}
-        aria-label={announcement.eyebrow || 'Announcement'}
+        aria-label={announcement.title || 'Announcement'}
       >
         <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex min-w-0 items-start gap-3">
@@ -111,18 +118,18 @@ const visibleAnnouncements = announcements
               class:list={['mt-0.5 shrink-0 text-lg', classes.icon]}
             />
             <div class="min-w-0">
-              {announcement.eyebrow && (
+              {announcement.title && (
                 <p
                   class:list={[
                     'mb-0.5 text-xs font-800 uppercase leading-tight',
-                    classes.eyebrow,
+                    classes.title,
                   ]}
                 >
-                  {announcement.eyebrow}
+                  {announcement.title}
                 </p>
               )}
               <p class="m-0 text-sm font-700 leading-relaxed">
-                {announcement.message}
+                {announcement.body}
               </p>
             </div>
           </div>

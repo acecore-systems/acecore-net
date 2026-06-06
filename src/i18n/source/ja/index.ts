@@ -20,7 +20,9 @@ type CampaignEntry = {
   page?: string
   placement?: string
   enabled?: boolean
+  /** @deprecated Use title instead. */
   eyebrow?: string
+  /** @deprecated Use body instead. */
   message?: string
   title?: string
   body?: string
@@ -63,6 +65,8 @@ const announcements = campaignEntries
       enabled,
       eyebrow,
       message,
+      title,
+      body,
       href,
       ctaLabel,
       startsAt,
@@ -70,8 +74,8 @@ const announcements = campaignEntries
       tone,
     }) => ({
       enabled,
-      eyebrow,
-      message,
+      title: title ?? eyebrow,
+      body: body ?? message,
       href,
       ctaLabel,
       startsAt,
@@ -89,6 +93,7 @@ const campaignNotices = campaignEntries
       placement,
       enabled,
       eyebrow,
+      message,
       title,
       body,
       href,
@@ -107,9 +112,8 @@ const campaignNotices = campaignEntries
         placement,
       }),
       enabled,
-      eyebrow,
-      title,
-      body,
+      title: title ?? eyebrow,
+      body: body ?? message,
       href,
       ctaLabel,
       icon,

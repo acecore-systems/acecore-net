@@ -9,8 +9,8 @@
   },
   "announcement": {
     "enabled": true,
-    "eyebrow": "기간 한정 안내",
-    "message": "웹 제작, 시스템 개발, Acecore Schools 여름 상담을 접수 중입니다. 대응 가능 인원이 한정되어 있으니 서둘러 문의해 주세요.",
+    "title": "기간 한정 안내",
+    "body": "웹 제작, 시스템 개발, Acecore Schools 여름 상담을 접수 중입니다. 대응 가능 인원이 한정되어 있으니 서둘러 문의해 주세요.",
     "href": "/contact/?category=estimate",
     "ctaLabel": "상담하기",
     "startsAt": "2026-06-01T00:00",
@@ -22,7 +22,6 @@
       "id": "schools-summer-2026",
       "placement": "schools-after-hero",
       "enabled": true,
-      "eyebrow": "접수 중",
       "title": "2026년 여름반 모집 중",
       "body": "소수 정원제로 운영하므로 정원이 차면 이번 모집 접수를 종료합니다.",
       "href": "/contact/?category=service-education",

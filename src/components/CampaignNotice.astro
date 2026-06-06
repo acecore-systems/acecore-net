@@ -25,7 +25,10 @@ type CampaignNoticeSettings = {
   page?: string
   placement?: string
   enabled?: boolean
+  /** @deprecated Use title instead. */
   eyebrow?: string
+  /** @deprecated Use body instead. */
+  message?: string
   title?: string
   body?: string
   href?: string
@@ -38,7 +41,6 @@ type CampaignNoticeSettings = {
 
 type VisibleCampaignNotice = {
   id: string
-  eyebrow: string
   title: string
   body: string
   destination: string
@@ -71,7 +73,6 @@ const toneClasses: Record<
     wrap: string
     iconWrap: string
     icon: string
-    badge: string
     cta: string
   }
 > = {
@@ -79,28 +80,24 @@ const toneClasses: Record<
     wrap: 'border-brand-100 bg-brand-50/80',
     iconWrap: 'bg-white text-brand-600 shadow-sm',
     icon: 'text-brand-600',
-    badge: 'bg-brand-600 text-white',
     cta: 'ac-btn-primary',
   },
   amber: {
     wrap: 'border-amber-200 bg-amber-50/90',
     iconWrap: 'bg-white text-amber-600 shadow-sm',
     icon: 'text-amber-600',
-    badge: 'bg-amber-500 text-slate-950',
     cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-800 text-slate-950 no-underline transition-colors hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2',
   },
   emerald: {
     wrap: 'border-emerald-200 bg-emerald-50/90',
     iconWrap: 'bg-white text-emerald-600 shadow-sm',
     icon: 'text-emerald-600',
-    badge: 'bg-emerald-600 text-white',
     cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2',
   },
   slate: {
     wrap: 'border-slate-200 bg-slate-50/90',
     iconWrap: 'bg-white text-slate-600 shadow-sm',
     icon: 'text-slate-600',
-    badge: 'bg-slate-800 text-white',
     cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2',
   },
 }
@@ -119,7 +116,8 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
         : ''
     const noticePlacement = notice.placement?.trim() || noticePagePlacement
     const id = notice.id?.trim() ?? noticePlacement
-    const title = notice.title?.trim() ?? ''
+    const title = notice.title?.trim() || notice.eyebrow?.trim() || ''
+    const body = notice.body?.trim() || notice.message?.trim() || ''
     const href = notice.href?.trim() ?? ''
     const destination = href ? getDestination(href) : ''
 
@@ -135,9 +133,8 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
 
     result.push({
       id,
-      eyebrow: notice.eyebrow?.trim() ?? '',
       title,
-      body: notice.body?.trim() ?? '',
+      body,
       destination,
       isExternal: /^https?:\/\//.test(destination),
       ctaLabel: notice.ctaLabel?.trim() ?? '',
@@ -173,18 +170,6 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
               <Icon name={notice.icon} class:list={['text-xl', classes.icon]} />
             </span>
             <div class="min-w-0">
-              {notice.eyebrow && (
-                <div class="mb-1 flex flex-wrap items-center gap-2">
-                  <span
-                    class:list={[
-                      'rounded-full px-3 py-1 text-xs font-800',
-                      classes.badge,
-                    ]}
-                  >
-                    {notice.eyebrow}
-                  </span>
-                </div>
-              )}
               <h2 class="m-0 text-lg font-800 leading-snug text-slate-900">
                 {notice.title}
               </h2>

@@ -9,8 +9,8 @@
   },
   "announcement": {
     "enabled": true,
-    "eyebrow": "Annonce limitée",
-    "message": "Les consultations d'été sont ouvertes pour la production web, le développement de systèmes et Acecore Schools. Les places sont limitées, contactez-nous tôt.",
+    "title": "Annonce limitée",
+    "body": "Les consultations d'été sont ouvertes pour la production web, le développement de systèmes et Acecore Schools. Les places sont limitées, contactez-nous tôt.",
     "href": "/contact/?category=estimate",
     "ctaLabel": "Consulter",
     "startsAt": "2026-06-01T00:00",
@@ -22,7 +22,6 @@
       "id": "schools-summer-2026",
       "placement": "schools-after-hero",
       "enabled": true,
-      "eyebrow": "Ouvert",
       "title": "Inscriptions ouvertes pour l'été 2026",
       "body": "Comme les groupes sont petits, cette période d'inscription fermera lorsque la capacité sera atteinte.",
       "href": "/contact/?category=service-education",
