@@ -8,6 +8,17 @@
     "contact": "문의하기",
     "pricing": "요금"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "사이트 리뉴얼 안내",
+    "body": "사이트를 리뉴얼하고 서비스 내용과 제작 사례를 더 보기 쉽게 정리했습니다.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "변경 내용 보기",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "본문으로 건너뛰기",
     "search": "기사 검색",

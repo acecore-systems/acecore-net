@@ -1,5 +1,11 @@
 ---
-import { getLocaleFromUrl, t, getAlternateUrls, getLocalizedUrl, type Locale } from '../i18n'
+import {
+  getLocaleFromUrl,
+  t,
+  getAlternateUrls,
+  getLocalizedUrl,
+  type Locale,
+} from '../i18n'
 import { defaultLocale, locales, ogLocaleMap, htmlLangMap } from '../i18n'
 
 interface Props {
@@ -42,9 +48,7 @@ const {
 
 const isHome = title === t(locale, 'nav.home')
 const gaFallbackDelay = isHome ? 12000 : 4000
-const pageTitle = isHome
-  ? t(locale, 'meta.siteTitle')
-  : `${title} | Acecore`
+const pageTitle = isHome ? t(locale, 'meta.siteTitle') : `${title} | Acecore`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
 const isMonetizedPage =
@@ -81,11 +85,15 @@ const knownRoutes = new Set([
 ])
 // locale プレフィクスを除外してパスパーツを取得
 const rawParts = Astro.url.pathname.split('/').filter(Boolean)
-const pathParts = (rawParts[0] && (locales as readonly string[]).includes(rawParts[0]) && rawParts[0] !== defaultLocale)
-  ? rawParts.slice(1)
-  : rawParts
+const pathParts =
+  rawParts[0] &&
+  (locales as readonly string[]).includes(rawParts[0]) &&
+  rawParts[0] !== defaultLocale
+    ? rawParts.slice(1)
+    : rawParts
 const siteOrigin = Astro.site?.origin || 'https://acecore.net'
-const buildAbsoluteUrl = (path: string) => new URL(path, `${siteOrigin}/`).toString()
+const buildAbsoluteUrl = (path: string) =>
+  new URL(path, `${siteOrigin}/`).toString()
 const breadcrumbLdFromProps =
   breadcrumbItems && breadcrumbItems.length > 0
     ? {
@@ -128,7 +136,12 @@ const breadcrumbLd =
               '@type': 'ListItem',
               position: i + 2,
               name: pageNameMap[part] || decodeURIComponent(part),
-              item: buildAbsoluteUrl(`${getLocalizedUrl('/' + path + '/', locale)}/`.replace(/\/+/g, '/')),
+              item: buildAbsoluteUrl(
+                `${getLocalizedUrl('/' + path + '/', locale)}/`.replace(
+                  /\/+/g,
+                  '/',
+                ),
+              ),
             }
           }),
         ],
@@ -139,6 +152,7 @@ const alternateUrls = getAlternateUrls(Astro.url.pathname, siteOrigin)
 
 import { ClientRouter } from 'astro:transitions'
 import Header from '../components/Header.astro'
+import AnnouncementBanner from '../components/AnnouncementBanner.astro'
 import Footer from '../components/Footer.astro'
 import SearchModal from '../components/SearchModal.astro'
 import ScrollToTop from '../components/ScrollToTop.astro'
@@ -159,9 +173,13 @@ import { SITE } from '../data/site'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content={robots} />
     <meta property="og:locale" content={ogLocaleMap[locale]} />
-    {locales.filter(l => l !== locale).map(l => (
-      <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
-    ))}
+    {
+      locales
+        .filter((l) => l !== locale)
+        .map((l) => (
+          <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
+        ))
+    }
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -204,10 +222,16 @@ import { SITE } from '../data/site'
       title={t(locale, 'blog.rssTitle')}
       href={locale === defaultLocale ? '/rss.xml' : `/${locale}/rss.xml`}
     />
-    {alternateUrls.map(({ locale: l, url }) => (
-      <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={alternateUrls.find(a => a.locale === defaultLocale)?.url} />
+    {
+      alternateUrls.map(({ locale: l, url }) => (
+        <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={alternateUrls.find((a) => a.locale === defaultLocale)?.url}
+    />
     <link rel="preconnect" href={SITE.url} />
     {
       preloadImage && (
@@ -346,106 +370,123 @@ import { SITE } from '../data/site'
     }
     <ClientRouter />
     <script is:inline>
-      (function() {
-        if (localStorage.getItem('preferred-locale')) return;
-        var path = location.pathname;
-        if (path !== '/' && path !== '') return;
-        var lang = (navigator.language || '').toLowerCase();
+      ;(function () {
+        if (localStorage.getItem('preferred-locale')) return
+        var path = location.pathname
+        if (path !== '/' && path !== '') return
+        var lang = (navigator.language || '').toLowerCase()
         var map = {
-          en:'en',de:'de',fr:'fr',es:'es',pt:'pt',ko:'ko',ru:'ru',
-          'zh-cn':'zh-cn','zh-hans':'zh-cn','zh':'zh-cn'
-        };
-        var detected = map[lang] || map[lang.split('-')[0]];
-        if (detected && detected !== 'ja') {
-          localStorage.setItem('preferred-locale', detected);
-          location.replace('/' + detected + '/');
+          en: 'en',
+          de: 'de',
+          fr: 'fr',
+          es: 'es',
+          pt: 'pt',
+          ko: 'ko',
+          ru: 'ru',
+          'zh-cn': 'zh-cn',
+          'zh-hans': 'zh-cn',
+          zh: 'zh-cn',
         }
-      })();
+        var detected = map[lang] || map[lang.split('-')[0]]
+        if (detected && detected !== 'ja') {
+          localStorage.setItem('preferred-locale', detected)
+          location.replace('/' + detected + '/')
+        }
+      })()
     </script>
     <script is:inline>
-      (function() {
-        if (window.__aceAnalyticsClickTrackingInitialized) return;
-        window.__aceAnalyticsClickTrackingInitialized = true;
+      ;(function () {
+        if (window.__aceAnalyticsClickTrackingInitialized) return
+        window.__aceAnalyticsClickTrackingInitialized = true
 
         function camelToSnake(value) {
           return value.replace(/[A-Z]/g, function (match) {
-            return '_' + match.toLowerCase();
-          });
+            return '_' + match.toLowerCase()
+          })
         }
 
         function getLabel(element) {
           return (
             element.dataset.gaLabel ||
             (element.getAttribute('aria-label') || '').trim() ||
-            (element.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120)
-          );
+            (element.textContent || '')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .slice(0, 120)
+          )
         }
 
         function buildParams(element) {
           var params = {
             page_path: location.pathname,
             page_title: document.title,
-          };
+          }
 
           Object.keys(element.dataset).forEach(function (key) {
-            if (!key.startsWith('ga') || key === 'gaEvent') return;
-            var paramName = camelToSnake(key.slice(2).replace(/^./, function (char) {
-              return char.toLowerCase();
-            }));
-            params[paramName] = element.dataset[key];
-          });
+            if (!key.startsWith('ga') || key === 'gaEvent') return
+            var paramName = camelToSnake(
+              key.slice(2).replace(/^./, function (char) {
+                return char.toLowerCase()
+              }),
+            )
+            params[paramName] = element.dataset[key]
+          })
 
-          return params;
+          return params
         }
 
-        document.addEventListener('click', function (event) {
-          var target = event.target;
-          if (!(target instanceof Element)) return;
+        document.addEventListener(
+          'click',
+          function (event) {
+            var target = event.target
+            if (!(target instanceof Element)) return
 
-          var trackedElement = target.closest('[data-ga-event]');
-          if (trackedElement) {
-            window.aceTrackEvent(
-              trackedElement.dataset.gaEvent,
-              buildParams(trackedElement),
-            );
-            return;
-          }
+            var trackedElement = target.closest('[data-ga-event]')
+            if (trackedElement) {
+              window.aceTrackEvent(
+                trackedElement.dataset.gaEvent,
+                buildParams(trackedElement),
+              )
+              return
+            }
 
-          var anchor = target.closest('a[href]');
-          if (!(anchor instanceof HTMLAnchorElement)) return;
+            var anchor = target.closest('a[href]')
+            if (!(anchor instanceof HTMLAnchorElement)) return
 
-          var href = anchor.getAttribute('href') || '';
-          if (!href || href.startsWith('#')) return;
+            var href = anchor.getAttribute('href') || ''
+            if (!href || href.startsWith('#')) return
 
-          if (anchor.className.indexOf('ac-btn') !== -1) {
-            window.aceTrackEvent('cta_click', {
-              page_path: location.pathname,
-              page_title: document.title,
-              label: getLabel(anchor),
-              destination: anchor.href,
-              location: 'generic_cta',
-            });
-            return;
-          }
+            if (anchor.className.indexOf('ac-btn') !== -1) {
+              window.aceTrackEvent('cta_click', {
+                page_path: location.pathname,
+                page_title: document.title,
+                label: getLabel(anchor),
+                destination: anchor.href,
+                location: 'generic_cta',
+              })
+              return
+            }
 
-          var destination;
-          try {
-            destination = new URL(anchor.href, location.origin);
-          } catch {
-            return;
-          }
+            var destination
+            try {
+              destination = new URL(anchor.href, location.origin)
+            } catch {
+              return
+            }
 
-          if (destination.origin !== location.origin) {
-            window.aceTrackEvent('external_link_click', {
-              page_path: location.pathname,
-              page_title: document.title,
-              label: getLabel(anchor),
-              destination: destination.href,
-              location: 'generic_external_link',
-            });
-          }
-        }, true);
-      })();
+            if (destination.origin !== location.origin) {
+              window.aceTrackEvent('external_link_click', {
+                page_path: location.pathname,
+                page_title: document.title,
+                label: getLabel(anchor),
+                destination: destination.href,
+                location: 'generic_external_link',
+              })
+            }
+          },
+          true,
+        )
+      })()
     </script>
   </head>
   <body class="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
@@ -455,6 +496,7 @@ import { SITE } from '../data/site'
       >{t(locale, 'common.skipToContent')}</a
     >
     <Header locale={locale} languageSwitcherPath={languageSwitcherPath} />
+    <AnnouncementBanner locale={locale} />
     <main id="main" tabindex="-1" class="flex-1">
       <slot />
     </main>
@@ -493,7 +535,6 @@ import { SITE } from '../data/site'
 
       function bindSearchShortcuts() {
         if ((window as any).__aceSearchShortcutsBound) return
-
         ;(window as any).__aceSearchShortcutsBound = true
         document.addEventListener('keydown', (event) => {
           if ((event.ctrlKey || event.metaKey) && event.key === 'k') {

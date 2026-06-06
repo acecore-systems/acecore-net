@@ -8,6 +8,17 @@
     "contact": "Contact",
     "pricing": "Tarifs"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "Annonce de refonte du site",
+    "body": "Nous avons refondu le site et réorganisé les services ainsi que les réalisations pour faciliter la consultation.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Voir les changements",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Aller au contenu",
     "search": "Rechercher des articles",

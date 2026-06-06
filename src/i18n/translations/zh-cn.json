@@ -8,6 +8,17 @@
     "contact": "联系我们",
     "pricing": "价格"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "网站改版通知",
+    "body": "我们已更新网站，并重新整理服务内容和案例，方便浏览。",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "查看更新",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "跳至正文",
     "search": "搜索文章",
