@@ -9,29 +9,15 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Ограниченное предложение",
-    "body": "Открыты летние консультации по веб-разработке, системной разработке и Acecore Schools. Количество мест ограничено, поэтому свяжитесь с нами заранее.",
-    "href": "/contact/?category=estimate",
-    "ctaLabel": "Получить консультацию",
-    "startsAt": "2026-06-01T00:00",
-    "endsAt": "2026-08-31T23:59",
-    "tone": "amber"
+    "title": "Обновление сайта",
+    "body": "Мы обновили сайт и сделали услуги и примеры проектов удобнее для просмотра.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Посмотреть изменения",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
   },
-  "campaignNotices": [
-    {
-      "id": "schools-summer-2026",
-      "placement": "schools-after-hero",
-      "enabled": true,
-      "title": "Открыт набор на лето 2026",
-      "body": "Так как группы небольшие, этот набор закроется после заполнения мест.",
-      "href": "/contact/?category=service-education",
-      "ctaLabel": "Уточнить наличие мест",
-      "icon": "calendar-check",
-      "tone": "brand",
-      "startsAt": "2026-06-01T00:00",
-      "endsAt": "2026-08-31T23:59"
-    }
-  ],
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Перейти к содержанию",
     "search": "Поиск статей",

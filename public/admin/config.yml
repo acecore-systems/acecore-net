@@ -697,7 +697,7 @@ collections:
     fields:
       - name: 'id'
         label: '管理ID'
-        hint: 'ファイル名にも使われます。例: schools-summer-2026'
+        hint: 'ファイル名にも使われます。例: site-renewal-2026'
         widget: string
       - name: 'type'
         label: '種別'

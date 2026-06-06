@@ -9,29 +9,15 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Aviso por tiempo limitado",
-    "body": "Están abiertas las consultas de verano para producción web, desarrollo de sistemas y Acecore Schools. Las plazas son limitadas, así que contáctanos pronto.",
-    "href": "/contact/?category=estimate",
-    "ctaLabel": "Consultar",
-    "startsAt": "2026-06-01T00:00",
-    "endsAt": "2026-08-31T23:59",
-    "tone": "amber"
+    "title": "Aviso de renovación del sitio",
+    "body": "Hemos renovado el sitio y reorganizado los servicios y ejemplos de proyectos para que sean más fáciles de consultar.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Ver cambios",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
   },
-  "campaignNotices": [
-    {
-      "id": "schools-summer-2026",
-      "placement": "schools-after-hero",
-      "enabled": true,
-      "title": "Inscripciones abiertas para verano de 2026",
-      "body": "Como trabajamos con grupos pequeños, cerraremos esta convocatoria cuando se complete el cupo.",
-      "href": "/contact/?category=service-education",
-      "ctaLabel": "Consultar disponibilidad",
-      "icon": "calendar-check",
-      "tone": "brand",
-      "startsAt": "2026-06-01T00:00",
-      "endsAt": "2026-08-31T23:59"
-    }
-  ],
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Ir al contenido",
     "search": "Buscar artículos",

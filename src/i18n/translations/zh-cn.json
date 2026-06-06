@@ -9,29 +9,15 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "限时通知",
-    "body": "网站制作、系统开发与 Acecore Schools 夏季咨询正在受理中。名额有限，请尽早联系我们。",
-    "href": "/contact/?category=estimate",
-    "ctaLabel": "咨询",
-    "startsAt": "2026-06-01T00:00",
-    "endsAt": "2026-08-31T23:59",
-    "tone": "amber"
+    "title": "网站改版通知",
+    "body": "我们已更新网站，并重新整理服务内容和案例，方便浏览。",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "查看更新",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
   },
-  "campaignNotices": [
-    {
-      "id": "schools-summer-2026",
-      "placement": "schools-after-hero",
-      "enabled": true,
-      "title": "2026年夏季班招生中",
-      "body": "由于采用小班制，名额满后将停止本期招生。",
-      "href": "/contact/?category=service-education",
-      "ctaLabel": "咨询空位",
-      "icon": "calendar-check",
-      "tone": "brand",
-      "startsAt": "2026-06-01T00:00",
-      "endsAt": "2026-08-31T23:59"
-    }
-  ],
+  "campaignNotices": [],
   "common": {
     "skipToContent": "跳至正文",
     "search": "搜索文章",

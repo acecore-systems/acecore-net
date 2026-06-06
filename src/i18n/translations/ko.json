@@ -9,29 +9,15 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "기간 한정 안내",
-    "body": "웹 제작, 시스템 개발, Acecore Schools 여름 상담을 접수 중입니다. 대응 가능 인원이 한정되어 있으니 서둘러 문의해 주세요.",
-    "href": "/contact/?category=estimate",
-    "ctaLabel": "상담하기",
-    "startsAt": "2026-06-01T00:00",
-    "endsAt": "2026-08-31T23:59",
-    "tone": "amber"
+    "title": "사이트 리뉴얼 안내",
+    "body": "사이트를 리뉴얼하고 서비스 내용과 제작 사례를 더 보기 쉽게 정리했습니다.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "변경 내용 보기",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
   },
-  "campaignNotices": [
-    {
-      "id": "schools-summer-2026",
-      "placement": "schools-after-hero",
-      "enabled": true,
-      "title": "2026년 여름반 모집 중",
-      "body": "소수 정원제로 운영하므로 정원이 차면 이번 모집 접수를 종료합니다.",
-      "href": "/contact/?category=service-education",
-      "ctaLabel": "잔여석 문의하기",
-      "icon": "calendar-check",
-      "tone": "brand",
-      "startsAt": "2026-06-01T00:00",
-      "endsAt": "2026-08-31T23:59"
-    }
-  ],
+  "campaignNotices": [],
   "common": {
     "skipToContent": "본문으로 건너뛰기",
     "search": "기사 검색",

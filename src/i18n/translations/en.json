@@ -9,29 +9,15 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Limited-time notice",
-    "body": "Summer consultations are open for web production, system development, and Acecore Schools. Slots are limited, so please contact us early.",
-    "href": "/contact/?category=estimate",
-    "ctaLabel": "Consult Us",
-    "startsAt": "2026-06-01T00:00",
-    "endsAt": "2026-08-31T23:59",
-    "tone": "amber"
+    "title": "Site renewal notice",
+    "body": "We have refreshed the website and reorganized our services and project examples to make them easier to browse.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "See what's new",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
   },
-  "campaignNotices": [
-    {
-      "id": "schools-summer-2026",
-      "placement": "schools-after-hero",
-      "enabled": true,
-      "title": "Now accepting students for Summer 2026",
-      "body": "Because classes are small, this enrollment window will close once capacity is reached.",
-      "href": "/contact/?category=service-education",
-      "ctaLabel": "Ask About Availability",
-      "icon": "calendar-check",
-      "tone": "brand",
-      "startsAt": "2026-06-01T00:00",
-      "endsAt": "2026-08-31T23:59"
-    }
-  ],
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Skip to content",
     "search": "Search articles",
