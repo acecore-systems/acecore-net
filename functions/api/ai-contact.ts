@@ -60,9 +60,10 @@ Acecore public site context:
   - Blog: /blog/
   - Contact form: /contact/
   - Official LINE: https://lin.ee/DjIrdqj
-  - Email: mailto:info@acecore.net
-  - Phone: tel:05088902788
-- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form, LINE, email, or phone as appropriate.
+  - Direct email fallback: mailto:info@acecore.net
+  - Direct phone fallback: tel:05088902788
+- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first.
+- Do not show email or phone by default. Include direct email or phone links only when the visitor asks for direct contact, says the AI did not resolve the issue, cannot use the form, or needs urgent confirmation.
 `
 
 export const onRequestPost = async ({
@@ -119,7 +120,7 @@ export const onRequestPost = async ({
         'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-        'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. Mention email or phone only when the form is difficult to use, urgent confirmation is needed, or the visitor explicitly asks for direct contact.',
+        'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [メール](mailto:info@acecore.net) or [電話](tel:05088902788) only when appropriate.',
         ACECORE_CONTEXT,
       ].join('\n'),
       input: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,

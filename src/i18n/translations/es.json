@@ -41,7 +41,7 @@
     "placeholder": "Escriba su pregunta...",
     "send": "Enviar",
     "loading": "Preparando respuesta...",
-    "error": "El chat de IA no está disponible. Use el formulario, LINE, email o teléfono.",
+    "error": "El chat de IA no está disponible. Use el formulario de contacto o LINE.",
     "quickServices": "¿Qué servicio elegir?",
     "quickEstimate": "¿Cómo funcionan los presupuestos?",
     "quickSchools": "Información sobre escuelas",
@@ -201,7 +201,7 @@
     "contact": {
       "formSending": "Enviando…",
       "formSuccess": "Su consulta ha sido enviada. Revise su correo de confirmación.",
-      "formError": "Error al enviar. Inténtelo más tarde o contáctenos por correo o teléfono.",
+      "formError": "No se pudo enviar. Inténtelo más tarde o revise las opciones de contacto de abajo.",
       "title": "Contacto",
       "description": "Contacte con Acecore. Consultas sobre servicios, presupuestos, alianzas y más.",
       "heroTitle": "Contacto",
@@ -224,7 +224,7 @@
       "formSubmit": "Enviar",
       "formSubmitNote": "Recibirá un correo de confirmación tras el envío. Si no lo recibe, revise su carpeta de spam.",
       "formFaqHeading": "Puede revisar preguntas frecuentes e información relacionada antes de enviar.",
-      "otherMethodsHeading": "Otros medios de contacto",
+      "otherMethodsHeading": "Contacto breve fuera del formulario",
       "methodPhone": "Teléfono",
       "methodEmail": "Correo electrónico",
       "methodLine": "LINE",
@@ -243,7 +243,7 @@
       "faqQ3": "¿Puedo consultar sobre Acecore Schools aquí?",
       "faqA3": "Sí. Indique qué desea aprender, edad o curso, y ritmo de aprendizaje preferido.",
       "faqQ4": "¿Cuánto tarda la respuesta?",
-      "faqA4": "Normalmente respondemos en 1-2 días hábiles. Para detalles adicionales o confirmaciones también puede usar LINE, email o teléfono.",
+      "faqA4": "Normalmente respondemos en 1-2 días hábiles. Para añadir detalles después de enviar, también puede usar LINE o las opciones de contacto de abajo.",
       "aiHeading": "También puede usar el chat de IA",
       "aiLead": "Use el chat de IA en la esquina inferior derecha para servicios, desarrollo o sitios web, escuelas y tiempos de respuesta. Para consultas detalladas, puede continuar con el formulario.",
       "aiQuestionLabel": "Pregunta para la IA",
@@ -254,7 +254,9 @@
       "lineHeading": "También puede usar LINE",
       "lineLead": "Siga la cuenta oficial de LINE para recibir novedades. También sirve para consultas breves y mensajes sobre la escuela.",
       "lineCta": "Seguir en LINE",
-      "directMethodsNote": "Además del formulario, recibimos consultas breves por LINE o X y confirmaciones por email o teléfono. Elija el método que mejor encaje."
+      "directMethodsNote": "Para consultas breves use LINE. Para confirmaciones simples en redes, X también está disponible. Las solicitudes detalladas se revisan mejor desde el formulario.",
+      "directContactSummary": "Si quiere contactarnos directamente",
+      "directContactLead": "Abra esto si necesita añadir detalles después de enviar el formulario o confirmar algo directamente."
     },
     "schools": {
       "robotProgramming": {
@@ -338,7 +340,7 @@
         "support3": "Exámenes de práctica y ejercicios con exámenes anteriores"
       },
       "ctaHeading": "Consultas e inscripción",
-      "ctaBody": "Para detalles de cursos e inscripción, contáctenos por teléfono, correo o LINE. Consulte incluso si no está seguro de qué curso elegir.",
+      "ctaBody": "Para detalles de cursos e inscripción, use el formulario de contacto o LINE. También puede consultar aunque no sepa qué curso elegir.",
       "ctaForm": "Formulario de contacto",
       "ctaLine": "Contactar por LINE"
     },

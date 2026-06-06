@@ -9,7 +9,6 @@ interface Props {
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const contactUrl = getLocalizedUrl('/contact/', locale)
-const phoneTel = SITE.phone.replaceAll('-', '')
 ---
 
 <div
@@ -103,12 +102,6 @@ const phoneTel = SITE.phone.replaceAll('-', '')
           class="text-brand-600 hover:underline"
         >
           {t(locale, 'aiChat.line')}
-        </a>
-        <a href={`mailto:${SITE.email}`} class="text-brand-600 hover:underline">
-          {t(locale, 'aiChat.email')}
-        </a>
-        <a href={`tel:${phoneTel}`} class="text-brand-600 hover:underline">
-          {t(locale, 'aiChat.phone')}
         </a>
       </div>
     </div>

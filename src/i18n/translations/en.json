@@ -41,7 +41,7 @@
     "placeholder": "Type your question...",
     "send": "Send",
     "loading": "Preparing an answer...",
-    "error": "AI chat is unavailable. Please use the form, LINE, email, or phone.",
+    "error": "AI chat is unavailable. Please use the contact form or LINE.",
     "quickServices": "Which service should I choose?",
     "quickEstimate": "How do estimates work?",
     "quickSchools": "Tell me about schools",
@@ -382,10 +382,10 @@
       "formSubmit": "Send",
       "formSending": "Sending…",
       "formSuccess": "Your inquiry has been sent. Please check your confirmation email.",
-      "formError": "Failed to send. Please try again later or contact us by email or phone.",
+      "formError": "Failed to send. Please try again later or check the contact options below.",
       "formSubmitNote": "You will receive a confirmation email after submission. If you don't receive it, please check your spam folder.",
       "formFaqHeading": "You can check common questions and related information before sending.",
-      "otherMethodsHeading": "Other Contact Options",
+      "otherMethodsHeading": "Light Contact Options",
       "methodPhone": "Phone",
       "methodEmail": "Email",
       "methodLine": "LINE",
@@ -404,7 +404,7 @@
       "faqQ3": "Can I ask about Acecore Schools here?",
       "faqA3": "Yes. Please include what you want to learn, age or grade, and preferred learning pace.",
       "faqQ4": "How long does a reply take?",
-      "faqA4": "We usually reply within 1-2 business days. You can also use LINE, email, or phone for follow-up details.",
+      "faqA4": "We usually reply within 1-2 business days. For follow-up details after sending, LINE or the contact options below are also available.",
       "aiHeading": "AI chat is also available",
       "aiLead": "Use the AI chat in the lower right for services, development or website questions, schools, and reply timing. For detailed consultation, you can continue with the form.",
       "aiQuestionLabel": "Question for AI",
@@ -415,7 +415,9 @@
       "lineHeading": "You can also use LINE",
       "lineLead": "Follow the official LINE account for updates. It is also useful for short questions and school-related messages.",
       "lineCta": "Follow on LINE",
-      "directMethodsNote": "Besides the form, we also accept short questions on LINE or X and follow-up checks by email or phone. Choose the method that fits your situation."
+      "directMethodsNote": "For short questions, use LINE. For simple checks on social media, X is also available. Detailed requests are easier to review through the form.",
+      "directContactSummary": "If you want to contact us directly",
+      "directContactLead": "Open this if you need to add details after submitting the form or confirm something directly."
     },
     "schools": {
       "title": "Acecore Schools",
@@ -499,7 +501,7 @@
         "support3": "Practice exams and past paper exercises for practical preparation"
       },
       "ctaHeading": "Inquiries & Enrollment",
-      "ctaBody": "For course details and enrollment, contact us by phone, email, or LINE. Feel free to ask even if you're not sure which course is right.",
+      "ctaBody": "For course details and enrollment, please use the contact form or LINE. It is fine to ask even if you are not sure which course is right.",
       "ctaForm": "Contact Form",
       "ctaLine": "Contact via LINE"
     },

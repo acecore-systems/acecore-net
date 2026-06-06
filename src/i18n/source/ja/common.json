@@ -45,7 +45,7 @@
     "placeholder": "質問を入力...",
     "send": "送信",
     "loading": "回答を作成中...",
-    "error": "AIチャットを利用できません。フォーム・LINE・メール・電話をご利用ください。",
+    "error": "AIチャットを利用できません。問い合わせフォームまたはLINEをご利用ください。",
     "quickServices": "どのサービスを選べばいい？",
     "quickEstimate": "見積り相談の進め方は？",
     "quickSchools": "教室について知りたい",

@@ -15,6 +15,8 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const contactThanksUrl = u('/contact/thanks/')
+const [emailUser, emailDomain = ''] = SITE.email.split('@')
+const phoneParts = SITE.phone.split('-')
 
 const faqItems = [
   {
@@ -44,8 +46,7 @@ const contactPageLd = {
   mainEntity: {
     '@type': 'Organization',
     name: 'Acecore',
-    telephone: SITE.phoneIntl,
-    email: SITE.email,
+    url: 'https://acecore.net',
   },
 }
 
@@ -411,45 +412,147 @@ const faqLd = {
           </p>
           <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
         </a>
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="mail" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodEmail')}
-          </h3>
-          <p class="text-sm text-slate-600">
-            <a
-              href={`mailto:${SITE.email}`}
-              data-ga-event="contact_email_click"
-              data-ga-label="contact_card_email"
-              data-ga-location="contact_methods"
-              data-ga-destination={`mailto:${SITE.email}`}
-              class="text-brand-500 hover:underline">{SITE.email}</a
-            >
-          </p>
-        </div>
-        <div class="ac-card p-6 text-center">
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="phone" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">
-            {t(locale, 'pages.contact.methodPhone')}
-          </h3>
-          <p class="text-sm text-slate-600 font-600">
-            <a
-              href={`tel:${SITE.phone.replace(/-/g, '')}`}
-              data-ga-event="contact_phone_click"
-              data-ga-label="contact_card_phone"
-              data-ga-location="contact_methods"
-              data-ga-destination={`tel:${SITE.phone.replace(/-/g, '')}`}
-              class="text-brand-500 hover:underline">{SITE.phone}</a
-            >
-          </p>
-        </div>
       </div>
+      <details
+        class="direct-contact-details mt-4 rounded-lg border border-slate-200 bg-white"
+        data-direct-contact
+        data-email-user={emailUser}
+        data-email-domain={emailDomain}
+        data-phone-parts={phoneParts.join('|')}
+      >
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-left"
+        >
+          <span class="flex items-center gap-3">
+            <span class="ac-icon-box shrink-0">
+              <Icon name="messages-square" class="text-lg" />
+            </span>
+            <span>
+              <span class="block font-700 text-slate-900">
+                {t(locale, 'pages.contact.directContactSummary')}
+              </span>
+              <span class="mt-1 block text-sm text-slate-600">
+                {t(locale, 'pages.contact.directContactLead')}
+              </span>
+            </span>
+          </span>
+          <Icon
+            name="chevron-down"
+            class="direct-contact-chevron shrink-0 text-lg text-slate-500 transition-transform"
+          />
+        </summary>
+        <div
+          class="grid grid-cols-1 gap-3 border-t border-slate-100 p-5 sm:grid-cols-2"
+        >
+          <a
+            href="#"
+            data-direct-email-link
+            data-ga-event="contact_email_click"
+            data-ga-label="contact_disclosure_email"
+            data-ga-location="contact_methods"
+            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
+          >
+            <span class="ac-icon-box shrink-0 bg-white">
+              <Icon name="mail" class="text-lg" />
+            </span>
+            <span>
+              <span class="block text-sm font-700 text-slate-900">
+                {t(locale, 'pages.contact.methodEmail')}
+              </span>
+              <span class="block text-sm text-brand-600" data-direct-email-value
+              ></span>
+            </span>
+          </a>
+          <a
+            href="#"
+            data-direct-phone-link
+            data-ga-event="contact_phone_click"
+            data-ga-label="contact_disclosure_phone"
+            data-ga-location="contact_methods"
+            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
+          >
+            <span class="ac-icon-box shrink-0 bg-white">
+              <Icon name="phone" class="text-lg" />
+            </span>
+            <span>
+              <span class="block text-sm font-700 text-slate-900">
+                {t(locale, 'pages.contact.methodPhone')}
+              </span>
+              <span class="block text-sm font-700 text-brand-600">
+                <span data-direct-phone-value></span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </details>
     </div>
   </section>
+
+  <style>
+    .direct-contact-details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .direct-contact-details[open] .direct-contact-chevron {
+      transform: rotate(180deg);
+    }
+  </style>
+
+  <script is:inline>
+    function initDirectContactDisclosure() {
+      document
+        .querySelectorAll('[data-direct-contact]')
+        .forEach(function (details) {
+          if (details.dataset.initialized === 'true') return
+          details.dataset.initialized = 'true'
+
+          function revealContact() {
+            if (details.dataset.revealed === 'true') return
+
+            const emailUser = details.dataset.emailUser || ''
+            const emailDomain = details.dataset.emailDomain || ''
+            const phoneParts = (details.dataset.phoneParts || '')
+              .split('|')
+              .filter(Boolean)
+            const phoneDigits = phoneParts.join('')
+            const phoneDisplay = phoneParts.join('-')
+
+            const email =
+              emailUser && emailDomain ? `${emailUser}@${emailDomain}` : ''
+            const emailLink = details.querySelector('[data-direct-email-link]')
+            const emailValue = details.querySelector(
+              '[data-direct-email-value]',
+            )
+            if (email && emailLink && emailValue) {
+              emailLink.href = `mailto:${email}`
+              emailLink.dataset.gaDestination = `mailto:${email}`
+              emailValue.textContent = email
+            }
+
+            const phoneLink = details.querySelector('[data-direct-phone-link]')
+            const phoneValue = details.querySelector(
+              '[data-direct-phone-value]',
+            )
+            if (phoneDigits && phoneDisplay && phoneLink && phoneValue) {
+              phoneLink.href = `tel:${phoneDigits}`
+              phoneLink.dataset.gaDestination = `tel:${phoneDigits}`
+              phoneValue.textContent = phoneDisplay
+            }
+
+            details.dataset.revealed = 'true'
+          }
+
+          details.addEventListener('toggle', function () {
+            if (details.open) revealContact()
+          })
+
+          if (details.open) revealContact()
+        })
+    }
+
+    document.addEventListener('astro:page-load', initDirectContactDisclosure)
+    initDirectContactDisclosure()
+  </script>
 
   <script is:inline>
     function initContactTurnstile() {
