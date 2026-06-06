@@ -34,7 +34,7 @@ type AiContactPayload = {
 }
 
 const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
-const DEFAULT_MODEL = 'gpt-5-nano'
+const DEFAULT_MODEL = 'gpt-5.4-mini'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
