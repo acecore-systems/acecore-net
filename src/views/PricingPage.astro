@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { optimizeImage } from '../utils/image'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+
+const pricingItems = [
+  {
+    icon: 'code-xml',
+    title: t(locale, 'pages.pricing.systemDevTitle'),
+    price: t(locale, 'pages.pricing.systemDevPrice'),
+    body: t(locale, 'pages.pricing.systemDevBody'),
+    href: u('/services/#system-development'),
+  },
+  {
+    icon: 'server',
+    title: t(locale, 'pages.pricing.serverTitle'),
+    price: t(locale, 'pages.pricing.serverPrice'),
+    body: t(locale, 'pages.pricing.serverBody'),
+    href: u('/services/#server'),
+  },
+  {
+    icon: 'globe',
+    title: t(locale, 'pages.pricing.webTitle'),
+    price: t(locale, 'pages.pricing.webPrice'),
+    body: t(locale, 'pages.pricing.webBody'),
+    href: u('/services/#web'),
+  },
+  {
+    icon: 'palette',
+    title: t(locale, 'pages.pricing.designTitle'),
+    price: t(locale, 'pages.pricing.designPrice'),
+    body: t(locale, 'pages.pricing.designBody'),
+    href: u('/services/#design'),
+  },
+  {
+    icon: 'graduation-cap',
+    title: t(locale, 'pages.pricing.schoolsTitle'),
+    price: t(locale, 'pages.pricing.schoolsPrice'),
+    body: t(locale, 'pages.pricing.schoolsBody'),
+    href: u('/schools/#pricing'),
+  },
+  {
+    icon: 'clapperboard',
+    title: t(locale, 'pages.pricing.acestudioTitle'),
+    price: t(locale, 'pages.pricing.acestudioPrice'),
+    body: t(locale, 'pages.pricing.acestudioBody'),
+    href: u('/acestudio/'),
+  },
+  {
+    icon: 'gamepad-2',
+    title: t(locale, 'pages.pricing.aceserverTitle'),
+    price: t(locale, 'pages.pricing.aceserverPrice'),
+    body: t(locale, 'pages.pricing.aceserverBody'),
+    href: u('/services/#aceserver'),
+  },
+] as const
+
+const schoolFees = [
+  {
+    item: t(locale, 'pages.pricing.schoolAdmission'),
+    amount: t(locale, 'pages.pricing.schoolAdmissionPrice'),
+    note: t(locale, 'pages.pricing.schoolAdmissionNote'),
+  },
+  {
+    item: t(locale, 'pages.pricing.schoolMonthly'),
+    amount: t(locale, 'pages.pricing.schoolMonthlyPrice'),
+    note: t(locale, 'pages.pricing.schoolMonthlyNote'),
+  },
+  {
+    item: t(locale, 'pages.pricing.schoolMaterials'),
+    amount: t(locale, 'pages.pricing.schoolMaterialsPrice'),
+    note: t(locale, 'pages.pricing.schoolMaterialsNote'),
+  },
+] as const
+
+const costFactors = [
+  t(locale, 'pages.pricing.factor1'),
+  t(locale, 'pages.pricing.factor2'),
+  t(locale, 'pages.pricing.factor3'),
+  t(locale, 'pages.pricing.factor4'),
+] as const
+
+const priceNotes = [
+  t(locale, 'pages.pricing.note1'),
+  t(locale, 'pages.pricing.note2'),
+  t(locale, 'pages.pricing.note3'),
+] as const
+
+const pricingLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${t(locale, 'pages.pricing.title')} | Acecore`,
+  description: t(locale, 'pages.pricing.description'),
+  url: `https://acecore.net${u('/pricing/')}`,
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.pricing.title')}
+  description={t(locale, 'pages.pricing.description')}
+  jsonLd={pricingLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.pricing.heroTitle')}
+    subtitle={t(locale, 'pages.pricing.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.pricing.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.pricing.title') }]}
+        locale={locale}
+      />
+
+      <div class="mb-10">
+        <p class="mb-3 text-sm font-700 uppercase tracking-wide text-brand-600">
+          {t(locale, 'pages.pricing.eyebrow')}
+        </p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.pricing.introTitle')}
+        </h2>
+        <p class="max-w-3xl leading-relaxed text-slate-600">
+          {t(locale, 'pages.pricing.introBody')}
+        </p>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="mb-3 text-2xl ac-heading">
+          {t(locale, 'pages.pricing.serviceTitle')}
+        </h2>
+        <p class="text-slate-600">
+          {t(locale, 'pages.pricing.serviceBody')}
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {
+          pricingItems.map((item) => (
+            <a
+              href={item.href}
+              class="ac-surface group flex h-full flex-col p-6 no-underline transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lg"
+            >
+              <div class="mb-4 flex items-center gap-3">
+                <span class="ac-icon-box">
+                  <Icon name={item.icon} class="text-xl" />
+                </span>
+                <h3 class="text-lg ac-heading">{item.title}</h3>
+              </div>
+              <p class="mb-3 text-2xl font-800 text-slate-900">{item.price}</p>
+              <p class="mb-5 flex-1 text-sm leading-relaxed text-slate-600">
+                {item.body}
+              </p>
+              <span class="inline-flex items-center gap-1 text-sm font-700 text-brand-600 group-hover:underline">
+                {t(locale, 'pages.pricing.detailLink')}
+                <Icon name="arrow-right" class="text-sm" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div id="schools" class="mt-14 scroll-mt-24">
+        <div class="mb-6">
+          <h2 class="mb-3 text-2xl ac-heading">
+            {t(locale, 'pages.pricing.schoolsFeeTitle')}
+          </h2>
+          <p class="text-slate-600">
+            {t(locale, 'pages.pricing.schoolsFeeBody')}
+          </p>
+        </div>
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table class="w-full min-w-160 border-collapse text-left text-sm">
+            <thead class="bg-slate-50 text-slate-900">
+              <tr>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeItem')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeAmount')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeNote')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                schoolFees.map((fee) => (
+                  <tr class="align-top">
+                    <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                      {fee.item}
+                    </th>
+                    <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                      {fee.amount}
+                    </td>
+                    <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                      {fee.note}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-6 lg:grid-cols-2">
+        <div class="ac-surface p-6">
+          <h2 class="mb-4 text-xl ac-heading">
+            {t(locale, 'pages.pricing.factorTitle')}
+          </h2>
+          <ul class="m-0 list-none space-y-3 p-0 text-sm text-slate-600">
+            {
+              costFactors.map((factor) => (
+                <li class="flex gap-2 leading-relaxed">
+                  <Icon name="check" class="mt-1 shrink-0 text-brand-500" />
+                  <span>{factor}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="ac-surface bg-slate-50 p-6">
+          <h2 class="mb-4 text-xl ac-heading">
+            {t(locale, 'pages.pricing.noteTitle')}
+          </h2>
+          <ul class="m-0 list-none space-y-3 p-0 text-sm text-slate-600">
+            {
+              priceNotes.map((note) => (
+                <li class="flex gap-2 leading-relaxed">
+                  <Icon name="receipt" class="mt-1 shrink-0 text-brand-500" />
+                  <span>{note}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="ac-surface mt-14 bg-brand-50 p-8 text-center">
+        <h2 class="mb-4 text-xl ac-heading">
+          {t(locale, 'pages.pricing.ctaHeading')}
+        </h2>
+        <p class="mx-auto mb-6 max-w-2xl text-slate-600">
+          {t(locale, 'pages.pricing.ctaBody')}
+        </p>
+        <div
+          class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <a href={u('/contact/')} class="ac-btn-primary">
+            {t(locale, 'pages.pricing.ctaContact')}
+          </a>
+          <a href={u('/services/')} class="ac-btn-outline">
+            {t(locale, 'pages.pricing.ctaServices')}
+          </a>
+          <a href={u('/schools/')} class="ac-btn-outline">
+            {t(locale, 'pages.pricing.ctaSchools')}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -65,6 +65,27 @@ const learningCompare = {
   },
 }
 
+const schoolPricingItems = [
+  {
+    icon: 'log-in',
+    label: t(locale, 'pages.schools.pricing.admissionLabel'),
+    price: t(locale, 'pages.schools.pricing.admissionPrice'),
+    note: t(locale, 'pages.schools.pricing.admissionNote'),
+  },
+  {
+    icon: 'calendar-days',
+    label: t(locale, 'pages.schools.pricing.monthlyLabel'),
+    price: t(locale, 'pages.schools.pricing.monthlyPrice'),
+    note: t(locale, 'pages.schools.pricing.monthlyNote'),
+  },
+  {
+    icon: 'book-open',
+    label: t(locale, 'pages.schools.pricing.materialsLabel'),
+    price: t(locale, 'pages.schools.pricing.materialsPrice'),
+    note: t(locale, 'pages.schools.pricing.materialsNote'),
+  },
+] as const
+
 const schoolsLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -397,6 +418,53 @@ const schoolsLd = {
               {t(locale, 'pages.schools.ged.support3')}
             </li>
           </ul>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="mb-16 scroll-mt-24" id="pricing">
+        <div class="mb-4 flex items-center gap-3">
+          <Icon name="receipt" class="text-3xl text-brand-500" />
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.schools.pricing.title')}
+          </h2>
+        </div>
+        <p class="mb-6 leading-relaxed text-slate-600">
+          {t(locale, 'pages.schools.pricing.body')}
+        </p>
+        <div class="grid gap-4 md:grid-cols-3">
+          {
+            schoolPricingItems.map((item) => (
+              <div class="ac-surface p-5">
+                <div class="mb-3 flex items-center gap-3">
+                  <span class="ac-icon-box">
+                    <Icon name={item.icon} class="text-lg" />
+                  </span>
+                  <h3 class="text-base ac-heading">{item.label}</h3>
+                </div>
+                <p class="mb-2 text-xl font-800 text-slate-900">{item.price}</p>
+                <p class="text-sm leading-relaxed text-slate-600">
+                  {item.note}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="ac-surface mt-6 bg-brand-50 p-6">
+          <p class="mb-2 font-700 text-slate-900">
+            {t(locale, 'pages.schools.pricing.ctaHeading')}
+          </p>
+          <p class="mb-5 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.schools.pricing.ctaBody')}
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a href={u('/pricing/')} class="ac-btn-outline">
+              {t(locale, 'pages.schools.pricing.ctaPricing')}
+            </a>
+            <a href={u('/contact/')} class="ac-btn-primary">
+              {t(locale, 'pages.schools.pricing.ctaContact')}
+            </a>
+          </div>
         </div>
       </div>
 

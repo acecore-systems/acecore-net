@@ -74,6 +74,58 @@ const deliveryTimeline = [
   },
 ]
 
+const servicePricingItems = [
+  {
+    icon: 'code-xml',
+    label: t(locale, 'pages.services.pricing.systemDevLabel'),
+    price: t(locale, 'pages.services.pricing.systemDevPrice'),
+    note: t(locale, 'pages.services.pricing.systemDevNote'),
+    href: u('/services/#system-development'),
+  },
+  {
+    icon: 'server',
+    label: t(locale, 'pages.services.pricing.serverLabel'),
+    price: t(locale, 'pages.services.pricing.serverPrice'),
+    note: t(locale, 'pages.services.pricing.serverNote'),
+    href: u('/services/#server'),
+  },
+  {
+    icon: 'globe',
+    label: t(locale, 'pages.services.pricing.webLabel'),
+    price: t(locale, 'pages.services.pricing.webPrice'),
+    note: t(locale, 'pages.services.pricing.webNote'),
+    href: u('/services/#web'),
+  },
+  {
+    icon: 'palette',
+    label: t(locale, 'pages.services.pricing.designLabel'),
+    price: t(locale, 'pages.services.pricing.designPrice'),
+    note: t(locale, 'pages.services.pricing.designNote'),
+    href: u('/services/#design'),
+  },
+  {
+    icon: 'graduation-cap',
+    label: t(locale, 'pages.services.pricing.educationLabel'),
+    price: t(locale, 'pages.services.pricing.educationPrice'),
+    note: t(locale, 'pages.services.pricing.educationNote'),
+    href: u('/schools/#pricing'),
+  },
+  {
+    icon: 'gamepad-2',
+    label: t(locale, 'pages.services.pricing.aceserverLabel'),
+    price: t(locale, 'pages.services.pricing.aceserverPrice'),
+    note: t(locale, 'pages.services.pricing.aceserverNote'),
+    href: u('/services/#aceserver'),
+  },
+  {
+    icon: 'clapperboard',
+    label: t(locale, 'pages.services.pricing.acestudioLabel'),
+    price: t(locale, 'pages.services.pricing.acestudioPrice'),
+    note: t(locale, 'pages.services.pricing.acestudioNote'),
+    href: u('/acestudio/'),
+  },
+] as const
+
 const serviceLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -177,6 +229,9 @@ const serviceLd = {
         >
         <a href="#acestudio" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navAcestudio')}</a
+        >
+        <a href="#pricing" class="ac-chip text-sm"
+          >{t(locale, 'pages.services.navPricing')}</a
         >
       </nav>
 
@@ -622,6 +677,58 @@ const serviceLd = {
           gaLocation="services_acestudio"
           serviceKey="acestudio"
         />
+      </div>
+
+      <!-- Pricing -->
+      <div class="mb-16 scroll-mt-24" id="pricing">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="receipt" class="text-xl" /></span
+          >
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.pricing.title')}
+          </h2>
+        </div>
+        <p class="mb-6 leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.pricing.body')}
+        </p>
+        <div class="grid gap-4 md:grid-cols-2">
+          {
+            servicePricingItems.map((item) => (
+              <a
+                href={item.href}
+                class="ac-surface group p-5 no-underline transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+              >
+                <div class="mb-3 flex items-center gap-3">
+                  <span class="ac-icon-box">
+                    <Icon name={item.icon} class="text-lg" />
+                  </span>
+                  <h3 class="text-base ac-heading">{item.label}</h3>
+                </div>
+                <p class="mb-2 text-xl font-800 text-slate-900">{item.price}</p>
+                <p class="text-sm leading-relaxed text-slate-600">
+                  {item.note}
+                </p>
+              </a>
+            ))
+          }
+        </div>
+        <div class="ac-surface mt-6 bg-brand-50 p-6">
+          <p class="mb-2 font-700 text-slate-900">
+            {t(locale, 'pages.services.pricing.ctaHeading')}
+          </p>
+          <p class="mb-5 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.services.pricing.ctaBody')}
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a href={u('/pricing/')} class="ac-btn-outline">
+              {t(locale, 'pages.services.pricing.ctaPricing')}
+            </a>
+            <a href={u('/contact/')} class="ac-btn-primary">
+              {t(locale, 'pages.services.pricing.ctaContact')}
+            </a>
+          </div>
+        </div>
       </div>
 
       <!-- CTA -->
