@@ -40,6 +40,8 @@ type ContactForm = {
   token: string
   locale: string
   redirectTo: string
+  successRedirectTo: string
+  errorRedirectTo: string
 }
 
 type TurnstileResult = {
@@ -70,7 +72,7 @@ export const onRequestPost = async ({
   if (validationError) {
     return contactResponse(
       request,
-      form.redirectTo,
+      form.errorRedirectTo,
       false,
       400,
       validationError,
@@ -80,7 +82,7 @@ export const onRequestPost = async ({
   if (!env.TURNSTILE_SECRET_KEY) {
     return contactResponse(
       request,
-      form.redirectTo,
+      form.errorRedirectTo,
       false,
       500,
       'TURNSTILE_SECRET_KEY is not configured.',
@@ -96,7 +98,7 @@ export const onRequestPost = async ({
   if (!turnstile.success) {
     return contactResponse(
       request,
-      form.redirectTo,
+      form.errorRedirectTo,
       false,
       400,
       'Turnstile verification failed.',
@@ -109,14 +111,14 @@ export const onRequestPost = async ({
     console.error('Contact email sending failed:', error)
     return contactResponse(
       request,
-      form.redirectTo,
+      form.errorRedirectTo,
       false,
       500,
       'Email sending failed.',
     )
   }
 
-  return contactResponse(request, form.redirectTo, true, 200, 'sent')
+  return contactResponse(request, form.successRedirectTo, true, 200, 'sent')
 }
 
 export const onRequestOptions = (): Response =>
@@ -148,6 +150,15 @@ async function parseContactForm(request: Request): Promise<ContactForm> {
     token: getField(formData, 'cf-turnstile-response').slice(0, 2048),
     locale: getField(formData, 'locale').slice(0, 16),
     redirectTo: normalizeRedirect(getField(formData, '_redirect'), request.url),
+    successRedirectTo: normalizeRedirect(
+      getField(formData, '_success_redirect') ||
+        getField(formData, '_redirect'),
+      request.url,
+    ),
+    errorRedirectTo: normalizeRedirect(
+      getField(formData, '_error_redirect') || getField(formData, '_redirect'),
+      request.url,
+    ),
   }
 }
 

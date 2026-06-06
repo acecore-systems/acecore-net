@@ -14,6 +14,7 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const contactThanksUrl = u('/contact/thanks/')
 
 const faqItems = [
   {
@@ -87,7 +88,7 @@ const faqLd = {
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
-      <div class="mb-10">
+      <div id="contact-faq" class="mb-10 scroll-mt-24">
         <Faq title={t(locale, 'pages.contact.faqTitle')} items={faqItems} />
         <div class="mt-4 flex flex-wrap gap-2">
           <a href={u('/services/')} class="ac-chip">
@@ -193,7 +194,6 @@ const faqLd = {
         method="post"
         class="space-y-6"
         data-t-sending={t(locale, 'pages.contact.formSending')}
-        data-t-success={t(locale, 'pages.contact.formSuccess')}
         data-t-error={t(locale, 'pages.contact.formError')}
         data-t-validation-category={t(
           locale,
@@ -202,8 +202,15 @@ const faqLd = {
         data-t-validation-name={t(locale, 'pages.contact.validationName')}
         data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
         data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
+        data-success-url={contactThanksUrl}
       >
         <input type="hidden" name="_redirect" value={u('/contact/')} />
+        <input
+          type="hidden"
+          name="_success_redirect"
+          value={contactThanksUrl}
+        />
+        <input type="hidden" name="_error_redirect" value={u('/contact/')} />
         <input type="hidden" name="locale" value={locale} />
         <div>
           <label
@@ -341,6 +348,9 @@ const faqLd = {
           </button>
           <p class="text-xs text-slate-600 mt-3">
             {t(locale, 'pages.contact.formSubmitNote')}
+            <a href="#contact-faq" class="ac-link ml-1"
+              >{t(locale, 'pages.contact.faqTitle')}</a
+            >
           </p>
         </div>
         <div
@@ -409,6 +419,7 @@ const faqLd = {
             {t(locale, 'pages.contact.methodEmail')}
           </h3>
           <p class="text-sm text-slate-600">
+            <!--email_off-->
             <a
               href={`mailto:${SITE.email}`}
               data-ga-event="contact_email_click"
@@ -417,6 +428,7 @@ const faqLd = {
               data-ga-destination={`mailto:${SITE.email}`}
               class="text-brand-500 hover:underline">{SITE.email}</a
             >
+            <!--/email_off-->
           </p>
         </div>
         <div class="ac-card p-6 text-center">
@@ -564,9 +576,9 @@ const faqLd = {
       const form = document.getElementById('contact-form')
       if (form) {
         const feedback = document.getElementById('form-feedback')
-        const successText =
-          form.getAttribute('data-t-success') || 'Message sent.'
         const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
+        const successUrl =
+          form.getAttribute('data-success-url') || '/contact/thanks/'
 
         function showFeedback(type, text) {
           if (!feedback) return
@@ -587,11 +599,10 @@ const faqLd = {
 
         const currentUrl = new URL(window.location.href)
         const contactState = currentUrl.searchParams.get('contact')
-        if (contactState === 'sent' || contactState === 'error') {
-          showFeedback(
-            contactState === 'sent' ? 'success' : 'error',
-            contactState === 'sent' ? successText : errorText,
-          )
+        if (contactState === 'sent') {
+          window.location.replace(successUrl)
+        } else if (contactState === 'error') {
+          showFeedback('error', errorText)
           currentUrl.searchParams.delete('contact')
           window.history.replaceState({}, '', currentUrl)
         }
@@ -630,9 +641,7 @@ const faqLd = {
                   ),
                 })
               }
-              showFeedback('success', successText)
-              form.reset()
-              resetTurnstile()
+              window.location.assign(successUrl)
             })
             .catch(function () {
               showFeedback('error', errorText)

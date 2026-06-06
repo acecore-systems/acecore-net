@@ -54,6 +54,8 @@ export default defineConfig({
       'inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-700 no-underline transition-colors duration-200 min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
     'ac-btn-primary':
       'ac-btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700',
+    'ac-btn-secondary':
+      'ac-btn border-2 border-brand-500 bg-brand-500 text-white hover:border-brand-600 hover:bg-brand-600 active:border-brand-700 active:bg-brand-700',
     'ac-btn-outline':
       'ac-btn border-2 border-brand-500 bg-white text-brand-500 hover:bg-brand-50',
     'ac-link':

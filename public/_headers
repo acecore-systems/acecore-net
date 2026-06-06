@@ -1,6 +1,6 @@
 # HTML ページ（常に再検証）
 /*
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate, no-transform
   X-Content-Type-Options: nosniff
   X-Robots-Tag: all
   Referrer-Policy: strict-origin-when-cross-origin
