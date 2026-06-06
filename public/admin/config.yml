@@ -458,6 +458,53 @@ collections:
                 label: 'Contact'
                 hint: 'nav.contact'
                 widget: string
+          - name: 'announcement'
+            label: '告知バナー'
+            hint: 'announcement'
+            widget: object
+            collapsed: false
+            fields:
+              - name: 'enabled'
+                label: '表示する'
+                hint: 'announcement.enabled'
+                widget: boolean
+              - name: 'eyebrow'
+                label: 'ラベル'
+                hint: 'announcement.eyebrow'
+                widget: string
+                required: false
+              - name: 'message'
+                label: '告知文'
+                hint: 'announcement.message'
+                widget: text
+              - name: 'href'
+                label: 'リンクURL'
+                hint: 'announcement.href'
+                widget: string
+                required: false
+              - name: 'ctaLabel'
+                label: 'ボタン文言'
+                hint: 'announcement.ctaLabel'
+                widget: string
+                required: false
+              - name: 'startsAt'
+                label: '表示開始日時'
+                hint: 'announcement.startsAt / 空欄なら開始制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
+              - name: 'endsAt'
+                label: '表示終了日時'
+                hint: 'announcement.endsAt / 空欄なら終了制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
+              - name: 'tone'
+                label: '表示トーン'
+                hint: 'announcement.tone'
+                widget: select
+                options: [brand, amber, emerald, slate]
+                default: amber
           - name: 'common'
             label: '共通UI'
             hint: 'common'
@@ -1771,6 +1818,64 @@ collections:
             label: 'Intro'
             hint: 'intro'
             widget: string
+          - name: 'enrollment'
+            label: '募集・残席表示'
+            hint: 'enrollment'
+            widget: object
+            collapsed: false
+            fields:
+              - name: 'enabled'
+                label: '表示する'
+                hint: 'enrollment.enabled'
+                widget: boolean
+              - name: 'termLabel'
+                label: '募集タイトル'
+                hint: 'enrollment.termLabel'
+                widget: string
+              - name: 'badgeLabel'
+                label: 'ステータスラベル'
+                hint: 'enrollment.badgeLabel'
+                widget: string
+                required: false
+              - name: 'remainingLabel'
+                label: '残席ラベル'
+                hint: 'enrollment.remainingLabel'
+                widget: string
+                required: false
+              - name: 'remainingSeats'
+                label: '残席数'
+                hint: 'enrollment.remainingSeats'
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+              - name: 'remainingUnit'
+                label: '残席単位'
+                hint: 'enrollment.remainingUnit'
+                widget: string
+                required: false
+              - name: 'capacityNote'
+                label: '補足文'
+                hint: 'enrollment.capacityNote'
+                widget: text
+                required: false
+              - name: 'ctaLabel'
+                label: 'ボタン文言'
+                hint: 'enrollment.ctaLabel'
+                widget: string
+                required: false
+              - name: 'startsAt'
+                label: '表示開始日時'
+                hint: 'enrollment.startsAt / 空欄なら開始制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
+              - name: 'endsAt'
+                label: '表示終了日時'
+                hint: 'enrollment.endsAt / 空欄なら終了制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
           - name: 'juku'
             label: 'Juku'
             hint: 'juku'

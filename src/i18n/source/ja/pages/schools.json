@@ -16,6 +16,18 @@
   "flowContinueTitle": "継続できる形にする",
   "flowContinueDesc": "受験、資格、日常のIT活用まで含めて、本人に合う継続導線を作ります。",
   "intro": "お子さまから大人の方まで、一人ひとりの目標やペースに合わせた個別指導を行っています。サービス一覧での位置づけもご覧いただけます。",
+  "enrollment": {
+    "enabled": true,
+    "termLabel": "2026年夏期生 募集中",
+    "badgeLabel": "受付中",
+    "remainingLabel": "残り",
+    "remainingSeats": 3,
+    "remainingUnit": "名",
+    "capacityNote": "少人数制のため、定員に達し次第この募集枠の受付を停止します。",
+    "ctaLabel": "空き状況を相談する",
+    "startsAt": "2026-06-01T00:00",
+    "endsAt": "2026-08-31T23:59"
+  },
   "juku": {
     "title": "学習塾",
     "desc": "私たちの学習塾では、一人ひとりの生徒に合わせた指導を行い、基礎から応用までの学力を身につけることができます。経験豊富な講師陣が、生徒の成長をサポートします。",

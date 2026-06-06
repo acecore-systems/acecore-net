@@ -40,14 +40,24 @@ const BLOG_TIME_ZONE = 'Asia/Tokyo'
 /**
  * ネストされたオブジェクトからドット区切りのキーで値を取得
  */
-function getNestedValue(obj: Record<string, unknown>, key: string): string {
+function getNestedValue(obj: Record<string, unknown>, key: string): unknown {
   const keys = key.split('.')
   let current: unknown = obj
   for (const k of keys) {
-    if (current == null || typeof current !== 'object') return key
+    if (current == null || typeof current !== 'object') return undefined
     current = (current as Record<string, unknown>)[k]
   }
-  return typeof current === 'string' ? current : key
+  return current
+}
+
+export function getTranslationValue<T = unknown>(
+  locale: Locale,
+  key: string,
+): T | undefined {
+  return getNestedValue(
+    translations[locale] as unknown as Record<string, unknown>,
+    key,
+  ) as T | undefined
 }
 
 /**
@@ -58,10 +68,8 @@ export function t(
   key: string,
   params?: Record<string, string | number>,
 ): string {
-  const value = getNestedValue(
-    translations[locale] as unknown as Record<string, unknown>,
-    key,
-  )
+  const rawValue = getTranslationValue(locale, key)
+  const value = typeof rawValue === 'string' ? rawValue : key
   if (!params) return value
   return Object.entries(params).reduce<string>(
     (result, [k, v]) => result.replaceAll(`{${k}}`, String(v)),

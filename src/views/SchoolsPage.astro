@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import CompareTable from '../components/CompareTable.astro'
+import SchoolsEnrollmentNotice from '../components/SchoolsEnrollmentNotice.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
@@ -136,6 +137,8 @@ const schoolsLd = {
       },
     ]}
   />
+
+  <SchoolsEnrollmentNotice locale={locale} />
 
   <section class="ac-section">
     <div class="ac-container max-w-4xl">

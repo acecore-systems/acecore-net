@@ -7,6 +7,16 @@
     "blog": "블로그",
     "contact": "문의하기"
   },
+  "announcement": {
+    "enabled": true,
+    "eyebrow": "기간 한정 안내",
+    "message": "웹 제작, 시스템 개발, Acecore Schools 여름 상담을 접수 중입니다. 대응 가능 인원이 한정되어 있으니 서둘러 문의해 주세요.",
+    "href": "/contact/?category=estimate",
+    "ctaLabel": "상담하기",
+    "startsAt": "2026-06-01T00:00",
+    "endsAt": "2026-08-31T23:59",
+    "tone": "amber"
+  },
   "common": {
     "skipToContent": "본문으로 건너뛰기",
     "search": "기사 검색",
@@ -319,6 +329,18 @@
       "flowContinueTitle": "지속 가능하게 만들기",
       "flowContinueDesc": "시험, 자격증, 일상 IT 활용까지 포함하여 각자에게 맞는 지속 경로를 만듭니다.",
       "intro": "어린이부터 성인까지 각자의 목표와 속도에 맞춘 개별 지도를 하고 있습니다. 서비스 일람에서 위치도 확인하실 수 있습니다.",
+      "enrollment": {
+        "enabled": true,
+        "termLabel": "2026년 여름반 모집 중",
+        "badgeLabel": "접수 중",
+        "remainingLabel": "남은 자리 ",
+        "remainingSeats": 3,
+        "remainingUnit": "명",
+        "capacityNote": "소수 정원제로 운영하므로 정원이 차면 이번 모집 접수를 종료합니다.",
+        "ctaLabel": "잔여석 문의하기",
+        "startsAt": "2026-06-01T00:00",
+        "endsAt": "2026-08-31T23:59"
+      },
       "juku": {
         "title": "학습 지도",
         "desc": "학생 한 명 한 명에 맞춘 지도로 기초부터 응용까지의 학력을 키웁니다. 경험 풍부한 강사진이 학생의 성장을 지원합니다.",

@@ -7,6 +7,16 @@
     "blog": "Blog",
     "contact": "Contact"
   },
+  "announcement": {
+    "enabled": true,
+    "eyebrow": "Limited-time notice",
+    "message": "Summer consultations are open for web production, system development, and Acecore Schools. Slots are limited, so please contact us early.",
+    "href": "/contact/?category=estimate",
+    "ctaLabel": "Consult Us",
+    "startsAt": "2026-06-01T00:00",
+    "endsAt": "2026-08-31T23:59",
+    "tone": "amber"
+  },
   "common": {
     "skipToContent": "Skip to content",
     "search": "Search articles",
@@ -446,6 +456,18 @@
       "flowContinueTitle": "Make It Sustainable",
       "flowContinueDesc": "Create a continuity path that fits each student, including exams, certifications, and everyday IT use.",
       "intro": "We provide personalized instruction tailored to each student's goals and pace, from children to adults. You can also see where we fit in our services overview.",
+      "enrollment": {
+        "enabled": true,
+        "termLabel": "Now accepting students for Summer 2026",
+        "badgeLabel": "Open",
+        "remainingLabel": "Only ",
+        "remainingSeats": 3,
+        "remainingUnit": " seats left",
+        "capacityNote": "Because classes are small, this enrollment window will close once capacity is reached.",
+        "ctaLabel": "Ask About Availability",
+        "startsAt": "2026-06-01T00:00",
+        "endsAt": "2026-08-31T23:59"
+      },
       "juku": {
         "title": "Tutoring",
         "desc": "Our tutoring program provides personalized instruction tailored to each student, building academic skills from fundamentals to advanced applications. Experienced instructors support every student's growth.",

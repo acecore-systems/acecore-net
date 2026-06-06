@@ -7,6 +7,16 @@
     "blog": "博客",
     "contact": "联系我们"
   },
+  "announcement": {
+    "enabled": true,
+    "eyebrow": "限时通知",
+    "message": "网站制作、系统开发与 Acecore Schools 夏季咨询正在受理中。名额有限，请尽早联系我们。",
+    "href": "/contact/?category=estimate",
+    "ctaLabel": "咨询",
+    "startsAt": "2026-06-01T00:00",
+    "endsAt": "2026-08-31T23:59",
+    "tone": "amber"
+  },
   "common": {
     "skipToContent": "跳至正文",
     "search": "搜索文章",
@@ -319,6 +329,18 @@
       "flowContinueTitle": "持续学习",
       "flowContinueDesc": "涵盖升学考试、资格证书和日常IT应用，为每位学员打造适合的持续学习路径。",
       "intro": "我们为从儿童到成人的学员提供个性化指导，根据每个人的目标和节奏量身定制。您也可以在服务一览中了解我们的定位。",
+      "enrollment": {
+        "enabled": true,
+        "termLabel": "2026年夏季班招生中",
+        "badgeLabel": "受理中",
+        "remainingLabel": "剩余",
+        "remainingSeats": 3,
+        "remainingUnit": "名",
+        "capacityNote": "由于采用小班制，名额满后将停止本期招生。",
+        "ctaLabel": "咨询空位",
+        "startsAt": "2026-06-01T00:00",
+        "endsAt": "2026-08-31T23:59"
+      },
       "juku": {
         "title": "学习辅导",
         "desc": "我们的辅导课程为每位学生提供个性化指导，从基础到应用，培养全面的学习能力。经验丰富的讲师全力支持每位学生的成长。",

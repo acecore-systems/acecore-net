@@ -7,6 +7,16 @@
     "blog": "Blog",
     "contact": "Contacto"
   },
+  "announcement": {
+    "enabled": true,
+    "eyebrow": "Aviso por tiempo limitado",
+    "message": "Están abiertas las consultas de verano para producción web, desarrollo de sistemas y Acecore Schools. Las plazas son limitadas, así que contáctanos pronto.",
+    "href": "/contact/?category=estimate",
+    "ctaLabel": "Consultar",
+    "startsAt": "2026-06-01T00:00",
+    "endsAt": "2026-08-31T23:59",
+    "tone": "amber"
+  },
   "common": {
     "skipToContent": "Ir al contenido",
     "search": "Buscar artículos",
@@ -319,6 +329,18 @@
       "flowContinueTitle": "Hacerlo sostenible",
       "flowContinueDesc": "Crear una ruta de continuidad que incluya exámenes, certificaciones y uso cotidiano de IT.",
       "intro": "Ofrecemos instrucción personalizada adaptada a los objetivos y ritmo de cada estudiante, desde niños hasta adultos. También puede ver nuestra posición en la visión general de servicios.",
+      "enrollment": {
+        "enabled": true,
+        "termLabel": "Inscripciones abiertas para verano de 2026",
+        "badgeLabel": "Abierto",
+        "remainingLabel": "Quedan ",
+        "remainingSeats": 3,
+        "remainingUnit": " plazas",
+        "capacityNote": "Como trabajamos con grupos pequeños, cerraremos esta convocatoria cuando se complete el cupo.",
+        "ctaLabel": "Consultar disponibilidad",
+        "startsAt": "2026-06-01T00:00",
+        "endsAt": "2026-08-31T23:59"
+      },
       "juku": {
         "title": "Tutoría",
         "desc": "Nuestro programa de tutoría ofrece instrucción personalizada para cada estudiante, desarrollando habilidades académicas desde los fundamentos hasta la aplicación avanzada. Instructores experimentados apoyan el crecimiento de cada alumno.",
