@@ -20,6 +20,8 @@ export interface WorkCase {
   result: string
   image: string
   imageAlt: string
+  externalUrl?: string
+  externalLabel?: string
   icon: string
   tone: Tone
   tags: string[]
@@ -95,7 +97,7 @@ const jaWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '3事例',
+      value: '4事例',
       label: '公開中の取り組み',
       description:
         'Web、インフラ、教育の代表的な事例を課題から成果まで確認できます。',
@@ -127,6 +129,26 @@ const jaWorksCopy: WorksCopy = {
     'まだ要件が固まっていない段階でも大丈夫です。目的、制約、優先順位の整理から一緒に進めます。',
   contactCtaButton: '無料で相談する',
   cases: [
+    {
+      id: 'hatt-homepage',
+      title: 'Hattのホームページ制作',
+      category: 'Web制作・CMS構築',
+      summary:
+        '絵、小説、VRChat向け3Dアバター・ギミック制作をまとめる個人サイトを、AstroとSveltia CMSで公開しました。',
+      challenge:
+        '創作活動がブログ、外部投稿サイト、BOOTH、YouTube、Xに分散し、初めて訪れる人が活動全体を把握しにくい状態でした。',
+      proposal:
+        'トップページに「絵」「小説」「モデリング」の3本柱を置き、ブログ、作品紹介、プロフィール、外部リンクを静的サイトとして整理しました。',
+      result:
+        'Hattの創作活動を一つの入口に集約し、CMS更新、サイト内検索、OGP、サイトマップまで備えた継続発信の基盤になりました。',
+      image: '/uploads/hatt-homepage-screenshot.png',
+      imageAlt: 'Hattのホームページのカバー画像',
+      externalUrl: 'https://hatt.acecore.net/',
+      externalLabel: 'サイトを見る',
+      icon: 'palette',
+      tone: 'brand',
+      tags: ['Web制作', 'CMS', 'Astro', 'ポートフォリオ'],
+    },
     {
       id: 'acecore-net',
       title: 'Acecore公式サイトの多言語・高速化基盤',
@@ -198,13 +220,13 @@ const jaWorksCopy: WorksCopy = {
     },
     web: {
       label: '関連事例',
-      title: 'Acecore公式サイトの多言語・高速化基盤',
-      href: '/works/#case-acecore-net',
+      title: 'Hattのホームページ制作',
+      href: '/works/#case-hatt-homepage',
     },
     design: {
       label: '関連事例',
-      title: 'Acecore公式サイトの多言語・高速化基盤',
-      href: '/works/#case-acecore-net',
+      title: 'Hattのホームページ制作',
+      href: '/works/#case-hatt-homepage',
     },
     education: {
       label: '関連事例',
@@ -249,7 +271,7 @@ const enWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '3 cases',
+      value: '4 cases',
       label: 'Published initiatives',
       description:
         'Representative web, infrastructure, and education examples are available from challenge to outcome.',
@@ -283,6 +305,26 @@ const enWorksCopy: WorksCopy = {
     'It is fine if the requirements are not fixed yet. We can clarify goals, constraints, and priorities together.',
   contactCtaButton: 'Free Consultation',
   cases: [
+    {
+      id: 'hatt-homepage',
+      title: 'Website production for Hatt',
+      category: 'Web production & CMS setup',
+      summary:
+        'We launched a personal website for Hatt that brings together artwork, novels, and VRChat-oriented 3D avatar and gimmick production.',
+      challenge:
+        'Creative activity was spread across blog posts, external publishing sites, BOOTH, YouTube, and X, making the overall portfolio hard to grasp at first visit.',
+      proposal:
+        'We organized the site around three pillars: artwork, novels, and modeling, then connected blog posts, works, profile information, and external channels in one static site.',
+      result:
+        'Hatt now has a central entry point for creative activity with CMS updates, site search, OGP, and sitemap support ready for ongoing publishing.',
+      image: '/uploads/hatt-homepage-screenshot.png',
+      imageAlt: 'Cover image of Hatt website',
+      externalUrl: 'https://hatt.acecore.net/',
+      externalLabel: 'View Site',
+      icon: 'palette',
+      tone: 'brand',
+      tags: ['Web production', 'CMS', 'Astro', 'Portfolio'],
+    },
     {
       id: 'acecore-net',
       title: 'Multilingual and high-speed foundation for the Acecore website',
@@ -354,13 +396,13 @@ const enWorksCopy: WorksCopy = {
     },
     web: {
       label: 'Related case',
-      title: 'Multilingual and high-speed foundation for the Acecore website',
-      href: '/works/#case-acecore-net',
+      title: 'Website production for Hatt',
+      href: '/works/#case-hatt-homepage',
     },
     design: {
       label: 'Related case',
-      title: 'Multilingual and high-speed foundation for the Acecore website',
-      href: '/works/#case-acecore-net',
+      title: 'Website production for Hatt',
+      href: '/works/#case-hatt-homepage',
     },
     education: {
       label: 'Related case',
