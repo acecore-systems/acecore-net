@@ -3,111 +3,138 @@
   "name": "Gui",
   "avatar": "",
   "avatarImage": "",
-  "bio": "Acecore 代表。Webサイト制作、Astro/Cloudflare Pages を使った静的サイト構築、業務システム開発、インフラ運用、IT教育を横断して担当するエンジニア。\n要件整理から設計・実装・公開後の改善まで一貫して関わり、技術と運用の両面から人と組織の課題を解きほぐすことを大切にしている。",
+  "bio": "Acecore 代表。業務システム開発、Web制作、DB/インフラ、品質保証、現場機器連携、GitHub運用まで横断して扱うエンジニア。\nC#/.NET を軸に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども扱い、要件整理から設計・実装・テスト・導入・運用改善まで一気通貫で対応する。\n公開GitHubでは Astro/Cloudflare Pages のサイト運用、Microfeed系プロジェクト、ドキュメント/コミュニティ系リポジトリの整備にも関わっている。",
   "url": "https://acecore.net/about/",
   "github": "https://github.com/acecore-systems",
   "twitter": "https://x.com/acecorenet",
   "skills": [
     "システム開発",
     "Web制作",
-    "Astro/Cloudflare",
-    "インフラ運用",
+    "C#/.NET",
+    "DB・インフラ",
+    "GitHub運用",
+    "品質保証",
+    "現場機器連携",
     "AI活用支援",
     "IT教育"
   ],
   "i18n": {
     "en": {
       "name": "Gui",
-      "bio": "CEO of Acecore. An engineer working across website production, static site development with Astro and Cloudflare Pages, business system development, infrastructure operations, and IT education.\nInvolved from requirements and design through implementation and post-launch improvement, with a focus on solving human and organizational challenges from both technical and operational perspectives.",
+      "bio": "CEO of Acecore. An engineer working across business systems, web production, databases and infrastructure, quality assurance, on-site device integration, and GitHub-based development workflows.\nUses C#/.NET as a core stack while also handling PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server, and takes projects from requirements and design through implementation, testing, deployment, and operational improvement.\nPublic GitHub work includes Astro/Cloudflare Pages sites, Microfeed-related projects, and documentation/community repositories.",
       "skills": [
         "System development",
+        "C#/.NET",
         "Web production",
-        "Astro/Cloudflare",
-        "Infrastructure operations",
+        "Databases/infrastructure",
+        "GitHub workflows",
+        "Quality assurance",
+        "Device integration",
         "AI enablement",
         "IT education"
       ]
     },
     "zh-cn": {
       "name": "Gui",
-      "bio": "Acecore 代表。负责 Web 制作、使用 Astro 与 Cloudflare Pages 的静态站点构建、业务系统开发、基础设施运维以及 IT 教育等多个领域的工程师。\n从需求整理、设计、实现到上线后的持续改进都会参与，重视从技术和运营两个角度解决人和组织面临的问题。",
+      "bio": "Acecore 代表。横跨业务系统开发、Web 制作、数据库与基础设施、质量保证、现场设备联动以及基于 GitHub 的开发流程的工程师。\n以 C#/.NET 为主要技术栈，同时也使用 PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server，从需求整理、设计、实现、测试、导入到运维改进都能一贯对应。\n公开 GitHub 上也参与 Astro/Cloudflare Pages 网站、Microfeed 相关项目以及文档/社区类仓库的维护。",
       "skills": [
         "系统开发",
+        "C#/.NET",
         "Web制作",
-        "Astro/Cloudflare",
-        "基础设施运维",
+        "数据库/基础设施",
+        "GitHub流程",
+        "质量保证",
+        "设备联动",
         "AI应用支持",
         "IT教育"
       ]
     },
     "es": {
       "name": "Gui",
-      "bio": "CEO de Acecore. Ingeniero que trabaja en producción web, creación de sitios estáticos con Astro y Cloudflare Pages, desarrollo de sistemas empresariales, operaciones de infraestructura y educación en TI.\nParticipa desde la definición de requisitos y el diseño hasta la implementación y la mejora posterior al lanzamiento, con foco en resolver desafíos humanos y organizacionales desde la tecnología y la operación.",
+      "bio": "CEO de Acecore. Ingeniero que trabaja en sistemas empresariales, producción web, bases de datos e infraestructura, aseguramiento de calidad, integración con dispositivos en sitio y flujos de desarrollo basados en GitHub.\nUsa C#/.NET como stack principal, pero también trabaja con PHP/JavaScript, SQL Server/PostgreSQL/MySQL y Linux/Windows Server, cubriendo desde requisitos y diseño hasta implementación, pruebas, despliegue y mejora operativa.\nSu trabajo público en GitHub incluye sitios con Astro/Cloudflare Pages, proyectos relacionados con Microfeed y repositorios de documentación/comunidad.",
       "skills": [
         "Desarrollo de sistemas",
+        "C#/.NET",
         "Producción web",
-        "Astro/Cloudflare",
-        "Operaciones de infraestructura",
+        "Bases de datos/infraestructura",
+        "Flujos de GitHub",
+        "Aseguramiento de calidad",
+        "Integración de dispositivos",
         "Uso de IA",
         "Educación en TI"
       ]
     },
     "pt": {
       "name": "Gui",
-      "bio": "CEO da Acecore. Engenheiro que atua em produção web, criação de sites estáticos com Astro e Cloudflare Pages, desenvolvimento de sistemas de negócio, operações de infraestrutura e educação em TI.\nParticipa desde o levantamento de requisitos e o design até a implementação e a melhoria pós-lançamento, com foco em resolver desafios humanos e organizacionais pelos lados técnico e operacional.",
+      "bio": "CEO da Acecore. Engenheiro que atua em sistemas de negócio, produção web, bancos de dados e infraestrutura, garantia de qualidade, integração com dispositivos em campo e fluxos de desenvolvimento baseados em GitHub.\nUsa C#/.NET como stack principal, mas também trabalha com PHP/JavaScript, SQL Server/PostgreSQL/MySQL e Linux/Windows Server, cobrindo requisitos, design, implementação, testes, implantação e melhoria operacional.\nO trabalho público no GitHub inclui sites com Astro/Cloudflare Pages, projetos relacionados ao Microfeed e repositórios de documentação/comunidade.",
       "skills": [
         "Desenvolvimento de sistemas",
+        "C#/.NET",
         "Produção web",
-        "Astro/Cloudflare",
-        "Operações de infraestrutura",
+        "Bancos de dados/infraestrutura",
+        "Fluxos de GitHub",
+        "Garantia de qualidade",
+        "Integração de dispositivos",
         "Uso de IA",
         "Educação em TI"
       ]
     },
     "fr": {
       "name": "Gui",
-      "bio": "PDG d'Acecore. Ingénieur intervenant sur la production web, la création de sites statiques avec Astro et Cloudflare Pages, le développement de systèmes métier, les opérations d'infrastructure et l'enseignement informatique.\nParticipe de la clarification des besoins et de la conception jusqu'à la mise en œuvre et l'amélioration après lancement, avec l'objectif de résoudre les défis humains et organisationnels par la technique et l'exploitation.",
+      "bio": "PDG d'Acecore. Ingénieur intervenant sur les systèmes métier, la production web, les bases de données et l'infrastructure, l'assurance qualité, l'intégration d'équipements sur site et les flux de développement basés sur GitHub.\nTravaille principalement avec C#/.NET, tout en utilisant aussi PHP/JavaScript, SQL Server/PostgreSQL/MySQL et Linux/Windows Server, de la clarification des besoins et de la conception jusqu'à l'implémentation, aux tests, au déploiement et à l'amélioration opérationnelle.\nSon travail public sur GitHub comprend des sites Astro/Cloudflare Pages, des projets liés à Microfeed et des dépôts de documentation/communauté.",
       "skills": [
         "Développement de systèmes",
+        "C#/.NET",
         "Production web",
-        "Astro/Cloudflare",
-        "Opérations d'infrastructure",
+        "Bases de données/infrastructure",
+        "Flux GitHub",
+        "Assurance qualité",
+        "Intégration d'équipements",
         "Usage de l'IA",
         "Enseignement informatique"
       ]
     },
     "ko": {
       "name": "Gui",
-      "bio": "Acecore 대표. 웹 제작, Astro/Cloudflare Pages 기반 정적 사이트 구축, 업무 시스템 개발, 인프라 운영, IT 교육을 폭넓게 담당하는 엔지니어입니다.\n요구사항 정리와 설계부터 구현, 공개 이후 개선까지 함께하며 기술과 운영 양쪽에서 사람과 조직의 과제를 풀어가는 것을 중요하게 생각합니다.",
+      "bio": "Acecore 대표. 업무 시스템 개발, 웹 제작, DB/인프라, 품질 보증, 현장 장비 연동, GitHub 기반 개발 흐름까지 폭넓게 다루는 엔지니어입니다.\nC#/.NET을 중심으로 PHP/JavaScript, SQL Server/PostgreSQL/MySQL, Linux/Windows Server도 다루며, 요구사항 정리와 설계부터 구현, 테스트, 도입, 운영 개선까지 일관되게 대응합니다.\n공개 GitHub에서는 Astro/Cloudflare Pages 사이트 운영, Microfeed 관련 프로젝트, 문서/커뮤니티 계열 저장소 정비에도 참여하고 있습니다.",
       "skills": [
         "시스템 개발",
+        "C#/.NET",
         "웹 제작",
-        "Astro/Cloudflare",
-        "인프라 운영",
+        "DB/인프라",
+        "GitHub 워크플로",
+        "품질 보증",
+        "장비 연동",
         "AI 활용 지원",
         "IT 교육"
       ]
     },
     "de": {
       "name": "Gui",
-      "bio": "CEO von Acecore. Ingenieur mit Schwerpunkt auf Webproduktion, statischen Websites mit Astro und Cloudflare Pages, Entwicklung von Geschäftssystemen, Infrastrukturbetrieb und IT-Bildung.\nBegleitet Projekte von Anforderungen und Design bis zur Umsetzung und Verbesserung nach dem Launch und löst menschliche sowie organisatorische Herausforderungen aus technischer und betrieblicher Perspektive.",
+      "bio": "CEO von Acecore. Ingenieur für Geschäftssysteme, Webproduktion, Datenbanken und Infrastruktur, Qualitätssicherung, Integration von Geräten vor Ort und GitHub-basierte Entwicklungsabläufe.\nArbeitet hauptsächlich mit C#/.NET, aber auch mit PHP/JavaScript, SQL Server/PostgreSQL/MySQL und Linux/Windows Server, von Anforderungen und Design bis Implementierung, Tests, Einführung und operativer Verbesserung.\nÖffentliche GitHub-Arbeiten umfassen Astro/Cloudflare-Pages-Websites, Microfeed-bezogene Projekte sowie Dokumentations- und Community-Repositories.",
       "skills": [
         "Systementwicklung",
+        "C#/.NET",
         "Webproduktion",
-        "Astro/Cloudflare",
-        "Infrastrukturbetrieb",
+        "Datenbanken/Infrastruktur",
+        "GitHub-Workflows",
+        "Qualitätssicherung",
+        "Geräteintegration",
         "KI-Nutzung",
         "IT-Bildung"
       ]
     },
     "ru": {
       "name": "Gui",
-      "bio": "Генеральный директор Acecore. Инженер, работающий с веб-производством, статическими сайтами на Astro и Cloudflare Pages, разработкой бизнес-систем, эксплуатацией инфраструктуры и IT-образованием.\nУчаствует в проектах от уточнения требований и проектирования до реализации и улучшений после запуска, помогая решать человеческие и организационные задачи с технической и операционной стороны.",
+      "bio": "Генеральный директор Acecore. Инженер, работающий с бизнес-системами, веб-разработкой, базами данных и инфраструктурой, обеспечением качества, интеграцией оборудования на местах и GitHub-ориентированными процессами разработки.\nОсновной стек — C#/.NET, но также использует PHP/JavaScript, SQL Server/PostgreSQL/MySQL и Linux/Windows Server, сопровождая проекты от требований и проектирования до реализации, тестирования, внедрения и операционных улучшений.\nПубличная работа на GitHub включает сайты на Astro/Cloudflare Pages, проекты, связанные с Microfeed, а также репозитории документации и сообщества.",
       "skills": [
         "Разработка систем",
+        "C#/.NET",
         "Веб-производство",
-        "Astro/Cloudflare",
-        "Эксплуатация инфраструктуры",
+        "Базы данных/инфраструктура",
+        "GitHub-процессы",
+        "Обеспечение качества",
+        "Интеграция устройств",
         "Использование ИИ",
         "IT-образование"
       ]
