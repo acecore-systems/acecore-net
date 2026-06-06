@@ -38,6 +38,11 @@ const DEFAULT_MODEL = 'gpt-5.4-mini'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
+const RATE_LIMIT_WINDOW_MS = 60_000
+const RATE_LIMIT_MAX_REQUESTS = 10
+const RATE_LIMIT_MAX_BUCKETS = 2000
+
+const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>()
 
 const SUPPORTED_LOCALES = [
   'ja',
@@ -65,6 +70,7 @@ type LocaleSettings = {
     required: string
     questionTooLong: string
     conversationTooLong: string
+    rateLimited: string
     failed: string
     emptyAnswer: string
   }
@@ -85,6 +91,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       questionTooLong: '質問が長すぎます。短く分けて入力してください。',
       conversationTooLong:
         '会話が長くなっています。質問を短く整理してください。',
+      rateLimited:
+        '短時間に送信回数が多くなっています。少し時間をおいてからお試しください。',
       failed:
         'AIチャットで回答できませんでした。問い合わせフォームをご利用ください。',
       emptyAnswer: 'この内容は問い合わせフォームからご相談ください。',
@@ -105,6 +113,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'The question is too long. Please split it into shorter messages.',
       conversationTooLong:
         'The conversation is too long. Please summarize your question.',
+      rateLimited:
+        'Too many messages were sent in a short time. Please wait a moment and try again.',
       failed: 'AI chat failed. Please use the contact form.',
       emptyAnswer: 'Please use the contact form for this question.',
     },
@@ -121,6 +131,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       required: '请输入问题。',
       questionTooLong: '问题过长。请分成较短的内容发送。',
       conversationTooLong: '对话过长。请简要整理您的问题。',
+      rateLimited: '短时间内发送次数过多。请稍后再试。',
       failed: 'AI 聊天无法回答。请使用咨询表单。',
       emptyAnswer: '此问题请通过咨询表单联系我们。',
     },
@@ -140,6 +151,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'La pregunta es demasiado larga. Divídela en mensajes más cortos.',
       conversationTooLong:
         'La conversación es demasiado larga. Resume tu consulta.',
+      rateLimited:
+        'Se enviaron demasiados mensajes en poco tiempo. Espera un momento e inténtalo de nuevo.',
       failed:
         'El chat de IA no pudo responder. Utiliza el formulario de contacto.',
       emptyAnswer: 'Para esta consulta, utiliza el formulario de contacto.',
@@ -159,6 +172,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       questionTooLong:
         'A pergunta está longa demais. Divida em mensagens menores.',
       conversationTooLong: 'A conversa está longa demais. Resuma sua pergunta.',
+      rateLimited:
+        'Muitas mensagens foram enviadas em pouco tempo. Aguarde um momento e tente novamente.',
       failed:
         'O chat de IA não conseguiu responder. Use o formulário de contato.',
       emptyAnswer: 'Para esta pergunta, use o formulário de contato.',
@@ -179,6 +194,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'La question est trop longue. Divisez-la en messages plus courts.',
       conversationTooLong:
         'La conversation est trop longue. Résumez votre question.',
+      rateLimited:
+        'Trop de messages ont été envoyés en peu de temps. Veuillez patienter puis réessayer.',
       failed:
         "Le chat IA n'a pas pu répondre. Veuillez utiliser le formulaire de contact.",
       emptyAnswer:
@@ -199,6 +216,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       questionTooLong: '질문이 너무 깁니다. 짧게 나누어 입력해 주세요.',
       conversationTooLong:
         '대화가 너무 길어졌습니다. 질문을 짧게 정리해 주세요.',
+      rateLimited:
+        '짧은 시간에 너무 많은 메시지가 전송되었습니다. 잠시 후 다시 시도해 주세요.',
       failed: 'AI 채팅에서 답변할 수 없습니다. 문의 양식을 이용해 주세요.',
       emptyAnswer: '이 내용은 문의 양식으로 상담해 주세요.',
     },
@@ -218,6 +237,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'Die Frage ist zu lang. Bitte teilen Sie sie in kürzere Nachrichten auf.',
       conversationTooLong:
         'Der Verlauf ist zu lang. Bitte fassen Sie Ihre Frage zusammen.',
+      rateLimited:
+        'Es wurden zu viele Nachrichten in kurzer Zeit gesendet. Bitte warten Sie kurz und versuchen Sie es erneut.',
       failed:
         'Der KI-Chat konnte nicht antworten. Bitte nutzen Sie das Kontaktformular.',
       emptyAnswer: 'Bitte nutzen Sie für diese Frage das Kontaktformular.',
@@ -238,6 +259,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'Вопрос слишком длинный. Разделите его на более короткие сообщения.',
       conversationTooLong:
         'Диалог слишком длинный. Кратко сформулируйте вопрос.',
+      rateLimited:
+        'Слишком много сообщений за короткое время. Пожалуйста, подождите и попробуйте снова.',
       failed:
         'AI-чат не смог ответить. Пожалуйста, используйте форму обратной связи.',
       emptyAnswer: 'По этому вопросу воспользуйтесь формой обратной связи.',
@@ -300,6 +323,22 @@ export const onRequestPost = async ({
   const locale = normalizeLocale(payload.locale)
   const localeSettings = LOCALE_SETTINGS[locale]
   const conversationInput = buildConversationInput(payload)
+
+  if (!isAllowedRequestOrigin(request)) {
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage(locale, 'invalidRequest') },
+      403,
+    )
+  }
+
+  const rateLimit = checkRateLimit(request)
+  if (!rateLimit.allowed) {
+    return jsonResponse(
+      { ok: false, answer: getLocalizedMessage(locale, 'rateLimited') },
+      429,
+      { 'Retry-After': String(rateLimit.retryAfterSeconds || 60) },
+    )
+  }
 
   if (!env.OPENAI_API_KEY) {
     return jsonResponse(
@@ -404,6 +443,71 @@ function localizedPath(path: string, locale: SupportedLocale): string {
   return locale === 'ja' ? normalizedPath : `/${locale}${normalizedPath}`
 }
 
+function isAllowedRequestOrigin(request: Request): boolean {
+  const origin = request.headers.get('Origin')
+  if (!origin) return true
+
+  try {
+    return new URL(origin).host === new URL(request.url).host
+  } catch {
+    return false
+  }
+}
+
+function checkRateLimit(request: Request): {
+  allowed: boolean
+  retryAfterSeconds?: number
+} {
+  const now = Date.now()
+  const key = getClientKey(request)
+  const current = rateLimitBuckets.get(key)
+
+  if (!current || current.resetAt <= now) {
+    rateLimitBuckets.set(key, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    })
+    pruneRateLimitBuckets(now)
+    return { allowed: true }
+  }
+
+  current.count += 1
+
+  if (current.count > RATE_LIMIT_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      retryAfterSeconds: Math.max(1, Math.ceil((current.resetAt - now) / 1000)),
+    }
+  }
+
+  return { allowed: true }
+}
+
+function getClientKey(request: Request): string {
+  const forwardedFor = request.headers
+    .get('X-Forwarded-For')
+    ?.split(',')[0]
+    ?.trim()
+  const ip =
+    request.headers.get('CF-Connecting-IP')?.trim() ||
+    forwardedFor ||
+    request.headers.get('CF-Ray')?.trim() ||
+    'unknown'
+
+  return ip
+}
+
+function pruneRateLimitBuckets(now: number): void {
+  if (rateLimitBuckets.size <= RATE_LIMIT_MAX_BUCKETS) return
+
+  for (const [key, bucket] of rateLimitBuckets) {
+    if (bucket.resetAt <= now) {
+      rateLimitBuckets.delete(key)
+    }
+    if (rateLimitBuckets.size <= RATE_LIMIT_MAX_BUCKETS) return
+  }
+}
+
 function getLocalizedMessage(
   locale: SupportedLocale,
   key: keyof LocaleSettings['messages'],
@@ -440,11 +544,16 @@ function buildConversationInput(payload: AiContactPayload): string {
   return question ? `User: ${question.slice(0, MAX_QUESTION_LENGTH)}` : ''
 }
 
-function jsonResponse(body: unknown, status = 200): Response {
+function jsonResponse(
+  body: unknown,
+  status = 200,
+  headers: Record<string, string> = {},
+): Response {
   return Response.json(body, {
     status,
     headers: {
       'Cache-Control': 'no-store',
+      ...headers,
     },
   })
 }

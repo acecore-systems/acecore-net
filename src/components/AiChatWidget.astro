@@ -9,6 +9,8 @@ interface Props {
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const contactUrl = getLocalizedUrl('/contact/', locale)
+const [emailUser, emailDomain = ''] = SITE.email.split('@')
+const phoneParts = SITE.phone.split('-')
 ---
 
 <div
@@ -19,6 +21,9 @@ const contactUrl = getLocalizedUrl('/contact/', locale)
   data-error={t(locale, 'aiChat.error')}
   data-greeting={t(locale, 'aiChat.greeting')}
   data-contact-url={contactUrl}
+  data-email-user={emailUser}
+  data-email-domain={emailDomain}
+  data-phone-parts={phoneParts.join('|')}
 >
   <section
     id="ace-ai-chat-panel"
@@ -140,6 +145,14 @@ const contactUrl = getLocalizedUrl('/contact/', locale)
       const errorText = root.dataset.error || 'AI assistant is unavailable.'
       const greetingText = root.dataset.greeting || ''
       const contactUrl = root.dataset.contactUrl || '/contact/'
+      const emailUser = root.dataset.emailUser || ''
+      const emailDomain = root.dataset.emailDomain || ''
+      const directEmail =
+        emailUser && emailDomain ? `${emailUser}@${emailDomain}` : ''
+      const phoneDigits = (root.dataset.phoneParts || '')
+        .split('|')
+        .filter(Boolean)
+        .join('')
       const messages = []
 
       function track(name, params) {
@@ -294,7 +307,32 @@ const contactUrl = getLocalizedUrl('/contact/', locale)
       }
 
       function isSafeMarkdownHref(value) {
-        return /^(https?:\/\/|mailto:|tel:|\/)/i.test(value)
+        const href = String(value || '').trim()
+        if (!href) return false
+
+        if (directEmail) {
+          const allowedMailto = `mailto:${directEmail}`.toLowerCase()
+          const normalizedHref = href.toLowerCase()
+          if (
+            normalizedHref === allowedMailto ||
+            normalizedHref.startsWith(`${allowedMailto}?`)
+          ) {
+            return true
+          }
+        }
+        if (phoneDigits && href === `tel:${phoneDigits}`) return true
+        if (href.startsWith('/')) return !href.startsWith('//')
+
+        try {
+          const url = new URL(href)
+          if (url.origin === window.location.origin) return true
+          if (url.origin === 'https://acecore.net') return true
+          if (url.href === 'https://lin.ee/DjIrdqj') return true
+        } catch {
+          return false
+        }
+
+        return false
       }
 
       function addMessage(role, content, options) {

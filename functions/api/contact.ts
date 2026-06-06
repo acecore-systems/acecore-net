@@ -60,6 +60,16 @@ export const onRequestPost = async ({
   request,
   env,
 }: PagesContext): Promise<Response> => {
+  if (!isAllowedRequestOrigin(request)) {
+    return contactResponse(
+      request,
+      '/contact/',
+      false,
+      403,
+      'Invalid request origin.',
+    )
+  }
+
   let form: ContactForm
 
   try {
@@ -328,6 +338,17 @@ function contactResponse(
 
 function expectsJson(request: Request): boolean {
   return request.headers.get('Accept')?.includes('application/json') === true
+}
+
+function isAllowedRequestOrigin(request: Request): boolean {
+  const origin = request.headers.get('Origin')
+  if (!origin) return true
+
+  try {
+    return new URL(origin).host === new URL(request.url).host
+  } catch {
+    return false
+  }
 }
 
 function normalizeRedirect(value: string, requestUrl: string): string {
