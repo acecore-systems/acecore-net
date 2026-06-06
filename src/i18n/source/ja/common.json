@@ -21,6 +21,25 @@
     "endsAt": "2026-08-31T23:59",
     "tone": "amber"
   },
+  "campaignNotices": [
+    {
+      "id": "schools-summer-2026",
+      "placement": "schools-after-hero",
+      "enabled": true,
+      "eyebrow": "受付中",
+      "title": "2026年夏期生 募集中",
+      "body": "少人数制のため、定員に達し次第この募集枠の受付を停止します。",
+      "href": "/contact/?category=service-education",
+      "ctaLabel": "空き状況を相談する",
+      "metricLabel": "残り",
+      "metricValue": 3,
+      "metricUnit": "名",
+      "icon": "calendar-check",
+      "tone": "brand",
+      "startsAt": "2026-06-01T00:00",
+      "endsAt": "2026-08-31T23:59"
+    }
+  ],
   "common": {
     "skipToContent": "本文へスキップ",
     "search": "記事を検索",

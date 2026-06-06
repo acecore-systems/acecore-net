@@ -17,6 +17,25 @@
     "endsAt": "2026-08-31T23:59",
     "tone": "amber"
   },
+  "campaignNotices": [
+    {
+      "id": "schools-summer-2026",
+      "placement": "schools-after-hero",
+      "enabled": true,
+      "eyebrow": "Geöffnet",
+      "title": "Anmeldung für Sommer 2026 geöffnet",
+      "body": "Da die Gruppen klein sind, schließen wir dieses Anmeldefenster, sobald die Kapazität erreicht ist.",
+      "href": "/contact/?category=service-education",
+      "ctaLabel": "Verfügbarkeit anfragen",
+      "metricLabel": "Nur noch ",
+      "metricValue": 3,
+      "metricUnit": " Plätze frei",
+      "icon": "calendar-check",
+      "tone": "brand",
+      "startsAt": "2026-06-01T00:00",
+      "endsAt": "2026-08-31T23:59"
+    }
+  ],
   "common": {
     "skipToContent": "Zum Inhalt springen",
     "search": "Artikel suchen",
@@ -508,18 +527,6 @@
       "flowContinueTitle": "Nachhaltig Gestalten",
       "flowContinueDesc": "Schaffen Sie einen Weg der Kontinuität, der zu jedem Schüler passt, einschließlich Prüfungen, Zertifizierungen und alltäglicher IT-Nutzung.",
       "intro": "Wir bieten individuellen Unterricht, angepasst an die Ziele und das Tempo jedes Schülers, von Kindern bis zu Erwachsenen. Unsere Positionierung können Sie auch in der Dienstleistungsübersicht sehen.",
-      "enrollment": {
-        "enabled": true,
-        "termLabel": "Anmeldung für Sommer 2026 geöffnet",
-        "badgeLabel": "Geöffnet",
-        "remainingLabel": "Nur noch ",
-        "remainingSeats": 3,
-        "remainingUnit": " Plätze frei",
-        "capacityNote": "Da die Gruppen klein sind, schließen wir dieses Anmeldefenster, sobald die Kapazität erreicht ist.",
-        "ctaLabel": "Verfügbarkeit anfragen",
-        "startsAt": "2026-06-01T00:00",
-        "endsAt": "2026-08-31T23:59"
-      },
       "juku": {
         "title": "Nachhilfe",
         "desc": "Unser Nachhilfeprogramm bietet individuellen Unterricht, angepasst an jeden Schüler, und baut akademische Fähigkeiten vom Grundniveau bis zum Fortgeschrittenen auf. Erfahrene Lehrkräfte unterstützen das Wachstum jedes Schülers.",

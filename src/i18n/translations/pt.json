@@ -17,6 +17,25 @@
     "endsAt": "2026-08-31T23:59",
     "tone": "amber"
   },
+  "campaignNotices": [
+    {
+      "id": "schools-summer-2026",
+      "placement": "schools-after-hero",
+      "enabled": true,
+      "eyebrow": "Aberto",
+      "title": "Inscrições abertas para o verão de 2026",
+      "body": "Como as turmas são pequenas, esta janela de inscrição será encerrada quando a capacidade for atingida.",
+      "href": "/contact/?category=service-education",
+      "ctaLabel": "Consultar disponibilidade",
+      "metricLabel": "Restam ",
+      "metricValue": 3,
+      "metricUnit": " vagas",
+      "icon": "calendar-check",
+      "tone": "brand",
+      "startsAt": "2026-06-01T00:00",
+      "endsAt": "2026-08-31T23:59"
+    }
+  ],
   "common": {
     "skipToContent": "Ir para o conteúdo",
     "search": "Pesquisar artigos",
@@ -329,18 +348,6 @@
       "flowContinueTitle": "Torne Sustentável",
       "flowContinueDesc": "Crie um caminho de continuidade adequado a cada aluno, incluindo exames, certificações e uso cotidiano de TI.",
       "intro": "Oferecemos instrução personalizada adaptada aos objetivos e ritmo de cada aluno, de crianças a adultos. Você também pode ver nosso posicionamento na visão geral de serviços.",
-      "enrollment": {
-        "enabled": true,
-        "termLabel": "Inscrições abertas para o verão de 2026",
-        "badgeLabel": "Aberto",
-        "remainingLabel": "Restam ",
-        "remainingSeats": 3,
-        "remainingUnit": " vagas",
-        "capacityNote": "Como as turmas são pequenas, esta janela de inscrição será encerrada quando a capacidade for atingida.",
-        "ctaLabel": "Consultar disponibilidade",
-        "startsAt": "2026-06-01T00:00",
-        "endsAt": "2026-08-31T23:59"
-      },
       "juku": {
         "title": "Tutoria",
         "desc": "Nosso programa de tutoria oferece instrução personalizada adaptada a cada aluno, construindo habilidades acadêmicas do básico ao avançado. Instrutores experientes apoiam o crescimento de cada estudante.",

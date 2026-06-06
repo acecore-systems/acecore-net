@@ -17,6 +17,25 @@
     "endsAt": "2026-08-31T23:59",
     "tone": "amber"
   },
+  "campaignNotices": [
+    {
+      "id": "schools-summer-2026",
+      "placement": "schools-after-hero",
+      "enabled": true,
+      "eyebrow": "Ouvert",
+      "title": "Inscriptions ouvertes pour l'été 2026",
+      "body": "Comme les groupes sont petits, cette période d'inscription fermera lorsque la capacité sera atteinte.",
+      "href": "/contact/?category=service-education",
+      "ctaLabel": "Demander les disponibilités",
+      "metricLabel": "Plus que ",
+      "metricValue": 3,
+      "metricUnit": " places",
+      "icon": "calendar-check",
+      "tone": "brand",
+      "startsAt": "2026-06-01T00:00",
+      "endsAt": "2026-08-31T23:59"
+    }
+  ],
   "common": {
     "skipToContent": "Aller au contenu",
     "search": "Rechercher des articles",
@@ -329,18 +348,6 @@
       "flowContinueTitle": "Rendez Durable",
       "flowContinueDesc": "Créez un chemin de continuité adapté à chaque élève, incluant examens, certifications et utilisation quotidienne de l'informatique.",
       "intro": "Nous offrons un enseignement personnalisé adapté aux objectifs et au rythme de chaque élève, des enfants aux adultes. Vous pouvez aussi voir notre positionnement dans l'aperçu des services.",
-      "enrollment": {
-        "enabled": true,
-        "termLabel": "Inscriptions ouvertes pour l'été 2026",
-        "badgeLabel": "Ouvert",
-        "remainingLabel": "Plus que ",
-        "remainingSeats": 3,
-        "remainingUnit": " places",
-        "capacityNote": "Comme les groupes sont petits, cette période d'inscription fermera lorsque la capacité sera atteinte.",
-        "ctaLabel": "Demander les disponibilités",
-        "startsAt": "2026-06-01T00:00",
-        "endsAt": "2026-08-31T23:59"
-      },
       "juku": {
         "title": "Tutorat",
         "desc": "Notre programme de tutorat offre un enseignement personnalisé adapté à chaque élève, construisant les compétences académiques du niveau de base au niveau avancé. Des instructeurs expérimentés soutiennent la croissance de chaque étudiant.",

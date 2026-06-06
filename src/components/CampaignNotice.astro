@@ -1,0 +1,221 @@
+---
+import Icon from './Icon.astro'
+import { getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
+import { isWithinPublicationWindow } from '../utils/publication-window'
+
+interface Props {
+  locale: Locale
+  placement: string
+  campaignId?: string
+}
+
+type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
+
+type CampaignNoticeSettings = {
+  id?: string
+  placement?: string
+  enabled?: boolean
+  eyebrow?: string
+  title?: string
+  body?: string
+  href?: string
+  ctaLabel?: string
+  metricLabel?: string
+  metricValue?: number | string
+  metricUnit?: string
+  icon?: string
+  tone?: CampaignTone
+  startsAt?: string
+  endsAt?: string
+}
+
+type VisibleCampaignNotice = {
+  id: string
+  eyebrow: string
+  title: string
+  body: string
+  destination: string
+  isExternal: boolean
+  ctaLabel: string
+  metricLabel: string
+  metricValue: string
+  metricUnit: string
+  icon: string
+  placement: string
+  tone: CampaignTone
+}
+
+const { locale, placement, campaignId } = Astro.props
+const notices =
+  getTranslationValue<CampaignNoticeSettings[]>(locale, 'campaignNotices') ?? []
+
+const toneClasses: Record<
+  CampaignTone,
+  {
+    wrap: string
+    iconWrap: string
+    icon: string
+    badge: string
+    metric: string
+    cta: string
+  }
+> = {
+  brand: {
+    wrap: 'border-brand-100 bg-brand-50/80',
+    iconWrap: 'bg-white text-brand-600 shadow-sm',
+    icon: 'text-brand-600',
+    badge: 'bg-brand-600 text-white',
+    metric: 'border-amber-200 bg-amber-50 text-amber-900',
+    cta: 'ac-btn-primary',
+  },
+  amber: {
+    wrap: 'border-amber-200 bg-amber-50/90',
+    iconWrap: 'bg-white text-amber-600 shadow-sm',
+    icon: 'text-amber-600',
+    badge: 'bg-amber-500 text-slate-950',
+    metric: 'border-amber-300 bg-white text-amber-900',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-800 text-slate-950 no-underline transition-colors hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2',
+  },
+  emerald: {
+    wrap: 'border-emerald-200 bg-emerald-50/90',
+    iconWrap: 'bg-white text-emerald-600 shadow-sm',
+    icon: 'text-emerald-600',
+    badge: 'bg-emerald-600 text-white',
+    metric: 'border-emerald-200 bg-white text-emerald-800',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2',
+  },
+  slate: {
+    wrap: 'border-slate-200 bg-slate-50/90',
+    iconWrap: 'bg-white text-slate-600 shadow-sm',
+    icon: 'text-slate-600',
+    badge: 'bg-slate-800 text-white',
+    metric: 'border-slate-200 bg-white text-slate-700',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2',
+  },
+}
+
+const isCampaignTone = (tone?: string): tone is CampaignTone =>
+  tone === 'brand' || tone === 'amber' || tone === 'emerald' || tone === 'slate'
+
+const getDestination = (href: string): string =>
+  href.startsWith('/') ? getLocalizedUrl(href, locale) : href
+
+const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
+  (result, notice) => {
+    const noticePlacement = notice.placement?.trim() ?? ''
+    const id = notice.id?.trim() ?? noticePlacement
+    const title = notice.title?.trim() ?? ''
+    const href = notice.href?.trim() ?? ''
+    const destination = href ? getDestination(href) : ''
+    const metricValue =
+      notice.metricValue === undefined ||
+      notice.metricValue === null ||
+      String(notice.metricValue).trim() === ''
+        ? ''
+        : String(notice.metricValue).trim()
+
+    if (
+      notice.enabled !== true ||
+      noticePlacement !== placement ||
+      (campaignId && id !== campaignId) ||
+      title.length === 0 ||
+      !isWithinPublicationWindow(notice.startsAt, notice.endsAt)
+    ) {
+      return result
+    }
+
+    result.push({
+      id,
+      eyebrow: notice.eyebrow?.trim() ?? '',
+      title,
+      body: notice.body?.trim() ?? '',
+      destination,
+      isExternal: /^https?:\/\//.test(destination),
+      ctaLabel: notice.ctaLabel?.trim() ?? '',
+      metricLabel: notice.metricLabel?.trim() ?? '',
+      metricValue,
+      metricUnit: notice.metricUnit?.trim() ?? '',
+      icon: notice.icon?.trim() || 'calendar-check',
+      placement: noticePlacement,
+      tone: isCampaignTone(notice.tone) ? notice.tone : 'brand',
+    })
+
+    return result
+  },
+  [],
+)
+---
+
+{
+  visibleNotices.map((notice) => {
+    const classes = toneClasses[notice.tone]
+
+    return (
+      <section
+        class:list={['border-y py-5', classes.wrap]}
+        aria-label={notice.title}
+        data-campaign-id={notice.id}
+      >
+        <div class="ac-container flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex min-w-0 items-start gap-3">
+            <span
+              class:list={[
+                'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
+                classes.iconWrap,
+              ]}
+            >
+              <Icon name={notice.icon} class:list={['text-xl', classes.icon]} />
+            </span>
+            <div class="min-w-0">
+              <div class="mb-1 flex flex-wrap items-center gap-2">
+                {notice.eyebrow && (
+                  <span
+                    class:list={[
+                      'rounded-full px-3 py-1 text-xs font-800',
+                      classes.badge,
+                    ]}
+                  >
+                    {notice.eyebrow}
+                  </span>
+                )}
+                {notice.metricValue && (
+                  <span
+                    class:list={[
+                      'rounded-full border px-3 py-1 text-xs font-800',
+                      classes.metric,
+                    ]}
+                  >
+                    {notice.metricLabel}
+                    {notice.metricValue}
+                    {notice.metricUnit}
+                  </span>
+                )}
+              </div>
+              <h2 class="m-0 text-lg font-800 leading-snug text-slate-900">
+                {notice.title}
+              </h2>
+              {notice.body && (
+                <p class="m-0 mt-1 text-sm font-600 leading-relaxed text-slate-600">
+                  {notice.body}
+                </p>
+              )}
+            </div>
+          </div>
+          {notice.destination && notice.ctaLabel && (
+            <a
+              href={notice.destination}
+              class:list={['shrink-0', classes.cta]}
+              target={notice.isExternal ? '_blank' : undefined}
+              rel={notice.isExternal ? 'noopener noreferrer' : undefined}
+              data-ga-event="campaign_notice_click"
+              data-ga-label={notice.ctaLabel}
+              data-ga-location={notice.placement}
+            >
+              {notice.ctaLabel}
+            </a>
+          )}
+        </div>
+      </section>
+    )
+  })
+}

@@ -17,6 +17,25 @@
     "endsAt": "2026-08-31T23:59",
     "tone": "amber"
   },
+  "campaignNotices": [
+    {
+      "id": "schools-summer-2026",
+      "placement": "schools-after-hero",
+      "enabled": true,
+      "eyebrow": "Open",
+      "title": "Now accepting students for Summer 2026",
+      "body": "Because classes are small, this enrollment window will close once capacity is reached.",
+      "href": "/contact/?category=service-education",
+      "ctaLabel": "Ask About Availability",
+      "metricLabel": "Only ",
+      "metricValue": 3,
+      "metricUnit": " seats left",
+      "icon": "calendar-check",
+      "tone": "brand",
+      "startsAt": "2026-06-01T00:00",
+      "endsAt": "2026-08-31T23:59"
+    }
+  ],
   "common": {
     "skipToContent": "Skip to content",
     "search": "Search articles",
@@ -456,18 +475,6 @@
       "flowContinueTitle": "Make It Sustainable",
       "flowContinueDesc": "Create a continuity path that fits each student, including exams, certifications, and everyday IT use.",
       "intro": "We provide personalized instruction tailored to each student's goals and pace, from children to adults. You can also see where we fit in our services overview.",
-      "enrollment": {
-        "enabled": true,
-        "termLabel": "Now accepting students for Summer 2026",
-        "badgeLabel": "Open",
-        "remainingLabel": "Only ",
-        "remainingSeats": 3,
-        "remainingUnit": " seats left",
-        "capacityNote": "Because classes are small, this enrollment window will close once capacity is reached.",
-        "ctaLabel": "Ask About Availability",
-        "startsAt": "2026-06-01T00:00",
-        "endsAt": "2026-08-31T23:59"
-      },
       "juku": {
         "title": "Tutoring",
         "desc": "Our tutoring program provides personalized instruction tailored to each student, building academic skills from fundamentals to advanced applications. Experienced instructors support every student's growth.",

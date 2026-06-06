@@ -505,6 +505,88 @@ collections:
                 widget: select
                 options: [brand, amber, emerald, slate]
                 default: amber
+          - name: 'campaignNotices'
+            label: 'キャンペーン通知'
+            hint: 'campaignNotices / ページ内に配置する汎用キャンペーン・募集・残数表示'
+            widget: list
+            collapsed: true
+            summary: '{{title}} / {{placement}}'
+            fields:
+              - name: 'id'
+                label: '管理ID'
+                hint: 'campaignNotices[].id / 例: schools-summer-2026'
+                widget: string
+              - name: 'placement'
+                label: '表示位置'
+                hint: 'CampaignNotice の placement と一致する値。例: schools-after-hero, services-after-hero'
+                widget: string
+              - name: 'enabled'
+                label: '表示する'
+                hint: 'campaignNotices[].enabled'
+                widget: boolean
+              - name: 'eyebrow'
+                label: 'ラベル'
+                hint: 'campaignNotices[].eyebrow'
+                widget: string
+                required: false
+              - name: 'title'
+                label: 'タイトル'
+                hint: 'campaignNotices[].title'
+                widget: string
+              - name: 'body'
+                label: '本文'
+                hint: 'campaignNotices[].body'
+                widget: text
+                required: false
+              - name: 'href'
+                label: 'リンクURL'
+                hint: 'campaignNotices[].href'
+                widget: string
+                required: false
+              - name: 'ctaLabel'
+                label: 'ボタン文言'
+                hint: 'campaignNotices[].ctaLabel'
+                widget: string
+                required: false
+              - name: 'metricLabel'
+                label: '指標ラベル'
+                hint: 'campaignNotices[].metricLabel / 例: 残り、先着'
+                widget: string
+                required: false
+              - name: 'metricValue'
+                label: '指標値'
+                hint: 'campaignNotices[].metricValue / 例: 3、10社、20%OFF'
+                widget: string
+                required: false
+              - name: 'metricUnit'
+                label: '指標単位'
+                hint: 'campaignNotices[].metricUnit / 例: 名、枠'
+                widget: string
+                required: false
+              - name: 'icon'
+                label: 'アイコン'
+                hint: 'campaignNotices[].icon / lucide icon name'
+                widget: string
+                default: calendar-check
+                required: false
+              - name: 'tone'
+                label: '表示トーン'
+                hint: 'campaignNotices[].tone'
+                widget: select
+                options: [brand, amber, emerald, slate]
+                default: brand
+              - name: 'startsAt'
+                label: '表示開始日時'
+                hint: 'campaignNotices[].startsAt / 空欄なら開始制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
+              - name: 'endsAt'
+                label: '表示終了日時'
+                hint: 'campaignNotices[].endsAt / 空欄なら終了制限なし'
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                required: false
           - name: 'common'
             label: '共通UI'
             hint: 'common'
@@ -1818,64 +1900,6 @@ collections:
             label: 'Intro'
             hint: 'intro'
             widget: string
-          - name: 'enrollment'
-            label: '募集・残席表示'
-            hint: 'enrollment'
-            widget: object
-            collapsed: false
-            fields:
-              - name: 'enabled'
-                label: '表示する'
-                hint: 'enrollment.enabled'
-                widget: boolean
-              - name: 'termLabel'
-                label: '募集タイトル'
-                hint: 'enrollment.termLabel'
-                widget: string
-              - name: 'badgeLabel'
-                label: 'ステータスラベル'
-                hint: 'enrollment.badgeLabel'
-                widget: string
-                required: false
-              - name: 'remainingLabel'
-                label: '残席ラベル'
-                hint: 'enrollment.remainingLabel'
-                widget: string
-                required: false
-              - name: 'remainingSeats'
-                label: '残席数'
-                hint: 'enrollment.remainingSeats'
-                widget: number
-                value_type: int
-                min: 0
-                required: false
-              - name: 'remainingUnit'
-                label: '残席単位'
-                hint: 'enrollment.remainingUnit'
-                widget: string
-                required: false
-              - name: 'capacityNote'
-                label: '補足文'
-                hint: 'enrollment.capacityNote'
-                widget: text
-                required: false
-              - name: 'ctaLabel'
-                label: 'ボタン文言'
-                hint: 'enrollment.ctaLabel'
-                widget: string
-                required: false
-              - name: 'startsAt'
-                label: '表示開始日時'
-                hint: 'enrollment.startsAt / 空欄なら開始制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
-              - name: 'endsAt'
-                label: '表示終了日時'
-                hint: 'enrollment.endsAt / 空欄なら終了制限なし'
-                widget: datetime
-                format: YYYY-MM-DDTHH:mm
-                required: false
           - name: 'juku'
             label: 'Juku'
             hint: 'juku'
