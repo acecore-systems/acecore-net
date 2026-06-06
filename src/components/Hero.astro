@@ -5,6 +5,7 @@ import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 
 interface Props {
   title: string
+  titleLines?: string[]
   subtitle?: string
   showCTA?: boolean
   images?: {
@@ -14,10 +15,12 @@ interface Props {
     sizes?: string
   }[]
   locale?: Locale
+  showProcess?: boolean
 }
 
-const { title, subtitle, showCTA = false, images } = Astro.props
+const { title, titleLines, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const showProcess = Astro.props.showProcess ?? showCTA
 const u = (path: string) => getLocalizedUrl(path, locale)
 const sliderImages = (images ?? []).map((image) => ({
   ...image,
@@ -39,28 +42,34 @@ const firstSliderImage = sliderImages[0]
   >
   </div>
   <div
-    class="ac-container relative grid min-h-[34rem] items-stretch gap-8 py-14 sm:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:py-0"
+    class="relative mx-auto grid min-h-[34rem] w-full max-w-[70rem] items-stretch gap-8 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:px-8 lg:py-0"
   >
-    <div class="relative z-10 flex flex-col justify-center py-4 lg:py-20">
+    <div
+      class="hero-copy relative z-10 flex min-w-0 flex-col justify-center py-4 lg:py-20"
+    >
       <div class="mb-8 h-px w-28 bg-brand-600" aria-hidden="true"></div>
       <h1
-        class="max-w-3xl text-3xl font-800 leading-tight text-slate-950 sm:text-4xl lg:text-5xl"
+        class="max-w-[20rem] text-[1.38rem] font-800 leading-tight text-slate-950 [overflow-wrap:anywhere] sm:max-w-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem]"
       >
-        {title}
+        {
+          titleLines?.length
+            ? titleLines.map((line) => <span class="block">{line}</span>)
+            : title
+        }
       </h1>
       {
         subtitle && (
-          <p class="mt-6 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p class="mt-6 max-w-[20rem] text-base leading-relaxed text-slate-700 [overflow-wrap:anywhere] sm:max-w-2xl sm:text-lg">
             {subtitle}
           </p>
         )
       }
       {
         showCTA && (
-          <div class="mt-8 flex flex-wrap gap-3 sm:gap-4">
+          <div class="mt-8 flex w-full max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-4">
             <a
               href={u('/services/')}
-              class="ac-btn-primary gap-2"
+              class="ac-btn-primary w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
               data-ga-event="cta_click"
               data-ga-label="hero_services"
               data-ga-location="hero"
@@ -71,7 +80,7 @@ const firstSliderImage = sliderImages[0]
             </a>
             <a
               href={u('/contact/')}
-              class="ac-btn-outline gap-2"
+              class="ac-btn-outline w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
               data-ga-event="cta_click"
               data-ga-label="hero_contact"
               data-ga-location="hero"
@@ -83,18 +92,22 @@ const firstSliderImage = sliderImages[0]
           </div>
         )
       }
-      <div
-        class="mt-10 grid max-w-xl grid-cols-3 gap-3 text-xs font-700 text-slate-500"
-        aria-hidden="true"
-      >
-        <span class="border-t border-brand-200 pt-2">PLAN</span>
-        <span class="border-t border-brand-200 pt-2">BUILD</span>
-        <span class="border-t border-brand-200 pt-2">OPERATE</span>
-      </div>
+      {
+        showProcess && (
+          <div
+            class="mt-10 grid max-w-[20rem] grid-cols-3 gap-3 text-xs font-700 text-slate-500 sm:max-w-xl"
+            aria-hidden="true"
+          >
+            <span class="border-t border-brand-200 pt-2">PLAN</span>
+            <span class="border-t border-brand-200 pt-2">BUILD</span>
+            <span class="border-t border-brand-200 pt-2">OPERATE</span>
+          </div>
+        )
+      }
     </div>
 
     <div
-      class="relative z-10 min-h-72 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0"
+      class="relative z-10 min-h-72 min-w-0 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0"
     >
       {
         hasSlider ? (
@@ -196,6 +209,18 @@ const firstSliderImage = sliderImages[0]
 </section>
 
 <style>
+  .hero-copy {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-copy h1,
+  .hero-copy p,
+  .hero-copy a {
+    overflow-wrap: anywhere;
+  }
+
   @media (min-width: 1024px) {
     .hero-workshop #hero-slider,
     .hero-workshop .hero-slide,

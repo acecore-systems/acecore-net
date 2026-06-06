@@ -153,6 +153,9 @@ const webPageLd = {
 >
   <Hero
     title={t(locale, 'pages.home.heroTitle')}
+    titleLines={locale === 'ja'
+      ? ['開発からデザイン、', '教育まで。', 'ワンストップで届けるIT支援']
+      : undefined}
     subtitle={t(locale, 'pages.home.heroSubtitle')}
     showCTA={true}
     images={homeHeroImages}
