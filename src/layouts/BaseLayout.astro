@@ -140,6 +140,7 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import SearchModal from '../components/SearchModal.astro'
 import ScrollToTop from '../components/ScrollToTop.astro'
+import AiChatWidget from '../components/AiChatWidget.astro'
 import AnchorAd from '../components/AnchorAd.astro'
 import AdsRuntime from '../components/AdsRuntime.astro'
 import { SITE } from '../data/site'
@@ -464,6 +465,7 @@ import { SITE } from '../data/site'
     </main>
     <Footer locale={locale} />
     <ScrollToTop locale={locale} />
+    <AiChatWidget locale={locale} />
     {isMonetizedPage && <AnchorAd />}
     <SearchModal />
     {isMonetizedPage && <AdsRuntime />}

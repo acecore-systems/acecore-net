@@ -109,47 +109,34 @@ const faqLd = {
         class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
         aria-labelledby="ai-contact-heading"
       >
-        <div class="mb-4 flex items-start gap-3">
-          <span class="ac-icon-box shrink-0">
-            <Icon name="sparkles" class="text-lg" />
-          </span>
-          <div>
-            <h2 id="ai-contact-heading" class="text-lg ac-heading">
-              {t(locale, 'pages.contact.aiHeading')}
-            </h2>
-            <p class="mt-1 text-sm leading-relaxed text-slate-600">
-              {t(locale, 'pages.contact.aiLead')}
-            </p>
-          </div>
-        </div>
-        <form
-          id="ai-contact-form"
-          class="space-y-3"
-          data-locale={locale}
-          data-t-loading={t(locale, 'pages.contact.aiLoading')}
-          data-t-error={t(locale, 'pages.contact.aiError')}
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
-          <label for="ai-question" class="sr-only">
-            {t(locale, 'pages.contact.aiQuestionLabel')}
-          </label>
-          <textarea
-            id="ai-question"
-            name="question"
-            rows="3"
-            maxlength="800"
-            class="ac-input resize-y bg-white"
-            placeholder={t(locale, 'pages.contact.aiPlaceholder')}></textarea>
-          <button type="submit" id="ai-contact-submit" class="ac-btn-primary">
-            <Icon name="sparkles" class="text-base" />
+          <div class="flex items-start gap-3">
+            <span class="ac-icon-box shrink-0">
+              <Icon name="sparkles" class="text-lg" />
+            </span>
+            <div>
+              <h2 id="ai-contact-heading" class="text-lg ac-heading">
+                {t(locale, 'pages.contact.aiHeading')}
+              </h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">
+                {t(locale, 'pages.contact.aiLead')}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="ac-btn-primary shrink-0"
+            data-ace-chat-open
+            data-ga-event="ai_chat_open_click"
+            data-ga-label="contact_ai_chat"
+            data-ga-location="contact_ai_assist"
+          >
+            <Icon name="bot-message-square" class="text-base" />
             {t(locale, 'pages.contact.aiSubmit')}
           </button>
-          <div
-            id="ai-contact-answer"
-            class="hidden rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700"
-            aria-live="polite"
-          >
-          </div>
-        </form>
+        </div>
       </section>
 
       <div
@@ -518,81 +505,6 @@ const faqLd = {
 
     document.addEventListener('astro:page-load', initContactTurnstile)
     initContactTurnstile()
-  </script>
-  <script is:inline>
-    {
-      const aiForm = document.getElementById('ai-contact-form')
-      if (aiForm) {
-        const question = document.getElementById('ai-question')
-        const answer = document.getElementById('ai-contact-answer')
-        const submit = document.getElementById('ai-contact-submit')
-        const loadingText =
-          aiForm.getAttribute('data-t-loading') || 'Thinking...'
-        const errorText =
-          aiForm.getAttribute('data-t-error') ||
-          'AI assistant is unavailable. Please use the form.'
-        const locale = aiForm.getAttribute('data-locale') || 'ja'
-
-        function showAiAnswer(text, isError) {
-          if (!answer) return
-          answer.textContent = text
-          answer.className = isError
-            ? 'rounded-lg border border-red-200 bg-red-50 p-4 text-sm leading-relaxed text-red-800'
-            : 'rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700'
-        }
-
-        aiForm.addEventListener('submit', function (event) {
-          event.preventDefault()
-          if (!question || !submit) return
-
-          const text = question.value.trim()
-          if (!text) {
-            question.focus()
-            return
-          }
-
-          const originalText = submit.textContent
-          submit.disabled = true
-          submit.textContent = loadingText
-          showAiAnswer(loadingText, false)
-
-          fetch('/api/ai-contact', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              question: text,
-              locale,
-            }),
-          })
-            .then(async function (response) {
-              const payload = await response.json().catch(function () {
-                return null
-              })
-              if (!response.ok || !payload?.ok) {
-                throw new Error(payload?.answer || errorText)
-              }
-              showAiAnswer(payload.answer || errorText, false)
-              if (window.aceTrackEvent) {
-                window.aceTrackEvent('ai_contact_answer', {
-                  page_path: window.location.pathname,
-                  page_title: document.title,
-                  location: 'contact_ai',
-                })
-              }
-            })
-            .catch(function (error) {
-              showAiAnswer(error.message || errorText, true)
-            })
-            .finally(function () {
-              submit.disabled = false
-              submit.textContent = originalText
-            })
-        })
-      }
-    }
   </script>
   <script is:inline>
     {

@@ -22,9 +22,22 @@ type OpenAIResponse = {
   }
 }
 
+type ChatMessage = {
+  role?: string
+  content?: string
+}
+
+type AiContactPayload = {
+  question?: string
+  locale?: string
+  messages?: ChatMessage[]
+}
+
 const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
 const DEFAULT_MODEL = 'gpt-5-nano'
 const MAX_QUESTION_LENGTH = 800
+const MAX_HISTORY_MESSAGES = 8
+const MAX_CONVERSATION_LENGTH = 3200
 
 const ACECORE_CONTEXT = `
 Acecore public site context:
@@ -35,7 +48,7 @@ Acecore public site context:
 - Estimates are free, and replies usually arrive within 1-2 business days.
 - LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
 - Useful site pages include services, works, schools, blog, privacy, and contact.
-- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, or private details not listed here, say what can be answered generally and guide the visitor to the contact form.
+- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form, LINE, email, or phone as appropriate.
 `
 
 export const onRequestPost = async ({
@@ -53,22 +66,27 @@ export const onRequestPost = async ({
     )
   }
 
-  let payload: { question?: string; locale?: string }
+  let payload: AiContactPayload
   try {
-    payload = (await request.json()) as { question?: string; locale?: string }
+    payload = (await request.json()) as AiContactPayload
   } catch {
     return jsonResponse({ ok: false, answer: 'Invalid request body.' }, 400)
   }
 
   const question = String(payload.question || '').trim()
   const locale = String(payload.locale || 'ja').slice(0, 16)
+  const conversationInput = buildConversationInput(payload)
 
-  if (!question) {
+  if (!conversationInput) {
     return jsonResponse({ ok: false, answer: 'Question is required.' }, 400)
   }
 
   if (question.length > MAX_QUESTION_LENGTH) {
     return jsonResponse({ ok: false, answer: 'Question is too long.' }, 400)
+  }
+
+  if (conversationInput.length > MAX_CONVERSATION_LENGTH) {
+    return jsonResponse({ ok: false, answer: 'Conversation is too long.' }, 400)
   }
 
   const response = await fetch(OPENAI_RESPONSES_ENDPOINT, {
@@ -80,16 +98,16 @@ export const onRequestPost = async ({
     body: JSON.stringify({
       model: env.OPENAI_MODEL || DEFAULT_MODEL,
       instructions: [
-        'You are Acecore contact page assistant.',
+        'You are Acecore website chat assistant.',
         'Answer in the visitor locale.',
         'Answer ordinary questions about Acecore using the public site context below.',
         'Keep answers concise, practical, and helpful for choosing the next action.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
-        'If a request needs a human decision, detailed estimate, or formal reply, guide the visitor to the contact form after answering what you can.',
-        "Keep the form as the main route for detailed inquiries, and mention LINE, email, or phone naturally when they fit the visitor's situation.",
+        'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
+        'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. Mention email or phone only when the form is difficult to use, urgent confirmation is needed, or the visitor explicitly asks for direct contact.',
         ACECORE_CONTEXT,
       ].join('\n'),
-      input: `Visitor locale: ${locale}\nVisitor question: ${question}`,
+      input: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
       max_output_tokens: 360,
     }),
   })
@@ -136,6 +154,24 @@ function extractOutputText(result: OpenAIResponse | null): string {
     .map((content) => content.text || '')
     .filter(Boolean)
     .join('\n')
+}
+
+function buildConversationInput(payload: AiContactPayload): string {
+  const messages = Array.isArray(payload.messages) ? payload.messages : []
+  const lines = messages
+    .slice(-MAX_HISTORY_MESSAGES)
+    .map((message) => {
+      const role = message.role === 'assistant' ? 'Assistant' : 'User'
+      const content = String(message.content || '').trim()
+      if (!content) return ''
+      return `${role}: ${content.slice(0, MAX_QUESTION_LENGTH)}`
+    })
+    .filter(Boolean)
+
+  if (lines.length > 0) return lines.join('\n')
+
+  const question = String(payload.question || '').trim()
+  return question ? `User: ${question.slice(0, MAX_QUESTION_LENGTH)}` : ''
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
