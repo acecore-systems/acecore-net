@@ -175,13 +175,133 @@ const phoneTel = SITE.phone.replaceAll('-', '')
             ? 'max-w-[85%] whitespace-pre-line rounded-lg bg-brand-500 px-3 py-2 text-white'
             : isError
               ? 'max-w-[85%] whitespace-pre-line rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800'
-              : 'max-w-[85%] whitespace-pre-line rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
-        bubble.textContent = text
+              : 'ace-chat-markdown max-w-[85%] rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
+
+        if (role === 'assistant' && !isError) {
+          renderMarkdownText(bubble, text)
+        } else {
+          bubble.textContent = text
+        }
 
         row.appendChild(bubble)
         messagesEl.appendChild(row)
         scrollMessages()
         return row
+      }
+
+      function renderMarkdownText(container, text) {
+        container.textContent = ''
+        const lines = String(text || '')
+          .replace(/\r\n?/g, '\n')
+          .trim()
+          .split('\n')
+
+        let paragraphLines = []
+        let list = null
+        let listType = ''
+
+        function flushParagraph() {
+          if (paragraphLines.length === 0) return
+          const paragraph = document.createElement('p')
+          appendInlineMarkdown(paragraph, paragraphLines.join('\n'))
+          container.appendChild(paragraph)
+          paragraphLines = []
+        }
+
+        function flushList() {
+          list = null
+          listType = ''
+        }
+
+        function ensureList(type) {
+          if (list && listType === type) return list
+          flushParagraph()
+          list = document.createElement(type)
+          listType = type
+          container.appendChild(list)
+          return list
+        }
+
+        lines.forEach((line) => {
+          const trimmed = line.trim()
+          if (!trimmed) {
+            flushParagraph()
+            flushList()
+            return
+          }
+
+          const unorderedMatch = trimmed.match(/^[-*+・]\s+(.+)$/)
+          const orderedMatch = trimmed.match(/^\d+\.\s+(.+)$/)
+
+          if (unorderedMatch) {
+            const item = document.createElement('li')
+            appendInlineMarkdown(item, unorderedMatch[1])
+            ensureList('ul').appendChild(item)
+            return
+          }
+
+          if (orderedMatch) {
+            const item = document.createElement('li')
+            appendInlineMarkdown(item, orderedMatch[1])
+            ensureList('ol').appendChild(item)
+            return
+          }
+
+          flushList()
+          paragraphLines.push(trimmed.replace(/^#{1,3}\s+/, ''))
+        })
+
+        flushParagraph()
+      }
+
+      function appendInlineMarkdown(parent, text) {
+        const pattern =
+          /(\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
+        let index = 0
+        let match
+
+        while ((match = pattern.exec(text)) !== null) {
+          if (match.index > index) {
+            parent.appendChild(
+              document.createTextNode(text.slice(index, match.index)),
+            )
+          }
+
+          if (match[2] && isSafeMarkdownHref(match[3])) {
+            const link = document.createElement('a')
+            link.href = match[3]
+            link.rel = 'noopener noreferrer'
+            if (/^https?:\/\//i.test(match[3])) {
+              link.target = '_blank'
+            }
+            link.textContent = match[2]
+            parent.appendChild(link)
+          } else if (match[4] || match[5]) {
+            const strong = document.createElement('strong')
+            strong.textContent = match[4] || match[5]
+            parent.appendChild(strong)
+          } else if (match[6]) {
+            const code = document.createElement('code')
+            code.textContent = match[6]
+            parent.appendChild(code)
+          } else if (match[7] || match[8]) {
+            const emphasis = document.createElement('em')
+            emphasis.textContent = match[7] || match[8]
+            parent.appendChild(emphasis)
+          } else {
+            parent.appendChild(document.createTextNode(match[0]))
+          }
+
+          index = pattern.lastIndex
+        }
+
+        if (index < text.length) {
+          parent.appendChild(document.createTextNode(text.slice(index)))
+        }
+      }
+
+      function isSafeMarkdownHref(value) {
+        return /^(https?:\/\/|mailto:|tel:|\/)/i.test(value)
       }
 
       function addMessage(role, content, options) {
@@ -309,3 +429,53 @@ const phoneTel = SITE.phone.replaceAll('-', '')
     document.addEventListener('astro:page-load', initAceAiChat)
   })()
 </script>
+
+<style is:global>
+  #ace-ai-chat .ace-chat-markdown {
+    line-height: 1.65;
+  }
+
+  #ace-ai-chat .ace-chat-markdown p + p,
+  #ace-ai-chat .ace-chat-markdown p + ul,
+  #ace-ai-chat .ace-chat-markdown p + ol,
+  #ace-ai-chat .ace-chat-markdown ul + p,
+  #ace-ai-chat .ace-chat-markdown ol + p {
+    margin-top: 0.5rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ul,
+  #ace-ai-chat .ace-chat-markdown ol {
+    margin-block: 0.25rem;
+    padding-left: 1.25rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ul {
+    list-style: disc;
+  }
+
+  #ace-ai-chat .ace-chat-markdown ol {
+    list-style: decimal;
+  }
+
+  #ace-ai-chat .ace-chat-markdown li + li {
+    margin-top: 0.25rem;
+  }
+
+  #ace-ai-chat .ace-chat-markdown strong {
+    color: rgb(15 23 42);
+    font-weight: 700;
+  }
+
+  #ace-ai-chat .ace-chat-markdown a {
+    color: rgb(37 99 235);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #ace-ai-chat .ace-chat-markdown code {
+    border-radius: 0.25rem;
+    background: rgb(226 232 240);
+    padding: 0.05rem 0.25rem;
+    font-size: 0.92em;
+  }
+</style>
