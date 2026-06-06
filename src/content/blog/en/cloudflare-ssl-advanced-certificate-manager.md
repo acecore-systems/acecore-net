@@ -4,7 +4,7 @@ description: 'Cloudflare’s former paid option "Dedicated SSL Certificates" was
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ If you want to enable Total TLS, simply turn it On in the **Total TLS** section 
 
 ## Summary
 
-| Item | Universal SSL (Free) | Advanced Certificate Manager ($10/month/zone) |
-|---|---|---|
-| Multi-level subdomains | ✗ | ✓ |
-| CA selection | ✗ | ✓ |
-| Validity period control | ✗ | ✓ |
-| CN as your own domain | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| Best for | Personal / general sites | Enterprise / complex subdomain setups |
+| Item                    | Universal SSL (Free)     | Advanced Certificate Manager ($10/month/zone) |
+| ----------------------- | ------------------------ | --------------------------------------------- |
+| Multi-level subdomains  | ✗                        | ✓                                             |
+| CA selection            | ✗                        | ✓                                             |
+| Validity period control | ✗                        | ✓                                             |
+| CN as your own domain   | △                        | ✓                                             |
+| Total TLS               | ✗                        | ✓                                             |
+| Best for                | Personal / general sites | Enterprise / complex subdomain setups         |
 
 Cloudflare’s “former paid SSL option” is **Advanced Certificate Manager (formerly Dedicated SSL Certificates)**. It is especially useful when free Universal SSL is not enough—particularly for protecting multi-level subdomains and gaining fine-grained certificate control.

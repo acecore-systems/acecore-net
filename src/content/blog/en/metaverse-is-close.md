@@ -1,20 +1,20 @@
 ---
 title: 'The Metaverse Is Closer Than You Think'
-description: 'While Facebook (Meta)''s metaverse strategy doesn''t quite resonate, Minecraft is a massive virtual space with over 100 million participants. The metaverse isn''t just about VR headsets.'
+description: "While Facebook (Meta)'s metaverse strategy doesn't quite resonate, Minecraft is a massive virtual space with over 100 million participants. The metaverse isn't just about VR headsets."
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/metaverse-community-lab.webp
 gallery:
   title: The World of the Metaverse
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: VR Headset
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Virtual Space Concept
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Gaming Environment
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ Minecraft's monthly active users exceed 100 million. Players build, explore, and
 
 Meta's Horizon Worlds has also recently become accessible from a browser without VR. I believe the gateway to the metaverse isn't "VR devices" but rather "virtual spaces where people gather."
 
-![VR headsets aren't the only gateway to the metaverse](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![VR headsets aren't the only gateway to the metaverse](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 ## The Potential of Minecraft-Based Communities
 

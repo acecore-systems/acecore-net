@@ -4,7 +4,7 @@ description: 'Keystatic, Sveltia CMS, Pages CMS를 비교 검토하여 최종적
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/cms-form-operations.webp
 compareTable:
   title: CMS 비교
   before:
@@ -89,12 +89,12 @@ content:
 
 Google reCAPTCHA v2는 사용자에게 이미지 선택을 강제하고, v3는 점수 기반이지만 프라이버시 우려가 있습니다. Cloudflare Turnstile은 다음 면에서 우수합니다:
 
-| 비교 | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| --- | --- | --- | --- |
-| 사용자 조작 | 이미지 선택 필요 | 불필요 | 불필요 |
-| 프라이버시 | 쿠키 기반 추적 | 행동 분석 | 최소한의 데이터 수집 |
-| 성능 | 무거움 | 보통 | 가벼움 |
-| 가격 | 무료(제한 있음) | 무료(제한 있음) | 무료(무제한) |
+| 비교        | reCAPTCHA v2     | reCAPTCHA v3    | Turnstile            |
+| ----------- | ---------------- | --------------- | -------------------- |
+| 사용자 조작 | 이미지 선택 필요 | 불필요          | 불필요               |
+| 프라이버시  | 쿠키 기반 추적   | 행동 분석       | 최소한의 데이터 수집 |
+| 성능        | 무거움           | 보통            | 가벼움               |
+| 가격        | 무료(제한 있음)  | 무료(제한 있음) | 무료(무제한)         |
 
 ### 구현
 

@@ -4,11 +4,11 @@ description: 'A practical guide covering solutions for scripts breaking with Ast
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/accessibility-ux-quality.webp
 callout:
   type: warning
   title: Must-Read If You Use View Transitions
-  text: 'When you adopt Astro''s ClientRouter (View Transitions), page transitions become smoother, but all inline scripts stop re-executing. This article covers the solution patterns and practical techniques for improving UX and code quality.'
+  text: "When you adopt Astro's ClientRouter (View Transitions), page transitions become smoother, but all inline scripts stop re-executing. This article covers the solution patterns and practical techniques for improving UX and code quality."
 processFigure:
   title: UX Improvement Workflow
   steps:
@@ -48,7 +48,7 @@ faq:
     - question: How large a site can Pagefind handle?
       answer: 'Pagefind is designed for static sites and operates fast even with thousands of pages. The search index is generated at build time and runs in the browser, so there is no server load.'
     - question: Will the code still work if I ignore TypeScript type errors?
-      answer: 'It will work, but type errors are signs of potential bugs. Especially with Astro''s content schemas, making them type-safe enables IDE autocompletion for property access within templates, greatly improving development efficiency.'
+      answer: "It will work, but type errors are signs of potential bugs. Especially with Astro's content schemas, making them type-safe enables IDE autocompletion for property access within templates, greatly improving development efficiency."
 ---
 
 ## Introduction
@@ -81,7 +81,9 @@ Unify all scripts into a pattern that **wraps them in named functions and re-reg
 <script>
   function initHeader() {
     const menuBtn = document.querySelector('[data-menu-toggle]')
-    menuBtn?.addEventListener('click', () => { /* ... */ })
+    menuBtn?.addEventListener('click', () => {
+      /* ... */
+    })
   }
 
   // Initial execution
@@ -163,7 +165,7 @@ Replace `onclick` with `data-*` attributes + `addEventListener`.
 ```
 
 ```javascript
-document.querySelectorAll('[data-search-trigger]').forEach(btn => {
+document.querySelectorAll('[data-search-trigger]').forEach((btn) => {
   btn.addEventListener('click', () => window.openSearch?.())
 })
 ```
@@ -174,16 +176,16 @@ document.querySelectorAll('[data-search-trigger]').forEach(btn => {
 
 Having a set of components available for writing blog posts enhances the expressiveness of your articles.
 
-| Component | Purpose |
-| --- | --- |
-| Callout | Four types of annotations: info / warning / tip / note |
-| Timeline | Chronological event display |
-| FAQ | Question and answer with structured data support |
-| Gallery | Image gallery with lightbox |
-| CompareTable | Before/after comparison table |
-| ProcessFigure | Step-by-step process diagram |
-| LinkCard | OGP-style external link card |
-| YouTubeEmbed | Lazy loading with facade pattern |
+| Component     | Purpose                                                |
+| ------------- | ------------------------------------------------------ |
+| Callout       | Four types of annotations: info / warning / tip / note |
+| Timeline      | Chronological event display                            |
+| FAQ           | Question and answer with structured data support       |
+| Gallery       | Image gallery with lightbox                            |
+| CompareTable  | Before/after comparison table                          |
+| ProcessFigure | Step-by-step process diagram                           |
+| LinkCard      | OGP-style external link card                           |
+| YouTubeEmbed  | Lazy loading with facade pattern                       |
 
 All of these are designed to be invoked from Markdown frontmatter. The article template renders `<Callout>` when `data.callout` exists.
 
@@ -217,13 +219,13 @@ Change `import { z } from 'astro:content'` (scheduled for removal in Astro 7) to
 
 Hardcoded values cause oversights during changes. The following values were consolidated in `src/data/site.ts`:
 
-| Constant | Number of Locations Before Consolidation |
-| --- | --- |
-| AdSense Client ID | 4 files |
-| GA4 Measurement ID | 2 locations |
-| Ad Slot IDs | 4 files |
-| Social URLs (X, GitHub, Discord, Aceserver) | 17 locations |
-| Phone, Email, LINE | 3 files |
+| Constant                                    | Number of Locations Before Consolidation |
+| ------------------------------------------- | ---------------------------------------- |
+| AdSense Client ID                           | 4 files                                  |
+| GA4 Measurement ID                          | 2 locations                              |
+| Ad Slot IDs                                 | 4 files                                  |
+| Social URLs (X, GitHub, Discord, Aceserver) | 17 locations                             |
+| Phone, Email, LINE                          | 3 files                                  |
 
 ```typescript
 export const SITE = {
@@ -260,8 +262,12 @@ Implement automatic pagination every 6 articles, navigation with ellipsis (`1 2 
 With a sticky header, anchor link destinations get hidden behind the header. Resolve this with the following UnoCSS preflight settings:
 
 ```css
-[id] { scroll-margin-top: 5rem; }
-html { scroll-behavior: smooth; }
+[id] {
+  scroll-margin-top: 5rem;
+}
+html {
+  scroll-behavior: smooth;
+}
 ```
 
 ---

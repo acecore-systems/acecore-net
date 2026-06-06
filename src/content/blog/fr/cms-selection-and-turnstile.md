@@ -1,10 +1,10 @@
 ---
-title: 'Chronique du choix d''un CMS headless — Pourquoi Pages CMS et la protection anti-bot avec Turnstile'
+title: "Chronique du choix d'un CMS headless — Pourquoi Pages CMS et la protection anti-bot avec Turnstile"
 description: "Retour sur l'évaluation comparative de Keystatic, Sveltia CMS et Pages CMS, le choix de Pages CMS, et l'implémentation de la protection anti-spam du formulaire de contact avec Cloudflare Turnstile."
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/cms-form-operations.webp
 compareTable:
   title: Comparaison des CMS
   before:
@@ -89,12 +89,12 @@ Cloudflare Turnstile a été introduit comme mesure anti-spam pour le formulaire
 
 Google reCAPTCHA v2 force les utilisateurs à sélectionner des images, et la v3 basée sur les scores pose des problèmes de confidentialité. Cloudflare Turnstile excelle sur les points suivants :
 
-| Critère | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| --- | --- | --- | --- |
-| Action utilisateur | Sélection d'images requise | Non requise | Non requise |
-| Confidentialité | Suivi par cookies | Analyse comportementale | Collecte minimale de données |
-| Performance | Lourd | Moyen | Léger |
-| Tarification | Gratuit (avec limites) | Gratuit (avec limites) | Gratuit (illimité) |
+| Critère            | reCAPTCHA v2               | reCAPTCHA v3            | Turnstile                    |
+| ------------------ | -------------------------- | ----------------------- | ---------------------------- |
+| Action utilisateur | Sélection d'images requise | Non requise             | Non requise                  |
+| Confidentialité    | Suivi par cookies          | Analyse comportementale | Collecte minimale de données |
+| Performance        | Lourd                      | Moyen                   | Léger                        |
+| Tarification       | Gratuit (avec limites)     | Gratuit (avec limites)  | Gratuit (illimité)           |
 
 ### Implémentation
 

@@ -4,7 +4,7 @@ description: 'Ein Bericht über die Evaluierung von Keystatic, Sveltia CMS und P
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/cms-form-operations.webp
 compareTable:
   title: CMS-Vergleich
   before:
@@ -89,12 +89,12 @@ Wir haben Cloudflare Turnstile als Spam-Schutz für das Kontaktformular eingefü
 
 Google reCAPTCHA v2 zwingt Benutzer zur Bildauswahl, und v3 ist punktebasiert, wirft aber Datenschutzbedenken auf. Cloudflare Turnstile ist in folgenden Punkten überlegen:
 
-| Vergleich | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| --- | --- | --- | --- |
-| Benutzeraktion | Bildauswahl erforderlich | Nicht erforderlich | Nicht erforderlich |
-| Datenschutz | Cookie-basiertes Tracking | Verhaltensanalyse | Minimale Datenerfassung |
-| Performance | Schwer | Mittel | Leicht |
-| Preis | Kostenlos (begrenzt) | Kostenlos (begrenzt) | Kostenlos (unbegrenzt) |
+| Vergleich      | reCAPTCHA v2              | reCAPTCHA v3         | Turnstile               |
+| -------------- | ------------------------- | -------------------- | ----------------------- |
+| Benutzeraktion | Bildauswahl erforderlich  | Nicht erforderlich   | Nicht erforderlich      |
+| Datenschutz    | Cookie-basiertes Tracking | Verhaltensanalyse    | Minimale Datenerfassung |
+| Performance    | Schwer                    | Mittel               | Leicht                  |
+| Preis          | Kostenlos (begrenzt)      | Kostenlos (begrenzt) | Kostenlos (unbegrenzt)  |
 
 ### Implementierung
 

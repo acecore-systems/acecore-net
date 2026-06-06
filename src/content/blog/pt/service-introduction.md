@@ -4,7 +4,7 @@ description: 'Do desenvolvimento de sistemas ao design e educação em TI. Apres
 date: 2026-03-10
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
-image: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/system-development-workbench.webp
 callout:
   type: info
   title: Sistema de serviços da Acecore
@@ -38,7 +38,7 @@ Atendemos a diversos setores, incluindo gestão de estoque, CRM (gestão de clie
 
 Utilizando as mais recentes tecnologias cloud-native, construímos sistemas com excelente manutenibilidade e escalabilidade. O suporte operacional pós-implantação também é garantido.
 
-![Cenário de design e desenvolvimento de sistemas corporativos](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
+![Cenário de design e desenvolvimento de sistemas corporativos](/uploads/acecore-generated/system-development-workbench.webp)
 
 ## 2. Construção e operação de servidores
 
@@ -56,7 +56,7 @@ Não nos preocupamos apenas com a beleza do design, mas também com **otimizaç�
 
 O suporte de operação e manutenção pós-criação também é integrado. Oferecemos desde atualização de conteúdo, aplicação de patches de segurança até propostas de melhoria baseadas em análise de acessos.
 
-![Suporte integrado do planejamento à operação do site](https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=400&fit=crop&q=80)
+![Suporte integrado do planejamento à operação do site](/uploads/acecore-generated/system-development-workbench.webp)
 
 ## 4. Design e criação
 

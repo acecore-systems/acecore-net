@@ -1,11 +1,11 @@
 ---
-title: "Techniques pratiques pour atteindre 99/100 au PageSpeed mobile avec un site Astro"
+title: 'Techniques pratiques pour atteindre 99/100 au PageSpeed mobile avec un site Astro'
 description: "Présentation des techniques d'optimisation mises en œuvre pour atteindre un score PageSpeed Insights mobile de 99 sur un site Astro + UnoCSS + Cloudflare Pages. De la stratégie de distribution CSS aux pièges des polices, en passant par les images responsives, le chargement différé d'AdSense et la configuration du cache."
 date: 2026-03-15
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Public cible de cet article
@@ -51,7 +51,7 @@ faq:
     - question: Pourquoi Google Fonts CDN est-il lent ?
       answer: "PageSpeed Insights simule une connexion slow 4G (~1,6 Mbps, RTT 150ms). La connexion à un domaine externe nécessite DNS lookup + connexion TCP + handshake TLS, ce qui bloque le rendu. Avec l'auto-hébergement, la distribution se fait depuis le même domaine, éliminant cette latence."
     - question: Que faire si Cloudflare Images est lent ?
-      answer: "Cloudflare Images est généralement rapide, mais la première transformation et les échecs de cache doivent encore récupérer l'image source. Si le LCP se dégrade dans PageSpeed, ajoutez <link rel=\"preload\"> aux images critiques pour lancer le chargement plus tôt."
+      answer: 'Cloudflare Images est généralement rapide, mais la première transformation et les échecs de cache doivent encore récupérer l''image source. Si le LCP se dégrade dans PageSpeed, ajoutez <link rel="preload"> aux images critiques pour lancer le chargement plus tôt.'
     - question: Le chargement différé d'AdSense affecte-t-il les revenus ?
       answer: "Si aucune publicité n'est présente dans le premier écran, le chargement au premier défilement donne un timing d'affichage quasi identique. L'amélioration SEO liée à la vitesse de page a un impact positif plus important."
 ---
@@ -62,12 +62,12 @@ Le site officiel d'Acecore est construit avec Astro 6 + UnoCSS + Cloudflare Page
 
 Voici les scores finaux obtenus :
 
-| Indicateur | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Indicateur     | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -160,7 +160,7 @@ theme: {
 En cas d'erreur de type TypeScript, ajoutez une déclaration de module dans `src/env.d.ts`.
 
 ```typescript
-declare module '@fontsource-variable/noto-sans-jp';
+declare module '@fontsource-variable/noto-sans-jp'
 ```
 
 ---
@@ -181,13 +181,13 @@ Configurez `srcset` et `sizes` sur toutes les images pour distribuer la taille o
 
 ```html
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp"
   srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"
@@ -222,12 +222,16 @@ Les images souvent oubliées sont les avatars (32×32, 48×48, 64×64px) et les 
 Le script Google AdSense pèse environ 100 Kio et impacte fortement l'affichage initial. Injectez dynamiquement le script lors du premier défilement de l'utilisateur.
 
 ```javascript
-window.addEventListener('scroll', () => {
-  const script = document.createElement('script')
-  script.src = 'https://pagead2.googlesyndication.com/...'
-  script.async = true
-  document.head.appendChild(script)
-}, { once: true })
+window.addEventListener(
+  'scroll',
+  () => {
+    const script = document.createElement('script')
+    script.src = 'https://pagead2.googlesyndication.com/...'
+    script.async = true
+    document.head.appendChild(script)
+  },
+  { once: true },
+)
 ```
 
 `{ once: true }` garantit que l'écouteur d'événement ne se déclenche qu'une seule fois. Cela réduit le JavaScript transféré au premier affichage à quasi-zéro.

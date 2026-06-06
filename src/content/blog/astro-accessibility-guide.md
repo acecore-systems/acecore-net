@@ -4,7 +4,7 @@ description: 'Astro + UnoCSS 構成のサイトで実施したアクセシビリ
 date: 2026-03-25T12:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/accessibility-ux-quality.webp
 callout:
   type: info
   title: アクセシビリティ対応は「全員のためのUX改善」

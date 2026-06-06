@@ -4,7 +4,7 @@ description: 'Registro da migração de um documento de plano de negócios const
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/web-production-desk.webp
 processFigure:
   title: Fluxo da migração
   steps:
@@ -166,13 +166,13 @@ graph TD
 
 ## Resultado da migração
 
-| Item | Antes | Depois |
-| --- | --- | --- |
-| Framework | VitePress 1.x | Astro 6 + Starlight |
-| CSS | UnoCSS | Estilização integrada do Starlight |
-| Mermaid | vitepress-plugin-mermaid | CDN (jsdelivr) |
-| Saída do build | `docs/.vitepress/dist` | `dist` |
-| Hospedagem | Cloudflare Pages | Cloudflare Pages (sem alteração) |
+| Item           | Antes                    | Depois                             |
+| -------------- | ------------------------ | ---------------------------------- |
+| Framework      | VitePress 1.x            | Astro 6 + Starlight                |
+| CSS            | UnoCSS                   | Estilização integrada do Starlight |
+| Mermaid        | vitepress-plugin-mermaid | CDN (jsdelivr)                     |
+| Saída do build | `docs/.vitepress/dist`   | `dist`                             |
+| Hospedagem     | Cloudflare Pages         | Cloudflare Pages (sem alteração)   |
 
 Com a unificação do framework, é possível compartilhar padrões de configuração do `astro.config.mjs` e configurações de deploy entre múltiplos projetos.
 

@@ -3,8 +3,9 @@ title: 'Astroサイトの品質改善ガイド 続編 ― PageSpeed Insights 全
 description: 'Cloudflare Web Analytics の停止、GA4 と検索UIの遅延ロード化、PageSpeed Insights のモバイル / デスクトップ全項目100の達成、Search Console のパンくずと索引整理、SVGアイコン移行、そして試したが採用しなかった最適化の判断まで。前回記事の続編として最終改善をまとめます。'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: 前回記事の続編です
@@ -133,10 +134,10 @@ faq:
 
 2026年3月29日時点で、Acecore トップページは以下の結果を確認できました。
 
-| 計測面 | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| 携帯電話 | **100** | **100** | **100** | **100** |
-| デスクトップ | **100** | **100** | **100** | **100** |
+| 計測面       | Performance | Accessibility | Best Practices | SEO     |
+| ------------ | ----------- | ------------- | -------------- | ------- |
+| 携帯電話     | **100**     | **100**       | **100**        | **100** |
+| デスクトップ | **100**     | **100**       | **100**        | **100** |
 
 以下に、実際の PageSpeed Insights のスクリーンショットとレポートURLをまとめて置いています。前回は「モバイル 99 / その他 100」が現実的な上限だと見ていましたが、不要な第三者 beacon を整理し、残診断の意味を精査したことで、今回は 100 まで到達しました。
 

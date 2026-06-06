@@ -3,12 +3,13 @@ title: "Guide d'amélioration de la qualité d'un site Astro — Jusqu'au score 
 description: "Récit complet de l'amélioration d'un site Astro + UnoCSS + Cloudflare Pages sur 4 axes — performance, SEO, accessibilité et UX — aboutissant à un score PageSpeed Insights mobile de 99 et un score parfait sur tous les critères en desktop."
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Public cible de cet article
-  text: 'Cet article s''adresse aux personnes travaillant sur l''amélioration de la qualité de sites Web et à celles intéressées par l''exploitation pratique d''Astro + UnoCSS. Il s''agit d''un article hub présentant la vue d''ensemble des améliorations, avec des liens vers des articles détaillés pour chaque thème.'
+  text: "Cet article s'adresse aux personnes travaillant sur l'amélioration de la qualité de sites Web et à celles intéressées par l'exploitation pratique d'Astro + UnoCSS. Il s'agit d'un article hub présentant la vue d'ensemble des améliorations, avec des liens vers des articles détaillés pour chaque thème."
 processFigure:
   title: Approche d'amélioration
   steps:
@@ -63,13 +64,13 @@ faq:
   title: Questions fréquentes
   items:
     - question: Est-il possible d'atteindre un score PageSpeed mobile de 100 ?
-      answer: 'C''est techniquement possible, mais pour un site intégrant des services externes comme AdSense ou GA4, maintenir un score stable de 100 est extrêmement difficile. Lighthouse simule une connexion slow 4G (environ 1,6 Mbps), ce qui pénalise fortement le chargement de ressources externes. 99 représente un sommet réaliste.'
+      answer: "C'est techniquement possible, mais pour un site intégrant des services externes comme AdSense ou GA4, maintenir un score stable de 100 est extrêmement difficile. Lighthouse simule une connexion slow 4G (environ 1,6 Mbps), ce qui pénalise fortement le chargement de ressources externes. 99 représente un sommet réaliste."
     - question: Dans quel ordre faut-il procéder aux améliorations ?
-      answer: 'Commencez par analyser l''état actuel avec PageSpeed Insights et traitez les éléments à plus fort impact. En général, l''ordre recommandé est : performance → SEO → accessibilité.'
+      answer: "Commencez par analyser l'état actuel avec PageSpeed Insights et traitez les éléments à plus fort impact. En général, l'ordre recommandé est : performance → SEO → accessibilité."
     - question: Ces techniques d'amélioration s'appliquent-elles à d'autres sites Astro ?
-      answer: 'Oui. La stratégie de diffusion CSS, l''auto-hébergement des polices, les données structurées et l''amélioration de l''accessibilité sont des bonnes pratiques communes à tous les sites Astro.'
+      answer: "Oui. La stratégie de diffusion CSS, l'auto-hébergement des polices, les données structurées et l'amélioration de l'accessibilité sont des bonnes pratiques communes à tous les sites Astro."
     - question: Avez-vous utilisé GitHub Copilot pour les améliorations ?
-      answer: 'Oui. Pratiquement toutes les améliorations ont été réalisées en collaboration avec GitHub Copilot. Les détails seront présentés dans l''article « Flux de développement avec GitHub Copilot ».'
+      answer: "Oui. Pratiquement toutes les améliorations ont été réalisées en collaboration avec GitHub Copilot. Les détails seront présentés dans l'article « Flux de développement avec GitHub Copilot »."
 ---
 
 ## Introduction
@@ -88,12 +89,12 @@ Le premier point à souligner est qu'**obtenir un score élevé PageSpeed Insigh
 
 Derrière PageSpeed Insights fonctionne un outil appelé Lighthouse, qui applique le throttling suivant pour les tests mobiles.
 
-| Paramètre | Valeur |
-| --- | --- |
+| Paramètre                 | Valeur                     |
+| ------------------------- | -------------------------- |
 | Vitesse de téléchargement | Environ 1,6 Mbps (slow 4G) |
-| Vitesse d'upload | Environ 0,75 Mbps |
-| Latence | 150 ms (RTT) |
-| CPU | Ralentissement ×4 |
+| Vitesse d'upload          | Environ 0,75 Mbps          |
+| Latence                   | 150 ms (RTT)               |
+| CPU                       | Ralentissement ×4          |
 
 Autrement dit, une page qui s'ouvre en 1 seconde avec la fibre prend **5 à 6 secondes** dans la simulation Lighthouse. Le simple chargement de 200 Kio de CSS génère environ **1 seconde** de blocage en slow 4G.
 
@@ -122,12 +123,12 @@ L'objectif doit être « obtenir systématiquement un score élevé sur des mesu
 
 Malgré ces difficultés, les scores suivants sont désormais atteints de manière stable.
 
-| Indicateur | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Indicateur     | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -161,14 +162,14 @@ Résolution des problèmes d'arrêt de scripts causés par View Transitions (Cli
 
 ## Stack technique
 
-| Technologie | Usage |
-| --- | --- |
-| Astro 6 | Génération de site statique (architecture zéro JS) |
-| UnoCSS (presetWind3) | CSS utility-first |
-| Cloudflare Pages | Hébergement, CDN, contrôle des headers |
-| @fontsource-variable/noto-sans-jp | Auto-hébergement de la police japonaise |
-| Cloudflare Images | Transformations d'images (conversion automatique AVIF/WebP) |
-| Pagefind | Recherche plein texte pour sites statiques |
+| Technologie                       | Usage                                                       |
+| --------------------------------- | ----------------------------------------------------------- |
+| Astro 6                           | Génération de site statique (architecture zéro JS)          |
+| UnoCSS (presetWind3)              | CSS utility-first                                           |
+| Cloudflare Pages                  | Hébergement, CDN, contrôle des headers                      |
+| @fontsource-variable/noto-sans-jp | Auto-hébergement de la police japonaise                     |
+| Cloudflare Images                 | Transformations d'images (conversion automatique AVIF/WebP) |
+| Pagefind                          | Recherche plein texte pour sites statiques                  |
 
 ---
 

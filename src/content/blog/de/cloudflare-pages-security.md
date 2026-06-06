@@ -4,7 +4,7 @@ description: 'Ein Praxisleitfaden zum statischen Website-Deployment auf Cloudfla
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 processFigure:
   title: Entwicklung der Deployment-Architektur
   steps:
@@ -61,7 +61,7 @@ CSP ist ein kritischer Header zur Verhinderung von Cross-Site-Scripting (XSS)-An
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://acecore.net https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -106,11 +106,11 @@ Die von Astro ausgegebenen Dateien im `_astro/`-Verzeichnis enthalten Content-Ha
 
 Die Cloudflare Pages-Projekteinstellungen sind einfach:
 
-| Einstellung | Wert |
-| --- | --- |
-| Build-Befehl | `npx astro build` |
-| Ausgabeverzeichnis | `dist` |
-| Node.js-Version | 22 |
+| Einstellung        | Wert              |
+| ------------------ | ----------------- |
+| Build-Befehl       | `npx astro build` |
+| Ausgabeverzeichnis | `dist`            |
+| Node.js-Version    | 22                |
 
 Sobald Sie ein GitHub-Repository verbinden, lösen Pushes auf den `main`-Branch automatische Deployments aus. Preview-Deployments werden ebenfalls automatisch pro PR generiert, was Reviews erleichtert.
 

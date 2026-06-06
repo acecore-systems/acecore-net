@@ -3,8 +3,9 @@ title: 'Astro Site Quality Improvement Guide, Part 2 - Final Adjustments That Ac
 description: 'A follow-up to the previous article covering the final refinements: disabling Cloudflare Web Analytics, deferring GA4 and search UI loading, reaching perfect 100s across all PageSpeed Insights categories on both mobile and desktop, cleaning up Search Console breadcrumbs and indexing, migrating to shared SVG icons, and documenting the optimizations that were tried but not adopted.'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: This is a follow-up to the previous article
@@ -133,10 +134,10 @@ This article closes the smaller issues that remained after the previous article 
 
 As of March 29, 2026, the Acecore home page produced the following results.
 
-| Surface | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| Mobile | **100** | **100** | **100** | **100** |
-| Desktop | **100** | **100** | **100** | **100** |
+| Surface | Performance | Accessibility | Best Practices | SEO     |
+| ------- | ----------- | ------------- | -------------- | ------- |
+| Mobile  | **100**     | **100**       | **100**        | **100** |
+| Desktop | **100**     | **100**       | **100**        | **100** |
 
 Below are the actual PageSpeed Insights screenshots together with the report URLs. In the previous round, I regarded “mobile 99 / everything else 100” as the realistic ceiling. This time, by removing unnecessary third-party beacons and carefully interpreting the meaning of the remaining diagnostics, I was able to reach 100.
 

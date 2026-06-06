@@ -4,7 +4,7 @@ description: 'Acecores Community-Aktivitäten, Bildungsunterstützung und Open-S
 date: 2026-03-08
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/education-programming-class.webp
 insightGrid:
   title: Die Breite unserer Aktivitäten
   items:
@@ -50,7 +50,7 @@ Bei Acecore setzen wir uns unter dem Motto „Verbindung, Entdeckung und gemeins
 
 Die Aceserver [Discord-Community](https://discord.gg/acsv) beherbergt aktive Gespräche über das Gaming hinaus, darunter technische Diskussionen und alltägliche Unterhaltungen. Es herrscht eine offene Atmosphäre, in der jeder unabhängig von Alter oder Erfahrung teilnehmen kann — vom Anfänger bis zum Veteranen.
 
-![Die Aceserver-Community fördert die Interaktion unabhängig von Alter oder Erfahrung](https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=400&fit=crop&q=80)
+![Die Aceserver-Community fördert die Interaktion unabhängig von Alter oder Erfahrung](/uploads/acecore-generated/education-programming-class.webp)
 
 Die aus dem Serverbetrieb gewonnenen Erkenntnisse fließen in unsere Unternehmens-Infrastrukturservices zurück. Dies hat zur Ansammlung von Praxis-Know-how in den Bereichen Performance-Tuning unter Hochlastumgebungen, DDoS-Schutz und sichere Verwaltung von Nutzerdaten geführt.
 
@@ -76,7 +76,7 @@ In unserer IT-Schule „Acecore Schools" bieten aktive Ingenieure Einzelunterric
 
 Teilnehmer haben Rückmeldungen geteilt wie „Es wurde klar, was ich in der Praxis tun muss" und „Ich habe sofort Dinge verstanden, die ich alleine nicht begreifen konnte."
 
-![Teilnehmer lernen durch einen praxisbasierten Lehrplan](https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&fit=crop&q=80)
+![Teilnehmer lernen durch einen praxisbasierten Lehrplan](/uploads/acecore-generated/education-programming-class.webp)
 
 ## Beitrag zu Open Source
 

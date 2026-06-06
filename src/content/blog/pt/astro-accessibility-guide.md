@@ -4,7 +4,7 @@ description: 'Apresentamos todos os passos de melhoria de acessibilidade realiza
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/accessibility-ux-quality.webp
 callout:
   type: info
   title: Acessibilidade é "melhoria de UX para todos"
@@ -69,8 +69,7 @@ Os ícones Iconify do UnoCSS (`i-lucide-*`) são frequentemente usados como deco
 Adicione `aria-hidden="true"` aos ícones com propósito decorativo.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Contato
+<span class="i-lucide-mail" aria-hidden="true"></span> Contato
 ```
 
 Essa correção foi aplicada em mais de 30 ícones em todo o site. É fácil esquecer ícones dentro de componentes como StatBar, Callout, ServiceCard e ProcessFigure, então preste atenção.
@@ -163,12 +162,10 @@ Exiba mensagens de erro imediatamente nos eventos `blur` / `input` e integre os 
 - `aria-describedby` — referencia o ID da mensagem de erro
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
-<p id="email-error" role="alert">Por favor, insira um endereço de e-mail válido</p>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
+<p id="email-error" role="alert">
+  Por favor, insira um endereço de e-mail válido
+</p>
 ```
 
 ### Marcação de campos obrigatórios
@@ -176,8 +173,7 @@ Exiba mensagens de erro imediatamente nos eventos `blur` / `input` e integre os 
 Apenas a marca visual `*` não é suficiente. Adicione texto complementar para leitores de tela.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(obrigatório)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(obrigatório)</span>
 ```
 
 ---

@@ -4,17 +4,17 @@ description: 'Alors que la stratégie métavers de Facebook (Meta) reste floue, 
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/metaverse-community-lab.webp
 gallery:
   title: Le monde du métavers
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Casque VR
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Image d'un espace virtuel
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Environnement gaming
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ Le nombre d'utilisateurs actifs mensuels de Minecraft dépasse les 100 millions.
 
 Horizon Worlds de Meta a d'ailleurs récemment rendu possible l'accès sans VR, directement depuis un navigateur. La porte d'entrée du métavers n'est pas « un appareil VR », mais bien « un espace virtuel où les gens se rassemblent ».
 
-![Le casque VR n'est pas la seule porte d'entrée vers le métavers](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![Le casque VR n'est pas la seule porte d'entrée vers le métavers](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 ## Le potentiel communautaire de Minecraft
 

@@ -5,9 +5,10 @@ date: 2023-07-18
 tags:
   - お知らせ
   - Webサイト
-image: https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/web-production-desk.webp
 author: gui
 ---
+
 ## 공식 웹사이트를 리뉴얼했습니다
 
 Acecore는 공식 웹사이트를 리뉴얼했습니다. 이 글에서는 리뉴얼의 목적, 새로운 디자인 컨셉, 그리고 기반 기술에 대해 보고합니다.
@@ -25,13 +26,13 @@ Acecore는 공식 웹사이트를 리뉴얼했습니다. 이 글에서는 리뉴
 
 ## 사용 기술
 
-| 기술 | 용도 |
-|------|------|
-| Astro | 정적 사이트 생성기 |
-| UnoCSS | CSS 프레임워크 |
-| Cloudflare Pages | 호스팅 |
-| Pagefind | 전문 검색 |
-| ssgform.com | 문의 폼 |
+| 기술             | 용도               |
+| ---------------- | ------------------ |
+| Astro            | 정적 사이트 생성기 |
+| UnoCSS           | CSS 프레임워크     |
+| Cloudflare Pages | 호스팅             |
+| Pagefind         | 전문 검색          |
+| ssgform.com      | 문의 폼            |
 
 Astro는 JavaScript가 없는 HTML을 생성하여 가장 빠른 초기 렌더링을 제공합니다. UnoCSS는 실제로 사용된 클래스의 CSS만 생성하여 전체 CSS 크기를 최소한으로 유지합니다.
 

@@ -5,11 +5,11 @@ date: 2026-03-15
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Who This Article Is For
-  text: 'For those looking to improve their Astro site''s PageSpeed score. Covers practical, ready-to-apply techniques for optimizing CSS, fonts, images, and ad scripts.'
+  text: "For those looking to improve their Astro site's PageSpeed score. Covers practical, ready-to-apply techniques for optimizing CSS, fonts, images, and ad scripts."
 processFigure:
   title: Optimization Workflow
   steps:
@@ -62,12 +62,12 @@ Acecore's official website is built with Astro 6 + UnoCSS + Cloudflare Pages. Th
 
 The final scores achieved:
 
-| Metric | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Metric         | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -160,7 +160,7 @@ theme: {
 If TypeScript type errors occur, add a module declaration in `src/env.d.ts`:
 
 ```typescript
-declare module '@fontsource-variable/noto-sans-jp';
+declare module '@fontsource-variable/noto-sans-jp'
 ```
 
 ---
@@ -181,13 +181,13 @@ Set `srcset` and `sizes` on all images to deliver optimal sizes based on screen 
 
 ```html
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp"
   srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"
@@ -222,12 +222,16 @@ Commonly overlooked images include avatars (32×32, 48×48, 64×64px) and YouTub
 The Google AdSense script is approximately 100 KiB and significantly impacts initial rendering. Dynamically inject the script when the user first scrolls.
 
 ```javascript
-window.addEventListener('scroll', () => {
-  const script = document.createElement('script')
-  script.src = 'https://pagead2.googlesyndication.com/...'
-  script.async = true
-  document.head.appendChild(script)
-}, { once: true })
+window.addEventListener(
+  'scroll',
+  () => {
+    const script = document.createElement('script')
+    script.src = 'https://pagead2.googlesyndication.com/...'
+    script.async = true
+    document.head.appendChild(script)
+  },
+  { once: true },
+)
 ```
 
 `{ once: true }` ensures the event listener fires only once. This brings first-view JavaScript transfer to near zero.

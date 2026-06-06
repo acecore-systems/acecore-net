@@ -3,8 +3,9 @@ title: 'Guía de mejora de calidad del sitio Astro ― El camino hasta PageSpeed
 description: 'Registro completo de la mejora del sitio con configuración Astro + UnoCSS + Cloudflare Pages en 4 ejes: rendimiento, SEO, accesibilidad y UX, logrando PageSpeed Insights móvil 99 puntos y escritorio 100 en todos los apartados.'
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Público objetivo de este artículo
@@ -88,12 +89,12 @@ Lo primero que quiero transmitir es que **obtener una puntuación alta en el sco
 
 Lo que funciona detrás de PageSpeed Insights es una herramienta llamada Lighthouse, que aplica el siguiente throttling a las pruebas móviles:
 
-| Elemento | Valor |
-| --- | --- |
+| Elemento              | Valor               |
+| --------------------- | ------------------- |
 | Velocidad de descarga | ~1.6 Mbps (slow 4G) |
-| Velocidad de subida | ~0.75 Mbps |
-| Latencia | 150 ms (RTT) |
-| CPU | 4x slowdown |
+| Velocidad de subida   | ~0.75 Mbps          |
+| Latencia              | 150 ms (RTT)        |
+| CPU                   | 4x slowdown         |
 
 Es decir, una página que se abre en 1 segundo con fibra óptica, en la simulación de Lighthouse **tarda 5-6 segundos**. Cargar 200 KiB de CSS en slow 4G genera **~1 segundo** de bloqueo.
 
@@ -122,12 +123,12 @@ Por eso, el objetivo no debe ser "obtener 100 en una medición", sino "obtener p
 
 A pesar de las dificultades mencionadas, logramos alcanzar de forma estable las siguientes puntuaciones:
 
-| Métrica | Móvil | Escritorio |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
-| Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| Métrica        | Móvil   | Escritorio |
+| -------------- | ------- | ---------- |
+| Performance    | **99**  | **100**    |
+| Accessibility  | **100** | **100**    |
+| Best Practices | **100** | **100**    |
+| SEO            | **100** | **100**    |
 
 ---
 
@@ -161,14 +162,14 @@ Se resolvieron los problemas de scripts detenidos por la introducción de View T
 
 ## Stack tecnológico
 
-| Tecnología | Uso |
-| --- | --- |
-| Astro 6 | Generación de sitio estático (arquitectura zero-JS) |
-| UnoCSS (presetWind3) | CSS utility-first |
-| Cloudflare Pages | Hosting, CDN, control de headers |
-| @fontsource-variable/noto-sans-jp | Self-hosting de fuente japonesa |
-| Cloudflare Images | Transformaciones de imágenes (conversión automática AVIF/WebP) |
-| Pagefind | Búsqueda de texto completo para sitios estáticos |
+| Tecnología                        | Uso                                                            |
+| --------------------------------- | -------------------------------------------------------------- |
+| Astro 6                           | Generación de sitio estático (arquitectura zero-JS)            |
+| UnoCSS (presetWind3)              | CSS utility-first                                              |
+| Cloudflare Pages                  | Hosting, CDN, control de headers                               |
+| @fontsource-variable/noto-sans-jp | Self-hosting de fuente japonesa                                |
+| Cloudflare Images                 | Transformaciones de imágenes (conversión automática AVIF/WebP) |
+| Pagefind                          | Búsqueda de texto completo para sitios estáticos               |
 
 ---
 

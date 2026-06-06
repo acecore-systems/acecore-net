@@ -5,8 +5,9 @@ date: 2023-03-21
 author: gui
 tags:
   - コミュニティ
-image: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/metaverse-community-lab.webp
 ---
+
 ## 메타버스는 이미 이렇게 가까이에
 
 "메타버스"란 무엇일까요?

@@ -4,7 +4,7 @@ description: 'Ранее платная опция Cloudflare «Dedicated SSL Ce
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ Wildcard `*.example.com` работает, но **только для поддо
 
 ## Итоги
 
-| Пункт | Universal SSL (бесплатно) | Advanced Certificate Manager ($10/мес/зона) |
-|---|---|---|
-| Многоуровневые поддомены | ✗ | ✓ |
-| Выбор CA | ✗ | ✓ |
-| Настройка срока действия | ✗ | ✓ |
-| CN = ваш домен | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| Сценарий использования | Личные / обычные сайты | Корпоративные / сложные структуры поддоменов |
+| Пункт                    | Universal SSL (бесплатно) | Advanced Certificate Manager ($10/мес/зона)  |
+| ------------------------ | ------------------------- | -------------------------------------------- |
+| Многоуровневые поддомены | ✗                         | ✓                                            |
+| Выбор CA                 | ✗                         | ✓                                            |
+| Настройка срока действия | ✗                         | ✓                                            |
+| CN = ваш домен           | △                         | ✓                                            |
+| Total TLS                | ✗                         | ✓                                            |
+| Сценарий использования   | Личные / обычные сайты    | Корпоративные / сложные структуры поддоменов |
 
 «Прежняя платная SSL-опция» Cloudflare — это **Advanced Certificate Manager (бывший Dedicated SSL Certificates)**. Это полезный выбор, когда бесплатного Universal SSL недостаточно — особенно при защите многоуровневых поддоменов и необходимости тонкой настройки сертификатов.

@@ -4,7 +4,7 @@ description: 'Guia prático sobre deploy de sites estáticos no Cloudflare Pages
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 processFigure:
   title: Evolução da configuração de deploy
   steps:
@@ -61,7 +61,7 @@ CSP é um cabeçalho importante para prevenir ataques de Cross-Site Scripting (X
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://acecore.net https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -106,11 +106,11 @@ Os arquivos no diretório `_astro/` gerado pelo Astro contêm hash de conteúdo 
 
 A configuração do projeto Cloudflare Pages é simples:
 
-| Item | Configuração |
-| ---- | ------------ |
-| Comando de build | `npx astro build` |
-| Diretório de saída | `dist` |
-| Versão do Node.js | 22 |
+| Item               | Configuração      |
+| ------------------ | ----------------- |
+| Comando de build   | `npx astro build` |
+| Diretório de saída | `dist`            |
+| Versão do Node.js  | 22                |
 
 Conectando o repositório GitHub, o deploy automático é feito a cada push para o branch `main`. Deploy de preview também é gerado automaticamente para cada PR, facilitando o review.
 

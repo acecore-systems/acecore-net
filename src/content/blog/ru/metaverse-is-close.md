@@ -4,17 +4,17 @@ description: 'Стратегия метавселенной Facebook (Meta) не
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/metaverse-community-lab.webp
 gallery:
   title: Мир метавселенной
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: VR-шлем
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Концепция виртуального пространства
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Игровая среда
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/metaverse-community-lab.webp
       alt: Цифровой мир
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ faq:
 
 Horizon Worlds от Meta также недавно стал доступен из браузера без VR. Я считаю, что вратами в метавселенную являются не «VR-устройства», а «виртуальные пространства, где собираются люди».
 
-![VR-шлемы — не единственные врата в метавселенную](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![VR-шлемы — не единственные врата в метавселенную](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 ## Потенциал сообществ на базе Minecraft
 

@@ -64,7 +64,8 @@ function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
     const optionText = body.slice(0, slashIndex)
     const sourceUrlText = `${body.slice(slashIndex + 1)}${parsed.search}`
     const sourceUrl =
-      sourceUrlText.startsWith('http://') || sourceUrlText.startsWith('https://')
+      sourceUrlText.startsWith('http://') ||
+      sourceUrlText.startsWith('https://')
         ? sourceUrlText
         : `/${sourceUrlText.replace(/^\/+/, '')}`
 
@@ -120,6 +121,10 @@ function buildCloudflareImageUrl(
   dimensions: { width?: string; height?: string },
   quality = '50',
 ): string {
+  if (import.meta.env.DEV && sourceUrl.startsWith('/')) {
+    return sourceUrl
+  }
+
   const { width, height } = dimensions
   const transformOptions: string[] = []
 
@@ -138,14 +143,24 @@ function buildCloudflareImageUrl(
  * 外部画像URLまたはローカル画像パスを Cloudflare Images の変換URLに変換する。
  * 外部URLはリモート取得、ローカル画像は同一オリジン画像として最適化配信する。
  */
-export function optimizeImage(url: string, overrides: OptimizeImageOptions = {}): string {
+export function optimizeImage(
+  url: string,
+  overrides: OptimizeImageOptions = {},
+): string {
   const parsed = parseImageSource(url)
   if (!parsed) return url
 
-  return buildCloudflareImageUrl(parsed.sourceUrl, {
-    width: overrides.width != null ? String(overrides.width) : parsed.width,
-    height: overrides.height != null ? String(overrides.height) : parsed.height,
-  }, overrides.quality != null ? String(overrides.quality) : (parsed.quality ?? '50'))
+  return buildCloudflareImageUrl(
+    parsed.sourceUrl,
+    {
+      width: overrides.width != null ? String(overrides.width) : parsed.width,
+      height:
+        overrides.height != null ? String(overrides.height) : parsed.height,
+    },
+    overrides.quality != null
+      ? String(overrides.quality)
+      : (parsed.quality ?? '50'),
+  )
 }
 
 /** 指定幅で Cloudflare Images URL を生成する（srcset 用） */
@@ -160,7 +175,9 @@ export function optimizeImageWithWidth(
   return buildCloudflareImageUrl(
     parsed.sourceUrl,
     { width: String(width) },
-    overrides.quality != null ? String(overrides.quality) : (parsed.quality ?? '50'),
+    overrides.quality != null
+      ? String(overrides.quality)
+      : (parsed.quality ?? '50'),
   )
 }
 

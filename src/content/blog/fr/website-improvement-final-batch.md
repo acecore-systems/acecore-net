@@ -3,8 +3,9 @@ title: "Guide d'amélioration de la qualité d'un site Astro, suite - Ajustement
 description: "Compte rendu des derniers ajustements effectués après l'article précédent : désactivation de Cloudflare Web Analytics, chargement différé de GA4 et de l'interface de recherche, obtention de 100 sur les quatre critères de PageSpeed Insights en mobile et en desktop, nettoyage des breadcrumbs et des règles d'indexation dans Search Console, migration vers des icônes SVG partagées et explication des optimisations supplémentaires testées mais non retenues."
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: "Suite de l'article précédent"
@@ -112,9 +113,9 @@ faq:
   title: Questions fréquentes
   items:
     - question: Si un site obtient 100 sur PageSpeed Insights, peut-on dire que c'est le site le plus rapide possible ?
-      answer: "Pas au sens absolu. PageSpeed Insights est une mesure de laboratoire fondée sur Lighthouse et ne reproduit pas complètement les réseaux réels des utilisateurs, leurs appareils ni la congestion côté serveur. Malgré cela, 100 signifie que le site se trouve dans un état de très haute qualité, avec très peu de manques dans les audits principaux de Lighthouse."
+      answer: 'Pas au sens absolu. PageSpeed Insights est une mesure de laboratoire fondée sur Lighthouse et ne reproduit pas complètement les réseaux réels des utilisateurs, leurs appareils ni la congestion côté serveur. Malgré cela, 100 signifie que le site se trouve dans un état de très haute qualité, avec très peu de manques dans les audits principaux de Lighthouse.'
     - question: Pourquoi l'arbre des dépendances réseau ou le CSS render-blocking peuvent-ils encore apparaître malgré un score de 100 ?
-      answer: "Ces éléments ne correspondent pas toujours à des audits en échec. Ils peuvent aussi apparaître comme informations de diagnostic. Dans ce cas, seul BaseLayout.css reste sur le chemin critique, mais le 100 mobile est toujours maintenu, donc le compromis coût-bénéfice reste acceptable."
+      answer: 'Ces éléments ne correspondent pas toujours à des audits en échec. Ils peuvent aussi apparaître comme informations de diagnostic. Dans ce cas, seul BaseLayout.css reste sur le chemin critique, mais le 100 mobile est toujours maintenu, donc le compromis coût-bénéfice reste acceptable.'
     - question: Pourquoi avoir désactivé Cloudflare Web Analytics ?
       answer: "GA4 couvrait déjà suffisamment la mesure des événements comme les CTA, la recherche et les prises de contact, tandis que la partie Cloudflare était surtout devenue un outil d'observation des performances. Cette fois, l'effet du beacon sur PageSpeed a aussi été pris en compte, d'où la réorganisation autour de GA4."
     - question: Qu'est-ce qui a été ajusté exactement pour Search Console ?
@@ -133,10 +134,10 @@ Cet article clôt les derniers points restés ouverts après la publication du p
 
 Au 29 mars 2026, la page d'accueil d'Acecore affichait les résultats suivants.
 
-| Surface | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| Mobile | **100** | **100** | **100** | **100** |
-| Desktop | **100** | **100** | **100** | **100** |
+| Surface | Performance | Accessibility | Best Practices | SEO     |
+| ------- | ----------- | ------------- | -------------- | ------- |
+| Mobile  | **100**     | **100**       | **100**        | **100** |
+| Desktop | **100**     | **100**       | **100**        | **100** |
 
 Vous trouverez ci-dessous les captures réelles de PageSpeed Insights ainsi que les URLs des rapports. Lors de la phase précédente, je considérais que « mobile 99 / tout le reste 100 » constituait le plafond réaliste. Cette fois, en retirant les beacons tiers inutiles et en relisant soigneusement la signification des diagnostics restants, il a été possible d'atteindre 100.
 

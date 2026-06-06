@@ -4,7 +4,7 @@ description: "Classification et vérification de 837 écritures comptables accum
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/consultation-cost-planning.webp
 processFigure:
   title: Flux global de la déclaration fiscale avec Copilot
   steps:
@@ -104,15 +104,15 @@ En résumé, d'autres outils pourraient gérer les interactions écran, mais la 
 
 L'élément le plus important du travail collaboratif avec Copilot a été la **structuration des connaissances et des tâches en fichiers Markdown**. Voici la structure de fichiers utilisée :
 
-| Fichier | Rôle |
-| --- | --- |
-| `policy.md` | Règles de correspondance motif de libellé → compte comptable (16 sections). Les critères de jugement utilisés par Copilot pour classer les écritures |
-| `tasks.md` | Hub de suivi de l'avancement global de la déclaration. Suivi de l'état d'obtention de 38 justificatifs avec des ✅ |
-| `declaration-tasks.md` | Problèmes non résolus et notes d'investigation pour la phase de saisie. Séparation faits/hypothèses |
-| `declaration-tasks_done.md` | Éléments terminés/en attente déplacés pour éviter l'inflation du fichier de travail |
-| `inconsistency-check.md` | Rapport de comparaison policy vs journal. Références aux sections de policy.md par numéro § |
-| `mf-review-report.md` | Revue des chiffres BS/PL. Gestion systématique par ID de problème (A1, B1 etc.) et niveau de criticité |
-| `journal-mapping.md` | Registre des 837 écritures du journal MF organisées par catégorie sous forme de tableaux |
+| Fichier                     | Rôle                                                                                                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `policy.md`                 | Règles de correspondance motif de libellé → compte comptable (16 sections). Les critères de jugement utilisés par Copilot pour classer les écritures |
+| `tasks.md`                  | Hub de suivi de l'avancement global de la déclaration. Suivi de l'état d'obtention de 38 justificatifs avec des ✅                                   |
+| `declaration-tasks.md`      | Problèmes non résolus et notes d'investigation pour la phase de saisie. Séparation faits/hypothèses                                                  |
+| `declaration-tasks_done.md` | Éléments terminés/en attente déplacés pour éviter l'inflation du fichier de travail                                                                  |
+| `inconsistency-check.md`    | Rapport de comparaison policy vs journal. Références aux sections de policy.md par numéro §                                                          |
+| `mf-review-report.md`       | Revue des chiffres BS/PL. Gestion systématique par ID de problème (A1, B1 etc.) et niveau de criticité                                               |
+| `journal-mapping.md`        | Registre des 837 écritures du journal MF organisées par catégorie sous forme de tableaux                                                             |
 
 Copilot **lit ces fichiers .md pour prendre des décisions et écrit pour documenter**. L'humain lit exactement les mêmes fichiers pour comprendre la situation. Les fichiers Markdown fonctionnent ainsi comme un espace de travail partagé entre l'humain et l'IA.
 
@@ -128,17 +128,17 @@ La structure de ce document est essentielle. Chaque section est formatée en `##
 
 Les règles de classification élaborées couvrent 15 sections :
 
-| Catégorie | Compte | Exemples concrets |
-| --- | --- | --- |
-| Encaissements clients | Chiffre d'affaires | Virements mensuels |
-| Prélèvement prêt immobilier | Prélèvement personnel | Prélèvement automatique depuis le compte personnel |
-| Rechargement QR code | Prélèvement personnel/apport | Rechargement/remboursement depuis le compte personnel |
-| Transfert entre comptes | Dépôt bancaire | Compte pro ↔ Compte perso |
-| FAI / SaaS | Frais de communication | GitHub, Cloudflare, ChatGPT, Canva, etc. |
-| Publicité Web / Réseaux sociaux | Frais de publicité | Google Ads, X Premium, SocialDog, etc. |
-| Transports | Frais de déplacement | Shinkansen, taxi, espace de télétravail |
-| Utilisation Suica | Frais de déplacement | Système d'avance de fonds pour les trains/bus |
-| Achats e-commerce | Fournitures | Périphériques PC, outils |
+| Catégorie                       | Compte                       | Exemples concrets                                     |
+| ------------------------------- | ---------------------------- | ----------------------------------------------------- |
+| Encaissements clients           | Chiffre d'affaires           | Virements mensuels                                    |
+| Prélèvement prêt immobilier     | Prélèvement personnel        | Prélèvement automatique depuis le compte personnel    |
+| Rechargement QR code            | Prélèvement personnel/apport | Rechargement/remboursement depuis le compte personnel |
+| Transfert entre comptes         | Dépôt bancaire               | Compte pro ↔ Compte perso                             |
+| FAI / SaaS                      | Frais de communication       | GitHub, Cloudflare, ChatGPT, Canva, etc.              |
+| Publicité Web / Réseaux sociaux | Frais de publicité           | Google Ads, X Premium, SocialDog, etc.                |
+| Transports                      | Frais de déplacement         | Shinkansen, taxi, espace de télétravail               |
+| Utilisation Suica               | Frais de déplacement         | Système d'avance de fonds pour les trains/bus         |
+| Achats e-commerce               | Fournitures                  | Périphériques PC, outils                              |
 
 ## Phase 2 : Classification des 837 écritures et contrôle d'incohérence
 
@@ -150,16 +150,16 @@ Méthode concrète : Copilot ouvre la page du journal dans MF Cloud via Simple B
 
 Résultat : **8 incohérences** détectées :
 
-| Libellé | Compte selon la politique | Écriture réelle | Action |
-| --- | --- | --- | --- |
-| Abonnement premium réseau social | Prélèvement personnel (usage perso) | Frais de publicité | Réseau social professionnel, frais de publicité correct |
-| Outil de design | Prélèvement personnel (usage perso) | Frais de communication | Outil professionnel, frais de communication correct |
-| Service de chat IA | Prélèvement personnel (usage perso) | Frais de communication | Outil professionnel, frais de communication correct |
-| Location de batterie portable | Frais de communication | Prélèvement personnel | Usage personnel, prélèvement personnel correct |
-| Achats in-app (mélange d'apps) | Tout en frais de communication | Décomposé par app | Navigation → communication, bloqueur pub → prélèvement perso, etc. |
-| Publicité vidéo (facturation au seuil) | Placé dans la section usage personnel | Frais de publicité | Erreur de placement dans le document corrigée |
-| Achat e-commerce (périphérique PC) | Documentation | Fournitures | Erreur de compte corrigée |
-| Outil de gestion réseaux sociaux | Frais de communication | Frais de publicité | Objectif de gestion de réseaux sociaux, frais de publicité correct |
+| Libellé                                | Compte selon la politique             | Écriture réelle        | Action                                                             |
+| -------------------------------------- | ------------------------------------- | ---------------------- | ------------------------------------------------------------------ |
+| Abonnement premium réseau social       | Prélèvement personnel (usage perso)   | Frais de publicité     | Réseau social professionnel, frais de publicité correct            |
+| Outil de design                        | Prélèvement personnel (usage perso)   | Frais de communication | Outil professionnel, frais de communication correct                |
+| Service de chat IA                     | Prélèvement personnel (usage perso)   | Frais de communication | Outil professionnel, frais de communication correct                |
+| Location de batterie portable          | Frais de communication                | Prélèvement personnel  | Usage personnel, prélèvement personnel correct                     |
+| Achats in-app (mélange d'apps)         | Tout en frais de communication        | Décomposé par app      | Navigation → communication, bloqueur pub → prélèvement perso, etc. |
+| Publicité vidéo (facturation au seuil) | Placé dans la section usage personnel | Frais de publicité     | Erreur de placement dans le document corrigée                      |
+| Achat e-commerce (périphérique PC)     | Documentation                         | Fournitures            | Erreur de compte corrigée                                          |
+| Outil de gestion réseaux sociaux       | Frais de communication                | Frais de publicité     | Objectif de gestion de réseaux sociaux, frais de publicité correct |
 
 « Créer un document de référence, le comparer au journal, et corriger le document en cas de divergence » — que Copilot effectue ce travail automatiquement tout en éditant les fichiers représente une efficacité incomparable avec la vérification visuelle de 837 lignes.
 
@@ -226,13 +226,13 @@ La classification automatique des applications de finances n'est pas infaillible
 
 ### Déductions saisies
 
-| Type de déduction | Description | Travail de Copilot |
-| --- | --- | --- |
-| Déduction assurance vie | Données synchronisées MynaPortal + saisie manuelle | Manipulation des listes déroulantes et saisie élément par élément |
-| Déduction assurance tremblement de terre | Assurance mutuelle et dommages sismiques | Saisie des montants dans le formulaire |
-| Déduction pour conjoint | Calcul du revenu total du conjoint | Calcul du revenu après déduction salariale, vérification du montant |
-| Déduction cotisations sociales | Retraite + assurance maladie (montants confirmés en Phase 4) | Sélection du type et saisie du montant sur l'écran des cotisations |
-| Déduction pour personnes à charge (moins de 16 ans) | Sans impact sur la déduction mais lié à l'impôt local | Vérification de l'enregistrement dans Informations de base → Famille |
+| Type de déduction                                   | Description                                                  | Travail de Copilot                                                   |
+| --------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------- |
+| Déduction assurance vie                             | Données synchronisées MynaPortal + saisie manuelle           | Manipulation des listes déroulantes et saisie élément par élément    |
+| Déduction assurance tremblement de terre            | Assurance mutuelle et dommages sismiques                     | Saisie des montants dans le formulaire                               |
+| Déduction pour conjoint                             | Calcul du revenu total du conjoint                           | Calcul du revenu après déduction salariale, vérification du montant  |
+| Déduction cotisations sociales                      | Retraite + assurance maladie (montants confirmés en Phase 4) | Sélection du type et saisie du montant sur l'écran des cotisations   |
+| Déduction pour personnes à charge (moins de 16 ans) | Sans impact sur la déduction mais lié à l'impôt local        | Vérification de l'enregistrement dans Informations de base → Famille |
 
 ### Éléments examinés puis reportés
 

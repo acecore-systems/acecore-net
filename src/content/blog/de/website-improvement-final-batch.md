@@ -3,8 +3,9 @@ title: 'Astro-Website-Qualitätsverbesserungsleitfaden, Fortsetzung - Letzte Anp
 description: 'Dokumentation der finalen Optimierungsrunde nach dem vorherigen Artikel: Cloudflare Web Analytics deaktivieren, GA4 und die Suche verzögert laden, 100 Punkte in allen vier PageSpeed-Insights-Kategorien auf Mobile und Desktop erreichen, Breadcrumbs und Indexierungsregeln in Search Console bereinigen, auf gemeinsame SVG-Icons umstellen und auch begründen, welche zusätzlichen Optimierungen bewusst nicht übernommen wurden.'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Fortsetzung des vorherigen Artikels
@@ -133,10 +134,10 @@ Dieser Artikel schließt die kleineren Punkte ab, die nach der Veröffentlichung
 
 Zum 29. März 2026 zeigte die Acecore-Startseite die folgenden Ergebnisse.
 
-| Bereich | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| Mobile | **100** | **100** | **100** | **100** |
-| Desktop | **100** | **100** | **100** | **100** |
+| Bereich | Performance | Accessibility | Best Practices | SEO     |
+| ------- | ----------- | ------------- | -------------- | ------- |
+| Mobile  | **100**     | **100**       | **100**        | **100** |
+| Desktop | **100**     | **100**       | **100**        | **100** |
 
 Unten stehen die tatsächlichen PageSpeed-Insights-Screenshots zusammen mit den Report-URLs. In der vorherigen Runde sah ich „Mobile 99 / alles andere 100“ als realistische Obergrenze an. Dieses Mal ließ sich durch das Entfernen unnötiger Drittanbieter-Beacons und das sorgfältige Einordnen der verbleibenden Diagnosen die 100 erreichen.
 

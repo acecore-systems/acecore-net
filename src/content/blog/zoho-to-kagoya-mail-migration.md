@@ -4,7 +4,7 @@ description: 'Zoho Workplace から KAGOYA MAIL へメールサービスを移�
 date: 2026-03-16T00:00
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/mail-migration-operations.webp
 processFigure:
   title: 移行作業の全体フロー
   steps:

@@ -4,7 +4,7 @@ description: 'Registro da avaliação comparativa entre Keystatic, Sveltia CMS e
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/cms-form-operations.webp
 compareTable:
   title: Comparação de CMS
   before:
@@ -89,12 +89,12 @@ Implementamos o Cloudflare Turnstile como proteção contra spam no formulário 
 
 O Google reCAPTCHA v2 força o usuário a selecionar imagens, e o v3, embora baseado em pontuação, tem preocupações de privacidade. O Cloudflare Turnstile é superior nos seguintes pontos:
 
-| Item comparado | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| -------------- | ------------ | ------------ | --------- |
-| Ação do usuário | Seleção de imagens necessária | Desnecessária | Desnecessária |
-| Privacidade | Rastreamento por Cookie | Análise comportamental | Coleta mínima de dados |
-| Performance | Pesado | Moderado | Leve |
-| Preço | Gratuito (com limites) | Gratuito (com limites) | Gratuito (ilimitado) |
+| Item comparado  | reCAPTCHA v2                  | reCAPTCHA v3           | Turnstile              |
+| --------------- | ----------------------------- | ---------------------- | ---------------------- |
+| Ação do usuário | Seleção de imagens necessária | Desnecessária          | Desnecessária          |
+| Privacidade     | Rastreamento por Cookie       | Análise comportamental | Coleta mínima de dados |
+| Performance     | Pesado                        | Moderado               | Leve                   |
+| Preço           | Gratuito (com limites)        | Gratuito (com limites) | Gratuito (ilimitado)   |
 
 ### Método de implementação
 

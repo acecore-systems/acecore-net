@@ -4,11 +4,11 @@ description: 'A step-by-step guide to properly implementing JSON-LD structured d
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Who This Article Is For
-  text: 'For those looking to systematically improve their Astro site''s SEO. Covers the types and implementation patterns of structured data, OGP configuration, sitemap optimization, and more — all with practical, ready-to-apply steps.'
+  text: "For those looking to systematically improve their Astro site's SEO. Covers the types and implementation patterns of structured data, OGP configuration, sitemap optimization, and more — all with practical, ready-to-apply steps."
 processFigure:
   title: SEO Improvement Workflow
   steps:
@@ -53,7 +53,7 @@ faq:
     - question: What is the recommended OGP image size?
       answer: '1200×630px is recommended. This ratio is optimal for X (Twitter) when using summary_large_image.'
     - question: Does sitemap priority affect SEO?
-      answer: 'Google has officially stated that it ignores priority, but other search engines may reference it. It doesn''t hurt to set it.'
+      answer: "Google has officially stated that it ignores priority, but other search engines may reference it. It doesn't hurt to set it."
 ---
 
 ## Introduction
@@ -137,11 +137,11 @@ You can auto-generate a sitemap using Astro's `@astrojs/sitemap` plugin, but the
 
 Use the `serialize()` function to set `changefreq` and `priority` based on URL patterns.
 
-| Page Type | changefreq | priority |
-| --- | --- | --- |
-| Homepage | daily | 1.0 |
-| Blog Posts | weekly | 0.8 |
-| Other | monthly | 0.6 |
+| Page Type  | changefreq | priority |
+| ---------- | ---------- | -------- |
+| Homepage   | daily      | 1.0      |
+| Blog Posts | weekly     | 0.8      |
+| Other      | monthly    | 0.6      |
 
 ### Setting lastmod
 
@@ -159,7 +159,7 @@ RSS tends to be a "set it and forget it" task, but improving feed quality enhanc
 - **categories**: Add tag information as categories to improve classification in RSS readers
 
 ```typescript
-items: posts.map(post => ({
+items: posts.map((post) => ({
   title: post.data.title,
   description: post.data.description,
   link: `/blog/${post.id}/`,

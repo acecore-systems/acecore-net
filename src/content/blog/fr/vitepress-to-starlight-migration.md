@@ -4,7 +4,7 @@ description: "Récit de la migration d'un site documentaire de plan d'affaires c
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/web-production-desk.webp
 processFigure:
   title: Étapes de la migration
   steps:
@@ -104,11 +104,11 @@ import starlight from '@astrojs/starlight'
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'Plan d\'affaires Acecore',
+      title: "Plan d'affaires Acecore",
       defaultLocale: 'ja',
       sidebar: [
         {
-          label: 'Plan d\'affaires',
+          label: "Plan d'affaires",
           autogenerate: { directory: '/' },
         },
       ],
@@ -166,13 +166,13 @@ graph TD
 
 ## Résultat de la migration
 
-| Élément | Avant | Après |
-| --- | --- | --- |
-| Framework | VitePress 1.x | Astro 6 + Starlight |
-| CSS | UnoCSS | Intégré à Starlight |
-| Mermaid | vitepress-plugin-mermaid | CDN (jsdelivr) |
-| Sortie de build | `docs/.vitepress/dist` | `dist` |
-| Hébergement | Cloudflare Pages | Cloudflare Pages (inchangé) |
+| Élément         | Avant                    | Après                       |
+| --------------- | ------------------------ | --------------------------- |
+| Framework       | VitePress 1.x            | Astro 6 + Starlight         |
+| CSS             | UnoCSS                   | Intégré à Starlight         |
+| Mermaid         | vitepress-plugin-mermaid | CDN (jsdelivr)              |
+| Sortie de build | `docs/.vitepress/dist`   | `dist`                      |
+| Hébergement     | Cloudflare Pages         | Cloudflare Pages (inchangé) |
 
 L'unification du framework permet de mutualiser les patterns de configuration `astro.config.mjs` et les paramètres de déploiement entre plusieurs projets.
 

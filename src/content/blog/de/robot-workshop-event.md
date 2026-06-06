@@ -4,7 +4,7 @@ description: 'AceCore Schools veranstaltete in den Sommerferien einen praxisnahe
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/education-programming-class.webp
 faq:
   title: FAQ
   items:
@@ -40,7 +40,7 @@ Während der Veranstaltung arbeiteten die Kinder mit konzentriertem Blick am Zus
 
 Durch Erlebnisse wie diese möchten wir das Interesse am Bauen und Gestalten wecken und die Grundlagen des algorithmischen Denkens fördern.
 
-![Praxiserfahrung vom Zusammenbau bis zur Anpassung mit der Tamiya Craft Serie](https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=400&fit=crop&q=80)
+![Praxiserfahrung vom Zusammenbau bis zur Anpassung mit der Tamiya Craft Serie](/uploads/acecore-generated/education-programming-class.webp)
 
 ## Anfragen & Anmeldung
 

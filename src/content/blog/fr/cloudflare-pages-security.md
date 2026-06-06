@@ -4,7 +4,7 @@ description: "Guide pratique du déploiement de sites statiques sur Cloudflare P
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
-image: https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 processFigure:
   title: Évolution de la configuration de déploiement
   steps:
@@ -61,7 +61,7 @@ Le CSP est un en-tête crucial pour prévenir les attaques de type cross-site sc
 Content-Security-Policy: default-src 'self';
   script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' https://acecore.net https://images.unsplash.com data:;
+  img-src 'self' https://acecore.net data:;
   connect-src 'self' https://challenges.cloudflare.com https://pagead2.googlesyndication.com;
   frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net;
   form-action https://ssgform.com;
@@ -106,11 +106,11 @@ Les fichiers du répertoire `_astro/` générés par Astro contiennent un hash d
 
 La configuration du projet Cloudflare Pages est simple :
 
-| Élément | Valeur |
-| --- | --- |
-| Commande de build | `npx astro build` |
-| Répertoire de sortie | `dist` |
-| Version Node.js | 22 |
+| Élément              | Valeur            |
+| -------------------- | ----------------- |
+| Commande de build    | `npx astro build` |
+| Répertoire de sortie | `dist`            |
+| Version Node.js      | 22                |
 
 En connectant le dépôt GitHub, chaque push vers la branche `main` déclenche un déploiement automatique. Les déploiements de prévisualisation sont également générés automatiquement pour chaque PR, facilitant la revue.
 

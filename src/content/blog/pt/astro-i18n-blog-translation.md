@@ -4,7 +4,7 @@ description: 'Registro da internacionalização de um site Astro 6 + UnoCSS + Cl
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
-image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/i18n-localization-workbench.webp
 processFigure:
   title: Fluxo de trabalho multilíngue
   steps:

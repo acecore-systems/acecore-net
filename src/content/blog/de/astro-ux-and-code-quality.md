@@ -4,7 +4,7 @@ description: 'Ein praktischer Leitfaden mit Lösungen für Skriptprobleme bei As
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/accessibility-ux-quality.webp
 callout:
   type: warning
   title: Pflichtlektüre bei Verwendung von View Transitions
@@ -81,7 +81,9 @@ Vereinheitlichen Sie alle Skripte in ein Muster, das **sie in benannte Funktione
 <script>
   function initHeader() {
     const menuBtn = document.querySelector('[data-menu-toggle]')
-    menuBtn?.addEventListener('click', () => { /* ... */ })
+    menuBtn?.addEventListener('click', () => {
+      /* ... */
+    })
   }
 
   // Initiale Ausführung
@@ -163,7 +165,7 @@ Ersetzen Sie `onclick` durch `data-*`-Attribute + `addEventListener`.
 ```
 
 ```javascript
-document.querySelectorAll('[data-search-trigger]').forEach(btn => {
+document.querySelectorAll('[data-search-trigger]').forEach((btn) => {
   btn.addEventListener('click', () => window.openSearch?.())
 })
 ```
@@ -174,16 +176,16 @@ document.querySelectorAll('[data-search-trigger]').forEach(btn => {
 
 Ein verfügbares Set von Komponenten zum Schreiben von Blog-Beiträgen verbessert die Ausdruckskraft Ihrer Artikel.
 
-| Komponente | Zweck |
-| --- | --- |
-| Callout | Vier Arten von Anmerkungen: info / warning / tip / note |
-| Timeline | Chronologische Ereignisdarstellung |
-| FAQ | Frage und Antwort mit Unterstützung strukturierter Daten |
-| Gallery | Bildgalerie mit Lightbox |
-| CompareTable | Vorher/Nachher-Vergleichstabelle |
-| ProcessFigure | Schritt-für-Schritt-Prozessdiagramm |
-| LinkCard | OGP-artige externe Linkkarte |
-| YouTubeEmbed | Lazy Loading mit Fassadenmuster |
+| Komponente    | Zweck                                                    |
+| ------------- | -------------------------------------------------------- |
+| Callout       | Vier Arten von Anmerkungen: info / warning / tip / note  |
+| Timeline      | Chronologische Ereignisdarstellung                       |
+| FAQ           | Frage und Antwort mit Unterstützung strukturierter Daten |
+| Gallery       | Bildgalerie mit Lightbox                                 |
+| CompareTable  | Vorher/Nachher-Vergleichstabelle                         |
+| ProcessFigure | Schritt-für-Schritt-Prozessdiagramm                      |
+| LinkCard      | OGP-artige externe Linkkarte                             |
+| YouTubeEmbed  | Lazy Loading mit Fassadenmuster                          |
 
 All diese sind so konzipiert, dass sie aus dem Markdown-Frontmatter aufgerufen werden können. Das Artikel-Template rendert `<Callout>`, wenn `data.callout` existiert.
 
@@ -217,13 +219,13 @@ Das Hinzufügen von `as const` zu Konstantenobjekten macht Eigenschaften `readon
 
 Hartcodierte Werte verursachen Übersehen bei Änderungen. Folgende Werte wurden in `src/data/site.ts` konsolidiert:
 
-| Konstante | Anzahl der Stellen vor der Konsolidierung |
-| --- | --- |
-| AdSense Client ID | 4 Dateien |
-| GA4 Measurement ID | 2 Stellen |
-| Ad Slot IDs | 4 Dateien |
-| Social URLs (X, GitHub, Discord, Aceserver) | 17 Stellen |
-| Telefon, E-Mail, LINE | 3 Dateien |
+| Konstante                                   | Anzahl der Stellen vor der Konsolidierung |
+| ------------------------------------------- | ----------------------------------------- |
+| AdSense Client ID                           | 4 Dateien                                 |
+| GA4 Measurement ID                          | 2 Stellen                                 |
+| Ad Slot IDs                                 | 4 Dateien                                 |
+| Social URLs (X, GitHub, Discord, Aceserver) | 17 Stellen                                |
+| Telefon, E-Mail, LINE                       | 3 Dateien                                 |
 
 ```typescript
 export const SITE = {
@@ -260,8 +262,12 @@ Implementieren Sie automatische Paginierung alle 6 Artikel, Navigation mit Ausla
 Bei einem Sticky Header werden Ankerlink-Ziele hinter dem Header verborgen. Lösen Sie dies mit folgenden UnoCSS-Preflight-Einstellungen:
 
 ```css
-[id] { scroll-margin-top: 5rem; }
-html { scroll-behavior: smooth; }
+[id] {
+  scroll-margin-top: 5rem;
+}
+html {
+  scroll-behavior: smooth;
+}
 ```
 
 ---

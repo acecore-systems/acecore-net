@@ -4,7 +4,7 @@ description: 'From classifying and verifying 837 journal entries accumulated thr
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/consultation-cost-planning.webp
 processFigure:
   title: Overall Copilot Tax Return Flow
   steps:
@@ -104,15 +104,15 @@ In short, screen operation alone can be done by other tools, but **the ability f
 
 The most important element of collaborating with Copilot was **structuring knowledge and tasks in Markdown files**. Here's the file structure used:
 
-| File | Role |
-| --- | --- |
-| `policy.md` | Description pattern → account category mapping rules (16 sections total). The criteria Copilot uses when classifying journal entries |
-| `tasks.md` | Progress management hub for the entire tax return. Tracking status of 38 vouchers with ✅ in a table |
-| `filing-tasks.md` | Unresolved issues and research notes for the tax form entry phase. Facts and inferences recorded separately |
-| `filing-tasks_completed.md` | Completed/deferred items moved here to prevent the active file from growing too large |
-| `inconsistency-check.md` | Report of policy vs. journal ledger cross-check results. References policy.md correction points with § numbers |
-| `mf-review-report.md` | BS/PL numerical review. Systematically managed with issue IDs (A1, B1, etc.) and severity levels |
-| `journal-mapping.md` | All 837 MF journal entries organized into category-based tables |
+| File                        | Role                                                                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `policy.md`                 | Description pattern → account category mapping rules (16 sections total). The criteria Copilot uses when classifying journal entries |
+| `tasks.md`                  | Progress management hub for the entire tax return. Tracking status of 38 vouchers with ✅ in a table                                 |
+| `filing-tasks.md`           | Unresolved issues and research notes for the tax form entry phase. Facts and inferences recorded separately                          |
+| `filing-tasks_completed.md` | Completed/deferred items moved here to prevent the active file from growing too large                                                |
+| `inconsistency-check.md`    | Report of policy vs. journal ledger cross-check results. References policy.md correction points with § numbers                       |
+| `mf-review-report.md`       | BS/PL numerical review. Systematically managed with issue IDs (A1, B1, etc.) and severity levels                                     |
+| `journal-mapping.md`        | All 837 MF journal entries organized into category-based tables                                                                      |
 
 Copilot **reads these .md files to make judgments and writes to them to record outcomes**. The human reads exactly the same files to understand the situation. In other words, Markdown files function as a shared workspace between human and AI.
 
@@ -128,17 +128,17 @@ The structure of this policy document is key. Each section follows the format `#
 
 The established classification rules span 15 sections:
 
-| Category | Account | Examples |
-| --- | --- | --- |
-| Client deposits | Revenue | Monthly transfer deposits |
-| Mortgage payments | Owner's drawings | Auto-debit from personal account |
-| QR code payment top-ups | Owner's drawings/capital | Top-ups and refunds from personal account |
-| Inter-account transfers | Savings account | Business ↔ personal account |
-| ISP & SaaS | Communication expenses | GitHub, Cloudflare, ChatGPT, Canva, etc. |
-| Web ads & social media | Advertising expenses | Google Ads, X Premium, SocialDog, etc. |
-| Transportation | Travel expenses | Shinkansen, taxis, telecommuting booths |
-| Suica usage | Travel expenses | Suspense payment method for individual train/bus records |
-| E-commerce purchases | Consumable supplies | PC peripherals, tools |
+| Category                | Account                  | Examples                                                 |
+| ----------------------- | ------------------------ | -------------------------------------------------------- |
+| Client deposits         | Revenue                  | Monthly transfer deposits                                |
+| Mortgage payments       | Owner's drawings         | Auto-debit from personal account                         |
+| QR code payment top-ups | Owner's drawings/capital | Top-ups and refunds from personal account                |
+| Inter-account transfers | Savings account          | Business ↔ personal account                              |
+| ISP & SaaS              | Communication expenses   | GitHub, Cloudflare, ChatGPT, Canva, etc.                 |
+| Web ads & social media  | Advertising expenses     | Google Ads, X Premium, SocialDog, etc.                   |
+| Transportation          | Travel expenses          | Shinkansen, taxis, telecommuting booths                  |
+| Suica usage             | Travel expenses          | Suspense payment method for individual train/bus records |
+| E-commerce purchases    | Consumable supplies      | PC peripherals, tools                                    |
 
 ## Phase 2: Classifying 837 Journal Entries & Inconsistency Checks
 
@@ -150,16 +150,16 @@ The specific approach: Copilot opened the MF Cloud journal screen in Simple Brow
 
 Result: **8 inconsistencies** detected:
 
-| Description | Policy Category | Actual Entry | Action |
-| --- | --- | --- | --- |
-| Social media premium | Owner's drawings (personal) | Advertising expenses | Business SNS, so advertising expenses is correct |
-| Design tool | Owner's drawings (personal) | Communication expenses | Business tool, so communication expenses is correct |
-| AI chat service | Owner's drawings (personal) | Communication expenses | Business tool, so communication expenses is correct |
-| Mobile battery rental | Communication expenses | Owner's drawings | Personal use, so owner's drawings is correct |
-| App charges (mixed apps) | All communication expenses | Split by app | Transit app → communication, ad blocker → owner's drawings, etc. |
-| Video ads (threshold billing) | Placed in personal section | Advertising expenses | Fixed misplacement in policy document |
-| E-commerce (PC peripherals) | Books & subscriptions | Consumable supplies | Fixed incorrect category |
-| Social media management tool | Communication expenses | Advertising expenses | For SNS operations, so advertising expenses is correct |
+| Description                   | Policy Category             | Actual Entry           | Action                                                           |
+| ----------------------------- | --------------------------- | ---------------------- | ---------------------------------------------------------------- |
+| Social media premium          | Owner's drawings (personal) | Advertising expenses   | Business SNS, so advertising expenses is correct                 |
+| Design tool                   | Owner's drawings (personal) | Communication expenses | Business tool, so communication expenses is correct              |
+| AI chat service               | Owner's drawings (personal) | Communication expenses | Business tool, so communication expenses is correct              |
+| Mobile battery rental         | Communication expenses      | Owner's drawings       | Personal use, so owner's drawings is correct                     |
+| App charges (mixed apps)      | All communication expenses  | Split by app           | Transit app → communication, ad blocker → owner's drawings, etc. |
+| Video ads (threshold billing) | Placed in personal section  | Advertising expenses   | Fixed misplacement in policy document                            |
+| E-commerce (PC peripherals)   | Books & subscriptions       | Consumable supplies    | Fixed incorrect category                                         |
+| Social media management tool  | Communication expenses      | Advertising expenses   | For SNS operations, so advertising expenses is correct           |
 
 "Create a policy, cross-check against the ledger, fix the policy where it's wrong" — having Copilot do this automatically while editing files was a completely different level of efficiency compared to manually reviewing 837 entries.
 
@@ -226,13 +226,13 @@ Moving on to deductions beyond social insurance, entries were made through Simpl
 
 ### Deductions Entered
 
-| Deduction Type | Overview | Copilot's Work |
-| --- | --- | --- |
-| Life insurance premium deduction | My Number Portal synced items + manual entries | Selected options in form dropdowns and entered items one by one |
-| Earthquake insurance premium deduction | Mutual aid & property insurance premiums | Entered amounts in the form |
-| Spousal deduction | Calculated total income from spouse's earnings | Calculated income after employment income deduction, confirmed deduction amount |
-| Social insurance premium deduction | Pension + health insurance (amounts finalized in Phase 4) | Selected types on the social insurance screen → entered amounts |
-| Dependent deduction (under 16) | No tax deduction impact, but relevant for resident tax | Checked registration status on Basic Info → Family Members screen |
+| Deduction Type                         | Overview                                                  | Copilot's Work                                                                  |
+| -------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Life insurance premium deduction       | My Number Portal synced items + manual entries            | Selected options in form dropdowns and entered items one by one                 |
+| Earthquake insurance premium deduction | Mutual aid & property insurance premiums                  | Entered amounts in the form                                                     |
+| Spousal deduction                      | Calculated total income from spouse's earnings            | Calculated income after employment income deduction, confirmed deduction amount |
+| Social insurance premium deduction     | Pension + health insurance (amounts finalized in Phase 4) | Selected types on the social insurance screen → entered amounts                 |
+| Dependent deduction (under 16)         | No tax deduction impact, but relevant for resident tax    | Checked registration status on Basic Info → Family Members screen               |
 
 ### Items Considered but Deferred
 

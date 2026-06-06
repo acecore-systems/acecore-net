@@ -139,8 +139,7 @@ const jaWorksCopy: WorksCopy = {
         'Astroを軸にページ構成とコンテンツ導線を整理し、画像最適化、SEO、アクセシビリティを制作フローに組み込みました。',
       result:
         'サービス理解から問い合わせまでの流れを明確化し、ブログや多言語ページを継続的に追加できる基盤になりました。',
-      image:
-        'https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/web-production-desk.webp',
       imageAlt: 'Webサイト制作の画面設計',
       icon: 'globe',
       tone: 'brand',
@@ -158,8 +157,7 @@ const jaWorksCopy: WorksCopy = {
         'サーバー構成、監視、バックアップ、Discordでの案内を整え、技術運用とコミュニティ運営を一体で改善しました。',
       result:
         '数百人規模の同時接続を支えた知見を蓄積し、企業向けのサーバー構築・運用にも活かせる実践的な基盤になりました。',
-      image:
-        'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/server-operations-bench.webp',
       imageAlt: 'サーバールームのネットワーク機器',
       icon: 'server-cog',
       tone: 'emerald',
@@ -177,8 +175,7 @@ const jaWorksCopy: WorksCopy = {
         '初回ヒアリングで目的を整理し、個別指導、実践課題、家庭学習の進め方まで含めた伴走型の支援にしました。',
       result:
         '受講者ごとに進捗を見ながら内容を調整でき、基礎学習から実践プログラミングまで継続しやすい環境になりました。',
-      image:
-        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/education-programming-class.webp',
       imageAlt: 'ノートパソコンで学習する様子',
       icon: 'graduation-cap',
       tone: 'amber',
@@ -295,8 +292,7 @@ const enWorksCopy: WorksCopy = {
         'We rebuilt the page structure around Astro and incorporated image optimization, SEO, and accessibility into the production flow.',
       result:
         'The site now gives visitors a clearer route from service discovery to contact, with a foundation that can keep adding blog and multilingual pages.',
-      image:
-        'https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/web-production-desk.webp',
       imageAlt: 'Website production interface planning',
       icon: 'globe',
       tone: 'brand',
@@ -314,8 +310,7 @@ const enWorksCopy: WorksCopy = {
         'We improved server architecture, monitoring, backups, and Discord guidance as one combined operations workflow.',
       result:
         'The operational knowledge gained from supporting hundreds of concurrent connections now informs Acecore server setup and operations services.',
-      image:
-        'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/server-operations-bench.webp',
       imageAlt: 'Network equipment in a server room',
       icon: 'server-cog',
       tone: 'emerald',
@@ -333,8 +328,7 @@ const enWorksCopy: WorksCopy = {
         'We clarify goals in the first consultation and combine individual instruction, practical tasks, and home-study guidance.',
       result:
         'Lessons can be adjusted while tracking each learner’s progress, making it easier to continue from fundamentals to practical programming.',
-      image:
-        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=520&fit=crop&q=80&fm=webp',
+      image: '/uploads/acecore-generated/education-programming-class.webp',
       imageAlt: 'Learning with a laptop computer',
       icon: 'graduation-cap',
       tone: 'amber',

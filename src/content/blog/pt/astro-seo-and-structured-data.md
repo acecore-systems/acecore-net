@@ -4,7 +4,7 @@ description: 'Compilamos os procedimentos para implementar corretamente dados es
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Público-alvo deste artigo
@@ -137,11 +137,11 @@ Usando o plugin `@astrojs/sitemap` do Astro, o sitemap é gerado automaticamente
 
 Use a função `serialize()` para definir `changefreq` e `priority` conforme o padrão de URL das páginas.
 
-| Tipo de página | changefreq | priority |
-| --- | --- | --- |
-| Página inicial | daily | 1.0 |
-| Artigos do blog | weekly | 0.8 |
-| Outros | monthly | 0.6 |
+| Tipo de página  | changefreq | priority |
+| --------------- | ---------- | -------- |
+| Página inicial  | daily      | 1.0      |
+| Artigos do blog | weekly     | 0.8      |
+| Outros          | monthly    | 0.6      |
 
 ### Configuração de lastmod
 
@@ -159,7 +159,7 @@ RSS tende a ser algo que "configura e esquece", mas aumentar a qualidade do feed
 - **categories**: Adicionar informações de tags como categorias para melhorar a classificação em leitores RSS
 
 ```typescript
-items: posts.map(post => ({
+items: posts.map((post) => ({
   title: post.data.title,
   description: post.data.description,
   link: `/blog/${post.id}/`,

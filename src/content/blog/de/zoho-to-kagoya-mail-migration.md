@@ -4,7 +4,7 @@ description: 'Ein Praxisleitfaden für die vollständige Migration von Zoho Work
 date: 2026-03-16
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/mail-migration-operations.webp
 processFigure:
   title: Gesamtablauf der Migration
   steps:
@@ -156,9 +156,9 @@ imap.logout()
 
 Löschen Sie die Zoho MX-Einträge (`mx.zoho.jp` / `mx2.zoho.jp` / `mx3.zoho.jp`) und registrieren Sie den neuen Mailserver. Für KAGOYA MAIL:
 
-| Typ | Name | Wert | Priorität |
-| --- | --- | --- | --- |
-| MX | (Ihre Domain) | dmail.kagoya.net | 10 |
+| Typ | Name          | Wert             | Priorität |
+| --- | ------------- | ---------------- | --------- |
+| MX  | (Ihre Domain) | dmail.kagoya.net | 10        |
 
 ### SPF-Eintrag
 
@@ -172,8 +172,8 @@ v=spf1 include:kagoya.net ~all
 
 Beziehen Sie den öffentlichen Schlüssel aus den **DKIM-Einstellungen** im KAGOYA-Kontrollpanel und registrieren Sie ihn als TXT-Eintrag.
 
-| Typ | Name | Wert |
-| --- | --- | --- |
+| Typ | Name                             | Wert                                     |
+| --- | -------------------------------- | ---------------------------------------- |
 | TXT | kagoya.\_domainkey.(Ihre Domain) | v=DKIM1;k=rsa;p=(öffentlicher Schlüssel) |
 
 Löschen Sie den alten `zmail._domainkey` (Zoho)-Eintrag.
@@ -223,14 +223,14 @@ Zoho Workplace bündelt neben E-Mail viele Dienste, darunter WorkDrive, Cliq, Ca
 
 ### Zu prüfende Dienste und Entscheidungskriterien
 
-| Dienst | Was zu prüfen ist |
-| --- | --- |
-| Zoho Mail | Wurden die Daten in den neuen Dienst importiert? |
-| Zoho WorkDrive | Ist die Speichernutzung bei 0? Auch Papierkorb prüfen |
-| Zoho Contacts | Anzahl der Kontakte. Bei Bedarf als CSV/VCF exportieren |
-| Zoho Calendar | Verbleibende Termine oder Erinnerungen |
-| Zoho Cliq | Ob der Chatverlauf aufbewahrt werden muss |
-| Andere (Notebook, Writer, Sheet usw.) | Erstellte Dokumente |
+| Dienst                                | Was zu prüfen ist                                       |
+| ------------------------------------- | ------------------------------------------------------- |
+| Zoho Mail                             | Wurden die Daten in den neuen Dienst importiert?        |
+| Zoho WorkDrive                        | Ist die Speichernutzung bei 0? Auch Papierkorb prüfen   |
+| Zoho Contacts                         | Anzahl der Kontakte. Bei Bedarf als CSV/VCF exportieren |
+| Zoho Calendar                         | Verbleibende Termine oder Erinnerungen                  |
+| Zoho Cliq                             | Ob der Chatverlauf aufbewahrt werden muss               |
+| Andere (Notebook, Writer, Sheet usw.) | Erstellte Dokumente                                     |
 
 ### WorkDrive-Fallstrick: Papierkorb verbraucht Speicher
 

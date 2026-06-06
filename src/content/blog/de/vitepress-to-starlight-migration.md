@@ -4,7 +4,7 @@ description: 'Ein Bericht über die Migration eines mit VitePress + UnoCSS erste
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/web-production-desk.webp
 processFigure:
   title: Migrationsablauf
   steps:
@@ -166,13 +166,13 @@ graph TD
 
 ## Migrationsergebnisse
 
-| Punkt | Vorher | Nachher |
-| --- | --- | --- |
-| Framework | VitePress 1.x | Astro 6 + Starlight |
-| CSS | UnoCSS | Starlight integriert |
-| Mermaid | vitepress-plugin-mermaid | CDN (jsdelivr) |
-| Build-Ausgabe | `docs/.vitepress/dist` | `dist` |
-| Deployment | Cloudflare Pages | Cloudflare Pages (unverändert) |
+| Punkt         | Vorher                   | Nachher                        |
+| ------------- | ------------------------ | ------------------------------ |
+| Framework     | VitePress 1.x            | Astro 6 + Starlight            |
+| CSS           | UnoCSS                   | Starlight integriert           |
+| Mermaid       | vitepress-plugin-mermaid | CDN (jsdelivr)                 |
+| Build-Ausgabe | `docs/.vitepress/dist`   | `dist`                         |
+| Deployment    | Cloudflare Pages         | Cloudflare Pages (unverändert) |
 
 Durch die Framework-Vereinheitlichung können `astro.config.mjs`-Konfigurationsmuster und Deployment-Einstellungen über mehrere Projekte hinweg geteilt werden.
 

@@ -4,7 +4,7 @@ description: 'Die früher kostenpflichtige Cloudflare-Option „Dedicated SSL Ce
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/security-operations.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ Wenn Sie Total TLS aktivieren möchten, schalten Sie im Abschnitt **Total TLS** 
 
 ## Zusammenfassung
 
-| Punkt | Universal SSL (Kostenlos) | Advanced Certificate Manager (10 USD/Monat/Zone) |
-|---|---|---|
-| Mehrstufige Subdomains | ✗ | ✓ |
-| CA-Auswahl | ✗ | ✓ |
-| Laufzeit festlegen | ✗ | ✓ |
-| CN mit eigener Domain | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| Geeignet für | Private/allgemeine Sites | Unternehmen/komplexe Subdomain-Strukturen |
+| Punkt                  | Universal SSL (Kostenlos) | Advanced Certificate Manager (10 USD/Monat/Zone) |
+| ---------------------- | ------------------------- | ------------------------------------------------ |
+| Mehrstufige Subdomains | ✗                         | ✓                                                |
+| CA-Auswahl             | ✗                         | ✓                                                |
+| Laufzeit festlegen     | ✗                         | ✓                                                |
+| CN mit eigener Domain  | △                         | ✓                                                |
+| Total TLS              | ✗                         | ✓                                                |
+| Geeignet für           | Private/allgemeine Sites  | Unternehmen/komplexe Subdomain-Strukturen        |
 
 Die „frühere kostenpflichtige SSL-Option“ von Cloudflare ist **Advanced Certificate Manager (ehemals Dedicated SSL Certificates)**. Das ist besonders dann sinnvoll, wenn Universal SSL nicht ausreicht — insbesondere für mehrstufige Subdomains und feinere Zertifikatskontrolle.

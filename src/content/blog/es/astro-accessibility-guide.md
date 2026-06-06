@@ -4,7 +4,7 @@ description: 'Presentamos todos los pasos de mejora de accesibilidad realizados 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/accessibility-ux-quality.webp
 callout:
   type: info
   title: La accesibilidad es "mejora de UX para todos"
@@ -69,8 +69,7 @@ Los iconos de Iconify de UnoCSS (`i-lucide-*`) se usan frecuentemente como decor
 Agregar `aria-hidden="true"` a los iconos de propósito decorativo.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Contacto
+<span class="i-lucide-mail" aria-hidden="true"></span> Contacto
 ```
 
 Se aplicó esta medida en más de 30 iconos en todo el sitio. Hay que tener cuidado de no olvidar los iconos dentro de componentes como StatBar, Callout, ServiceCard y ProcessFigure.
@@ -163,12 +162,10 @@ Mostrar mensajes de error inmediatamente en eventos `blur` / `input`, y vincular
 - `aria-describedby` — referenciar el ID del mensaje de error
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
-<p id="email-error" role="alert">Por favor, introduzca una dirección de correo electrónico válida</p>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
+<p id="email-error" role="alert">
+  Por favor, introduzca una dirección de correo electrónico válida
+</p>
 ```
 
 ### Marcado de campos obligatorios
@@ -176,8 +173,7 @@ Mostrar mensajes de error inmediatamente en eventos `blur` / `input`, y vincular
 Solo el marcador visual `*` no es suficiente. Hay que agregar texto complementario para lectores de pantalla.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(obligatorio)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(obligatorio)</span>
 ```
 
 ---

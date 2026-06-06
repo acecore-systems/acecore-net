@@ -4,7 +4,7 @@ description: "Synthèse des étapes d'implémentation correcte des données stru
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Public cible de cet article
@@ -137,11 +137,11 @@ Le plugin `@astrojs/sitemap` d'Astro génère automatiquement le sitemap, mais l
 
 Utilisez la fonction `serialize()` pour configurer `changefreq` et `priority` selon le pattern d'URL de chaque page.
 
-| Type de page | changefreq | priority |
-| --- | --- | --- |
-| Page d'accueil | daily | 1.0 |
-| Articles de blog | weekly | 0.8 |
-| Autres | monthly | 0.6 |
+| Type de page     | changefreq | priority |
+| ---------------- | ---------- | -------- |
+| Page d'accueil   | daily      | 1.0      |
+| Articles de blog | weekly     | 0.8      |
+| Autres           | monthly    | 0.6      |
 
 ### Configuration de lastmod
 
@@ -159,7 +159,7 @@ Le RSS est souvent « configuré et oublié », mais améliorer la qualité du f
 - **categories** : ajouter les tags comme catégories pour améliorer la classification dans les lecteurs RSS
 
 ```typescript
-items: posts.map(post => ({
+items: posts.map((post) => ({
   title: post.data.title,
   description: post.data.description,
   link: `/blog/${post.id}/`,

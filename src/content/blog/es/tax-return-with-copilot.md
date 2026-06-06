@@ -4,7 +4,7 @@ description: 'Clasificación y verificación de 837 asientos acumulados con dato
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/consultation-cost-planning.webp
 processFigure:
   title: Flujo completo de la declaración con Copilot
   steps:
@@ -104,15 +104,15 @@ En resumen, la operación de pantalla se puede hacer con otras herramientas, per
 
 Lo más importante en el trabajo colaborativo con Copilot fue **estructurar el conocimiento y las tareas en archivos Markdown**. La estructura de archivos utilizada:
 
-| Archivo | Función |
-| --- | --- |
-| `criterios.md` | Reglas de mapeo: patrón de descripción → cuenta contable (16 secciones). Base de juicio de Copilot al clasificar asientos |
-| `tareas.md` | Hub de gestión de progreso general. Estado de obtención de 38 comprobantes gestionado con tabla ✅ |
-| `tareas-declaración.md` | Problemas pendientes y notas de investigación de la fase de entrada. Hechos y razonamientos separados |
-| `tareas-declaración_completadas.md` | Ítems completados/en espera movidos aquí para evitar que el archivo de trabajo crezca demasiado |
-| `verificación-inconsistencias.md` | Informe de cotejo criterios vs libro contable. Referencias a secciones de criterios.md por número § |
-| `informe-revisión-MF.md` | Revisión numérica de BS/PL. Gestión sistemática por ID de problema (A1, B1, etc.) y severidad |
-| `tabla-correspondencia-asientos.md` | Registro de los 837 asientos del libro contable organizados por categoría en tablas |
+| Archivo                             | Función                                                                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `criterios.md`                      | Reglas de mapeo: patrón de descripción → cuenta contable (16 secciones). Base de juicio de Copilot al clasificar asientos |
+| `tareas.md`                         | Hub de gestión de progreso general. Estado de obtención de 38 comprobantes gestionado con tabla ✅                        |
+| `tareas-declaración.md`             | Problemas pendientes y notas de investigación de la fase de entrada. Hechos y razonamientos separados                     |
+| `tareas-declaración_completadas.md` | Ítems completados/en espera movidos aquí para evitar que el archivo de trabajo crezca demasiado                           |
+| `verificación-inconsistencias.md`   | Informe de cotejo criterios vs libro contable. Referencias a secciones de criterios.md por número §                       |
+| `informe-revisión-MF.md`            | Revisión numérica de BS/PL. Gestión sistemática por ID de problema (A1, B1, etc.) y severidad                             |
+| `tabla-correspondencia-asientos.md` | Registro de los 837 asientos del libro contable organizados por categoría en tablas                                       |
 
 Copilot **lee estos archivos .md para tomar decisiones y escribe en ellos para registrar**. El humano lee exactamente los mismos archivos para comprender la situación. Es decir, los archivos Markdown funcionan como espacio de trabajo compartido entre humano e IA.
 
@@ -128,17 +128,17 @@ La estructura de este documento de criterios es clave. Cada sección tiene el fo
 
 Las reglas de clasificación definidas abarcan 15 secciones:
 
-| Categoría | Cuenta | Ejemplos concretos |
-| --- | --- | --- |
-| Ingresos de clientes | Ventas | Transferencias mensuales |
-| Débito de hipoteca | Retiro del propietario | Débito automático de cuenta personal |
-| Carga de pago QR | Retiro/Aporte del propietario | Cargas y devoluciones desde cuenta personal |
-| Transferencia entre cuentas | Depósito ordinario | Cuenta empresarial ↔ cuenta personal |
-| ISP・SaaS | Gastos de comunicación | GitHub, Cloudflare, ChatGPT, Canva, etc. |
-| Publicidad web・Gestión SNS | Gastos de publicidad | Google Ads, X Premium, SocialDog, etc. |
-| Transporte | Gastos de viaje | Shinkansen, taxi, espacio de teletrabajo |
-| Uso de Suica | Gastos de viaje | Método de anticipo para registros individuales de tren/autobús |
-| Compras EC | Materiales consumibles | Periféricos de PC, herramientas |
+| Categoría                   | Cuenta                        | Ejemplos concretos                                             |
+| --------------------------- | ----------------------------- | -------------------------------------------------------------- |
+| Ingresos de clientes        | Ventas                        | Transferencias mensuales                                       |
+| Débito de hipoteca          | Retiro del propietario        | Débito automático de cuenta personal                           |
+| Carga de pago QR            | Retiro/Aporte del propietario | Cargas y devoluciones desde cuenta personal                    |
+| Transferencia entre cuentas | Depósito ordinario            | Cuenta empresarial ↔ cuenta personal                           |
+| ISP・SaaS                   | Gastos de comunicación        | GitHub, Cloudflare, ChatGPT, Canva, etc.                       |
+| Publicidad web・Gestión SNS | Gastos de publicidad          | Google Ads, X Premium, SocialDog, etc.                         |
+| Transporte                  | Gastos de viaje               | Shinkansen, taxi, espacio de teletrabajo                       |
+| Uso de Suica                | Gastos de viaje               | Método de anticipo para registros individuales de tren/autobús |
+| Compras EC                  | Materiales consumibles        | Periféricos de PC, herramientas                                |
 
 ## Fase 2: Clasificación de 837 asientos y verificación de inconsistencias
 
@@ -150,16 +150,16 @@ Procedimiento concreto: Copilot abre la pantalla del libro contable de MF Cloud 
 
 Resultado: **8 inconsistencias** detectadas:
 
-| Descripción | Cuenta según criterios | Asiento real | Acción |
-| --- | --- | --- | --- |
-| Premium de SNS | Retiro del propietario (uso personal) | Gastos de publicidad | Es SNS empresarial, publicidad es correcto |
-| Herramienta de diseño | Retiro del propietario (uso personal) | Gastos de comunicación | Es herramienta empresarial, comunicación es correcto |
-| Servicio de chat IA | Retiro del propietario (uso personal) | Gastos de comunicación | Es herramienta empresarial, comunicación es correcto |
-| Alquiler de batería portátil | Gastos de comunicación | Retiro del propietario | Es uso personal, retiro es correcto |
-| Cargos de apps (mezcla de apps) | Comunicación uniformemente | Desglosado por app | App de transporte → comunicación, bloqueador de anuncios → retiro, etc. |
-| Publicidad en video (facturación por umbral) | Ubicado en sección personal | Gastos de publicidad | Error de ubicación en criterios corregido |
-| Compra EC (periféricos PC) | Libros y suscripciones | Materiales consumibles | Cuenta errónea corregida |
-| Herramienta de gestión SNS | Gastos de comunicación | Gastos de publicidad | Es para gestión de SNS, publicidad es correcto |
+| Descripción                                  | Cuenta según criterios                | Asiento real           | Acción                                                                  |
+| -------------------------------------------- | ------------------------------------- | ---------------------- | ----------------------------------------------------------------------- |
+| Premium de SNS                               | Retiro del propietario (uso personal) | Gastos de publicidad   | Es SNS empresarial, publicidad es correcto                              |
+| Herramienta de diseño                        | Retiro del propietario (uso personal) | Gastos de comunicación | Es herramienta empresarial, comunicación es correcto                    |
+| Servicio de chat IA                          | Retiro del propietario (uso personal) | Gastos de comunicación | Es herramienta empresarial, comunicación es correcto                    |
+| Alquiler de batería portátil                 | Gastos de comunicación                | Retiro del propietario | Es uso personal, retiro es correcto                                     |
+| Cargos de apps (mezcla de apps)              | Comunicación uniformemente            | Desglosado por app     | App de transporte → comunicación, bloqueador de anuncios → retiro, etc. |
+| Publicidad en video (facturación por umbral) | Ubicado en sección personal           | Gastos de publicidad   | Error de ubicación en criterios corregido                               |
+| Compra EC (periféricos PC)                   | Libros y suscripciones                | Materiales consumibles | Cuenta errónea corregida                                                |
+| Herramienta de gestión SNS                   | Gastos de comunicación                | Gastos de publicidad   | Es para gestión de SNS, publicidad es correcto                          |
 
 "Crear documento de criterios, cotejar con el libro contable y corregir los criterios cuando hay discrepancias" — que Copilot avance automáticamente editando archivos representa una eficiencia de otro nivel comparado con revisar visualmente 837 registros.
 
@@ -226,13 +226,13 @@ Continuamos con "Ahora vamos con las demás deducciones", introduciendo las dedu
 
 ### Deducciones ingresadas
 
-| Tipo de deducción | Descripción | Trabajo de Copilot |
-| --- | --- | --- |
-| Deducción de seguro de vida | Datos sincronizados de My Number Portal + entrada manual | Operó los selectores del formulario e ingresó uno por uno |
-| Deducción de seguro de terremoto | Seguros de mutualidad y de daños | Ingresó importes en el formulario |
-| Deducción por cónyuge | Cálculo del ingreso total a partir de los ingresos del cónyuge | Calculó el importe de ingresos aplicando la deducción de ingresos salariales y verificó la deducción |
-| Deducción de seguros sociales | Pensión + seguro de salud (importes determinados en Fase 4) | Seleccionó el tipo en la pantalla de seguros sociales de la declaración → ingresó importes |
-| Deducción por dependientes (menores de 16) | No afecta la deducción pero sí el impuesto de residencia | Verificó el estado de registro en la pantalla Información básica → Familia |
+| Tipo de deducción                          | Descripción                                                    | Trabajo de Copilot                                                                                   |
+| ------------------------------------------ | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Deducción de seguro de vida                | Datos sincronizados de My Number Portal + entrada manual       | Operó los selectores del formulario e ingresó uno por uno                                            |
+| Deducción de seguro de terremoto           | Seguros de mutualidad y de daños                               | Ingresó importes en el formulario                                                                    |
+| Deducción por cónyuge                      | Cálculo del ingreso total a partir de los ingresos del cónyuge | Calculó el importe de ingresos aplicando la deducción de ingresos salariales y verificó la deducción |
+| Deducción de seguros sociales              | Pensión + seguro de salud (importes determinados en Fase 4)    | Seleccionó el tipo en la pantalla de seguros sociales de la declaración → ingresó importes           |
+| Deducción por dependientes (menores de 16) | No afecta la deducción pero sí el impuesto de residencia       | Verificó el estado de registro en la pantalla Información básica → Familia                           |
 
 ### Elementos evaluados y descartados
 

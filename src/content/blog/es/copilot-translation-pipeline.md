@@ -4,7 +4,7 @@ description: 'Una guía del flujo de trabajo que genera automáticamente artícu
 date: 2026-03-29T22:30
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/i18n-localization-workbench.webp
 callout:
   type: info
   title: Conclusión primero

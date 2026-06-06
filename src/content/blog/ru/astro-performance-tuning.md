@@ -5,7 +5,7 @@ date: 2026-03-15
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Для кого эта статья
@@ -62,12 +62,12 @@ faq:
 
 Достигнутые итоговые оценки:
 
-| Метрика | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Метрика        | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -160,7 +160,7 @@ theme: {
 Если возникнут ошибки типов TypeScript, добавьте объявление модуля в `src/env.d.ts`:
 
 ```typescript
-declare module '@fontsource-variable/noto-sans-jp';
+declare module '@fontsource-variable/noto-sans-jp'
 ```
 
 ---
@@ -181,13 +181,13 @@ declare module '@fontsource-variable/noto-sans-jp';
 
 ```html
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp"
   srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp   960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/performance-seo-dashboard.webp 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"
@@ -222,12 +222,16 @@ declare module '@fontsource-variable/noto-sans-jp';
 Скрипт Google AdSense весит примерно 100 КиБ и значительно влияет на начальный рендеринг. Динамически внедряйте скрипт при первой прокрутке пользователя.
 
 ```javascript
-window.addEventListener('scroll', () => {
-  const script = document.createElement('script')
-  script.src = 'https://pagead2.googlesyndication.com/...'
-  script.async = true
-  document.head.appendChild(script)
-}, { once: true })
+window.addEventListener(
+  'scroll',
+  () => {
+    const script = document.createElement('script')
+    script.src = 'https://pagead2.googlesyndication.com/...'
+    script.async = true
+    document.head.appendChild(script)
+  },
+  { once: true },
+)
 ```
 
 `{ once: true }` гарантирует, что обработчик события сработает только один раз. Это сводит передачу JavaScript при первом показе практически к нулю.

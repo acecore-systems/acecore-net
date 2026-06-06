@@ -4,7 +4,7 @@ description: 'Eine Schritt-für-Schritt-Anleitung zur korrekten Implementierung 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'SEO']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Für wen dieser Artikel gedacht ist
@@ -137,11 +137,11 @@ Sie können eine Sitemap automatisch mit Astros `@astrojs/sitemap`-Plugin generi
 
 Verwenden Sie die `serialize()`-Funktion, um `changefreq` und `priority` basierend auf URL-Mustern zu setzen.
 
-| Seitentyp | changefreq | priority |
-| --- | --- | --- |
-| Startseite | daily | 1.0 |
-| Blog-Beiträge | weekly | 0.8 |
-| Sonstige | monthly | 0.6 |
+| Seitentyp     | changefreq | priority |
+| ------------- | ---------- | -------- |
+| Startseite    | daily      | 1.0      |
+| Blog-Beiträge | weekly     | 0.8      |
+| Sonstige      | monthly    | 0.6      |
 
 ### lastmod setzen
 
@@ -159,7 +159,7 @@ RSS wird oft als „einmal einrichten und vergessen"-Aufgabe behandelt, aber die
 - **categories**: Tag-Informationen als Kategorien hinzufügen, um die Klassifizierung in RSS-Readern zu verbessern
 
 ```typescript
-items: posts.map(post => ({
+items: posts.map((post) => ({
   title: post.data.title,
   description: post.data.description,
   link: `/blog/${post.id}/`,

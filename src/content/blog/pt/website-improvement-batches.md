@@ -3,8 +3,9 @@ title: 'Guia de melhoria de qualidade de sites Astro — Caminho até 99 pontos 
 description: 'Registro completo de como melhoramos um site com Astro + UnoCSS + Cloudflare Pages nos 4 eixos de desempenho, SEO, acessibilidade e UX, alcançando 99 pontos no PageSpeed Insights mobile e 100 em todos os itens no desktop.'
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/performance-seo-dashboard.webp
 callout:
   type: tip
   title: Público-alvo deste artigo
@@ -88,12 +89,12 @@ Primeiro, o que quero transmitir é que **obter alta pontuação no PageSpeed In
 
 O Lighthouse, que roda por trás do PageSpeed Insights, aplica o seguinte throttling nos testes mobile:
 
-| Item | Configuração |
-| --- | --- |
+| Item                   | Configuração        |
+| ---------------------- | ------------------- |
 | Velocidade de download | ~1.6 Mbps (slow 4G) |
-| Velocidade de upload | ~0.75 Mbps |
-| Latência | 150 ms (RTT) |
-| CPU | 4x slowdown |
+| Velocidade de upload   | ~0.75 Mbps          |
+| Latência               | 150 ms (RTT)        |
+| CPU                    | 4x slowdown         |
 
 Ou seja, uma página que abre em 1 segundo com fibra óptica leva **5-6 segundos** na simulação do Lighthouse. Carregar 200 KiB de CSS em slow 4G causa **~1 segundo** de bloqueio.
 
@@ -122,12 +123,12 @@ Portanto, o objetivo deve ser "obter pontuação alta de forma estável em medi�
 
 Apesar das dificuldades acima, conseguimos alcançar de forma estável as seguintes pontuações:
 
-| Métrica | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Métrica        | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -161,14 +162,14 @@ Resolvemos o problema de interrupção de scripts causado pela introdução de V
 
 ## Stack tecnológica
 
-| Tecnologia | Uso |
-| --- | --- |
-| Astro 6 | Geração estática de site (arquitetura zero JS) |
-| UnoCSS (presetWind3) | CSS utility-first |
-| Cloudflare Pages | Hospedagem, CDN, controle de headers |
-| @fontsource-variable/noto-sans-jp | Self-hosting de fonte japonesa |
-| Cloudflare Images | Transformações de imagem (conversão automática AVIF/WebP) |
-| Pagefind | Busca de texto completo para sites estáticos |
+| Tecnologia                        | Uso                                                       |
+| --------------------------------- | --------------------------------------------------------- |
+| Astro 6                           | Geração estática de site (arquitetura zero JS)            |
+| UnoCSS (presetWind3)              | CSS utility-first                                         |
+| Cloudflare Pages                  | Hospedagem, CDN, controle de headers                      |
+| @fontsource-variable/noto-sans-jp | Self-hosting de fonte japonesa                            |
+| Cloudflare Images                 | Transformações de imagem (conversão automática AVIF/WebP) |
+| Pagefind                          | Busca de texto completo para sites estáticos              |
 
 ---
 
