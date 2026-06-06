@@ -7,6 +7,17 @@
     "blog": "Blog",
     "contact": "Contact"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "Site renewal notice",
+    "body": "We have refreshed the website and reorganized our services and project examples to make them easier to browse.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "See what's new",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Skip to content",
     "search": "Search articles",

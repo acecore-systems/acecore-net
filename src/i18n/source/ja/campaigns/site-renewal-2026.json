@@ -1,0 +1,14 @@
+{
+  "id": "site-renewal-2026",
+  "type": "announcement",
+  "adminTitle": "サイトリニューアル告知",
+  "enabled": true,
+  "title": "サイトリニューアルのお知らせ",
+  "body": "サイトをリニューアルしました。サービス内容や制作事例を見やすく整理しています。",
+  "href": "/blog/website-renewal/",
+  "ctaLabel": "変更点を見る",
+  "startsAt": "2026-06-07T00:00",
+  "endsAt": "2026-06-21T23:59",
+  "tone": "brand",
+  "order": 10
+}

@@ -7,6 +7,17 @@
     "blog": "Блог",
     "contact": "Контакты"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "Обновление сайта",
+    "body": "Мы обновили сайт и сделали услуги и примеры проектов удобнее для просмотра.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Посмотреть изменения",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Перейти к содержанию",
     "search": "Поиск статей",
