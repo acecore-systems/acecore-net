@@ -172,10 +172,10 @@ const phoneTel = SITE.phone.replaceAll('-', '')
         const bubble = document.createElement('div')
         bubble.className =
           role === 'user'
-            ? 'max-w-[85%] rounded-lg bg-brand-500 px-3 py-2 text-white'
+            ? 'max-w-[85%] whitespace-pre-line rounded-lg bg-brand-500 px-3 py-2 text-white'
             : isError
-              ? 'max-w-[85%] rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800'
-              : 'max-w-[85%] rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
+              ? 'max-w-[85%] whitespace-pre-line rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800'
+              : 'max-w-[85%] whitespace-pre-line rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
         bubble.textContent = text
 
         row.appendChild(bubble)

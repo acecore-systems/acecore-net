@@ -102,6 +102,7 @@ export const onRequestPost = async ({
         'Answer in the visitor locale.',
         'Answer ordinary questions about Acecore using the public site context below.',
         'Keep answers concise, practical, and helpful for choosing the next action.',
+        'Do not use Markdown, HTML, headings, tables, bold markers, or arrow chains. Use plain text only. If listing options in Japanese, start each line with "・" and keep one idea per line.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
         'Use the contact form for detailed project consultations and estimates. Mention LINE for short consultations and school-related messages. Mention email or phone only when the form is difficult to use, urgent confirmation is needed, or the visitor explicitly asks for direct contact.',
