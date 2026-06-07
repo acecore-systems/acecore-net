@@ -775,13 +775,13 @@ collections:
         default: brand
       - name: 'startsAt'
         label: '表示開始日時'
-        hint: '空欄なら開始制限なし'
+        hint: '空欄なら開始制限なし。訪問者の表示時刻（日本時間）で判定します。'
         widget: datetime
         format: YYYY-MM-DDTHH:mm
         required: false
       - name: 'endsAt'
         label: '表示終了日時'
-        hint: '空欄なら終了制限なし'
+        hint: '空欄なら終了制限なし。訪問者の表示時刻（日本時間）で判定します。'
         widget: datetime
         format: YYYY-MM-DDTHH:mm
         required: false
