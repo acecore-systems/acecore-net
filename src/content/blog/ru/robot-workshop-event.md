@@ -4,7 +4,7 @@ description: 'AceCore Schools провела практический масте
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 faq:
   title: FAQ
   items:
@@ -40,7 +40,7 @@ AceCore Schools провела практический мастер-класс 
 
 Через подобный опыт мы стремимся пробудить интерес к созиданию и заложить основы вычислительного мышления.
 
-![Практический опыт от сборки до доработки с серией Tamiya Craft](https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=400&fit=crop&q=80)
+![Практический опыт от сборки до доработки с серией Tamiya Craft](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
 ## Контакты и регистрация
 

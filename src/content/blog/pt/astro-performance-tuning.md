@@ -5,7 +5,7 @@ date: 2026-03-15
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-performance-tuning.webp
 callout:
   type: tip
   title: Público-alvo deste artigo
@@ -62,12 +62,12 @@ O site oficial da Acecore é construído com Astro 6 + UnoCSS + Cloudflare Pages
 
 As pontuações finais alcançadas são:
 
-| Métrica | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Métrica        | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -160,7 +160,7 @@ theme: {
 Se ocorrer erro de tipo TypeScript, adicione a declaração de módulo em `src/env.d.ts`.
 
 ```typescript
-declare module '@fontsource-variable/noto-sans-jp';
+declare module '@fontsource-variable/noto-sans-jp'
 ```
 
 ---
@@ -181,13 +181,13 @@ Configure `srcset` e `sizes` em todas as imagens para entregar o tamanho ideal c
 
 ```html
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp"
   srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"
@@ -222,12 +222,16 @@ Particularmente fáceis de esquecer são imagens de avatar (32×32, 48×48, 64×
 O script do Google AdSense tem cerca de 100 KiB e impacta significativamente a exibição inicial. Injete o script dinamicamente no momento do primeiro scroll do usuário.
 
 ```javascript
-window.addEventListener('scroll', () => {
-  const script = document.createElement('script')
-  script.src = 'https://pagead2.googlesyndication.com/...'
-  script.async = true
-  document.head.appendChild(script)
-}, { once: true })
+window.addEventListener(
+  'scroll',
+  () => {
+    const script = document.createElement('script')
+    script.src = 'https://pagead2.googlesyndication.com/...'
+    script.async = true
+    document.head.appendChild(script)
+  },
+  { once: true },
+)
 ```
 
 Com `{ once: true }`, o event listener dispara apenas uma vez. Isso reduz a quantidade de JavaScript transferido no first view a quase zero.

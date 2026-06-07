@@ -4,7 +4,7 @@ description: 'A practical guide covering the full migration from Zoho Workplace 
 date: 2026-03-16
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp
 processFigure:
   title: Overall Migration Flow
   steps:
@@ -156,9 +156,9 @@ Change the DNS records to redirect email delivery. This example uses Cloudflare,
 
 Delete the Zoho MX records (`mx.zoho.jp` / `mx2.zoho.jp` / `mx3.zoho.jp`) and register the new mail server. For KAGOYA MAIL:
 
-| Type | Name | Value | Priority |
-| --- | --- | --- | --- |
-| MX | (your domain) | dmail.kagoya.net | 10 |
+| Type | Name          | Value            | Priority |
+| ---- | ------------- | ---------------- | -------- |
+| MX   | (your domain) | dmail.kagoya.net | 10       |
 
 ### SPF Record
 
@@ -172,9 +172,9 @@ Change the old `include:zoho.jp` to `include:kagoya.net`.
 
 Obtain the public key from the **DKIM Settings** in the KAGOYA control panel and register it as a TXT record.
 
-| Type | Name | Value |
-| --- | --- | --- |
-| TXT | kagoya.\_domainkey.(your domain) | v=DKIM1;k=rsa;p=(public key) |
+| Type | Name                             | Value                        |
+| ---- | -------------------------------- | ---------------------------- |
+| TXT  | kagoya.\_domainkey.(your domain) | v=DKIM1;k=rsa;p=(public key) |
 
 Delete the old `zmail._domainkey` (Zoho) record.
 
@@ -223,14 +223,14 @@ Zoho Workplace bundles many services beyond email, including WorkDrive, Cliq, Ca
 
 ### Services to Check and Decision Criteria
 
-| Service | What to Check |
-| --- | --- |
-| Zoho Mail | Has data been imported to the new service? |
-| Zoho WorkDrive | Is storage usage at 0? Check including trash |
-| Zoho Contacts | Number of contacts. Export as CSV/VCF if needed |
-| Zoho Calendar | Any remaining events or reminders |
-| Zoho Cliq | Whether chat history needs to be preserved |
-| Others (Notebook, Writer, Sheet, etc.) | Any created documents |
+| Service                                | What to Check                                   |
+| -------------------------------------- | ----------------------------------------------- |
+| Zoho Mail                              | Has data been imported to the new service?      |
+| Zoho WorkDrive                         | Is storage usage at 0? Check including trash    |
+| Zoho Contacts                          | Number of contacts. Export as CSV/VCF if needed |
+| Zoho Calendar                          | Any remaining events or reminders               |
+| Zoho Cliq                              | Whether chat history needs to be preserved      |
+| Others (Notebook, Writer, Sheet, etc.) | Any created documents                           |
 
 ### WorkDrive Gotcha: Trash Consuming Storage
 

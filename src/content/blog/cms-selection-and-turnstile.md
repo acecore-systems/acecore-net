@@ -4,7 +4,7 @@ description: 'Keystatic・Sveltia CMS・Pages CMS を比較検討し、Pages CMS
 date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 compareTable:
   title: CMS の比較
   before:

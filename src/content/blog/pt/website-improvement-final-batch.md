@@ -3,8 +3,9 @@ title: 'Guia de melhoria de qualidade de sites Astro, continuação - Ajustes fi
 description: 'Registro do ajuste final feito após o artigo anterior: desativação do Cloudflare Web Analytics, carregamento adiado de GA4 e da interface de busca, conquista de 100 em todos os itens do PageSpeed Insights no mobile e no desktop, organização de breadcrumbs e indexação no Search Console, migração para ícones SVG compartilhados e explicação das otimizações extras que foram testadas, mas não adotadas.'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-final-batch.webp
 callout:
   type: tip
   title: Continuação do artigo anterior
@@ -133,10 +134,10 @@ Este artigo fecha os pontos menores que ainda restavam após a publicação do a
 
 Em 29 de março de 2026, a página inicial da Acecore apresentava os seguintes resultados.
 
-| Ambiente | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| Mobile | **100** | **100** | **100** | **100** |
-| Desktop | **100** | **100** | **100** | **100** |
+| Ambiente | Performance | Accessibility | Best Practices | SEO     |
+| -------- | ----------- | ------------- | -------------- | ------- |
+| Mobile   | **100**     | **100**       | **100**        | **100** |
+| Desktop  | **100**     | **100**       | **100**        | **100** |
 
 Abaixo estão as capturas reais do PageSpeed Insights junto com as URLs dos relatórios. Na rodada anterior, eu considerava “mobile 99 / o restante 100” como o teto realista. Desta vez, ao remover beacons de terceiros desnecessários e interpretar com cuidado o significado dos diagnósticos restantes, foi possível chegar a 100.
 

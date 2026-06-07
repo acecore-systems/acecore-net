@@ -3,8 +3,9 @@ title: 'Astro 站点品质改善指南 续篇 - 达成 PageSpeed Insights 全项
 description: '记录上一篇文章之后完成的最后一轮优化：停用 Cloudflare Web Analytics、延后加载 GA4 与搜索 UI、实现 PageSpeed Insights 移动端与桌面端四项全满分、整理 Search Console 中的面包屑与索引策略、迁移到共享 SVG 图标，以及说明哪些额外优化尝试过但没有采纳。'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-final-batch.webp
 callout:
   type: tip
   title: 这是上一篇文章的续篇
@@ -133,10 +134,10 @@ faq:
 
 截至 2026 年 3 月 29 日，Acecore 首页已经确认获得以下结果。
 
-| 测量面 | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| 移动端 | **100** | **100** | **100** | **100** |
-| 桌面端 | **100** | **100** | **100** | **100** |
+| 测量面 | Performance | Accessibility | Best Practices | SEO     |
+| ------ | ----------- | ------------- | -------------- | ------- |
+| 移动端 | **100**     | **100**       | **100**        | **100** |
+| 桌面端 | **100**     | **100**       | **100**        | **100** |
 
 下方放的是实际的 PageSpeed Insights 截图和报告 URL。上一轮时，我认为“移动端 99 / 其余全部 100”已经是现实中的上限；而这次通过清理不必要的第三方 beacon，并认真解读剩余诊断的含义，最终达到了 100 分。
 

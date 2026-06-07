@@ -3,8 +3,9 @@ title: 'Astro-Website-Qualitätsverbesserungsleitfaden — PageSpeed Mobile Scor
 description: 'Ein vollständiger Bericht über die Verbesserung einer Astro + UnoCSS + Cloudflare Pages-Website in vier Bereichen — Performance, SEO, Barrierefreiheit und UX — mit Erreichen eines PageSpeed Insights Mobile Scores von 99 und perfekten 100 Punkten bei allen Desktop-Metriken.'
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-batches.webp
 callout:
   type: tip
   title: Zielgruppe
@@ -88,12 +89,12 @@ Zunächst ist festzuhalten, dass **ein hoher Score bei PageSpeed Insights Mobile
 
 PageSpeed Insights führt im Hintergrund Lighthouse aus und wendet für Mobile-Tests folgendes Throttling an:
 
-| Einstellung | Wert |
-| --- | --- |
+| Einstellung              | Wert                       |
+| ------------------------ | -------------------------- |
 | Download-Geschwindigkeit | ~1,6 Mbit/s (langsames 4G) |
-| Upload-Geschwindigkeit | ~0,75 Mbit/s |
-| Latenz | 150 ms (RTT) |
-| CPU | 4-fache Verlangsamung |
+| Upload-Geschwindigkeit   | ~0,75 Mbit/s               |
+| Latenz                   | 150 ms (RTT)               |
+| CPU                      | 4-fache Verlangsamung      |
 
 Das bedeutet, dass selbst eine Seite, die mit Glasfaserverbindung in 1 Sekunde lädt, unter Lighthouses Simulation **5–6 Sekunden** benötigt. Das Laden von 200 KiB CSS allein verursacht bei langsamem 4G etwa **1 Sekunde** Blockierung.
 
@@ -122,12 +123,12 @@ Aus diesem Grund sollte das Ziel „konsistent hohe Bewertungen bei wiederholten
 
 Trotz dieser Herausforderungen konnten wir konsistent folgende Bewertungen erzielen:
 
-| Metrik | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
+| Metrik           | Mobile  | Desktop |
+| ---------------- | ------- | ------- |
+| Performance      | **99**  | **100** |
 | Barrierefreiheit | **100** | **100** |
-| Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| Best Practices   | **100** | **100** |
+| SEO              | **100** | **100** |
 
 ---
 
@@ -161,14 +162,14 @@ Wir haben Skriptabbruch-Probleme gelöst, die durch View Transitions (ClientRout
 
 ## Tech-Stack
 
-| Technologie | Zweck |
-| --- | --- |
-| Astro 6 | Statische Seitengenerierung (Zero-JS-Architektur) |
-| UnoCSS (presetWind3) | Utility-First CSS |
-| Cloudflare Pages | Hosting, CDN, Header-Steuerung |
-| @fontsource-variable/noto-sans-jp | Selbst gehostete japanische Schriftart |
-| Cloudflare Images | Bild-Transformationen (automatische AVIF/WebP-Konvertierung) |
-| Pagefind | Volltextsuche für statische Websites |
+| Technologie                       | Zweck                                                        |
+| --------------------------------- | ------------------------------------------------------------ |
+| Astro 6                           | Statische Seitengenerierung (Zero-JS-Architektur)            |
+| UnoCSS (presetWind3)              | Utility-First CSS                                            |
+| Cloudflare Pages                  | Hosting, CDN, Header-Steuerung                               |
+| @fontsource-variable/noto-sans-jp | Selbst gehostete japanische Schriftart                       |
+| Cloudflare Images                 | Bild-Transformationen (automatische AVIF/WebP-Konvertierung) |
+| Pagefind                          | Volltextsuche für statische Websites                         |
 
 ---
 

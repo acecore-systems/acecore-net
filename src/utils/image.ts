@@ -123,6 +123,10 @@ function buildCloudflareImageUrl(
   dimensions: { width?: string; height?: string },
   quality = '50',
 ): string {
+  if (sourceUrl.startsWith('/')) {
+    return sourceUrl
+  }
+
   const { width, height } = dimensions
   const transformOptions: string[] = []
 

@@ -4,7 +4,7 @@ description: 'Procédure pratique de migration de Zoho Workplace vers KAGOYA MAI
 date: 2026-03-16
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp
 processFigure:
   title: Flux global de la migration
   steps:
@@ -156,9 +156,9 @@ Pour rediriger la livraison des e-mails, modifiez les enregistrements DNS. L'exe
 
 Supprimez les enregistrements MX de Zoho (`mx.zoho.jp` / `mx2.zoho.jp` / `mx3.zoho.jp`) et enregistrez le serveur de destination. Pour KAGOYA MAIL :
 
-| Type | Nom | Valeur | Priorité |
-| --- | --- | --- | --- |
-| MX | (votre domaine) | dmail.kagoya.net | 10 |
+| Type | Nom             | Valeur           | Priorité |
+| ---- | --------------- | ---------------- | -------- |
+| MX   | (votre domaine) | dmail.kagoya.net | 10       |
 
 ### Enregistrement SPF
 
@@ -172,9 +172,9 @@ Remplacez l'ancien `include:zoho.jp` par `include:kagoya.net`.
 
 Récupérez la clé publique depuis la **configuration DKIM** du panneau de contrôle KAGOYA et enregistrez-la en tant qu'enregistrement TXT.
 
-| Type | Nom | Valeur |
-| --- | --- | --- |
-| TXT | kagoya.\_domainkey.(votre domaine) | v=DKIM1;k=rsa;p=(clé publique) |
+| Type | Nom                                | Valeur                         |
+| ---- | ---------------------------------- | ------------------------------ |
+| TXT  | kagoya.\_domainkey.(votre domaine) | v=DKIM1;k=rsa;p=(clé publique) |
 
 Supprimez l'ancien `zmail._domainkey` (Zoho).
 
@@ -223,14 +223,14 @@ Zoho Workplace comprend de nombreux services au-delà de la messagerie : WorkDri
 
 ### Services à vérifier et critères de décision
 
-| Service | Points de vérification |
-| --- | --- |
-| Zoho Mail | Les données ont-elles été importées dans le nouveau service ? |
-| Zoho WorkDrive | L'espace de stockage utilisé est-il à 0 ? Vérifiez aussi la corbeille |
-| Zoho Contacts | Nombre de contacts. Si nécessaire, exportez en CSV/VCF |
-| Zoho Calendar | Présence d'événements ou de rappels |
-| Zoho Cliq | Nécessité de l'historique de chat |
-| Autres (Notebook, Writer, Sheet, etc.) | Présence de documents créés |
+| Service                                | Points de vérification                                                |
+| -------------------------------------- | --------------------------------------------------------------------- |
+| Zoho Mail                              | Les données ont-elles été importées dans le nouveau service ?         |
+| Zoho WorkDrive                         | L'espace de stockage utilisé est-il à 0 ? Vérifiez aussi la corbeille |
+| Zoho Contacts                          | Nombre de contacts. Si nécessaire, exportez en CSV/VCF                |
+| Zoho Calendar                          | Présence d'événements ou de rappels                                   |
+| Zoho Cliq                              | Nécessité de l'historique de chat                                     |
+| Autres (Notebook, Writer, Sheet, etc.) | Présence de documents créés                                           |
 
 ### Le piège de WorkDrive : la corbeille qui consomme du stockage
 

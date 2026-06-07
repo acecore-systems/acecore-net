@@ -6,9 +6,10 @@ tags:
   - サービス
   - システム開発
   - Web制作
-image: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-service-introduction.webp
 author: gui
 ---
+
 ## Acecore의 IT 서비스 소개
 
 Acecore는 **시스템 개발, 웹 제작, IT 교육**의 세 가지 축을 중심으로 종합적인 IT 서비스를 제공합니다. 이 글에서는 각 서비스의 특징과 고객에게 제공하는 가치를 소개합니다.

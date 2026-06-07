@@ -4,7 +4,7 @@ description: 'VitePress + UnoCSS로 구축한 사업계획서를 Astro + Starlig
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: 마이그레이션 플로우
   steps:
@@ -166,13 +166,13 @@ graph TD
 
 ## 마이그레이션 결과
 
-| 항목 | 이전 | 이후 |
-| --- | --- | --- |
-| 프레임워크 | VitePress 1.x | Astro 6 + Starlight |
-| CSS | UnoCSS | Starlight 내장 |
-| Mermaid | vitepress-plugin-mermaid | CDN (jsdelivr) |
-| 빌드 출력 | `docs/.vitepress/dist` | `dist` |
-| 배포 | Cloudflare Pages | Cloudflare Pages (변경 없음) |
+| 항목       | 이전                     | 이후                         |
+| ---------- | ------------------------ | ---------------------------- |
+| 프레임워크 | VitePress 1.x            | Astro 6 + Starlight          |
+| CSS        | UnoCSS                   | Starlight 내장               |
+| Mermaid    | vitepress-plugin-mermaid | CDN (jsdelivr)               |
+| 빌드 출력  | `docs/.vitepress/dist`   | `dist`                       |
+| 배포       | Cloudflare Pages         | Cloudflare Pages (변경 없음) |
 
 프레임워크 통합으로 `astro.config.mjs` 설정 패턴과 배포 설정을 여러 프로젝트에서 공유할 수 있게 되었습니다.
 

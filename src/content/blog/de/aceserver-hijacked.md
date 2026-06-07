@@ -6,6 +6,7 @@ tags:
   - イベント
 author: hatt
 ---
+
 ## **Aceserver wurde gekapert**
 
 Ich schreibe dies mit dem letzten Rest an Verstand, der mir noch geblieben ist. Wenn dies die Öffentlichkeit erreicht, wird selbst dieser klägliche Rest an Vernunft verschlungen worden sein.

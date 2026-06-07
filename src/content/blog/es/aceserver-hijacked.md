@@ -6,6 +6,7 @@ tags:
   - イベント
 author: hatt
 ---
+
 ## **Aceserver fue secuestrado**
 
 Escribo este texto con la última gota de razón que me queda. Seguramente, para cuando este texto vea la luz, hasta esta poca razón habrá sido completamente consumida.

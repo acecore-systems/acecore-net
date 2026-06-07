@@ -4,7 +4,7 @@ description: 'L’ancienne option payante de Cloudflare, « Dedicated SSL Certif
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cloudflare-ssl-advanced-certificate-manager.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ Pour activer Total TLS, il suffit de passer la section **Total TLS** sur On dans
 
 ## Résumé
 
-| Élément | Universal SSL (Gratuit) | Advanced Certificate Manager (10 $/mois/zone) |
-|---|---|---|
-| Sous-domaines multi-niveaux | ✗ | ✓ |
-| Choix de l’AC | ✗ | ✓ |
-| Durée de validité configurable | ✗ | ✓ |
-| CN avec votre propre domaine | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| Cas d’usage | Sites personnels / généraux | Entreprises / structures de sous-domaines complexes |
+| Élément                        | Universal SSL (Gratuit)     | Advanced Certificate Manager (10 $/mois/zone)       |
+| ------------------------------ | --------------------------- | --------------------------------------------------- |
+| Sous-domaines multi-niveaux    | ✗                           | ✓                                                   |
+| Choix de l’AC                  | ✗                           | ✓                                                   |
+| Durée de validité configurable | ✗                           | ✓                                                   |
+| CN avec votre propre domaine   | △                           | ✓                                                   |
+| Total TLS                      | ✗                           | ✓                                                   |
+| Cas d’usage                    | Sites personnels / généraux | Entreprises / structures de sous-domaines complexes |
 
 L’« ancienne option SSL payante » de Cloudflare est **Advanced Certificate Manager (anciennement Dedicated SSL Certificates)**. C’est une option particulièrement utile quand Universal SSL gratuit ne suffit pas — notamment pour protéger des sous-domaines multi-niveaux et contrôler finement les certificats.

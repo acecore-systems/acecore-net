@@ -4,7 +4,7 @@ description: 'Ein praxisnaher Leitfaden zum systematischen Monkey-Testing einer 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
-image: https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology.webp
 callout:
   type: tip
   title: Für wen dieser Artikel gedacht ist

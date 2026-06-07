@@ -3,8 +3,9 @@ title: 'Astro Site Quality Improvement Guide — Achieving PageSpeed Mobile Scor
 description: 'A complete record of improving an Astro + UnoCSS + Cloudflare Pages site across four axes — performance, SEO, accessibility, and UX — achieving a PageSpeed Insights mobile score of 99 and perfect 100 on all desktop metrics.'
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-batches.webp
 callout:
   type: tip
   title: Target Audience
@@ -88,12 +89,12 @@ The first thing to communicate is that **achieving a high score on PageSpeed Ins
 
 PageSpeed Insights runs Lighthouse under the hood, applying the following throttling for mobile tests:
 
-| Setting | Value |
-| --- | --- |
+| Setting        | Value               |
+| -------------- | ------------------- |
 | Download speed | ~1.6 Mbps (slow 4G) |
-| Upload speed | ~0.75 Mbps |
-| Latency | 150 ms (RTT) |
-| CPU | 4× slowdown |
+| Upload speed   | ~0.75 Mbps          |
+| Latency        | 150 ms (RTT)        |
+| CPU            | 4× slowdown         |
 
 This means that even a page that loads in 1 second on a fiber connection will take **5–6 seconds** under Lighthouse's simulation. Loading 200 KiB of CSS alone causes approximately **1 second** of blocking on slow 4G.
 
@@ -122,12 +123,12 @@ For this reason, the goal should be "consistently high scores across repeated me
 
 Despite these challenges, we were able to consistently achieve the following scores:
 
-| Metric | Mobile | Desktop |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| Metric         | Mobile  | Desktop |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -161,14 +162,14 @@ We resolved script breakage issues caused by View Transitions (ClientRouter) acr
 
 ## Tech Stack
 
-| Technology | Purpose |
-| --- | --- |
-| Astro 6 | Static site generation (zero-JS architecture) |
-| UnoCSS (presetWind3) | Utility-first CSS |
-| Cloudflare Pages | Hosting, CDN, header control |
-| @fontsource-variable/noto-sans-jp | Self-hosted Japanese font |
-| Cloudflare Images | Image transformations (auto AVIF/WebP conversion) |
-| Pagefind | Full-text search for static sites |
+| Technology                        | Purpose                                           |
+| --------------------------------- | ------------------------------------------------- |
+| Astro 6                           | Static site generation (zero-JS architecture)     |
+| UnoCSS (presetWind3)              | Utility-first CSS                                 |
+| Cloudflare Pages                  | Hosting, CDN, header control                      |
+| @fontsource-variable/noto-sans-jp | Self-hosted Japanese font                         |
+| Cloudflare Images                 | Image transformations (auto AVIF/WebP conversion) |
+| Pagefind                          | Full-text search for static sites                 |
 
 ---
 

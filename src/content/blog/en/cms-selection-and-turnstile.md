@@ -4,7 +4,7 @@ description: 'A record of evaluating Keystatic, Sveltia CMS, and Pages CMS, ulti
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 compareTable:
   title: CMS Comparison
   before:
@@ -89,12 +89,12 @@ We introduced Cloudflare Turnstile as spam protection for the contact form.
 
 Google reCAPTCHA v2 forces users to select images, and v3 is score-based but raises privacy concerns. Cloudflare Turnstile is superior in the following ways:
 
-| Comparison | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| --- | --- | --- | --- |
-| User action | Image selection required | Not required | Not required |
-| Privacy | Cookie-based tracking | Behavior analysis | Minimal data collection |
-| Performance | Heavy | Moderate | Light |
-| Pricing | Free (limited) | Free (limited) | Free (unlimited) |
+| Comparison  | reCAPTCHA v2             | reCAPTCHA v3      | Turnstile               |
+| ----------- | ------------------------ | ----------------- | ----------------------- |
+| User action | Image selection required | Not required      | Not required            |
+| Privacy     | Cookie-based tracking    | Behavior analysis | Minimal data collection |
+| Performance | Heavy                    | Moderate          | Light                   |
+| Pricing     | Free (limited)           | Free (limited)    | Free (unlimited)        |
 
 ### Implementation
 

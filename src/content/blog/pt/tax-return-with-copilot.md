@@ -4,7 +4,7 @@ description: 'Da classificação e verificação de 837 lançamentos contábeis 
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Fluxo geral da declaração com Copilot
   steps:
@@ -104,15 +104,15 @@ Em resumo, operar a tela é possível com outras ferramentas, mas **a divisão d
 
 Na colaboração com o Copilot, o mais importante foi **estruturar conhecimento e tarefas em arquivos Markdown**. Configuração de arquivos utilizada:
 
-| Arquivo | Função |
-| --- | --- |
-| `politicas.md` | Regras de mapeamento: padrão de descrição → conta contábil (16 seções). Critério de julgamento para classificação de lançamentos pelo Copilot |
-| `tarefas.md` | Hub de gerenciamento de progresso geral da declaração. Gerenciamento com ✅ do status de 38 comprovantes |
-| `tarefas-declaracao.md` | Questões pendentes e notas de pesquisa da fase de entrada da declaração. Fatos e inferências separados |
-| `tarefas-declaracao_concluido.md` | Itens concluídos/suspensos movidos para evitar inchaço do arquivo de trabalho |
-| `verificacao-inconsistencias.md` | Relatório de confrontação entre políticas e livro-razão. Referência a seções §do guia de políticas |
-| `relatorio-revisao-MF.md` | Revisão de BS/PL. Gerenciamento por ID de problema (A1, B1 etc.) e severidade |
-| `tabela-correspondencia-razao.md` | Registro com todas as 837 entradas do livro-razão categorizadas em tabelas |
+| Arquivo                           | Função                                                                                                                                        |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `politicas.md`                    | Regras de mapeamento: padrão de descrição → conta contábil (16 seções). Critério de julgamento para classificação de lançamentos pelo Copilot |
+| `tarefas.md`                      | Hub de gerenciamento de progresso geral da declaração. Gerenciamento com ✅ do status de 38 comprovantes                                      |
+| `tarefas-declaracao.md`           | Questões pendentes e notas de pesquisa da fase de entrada da declaração. Fatos e inferências separados                                        |
+| `tarefas-declaracao_concluido.md` | Itens concluídos/suspensos movidos para evitar inchaço do arquivo de trabalho                                                                 |
+| `verificacao-inconsistencias.md`  | Relatório de confrontação entre políticas e livro-razão. Referência a seções §do guia de políticas                                            |
+| `relatorio-revisao-MF.md`         | Revisão de BS/PL. Gerenciamento por ID de problema (A1, B1 etc.) e severidade                                                                 |
+| `tabela-correspondencia-razao.md` | Registro com todas as 837 entradas do livro-razão categorizadas em tabelas                                                                    |
 
 O Copilot **lê esses arquivos .md para tomar decisões e escreve para registrar**. O humano lê exatamente os mesmos arquivos para entender a situação. Os arquivos Markdown funcionam como workspace compartilhado entre humano e IA.
 
@@ -128,17 +128,17 @@ A estrutura deste guia é o ponto-chave. Cada seção está no formato `### Padr
 
 As regras de classificação definidas abrangem 15 seções:
 
-| Categoria | Conta | Exemplos |
-| --- | --- | --- |
-| Depósitos de clientes | Receita | Depósitos mensais |
-| Parcela de financiamento | Retirada pessoal | Débito automático de conta pessoal |
-| Recarga de pagamento QR | Retirada/Aporte pessoal | Recarga e estorno de conta pessoal |
-| Transferência entre contas | Depósito bancário | Conta empresarial ↔ conta pessoal |
-| ISP / SaaS | Comunicação | GitHub, Cloudflare, ChatGPT, Canva etc. |
-| Publicidade web / Redes sociais | Publicidade | Google Ads, X Premium, SocialDog etc. |
-| Transporte | Viagem e transporte | Trem-bala, táxi, espaço de teletrabalho |
-| Uso de Suica | Viagem e transporte | Registros individuais de trem/ônibus com método de adiantamento |
-| Compras em e-commerce | Material de consumo | Periféricos de PC, ferramentas |
+| Categoria                       | Conta                   | Exemplos                                                        |
+| ------------------------------- | ----------------------- | --------------------------------------------------------------- |
+| Depósitos de clientes           | Receita                 | Depósitos mensais                                               |
+| Parcela de financiamento        | Retirada pessoal        | Débito automático de conta pessoal                              |
+| Recarga de pagamento QR         | Retirada/Aporte pessoal | Recarga e estorno de conta pessoal                              |
+| Transferência entre contas      | Depósito bancário       | Conta empresarial ↔ conta pessoal                               |
+| ISP / SaaS                      | Comunicação             | GitHub, Cloudflare, ChatGPT, Canva etc.                         |
+| Publicidade web / Redes sociais | Publicidade             | Google Ads, X Premium, SocialDog etc.                           |
+| Transporte                      | Viagem e transporte     | Trem-bala, táxi, espaço de teletrabalho                         |
+| Uso de Suica                    | Viagem e transporte     | Registros individuais de trem/ônibus com método de adiantamento |
+| Compras em e-commerce           | Material de consumo     | Periféricos de PC, ferramentas                                  |
 
 ## Fase 2: Classificação e verificação de 837 lançamentos
 
@@ -150,16 +150,16 @@ Método específico: O Copilot abriu a tela do livro-razão do MF Cloud no Simpl
 
 Resultado: **8 inconsistências** detectadas:
 
-| Descrição | Conta no guia | Lançamento real | Ação |
-| --- | --- | --- | --- |
-| Premium de rede social | Retirada pessoal (uso pessoal) | Publicidade | Rede social empresarial, então publicidade é correto |
-| Ferramenta de design | Retirada pessoal (uso pessoal) | Comunicação | Ferramenta empresarial, então comunicação é correto |
-| Serviço de chat IA | Retirada pessoal (uso pessoal) | Comunicação | Ferramenta empresarial, então comunicação é correto |
-| Aluguel de bateria portátil | Comunicação | Retirada pessoal | Uso pessoal, então retirada pessoal é correto |
-| Compras em app (múltiplos apps) | Comunicação uniforme | Dividido por app | Rotas→comunicação, bloqueador→retirada pessoal etc. |
-| Anúncio em vídeo (fatura por limiar) | Classificado em seção de uso pessoal | Publicidade | Erro de posicionamento no guia corrigido |
-| Compra e-commerce (periférico PC) | Livros | Material de consumo | Conta corrigida |
-| Ferramenta de gerenciamento de redes | Comunicação | Publicidade | Operação de redes sociais, então publicidade é correto |
+| Descrição                            | Conta no guia                        | Lançamento real     | Ação                                                   |
+| ------------------------------------ | ------------------------------------ | ------------------- | ------------------------------------------------------ |
+| Premium de rede social               | Retirada pessoal (uso pessoal)       | Publicidade         | Rede social empresarial, então publicidade é correto   |
+| Ferramenta de design                 | Retirada pessoal (uso pessoal)       | Comunicação         | Ferramenta empresarial, então comunicação é correto    |
+| Serviço de chat IA                   | Retirada pessoal (uso pessoal)       | Comunicação         | Ferramenta empresarial, então comunicação é correto    |
+| Aluguel de bateria portátil          | Comunicação                          | Retirada pessoal    | Uso pessoal, então retirada pessoal é correto          |
+| Compras em app (múltiplos apps)      | Comunicação uniforme                 | Dividido por app    | Rotas→comunicação, bloqueador→retirada pessoal etc.    |
+| Anúncio em vídeo (fatura por limiar) | Classificado em seção de uso pessoal | Publicidade         | Erro de posicionamento no guia corrigido               |
+| Compra e-commerce (periférico PC)    | Livros                               | Material de consumo | Conta corrigida                                        |
+| Ferramenta de gerenciamento de redes | Comunicação                          | Publicidade         | Operação de redes sociais, então publicidade é correto |
 
 "Criar o guia, confrontar com o livro-razão e corrigir o guia quando houver divergência" — ter o Copilot fazendo esse trabalho enquanto edita os arquivos automaticamente foi uma eficiência de outra dimensão comparada a verificar 837 linhas visualmente.
 
@@ -226,13 +226,13 @@ Passamos então a inserir as demais deduções junto com o Copilot via Simple Br
 
 ### Deduções inseridas
 
-| Tipo de dedução | Descrição | Trabalho do Copilot |
-| --- | --- | --- |
-| Dedução de seguro de vida | Dados integrados do Myna Portal + entrada manual | Operou select boxes do formulário e inseriu item por item |
-| Dedução de seguro contra terremotos | Seguro contra terremoto de cooperativa/seguradora | Inseriu valores no formulário |
-| Dedução de cônjuge | Cálculo de renda total do cônjuge | Calculou o valor da renda aplicando a dedução de renda salarial e confirmou o valor da dedução |
-| Dedução de contribuição previdenciária | Previdência + seguro saúde (valores confirmados na Fase 4) | Selecionou tipo na tela de seguridade social da declaração e inseriu valores |
-| Dedução de dependentes (menores de 16 anos) | Não afeta o valor da dedução mas impacta imposto municipal | Verificou status de registro na tela Informações básicas → Família e dependentes |
+| Tipo de dedução                             | Descrição                                                  | Trabalho do Copilot                                                                            |
+| ------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Dedução de seguro de vida                   | Dados integrados do Myna Portal + entrada manual           | Operou select boxes do formulário e inseriu item por item                                      |
+| Dedução de seguro contra terremotos         | Seguro contra terremoto de cooperativa/seguradora          | Inseriu valores no formulário                                                                  |
+| Dedução de cônjuge                          | Cálculo de renda total do cônjuge                          | Calculou o valor da renda aplicando a dedução de renda salarial e confirmou o valor da dedução |
+| Dedução de contribuição previdenciária      | Previdência + seguro saúde (valores confirmados na Fase 4) | Selecionou tipo na tela de seguridade social da declaração e inseriu valores                   |
+| Dedução de dependentes (menores de 16 anos) | Não afeta o valor da dedução mas impacta imposto municipal | Verificou status de registro na tela Informações básicas → Família e dependentes               |
 
 ### Itens analisados e recusados
 

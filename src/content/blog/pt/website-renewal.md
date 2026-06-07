@@ -4,7 +4,7 @@ description: 'Realizamos uma renovação completa do site oficial da Acecore. Ap
 date: 2026-03-12
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-website-renewal.webp
 processFigure:
   title: Fluxo da renovação
   steps:
@@ -57,7 +57,7 @@ O site anterior apresentava conteúdo em formato de feed, mas o novo site conta 
 
 ## Características do novo site
 
-![O novo site foi construído com uma stack tecnológica moderna](https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=400&fit=crop&q=80)
+![O novo site foi construído com uma stack tecnológica moderna](/uploads/acecore-generated/blog-website-renewal.webp)
 
 ### Velocidade de carregamento rápida
 

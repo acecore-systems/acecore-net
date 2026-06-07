@@ -3,8 +3,9 @@ title: 'Astro 站点品质改善指南 ― 从 PageSpeed 移动端99分的达成
 description: '将 Astro + UnoCSS + Cloudflare Pages 架构的站点从性能、SEO、无障碍性、UX 四个维度进行优化，达成 PageSpeed Insights 移动端99分、桌面端全项100分的完整记录。'
 date: 2026-03-25
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-batches.webp
 callout:
   type: tip
   title: 本文的目标读者
@@ -88,12 +89,12 @@ faq:
 
 PageSpeed Insights 背后运行的是 Lighthouse 工具，移动端测试应用了以下节流设置。
 
-| 项目 | 设置值 |
-| --- | --- |
+| 项目     | 设置值                 |
+| -------- | ---------------------- |
 | 下载速度 | 约 1.6 Mbps（slow 4G） |
-| 上传速度 | 约 0.75 Mbps |
-| 延迟 | 150 ms（RTT） |
-| CPU | 4倍降速 |
+| 上传速度 | 约 0.75 Mbps           |
+| 延迟     | 150 ms（RTT）          |
+| CPU      | 4倍降速                |
 
 也就是说，在光纤网络下1秒打开的页面，在 Lighthouse 的模拟中会**需要5~6秒**。仅加载 200 KiB 的 CSS，在 slow 4G 下就会产生**约1秒**的阻塞。
 
@@ -122,12 +123,12 @@ PageSpeed 的评分不是线性的。
 
 尽管面临上述困难，以下评分已可以稳定达成。
 
-| 指标 | 移动端 | 桌面端 |
-| --- | --- | --- |
-| Performance | **99** | **100** |
-| Accessibility | **100** | **100** |
+| 指标           | 移动端  | 桌面端  |
+| -------------- | ------- | ------- |
+| Performance    | **99**  | **100** |
+| Accessibility  | **100** | **100** |
 | Best Practices | **100** | **100** |
-| SEO | **100** | **100** |
+| SEO            | **100** | **100** |
 
 ---
 
@@ -161,14 +162,14 @@ PageSpeed Accessibility 100分通过清除 axe DevTools 和 Lighthouse 的自动
 
 ## 技术栈
 
-| 技术 | 用途 |
-| --- | --- |
-| Astro 6 | 静态站点生成（零 JS 架构） |
-| UnoCSS (presetWind3) | 实用优先 CSS |
-| Cloudflare Pages | 托管·CDN·头部控制 |
-| @fontsource-variable/noto-sans-jp | 日语字体自托管 |
-| Cloudflare Images | 图片转换（AVIF/WebP 自动转换） |
-| Pagefind | 静态站点全文搜索 |
+| 技术                              | 用途                           |
+| --------------------------------- | ------------------------------ |
+| Astro 6                           | 静态站点生成（零 JS 架构）     |
+| UnoCSS (presetWind3)              | 实用优先 CSS                   |
+| Cloudflare Pages                  | 托管·CDN·头部控制              |
+| @fontsource-variable/noto-sans-jp | 日语字体自托管                 |
+| Cloudflare Images                 | 图片转换（AVIF/WebP 自动转换） |
+| Pagefind                          | 静态站点全文搜索               |
 
 ---
 

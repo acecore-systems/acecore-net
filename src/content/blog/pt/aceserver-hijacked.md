@@ -6,6 +6,7 @@ tags:
   - イベント
 author: hatt
 ---
+
 ## **O Aceserver foi invadido**
 
 Estou escrevendo este texto com o último resquício de razão que me resta. Certamente, quando este texto chegar ao público, até esse pouco de sanidade já terá sido completamente corrompido.

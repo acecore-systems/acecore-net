@@ -4,17 +4,17 @@ description: 'Facebook（Meta）のメタバース戦略がいまいちピンと
 date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: メタバースの世界
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: VRヘッドセット
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: 仮想空間のイメージ
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: ゲーミング環境
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ faq:
 
 Meta の Horizon Worlds も、最近は VR なしでブラウザからアクセスできるようになりました。メタバースの入口は「VR デバイス」ではなく「人が集まる仮想空間」なのだと思います。
 
-![VRヘッドセットだけがメタバースへの入口ではない](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![VRヘッドセットだけがメタバースへの入口ではない](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## マインクラフトを活用したコミュニティの可能性
 

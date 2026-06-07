@@ -4,17 +4,17 @@ description: 'Facebook（Meta）的元宇宙战略让人感觉不太真实，而
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: 元宇宙的世界
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: VR 头显
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: 虚拟空间的意象
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: 游戏环境
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ Minecraft 的月活跃用户超过1亿。玩家们在虚拟空间中建造、冒
 
 Meta 的 Horizon Worlds 最近也支持不使用 VR、通过浏览器访问了。我认为元宇宙的入口不是"VR 设备"，而是"人们聚集的虚拟空间"。
 
-![VR 头显并不是通往元宇宙的唯一入口](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![VR 头显并不是通往元宇宙的唯一入口](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## 利用 Minecraft 构建社区的可能性
 
