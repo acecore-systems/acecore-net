@@ -161,8 +161,8 @@ const jaWorksCopy: WorksCopy = {
         'AstroとUnoCSSで軽量な静的ポータルを構築し、Sveltia CMSでトップページやサイト設定を更新できるようにして、Java版・統合版の参加導線を整理しました。',
       result:
         'サーバー概要、参加案内、ワールドマップ、Wikiを一つの入口から案内できるようになり、コミュニティ運営側も情報を継続更新しやすい基盤になりました。',
-      image: '/uploads/acecore-generated/web-production-desk.webp',
-      imageAlt: 'エースサーバーポータルの画面設計イメージ',
+      image: '/uploads/aceserver-portal-screenshot-1600.webp',
+      imageAlt: 'エースサーバーポータルのトップページ画面',
       externalUrl: 'https://asv.acecore.net/',
       externalLabel: 'サイトを見る',
       icon: 'map',
@@ -357,8 +357,8 @@ const enWorksCopy: WorksCopy = {
         'We built a lightweight static portal with Astro and UnoCSS, made top-page and site settings editable through Sveltia CMS, and organized entry paths for both Java and Bedrock players.',
       result:
         'The portal now guides visitors from server overview to joining, world maps, and Wiki content from one entry point, while giving the community team an easier update workflow.',
-      image: '/uploads/acecore-generated/web-production-desk.webp',
-      imageAlt: 'Interface planning image for the Aceserver portal',
+      image: '/uploads/aceserver-portal-screenshot-1600.webp',
+      imageAlt: 'Aceserver portal homepage screenshot',
       externalUrl: 'https://asv.acecore.net/',
       externalLabel: 'View Site',
       icon: 'map',

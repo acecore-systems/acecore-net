@@ -4,7 +4,7 @@ description: '誰でも参加可能なMinecraft無料公開サーバー「エー
 date: 2026-06-07T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro', 'インフラ']
-image: /uploads/acecore-generated/web-production-desk.webp
+image: /uploads/aceserver-portal-screenshot-1600.webp
 callout:
   type: info
   title: 公開サイト
