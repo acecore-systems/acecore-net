@@ -1,7 +1,7 @@
 ---
 title: 'Sveltia CMS 도입 가이드'
 description: 'Astro 같은 정적 사이트에 Sveltia CMS를 도입하는 방법을 GitHub backend, OAuth Worker, 이미지 업로드, 다국어 운영, CMS 전용 PR 흐름, 실제 수정에서 얻은 교훈까지 정리합니다.'
-date: 2026-03-15T00:00
+date: 2026-06-07T16:00
 lastUpdated: 2026-06-07
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']

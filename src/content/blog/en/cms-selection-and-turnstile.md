@@ -1,7 +1,7 @@
 ---
 title: 'Sveltia CMS Setup Guide'
 description: 'A practical guide to adding Sveltia CMS to an Astro or static site, covering the GitHub backend, OAuth Worker, media uploads, multilingual operations, CMS pull requests, and lessons from real fixes.'
-date: 2026-03-15T00:00
+date: 2026-06-07T16:00
 lastUpdated: 2026-06-07
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
