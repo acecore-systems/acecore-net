@@ -83,5 +83,11 @@
   "commentsValidationName": "お名前を入力してください。",
   "commentsValidationBody": "8文字以上のコメントを入力してください。URLは含められません。",
   "commentsValidationTurnstile": "送信前の確認を完了してください。",
-  "commentsSending": "送信中..."
+  "commentsSending": "送信中...",
+  "featurePricingEyebrow": "サービス・料金への導線",
+  "featurePricingTitle": "{title} の相談・料金目安",
+  "featurePricingPriceLabel": "料金目安",
+  "featurePricingServices": "サービスページ",
+  "featurePricingPricing": "料金一覧",
+  "featurePricingContact": "相談する"
 }

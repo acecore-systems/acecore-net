@@ -182,7 +182,13 @@
     "authorLabel": "Autor",
     "archiveTitle": "Archiv: {month}",
     "archiveMeta": "Archiv der Artikel des Acecore-Blogs aus {month}.",
-    "tagListTitle": "Tag-Liste"
+    "tagListTitle": "Tag-Liste",
+    "featurePricingEyebrow": "Service- und Preisführung",
+    "featurePricingTitle": "Beratung und Preisrahmen für {title}",
+    "featurePricingPriceLabel": "Preisrahmen",
+    "featurePricingServices": "Service-Seite",
+    "featurePricingPricing": "Preisübersicht",
+    "featurePricingContact": "Anfragen"
   },
   "meta": {
     "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
@@ -481,7 +487,10 @@
           "CMS-, Blog- und Mediensite-Einrichtung",
           "E-Commerce- und Online-Shop-Entwicklung",
           "SEO-Optimierung, Performance-Tuning und Barrierefreiheitsverbesserungen"
-        ]
+        ],
+        "featureLinksTitle": "Funktionsmenüs mit Artikel-Erklärung",
+        "featureLinksBody": "Web-Produktions- und Betriebsfunktionen aus der Preisübersicht lassen sich zusammen mit den passenden Praxisartikeln prüfen.",
+        "featureLinksArticleLabel": "Artikel lesen"
       },
       "timelineTitle": "Von der Einführung zur kontinuierlichen Verbesserung",
       "design": {
@@ -557,6 +566,83 @@
             "price": "ab 300.000 ¥",
             "note": "Kleine Automatisierungen ab 300.000 ¥, interne Tools ab 500.000 ¥, mittlere Systeme ab 1.500.000 ¥, Integrationen ab 2.500.000 ¥.",
             "href": "/services/#system-development"
+          },
+          {
+            "icon": "message-square",
+            "label": "KI-Kontaktchat",
+            "price": "ab 80.000 ¥",
+            "note": "Einen KI-Kontaktchat in eine statische Website einbauen, inklusive Website-Kontext, Rate Limits, Origin-Prüfung und sicherem Link-Rendering.",
+            "href": "/blog/astro-ai-contact-chat/"
+          },
+          {
+            "icon": "message-square-text",
+            "label": "Blog-Kommentarfunktion",
+            "price": "Ab ¥80.000",
+            "note": "Kommentar-Posting und Spam-Schutz mit Cloudflare Pages Functions, D1 und Turnstile ohne externe Services hinzufügen.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
+            "icon": "layout-template",
+            "label": "CMS-Bearbeitungsoberfläche",
+            "price": "ab 50.000 ¥",
+            "note": "Eine Sveltia-CMS-Oberfläche ergänzen, damit Blogartikel, feste Seiten, Hinweise und Einstellungen im Browser aktualisiert werden können.",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Blog- und Artikelbasis",
+            "price": "ab 50.000 ¥",
+            "note": "Artikellisten, Detailseiten, Tags oder Kategorien, verwandte Beiträge, RSS und Suchpfade für kontinuierliche Veröffentlichung einrichten.",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "Mehrsprachiger Blogbetrieb",
+            "price": "ab 80.000 ¥",
+            "note": "Source-Sprache, Übersetzungs-PRs, hreflang, Sitemap und RSS für den Betrieb eines mehrsprachigen Blogs einrichten.",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO und strukturierte Daten",
+            "price": "ab 50.000 ¥",
+            "note": "OGP, JSON-LD, Sitemaps, RSS, Canonicals und Metadaten für Suchmaschinen sauber strukturieren.",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Pagefind-Site-Suche",
+            "price": "ab 30.000 ¥",
+            "note": "Pagefind-Suche in eine statische Website einbauen, inklusive Such-UI, URL-Parametern und Cache-Einstellungen.",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "Performance-Optimierung",
+            "price": "ab 50.000 ¥",
+            "note": "Bilder, CSS, Fonts, Lazy Loading und Messergebnisse prüfen, um Core Web Vitals zu verbessern.",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "Barrierefreiheit verbessern",
+            "price": "ab 50.000 ¥",
+            "note": "Kontrast, ARIA-Attribute, Fokuszustände und Formularvalidierung prüfen und in Richtung WCAG AA verbessern.",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "Security Headers / CSP",
+            "price": "ab 30.000 ¥",
+            "note": "Cloudflare-Pages-_headers, CSP und Auslieferung der Admin-Oberfläche für eine sicherere Veröffentlichung bereinigen.",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA- und Formularübergabe",
+            "price": "ab 30.000 ¥",
+            "note": "Service-Typ, Betreff und Seitenkontext von CTAs an das Kontaktformular übergeben und die Anfrageführung verbessern.",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -981,6 +1067,83 @@
           "price": "ab 300.000 ¥",
           "body": "Kleine Automatisierungen ab 300.000 ¥, interne Tools ab 500.000 ¥, mittlere Systeme ab 1.500.000 ¥ und Integrationen ab 2.500.000 ¥.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "KI-Kontaktchat",
+          "price": "ab 80.000 ¥",
+          "body": "Einen KI-Kontaktchat in eine statische Website einbauen, inklusive Website-Kontext, Rate Limits, Origin-Prüfung und sicherem Link-Rendering.",
+          "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "Blog-Kommentarfunktion",
+          "price": "Ab ¥80.000",
+          "body": "Kommentar-Posting, D1-Speicherung, Turnstile-Bot-Schutz, Origin-Kontrolle und Moderationsabläufe ohne externe Kommentarservices einrichten.",
+          "href": "/blog/cloudflare-only-blog-comments/"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS-Bearbeitungsoberfläche",
+          "price": "ab 50.000 ¥",
+          "body": "Eine Sveltia-CMS-Oberfläche ergänzen, damit Blogartikel, feste Seiten, Hinweise und Einstellungen im Browser aktualisiert werden können.",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Blog- und Artikelbasis",
+          "price": "ab 50.000 ¥",
+          "body": "Artikellisten, Detailseiten, Tags oder Kategorien, verwandte Beiträge, RSS und Suchpfade für kontinuierliche Veröffentlichung einrichten.",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "Mehrsprachiger Blogbetrieb",
+          "price": "ab 80.000 ¥",
+          "body": "Source-Sprache, Übersetzungs-PRs, hreflang, Sitemap und RSS für den Betrieb eines mehrsprachigen Blogs einrichten.",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO und strukturierte Daten",
+          "price": "ab 50.000 ¥",
+          "body": "OGP, JSON-LD, Sitemaps, RSS, Canonicals und Metadaten für Suchmaschinen sauber strukturieren.",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Pagefind-Site-Suche",
+          "price": "ab 30.000 ¥",
+          "body": "Pagefind-Suche in eine statische Website einbauen, inklusive Such-UI, URL-Parametern und Cache-Einstellungen.",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "Performance-Optimierung",
+          "price": "ab 50.000 ¥",
+          "body": "Bilder, CSS, Fonts, Lazy Loading und Messergebnisse prüfen, um Core Web Vitals zu verbessern.",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "Barrierefreiheit verbessern",
+          "price": "ab 50.000 ¥",
+          "body": "Kontrast, ARIA-Attribute, Fokuszustände und Formularvalidierung prüfen und in Richtung WCAG AA verbessern.",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "Security Headers / CSP",
+          "price": "ab 30.000 ¥",
+          "body": "Cloudflare-Pages-_headers, CSP und Auslieferung der Admin-Oberfläche für eine sicherere Veröffentlichung bereinigen.",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA- und Formularübergabe",
+          "price": "ab 30.000 ¥",
+          "body": "Service-Typ, Betreff und Seitenkontext von CTAs an das Kontaktformular übergeben und die Anfrageführung verbessern.",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",
