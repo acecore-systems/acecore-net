@@ -1603,6 +1603,9 @@ collections:
                       - { label: 'Schools', value: graduation-cap }
                       - { label: 'Aceserver', value: gamepad-2 }
                       - { label: 'AceStudio', value: clapperboard }
+                      - { label: 'コメント', value: message-square }
+                      - { label: 'ブログ', value: newspaper }
+                      - { label: 'CMS', value: layout-template }
                       - { label: '相談', value: messages-square }
                   - name: 'label'
                     label: '項目名'
@@ -1716,6 +1719,9 @@ collections:
                   - { label: 'Schools', value: graduation-cap }
                   - { label: 'AceStudio', value: clapperboard }
                   - { label: 'Aceserver', value: gamepad-2 }
+                  - { label: 'コメント', value: message-square }
+                  - { label: 'ブログ', value: newspaper }
+                  - { label: 'CMS', value: layout-template }
                   - { label: '相談', value: messages-square }
               - name: 'title'
                 label: 'カード見出し'

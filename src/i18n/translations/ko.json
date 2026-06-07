@@ -735,6 +735,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "댓글 기능",
+            "price": "10만 엔〜",
+            "note": "게시, 표시, 승인 흐름, 스팸 방지, 알림까지 포함해 추가할 수 있습니다.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "블로그 기능",
+            "price": "15만 엔〜",
+            "note": "글 목록/상세, 카테고리/태그, 관련 글, OGP/SEO, 검색 연동까지 지원합니다.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "CMS 도입",
+            "price": "20만 엔〜",
+            "note": "고정 페이지, 블로그, 공지, 설정 항목을 관리 화면에서 수정할 수 있게 합니다.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "서버 구축 및 운영",
             "price": "초기 10만〜50만 엔",
@@ -927,6 +948,27 @@
           "price": "30만 엔〜",
           "body": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "댓글 기능",
+          "price": "10만 엔〜",
+          "body": "기존 사이트나 앱에 게시, 표시, 승인 흐름, 스팸 방지, 알림까지 포함한 댓글 기능을 추가합니다.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "블로그 기능",
+          "price": "15만 엔〜",
+          "body": "글 목록/상세, 카테고리/태그, 관련 글, OGP/SEO 설정, 검색 연동 등 발신에 필요한 기능을 정비합니다.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS 도입",
+          "price": "20만 엔〜",
+          "body": "Sveltia CMS, Pages CMS 등으로 고정 페이지, 블로그, 공지, 설정 항목을 관리 화면에서 업데이트할 수 있게 합니다.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

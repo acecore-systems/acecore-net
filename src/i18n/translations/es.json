@@ -735,6 +735,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "Función de comentarios",
+            "price": "desde ¥100.000",
+            "note": "Añade publicación, visualización, moderación, protección antispam y notificaciones.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Función de blog",
+            "price": "desde ¥150.000",
+            "note": "Listados y detalle de artículos, categorías/etiquetas, relacionados, OGP/SEO y búsqueda.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "Implementación de CMS",
+            "price": "desde ¥200.000",
+            "note": "Páginas, entradas, avisos y ajustes quedan editables desde una pantalla de administración.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "Construcción y operación de servidores",
             "price": "inicial ¥100.000-¥500.000",
@@ -927,6 +948,27 @@
           "price": "desde ¥300.000",
           "body": "Automatizaciones pequeñas desde ¥300.000, herramientas internas desde ¥500.000, sistemas medianos desde ¥1.500.000 e integraciones desde ¥2.500.000.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "Función de comentarios",
+          "price": "desde ¥100.000",
+          "body": "Añadimos publicación, visualización, flujo de moderación, protección antispam y notificaciones a un sitio o app existente.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Función de blog",
+          "price": "desde ¥150.000",
+          "body": "Preparamos las funciones de publicación necesarias: listados y detalle de artículos, categorías/etiquetas, artículos relacionados, ajustes OGP/SEO e integración de búsqueda.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "Implementación de CMS",
+          "price": "desde ¥200.000",
+          "body": "Con Sveltia CMS, Pages CMS u opciones similares, páginas, entradas de blog, avisos y ajustes pueden actualizarse desde una pantalla de administración.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

@@ -735,6 +735,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "评论功能",
+            "price": "10万日元起",
+            "note": "可追加发布、显示、审核流程、防垃圾信息和通知。",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "博客功能",
+            "price": "15万日元起",
+            "note": "支持文章列表/详情、分类/标签、相关文章、OGP/SEO和搜索联动。",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "CMS导入",
+            "price": "20万日元起",
+            "note": "让固定页面、博客、公告和设置项可通过管理界面更新。",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "服务器构建与运维",
             "price": "初期10万〜50万日元",
@@ -927,6 +948,27 @@
           "price": "30万日元起",
           "body": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "评论功能",
+          "price": "10万日元起",
+          "body": "为现有网站或应用追加发布、显示、审核流程、防垃圾信息和通知等评论功能。",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "博客功能",
+          "price": "15万日元起",
+          "body": "整理发布所需功能，包括文章列表/详情、分类/标签、相关文章、OGP/SEO设置和搜索联动。",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS导入",
+          "price": "20万日元起",
+          "body": "通过 Sveltia CMS、Pages CMS 等，让固定页面、博客、公告和设置项可从管理界面更新。",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

@@ -129,6 +129,27 @@
         "href": "/services/#system-development"
       },
       {
+        "icon": "message-square",
+        "label": "コメント機能",
+        "price": "10万円〜",
+        "note": "投稿・表示・承認フロー、スパム対策、通知まで含めて追加できます。",
+        "href": "/services/#system-development"
+      },
+      {
+        "icon": "newspaper",
+        "label": "ブログ機能",
+        "price": "15万円〜",
+        "note": "記事一覧・詳細、カテゴリ/タグ、関連記事、OGP/SEO、検索連携まで対応します。",
+        "href": "/services/#web"
+      },
+      {
+        "icon": "layout-template",
+        "label": "CMS導入",
+        "price": "20万円〜",
+        "note": "固定ページ、ブログ、お知らせ、設定項目を管理画面から更新できるようにします。",
+        "href": "/services/#web"
+      },
+      {
         "icon": "server",
         "label": "サーバー構築・運用",
         "price": "初期10万〜50万円",

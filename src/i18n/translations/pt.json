@@ -735,6 +735,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "Recurso de comentários",
+            "price": "a partir de ¥100.000",
+            "note": "Inclui envio, exibição, moderação, proteção antispam e notificações.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Recurso de blog",
+            "price": "a partir de ¥150.000",
+            "note": "Lista/detalhe de posts, categorias/tags, relacionados, OGP/SEO e busca.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "Configuração de CMS",
+            "price": "a partir de ¥200.000",
+            "note": "Páginas, posts, avisos e configurações ficam editáveis por uma tela administrativa.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "Construção e operação de servidores",
             "price": "inicial ¥100.000-¥500.000",
@@ -927,6 +948,27 @@
           "price": "a partir de ¥300.000",
           "body": "Automação pequena a partir de ¥300.000, ferramentas internas a partir de ¥500.000, sistemas médios a partir de ¥1.500.000 e integrações a partir de ¥2.500.000.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "Recurso de comentários",
+          "price": "a partir de ¥100.000",
+          "body": "Adiciona envio, exibição, fluxo de moderação, proteção antispam e notificações a um site ou app existente.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Recurso de blog",
+          "price": "a partir de ¥150.000",
+          "body": "Preparamos as funções de publicação necessárias: lista e detalhe de posts, categorias/tags, posts relacionados, OGP/SEO e integração de busca.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "Configuração de CMS",
+          "price": "a partir de ¥200.000",
+          "body": "Com Sveltia CMS, Pages CMS ou ferramentas similares, páginas, posts, avisos e configurações podem ser atualizados por uma tela administrativa.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

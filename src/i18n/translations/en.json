@@ -507,6 +507,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "Comment Feature",
+            "price": "From ¥100,000",
+            "note": "Adds posting, display, moderation workflow, spam protection, and notifications.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Blog Feature",
+            "price": "From ¥150,000",
+            "note": "Article lists/details, categories/tags, related posts, OGP/SEO, and search integration.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "CMS Setup",
+            "price": "From ¥200,000",
+            "note": "Make pages, blog posts, announcements, and settings editable from an admin screen.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "Server Setup & Operations",
             "price": "Initial ¥100,000-¥500,000",
@@ -927,6 +948,27 @@
           "price": "From ¥300,000",
           "body": "Small automation starts from ¥300,000, business tools from ¥500,000, mid-sized systems from ¥1,500,000, and integrated systems from ¥2,500,000.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "Comment Feature",
+          "price": "From ¥100,000",
+          "body": "Add posting, display, moderation workflow, spam protection, and notifications to an existing site or app.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Blog Feature",
+          "price": "From ¥150,000",
+          "body": "Prepare the publishing features you need: article lists and details, categories/tags, related posts, OGP/SEO settings, and search integration.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS Setup",
+          "price": "From ¥200,000",
+          "body": "Use Sveltia CMS, Pages CMS, or similar tools so pages, blog posts, announcements, and settings can be updated from an admin screen.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

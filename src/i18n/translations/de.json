@@ -559,6 +559,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "Kommentarfunktion",
+            "price": "ab 100.000 ¥",
+            "note": "Ergänzt Veröffentlichung, Anzeige, Moderation, Spam-Schutz und Benachrichtigungen.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Blog-Funktion",
+            "price": "ab 150.000 ¥",
+            "note": "Artikellisten und Detailseiten, Kategorien/Tags, verwandte Beiträge, OGP/SEO und Suche.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "CMS-Einrichtung",
+            "price": "ab 200.000 ¥",
+            "note": "Seiten, Blogartikel, Ankündigungen und Einstellungen werden über ein Admin-UI bearbeitbar.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "Serveraufbau und Betrieb",
             "price": "Initial 100.000-500.000 ¥",
@@ -981,6 +1002,27 @@
           "price": "ab 300.000 ¥",
           "body": "Kleine Automatisierungen ab 300.000 ¥, interne Tools ab 500.000 ¥, mittlere Systeme ab 1.500.000 ¥ und Integrationen ab 2.500.000 ¥.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "Kommentarfunktion",
+          "price": "ab 100.000 ¥",
+          "body": "Ergänzt bestehende Websites oder Apps um Veröffentlichung, Anzeige, Moderationsabläufe, Spam-Schutz und Benachrichtigungen.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Blog-Funktion",
+          "price": "ab 150.000 ¥",
+          "body": "Richtet die nötigen Publishing-Funktionen ein: Artikellisten und Detailseiten, Kategorien/Tags, verwandte Beiträge, OGP/SEO-Einstellungen und Suchintegration.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS-Einrichtung",
+          "price": "ab 200.000 ¥",
+          "body": "Mit Sveltia CMS, Pages CMS oder ähnlichen Tools lassen sich Seiten, Blogartikel, Ankündigungen und Einstellungen über ein Admin-UI bearbeiten.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",

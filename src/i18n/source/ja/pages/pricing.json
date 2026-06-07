@@ -31,6 +31,27 @@
       "href": "/services/#system-development"
     },
     {
+      "icon": "message-square",
+      "title": "コメント機能",
+      "price": "10万円〜",
+      "body": "既存サイトやアプリに、投稿・表示・承認フロー、スパム対策、通知まで含めたコメント機能を追加します。",
+      "href": "/services/#system-development"
+    },
+    {
+      "icon": "newspaper",
+      "title": "ブログ機能",
+      "price": "15万円〜",
+      "body": "記事一覧・詳細、カテゴリ/タグ、関連記事、OGP/SEO設定、検索連携まで、発信に必要な機能を整えます。",
+      "href": "/services/#web"
+    },
+    {
+      "icon": "layout-template",
+      "title": "CMS導入",
+      "price": "20万円〜",
+      "body": "Sveltia CMSやPages CMSなどで、固定ページ・ブログ・お知らせ・設定項目を管理画面から更新できるようにします。",
+      "href": "/services/#web"
+    },
+    {
       "icon": "server",
       "title": "サーバー構築・運用",
       "price": "初期10万〜50万円",

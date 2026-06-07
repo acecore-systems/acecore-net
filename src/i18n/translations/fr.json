@@ -735,6 +735,27 @@
             "href": "/services/#system-development"
           },
           {
+            "icon": "message-square",
+            "label": "Fonction commentaires",
+            "price": "à partir de 100 000 ¥",
+            "note": "Ajout de publication, affichage, modération, protection anti-spam et notifications.",
+            "href": "/services/#system-development"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Fonction blog",
+            "price": "à partir de 150 000 ¥",
+            "note": "Listes et pages d'articles, catégories/tags, articles liés, OGP/SEO et recherche.",
+            "href": "/services/#web"
+          },
+          {
+            "icon": "layout-template",
+            "label": "Mise en place CMS",
+            "price": "à partir de 200 000 ¥",
+            "note": "Pages, articles, annonces et paramètres deviennent modifiables depuis une interface d'administration.",
+            "href": "/services/#web"
+          },
+          {
             "icon": "server",
             "label": "Mise en place et exploitation de serveurs",
             "price": "initial 100 000-500 000 ¥",
@@ -927,6 +948,27 @@
           "price": "à partir de 300 000 ¥",
           "body": "Petites automatisations dès 300 000 ¥, outils métier dès 500 000 ¥, systèmes moyens dès 1 500 000 ¥ et intégrations dès 2 500 000 ¥.",
           "href": "/services/#system-development"
+        },
+        {
+          "icon": "message-square",
+          "title": "Fonction commentaires",
+          "price": "à partir de 100 000 ¥",
+          "body": "Ajout de publication, affichage, parcours de modération, protection anti-spam et notifications à un site ou une application existante.",
+          "href": "/services/#system-development"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Fonction blog",
+          "price": "à partir de 150 000 ¥",
+          "body": "Mise en place des fonctions de publication nécessaires : listes et pages d'articles, catégories/tags, articles liés, réglages OGP/SEO et intégration de la recherche.",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "layout-template",
+          "title": "Mise en place CMS",
+          "price": "à partir de 200 000 ¥",
+          "body": "Avec Sveltia CMS, Pages CMS ou un outil similaire, les pages, articles, annonces et paramètres peuvent être mis à jour depuis une interface d'administration.",
+          "href": "/services/#web"
         },
         {
           "icon": "server",
