@@ -1,7 +1,7 @@
 ---
 title: 'Sveltia CMS 导入指南'
 description: '总结在 Astro 等静态网站中导入 Sveltia CMS 的方法，涵盖 GitHub backend、OAuth Worker、图片上传、多语言运维、CMS 专用 PR 流程以及实际修正中得到的经验。'
-date: 2026-03-15T00:00
+date: 2026-06-07T16:00
 lastUpdated: 2026-06-07
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
