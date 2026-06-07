@@ -575,6 +575,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "Blog-Kommentarfunktion",
+            "price": "Ab ¥80.000",
+            "note": "Kommentar-Posting und Spam-Schutz mit Cloudflare Pages Functions, D1 und Turnstile ohne externe Services hinzufügen.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "CMS-Bearbeitungsoberfläche",
             "price": "ab 50.000 ¥",
@@ -1067,6 +1074,13 @@
           "price": "ab 80.000 ¥",
           "body": "Einen KI-Kontaktchat in eine statische Website einbauen, inklusive Website-Kontext, Rate Limits, Origin-Prüfung und sicherem Link-Rendering.",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "Blog-Kommentarfunktion",
+          "price": "Ab ¥80.000",
+          "body": "Kommentar-Posting, D1-Speicherung, Turnstile-Bot-Schutz, Origin-Kontrolle und Moderationsabläufe ohne externe Kommentarservices einrichten.",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",

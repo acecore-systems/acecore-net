@@ -751,6 +751,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "Fonction de commentaires de blog",
+            "price": "À partir de 80 000 ¥",
+            "note": "Ajouter commentaires et anti-spam avec Cloudflare Pages Functions, D1 et Turnstile sans dépendre d’un service externe.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "Interface de gestion CMS",
             "price": "à partir de 50 000 ¥",
@@ -1013,6 +1020,13 @@
           "price": "à partir de 80 000 ¥",
           "body": "Ajouter un chat de contact IA à un site statique, avec contexte du site, limitation de débit, vérification Origin et rendu sûr des liens.",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "Fonction de commentaires de blog",
+          "price": "À partir de 80 000 ¥",
+          "body": "Mettre en place la publication de commentaires, le stockage D1, la protection Turnstile, le contrôle d’origine et la modération sans service externe.",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",

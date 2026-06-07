@@ -1616,6 +1616,7 @@ collections:
                       - { label: 'Aceserver', value: gamepad-2 }
                       - { label: 'AceStudio', value: clapperboard }
                       - { label: '問い合わせAI', value: message-square }
+                      - { label: 'コメント機能', value: message-square-text }
                       - { label: 'ブログ基盤', value: newspaper }
                       - { label: 'CMS', value: layout-template }
                       - { label: '多言語', value: languages }
@@ -1739,6 +1740,7 @@ collections:
                   - { label: 'AceStudio', value: clapperboard }
                   - { label: 'Aceserver', value: gamepad-2 }
                   - { label: '問い合わせAI', value: message-square }
+                  - { label: 'コメント機能', value: message-square-text }
                   - { label: 'ブログ基盤', value: newspaper }
                   - { label: 'CMS', value: layout-template }
                   - { label: '多言語', value: languages }

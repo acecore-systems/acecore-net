@@ -523,6 +523,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "Blog Comments Feature",
+            "price": "From ¥80,000",
+            "note": "Add comment posting and spam protection with Cloudflare Pages Functions, D1, and Turnstile without relying on external services.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "CMS Editing Screen",
             "price": "From ¥50,000",
@@ -1013,6 +1020,13 @@
           "price": "From ¥80,000",
           "body": "Add an AI contact chat to a static site, including site context, rate limits, Origin checks, and safe link rendering.",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "Blog Comments Feature",
+          "price": "From ¥80,000",
+          "body": "Build comment posting, D1 storage, Turnstile bot protection, origin controls, and moderation workflow without external comment services.",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",

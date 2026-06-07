@@ -751,6 +751,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "블로그 댓글 기능",
+            "price": "¥80,000부터",
+            "note": "Cloudflare Pages Functions, D1, Turnstile로 외부 서비스에 의존하지 않는 댓글 작성과 스팸 대책을 추가합니다.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "CMS 편집 화면 도입",
             "price": "5만 엔〜",
@@ -1013,6 +1020,13 @@
           "price": "8만 엔〜",
           "body": "정적 사이트에 문의 AI 채팅을 넣고 사이트 문맥, 레이트 리밋, Origin 확인, 안전한 링크 렌더링까지 정리합니다.",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "블로그 댓글 기능",
+          "price": "¥80,000부터",
+          "body": "외부 댓글 서비스 없이 댓글 작성 API, D1 저장소, Turnstile 봇 차단, Origin 제어, 삭제 운영까지 구성합니다.",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",

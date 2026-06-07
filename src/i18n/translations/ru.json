@@ -751,6 +751,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "Комментарии в блоге",
+            "price": "От ¥80 000",
+            "note": "Добавить комментарии и защиту от спама через Cloudflare Pages Functions, D1 и Turnstile без внешних сервисов.",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "Экран редактирования CMS",
             "price": "от 50 000 ¥",
@@ -1013,6 +1020,13 @@
           "price": "от 80 000 ¥",
           "body": "Добавить AI-чат для обращений на статический сайт: контекст сайта, rate limit, проверка Origin и безопасный рендеринг ссылок.",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "Комментарии в блоге",
+          "price": "От ¥80 000",
+          "body": "Настроить публикацию комментариев, хранение в D1, защиту Turnstile, контроль origin и модерацию без внешних сервисов комментариев.",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",

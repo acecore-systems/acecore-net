@@ -38,6 +38,13 @@
       "href": "/blog/astro-ai-contact-chat/"
     },
     {
+      "icon": "message-square-text",
+      "title": "ブログコメント機能",
+      "price": "8万円〜",
+      "body": "Cloudflare Pages Functions、D1、Turnstileを使い、外部コメントサービスに頼らない投稿API、保存先、スパム対策、削除運用を整えます。",
+      "href": "/blog/cloudflare-only-blog-comments/"
+    },
+    {
       "icon": "layout-template",
       "title": "CMS編集画面導入",
       "price": "5万円〜",

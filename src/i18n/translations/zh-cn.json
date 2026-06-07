@@ -751,6 +751,13 @@
             "href": "/blog/astro-ai-contact-chat/"
           },
           {
+            "icon": "message-square-text",
+            "label": "博客评论功能",
+            "price": "¥80,000起",
+            "note": "使用 Cloudflare Pages Functions、D1 和 Turnstile 添加评论发布与反垃圾防护，不依赖外部服务。",
+            "href": "/blog/cloudflare-only-blog-comments/"
+          },
+          {
             "icon": "layout-template",
             "label": "CMS 编辑界面导入",
             "price": "5万日元起",
@@ -1013,6 +1020,13 @@
           "price": "8万日元起",
           "body": "为静态网站加入咨询 AI 聊天，并整理站内上下文、限流、Origin 检查和安全链接渲染。",
           "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "博客评论功能",
+          "price": "¥80,000起",
+          "body": "不依赖外部评论服务，构建评论提交、D1 存储、Turnstile 防护、Origin 控制和删除运营流程。",
+          "href": "/blog/cloudflare-only-blog-comments/"
         },
         {
           "icon": "layout-template",
