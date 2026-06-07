@@ -1,0 +1,30 @@
+{
+  "id": "ai",
+  "name": "AI",
+  "i18n": {
+    "en": {
+      "name": "AI"
+    },
+    "zh-cn": {
+      "name": "AI"
+    },
+    "es": {
+      "name": "IA"
+    },
+    "pt": {
+      "name": "IA"
+    },
+    "fr": {
+      "name": "IA"
+    },
+    "ko": {
+      "name": "AI"
+    },
+    "de": {
+      "name": "KI"
+    },
+    "ru": {
+      "name": "ИИ"
+    }
+  }
+}
