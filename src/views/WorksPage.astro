@@ -121,53 +121,78 @@ const worksLd = {
             >
               <div
                 class:list={[
-                  'grid gap-0 lg:grid-cols-2',
+                  'grid gap-0 lg:min-h-[26rem] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]',
                   index % 2 === 1 ? 'lg:[&>div:first-child]:order-2' : '',
                 ]}
               >
-                <div class="relative aspect-video overflow-hidden">
-                  <img
-                    src={optimizeImage(workCase.image, {
-                      width: 1200,
-                      height: 675,
-                      quality: 80,
-                    })}
-                    srcset={generateSrcSet(
-                      workCase.image,
-                      workImageWidths,
-                      workImageOptions,
+                <div class="flex h-full flex-col bg-slate-50">
+                  <div class="relative aspect-video overflow-hidden border-b border-slate-200 bg-slate-100">
+                    <img
+                      src={optimizeImage(workCase.image, {
+                        width: 1200,
+                        height: 675,
+                        quality: 80,
+                      })}
+                      srcset={generateSrcSet(
+                        workCase.image,
+                        workImageWidths,
+                        workImageOptions,
+                      )}
+                      sizes="(min-width: 1024px) 32rem, calc(100vw - 2rem)"
+                      alt={workCase.imageAlt}
+                      class="absolute inset-0 h-full w-full object-cover"
+                      width="1200"
+                      height="675"
+                      decoding="async"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                    />
+                  </div>
+                  <div class="flex flex-1 flex-col justify-between gap-5 p-5">
+                    <div>
+                      <div class="mb-4 flex flex-wrap items-center gap-3">
+                        <span
+                          class:list={[
+                            'inline-flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
+                            toneClasses[workCase.tone],
+                          ]}
+                        >
+                          <Icon name={workCase.icon} />
+                        </span>
+                        <span class="text-sm font-700 text-brand-600">
+                          {workCase.category}
+                        </span>
+                      </div>
+                      <ul
+                        class="flex flex-wrap gap-2 list-none p-0"
+                        role="list"
+                      >
+                        {workCase.tags.map((tag) => (
+                          <li class="ac-chip-static">{tag}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    {workCase.externalUrl && (
+                      <a
+                        href={workCase.externalUrl}
+                        class="ac-btn-outline inline-flex gap-2 self-start"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon name="external-link" />
+                        {workCase.externalLabel ?? workCase.externalUrl}
+                      </a>
                     )}
-                    sizes="(min-width: 1024px) 32rem, calc(100vw - 2rem)"
-                    alt={workCase.imageAlt}
-                    class="absolute inset-0 h-full w-full object-cover"
-                    width="1200"
-                    height="675"
-                    decoding="async"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                  />
+                  </div>
                 </div>
                 <div class="p-6 sm:p-8">
-                  <div class="mb-4 flex flex-wrap items-center gap-3">
-                    <span
-                      class:list={[
-                        'inline-flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
-                        toneClasses[workCase.tone],
-                      ]}
-                    >
-                      <Icon name={workCase.icon} />
-                    </span>
-                    <span class="text-sm font-700 text-brand-600">
-                      {workCase.category}
-                    </span>
-                  </div>
                   <h3 class="mb-3 text-xl ac-heading sm:text-2xl">
                     {workCase.title}
                   </h3>
-                  <p class="mb-5 leading-relaxed text-slate-600">
+                  <p class="mb-6 leading-relaxed text-slate-600">
                     {workCase.summary}
                   </p>
                   <div class="grid gap-4">
-                    <div>
+                    <div class="border-l-2 border-brand-100 pl-4">
                       <p class="text-sm font-700 text-slate-900 mb-1">
                         {works.challengeLabel}
                       </p>
@@ -175,7 +200,7 @@ const worksLd = {
                         {workCase.challenge}
                       </p>
                     </div>
-                    <div>
+                    <div class="border-l-2 border-brand-100 pl-4">
                       <p class="text-sm font-700 text-slate-900 mb-1">
                         {works.proposalLabel}
                       </p>
@@ -183,7 +208,7 @@ const worksLd = {
                         {workCase.proposal}
                       </p>
                     </div>
-                    <div>
+                    <div class="border-l-2 border-brand-100 pl-4">
                       <p class="text-sm font-700 text-slate-900 mb-1">
                         {works.resultLabel}
                       </p>
@@ -192,25 +217,6 @@ const worksLd = {
                       </p>
                     </div>
                   </div>
-                  <ul
-                    class="mt-5 flex flex-wrap gap-2 list-none p-0"
-                    role="list"
-                  >
-                    {workCase.tags.map((tag) => (
-                      <li class="ac-chip-static">{tag}</li>
-                    ))}
-                  </ul>
-                  {workCase.externalUrl && (
-                    <a
-                      href={workCase.externalUrl}
-                      class="ac-btn-outline mt-6 inline-flex gap-2"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Icon name="external-link" />
-                      {workCase.externalLabel ?? workCase.externalUrl}
-                    </a>
-                  )}
                 </div>
               </div>
             </article>
