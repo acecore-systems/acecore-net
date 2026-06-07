@@ -328,7 +328,7 @@ Si guarda conversaciones, defina primero las reglas de privacidad. Un inicio má
 
 ## Alcance separado
 
-Este artículo trata solo el diseño técnico del chat de IA. Pasar contexto de una página de servicio al formulario es otro tema.
+Este artículo trata solo el diseño técnico del chat de IA. La guía que pasa el contexto de la página de servicio al formulario también está implementada, y está organizada en [Diseño técnico para pasar contexto del CTA de servicio al formulario de contacto](/blog/service-cta-contact-prefill/).
 
 - Chat de IA: ordenar dudas en conversación y guiar con seguridad
 - CTA de servicio: pasar al formulario el contexto que el visitante estaba leyendo

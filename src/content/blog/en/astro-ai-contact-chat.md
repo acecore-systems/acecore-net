@@ -343,7 +343,7 @@ If you store conversation text, define the privacy rules first. A safer first st
 
 ## What Is Left for Another Article
 
-This article focuses only on the technical design of the AI contact chat. Passing service-page context into the contact form is a separate topic.
+This article focuses only on the technical design of the AI contact chat. Passing service-page context into the contact form is also implemented, and that is covered in [Technical design for passing context from a service CTA to the contact form](/blog/service-cta-contact-prefill/).
 
 - AI chat: organize uncertainty through conversation and guide users safely
 - Service CTA: pass the service context a visitor is reading into the form

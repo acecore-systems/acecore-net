@@ -282,7 +282,7 @@ Si vous stockez les conversations, définissez d'abord les règles de confidenti
 
 ## Périmètre séparé
 
-Cet article couvre seulement le design technique du chat IA. Transmettre le contexte d'une page service vers un formulaire est un autre sujet.
+Cet article couvre seulement le design technique du chat IA. Le parcours transmettant le contexte d'une page service vers le formulaire est également implémenté, et est organisé dans [Conception technique pour passer le contexte d'un CTA service vers le formulaire de contact](/blog/service-cta-contact-prefill/).
 
 - Chat IA : clarifier les hésitations par conversation et guider en sécurité
 - CTA service : transmettre au formulaire le contexte lu par le visiteur
