@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro'
-import { generateSrcSet } from '../utils/image'
+import { generateSrcSet, type GenerateSrcSetOptions } from '../utils/image'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
     src: string
     alt: string
     srcsetWidths?: number[]
+    srcsetOptions?: GenerateSrcSetOptions
     sizes?: string
   }[]
   locale?: Locale
@@ -20,10 +21,11 @@ interface Props {
 const { title, titleLines, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
-const heroImageSizes = '(min-width: 1024px) 44rem, calc(100vw - 2.5rem)'
+const heroImageSizes =
+  '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
 const sliderImages = (images ?? []).map((image) => ({
   ...image,
-  srcset: generateSrcSet(image.src, image.srcsetWidths),
+  srcset: generateSrcSet(image.src, image.srcsetWidths, image.srcsetOptions),
   sizes: image.sizes ?? heroImageSizes,
 }))
 const hasSlider = sliderImages.length > 0
@@ -117,8 +119,8 @@ const firstSliderImage = sliderImages[0]
                   sizes={firstSliderImage.sizes}
                   alt={firstSliderImage.alt}
                   class="h-full w-full object-cover saturate-110"
-                  width="1400"
-                  height="600"
+                  width="1280"
+                  height="1280"
                   decoding="async"
                   fetchpriority="high"
                   loading="eager"
@@ -267,8 +269,8 @@ const firstSliderImage = sliderImages[0]
       if (image.sizes) img.sizes = image.sizes
       img.alt = image.alt
       img.className = 'h-full w-full object-cover saturate-110'
-      img.width = 1400
-      img.height = 600
+      img.width = 1280
+      img.height = 1280
       img.decoding = 'async'
       img.fetchPriority = 'low'
       img.loading = 'lazy'

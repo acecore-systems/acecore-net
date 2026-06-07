@@ -17,9 +17,10 @@ const CLOUDFLARE_IMAGE_ORIGIN = SITE.url.replace(/\/$/, '')
 /** Cloudflare Images 変換 API のパスプレフィクス */
 const CLOUDFLARE_IMAGE_PREFIX = '/cdn-cgi/image/'
 /** 通常画像の画質。高DPI環境の粗さを抑えつつ転送量を増やしすぎない値にする。 */
-const DEFAULT_IMAGE_QUALITY = '65'
+const DEFAULT_IMAGE_QUALITY = '75'
 /** 外部画像ソースの取得元を上げる上限。Cloudflare 変換後の表示幅とは別に扱う。 */
 const REMOTE_SOURCE_MAX_WIDTH = 1600
+const REMOTE_SOURCE_MAX_HEIGHT = 1600
 /** 自社管理の公開画像で、Cloudflare 変換を通さず直接配信するオリジン */
 const DIRECT_IMAGE_ORIGINS = new Set(['https://asv.acecore.net'])
 
@@ -36,6 +37,10 @@ type OptimizeImageOptions = {
   width?: number | string
   height?: number | string
   quality?: number | string
+}
+
+export type GenerateSrcSetOptions = Pick<OptimizeImageOptions, 'quality'> & {
+  aspectRatio?: number
 }
 
 /**
@@ -93,22 +98,49 @@ function parseCloudflareImageUrl(url: string): ParsedImageSource | null {
   }
 }
 
-function normalizeRemoteImageSourceUrl(parsed: URL): string {
+function parsePositiveInteger(value: string | undefined): number | undefined {
+  if (!value) return undefined
+
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined
+}
+
+function normalizeRemoteImageSourceUrl(
+  sourceUrl: string,
+  dimensions: { width?: string; height?: string },
+): string {
+  const parsed = new URL(sourceUrl)
   if (parsed.hostname !== 'images.unsplash.com') return parsed.toString()
 
-  const width = Number.parseInt(parsed.searchParams.get('w') ?? '', 10)
-  const height = Number.parseInt(parsed.searchParams.get('h') ?? '', 10)
-  if (!Number.isFinite(width) || width <= 0) return parsed.toString()
+  const sourceWidth = parsePositiveInteger(
+    parsed.searchParams.get('w') ?? undefined,
+  )
+  const sourceHeight = parsePositiveInteger(
+    parsed.searchParams.get('h') ?? undefined,
+  )
+  const requestedWidth = parsePositiveInteger(dimensions.width)
+  const requestedHeight = parsePositiveInteger(dimensions.height)
 
-  const targetWidth = Math.min(width * 2, REMOTE_SOURCE_MAX_WIDTH)
-  if (targetWidth <= width) return parsed.toString()
+  const targetWidth = requestedWidth
+    ? Math.min(requestedWidth, REMOTE_SOURCE_MAX_WIDTH)
+    : sourceWidth
+      ? Math.min(sourceWidth * 2, REMOTE_SOURCE_MAX_WIDTH)
+      : undefined
+  const targetHeight = requestedHeight
+    ? Math.min(requestedHeight, REMOTE_SOURCE_MAX_HEIGHT)
+    : sourceWidth && sourceHeight && targetWidth
+      ? Math.round((sourceHeight * targetWidth) / sourceWidth)
+      : undefined
+
+  if (!targetWidth) return parsed.toString()
 
   parsed.searchParams.set('w', String(targetWidth))
-  if (Number.isFinite(height) && height > 0) {
-    parsed.searchParams.set(
-      'h',
-      String(Math.round((height * targetWidth) / width)),
-    )
+
+  if (targetHeight) {
+    parsed.searchParams.set('h', String(targetHeight))
+    if (!parsed.searchParams.has('fit')) {
+      parsed.searchParams.set('fit', 'crop')
+    }
   }
 
   return parsed.toString()
@@ -131,7 +163,7 @@ function parseImageSource(url: string): ParsedImageSource | null {
     return {
       sourceUrl: isLocalOrigin
         ? `${parsed.pathname}${parsed.search}`
-        : normalizeRemoteImageSourceUrl(parsed),
+        : parsed.toString(),
       width,
       height,
       quality: parsed.searchParams.get('q') ?? undefined,
@@ -164,12 +196,16 @@ function buildCloudflareImageUrl(
   transformOptions.push(`fit=${width && height ? 'cover' : 'scale-down'}`)
   transformOptions.push('format=auto', `quality=${quality}`, 'metadata=none')
 
+  const normalizedSourceUrl = normalizeRemoteImageSourceUrl(
+    sourceUrl,
+    dimensions,
+  )
   const separator = sourceUrl.startsWith('/') ? '' : '/'
-  const transformOrigin = sourceUrl.startsWith('/')
+  const transformOrigin = normalizedSourceUrl.startsWith('/')
     ? ''
     : CLOUDFLARE_IMAGE_ORIGIN
 
-  return `${transformOrigin}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}${separator}${sourceUrl}`
+  return `${transformOrigin}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}${separator}${normalizedSourceUrl}`
 }
 
 /**
@@ -223,16 +259,20 @@ export function optimizeImage(
 export function optimizeImageWithWidth(
   url: string,
   width: number,
-  overrides: Pick<OptimizeImageOptions, 'quality'> = {},
+  overrides: GenerateSrcSetOptions = {},
 ): string {
   if (shouldServeDirectly(url)) return url
 
   const parsed = parseImageSource(url)
   if (!parsed) return url
+  const height =
+    overrides.aspectRatio && overrides.aspectRatio > 0
+      ? String(Math.round(width / overrides.aspectRatio))
+      : undefined
 
   return buildCloudflareImageUrl(
     parsed.sourceUrl,
-    { width: String(width) },
+    { width: String(width), height },
     overrides.quality != null
       ? String(overrides.quality)
       : (parsed.quality ?? DEFAULT_IMAGE_QUALITY),
@@ -243,11 +283,14 @@ export function optimizeImageWithWidth(
 export function generateSrcSet(
   url: string,
   widths: number[] = [480, 640, 960, 1280, 1600],
+  options: GenerateSrcSetOptions = {},
 ): string {
   if (shouldServeDirectly(url)) {
     const maxWidth = widths[widths.length - 1]
     return maxWidth ? `${url} ${maxWidth}w` : url
   }
 
-  return widths.map((w) => `${optimizeImageWithWidth(url, w)} ${w}w`).join(', ')
+  return widths
+    .map((w) => `${optimizeImageWithWidth(url, w, options)} ${w}w`)
+    .join(', ')
 }
