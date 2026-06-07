@@ -49,6 +49,8 @@ type VisibleCampaignNotice = {
   icon: string
   placement: string
   tone: CampaignTone
+  startsAt?: string
+  endsAt?: string
 }
 
 const { locale, placement, page, campaignId } = Astro.props
@@ -120,13 +122,14 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
     const body = notice.body?.trim() || notice.message?.trim() || ''
     const href = notice.href?.trim() ?? ''
     const destination = href ? getDestination(href) : ''
+    const startsAt = notice.startsAt?.trim() || undefined
+    const endsAt = notice.endsAt?.trim() || undefined
 
     if (
       notice.enabled !== true ||
       noticePlacement !== targetPlacement ||
       (campaignId && id !== campaignId) ||
-      title.length === 0 ||
-      !isWithinPublicationWindow(notice.startsAt, notice.endsAt)
+      title.length === 0
     ) {
       return result
     }
@@ -141,6 +144,8 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
       icon: notice.icon?.trim() || 'calendar-check',
       placement: noticePlacement,
       tone: isCampaignTone(notice.tone) ? notice.tone : 'brand',
+      startsAt,
+      endsAt,
     })
 
     return result
@@ -158,6 +163,11 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
         class:list={['border-y py-5', classes.wrap]}
         aria-label={notice.title}
         data-campaign-id={notice.id}
+        data-publication-window="true"
+        data-publication-starts-at={notice.startsAt}
+        data-publication-ends-at={notice.endsAt}
+        data-pagefind-ignore
+        hidden={!isWithinPublicationWindow(notice.startsAt, notice.endsAt)}
       >
         <div class="ac-container flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex min-w-0 items-start gap-3">
@@ -198,3 +208,9 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
     )
   })
 }
+
+<script>
+  import { initPublicationWindowRuntime } from '../scripts/publication-window'
+
+  initPublicationWindowRuntime()
+</script>
