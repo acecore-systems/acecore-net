@@ -21,16 +21,16 @@ const { eyebrow, title, description, items, variant = 'inline' } = Astro.props
 
 const tones = {
   brand: 'text-brand-600',
-  emerald: 'text-emerald-600',
-  amber: 'text-amber-600',
+  emerald: 'text-emerald-700',
+  amber: 'text-amber-700',
   slate: 'text-slate-500',
 } satisfies Record<NonNullable<GridItem['tone']>, string>
 
 const cardTones = {
-  brand: 'border-brand-100 bg-brand-50/60 text-brand-700',
-  emerald: 'border-emerald-100 bg-emerald-50/60 text-emerald-700',
-  amber: 'border-amber-100 bg-amber-50/60 text-amber-700',
-  slate: 'border-slate-200 bg-slate-50/60 text-slate-600',
+  brand: 'border-brand-200 bg-brand-50 text-brand-700',
+  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  amber: 'border-amber-200 bg-amber-50 text-amber-700',
+  slate: 'border-slate-200 bg-slate-50 text-slate-600',
 } satisfies Record<NonNullable<GridItem['tone']>, string>
 
 const isCard = variant === 'card'
@@ -38,50 +38,55 @@ const isCard = variant === 'card'
 
 {
   isCard ? (
-    <div class="insight-grid-card ac-surface overflow-hidden">
-      <div class="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <div class="flex flex-col justify-between px-6 py-6 sm:px-8 sm:py-7">
+    <div class="insight-grid-card ac-surface ac-blueprint-soft overflow-hidden">
+      <div class="grid gap-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+        <div class="flex flex-col justify-between border-b border-slate-200 bg-white/82 px-6 py-6 sm:px-8 sm:py-7 lg:border-b-0 lg:border-r">
           <div>
             {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
             <h2 class="mb-3 text-xl ac-heading sm:text-2xl">{title}</h2>
             {description && (
-              <p class="text-sm ac-muted leading-relaxed max-w-2xl">
+              <p class="max-w-2xl text-sm ac-muted leading-relaxed">
                 {description}
               </p>
             )}
           </div>
           <div class="mt-8 hidden grid-cols-4 gap-2 sm:grid" aria-hidden="true">
-            {items.map((item) => (
-              <div
-                class:list={[
-                  'flex h-12 items-center justify-center rounded-lg border text-base',
-                  cardTones[item.tone ?? 'brand'],
-                ]}
-              >
-                <Icon name={item.icon} />
+            {items.map((item, index) => (
+              <div class="relative">
+                {index > 0 && (
+                  <span class="absolute -left-2 top-1/2 hidden h-px w-2 bg-brand-200 sm:block" />
+                )}
+                <div
+                  class:list={[
+                    'flex h-12 items-center justify-center rounded-md border text-base',
+                    cardTones[item.tone ?? 'brand'],
+                  ]}
+                >
+                  <Icon name={item.icon} />
+                </div>
               </div>
             ))}
           </div>
         </div>
-        <div class="border-t border-slate-200 bg-slate-50/60 px-6 py-6 sm:px-8 sm:py-7 lg:border-l lg:border-t-0">
+        <div class="bg-slate-50/75 px-6 py-6 sm:px-8 sm:py-7">
           <div class="insight-grid-card__items grid gap-4">
             {items.map((item) => (
-              <div class="border-b border-slate-200/80 pb-4 last:border-b-0 last:pb-0">
+              <div class="border-b border-slate-200/90 pb-4 last:border-b-0 last:pb-0">
                 {item.href ? (
                   <a
                     href={item.href}
-                    class="group -m-3 block rounded-lg p-3 no-underline transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+                    class="group -m-3 block rounded-md p-3 no-underline transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                   >
                     <div class="mb-2 flex items-start gap-3">
                       <div
                         class:list={[
-                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm',
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-sm',
                           cardTones[item.tone ?? 'brand'],
                         ]}
                       >
                         <Icon name={item.icon} />
                       </div>
-                      <p class="min-w-0 flex-1 pt-0.5 text-sm font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600">
+                      <p class="min-w-0 flex-1 pt-0.5 text-sm font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600">
                         {item.title}
                       </p>
                       <Icon
@@ -98,13 +103,13 @@ const isCard = variant === 'card'
                     <div class="mb-2 flex items-start gap-3">
                       <div
                         class:list={[
-                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm',
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-sm',
                           cardTones[item.tone ?? 'brand'],
                         ]}
                       >
                         <Icon name={item.icon} />
                       </div>
-                      <p class="min-w-0 pt-0.5 text-sm font-700 leading-snug text-slate-900">
+                      <p class="min-w-0 pt-0.5 text-sm font-800 leading-snug text-slate-950">
                         {item.title}
                       </p>
                     </div>
@@ -124,7 +129,7 @@ const isCard = variant === 'card'
       {(eyebrow || title) && (
         <figcaption class="mb-4">
           {eyebrow && <p class="ac-eyebrow mb-1">{eyebrow}</p>}
-          <p class="text-base font-700 text-slate-800">{title}</p>
+          <p class="text-base font-800 text-slate-900">{title}</p>
           {description && (
             <p class="text-sm text-slate-500 mt-1">{description}</p>
           )}
@@ -142,7 +147,7 @@ const isCard = variant === 'card'
               <Icon name={item.icon} />
             </div>
             <div>
-              <p class="text-sm font-600 text-slate-800">{item.title}</p>
+              <p class="text-sm font-700 text-slate-800">{item.title}</p>
               <p class="text-sm leading-relaxed text-slate-500">
                 {item.description}
               </p>

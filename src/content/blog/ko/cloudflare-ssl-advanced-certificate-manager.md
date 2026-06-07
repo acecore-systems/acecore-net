@@ -4,7 +4,7 @@ description: 'Cloudflare에서 과거 유료 옵션이었던 "Dedicated SSL Cert
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cloudflare-ssl-advanced-certificate-manager.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ Total TLS를 활성화하려면 같은 Edge Certificates 페이지의 **Total TL
 
 ## 요약
 
-| 항목 | Universal SSL(무료) | Advanced Certificate Manager($10/월/존) |
-|---|---|---|
-| 다단계 서브도메인 | ✗ | ✓ |
-| CA 선택 | ✗ | ✓ |
-| 유효기간 지정 | ✗ | ✓ |
-| CN이 자체 도메인 | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| 용도 | 개인/일반 사이트 | 기업/복잡한 서브도메인 구성 |
+| 항목              | Universal SSL(무료) | Advanced Certificate Manager($10/월/존) |
+| ----------------- | ------------------- | --------------------------------------- |
+| 다단계 서브도메인 | ✗                   | ✓                                       |
+| CA 선택           | ✗                   | ✓                                       |
+| 유효기간 지정     | ✗                   | ✓                                       |
+| CN이 자체 도메인  | △                   | ✓                                       |
+| Total TLS         | ✗                   | ✓                                       |
+| 용도              | 개인/일반 사이트    | 기업/복잡한 서브도메인 구성             |
 
 Cloudflare의 “예전에 유료였던 SSL 옵션”은 **Advanced Certificate Manager(구 Dedicated SSL Certificates)**입니다. 무료 Universal SSL로 부족한 경우—특히 다단계 서브도메인 보호와 인증서 세부 제어가 필요한 경우—유효한 선택지입니다.

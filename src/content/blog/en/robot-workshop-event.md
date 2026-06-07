@@ -4,7 +4,7 @@ description: 'AceCore Schools hosted a hands-on robot building workshop during s
 date: 2023-07-19
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
-image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 faq:
   title: FAQ
   items:
@@ -40,7 +40,7 @@ During the actual event, children worked on assembling their robots with focused
 
 Through experiences like these, we aim to foster interest in making things and cultivate the foundations of computational thinking.
 
-![Hands-on experience from assembly to customization with the Tamiya Craft Series](https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=400&fit=crop&q=80)
+![Hands-on experience from assembly to customization with the Tamiya Craft Series](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
 ## Inquiries & Registration
 

@@ -1,10 +1,10 @@
 ---
-title: "Acecores Serviceübersicht: IT-Lösungen aus einer Hand"
+title: 'Acecores Serviceübersicht: IT-Lösungen aus einer Hand'
 description: 'Von der Systementwicklung über Design bis hin zur IT-Bildung — eine detaillierte Vorstellung der fünf Kernservices von Acecore.'
 date: 2026-03-10
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
-image: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-service-introduction.webp
 callout:
   type: info
   title: Acecores Serviceportfolio
@@ -38,7 +38,7 @@ Wir realisieren Lagerverwaltung, CRM, Auftragsverwaltung und mehr in allen Branc
 
 Mit Einsatz modernster Cloud-nativer Technologien bauen wir Systeme mit hervorragender Wartbarkeit und Skalierbarkeit. Wir bieten zudem umfassende Betriebsunterstützung nach der Bereitstellung.
 
-![Systementwurf und -entwicklung](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
+![Systementwurf und -entwicklung](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 2. Server-Infrastruktur & Betrieb
 
@@ -56,7 +56,7 @@ Wir legen Wert nicht nur auf schönes Design, sondern auch auf **SEO** und **Per
 
 Zudem bieten wir einen Komplettservice für den laufenden Betrieb und die Wartung nach dem Launch — von Content-Updates und Sicherheitspatches bis hin zu analysebasierten Verbesserungsvorschlägen — und steigern so kontinuierlich den Wert Ihrer Seite.
 
-![Ganzheitliche Webseitenplanung und -betrieb](https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=400&fit=crop&q=80)
+![Ganzheitliche Webseitenplanung und -betrieb](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 4. Design & Kreativ
 

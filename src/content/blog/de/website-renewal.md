@@ -4,7 +4,7 @@ description: 'Die offizielle Webseite von Acecore wurde komplett erneuert. Hier 
 date: 2026-03-12
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-website-renewal.webp
 processFigure:
   title: Erneuerungsprozess
   steps:
@@ -57,7 +57,7 @@ Die vorherige Seite präsentierte Inhalte in einem Feed-Format, aber die neue Se
 
 ## Merkmale der neuen Seite
 
-![Die neue Seite basiert auf einem modernen Tech-Stack](https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=400&fit=crop&q=80)
+![Die neue Seite basiert auf einem modernen Tech-Stack](/uploads/acecore-generated/blog-website-renewal.webp)
 
 ### Schnelle Ladegeschwindigkeit
 

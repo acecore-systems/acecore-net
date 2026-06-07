@@ -4,7 +4,7 @@ description: 'Registro del proceso de evaluación y comparación entre Keystatic
 date: 2026-03-15
 author: gui
 tags: ['技術', 'CMS', 'セキュリティ']
-image: https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 compareTable:
   title: Comparación de CMS
   before:
@@ -89,12 +89,12 @@ Se implementó Cloudflare Turnstile como protección anti-spam para el formulari
 
 Google reCAPTCHA v2 obliga a los usuarios a seleccionar imágenes, y v3 es basado en puntuación pero tiene preocupaciones de privacidad. Cloudflare Turnstile es superior en los siguientes aspectos:
 
-| Comparación | reCAPTCHA v2 | reCAPTCHA v3 | Turnstile |
-| --- | --- | --- | --- |
-| Operación del usuario | Requiere selección de imágenes | No requiere | No requiere |
-| Privacidad | Seguimiento basado en cookies | Análisis de comportamiento | Recopilación mínima de datos |
-| Rendimiento | Pesado | Moderado | Ligero |
-| Precio | Gratuito (con límites) | Gratuito (con límites) | Gratuito (ilimitado) |
+| Comparación           | reCAPTCHA v2                   | reCAPTCHA v3               | Turnstile                    |
+| --------------------- | ------------------------------ | -------------------------- | ---------------------------- |
+| Operación del usuario | Requiere selección de imágenes | No requiere                | No requiere                  |
+| Privacidad            | Seguimiento basado en cookies  | Análisis de comportamiento | Recopilación mínima de datos |
+| Rendimiento           | Pesado                         | Moderado                   | Ligero                       |
+| Precio                | Gratuito (con límites)         | Gratuito (con límites)     | Gratuito (ilimitado)         |
 
 ### Método de implementación
 

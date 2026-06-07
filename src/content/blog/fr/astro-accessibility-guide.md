@@ -1,10 +1,10 @@
 ---
-title: "Guide pratique pour rendre un site Astro conforme au WCAG AA"
+title: 'Guide pratique pour rendre un site Astro conforme au WCAG AA'
 description: "Présentation de toutes les étapes d'amélioration de l'accessibilité réalisées sur un site Astro + UnoCSS. Attributs aria, contraste, gestion du focus, validation de formulaires, compatibilité avec les lecteurs d'écran — toutes les mesures nécessaires pour la conformité WCAG AA."
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp
 callout:
   type: info
   title: "L'accessibilité est une amélioration de l'UX pour tous"
@@ -49,7 +49,7 @@ faq:
     - question: Faut-il ajouter des attributs aria à tous les éléments ?
       answer: "Non. Si la sémantique HTML est correcte, aria n'est pas nécessaire. Les attributs aria servent à compléter les informations que le HTML seul ne peut pas transmettre. Un usage excessif rend la lecture par les lecteurs d'écran trop verbeuse."
     - question: Un score de 100 en accessibilité PageSpeed signifie-t-il une conformité WCAG ?
-      answer: "Un score de 100 ne garantit pas une conformité WCAG complète. Lighthouse a un nombre limité de critères vérifiés, et certains critères ne peuvent être vérifiés que manuellement (ordre logique de lecture, pertinence du texte alternatif, etc.). Les tests automatisés et manuels sont tous deux nécessaires."
+      answer: 'Un score de 100 ne garantit pas une conformité WCAG complète. Lighthouse a un nombre limité de critères vérifiés, et certains critères ne peuvent être vérifiés que manuellement (ordre logique de lecture, pertinence du texte alternatif, etc.). Les tests automatisés et manuels sont tous deux nécessaires.'
 ---
 
 ## Introduction
@@ -69,8 +69,7 @@ Les icônes Iconify d'UnoCSS (`i-lucide-*`) sont souvent utilisées comme élém
 Ajoutez `aria-hidden="true"` aux icônes purement décoratives.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Contact
+<span class="i-lucide-mail" aria-hidden="true"></span> Contact
 ```
 
 Cette correction a été appliquée à plus de 30 icônes sur l'ensemble du site. Attention aux icônes dans les composants comme StatBar, Callout, ServiceCard et ProcessFigure, souvent oubliées.
@@ -163,11 +162,7 @@ Affichez immédiatement les messages d'erreur sur les événements `blur` / `inp
 - `aria-describedby` — référence l'ID du message d'erreur
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
 <p id="email-error" role="alert">Veuillez saisir une adresse e-mail valide</p>
 ```
 
@@ -176,8 +171,7 @@ Affichez immédiatement les messages d'erreur sur les événements `blur` / `inp
 Le marqueur visuel `*` seul est insuffisant. Ajoutez un texte complémentaire pour les lecteurs d'écran.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(obligatoire)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(obligatoire)</span>
 ```
 
 ---

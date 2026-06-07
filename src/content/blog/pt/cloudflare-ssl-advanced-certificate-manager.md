@@ -4,7 +4,7 @@ description: 'A opção anteriormente paga da Cloudflare, "Dedicated SSL Certifi
 date: 2026-03-31T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ', 'インフラ']
-image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-cloudflare-ssl-advanced-certificate-manager.webp
 compareTable:
   title: Universal SSL vs Advanced Certificate Manager
   before:
@@ -135,13 +135,13 @@ Se quiser ativar o Total TLS, basta ligar para On na seção **Total TLS** da me
 
 ## Resumo
 
-| Item | Universal SSL (Gratuito) | Advanced Certificate Manager (US$ 10/mês/zona) |
-|---|---|---|
-| Subdomínios multinível | ✗ | ✓ |
-| Escolha de CA | ✗ | ✓ |
-| Definição de validade | ✗ | ✓ |
-| CN com domínio próprio | △ | ✓ |
-| Total TLS | ✗ | ✓ |
-| Uso recomendado | Sites pessoais / gerais | Empresas / estruturas complexas de subdomínios |
+| Item                   | Universal SSL (Gratuito) | Advanced Certificate Manager (US$ 10/mês/zona) |
+| ---------------------- | ------------------------ | ---------------------------------------------- |
+| Subdomínios multinível | ✗                        | ✓                                              |
+| Escolha de CA          | ✗                        | ✓                                              |
+| Definição de validade  | ✗                        | ✓                                              |
+| CN com domínio próprio | △                        | ✓                                              |
+| Total TLS              | ✗                        | ✓                                              |
+| Uso recomendado        | Sites pessoais / gerais  | Empresas / estruturas complexas de subdomínios |
 
 A “antiga opção SSL paga” da Cloudflare é o **Advanced Certificate Manager (antigo Dedicated SSL Certificates)**. É uma escolha eficaz quando o Universal SSL gratuito não é suficiente — especialmente para proteger subdomínios multinível e ter controle mais fino do certificado.

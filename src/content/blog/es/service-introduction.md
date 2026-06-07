@@ -4,7 +4,7 @@ description: 'Desde desarrollo de sistemas hasta diseño y educación IT. Presen
 date: 2026-03-10
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
-image: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-service-introduction.webp
 callout:
   type: info
   title: Sistema de servicios de Acecore
@@ -38,7 +38,7 @@ Gestión de inventario, gestión de clientes (CRM), gestión de pedidos y más: 
 
 Utilizamos tecnología cloud-native de última generación para construir sistemas con excelente mantenibilidad y escalabilidad. También contamos con un soporte operativo completo tras la implementación.
 
-![Escena de diseño y desarrollo de sistemas empresariales](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&q=80)
+![Escena de diseño y desarrollo de sistemas empresariales](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 2. Construcción y operación de servidores
 
@@ -56,7 +56,7 @@ No solo nos enfocamos en la belleza del diseño, sino también en el **SEO** y e
 
 También nos encargamos de la operación y mantenimiento post-lanzamiento de forma integral. Desde la actualización de contenidos, aplicación de parches de seguridad hasta propuestas de mejora basadas en análisis de acceso, le ofrecemos soporte continuo para aumentar el valor de su sitio.
 
-![Gestión integral desde la planificación hasta la operación del sitio web](https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=400&fit=crop&q=80)
+![Gestión integral desde la planificación hasta la operación del sitio web](/uploads/acecore-generated/blog-service-introduction.webp)
 
 ## 4. Diseño y producción creativa
 

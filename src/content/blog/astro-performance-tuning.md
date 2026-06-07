@@ -5,7 +5,7 @@ date: 2026-03-15T00:00
 lastUpdated: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-performance-tuning.webp
 callout:
   type: tip
   title: この記事の対象読者
@@ -183,13 +183,13 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ```html
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none/https://images.unsplash.com/..."
+  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp"
   srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/...   480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/...   640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/...   960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none/https://images.unsplash.com/... 1600w
+    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   480w,
+    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   640w,
+    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   960w,
+    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1280w,
+    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1600w
   "
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
   loading="lazy"

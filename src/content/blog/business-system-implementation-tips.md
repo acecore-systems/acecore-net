@@ -4,7 +4,7 @@ description: '業務システム導入で起こりやすい失敗を避けるた
 date: 2026-04-01T11:00
 author: gui
 tags: ['システム開発', 'サービス', '技術']
-image: https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-business-system-implementation-tips.webp
 callout:
   type: tip
   title: 導入の成否は「開発前」に大きく決まります

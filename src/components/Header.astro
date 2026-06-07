@@ -11,7 +11,6 @@ interface Props {
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const languageSwitcherPath = Astro.props.languageSwitcherPath
 const navLinks = [
-  { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
   {
     href: getLocalizedUrl('/services/', locale),
     label: t(locale, 'nav.services'),
@@ -23,21 +22,21 @@ const navLinks = [
   { href: getLocalizedUrl('/works/', locale), label: t(locale, 'nav.works') },
   { href: getLocalizedUrl('/about/', locale), label: t(locale, 'nav.about') },
   { href: getLocalizedUrl('/blog/', locale), label: t(locale, 'nav.blog') },
-  {
-    href: getLocalizedUrl('/contact/', locale),
-    label: t(locale, 'nav.contact'),
-  },
 ]
+const contactLink = {
+  href: getLocalizedUrl('/contact/', locale),
+  label: t(locale, 'nav.contact'),
+}
 const currentPath = Astro.url.pathname
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur"
+  class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur"
 >
   <div class="ac-container flex h-16 items-center justify-between">
     <a
       href={getLocalizedUrl('/', locale)}
-      class="ac-touch gap-2 rounded-lg pr-3 font-700 text-xl text-brand-600 no-underline transition-colors hover:text-brand-700"
+      class="ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
     >
       <img src="/favicon.svg" alt="" class="h-8 w-8" />
       Acecore
@@ -51,10 +50,10 @@ const currentPath = Astro.url.pathname
           <a
             href={link.href}
             class:list={[
-              'inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 no-underline transition-colors',
+              'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
               currentPath === link.href
                 ? 'bg-brand-50 text-brand-700'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-brand-600',
+                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
             ]}
             {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
           >
@@ -64,25 +63,32 @@ const currentPath = Astro.url.pathname
       }
       <button
         data-search-trigger
-        class="ac-touch rounded-lg text-slate-500 transition-colors hover:bg-slate-50 hover:text-brand-600"
+        class="ac-touch rounded-md text-slate-500 transition-colors hover:bg-slate-50 hover:text-brand-600"
         aria-label={t(locale, 'common.search')}
         title={t(locale, 'common.searchShortcut')}
       >
         <Icon name="search" class="text-lg" />
       </button>
       <LanguageSwitcher locale={locale} path={languageSwitcherPath} />
+      <a
+        href={contactLink.href}
+        class="ac-btn-primary ml-2 min-h-10 px-4 py-2 text-xs"
+        {...currentPath === contactLink.href ? { 'aria-current': 'page' } : {}}
+      >
+        {contactLink.label}
+      </a>
     </nav>
     <div class="flex items-center gap-1 md:hidden">
       <button
         data-search-trigger
-        class="ac-touch rounded-lg text-slate-500 hover:bg-slate-50 hover:text-brand-600"
+        class="ac-touch rounded-md text-slate-500 hover:bg-slate-50 hover:text-brand-600"
         aria-label={t(locale, 'common.search')}
       >
         <Icon name="search" class="text-lg" />
       </button>
       <button
         id="mobile-menu-btn"
-        class="ac-touch rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600"
+        class="ac-touch rounded-md text-slate-700 hover:bg-slate-50 hover:text-brand-600"
         aria-label={t(locale, 'common.openMenu')}
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -100,27 +106,31 @@ const currentPath = Astro.url.pathname
   </div>
   <nav
     id="mobile-menu"
-    class="hidden border-t border-slate-200 bg-white md:hidden"
+    class="hidden border-t border-brand-900/10 bg-white md:hidden"
     aria-label={t(locale, 'common.mobileNav')}
   >
-    <div class="ac-container flex flex-col gap-2 py-4">
+    <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
       {
         navLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'flex min-h-11 items-center rounded-lg px-3 text-sm font-700 no-underline transition-colors',
+              'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
               currentPath === link.href
-                ? 'bg-brand-50 text-brand-700'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-brand-600',
+                ? 'border-brand-100 bg-brand-50 text-brand-700'
+                : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
             ]}
             {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
           >
-            {link.label}
+            <span>{link.label}</span>
+            <Icon name="arrow-right" class="text-sm text-slate-400" />
           </a>
         ))
       }
-      <div class="border-t border-slate-100 pt-3">
+      <a href={contactLink.href} class="ac-btn-primary mt-1 w-full">
+        {contactLink.label}
+      </a>
+      <div class="border-t border-slate-200 pt-3">
         <LanguageSwitcher
           locale={locale}
           path={languageSwitcherPath}

@@ -4,7 +4,7 @@ description: "Retour d'expérience sur l'internationalisation d'un site Astro 6 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
-image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
 processFigure:
   title: Flux de travail multilingue
   steps:

@@ -4,7 +4,7 @@ description: 'Von der Klassifizierung und Überprüfung von 837 Buchungseinträg
 date: 2026-03-17
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
-image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp
 processFigure:
   title: Gesamtablauf der Copilot-Steuererklärung
   steps:
@@ -104,15 +104,15 @@ Kurz gesagt, Bildschirmbedienung allein können auch andere Tools, aber **die F�
 
 Das wichtigste Element der Zusammenarbeit mit Copilot war **die Strukturierung von Wissen und Aufgaben in Markdown-Dateien**. Die verwendete Dateistruktur:
 
-| Datei | Rolle |
-| --- | --- |
-| `policy.md` | Beschreibungsmuster → Kontokategorie-Zuordnungsregeln (insgesamt 16 Abschnitte). Die Kriterien, die Copilot bei der Klassifizierung von Buchungseinträgen verwendet |
-| `tasks.md` | Fortschrittsverwaltungszentrale für die gesamte Steuererklärung. Status von 38 Belegen mit ✅ in einer Tabelle verfolgen |
-| `filing-tasks.md` | Ungelöste Fragen und Recherchenotizen für die Steuerformulareingabephase. Fakten und Schlussfolgerungen separat erfasst |
-| `filing-tasks_completed.md` | Abgeschlossene/aufgeschobene Punkte hierhin verschoben, um das Wachstum der aktiven Datei zu verhindern |
-| `inconsistency-check.md` | Bericht über die Ergebnisse des Abgleichs Richtlinie vs. Buchungsjournal. Verweist auf Korrekturen in policy.md mit §-Nummern |
-| `mf-review-report.md` | BS/PL-Zahlenprüfung. Systematisch verwaltet mit Problem-IDs (A1, B1, etc.) und Schweregrad-Stufen |
-| `journal-mapping.md` | Alle 837 MF-Buchungseinträge in kategoriebezogenen Tabellen organisiert |
+| Datei                       | Rolle                                                                                                                                                               |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `policy.md`                 | Beschreibungsmuster → Kontokategorie-Zuordnungsregeln (insgesamt 16 Abschnitte). Die Kriterien, die Copilot bei der Klassifizierung von Buchungseinträgen verwendet |
+| `tasks.md`                  | Fortschrittsverwaltungszentrale für die gesamte Steuererklärung. Status von 38 Belegen mit ✅ in einer Tabelle verfolgen                                            |
+| `filing-tasks.md`           | Ungelöste Fragen und Recherchenotizen für die Steuerformulareingabephase. Fakten und Schlussfolgerungen separat erfasst                                             |
+| `filing-tasks_completed.md` | Abgeschlossene/aufgeschobene Punkte hierhin verschoben, um das Wachstum der aktiven Datei zu verhindern                                                             |
+| `inconsistency-check.md`    | Bericht über die Ergebnisse des Abgleichs Richtlinie vs. Buchungsjournal. Verweist auf Korrekturen in policy.md mit §-Nummern                                       |
+| `mf-review-report.md`       | BS/PL-Zahlenprüfung. Systematisch verwaltet mit Problem-IDs (A1, B1, etc.) und Schweregrad-Stufen                                                                   |
+| `journal-mapping.md`        | Alle 837 MF-Buchungseinträge in kategoriebezogenen Tabellen organisiert                                                                                             |
 
 Copilot **liest diese .md-Dateien, um Entscheidungen zu treffen, und schreibt hinein, um Ergebnisse festzuhalten**. Der Mensch liest genau dieselben Dateien, um die Situation zu verstehen. Mit anderen Worten: Markdown-Dateien fungieren als gemeinsamer Arbeitsbereich zwischen Mensch und KI.
 
@@ -128,17 +128,17 @@ Die Struktur dieses Richtliniendokuments ist entscheidend. Jeder Abschnitt folgt
 
 Die festgelegten Klassifizierungsregeln umfassen 15 Abschnitte:
 
-| Kategorie | Konto | Beispiele |
-| --- | --- | --- |
-| Kundeneinzahlungen | Umsatz | Monatliche Überweisungseingänge |
-| Hypothekenzahlungen | Privatentnahmen | Automatische Abbuchung vom Privatkonto |
-| QR-Code-Zahlungsaufladungen | Privatentnahmen/Kapital | Aufladungen und Erstattungen vom Privatkonto |
-| Kontenüberträge | Sparkonto | Geschäftskonto ↔ Privatkonto |
-| ISP & SaaS | Kommunikationskosten | GitHub, Cloudflare, ChatGPT, Canva, etc. |
-| Webanzeigen & Social Media | Werbeausgaben | Google Ads, X Premium, SocialDog, etc. |
-| Transport | Reisekosten | Shinkansen, Taxis, Telearbeitskabinen |
-| Suica-Nutzung | Reisekosten | Vorschussmethode für einzelne Zug-/Bus-Einträge |
-| E-Commerce-Einkäufe | Verbrauchsmaterial | PC-Peripherie, Werkzeuge |
+| Kategorie                   | Konto                   | Beispiele                                       |
+| --------------------------- | ----------------------- | ----------------------------------------------- |
+| Kundeneinzahlungen          | Umsatz                  | Monatliche Überweisungseingänge                 |
+| Hypothekenzahlungen         | Privatentnahmen         | Automatische Abbuchung vom Privatkonto          |
+| QR-Code-Zahlungsaufladungen | Privatentnahmen/Kapital | Aufladungen und Erstattungen vom Privatkonto    |
+| Kontenüberträge             | Sparkonto               | Geschäftskonto ↔ Privatkonto                    |
+| ISP & SaaS                  | Kommunikationskosten    | GitHub, Cloudflare, ChatGPT, Canva, etc.        |
+| Webanzeigen & Social Media  | Werbeausgaben           | Google Ads, X Premium, SocialDog, etc.          |
+| Transport                   | Reisekosten             | Shinkansen, Taxis, Telearbeitskabinen           |
+| Suica-Nutzung               | Reisekosten             | Vorschussmethode für einzelne Zug-/Bus-Einträge |
+| E-Commerce-Einkäufe         | Verbrauchsmaterial      | PC-Peripherie, Werkzeuge                        |
 
 ## Phase 2: Klassifizierung von 837 Buchungseinträgen & Unstimmigkeitsprüfungen
 
@@ -150,16 +150,16 @@ Der konkrete Ansatz: Copilot öffnete den MF Cloud-Buchungsbildschirm in Simple 
 
 Ergebnis: **8 Unstimmigkeiten** erkannt:
 
-| Beschreibung | Richtlinien-Kategorie | Tatsächlicher Eintrag | Maßnahme |
-| --- | --- | --- | --- |
-| Social-Media-Premium | Privatentnahmen (privat) | Werbeausgaben | Geschäftliches SNS, daher sind Werbeausgaben korrekt |
-| Designtool | Privatentnahmen (privat) | Kommunikationskosten | Geschäftliches Tool, daher sind Kommunikationskosten korrekt |
-| KI-Chatdienst | Privatentnahmen (privat) | Kommunikationskosten | Geschäftliches Tool, daher sind Kommunikationskosten korrekt |
-| Mobiler Batterieverleih | Kommunikationskosten | Privatentnahmen | Privatnutzung, daher sind Privatentnahmen korrekt |
-| App-Gebühren (gemischte Apps) | Alle Kommunikationskosten | Aufgeteilt nach App | Transit-App → Kommunikation, Werbeblocker → Privatentnahmen, etc. |
-| Videoanzeigen (Schwellenwertabrechnung) | Im privaten Bereich platziert | Werbeausgaben | Falsche Platzierung im Richtliniendokument korrigiert |
-| E-Commerce (PC-Peripherie) | Bücher & Abonnements | Verbrauchsmaterial | Falsche Kategorie korrigiert |
-| Social-Media-Management-Tool | Kommunikationskosten | Werbeausgaben | Für SNS-Betrieb, daher sind Werbeausgaben korrekt |
+| Beschreibung                            | Richtlinien-Kategorie         | Tatsächlicher Eintrag | Maßnahme                                                          |
+| --------------------------------------- | ----------------------------- | --------------------- | ----------------------------------------------------------------- |
+| Social-Media-Premium                    | Privatentnahmen (privat)      | Werbeausgaben         | Geschäftliches SNS, daher sind Werbeausgaben korrekt              |
+| Designtool                              | Privatentnahmen (privat)      | Kommunikationskosten  | Geschäftliches Tool, daher sind Kommunikationskosten korrekt      |
+| KI-Chatdienst                           | Privatentnahmen (privat)      | Kommunikationskosten  | Geschäftliches Tool, daher sind Kommunikationskosten korrekt      |
+| Mobiler Batterieverleih                 | Kommunikationskosten          | Privatentnahmen       | Privatnutzung, daher sind Privatentnahmen korrekt                 |
+| App-Gebühren (gemischte Apps)           | Alle Kommunikationskosten     | Aufgeteilt nach App   | Transit-App → Kommunikation, Werbeblocker → Privatentnahmen, etc. |
+| Videoanzeigen (Schwellenwertabrechnung) | Im privaten Bereich platziert | Werbeausgaben         | Falsche Platzierung im Richtliniendokument korrigiert             |
+| E-Commerce (PC-Peripherie)              | Bücher & Abonnements          | Verbrauchsmaterial    | Falsche Kategorie korrigiert                                      |
+| Social-Media-Management-Tool            | Kommunikationskosten          | Werbeausgaben         | Für SNS-Betrieb, daher sind Werbeausgaben korrekt                 |
 
 „Richtlinie erstellen, gegen das Journal abgleichen, Richtlinie korrigieren wo sie falsch ist" — dies automatisch von Copilot erledigen zu lassen, während Dateien bearbeitet werden, war ein völlig anderes Effizienzniveau im Vergleich zur manuellen Überprüfung von 837 Einträgen.
 
@@ -226,13 +226,13 @@ Die automatische Kategorisierung in Haushalts-Apps ist nicht perfekt. In einem F
 
 ### Eingegebene Abzüge
 
-| Abzugsart | Übersicht | Copilots Arbeit |
-| --- | --- | --- |
-| Lebensversicherungsprämienabzug | My Number Portal synchronisierte Einträge + manuelle Eingaben | Optionen in Formular-Dropdown-Menüs ausgewählt und Einträge einzeln eingegeben |
-| Erdbebenversicherungsprämienabzug | Genossenschafts- & Sachversicherungsprämien | Beträge ins Formular eingegeben |
-| Ehegattenabzug | Gesamteinkommen aus dem Verdienst des Ehepartners berechnet | Einkommen nach Arbeitnehmerabzug berechnet, Abzugsbetrag bestätigt |
-| Sozialversicherungsprämienabzug | Rente + Krankenversicherung (in Phase 4 finalisierte Beträge) | Typen auf dem Sozialversicherungsbildschirm ausgewählt → Beträge eingegeben |
-| Unterhaltsabzug (unter 16) | Keine steuerliche Auswirkung, aber relevant für die Einwohnersteuer | Registrierungsstatus auf dem Bildschirm Grunddaten → Familienmitglieder geprüft |
+| Abzugsart                         | Übersicht                                                           | Copilots Arbeit                                                                 |
+| --------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Lebensversicherungsprämienabzug   | My Number Portal synchronisierte Einträge + manuelle Eingaben       | Optionen in Formular-Dropdown-Menüs ausgewählt und Einträge einzeln eingegeben  |
+| Erdbebenversicherungsprämienabzug | Genossenschafts- & Sachversicherungsprämien                         | Beträge ins Formular eingegeben                                                 |
+| Ehegattenabzug                    | Gesamteinkommen aus dem Verdienst des Ehepartners berechnet         | Einkommen nach Arbeitnehmerabzug berechnet, Abzugsbetrag bestätigt              |
+| Sozialversicherungsprämienabzug   | Rente + Krankenversicherung (in Phase 4 finalisierte Beträge)       | Typen auf dem Sozialversicherungsbildschirm ausgewählt → Beträge eingegeben     |
+| Unterhaltsabzug (unter 16)        | Keine steuerliche Auswirkung, aber relevant für die Einwohnersteuer | Registrierungsstatus auf dem Bildschirm Grunddaten → Familienmitglieder geprüft |
 
 ### Erwogene, aber aufgeschobene Punkte
 

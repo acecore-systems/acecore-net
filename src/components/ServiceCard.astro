@@ -24,9 +24,9 @@ const Tag = href ? 'a' : 'div'
 const isExternal = href?.startsWith('http')
 
 const iconToneClasses = {
-  brand: 'border-brand-100 bg-brand-50 text-brand-600',
-  emerald: 'border-emerald-100 bg-emerald-50 text-emerald-600',
-  amber: 'border-amber-100 bg-amber-50 text-amber-600',
+  brand: 'border-brand-200 bg-brand-50 text-brand-600',
+  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  amber: 'border-amber-200 bg-amber-50 text-amber-700',
   slate: 'border-slate-200 bg-slate-50 text-slate-600',
 } satisfies Record<NonNullable<Props['tone']>, string>
 ---
@@ -34,7 +34,7 @@ const iconToneClasses = {
 <Tag
   {...href ? { href } : {}}
   {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
-  class="ac-card group block h-full p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+  class="ac-card ac-rule-top group block h-full p-6 pt-7 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
   {...href
     ? {
         'data-ga-event': 'cta_click',
@@ -46,18 +46,24 @@ const iconToneClasses = {
 >
   <span
     class:list={[
-      'mb-5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border',
+      'mb-5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border text-lg shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)]',
       iconToneClasses[tone],
     ]}
   >
     <Icon name={icon} class="text-xl" />
   </span>
   <h3
-    class="mb-3 text-lg font-700 leading-snug text-slate-900 transition-colors group-hover:text-brand-600"
+    class="mb-3 text-lg font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600"
   >
     {title}
   </h3>
   <p class="text-sm leading-relaxed text-slate-600">{description}</p>
+  <span
+    class="mt-5 inline-flex text-brand-600 transition-transform group-hover:translate-x-1"
+    aria-hidden="true"
+  >
+    <Icon name="arrow-right" class="text-base" />
+  </span>
   {
     isExternal && (
       <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>

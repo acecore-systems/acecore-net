@@ -33,7 +33,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl">
-      <Breadcrumb items={[{ label: t(locale, 'pages.privacy.title') }]} locale={locale} />
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.privacy.title') }]}
+        locale={locale}
+      />
       <div class="ac-prose max-w-none">
         <h2>{t(locale, 'pages.privacy.adHeading')}</h2>
         <p>{t(locale, 'pages.privacy.adBody1')}</p>
@@ -45,7 +48,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             target="_blank"
             rel="noopener noreferrer"
           >
-            Google Policies<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            Google Policies<span class="sr-only"
+              >{t(locale, 'common.opensInNewTab')}</span
+            >
           </a>
         </p>
 

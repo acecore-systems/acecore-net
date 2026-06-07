@@ -4,7 +4,7 @@ description: 'A comprehensive guide to accessibility improvements implemented on
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp
 callout:
   type: info
   title: Accessibility Is UX Improvement for Everyone
@@ -49,7 +49,7 @@ faq:
     - question: Should aria attributes be added to every element?
       answer: 'No. If HTML semantics are correct, aria is unnecessary. Aria attributes are meant to supplement "information that HTML alone cannot convey." Overusing them can make screen reader output overly verbose.'
     - question: Does a PageSpeed Accessibility score of 100 mean WCAG compliance?
-      answer: 'Even a score of 100 doesn''t guarantee full WCAG compliance. Lighthouse has limited check items, and some criteria can only be verified manually (logical reading order, appropriate alt text, etc.). Both automated and manual testing are necessary.'
+      answer: "Even a score of 100 doesn't guarantee full WCAG compliance. Lighthouse has limited check items, and some criteria can only be verified manually (logical reading order, appropriate alt text, etc.). Both automated and manual testing are necessary."
 ---
 
 ## Introduction
@@ -69,8 +69,7 @@ UnoCSS Iconify icons (`i-lucide-*`) are often used as visual decoration, but whe
 Add `aria-hidden="true"` to decorative icons.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Contact
+<span class="i-lucide-mail" aria-hidden="true"></span> Contact
 ```
 
 This was applied to over 30 icons across the site. Be careful not to miss icons inside components like StatBar, Callout, ServiceCard, and ProcessFigure.
@@ -163,11 +162,7 @@ Display error messages immediately on `blur`/`input` events, coordinating with t
 - `aria-describedby` — References the error message's ID
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
 <p id="email-error" role="alert">Please enter a valid email address</p>
 ```
 
@@ -176,8 +171,7 @@ Display error messages immediately on `blur`/`input` events, coordinating with t
 A visual `*` mark alone is insufficient. Add supplementary text for screen readers.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(required)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(required)</span>
 ```
 
 ---

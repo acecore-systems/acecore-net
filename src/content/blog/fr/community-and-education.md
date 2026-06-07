@@ -4,7 +4,7 @@ description: "Présentation des activités communautaires, du soutien éducatif 
 date: 2026-03-08
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-community-and-education.webp
 insightGrid:
   title: Étendue de nos activités
   items:
@@ -50,7 +50,7 @@ Chez Acecore, nous nous engageons dans le développement de la communauté techn
 
 La [communauté Discord](https://discord.gg/acsv) d'Aceserver est le lieu d'échanges actifs non seulement sur le jeu, mais aussi sur des sujets techniques et la vie quotidienne. Son atmosphère ouverte permet à chacun de participer, quel que soit son âge ou son niveau d'expérience.
 
-![Les échanges dans la communauté Aceserver sont ouverts à tous, sans distinction d'âge ni d'expérience](https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=400&fit=crop&q=80)
+![Les échanges dans la communauté Aceserver sont ouverts à tous, sans distinction d'âge ni d'expérience](/uploads/acecore-generated/blog-community-and-education.webp)
 
 Les connaissances acquises à travers la gestion du serveur sont réinvesties dans les services d'infrastructure destinés aux entreprises. Le tuning de performance en environnement haute charge, la protection DDoS et la gestion sécurisée des données utilisateur contribuent à l'accumulation de savoir-faire pratique.
 
@@ -76,7 +76,7 @@ L'école IT « Acecore Schools » propose un enseignement individuel dispensé p
 
 Parmi les retours des apprenants : « J'ai enfin compris ce que je devais faire en pratique » et « J'ai compris d'un coup ce que je n'arrivais pas à saisir en autodidacte ».
 
-![Des apprenants suivant un programme basé sur la pratique professionnelle](https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&fit=crop&q=80)
+![Des apprenants suivant un programme basé sur la pratique professionnelle](/uploads/acecore-generated/blog-community-and-education.webp)
 
 ## Contribution à l'open source
 

@@ -4,7 +4,7 @@ description: 'Explicación basada en la práctica del proceso de migración de Z
 date: 2026-03-16
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
-image: https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp
 processFigure:
   title: Flujo completo de la migración
   steps:
@@ -156,9 +156,9 @@ Para redirigir la entrega de correos, se modifican los registros DNS. Aquí usam
 
 Se eliminan los registros MX de Zoho (`mx.zoho.jp` / `mx2.zoho.jp` / `mx3.zoho.jp`) y se registra el servidor de correo de destino. Para KAGOYA MAIL:
 
-| Tipo | Nombre | Valor | Prioridad |
-| ---- | ------ | ----- | --------- |
-| MX | (su dominio) | dmail.kagoya.net | 10 |
+| Tipo | Nombre       | Valor            | Prioridad |
+| ---- | ------------ | ---------------- | --------- |
+| MX   | (su dominio) | dmail.kagoya.net | 10        |
 
 ### Registro SPF
 
@@ -172,9 +172,9 @@ Se cambia el antiguo `include:zoho.jp` por `include:kagoya.net`.
 
 Se obtiene la clave pública desde **Configuración DKIM** en el panel de control de KAGOYA y se registra como registro TXT.
 
-| Tipo | Nombre | Valor |
-| ---- | ------ | ----- |
-| TXT | kagoya.\_domainkey.(su dominio) | v=DKIM1;k=rsa;p=(clave pública) |
+| Tipo | Nombre                          | Valor                           |
+| ---- | ------------------------------- | ------------------------------- |
+| TXT  | kagoya.\_domainkey.(su dominio) | v=DKIM1;k=rsa;p=(clave pública) |
 
 Se elimina el antiguo `zmail._domainkey` (de Zoho).
 
@@ -223,14 +223,14 @@ Zoho Workplace incluye muchos servicios además de correo, como WorkDrive, Cliq,
 
 ### Servicios a verificar y criterios de evaluación
 
-| Servicio | Qué verificar |
-| --- | --- |
-| Zoho Mail | ¿Ya se importó al destino? |
-| Zoho WorkDrive | ¿El almacenamiento usado es 0? Verificar incluyendo la papelera |
-| Zoho Contacts | Número de contactos. Si es necesario, exportar en CSV/VCF |
-| Zoho Calendar | Existencia de citas o recordatorios |
-| Zoho Cliq | Necesidad del historial de chat |
-| Otros (Notebook, Writer, Sheet, etc.) | Existencia de documentos creados |
+| Servicio                              | Qué verificar                                                   |
+| ------------------------------------- | --------------------------------------------------------------- |
+| Zoho Mail                             | ¿Ya se importó al destino?                                      |
+| Zoho WorkDrive                        | ¿El almacenamiento usado es 0? Verificar incluyendo la papelera |
+| Zoho Contacts                         | Número de contactos. Si es necesario, exportar en CSV/VCF       |
+| Zoho Calendar                         | Existencia de citas o recordatorios                             |
+| Zoho Cliq                             | Necesidad del historial de chat                                 |
+| Otros (Notebook, Writer, Sheet, etc.) | Existencia de documentos creados                                |
 
 ### La trampa de WorkDrive: la papelera consume almacenamiento
 

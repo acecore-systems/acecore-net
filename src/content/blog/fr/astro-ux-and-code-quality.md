@@ -4,7 +4,7 @@ description: "Solutions aux problèmes de scripts cassés avec les View Transiti
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp
 callout:
   type: warning
   title: Lecture indispensable si vous utilisez View Transitions
@@ -81,7 +81,9 @@ Unifiez tous les scripts en **fonctions nommées, réenregistrées via `astro:af
 <script>
   function initHeader() {
     const menuBtn = document.querySelector('[data-menu-toggle]')
-    menuBtn?.addEventListener('click', () => { /* ... */ })
+    menuBtn?.addEventListener('click', () => {
+      /* ... */
+    })
   }
 
   // Exécution initiale
@@ -163,7 +165,7 @@ Remplacez `onclick` par des attributs `data-*` + `addEventListener`.
 ```
 
 ```javascript
-document.querySelectorAll('[data-search-trigger]').forEach(btn => {
+document.querySelectorAll('[data-search-trigger]').forEach((btn) => {
   btn.addEventListener('click', () => window.openSearch?.())
 })
 ```
@@ -174,16 +176,16 @@ document.querySelectorAll('[data-search-trigger]').forEach(btn => {
 
 Disposer de composants utilisables lors de la rédaction d'articles de blog enrichit l'expression des articles.
 
-| Composant | Usage |
-| --- | --- |
-| Callout | 4 types d'annotations : info / warning / tip / note |
-| Timeline | Affichage chronologique d'événements |
-| FAQ | Questions-réponses avec données structurées |
-| Gallery | Galerie d'images avec Lightbox |
-| CompareTable | Tableau de comparaison avant/après |
-| ProcessFigure | Schéma de processus étape par étape |
-| LinkCard | Carte de lien externe style OGP |
-| YouTubeEmbed | Chargement différé avec pattern façade |
+| Composant     | Usage                                               |
+| ------------- | --------------------------------------------------- |
+| Callout       | 4 types d'annotations : info / warning / tip / note |
+| Timeline      | Affichage chronologique d'événements                |
+| FAQ           | Questions-réponses avec données structurées         |
+| Gallery       | Galerie d'images avec Lightbox                      |
+| CompareTable  | Tableau de comparaison avant/après                  |
+| ProcessFigure | Schéma de processus étape par étape                 |
+| LinkCard      | Carte de lien externe style OGP                     |
+| YouTubeEmbed  | Chargement différé avec pattern façade              |
 
 Tous ces composants sont conçus pour être invocables depuis le frontmatter du Markdown. Le template affiche `<Callout>` si `data.callout` existe.
 
@@ -217,13 +219,13 @@ Remplacez `import { z } from 'astro:content'`, qui sera supprimé dans Astro 7, 
 
 Les valeurs codées en dur sont source d'oublis lors des modifications. Les valeurs suivantes ont été centralisées dans `src/data/site.ts`.
 
-| Constante | Nombre d'occurrences avant |
-| --- | --- |
-| AdSense Client ID | 4 fichiers |
-| GA4 Measurement ID | 2 emplacements |
-| ID de slot publicitaire | 4 fichiers |
-| URLs sociales (X, GitHub, Discord, Aceserver) | 17 emplacements |
-| Téléphone, email, LINE | 3 fichiers |
+| Constante                                     | Nombre d'occurrences avant |
+| --------------------------------------------- | -------------------------- |
+| AdSense Client ID                             | 4 fichiers                 |
+| GA4 Measurement ID                            | 2 emplacements             |
+| ID de slot publicitaire                       | 4 fichiers                 |
+| URLs sociales (X, GitHub, Discord, Aceserver) | 17 emplacements            |
+| Téléphone, email, LINE                        | 3 fichiers                 |
 
 ```typescript
 export const SITE = {
@@ -260,8 +262,12 @@ Pagination automatique par lots de 6 articles, navigation avec points de suspens
 Avec un en-tête sticky, les destinations des liens d'ancrage sont masquées par l'en-tête. Résolvez cela avec les paramètres preflight d'UnoCSS :
 
 ```css
-[id] { scroll-margin-top: 5rem; }
-html { scroll-behavior: smooth; }
+[id] {
+  scroll-margin-top: 5rem;
+}
+html {
+  scroll-behavior: smooth;
+}
 ```
 
 ---

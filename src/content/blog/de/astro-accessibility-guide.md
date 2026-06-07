@@ -4,7 +4,7 @@ description: 'Ein umfassender Leitfaden zu Barrierefreiheitsverbesserungen, die 
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp
 callout:
   type: info
   title: Barrierefreiheit verbessert die UX für alle
@@ -69,8 +69,7 @@ UnoCSS-Iconify-Icons (`i-lucide-*`) werden oft als visuelle Dekoration verwendet
 `aria-hidden="true"` zu dekorativen Icons hinzufügen.
 
 ```html
-<span class="i-lucide-mail" aria-hidden="true"></span>
-Kontakt
+<span class="i-lucide-mail" aria-hidden="true"></span> Kontakt
 ```
 
 Dies wurde auf über 30 Icons auf der gesamten Website angewendet. Achten Sie darauf, Icons innerhalb von Komponenten wie StatBar, Callout, ServiceCard und ProcessFigure nicht zu übersehen.
@@ -163,12 +162,10 @@ Fehlermeldungen sofort bei `blur`/`input`-Events anzeigen, koordiniert mit folge
 - `aria-describedby` — Referenziert die ID der Fehlermeldung
 
 ```html
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
-<p id="email-error" role="alert">Bitte geben Sie eine gültige E-Mail-Adresse ein</p>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
+<p id="email-error" role="alert">
+  Bitte geben Sie eine gültige E-Mail-Adresse ein
+</p>
 ```
 
 ### Pflichtfeld-Markierungen
@@ -176,8 +173,7 @@ Fehlermeldungen sofort bei `blur`/`input`-Events anzeigen, koordiniert mit folge
 Ein visuelles `*`-Zeichen allein ist unzureichend. Ergänzungstext für Screenreader hinzufügen.
 
 ```html
-<span aria-hidden="true">*</span>
-<span class="sr-only">(Pflichtfeld)</span>
+<span aria-hidden="true">*</span> <span class="sr-only">(Pflichtfeld)</span>
 ```
 
 ---

@@ -4,7 +4,7 @@ description: '将使用 VitePress + UnoCSS 构建的事业计划文档迁移到 
 date: 2026-03-15
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
-image: https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp
 processFigure:
   title: 迁移流程
   steps:
@@ -166,12 +166,12 @@ graph TD
 
 ## 迁移结果
 
-| 项目           | Before                   | After                        |
-| -------------- | ------------------------ | ---------------------------- |
-| 框架 | VitePress 1.x            | Astro 6 + Starlight          |
-| CSS            | UnoCSS                   | Starlight 内置           |
-| Mermaid        | vitepress-plugin-mermaid | CDN（jsdelivr）              |
-| 构建输出目录   | `docs/.vitepress/dist`   | `dist`                       |
+| 项目         | Before                   | After                      |
+| ------------ | ------------------------ | -------------------------- |
+| 框架         | VitePress 1.x            | Astro 6 + Starlight        |
+| CSS          | UnoCSS                   | Starlight 内置             |
+| Mermaid      | vitepress-plugin-mermaid | CDN（jsdelivr）            |
+| 构建输出目录 | `docs/.vitepress/dist`   | `dist`                     |
 | 部署目标     | Cloudflare Pages         | Cloudflare Pages（未变更） |
 
 通过统一框架，可以在多个项目间共享 `astro.config.mjs` 的配置模式和部署配置。

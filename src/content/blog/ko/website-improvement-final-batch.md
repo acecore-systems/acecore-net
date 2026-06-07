@@ -3,8 +3,9 @@ title: 'Astro 사이트 품질 개선 가이드 속편 - PageSpeed Insights 전 
 description: '이전 글 이후 마지막으로 진행한 개선을 정리합니다. Cloudflare Web Analytics 중지, GA4와 검색 UI의 지연 로드, PageSpeed Insights 모바일과 데스크톱 4개 항목 모두 100점 달성, Search Console의 빵부스러기와 색인 정리, 공유 SVG 아이콘으로의 이행, 그리고 시도했지만 채택하지 않은 추가 최적화 판단까지 한 번에 정리했습니다.'
 date: 2026-03-29T02:30
 author: gui
-tags: ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
-image: https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop&q=80
+tags:
+  ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']
+image: /uploads/acecore-generated/blog-website-improvement-final-batch.webp
 callout:
   type: tip
   title: 이전 글의 후속편입니다
@@ -133,10 +134,10 @@ faq:
 
 2026년 3월 29일 시점에서 Acecore 메인 페이지는 아래 결과를 확인할 수 있었습니다.
 
-| 측정 대상 | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- | --- |
-| 모바일 | **100** | **100** | **100** | **100** |
-| 데스크톱 | **100** | **100** | **100** | **100** |
+| 측정 대상 | Performance | Accessibility | Best Practices | SEO     |
+| --------- | ----------- | ------------- | -------------- | ------- |
+| 모바일    | **100**     | **100**       | **100**        | **100** |
+| 데스크톱  | **100**     | **100**       | **100**        | **100** |
 
 아래에는 실제 PageSpeed Insights 스크린샷과 리포트 URL을 함께 두었습니다. 이전에는 “모바일 99 / 나머지 100”이 현실적인 상한이라고 봤지만, 이번에는 불필요한 서드파티 beacon을 정리하고 남은 진단의 의미를 정밀하게 읽어 낸 덕분에 100점에 도달했습니다.
 

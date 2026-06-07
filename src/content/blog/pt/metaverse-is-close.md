@@ -4,17 +4,17 @@ description: 'Enquanto a estratégia de metaverso do Facebook (Meta) não conven
 date: 2023-03-23
 tags: ['コミュニティ']
 author: gui
-image: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-metaverse-is-close.webp
 gallery:
   title: O mundo do metaverso
   items:
-    - src: https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Headset VR
-    - src: https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Imagem do espaço virtual
-    - src: https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Ambiente gamer
-    - src: https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=400&h=300&fit=crop&q=80
+    - src: /uploads/acecore-generated/blog-metaverse-is-close.webp
       alt: Digital World
 linkCards:
   - href: https://www.meta.com/ja-jp/quest/
@@ -41,7 +41,7 @@ O Minecraft tem mais de 100 milhões de usuários ativos mensais. Os jogadores c
 
 O Horizon Worlds da Meta também passou a ser acessível pelo navegador, sem necessidade de VR. A porta de entrada para o metaverso não é o "dispositivo VR", mas sim o "espaço virtual onde as pessoas se reúnem".
 
-![Óculos VR não são a única porta de entrada para o metaverso](https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=400&fit=crop&q=80)
+![Óculos VR não são a única porta de entrada para o metaverso](/uploads/acecore-generated/blog-metaverse-is-close.webp)
 
 ## O potencial das comunidades usando Minecraft
 

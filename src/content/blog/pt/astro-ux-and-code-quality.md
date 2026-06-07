@@ -4,7 +4,7 @@ description: 'Guia prático sobre soluções para scripts que param de funcionar
 date: 2026-03-25
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
-image: https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop&q=80
+image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp
 callout:
   type: warning
   title: Leitura obrigatória se usar View Transitions
@@ -81,7 +81,9 @@ Unifique todos os scripts no padrão de **encapsular em funções nomeadas e re-
 <script>
   function initHeader() {
     const menuBtn = document.querySelector('[data-menu-toggle]')
-    menuBtn?.addEventListener('click', () => { /* ... */ })
+    menuBtn?.addEventListener('click', () => {
+      /* ... */
+    })
   }
 
   // Execução inicial
@@ -163,7 +165,7 @@ Substitua `onclick` por atributos `data-*` + `addEventListener`.
 ```
 
 ```javascript
-document.querySelectorAll('[data-search-trigger]').forEach(btn => {
+document.querySelectorAll('[data-search-trigger]').forEach((btn) => {
   btn.addEventListener('click', () => window.openSearch?.())
 })
 ```
@@ -174,16 +176,16 @@ document.querySelectorAll('[data-search-trigger]').forEach(btn => {
 
 Ter componentes disponíveis para usar ao escrever artigos de blog aumenta o poder de expressão dos artigos.
 
-| Componente | Uso |
-| --- | --- |
-| Callout | Anotações em 4 tipos: info / warning / tip / note |
-| Timeline | Exibição cronológica de eventos |
-| FAQ | Perguntas e respostas com suporte a dados estruturados |
-| Gallery | Galeria de imagens com Lightbox |
-| CompareTable | Tabela comparativa antes/depois |
-| ProcessFigure | Diagrama de processo passo a passo |
-| LinkCard | Card de link externo estilo OGP |
-| YouTubeEmbed | Carregamento lazy com padrão façade |
+| Componente    | Uso                                                    |
+| ------------- | ------------------------------------------------------ |
+| Callout       | Anotações em 4 tipos: info / warning / tip / note      |
+| Timeline      | Exibição cronológica de eventos                        |
+| FAQ           | Perguntas e respostas com suporte a dados estruturados |
+| Gallery       | Galeria de imagens com Lightbox                        |
+| CompareTable  | Tabela comparativa antes/depois                        |
+| ProcessFigure | Diagrama de processo passo a passo                     |
+| LinkCard      | Card de link externo estilo OGP                        |
+| YouTubeEmbed  | Carregamento lazy com padrão façade                    |
 
 Todos foram projetados para serem chamados a partir do frontmatter do Markdown. Se `data.callout` existir no template do artigo, renderiza `<Callout>`.
 
@@ -217,13 +219,13 @@ Altere `import { z } from 'astro:content'`, que será removido no Astro 7, para 
 
 Valores hardcoded causam esquecimentos ao alterar. Os seguintes valores foram centralizados em `src/data/site.ts`.
 
-| Constante | Nº de locais antes da centralização |
-| --- | --- |
-| AdSense Client ID | 4 arquivos |
-| GA4 Measurement ID | 2 locais |
-| IDs de slot de anúncio | 4 arquivos |
-| URLs de redes sociais (X, GitHub, Discord, Aceserver) | 17 locais |
-| Telefone, e-mail, LINE | 3 arquivos |
+| Constante                                             | Nº de locais antes da centralização |
+| ----------------------------------------------------- | ----------------------------------- |
+| AdSense Client ID                                     | 4 arquivos                          |
+| GA4 Measurement ID                                    | 2 locais                            |
+| IDs de slot de anúncio                                | 4 arquivos                          |
+| URLs de redes sociais (X, GitHub, Discord, Aceserver) | 17 locais                           |
+| Telefone, e-mail, LINE                                | 3 arquivos                          |
 
 ```typescript
 export const SITE = {
@@ -260,8 +262,12 @@ Implemente divisão automática de página a cada 6 artigos, navegação com ret
 Com cabeçalho sticky, o destino do link âncora fica escondido atrás do cabeçalho. Resolva configurando o seguinte no preflight do UnoCSS.
 
 ```css
-[id] { scroll-margin-top: 5rem; }
-html { scroll-behavior: smooth; }
+[id] {
+  scroll-margin-top: 5rem;
+}
+html {
+  scroll-behavior: smooth;
+}
 ```
 
 ---
