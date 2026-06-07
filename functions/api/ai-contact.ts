@@ -34,6 +34,7 @@ type AiContactPayload = {
 }
 
 const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
+const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
 const DEFAULT_MODEL = 'gpt-5.4-mini'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
@@ -286,7 +287,7 @@ Acecore public site context:
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design
-  - Acecore Schools and IT education: ${localizedPath('/schools/', locale)}
+  - Acecore Schools and IT education: ${localizedSchoolsPath(locale)}
   - Aceserver: ${servicesPath}#aceserver
   - AceStudio: ${localizedPath('/acestudio/', locale)}
   - Works and case studies: ${localizedPath('/works/', locale)}
@@ -436,6 +437,10 @@ function normalizeLocale(value: unknown): SupportedLocale {
   return (SUPPORTED_LOCALES as readonly string[]).includes(locale)
     ? (locale as SupportedLocale)
     : 'ja'
+}
+
+function localizedSchoolsPath(locale: SupportedLocale): string {
+  return locale === 'ja' ? `${SCHOOLS_ORIGIN}/` : `${SCHOOLS_ORIGIN}/${locale}/`
 }
 
 function localizedPath(path: string, locale: SupportedLocale): string {

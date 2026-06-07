@@ -216,7 +216,7 @@
         {
           "title": "Escuela IT / Acecore Schools",
           "description": "Tutoría personalizada para todas las edades: programación, apoyo académico y preparación de equivalencia.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/es/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -257,7 +257,7 @@
         {
           "title": "Educación y mentoría",
           "description": "Transformamos el conocimiento práctico en apoyo al aprendizaje para comunidades y futuras generaciones.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/es/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -358,156 +358,6 @@
           "question": "¿Cuánto tarda la respuesta?",
           "answer": "Normalmente respondemos en 1-2 días hábiles. Para añadir detalles después de enviar, también puede usar LINE o las opciones de contacto de abajo."
         }
-      ]
-    },
-    "schools": {
-      "robotProgramming": {
-        "progImgAlt": "Imagen de aprendizaje de programación",
-        "title": "Robot / Programación",
-        "desc": "Ofrecemos clases de programación con robots de última tecnología. Los estudiantes pueden aprender los fundamentos de la programación usando robots reales.",
-        "imgAlt": "Estudiante aprendiendo programación",
-        "courses": [
-          {
-            "title": "Curso de Robots",
-            "description": "Aprende la alegría de crear y los mecanismos básicos a través de la construcción práctica de robots con kits como la serie Tamiya."
-          },
-          {
-            "title": "Curso de Programación de Robots",
-            "description": "Aprende a controlar robots con programación. Desarrolla el pensamiento lógico mediante el control de sensores y motores."
-          },
-          {
-            "title": "Curso de Programación con Minecraft",
-            "description": "Aprende los fundamentos de la programación en el mundo de Minecraft. Desarrolla el pensamiento lógico a través del aprendizaje lúdico."
-          }
-        ]
-      },
-      "practicalProgramming": {
-        "contentsLabel": "Contenidos del Curso",
-        "title": "Programación Práctica",
-        "desc": "Ofrecemos un currículo para aprender técnicas de programación usadas en entornos laborales reales. Adquiere habilidades prácticas para ser productivo de inmediato.",
-        "contentLabel": "Contenido",
-        "contents": [
-          "Desarrollo frontend web con HTML / CSS / JavaScript",
-          "Desarrollo backend con Python / Node.js",
-          "Diseño de bases de datos, construcción de API y uso de la nube",
-          "Git y flujos de trabajo en equipo"
-        ]
-      },
-      "pcSmartphone": {
-        "levelsLabel": "Niveles Compatibles",
-        "title": "PC / Smartphone",
-        "desc": "Aprende las habilidades de PC y smartphone necesarias para la vida diaria y los negocios. Ofrecemos clases para todos los niveles.",
-        "levelLabel": "Niveles disponibles",
-        "imgAlt": "Estudiante aprendiendo con un ordenador",
-        "levels": [
-          "Operación básica de PC y smartphone (principiantes bienvenidos)",
-          "Software de oficina: Word / Excel / PowerPoint",
-          "Configuración y uso de correo, redes sociales y reuniones online",
-          "Medidas de seguridad y resolución de problemas"
-        ]
-      },
-      "title": "Acecore Schools",
-      "description": "Acecore Schools es una escuela IT que ofrece programas educativos amplios: tutoría, programación con robots, programación práctica, clases de PC/smartphone y preparación para equivalencia de bachillerato.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Instrucción personalizada para habilidades sólidas",
-      "heroImgAlt": "Escena de aprendizaje en el aula",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "Descubre el proceso de aprendizaje de Acecore Schools",
-      "learningFlowDesc": "Desde el interés inicial hasta la práctica y la continuidad, presentado como una ruta de aprendizaje.",
-      "intro": "Ofrecemos instrucción personalizada adaptada a los objetivos y ritmo de cada estudiante, desde niños hasta adultos. También puede ver nuestra posición en la visión general de servicios.",
-      "juku": {
-        "title": "Tutoría",
-        "desc": "Nuestro programa de tutoría ofrece instrucción personalizada para cada estudiante, desarrollando habilidades académicas desde los fundamentos hasta la aplicación avanzada. Instructores experimentados apoyan el crecimiento de cada alumno.",
-        "featuresLabel": "Características",
-        "imgAlt": "Sesión de tutoría individual en el aula",
-        "features": [
-          "Lecciones personalizadas según el nivel de comprensión de cada estudiante",
-          "Apoyo gradual desde la consolidación de bases hasta el desarrollo de habilidades avanzadas",
-          "Preparación para exámenes regulares y de ingreso"
-        ]
-      },
-      "compareTitle": "Comparación de métodos de aprendizaje",
-      "compareBefore": "Autoestudio",
-      "compareAfter": "Acecore Schools",
-      "ged": {
-        "title": "Equivalencia de Bachillerato",
-        "desc": "Ofrecemos clases de preparación para el examen de equivalencia de bachillerato para quienes no se graduaron de la escuela secundaria.",
-        "supportLabel": "Contenido de apoyo",
-        "supports": [
-          "Preparación por asignatura (lengua, matemáticas, inglés, ciencias sociales, ciencias)",
-          "Planes de estudio personalizados según el nivel académico",
-          "Exámenes de práctica y ejercicios con exámenes anteriores"
-        ]
-      },
-      "ctaHeading": "Consultas e inscripción",
-      "ctaBody": "Para detalles de cursos e inscripción, use el formulario de contacto o LINE. También puede consultar aunque no sepa qué curso elegir.",
-      "ctaForm": "Formulario de contacto",
-      "ctaLine": "Contactar por LINE",
-      "pricing": {
-        "title": "Rangos de cuotas",
-        "body": "Para que pueda revisar el coste antes de inscribirse, publicamos rangos de mensualidad, matrícula y materiales. Son estimaciones con impuestos incluidos y pueden variar por curso, frecuencia, materiales y contenido.",
-        "ctaHeading": "Consulte el coste detallado cuando quiera.",
-        "ctaBody": "Revisamos curso, objetivo y frecuencia posible para proponer un plan de estudio y un coste realista.",
-        "ctaPricing": "Ver guía de precios",
-        "ctaContact": "Contactar",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "Matrícula",
-            "price": "¥11.000-¥22.000",
-            "note": "Solo al inicio. Puede variar según curso y programa."
-          },
-          {
-            "icon": "calendar-days",
-            "label": "Mensualidad",
-            "price": "¥8.000-¥33.000",
-            "note": "Varía según frecuencia, duración de clase y nivel de atención individual."
-          },
-          {
-            "icon": "book-open",
-            "label": "Materiales y gestión",
-            "price": "aprox. ¥5.000-¥30.000",
-            "note": "Materiales, piezas de robótica, PC o licencias pueden generar costes reales adicionales según el contenido."
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "Descubrir intereses",
-          "description": "A través de tutoría y experiencias con robots, encontramos el punto de entrada al aprendizaje de cada estudiante.",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "Aprender haciendo",
-          "description": "Conectar experiencia y comprensión mediante robots, Minecraft y ejercicios de programación.",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "Conectar con la práctica",
-          "description": "Elevar el aprendizaje a la resolución de problemas reales mediante desarrollo web y uso de herramientas.",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "Hacerlo sostenible",
-          "description": "Crear una ruta de continuidad que incluya exámenes, certificaciones y uso cotidiano de IT.",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "No sé por dónde empezar",
-        "Nadie a quien consultar cuando me atasco",
-        "Difícil mantener la motivación",
-        "No veo la conexión con la práctica"
-      ],
-      "compareAfterItems": [
-        "Sugerencias de entrada personalizadas",
-        "Consulta con instructores en cualquier momento",
-        "Continuidad natural a través de la experiencia",
-        "Conexión directa con exámenes, certificaciones y trabajo real"
       ]
     },
     "about": {
@@ -760,7 +610,7 @@
             "label": "Acecore Schools",
             "price": "¥8.000-¥33.000/mes",
             "note": "Los rangos de matrícula, materiales y gestión también se indican en la página de Schools.",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/es/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -954,7 +804,7 @@
           "title": "Acecore Schools",
           "price": "¥8.000-¥33.000/mes",
           "body": "Publicamos rangos de matrícula, mensualidad, materiales y gestión. Varían por curso, frecuencia, materiales y contenido.",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/es/#pricing"
         },
         {
           "icon": "clapperboard",

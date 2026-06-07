@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
@@ -56,7 +57,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </li>
           <li>
             <a
-              href={u('/schools/')}
+              href={getSchoolsUrl(locale)}
               class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'footer.schools')}</a
             >

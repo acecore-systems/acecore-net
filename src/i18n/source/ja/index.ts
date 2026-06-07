@@ -8,7 +8,6 @@ import homePageTranslations from './pages/home.json'
 import notFoundPageTranslations from './pages/not-found.json'
 import privacyPageTranslations from './pages/privacy.json'
 import pricingPageTranslations from './pages/pricing.json'
-import schoolsPageTranslations from './pages/schools.json'
 import servicesPageTranslations from './pages/services.json'
 
 type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
@@ -52,7 +51,6 @@ const pageNoticePlacements: Record<string, string> = {
   works: 'works-after-hero',
   about: 'about-after-hero',
   contact: 'contact-after-hero',
-  schools: 'schools-after-hero',
   acestudio: 'acestudio-after-hero',
 }
 
@@ -142,7 +140,6 @@ const jaTranslations = {
     services: servicesPageTranslations,
     pricing: pricingPageTranslations,
     contact: contactPageTranslations,
-    schools: schoolsPageTranslations,
     privacy: privacyPageTranslations,
     acestudio: acestudioPageTranslations,
   },

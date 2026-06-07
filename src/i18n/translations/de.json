@@ -230,7 +230,7 @@
         {
           "title": "IT-Schule / Acecore Schools",
           "description": "Individueller Unterricht für alle Altersgruppen — Programmierung, Nachhilfe und Vorbereitung auf den Schulabschluss.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/de/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -271,7 +271,7 @@
         {
           "title": "Bildung und Mentoring",
           "description": "Wir verwandeln praktisches Wissen in Lernunterstützung und geben es an Communities und die nächste Generation weiter.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/de/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -584,7 +584,7 @@
             "label": "Acecore Schools",
             "price": "8.000-33.000 ¥/Monat",
             "note": "Richtwerte für Aufnahmegebühr, Materialien und Verwaltungskosten stehen auch auf der Schools-Seite.",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/de/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -701,158 +701,6 @@
           "question": "Wie lange dauert eine Antwort?",
           "answer": "Normalerweise antworten wir innerhalb von 1-2 Werktagen. Für Ergänzungen nach dem Absenden können auch LINE oder die Kontaktoptionen unten genutzt werden."
         }
-      ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools ist eine IT-Schule, die eine breite Palette von Bildungsprogrammen anbietet, darunter Nachhilfe, Roboter-Programmierung, praktische Programmierung, PC/Smartphone-Kurse und Schulabschluss-Vorbereitung.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Individueller Unterricht für solide Fähigkeiten",
-      "heroImgAlt": "Lernszene im Klassenzimmer",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "Entdecken Sie den Lernweg bei Acecore Schools",
-      "learningFlowDesc": "Vom ersten Interesse über die Praxis bis zur Kontinuität — dargestellt als ein einzigartiger Lernweg.",
-      "intro": "Wir bieten individuellen Unterricht, angepasst an die Ziele und das Tempo jedes Schülers, von Kindern bis zu Erwachsenen. Unsere Positionierung können Sie auch in der Dienstleistungsübersicht sehen.",
-      "juku": {
-        "title": "Nachhilfe",
-        "desc": "Unser Nachhilfeprogramm bietet individuellen Unterricht, angepasst an jeden Schüler, und baut akademische Fähigkeiten vom Grundniveau bis zum Fortgeschrittenen auf. Erfahrene Lehrkräfte unterstützen das Wachstum jedes Schülers.",
-        "featuresLabel": "Merkmale",
-        "imgAlt": "Einzelnachhilfestunde im Klassenzimmer",
-        "features": [
-          "Personalisierte Stunden, angepasst an das Verständnisniveau jedes Schülers",
-          "Schritt-für-Schritt-Unterstützung von Grundkenntnissen bis zur fortgeschrittenen Anwendung",
-          "Vorbereitung auf Tests und Aufnahmeprüfungen verfügbar"
-        ]
-      },
-      "robotProgramming": {
-        "title": "Robotik / Programmierung",
-        "desc": "Wir bieten fortschrittliche Kurse in Roboter-Programmierung an. Die Schüler können Programmiergrundlagen mit echten Robotern erlernen.",
-        "imgAlt": "Schüler beim Programmieren lernen",
-        "progImgAlt": "Schüler beim Programmieren lernen",
-        "courses": [
-          {
-            "title": "Robotik-Kurs",
-            "description": "Lernen Sie die Freude am Bauen und grundlegende Mechanismen durch praktischen Roboter-Zusammenbau mit Bausätzen wie der Tamiya-Serie."
-          },
-          {
-            "title": "Roboter-Programmierung-Kurs",
-            "description": "Lernen Sie, Roboter mit Programmierung zu steuern. Entwickeln Sie logisches Denken durch die Steuerung von Sensoren und Motoren."
-          },
-          {
-            "title": "Minecraft-Programmierung-Kurs",
-            "description": "Lernen Sie Programmiergrundlagen mit dem beliebten Spiel Minecraft. Entwickeln Sie auf natürliche Weise informatisches Denken beim Spielen."
-          }
-        ]
-      },
-      "compareTitle": "Lernansätze Vergleichen",
-      "compareBefore": "Autodidakt",
-      "compareAfter": "Acecore Schools",
-      "practicalProgramming": {
-        "title": "Praktische Programmierung",
-        "desc": "Wir bieten ein Curriculum zum Erlernen von Programmierkenntnissen, die in realen Geschäftsumgebungen verwendet werden. Erwerben Sie praktische Fähigkeiten für den sofortigen Einsatz.",
-        "contentLabel": "Was Sie lernen werden",
-        "contentsLabel": "Kursinhalte",
-        "contents": [
-          "Frontend-Webentwicklung mit HTML / CSS / JavaScript",
-          "Backend-Entwicklung mit Python / Node.js",
-          "Datenbank-Design, API-Entwicklung und Cloud-Nutzung",
-          "Git und Team-Entwicklungs-Workflows"
-        ]
-      },
-      "pcSmartphone": {
-        "title": "PC / Smartphone",
-        "desc": "Lernen Sie Computer- und Smartphone-Fähigkeiten, die im Alltag und Beruf benötigt werden. Wir bieten Kurse für alle Niveaus, von Anfängern bis Fortgeschrittenen.",
-        "levelLabel": "Unterstützte Niveaus",
-        "imgAlt": "Schüler lernt am Computer",
-        "levelsLabel": "Unterstützte Niveaus",
-        "levels": [
-          "Grundlegende PC- und Smartphone-Bedienung (Anfänger willkommen)",
-          "Büroanwendungen: Word / Excel / PowerPoint",
-          "E-Mail-, Social-Media- und Online-Meeting-Einrichtung und -Nutzung",
-          "Sicherheitsmaßnahmen und Problemlösung"
-        ]
-      },
-      "ged": {
-        "title": "Schulabschluss-Vorbereitung",
-        "desc": "Wir bieten Vorbereitungskurse für die Schulabschlussprüfung für diejenigen, die die Oberschule nicht abgeschlossen haben. Wir unterstützen Sie beim Erwerb der notwendigen Kenntnisse und Qualifikationen.",
-        "supportLabel": "Unterstützungsinhalte",
-        "supports": [
-          "Vorbereitung nach Fachgebiet (Deutsch, Mathematik, Englisch, Sozialwissenschaften, Naturwissenschaften)",
-          "Individuelle Lernpläne basierend auf dem jeweiligen akademischen Niveau",
-          "Probeprüfungen und Übungen mit früheren Prüfungen zur praktischen Vorbereitung"
-        ]
-      },
-      "ctaHeading": "Beratung und Anmeldung",
-      "ctaBody": "Für Kursdetails und Anmeldung nutzen Sie bitte das Kontaktformular oder LINE. Sie können auch fragen, wenn Sie nicht wissen, welcher Kurs passt.",
-      "ctaForm": "Kontaktformular",
-      "ctaLine": "Kontakt über LINE",
-      "contentsLabel": "Inhalte",
-      "levelsLabel": "Stufen",
-      "pricing": {
-        "title": "Richtwerte für Unterrichtsgebühren",
-        "body": "Damit Sie die Kosten vorab einschätzen können, zeigen wir Richtwerte für Monatsgebühr, Aufnahmegebühr und Materialien. Alle Beträge sind Richtwerte inklusive Steuern und variieren nach Klassenstufe, Häufigkeit, Materialien und Unterrichtsinhalt.",
-        "ctaHeading": "Fragen Sie uns gern nach den genauen Kosten.",
-        "ctaBody": "Wir klären Klassenstufe, Ziel und mögliche Häufigkeit und schlagen einen realistischen Lernplan mit Kostenrahmen vor.",
-        "ctaPricing": "Preisübersicht ansehen",
-        "ctaContact": "Anfragen",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "Aufnahmegebühr",
-            "price": "11.000-22.000 ¥",
-            "note": "Nur beim Start. Je nach Klassenstufe und Kurs kann der Betrag variieren."
-          },
-          {
-            "icon": "calendar-days",
-            "label": "Monatsgebühr",
-            "price": "8.000-33.000 ¥",
-            "note": "Abhängig von Häufigkeit, Unterrichtsdauer und Anteil individueller Betreuung."
-          },
-          {
-            "icon": "book-open",
-            "label": "Material- und Verwaltungskosten",
-            "price": "etwa 5.000-30.000 ¥",
-            "note": "Für Materialien, Robotik-Teile, PC- oder Lizenzkosten können je nach Inhalt zusätzliche tatsächliche Kosten anfallen."
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "Finden Sie Ihr Interesse",
-          "description": "Durch Nachhilfe und Roboter-Erfahrungen helfen wir, den Einstiegspunkt jedes Schülers zum Lernen zu finden.",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "Lernen durch Handeln",
-          "description": "Verbinden Sie Erfahrung und Verständnis durch praktische Arbeit mit Robotern, Minecraft und Programmierübungen.",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "Mit der Praxis Verbinden",
-          "description": "Heben Sie das Lernen auf die Ebene realer Problemlösung durch Webentwicklung und Tool-Nutzung.",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "Nachhaltig Gestalten",
-          "description": "Schaffen Sie einen Weg der Kontinuität, der zu jedem Schüler passt, einschließlich Prüfungen, Zertifizierungen und alltäglicher IT-Nutzung.",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "Weiß nicht, wo man anfangen soll",
-        "Niemand, den man bei Problemen fragen kann",
-        "Schwierig, die Motivation aufrechtzuerhalten",
-        "Keinen Zusammenhang zur Praxis erkennbar"
-      ],
-      "compareAfterItems": [
-        "Personalisierte Einstiegsvorschläge",
-        "Fragen Sie die Lehrkräfte jederzeit",
-        "Natürliche Kontinuität durch praktische Erfahrung",
-        "Direkt verbunden mit Prüfungen, Zertifizierungen und echter Arbeit"
       ]
     },
     "privacy": {
@@ -1008,7 +856,7 @@
           "title": "Acecore Schools",
           "price": "8.000-33.000 ¥/Monat",
           "body": "Wir zeigen Richtwerte für Aufnahmegebühr, Monatsgebühr sowie Material- und Verwaltungskosten. Sie variieren nach Klassenstufe, Häufigkeit, Material und Lerninhalt.",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/de/#pricing"
         },
         {
           "icon": "clapperboard",

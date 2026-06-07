@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -230,7 +231,7 @@ const pricingLd = {
           <a href={u('/services/')} class="ac-btn-outline">
             {t(locale, 'pages.pricing.ctaServices')}
           </a>
-          <a href={u('/schools/')} class="ac-btn-outline">
+          <a href={getSchoolsUrl(locale)} class="ac-btn-outline">
             {t(locale, 'pages.pricing.ctaSchools')}
           </a>
         </div>

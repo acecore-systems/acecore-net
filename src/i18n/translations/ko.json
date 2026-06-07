@@ -216,7 +216,7 @@
         {
           "title": "IT 스쿨 / Acecore Schools",
           "description": "어린이부터 성인까지 맞춤형 개별 지도. 프로그래밍, 학습 지원, 검정고시 대비.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/ko/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -257,7 +257,7 @@
         {
           "title": "교육과 동반",
           "description": "현장에서 활용 가능한 지식을 학습 지원으로 전환하여 지역 사회와 다음 세대에 전달합니다.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/ko/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -358,156 +358,6 @@
           "question": "답변은 얼마나 걸리나요?",
           "answer": "보통 1-2영업일 이내에 답변합니다. 전송 후 보충 내용은 LINE이나 아래 연락 방법도 사용할 수 있습니다."
         }
-      ]
-    },
-    "schools": {
-      "robotProgramming": {
-        "progImgAlt": "프로그래밍 학습 이미지",
-        "title": "로봇 / 프로그래밍",
-        "desc": "최첨단 기술을 도입한 로봇 프로그래밍 수업을 제공합니다. 실제 로봇을 사용하여 프로그래밍의 기초를 배울 수 있습니다.",
-        "imgAlt": "프로그래밍 학습에 몰두하는 학생",
-        "courses": [
-          {
-            "title": "로봇 코스",
-            "description": "타미야 공작 시리즈 등을 사용한 실제 로봇 공작을 통해 만들기의 즐거움과 기본 원리를 배웁니다."
-          },
-          {
-            "title": "로봇 프로그래밍 코스",
-            "description": "프로그래밍으로 로봇을 제어하는 기술을 배웁니다. 센서와 모터 제어를 통해 논리적 사고력을 기릅니다."
-          },
-          {
-            "title": "마인크래프트 프로그래밍 과정",
-            "description": "마인크래프트 세계에서 프로그래밍 기초를 즐겁게 배웁니다. 게임을 통해 논리적 사고력을 기릅니다."
-          }
-        ]
-      },
-      "practicalProgramming": {
-        "contentsLabel": "학습 내용",
-        "title": "실습 프로그래밍",
-        "desc": "실제 업무에서 사용되는 프로그래밍 기술을 배울 수 있는 커리큘럼을 제공합니다. 실전 기술을 익혀 즉시 활약할 수 있습니다.",
-        "contentLabel": "배울 수 있는 내용",
-        "contents": [
-          "HTML / CSS / JavaScript를 사용한 웹 프론트엔드 개발",
-          "Python / Node.js 등을 사용한 백엔드 개발",
-          "데이터베이스 설계, API 구축, 클라우드 활용",
-          "Git 및 팀 개발 워크플로"
-        ]
-      },
-      "pcSmartphone": {
-        "levelsLabel": "지원 레벨",
-        "title": "PC / 스마트폰",
-        "desc": "일상생활과 비즈니스에서 필요한 PC와 스마트폰 조작 기술을 배울 수 있습니다. 초심자부터 상급자까지 폭넓은 수업을 제공합니다.",
-        "levelLabel": "대응 레벨",
-        "imgAlt": "PC로 학습하는 수강생",
-        "levels": [
-          "PC・스마트폰 기본 조작 (초심자 환영)",
-          "오피스 소프트웨어: Word / Excel / PowerPoint 활용",
-          "이메일, SNS, 온라인 회의 설정 및 사용법",
-          "보안 대책 및 문제 해결"
-        ]
-      },
-      "title": "Acecore Schools",
-      "description": "Acecore Schools는 학습 지도, 로봇 프로그래밍, 실습 프로그래밍, PC/스마트폰 강좌, 고졸 인정 시험 대비 등 폭넓은 교육 프로그램을 제공하는 IT 스쿨입니다.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "개인 맞춤 지도로 확실한 실력을",
-      "heroImgAlt": "교실 학습 풍경",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "Acecore Schools의 학습 과정 알아보기",
-      "learningFlowDesc": "흥미 발견부터 실습, 지속까지를 하나의 학습 경로로 보여줍니다.",
-      "intro": "어린이부터 성인까지 각자의 목표와 속도에 맞춘 개별 지도를 하고 있습니다. 서비스 일람에서 위치도 확인하실 수 있습니다.",
-      "juku": {
-        "title": "학습 지도",
-        "desc": "학생 한 명 한 명에 맞춘 지도로 기초부터 응용까지의 학력을 키웁니다. 경험 풍부한 강사진이 학생의 성장을 지원합니다.",
-        "featuresLabel": "특징",
-        "imgAlt": "교실 개별 지도 풍경",
-        "features": [
-          "학생의 이해도에 맞춘 개별 수업",
-          "기초 정착부터 응용력 양성까지 단계적 지원",
-          "정기 시험 및 입시 대비 지원"
-        ]
-      },
-      "compareTitle": "학습 방식 비교",
-      "compareBefore": "독학",
-      "compareAfter": "Acecore Schools",
-      "ged": {
-        "title": "고졸 인정",
-        "desc": "고등학교를 졸업하지 않은 분을 대상으로 고졸 인정 시험 대비 수업을 제공합니다. 필요한 지식과 자격 취득을 지원합니다.",
-        "supportLabel": "지원 내용",
-        "supports": [
-          "과목별 시험 대비 (국어, 수학, 영어, 사회, 과학)",
-          "개인 학력에 맞춘 학습 계획 수립",
-          "모의시험 및 기출문제 연습"
-        ]
-      },
-      "ctaHeading": "문의 및 신청",
-      "ctaBody": "각 코스의 상세 내용과 신청은 문의 폼 또는 LINE으로 상담해 주세요. 어떤 코스가 맞는지 모르더라도 괜찮습니다.",
-      "ctaForm": "문의 양식",
-      "ctaLine": "LINE으로 문의하기",
-      "pricing": {
-        "title": "수업료 기준",
-        "body": "수강 전에 비용감을 확인할 수 있도록 월 수업료, 입회금, 교재비 기준을 공개합니다. 금액은 세금 포함 예상가이며 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
-        "ctaHeading": "자세한 비용은 편하게 문의해 주세요.",
-        "ctaBody": "학년, 목표, 가능한 횟수를 확인해 무리 없는 학습 플랜과 비용감을 정리합니다.",
-        "ctaPricing": "요금표 보기",
-        "ctaContact": "문의하기",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "입회금",
-            "price": "1.1만〜2.2만 엔",
-            "note": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라질 수 있습니다."
-          },
-          {
-            "icon": "calendar-days",
-            "label": "월 수업료",
-            "price": "8천〜3.3만 엔",
-            "note": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다."
-          },
-          {
-            "icon": "book-open",
-            "label": "교재 및 관리비",
-            "price": "약 5천〜3만 엔",
-            "note": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다."
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "흥미 찾기",
-          "description": "학습 지도와 로봇 체험을 통해 각 학생의 학습 입구를 찾습니다.",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "직접 해보며 이해하기",
-          "description": "로봇 실습, 마인크래프트, 코딩 연습으로 경험과 이해를 연결합니다.",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "실전에 연결하기",
-          "description": "웹 개발과 도구 활용으로 실제 문제 해결 역량으로 끌어올립니다.",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "지속 가능하게 만들기",
-          "description": "시험, 자격증, 일상 IT 활용까지 포함하여 각자에게 맞는 지속 경로를 만듭니다.",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "무엇부터 시작해야 할지 모르겠다",
-        "막혀도 상담할 사람이 없다",
-        "동기 부여를 유지하기 어렵다",
-        "실전과의 연결이 보이지 않는다"
-      ],
-      "compareAfterItems": [
-        "개인에 맞는 입문 방법 제안",
-        "언제든 강사에게 질문 가능",
-        "체험을 통해 자연스럽게 지속",
-        "시험, 자격증, 실무에 직결"
       ]
     },
     "about": {
@@ -760,7 +610,7 @@
             "label": "Acecore Schools",
             "price": "월 8천〜3.3만 엔",
             "note": "입회금, 교재비, 관리비의 기준은 Schools 페이지에도 안내되어 있습니다.",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/ko/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -954,7 +804,7 @@
           "title": "Acecore Schools",
           "price": "월 8천〜3.3만 엔",
           "body": "입회금, 월 수업료, 교재 및 관리비의 기준을 공개합니다. 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/ko/#pricing"
         },
         {
           "icon": "clapperboard",

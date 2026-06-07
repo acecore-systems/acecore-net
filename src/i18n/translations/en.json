@@ -216,7 +216,7 @@
         {
           "title": "IT School / Acecore Schools",
           "description": "Personalized tutoring for all ages — programming, academic support, and high school equivalency exam preparation.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/en/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -257,7 +257,7 @@
         {
           "title": "Education & Mentoring",
           "description": "We transform practical knowledge into learning support, cycling it to communities and the next generation.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/en/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -532,7 +532,7 @@
             "label": "Acecore Schools",
             "price": "¥8,000-¥33,000/month",
             "note": "Admission, materials, and management fee ranges are also listed on the Schools page.",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/en/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -649,156 +649,6 @@
           "question": "How long does a reply take?",
           "answer": "We usually reply within 1-2 business days. For follow-up details after sending, LINE or the contact options below are also available."
         }
-      ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools is an IT school offering a wide range of educational programs including tutoring, robot programming, practical programming, PC/smartphone classes, and high school equivalency exam preparation.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Personalized instruction for solid skills",
-      "heroImgAlt": "Classroom learning scene",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "See the Acecore Schools learning journey",
-      "learningFlowDesc": "From initial interest to practice and continuity — presented as a single learning path.",
-      "intro": "We provide personalized instruction tailored to each student's goals and pace, from children to adults. You can also see where we fit in our services overview.",
-      "juku": {
-        "title": "Tutoring",
-        "desc": "Our tutoring program provides personalized instruction tailored to each student, building academic skills from fundamentals to advanced applications. Experienced instructors support every student's growth.",
-        "featuresLabel": "Features",
-        "imgAlt": "Individual tutoring session in a classroom",
-        "features": [
-          "Personalized lessons tailored to each student's level of understanding",
-          "Step-by-step support from foundational skills to advanced application",
-          "Test prep and entrance exam preparation available"
-        ]
-      },
-      "robotProgramming": {
-        "title": "Robot / Programming",
-        "desc": "We offer cutting-edge robot programming classes. Students can learn programming fundamentals using actual robots.",
-        "imgAlt": "Student engaged in programming learning",
-        "progImgAlt": "Programming learning image",
-        "courses": [
-          {
-            "title": "Robot Course",
-            "description": "Learn the joy of making and basic mechanisms through hands-on robot building using kits like the Tamiya craft series."
-          },
-          {
-            "title": "Robot Programming Course",
-            "description": "Learn to control robots with programming. Develop logical thinking through sensor and motor control."
-          },
-          {
-            "title": "Minecraft Programming Course",
-            "description": "Learn programming basics in the world of Minecraft. Develop logical thinking through game-based learning."
-          }
-        ]
-      },
-      "compareTitle": "Comparing Learning Approaches",
-      "compareBefore": "Self-study",
-      "compareAfter": "Acecore Schools",
-      "practicalProgramming": {
-        "title": "Practical Programming",
-        "desc": "We offer a curriculum for learning programming skills used in actual business environments. Gain practical skills to hit the ground running.",
-        "contentLabel": "What You'll Learn",
-        "contentsLabel": "Course Contents",
-        "contents": [
-          "Web frontend development with HTML / CSS / JavaScript",
-          "Backend development with Python / Node.js",
-          "Database design, API development, and cloud utilization",
-          "Git and team development workflows"
-        ]
-      },
-      "pcSmartphone": {
-        "title": "PC / Smartphone",
-        "desc": "Learn computer and smartphone skills needed for daily life and business. We offer classes for all levels, from beginners to advanced users.",
-        "levelLabel": "Supported Levels",
-        "imgAlt": "Student learning on a computer",
-        "levelsLabel": "Supported Levels",
-        "levels": [
-          "Basic PC and smartphone operation (beginners welcome)",
-          "Office software: Word / Excel / PowerPoint",
-          "Email, SNS, and online meeting setup and usage",
-          "Security measures and troubleshooting"
-        ]
-      },
-      "ged": {
-        "title": "High School Equivalency",
-        "desc": "We offer preparation classes for the high school equivalency exam for those who haven't graduated high school. We support you in gaining the knowledge and qualifications needed.",
-        "supportLabel": "Support Content",
-        "supports": [
-          "Subject-specific exam preparation (Japanese, math, English, social studies, science)",
-          "Personalized study plans based on individual academic level",
-          "Practice exams and past paper exercises for practical preparation"
-        ]
-      },
-      "ctaHeading": "Inquiries & Enrollment",
-      "ctaBody": "For course details and enrollment, please use the contact form or LINE. It is fine to ask even if you are not sure which course is right.",
-      "ctaForm": "Contact Form",
-      "ctaLine": "Contact via LINE",
-      "pricing": {
-        "title": "Tuition Guide",
-        "body": "These tax-included estimates show tuition, admission, and materials fees before enrollment. Costs vary by grade, frequency, materials, and course content.",
-        "ctaHeading": "Contact us for detailed school costs.",
-        "ctaBody": "We will ask about grade, goals, and available frequency, then organize a realistic learning plan and cost range.",
-        "ctaPricing": "View Pricing Guide",
-        "ctaContact": "Contact Us",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "Admission fee",
-            "price": "¥11,000-¥22,000",
-            "note": "One-time fee. Varies by grade and course."
-          },
-          {
-            "icon": "calendar-days",
-            "label": "Monthly tuition",
-            "price": "¥8,000-¥33,000",
-            "note": "Varies by weekly frequency, lesson time, and individual instruction content."
-          },
-          {
-            "icon": "book-open",
-            "label": "Materials / management fees",
-            "price": "Around ¥5,000-¥30,000",
-            "note": "Materials, robot parts, PC/license fees, and similar costs may be charged separately depending on the course."
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "Find Your Interest",
-          "description": "Through tutoring and robot experiences, we help find each student's entry point to learning.",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "Learn by Doing",
-          "description": "Connect experience and understanding through hands-on work with robots, Minecraft, and coding exercises.",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "Connect to Practice",
-          "description": "Elevate learning to real-world problem solving through web development and tool utilization.",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "Make It Sustainable",
-          "description": "Create a continuity path that fits each student, including exams, certifications, and everyday IT use.",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "Don't know where to start",
-        "No one to consult when stuck",
-        "Hard to stay motivated",
-        "Can't see the connection to practice"
-      ],
-      "compareAfterItems": [
-        "Personalized entry point suggestions",
-        "Ask instructors anytime",
-        "Natural continuity through hands-on experience",
-        "Directly connected to exams, certifications, and real work"
       ]
     },
     "privacy": {
@@ -954,7 +804,7 @@
           "title": "Acecore Schools",
           "price": "¥8,000-¥33,000/month",
           "body": "Admission, tuition, and materials/management fee ranges are shown. Costs vary by grade, frequency, materials, and course content.",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/en/#pricing"
         },
         {
           "icon": "clapperboard",

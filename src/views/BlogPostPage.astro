@@ -45,6 +45,7 @@ import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -177,7 +178,7 @@ const ctaHeading = isDefaultLocale
           match: ['教育', 'Acecore Schools'],
           heading: 'ITスクールに興味がありますか？',
           body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。',
-          primary: { label: 'スクール詳細を見る', href: '/schools/' },
+          primary: { label: 'スクール詳細を見る', href: getSchoolsUrl(locale) },
           secondary: { label: 'お問い合わせ', href: '/contact/' },
         },
         {
