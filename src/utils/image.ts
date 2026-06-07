@@ -135,18 +135,31 @@ function buildCloudflareImageUrl(
   transformOptions.push('format=auto', `quality=${quality}`, 'metadata=none')
 
   const separator = sourceUrl.startsWith('/') ? '' : '/'
+  const transformOrigin = sourceUrl.startsWith('/')
+    ? ''
+    : CLOUDFLARE_IMAGE_ORIGIN
 
-  return `${CLOUDFLARE_IMAGE_ORIGIN}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}${separator}${sourceUrl}`
+  return `${transformOrigin}${CLOUDFLARE_IMAGE_PREFIX}${transformOptions.join(',')}${separator}${sourceUrl}`
 }
 
 /**
- * 外部画像URLまたはローカル画像パスを Cloudflare Images の変換URLに変換する。
- * 外部URLはリモート取得、ローカル画像は同一オリジン画像として最適化配信する。
+ * 外部画像URLまたはCloudflare変換URLを最適化済みURLに変換する。
+ * ルート相対のローカル画像は、開発・プレビュー環境でも読めるよう直接配信する。
  */
+function shouldServeDirectly(url: string): boolean {
+  return (
+    url.startsWith('/') &&
+    !url.startsWith('//') &&
+    !url.startsWith(CLOUDFLARE_IMAGE_PREFIX)
+  )
+}
+
 export function optimizeImage(
   url: string,
   overrides: OptimizeImageOptions = {},
 ): string {
+  if (shouldServeDirectly(url)) return url
+
   const parsed = parseImageSource(url)
   if (!parsed) return url
 
@@ -169,6 +182,8 @@ export function optimizeImageWithWidth(
   width: number,
   overrides: Pick<OptimizeImageOptions, 'quality'> = {},
 ): string {
+  if (shouldServeDirectly(url)) return url
+
   const parsed = parseImageSource(url)
   if (!parsed) return url
 
@@ -186,5 +201,10 @@ export function generateSrcSet(
   url: string,
   widths: number[] = [480, 640, 960, 1280, 1600],
 ): string {
+  if (shouldServeDirectly(url)) {
+    const maxWidth = widths[widths.length - 1]
+    return maxWidth ? `${url} ${maxWidth}w` : url
+  }
+
   return widths.map((w) => `${optimizeImageWithWidth(url, w)} ${w}w`).join(', ')
 }

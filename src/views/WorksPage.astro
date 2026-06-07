@@ -193,6 +193,17 @@ const worksLd = {
                       <li class="ac-chip-static">{tag}</li>
                     ))}
                   </ul>
+                  {workCase.externalUrl && (
+                    <a
+                      href={workCase.externalUrl}
+                      class="ac-btn-outline mt-6 inline-flex gap-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon name="external-link" />
+                      {workCase.externalLabel ?? workCase.externalUrl}
+                    </a>
+                  )}
                 </div>
               </div>
             </article>
