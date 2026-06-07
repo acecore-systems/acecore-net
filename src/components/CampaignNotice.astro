@@ -1,0 +1,200 @@
+---
+import Icon from './Icon.astro'
+import { getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
+import { isWithinPublicationWindow } from '../utils/publication-window'
+
+interface Props {
+  locale: Locale
+  placement?: string
+  page?: CampaignNoticePage
+  campaignId?: string
+}
+
+type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
+type CampaignNoticePage =
+  | 'home'
+  | 'services'
+  | 'works'
+  | 'about'
+  | 'contact'
+  | 'schools'
+  | 'acestudio'
+
+type CampaignNoticeSettings = {
+  id?: string
+  page?: string
+  placement?: string
+  enabled?: boolean
+  /** @deprecated Use title instead. */
+  eyebrow?: string
+  /** @deprecated Use body instead. */
+  message?: string
+  title?: string
+  body?: string
+  href?: string
+  ctaLabel?: string
+  icon?: string
+  tone?: CampaignTone
+  startsAt?: string
+  endsAt?: string
+}
+
+type VisibleCampaignNotice = {
+  id: string
+  title: string
+  body: string
+  destination: string
+  isExternal: boolean
+  ctaLabel: string
+  icon: string
+  placement: string
+  tone: CampaignTone
+}
+
+const { locale, placement, page, campaignId } = Astro.props
+const notices =
+  getTranslationValue<CampaignNoticeSettings[]>(locale, 'campaignNotices') ?? []
+
+const pageNoticePlacements: Record<CampaignNoticePage, string> = {
+  home: 'home-after-hero',
+  services: 'services-after-hero',
+  works: 'works-after-hero',
+  about: 'about-after-hero',
+  contact: 'contact-after-hero',
+  schools: 'schools-after-hero',
+  acestudio: 'acestudio-after-hero',
+}
+
+const targetPlacement = placement ?? (page ? pageNoticePlacements[page] : '')
+
+const toneClasses: Record<
+  CampaignTone,
+  {
+    wrap: string
+    iconWrap: string
+    icon: string
+    cta: string
+  }
+> = {
+  brand: {
+    wrap: 'border-brand-100 bg-brand-50/80',
+    iconWrap: 'bg-white text-brand-600 shadow-sm',
+    icon: 'text-brand-600',
+    cta: 'ac-btn-primary',
+  },
+  amber: {
+    wrap: 'border-amber-200 bg-amber-50/90',
+    iconWrap: 'bg-white text-amber-600 shadow-sm',
+    icon: 'text-amber-600',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-800 text-slate-950 no-underline transition-colors hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2',
+  },
+  emerald: {
+    wrap: 'border-emerald-200 bg-emerald-50/90',
+    iconWrap: 'bg-white text-emerald-600 shadow-sm',
+    icon: 'text-emerald-600',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2',
+  },
+  slate: {
+    wrap: 'border-slate-200 bg-slate-50/90',
+    iconWrap: 'bg-white text-slate-600 shadow-sm',
+    icon: 'text-slate-600',
+    cta: 'inline-flex min-h-10 items-center justify-center rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-800 text-white no-underline transition-colors hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2',
+  },
+}
+
+const isCampaignTone = (tone?: string): tone is CampaignTone =>
+  tone === 'brand' || tone === 'amber' || tone === 'emerald' || tone === 'slate'
+
+const getDestination = (href: string): string =>
+  href.startsWith('/') ? getLocalizedUrl(href, locale) : href
+
+const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
+  (result, notice) => {
+    const noticePagePlacement =
+      notice.page && notice.page in pageNoticePlacements
+        ? pageNoticePlacements[notice.page as CampaignNoticePage]
+        : ''
+    const noticePlacement = notice.placement?.trim() || noticePagePlacement
+    const id = notice.id?.trim() ?? noticePlacement
+    const title = notice.title?.trim() || notice.eyebrow?.trim() || ''
+    const body = notice.body?.trim() || notice.message?.trim() || ''
+    const href = notice.href?.trim() ?? ''
+    const destination = href ? getDestination(href) : ''
+
+    if (
+      notice.enabled !== true ||
+      noticePlacement !== targetPlacement ||
+      (campaignId && id !== campaignId) ||
+      title.length === 0 ||
+      !isWithinPublicationWindow(notice.startsAt, notice.endsAt)
+    ) {
+      return result
+    }
+
+    result.push({
+      id,
+      title,
+      body,
+      destination,
+      isExternal: /^https?:\/\//.test(destination),
+      ctaLabel: notice.ctaLabel?.trim() ?? '',
+      icon: notice.icon?.trim() || 'calendar-check',
+      placement: noticePlacement,
+      tone: isCampaignTone(notice.tone) ? notice.tone : 'brand',
+    })
+
+    return result
+  },
+  [],
+)
+---
+
+{
+  visibleNotices.map((notice) => {
+    const classes = toneClasses[notice.tone]
+
+    return (
+      <section
+        class:list={['border-y py-5', classes.wrap]}
+        aria-label={notice.title}
+        data-campaign-id={notice.id}
+      >
+        <div class="ac-container flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex min-w-0 items-start gap-3">
+            <span
+              class:list={[
+                'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
+                classes.iconWrap,
+              ]}
+            >
+              <Icon name={notice.icon} class:list={['text-xl', classes.icon]} />
+            </span>
+            <div class="min-w-0">
+              <h2 class="m-0 text-lg font-800 leading-snug text-slate-900">
+                {notice.title}
+              </h2>
+              {notice.body && (
+                <p class="m-0 mt-1 text-sm font-600 leading-relaxed text-slate-600">
+                  {notice.body}
+                </p>
+              )}
+            </div>
+          </div>
+          {notice.destination && notice.ctaLabel && (
+            <a
+              href={notice.destination}
+              class:list={['shrink-0', classes.cta]}
+              target={notice.isExternal ? '_blank' : undefined}
+              rel={notice.isExternal ? 'noopener noreferrer' : undefined}
+              data-ga-event="campaign_notice_click"
+              data-ga-label={notice.ctaLabel}
+              data-ga-location={notice.placement}
+            >
+              {notice.ctaLabel}
+            </a>
+          )}
+        </div>
+      </section>
+    )
+  })
+}

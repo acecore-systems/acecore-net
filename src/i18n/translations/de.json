@@ -7,6 +7,17 @@
     "blog": "Blog",
     "contact": "Kontakt"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "Hinweis zur Website-Erneuerung",
+    "body": "Wir haben die Website überarbeitet und Leistungen sowie Projektbeispiele übersichtlicher strukturiert.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Änderungen ansehen",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Zum Inhalt springen",
     "search": "Artikel suchen",

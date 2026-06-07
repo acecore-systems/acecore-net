@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import CampaignNotice from '../components/CampaignNotice.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Icon from '../components/Icon.astro'
@@ -160,6 +161,8 @@ const webPageLd = {
     showCTA={true}
     images={homeHeroImages}
   />
+
+  <CampaignNotice locale={locale} page="home" />
 
   <section class="border-b border-brand-100 bg-white py-8 sm:py-10">
     <div class="ac-container">

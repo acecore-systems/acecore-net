@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Faq from '../components/Faq.astro'
 import Icon from '../components/Icon.astro'
@@ -126,6 +127,8 @@ const faqLd = {
       },
     ]}
   />
+
+  <CampaignNotice locale={locale} page="contact" />
 
   <section class="ac-section">
     <div class="ac-container max-w-2xl">

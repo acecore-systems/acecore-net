@@ -7,7 +7,7 @@
     "enabled": true,
   },
   "vars": {
-    "ALLOWED_DOMAINS": "acecore.net,localhost,localhost:4321,127.0.0.1",
+    "ALLOWED_DOMAINS": "acecore.net,*.acecore-net.pages.dev,localhost,localhost:4321,127.0.0.1",
     "GITHUB_SCOPE": "repo,user",
   },
 }

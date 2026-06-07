@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import InsightGrid from '../components/InsightGrid.astro'
@@ -134,6 +135,8 @@ const serviceLd = {
       },
     ]}
   />
+
+  <CampaignNotice locale={locale} page="services" />
 
   <div class="ac-container mt-4">
     <Breadcrumb

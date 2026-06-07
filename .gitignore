@@ -4,3 +4,4 @@ dist/
 .wrangler/
 .playwright-cli/
 .tmp-astro-preview*.log
+/public/admin/runtime-config.js

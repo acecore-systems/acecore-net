@@ -7,6 +7,17 @@
     "blog": "Blog",
     "contact": "Contato"
   },
+  "announcement": {
+    "enabled": true,
+    "title": "Aviso de renovação do site",
+    "body": "Renovamos o site e reorganizamos os serviços e exemplos de projetos para facilitar a consulta.",
+    "href": "/blog/website-renewal/",
+    "ctaLabel": "Ver mudanças",
+    "startsAt": "2026-06-07T00:00",
+    "endsAt": "2026-06-21T23:59",
+    "tone": "brand"
+  },
+  "campaignNotices": [],
   "common": {
     "skipToContent": "Ir para o conteúdo",
     "search": "Pesquisar artigos",
