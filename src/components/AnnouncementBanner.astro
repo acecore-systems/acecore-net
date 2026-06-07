@@ -90,15 +90,12 @@ const visibleAnnouncements = announcements
         ? announcement.tone
         : 'amber',
       enabled: announcement?.enabled === true,
-      startsAt: announcement?.startsAt,
-      endsAt: announcement?.endsAt,
+      startsAt: announcement?.startsAt?.trim() || undefined,
+      endsAt: announcement?.endsAt?.trim() || undefined,
     }
   })
   .filter(
-    (announcement) =>
-      announcement.enabled &&
-      announcement.body.length > 0 &&
-      isWithinPublicationWindow(announcement.startsAt, announcement.endsAt),
+    (announcement) => announcement.enabled && announcement.body.length > 0,
   )
 ---
 
@@ -110,6 +107,13 @@ const visibleAnnouncements = announcements
       <aside
         class:list={['border-b text-sm', classes.wrap]}
         aria-label={announcement.title || 'Announcement'}
+        data-publication-window="true"
+        data-publication-starts-at={announcement.startsAt}
+        data-publication-ends-at={announcement.endsAt}
+        data-pagefind-ignore
+        hidden={
+          !isWithinPublicationWindow(announcement.startsAt, announcement.endsAt)
+        }
       >
         <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex min-w-0 items-start gap-3">
@@ -152,3 +156,9 @@ const visibleAnnouncements = announcements
     )
   })
 }
+
+<script>
+  import { initPublicationWindowRuntime } from '../scripts/publication-window'
+
+  initPublicationWindowRuntime()
+</script>
