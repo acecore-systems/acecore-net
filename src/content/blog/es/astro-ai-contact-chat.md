@@ -244,7 +244,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-Es más estable generarlo en servidor que dejarlo solo como instrucción del prompt. La base de traducción está resumida en [el artículo del pipeline con Copilot](/blog/copilot-translation-pipeline/).
+Es más estable generarlo en servidor que dejarlo solo como instrucción del prompt. La base de traducción está resumida en [Cómo gestionar un blog multilingüe con Sveltia CMS](/es/blog/copilot-translation-pipeline/).
 
 ## Añadir Origin check y rate limit
 

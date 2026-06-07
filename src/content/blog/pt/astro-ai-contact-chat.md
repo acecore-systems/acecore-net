@@ -225,7 +225,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-Gerar isso no servidor é mais confiável do que apenas pedir ao modelo. A base da tradução está em [pipeline de tradução com Copilot](/blog/copilot-translation-pipeline/).
+Gerar isso no servidor é mais confiável do que apenas pedir ao modelo. A base da tradução está em [Como operar um blog multilíngue com Sveltia CMS](/pt/blog/copilot-translation-pipeline/).
 
 ## Adicione Origin check e rate limit
 

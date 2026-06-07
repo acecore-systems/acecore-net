@@ -225,7 +225,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-La génération côté serveur est plus fiable qu'une simple instruction de prompt. La base de traduction est décrite dans [l'article du pipeline Copilot](/blog/copilot-translation-pipeline/).
+La génération côté serveur est plus fiable qu'une simple instruction de prompt. La base de traduction est décrite dans [Comment gérer un blog multilingue avec Sveltia CMS](/fr/blog/copilot-translation-pipeline/).
 
 ## Ajouter Origin check et rate limit
 

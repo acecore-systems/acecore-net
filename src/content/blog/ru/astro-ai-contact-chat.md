@@ -225,7 +225,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-Генерация на сервере надежнее, чем только инструкция в prompt. Основа переводов описана в [статье о pipeline Copilot](/blog/copilot-translation-pipeline/).
+Генерация на сервере надежнее, чем только инструкция в prompt. Основа переводов описана в статье [Как вести многоязычный блог с Sveltia CMS](/ru/blog/copilot-translation-pipeline/).
 
 ## Origin check и rate limit
 

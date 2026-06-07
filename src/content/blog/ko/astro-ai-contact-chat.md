@@ -225,7 +225,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-이 처리는 프롬프트에 맡기기보다 서버에서 URL을 생성하는 것이 안정적입니다. 번역 운영은 [Copilot 번역 파이프라인 글](/blog/copilot-translation-pipeline/)에 정리되어 있습니다.
+이 처리는 프롬프트에 맡기기보다 서버에서 URL을 생성하는 것이 안정적입니다. 번역 운영은 [Sveltia CMS로 다국어 블로그를 운영하는 방법](/ko/blog/copilot-translation-pipeline/)에 정리되어 있습니다.
 
 ## Origin 검사와 rate limit
 

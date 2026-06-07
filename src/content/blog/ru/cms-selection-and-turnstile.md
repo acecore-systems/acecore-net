@@ -194,7 +194,7 @@ Acecore позже исправила этот момент в [PR #116](https:/
 | `tags`     | `src/content/tags/*.json`      | Редактировать теги и локализованные имена         |
 | page text  | `src/i18n/source/ja/**/*.json` | Редактировать японские source-тексты страниц и UI |
 
-Не обязательно открывать в CMS все переведённые Markdown-файлы. Acecore считает японский source каноническим, а переводы обновляет через [pipeline GitHub Copilot](/ru/blog/copilot-translation-pipeline/).
+Не обязательно открывать в CMS все переведённые Markdown-файлы. Acecore считает японский source каноническим, а переводы обновляет через [Как вести многоязычный блог с Sveltia CMS](/ru/blog/copilot-translation-pipeline/).
 
 ## 6. Использовать relation и select
 

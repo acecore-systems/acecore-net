@@ -248,7 +248,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-这类处理由服务端 URL 生成函数负责，比只写在提示词里更稳定。翻译运用的基础可参考[使用 GitHub Copilot 的博客翻译管线](/blog/copilot-translation-pipeline/)。
+这类处理由服务端 URL 生成函数负责，比只写在提示词里更稳定。翻译运用的基础可参考[用 Sveltia CMS 运营多语言博客的方法](/zh-cn/blog/copilot-translation-pipeline/)。
 
 ## 加入 Origin 检查和限流
 

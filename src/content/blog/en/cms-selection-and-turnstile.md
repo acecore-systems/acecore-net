@@ -235,7 +235,7 @@ The most important design decision is not the CMS itself, but which files are ed
 
 The key is to avoid exposing all translated Markdown files in the CMS. For a nine-language site, that makes it harder to know which language is current and which translation should follow a Japanese source change.
 
-Acecore treats Japanese content as the source of truth and sends translations through the [GitHub Copilot blog translation pipeline](/en/blog/copilot-translation-pipeline/).
+Acecore treats Japanese content as the source of truth and sends translations through [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/).
 
 ## 6. Use Relation and Select Widgets
 
@@ -432,4 +432,4 @@ Sveltia CMS is easy to place under `public/admin`, but a production setup needs 
 
 Decide the save branch, OAuth flow, media folders, source-language policy, translation workflow, and merge strategy. Once those are explicit, a static Astro site can stay lightweight while gaining a usable editing workflow.
 
-For dynamic AI features, see [Adding an AI Chat to an Astro Site](/en/blog/astro-ai-contact-chat/). For translation automation, see the [GitHub Copilot blog translation pipeline](/en/blog/copilot-translation-pipeline/). The CMS is the content-update foundation that makes both workflows easier to operate.
+For dynamic AI features, see [Adding an AI Chat to an Astro Site](/en/blog/astro-ai-contact-chat/). For translation automation, see [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/). The CMS is the content-update foundation that makes both workflows easier to operate.

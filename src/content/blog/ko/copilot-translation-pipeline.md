@@ -1,261 +1,150 @@
 ---
-title: '일본어 글 하나만 발행해서 9개 언어 블로그를 운영하는 방법'
-description: 'Pages CMS에서 일본어 글만 업데이트하면 GitHub Actions와 GitHub Copilot이 일본어 + 8개 언어의 번역 글을 자동으로 생성하고, 빌드 및 자동 머지까지 진행하는 운영 방식을 정리합니다.'
-date: 2026-03-29T22:30
+title: 'Sveltia CMS로 다국어 블로그를 운영하는 방법'
+description: 'Sveltia CMS에서 일본어 원문을 편집하고, GitHub Actions와 GitHub Copilot으로 번역 PR을 만들어 정적 다국어 페이지를 배포하는 운영 방식과 UI 번역과의 차이, 검색 엔진상의 장점을 정리합니다.'
+date: 2026-06-07T17:00
+lastUpdated: 2026-06-07
 author: gui
-tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS']
+tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp
 callout:
-  type: info
-  title: 결론 먼저
-  text: '현재 Acecore 사이트라면 일본어 글을 번역 원본으로 삼아, GitHub Actions와 GitHub Copilot으로 일본어 + 8개 언어 블로그 운영을 자동화할 수 있습니다.'
-processFigure:
-  title: 일본어 1편에서 9개 언어 운영까지의 흐름
-  steps:
-    - title: 일본어 소스 업데이트
-      description: Pages CMS 또는 Markdown으로 일본어 글만 편집해서 main에 반영한다.
-      icon: i-lucide-pencil-line
-    - title: 번역 PR 태스크 직접 생성
-      description: source path와 대상 로케일을 담은 Copilot 태스크를 GitHub Actions가 직접 생성한다.
-      icon: i-lucide-git-branch
-    - title: Copilot이 번역 PR 작성
-      description: 태스크를 받아 번역 파일을 생성하고 translation PR을 오픈한다.
-      icon: i-lucide-git-pull-request
-    - title: build 성공 후 자동 머지
-      description: build 성공 후 번역 PR을 자동 머지한다.
-      icon: i-lucide-check-check
-compareTable:
-  title: 수동 운영과 자동 운영 비교
-  before:
-    label: 수동 번역 운영
-    items:
-      - 글 공개 후 번역 태스크를 사람이 생성한다
-      - 언어별로 담당자를 배정한다
-      - build나 머지 판단도 사람이 한다
-      - 중복 태스크와 PR 정리가 쌓이기 쉽다
-  after:
-    label: 자동 번역 운영
-    items:
-      - 일본어 글 push가 시작점이 된다
-      - Copilot 번역 PR 태스크가 직접 생성된다
-      - 번역 PR은 build 후 자동 머지된다
-      - PR body 마커로 중복 생성을 방지한다
-checklist:
-  title: 도입 전에 갖춰야 할 것들
-  items:
-    - text: 일본어를 번역 원본으로 삼는 콘텐츠 구조
-    - text: src/content/blog/{locale}/{slug}.md 같은 번역 파일 배치 규칙
-    - text: pull requests read 권한을 가진 GitHub Actions
-    - text: Copilot coding agent API를 호출할 수 있는 COPILOT_AGENT_TOKEN
-    - text: npm run build 같은 안정적인 빌드 커맨드
+  type: tip
+  title: UI 번역과 다국어 공개는 다릅니다
+  text: '브라우저 번역이나 번역 위젯은 독자가 현재 페이지를 읽는 데 도움이 되지만, 언어별 URL, title, description, 내부 링크, RSS, sitemap, hreflang을 자동으로 만들지는 않습니다. 검색 엔진에 각 언어 페이지를 전달하려면 번역된 정적 HTML이 필요합니다.'
+linkCards:
+  - href: /ko/blog/cms-selection-and-turnstile/
+    title: Sveltia CMS 도입 가이드
+    description: Astro 정적 사이트에 Sveltia CMS를 도입한 구현 기록입니다.
+    icon: i-lucide-badge-check
+  - href: /ko/blog/astro-i18n-blog-translation/
+    title: Astro 다국어 아키텍처
+    description: 9개 언어, fallback, hreflang, RSS, sitemap 기반을 설명합니다.
+    icon: i-lucide-globe-2
 faq:
   title: 자주 묻는 질문
   items:
-    - question: 일본어 글만 push하면 다른 언어 글도 자동으로 만들어지나요?
-      answer: '네. 현재 Acecore 사이트는 `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru`의 9개 언어 구성이므로, 일본어 글 push를 시작점으로 나머지 8개 언어 Copilot 번역 PR 태스크 생성, 번역 PR 작성, build, 자동 머지까지 흐를 수 있습니다. 또한 번역 파일이 아직 없어도 각 로케일의 URL은 일본어 폴백으로 제공되므로, 공개를 멈추지 않고 나중에 실제 번역으로 교체할 수 있습니다.'
-    - question: 왜 issue를 거치지 않고 직접 PR 태스크를 만드나요?
-      answer: '번역 작업의 결과물이 PR이므로, source path·대상 로케일·번역 조건을 Copilot 태스크의 problem_statement와 PR body 마커에 직접 고정하면 플로가 더 짧아집니다. 오픈 PR을 마커로 검색하여 같은 source path에 대한 중복 생성도 방지할 수 있습니다.'
-    - question: 자동 머지는 위험하지 않나요?
-      answer: '무조건 머지는 위험합니다. translation PR에만 대상을 좁히고, Copilot이 만든 PR, translation으로 시작하는 타이틀, build 성공, 비 draft를 조건으로 삼으면 상당히 안전하게 유지할 수 있습니다.'
+    - question: UI 번역만으로 충분하지 않나요?
+      answer: '읽기 보조로는 충분할 수 있습니다. 하지만 SEO, RSS, sitemap, 내부 링크까지 언어별 자산으로 만들려면 실제 번역 페이지가 필요합니다.'
+    - question: AI 번역은 SEO에 불리한가요?
+      answer: 'AI 사용 자체가 문제가 아니라, 가치 없는 페이지를 대량으로 공개하는 것이 문제입니다. 용어, 사실, 링크, 자연스러움을 검토해야 합니다.'
+    - question: 번역 페이지는 중복 콘텐츠인가요?
+      answer: 'Google 문서에 따르면 본문이 번역되어 있다면 현지화 페이지가 단순 중복으로 취급되는 것은 아닙니다. hreflang으로 관계를 명확히 합니다.'
 ---
 
-결론부터 말하면, 이 사이트에서는 Pages CMS로 일본어 글 1편을 공개하는 것만으로 일본어 + 8개 언어 블로그 글을 순차적으로 갖출 수 있습니다. GitHub Actions와 GitHub Copilot이 번역 PR 태스크 생성, 번역 PR 작성, build, 자동 머지까지 진행하는 구성입니다.
+Acecore는 주로 일본어로 콘텐츠를 편집하지만, 블로그는 9개 언어로 공개합니다. 여기서 중요한 점은 **화면에서 번역해 보여주는 것**과 **언어별 페이지를 공개하는 것**이 다르다는 점입니다.
 
-운영 담당이 평소에 건드리는 것은 일본어 글과 저자 정보뿐입니다. 번역 태스크 생성이나 PR 정리를 매번 손으로 하지 않아도 되므로, 다국어 블로그 운영 부담을 크게 줄일 수 있습니다.
+브라우저 번역이나 위젯은 독자가 지금 보고 있는 페이지를 이해하는 데 도움이 됩니다. 그러나 `/ko/blog/.../` 같은 URL, 언어별 메타 정보, RSS, sitemap, hreflang을 만들지는 않습니다.
 
-## 이 방법의 전제 조건
+검색 유입까지 고려한다면 번역은 UI 처리가 아니라 게시 전 콘텐츠 생성 과정으로 다뤄야 합니다.
 
-전제로서, 이 방법은 Astro 측에 다음 기반이 이미 갖춰진 구성을 상정합니다.
+## 기본 구조
 
-- 9개 언어 라우팅（ja, en, zh-cn, es, pt, fr, ko, de, ru）
-- 번역이 아직 없는 페이지도 일본어를 표시할 수 있는 폴백
-- Pages CMS에서 일본어 글과 저자 정보를 업데이트할 수 있는 운영 환경
+- 일본어 원문: `src/content/blog/{slug}.md`
+- 번역 파일: `src/content/blog/{locale}/{slug}.md`
+- URL: `/blog/{slug}/`, `/en/blog/{slug}/`, `/ko/blog/{slug}/`
+- 편집: Sveltia CMS
+- 번역: GitHub Copilot PR
+- 공개: build와 리뷰
 
-기반 구축 방법 자체는 [Astro 6 사이트를 9개 언어 대응으로 — 블로그 글 168편의 자동 번역과 다국어 아키텍처](/blog/astro-i18n-blog-translation/)에 정리되어 있습니다. 이 글에서는 그 위에 Copilot 자동 번역 운영을 어떻게 올릴지에만 집중합니다.
+Sveltia CMS는 일본어 source를 편집하는 화면입니다. 번역은 GitHub PR로 분리해 변경 이력과 리뷰, CI를 남깁니다.
 
-## 무엇을 할 수 있는가
+## UI 번역이 맞는 경우
 
-운영 관점에서 보면, 평소에 접하는 화면은 이 2가지입니다. 이번에는 Pages CMS 화면을 그대로 사용하여, **일상 운영에서 어디를 건드리는지**를 바로 알 수 있는 형태로 했습니다.
+내부 확인, 일회성 열람, 관리 화면, 검색 유입을 목표로 하지 않는 페이지라면 UI 번역으로 충분할 수 있습니다.
 
-![Pages CMS의 일본어 블로그 목록 화면](/uploads/pagescms-blog-ja-live-20260329.png)
+이 방식은 가볍지만 번역 파일이 없으므로 검색 엔진이 직접 인덱싱할 언어별 페이지도 없습니다.
 
-첫 번째는 Pages CMS의 일본어 블로그 목록입니다. 여기서 공개일과 저자를 확인하면서 일본어 글만 추가·업데이트합니다. 여러 언어의 편집 화면을 매번 드나들지 않고, **번역 원본인 일본어만 건드린다**는 운영 방식에 맞추는 것이 포인트입니다.
+## 정적 다국어 페이지의 SEO 장점
 
-![Pages CMS의 저자 정보 폼 화면](/uploads/pagescms-authors-live-20260329.png)
+검색 엔진, SNS 미리보기, RSS 리더는 URL과 HTML을 기준으로 정보를 봅니다.
 
-두 번째는 저자 정보 폼입니다. 저자 데이터도 일본어 기반 항목만 CMS에서 업데이트하고, 번역용 `i18n`은 GitHub 측 자동화 플로에서 다룬다고 전제하면, 운영 책임의 분리가 상당히 깔끔해집니다.
+일본어 페이지 하나만 있고 독자 브라우저가 번역하는 경우, `title`, `description`, 구조화 데이터, RSS, sitemap은 여전히 일본어 페이지 기준입니다.
 
-## 이 방법이 맞는 케이스
+정적 번역 페이지가 있으면 각 언어가 URL을 갖습니다.
 
-우선 전제로서, 다음과 같은 팀이나 사이트에서 특히 효과적입니다.
-
-- 일본어를 번역 원본으로 삼고 싶다
-- 블로그는 Markdown 기반으로 관리한다
-- 번역을 매번 수동으로 생성하는 것이 번거롭다
-- 번역 품질은 어느 정도 AI에 맡기고 싶다
-- 단, build 실패나 draft인 채로 있는 PR은 막고 싶다
-
-반대로 언어별로 완전히 독립된 편집 체제를 가진 경우에는 다른 운영 방식이 더 맞을 수도 있습니다.
-
-## Step 1. 번역 원본을 일본어 글에 고정한다
-
-가장 먼저 결정해야 할 것은 "어떤 파일을 번역 원본으로 삼을지"입니다. 여기가 모호하면 자동화가 무너집니다.
-
-이 글에서 말하는 번역 원본이란, **가장 먼저 편집하여 각 언어 글과 파생 데이터의 기준이 되는 일본어 파일**을 가리킵니다.
-
-이번 구성에서는 다음과 같이 원본과 번역 대상을 나누고 있습니다.
-
-- 블로그 글 번역 원본: `src/content/blog/{slug}.md`
-- 블로그 글 번역 대상: `src/content/blog/{locale}/{slug}.md`
-- 저자 정보 번역 원본: `src/content/authors/{authorId}.json`
-- 저자 정보 번역 대상: `src/content/authors/{authorId}.json`의 `i18n`
-- 태그 정의 번역 원본: `src/content/tags/{tagId}.json`
-- 태그 정의 번역 대상: `src/content/tags/{tagId}.json`의 `i18n`
-
-디렉토리 구조는 대략 다음과 같이 하면 다루기 쉽습니다.
-
-```text
-src/content/blog/
-  my-post.md
-  another-post.md
-  en/
-    my-post.md
-  zh-cn/
-    my-post.md
-  fr/
-    my-post.md
+```txt
+/blog/copilot-translation-pipeline/
+/en/blog/copilot-translation-pipeline/
+/ko/blog/copilot-translation-pipeline/
+/de/blog/copilot-translation-pipeline/
 ```
 
-중요한 것은 **번역 파일의 slug를 원본 일본어 글과 맞추는 것**입니다. 이것만으로도 source path에서 자동으로 번역 대상을 특정하기 쉬워집니다.
+### 1. 각 언어 URL을 직접 크롤링할 수 있습니다
 
-이 repo에서는 번역 파일이 아직 존재하지 않아도 각 로케일의 URL 자체는 일본어 폴백으로 생성됩니다. 즉 "우선 일본어 글을 공개하고, 그 후에 번역 PR이 따라온다"는 운영이 가능합니다.
+Google은 JavaScript를 처리할 수 있지만, 공식 문서에서는 JavaScript의 제한도 설명하며 정적 렌더링이나 서버 렌더링을 안정적인 선택지로 제시합니다. 다른 crawler나 RSS 리더까지 고려하면 초기 HTML에 번역문이 있는 편이 안전합니다.
 
-## Step 2. 일본어 글 push를 번역 PR 태스크로 변환한다
+### 2. 메타데이터를 번역할 수 있습니다
 
-다음으로 할 일은 GitHub Actions로 일본어 글의 변경을 감지하여 Copilot 번역 PR 태스크를 직접 생성하는 것입니다.
-
-최소한 필요한 것은 다음과 같습니다.
-
-- `main`으로의 push를 모니터링한다
-- `src/content/blog/*.md`만을 일반 자동 생성 대상으로 삼는다
-- frontmatter만의 변경이 아닌, 본문이 변경되었을 때만 태스크를 만든다
-- 같은 source path의 마커가 있는 open PR이 있으면 중복으로 생성하지 않는다
-- PR body에 source path를 marker로 삽입한다
-
-저자 정보나 태그 정의도 번역 대상이지만, 일반 push에서는 자동 생성하지 않습니다. 필요할 때만 `workflow_dispatch`로 명시적으로 실행하는 운영으로 두면, 불필요한 태스크가 늘어나기 어렵습니다.
-
-예를 들어 PR body에 이런 코멘트를 넣어두면, 이후 자동화에서 재사용할 수 있습니다.
-
-```md
-<!-- translation-source:src/content/blog/my-post.md -->
-<!-- translation-kind:blog-post -->
-```
-
-workflow 측은 다음과 같은 필터링이 기본입니다.
+frontmatter도 언어별로 가질 수 있습니다.
 
 ```yaml
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/content/blog/*.md
+title: 'Sveltia CMS로 다국어 블로그를 운영하는 방법'
+description: 'Sveltia CMS와 GitHub Copilot으로 번역 PR을 만드는 운영 방식'
 ```
 
-또한 Markdown 본문만 비교하여 번역 태스크를 만들도록 하면, 공개일이나 태그의 미세한 수정만으로 번역 태스크가 대량으로 생기는 사고를 방지할 수 있습니다.
+검색 결과, OGP, 관련 글 카드, RSS에 모두 영향을 줍니다.
 
-## Step 3. Copilot coding agent API로 PR 태스크를 생성한다
+### 3. hreflang으로 언어 버전을 연결합니다
 
-태스크는 issue를 거치지 않고, Copilot coding agent API를 직접 사용하여 생성합니다.
+언어별 URL이 있을 때 Google은 `hreflang` 사용을 권장합니다. UI 번역만 있으면 연결할 언어별 URL이 없습니다.
 
-할 일은 2가지입니다.
+### 4. RSS와 sitemap도 언어별로 만들 수 있습니다
 
-1. `COPILOT_AGENT_TOKEN`을 repository secret에 넣는다
-2. 변경을 감지한 후 job 태스크 생성 API를 호출한다
+번역 파일이 있으면 `/ko/rss.xml`과 sitemap의 언어별 URL을 생성할 수 있습니다.
 
-개념으로는, 적절한 파라미터로 태스크 생성 엔드포인트를 호출합니다.
+## Sveltia CMS의 역할
 
-```json
-{
-  "title": "[translation] Translate my-post.md",
-  "problem_statement": "Translate the Japanese source article...",
-  "event_type": "copilot_task"
-}
-```
+Sveltia CMS는 번역 엔진이 아닙니다. 이 구성에서는 일본어 source 편집을 담당합니다.
 
-이때, 일반 자동 생성은 글용에만 좁히고, 저자 정보용이나 태그 정의용은 필요할 때만 manual dispatch로 실행하도록 하면 운영이 안정됩니다. 저자 정보에서는 `src/content/authors/{authorId}.json`의 `i18n`, 태그 정의에서는 `src/content/tags/{tagId}.json`의 `i18n.name`, 글에서는 `src/content/blog/{locale}/`에 동명 파일을 만든다는 규칙을 명시해두면 실수가 줄어듭니다.
+- 일본어 블로그
+- 저자 정보
+- 태그 정의
+- 일본어 source JSON
+- 이미지
+- date, FAQ, linkCards 같은 frontmatter
 
-## Step 4. 번역 PR을 build하고, 자동 머지한다
+CMS 도입은 [Sveltia CMS 도입 가이드](/ko/blog/cms-selection-and-turnstile/)에서 설명합니다.
 
-여기는 무조건 자동화하지 않는 것이 안전합니다. 다음 조건을 모두 만족하는 PR만을 머지 대상으로 하는 것을 권장합니다.
+## Copilot 번역 규칙
 
-- Copilot이 만든 PR이다
-- 타이틀이 `[translation]`으로 시작한다
-- `main`을 향한다
-- draft가 아니다
-- build가 성공했다
-
-이번 구성에서는 2단계로 나누고 있습니다.
-
-1. `Translation PR Build`
-2. `Merge Translation PR`
-
-ready for review가 된 타이밍에 PR head를 build하고, 성공하면 그대로 squash merge하는 형태입니다. GitHub의 branch protection에 의존하지 않으므로, 소규모 repo에서도 다루기 쉽습니다.
-
-### 자동 머지에서 좁혀야 할 조건
-
-자동 머지를 넣을 때는 최소한 다음 조건을 권장합니다.
-
-- translation PR 이외는 대상 제외
-- build 실패면 멈춘다
-- draft인 동안은 멈춘다
-- Copilot 이외가 만든 PR은 대상 제외
-
-이 4가지를 넣어두면, 일반 개발 PR까지 휘말리는 사고는 상당히 방지할 수 있습니다.
-
-## Step 5. PR body 마커로 중복 생성을 방지한다
-
-마지막으로 넣어두면 운영이 깔끔해지는 것이 번역 태스크 생성 전의 중복 체크입니다.
-
-방법은 간단하게, 번역 PR 태스크를 생성하기 전에 다음을 합니다.
-
-1. PR body에 `translation-source:` 마커가 있는 open PR을 검색한다
-2. 대응하는 PR이 있으면 무시하고 중복으로 태스크를 생성하지 않는다
-3. 없으면 번역 PR 태스크 생성을 진행한다
-
-PR body에 마커를 사용하는 이유는, 타이틀만으로 중복을 판별하면 상황에 따라 불안정할 수 있기 때문입니다. **PR body의 고유한 마커를 사용하면** 안정되고, 같은 글에 대한 번역 태스크가 하나만 생성됩니다.
-
-## 보충
-
-### Copilot이 만드는 PR의 문구를 일본어로 맞추기
-
-GitHub 측에서 Copilot의 출력 언어를 안정시키고 싶다면, repo-wide instructions를 사용하는 것이 가장 자연스럽습니다.
-
-즉, `.github/copilot-instructions.md`를 놓습니다.
+번역 PR에는 유지할 값과 번역할 값을 명확히 전달해야 합니다.
 
 ```md
-This repository is an Astro static site for Acecore, deployed on Cloudflare Pages.
+Keep:
 
-- For GitHub issues, pull requests, issue comments, pull request descriptions, review summaries, and other user-facing GitHub text, write in Japanese by default unless the task explicitly requires another language.
-- For multilingual content work, treat Japanese source files as canonical and keep translated frontmatter aligned with the Japanese source.
+- slug
+- image path
+- author id
+- tag ids
+- external URLs
+- code blocks
+
+Localize:
+
+- title
+- description
+- FAQ
+- body text
+- internal blog URLs when locale-specific URLs exist
 ```
 
-이 1파일이 있는 것만으로, Copilot coding agent가 PR을 만들 때의 기본 언어와 맥락이 상당히 안정됩니다.
+## PR에서 얻은 교훈
+
+- 구현은 Sveltia CMS인데 예전 글에는 Pages CMS 표현이 남아 있었습니다.
+- `date`가 오래된 상태면 글을 다시 써도 블로그 첫 화면에 오르지 않습니다.
+- 번역 제목은 바꿔도 slug는 유지해야 합니다.
+- 내부 링크는 독자의 locale로 이어져야 합니다.
+- AI 번역은 빠르지만 공개 전 리뷰가 필요합니다.
+
+## 참고 링크
+
+- [Google Search Central: Localized Versions of your Pages](https://developers.google.com/search/docs/advanced/crawling/localized-versions?hl=en&rd=1&visit_id=638856769088389068-716743185)
+- [Google Search Central: Managing Multi-Regional and Multilingual Sites](https://developers.google.com/search/docs/advanced/crawling/managing-multi-regional-sites)
+- [Google Search Central: JavaScript SEO Basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+- [Google Search Central: Spam Policies](https://developers.google.com/search/docs/essentials/spam-policies)
+- [Sveltia CMS 도입 가이드](/ko/blog/cms-selection-and-turnstile/)
 
 ## 정리
 
-이 구성의 핵심은, 번역을 "사람이 그때그때 부탁하는 작업"이 아닌, **일본어 소스의 push에 종속하는 정형 처리**로 떨어뜨리는 것입니다.
+UI 번역은 읽기 보조입니다. 정적 다국어 페이지는 각 언어를 사이트의 실제 콘텐츠로 만듭니다.
 
-흐름을 다시 한 번 정리하면 이렇습니다.
-
-1. 일본어 글만 작성한다
-2. push로 Copilot 번역 PR 태스크를 직접 생성한다
-3. Copilot이 번역 PR을 만든다
-4. 번역 PR을 build하여 자동 머지한다
-5. PR body 마커로 중복 생성을 방지한다
-
-여기까지 구성하면, 운영 측의 감각으로는 상당히 자연스럽습니다. **일본어 글만 push하면, 다른 언어의 글은 GitHub 측에서 순서대로 만들어져 가는** 상태가 됩니다.
-
-물론 실제로는 번역 PR 태스크 생성, Copilot 실행, PR 작성, build, merge라는 비동기 흐름을 거치므로 "즉시 전부 완료"되는 것은 아닙니다. 다만, 운영 담당자가 매번 수동으로 번역 태스크를 생성하거나, PR을 닫지 않고 넘어가는 일은 없어집니다.
-
-이번 글 자체도, 일본어판을 기준으로 이 플로에 흘려 보낼 수 있는 구성으로 했습니다. 다국어 사이트를 지속적으로 운영한다면, 우선 이 정도의 자동화부터 시작하는 것이 딱 좋다고 생각합니다.
+Sveltia CMS는 일본어를 편집하고, GitHub Copilot은 번역 PR을 만들고, Astro build는 배포 전 검증을 담당합니다.

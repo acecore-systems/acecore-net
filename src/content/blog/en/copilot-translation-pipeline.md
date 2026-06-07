@@ -1,264 +1,324 @@
 ---
-title: 'How to Run a 9-Language Blog by Publishing Just One Japanese Article'
-description: 'A guide to the workflow that automatically generates Japanese + 8-language translated articles, runs builds, and handles auto-merging — all triggered just by updating a Japanese article in Pages CMS via GitHub Actions and GitHub Copilot.'
-date: 2026-03-29T22:30
+title: 'How to Run a Multilingual Blog with Sveltia CMS'
+description: 'A practical workflow for editing Japanese source articles in Sveltia CMS, generating translation PRs with GitHub Actions and GitHub Copilot, and publishing localized static pages that work better for search engines than UI-only translation.'
+date: 2026-06-07T17:00
+lastUpdated: 2026-06-07
 author: gui
-tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS']
+tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp
 callout:
-  type: info
-  title: Bottom Line First
-  text: 'With the current Acecore site, you can automate a Japanese + 8-language blog operation using GitHub Actions and GitHub Copilot, treating Japanese articles as the source of truth.'
+  type: tip
+  title: UI translation is not the same as multilingual publishing
+  text: 'Browser translation and translation widgets can help readers, but they do not automatically create localized URLs, titles, descriptions, internal links, RSS feeds, sitemaps, or hreflang clusters. If search engines need to see each language as a real page, publish translated static HTML.'
 processFigure:
-  title: The Flow from 1 Japanese Article to 9-Language Operation
+  eyebrow: Translation Workflow
+  title: From Sveltia CMS to Translation PRs
+  description: Keep Japanese as the source of truth and move translation work into GitHub pull requests.
+  variant: inline
   steps:
-    - title: Update the Japanese Source
-      description: Edit only the Japanese article via Pages CMS or Markdown and push it to main.
-      icon: i-lucide-pencil-line
-    - title: Directly Create a Translation PR Task
-      description: GitHub Actions creates a Copilot task with the source path and target locales embedded.
-      icon: i-lucide-git-branch
-    - title: Copilot Creates Translation PRs
-      description: Upon receiving the task, Copilot generates translation files and opens a translation PR.
-      icon: i-lucide-git-pull-request
-    - title: Build & Auto-Merge
-      description: After a successful build, the translation PR that meets all conditions is auto-merged.
+    - title: Edit Japanese
+      description: Update `src/content/blog/{slug}.md` from Sveltia CMS or Markdown.
+      icon: i-lucide-file-pen-line
+      accent: brand
+    - title: Detect CMS commits
+      description: 'Use a `cms:` prefix and changed paths as the GitHub Actions contract.'
+      icon: i-lucide-git-commit-horizontal
+      accent: amber
+    - title: Create translation PRs
+      description: Pass the source path, locale list, and translation rules to GitHub Copilot.
+      icon: i-lucide-languages
+      accent: emerald
+    - title: Build and merge
+      description: Merge only after Astro build, search index generation, and link checks pass.
       icon: i-lucide-check-check
+      accent: slate
 compareTable:
-  title: Manual vs. Automated Translation Workflow
+  title: UI translation vs. localized static pages
   before:
-    label: Manual Translation Workflow
+    label: UI translation
     items:
-      - Someone manually creates translation tasks after an article is published
-      - Assignees are assigned per language
-      - Builds and merge decisions are handled by humans
-      - Duplicate tasks and PR cleanup tend to pile up
+      - 'A browser or widget translates text after the page loads'
+      - 'URL, title, description, and OGP usually stay in the source language'
+      - 'hreflang, RSS, and sitemap entries are hard to manage per language'
+      - 'Shared URLs and search snippets tend to point back to the source language'
   after:
-    label: Automated Translation Workflow
+    label: Localized static pages
     items:
-      - A push to the Japanese article triggers the entire flow
-      - A Copilot translation PR task is created directly
-      - Translation PRs are auto-merged after a successful build
-      - Duplicate creation is prevented with a marker in the PR body
+      - 'Each language gets a URL such as `/{locale}/blog/{slug}/`'
+      - 'Title, description, body, FAQ, and structured data can be localized'
+      - 'hreflang can connect language variants for search engines'
+      - 'RSS, sitemap, internal links, and Search Console checks become language-aware'
 checklist:
-  title: What You Need Before Getting Started
+  title: Decisions to make first
   items:
-    - text: A content structure with Japanese as the translation source
-    - text: A translation file layout rule like src/content/blog/{locale}/{slug}.md
-    - text: GitHub Actions with pull requests read permission
-    - text: A COPILOT_AGENT_TOKEN that can call the Copilot coding agent API
-    - text: A stable build command like npm run build
+    - text: 'Treat Japanese articles as the source of truth'
+      checked: true
+    - text: 'Keep translated slugs aligned with the Japanese source'
+      checked: true
+    - text: 'Fix the trigger contract for translation workflows, such as `cms:` commits'
+      checked: true
+    - text: 'Preserve URLs, image paths, code blocks, and tag IDs during translation'
+      checked: true
+    - text: 'Verify hreflang, canonical, RSS, and sitemap output in the build'
+      checked: true
+linkCards:
+  - href: /en/blog/cms-selection-and-turnstile/
+    title: Sveltia CMS Setup Guide
+    description: How we added Sveltia CMS to an Astro static site.
+    icon: i-lucide-badge-check
+  - href: /en/blog/astro-i18n-blog-translation/
+    title: Astro Multilingual Architecture
+    description: The routing, fallback, hreflang, RSS, and sitemap foundation behind this site.
+    icon: i-lucide-globe-2
+  - href: /en/blog/astro-seo-and-structured-data/
+    title: SEO Implementation for Astro
+    description: Canonicals, OGP, structured data, and sitemap basics.
+    icon: i-lucide-search-check
 faq:
-  title: Frequently Asked Questions
+  title: FAQ
   items:
-    - question: Will pushing a Japanese article automatically create articles in other languages?
-      answer: 'Yes. The current Acecore site supports 9 languages — `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` — so pushing a Japanese article can trigger Copilot translation PR task creation for the remaining 8 languages, translation PR creation, build, and auto-merge. Even without translation files, each locale URL is served with a Japanese fallback, so you can publish first and replace with real translations later.'
-    - question: Why create a PR task directly without going through an issue?
-      answer: "Since the output of translation work is a PR, fixing the source path, target locale, and translation conditions directly in the Copilot task's problem statement and PR body marker makes the flow shorter. By searching open PRs with the marker, you can also prevent duplicate creation for the same source path."
-    - question: Isn't auto-merging risky?
-      answer: 'Unconditional auto-merging is risky. By scoping it to translation PRs only — requiring that Copilot created the PR, the title starts with [translation], the build passes, and the PR is not a draft — you can keep it quite safe.'
+    - question: Is UI translation enough?
+      answer: 'It is useful for readers, but it is not enough when you want localized URLs, metadata, structured data, internal links, and RSS or sitemap output to be visible as language-specific assets.'
+    - question: Is AI-translated content bad for SEO?
+      answer: 'Using AI is not the core issue. The risk is publishing lots of low-value pages without review. Review terminology, facts, links, and naturalness so each localized page is useful to its readers.'
+    - question: Are translated pages duplicate content?
+      answer: 'Google says localized pages are only duplicates when the main content remains untranslated. Keep each language page translated and connect variants with hreflang.'
 ---
 
-To get straight to the point: with this site, publishing just one Japanese article in Pages CMS is enough to eventually have that article available in Japanese plus 8 other languages. GitHub Actions and GitHub Copilot handle translation PR task creation, translation PR creation, building, and auto-merging.
+Once a site has Sveltia CMS, an AI contact chat, and service-to-contact flows, the next operational question is multilingual publishing.
 
-The operator only needs to touch Japanese articles and author information on a day-to-day basis. Since you no longer need to manually file translation tasks or sort out PRs each time, this significantly reduces the burden of running a multilingual blog.
+This site is edited primarily in Japanese, but the public blog is available in nine languages. The important distinction is that translating text in the UI and publishing real localized pages are different things.
 
-## Prerequisites for This Approach
+Browser translation, extensions, and translation widgets are helpful when a reader wants to understand the current page. They do not automatically create localized URLs, localized metadata, RSS feeds, sitemap entries, hreflang clusters, or locale-aware internal links.
 
-This approach assumes the following infrastructure is already in place on the Astro side.
+This article describes a practical workflow: edit the Japanese source in Sveltia CMS, create translation pull requests with GitHub Actions and GitHub Copilot, and publish static localized HTML that search engines can crawl directly.
 
-- 9-language routing (ja, en, zh-cn, es, pt, fr, ko, de, ru)
-- A fallback that serves Japanese content for pages without translations
-- An operational setup where Japanese articles and author information can be updated via Pages CMS
+## The Short Version
 
-For how to set up this infrastructure itself, see [Making an Astro 6 Site Support 9 Languages — Auto-translating 168 Blog Articles and a Multilingual Architecture](/blog/astro-i18n-blog-translation/). This article focuses solely on how to layer the Copilot auto-translation workflow on top of that.
+If multilingual content is part of your search strategy, treat translation as **content generation before publishing**, not as a display-time UI feature.
 
-## What This Enables
+The site uses this structure:
 
-From the operator's perspective, there are only 2 screens you regularly interact with. In this article, we use the Pages CMS screens as-is, making it immediately clear **which screens are touched in day-to-day operations**.
+- Japanese source: `src/content/blog/{slug}.md`
+- Translated content: `src/content/blog/{locale}/{slug}.md`
+- Public URLs: `/blog/{slug}/`, `/en/blog/{slug}/`, `/zh-cn/blog/{slug}/`, and so on
+- Source of truth: Japanese Markdown
+- Translation work: GitHub Copilot PRs
+- Publishing gate: Astro build and review
 
-![Pages CMS Japanese blog list screen](/uploads/pagescms-blog-ja-live-20260329.png)
+Sveltia CMS is the editing surface for the Japanese source. Translation is handled in GitHub so every localized change is reviewable.
 
-The first screen is the Pages CMS Japanese blog list. Here you can see publication dates and author information while adding or updating only Japanese articles. The key is to stay in "only touch the source Japanese" mode, without having to dive into editing screens for each language every time.
+## Where UI Translation Works
 
-![Pages CMS author information form screen](/uploads/pagescms-authors-live-20260329.png)
+UI translation is not wrong. It is enough for many cases:
 
-The second screen is the author information form. By updating only the Japanese-based fields in the CMS for author data and letting the automated GitHub flow handle the `i18n` for translations, the separation of operational responsibilities becomes quite clean.
+- Internal reading
+- One-off browsing by overseas users
+- Admin or help screens
+- Pages that do not target search traffic
+- Content where translation quality is not part of the publishing workflow
 
-## Cases Where This Approach Works Best
+In that model, translation happens in the reader's environment. The site owner does not store translated files.
 
-As a prerequisite, this is especially effective for teams and sites like the following.
+That is lightweight, but it does not create multilingual content assets.
 
-- You want Japanese to be the translation source
-- Your blog is managed in Markdown
-- Manually filing translation tasks every time is a hassle
-- You're comfortable with AI handling a fair degree of translation quality
-- But you want to stop PRs from failing builds or remaining as drafts
+## Where UI Translation Falls Short
 
-Conversely, if you have a fully independent editorial setup per language, a different workflow may be a better fit.
+For blog articles and service pages, search engines and social previews mostly work with URLs and HTML.
 
-## Step 1. Lock in Japanese Articles as the Translation Source
+If only the Japanese page exists and English is produced by a browser translator, the indexable URL, title, description, structured data, RSS item, and sitemap entry still point to the Japanese page.
 
-The first thing to decide is "which file is the translation source." Ambiguity here will break your automation.
+The reader may understand the page, but the site has not published an English page.
 
-The "translation source" in this article refers to **the Japanese file that is edited first and serves as the baseline for articles and derived data in each language**.
+With static localized pages, each language has its own route:
 
-In this setup, the source and target are split as follows.
-
-- Blog article source: `src/content/blog/{slug}.md`
-- Blog article target: `src/content/blog/{locale}/{slug}.md`
-- Author info source: `src/content/authors/{authorId}.json`
-- Author info target: the `i18n` field in `src/content/authors/{authorId}.json`
-- Tag definition source: `src/content/tags/{tagId}.json`
-- Tag definition target: the `i18n` field in `src/content/tags/{tagId}.json`
-
-A directory structure roughly like the following is easy to work with.
-
-```text
-src/content/blog/
-  my-post.md
-  another-post.md
-  en/
-    my-post.md
-  zh-cn/
-    my-post.md
-  fr/
-    my-post.md
+```txt
+/blog/copilot-translation-pipeline/
+/en/blog/copilot-translation-pipeline/
+/zh-cn/blog/copilot-translation-pipeline/
+/es/blog/copilot-translation-pipeline/
+/pt/blog/copilot-translation-pipeline/
+/fr/blog/copilot-translation-pipeline/
+/ko/blog/copilot-translation-pipeline/
+/de/blog/copilot-translation-pipeline/
+/ru/blog/copilot-translation-pipeline/
 ```
 
-The key is to **keep the translation file's slug aligned with the source Japanese article's slug**. This alone makes it easy to automatically identify the translation target from the source path.
+Those pages can each carry localized titles, descriptions, body text, FAQ content, JSON-LD, and internal links.
 
-In this repo, even when translation files don't yet exist, the URL for each locale is still generated using a Japanese fallback. This means you can operate in a "publish the Japanese article first, and let translation PRs catch up afterward" mode.
+## Search Benefits
 
-## Step 2. Convert Japanese Article Pushes into Translation PR Tasks
+The core benefit is not that static translation is more fashionable. It is that the signals sent to crawlers are clearer.
 
-The next step is to use GitHub Actions to detect changes to Japanese articles and directly create Copilot translation PR tasks.
+### 1. Crawlers Can Fetch Each Language URL
 
-The minimum requirements are:
+Google can process JavaScript, but Google Search Central still documents limitations around JavaScript and recommends server-side rendering, static rendering, or hydration over dynamic rendering workarounds.
 
-- Monitor pushes to `main`
-- Only auto-create tasks for `src/content/blog/*.md`
-- Only create tasks when the article body changes, not just frontmatter
-- If an open PR with the same source path exists, don't create a new one
-- Embed the source path as a marker in the Copilot task and PR body
+Other crawlers, RSS readers, link preview tools, and search integrations may be less capable than Googlebot. Putting translated text in the initial HTML is the robust option.
 
-Author information and tag definitions are translation targets, but don't auto-create tasks on normal pushes. Running them only via `workflow_dispatch` when explicitly needed keeps unnecessary PRs from piling up.
+### 2. Metadata Can Be Localized
 
-For example, including comments like this in the PR body makes it reusable for duplicate detection downstream.
+Search snippets and social previews depend on more than body text.
 
-```md
-<!-- translation-source:src/content/blog/my-post.md -->
-<!-- translation-kind:blog-post -->
-```
-
-The basic filtering on the workflow side looks like this.
+With localized Markdown, the frontmatter can be translated too:
 
 ```yaml
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/content/blog/*.md
+title: 'How to Run a Multilingual Blog with Sveltia CMS'
+description: 'A workflow for editing Japanese source articles and publishing localized static pages.'
 ```
 
-Furthermore, by comparing only the Markdown body to decide when to create translation PR tasks, you can avoid accidentally generating a flood of PRs from minor tweaks like updating a publish date or a tag.
+That affects search results, OGP previews, related cards, and RSS.
 
-The important thing here is to **fix the translation conditions in the PR task input and the PR body marker**. Even without going through an issue, you can pass the source path, target language, and translation conditions to Copilot, and use open PR search to avoid duplicates for the same source path.
+### 3. hreflang Can Connect Language Variants
 
-## Step 3. Create PR Tasks via the Copilot Coding Agent API
+Google recommends using `hreflang` when different URLs serve different languages or regions.
 
-On the GitHub Actions side, after detecting a change, you fire a task at the Copilot coding agent API.
+This site outputs alternate URLs from the layout and sitemap:
 
-There are 2 things to do.
-
-1. Add `COPILOT_AGENT_TOKEN` as a repository secret
-2. Call the Copilot job API for each changed source path
-
-Conceptually, you pass a title and problem statement to the Copilot job API.
-
-```json
-{
-  "title": "[translation] Translate my-post.md",
-  "problem_statement": "Translate src/content/blog/my-post.md into all requested locales...",
-  "event_type": "translation-pr"
-}
+```html
+<link
+  rel="alternate"
+  hreflang="en"
+  href="https://acecore.net/en/blog/copilot-translation-pipeline/"
+/>
 ```
 
-At this point, keep the regular auto-creation scoped to articles only, and run author info and tag definitions via manual dispatch only when needed, to keep operations stable. Explicitly stating the rules — `i18n` fields in `src/content/authors/{authorId}.json` for author info, `i18n.name` in `src/content/tags/{tagId}.json` for tag definitions, and same-named files under `src/content/blog/{locale}/` for articles — reduces mistakes.
+With UI-only translation, there is no English URL to connect.
 
-## Step 4. Build Translation PRs and Auto-Merge Them
+### 4. RSS and Sitemaps Become Language-Aware
 
-Unconditional automation is not safe here. The recommendation is to make only PRs that satisfy all of the following conditions eligible for merge.
+Static translated files allow the site to publish feeds such as `/en/rss.xml` and `/fr/rss.xml`, and to include localized URLs in the sitemap.
 
-- The PR was created by Copilot
-- The title starts with `[translation]`
-- It targets `main`
-- It is not a draft
-- The build succeeded
+That is useful not only for Google, but also for feed readers, search indexes, and external services.
 
-In this setup, the process is split into 2 stages.
+### 5. Internal Links Stay in the Reader's Locale
 
-1. `Translation PR Build`
-2. `Merge Translation PR`
+Multilingual sites often break when a translated article links back to the source language.
 
-The PR head is built when it becomes ready for review, and if it succeeds, it is squash-merged immediately. Since it doesn't depend on GitHub's branch protection, it's easy to manage even in small repos.
+Translation PRs should preserve the user's locale where possible:
 
-### Conditions to Enforce for Auto-Merge
+- `/blog/foo/` becomes `/en/blog/foo/` in the English article
+- External URLs stay unchanged
+- Image paths stay unchanged
+- Tag IDs stay unchanged
+- Code blocks are not casually rewritten
 
-When adding auto-merge, these are the minimum recommended conditions.
+## What Sveltia CMS Owns
 
-- Exclude anything that isn't a translation PR
-- Stop on build failure
-- Stop while it's a draft
-- Exclude PRs not created by Copilot
+Sveltia CMS is not the translation engine in this workflow. It owns the Japanese source editing experience.
 
-With these 4 conditions in place, you can largely avoid the accident of catching normal development PRs in the auto-merge net.
+Use it for:
 
-## Step 5. Prevent Duplicates with PR Body Markers
+- Japanese blog articles
+- Authors
+- Tags
+- Japanese source JSON
+- Uploaded images
+- Frontmatter such as date, FAQ, related links, and descriptions
 
-When not going through issues, duplicate control moves to the PR side.
+The CMS setup itself is covered in [Sveltia CMS Setup Guide](/en/blog/cms-selection-and-turnstile/). This article focuses on what happens after that: translation PRs.
 
-The approach is simple: before creating a task, do the following.
+## Why Translation Belongs in Pull Requests
 
-1. Derive a `translation-source:` marker from the source path
-2. Search GitHub for open PRs with that same marker
-3. If an open PR exists, don't create a task
-4. If no open PR exists, create a Copilot translation PR task
+Putting every language into the CMS can work if editors actively maintain every locale. For a small team that writes in Japanese, it makes the CMS heavy and easy to misuse.
 
-The reason to embed the source path in the PR body is that looking only at the changed files of a translation PR makes it hard to reliably reverse-lookup the original Japanese file. **Making the source path explicit as a marker** keeps you from creating multiple translation PRs for the same article.
+Acecore splits responsibilities:
 
-## Notes
+- Sveltia CMS updates the Japanese source
+- GitHub Actions detects CMS commits or changed paths
+- GitHub Copilot creates translation PRs
+- Pull requests make translation diffs reviewable
+- Astro build catches broken routes, frontmatter, and links
 
-### Steering Copilot's Output Language Toward Japanese
+That gives you history, review, rollback, and CI around translation work.
 
-If you want to stabilize Copilot's output language on the GitHub side, using repo-wide instructions is the most straightforward approach.
+## Commit Subjects as Workflow Contracts
 
-That means placing `.github/copilot-instructions.md`.
+The translation workflow should not run for every Markdown change.
+
+Date-only fixes, tag tweaks, and link corrections should not necessarily create eight translation PRs. Use commit subjects as an explicit contract:
+
+```txt
+cms: create blog "new-article-slug"
+cms: update blog "copilot-translation-pipeline"
+```
+
+This makes it clear when translation automation should run.
+
+## Rules Passed to Copilot
+
+Do not ask the agent to "just translate the article." The task needs explicit constraints:
 
 ```md
-This repository is an Astro static site for Acecore, deployed on Cloudflare Pages.
+Translate the Japanese source article into the target locale.
 
-- For GitHub issues, pull requests, issue comments, pull request descriptions, review summaries, and other user-facing GitHub text, write in Japanese by default unless the task explicitly requires another language.
-- For multilingual content work, treat Japanese source files as canonical and keep translated frontmatter aligned with the Japanese source.
+Keep:
+
+- slug
+- image path
+- author id
+- tag ids
+- internal code tokens
+- external URLs
+- code blocks unless comments are natural language
+
+Localize:
+
+- title
+- description
+- callout
+- FAQ
+- link card title and description
+- body text
+- internal blog URLs when locale-specific URLs exist
 ```
 
-With just this one file in place, the default language and context when Copilot coding agent creates PRs becomes considerably more stable.
+The distinction matters because Markdown mixes prose, frontmatter, URLs, images, tags, and code in one file.
+
+## Lessons From the Recent PRs
+
+There were a few practical lessons worth documenting.
+
+### Old CMS Names Linger
+
+The implementation moved to Sveltia CMS, but older articles still mentioned Pages CMS. When a content tool changes, update the related articles, screenshots, alt text, and internal link labels together.
+
+### Date Controls Blog Visibility
+
+The article can be rewritten completely and still not appear on the blog top if `date` remains old. In this site, blog lists sort by `date`, while `lastUpdated` is only update metadata.
+
+### Slugs Must Stay Stable
+
+Translated files should share the base slug:
+
+```txt
+src/content/blog/copilot-translation-pipeline.md
+src/content/blog/en/copilot-translation-pipeline.md
+src/content/blog/fr/copilot-translation-pipeline.md
+```
+
+That keeps locale resolution simple.
+
+### Generated Content Still Needs Review
+
+Google's spam policies focus on manipulative or low-value mass generation. AI translation is useful, but each localized article should still be reviewed for terminology, links, facts, and usefulness.
+
+## References
+
+- [Google Search Central: Localized Versions of your Pages](https://developers.google.com/search/docs/advanced/crawling/localized-versions?hl=en&rd=1&visit_id=638856769088389068-716743185)
+- [Google Search Central: Managing Multi-Regional and Multilingual Sites](https://developers.google.com/search/docs/advanced/crawling/managing-multi-regional-sites)
+- [Google Search Central: JavaScript SEO Basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+- [Google Search Central: Dynamic Rendering](https://developers.google.com/search/docs/crawling-indexing/javascript/dynamic-rendering)
+- [Google Search Central: Spam Policies](https://developers.google.com/search/docs/essentials/spam-policies)
+- [Sveltia CMS Setup Guide](/en/blog/cms-selection-and-turnstile/)
+- [Astro Multilingual Architecture](/en/blog/astro-i18n-blog-translation/)
 
 ## Summary
 
-The core of this setup is turning translation from "something humans request each time" into **a routine process subordinate to Japanese source pushes**.
+UI translation helps readers understand a page.
 
-Here's the flow one more time.
+Localized static pages help the site publish language-specific URLs, metadata, internal links, RSS feeds, sitemaps, and hreflang relationships.
 
-1. Write only the Japanese article
-2. A push directly creates a translation PR task
-3. Copilot creates a translation PR
-4. Build the translation PR and auto-merge it
-5. Prevent duplicates with PR body markers
+For a small team, the clean split is: edit Japanese in Sveltia CMS, generate translations through GitHub Copilot PRs, and only publish translated files after build and review.
 
-Once this is fully assembled, the feel from the operator's side is quite natural. **Once you push the Japanese article, the articles in other languages get created one by one on the GitHub side**.
-
-Of course, in practice it goes through asynchronous steps — task creation, PR creation, build, and merge — so it doesn't all happen "instantly." But the operator no longer needs to manually file translation tasks or sort out PRs each time.
-
-This article itself is structured so that the Japanese version can be fed into this flow as the starting point. If you're running a multilingual site continuously, starting with roughly this level of automation is probably the right fit.
+The real work is not just translation. It is deciding how translated content lives inside the site architecture.

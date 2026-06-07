@@ -214,7 +214,7 @@ Acecore 把 CMS 编辑范围分成四类。
 | `tags`     | `src/content/tags/*.json`      | 编辑标签名和多语言显示名        |
 | page text  | `src/i18n/source/ja/**/*.json` | 编辑页面与共通 UI 的日语 source |
 
-不要轻易把所有语言的 Markdown 都暴露给 CMS。多语言网站中，source 与翻译的关系应该保持清晰。Acecore 把日语 source 作为正本，翻译交给 [GitHub Copilot 博客翻译流水线](/zh-cn/blog/copilot-translation-pipeline/)。
+不要轻易把所有语言的 Markdown 都暴露给 CMS。多语言网站中，source 与翻译的关系应该保持清晰。Acecore 把日语 source 作为正本，翻译交给[用 Sveltia CMS 运营多语言博客的方法](/zh-cn/blog/copilot-translation-pipeline/)。
 
 ## 6. 用 relation 与 select 减少错误
 
