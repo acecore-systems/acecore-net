@@ -194,7 +194,7 @@ A Acecore corrigiu esse ponto depois no [PR #116](https://github.com/acecore-sys
 | `tags`     | `src/content/tags/*.json`      | Editar tags e nomes localizados            |
 | page text  | `src/i18n/source/ja/**/*.json` | Editar texto fonte japonês de páginas e UI |
 
-Não exponha todos os Markdown traduzidos sem necessidade. A Acecore mantém o japonês como fonte canônica e atualiza traduções pelo [pipeline com GitHub Copilot](/pt/blog/copilot-translation-pipeline/).
+Não exponha todos os Markdown traduzidos sem necessidade. A Acecore mantém o japonês como fonte canônica e atualiza traduções por [Como operar um blog multilíngue com Sveltia CMS](/pt/blog/copilot-translation-pipeline/).
 
 ## 6. Usar relation e select
 

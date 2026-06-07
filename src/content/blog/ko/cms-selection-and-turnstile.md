@@ -194,7 +194,7 @@ Acecore는 나중에 [PR #116](https://github.com/acecore-systems/acecore-net/pu
 | `tags`     | `src/content/tags/*.json`      | 태그명과 다국어 표시명 편집           |
 | page text  | `src/i18n/source/ja/**/*.json` | 페이지와 공통 UI의 일본어 source 편집 |
 
-모든 번역 Markdown을 CMS에 노출할 필요는 없습니다. Acecore는 일본어를 source of truth로 두고, 번역은 [GitHub Copilot 번역 파이프라인](/ko/blog/copilot-translation-pipeline/)으로 반영합니다.
+모든 번역 Markdown을 CMS에 노출할 필요는 없습니다. Acecore는 일본어를 source of truth로 두고, 번역은 [Sveltia CMS로 다국어 블로그를 운영하는 방법](/ko/blog/copilot-translation-pipeline/)으로 반영합니다.
 
 ## 6. relation과 select 사용
 

@@ -225,7 +225,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-Serverseitige URL-Erzeugung ist stabiler als nur eine Prompt-Anweisung. Der Übersetzungsbetrieb wird im [Copilot-Übersetzungspipeline-Artikel](/blog/copilot-translation-pipeline/) beschrieben.
+Serverseitige URL-Erzeugung ist stabiler als nur eine Prompt-Anweisung. Der Übersetzungsbetrieb wird in [Mehrsprachige Blogs mit Sveltia CMS betreiben](/de/blog/copilot-translation-pipeline/) beschrieben.
 
 ## Origin-Prüfung und Rate Limit
 

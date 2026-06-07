@@ -241,7 +241,7 @@ Sveltia CMSの設計で一番大事なのは、どのファイルをCMSで触ら
 
 9言語分のMarkdownをCMSに並べることもできますが、日常運用では「どの言語が最新か」「どの訳だけ古いか」「日本語のどの差分に追従すべきか」が分かりにくくなります。
 
-このサイトでは、日本語記事と日本語source JSONをCMSの正とし、翻訳は [GitHub Copilotを使ったブログ翻訳パイプライン](/blog/copilot-translation-pipeline/) に流す運用にしました。
+このサイトでは、日本語記事と日本語source JSONをCMSの正とし、翻訳は [Sveltia CMSで多言語ブログを運用する方法](/blog/copilot-translation-pipeline/) に流す運用にしました。
 
 ## 6. relationとselectで入力ミスを減らす
 
@@ -458,4 +458,4 @@ Sveltia CMSの導入は、`public/admin` に管理画面を置くだけなら簡
 
 どのbranchに保存するのか、誰がOAuthでログインするのか、画像はどこに置くのか、日本語sourceと翻訳をどう分けるのか、CMS commitを後続ワークフローがどう解釈するのか。ここまで決めると、静的サイトの軽さを保ったまま、更新しやすいCMS運用にできます。
 
-問い合わせAIのような動的機能は [AstroサイトにAIチャットを組み込む実装記録](/blog/astro-ai-contact-chat/) に、翻訳PRの自動化は [GitHub Copilotを使ったブログ翻訳パイプライン](/blog/copilot-translation-pipeline/) に分けて整理しています。CMS導入は、その2つの土台になる「コンテンツを安全に更新する仕組み」として考えるのがちょうどよいです。
+問い合わせAIのような動的機能は [AstroサイトにAIチャットを組み込む実装記録](/blog/astro-ai-contact-chat/) に、翻訳PRの自動化は [Sveltia CMSで多言語ブログを運用する方法](/blog/copilot-translation-pipeline/) に分けて整理しています。CMS導入は、その2つの土台になる「コンテンツを安全に更新する仕組み」として考えるのがちょうどよいです。

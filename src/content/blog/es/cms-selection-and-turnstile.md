@@ -196,7 +196,7 @@ Acecore corrigió este punto después en [PR #116](https://github.com/acecore-sy
 | `tags`     | `src/content/tags/*.json`      | Editar etiquetas y nombres localizados     |
 | page text  | `src/i18n/source/ja/**/*.json` | Editar textos fuente de páginas y UI común |
 
-No expongas todos los Markdown traducidos si no es necesario. Acecore trata el japonés como fuente canónica y actualiza traducciones mediante el [pipeline de traducción con GitHub Copilot](/es/blog/copilot-translation-pipeline/).
+No expongas todos los Markdown traducidos si no es necesario. Acecore trata el japonés como fuente canónica y actualiza traducciones mediante [Cómo gestionar un blog multilingüe con Sveltia CMS](/es/blog/copilot-translation-pipeline/).
 
 ## 6. Reducir errores con relation y select
 

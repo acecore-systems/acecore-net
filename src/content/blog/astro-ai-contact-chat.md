@@ -257,7 +257,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-AI回答だけが日本語URLへ戻してしまうと、多言語導線が崩れます。多言語ブログや翻訳運用の土台は、[日本語記事を1本公開するだけで9言語ブログを回す方法](/blog/copilot-translation-pipeline/) にまとめています。
+AI回答だけが日本語URLへ戻してしまうと、多言語導線が崩れます。多言語ブログや翻訳運用の土台は、[Sveltia CMSで多言語ブログを運用する方法](/blog/copilot-translation-pipeline/) にまとめています。
 
 ## Originチェックとレート制限を入れる
 

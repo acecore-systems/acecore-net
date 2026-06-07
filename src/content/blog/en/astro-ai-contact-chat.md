@@ -248,7 +248,7 @@ function localizePath(path: string, locale: Locale) {
 }
 ```
 
-This is more reliable as server-side URL generation than as a loose instruction in the prompt. For more on the translation setup, see [the Copilot translation pipeline article](/blog/copilot-translation-pipeline/).
+This is more reliable as server-side URL generation than as a loose instruction in the prompt. For more on the translation setup, see [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/).
 
 ## Add Origin Checks and Rate Limiting
 
