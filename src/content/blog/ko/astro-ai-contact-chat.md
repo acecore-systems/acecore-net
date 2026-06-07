@@ -65,8 +65,8 @@ linkCards:
     description: 정적 사이트 배포의 CSP와 보안 헤더를 다룬 관련 글입니다.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS 선택과 Turnstile
-    description: 폼 운영과 봇 대응을 다룬 관련 글입니다.
+    title: Sveltia CMS 도입 가이드
+    description: 정적 사이트에 CMS 편집 화면을 추가하는 설계를 다룬 관련 글입니다.
     icon: i-lucide-badge-check
 faq:
   title: 자주 묻는 질문
@@ -243,7 +243,7 @@ function assertSameOrigin(request: Request) {
 }
 ```
 
-IP 기반 rate limit은 첫 번째 제동 장치입니다. Cloudflare에서는 `CF-Connecting-IP`, `X-Forwarded-For`, `CF-Ray` 등을 사용할 수 있습니다. 트래픽이 늘면 Cloudflare WAF, Turnstile, KV, D1, Durable Objects를 검토합니다. 폼 측 봇 대응은 [CMS와 Turnstile 글](/blog/cms-selection-and-turnstile/)을 참고할 수 있습니다.
+IP 기반 rate limit은 첫 번째 제동 장치입니다. Cloudflare에서는 `CF-Connecting-IP`, `X-Forwarded-For`, `CF-Ray` 등을 사용할 수 있습니다. 트래픽이 늘면 Cloudflare WAF, Turnstile, KV, D1, Durable Objects를 검토합니다. 콘텐츠 업데이트 측 CMS 운영은 [Sveltia CMS 도입 가이드](/blog/cms-selection-and-turnstile/)에서 다루며, 폼과 댓글의 bot 대응은 별도 레이어로 보는 것이 좋습니다.
 
 ## Markdown 링크는 허용 목록으로 렌더링
 

@@ -65,8 +65,8 @@ linkCards:
     description: CSPやヘッダー設定など、静的サイト配信の土台を整理した記事です。
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS選定とTurnstileの導入
-    description: フォーム周辺の運用とボット対策を扱った関連記事です。
+    title: Sveltia CMS導入ガイド
+    description: 静的サイトにCMS編集画面を足す設計を扱った関連記事です。
     icon: i-lucide-badge-check
 faq:
   title: よくある質問
@@ -283,7 +283,7 @@ function assertSameOrigin(request: Request) {
 
 ただし、インメモリのレート制限は、複数isolateや再起動をまたぐ永続的な制限にはなりません。小規模サイトの初期ブレーキとしては使えますが、アクセスが増える場合はCloudflare WAF、Turnstile、KV、D1、Durable Objectsなどに寄せるほうが安定します。
 
-フォーム周辺のボット対策は、[ヘッドレスCMS選定記とTurnstileによるボット対策](/blog/cms-selection-and-turnstile/) でも触れています。
+コンテンツ更新側のCMS設計は、[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/) に分けて整理しています。フォームやコメントのbot対策はTurnstileなど別レイヤーとして扱います。
 
 ## Markdownリンクは許可リストで描画する
 

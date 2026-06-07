@@ -1,162 +1,302 @@
 ---
-title: 'Headless CMS-Auswahltagebuch — Warum wir Pages CMS gewählt haben und Bot-Schutz mit Turnstile'
-description: 'Ein Bericht über die Evaluierung von Keystatic, Sveltia CMS und Pages CMS, die letztliche Einführung von Pages CMS sowie die Implementierung von Spam-Schutz für das Kontaktformular mit Cloudflare Turnstile.'
-date: 2026-03-15
+title: 'Sveltia CMS Einrichtungsleitfaden'
+description: 'Praktischer Leitfaden zum Einbau von Sveltia CMS in Astro- und statische Websites: GitHub Backend, OAuth Worker, Medien-Uploads, Mehrsprachigkeit, CMS-PRs und Lessons Learned.'
+date: 2026-03-15T00:00
+lastUpdated: 2026-06-07
 author: gui
-tags: ['技術', 'CMS', 'セキュリティ']
+tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
+processFigure:
+  title: Ablauf der Sveltia-CMS-Einrichtung
+  description: Admin-App, Authentifizierung, editierbare Inhalte, Medien und PR-Prozess sollten getrennt entworfen werden.
+  steps:
+    - title: Admin-App hinzufügen
+      description: index.html und config.yml unter public/admin ablegen und Sveltia CMS laden.
+      icon: i-lucide-layout
+      accent: brand
+    - title: GitHub konfigurieren
+      description: Repo, Branch, OAuth Worker und CMS-Commit-Messages vor der Nutzung festlegen.
+      icon: i-lucide-git-branch
+      accent: emerald
+    - title: Editierbaren Bereich begrenzen
+      description: Nur Blog, Autoren, Tags und japanische Source-JSONs als Collections freigeben.
+      icon: i-lucide-file-text
+      accent: amber
+    - title: Betrieb automatisieren
+      description: cms-content-Branch, CMS-PRs und Übersetzungs-Tasks verbinden, ohne normalen Entwicklungsfluss zu vermischen.
+      icon: i-lucide-git-pull-request
+      accent: slate
 compareTable:
-  title: CMS-Vergleich
+  title: Vor und nach dem CMS
   before:
-    label: Keystatic / Sveltia CMS
+    label: Markdown manuell bearbeiten
     items:
-      - Keystatic erfordert eine serverseitige Laufzeitumgebung
-      - Sveltia CMS ist funktionsreich, hat aber eine hohe Lernkurve
-      - Beide sind für ein Astro + Pages-Setup überdimensioniert
-      - Die Einrichtung nimmt erheblich viel Zeit in Anspruch
+      - Aktualisierungen sind vor allem für GitHub- oder Editor-Nutzer einfach
+      - Bildpfade, Autoren-IDs und Tags werden leicht falsch getippt
+      - Japanische Source und Übersetzungen können vermischt werden
+      - Preview-Umgebungen können versehentlich main lesen
   after:
-    label: Pages CMS
+    label: Bearbeitung mit Sveltia CMS
     items:
-      - Markdown direkt im GitHub-Repository bearbeiten
-      - GUI-Editor ermöglicht Nicht-Entwicklern die Artikelaktualisierung
-      - Kein Server erforderlich — perfekte Kompatibilität mit Pages
-      - Konfiguration komplett mit nur .pages.yml
+      - Markdown und JSON lassen sich im Browserformular bearbeiten
+      - relation, image und select reduzieren ungültige Werte
+      - Nur CMS-Commits lösen Übersetzungs-Tasks aus
+      - Runtime Config wechselt den CMS-Branch zwischen Preview und Produktion
 callout:
-  type: tip
-  title: Vorteile von Turnstile
-  text: Im Gegensatz zu reCAPTCHA erfordert Cloudflare Turnstile keine Benutzeraktionen wie die Bildauswahl. Die Verifizierung erfolgt automatisch im Hintergrund und ermöglicht Bot-Schutz ohne UX-Einbußen.
-faq:
-  title: Häufig gestellte Fragen
+  type: note
+  title: Annahme dieses Leitfadens
+  text: Sveltia CMS ist eine Browser-Admin-App, die Markdown und JSON über ein Git-Backend bearbeitet. Das Beispiel stammt von Acecore, ist aber auf viele Astro-Websites übertragbar.
+checklist:
+  title: Einrichtungs-Checklist
   items:
-    - question: Was ist Pages CMS?
-      answer: Ein leichtgewichtiges CMS, mit dem Sie Markdown-Dateien in einem GitHub-Repository direkt über eine GUI bearbeiten können. Es benötigt keinen Server, die Konfiguration ist mit nur .pages.yml abgeschlossen, und auch Nicht-Entwickler können Artikel aktualisieren.
-    - question: Wie unterscheidet sich Cloudflare Turnstile von reCAPTCHA?
-      answer: Turnstile erfordert keine Benutzeraktionen wie Bildauswahl und verifiziert automatisch im Hintergrund. Es beeinträchtigt die UX nicht, respektiert die Privatsphäre und ist kostenlos verfügbar.
-    - question: Wie kann man Formulareinsendungen auf einer statischen Website verarbeiten?
-      answer: Durch die Verwendung externer Formulardienste wie ssgform.com oder Formspree können Formulareinsendungen ohne serverseitigen Code verarbeitet werden. Sie können auch mit Turnstile für Spam-Schutz kombiniert werden.
+    - text: Sveltia CMS aus public/admin/index.html laden
+      checked: true
+    - text: GitHub Backend und Collections in public/admin/config.yml definieren
+      checked: true
+    - text: OAuth Worker für mehrere Editoren verwenden
+      checked: true
+    - text: media_folder und public_folder mit Astros public-Verzeichnis abgleichen
+      checked: true
+    - text: Festlegen, wie CMS-Commits Übersetzung oder Veröffentlichung auslösen
+      checked: true
+faq:
+  title: Häufige Fragen
+  items:
+    - question: Für welche Websites eignet sich Sveltia CMS?
+      answer: Für statische Websites, deren Markdown oder JSON im Repository liegt, etwa Astro, Hugo oder VitePress. Man ergänzt ein CMS ohne externe Datenbank.
+    - question: Reicht ein GitHub Personal Access Token?
+      answer: Zum Testen ja. Für mehrere oder nicht-technische Editoren ist ein OAuth Worker sicherer und leichter zu erklären.
+    - question: Sollten alle Sprachen im CMS editierbar sein?
+      answer: Für kleine Teams ist es sicherer, nur die japanische Source im CMS zu bearbeiten und Übersetzungen per PR zu aktualisieren.
 ---
 
-CMS-Auswahl ist eine unspektakuläre, aber wichtige Entscheidung. Dieser Artikel behandelt den Prozess der Evaluierung von drei CMS-Optionen und die Implementierung von Bot-Schutz mit Cloudflare Turnstile für das Kontaktformular.
+Sveltia CMS ist nützlich, wenn eine statische Website eine Editieroberfläche erhalten soll, ohne Inhalte in eine externe Datenbank zu verschieben. Dieser Leitfaden beschreibt den Einbau in die Acecore-Astro-Website und die Korrekturen, die sich später aus echten PRs und Commits ergeben haben.
 
-## Der CMS-Auswahlprozess
+Der Titel ist bewusst schlicht: **Sveltia CMS Einrichtungsleitfaden**. Es geht nicht um einen allgemeinen CMS-Vergleich, sondern um eine übertragbare Umsetzung.
 
-Bei der Einführung eines CMS für unsere mit Astro gebaute statische Website haben wir die folgenden drei Kandidaten in die engere Auswahl genommen.
+## Wann Sveltia CMS passt
 
-### Keystatic: Der erste Kandidat
+Sveltia CMS besitzt keine eigene Inhaltsdatenbank und stellt keine separate Content-API bereit. Es ist eine SPA im Browser, die Dateien im Repository über das GitHub Backend bearbeitet.
 
-Wir hatten Keystatic als typsicheres CMS beobachtet. Es unterstützt offiziell die Astro-Integration. Im lokalen Modus erfordert es jedoch eine serverseitige Laufzeitumgebung, die sich nicht gut mit dem statischen Deployment von Cloudflare Pages verträgt.
+Es passt gut, wenn:
 
-### Sveltia CMS: Funktionsreich, aber schwer
+- Inhalte als Markdown oder JSON im Repository liegen
+- Änderungen an Artikeln, Autoren, Tags und Seitentexten als Git-Diffs reviewbar bleiben sollen
+- keine zusätzliche Datenbank oder Admin-Anwendung eingeführt werden soll
+- Uploads unter `public/uploads` liegen können
+- CMS-Änderungen vor Produktion per Pull Request geprüft werden sollen
 
-Sveltia CMS ist ein Fork von Decap CMS (ehemals Netlify CMS) mit einer modernen UI und umfangreichen Funktionen. Es war jedoch für die aktuelle Projektgröße (nur einige Blog-Einträge und eine Handvoll statischer Seiten) überdimensioniert. Wir planen eine Neubewertung, wenn die Inhalte in Zukunft wachsen.
+Für komplexe Rollen, große Mediatheken, umfangreiche Freigabeprozesse oder Echtzeitdaten ist ein vollständiges Headless CMS sinnvoller.
 
-### Pages CMS: Der Gewinner
-
-[Pages CMS](https://pagescms.org/) ist ein leichtgewichtiges CMS, das Markdown-Dateien direkt im GitHub-Repository bearbeitet.
-
-Die entscheidenden Faktoren waren:
-
-- **Einfache Einrichtung**: Nur eine einzige `.pages.yml`-Datei hinzufügen
-- **Kein Server erforderlich**: Funktioniert über die GitHub API ohne zusätzliche Infrastruktur
-- **Markdown-nativ**: Integriert sich direkt mit Astros Content Collections
-- **GUI-Editor**: Nicht-Entwickler im Team können Artikel im Browser bearbeiten
-
-```yaml
-# .pages.yml
-content:
-  - name: blog
-    label: ブログ
-    path: src/content/blog
-    type: collection
-    fields:
-      - name: title
-        label: タイトル
-        type: string
-      - name: date
-        label: 公開日
-        type: date
-      - name: tags
-        label: タグ
-        type: string
-        list: true
-```
-
-## Einführung von Cloudflare Turnstile
-
-Wir haben Cloudflare Turnstile als Spam-Schutz für das Kontaktformular eingeführt.
-
-### Warum Turnstile statt reCAPTCHA
-
-Google reCAPTCHA v2 zwingt Benutzer zur Bildauswahl, und v3 ist punktebasiert, wirft aber Datenschutzbedenken auf. Cloudflare Turnstile ist in folgenden Punkten überlegen:
-
-| Vergleich      | reCAPTCHA v2              | reCAPTCHA v3         | Turnstile               |
-| -------------- | ------------------------- | -------------------- | ----------------------- |
-| Benutzeraktion | Bildauswahl erforderlich  | Nicht erforderlich   | Nicht erforderlich      |
-| Datenschutz    | Cookie-basiertes Tracking | Verhaltensanalyse    | Minimale Datenerfassung |
-| Performance    | Schwer                    | Mittel               | Leicht                  |
-| Preis          | Kostenlos (begrenzt)      | Kostenlos (begrenzt) | Kostenlos (unbegrenzt)  |
-
-### Implementierung
-
-Die Einführung von Turnstile ist überraschend einfach.
-
-#### 1. Widget im Cloudflare-Dashboard erstellen
-
-Erstellen Sie ein Widget im Bereich „Turnstile" des Cloudflare-Dashboards und registrieren Sie die Ziel-Hostnamen (Produktionsdomain und `localhost`). Ein Site-Key wird ausgestellt.
-
-#### 2. Widget zum Formular hinzufügen
-
-```html
-<!-- Load the Turnstile script -->
-<script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer
-></script>
-
-<!-- Place the widget inside the form -->
-<form action="https://ssgform.com/s/your-form-id" method="POST">
-  <!-- Form fields -->
-  <input type="text" name="name" required />
-  <textarea name="message" required></textarea>
-
-  <!-- Turnstile widget -->
-  <div
-    class="cf-turnstile"
-    data-sitekey="your-site-key"
-    data-language="ja"
-    data-theme="light"
-  ></div>
-
-  <button type="submit">Submit</button>
-</form>
-```
-
-Die Einstellung `data-language="ja"` zeigt bei erfolgreicher Verifizierung „成功しました！" (Erfolg!) auf Japanisch an. `data-theme="light"` steuert die Hintergrundfarbe passend zum Website-Design.
-
-#### 3. CSP-Header aktualisieren
-
-Da Turnstile Iframes verwendet, muss es in der CSP ordnungsgemäß erlaubt werden.
+## Gesamtarchitektur
 
 ```text
-script-src: https://challenges.cloudflare.com
-connect-src: https://challenges.cloudflare.com
-frame-src: https://challenges.cloudflare.com
+public/admin/index.html
+  -> lädt @sveltia/cms per CDN
+
+public/admin/config.yml
+  -> definiert GitHub Backend, Collections und Medienordner
+
+workers/sveltia-cms-auth
+  -> Cloudflare Worker für GitHub OAuth
+
+cms-content branch
+  -> Branch, auf dem das CMS Änderungen speichert
+
+.github/workflows/cms-content-pr.yml
+  -> öffnet PR von cms-content nach main
+
+.github/workflows/create-translation-prs.yml
+  -> erzeugt Übersetzungs-Tasks nur für cms:-Commits
 ```
 
-### Hinweis: Propagierungsverzögerung nach Widget-Erstellung
+Die Admin-Seite ist nur der Anfang. Authentifizierung, Medienpfade, Preview-Branches, Übersetzungen und Merge-Strategie gehören zur CMS-Architektur.
 
-Unmittelbar nach der Erstellung eines Widgets im Cloudflare-Dashboard dauert es 1–2 Minuten, bis der Site-Key global propagiert ist. Während dieses Zeitraums tritt ein `400020`-Fehler auf, der sich jedoch nach kurzer Wartezeit von selbst löst.
+## 1. Admin unter `public/admin` ablegen
 
-## Verwendung von ssgform.com
+In Astro wird `public` unverändert statisch ausgeliefert. Auch die Sveltia-CMS-Dokumentation nennt `public` als Static-Folder für Astro, Next.js, Nuxt, Remix und VitePress.
 
-Wir verwenden [ssgform.com](https://ssgform.com/) als Endpunkt für Formulareinsendungen. Es ist ein Formulardienst für statische Websites mit folgenden Vorteilen:
+```html
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+  </body>
+</html>
+```
 
-- Kein serverseitiger Code erforderlich
-- Automatische E-Mail-Benachrichtigungen
-- Unterstützt Turnstile-Token-Verifizierung
-- Ausreichendes Sendevolumen im kostenlosen Plan
+Zusätzliche CSS-Dateien oder `type="module"` sind nicht nötig. Die UI-Styles stecken im JavaScript-Bundle.
 
-## Zusammenfassung
+Acecore nutzt manuelle Initialisierung, damit Preview-Branches zur Laufzeit gewechselt werden können.
 
-Sowohl bei der CMS- als auch bei der Bot-Schutz-Auswahl haben wir uns am Prinzip „das Minimum wählen" orientiert. Pages CMS kann in 5 Minuten eingerichtet werden, und Turnstile kann durch Hinzufügen weniger HTML-Zeilen implementiert werden. Gerade weil die Architektur einfach ist, bleiben die Betriebskosten niedrig.
+```javascript
+CMS.init({
+  config: {
+    backend: {
+      branch: window.ACECORE_CMS_BRANCH || 'main',
+    },
+  },
+})
+```
+
+## 2. GitHub Backend konfigurieren
+
+Minimal braucht man `backend.name` und `backend.repo`. Für den Betrieb sollten Branch, OAuth und Commit-Messages ebenfalls feststehen.
+
+```yaml
+backend:
+  name: github
+  repo: owner/repository
+  branch: cms-content
+  base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  auth_methods: [oauth]
+  commit_messages:
+    create: 'cms: create {{collection}} "{{slug}}"'
+    update: 'cms: update {{collection}} "{{slug}}"'
+    delete: 'cms: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'cms: upload "{{path}}"'
+    deleteMedia: 'cms: delete media "{{path}}"'
+```
+
+Für persönliche Websites kann `main` reichen. Für Unternehmens- oder mehrsprachige Websites ist ein eigener Branch wie `cms-content` besser reviewbar.
+
+## 3. OAuth Worker ergänzen
+
+Ein Personal Access Token reicht zum Testen, ist aber kein gutes Mehrbenutzer-Setup. Acecore verwendet Sveltia CMS Authenticator auf Cloudflare Workers und setzt dessen URL als `base_url`.
+
+Der Callback der GitHub OAuth App zeigt auf `/callback` des Workers. Der Worker erhält `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` und optional `ALLOWED_DOMAINS`.
+
+Das ist getrennt von Turnstile: OAuth schützt den CMS-Login, Turnstile schützt Formulare oder APIs gegen Bots.
+
+## 4. Medienordner früh festlegen
+
+Sveltia CMS speichert interne Medien im Repository. Für Astro ist diese Zuordnung praktikabel:
+
+```yaml
+media_folder: public/uploads
+public_folder: /uploads
+```
+
+Acecore hat diesen Punkt später in [PR #116](https://github.com/acecore-systems/acecore-net/pull/116) korrigiert. Speicherpfad und öffentliche URL sollten direkt bei der CMS-Einführung gemeinsam festgelegt werden.
+
+## 5. Collections trennen
+
+| collection | Ziel                           | Regel                                                |
+| ---------- | ------------------------------ | ---------------------------------------------------- |
+| `blog`     | `src/content/blog/*.md`        | Nur japanische Source-Artikel bearbeiten             |
+| `authors`  | `src/content/authors/*.json`   | Autorenprofile und lokalisierte Namen bearbeiten     |
+| `tags`     | `src/content/tags/*.json`      | Tags und lokalisierte Namen bearbeiten               |
+| page text  | `src/i18n/source/ja/**/*.json` | Japanische Source-Texte für Seiten und UI bearbeiten |
+
+Nicht alle übersetzten Markdown-Dateien müssen im CMS editierbar sein. Acecore behandelt Japanisch als kanonische Source und aktualisiert Übersetzungen über die [GitHub-Copilot-Übersetzungspipeline](/de/blog/copilot-translation-pipeline/).
+
+## 6. relation und select verwenden
+
+Tags sollten über relation gewählt werden, nicht als Freitext.
+
+```yaml
+- name: tags
+  label: Tags
+  widget: relation
+  collection: tags
+  value_field: name
+  display_fields: ['{{name}} ({{id}})']
+  search_fields: [name, id]
+  multiple: true
+  required: false
+```
+
+Dasselbe gilt für Autoren, Icons und Hinweisstile. Ein gutes CMS macht nicht nur Bearbeitung möglich, sondern verhindert kaputte Werte.
+
+## 7. Japanische Source-JSONs editierbar machen
+
+Feste Seitentexte lassen sich ebenfalls im CMS pflegen. Acecore bündelt sie unter `src/i18n/source/ja/**/*.json`.
+
+Die Lehre: Nicht alle Felder auf einmal hinzufügen. `config.yml` wächst schnell. Besser mit Blog, Autoren, Tags, Hinweisen und häufig geänderten Seiten starten.
+
+## 8. Preview muss den richtigen Branch lesen
+
+Wenn ein CMS in einer Cloudflare-Pages-Preview weiterhin `main` liest, passt der Editor nicht zur Preview. Acecore erzeugt vor dem Build `public/admin/runtime-config.js` und injiziert den aktuellen Branch.
+
+```javascript
+CMS.init({
+  config: {
+    backend: {
+      branch: window.ACECORE_CMS_BRANCH || 'main',
+    },
+  },
+})
+```
+
+## 9. PRs aus dem CMS-Branch erstellen
+
+Änderungen in `cms-content` zu speichern und PRs nach `main` zu öffnen, hält Inhalte reviewbar.
+
+```yaml
+on:
+  push:
+    branches:
+      - cms-content
+```
+
+Die Merge-Methode ist wichtig. Übersetzungs-Tasks hängen an Commit-Subjects wie `cms: create ...`. Wenn Squash-Merge diese entfernt, kann Automatisierung den Source-Change übersehen. Für CMS-PRs sind Merge-Commit oder Rebase-Merge geeigneter.
+
+## 10. Übersetzung nur durch CMS-Commits auslösen
+
+[PR #98](https://github.com/acecore-systems/acecore-net/pull/98) fügte `--cms-only` hinzu, damit Push-basierte Übersetzungs-Tasks nur auf CMS-Commits reagieren.
+
+```javascript
+function isCmsCommitSubject(subject) {
+  return /^cms: (create|update|delete) /.test(subject || '')
+}
+```
+
+`cms:` ist ein Workflow-Vertrag, kein dekoratives Präfix.
+
+## 11. Eigenes CSP für `/admin`
+
+Die Admin-App verbindet sich mit CDN, GitHub API, OAuth Worker und blob URLs. Daher trennt Acecore die CSP für `/admin/*` und setzt diesen Bereich auf `noindex`.
+
+## Turnstile trennen
+
+Die alte Fassung mischte CMS und Cloudflare Turnstile. Das war thematisch unscharf.
+
+Sveltia CMS betrifft GitHub Backend, OAuth, Collections, Medien und PRs. Turnstile betrifft Bot-Schutz für Formulare oder APIs. Beides unterstützt sicheren Betrieb, liegt aber auf unterschiedlichen Ebenen.
+
+## Lessons Learned aus PRs und Commits
+
+- Wenn das CMS wechselt, müssen Artikel und interne Links mitziehen.
+- OAuth ist Teil des echten Setups, kein späteres Extra.
+- Medienpfade sollten vor den Uploads feststehen.
+- `config.yml` sollte schrittweise wachsen.
+- `cms:` ist ein Automatisierungsvertrag.
+- In Preview muss klar sein, welchen Branch das CMS liest.
+
+## Minimaler Startpunkt
+
+```text
+public/admin/index.html
+public/admin/config.yml
+public/admin/init.js
+public/admin/runtime-config.js
+```
+
+Danach folgen Autoren-Relationen, Tag-Relationen, Bilder, Source-JSONs, CMS-PR-Automatisierung und Übersetzungs-Tasks.
+
+## Referenzen
+
+- [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
+- [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
+- [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
+- [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)
+
+## Fazit
+
+Sveltia CMS lässt sich leicht unter `public/admin` ablegen. Für Produktion müssen aber Branch, OAuth, Medienordner, Source-Sprache, Übersetzungs-Workflow und Merge-Strategie geklärt sein. Dann bleibt eine Astro-Website statisch und leichtgewichtig, bekommt aber einen brauchbaren Inhaltsprozess.

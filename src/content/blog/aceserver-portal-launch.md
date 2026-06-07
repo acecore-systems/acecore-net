@@ -93,7 +93,7 @@ faq:
 
 構築には、Astro、UnoCSS、Sveltia CMSを使っています。Astroで静的サイトとして配信し、UnoCSSで必要なスタイルを軽量にまとめました。ページ本文やサイト設定はSveltia CMSの管理画面から編集できるため、コードを触らずに告知や導線を更新できます。
 
-CMSを選ぶときの考え方は、[Sveltia CMSとCloudflare Turnstileで作る軽量なCMS運用](/blog/cms-selection-and-turnstile/)でも紹介しています。静的サイトの表示速度や運用面については、[Astroサイトの表示速度を改善する実践ガイド](/blog/astro-performance-tuning/)も参考になります。
+CMSを選ぶときの考え方は、[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/)でも紹介しています。静的サイトの表示速度や運用面については、[Astroサイトの表示速度を改善する実践ガイド](/blog/astro-performance-tuning/)も参考になります。
 
 ## 実績としても掲載しました
 

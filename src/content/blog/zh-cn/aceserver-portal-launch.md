@@ -93,7 +93,7 @@ Wiki 链接也可以从首页进入。会持续变化的信息更适合在 Wiki 
 
 网站使用 Astro、UnoCSS 和 Sveltia CMS 构建。Astro 以静态站点形式发布，UnoCSS 让样式保持轻量。页面正文和站点设置可以从 CMS 编辑，因此公告和导航可以不改代码就更新。
 
-关于轻量 CMS 运用的思路，可以参考[使用 Sveltia CMS 和 Cloudflare Turnstile 的轻量 CMS 运用](/zh-cn/blog/cms-selection-and-turnstile/)。静态网站性能改善可以参考[改善 Astro 网站显示速度的实践指南](/zh-cn/blog/astro-performance-tuning/)。
+关于轻量 CMS 运用的思路，可以参考[Sveltia CMS 导入指南](/zh-cn/blog/cms-selection-and-turnstile/)。静态网站性能改善可以参考[改善 Astro 网站显示速度的实践指南](/zh-cn/blog/astro-performance-tuning/)。
 
 ## 也作为实绩刊登
 

@@ -65,8 +65,8 @@ linkCards:
     description: Article lié sur CSP et les en-têtes de sécurité pour sites statiques.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS et Turnstile
-    description: Article lié sur les formulaires et la protection contre les bots.
+    title: Guide d'installation de Sveltia CMS
+    description: Article lié sur l'ajout d'un écran d'édition CMS à un site statique.
     icon: i-lucide-badge-check
 faq:
   title: Questions fréquentes
@@ -243,7 +243,7 @@ function assertSameOrigin(request: Request) {
 }
 ```
 
-Un rate limit par IP est un premier frein. Avec Cloudflare, utilisez `CF-Connecting-IP`, `X-Forwarded-For` ou `CF-Ray`. Pour plus de trafic, préférez Cloudflare WAF, Turnstile, KV, D1 ou Durable Objects. Pour les formulaires, voir [CMS et Turnstile](/blog/cms-selection-and-turnstile/).
+Un rate limit par IP est un premier frein. Avec Cloudflare, utilisez `CF-Connecting-IP`, `X-Forwarded-For` ou `CF-Ray`. Pour plus de trafic, préférez Cloudflare WAF, Turnstile, KV, D1 ou Durable Objects. L'exploitation CMS côté contenu est décrite dans le [Guide d'installation de Sveltia CMS](/blog/cms-selection-and-turnstile/) ; la protection anti-bot des formulaires et commentaires est une autre couche.
 
 ## Rendre les liens Markdown avec une liste d'autorisation
 

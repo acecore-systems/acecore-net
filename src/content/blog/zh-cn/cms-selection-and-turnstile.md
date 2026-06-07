@@ -1,162 +1,328 @@
 ---
-title: '无头 CMS 选型记 ― 选择 Pages CMS 的理由与 Turnstile 防机器人方案'
-description: '对比评估了 Keystatic、Sveltia CMS 和 Pages CMS，最终采用 Pages CMS 的经过，以及使用 Cloudflare Turnstile 为联系表单实现垃圾信息防护的记录。'
-date: 2026-03-15
+title: 'Sveltia CMS 导入指南'
+description: '总结在 Astro 等静态网站中导入 Sveltia CMS 的方法，涵盖 GitHub backend、OAuth Worker、图片上传、多语言运维、CMS 专用 PR 流程以及实际修正中得到的经验。'
+date: 2026-03-15T00:00
+lastUpdated: 2026-06-07
 author: gui
-tags: ['技術', 'CMS', 'セキュリティ']
+tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
+processFigure:
+  title: Sveltia CMS 导入流程
+  description: 为静态网站加入 CMS 时，应把管理界面、认证、可编辑内容、媒体文件和 PR 运维分开设计。
+  steps:
+    - title: 放置管理界面
+      description: 在 public/admin 下放置 index.html 与 config.yml，并加载 Sveltia CMS。
+      icon: i-lucide-layout
+      accent: brand
+    - title: 配置 GitHub backend
+      description: 先确定 repo、branch、OAuth Worker 与 CMS commit message。
+      icon: i-lucide-git-branch
+      accent: emerald
+    - title: 限定编辑范围
+      description: 只把博客、作者、标签、日语 source JSON 等需要 CMS 编辑的文件做成 collection。
+      icon: i-lucide-file-text
+      accent: amber
+    - title: 自动化运维
+      description: 将 cms-content 分支、CMS 编辑 PR 与翻译 PR task 连接起来，并与普通开发分离。
+      icon: i-lucide-git-pull-request
+      accent: slate
 compareTable:
-  title: CMS 对比
+  title: 导入 CMS 前后的差异
   before:
-    label: Keystatic / Sveltia CMS
+    label: 直接编辑 Markdown
     items:
-      - Keystatic 需要服务端运行时
-      - Sveltia CMS 功能强大但学习成本高
-      - 两者对 Astro + Pages 架构来说都过于复杂
-      - 初始设置耗时较长
+      - 只有熟悉 GitHub 或编辑器的人容易更新
+      - 图片路径、作者 ID、标签名容易手写出错
+      - 日语 source 与翻译文件的修改范围容易混在一起
+      - preview 环境可能仍然读取 main 的内容
   after:
-    label: Pages CMS
+    label: 使用 Sveltia CMS 编辑
     items:
-      - 直接编辑 GitHub 仓库中的 Markdown
-      - 非技术人员也可通过 GUI 编辑器更新文章
-      - 无需服务端，与 Pages 完美兼容
-      - '仅需 .pages.yml 即可完成配置'
+      - 可以在浏览器表单中编辑 Markdown 与 JSON
+      - relation、image、select 减少无效值
+      - 只有 CMS commit 会触发翻译 PR task
+      - runtime config 可以在 preview 与 production 间切换 CMS branch
 callout:
-  type: tip
-  title: Turnstile 的优势
-  text: Cloudflare Turnstile 与 reCAPTCHA 不同，不需要用户进行图片选择等操作。验证在后台自动完成，因此可以在不影响用户体验的前提下实现防机器人保护。
+  type: note
+  title: 本文前提
+  text: Sveltia CMS 是在浏览器中运行的 CMS 应用，通过 Git backend 编辑仓库中的 Markdown 与 JSON。本文以 Acecore 官网为例，但思路可以迁移到很多 Astro 静态网站。
+checklist:
+  title: 导入检查清单
+  items:
+    - text: 在 public/admin/index.html 中加载 Sveltia CMS
+      checked: true
+    - text: 在 public/admin/config.yml 中定义 GitHub backend 与 collections
+      checked: true
+    - text: 多人编辑时使用 OAuth Worker
+      checked: true
+    - text: 将 media_folder 与 public_folder 对齐到 Astro 的 public 目录
+      checked: true
+    - text: 决定 CMS commit 如何触发翻译或发布流程
+      checked: true
 faq:
   title: 常见问题
   items:
-    - question: Pages CMS 是什么？
-      answer: Pages CMS 是一款轻量级 CMS，可以通过 GUI 直接编辑 GitHub 仓库中的 Markdown 文件。无需服务器，仅需 .pages.yml 即可完成配置，非技术人员也能更新文章。
-    - question: Cloudflare Turnstile 和 reCAPTCHA 有什么区别？
-      answer: Turnstile 不需要用户进行图片选择等操作，在后台自动完成验证。它不影响用户体验，注重隐私保护，且完全免费。
-    - question: 静态站点如何处理表单提交？
-      answer: 可以使用 ssgform.com 或 Formspree 等外部表单服务，无需服务端代码即可处理表单提交。还可以结合 Turnstile 进行垃圾信息防护。
+    - question: Sveltia CMS 适合什么网站？
+      answer: 适合把 Markdown 或 JSON 放在仓库中的静态网站，例如 Astro、Hugo、VitePress。不需要额外数据库，也能加上 CMS 编辑界面。
+    - question: 只用 GitHub Personal Access Token 可以吗？
+      answer: 可以，但如果是多人或非工程师使用，OAuth Worker 更安全也更容易说明。Acecore 使用 Cloudflare Worker 作为 OAuth 客户端，并设置到 backend.base_url。
+    - question: 多语言网站应该让所有语言都能在 CMS 中编辑吗？
+      answer: 小团队更适合只在 CMS 中编辑日语 source，再通过 PR 更新翻译。把所有语言都暴露给 CMS，会让审核和旧翻译检测变难。
 ---
 
-CMS 的选型虽然不起眼，但却是一项重要的决策。本文将介绍对3款 CMS 进行实际评估的过程，以及在联系表单中引入 Cloudflare Turnstile 进行防机器人保护的实践。
+Sveltia CMS 适合在静态网站上追加一个编辑界面，而不需要把内容迁移到外部数据库。本文基于 Acecore 的 Astro 网站，整理导入步骤，以及在后续 PR 和 commit 中发现并修正的运维问题。
 
-## CMS 选型经过
+标题故意保持简单：**Sveltia CMS 导入指南**。这不是 CMS 对比文章，而是给想在自己的网站中使用 Sveltia CMS 的人看的实用笔记。
 
-在为 Astro 构建的静态站点引入 CMS 时，我们列出了以下3个候选方案。
+## Sveltia CMS 适合的场景
 
-### Keystatic：首选候选
+Sveltia CMS 不是拥有独立数据库和内容 API 的 CMS。它是一个在浏览器中运行的单页管理应用，通过 GitHub backend 编辑仓库内的文件。
 
-Keystatic 作为类型安全的 CMS 引起了我们的关注，Astro 官方也支持其集成。然而，在本地模式下运行需要服务端运行时，与 Cloudflare Pages 的静态部署存在兼容性问题。
+适合以下情况：
 
-### Sveltia CMS：功能强大但过重
+- 网站内容以 Markdown 或 JSON 保存在仓库中
+- 希望文章、作者、标签、页面文案都能以 Git diff 形式审核
+- 不想增加数据库或独立管理后台
+- 图片可以保存在 `public/uploads` 等仓库目录中
+- CMS 保存后仍希望通过 Pull Request 确认再上线
 
-Sveltia CMS 是 Decap CMS（原 Netlify CMS）的分支，拥有现代化的 UI 和丰富的功能。但对于当前项目规模（几篇博文加几个固定页面）来说显得过于复杂。计划在内容规模增长后重新评估。
+如果需要复杂权限、预约发布、大量媒体资产管理或实时数据编辑，完整的 headless CMS 或自定义后台会更合适。
 
-### Pages CMS：最终选择
+## 整体架构
 
-[Pages CMS](https://pagescms.org/) 是一款直接编辑 GitHub 仓库 Markdown 文件的轻量级 CMS。
-
-选择它的决定性因素如下：
-
-- **设置简单**：只需添加一个 `.pages.yml` 文件
-- **无需服务器**：通过 GitHub API 运作，不需要额外的基础设施
-- **原生 Markdown**：与 Astro 的内容集合直接对接
-- **GUI 编辑器**：非技术团队成员也能通过浏览器编辑文章
-
-```yaml
-# .pages.yml
-content:
-  - name: blog
-    label: ブログ
-    path: src/content/blog
-    type: collection
-    fields:
-      - name: title
-        label: タイトル
-        type: string
-      - name: date
-        label: 公開日
-        type: date
-      - name: tags
-        label: タグ
-        type: string
-        list: true
-```
-
-## Cloudflare Turnstile 的引入
-
-为了防范联系表单的垃圾信息，我们引入了 Cloudflare Turnstile。
-
-### 为什么选择 Turnstile 而非 reCAPTCHA
-
-Google reCAPTCHA v2 强制用户选择图片，v3 虽然基于评分但在隐私方面存在顾虑。Cloudflare Turnstile 在以下方面更为出色：
-
-| 比较项目 | reCAPTCHA v2     | reCAPTCHA v3   | Turnstile      |
-| -------- | ---------------- | -------------- | -------------- |
-| 用户操作 | 需要选择图片     | 不需要         | 不需要         |
-| 隐私保护 | 基于 Cookie 追踪 | 行为分析       | 最小化数据收集 |
-| 性能     | 较重             | 中等           | 轻量           |
-| 费用     | 免费（有限制）   | 免费（有限制） | 免费（无限制） |
-
-### 实现方法
-
-Turnstile 的引入非常简单。
-
-#### 1. 在 Cloudflare Dashboard 创建小组件
-
-在 Cloudflare Dashboard 的"Turnstile"部分创建小组件，注册目标主机名（生产域名和 `localhost`）。系统将发放站点密钥。
-
-#### 2. 在表单中添加小组件
-
-```html
-<!-- 加载 Turnstile 脚本 -->
-<script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer
-></script>
-
-<!-- 在表单中放置小组件 -->
-<form action="https://ssgform.com/s/your-form-id" method="POST">
-  <!-- 表单字段 -->
-  <input type="text" name="name" required />
-  <textarea name="message" required></textarea>
-
-  <!-- Turnstile 小组件 -->
-  <div
-    class="cf-turnstile"
-    data-sitekey="your-site-key"
-    data-language="ja"
-    data-theme="light"
-  ></div>
-
-  <button type="submit">送信</button>
-</form>
-```
-
-指定 `data-language="ja"` 后，验证成功时会显示日语消息。`data-theme="light"` 用于根据站点设计控制背景色。
-
-#### 3. 更新 CSP 头
-
-Turnstile 使用 iframe，因此需要在 CSP 中正确允许。
+Acecore 的 Sveltia CMS 结构如下：
 
 ```text
-script-src: https://challenges.cloudflare.com
-connect-src: https://challenges.cloudflare.com
-frame-src: https://challenges.cloudflare.com
+public/admin/index.html
+  -> 从 CDN 加载 @sveltia/cms
+
+public/admin/config.yml
+  -> 定义 GitHub backend、collection 与媒体目录
+
+workers/sveltia-cms-auth
+  -> GitHub OAuth 用 Cloudflare Worker
+
+cms-content branch
+  -> CMS 保存编辑内容的分支
+
+.github/workflows/cms-content-pr.yml
+  -> 从 cms-content 自动创建 main 向 PR
+
+.github/workflows/create-translation-prs.yml
+  -> 只为 cms: commit 创建翻译 PR task
 ```
 
-### 注意事项：创建小组件后的传播延迟
+导入 CMS 并不只是放一个管理页面。认证、图片路径、preview 分支、多语言和 merge 策略都会影响实际运维。
 
-在 Cloudflare Dashboard 创建小组件后，站点密钥需要1到2分钟才能全局传播。在此期间会出现 `400020` 错误，稍等片刻即可恢复。
+## 1. 把管理界面放在 `public/admin`
 
-## ssgform.com 的使用
+Astro 会原样发布 `public` 目录下的文件。Sveltia CMS 官方文档也把 Astro、Next.js、Nuxt、Remix、VitePress 的静态目录列为 `public`。
 
-表单的提交目标使用的是 [ssgform.com](https://ssgform.com/)。这是一款可用于静态站点的表单提交服务，具有以下优势：
+最小页面如下：
 
-- 无需服务端代码
-- 自动发送邮件通知
-- 支持 Turnstile 的令牌验证
-- 免费计划的提交数量足够使用
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+  </body>
+</html>
+```
+
+不要额外加入不存在的 CSS，也不要随手加 `type="module"`。当前的 Sveltia CMS CDN 版本按普通 script 加载即可。
+
+Acecore 为了让 preview 环境切换 branch，使用了手动初始化。
+
+```javascript
+CMS.init({
+  config: {
+    backend: {
+      branch: window.ACECORE_CMS_BRANCH || 'main',
+    },
+  },
+})
+```
+
+## 2. 配置 GitHub backend
+
+最小 GitHub backend 只需要 `backend.name` 与 `backend.repo`。实际使用时，还应一开始就决定 branch、OAuth 与 commit message。
+
+```yaml
+backend:
+  name: github
+  repo: owner/repository
+  branch: cms-content
+  base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  auth_methods: [oauth]
+  commit_messages:
+    create: 'cms: create {{collection}} "{{slug}}"'
+    update: 'cms: update {{collection}} "{{slug}}"'
+    delete: 'cms: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'cms: upload "{{path}}"'
+    deleteMedia: 'cms: delete media "{{path}}"'
+```
+
+个人网站可以直接保存到 `main`。公司网站或多语言网站则更适合保存到 `cms-content`，再自动创建 PR。
+
+## 3. 准备 OAuth Worker
+
+Personal Access Token 可以用于测试，但不适合交给多人或非工程师长期使用。Acecore 使用运行在 Cloudflare Workers 上的 Sveltia CMS Authenticator，并把 Worker URL 设置为 `base_url`。
+
+GitHub OAuth App 的 callback URL 指向 Worker 的 `/callback`。Worker 中设置 `GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`，必要时再设置 `ALLOWED_DOMAINS`。
+
+这里和 Turnstile 是不同层。CMS 登录用 GitHub OAuth，表单或评论的 bot 对策再使用 Turnstile。
+
+## 4. 先确定图片上传目录
+
+Sveltia CMS 的 internal media storage 会把上传文件写进仓库。Astro 中公开图片通常放在 `public` 下。
+
+```yaml
+media_folder: public/uploads
+public_folder: /uploads
+```
+
+Acecore 后来在 [PR #116](https://github.com/acecore-systems/acecore-net/pull/116) 修正了 CMS 图片上传位置。经验是：导入 CMS 时就应该同时确定「仓库中的保存位置」和「页面中的公开 URL」。
+
+外部图片和上传图片也建议分成两个字段。
+
+```yaml
+- name: image
+  label: 外部图片 URL
+  widget: string
+  required: false
+
+- name: uploadedImage
+  label: 上传图片
+  widget: image
+  required: false
+```
+
+## 5. 用 collection 分开编辑范围
+
+Acecore 把 CMS 编辑范围分成四类。
+
+| collection | 对象                           | 方针                            |
+| ---------- | ------------------------------ | ------------------------------- |
+| `blog`     | `src/content/blog/*.md`        | 只编辑日语 source 文章          |
+| `authors`  | `src/content/authors/*.json`   | 编辑作者信息和多语言显示名      |
+| `tags`     | `src/content/tags/*.json`      | 编辑标签名和多语言显示名        |
+| page text  | `src/i18n/source/ja/**/*.json` | 编辑页面与共通 UI 的日语 source |
+
+不要轻易把所有语言的 Markdown 都暴露给 CMS。多语言网站中，source 与翻译的关系应该保持清晰。Acecore 把日语 source 作为正本，翻译交给 [GitHub Copilot 博客翻译流水线](/zh-cn/blog/copilot-translation-pipeline/)。
+
+## 6. 用 relation 与 select 减少错误
+
+标签不应让编辑者手写，而应通过 relation 选择。
+
+```yaml
+- name: tags
+  label: 标签
+  widget: relation
+  collection: tags
+  value_field: name
+  display_fields: ['{{name}} ({{id}})']
+  search_fields: [name, id]
+  multiple: true
+  required: false
+```
+
+作者、图标、告知 tone 等也适合同样限制。CMS 的价值不仅是「能在浏览器中编辑」，也是「不容易输入坏值」。
+
+## 7. 让日语 source JSON 可编辑
+
+固定页面文案也可以 CMS 化。Acecore 将日语页面文案集中在 `src/i18n/source/ja/**/*.json`，再按页面分组暴露到 CMS。
+
+反省点是，一开始不要把所有字段一次性放进 `config.yml`。配置会迅速变大，既存值读取、标签命名和审核都会变困难。建议从博客、作者、标签、告知、常改页面开始，逐步扩展。
+
+## 8. preview 环境要读取正确 branch
+
+Cloudflare Pages preview 中打开 CMS 时，如果 CMS 仍然读取 `main`，看到的内容就会和 preview 页面不一致。Acecore 在构建前生成 `public/admin/runtime-config.js`，把当前 branch 注入到 `window.ACECORE_CMS_BRANCH`。
+
+```javascript
+CMS.init({
+  config: {
+    backend: {
+      branch: window.ACECORE_CMS_BRANCH || 'main',
+    },
+  },
+})
+```
+
+这样可以保持 YAML 配置共通，同时让 preview 指向正确分支。
+
+## 9. 从 CMS 专用分支创建 PR
+
+CMS 保存到 `cms-content` 后，通过 GitHub Actions 创建 main 向 PR，可以让内容修改保持可审核。
+
+```yaml
+on:
+  push:
+    branches:
+      - cms-content
+```
+
+这里的 merge 方法很重要。Acecore 的翻译任务依赖 `cms: create ...`、`cms: update ...` 等 commit subject。如果 squash merge 抹掉这些 subject，翻译 workflow 可能无法检测到 source 更新。CMS PR 应使用保留 `cms:` commit 的 merge commit 或 rebase merge。
+
+## 10. 只让 CMS commit 触发翻译
+
+[PR #98](https://github.com/acecore-systems/acecore-net/pull/98) 加入了 `--cms-only`，让 push 触发的翻译 PR task 只处理 CMS commit。
+
+```javascript
+function isCmsCommitSubject(subject) {
+  return /^cms: (create|update|delete) /.test(subject || '')
+}
+```
+
+因此 `cms:` 不是装饰，而是 workflow 的输入。普通开发 PR 或手写文章 PR 不应使用这个前缀。
+
+## 11. `/admin` 使用独立 CSP
+
+管理界面需要连接 Sveltia CMS CDN、GitHub API、OAuth Worker 和 blob URL，所以应与公开页面使用不同 CSP。Acecore 还对 `/admin/*` 设置 `noindex`，避免管理页面进入搜索索引。
+
+## 把 Turnstile 分开考虑
+
+本文旧版把 CMS 选择和 Cloudflare Turnstile 放在同一篇文章里。现在看，这会混淆主题。
+
+Sveltia CMS 关注 GitHub backend、OAuth、collection、图片路径和 PR 运维。Turnstile 关注表单或评论 API 的 bot 对策。两者都让运维更安全，但实现层不同，应该分成不同文章。
+
+## PR 与 commit 带来的经验
+
+- CMS 实现改变时，相关文章和内部链接也要一起更新。
+- OAuth 不应作为以后再做的优化，而应纳入正式导入。
+- 图片路径要在编辑者上传前固定。
+- `config.yml` 的字段要逐步增加，不要一次性暴露全部页面文案。
+- `cms:` commit subject 是自动化契约，不是普通前缀。
+- preview 环境必须清楚显示 CMS 正在读哪个 branch。
+
+## 最小起点
+
+新建 Astro 网站可以从这些文件开始：
+
+```text
+public/admin/index.html
+public/admin/config.yml
+public/admin/init.js
+public/admin/runtime-config.js
+```
+
+然后按顺序加入作者 relation、标签 relation、上传图片、source JSON、CMS PR 自动化和翻译 PR task。
+
+## 参考链接
+
+- [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
+- [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
+- [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
+- [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)
 
 ## 总结
 
-无论是 CMS 还是防机器人方案，我们都遵循"选择必要最小限度"的方针。Pages CMS 只需5分钟即可完成部署，Turnstile 只需添加几行 HTML 即可实现。正因为架构简洁，才能将运维成本保持在较低水平。
+Sveltia CMS 本身很容易放进 `public/admin`。真正重要的是它周围的运维设计：保存到哪个 branch、如何登录、图片放在哪里、source 语言与翻译如何分离、CMS commit 如何被后续 workflow 解读。
+
+这些规则明确之后，Astro 静态网站就能保持轻量，同时获得可审核、可持续的内容更新流程。
