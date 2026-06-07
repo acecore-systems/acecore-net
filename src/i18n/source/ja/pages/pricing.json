@@ -32,24 +32,73 @@
     },
     {
       "icon": "message-square",
-      "title": "コメント機能",
-      "price": "10万円〜",
-      "body": "既存サイトやアプリに、投稿・表示・承認フロー、スパム対策、通知まで含めたコメント機能を追加します。",
-      "href": "/services/#system-development"
-    },
-    {
-      "icon": "newspaper",
-      "title": "ブログ機能",
-      "price": "15万円〜",
-      "body": "記事一覧・詳細、カテゴリ/タグ、関連記事、OGP/SEO設定、検索連携まで、発信に必要な機能を整えます。",
-      "href": "/services/#web"
+      "title": "問い合わせAIチャット",
+      "price": "8万円〜",
+      "body": "静的サイトに問い合わせAIチャットを組み込み、サイト内文脈、レート制限、Originチェック、安全なリンク描画まで整えます。",
+      "href": "/blog/astro-ai-contact-chat/"
     },
     {
       "icon": "layout-template",
-      "title": "CMS導入",
-      "price": "20万円〜",
-      "body": "Sveltia CMSやPages CMSなどで、固定ページ・ブログ・お知らせ・設定項目を管理画面から更新できるようにします。",
-      "href": "/services/#web"
+      "title": "CMS編集画面導入",
+      "price": "5万円〜",
+      "body": "Sveltia CMSでブログ、固定ページ、告知、設定項目をブラウザから更新できる管理画面を追加します。",
+      "href": "/blog/cms-selection-and-turnstile/"
+    },
+    {
+      "icon": "newspaper",
+      "title": "ブログ・記事基盤",
+      "price": "5万円〜",
+      "body": "記事一覧、詳細ページ、タグ/カテゴリ、関連記事、RSS、検索導線など、継続発信に必要な基盤を整えます。",
+      "href": "/blog/astro-i18n-blog-translation/"
+    },
+    {
+      "icon": "languages",
+      "title": "多言語ブログ運用",
+      "price": "8万円〜",
+      "body": "日本語source、翻訳PR、hreflang、sitemap、RSSまで含めた多言語ブログ運用を整えます。",
+      "href": "/blog/copilot-translation-pipeline/"
+    },
+    {
+      "icon": "search",
+      "title": "SEO・構造化データ",
+      "price": "5万円〜",
+      "body": "OGP、JSON-LD、サイトマップ、RSS、canonicalなど、検索エンジンに伝える情報を整理します。",
+      "href": "/blog/astro-seo-and-structured-data/"
+    },
+    {
+      "icon": "scan",
+      "title": "Pagefindサイト内検索",
+      "price": "3万円〜",
+      "body": "静的サイトにPagefind検索を追加し、検索UI、URLパラメータ、キャッシュ設定まで整えます。",
+      "href": "/blog/astro-ux-and-code-quality/"
+    },
+    {
+      "icon": "zap",
+      "title": "表示速度改善",
+      "price": "5万円〜",
+      "body": "画像、CSS、フォント、遅延読み込み、計測結果を確認し、Core Web Vitalsの改善を進めます。",
+      "href": "/blog/astro-performance-tuning/"
+    },
+    {
+      "icon": "accessibility",
+      "title": "アクセシビリティ改善",
+      "price": "5万円〜",
+      "body": "コントラスト、aria属性、フォーカス、フォーム検証などを点検し、WCAG AAを目標に修正します。",
+      "href": "/blog/astro-accessibility-guide/"
+    },
+    {
+      "icon": "shield-check",
+      "title": "セキュリティヘッダー/CSP",
+      "price": "3万円〜",
+      "body": "Cloudflare Pagesの_headers、CSP、管理画面まわりの配信設定を整理し、安全な公開状態へ近づけます。",
+      "href": "/blog/cloudflare-pages-security/"
+    },
+    {
+      "icon": "mouse-pointer-click",
+      "title": "CTA・フォーム連携",
+      "price": "3万円〜",
+      "body": "サービスCTAから問い合わせフォームへ種別、件名、文脈を引き継ぎ、相談導線を改善します。",
+      "href": "/blog/service-cta-contact-prefill/"
     },
     {
       "icon": "server",

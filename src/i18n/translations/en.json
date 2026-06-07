@@ -508,24 +508,73 @@
           },
           {
             "icon": "message-square",
-            "label": "Comment Feature",
-            "price": "From ¥100,000",
-            "note": "Adds posting, display, moderation workflow, spam protection, and notifications.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "newspaper",
-            "label": "Blog Feature",
-            "price": "From ¥150,000",
-            "note": "Article lists/details, categories/tags, related posts, OGP/SEO, and search integration.",
-            "href": "/services/#web"
+            "label": "AI Contact Chat",
+            "price": "From ¥80,000",
+            "note": "Add an AI contact chat to a static site, including site context, rate limits, Origin checks, and safe link rendering.",
+            "href": "/blog/astro-ai-contact-chat/"
           },
           {
             "icon": "layout-template",
-            "label": "CMS Setup",
-            "price": "From ¥200,000",
-            "note": "Make pages, blog posts, announcements, and settings editable from an admin screen.",
-            "href": "/services/#web"
+            "label": "CMS Editing Screen",
+            "price": "From ¥50,000",
+            "note": "Add a Sveltia CMS admin screen so blog posts, fixed pages, notices, and settings can be updated from the browser.",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Blog / Article Base",
+            "price": "From ¥50,000",
+            "note": "Prepare article lists, detail pages, tags or categories, related posts, RSS, and search paths for ongoing publishing.",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "Multilingual Blog Workflow",
+            "price": "From ¥80,000",
+            "note": "Set up source-language editing, translation PRs, hreflang, sitemap, and RSS for multilingual blog operations.",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO / Structured Data",
+            "price": "From ¥50,000",
+            "note": "Organize OGP, JSON-LD, sitemaps, RSS, canonical URLs, and metadata that search engines need.",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Pagefind Site Search",
+            "price": "From ¥30,000",
+            "note": "Add Pagefind search to a static site, including the search UI, URL parameters, and cache settings.",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "Performance Tuning",
+            "price": "From ¥50,000",
+            "note": "Review images, CSS, fonts, lazy loading, and measurement results to improve Core Web Vitals.",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "Accessibility Improvements",
+            "price": "From ¥50,000",
+            "note": "Check contrast, ARIA attributes, focus states, and form validation, aiming for WCAG AA improvements.",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "Security Headers / CSP",
+            "price": "From ¥30,000",
+            "note": "Clean up Cloudflare Pages _headers, CSP, and admin-screen delivery settings for safer publishing.",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA / Form Handoff",
+            "price": "From ¥30,000",
+            "note": "Carry service type, subject, and page context from service CTAs into the contact form to improve lead flow.",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -951,24 +1000,73 @@
         },
         {
           "icon": "message-square",
-          "title": "Comment Feature",
-          "price": "From ¥100,000",
-          "body": "Add posting, display, moderation workflow, spam protection, and notifications to an existing site or app.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "newspaper",
-          "title": "Blog Feature",
-          "price": "From ¥150,000",
-          "body": "Prepare the publishing features you need: article lists and details, categories/tags, related posts, OGP/SEO settings, and search integration.",
-          "href": "/services/#web"
+          "title": "AI Contact Chat",
+          "price": "From ¥80,000",
+          "body": "Add an AI contact chat to a static site, including site context, rate limits, Origin checks, and safe link rendering.",
+          "href": "/blog/astro-ai-contact-chat/"
         },
         {
           "icon": "layout-template",
-          "title": "CMS Setup",
-          "price": "From ¥200,000",
-          "body": "Use Sveltia CMS, Pages CMS, or similar tools so pages, blog posts, announcements, and settings can be updated from an admin screen.",
-          "href": "/services/#web"
+          "title": "CMS Editing Screen",
+          "price": "From ¥50,000",
+          "body": "Add a Sveltia CMS admin screen so blog posts, fixed pages, notices, and settings can be updated from the browser.",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Blog / Article Base",
+          "price": "From ¥50,000",
+          "body": "Prepare article lists, detail pages, tags or categories, related posts, RSS, and search paths for ongoing publishing.",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "Multilingual Blog Workflow",
+          "price": "From ¥80,000",
+          "body": "Set up source-language editing, translation PRs, hreflang, sitemap, and RSS for multilingual blog operations.",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO / Structured Data",
+          "price": "From ¥50,000",
+          "body": "Organize OGP, JSON-LD, sitemaps, RSS, canonical URLs, and metadata that search engines need.",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Pagefind Site Search",
+          "price": "From ¥30,000",
+          "body": "Add Pagefind search to a static site, including the search UI, URL parameters, and cache settings.",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "Performance Tuning",
+          "price": "From ¥50,000",
+          "body": "Review images, CSS, fonts, lazy loading, and measurement results to improve Core Web Vitals.",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "Accessibility Improvements",
+          "price": "From ¥50,000",
+          "body": "Check contrast, ARIA attributes, focus states, and form validation, aiming for WCAG AA improvements.",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "Security Headers / CSP",
+          "price": "From ¥30,000",
+          "body": "Clean up Cloudflare Pages _headers, CSP, and admin-screen delivery settings for safer publishing.",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA / Form Handoff",
+          "price": "From ¥30,000",
+          "body": "Carry service type, subject, and page context from service CTAs into the contact form to improve lead flow.",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",

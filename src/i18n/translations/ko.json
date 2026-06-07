@@ -736,24 +736,73 @@
           },
           {
             "icon": "message-square",
-            "label": "댓글 기능",
-            "price": "10만 엔〜",
-            "note": "게시, 표시, 승인 흐름, 스팸 방지, 알림까지 포함해 추가할 수 있습니다.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "newspaper",
-            "label": "블로그 기능",
-            "price": "15만 엔〜",
-            "note": "글 목록/상세, 카테고리/태그, 관련 글, OGP/SEO, 검색 연동까지 지원합니다.",
-            "href": "/services/#web"
+            "label": "문의 AI 채팅",
+            "price": "8만 엔〜",
+            "note": "정적 사이트에 문의 AI 채팅을 넣고 사이트 문맥, 레이트 리밋, Origin 확인, 안전한 링크 렌더링까지 정리합니다.",
+            "href": "/blog/astro-ai-contact-chat/"
           },
           {
             "icon": "layout-template",
-            "label": "CMS 도입",
-            "price": "20만 엔〜",
-            "note": "고정 페이지, 블로그, 공지, 설정 항목을 관리 화면에서 수정할 수 있게 합니다.",
-            "href": "/services/#web"
+            "label": "CMS 편집 화면 도입",
+            "price": "5만 엔〜",
+            "note": "Sveltia CMS로 블로그, 고정 페이지, 공지, 설정 항목을 브라우저에서 수정할 수 있는 관리 화면을 추가합니다.",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "블로그·기사 기반",
+            "price": "5만 엔〜",
+            "note": "기사 목록, 상세 페이지, 태그/카테고리, 관련 글, RSS, 검색 동선을 갖춰 지속적인 발신 기반을 만듭니다.",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "다국어 블로그 운영",
+            "price": "8만 엔〜",
+            "note": "일본어 source, 번역 PR, hreflang, sitemap, RSS까지 포함해 다국어 블로그 운영 흐름을 정리합니다.",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO·구조화 데이터",
+            "price": "5만 엔〜",
+            "note": "OGP, JSON-LD, 사이트맵, RSS, canonical 등 검색엔진에 전달할 정보를 정리합니다.",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Pagefind 사이트 검색",
+            "price": "3만 엔〜",
+            "note": "정적 사이트에 Pagefind 검색을 추가하고 검색 UI, URL 파라미터, 캐시 설정까지 정리합니다.",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "표시 속도 개선",
+            "price": "5만 엔〜",
+            "note": "이미지, CSS, 폰트, 지연 로딩, 측정 결과를 확인해 Core Web Vitals 개선을 진행합니다.",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "접근성 개선",
+            "price": "5만 엔〜",
+            "note": "명도 대비, ARIA 속성, 포커스, 폼 검증을 점검하고 WCAG AA를 목표로 수정합니다.",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "보안 헤더 / CSP",
+            "price": "3만 엔〜",
+            "note": "Cloudflare Pages의 _headers, CSP, 관리 화면 배포 설정을 정리해 더 안전한 공개 상태로 만듭니다.",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA·폼 연계",
+            "price": "3만 엔〜",
+            "note": "서비스 CTA에서 문의 폼으로 종류, 제목, 문맥을 넘겨 상담 동선을 개선합니다.",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -951,24 +1000,73 @@
         },
         {
           "icon": "message-square",
-          "title": "댓글 기능",
-          "price": "10만 엔〜",
-          "body": "기존 사이트나 앱에 게시, 표시, 승인 흐름, 스팸 방지, 알림까지 포함한 댓글 기능을 추가합니다.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "newspaper",
-          "title": "블로그 기능",
-          "price": "15만 엔〜",
-          "body": "글 목록/상세, 카테고리/태그, 관련 글, OGP/SEO 설정, 검색 연동 등 발신에 필요한 기능을 정비합니다.",
-          "href": "/services/#web"
+          "title": "문의 AI 채팅",
+          "price": "8만 엔〜",
+          "body": "정적 사이트에 문의 AI 채팅을 넣고 사이트 문맥, 레이트 리밋, Origin 확인, 안전한 링크 렌더링까지 정리합니다.",
+          "href": "/blog/astro-ai-contact-chat/"
         },
         {
           "icon": "layout-template",
-          "title": "CMS 도입",
-          "price": "20만 엔〜",
-          "body": "Sveltia CMS, Pages CMS 등으로 고정 페이지, 블로그, 공지, 설정 항목을 관리 화면에서 업데이트할 수 있게 합니다.",
-          "href": "/services/#web"
+          "title": "CMS 편집 화면 도입",
+          "price": "5만 엔〜",
+          "body": "Sveltia CMS로 블로그, 고정 페이지, 공지, 설정 항목을 브라우저에서 수정할 수 있는 관리 화면을 추가합니다.",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "블로그·기사 기반",
+          "price": "5만 엔〜",
+          "body": "기사 목록, 상세 페이지, 태그/카테고리, 관련 글, RSS, 검색 동선을 갖춰 지속적인 발신 기반을 만듭니다.",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "다국어 블로그 운영",
+          "price": "8만 엔〜",
+          "body": "일본어 source, 번역 PR, hreflang, sitemap, RSS까지 포함해 다국어 블로그 운영 흐름을 정리합니다.",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO·구조화 데이터",
+          "price": "5만 엔〜",
+          "body": "OGP, JSON-LD, 사이트맵, RSS, canonical 등 검색엔진에 전달할 정보를 정리합니다.",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Pagefind 사이트 검색",
+          "price": "3만 엔〜",
+          "body": "정적 사이트에 Pagefind 검색을 추가하고 검색 UI, URL 파라미터, 캐시 설정까지 정리합니다.",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "표시 속도 개선",
+          "price": "5만 엔〜",
+          "body": "이미지, CSS, 폰트, 지연 로딩, 측정 결과를 확인해 Core Web Vitals 개선을 진행합니다.",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "접근성 개선",
+          "price": "5만 엔〜",
+          "body": "명도 대비, ARIA 속성, 포커스, 폼 검증을 점검하고 WCAG AA를 목표로 수정합니다.",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "보안 헤더 / CSP",
+          "price": "3만 엔〜",
+          "body": "Cloudflare Pages의 _headers, CSP, 관리 화면 배포 설정을 정리해 더 안전한 공개 상태로 만듭니다.",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA·폼 연계",
+          "price": "3만 엔〜",
+          "body": "서비스 CTA에서 문의 폼으로 종류, 제목, 문맥을 넘겨 상담 동선을 개선합니다.",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",

@@ -736,24 +736,73 @@
           },
           {
             "icon": "message-square",
-            "label": "评论功能",
-            "price": "10万日元起",
-            "note": "可追加发布、显示、审核流程、防垃圾信息和通知。",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "newspaper",
-            "label": "博客功能",
-            "price": "15万日元起",
-            "note": "支持文章列表/详情、分类/标签、相关文章、OGP/SEO和搜索联动。",
-            "href": "/services/#web"
+            "label": "咨询 AI 聊天",
+            "price": "8万日元起",
+            "note": "为静态网站加入咨询 AI 聊天，并整理站内上下文、限流、Origin 检查和安全链接渲染。",
+            "href": "/blog/astro-ai-contact-chat/"
           },
           {
             "icon": "layout-template",
-            "label": "CMS导入",
-            "price": "20万日元起",
-            "note": "让固定页面、博客、公告和设置项可通过管理界面更新。",
-            "href": "/services/#web"
+            "label": "CMS 编辑界面导入",
+            "price": "5万日元起",
+            "note": "用 Sveltia CMS 添加管理界面，让博客、固定页面、公告和设置项可在浏览器中更新。",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "博客与文章基础",
+            "price": "5万日元起",
+            "note": "整理文章列表、详情页、标签/分类、相关文章、RSS 和搜索路径，支撑持续发布。",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "多语言博客运营",
+            "price": "8万日元起",
+            "note": "整理源语言、翻译 PR、hreflang、sitemap 和 RSS，支撑多语言博客运营。",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO 与结构化数据",
+            "price": "5万日元起",
+            "note": "整理 OGP、JSON-LD、站点地图、RSS、canonical 和搜索引擎需要的元信息。",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Pagefind 站内搜索",
+            "price": "3万日元起",
+            "note": "为静态网站加入 Pagefind 搜索，并整理搜索 UI、URL 参数和缓存设置。",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "显示速度改善",
+            "price": "5万日元起",
+            "note": "检查图片、CSS、字体、延迟加载和测量结果，改善 Core Web Vitals。",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "可访问性改善",
+            "price": "5万日元起",
+            "note": "检查对比度、ARIA 属性、焦点状态和表单验证，以 WCAG AA 为目标进行修正。",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "安全响应头 / CSP",
+            "price": "3万日元起",
+            "note": "整理 Cloudflare Pages 的 _headers、CSP 和管理界面发布设置，提高发布安全性。",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA 与表单联动",
+            "price": "3万日元起",
+            "note": "把服务类型、标题和页面上下文从 CTA 传到咨询表单，改善咨询路径。",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -951,24 +1000,73 @@
         },
         {
           "icon": "message-square",
-          "title": "评论功能",
-          "price": "10万日元起",
-          "body": "为现有网站或应用追加发布、显示、审核流程、防垃圾信息和通知等评论功能。",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "newspaper",
-          "title": "博客功能",
-          "price": "15万日元起",
-          "body": "整理发布所需功能，包括文章列表/详情、分类/标签、相关文章、OGP/SEO设置和搜索联动。",
-          "href": "/services/#web"
+          "title": "咨询 AI 聊天",
+          "price": "8万日元起",
+          "body": "为静态网站加入咨询 AI 聊天，并整理站内上下文、限流、Origin 检查和安全链接渲染。",
+          "href": "/blog/astro-ai-contact-chat/"
         },
         {
           "icon": "layout-template",
-          "title": "CMS导入",
-          "price": "20万日元起",
-          "body": "通过 Sveltia CMS、Pages CMS 等，让固定页面、博客、公告和设置项可从管理界面更新。",
-          "href": "/services/#web"
+          "title": "CMS 编辑界面导入",
+          "price": "5万日元起",
+          "body": "用 Sveltia CMS 添加管理界面，让博客、固定页面、公告和设置项可在浏览器中更新。",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "博客与文章基础",
+          "price": "5万日元起",
+          "body": "整理文章列表、详情页、标签/分类、相关文章、RSS 和搜索路径，支撑持续发布。",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "多语言博客运营",
+          "price": "8万日元起",
+          "body": "整理源语言、翻译 PR、hreflang、sitemap 和 RSS，支撑多语言博客运营。",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO 与结构化数据",
+          "price": "5万日元起",
+          "body": "整理 OGP、JSON-LD、站点地图、RSS、canonical 和搜索引擎需要的元信息。",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Pagefind 站内搜索",
+          "price": "3万日元起",
+          "body": "为静态网站加入 Pagefind 搜索，并整理搜索 UI、URL 参数和缓存设置。",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "显示速度改善",
+          "price": "5万日元起",
+          "body": "检查图片、CSS、字体、延迟加载和测量结果，改善 Core Web Vitals。",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "可访问性改善",
+          "price": "5万日元起",
+          "body": "检查对比度、ARIA 属性、焦点状态和表单验证，以 WCAG AA 为目标进行修正。",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "安全响应头 / CSP",
+          "price": "3万日元起",
+          "body": "整理 Cloudflare Pages 的 _headers、CSP 和管理界面发布设置，提高发布安全性。",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA 与表单联动",
+          "price": "3万日元起",
+          "body": "把服务类型、标题和页面上下文从 CTA 传到咨询表单，改善咨询路径。",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",

@@ -736,24 +736,73 @@
           },
           {
             "icon": "message-square",
-            "label": "Función de comentarios",
-            "price": "desde ¥100.000",
-            "note": "Añade publicación, visualización, moderación, protección antispam y notificaciones.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "newspaper",
-            "label": "Función de blog",
-            "price": "desde ¥150.000",
-            "note": "Listados y detalle de artículos, categorías/etiquetas, relacionados, OGP/SEO y búsqueda.",
-            "href": "/services/#web"
+            "label": "Chat de contacto con IA",
+            "price": "desde ¥80.000",
+            "note": "Integrar un chat de contacto con IA en un sitio estático, con contexto del sitio, límites de uso, comprobación de Origin y enlaces seguros.",
+            "href": "/blog/astro-ai-contact-chat/"
           },
           {
             "icon": "layout-template",
-            "label": "Implementación de CMS",
-            "price": "desde ¥200.000",
-            "note": "Páginas, entradas, avisos y ajustes quedan editables desde una pantalla de administración.",
-            "href": "/services/#web"
+            "label": "Pantalla de edición CMS",
+            "price": "desde ¥50.000",
+            "note": "Añadir una pantalla de Sveltia CMS para actualizar blog, páginas fijas, avisos y ajustes desde el navegador.",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "Base de blog y artículos",
+            "price": "desde ¥50.000",
+            "note": "Preparar listados, páginas de detalle, etiquetas o categorías, artículos relacionados, RSS y rutas de búsqueda para publicar de forma continua.",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "Operación de blog multilingüe",
+            "price": "desde ¥80.000",
+            "note": "Configurar idioma fuente, PRs de traducción, hreflang, sitemap y RSS para operar un blog multilingüe.",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO y datos estructurados",
+            "price": "desde ¥50.000",
+            "note": "Organizar OGP, JSON-LD, sitemaps, RSS, canonical y metadatos que necesitan los buscadores.",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Búsqueda Pagefind",
+            "price": "desde ¥30.000",
+            "note": "Añadir búsqueda Pagefind a un sitio estático, con interfaz, parámetros de URL y configuración de caché.",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "Mejora de rendimiento",
+            "price": "desde ¥50.000",
+            "note": "Revisar imágenes, CSS, fuentes, carga diferida y resultados de medición para mejorar Core Web Vitals.",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "Mejora de accesibilidad",
+            "price": "desde ¥50.000",
+            "note": "Revisar contraste, atributos ARIA, foco y validación de formularios, con WCAG AA como objetivo.",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "Cabeceras de seguridad / CSP",
+            "price": "desde ¥30.000",
+            "note": "Ordenar _headers de Cloudflare Pages, CSP y entrega de la pantalla de administración para publicar con más seguridad.",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA y formulario",
+            "price": "desde ¥30.000",
+            "note": "Pasar tipo de servicio, asunto y contexto de página desde los CTAs al formulario para mejorar la ruta de consulta.",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -951,24 +1000,73 @@
         },
         {
           "icon": "message-square",
-          "title": "Función de comentarios",
-          "price": "desde ¥100.000",
-          "body": "Añadimos publicación, visualización, flujo de moderación, protección antispam y notificaciones a un sitio o app existente.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "newspaper",
-          "title": "Función de blog",
-          "price": "desde ¥150.000",
-          "body": "Preparamos las funciones de publicación necesarias: listados y detalle de artículos, categorías/etiquetas, artículos relacionados, ajustes OGP/SEO e integración de búsqueda.",
-          "href": "/services/#web"
+          "title": "Chat de contacto con IA",
+          "price": "desde ¥80.000",
+          "body": "Integrar un chat de contacto con IA en un sitio estático, con contexto del sitio, límites de uso, comprobación de Origin y enlaces seguros.",
+          "href": "/blog/astro-ai-contact-chat/"
         },
         {
           "icon": "layout-template",
-          "title": "Implementación de CMS",
-          "price": "desde ¥200.000",
-          "body": "Con Sveltia CMS, Pages CMS u opciones similares, páginas, entradas de blog, avisos y ajustes pueden actualizarse desde una pantalla de administración.",
-          "href": "/services/#web"
+          "title": "Pantalla de edición CMS",
+          "price": "desde ¥50.000",
+          "body": "Añadir una pantalla de Sveltia CMS para actualizar blog, páginas fijas, avisos y ajustes desde el navegador.",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "Base de blog y artículos",
+          "price": "desde ¥50.000",
+          "body": "Preparar listados, páginas de detalle, etiquetas o categorías, artículos relacionados, RSS y rutas de búsqueda para publicar de forma continua.",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "Operación de blog multilingüe",
+          "price": "desde ¥80.000",
+          "body": "Configurar idioma fuente, PRs de traducción, hreflang, sitemap y RSS para operar un blog multilingüe.",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO y datos estructurados",
+          "price": "desde ¥50.000",
+          "body": "Organizar OGP, JSON-LD, sitemaps, RSS, canonical y metadatos que necesitan los buscadores.",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Búsqueda Pagefind",
+          "price": "desde ¥30.000",
+          "body": "Añadir búsqueda Pagefind a un sitio estático, con interfaz, parámetros de URL y configuración de caché.",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "Mejora de rendimiento",
+          "price": "desde ¥50.000",
+          "body": "Revisar imágenes, CSS, fuentes, carga diferida y resultados de medición para mejorar Core Web Vitals.",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "Mejora de accesibilidad",
+          "price": "desde ¥50.000",
+          "body": "Revisar contraste, atributos ARIA, foco y validación de formularios, con WCAG AA como objetivo.",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "Cabeceras de seguridad / CSP",
+          "price": "desde ¥30.000",
+          "body": "Ordenar _headers de Cloudflare Pages, CSP y entrega de la pantalla de administración para publicar con más seguridad.",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA y formulario",
+          "price": "desde ¥30.000",
+          "body": "Pasar tipo de servicio, asunto y contexto de página desde los CTAs al formulario para mejorar la ruta de consulta.",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",

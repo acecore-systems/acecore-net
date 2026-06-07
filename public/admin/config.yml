@@ -1603,9 +1603,16 @@ collections:
                       - { label: 'Schools', value: graduation-cap }
                       - { label: 'Aceserver', value: gamepad-2 }
                       - { label: 'AceStudio', value: clapperboard }
-                      - { label: 'コメント', value: message-square }
-                      - { label: 'ブログ', value: newspaper }
+                      - { label: '問い合わせAI', value: message-square }
+                      - { label: 'ブログ基盤', value: newspaper }
                       - { label: 'CMS', value: layout-template }
+                      - { label: '多言語', value: languages }
+                      - { label: 'SEO', value: search }
+                      - { label: 'サイト内検索', value: scan }
+                      - { label: '高速化', value: zap }
+                      - { label: 'アクセシビリティ', value: accessibility }
+                      - { label: 'セキュリティ', value: shield-check }
+                      - { label: 'CTA', value: mouse-pointer-click }
                       - { label: '相談', value: messages-square }
                   - name: 'label'
                     label: '項目名'
@@ -1719,9 +1726,16 @@ collections:
                   - { label: 'Schools', value: graduation-cap }
                   - { label: 'AceStudio', value: clapperboard }
                   - { label: 'Aceserver', value: gamepad-2 }
-                  - { label: 'コメント', value: message-square }
-                  - { label: 'ブログ', value: newspaper }
+                  - { label: '問い合わせAI', value: message-square }
+                  - { label: 'ブログ基盤', value: newspaper }
                   - { label: 'CMS', value: layout-template }
+                  - { label: '多言語', value: languages }
+                  - { label: 'SEO', value: search }
+                  - { label: 'サイト内検索', value: scan }
+                  - { label: '高速化', value: zap }
+                  - { label: 'アクセシビリティ', value: accessibility }
+                  - { label: 'セキュリティ', value: shield-check }
+                  - { label: 'CTA', value: mouse-pointer-click }
                   - { label: '相談', value: messages-square }
               - name: 'title'
                 label: 'カード見出し'

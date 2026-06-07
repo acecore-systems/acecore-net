@@ -736,24 +736,73 @@
           },
           {
             "icon": "message-square",
-            "label": "Комментарии",
-            "price": "от 100 000 ¥",
-            "note": "Добавляем отправку, отображение, модерацию, защиту от спама и уведомления.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "newspaper",
-            "label": "Блог",
-            "price": "от 150 000 ¥",
-            "note": "Списки и страницы статей, категории/теги, похожие записи, OGP/SEO и поиск.",
-            "href": "/services/#web"
+            "label": "AI-чат для обращений",
+            "price": "от 80 000 ¥",
+            "note": "Добавить AI-чат для обращений на статический сайт: контекст сайта, rate limit, проверка Origin и безопасный рендеринг ссылок.",
+            "href": "/blog/astro-ai-contact-chat/"
           },
           {
             "icon": "layout-template",
-            "label": "Внедрение CMS",
-            "price": "от 200 000 ¥",
-            "note": "Страницы, статьи, объявления и настройки можно редактировать из админ-панели.",
-            "href": "/services/#web"
+            "label": "Экран редактирования CMS",
+            "price": "от 50 000 ¥",
+            "note": "Добавить Sveltia CMS, чтобы редактировать блог, фиксированные страницы, объявления и настройки из браузера.",
+            "href": "/blog/cms-selection-and-turnstile/"
+          },
+          {
+            "icon": "newspaper",
+            "label": "База блога и статей",
+            "price": "от 50 000 ¥",
+            "note": "Настроить списки статей, страницы деталей, теги или категории, похожие записи, RSS и пути поиска для регулярных публикаций.",
+            "href": "/blog/astro-i18n-blog-translation/"
+          },
+          {
+            "icon": "languages",
+            "label": "Многоязычный блог",
+            "price": "от 80 000 ¥",
+            "note": "Настроить исходный язык, PR для переводов, hreflang, sitemap и RSS для работы многоязычного блога.",
+            "href": "/blog/copilot-translation-pipeline/"
+          },
+          {
+            "icon": "search",
+            "label": "SEO и структурированные данные",
+            "price": "от 50 000 ¥",
+            "note": "Упорядочить OGP, JSON-LD, sitemap, RSS, canonical и метаданные для поисковых систем.",
+            "href": "/blog/astro-seo-and-structured-data/"
+          },
+          {
+            "icon": "scan",
+            "label": "Поиск Pagefind",
+            "price": "от 30 000 ¥",
+            "note": "Добавить Pagefind на статический сайт: интерфейс поиска, URL-параметры и настройки кеша.",
+            "href": "/blog/astro-ux-and-code-quality/"
+          },
+          {
+            "icon": "zap",
+            "label": "Ускорение сайта",
+            "price": "от 50 000 ¥",
+            "note": "Проверить изображения, CSS, шрифты, ленивую загрузку и метрики, чтобы улучшить Core Web Vitals.",
+            "href": "/blog/astro-performance-tuning/"
+          },
+          {
+            "icon": "accessibility",
+            "label": "Улучшение доступности",
+            "price": "от 50 000 ¥",
+            "note": "Проверить контраст, ARIA, состояния фокуса и валидацию форм, ориентируясь на WCAG AA.",
+            "href": "/blog/astro-accessibility-guide/"
+          },
+          {
+            "icon": "shield-check",
+            "label": "Security Headers / CSP",
+            "price": "от 30 000 ¥",
+            "note": "Настроить _headers Cloudflare Pages, CSP и доставку админ-экрана для более безопасной публикации.",
+            "href": "/blog/cloudflare-pages-security/"
+          },
+          {
+            "icon": "mouse-pointer-click",
+            "label": "CTA и форма",
+            "price": "от 30 000 ¥",
+            "note": "Передавать тип услуги, тему и контекст страницы из CTA в форму обращения, улучшая путь заявки.",
+            "href": "/blog/service-cta-contact-prefill/"
           },
           {
             "icon": "server",
@@ -951,24 +1000,73 @@
         },
         {
           "icon": "message-square",
-          "title": "Комментарии",
-          "price": "от 100 000 ¥",
-          "body": "Добавляем к существующему сайту или приложению отправку, отображение, модерацию, защиту от спама и уведомления.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "newspaper",
-          "title": "Блог",
-          "price": "от 150 000 ¥",
-          "body": "Настраиваем функции публикации: списки и страницы статей, категории/теги, похожие записи, OGP/SEO и интеграцию поиска.",
-          "href": "/services/#web"
+          "title": "AI-чат для обращений",
+          "price": "от 80 000 ¥",
+          "body": "Добавить AI-чат для обращений на статический сайт: контекст сайта, rate limit, проверка Origin и безопасный рендеринг ссылок.",
+          "href": "/blog/astro-ai-contact-chat/"
         },
         {
           "icon": "layout-template",
-          "title": "Внедрение CMS",
-          "price": "от 200 000 ¥",
-          "body": "С помощью Sveltia CMS, Pages CMS или похожих инструментов страницы, статьи, объявления и настройки можно обновлять из админ-панели.",
-          "href": "/services/#web"
+          "title": "Экран редактирования CMS",
+          "price": "от 50 000 ¥",
+          "body": "Добавить Sveltia CMS, чтобы редактировать блог, фиксированные страницы, объявления и настройки из браузера.",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "База блога и статей",
+          "price": "от 50 000 ¥",
+          "body": "Настроить списки статей, страницы деталей, теги или категории, похожие записи, RSS и пути поиска для регулярных публикаций.",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "Многоязычный блог",
+          "price": "от 80 000 ¥",
+          "body": "Настроить исходный язык, PR для переводов, hreflang, sitemap и RSS для работы многоязычного блога.",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO и структурированные данные",
+          "price": "от 50 000 ¥",
+          "body": "Упорядочить OGP, JSON-LD, sitemap, RSS, canonical и метаданные для поисковых систем.",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Поиск Pagefind",
+          "price": "от 30 000 ¥",
+          "body": "Добавить Pagefind на статический сайт: интерфейс поиска, URL-параметры и настройки кеша.",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "Ускорение сайта",
+          "price": "от 50 000 ¥",
+          "body": "Проверить изображения, CSS, шрифты, ленивую загрузку и метрики, чтобы улучшить Core Web Vitals.",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "Улучшение доступности",
+          "price": "от 50 000 ¥",
+          "body": "Проверить контраст, ARIA, состояния фокуса и валидацию форм, ориентируясь на WCAG AA.",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "Security Headers / CSP",
+          "price": "от 30 000 ¥",
+          "body": "Настроить _headers Cloudflare Pages, CSP и доставку админ-экрана для более безопасной публикации.",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA и форма",
+          "price": "от 30 000 ¥",
+          "body": "Передавать тип услуги, тему и контекст страницы из CTA в форму обращения, улучшая путь заявки.",
+          "href": "/blog/service-cta-contact-prefill/"
         },
         {
           "icon": "server",
