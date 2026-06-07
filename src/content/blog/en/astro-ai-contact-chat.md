@@ -81,7 +81,7 @@ faq:
 
 Adding an AI chat to a website is easy. Running it responsibly is where the design matters. The difficult parts are not only model quality, but deciding what the AI may answer, where it should send visitors, which URLs may be displayed, and how API cost is controlled.
 
-Acecore added an AI contact chat to a static Astro + Cloudflare Pages site. The main implementation is in [the PR that added the contact AI and CMS-scoped translation flow](https://github.com/acecore-systems/acecore-net/pull/98). We later tightened safe Markdown link rendering in [a separate PR](https://github.com/acecore-systems/acecore-net/pull/99).
+Acecore added an AI contact chat to a static Astro + Cloudflare Pages site. The main implementation is in [the PR that added the contact AI and CMS-scoped translation flow](https://github.com/acecore-systems/acecore-net/pull/98). We later tightened safe Markdown link rendering in [a separate PR](https://github.com/acecore-systems/acecore-net/pull/99). The link-rendering details are covered separately in [Safely Rendering Markdown Links in AI Chat Answers](/blog/ai-chat-markdown-link-safety/).
 
 This article explains the design as a reusable pattern for other static sites. The same structure works beyond Astro: split the responsibilities between the client widget, server-side API boundary, prompt construction, and renderer.
 

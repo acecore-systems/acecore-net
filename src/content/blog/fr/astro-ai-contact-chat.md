@@ -81,7 +81,7 @@ faq:
 
 Ajouter un chat IA à un site web est simple. Le vrai sujet est l'exploitation : jusqu'où l'IA peut répondre, où elle doit guider le visiteur, quelles URLs elle peut afficher et comment maîtriser le coût API.
 
-Acecore a ajouté un chat IA de contact à un site statique Astro + Cloudflare Pages. L'implémentation principale se trouve dans [le PR qui ajoute l'IA de contact et le flux de traduction limité au CMS](https://github.com/acecore-systems/acecore-net/pull/98). Le rendu sécurisé des liens Markdown a ensuite été ajusté dans [un autre PR](https://github.com/acecore-systems/acecore-net/pull/99).
+Acecore a ajouté un chat IA de contact à un site statique Astro + Cloudflare Pages. L'implémentation principale se trouve dans [le PR qui ajoute l'IA de contact et le flux de traduction limité au CMS](https://github.com/acecore-systems/acecore-net/pull/98). Le rendu sécurisé des liens Markdown a ensuite été ajusté dans [un autre PR](https://github.com/acecore-systems/acecore-net/pull/99). Les détails sont séparés dans [Rendre en sécurité les liens Markdown dans les réponses de chat IA](/blog/ai-chat-markdown-link-safety/).
 
 Cet article présente le design comme un modèle réutilisable pour d'autres sites statiques. Hors Astro, le principe reste le même : séparer le widget client, la frontière API, la construction du prompt et le renderer.
 

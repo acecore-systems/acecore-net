@@ -81,7 +81,7 @@ faq:
 
 把 AI 聊天放到网站上并不难。真正需要设计的是运行方式：AI 可以回答到什么程度、应该把访客引导到哪里、哪些 URL 可以显示，以及如何控制 API 成本。
 
-Acecore 在 Astro + Cloudflare Pages 的静态网站中加入了咨询 AI 聊天。核心实现来自[加入咨询 AI 与 CMS 限定翻译流程的 PR](https://github.com/acecore-systems/acecore-net/pull/98)。之后又在[另一个 PR](https://github.com/acecore-systems/acecore-net/pull/99) 中调整了 AI 回答内 Markdown 链接的安全渲染。
+Acecore 在 Astro + Cloudflare Pages 的静态网站中加入了咨询 AI 聊天。核心实现来自[加入咨询 AI 与 CMS 限定翻译流程的 PR](https://github.com/acecore-systems/acecore-net/pull/98)。之后又在[另一个 PR](https://github.com/acecore-systems/acecore-net/pull/99) 中调整了 AI 回答内 Markdown 链接的安全渲染。链接渲染的细节已整理到[安全渲染 AI 聊天回答中的 Markdown 链接](/blog/ai-chat-markdown-link-safety/)。
 
 本文不是单纯的作业记录，而是把这个实现整理成其他静态网站也能参考的技术设计。即使不是 Astro，也可以采用同样的思路：拆分客户端、API 边界、提示词和渲染器的职责。
 

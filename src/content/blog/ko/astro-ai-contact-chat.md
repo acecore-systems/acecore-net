@@ -81,7 +81,7 @@ faq:
 
 웹사이트에 AI 채팅을 올리는 것 자체는 쉽습니다. 실제 운영에서 중요한 것은 모델 성능만이 아니라, 어디까지 답하게 할지, 어떤 경로로 안내할지, 어떤 URL을 보여줄지, API 비용을 어떻게 제어할지입니다.
 
-Acecore 사이트에는 Astro + Cloudflare Pages 정적 구성에 문의 AI 채팅을 추가했습니다. 핵심 구현은 [문의 AI와 CMS 한정 번역 흐름을 구현한 PR](https://github.com/acecore-systems/acecore-net/pull/98)입니다. 이후 [별도 PR](https://github.com/acecore-systems/acecore-net/pull/99)에서 AI 답변의 Markdown 링크 안전 렌더링을 조정했습니다.
+Acecore 사이트에는 Astro + Cloudflare Pages 정적 구성에 문의 AI 채팅을 추가했습니다. 핵심 구현은 [문의 AI와 CMS 한정 번역 흐름을 구현한 PR](https://github.com/acecore-systems/acecore-net/pull/98)입니다. 이후 [별도 PR](https://github.com/acecore-systems/acecore-net/pull/99)에서 AI 답변의 Markdown 링크 안전 렌더링을 조정했습니다. 링크 렌더링의 세부 내용은 [AI 채팅 답변의 Markdown 링크를 안전하게 렌더링하는 구현 설계](/blog/ai-chat-markdown-link-safety/)에 정리했습니다.
 
 이 글은 특정 작업 기록이 아니라 다른 정적 사이트에도 적용하기 쉬운 기술 설계로 정리합니다. Astro가 아니어도 클라이언트, API 경계, 프롬프트, 렌더러의 책임을 나누는 방식은 같습니다.
 

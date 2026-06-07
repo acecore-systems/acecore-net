@@ -81,7 +81,7 @@ faq:
 
 問い合わせAIチャットは、サイトにAIを置くだけなら簡単です。しかし実運用で問題になるのは、モデルの性能よりも、どこまで答えさせるか、どの導線へ送るか、どのURLを表示してよいか、APIコストをどう抑えるかです。
 
-Acecoreのサイトでは、Astro + Cloudflare Pages の静的サイトに問い合わせAIチャットを追加しました。実装の中心は [問い合わせAIとCMS限定翻訳フローを実装したPR](https://github.com/acecore-systems/acecore-net/pull/98) です。その後、AI回答に含まれるMarkdownリンクの安全な描画を [別PR](https://github.com/acecore-systems/acecore-net/pull/99) で調整しました。
+Acecoreのサイトでは、Astro + Cloudflare Pages の静的サイトに問い合わせAIチャットを追加しました。実装の中心は [問い合わせAIとCMS限定翻訳フローを実装したPR](https://github.com/acecore-systems/acecore-net/pull/98) です。その後、AI回答に含まれるMarkdownリンクの安全な描画を [別PR](https://github.com/acecore-systems/acecore-net/pull/99) で調整しました。リンク描画の詳細は [AIチャット回答のMarkdownリンクを安全に描画する実装設計](/blog/ai-chat-markdown-link-safety/) に分けて整理しています。
 
 この記事では、特定サイトの作業記録ではなく、他の静的サイトにも転用しやすい技術設計として整理します。Astro以外のフロントエンドでも考え方はほぼ同じで、クライアント、API境界、プロンプト、レンダラーの責務を分けるのが基本です。
 
