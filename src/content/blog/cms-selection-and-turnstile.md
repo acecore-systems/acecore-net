@@ -458,4 +458,4 @@ Sveltia CMSの導入は、`public/admin` に管理画面を置くだけなら簡
 
 どのbranchに保存するのか、誰がOAuthでログインするのか、画像はどこに置くのか、日本語sourceと翻訳をどう分けるのか、CMS commitを後続ワークフローがどう解釈するのか。ここまで決めると、静的サイトの軽さを保ったまま、更新しやすいCMS運用にできます。
 
-問い合わせAIのような動的機能は [AstroサイトにAIチャットを組み込む実装記録](/blog/astro-ai-contact-chat/) に、翻訳PRの自動化は [Sveltia CMSで多言語ブログを運用する方法](/blog/copilot-translation-pipeline/) に分けて整理しています。CMS導入は、その2つの土台になる「コンテンツを安全に更新する仕組み」として考えるのがちょうどよいです。
+問い合わせAIのような動的機能は [AstroサイトにAIチャットを組み込む実装記録](/blog/astro-ai-contact-chat/) に、外部コメントサービスに頼らないCloudflare構成は [CloudflareだけでAstroブログにコメント機能を作る方法](/blog/cloudflare-only-blog-comments/) に、翻訳PRの自動化は [Sveltia CMSで多言語ブログを運用する方法](/blog/copilot-translation-pipeline/) に分けて整理しています。CMS導入は、それらの土台になる「コンテンツを安全に更新する仕組み」として考えるのがちょうどよいです。
