@@ -63,9 +63,11 @@ linkCards:
     icon: i-lucide-message-square-text
 ---
 
-最近几篇文章分别介绍了咨询 AI、Sveltia CMS、多语言博客、服务 CTA、AI 回答的 Markdown 链接渲染，以及只用 Cloudflare 实现的评论功能。
+使用 Astro 和 Cloudflare Pages 做静态网站时，一开始只要能快速、安全地发布页面就足够了。
 
-这些都是单独的功能文章。缺少的是把它们串起来的整体设计。
+但运营一段时间后，通常会想加入浏览器编辑、多语言页面、AI 聊天引导、从服务页传递表单上下文，以及评论功能。
+
+这篇文章是一个实现索引：先判断功能属于哪一层、按什么顺序加入、接下来该读哪篇详细文章。例子来自 Acecore 官网，但方法可以直接套用到其他 Astro + Cloudflare 网站。
 
 ## 结论
 
@@ -81,12 +83,6 @@ linkCards:
 | Pagefind    | 为审核后的静态 HTML 建立站内搜索索引       |
 
 能静态生成的内容保持静态。需要请求时处理的部分才进入 Cloudflare Pages Functions。
-
-## 不是已有文章的重复
-
-已有文章覆盖了性能、SEO、无障碍、多语言和网站更新。但它们没有把最近的功能扩展串起来。
-
-这篇文章的作用是成为入口：先看整体，再进入各个功能的实现细节。
 
 ## 动态功能只做小 API
 
@@ -132,14 +128,29 @@ Pages Functions 处理 GET/POST，D1 保存评论，Turnstile 验证提交，Ori
 
 对小型公司博客来说，这比引入完整社区系统更合适。
 
-## 推荐阅读顺序
+## 按目的阅读
 
-1. [Sveltia CMS 导入指南](/zh-cn/blog/cms-selection-and-turnstile/)
-2. [用 Sveltia CMS 运营多语言博客](/zh-cn/blog/copilot-translation-pipeline/)
-3. [在 Astro 网站中加入咨询 AI 聊天的技术设计](/zh-cn/blog/astro-ai-contact-chat/)
-4. [安全渲染 AI 聊天回答中的 Markdown 链接](/zh-cn/blog/ai-chat-markdown-link-safety/)
-5. [将服务 CTA 的上下文传给联系表单](/zh-cn/blog/service-cta-contact-prefill/)
-6. [只用 Cloudflare 为 Astro 博客添加评论功能](/zh-cn/blog/cloudflare-only-blog-comments/)
+不需要从头读完。先从想加入的功能开始。
+
+| 想做的事                   | 先读文章                                                                                |
+| -------------------------- | --------------------------------------------------------------------------------------- |
+| 从浏览器编辑文章和图片     | [Sveltia CMS 导入指南](/zh-cn/blog/cms-selection-and-turnstile/)                        |
+| 让多语言页面进入搜索索引   | [用 Sveltia CMS 运营多语言博客](/zh-cn/blog/copilot-translation-pipeline/)              |
+| 用 AI 聊天引导访客         | [在 Astro 网站中加入咨询 AI 聊天的技术设计](/zh-cn/blog/astro-ai-contact-chat/)         |
+| 在 AI 回答中安全渲染链接   | [安全渲染 AI 聊天回答中的 Markdown 链接](/zh-cn/blog/ai-chat-markdown-link-safety/)     |
+| 把服务页上下文传给联系表单 | [将服务 CTA 的上下文传给联系表单](/zh-cn/blog/service-cta-contact-prefill/)             |
+| 不依赖外部服务添加评论功能 | [只用 Cloudflare 为 Astro 博客添加评论功能](/zh-cn/blog/cloudflare-only-blog-comments/) |
+
+## 推荐导入顺序
+
+如果要在其他网站采用同样结构，顺序建议如下：
+
+1. 先用 Astro 固定静态页面、博客、RSS、sitemap 和 OGP。
+2. 用 Sveltia CMS 编辑日文 source。
+3. 将多语言页面生成成静态 HTML。
+4. 加入 AI 聊天和服务 CTA。
+5. 固化 Markdown 链接、表单 prefill、Origin 检查和 rate limit。
+6. 真正需要交流时，再在 Cloudflare 内加入评论功能。
 
 ## 总结
 
@@ -147,4 +158,4 @@ Astro + Cloudflare 的官网不必停留在静态公司介绍页。
 
 只要把职责分清，静态页面、CMS、多语言、咨询 AI、表单导线和评论功能可以在同一个架构里共存。
 
-单独功能文章解释“怎么做”，这篇总览解释“为什么这样组合”。
+把这篇作为入口，就可以只选择自己网站需要的功能，同时不破坏静态网站的基础。

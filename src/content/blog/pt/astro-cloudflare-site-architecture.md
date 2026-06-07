@@ -59,9 +59,11 @@ linkCards:
     icon: i-lucide-message-square-text
 ---
 
-Os últimos artigos cobriram chat de contato com IA, Sveltia CMS, publicação multilíngue, CTAs de serviço, renderização segura de Markdown e comentários usando apenas Cloudflare.
+Ao começar com Astro e Cloudflare Pages, normalmente basta publicar páginas estáticas rápidas e seguras.
 
-Faltava o artigo que conecta tudo.
+Depois surgem novas necessidades: edição pelo navegador, páginas localizadas, orientação com chat de IA, contexto do serviço no formulário e comentários.
+
+Este artigo é um índice de implementação: ajuda a decidir em qual camada cada função fica, em que ordem adicionar e qual guia detalhado ler depois. O exemplo é o site da Acecore, mas o padrão funciona em outros sites Astro + Cloudflare.
 
 ## Resumo
 
@@ -77,12 +79,6 @@ A arquitetura separa responsabilidades:
 | Pagefind    | Índice de busca para HTML revisado       |
 
 O que pode ser estático fica estático. O que precisa de runtime vai para pequenas APIs.
-
-## Por que um artigo hub
-
-Já existiam artigos sobre desempenho, SEO, acessibilidade, i18n e renovação do site. Eles não reuniam as funcionalidades recentes.
-
-Este texto vira o mapa: primeiro a arquitetura, depois cada detalhe.
 
 ## APIs pequenas no Cloudflare
 
@@ -120,17 +116,32 @@ Os comentários não usam widget externo.
 
 Pages Functions recebe GET/POST, D1 guarda comentários e Turnstile protege envios. Para um blog institucional pequeno, isso é suficiente.
 
-## Ordem recomendada
+## Ler por objetivo
 
-1. [Guia de instalação do Sveltia CMS](/pt/blog/cms-selection-and-turnstile/)
-2. [Como operar um blog multilíngue com Sveltia CMS](/pt/blog/copilot-translation-pipeline/)
-3. [Design técnico do chat de contato com IA](/pt/blog/astro-ai-contact-chat/)
-4. [Renderização segura de links Markdown em respostas de IA](/pt/blog/ai-chat-markdown-link-safety/)
-5. [Passar contexto do CTA para o formulário](/pt/blog/service-cta-contact-prefill/)
-6. [Comentários de blog Astro usando só Cloudflare](/pt/blog/cloudflare-only-blog-comments/)
+Não é preciso ler tudo primeiro. Comece pela função que você quer adicionar.
+
+| Objetivo                                    | Leia primeiro                                                                                      |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Editar artigos e imagens pelo navegador     | [Guia de instalação do Sveltia CMS](/pt/blog/cms-selection-and-turnstile/)                         |
+| Publicar páginas multilíngues indexáveis    | [Como operar um blog multilíngue com Sveltia CMS](/pt/blog/copilot-translation-pipeline/)          |
+| Orientar visitantes com chat de IA          | [Design técnico do chat de contato com IA](/pt/blog/astro-ai-contact-chat/)                        |
+| Renderizar links seguros em respostas de IA | [Renderização segura de links Markdown em respostas de IA](/pt/blog/ai-chat-markdown-link-safety/) |
+| Levar contexto do serviço ao formulário     | [Passar contexto do CTA para o formulário](/pt/blog/service-cta-contact-prefill/)                  |
+| Adicionar comentários sem serviço externo   | [Comentários de blog Astro usando só Cloudflare](/pt/blog/cloudflare-only-blog-comments/)          |
+
+## Ordem de implementação
+
+Para um site parecido, a ordem prática é:
+
+1. Consolidar páginas estáticas, blog, RSS, sitemap e OGP com Astro.
+2. Adicionar Sveltia CMS para editar a fonte japonesa.
+3. Gerar páginas localizadas como HTML estático.
+4. Adicionar orientação com chat de IA e CTAs de serviço.
+5. Proteger links Markdown, prefill de formulário, Origin checks e rate limits.
+6. Adicionar comentários dentro do Cloudflare só quando forem necessários.
 
 ## Conclusão
 
 Astro + Cloudflare permite ampliar um site institucional sem perder as vantagens da entrega estática.
 
-Os artigos individuais explicam como cada função foi construída. Este artigo explica por que elas pertencem à mesma arquitetura.
+Use esta página como entrada e adicione apenas as partes que seu site precisa, sem enfraquecer a base estática.

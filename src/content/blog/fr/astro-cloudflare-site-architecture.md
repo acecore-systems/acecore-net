@@ -59,9 +59,11 @@ linkCards:
     icon: i-lucide-message-square-text
 ---
 
-Les derniers articles ont traité le chat IA de contact, Sveltia CMS, la publication multilingue, les CTA de services, le rendu Markdown sécurisé et les commentaires réalisés uniquement avec Cloudflare.
+Quand on démarre avec Astro et Cloudflare Pages, des pages statiques rapides et sûres suffisent souvent.
 
-Il manquait l'article qui relie tout.
+Avec le temps, de nouveaux besoins arrivent : édition depuis le navigateur, pages localisées, orientation par chat IA, transmission du contexte au formulaire et commentaires.
+
+Cet article est un index d'implémentation : il aide à décider dans quelle couche placer chaque fonction, dans quel ordre les ajouter et quel guide lire ensuite. L'exemple vient du site Acecore, mais le modèle s'applique à d'autres sites Astro + Cloudflare.
 
 ## Résumé
 
@@ -77,12 +79,6 @@ L'architecture sépare les rôles :
 | Pagefind    | Index de recherche pour HTML revu        |
 
 Ce qui peut être statique reste statique. Le dynamique passe par de petites API.
-
-## Pourquoi un article hub
-
-Il existait déjà des articles sur la performance, le SEO, l'accessibilité, l'i18n et la refonte du site. Ils ne reliaient pas les fonctionnalités récentes.
-
-Ce texte sert de carte d'entrée.
 
 ## Petites API sur Cloudflare
 
@@ -120,17 +116,32 @@ Les commentaires ne reposent pas sur un widget externe.
 
 Pages Functions reçoit GET/POST, D1 stocke les commentaires et Turnstile protège les envois.
 
-## Ordre de lecture conseillé
+## Lire par objectif
 
-1. [Guide d'installation de Sveltia CMS](/fr/blog/cms-selection-and-turnstile/)
-2. [Exploiter un blog multilingue avec Sveltia CMS](/fr/blog/copilot-translation-pipeline/)
-3. [Conception technique du chat IA de contact](/fr/blog/astro-ai-contact-chat/)
-4. [Rendu sécurisé des liens Markdown dans les réponses IA](/fr/blog/ai-chat-markdown-link-safety/)
-5. [Transmettre le contexte du CTA au formulaire](/fr/blog/service-cta-contact-prefill/)
-6. [Commentaires de blog Astro avec Cloudflare seulement](/fr/blog/cloudflare-only-blog-comments/)
+Il n'est pas nécessaire de tout lire d'abord. Commencez par la fonction à ajouter.
+
+| Objectif                                         | Lire d'abord                                                                                     |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| Modifier articles et images depuis le navigateur | [Guide d'installation de Sveltia CMS](/fr/blog/cms-selection-and-turnstile/)                     |
+| Publier des pages multilingues indexables        | [Exploiter un blog multilingue avec Sveltia CMS](/fr/blog/copilot-translation-pipeline/)         |
+| Guider les visiteurs avec le chat IA             | [Conception technique du chat IA de contact](/fr/blog/astro-ai-contact-chat/)                    |
+| Rendre des liens sûrs dans les réponses IA       | [Rendu sécurisé des liens Markdown dans les réponses IA](/fr/blog/ai-chat-markdown-link-safety/) |
+| Transmettre le contexte du service au formulaire | [Transmettre le contexte du CTA au formulaire](/fr/blog/service-cta-contact-prefill/)            |
+| Ajouter des commentaires sans service externe    | [Commentaires de blog Astro avec Cloudflare seulement](/fr/blog/cloudflare-only-blog-comments/)  |
+
+## Ordre d'implémentation
+
+Pour un site similaire, l'ordre pratique est :
+
+1. Stabiliser les pages statiques, le blog, RSS, sitemap et OGP avec Astro.
+2. Ajouter Sveltia CMS pour modifier la source japonaise.
+3. Générer les pages localisées en HTML statique.
+4. Ajouter le guidage par chat IA et les CTA de services.
+5. Verrouiller les liens Markdown, le prefill de formulaire, les Origin checks et les rate limits.
+6. Ajouter les commentaires dans Cloudflare seulement quand ils deviennent nécessaires.
 
 ## Conclusion
 
 Astro + Cloudflare permet d'étendre un site institutionnel sans perdre les avantages du statique.
 
-Les articles détaillés expliquent chaque fonctionnalité. Cet article explique pourquoi elles forment une seule architecture.
+Utilisez cette page comme point d'entrée et n'ajoutez que les éléments dont votre site a besoin, sans affaiblir la base statique.

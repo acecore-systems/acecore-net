@@ -55,7 +55,7 @@ compareTable:
       - 'Astro, Cloudflare, GitHub, and OpenAI API each have a clear role'
       - 'Dynamic APIs are kept at Pages Functions, while storage stays in D1 where it fits'
       - 'CMS updates, localization, RSS, sitemap, and search share one content model'
-      - 'Detailed articles become spokes connected by a readable architecture hub'
+      - 'The article set becomes a readable index by goal and implementation order'
 linkCards:
   - href: /en/blog/astro-ai-contact-chat/
     title: Technical Design for an AI Contact Chat
@@ -84,19 +84,19 @@ linkCards:
 faq:
   title: FAQ
   items:
-    - question: How is this different from the detailed feature posts?
-      answer: 'The detailed posts explain each feature. This article explains how AI, CMS, localization, forms, comments, and search fit into one website architecture.'
+    - question: Where should I start?
+      answer: 'Start with Astro static pages, blog, RSS, sitemap, and OGP. Then add CMS editing and localization. Add AI chat, service CTAs, and comments only when the contact flow or community workflow needs them.'
     - question: Should every feature be Cloudflare-only?
       answer: 'No. The AI contact chat uses the OpenAI API. The point is to keep delivery, API boundaries, storage, and bot protection inside a clear Cloudflare-centered architecture, while being deliberate about outside services.'
     - question: Is this necessary for a small site?
       answer: 'Not all at once. But if a site may later add CMS editing, localization, contact automation, or comments, it helps to decide URLs, storage, preview behavior, and search indexing early.'
 ---
 
-Over the last few articles, we wrote about the AI contact chat, Sveltia CMS, multilingual publishing, service CTA handoff, safe Markdown rendering, and Cloudflare-only comments.
+When you start with Astro and Cloudflare Pages, fast static delivery is usually enough.
 
-Those work as detailed feature posts. What was missing was the article that ties them together.
+As the site grows, you may want browser-based editing, localized pages, AI chat guidance, form handoff from service pages, and comments.
 
-This article frames the Acecore website as an **Astro + Cloudflare static site that grows feature by feature**. It is not just a link list; it is the architectural view behind those features.
+This article is an **implementation index** for deciding which layer each feature belongs to, which order to add them in, and which detailed guide to read next. The Acecore website is the example, but the pattern applies to other Astro + Cloudflare sites.
 
 ## The Short Version
 
@@ -112,14 +112,6 @@ The important split is this:
 | Pagefind    | Search indexing for reviewed static HTML         |
 
 Static content stays static. Dynamic behavior is added only where a request-time boundary is actually useful.
-
-## Existing Summary Posts Were Not This
-
-We already had posts about performance, SEO, accessibility, localization, and the website renewal.
-
-Those are related, but they do not tie together the recent feature work: AI contact chat, CMS editing, multilingual publishing, form context, and comments.
-
-That is why this architecture hub is useful.
 
 ## Start With Static Strength
 
@@ -206,14 +198,29 @@ That separation matters. User submissions, AI chat logs, forms, and admin screen
 
 The architecture decides what is part of the public knowledge surface and what remains interaction or operation.
 
-## Recommended Reading Order
+## Start by Goal
 
-1. [Sveltia CMS Setup Guide](/en/blog/cms-selection-and-turnstile/)
-2. [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/)
-3. [Technical Design for Adding an AI Contact Chat to an Astro Site](/en/blog/astro-ai-contact-chat/)
-4. [Safe Markdown Link Rendering for AI Chat Answers](/en/blog/ai-chat-markdown-link-safety/)
-5. [Passing Service CTA Context to a Contact Form](/en/blog/service-cta-contact-prefill/)
-6. [Build Astro Blog Comments with Cloudflare Only](/en/blog/cloudflare-only-blog-comments/)
+You do not need to read everything first. Start from the feature you are trying to add.
+
+| Goal                                             | Read first                                                                                         |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Edit articles and images from the browser        | [Sveltia CMS Setup Guide](/en/blog/cms-selection-and-turnstile/)                                   |
+| Publish multilingual pages that search can index | [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/)          |
+| Guide visitors with AI chat                      | [Technical Design for Adding an AI Contact Chat to an Astro Site](/en/blog/astro-ai-contact-chat/) |
+| Render safe links in AI answers                  | [Safe Markdown Link Rendering for AI Chat Answers](/en/blog/ai-chat-markdown-link-safety/)         |
+| Carry service-page context into the form         | [Passing Service CTA Context to a Contact Form](/en/blog/service-cta-contact-prefill/)             |
+| Add comments without an external comment service | [Build Astro Blog Comments with Cloudflare Only](/en/blog/cloudflare-only-blog-comments/)          |
+
+## Implementation Order
+
+For a similar site, the practical order is:
+
+1. Build static pages, blog, RSS, sitemap, and OGP with Astro.
+2. Add Sveltia CMS for the Japanese source content.
+3. Generate localized pages as static HTML.
+4. Add AI chat guidance and service CTAs.
+5. Lock down Markdown links, form prefill, Origin checks, and rate limits.
+6. Add comments inside Cloudflare only when comments are actually needed.
 
 ## Summary
 
@@ -221,4 +228,4 @@ Astro + Cloudflare can support much more than a simple company brochure without 
 
 The key is to split responsibilities clearly: Astro builds reviewed public HTML, Cloudflare owns delivery and small API boundaries, Sveltia CMS edits source content, GitHub PRs review changes, OpenAI helps with contact guidance, and comments stay within Cloudflare when that is enough.
 
-Once the feature articles exist, a hub article like this gives readers the missing map.
+Use this page as the entry point, then add only the pieces your site actually needs without weakening the static foundation.

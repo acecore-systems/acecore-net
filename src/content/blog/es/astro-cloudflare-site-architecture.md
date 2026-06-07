@@ -59,9 +59,11 @@ linkCards:
     icon: i-lucide-message-square-text
 ---
 
-En los últimos artículos cubrimos el chat de contacto con IA, Sveltia CMS, publicación multilingüe, CTA de servicios, renderizado seguro de Markdown y comentarios usando solo Cloudflare.
+Cuando empiezas con Astro y Cloudflare Pages, normalmente basta con publicar páginas estáticas rápidas y seguras.
 
-Faltaba una pieza: el mapa que explica cómo se conectan.
+Con el tiempo aparecen nuevas necesidades: edición desde el navegador, páginas localizadas, guía con chat de IA, traspaso de contexto al formulario y comentarios.
+
+Este artículo es un índice de implementación: ayuda a decidir en qué capa vive cada función, en qué orden añadirlas y qué guía leer después. El ejemplo es el sitio de Acecore, pero el patrón se puede copiar en otros sitios Astro + Cloudflare.
 
 ## Resumen
 
@@ -77,12 +79,6 @@ La arquitectura divide responsabilidades:
 | Pagefind    | Índice de búsqueda para HTML revisado            |
 
 Lo que puede ser estático se mantiene estático. Lo dinámico pasa a APIs pequeñas.
-
-## Por qué hace falta un artículo hub
-
-Ya había artículos sobre rendimiento, SEO, accesibilidad, i18n y renovación del sitio. Pero esos no reunían las funciones añadidas recientemente.
-
-Este artículo sirve como entrada: primero entender la arquitectura y después leer cada implementación.
 
 ## APIs pequeñas en Cloudflare
 
@@ -122,17 +118,32 @@ Los comentarios no usan un widget externo.
 
 Pages Functions recibe GET/POST, D1 guarda comentarios y Turnstile protege envíos. Para un blog corporativo pequeño, ese alcance es suficiente.
 
-## Orden recomendado
+## Leer por objetivo
 
-1. [Guía de instalación de Sveltia CMS](/es/blog/cms-selection-and-turnstile/)
-2. [Cómo operar un blog multilingüe con Sveltia CMS](/es/blog/copilot-translation-pipeline/)
-3. [Diseño técnico del chat de contacto con IA](/es/blog/astro-ai-contact-chat/)
-4. [Renderizado seguro de enlaces Markdown en respuestas de IA](/es/blog/ai-chat-markdown-link-safety/)
-5. [Pasar contexto del CTA al formulario](/es/blog/service-cta-contact-prefill/)
-6. [Comentarios de blog Astro usando solo Cloudflare](/es/blog/cloudflare-only-blog-comments/)
+No hace falta leerlo todo primero. Empieza por la función que quieres añadir.
+
+| Objetivo                                       | Leer primero                                                                                         |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Editar artículos e imágenes desde el navegador | [Guía de instalación de Sveltia CMS](/es/blog/cms-selection-and-turnstile/)                          |
+| Publicar páginas multilingües indexables       | [Cómo operar un blog multilingüe con Sveltia CMS](/es/blog/copilot-translation-pipeline/)            |
+| Guiar visitantes con chat de IA                | [Diseño técnico del chat de contacto con IA](/es/blog/astro-ai-contact-chat/)                        |
+| Renderizar enlaces seguros en respuestas IA    | [Renderizado seguro de enlaces Markdown en respuestas de IA](/es/blog/ai-chat-markdown-link-safety/) |
+| Pasar contexto de servicio al formulario       | [Pasar contexto del CTA al formulario](/es/blog/service-cta-contact-prefill/)                        |
+| Añadir comentarios sin un servicio externo     | [Comentarios de blog Astro usando solo Cloudflare](/es/blog/cloudflare-only-blog-comments/)          |
+
+## Orden de implementación
+
+Para otro sitio con una estructura similar, el orden práctico es:
+
+1. Cerrar páginas estáticas, blog, RSS, sitemap y OGP con Astro.
+2. Añadir Sveltia CMS para editar la fuente japonesa.
+3. Generar las páginas localizadas como HTML estático.
+4. Añadir guía con chat de IA y CTA de servicios.
+5. Proteger enlaces Markdown, prefill de formulario, Origin checks y rate limits.
+6. Añadir comentarios dentro de Cloudflare solo cuando sean necesarios.
 
 ## Cierre
 
 Astro + Cloudflare permite ampliar un sitio corporativo sin abandonar las ventajas de la entrega estática.
 
-Los artículos individuales explican cómo se hizo cada función. Este artículo explica por qué esas funciones encajan en una sola arquitectura.
+Usa esta página como entrada y añade solo las piezas que tu sitio necesita, sin debilitar la base estática.
