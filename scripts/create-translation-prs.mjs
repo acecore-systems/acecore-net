@@ -146,27 +146,37 @@ function parseNameStatusLine(line) {
 }
 
 function isCmsCommitSubject(subject) {
-  return /^cms: (create|update|delete) /.test(subject || '')
+  return /^cms: (create|update|delete|upload) /.test(subject || '')
 }
 
 function listCommitSubjects(baseSha, headSha) {
   const output = baseSha
-    ? safeRunGit(['log', '--format=%H%x00%s', `${baseSha}..${headSha}`])
-    : safeRunGit(['log', '--format=%H%x00%s', '-n', '1', headSha])
+    ? safeRunGit(['log', '--format=%H%x00%P%x00%s', `${baseSha}..${headSha}`])
+    : safeRunGit(['log', '--format=%H%x00%P%x00%s', '-n', '1', headSha])
 
   if (!output) return []
 
   return output.split(/\r?\n/).map((line) => {
-    const [sha, subject] = line.split('\0')
-    return { sha, subject: subject || '' }
+    const [sha, parents, subject] = line.split('\0')
+
+    return {
+      sha,
+      subject: subject || '',
+      parentShas: parents ? parents.split(' ').filter(Boolean) : [],
+    }
   })
+}
+
+function isMergeCommit(commit) {
+  return commit.parentShas.length > 1
 }
 
 function ensureCmsOnlyChangeSet(baseSha, headSha) {
   const commits = listCommitSubjects(baseSha, headSha)
-  if (commits.length === 0) return false
+  const contentCommits = commits.filter((commit) => !isMergeCommit(commit))
+  if (contentCommits.length === 0) return false
 
-  const cmsCommits = commits.filter((commit) =>
+  const cmsCommits = contentCommits.filter((commit) =>
     isCmsCommitSubject(commit.subject),
   )
 
@@ -175,7 +185,7 @@ function ensureCmsOnlyChangeSet(baseSha, headSha) {
     return false
   }
 
-  if (cmsCommits.length !== commits.length) {
+  if (cmsCommits.length !== contentCommits.length) {
     throw new Error(
       'CMS and non-CMS commits are mixed in this push. Skipping automatic translation PR tasks; re-run manually after reviewing the source diff.',
     )
