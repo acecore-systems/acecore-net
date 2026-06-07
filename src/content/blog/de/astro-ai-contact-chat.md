@@ -282,7 +282,7 @@ Wenn Gesprächsinhalte gespeichert werden, müssen Datenschutzregeln zuerst fest
 
 ## Abgegrenzter Umfang
 
-Dieser Artikel behandelt nur das technische Design des KI-Chats. Den Kontext einer Service-Seite in ein Formular zu übernehmen, ist ein eigenes Thema.
+Dieser Artikel behandelt nur das technische Design des KI-Chats. Die Strecke, die den Beratungsgegenstand von der Service-Seite ins Formular übergibt, ist ebenfalls implementiert und in [Technisches Design zur Kontextübergabe vom Service-CTA zum Kontaktformular](/blog/service-cta-contact-prefill/) beschrieben.
 
 - KI-Chat: Unsicherheit im Gespräch ordnen und sicher führen
 - Service-CTA: Den gelesenen Service-Kontext ins Formular übergeben
