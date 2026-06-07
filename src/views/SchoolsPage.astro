@@ -16,6 +16,9 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const contentImageWidths = [480, 800, 1200, 1600]
+const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
+const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
 
 interface SchoolPricingItem {
   icon: string
@@ -192,17 +195,18 @@ const schoolsLd = {
         <img
           src={optimizeImage(
             'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp',
+            { width: 1200, height: 675, quality: 80 },
           )}
           srcset={generateSrcSet(
-            optimizeImage(
-              'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp',
-            ),
+            'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=450&fit=crop&q=80&fm=webp',
+            contentImageWidths,
+            contentImageOptions,
           )}
-          sizes="(min-width: 1024px) 56rem, 100vw"
+          sizes={contentImageSizes}
           alt={t(locale, 'pages.schools.juku.imgAlt')}
           class="w-full rounded-lg object-cover aspect-video"
-          width="800"
-          height="450"
+          width="1200"
+          height="675"
           decoding="async"
           loading="lazy"
         />
@@ -243,17 +247,18 @@ const schoolsLd = {
         <img
           src={optimizeImage(
             'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp',
+            { width: 1200, height: 675, quality: 80 },
           )}
           srcset={generateSrcSet(
-            optimizeImage(
-              'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp',
-            ),
+            'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=450&fit=crop&q=80&fm=webp',
+            contentImageWidths,
+            contentImageOptions,
           )}
-          sizes="(min-width: 1024px) 56rem, 100vw"
+          sizes={contentImageSizes}
           alt={t(locale, 'pages.schools.robotProgramming.progImgAlt')}
           class="w-full rounded-lg object-cover aspect-video"
-          width="800"
-          height="450"
+          width="1200"
+          height="675"
           decoding="async"
           loading="lazy"
         />
@@ -319,17 +324,18 @@ const schoolsLd = {
         <img
           src={optimizeImage(
             'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp',
+            { width: 1200, height: 675, quality: 80 },
           )}
           srcset={generateSrcSet(
-            optimizeImage(
-              'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp',
-            ),
+            'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop&q=80&fm=webp',
+            contentImageWidths,
+            contentImageOptions,
           )}
-          sizes="(min-width: 1024px) 56rem, 100vw"
+          sizes={contentImageSizes}
           alt={t(locale, 'pages.schools.pcSmartphone.imgAlt')}
           class="w-full rounded-lg object-cover aspect-video"
-          width="800"
-          height="450"
+          width="1200"
+          height="675"
           decoding="async"
           loading="lazy"
         />

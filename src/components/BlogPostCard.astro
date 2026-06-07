@@ -39,6 +39,8 @@ const authors = await getAllAuthors()
 const tags = await getAllTags()
 const rawAuthor = findAuthorById(authors, post.data.author)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
+const cardImageWidths = [320, 640, 960, 1200]
+const cardImageOptions = { aspectRatio: 1, quality: 80 }
 ---
 
 <article
@@ -51,15 +53,23 @@ const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
   <div class="flex flex-col sm:flex-row">
     {
       postImage && (
-        <div class="overflow-hidden border-b border-slate-200 bg-slate-100 sm:w-56 sm:shrink-0 sm:border-b-0 sm:border-r">
+        <div class="overflow-hidden border-b border-slate-200 bg-slate-100 sm:w-56 sm:shrink-0 sm:self-start sm:border-b-0 sm:border-r">
           <img
-            src={optimizeImage(postImage)}
-            srcset={generateSrcSet(postImage, [200, 400, 800])}
+            src={optimizeImage(postImage, {
+              width: 640,
+              height: 640,
+              quality: 80,
+            })}
+            srcset={generateSrcSet(
+              postImage,
+              cardImageWidths,
+              cardImageOptions,
+            )}
             sizes="(min-width: 640px) 224px, 100vw"
             alt={post.data.title}
-            class="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] sm:h-full"
-            width="224"
-            height="168"
+            class="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] sm:h-56"
+            width="640"
+            height="640"
             decoding="async"
             loading="lazy"
           />

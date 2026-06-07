@@ -70,6 +70,8 @@ const rawAuthor = findAuthorById(authors, post.data.author)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
 const authorSkills = author?.skills ?? []
 const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
+const relatedImageWidths = [320, 640, 960, 1200]
+const relatedImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
 const basePosts = allRawPosts.filter(isBasePost)
 
@@ -232,8 +234,8 @@ const ctaHeading = isDefaultLocale
   preloadImage={postImage
     ? {
         src: optimizeImage(postImage),
-        srcset: generateSrcSet(postImage, [400, 800, 1200]),
-        sizes: '(min-width: 768px) 56rem, 100vw',
+        srcset: generateSrcSet(postImage, [480, 800, 1200, 1600]),
+        sizes: '(min-width: 768px) 56rem, calc(100vw - 2rem)',
       }
     : undefined}
 >
@@ -346,8 +348,8 @@ const ctaHeading = isDefaultLocale
             <div class="mb-9 overflow-hidden rounded-lg">
               <img
                 src={optimizeImage(postImage)}
-                srcset={generateSrcSet(postImage, [400, 800, 1200])}
-                sizes="(min-width: 768px) 56rem, 100vw"
+                srcset={generateSrcSet(postImage, [480, 800, 1200, 1600])}
+                sizes="(min-width: 768px) 56rem, calc(100vw - 2rem)"
                 alt={post.data.title}
                 class="w-full h-auto"
                 width="960"
@@ -532,13 +534,21 @@ const ctaHeading = isDefaultLocale
                       >
                         {relatedImage && (
                           <img
-                            src={optimizeImage(relatedImage)}
-                            srcset={generateSrcSet(relatedImage, [200, 400])}
+                            src={optimizeImage(relatedImage, {
+                              width: 800,
+                              height: 400,
+                              quality: 80,
+                            })}
+                            srcset={generateSrcSet(
+                              relatedImage,
+                              relatedImageWidths,
+                              relatedImageOptions,
+                            )}
                             sizes="(min-width: 640px) 50vw, 100vw"
                             alt={rp.data.title}
                             class="mb-3 h-32 w-full rounded-md object-cover"
-                            width="400"
-                            height="128"
+                            width="800"
+                            height="400"
                             loading="lazy"
                             decoding="async"
                           />

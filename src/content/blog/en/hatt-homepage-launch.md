@@ -4,7 +4,7 @@ description: 'We launched Hatt’s Homepage, a personal site that brings togethe
 date: 2026-06-06T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro']
-image: /uploads/hatt-homepage-screenshot.png
+image: /uploads/hatt-homepage-screenshot-1600.webp
 callout:
   type: info
   title: Live Site

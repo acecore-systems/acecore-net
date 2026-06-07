@@ -4,7 +4,7 @@ description: 'Nous avons lancé le portail officiel d’Aceserver, un serveur Mi
 date: 2026-06-07T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro', 'インフラ']
-image: https://asv.acecore.net/uploads/legacy-scc.png
+image: /uploads/aceserver-portal-screenshot-1600.webp
 callout:
   type: info
   title: Site publié

@@ -10,6 +10,7 @@ import {
   optimizeImage,
   generateSrcSet,
   resolveImageSource,
+  type GenerateSrcSetOptions,
 } from '../utils/image'
 import { getWorksCopy } from '../data/works'
 import {
@@ -47,6 +48,7 @@ type HeroImage = {
   src: string
   alt: string
   srcsetWidths?: number[]
+  srcsetOptions?: GenerateSrcSetOptions
   sizes?: string
 }
 
@@ -57,7 +59,15 @@ const getList = <T,>(key: string): T[] =>
 const resolveCardHref = (href: string) =>
   href.startsWith('http') ? href : u(href)
 const worksCopy = getWorksCopy(locale)
-const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
+const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
+const homeHeroSrcSetOptions = {
+  aspectRatio: 1,
+  quality: 75,
+} satisfies GenerateSrcSetOptions
+const homeHeroImageSizes =
+  '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
+const homePostImageWidths = [320, 640, 960, 1200]
+const homePostImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
 const allPosts = await getCollection('blog')
 const authors: AuthorData[] = await getAllAuthors()
@@ -89,30 +99,23 @@ const homeStatToneClasses = {
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
-      { quality: 40 },
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1280&h=1280&fit=crop&q=90&fm=webp',
+      { width: 1280, height: 1280, quality: 75 },
     ),
     alt: t(locale, 'pages.home.heroImgTeam'),
     srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
+    srcsetOptions: homeHeroSrcSetOptions,
+    sizes: homeHeroImageSizes,
   },
   {
     src: optimizeImage(
-      '/uploads/acecore-generated/home-hero-build-workshop.webp',
-      { quality: 40 },
-    ),
-    alt: t(locale, 'pages.home.heroImgCollaboration'),
-    srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
-  },
-  {
-    src: optimizeImage(
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=70&fm=webp',
-      { quality: 40 },
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1280&h=1280&fit=crop&q=90&fm=webp',
+      { width: 1280, height: 1280, quality: 75 },
     ),
     alt: t(locale, 'pages.home.heroImgMeeting'),
     srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
+    srcsetOptions: homeHeroSrcSetOptions,
+    sizes: homeHeroImageSizes,
   },
 ]
 const firstHeroImage = homeHeroImages[0]
@@ -133,7 +136,11 @@ const webPageLd = {
   preloadImage={firstHeroImage
     ? {
         src: firstHeroImage.src,
-        srcset: generateSrcSet(firstHeroImage.src, firstHeroImage.srcsetWidths),
+        srcset: generateSrcSet(
+          firstHeroImage.src,
+          firstHeroImage.srcsetWidths,
+          firstHeroImage.srcsetOptions,
+        ),
         sizes: firstHeroImage.sizes ?? '100vw',
       }
     : undefined}
@@ -308,13 +315,21 @@ const webPageLd = {
                 >
                   {postImage && (
                     <img
-                      src={optimizeImage(postImage)}
-                      srcset={generateSrcSet(postImage, [200, 400, 800])}
+                      src={optimizeImage(postImage, {
+                        width: 800,
+                        height: 400,
+                        quality: 80,
+                      })}
+                      srcset={generateSrcSet(
+                        postImage,
+                        homePostImageWidths,
+                        homePostImageOptions,
+                      )}
                       sizes="(min-width: 768px) calc(33vw - 2rem), calc(100vw - 2rem)"
                       alt={post.data.title}
                       class="h-44 w-full object-cover"
-                      width="400"
-                      height="160"
+                      width="800"
+                      height="400"
                       decoding="async"
                       loading="lazy"
                     />

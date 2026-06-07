@@ -17,6 +17,9 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const contentImageWidths = [480, 800, 1200, 1600]
+const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
+const contentImageSizes = '(min-width: 768px) 48rem, calc(100vw - 3rem)'
 
 interface FaqItem {
   question: string
@@ -88,16 +91,18 @@ const studioAreas = getList<StudioArea>('pages.acestudio.studioAreas')
         <img
           src={optimizeImage(
             'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
+            { width: 1200, height: 675, quality: 80 },
           )}
           srcset={generateSrcSet(
             'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
-            [400, 800],
+            contentImageWidths,
+            contentImageOptions,
           )}
-          sizes="(min-width: 768px) 48rem, 100vw"
+          sizes={contentImageSizes}
           alt={t(locale, 'pages.acestudio.creativeImgAlt')}
           class="w-full rounded-lg object-cover aspect-video"
-          width="800"
-          height="450"
+          width="1200"
+          height="675"
           decoding="async"
           loading="lazy"
         />
