@@ -1,0 +1,387 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { optimizeImage } from '../utils/image'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+---
+
+<BaseLayout
+  title={t(locale, 'pages.schools.portalPage.title')}
+  description={t(locale, 'pages.schools.portalPage.description')}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.schools.portalPage.heroTitle')}
+    subtitle={t(locale, 'pages.schools.portalPage.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.schools.portalPage.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'pages.schools.title'), href: u('/schools/') },
+          { label: t(locale, 'pages.schools.portalPage.title') },
+        ]}
+        locale={locale}
+      />
+
+      <div class="grid gap-8 lg:grid-cols-[24rem_1fr]">
+        <aside class="space-y-4">
+          <section
+            class="ac-surface p-5"
+            aria-labelledby="portal-login-heading"
+          >
+            <h2 id="portal-login-heading" class="mb-3 text-lg ac-heading">
+              {t(locale, 'pages.schools.portalPage.loginTitle')}
+            </h2>
+            <p class="mb-4 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.schools.portalPage.loginBody')}
+            </p>
+            <form id="portal-otp-form" class="space-y-3">
+              <input
+                name="name"
+                class="ac-input"
+                placeholder={t(
+                  locale,
+                  'pages.schools.portalPage.namePlaceholder',
+                )}
+                autocomplete="name"
+              />
+              <input
+                name="email"
+                type="email"
+                required
+                class="ac-input"
+                placeholder={t(
+                  locale,
+                  'pages.schools.portalPage.emailPlaceholder',
+                )}
+                autocomplete="email"
+              />
+              <button type="submit" class="ac-btn-primary w-full">
+                <Icon name="mail" class="text-base" />
+                {t(locale, 'pages.schools.portalPage.sendCode')}
+              </button>
+            </form>
+            <form id="portal-session-form" class="mt-4 hidden space-y-3">
+              <input
+                name="email"
+                type="email"
+                required
+                class="ac-input"
+                placeholder={t(
+                  locale,
+                  'pages.schools.portalPage.emailPlaceholder',
+                )}
+                autocomplete="email"
+              />
+              <input
+                name="code"
+                required
+                inputmode="numeric"
+                pattern="[0-9]{6}"
+                class="ac-input"
+                placeholder={t(
+                  locale,
+                  'pages.schools.portalPage.codePlaceholder',
+                )}
+              />
+              <button type="submit" class="ac-btn-secondary w-full">
+                {t(locale, 'pages.schools.portalPage.login')}
+              </button>
+            </form>
+            <div
+              id="portal-feedback"
+              class="mt-4 hidden rounded-lg border p-3 text-sm"
+              role="alert"
+              aria-live="polite"
+            >
+            </div>
+          </section>
+
+          <section class="rounded-lg border border-slate-200 bg-slate-50 p-5">
+            <h2 class="mb-2 text-base ac-heading">
+              {t(locale, 'pages.schools.portalPage.calendarTitle')}
+            </h2>
+            <p class="m-0 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.schools.portalPage.calendarBody')}
+            </p>
+          </section>
+        </aside>
+
+        <section class="ac-surface min-h-120 p-6" aria-live="polite">
+          <div
+            class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div>
+              <p
+                class="mb-1 text-sm font-700 uppercase tracking-wide text-brand-600"
+              >
+                {t(locale, 'pages.schools.portalPage.dashboardEyebrow')}
+              </p>
+              <h2 class="text-2xl ac-heading">
+                {t(locale, 'pages.schools.portalPage.dashboardTitle')}
+              </h2>
+            </div>
+            <div class="flex flex-col gap-2 sm:flex-row">
+              <button id="portal-refresh" type="button" class="ac-btn-outline">
+                <Icon name="refresh-cw" class="text-base" />
+                {t(locale, 'pages.schools.portalPage.refresh')}
+              </button>
+              <button id="stripe-portal" type="button" class="ac-btn-outline">
+                <Icon name="credit-card" class="text-base" />
+                {t(locale, 'pages.schools.portalPage.billing')}
+              </button>
+            </div>
+          </div>
+
+          <div id="portal-empty" class="rounded-lg bg-slate-50 p-8 text-center">
+            <Icon
+              name="user-check"
+              class="mx-auto mb-3 text-3xl text-slate-500"
+            />
+            <p class="m-0 text-slate-600">
+              {t(locale, 'pages.schools.portalPage.empty')}
+            </p>
+          </div>
+
+          <div id="portal-bookings" class="hidden space-y-4"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    ;(() => {
+      const tokenKey = 'acecore-schools-portal-token'
+      const otpForm = document.getElementById('portal-otp-form')
+      const sessionForm = document.getElementById('portal-session-form')
+      const feedback = document.getElementById('portal-feedback')
+      const empty = document.getElementById('portal-empty')
+      const list = document.getElementById('portal-bookings')
+      const refresh = document.getElementById('portal-refresh')
+      const stripePortal = document.getElementById('stripe-portal')
+      let availability = null
+
+      function token() {
+        return localStorage.getItem(tokenKey) || ''
+      }
+
+      function setFeedback(type, text) {
+        if (!feedback) return
+        feedback.textContent = text
+        feedback.className =
+          type === 'success'
+            ? 'mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800'
+            : 'mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800'
+      }
+
+      function formatDate(value) {
+        return new Date(value).toLocaleString('ja-JP', {
+          timeZone: 'Asia/Tokyo',
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        })
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          }[char]
+        })
+      }
+
+      async function loadAvailability() {
+        if (availability) return availability
+        const response = await fetch('/api/schools/availability')
+        const result = await response.json()
+        if (!response.ok || !result.ok) throw new Error(result.message)
+        availability = result
+        return result
+      }
+
+      function slotOptions(booking) {
+        if (!availability) return ''
+        return availability.slots
+          .filter(
+            (slot) =>
+              slot.courseId === booking.courseId &&
+              slot.instructorId === booking.instructorId,
+          )
+          .map(
+            (slot) =>
+              `<option value="${escapeHtml(`${slot.startAt}|${slot.endAt}`)}">${escapeHtml(formatDate(slot.startAt))}</option>`,
+          )
+          .join('')
+      }
+
+      function renderBookings(bookings) {
+        if (!bookings.length) {
+          empty.classList.remove('hidden')
+          list.classList.add('hidden')
+          list.innerHTML = ''
+          return
+        }
+        empty.classList.add('hidden')
+        list.classList.remove('hidden')
+        list.innerHTML = bookings
+          .map(
+            (
+              booking,
+            ) => `<article class="rounded-lg border border-slate-200 bg-white p-5" data-booking-id="${escapeHtml(booking.id)}">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p class="mb-1 text-xs font-800 uppercase tracking-wide text-brand-600">${booking.bookingType === 'enrollment' ? '本申込み' : '無料体験'}</p>
+                  <h3 class="text-lg ac-heading">${escapeHtml(booking.courseTitle || booking.courseId)}</h3>
+                  <p class="mt-1 text-sm text-slate-600">${escapeHtml(booking.studentName)} / ${escapeHtml(booking.instructorName || booking.instructorId)}</p>
+                </div>
+                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-800 text-slate-700">${escapeHtml(booking.status)}</span>
+              </div>
+              <p class="mt-4 text-sm font-700 text-slate-900">${escapeHtml(formatDate(booking.startAt))}</p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
+                <select class="ac-input" data-reschedule-slot>
+                  ${slotOptions(booking) || '<option value="">変更可能な枠がありません</option>'}
+                </select>
+                <button type="button" class="ac-btn-outline" data-reschedule>日程変更</button>
+                <button type="button" class="inline-flex min-h-10 items-center justify-center rounded-lg border border-red-200 bg-white px-4 py-2.5 text-sm font-800 text-red-700 no-underline hover:bg-red-50" data-cancel>キャンセル</button>
+              </div>
+            </article>`,
+          )
+          .join('')
+      }
+
+      async function loadPortal() {
+        if (!token()) return
+        await loadAvailability()
+        const response = await fetch('/api/schools/portal/session', {
+          headers: { Authorization: `Bearer ${token()}` },
+        })
+        const result = await response.json()
+        if (!response.ok || !result.ok) throw new Error(result.message)
+        renderBookings(result.bookings || [])
+      }
+
+      otpForm.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        const data = new FormData(otpForm)
+        const response = await fetch('/api/schools/portal/otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.get('name'),
+            email: data.get('email'),
+          }),
+        })
+        const result = await response.json()
+        if (!response.ok || !result.ok) {
+          setFeedback('error', result.message || '認証コードを送信できません。')
+          return
+        }
+        sessionForm.classList.remove('hidden')
+        const sessionEmail = sessionForm.querySelector('input[name="email"]')
+        if (sessionEmail) sessionEmail.value = data.get('email') || ''
+        setFeedback('success', result.message || '認証コードを送信しました。')
+      })
+
+      sessionForm.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        const data = new FormData(sessionForm)
+        const response = await fetch('/api/schools/portal/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: data.get('email'),
+            code: data.get('code'),
+          }),
+        })
+        const result = await response.json()
+        if (!response.ok || !result.ok) {
+          setFeedback('error', result.message || 'ログインできません。')
+          return
+        }
+        localStorage.setItem(tokenKey, result.token)
+        setFeedback('success', 'ログインしました。')
+        await loadPortal()
+      })
+
+      list.addEventListener('click', async (event) => {
+        const target = event.target instanceof Element ? event.target : null
+        const button = target?.closest('button')
+        const card = target?.closest('[data-booking-id]')
+        if (!button || !card) return
+        const id = card.dataset.bookingId
+        let payload
+        if (button.hasAttribute('data-cancel')) {
+          payload = { action: 'cancel', reason: 'portal' }
+        } else if (button.hasAttribute('data-reschedule')) {
+          const slotSelect = card.querySelector('[data-reschedule-slot]')
+          const value = slotSelect ? slotSelect.value : ''
+          const parts = value.split('|')
+          if (parts.length !== 2 || !parts[0]) return
+          payload = { action: 'reschedule', startAt: parts[0], endAt: parts[1] }
+        } else {
+          return
+        }
+
+        const response = await fetch(`/api/schools/bookings/${id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token()}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        })
+        const result = await response.json()
+        if (!response.ok || !result.ok) {
+          setFeedback('error', result.message || '更新できませんでした。')
+          return
+        }
+        setFeedback('success', '予約を更新しました。')
+        availability = null
+        await loadPortal()
+      })
+
+      refresh.addEventListener('click', async () => {
+        availability = null
+        await loadPortal().catch((error) => setFeedback('error', error.message))
+      })
+
+      stripePortal.addEventListener('click', async () => {
+        const response = await fetch('/api/schools/portal/stripe', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token()}` },
+        })
+        const result = await response.json()
+        if (!response.ok || !result.ok) {
+          setFeedback('error', result.message || '請求ポータルを開けません。')
+          return
+        }
+        window.location.assign(result.url)
+      })
+
+      loadPortal().catch(() => {})
+    })()
+  </script>
+</BaseLayout>

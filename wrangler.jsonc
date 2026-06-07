@@ -6,6 +6,9 @@
   "vars": {
     "OPENAI_MODEL": "gpt-5.4-mini",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
+    "SCHOOLS_SITE_URL": "https://acecore.net",
+    "SCHOOLS_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
+    "SCHOOLS_EMAIL_FROM": "Acecore Schools <noreply@acecore.net>",
   },
   "d1_databases": [
     {
@@ -20,6 +23,9 @@
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "SCHOOLS_SITE_URL": "https://acecore.net",
+        "SCHOOLS_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "SCHOOLS_EMAIL_FROM": "Acecore Schools <noreply@acecore.net>",
       },
       "d1_databases": [
         {
@@ -34,6 +40,9 @@
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "SCHOOLS_SITE_URL": "https://acecore.net",
+        "SCHOOLS_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "SCHOOLS_EMAIL_FROM": "Acecore Schools <noreply@acecore.net>",
       },
       "d1_databases": [
         {

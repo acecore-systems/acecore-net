@@ -1,0 +1,422 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { optimizeImage } from '../utils/image'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const bookingLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${t(locale, 'pages.schools.bookingPage.title')} | Acecore`,
+  description: t(locale, 'pages.schools.bookingPage.description'),
+  url: `https://acecore.net${u('/schools/book/')}`,
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.schools.bookingPage.title')}
+  description={t(locale, 'pages.schools.bookingPage.description')}
+  jsonLd={bookingLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.schools.bookingPage.heroTitle')}
+    subtitle={t(locale, 'pages.schools.bookingPage.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.schools.bookingPage.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'pages.schools.title'), href: u('/schools/') },
+          { label: t(locale, 'pages.schools.bookingPage.title') },
+        ]}
+        locale={locale}
+      />
+
+      <div class="mb-8 grid gap-4 md:grid-cols-3">
+        <div class="rounded-lg border border-brand-100 bg-brand-50 p-5">
+          <Icon name="calendar-check" class="mb-3 text-2xl text-brand-600" />
+          <h2 class="mb-2 text-base ac-heading">
+            {t(locale, 'pages.schools.bookingPage.flowTrialTitle')}
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.schools.bookingPage.flowTrialBody')}
+          </p>
+        </div>
+        <div class="rounded-lg border border-emerald-100 bg-emerald-50 p-5">
+          <Icon name="credit-card" class="mb-3 text-2xl text-emerald-600" />
+          <h2 class="mb-2 text-base ac-heading">
+            {t(locale, 'pages.schools.bookingPage.flowPaymentTitle')}
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.schools.bookingPage.flowPaymentBody')}
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <Icon name="shield-check" class="mb-3 text-2xl text-slate-600" />
+          <h2 class="mb-2 text-base ac-heading">
+            {t(locale, 'pages.schools.bookingPage.flowPortalTitle')}
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.schools.bookingPage.flowPortalBody')}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-[1fr_20rem]">
+        <form
+          id="schools-booking-form"
+          class="ac-surface space-y-6 p-6"
+          data-locale={locale}
+          data-success-url={u('/schools/portal/')}
+        >
+          <div>
+            <p class="mb-3 text-sm font-700 text-slate-900">
+              {t(locale, 'pages.schools.bookingPage.typeLabel')}
+            </p>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <label
+                class="flex cursor-pointer gap-3 rounded-lg border border-brand-200 bg-brand-50 p-4"
+              >
+                <input
+                  type="radio"
+                  name="bookingType"
+                  value="trial"
+                  checked
+                  class="mt-1"
+                />
+                <span>
+                  <span class="block font-800 text-slate-900">
+                    {t(locale, 'pages.schools.bookingPage.typeTrial')}
+                  </span>
+                  <span class="mt-1 block text-sm text-slate-600">
+                    {t(locale, 'pages.schools.bookingPage.typeTrialBody')}
+                  </span>
+                </span>
+              </label>
+              <label
+                class="flex cursor-pointer gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4"
+              >
+                <input
+                  type="radio"
+                  name="bookingType"
+                  value="enrollment"
+                  class="mt-1"
+                />
+                <span>
+                  <span class="block font-800 text-slate-900">
+                    {t(locale, 'pages.schools.bookingPage.typeEnrollment')}
+                  </span>
+                  <span class="mt-1 block text-sm text-slate-600">
+                    {t(locale, 'pages.schools.bookingPage.typeEnrollmentBody')}
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.courseLabel')}
+              </span>
+              <select
+                id="booking-course"
+                name="courseId"
+                class="ac-input"
+                required></select>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.instructorLabel')}
+              </span>
+              <select
+                id="booking-instructor"
+                name="instructorId"
+                class="ac-input"
+                required></select>
+            </label>
+          </div>
+
+          <label class="block">
+            <span class="mb-2 block text-sm font-700 text-slate-700">
+              {t(locale, 'pages.schools.bookingPage.slotLabel')}
+            </span>
+            <select id="booking-slot" name="slot" class="ac-input" required
+            ></select>
+            <span
+              id="booking-slot-note"
+              class="mt-2 block text-xs text-slate-500"
+            >
+              {t(locale, 'pages.schools.bookingPage.slotNote')}
+            </span>
+          </label>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.guardianName')}
+              </span>
+              <input
+                name="guardianName"
+                required
+                class="ac-input"
+                autocomplete="name"
+              />
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.guardianEmail')}
+              </span>
+              <input
+                name="guardianEmail"
+                type="email"
+                required
+                class="ac-input"
+                autocomplete="email"
+              />
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.guardianPhone')}
+              </span>
+              <input name="guardianPhone" class="ac-input" autocomplete="tel" />
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.studentName')}
+              </span>
+              <input name="studentName" required class="ac-input" />
+            </label>
+            <label class="block md:col-span-2">
+              <span class="mb-2 block text-sm font-700 text-slate-700">
+                {t(locale, 'pages.schools.bookingPage.studentGrade')}
+              </span>
+              <input name="studentGrade" class="ac-input" />
+            </label>
+          </div>
+
+          <label class="block">
+            <span class="mb-2 block text-sm font-700 text-slate-700">
+              {t(locale, 'pages.schools.bookingPage.message')}
+            </span>
+            <textarea name="message" rows="4" class="ac-input resize-y"
+            ></textarea>
+          </label>
+
+          <div
+            id="booking-feedback"
+            class="hidden rounded-lg border p-4 text-sm"
+            role="alert"
+            aria-live="polite"
+          >
+          </div>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button id="booking-submit" type="submit" class="ac-btn-primary">
+              <Icon name="calendar-check" class="text-base" />
+              {t(locale, 'pages.schools.bookingPage.submit')}
+            </button>
+            <a href={u('/schools/portal/')} class="ac-btn-outline">
+              {t(locale, 'pages.schools.bookingPage.portalLink')}
+            </a>
+          </div>
+        </form>
+
+        <aside class="space-y-4">
+          <div class="ac-surface p-5">
+            <h2 class="mb-3 text-lg ac-heading">
+              {t(locale, 'pages.schools.bookingPage.sideTitle')}
+            </h2>
+            <ul class="m-0 list-none space-y-3 p-0 text-sm text-slate-600">
+              <li class="flex gap-2">
+                <Icon name="check" class="mt-0.5 shrink-0 text-brand-500" />
+                <span>{t(locale, 'pages.schools.bookingPage.sideItem1')}</span>
+              </li>
+              <li class="flex gap-2">
+                <Icon name="check" class="mt-0.5 shrink-0 text-brand-500" />
+                <span>{t(locale, 'pages.schools.bookingPage.sideItem2')}</span>
+              </li>
+              <li class="flex gap-2">
+                <Icon name="check" class="mt-0.5 shrink-0 text-brand-500" />
+                <span>{t(locale, 'pages.schools.bookingPage.sideItem3')}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-5">
+            <p class="mb-2 text-sm font-800 text-slate-900">
+              {t(locale, 'pages.schools.bookingPage.calendarPolicyTitle')}
+            </p>
+            <p class="m-0 text-sm leading-relaxed text-slate-600">
+              {t(locale, 'pages.schools.bookingPage.calendarPolicyBody')}
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    ;(() => {
+      const form = document.getElementById('schools-booking-form')
+      if (!form) return
+
+      const courseSelect = document.getElementById('booking-course')
+      const instructorSelect = document.getElementById('booking-instructor')
+      const slotSelect = document.getElementById('booking-slot')
+      const submitButton = document.getElementById('booking-submit')
+      const feedback = document.getElementById('booking-feedback')
+      let availability = { courses: [], instructors: [], slots: [] }
+
+      function setFeedback(type, text) {
+        if (!feedback) return
+        feedback.textContent = text
+        feedback.className =
+          type === 'success'
+            ? 'rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800'
+            : 'rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800'
+      }
+
+      function formatSlot(slot) {
+        const start = new Date(slot.startAt)
+        return start.toLocaleString('ja-JP', {
+          timeZone: 'Asia/Tokyo',
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        })
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          }[char]
+        })
+      }
+
+      function renderOptions() {
+        courseSelect.innerHTML = availability.courses
+          .map(
+            (course) =>
+              `<option value="${escapeHtml(course.id)}">${escapeHtml(course.title)} - ${escapeHtml(course.frequency)}</option>`,
+          )
+          .join('')
+
+        instructorSelect.innerHTML = availability.instructors
+          .map(
+            (instructor) =>
+              `<option value="${escapeHtml(instructor.id)}">${escapeHtml(instructor.name)}</option>`,
+          )
+          .join('')
+        renderSlots()
+      }
+
+      function renderSlots() {
+        const courseId = courseSelect.value
+        const instructorId = instructorSelect.value
+        const slots = availability.slots.filter(
+          (slot) =>
+            slot.courseId === courseId && slot.instructorId === instructorId,
+        )
+        slotSelect.innerHTML =
+          slots.length > 0
+            ? slots
+                .map(
+                  (slot) =>
+                    `<option value="${escapeHtml(`${slot.startAt}|${slot.endAt}`)}">${escapeHtml(formatSlot(slot))}</option>`,
+                )
+                .join('')
+            : '<option value="">受付可能な枠がありません</option>'
+      }
+
+      async function loadAvailability() {
+        const response = await fetch('/api/schools/availability')
+        const result = await response.json()
+        if (!response.ok || !result.ok) {
+          throw new Error(result.message || '予約枠を読み込めませんでした。')
+        }
+        availability = result
+        renderOptions()
+      }
+
+      courseSelect.addEventListener('change', renderSlots)
+      instructorSelect.addEventListener('change', renderSlots)
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        const data = new FormData(form)
+        const slot = String(data.get('slot') || '').split('|')
+        if (slot.length !== 2 || !slot[0]) {
+          setFeedback('error', '予約枠を選択してください。')
+          return
+        }
+        submitButton.disabled = true
+        const originalText = submitButton.textContent
+        submitButton.textContent = '送信中...'
+
+        try {
+          const response = await fetch('/api/schools/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              bookingType: data.get('bookingType'),
+              courseId: data.get('courseId'),
+              instructorId: data.get('instructorId'),
+              startAt: slot[0],
+              endAt: slot[1],
+              guardianName: data.get('guardianName'),
+              guardianEmail: data.get('guardianEmail'),
+              guardianPhone: data.get('guardianPhone'),
+              studentName: data.get('studentName'),
+              studentGrade: data.get('studentGrade'),
+              message: data.get('message'),
+              locale: form.dataset.locale || 'ja',
+            }),
+          })
+          const result = await response.json()
+          if (!response.ok || !result.ok) {
+            throw new Error(result.message || '予約を作成できませんでした。')
+          }
+          if (result.checkoutUrl) {
+            window.location.assign(result.checkoutUrl)
+            return
+          }
+          setFeedback(
+            'success',
+            '無料体験予約を受け付けました。ポータルから変更・キャンセルできます。',
+          )
+          form.reset()
+          await loadAvailability()
+        } catch (error) {
+          setFeedback('error', error.message || '予約を作成できませんでした。')
+        } finally {
+          submitButton.disabled = false
+          submitButton.textContent = originalText
+        }
+      })
+
+      loadAvailability().catch((error) => setFeedback('error', error.message))
+    })()
+  </script>
+</BaseLayout>

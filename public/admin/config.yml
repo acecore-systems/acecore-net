@@ -2276,6 +2276,87 @@ collections:
             label: '導入'
             hint: 'intro'
             widget: string
+          - name: 'trialEyebrow'
+            label: '無料体験・補助見出し'
+            hint: 'trialEyebrow'
+            widget: string
+          - name: 'trialTitle'
+            label: '無料体験・見出し'
+            hint: 'trialTitle'
+            widget: string
+          - name: 'trialBody'
+            label: '無料体験・本文'
+            hint: 'trialBody'
+            widget: text
+          - name: 'trialCta'
+            label: '無料体験・CTA'
+            hint: 'trialCta'
+            widget: string
+          - name: 'portalCta'
+            label: 'ポータル・CTA'
+            hint: 'portalCta'
+            widget: string
+          - name: 'trialPoint1Title'
+            label: '無料体験ポイント1・見出し'
+            hint: 'trialPoint1Title'
+            widget: string
+          - name: 'trialPoint1Body'
+            label: '無料体験ポイント1・本文'
+            hint: 'trialPoint1Body'
+            widget: string
+          - name: 'trialPoint2Title'
+            label: '無料体験ポイント2・見出し'
+            hint: 'trialPoint2Title'
+            widget: string
+          - name: 'trialPoint2Body'
+            label: '無料体験ポイント2・本文'
+            hint: 'trialPoint2Body'
+            widget: string
+          - name: 'trialPoint3Title'
+            label: '無料体験ポイント3・見出し'
+            hint: 'trialPoint3Title'
+            widget: string
+          - name: 'trialPoint3Body'
+            label: '無料体験ポイント3・本文'
+            hint: 'trialPoint3Body'
+            widget: string
+          - name: 'courseDetailEyebrow'
+            label: 'コース詳細・補助見出し'
+            hint: 'courseDetailEyebrow'
+            widget: string
+          - name: 'courseDetailTitle'
+            label: 'コース詳細・見出し'
+            hint: 'courseDetailTitle'
+            widget: string
+          - name: 'courseTargetLabel'
+            label: 'コース詳細・対象者ラベル'
+            hint: 'courseTargetLabel'
+            widget: string
+          - name: 'courseAgeLabel'
+            label: 'コース詳細・推奨年齢ラベル'
+            hint: 'courseAgeLabel'
+            widget: string
+          - name: 'courseFrequencyLabel'
+            label: 'コース詳細・頻度ラベル'
+            hint: 'courseFrequencyLabel'
+            widget: string
+          - name: 'courseScheduleLabel'
+            label: 'コース詳細・時間帯ラベル'
+            hint: 'courseScheduleLabel'
+            widget: string
+          - name: 'courseDetails'
+            label: 'コース詳細'
+            hint: 'courseDetails'
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { name: 'id', label: 'ID', widget: string }
+              - { name: 'icon', label: 'アイコン', widget: string }
+              - { name: 'title', label: 'タイトル', widget: string }
+              - { name: 'target', label: '対象者', widget: string }
+              - { name: 'recommendedAge', label: '推奨年齢', widget: string }
+              - { name: 'frequency', label: '頻度', widget: string }
+              - { name: 'schedule', label: '曜日・時間帯', widget: string }
           - name: 'juku'
             label: '塾'
             hint: 'juku'
@@ -2529,10 +2610,183 @@ collections:
             label: 'CTA: フォーム'
             hint: 'ctaForm'
             widget: string
+          - name: 'ctaBook'
+            label: 'CTA: 予約'
+            hint: 'ctaBook'
+            widget: string
+          - name: 'ctaPortal'
+            label: 'CTA: ポータル'
+            hint: 'ctaPortal'
+            widget: string
           - name: 'ctaLine'
             label: 'CTA: LINE'
             hint: 'ctaLine'
             widget: string
+          - name: 'guardianFaqTitle'
+            label: '保護者FAQ・見出し'
+            hint: 'guardianFaqTitle'
+            widget: string
+          - name: 'guardianFaqs'
+            label: '保護者FAQ'
+            hint: 'guardianFaqs'
+            widget: list
+            summary: '{{fields.question}}'
+            fields:
+              - { name: 'question', label: '質問', widget: string }
+              - { name: 'answer', label: '回答', widget: text }
+          - name: 'bookingPage'
+            label: '予約ページ'
+            hint: 'bookingPage'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: 'title', label: 'タイトル', widget: string }
+              - { name: 'description', label: '説明', widget: string }
+              - {
+                  name: 'heroTitle',
+                  label: 'ヒーロー・タイトル',
+                  widget: string,
+                }
+              - {
+                  name: 'heroSubtitle',
+                  label: 'ヒーロー・サブタイトル',
+                  widget: string,
+                }
+              - {
+                  name: 'heroImgAlt',
+                  label: '画像代替テキスト',
+                  widget: string,
+                }
+              - {
+                  name: 'flowTrialTitle',
+                  label: '流れ・無料体験見出し',
+                  widget: string,
+                }
+              - {
+                  name: 'flowTrialBody',
+                  label: '流れ・無料体験本文',
+                  widget: string,
+                }
+              - {
+                  name: 'flowPaymentTitle',
+                  label: '流れ・決済見出し',
+                  widget: string,
+                }
+              - {
+                  name: 'flowPaymentBody',
+                  label: '流れ・決済本文',
+                  widget: string,
+                }
+              - {
+                  name: 'flowPortalTitle',
+                  label: '流れ・ポータル見出し',
+                  widget: string,
+                }
+              - {
+                  name: 'flowPortalBody',
+                  label: '流れ・ポータル本文',
+                  widget: string,
+                }
+              - { name: 'typeLabel', label: '種別ラベル', widget: string }
+              - { name: 'typeTrial', label: '無料体験ラベル', widget: string }
+              - { name: 'typeTrialBody', label: '無料体験説明', widget: string }
+              - {
+                  name: 'typeEnrollment',
+                  label: '本申込みラベル',
+                  widget: string,
+                }
+              - {
+                  name: 'typeEnrollmentBody',
+                  label: '本申込み説明',
+                  widget: string,
+                }
+              - { name: 'courseLabel', label: 'コースラベル', widget: string }
+              - { name: 'instructorLabel', label: '講師ラベル', widget: string }
+              - { name: 'slotLabel', label: '予約枠ラベル', widget: string }
+              - { name: 'slotNote', label: '予約枠補足', widget: string }
+              - { name: 'guardianName', label: '保護者名', widget: string }
+              - { name: 'guardianEmail', label: 'メール', widget: string }
+              - { name: 'guardianPhone', label: '電話', widget: string }
+              - { name: 'studentName', label: '受講者名', widget: string }
+              - { name: 'studentGrade', label: '学年', widget: string }
+              - { name: 'message', label: '相談内容', widget: string }
+              - { name: 'submit', label: '送信ボタン', widget: string }
+              - { name: 'portalLink', label: 'ポータルリンク', widget: string }
+              - { name: 'sideTitle', label: 'サイド見出し', widget: string }
+              - { name: 'sideItem1', label: 'サイド項目1', widget: string }
+              - { name: 'sideItem2', label: 'サイド項目2', widget: string }
+              - { name: 'sideItem3', label: 'サイド項目3', widget: string }
+              - {
+                  name: 'calendarPolicyTitle',
+                  label: 'カレンダー方針見出し',
+                  widget: string,
+                }
+              - {
+                  name: 'calendarPolicyBody',
+                  label: 'カレンダー方針本文',
+                  widget: text,
+                }
+          - name: 'portalPage'
+            label: '会員ポータル'
+            hint: 'portalPage'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: 'title', label: 'タイトル', widget: string }
+              - { name: 'description', label: '説明', widget: string }
+              - {
+                  name: 'heroTitle',
+                  label: 'ヒーロー・タイトル',
+                  widget: string,
+                }
+              - {
+                  name: 'heroSubtitle',
+                  label: 'ヒーロー・サブタイトル',
+                  widget: string,
+                }
+              - {
+                  name: 'heroImgAlt',
+                  label: '画像代替テキスト',
+                  widget: string,
+                }
+              - { name: 'loginTitle', label: 'ログイン見出し', widget: string }
+              - { name: 'loginBody', label: 'ログイン本文', widget: text }
+              - {
+                  name: 'namePlaceholder',
+                  label: '名前 placeholder',
+                  widget: string,
+                }
+              - {
+                  name: 'emailPlaceholder',
+                  label: 'メール placeholder',
+                  widget: string,
+                }
+              - {
+                  name: 'codePlaceholder',
+                  label: 'コード placeholder',
+                  widget: string,
+                }
+              - { name: 'sendCode', label: 'コード送信ボタン', widget: string }
+              - { name: 'login', label: 'ログインボタン', widget: string }
+              - {
+                  name: 'calendarTitle',
+                  label: 'カレンダー見出し',
+                  widget: string,
+                }
+              - { name: 'calendarBody', label: 'カレンダー本文', widget: text }
+              - {
+                  name: 'dashboardEyebrow',
+                  label: 'ダッシュボード補助見出し',
+                  widget: string,
+                }
+              - {
+                  name: 'dashboardTitle',
+                  label: 'ダッシュボード見出し',
+                  widget: string,
+                }
+              - { name: 'refresh', label: '更新ボタン', widget: string }
+              - { name: 'billing', label: '請求ボタン', widget: string }
+              - { name: 'empty', label: '空状態', widget: string }
       - name: 'acestudio'
         label: 'AceStudioページ'
         file: src/i18n/source/ja/pages/acestudio.json

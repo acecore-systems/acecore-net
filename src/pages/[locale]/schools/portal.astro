@@ -1,0 +1,14 @@
+---
+import SchoolsPortalPage from '../../../views/SchoolsPortalPage.astro'
+import { locales, defaultLocale, type Locale } from '../../../i18n'
+
+export function getStaticPaths() {
+  return locales
+    .filter((l) => l !== defaultLocale)
+    .map((locale) => ({ params: { locale } }))
+}
+
+const locale = Astro.params.locale as Locale
+---
+
+<SchoolsPortalPage locale={locale} />

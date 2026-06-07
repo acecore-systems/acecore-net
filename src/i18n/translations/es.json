@@ -508,7 +508,149 @@
         "Consulta con instructores en cualquier momento",
         "Continuidad natural a través de la experiencia",
         "Conexión directa con exámenes, certificaciones y trabajo real"
-      ]
+      ],
+      "trialEyebrow": "Free Trial",
+      "trialTitle": "まずは無料体験から、合う学び方を確認できます",
+      "trialBody": "コース、講師、空き枠を選んでそのまま予約できます。本申込みは月謝と初期費用をStripeで決済し、予約変更やキャンセルは会員ポータルから行えます。",
+      "trialCta": "無料体験を予約する",
+      "portalCta": "会員ポータルを開く",
+      "trialPoint1Title": "オンライン予約",
+      "trialPoint1Body": "講師ごとの空き枠から選択できます。",
+      "trialPoint2Title": "本申込みも対応",
+      "trialPoint2Body": "月謝と初期費用をStripeで受け付けます。",
+      "trialPoint3Title": "変更はポータル",
+      "trialPoint3Body": "外部カレンダー編集ではなく安全に管理します。",
+      "courseDetailEyebrow": "Course Guide",
+      "courseDetailTitle": "対象者・頻度・授業スケジュール",
+      "courseTargetLabel": "対象者",
+      "courseAgeLabel": "推奨年齢",
+      "courseFrequencyLabel": "授業頻度",
+      "courseScheduleLabel": "主な曜日・時間帯",
+      "courseDetails": [
+        {
+          "id": "juku",
+          "icon": "book-open",
+          "title": "学習塾",
+          "target": "小学生・中学生・高校生",
+          "recommendedAge": "小学4年生以上",
+          "frequency": "週1回から相談",
+          "schedule": "水曜 17:00〜20:00 / 土曜 10:00〜14:00"
+        },
+        {
+          "id": "robot-programming",
+          "icon": "bot",
+          "title": "ロボット / プログラミング",
+          "target": "小学生・中学生",
+          "recommendedAge": "小学3年生以上",
+          "frequency": "月2回または週1回",
+          "schedule": "土曜 14:00〜18:00"
+        },
+        {
+          "id": "practical-programming",
+          "icon": "code-xml",
+          "title": "実践プログラミング",
+          "target": "中学生以上・社会人",
+          "recommendedAge": "中学生以上",
+          "frequency": "週1回から相談",
+          "schedule": "木曜 18:00〜21:00"
+        },
+        {
+          "id": "pc-smartphone",
+          "icon": "monitor-smartphone",
+          "title": "パソコン / スマホ",
+          "target": "初心者・シニア・社会人",
+          "recommendedAge": "年齢不問",
+          "frequency": "単発または月2回から",
+          "schedule": "火曜 13:00〜17:00"
+        },
+        {
+          "id": "ged",
+          "icon": "file-badge",
+          "title": "高卒認定",
+          "target": "高卒認定を目指す方",
+          "recommendedAge": "高校生相当以上",
+          "frequency": "週1回から相談",
+          "schedule": "金曜 17:00〜20:00"
+        }
+      ],
+      "ctaBook": "予約へ進む",
+      "ctaPortal": "ポータルで確認する",
+      "guardianFaqTitle": "保護者向けFAQ",
+      "guardianFaqs": [
+        {
+          "question": "無料体験では何を確認できますか？",
+          "answer": "お子さまの興味、現在の理解度、通える頻度を確認し、合うコースや進め方を相談できます。"
+        },
+        {
+          "question": "予約後に日程変更できますか？",
+          "answer": "できます。会員ポータルにメール認証でログインし、空き枠から変更できます。外部カレンダーからの編集は受け付けません。"
+        },
+        {
+          "question": "本申込みの支払いはどうなりますか？",
+          "answer": "Stripeで月謝サブスクリプションと初期費用を受け付けます。請求状況はポータルから確認できます。"
+        },
+        {
+          "question": "外部カレンダーで予定を見られますか？",
+          "answer": "講師用の表示専用カレンダーを用意できます。予約の追加・変更・キャンセルはポータルから行います。"
+        }
+      ],
+      "bookingPage": {
+        "title": "Schools 予約",
+        "description": "Acecore Schoolsの無料体験予約と本申込みをオンラインで受け付けます。",
+        "heroTitle": "Schools 予約",
+        "heroSubtitle": "無料体験から本申込みまで、空き枠を選んで進められます",
+        "heroImgAlt": "ロボット工作と学習の準備風景",
+        "flowTrialTitle": "無料体験を予約",
+        "flowTrialBody": "まずは講師とコースの相性を確認できます。",
+        "flowPaymentTitle": "本申込みはStripe決済",
+        "flowPaymentBody": "月謝と初期費用を安全に受け付けます。",
+        "flowPortalTitle": "変更はポータルで管理",
+        "flowPortalBody": "日程変更やキャンセルは会員ポータルから行います。",
+        "typeLabel": "予約種別",
+        "typeTrial": "無料体験",
+        "typeTrialBody": "初回相談・体験授業として予約します。",
+        "typeEnrollment": "本申込み",
+        "typeEnrollmentBody": "予約後にStripe Checkoutへ進みます。",
+        "courseLabel": "コース",
+        "instructorLabel": "講師",
+        "slotLabel": "予約枠",
+        "slotNote": "空き枠は講師とコースの組み合わせで表示されます。",
+        "guardianName": "保護者名",
+        "guardianEmail": "メールアドレス",
+        "guardianPhone": "電話番号",
+        "studentName": "受講者名",
+        "studentGrade": "学年・年齢",
+        "message": "相談したい内容",
+        "submit": "予約する",
+        "portalLink": "予約済みの方はこちら",
+        "sideTitle": "予約前に確認すること",
+        "sideItem1": "無料体験は費用なしで予約できます。",
+        "sideItem2": "本申込みはStripeの画面で決済します。",
+        "sideItem3": "変更・キャンセルはポータルから行います。",
+        "calendarPolicyTitle": "外部カレンダーについて",
+        "calendarPolicyBody": "外部カレンダーは表示専用です。追加・編集・削除はポータルに限定します。"
+      },
+      "portalPage": {
+        "title": "Schools 会員ポータル",
+        "description": "Acecore Schoolsの予約、日程変更、キャンセル、支払い状況を確認できます。",
+        "heroTitle": "会員ポータル",
+        "heroSubtitle": "予約の確認・変更・キャンセルを安全に管理します",
+        "heroImgAlt": "予約管理画面を確認する作業風景",
+        "loginTitle": "メールでログイン",
+        "loginBody": "登録したメールアドレスに届く6桁の認証コードでログインします。",
+        "namePlaceholder": "お名前",
+        "emailPlaceholder": "メールアドレス",
+        "codePlaceholder": "6桁の認証コード",
+        "sendCode": "認証コードを送る",
+        "login": "ログイン",
+        "calendarTitle": "外部カレンダーは表示専用",
+        "calendarBody": "iPhone、Outlook、Google Calendarなどで確認する場合も、変更はポータルから行ってください。",
+        "dashboardEyebrow": "Dashboard",
+        "dashboardTitle": "予約一覧",
+        "refresh": "更新",
+        "billing": "請求を確認",
+        "empty": "ログインすると予約が表示されます。"
+      }
     },
     "about": {
       "title": "Acerca de nosotros",
