@@ -93,7 +93,7 @@ Wiki links are also available from the homepage. Information that changes over t
 
 The site is built with Astro, UnoCSS, and Sveltia CMS. Astro serves the portal as a static site, while UnoCSS keeps the styling lightweight. Page content and site settings can be edited from the CMS, so announcements and navigation can be updated without code changes.
 
-Our thinking around lightweight CMS operations is covered in [Lightweight CMS Operation with Sveltia CMS and Cloudflare Turnstile](/en/blog/cms-selection-and-turnstile/). For static-site performance work, see [A Practical Guide to Improving Astro Site Performance](/en/blog/astro-performance-tuning/).
+Our thinking around lightweight CMS operations is covered in [Sveltia CMS Setup Guide](/en/blog/cms-selection-and-turnstile/). For static-site performance work, see [A Practical Guide to Improving Astro Site Performance](/en/blog/astro-performance-tuning/).
 
 ## Added as a Case Study
 

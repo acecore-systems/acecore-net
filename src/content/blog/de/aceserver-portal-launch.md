@@ -93,7 +93,7 @@ Das Wiki ist ebenfalls von der Startseite erreichbar. Informationen, die sich la
 
 Die Website wurde mit Astro, UnoCSS und Sveltia CMS erstellt. Astro liefert das Portal als statische Website aus, während UnoCSS die Styles schlank hält. Seiteninhalte und Website-Einstellungen können im CMS bearbeitet werden, sodass Hinweise und Navigation ohne Codeänderungen aktualisiert werden können.
 
-Unsere Sicht auf schlanken CMS-Betrieb erklären wir in [Schlanker CMS-Betrieb mit Sveltia CMS und Cloudflare Turnstile](/de/blog/cms-selection-and-turnstile/). Für Performance statischer Websites siehe [Praxisleitfaden zur Verbesserung der Astro-Website-Performance](/de/blog/astro-performance-tuning/).
+Unsere Sicht auf schlanken CMS-Betrieb erklären wir im [Sveltia CMS Einrichtungsleitfaden](/de/blog/cms-selection-and-turnstile/). Für Performance statischer Websites siehe [Praxisleitfaden zur Verbesserung der Astro-Website-Performance](/de/blog/astro-performance-tuning/).
 
 ## Auch als Fallstudie ergänzt
 

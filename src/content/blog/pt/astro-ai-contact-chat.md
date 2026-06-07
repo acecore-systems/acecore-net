@@ -65,8 +65,8 @@ linkCards:
     description: Artigo sobre CSP e headers de segurança para sites estáticos.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS e Turnstile
-    description: Artigo sobre operação de formulários e proteção contra bots.
+    title: Guia de instalação do Sveltia CMS
+    description: Artigo sobre adicionar uma tela de edição CMS a um site estático.
     icon: i-lucide-badge-check
 faq:
   title: Perguntas frequentes
@@ -243,7 +243,7 @@ function assertSameOrigin(request: Request) {
 }
 ```
 
-Rate limit por IP é um primeiro freio. Em Cloudflare, use `CF-Connecting-IP`, `X-Forwarded-For` ou `CF-Ray`. Para mais tráfego, considere Cloudflare WAF, Turnstile, KV, D1 ou Durable Objects. Para formulários, veja [CMS e Turnstile](/blog/cms-selection-and-turnstile/).
+Rate limit por IP é um primeiro freio. Em Cloudflare, use `CF-Connecting-IP`, `X-Forwarded-For` ou `CF-Ray`. Para mais tráfego, considere Cloudflare WAF, Turnstile, KV, D1 ou Durable Objects. A operação CMS para atualização de conteúdo está no [Guia de instalação do Sveltia CMS](/blog/cms-selection-and-turnstile/); proteção anti-bot de formulários e comentários deve ser tratada como outra camada.
 
 ## Renderize links Markdown com lista permitida
 

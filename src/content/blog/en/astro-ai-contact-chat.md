@@ -65,8 +65,8 @@ linkCards:
     description: A related article on CSP and security headers for static site delivery.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS Selection and Turnstile
-    description: A related article on form operations and bot protection.
+    title: Sveltia CMS Setup Guide
+    description: A related article on adding a CMS editing screen to a static site.
     icon: i-lucide-badge-check
 faq:
   title: Frequently Asked Questions
@@ -270,7 +270,7 @@ function assertSameOrigin(request: Request) {
 
 IP-based rate limiting is a useful first brake. In Cloudflare, you can derive identifiers from headers such as `CF-Connecting-IP`, `X-Forwarded-For`, or `CF-Ray`.
 
-In-memory limits are not persistent across isolates or restarts, so they are only an initial layer. For heavier traffic, move enforcement toward Cloudflare WAF, Turnstile, KV, D1, or Durable Objects. See [the CMS and Turnstile article](/blog/cms-selection-and-turnstile/) for form-side bot protection.
+In-memory limits are not persistent across isolates or restarts, so they are only an initial layer. For heavier traffic, move enforcement toward Cloudflare WAF, Turnstile, KV, D1, or Durable Objects. Content-update CMS operations are covered in [Sveltia CMS Setup Guide](/blog/cms-selection-and-turnstile/); form and comment bot protection should be treated as a separate layer.
 
 ## Render Markdown Links with an Allowlist
 

@@ -65,8 +65,8 @@ linkCards:
     description: 关于静态站点分发中的 CSP 和安全 header 的相关文章。
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS 选择与 Turnstile
-    description: 关于表单运营和机器人防护的相关文章。
+    title: Sveltia CMS 导入指南
+    description: 关于为静态网站添加 CMS 编辑界面的相关文章。
     icon: i-lucide-badge-check
 faq:
   title: 常见问题
@@ -270,7 +270,7 @@ function assertSameOrigin(request: Request) {
 
 IP 基础限流可以作为第一层刹车。在 Cloudflare 环境中，可以使用 `CF-Connecting-IP`、`X-Forwarded-For`、`CF-Ray` 等 header。
 
-内存限流不会跨 isolate 或重启持久化，因此只适合作为初始层。访问量增加后，应考虑 Cloudflare WAF、Turnstile、KV、D1 或 Durable Objects。表单侧的机器人防护可参考[CMS 选择与 Turnstile 的文章](/blog/cms-selection-and-turnstile/)。
+内存限流不会跨 isolate 或重启持久化，因此只适合作为初始层。访问量增加后，应考虑 Cloudflare WAF、Turnstile、KV、D1 或 Durable Objects。内容更新侧的 CMS 运维可参考[Sveltia CMS 导入指南](/blog/cms-selection-and-turnstile/)；表单与评论的机器人防护应作为另一层处理。
 
 ## 用允许列表渲染 Markdown 链接
 

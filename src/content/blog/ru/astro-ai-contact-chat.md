@@ -65,8 +65,8 @@ linkCards:
     description: Связанная статья о CSP и security headers для статических сайтов.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS и Turnstile
-    description: Связанная статья об эксплуатации форм и защите от ботов.
+    title: Руководство по внедрению Sveltia CMS
+    description: Связанная статья о добавлении CMS-редактора к статическому сайту.
     icon: i-lucide-badge-check
 faq:
   title: Частые вопросы
@@ -243,7 +243,7 @@ function assertSameOrigin(request: Request) {
 }
 ```
 
-IP-based rate limit — первая защита. В Cloudflare можно использовать `CF-Connecting-IP`, `X-Forwarded-For` или `CF-Ray`. При большем трафике лучше Cloudflare WAF, Turnstile, KV, D1 или Durable Objects. Для форм см. [CMS и Turnstile](/blog/cms-selection-and-turnstile/).
+IP-based rate limit — первая защита. В Cloudflare можно использовать `CF-Connecting-IP`, `X-Forwarded-For` или `CF-Ray`. При большем трафике лучше Cloudflare WAF, Turnstile, KV, D1 или Durable Objects. CMS-эксплуатация для обновления контента описана в [руководстве по внедрению Sveltia CMS](/blog/cms-selection-and-turnstile/); защита форм и комментариев от ботов относится к отдельному уровню.
 
 ## Рендерить Markdown-ссылки через allowlist
 

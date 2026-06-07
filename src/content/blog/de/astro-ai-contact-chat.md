@@ -65,8 +65,8 @@ linkCards:
     description: Verwandter Artikel zu CSP und Sicherheits-Headern für statische Sites.
     icon: i-lucide-shield
   - href: /blog/cms-selection-and-turnstile/
-    title: CMS und Turnstile
-    description: Verwandter Artikel zu Formularbetrieb und Bot-Schutz.
+    title: Sveltia CMS Einrichtungsleitfaden
+    description: Verwandter Artikel zum Hinzufügen einer CMS-Editieroberfläche zu statischen Websites.
     icon: i-lucide-badge-check
 faq:
   title: Häufige Fragen
@@ -243,7 +243,7 @@ function assertSameOrigin(request: Request) {
 }
 ```
 
-IP-basiertes Rate Limiting ist eine erste Bremse. In Cloudflare können `CF-Connecting-IP`, `X-Forwarded-For` oder `CF-Ray` genutzt werden. Bei höherem Traffic sind Cloudflare WAF, Turnstile, KV, D1 oder Durable Objects stabiler. Für Formulare siehe [CMS und Turnstile](/blog/cms-selection-and-turnstile/).
+IP-basiertes Rate Limiting ist eine erste Bremse. In Cloudflare können `CF-Connecting-IP`, `X-Forwarded-For` oder `CF-Ray` genutzt werden. Bei höherem Traffic sind Cloudflare WAF, Turnstile, KV, D1 oder Durable Objects stabiler. Den CMS-Betrieb für Content-Updates beschreibt der [Sveltia CMS Einrichtungsleitfaden](/blog/cms-selection-and-turnstile/); Bot-Schutz für Formulare und Kommentare ist eine eigene Ebene.
 
 ## Markdown-Links per Allow-List rendern
 
