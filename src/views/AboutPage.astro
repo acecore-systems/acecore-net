@@ -8,7 +8,7 @@ import ProcessFigure from '../components/ProcessFigure.astro'
 import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -17,40 +17,45 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const valueCycle = [
-  {
-    title: t(locale, 'pages.about.cycleImplementTitle'),
-    description: t(locale, 'pages.about.cycleImplementDesc'),
-    icon: 'cpu',
-    accent: 'brand',
-  },
-  {
-    title: t(locale, 'pages.about.cycleExpressTitle'),
-    description: t(locale, 'pages.about.cycleExpressDesc'),
-    icon: 'palette',
-    accent: 'amber',
-  },
-  {
-    title: t(locale, 'pages.about.cycleNurtureTitle'),
-    description: t(locale, 'pages.about.cycleNurtureDesc'),
-    icon: 'users',
-    accent: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.about.cycleReturnTitle'),
-    description: t(locale, 'pages.about.cycleReturnDesc'),
-    icon: 'repeat-2',
-    accent: 'slate',
-  },
-] as const
+interface ValueCycleStep {
+  title: string
+  description: string
+  icon: string
+  accent: string
+}
 
-const activityChecklist = [
-  { text: t(locale, 'pages.about.activity1') },
-  { text: t(locale, 'pages.about.activity2') },
-  { text: t(locale, 'pages.about.activity3') },
-  { text: t(locale, 'pages.about.activity4') },
-  { text: t(locale, 'pages.about.activity5') },
-]
+interface RelatedLink {
+  icon: string
+  title: string
+  description: string
+  href: string
+}
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
+const socialHrefMap = {
+  aceserver: SITE.social.aceserver,
+  x: SITE.social.x,
+  github: SITE.social.github,
+  discord: SITE.social.discord,
+} as const
+
+const resolveRelatedHref = (href: string) =>
+  href in socialHrefMap
+    ? socialHrefMap[href as keyof typeof socialHrefMap]
+    : href
+
+const valueCycle = getList<ValueCycleStep>('pages.about.valueCycle')
+const activityChecklist = getList<string>('pages.about.activities').map(
+  (text) => ({ text }),
+)
+const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
+  (link) => ({
+    ...link,
+    href: resolveRelatedHref(link.href),
+  }),
+)
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -250,74 +255,23 @@ const aboutPageLd = {
         {t(locale, 'pages.about.relatedLinksHeading')}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-        <a
-          href={SITE.social.aceserver}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <div class="flex items-center gap-3 mb-2">
-            <Icon name="gamepad-2" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">
-              {t(locale, 'pages.about.linkAceserver')}
-            </h3>
-          </div>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.about.linkAceserverDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
-        <a
-          href={SITE.social.x}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <div class="flex items-center gap-3 mb-2">
-            <Icon name="at-sign" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">
-              {t(locale, 'pages.about.linkX')}
-            </h3>
-          </div>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.about.linkXDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
-        <a
-          href={SITE.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <div class="flex items-center gap-3 mb-2">
-            <Icon name="github" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">
-              {t(locale, 'pages.about.linkGithub')}
-            </h3>
-          </div>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.about.linkGithubDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
-        <a
-          href={SITE.social.discord}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <div class="flex items-center gap-3 mb-2">
-            <Icon name="message-circle" class="text-xl text-brand-500" />
-            <h3 class="font-700 text-brand-500">
-              {t(locale, 'pages.about.linkDiscord')}
-            </h3>
-          </div>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.about.linkDiscordDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
+        {
+          relatedLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+            >
+              <div class="flex items-center gap-3 mb-2">
+                <Icon name={link.icon} class="text-xl text-brand-500" />
+                <h3 class="font-700 text-brand-500">{link.title}</h3>
+              </div>
+              <p class="text-sm text-slate-600">{link.description}</p>
+              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            </a>
+          ))
+        }
       </div>
 
       <!-- CTA -->

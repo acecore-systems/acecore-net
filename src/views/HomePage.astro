@@ -11,9 +11,14 @@ import {
   generateSrcSet,
   resolveImageSource,
 } from '../utils/image'
-import { SITE } from '../data/site'
 import { getWorksCopy } from '../data/works'
-import { t, formatDate, getLocalizedUrl, type Locale } from '../i18n'
+import {
+  t,
+  formatDate,
+  getTranslationValue,
+  getLocalizedUrl,
+  type Locale,
+} from '../i18n'
 import {
   isBasePost,
   localizePost,
@@ -47,6 +52,10 @@ type HeroImage = {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+const resolveCardHref = (href: string) =>
+  href.startsWith('http') ? href : u(href)
 const worksCopy = getWorksCopy(locale)
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
 
@@ -58,36 +67,13 @@ const posts = allPosts
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const coreLayers: HomeLayer[] = [
-  {
-    title: t(locale, 'pages.home.layerDesign'),
-    description: t(locale, 'pages.home.layerDesignDesc'),
-    icon: 'code-xml',
-    href: u('/services/#system-development'),
-    tone: 'brand',
-  },
-  {
-    title: t(locale, 'pages.home.layerInfra'),
-    description: t(locale, 'pages.home.layerInfraDesc'),
-    icon: 'server-cog',
-    href: u('/services/#server'),
-    tone: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.home.layerExpression'),
-    description: t(locale, 'pages.home.layerExpressionDesc'),
-    icon: 'swatch-book',
-    href: u('/services/#design'),
-    tone: 'amber',
-  },
-  {
-    title: t(locale, 'pages.home.layerEducation'),
-    description: t(locale, 'pages.home.layerEducationDesc'),
-    icon: 'graduation-cap',
-    href: u('/schools/'),
-    tone: 'slate',
-  },
-]
+const serviceCards = getList<HomeLayer>('pages.home.serviceCards').map(
+  (item) => ({ ...item, href: resolveCardHref(item.href) }),
+)
+const coreLayers = getList<HomeLayer>('pages.home.layerItems').map((item) => ({
+  ...item,
+  href: resolveCardHref(item.href),
+}))
 const homeStatHrefByIcon: Record<string, string> = {
   'layers-3': '/services/',
   'server-cog': '/works/#case-aceserver',
@@ -231,54 +217,18 @@ const webPageLd = {
         </p>
       </div>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <ServiceCard
-          icon="code-xml"
-          title={t(locale, 'pages.home.serviceSystem')}
-          description={t(locale, 'pages.home.serviceSystemDesc')}
-          href={u('/services/#system-development')}
-          locale={locale}
-          tone="brand"
-        />
-        <ServiceCard
-          icon="server"
-          title={t(locale, 'pages.home.serviceServer')}
-          description={t(locale, 'pages.home.serviceServerDesc')}
-          href={u('/services/#server')}
-          locale={locale}
-          tone="emerald"
-        />
-        <ServiceCard
-          icon="globe"
-          title={t(locale, 'pages.home.serviceWeb')}
-          description={t(locale, 'pages.home.serviceWebDesc')}
-          href={u('/services/#web')}
-          locale={locale}
-          tone="amber"
-        />
-        <ServiceCard
-          icon="palette"
-          title={t(locale, 'pages.home.serviceDesign')}
-          description={t(locale, 'pages.home.serviceDesignDesc')}
-          href={u('/services/#design')}
-          locale={locale}
-          tone="slate"
-        />
-        <ServiceCard
-          icon="graduation-cap"
-          title={t(locale, 'pages.home.serviceSchools')}
-          description={t(locale, 'pages.home.serviceSchoolsDesc')}
-          href={u('/schools/')}
-          locale={locale}
-          tone="amber"
-        />
-        <ServiceCard
-          icon="gamepad-2"
-          title={t(locale, 'pages.home.serviceAceserver')}
-          description={t(locale, 'pages.home.serviceAceserverDesc')}
-          href={SITE.social.aceserver}
-          locale={locale}
-          tone="emerald"
-        />
+        {
+          serviceCards.map((item) => (
+            <ServiceCard
+              icon={item.icon}
+              title={item.title}
+              description={item.description}
+              href={item.href}
+              locale={locale}
+              tone={item.tone}
+            />
+          ))
+        }
       </div>
       <div class="mt-10 text-center">
         <a href={u('/services/')} class="ac-btn-outline"

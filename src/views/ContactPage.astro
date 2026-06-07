@@ -7,7 +7,7 @@ import Faq from '../components/Faq.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -18,6 +18,15 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const contactThanksUrl = u('/contact/thanks/')
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
 const phoneParts = SITE.phone.split('-')
+
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
 const serviceCategoryOptions = [
   {
     key: 'system-development',
@@ -63,24 +72,7 @@ const serviceCategoryOptions = [
   },
 ]
 
-const faqItems = [
-  {
-    question: t(locale, 'pages.contact.faqQ1'),
-    answer: t(locale, 'pages.contact.faqA1'),
-  },
-  {
-    question: t(locale, 'pages.contact.faqQ2'),
-    answer: t(locale, 'pages.contact.faqA2'),
-  },
-  {
-    question: t(locale, 'pages.contact.faqQ3'),
-    answer: t(locale, 'pages.contact.faqA3'),
-  },
-  {
-    question: t(locale, 'pages.contact.faqQ4'),
-    answer: t(locale, 'pages.contact.faqA4'),
-  },
-]
+const faqItems = getList<FaqItem>('pages.contact.faqs')
 
 const contactPageLd = {
   '@context': 'https://schema.org',
