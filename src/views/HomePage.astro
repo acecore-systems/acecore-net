@@ -57,7 +57,8 @@ const getList = <T,>(key: string): T[] =>
 const resolveCardHref = (href: string) =>
   href.startsWith('http') ? href : u(href)
 const worksCopy = getWorksCopy(locale)
-const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
+const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1440]
+const homeHeroImageSizes = '(min-width: 1024px) 44rem, calc(100vw - 2.5rem)'
 
 const allPosts = await getCollection('blog')
 const authors: AuthorData[] = await getAllAuthors()
@@ -90,29 +91,29 @@ const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=70&fm=webp',
-      { quality: 40 },
+      { quality: 60 },
     ),
     alt: t(locale, 'pages.home.heroImgTeam'),
     srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
+    sizes: homeHeroImageSizes,
   },
   {
     src: optimizeImage(
       '/uploads/acecore-generated/home-hero-build-workshop.webp',
-      { quality: 40 },
+      { quality: 60 },
     ),
     alt: t(locale, 'pages.home.heroImgCollaboration'),
     srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
+    sizes: homeHeroImageSizes,
   },
   {
     src: optimizeImage(
       'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&h=600&fit=crop&q=70&fm=webp',
-      { quality: 40 },
+      { quality: 60 },
     ),
     alt: t(locale, 'pages.home.heroImgMeeting'),
     srcsetWidths: homeHeroSrcSetWidths,
-    sizes: '100vw',
+    sizes: homeHeroImageSizes,
   },
 ]
 const firstHeroImage = homeHeroImages[0]

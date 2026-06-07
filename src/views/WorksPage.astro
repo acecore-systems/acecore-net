@@ -127,8 +127,8 @@ const worksLd = {
                   <img
                     src={optimizeImage(workCase.image)}
                     srcset={generateSrcSet(
-                      optimizeImage(workCase.image),
-                      [360, 640, 900],
+                      workCase.image,
+                      [360, 640, 900, 1200],
                     )}
                     sizes="(min-width: 1024px) 32rem, calc(100vw - 2rem)"
                     alt={workCase.imageAlt}
