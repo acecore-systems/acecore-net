@@ -106,6 +106,14 @@ src/
 7. 著者・タグは「著者」「タグ」から編集
 8. CMS 経由の日本語ソース編集のみ、Copilot translation PR task で翻訳へ反映
 
+#### 本番 CMS の保存と PR 反映
+
+- 本番 CMS の保存先は `cms-content` ブランチです。`main` は protected branch のため、CMS から直接 commit しません。
+- `cms-content` に保存されると `.github/workflows/cms-content-pr.yml` が `main` 向けの「CMS編集内容を反映」PRを作成します。既に open PR がある場合は二重作成しません。
+- 初回セットアップやブランチ再作成が必要な場合は、`main` の最新状態から `git fetch origin main`、`git push origin origin/main:refs/heads/cms-content` で `cms-content` を用意します。
+- CMS PR は通常の merge commit または rebase merge でマージします。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合があります。
+- GitHub Actions の `GITHUB_TOKEN` で PR 作成が許可されていない環境では、Repository settings の Actions 権限を見直すか、PR 作成権限を持つ `CMS_PR_TOKEN` secret を設定します。
+
 #### キャンペーン告知の運用
 
 - 告知やキャンペーンは「告知・キャンペーン」に1件ずつ並びます。新しく追加する場合は一覧右上の追加ボタンから作成します。
@@ -141,18 +149,20 @@ author: 'author-id'
 Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を編集できます。多言語記事本文とページ文言は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。PR 量を抑えるため、push 連動の対象は Sveltia CMS の `cms: ...` commit だけに限定します。
 
 1. 日本語ソースを Sveltia CMS で更新する
-2. CMS commit の本文差分または日本語文言 key 差分だけを GitHub Actions が検出する
-3. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
-4. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする
+2. CMS commit が `cms-content` ブランチに保存され、GitHub Actions が `main` 向け PR を作成する
+3. CMS PR を `main` にマージすると、CMS commit の本文差分または日本語文言 key 差分だけを GitHub Actions が検出する
+4. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
+5. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする
 
 著者情報、タグ定義の多言語フィールドは Sveltia CMS から直接編集できます。ローカル開発や通常の Git commit による日本語ソース変更では、自動翻訳 PR task は作成しません。
 
 ### 自動 PR task workflow
 
 - Workflow: `.github/workflows/create-translation-prs.yml`
+- CMS PR Workflow: `.github/workflows/cms-content-pr.yml`
 - Script: `scripts/create-translation-prs.mjs`
 - Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の `main` 反映時。ただし自動実行は Sveltia CMS の `cms: ...` commit のみ
-- CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める
+- CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める。CMS PR の merge commit はこの判定から除外する
 - 日本語ソース記事ごとに Copilot translation PR task を作成し、同じソースの open PR があれば重複作成しない
 - ページ文言は変更された JSON key だけを対象に、まとめて 1 つの Copilot translation PR task を作成する
 - blog 記事は frontmatter だけの変更では task を作成せず、Markdown 本文が変わったときだけ PR task を作成する
