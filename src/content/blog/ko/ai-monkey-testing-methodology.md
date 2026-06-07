@@ -4,7 +4,7 @@ description: 'VS Code 에이전트 모드(GitHub Copilot)와 Playwright 브라�
 date: 2026-03-25
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology.webp
+image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp
 callout:
   type: tip
   title: 이 글의 대상 독자

@@ -141,7 +141,7 @@ const jaWorksCopy: WorksCopy = {
         'トップページに「絵」「小説」「モデリング」の3本柱を置き、ブログ、作品紹介、プロフィール、外部リンクを静的サイトとして整理しました。',
       result:
         'Hattの創作活動を一つの入口に集約し、CMS更新、サイト内検索、OGP、サイトマップまで備えた継続発信の基盤になりました。',
-      image: '/uploads/hatt-homepage-screenshot.png',
+      image: '/uploads/hatt-homepage-screenshot-1600.webp',
       imageAlt: 'Hattのホームページのカバー画像',
       externalUrl: 'https://hatt.acecore.net/',
       externalLabel: 'サイトを見る',
@@ -161,8 +161,8 @@ const jaWorksCopy: WorksCopy = {
         'AstroとUnoCSSで軽量な静的ポータルを構築し、Sveltia CMSでトップページやサイト設定を更新できるようにして、Java版・統合版の参加導線を整理しました。',
       result:
         'サーバー概要、参加案内、ワールドマップ、Wikiを一つの入口から案内できるようになり、コミュニティ運営側も情報を継続更新しやすい基盤になりました。',
-      image: 'https://asv.acecore.net/uploads/legacy-scc.png',
-      imageAlt: 'エースサーバーポータルで紹介している街区のスクリーンショット',
+      image: '/uploads/acecore-generated/web-production-desk.webp',
+      imageAlt: 'エースサーバーポータルの画面設計イメージ',
       externalUrl: 'https://asv.acecore.net/',
       externalLabel: 'サイトを見る',
       icon: 'map',
@@ -337,7 +337,7 @@ const enWorksCopy: WorksCopy = {
         'We organized the site around three pillars: artwork, novels, and modeling, then connected blog posts, works, profile information, and external channels in one static site.',
       result:
         'Hatt now has a central entry point for creative activity with CMS updates, site search, OGP, and sitemap support ready for ongoing publishing.',
-      image: '/uploads/hatt-homepage-screenshot.png',
+      image: '/uploads/hatt-homepage-screenshot-1600.webp',
       imageAlt: 'Cover image of Hatt website',
       externalUrl: 'https://hatt.acecore.net/',
       externalLabel: 'View Site',
@@ -357,8 +357,8 @@ const enWorksCopy: WorksCopy = {
         'We built a lightweight static portal with Astro and UnoCSS, made top-page and site settings editable through Sveltia CMS, and organized entry paths for both Java and Bedrock players.',
       result:
         'The portal now guides visitors from server overview to joining, world maps, and Wiki content from one entry point, while giving the community team an easier update workflow.',
-      image: 'https://asv.acecore.net/uploads/legacy-scc.png',
-      imageAlt: 'Screenshot of the Aceserver town area shown on the portal',
+      image: '/uploads/acecore-generated/web-production-desk.webp',
+      imageAlt: 'Interface planning image for the Aceserver portal',
       externalUrl: 'https://asv.acecore.net/',
       externalLabel: 'View Site',
       icon: 'map',

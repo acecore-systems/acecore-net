@@ -4,7 +4,7 @@ description: '我们公开了 Aceserver 的官方门户网站。Aceserver 是任
 date: 2026-06-07T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro', 'インフラ']
-image: https://asv.acecore.net/uploads/legacy-scc.png
+image: /uploads/acecore-generated/web-production-desk.webp
 callout:
   type: info
   title: 公开网站

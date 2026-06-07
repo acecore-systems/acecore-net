@@ -4,7 +4,7 @@ description: "Retour d'expérience sur le monkey testing systématique d'un site
 date: 2026-03-25
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
-image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology.webp
+image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp
 callout:
   type: tip
   title: Public cible de cet article

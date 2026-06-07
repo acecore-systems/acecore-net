@@ -15,6 +15,8 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const works = getWorksCopy(locale)
+const workImageWidths = [480, 800, 1200, 1600]
+const workImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
 const toneClasses = {
   brand: 'border-brand-100 bg-brand-50 text-brand-700',
@@ -123,18 +125,23 @@ const worksLd = {
                   index % 2 === 1 ? 'lg:[&>div:first-child]:order-2' : '',
                 ]}
               >
-                <div class="relative min-h-64">
+                <div class="relative aspect-video overflow-hidden">
                   <img
-                    src={optimizeImage(workCase.image)}
+                    src={optimizeImage(workCase.image, {
+                      width: 1200,
+                      height: 675,
+                      quality: 80,
+                    })}
                     srcset={generateSrcSet(
                       workCase.image,
-                      [360, 640, 900, 1200],
+                      workImageWidths,
+                      workImageOptions,
                     )}
                     sizes="(min-width: 1024px) 32rem, calc(100vw - 2rem)"
                     alt={workCase.imageAlt}
-                    class="h-full min-h-64 w-full object-cover"
-                    width="900"
-                    height="520"
+                    class="absolute inset-0 h-full w-full object-cover"
+                    width="1200"
+                    height="675"
                     decoding="async"
                     loading={index === 0 ? 'eager' : 'lazy'}
                   />

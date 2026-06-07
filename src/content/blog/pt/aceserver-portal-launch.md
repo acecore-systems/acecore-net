@@ -4,7 +4,7 @@ description: 'Lançamos o portal oficial do Aceserver, um servidor público grat
 date: 2026-06-07T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro', 'インフラ']
-image: https://asv.acecore.net/uploads/legacy-scc.png
+image: /uploads/acecore-generated/web-production-desk.webp
 callout:
   type: info
   title: Site publicado

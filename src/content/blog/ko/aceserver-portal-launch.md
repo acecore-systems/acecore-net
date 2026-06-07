@@ -4,7 +4,7 @@ description: '누구나 참여할 수 있는 무료 Minecraft 공개 서버 Aces
 date: 2026-06-07T10:00
 author: gui
 tags: ['お知らせ', 'Web制作', 'Webサイト', 'CMS', 'Astro', 'インフラ']
-image: https://asv.acecore.net/uploads/legacy-scc.png
+image: /uploads/acecore-generated/web-production-desk.webp
 callout:
   type: info
   title: 공개 사이트

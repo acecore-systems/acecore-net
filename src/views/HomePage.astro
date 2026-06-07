@@ -59,13 +59,15 @@ const getList = <T,>(key: string): T[] =>
 const resolveCardHref = (href: string) =>
   href.startsWith('http') ? href : u(href)
 const worksCopy = getWorksCopy(locale)
-const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280]
+const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
   aspectRatio: 1,
   quality: 75,
 } satisfies GenerateSrcSetOptions
 const homeHeroImageSizes =
   '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
+const homePostImageWidths = [320, 640, 960, 1200]
+const homePostImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
 const allPosts = await getCollection('blog')
 const authors: AuthorData[] = await getAllAuthors()
@@ -313,13 +315,21 @@ const webPageLd = {
                 >
                   {postImage && (
                     <img
-                      src={optimizeImage(postImage)}
-                      srcset={generateSrcSet(postImage, [200, 400, 800])}
+                      src={optimizeImage(postImage, {
+                        width: 800,
+                        height: 400,
+                        quality: 80,
+                      })}
+                      srcset={generateSrcSet(
+                        postImage,
+                        homePostImageWidths,
+                        homePostImageOptions,
+                      )}
                       sizes="(min-width: 768px) calc(33vw - 2rem), calc(100vw - 2rem)"
                       alt={post.data.title}
                       class="h-44 w-full object-cover"
-                      width="400"
-                      height="160"
+                      width="800"
+                      height="400"
                       decoding="async"
                       loading="lazy"
                     />

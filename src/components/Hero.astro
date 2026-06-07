@@ -23,9 +23,17 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const heroImageSizes =
   '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
+const heroSrcSetOptions = {
+  aspectRatio: 1,
+  quality: 75,
+} satisfies GenerateSrcSetOptions
 const sliderImages = (images ?? []).map((image) => ({
   ...image,
-  srcset: generateSrcSet(image.src, image.srcsetWidths, image.srcsetOptions),
+  srcset: generateSrcSet(
+    image.src,
+    image.srcsetWidths,
+    image.srcsetOptions ?? heroSrcSetOptions,
+  ),
   sizes: image.sizes ?? heroImageSizes,
 }))
 const hasSlider = sliderImages.length > 0
