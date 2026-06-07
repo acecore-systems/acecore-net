@@ -9,7 +9,7 @@ import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import PullQuote from '../components/PullQuote.astro'
 import Faq from '../components/Faq.astro'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -18,24 +18,22 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 
-const faqItems = [
-  {
-    question: t(locale, 'pages.acestudio.faqQ1'),
-    answer: t(locale, 'pages.acestudio.faqA1'),
-  },
-  {
-    question: t(locale, 'pages.acestudio.faqQ2'),
-    answer: t(locale, 'pages.acestudio.faqA2'),
-  },
-  {
-    question: t(locale, 'pages.acestudio.faqQ3'),
-    answer: t(locale, 'pages.acestudio.faqA3'),
-  },
-  {
-    question: t(locale, 'pages.acestudio.faqQ4'),
-    answer: t(locale, 'pages.acestudio.faqA4'),
-  },
-]
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+interface StudioArea {
+  title: string
+  description: string
+  icon: string
+  tone: string
+}
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
+const faqItems = getList<FaqItem>('pages.acestudio.faqs')
 
 const faqLd = {
   '@context': 'https://schema.org',
@@ -47,32 +45,7 @@ const faqLd = {
   })),
 }
 
-const studioAreas = [
-  {
-    title: t(locale, 'pages.acestudio.areaContentTitle'),
-    description: t(locale, 'pages.acestudio.areaContentDesc'),
-    icon: 'film',
-    tone: 'brand',
-  },
-  {
-    title: t(locale, 'pages.acestudio.areaCreatorTitle'),
-    description: t(locale, 'pages.acestudio.areaCreatorDesc'),
-    icon: 'badge-help',
-    tone: 'amber',
-  },
-  {
-    title: t(locale, 'pages.acestudio.areaCommunityTitle'),
-    description: t(locale, 'pages.acestudio.areaCommunityDesc'),
-    icon: 'messages-square',
-    tone: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.acestudio.areaRevenueTitle'),
-    description: t(locale, 'pages.acestudio.areaRevenueDesc'),
-    icon: 'chart-no-axes-combined',
-    tone: 'slate',
-  },
-] as const
+const studioAreas = getList<StudioArea>('pages.acestudio.studioAreas')
 ---
 
 <BaseLayout

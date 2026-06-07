@@ -3,5 +3,6 @@ dist/
 .astro/
 .wrangler/
 .playwright-cli/
+.serena/
 .tmp-astro-preview*.log
 /public/admin/runtime-config.js
