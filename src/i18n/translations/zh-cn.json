@@ -168,7 +168,13 @@
     "commentsValidationName": "请输入姓名。",
     "commentsValidationBody": "请输入至少8个字符，且不要包含链接。",
     "commentsValidationTurnstile": "请在发送前完成验证。",
-    "commentsSending": "发送中..."
+    "commentsSending": "发送中...",
+    "featurePricingEyebrow": "服务与价格导线",
+    "featurePricingTitle": "{title} 的咨询与价格参考",
+    "featurePricingPriceLabel": "价格参考",
+    "featurePricingServices": "服务页面",
+    "featurePricingPricing": "价格参考",
+    "featurePricingContact": "咨询"
   },
   "meta": {
     "siteTitle": "Acecore | 系统开发・网站设计・IT教育",
@@ -657,7 +663,10 @@
           "CMS构建、博客和媒体网站",
           "电商网站和在线商店开发",
           "SEO优化、性能调优和无障碍改善"
-        ]
+        ],
+        "featureLinksTitle": "可通过文章详细了解的功能菜单",
+        "featureLinksBody": "可将价格参考中的网站制作与运营功能，和对应的实现说明文章一起查看。",
+        "featureLinksArticleLabel": "查看说明文章"
       },
       "timelineTitle": "从导入到持续改善的陪伴",
       "design": {

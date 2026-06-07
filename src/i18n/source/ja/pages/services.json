@@ -56,7 +56,10 @@
       "CMS構築・ブログ・メディアサイト",
       "ECサイト・オンラインショップの構築",
       "SEO対策・パフォーマンス最適化・アクセシビリティ改善"
-    ]
+    ],
+    "featureLinksTitle": "記事で詳しく読める機能メニュー",
+    "featureLinksBody": "料金目安に載せているWeb制作・運用系の機能を、対応する解説記事と一緒に確認できます。",
+    "featureLinksArticleLabel": "解説記事を見る"
   },
   "timelineTitle": "導入から改善までの伴走イメージ",
   "design": {

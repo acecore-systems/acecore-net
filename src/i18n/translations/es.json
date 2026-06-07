@@ -168,7 +168,13 @@
     "commentsValidationName": "Introduce tu nombre.",
     "commentsValidationBody": "Introduce al menos 8 caracteres sin enlaces.",
     "commentsValidationTurnstile": "Completa la verificación antes de enviar.",
-    "commentsSending": "Enviando..."
+    "commentsSending": "Enviando...",
+    "featurePricingEyebrow": "Ruta a servicio y precios",
+    "featurePricingTitle": "Consulta y precio orientativo de {title}",
+    "featurePricingPriceLabel": "Precio orientativo",
+    "featurePricingServices": "Página de servicio",
+    "featurePricingPricing": "Guía de precios",
+    "featurePricingContact": "Consultar"
   },
   "meta": {
     "siteTitle": "Acecore | Desarrollo de sistemas, diseño web y educación IT",
@@ -657,7 +663,10 @@
           "Configuración de CMS, blogs y sitios de medios",
           "Desarrollo de tiendas online y e-commerce",
           "Optimización SEO, rendimiento y mejoras de accesibilidad"
-        ]
+        ],
+        "featureLinksTitle": "Funciones explicadas en artículos",
+        "featureLinksBody": "Consulta las funciones de producción y operación web del tarifario junto con sus artículos de implementación.",
+        "featureLinksArticleLabel": "Leer artículo"
       },
       "timelineTitle": "De la introducción a la mejora continua",
       "design": {

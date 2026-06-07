@@ -168,7 +168,13 @@
     "commentsValidationName": "Введите имя.",
     "commentsValidationBody": "Введите не менее 8 символов без ссылок.",
     "commentsValidationTurnstile": "Пройдите проверку перед отправкой.",
-    "commentsSending": "Отправка..."
+    "commentsSending": "Отправка...",
+    "featurePricingEyebrow": "Путь к услуге и ценам",
+    "featurePricingTitle": "Консультация и ориентир цены для {title}",
+    "featurePricingPriceLabel": "Ориентир цены",
+    "featurePricingServices": "Страница услуги",
+    "featurePricingPricing": "Прайс-гид",
+    "featurePricingContact": "Обсудить"
   },
   "meta": {
     "siteTitle": "Acecore | Разработка систем, веб-дизайн и IT-образование",
@@ -657,7 +663,10 @@
           "Настройка CMS, блогов и медиа-сайтов",
           "Разработка интернет-магазинов",
           "SEO-оптимизация, настройка производительности и улучшение доступности"
-        ]
+        ],
+        "featureLinksTitle": "Функции с пояснениями в статьях",
+        "featureLinksBody": "Функции веб-разработки и сопровождения из прайс-гида можно посмотреть вместе с соответствующими практическими статьями.",
+        "featureLinksArticleLabel": "Читать статью"
       },
       "timelineTitle": "От внедрения до непрерывного улучшения",
       "design": {

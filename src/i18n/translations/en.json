@@ -168,7 +168,13 @@
     "commentsValidationName": "Enter your name.",
     "commentsValidationBody": "Enter at least 8 characters without links.",
     "commentsValidationTurnstile": "Complete verification before sending.",
-    "commentsSending": "Sending..."
+    "commentsSending": "Sending...",
+    "featurePricingEyebrow": "Service and pricing path",
+    "featurePricingTitle": "Consultation and pricing for {title}",
+    "featurePricingPriceLabel": "Guide price",
+    "featurePricingServices": "Service page",
+    "featurePricingPricing": "Pricing guide",
+    "featurePricingContact": "Consult us"
   },
   "meta": {
     "siteTitle": "Acecore | System Development, Web Design & IT Education",
@@ -429,7 +435,10 @@
           "CMS setup, blog, and media sites",
           "E-commerce and online shop development",
           "SEO optimization, performance tuning, and accessibility improvements"
-        ]
+        ],
+        "featureLinksTitle": "Feature Menus Explained in Articles",
+        "featureLinksBody": "Check the web production and operations features from the pricing guide together with their implementation articles.",
+        "featureLinksArticleLabel": "Read the article"
       },
       "timelineTitle": "From introduction to continuous improvement",
       "design": {

@@ -182,7 +182,13 @@
     "authorLabel": "Autor",
     "archiveTitle": "Archiv: {month}",
     "archiveMeta": "Archiv der Artikel des Acecore-Blogs aus {month}.",
-    "tagListTitle": "Tag-Liste"
+    "tagListTitle": "Tag-Liste",
+    "featurePricingEyebrow": "Service- und Preisführung",
+    "featurePricingTitle": "Beratung und Preisrahmen für {title}",
+    "featurePricingPriceLabel": "Preisrahmen",
+    "featurePricingServices": "Service-Seite",
+    "featurePricingPricing": "Preisübersicht",
+    "featurePricingContact": "Anfragen"
   },
   "meta": {
     "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
@@ -481,7 +487,10 @@
           "CMS-, Blog- und Mediensite-Einrichtung",
           "E-Commerce- und Online-Shop-Entwicklung",
           "SEO-Optimierung, Performance-Tuning und Barrierefreiheitsverbesserungen"
-        ]
+        ],
+        "featureLinksTitle": "Funktionsmenüs mit Artikel-Erklärung",
+        "featureLinksBody": "Web-Produktions- und Betriebsfunktionen aus der Preisübersicht lassen sich zusammen mit den passenden Praxisartikeln prüfen.",
+        "featureLinksArticleLabel": "Artikel lesen"
       },
       "timelineTitle": "Von der Einführung zur kontinuierlichen Verbesserung",
       "design": {

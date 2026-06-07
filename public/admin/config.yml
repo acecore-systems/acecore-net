@@ -1413,6 +1413,18 @@ collections:
                 label: '画像・代替テキスト'
                 hint: 'web.imgAlt'
                 widget: string
+              - name: 'featureLinksTitle'
+                label: '機能リンク・見出し'
+                hint: 'web.featureLinksTitle'
+                widget: string
+              - name: 'featureLinksBody'
+                label: '機能リンク・本文'
+                hint: 'web.featureLinksBody'
+                widget: text
+              - name: 'featureLinksArticleLabel'
+                label: '機能リンク・記事ラベル'
+                hint: 'web.featureLinksArticleLabel'
+                widget: string
           - name: 'timelineTitle'
             label: 'タイムライン・タイトル'
             hint: 'timelineTitle'
@@ -3000,6 +3012,30 @@ collections:
           - name: 'blogCtaContact'
             label: 'ブログ・CTA・お問い合わせ'
             hint: 'blogCtaContact'
+            widget: string
+          - name: 'featurePricingEyebrow'
+            label: '機能料金・小見出し'
+            hint: 'featurePricingEyebrow'
+            widget: string
+          - name: 'featurePricingTitle'
+            label: '機能料金・見出し'
+            hint: 'featurePricingTitle'
+            widget: string
+          - name: 'featurePricingPriceLabel'
+            label: '機能料金・価格ラベル'
+            hint: 'featurePricingPriceLabel'
+            widget: string
+          - name: 'featurePricingServices'
+            label: '機能料金・サービスリンク'
+            hint: 'featurePricingServices'
+            widget: string
+          - name: 'featurePricingPricing'
+            label: '機能料金・料金リンク'
+            hint: 'featurePricingPricing'
+            widget: string
+          - name: 'featurePricingContact'
+            label: '機能料金・問い合わせリンク'
+            hint: 'featurePricingContact'
             widget: string
           - name: 'rssTitle'
             label: 'RSS・タイトル'
