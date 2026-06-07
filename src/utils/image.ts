@@ -16,6 +16,8 @@ import { SITE } from '../data/site'
 const CLOUDFLARE_IMAGE_ORIGIN = SITE.url.replace(/\/$/, '')
 /** Cloudflare Images 変換 API のパスプレフィクス */
 const CLOUDFLARE_IMAGE_PREFIX = '/cdn-cgi/image/'
+/** 自社管理の公開画像で、Cloudflare 変換を通さず直接配信するオリジン */
+const DIRECT_IMAGE_ORIGINS = new Set(['https://asv.acecore.net'])
 
 /** パース済み画像ソースの情報（元 URL とオプションのサイズ・品質） */
 type ParsedImageSource = {
@@ -140,13 +142,26 @@ function buildCloudflareImageUrl(
 
 /**
  * 外部画像URLまたはCloudflare変換URLを最適化済みURLに変換する。
- * ルート相対のローカル画像は、開発・プレビュー環境でも読めるよう直接配信する。
+ * ルート相対のローカル画像や自社管理の公開画像は、開発・プレビュー環境でも読めるよう直接配信する。
  */
+function isTrustedDirectImageUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url)
+    return (
+      DIRECT_IMAGE_ORIGINS.has(parsed.origin) &&
+      parsed.pathname.startsWith('/uploads/')
+    )
+  } catch {
+    return false
+  }
+}
+
 function shouldServeDirectly(url: string): boolean {
   return (
-    url.startsWith('/') &&
-    !url.startsWith('//') &&
-    !url.startsWith(CLOUDFLARE_IMAGE_PREFIX)
+    (url.startsWith('/') &&
+      !url.startsWith('//') &&
+      !url.startsWith(CLOUDFLARE_IMAGE_PREFIX)) ||
+    isTrustedDirectImageUrl(url)
   )
 }
 
