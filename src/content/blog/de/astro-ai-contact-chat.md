@@ -81,7 +81,7 @@ faq:
 
 Einen KI-Chat auf eine Website zu setzen, ist einfach. Entscheidend ist der Betrieb: Was darf die KI beantworten, wohin soll sie Besucher führen, welche URLs dürfen erscheinen und wie bleiben API-Kosten kontrollierbar?
 
-Acecore hat einen KI-Kontaktchat in eine statische Astro + Cloudflare Pages Website integriert. Die Hauptimplementierung steht im [PR für Kontakt-KI und CMS-begrenzten Übersetzungsfluss](https://github.com/acecore-systems/acecore-net/pull/98). Das sichere Rendering von Markdown-Links wurde anschließend in [einem weiteren PR](https://github.com/acecore-systems/acecore-net/pull/99) verbessert.
+Acecore hat einen KI-Kontaktchat in eine statische Astro + Cloudflare Pages Website integriert. Die Hauptimplementierung steht im [PR für Kontakt-KI und CMS-begrenzten Übersetzungsfluss](https://github.com/acecore-systems/acecore-net/pull/98). Das sichere Rendering von Markdown-Links wurde anschließend in [einem weiteren PR](https://github.com/acecore-systems/acecore-net/pull/99) verbessert. Die Details dazu sind in [Markdown-Links in KI-Chat-Antworten sicher rendern](/blog/ai-chat-markdown-link-safety/) separat beschrieben.
 
 Dieser Artikel beschreibt das Design als wiederverwendbares Muster für andere statische Websites. Auch außerhalb von Astro gilt: Client-Widget, API-Grenze, Prompt und Renderer sollten getrennte Verantwortlichkeiten haben.
 
