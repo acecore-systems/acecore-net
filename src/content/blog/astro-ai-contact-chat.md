@@ -1,6 +1,6 @@
 ---
-title: 'Astroサイトに問い合わせAIチャットを組み込んだ実装記録'
-description: 'Astro + Cloudflare Pages 構成の静的サイトに、OpenAI Responses API を使った問い合わせAIチャットを追加した実装記録です。サイト内情報に限定した回答、フォーム・LINE・直接連絡先の出し分け、Originチェック、レート制限、安全なMarkdownリンク描画まで整理します。'
+title: 'Astroサイトに問い合わせAIチャットを組み込む技術設計'
+description: 'Astro + Cloudflare Pages 構成の静的サイトに、OpenAI Responses API を使った問い合わせAIチャットを組み込むための技術設計です。API境界、サイト内コンテキスト、プロンプト制御、locale別URL、Originチェック、レート制限、安全なMarkdownリンク描画まで、他サイトでも転用しやすい形で整理します。'
 date: 2026-06-07T12:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Webサイト', 'AI', 'サービス']
@@ -8,51 +8,53 @@ image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&
 callout:
   type: info
   title: この記事のポイント
-  text: 問い合わせAIチャットは、フォームの代替ではなく、訪問者がサービス内容・相談先・次の行動を整理するための入口として設計しました。正式な相談や見積りはフォームへ、短い確認や教室関連はLINEへつなげます。
+  text: 問い合わせAIチャットは、AIに自由回答させる機能ではなく、公開済みサイト情報を使って訪問者を適切な導線へ案内する小さなアプリケーションとして設計します。APIキー、プロンプト、連絡先、Markdown描画はサーバー側と許可リストで制御します。
 processFigure:
-  title: 問い合わせAIチャットの流れ
+  title: 問い合わせAIチャットの参照アーキテクチャ
   steps:
-    - title: 表示
-      description: サイト全体の右下にAIチャットを表示し、お問い合わせページにも起動導線を置く。
+    - title: Widget
+      description: Astro側のチャットUIが質問、表示locale、必要最小限の履歴だけを送る。
       icon: i-lucide-message-circle
       accent: brand
-    - title: 送信
-      description: ブラウザからは質問と必要最小限の履歴だけを /api/ai-contact に送る。
-      icon: i-lucide-send
-      accent: emerald
-    - title: 制御
-      description: Cloudflare Pages Function 側でOrigin、レート制限、入力長、APIキーを管理する。
+    - title: Function
+      description: Cloudflare Pages Functionが入力検証、Originチェック、レート制限、プロンプト生成を担当する。
       icon: i-lucide-shield-check
       accent: amber
-    - title: 案内
-      description: サイト内情報に基づいて、フォーム、LINE、必要時のみ直接連絡先へ案内する。
-      icon: i-lucide-route
+    - title: Model
+      description: OpenAI Responses APIへ公開サイト情報と会話文脈を渡し、回答テキストを受け取る。
+      icon: i-lucide-sparkles
+      accent: emerald
+    - title: Renderer
+      description: クライアント側で許可したMarkdownだけをDOM化し、内部リンクや連絡先へ案内する。
+      icon: i-lucide-code-2
       accent: slate
 compareTable:
-  title: 通常の問い合わせ導線との違い
+  title: 導入時に分けるべき責務
   before:
-    label: フォームだけの導線
+    label: まとめて実装した場合
     items:
-      - 訪問者が相談カテゴリを自分で判断する
-      - サービスページやFAQを探し直す必要がある
-      - 短い質問でもフォーム入力が必要になる
-      - メールや電話を常時見せると問い合わせ品質がばらつく
+      - ブラウザからAI APIを直接呼んでしまう
+      - サイト情報、APIキー、UI表示、リンク描画が混ざる
+      - AIが料金、契約、納期を言い切りやすい
+      - MarkdownやURLをそのままHTMLへ流し込みやすい
   after:
-    label: AIチャット併用の導線
+    label: 責務を分けた場合
     items:
-      - サービス選びや相談先を会話で整理できる
-      - 関連する内部リンクをその場で案内できる
-      - 詳しい見積りはフォーム、短い相談はLINEへ分けられる
-      - 直接連絡先は必要な場面だけ出せる
+      - APIキーとモデル呼び出しはサーバー側に閉じる
+      - 公開サイト情報は明示的なコンテキストとして管理する
+      - プロンプトで回答範囲と連絡導線を制御する
+      - MarkdownとURLは許可リストで描画する
 checklist:
-  title: 実装時に決めたルール
+  title: 他サイトへ導入するときの設計チェック
   items:
-    - text: AIチャットはフォーム送信を置き換えない
-    - text: 回答は公開済みサイト情報に限定する
-    - text: 料金、契約、納期、保証はAIが断定しない
-    - text: メールと電話は常時露出しない
-    - text: 内部リンクはlocaleに合わせたURLを使う
-    - text: Markdownは安全な範囲だけ描画する
+    - text: AIチャットの目的を「問い合わせ完結」ではなく「導線整理」と定義する
+    - text: APIキーをブラウザに出さず、サーバー側のAPI境界を作る
+    - text: 回答に使うサイト情報を公開済み情報だけに限定する
+    - text: 料金、契約、納期、保証などAIが断定しない領域を決める
+    - text: フォーム、LINE、メール、電話の出し分けルールを決める
+    - text: locale別URLを生成し、多言語導線を壊さない
+    - text: Originチェック、入力長制限、履歴制限、レート制限を入れる
+    - text: Markdownリンクはtrim後に許可リストで判定する
 linkCards:
   - href: /contact/
     title: お問い合わせ
@@ -69,118 +71,225 @@ linkCards:
 faq:
   title: よくある質問
   items:
-    - question: AIチャットだけで問い合わせを完結させる設計ですか？
-      answer: いいえ。AIチャットはサービス内容や相談先を整理する入口です。見積り、契約、正式な依頼、個別事情の判断が必要な内容はフォームやLINEに誘導します。
+    - question: RAGやベクトルDBがないと問い合わせAIチャットは作れませんか？
+      answer: 小規模なコーポレートサイトなら、まずは公開済みページの要点を構造化したコンテキストとしてプロンプトに渡すだけでも実用になります。ページ数や更新頻度が増えてから、検索インデックスやベクトルDBを検討すれば十分です。
     - question: OpenAI APIキーはブラウザに出ますか？
       answer: 出ません。ブラウザは /api/ai-contact に質問を送るだけで、OpenAI Responses API の呼び出しと API キー管理は Cloudflare Pages Function 側で行います。
     - question: AI回答内のリンクは自由に出せますか？
-      answer: 自由には出しません。内部パス、acecore.net、公式LINE、必要時の mailto と tel だけを許可し、MarkdownリンクのURL前後に空白があってもtrimして安全判定します。
+      answer: 自由には出しません。内部パス、同一origin、acecore.net、公式LINE、必要時の mailto と tel だけを許可し、MarkdownリンクのURL前後に空白があってもtrimして安全判定します。
 ---
 
-Acecoreのサイトには、右下から開けるAIチャットを追加しています。目的は、訪問者に何でもAIで答えることではありません。サービス内容、相談先、次に見るページをその場で整理し、必要に応じてフォームやLINEへつなぐことです。
+問い合わせAIチャットは、サイトにAIを置くだけなら簡単です。しかし実運用で問題になるのは、モデルの性能よりも、どこまで答えさせるか、どの導線へ送るか、どのURLを表示してよいか、APIコストをどう抑えるかです。
 
-実装は [問い合わせAIとCMS限定翻訳フローを実装したPR](https://github.com/acecore-systems/acecore-net/pull/98) が中心です。その後、AI回答に含まれるMarkdownリンクの描画を [別PR](https://github.com/acecore-systems/acecore-net/pull/99) で調整しました。
+Acecoreのサイトでは、Astro + Cloudflare Pages の静的サイトに問い合わせAIチャットを追加しました。実装の中心は [問い合わせAIとCMS限定翻訳フローを実装したPR](https://github.com/acecore-systems/acecore-net/pull/98) です。その後、AI回答に含まれるMarkdownリンクの安全な描画を [別PR](https://github.com/acecore-systems/acecore-net/pull/99) で調整しました。
 
-この記事では、Astro + Cloudflare Pages 構成の静的サイトに、OpenAI Responses API を使った問い合わせAIチャットを入れるときに決めた設計と実装上の注意点をまとめます。
+この記事では、特定サイトの作業記録ではなく、他の静的サイトにも転用しやすい技術設計として整理します。Astro以外のフロントエンドでも考え方はほぼ同じで、クライアント、API境界、プロンプト、レンダラーの責務を分けるのが基本です。
 
-## AIチャットをどこに置くか
+## 全体構成
 
-AIチャットはサイト全体に右下固定で表示し、お問い合わせページではFAQの後にも起動導線を置いています。
+今回の構成は、シンプルな3層です。
 
-問い合わせページは、次の役割分担にしました。
+| 層                   | 役割                                                                 |
+| -------------------- | -------------------------------------------------------------------- |
+| チャットWidget       | UI、入力、表示locale、必要最小限の履歴、Markdown描画                 |
+| `/api/ai-contact`    | 入力検証、Originチェック、レート制限、プロンプト生成、OpenAI呼び出し |
+| OpenAI Responses API | サイト内情報と会話文脈に基づいた回答生成                             |
+
+ブラウザからOpenAI APIを直接呼ぶ構成にはしません。理由は3つあります。
+
+- APIキーをブラウザに出さない
+- モデル、プロンプト、サイト内コンテキストをサーバー側で更新できる
+- 入力長、Origin、レート制限、エラー処理を1か所に集約できる
+
+Astro + Cloudflare Pages の場合、API境界は Cloudflare Pages Functions の `/api/ai-contact` として実装できます。Next.jsならRoute Handler、HonoやExpressならAPI routeに置き換えれば同じ考え方で使えます。
+
+## エンドポイントの契約を小さくする
+
+問い合わせAIチャットのAPIに送る情報は、できるだけ絞ります。
+
+```ts
+type ContactAiRequest = {
+  message: string
+  locale: 'ja' | 'en' | 'zh-cn' | 'es' | 'pt' | 'fr' | 'ko' | 'de' | 'ru'
+  history?: Array<{
+    role: 'user' | 'assistant'
+    content: string
+  }>
+}
+
+type ContactAiResponse = {
+  answer: string
+}
+```
+
+フォーム入力の氏名、メールアドレス、電話番号、会社名などは、AIチャットには送らない方針にしました。問い合わせAIチャットは個人情報を集める場所ではなく、訪問者が「どのサービスを見るべきか」「どこから相談すべきか」を整理する入口だからです。
+
+履歴も無制限には送りません。直近数件だけにし、1メッセージあたりの文字数も制限します。これでプロンプト肥大化とAPIコストを抑えられます。
+
+## サーバー側で入力と呼び出しを制御する
+
+Cloudflare Pages Function 側では、次の処理をまとめて行います。
+
+```ts
+export async function onRequestPost({ request, env }: PagesFunction<Env>) {
+  assertSameOrigin(request)
+  assertRateLimit(request)
+
+  const body = await request.json()
+  const message = validateMessage(body.message)
+  const locale = validateLocale(body.locale)
+  const history = trimHistory(body.history)
+
+  const prompt = buildContactPrompt({
+    locale,
+    message,
+    history,
+    siteContext: buildPublicSiteContext(locale),
+  })
+
+  const answer = await callOpenAIResponsesApi({
+    apiKey: env.OPENAI_API_KEY,
+    model: env.OPENAI_MODEL,
+    prompt,
+  })
+
+  return Response.json({ answer })
+}
+```
+
+実装のポイントは、OpenAI呼び出しの前に必ず入力を小さく整えることです。AI APIは、受け取った入力に対してコストが発生します。長文、不要な履歴、外部サイトからの連続アクセスをそのまま通すと、機能面より先に運用面が不安定になります。
+
+`OPENAI_MODEL` は環境変数にしておくと、モデル変更やpreview環境での検証が楽です。`OPENAI_API_KEY` は当然サーバー側の環境変数だけで管理します。
+
+Cloudflare Pages の配信やCSPの考え方は、[Cloudflare Pagesで実現するセキュアな静的サイト配信](/blog/cloudflare-pages-security/) でも整理しています。
+
+## サイト内情報をコンテキストとして明示する
+
+この規模のサイトでは、最初からベクトルDBやRAGを入れなくても構いません。まずは、公開済みサイト情報の要点を構造化してプロンプトに渡すほうが、実装も運用も軽くなります。
+
+たとえば、次のような情報をサーバー側で組み立てます。
+
+- 会社やサービスの概要
+- 各サービスの対象者、相談例、関連URL
+- FAQで回答済みの内容
+- 問い合わせフォーム、LINE、メール、電話の使い分け
+- 料金、契約、納期などAIが断定してはいけない領域
+- localeごとの内部URL
+
+重要なのは、モデルに「知っていそうなこと」を答えさせるのではなく、「このサイトとして回答してよい情報」を渡すことです。
+
+```ts
+function buildPublicSiteContext(locale: Locale) {
+  return {
+    services: [
+      {
+        name: 'Web制作',
+        summary: 'コーポレートサイト、採用サイト、LPの制作相談に対応',
+        url: localizePath('/services/web-production/', locale),
+      },
+      {
+        name: '業務システム',
+        summary: '予約、在庫、顧客管理などの業務改善システムに対応',
+        url: localizePath('/services/business-system/', locale),
+      },
+    ],
+    contact: {
+      form: localizePath('/contact/', locale),
+      line: 'https://lin.ee/...',
+      emailPolicy: 'フォームが使えない場合や補足が必要な場合だけ案内する',
+      phonePolicy: '急ぎの確認が必要な場合だけ案内する',
+    },
+  }
+}
+```
+
+ページ数が少ないうちはこの方式で十分です。ページ数、更新頻度、検索要件が増えてきたら、Pagefind、CMSのJSON、D1、Vectorizeなどを使って検索レイヤーを足す判断になります。
+
+## プロンプトは回答文よりルールを書く
+
+問い合わせAIチャットのプロンプトでは、自然な文章を書かせる指示よりも、回答範囲と禁止事項を明確にします。
+
+```txt
+あなたはこのサイトの問い合わせ案内AIです。
+公開済みサイト情報だけを根拠に回答してください。
+
+ルール:
+- 料金、契約、納期、保証を断定しない
+- 詳細見積りや正式な相談は問い合わせフォームへ案内する
+- 短い確認や教室関連の相談はLINEも案内する
+- メールと電話は、ユーザーが直接連絡を求めた場合だけ案内する
+- 内部リンクは現在のlocaleに合うURLを使う
+- わからない場合は、推測せずフォームへ案内する
+```
+
+AIチャットにありがちな失敗は、サービスをよく見せようとしてモデルが言い切ってしまうことです。たとえば「いくらでできますか」「いつまでに納品できますか」「必ず対応できますか」といった質問には、一般的な案内に留め、正式な回答はフォームへ送る必要があります。
+
+これは法務的な話だけではありません。見積りや納期は、ヒアリング前に確定できないからです。プロンプトには、営業上便利な回答よりも、運用で責任を持てる回答の範囲を書きます。
+
+## 問い合わせ導線の役割を分ける
+
+AIチャットはフォームの代替ではありません。問い合わせページ全体では、導線を次のように分けると運用しやすくなります。
 
 | 導線       | 役割                                                       |
 | ---------- | ---------------------------------------------------------- |
 | FAQ        | よくある疑問をページ内で先に解消する                       |
 | AIチャット | サービス選び、相談先、関連ページを会話で整理する           |
-| LINE       | 短い相談やAcecore Schools関連の連絡に使う                  |
+| LINE       | 短い相談、教室関連、軽い確認に使う                         |
 | フォーム   | 見積り、制作相談、提携、採用など、記録を残したい相談に使う |
 | 直接連絡先 | フォーム後の補足や急ぎの確認が必要な場合だけ開く           |
 
-ここで大事なのは、AIチャットを「問い合わせフォームの代わり」にしないことです。AIは公開済みの情報をもとに道案内できますが、個別見積り、契約条件、確約が必要な判断まではできません。
+[サービス紹介記事](/blog/service-introduction/) のような概要コンテンツと、[お問い合わせページ](/contact/) の具体的な受付導線をAIがつなぐ形にすると、訪問者は自分でページを探し直さずに済みます。
 
-[サービス紹介記事](/blog/service-introduction/) のような概要コンテンツと、[お問い合わせページ](/contact/) の具体的な受付導線をAIがつなぐ形にすると、訪問者の迷いを減らしやすくなります。
+この設計は、BtoBサイト、制作会社サイト、スクールサイト、SaaSのサポート導線でも応用できます。AIに問い合わせを完結させるのではなく、次に見るページや連絡手段を絞る用途にすると、導入しやすくなります。
 
-## Cloudflare Pages Function に寄せる
+## localeごとのURLを崩さない
 
-ブラウザ側からOpenAI APIを直接呼ぶ構成にはしていません。APIキーをブラウザに出さないため、`/api/ai-contact` という Cloudflare Pages Function を用意し、そこから OpenAI Responses API を呼び出します。
-
-実装上の役割はこう分けています。
-
-| 場所                     | 担当                                                     |
-| ------------------------ | -------------------------------------------------------- |
-| `AiChatWidget.astro`     | チャットUI、入力、履歴、Markdown描画                     |
-| `/api/ai-contact`        | 入力検証、Originチェック、レート制限、OpenAI API呼び出し |
-| Cloudflare Pages環境変数 | `OPENAI_API_KEY` と `OPENAI_MODEL` の管理                |
-
-`OPENAI_MODEL` は環境変数で差し替えられるようにし、未設定時はデフォルトモデルを使います。READMEにも書いている通り、ブラウザに渡すのは質問と必要最小限の履歴だけです。
-
-Cloudflare Pages の配信やCSPの考え方は、[Cloudflare Pagesで実現するセキュアな静的サイト配信](/blog/cloudflare-pages-security/) でも整理しています。
-
-## サイト内情報だけで答える
-
-AIチャットには、Acecoreサイト上で公開している情報をコンテキストとして渡しています。
-
-主な内容は次の通りです。
-
-- Acecoreのサービス領域
-- 業務システム、サーバー、Web制作、デザイン、教育の概要
-- Acecore Schools、Aceserver、AceStudioへの導線
-- 実績、ブログ、お問い合わせ、公式LINEへのURL
-- 見積り無料、返信目安、LINEとフォームの使い分け
-
-そして、プロンプト側では次の制約を入れています。
-
-- 公開サイトの情報だけで回答する
-- 料金、日程、契約、保証、非公開情報を断定しない
-- 詳細見積りや正式な相談はフォームへ案内する
-- 短い相談や教室関連はLINEも案内する
-- メールや電話は常時出さない
-
-AIチャットにありがちな問題は、便利に見せようとして過剰に答えてしまうことです。特に見積り、契約、サポート範囲は、AIが言い切ると後から困ります。ここは「一般的に言える範囲」と「人が確認すべき範囲」を分けるほうが実運用向きです。
-
-## localeごとのURLと文言を合わせる
-
-このサイトは日本語を基準にしつつ、多言語ページも持っています。AIチャットも表示localeに合わせて回答言語と内部URLを変えます。
+多言語サイトでは、AI回答の言語だけでなく、リンク先URLもlocaleに合わせる必要があります。
 
 たとえば英語ページで質問されたら、回答も英語にし、サービスページへのリンクも `/en/services/` のようにlocale付きのURLを使います。日本語ページなら `/services/` を使います。
 
-これは小さな差に見えますが、多言語サイトでは重要です。AI回答だけが日本語URLへ戻してしまうと、せっかくの多言語導線が崩れます。
+この処理は、プロンプトに任せるより、サーバー側のURL生成関数で決めるほうが安定します。
 
-多言語ブログや翻訳運用の土台は、[日本語記事を1本公開するだけで9言語ブログを回す方法](/blog/copilot-translation-pipeline/) にまとめています。
+```ts
+function localizePath(path: string, locale: Locale) {
+  if (locale === 'ja') return path
+  return `/${locale}${path}`
+}
+```
 
-## メールと電話を常時出さない
+AI回答だけが日本語URLへ戻してしまうと、多言語導線が崩れます。多言語ブログや翻訳運用の土台は、[日本語記事を1本公開するだけで9言語ブログを回す方法](/blog/copilot-translation-pipeline/) にまとめています。
 
-問い合わせページでは、メールと電話を常時露出しない方針にしました。フォーム、LINE、AIチャットを先に置き、直接連絡先は折りたたみ内か、AIが必要だと判断した場面に限定します。
+## Originチェックとレート制限を入れる
 
-理由はシンプルです。
+`/api/ai-contact` は公開APIなので、少なくともOriginチェック、入力長制限、履歴制限、レート制限を入れます。
 
-- 見積りや制作相談はフォームのほうが情報を揃えやすい
-- 短い相談や教室関連はLINEのほうが軽い
-- 電話やメールだけだと相談内容の分類が難しい
-- 直接連絡先を常時前面に出すと、運用側の負荷が読めなくなる
+Originチェックでは、`Origin` ヘッダーがある場合に、リクエスト元とAPIのホストが一致しているかを確認します。別サイトから勝手に呼ばれる想定を減らすためです。
 
-AIチャットにも同じルールを入れています。訪問者が「直接連絡したい」「フォームが使えない」「急ぎで確認したい」といった意図を示した場合だけ、`mailto:` や `tel:` を短く案内します。
+```ts
+function assertSameOrigin(request: Request) {
+  const origin = request.headers.get('Origin')
+  if (!origin) return
 
-## Originチェックとレート制限
+  const requestUrl = new URL(request.url)
+  const originUrl = new URL(origin)
 
-`/api/ai-contact` は公開APIなので、最低限の制御を入れています。
+  if (originUrl.host !== requestUrl.host) {
+    throw new Response('Forbidden', { status: 403 })
+  }
+}
+```
 
-まず、`Origin` ヘッダーがある場合は、リクエスト元とAPIのホストが一致しているかを確認します。別サイトから勝手に呼ばれる想定を減らすためです。
+レート制限は、まずIPベースの簡易制限からでも有効です。Cloudflare環境なら、`CF-Connecting-IP`、`X-Forwarded-For`、`CF-Ray` などを使って識別します。
 
-次に、IPベースの簡易レート制限を入れています。現在は1分あたり10リクエストまでです。Cloudflareの `CF-Connecting-IP`、`X-Forwarded-For`、`CF-Ray` を順に使い、識別できない場合は `unknown` として扱います。
-
-もちろん、これだけで完全な防御になるわけではありません。実運用では、Cloudflare側のWAF、Bot対策、ログ監視も合わせて見ます。ただ、AI APIはコストが発生するため、アプリ側でも最低限のブレーキを持っておく意味があります。
+ただし、インメモリのレート制限は、複数isolateや再起動をまたぐ永続的な制限にはなりません。小規模サイトの初期ブレーキとしては使えますが、アクセスが増える場合はCloudflare WAF、Turnstile、KV、D1、Durable Objectsなどに寄せるほうが安定します。
 
 フォーム周辺のボット対策は、[ヘッドレスCMS選定記とTurnstileによるボット対策](/blog/cms-selection-and-turnstile/) でも触れています。
 
-## Markdownリンクを安全に描画する
+## Markdownリンクは許可リストで描画する
 
-AI回答はプレーンテキストだけでも成立しますが、サービス案内ではリンクがあるほうが便利です。そのため、回答には簡単なMarkdownを許可しています。
+AI回答にリンクを含められると、サービス案内としては便利です。ただし、MarkdownをそのままHTMLへ流し込むのは避けます。
 
-ただし、MarkdownをそのままHTMLに流し込むことはしません。チャットUI側で自前の小さなパーサーを通し、許可した表現だけDOMに変換しています。
-
-許可している主な表現は次の通りです。
+チャットUI側では、許可した表現だけをDOMに変換します。
 
 - 段落
 - 箇条書き
@@ -188,7 +297,7 @@ AI回答はプレーンテキストだけでも成立しますが、サービス
 - インラインコード
 - Markdownリンク
 
-リンク先はさらに絞っています。
+リンク先はさらに絞ります。
 
 - `/services/` のような同一サイト内パス
 - 現在のorigin
@@ -197,50 +306,81 @@ AI回答はプレーンテキストだけでも成立しますが、サービス
 - 必要時の `mailto:info@acecore.net`
 - 必要時の `tel:05088902788`
 
-この部分は、実際にAIが `[サービス一覧]( /services/ )` のようにURL前後へ空白を含めて返すケースがあり、後から修正しました。URLを `trim()` してから安全判定することで、空白付きのMarkdownリンクでもリンクとして描画し、実際の `href` は整えた値にしています。
+このとき、URLは必ず `trim()` してから判定します。AIは `[サービス一覧]( /services/ )` のように、URL前後へ空白を含めて返すことがあります。
 
-小さな修正ですが、AI回答をUIに出すときはこういう揺れがよく起きます。Markdown仕様の完全実装を目指すより、サイトで使う表現に絞って堅く処理するほうが管理しやすいです。
+```ts
+function sanitizeHref(rawHref: string, currentOrigin: string) {
+  const href = rawHref.trim()
 
-## ローカルと本番で違うところ
+  if (href.startsWith('/')) return href
+  if (href.startsWith(`${currentOrigin}/`)) return href
+  if (href.startsWith('https://acecore.net/')) return href
+  if (href.startsWith('https://lin.ee/')) return href
+  if (href === 'mailto:info@acecore.net') return href
+  if (href === 'tel:05088902788') return href
 
-この実装では、ローカル確認と本番確認で見るべき場所が少し違います。
+  return null
+}
+```
+
+Markdown仕様の完全実装を目指すより、チャットで使う表現に絞って堅く処理するほうが管理しやすいです。外部URLを自由に出したい場合でも、少なくともドメイン許可リストと `rel="noopener noreferrer"` は入れておくべきです。
+
+## ローカル、preview、本番で確認すること
 
 ローカルのAstro devやpreviewだけでは、Cloudflare Pages Functionsの実行環境と完全には一致しません。`OPENAI_API_KEY` がない環境ではAI回答は使えないので、UI側のフォールバックやエラー表示を確認します。
 
-本番またはPages previewでは、次を確認します。
+Pages previewまたは本番では、次を確認します。
 
-- `/api/ai-contact` が呼べる
+- `/api/ai-contact` がPOSTで呼べる
 - `OPENAI_API_KEY` と `OPENAI_MODEL` が設定されている
+- Originが違うリクエストを拒否できる
+- 入力長と履歴件数が制限されている
 - 回答が表示localeに合っている
 - 内部リンクがlocale付きURLになっている
 - 見積りや契約をAIが断定していない
 - メールや電話が常時出ていない
 - Markdownリンクが安全なURLだけに変換されている
 
-AI連携は「動けば終わり」ではなく、どこまで答えてよいかを確認する作業が大事です。特に問い合わせ導線では、回答の便利さと、事業側の責任範囲を両方見る必要があります。
+AI連携は、1回質問して返ってくれば完了ではありません。想定外の質問、長文、英語ページからの質問、直接連絡先を求める質問、料金を聞く質問を分けて確認します。
 
-## 今後分けて記事化したいこと
+## ログと運用で見たい指標
 
-今回の記事では、問い合わせAIチャットだけに絞りました。関連して、サービスページからフォームへ相談対象を引き継ぐ導線も実装していますが、これは別記事に分ける予定です。
+問い合わせAIチャットは、公開後のログ確認も重要です。
 
-理由は、AIチャットとサービス別CTAでは論点が違うからです。
+最低限、次の指標を見ます。
 
-- AIチャット: 会話で迷いを整理する
+- APIのエラー率
+- レート制限にかかった回数
+- 1回の問い合わせあたりの平均メッセージ数
+- フォームやLINEへの遷移数
+- AIが回答できずフォームへ案内した回数
+- locale別の利用数
+
+会話内容を保存する場合は、個人情報の扱いを先に決める必要があります。まずは本文を保存せず、イベント数やエラーだけを見る運用から始めるのが安全です。
+
+## 今回分けた範囲
+
+今回の記事では、問い合わせAIチャットの技術設計だけに絞りました。関連して、サービスページからフォームへ相談対象を引き継ぐ導線も実装していますが、これは別記事に分ける予定です。
+
+理由は、論点が違うからです。
+
+- AIチャット: 会話で迷いを整理し、安全に案内する
 - サービス別CTA: 読んでいるサービス文脈をフォームへ渡す
 
-どちらも問い合わせ改善ですが、前者はAIと安全性、後者はフォームUXと導線設計の話になります。分けたほうが読みやすく、あとから内部リンクもしやすくなります。
+前者はAI、API境界、プロンプト、安全な描画の話です。後者はフォームUXと導線設計の話です。分けたほうが読みやすく、あとから内部リンクもしやすくなります。
 
 ## まとめ
 
-問い合わせAIチャットを入れるときは、AIの回答能力よりも、導線設計と制御のほうが重要です。
+問い合わせAIチャットを静的サイトに組み込むときは、チャットUIよりも、API境界と回答制御を先に設計するほうが重要です。
 
 今回の実装で特に効いたのは次の点です。
 
 - ブラウザではなくCloudflare Pages FunctionからOpenAI APIを呼ぶ
-- サイト内情報とlocale別URLをコンテキストに入れる
-- AIが断定してよいこと、してはいけないことを明確にする
+- エンドポイントの入力を小さくし、履歴と文字数を制限する
+- サイト内情報とlocale別URLをサーバー側で組み立てる
+- AIが断定してよいこと、してはいけないことをプロンプトに書く
 - フォーム、LINE、直接連絡先の役割を分ける
 - Originチェックとレート制限を入れる
-- Markdownリンクは許可リスト方式で描画する
+- Markdownリンクはtrim後に許可リスト方式で描画する
 
-静的サイトでも、問い合わせAIチャットは十分に組み込めます。ただし、AIを目立たせるより、訪問者が次の行動を選びやすくなる設計にすることが大切です。
+静的サイトでも、問い合わせAIチャットは十分に実装できます。導入時の中心は、AIを目立たせることではなく、訪問者が安全に次の行動を選べるようにすることです。
