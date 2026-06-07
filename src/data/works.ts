@@ -97,10 +97,10 @@ const jaWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '4事例',
+      value: '5事例',
       label: '公開中の取り組み',
       description:
-        'Web、インフラ、教育の代表的な事例を課題から成果まで確認できます。',
+        'Web、ポータル、インフラ、教育の代表的な事例を課題から成果まで確認できます。',
       icon: 'briefcase-business',
       tone: 'amber',
     },
@@ -148,6 +148,26 @@ const jaWorksCopy: WorksCopy = {
       icon: 'palette',
       tone: 'brand',
       tags: ['Web制作', 'CMS', 'Astro', 'ポートフォリオ'],
+    },
+    {
+      id: 'aceserver-portal',
+      title: 'エースサーバーポータル制作',
+      category: 'Web制作・コミュニティポータル',
+      summary:
+        '誰でも参加可能なMinecraft無料公開サーバーの入口として、サーバー紹介、動画、ワールドマップ、Wiki、Discord導線をまとめたポータルサイトを構築しました。',
+      challenge:
+        '参加前に知りたい情報がDiscord、Wiki、動画、ワールドマップに分かれ、初めて訪れる人がサーバーの概要や次の行動を把握しにくい状態でした。',
+      proposal:
+        'AstroとUnoCSSで軽量な静的ポータルを構築し、Sveltia CMSでトップページやサイト設定を更新できるようにして、Java版・統合版の参加導線を整理しました。',
+      result:
+        'サーバー概要、参加案内、ワールドマップ、Wikiを一つの入口から案内できるようになり、コミュニティ運営側も情報を継続更新しやすい基盤になりました。',
+      image: 'https://asv.acecore.net/uploads/legacy-scc.png',
+      imageAlt: 'エースサーバーポータルで紹介している街区のスクリーンショット',
+      externalUrl: 'https://asv.acecore.net/',
+      externalLabel: 'サイトを見る',
+      icon: 'map',
+      tone: 'emerald',
+      tags: ['Web制作', 'CMS', 'Astro', 'Minecraft'],
     },
     {
       id: 'acecore-net',
@@ -271,10 +291,10 @@ const enWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '4 cases',
+      value: '5 cases',
       label: 'Published initiatives',
       description:
-        'Representative web, infrastructure, and education examples are available from challenge to outcome.',
+        'Representative web, portal, infrastructure, and education examples are available from challenge to outcome.',
       icon: 'briefcase-business',
       tone: 'amber',
     },
@@ -324,6 +344,26 @@ const enWorksCopy: WorksCopy = {
       icon: 'palette',
       tone: 'brand',
       tags: ['Web production', 'CMS', 'Astro', 'Portfolio'],
+    },
+    {
+      id: 'aceserver-portal',
+      title: 'Aceserver portal production',
+      category: 'Web production & community portal',
+      summary:
+        'We built a portal for the public Minecraft server Aceserver, bringing together server introduction, videos, world maps, Wiki, and Discord entry points.',
+      challenge:
+        'Information needed before joining was split across Discord, Wiki, videos, and world maps, making it harder for first-time visitors to understand the server and next steps.',
+      proposal:
+        'We built a lightweight static portal with Astro and UnoCSS, made top-page and site settings editable through Sveltia CMS, and organized entry paths for both Java and Bedrock players.',
+      result:
+        'The portal now guides visitors from server overview to joining, world maps, and Wiki content from one entry point, while giving the community team an easier update workflow.',
+      image: 'https://asv.acecore.net/uploads/legacy-scc.png',
+      imageAlt: 'Screenshot of the Aceserver town area shown on the portal',
+      externalUrl: 'https://asv.acecore.net/',
+      externalLabel: 'View Site',
+      icon: 'map',
+      tone: 'emerald',
+      tags: ['Web production', 'CMS', 'Astro', 'Minecraft'],
     },
     {
       id: 'acecore-net',
