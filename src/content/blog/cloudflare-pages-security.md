@@ -37,7 +37,7 @@ faq:
 
 Cloudflare Pages は静的サイトのホスティングに最適なプラットフォームです。この記事では、実際のデプロイ構成と、`_headers` ファイルを使ったセキュリティ設定について紹介します。
 
-SSL 証明書まわりの選定は、[Cloudflare の Advanced Certificate Manager 解説](/blog/cloudflare-ssl-advanced-certificate-manager/)もあわせて確認してください。CMS 管理画面を静的サイトに追加する設計は[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/)にまとめています。
+SSL 証明書まわりの選定は、[Cloudflare の Advanced Certificate Manager 解説](/blog/cloudflare-ssl-advanced-certificate-manager/)もあわせて確認してください。CMS 管理画面を静的サイトに追加する設計は[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/)にまとめています。外部コメントサービスに頼らず、Cloudflare Pages Functions と D1 でコメント機能を足す設計は [CloudflareだけでAstroブログにコメント機能を作る方法](/blog/cloudflare-only-blog-comments/) に分けました。
 
 ## デプロイ構成：Worker をやめて Pages に戻した理由
 
@@ -49,7 +49,7 @@ SSL 証明書まわりの選定は、[Cloudflare の Advanced Certificate Manage
 - **デバッグの手間**：ローカルでの `wrangler dev` と本番の挙動差異
 - **キャッシュ制御**：Pages のほうが Cloudflare CDN との統合が自然
 
-最終的に、お問い合わせフォームは [ssgform.com](https://ssgform.com/) という外部サービスを利用することで、サーバーサイド処理を完全に排除しました。これにより、Worker の必要がなくなり、純粋な静的サイトとして Pages にデプロイできるようになりました。
+最終的に、お問い合わせフォームは [ssgform.com](https://ssgform.com/) という外部サービスを利用することで、フォーム送信のためだけにWorkerを持つ必要をなくしました。この時点では、純粋な静的サイトとして Pages にデプロイできる状態へ戻せました。現在は、コメント機能のように最小限の動的処理だけを Cloudflare Pages Functions で追加しています。
 
 ## \_headers によるセキュリティ設定
 

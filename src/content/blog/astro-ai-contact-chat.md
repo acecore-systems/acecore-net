@@ -283,7 +283,7 @@ function assertSameOrigin(request: Request) {
 
 ただし、インメモリのレート制限は、複数isolateや再起動をまたぐ永続的な制限にはなりません。小規模サイトの初期ブレーキとしては使えますが、アクセスが増える場合はCloudflare WAF、Turnstile、KV、D1、Durable Objectsなどに寄せるほうが安定します。
 
-コンテンツ更新側のCMS設計は、[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/) に分けて整理しています。フォームやコメントのbot対策はTurnstileなど別レイヤーとして扱います。
+コンテンツ更新側のCMS設計は、[Sveltia CMS導入ガイド](/blog/cms-selection-and-turnstile/) に分けて整理しています。フォームやコメントのbot対策はTurnstileなど別レイヤーとして扱います。Cloudflareだけでコメント機能を作る場合の設計は [CloudflareだけでAstroブログにコメント機能を作る方法](/blog/cloudflare-only-blog-comments/) にまとめました。
 
 ## Markdownリンクは許可リストで描画する
 
