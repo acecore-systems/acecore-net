@@ -1,7 +1,7 @@
 ---
 title: 'Метавселенная ближе, чем вы думаете'
 description: 'Стратегия метавселенной Facebook (Meta) не совсем находит отклик, но Minecraft — это огромное виртуальное пространство с более чем 100 миллионами участников. Метавселенная — это не только VR-шлемы.'
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: /uploads/acecore-generated/blog-metaverse-is-close.webp

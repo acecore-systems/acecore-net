@@ -1,7 +1,7 @@
 ---
 title: 'SEO Improvement Guide: Implementing Structured Data and OGP on Your Astro Site'
 description: 'A step-by-step guide to properly implementing JSON-LD structured data, OGP, sitemaps, and RSS on an Astro + Cloudflare Pages site. Covers everything from Google rich result support to RSS feed optimization with practical SEO improvements.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
 image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp

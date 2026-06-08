@@ -1,7 +1,7 @@
 ---
 title: 'Astro 사이트 품질 개선 가이드 — PageSpeed 모바일 점수 99 달성'
 description: 'Astro + UnoCSS + Cloudflare Pages 사이트를 성능, SEO, 접근성, UX의 4가지 축에서 개선하여 PageSpeed Insights 모바일 99점, 데스크톱 전 항목 100점을 달성한 전 과정 기록.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags:
   ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']

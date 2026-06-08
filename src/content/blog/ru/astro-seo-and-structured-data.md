@@ -1,7 +1,7 @@
 ---
 title: 'Руководство по улучшению SEO: внедрение структурированных данных и OGP на сайте Astro'
 description: 'Пошаговое руководство по правильному внедрению структурированных данных JSON-LD, OGP, карт сайта и RSS на сайте Astro + Cloudflare Pages. Рассматривается всё: от поддержки расширенных результатов Google до оптимизации RSS-ленты с практическими улучшениями SEO.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
 image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp

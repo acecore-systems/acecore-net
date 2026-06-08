@@ -1,7 +1,7 @@
 ---
 title: 'Astro View Transitions的坑与解决方案 ― UX与代码质量改善指南'
 description: '介绍Astro View Transitions中脚本失效问题的解决方案、Pagefind全文搜索的引入、TypeScript类型安全性的提升、常量统一管理等改善UX和代码质量的实践指南。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp

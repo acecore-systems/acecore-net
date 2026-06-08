@@ -1,7 +1,7 @@
 ---
 title: 'Astro 站点品质改善指南 ― 从 PageSpeed 移动端99分的达成之路'
 description: '将 Astro + UnoCSS + Cloudflare Pages 架构的站点从性能、SEO、无障碍性、UX 四个维度进行优化，达成 PageSpeed Insights 移动端99分、桌面端全项100分的完整记录。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags:
   ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']

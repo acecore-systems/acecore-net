@@ -1,7 +1,7 @@
 ---
 title: '将 Astro 6 网站扩展至9种语言 ― 168篇博客文章的自动翻译与多语言架构'
 description: '记录了将 Astro 6 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到168篇博客文章翻译、Pages CMS多语言配置的全部流程。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp

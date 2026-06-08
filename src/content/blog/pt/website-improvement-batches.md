@@ -1,7 +1,7 @@
 ---
 title: 'Guia de melhoria de qualidade de sites Astro — Caminho até 99 pontos no PageSpeed Mobile'
 description: 'Registro completo de como melhoramos um site com Astro + UnoCSS + Cloudflare Pages nos 4 eixos de desempenho, SEO, acessibilidade e UX, alcançando 99 pontos no PageSpeed Insights mobile e 100 em todos os itens no desktop.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags:
   ['技術', 'Astro', 'パフォーマンス', 'アクセシビリティ', 'SEO', 'Webサイト']

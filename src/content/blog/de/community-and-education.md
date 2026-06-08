@@ -1,7 +1,7 @@
 ---
 title: 'Community-Aktivitäten und Engagement für Bildung'
 description: 'Acecores Community-Aktivitäten, Bildungsunterstützung und Open-Source-Beiträge. Vorstellung unserer Initiativen durch Aceserver, Schools und Lerngruppen.'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

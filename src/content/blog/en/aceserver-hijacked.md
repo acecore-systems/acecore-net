@@ -1,7 +1,7 @@
 ---
 title: Aceserver Has Been Hijacked.
 description: A record of the "hijacking" incident on Aceserver. A shocking document of members' sanity being corrupted one after another.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

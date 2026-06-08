@@ -1,7 +1,7 @@
 ---
 title: 'The Metaverse Is Closer Than You Think'
 description: "While Facebook (Meta)'s metaverse strategy doesn't quite resonate, Minecraft is a massive virtual space with over 100 million participants. The metaverse isn't just about VR headsets."
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: /uploads/acecore-generated/blog-metaverse-is-close.webp

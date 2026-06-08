@@ -1,7 +1,7 @@
 ---
 title: 'El metaverso está más cerca de lo que crees'
 description: 'Mientras la estrategia de metaverso de Facebook (Meta) no termina de convencer, Minecraft ya es un enorme espacio virtual con más de 100 millones de participantes. El metaverso no se limita a las gafas de VR.'
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: /uploads/acecore-generated/blog-metaverse-is-close.webp

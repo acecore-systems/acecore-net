@@ -1,7 +1,7 @@
 ---
 title: 'Achieving Secure Static Site Delivery with Cloudflare Pages'
 description: 'A practical guide to static site deployment on Cloudflare Pages and security header/CSP configuration using _headers. Also covers why we switched back from Workers to Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

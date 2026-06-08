@@ -1,7 +1,7 @@
 ---
 title: 'SEO 개선 가이드: Astro 사이트에 구조화 데이터와 OGP 구현하기'
 description: 'Astro + Cloudflare Pages 사이트에서 JSON-LD 구조화 데이터, OGP, 사이트맵, RSS를 올바르게 구현하는 단계별 가이드. Google 리치 결과 지원부터 RSS 피드 최적화까지 실전 SEO 개선을 다룹니다.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
 image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp

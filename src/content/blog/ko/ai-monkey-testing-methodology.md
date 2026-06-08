@@ -1,7 +1,7 @@
 ---
 title: 'GitHub Copilot × Playwright로 웹사이트 몽키 테스트하기: 실전 가이드'
 description: 'VS Code 에이전트 모드(GitHub Copilot)와 Playwright 브라우저 도구를 결합하여 정적 사이트를 체계적으로 몽키 테스트하는 실전 가이드. 테스트 설계 방법론, 발견된 버그와 수정, 개선 권장 사항을 다룹니다.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp

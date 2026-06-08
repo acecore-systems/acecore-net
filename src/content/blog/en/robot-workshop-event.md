@@ -1,7 +1,7 @@
 ---
 title: 'Summer Robot Building Workshop Event'
 description: 'AceCore Schools hosted a hands-on robot building workshop during summer break, giving children the chance to experience the joy of building robots. Through crafting, we nurture technical knowledge and creativity.'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

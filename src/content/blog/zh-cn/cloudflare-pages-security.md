@@ -1,7 +1,7 @@
 ---
 title: '使用 Cloudflare Pages 实现安全的静态站点部署'
 description: '关于在 Cloudflare Pages 上部署静态站点，以及通过 _headers 配置安全头和 CSP 的实践指南。同时介绍了从 Worker 回归 Pages 的经过。'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

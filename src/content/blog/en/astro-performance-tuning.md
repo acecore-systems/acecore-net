@@ -1,8 +1,8 @@
 ---
 title: 'Practical Techniques for Achieving PageSpeed Mobile 99 on Your Astro Site'
 description: 'Optimization techniques used to achieve PageSpeed Insights Mobile 99 on an Astro + UnoCSS + Cloudflare Pages site. Covers CSS delivery strategy, font configuration pitfalls, responsive images, AdSense lazy loading, and cache settings.'
-date: 2026-03-15
-lastUpdated: 2026-03-25
+date: 2026-03-15T00:00
+lastUpdated: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp

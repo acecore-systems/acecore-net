@@ -1,7 +1,7 @@
 ---
 title: 'Metodología práctica de monkey testing para sitios web con GitHub Copilot × Playwright'
 description: 'Registro práctico de monkey testing sistemático en un sitio estático combinando el modo agente de VS Code (GitHub Copilot) con las herramientas de navegador Playwright. Desde el diseño de pruebas hasta los bugs descubiertos y corregidos, y propuestas de mejora.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp

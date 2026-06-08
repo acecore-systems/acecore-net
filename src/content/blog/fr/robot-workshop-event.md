@@ -1,7 +1,7 @@
 ---
 title: "Annonce de l'atelier de fabrication de robots pendant les vacances d'été"
 description: "AceCore Schools a organisé un événement permettant aux enfants de découvrir le plaisir de la fabrication de robots pendant les vacances d'été. À travers la construction, nous cultivons les connaissances techniques et la créativité."
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

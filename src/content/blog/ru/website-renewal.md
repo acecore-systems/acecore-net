@@ -1,7 +1,7 @@
 ---
 title: 'Официальный сайт Acecore обновлён'
 description: 'Официальный сайт Acecore полностью обновлён. Обзор особенностей нового сайта и планов на будущее.'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

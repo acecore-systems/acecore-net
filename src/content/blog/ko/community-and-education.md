@@ -1,7 +1,7 @@
 ---
 title: '커뮤니티 활동과 교육에 대한 헌신'
 description: 'Acecore의 커뮤니티 활동, 교육 지원, 오픈소스 기여. Aceserver, Schools, 스터디 그룹을 통한 이니셔티브를 소개합니다.'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

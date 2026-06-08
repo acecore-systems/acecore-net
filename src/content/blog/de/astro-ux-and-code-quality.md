@@ -1,7 +1,7 @@
 ---
 title: 'Fallstricke und Lösungen für Astro View Transitions — Ein Leitfaden zur Verbesserung von UX und Code-Qualität'
 description: 'Ein praktischer Leitfaden mit Lösungen für Skriptprobleme bei Astro View Transitions, Einführung der Pagefind-Volltextsuche, Verbesserung der TypeScript-Typsicherheit, Zentralisierung von Konstanten und mehr zur Verbesserung von UX und Code-Qualität.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp

@@ -1,7 +1,7 @@
 ---
 title: Aceserver wurde gekapert.
 description: Ein Bericht über den „Kapern"-Vorfall auf dem Aceserver. Ein schockierendes Dokument darüber, wie die geistige Gesundheit der Mitglieder nacheinander korrumpiert wurde.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

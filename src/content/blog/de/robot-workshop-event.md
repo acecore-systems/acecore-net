@@ -1,7 +1,7 @@
 ---
 title: 'Roboterbau-Workshop in den Sommerferien'
 description: 'AceCore Schools veranstaltete in den Sommerferien einen praxisnahen Roboterbau-Workshop, bei dem Kinder die Freude am Roboterbauen erleben konnten. Durch handwerkliches Arbeiten fördern wir technisches Wissen und Kreativität.'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

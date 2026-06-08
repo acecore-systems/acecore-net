@@ -1,7 +1,7 @@
 ---
 title: '使用GitHub Copilot × Playwright对网站进行猴子测试的实践方法'
 description: '结合VS Code的智能体模式（GitHub Copilot）和Playwright浏览器工具，对静态网站进行系统化猴子测试的实践记录。从测试设计思路到实际发现并修复的Bug、改进建议，全部公开。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp

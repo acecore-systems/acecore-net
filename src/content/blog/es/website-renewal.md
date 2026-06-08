@@ -1,7 +1,7 @@
 ---
 title: 'Hemos renovado el sitio web oficial de Acecore'
 description: 'El sitio web oficial de Acecore ha sido completamente renovado. Presentamos las características del nuevo sitio y las perspectivas a futuro.'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

@@ -1,7 +1,7 @@
 ---
 title: 'I Let GitHub Copilot Handle My Entire Tax Return — From 837 Journal Entries to Filing'
 description: 'From classifying and verifying 837 journal entries accumulated through cloud accounting data sync, to reconciling social insurance premiums, entering deductions, and filing the return. A complete record of a tax return where GitHub Copilot Agent Mode × Simple Browser handled virtually all the real work.'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

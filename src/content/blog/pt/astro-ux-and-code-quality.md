@@ -1,7 +1,7 @@
 ---
 title: 'Armadilhas e soluções do Astro View Transitions — Guia de melhoria de UX e qualidade de código'
 description: 'Guia prático sobre soluções para scripts que param de funcionar com View Transitions do Astro, introdução de busca full-text com Pagefind, melhoria de segurança de tipos com TypeScript e gerenciamento centralizado de constantes, melhorando UX e qualidade de código.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp

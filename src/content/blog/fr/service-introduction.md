@@ -1,7 +1,7 @@
 ---
 title: 'Présentation des services Acecore : des solutions IT clés en main'
 description: 'Du développement de systèmes au design, en passant par la formation IT. Découvrez en détail les 5 principaux services proposés par Acecore.'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

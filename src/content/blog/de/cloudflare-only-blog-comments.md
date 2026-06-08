@@ -2,7 +2,7 @@
 title: 'Astro-Blogkommentare nur mit Cloudflare umsetzen'
 description: 'Wie wir Kommentare in einem Astro-Blog ohne externen Kommentardienst umgesetzt haben: Cloudflare Pages Functions, D1, Turnstile und Wrangler.'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

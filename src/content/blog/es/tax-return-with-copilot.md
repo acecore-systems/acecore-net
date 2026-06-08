@@ -1,7 +1,7 @@
 ---
 title: 'Dejé toda mi declaración de impuestos a GitHub Copilot ― Desde 837 asientos contables hasta la presentación'
 description: 'Clasificación y verificación de 837 asientos acumulados con datos sincronizados de contabilidad en la nube, conciliación de seguros sociales, entrada de deducciones y presentación de la declaración. Un registro completo de la declaración de impuestos delegando casi todo el trabajo operativo a GitHub Copilot Agent Mode × Simple Browser.'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

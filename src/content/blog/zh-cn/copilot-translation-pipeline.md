@@ -2,7 +2,7 @@
 title: '用 Sveltia CMS 运营多语言博客的方法'
 description: '介绍如何用 Sveltia CMS 编辑日语源文章，再通过 GitHub Actions 和 GitHub Copilot 生成翻译 PR，并说明它与界面翻译的区别、对搜索引擎的好处、hreflang、RSS、sitemap 和审核要点。'
 date: 2026-06-07T17:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp

@@ -1,7 +1,7 @@
 ---
 title: Aceserver가 탈취당했습니다.
 description: Aceserver에서 발생한 "하이재킹" 사건의 기록. 멤버들의 정신이 차례로 오염되어 가는 충격적인 문서.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

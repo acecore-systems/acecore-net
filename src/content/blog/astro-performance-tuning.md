@@ -2,7 +2,7 @@
 title: 'AstroサイトのPageSpeedモバイル99点を達成する実践テクニック'
 description: 'Astro + UnoCSS + Cloudflare Pages 構成のサイトで PageSpeed Insights モバイル99点を達成するまでに行った最適化テクニックを紹介します。CSS配信戦略・フォント設定の罠・レスポンシブ画像・AdSense遅延読み込み・キャッシュ設定まで、実践的な手法をまとめました。'
 date: 2026-03-15T00:00
-lastUpdated: 2026-03-25
+lastUpdated: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp

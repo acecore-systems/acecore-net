@@ -1,7 +1,7 @@
 ---
 title: 'Atividades comunitárias e compromisso com a educação'
 description: 'Sobre as atividades comunitárias, apoio educacional e contribuições ao open source promovidos pela Acecore. Apresentamos nossas iniciativas através do Aceserver, escola e meetups.'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

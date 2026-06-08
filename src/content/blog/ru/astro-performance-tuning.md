@@ -1,8 +1,8 @@
 ---
 title: 'Практические техники достижения 99 баллов PageSpeed Mobile на сайте Astro'
 description: 'Техники оптимизации, использованные для достижения 99 баллов PageSpeed Insights Mobile на сайте Astro + UnoCSS + Cloudflare Pages. Рассматриваются стратегия доставки CSS, подводные камни настройки шрифтов, адаптивные изображения, ленивая загрузка AdSense и настройки кэширования.'
-date: 2026-03-15
-lastUpdated: 2026-03-25
+date: 2026-03-15T00:00
+lastUpdated: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp

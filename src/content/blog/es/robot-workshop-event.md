@@ -1,7 +1,7 @@
 ---
 title: 'Información sobre el evento de construcción de robots en verano'
 description: 'En AceCore Schools organizamos un evento durante las vacaciones de verano para que los niños experimentaran la diversión de construir robots. A través de la construcción, fomentamos el conocimiento técnico y la creatividad.'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

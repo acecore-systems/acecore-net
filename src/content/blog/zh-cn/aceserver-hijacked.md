@@ -1,7 +1,7 @@
 ---
 title: Aceserver被入侵了。
 description: 记录了Aceserver上发生的"入侵"事件。成员们的理智接连被侵蚀的震撼纪实。
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

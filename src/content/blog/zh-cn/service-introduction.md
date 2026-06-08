@@ -1,7 +1,7 @@
 ---
 title: 'Acecore 服务介绍：一站式 IT 解决方案'
 description: '从系统开发到设计、IT教育。详细介绍 Acecore 提供的5项核心服务。'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

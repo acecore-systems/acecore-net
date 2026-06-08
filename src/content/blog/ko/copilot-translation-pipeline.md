@@ -2,7 +2,7 @@
 title: 'Sveltia CMS로 다국어 블로그를 운영하는 방법'
 description: 'Sveltia CMS에서 일본어 원문을 편집하고, GitHub Actions와 GitHub Copilot으로 번역 PR을 만들어 정적 다국어 페이지를 배포하는 운영 방식과 UI 번역과의 차이, 검색 엔진상의 장점을 정리합니다.'
 date: 2026-06-07T17:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp

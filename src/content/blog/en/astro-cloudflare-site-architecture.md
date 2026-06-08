@@ -2,7 +2,7 @@
 title: 'Designing an Astro + Cloudflare Website That Can Grow Feature by Feature'
 description: 'How we combined Astro and Cloudflare Pages with an AI contact chat, Sveltia CMS, multilingual blog publishing, service CTA handoff, safe Markdown rendering, and Cloudflare-only comments as one extensible website architecture.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp

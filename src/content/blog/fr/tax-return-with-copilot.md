@@ -1,7 +1,7 @@
 ---
 title: "J'ai confié ma déclaration fiscale entièrement à GitHub Copilot — De 837 écritures comptables à la soumission de la déclaration"
 description: "Classification et vérification de 837 écritures comptables accumulées par synchronisation de données avec une comptabilité cloud, rapprochement des cotisations sociales, saisie des déductions, jusqu'à la soumission de la déclaration. Le récit complet d'une déclaration fiscale où GitHub Copilot Agent Mode × Simple Browser a assuré la quasi-totalité du travail."
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

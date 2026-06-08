@@ -1,7 +1,7 @@
 ---
 title: 'Distribution sécurisée de sites statiques avec Cloudflare Pages'
 description: "Guide pratique du déploiement de sites statiques sur Cloudflare Pages et de la configuration des en-têtes de sécurité et du CSP via _headers. Retour d'expérience sur le passage de Worker à Pages."
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

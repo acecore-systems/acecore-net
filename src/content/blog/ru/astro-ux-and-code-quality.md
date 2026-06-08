@@ -1,7 +1,7 @@
 ---
 title: 'Подводные камни и решения для Astro View Transitions — руководство по улучшению UX и качества кода'
 description: 'Практическое руководство, охватывающее решения проблем со скриптами при использовании Astro View Transitions, внедрение полнотекстового поиска Pagefind, улучшение типобезопасности TypeScript, централизацию констант и многое другое для улучшения UX и качества кода.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp

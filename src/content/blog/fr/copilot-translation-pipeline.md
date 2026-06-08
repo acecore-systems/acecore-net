@@ -2,7 +2,7 @@
 title: 'Comment gérer un blog multilingue avec Sveltia CMS'
 description: "Un flux pratique pour modifier les articles source en japonais dans Sveltia CMS, générer des PR de traduction avec GitHub Actions et GitHub Copilot, et publier des pages statiques localisées plus utiles pour le SEO qu'une simple traduction d'interface."
 date: 2026-06-07T17:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp

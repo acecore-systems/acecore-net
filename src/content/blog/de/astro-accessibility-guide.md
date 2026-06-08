@@ -1,7 +1,7 @@
 ---
 title: 'Praktischer Leitfaden zur WCAG-AA-Konformität Ihrer Astro-Website'
 description: 'Ein umfassender Leitfaden zu Barrierefreiheitsverbesserungen, die auf einer Astro + UnoCSS-Website implementiert wurden. Behandelt aria-Attribute, Kontrast, Fokusverwaltung, Formularvalidierung, Screenreader-Unterstützung und alles Nötige für die WCAG-AA-Konformität.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
 image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp

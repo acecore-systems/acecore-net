@@ -2,7 +2,7 @@
 title: 'Sveltia CMSで多言語ブログを運用する方法'
 description: 'Sveltia CMSで日本語記事を更新し、GitHub ActionsとGitHub Copilotで翻訳PRを作る運用を、UI翻訳との違い、検索エンジン上のメリット、hreflang、RSS、sitemap、レビュー観点まで含めて整理します。'
 date: 2026-06-07T17:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 image: /uploads/acecore-generated/blog-copilot-translation-pipeline.webp
@@ -408,7 +408,7 @@ const displayPosts = basePosts.map((post) => localizePost(post, posts, locale))
 title: 'Sveltia CMSで多言語ブログを運用する方法'
 description: 'Sveltia CMSとGitHub Copilotで翻訳PRを作る運用メモ'
 date: 2026-06-07T17:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'i18n', 'CMS', 'SEO']
 ```

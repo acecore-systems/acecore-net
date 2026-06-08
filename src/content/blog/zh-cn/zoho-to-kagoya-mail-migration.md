@@ -1,7 +1,7 @@
 ---
 title: '从 Zoho Mail 迁移到 KAGOYA MAIL 的实践指南 ― DNS·认证·数据清理'
 description: '从 Zoho Workplace 迁移到 KAGOYA MAIL 的步骤、DNS 设置、SPF/DKIM 认证、Zoho Workplace 整体数据清理的实践记录。'
-date: 2026-03-16
+date: 2026-03-16T00:00
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
 image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp

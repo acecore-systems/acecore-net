@@ -1,7 +1,7 @@
 ---
 title: 'De VitePress à Starlight — Unification du framework pour les sites de documentation'
 description: "Récit de la migration d'un site documentaire de plan d'affaires construit avec VitePress + UnoCSS vers Astro + Starlight, unifiant le framework de deux projets. La migration CDN des diagrammes Mermaid est également présentée."
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
 image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp

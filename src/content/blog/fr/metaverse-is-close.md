@@ -1,7 +1,7 @@
 ---
 title: "Le métavers est plus proche qu'on ne le pense"
 description: 'Alors que la stratégie métavers de Facebook (Meta) reste floue, Minecraft est un immense espace virtuel de plus de 100 millions de joueurs. Le métavers ne se résume pas aux casques VR.'
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: /uploads/acecore-generated/blog-metaverse-is-close.webp

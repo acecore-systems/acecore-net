@@ -1,7 +1,7 @@
 ---
 title: '从 VitePress 迁移到 Starlight ― 统一文档站点的框架'
 description: '将使用 VitePress + UnoCSS 构建的事业计划文档迁移到 Astro + Starlight，在两个项目间统一框架的记录。同时介绍了 Mermaid 图表的 CDN 迁移。'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
 image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp

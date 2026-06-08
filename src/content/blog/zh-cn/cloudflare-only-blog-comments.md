@@ -2,7 +2,7 @@
 title: '只用 Cloudflare 为 Astro 博客添加评论功能'
 description: '不依赖外部评论服务，只使用 Cloudflare Pages Functions、D1、Turnstile 和 Wrangler 配置，为 Astro 博客实现评论功能的实践记录。'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

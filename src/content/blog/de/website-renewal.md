@@ -1,7 +1,7 @@
 ---
 title: 'Acecores offizielle Webseite wurde erneuert'
 description: 'Die offizielle Webseite von Acecore wurde komplett erneuert. Hier ist ein Überblick über die Funktionen der neuen Seite und zukünftige Pläne.'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp
