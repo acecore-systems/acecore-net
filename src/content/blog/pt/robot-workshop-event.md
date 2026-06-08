@@ -48,4 +48,4 @@ Através dessas experiências, queremos cultivar o interesse pela construção e
 Para dúvidas ou inscrições sobre o evento, use o [formulário de contato](/contact/) ou a [LINE oficial](https://lin.ee/DjIrdqj).
 Se quiser confirmar algo diretamente, comece deixando um breve resumo no formulário para facilitar o encaminhamento.
 
-A Acecore Schools continuará realizando eventos regularmente. As informações mais recentes serão divulgadas na [página Schools](https://schools.acecore.net/pt/) e no blog.
+A Acecore Schools continuará realizando eventos regularmente. As informações mais recentes serão divulgadas na [página Schools](/pt/schools/) e no blog.

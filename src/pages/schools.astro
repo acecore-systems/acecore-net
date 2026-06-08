@@ -1,20 +1,5 @@
 ---
-import { getSchoolsUrl } from '../utils/schools-url'
-
-const destination = getSchoolsUrl('ja')
+import SchoolsPage from '../views/SchoolsPage.astro'
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0; url=${destination}`} />
-    <link rel="canonical" href={destination} />
-    <script define:vars={{ destination }} is:inline>
-      location.replace(destination)
-    </script>
-  </head>
-  <body>
-    <a href={destination}>Acecore Schools</a>
-  </body>
-</html>
+<SchoolsPage locale="ja" />

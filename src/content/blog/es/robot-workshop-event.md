@@ -48,4 +48,4 @@ A través de estas experiencias, buscamos despertar el interés por la creación
 Para consultas o inscripciones del evento, utiliza el [formulario de contacto](/contact/) o la [LINE oficial](https://lin.ee/DjIrdqj).
 Si quieres confirmar algo directamente, primero deja un breve resumen en el formulario para que podamos responder con más claridad.
 
-En Acecore Schools seguiremos organizando eventos de forma periódica. La información más reciente se publica en la [página de Schools](https://schools.acecore.net/es/) y en el blog.
+En Acecore Schools seguiremos organizando eventos de forma periódica. La información más reciente se publica en la [página de Schools](/es/schools/) y en el blog.

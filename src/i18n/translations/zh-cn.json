@@ -222,7 +222,7 @@
         {
           "title": "IT学校 / Acecore Schools",
           "description": "面向儿童到成人的个性化指导。对应编程、学习辅导、高中同等学力考试。",
-          "href": "https://schools.acecore.net/zh-cn/",
+          "href": "/schools/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "教育与陪伴",
           "description": "将实用知识转化为学习支持，传递给地区和下一代。",
-          "href": "https://schools.acecore.net/zh-cn/",
+          "href": "/schools/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -696,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "月费8千〜3.3万日元",
             "note": "入会金、教材费、管理费的参考也会在 Schools 页面说明。",
-            "href": "https://schools.acecore.net/zh-cn/#pricing"
+            "href": "/pricing/#schools"
           },
           {
             "icon": "gamepad-2",
@@ -967,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "月费8千〜3.3万日元",
           "body": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
-          "href": "https://schools.acecore.net/zh-cn/#pricing"
+          "href": "/pricing/#schools"
         },
         {
           "icon": "clapperboard",
@@ -1012,6 +1012,127 @@
         "域名、服务器、广告、印刷、教材、设备、交通费等外部实费另计。",
         "如果预算已确定，我们会在该范围内整理优先级并提出方案。"
       ]
+    },
+    "schools": {
+      "title": "Acecore Schools",
+      "description": "Acecore Schools 是面向小学生到成人的个别型 IT 学校与学习支持服务。本页整理免费体验、对象、授课频率、星期与时间段、家长 FAQ。",
+      "heroTitle": "Acecore Schools",
+      "heroSubtitle": "根据每个人的节奏，支持学习能力和实用 IT 技能成长的个别型学校。",
+      "heroImgAlt": "学生学习编程的画面",
+      "heroImgAlt2": "Acecore Schools 个别学习支持的画面",
+      "trial": {
+        "eyebrow": "Free Trial",
+        "title": "先通过免费体验确认学习方式和相性",
+        "body": "第一次会确认当前学习情况、目标、擅长和不擅长的内容，并一起整理适合的课程和频率。预约和日程调整在 Schools app 中受理。",
+        "primaryCta": "预约免费体验",
+        "secondaryCta": "查看费用参考",
+        "note": "预约、变更和取消在 Schools app 中处理。acecore.net 只提供说明信息。",
+        "points": [
+          "确认学习目标和当前位置，提出不过度勉强的初次计划。",
+          "家长可一起参加，也可以咨询学校学习和家庭学习的平衡。",
+          "在线预约后会发送确认邮件以及当天准备事项。"
+        ]
+      },
+      "courses": {
+        "eyebrow": "Courses",
+        "title": "可确认对象和授课频率的课程列表",
+        "body": "以个别指导为基础，从学校学习支持到实践编程都可对应。频率可根据目标和生活节奏调整。",
+        "audienceLabel": "对象",
+        "frequencyLabel": "授课频率",
+        "items": [
+          {
+            "icon": "book-open",
+            "title": "学习塾・个别指导",
+            "audience": "小学生・初中生・高中生",
+            "frequency": "每周 1 次起。考试前可咨询追加。",
+            "body": "根据理解度推进复习、定期考试对策和升学基础。"
+          },
+          {
+            "icon": "bot",
+            "title": "机器人 / 编程",
+            "audience": "小学生・初中生、首次接触编程的人",
+            "frequency": "以每月 2 次或每周 1 次为参考。",
+            "body": "通过机器人制作、Minecraft 编程和 Scratch，边体验边培养逻辑思考。"
+          },
+          {
+            "icon": "code-xml",
+            "title": "实践编程",
+            "audience": "初中生以上、社会人、想制作作品的人",
+            "frequency": "每周 1 次起。短期集中可个别咨询。",
+            "body": "通过接近实际制作的题材学习 Web 开发、后端、数据库和 Git。"
+          },
+          {
+            "icon": "monitor-smartphone",
+            "title": "电脑 / 手机教室",
+            "audience": "学生、家长、社会人、长者",
+            "frequency": "单次咨询或每月 2 次起。",
+            "body": "以实用为中心支持基本操作、Office、安全设置和手机设置。"
+          },
+          {
+            "icon": "clipboard-check",
+            "title": "高卒认定考试对策",
+            "audience": "准备高卒认定考试或想重新学习的人",
+            "frequency": "每周 1 次起，按考试科目数调整。",
+            "body": "一起整理考试科目、学习计划、基础复习和历年题对策。"
+          }
+        ]
+      },
+      "schedule": {
+        "eyebrow": "Schedule",
+        "title": "可咨询方便参加的星期和时间段",
+        "body": "以下是标准时段。免费体验时会根据学校活动、社团、工作和家庭安排进行调整。",
+        "dayLabel": "星期",
+        "timeLabel": "时间段",
+        "noteLabel": "对象・用途",
+        "note": "最新空位请在 Schools app 查看。节假日、长假和活动时可能提供其他时段。",
+        "items": [
+          {
+            "day": "平日",
+            "time": "16:00-21:00",
+            "note": "适合放学后、社团后学习以及社会人夜间学习。"
+          },
+          {
+            "day": "星期六",
+            "time": "10:00-18:00",
+            "note": "适合机器人、编程、考试对策和较长制作时间。"
+          },
+          {
+            "day": "星期日・节假日",
+            "time": "个别咨询",
+            "note": "可咨询短期集中、活动或考试前追加时段。"
+          }
+        ]
+      },
+      "faqEyebrow": "FAQ",
+      "faqTitle": "家长常见问题",
+      "faqs": [
+        {
+          "question": "免费体验会做什么？",
+          "answer": "确认学习情况、目标和困扰，进行简短体验课，并提出今后的学习方式。家长也可以同席。"
+        },
+        {
+          "question": "没有电脑也可以参加吗？",
+          "answer": "根据内容可以介绍借用或替代方法。需要携带的物品会在预约后的确认邮件中说明。"
+        },
+        {
+          "question": "学校学习和编程可以一起咨询吗？",
+          "answer": "可以。我们不会把学习塾和 IT 学校完全分开，而是根据目标和时期组合学习支持与编程。"
+        },
+        {
+          "question": "授课变更和取消在哪里进行？",
+          "answer": "预约、变更和取消计划在 Schools app 的门户中处理。acecore.net 不提供编辑功能。"
+        },
+        {
+          "question": "可以从外部日历编辑预约吗？",
+          "answer": "出于安全考虑，Outlook 等外部日历计划为只读。变更和取消从门户进行。"
+        }
+      ],
+      "finalCta": {
+        "title": "从免费体验开始",
+        "body": "还没决定课程也没关系。我们会根据想学的内容、困扰和可参加时间整理初次内容。",
+        "primary": "在 Schools app 预约",
+        "secondary": "通过表单咨询"
+      }
     }
   },
   "pageNames": {

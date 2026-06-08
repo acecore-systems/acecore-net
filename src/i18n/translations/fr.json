@@ -222,7 +222,7 @@
         {
           "title": "École IT / Acecore Schools",
           "description": "Tutorat personnalisé pour tous les âges : programmation, soutien scolaire et préparation aux examens.",
-          "href": "https://schools.acecore.net/fr/",
+          "href": "/schools/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "Éducation et mentorat",
           "description": "Nous transformons le savoir-faire en soutien éducatif pour les communautés et les générations futures.",
-          "href": "https://schools.acecore.net/fr/",
+          "href": "/schools/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -696,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "8 000-33 000 ¥/mois",
             "note": "Les repères pour l'inscription, les supports et les frais de gestion sont aussi indiqués sur la page Schools.",
-            "href": "https://schools.acecore.net/fr/#pricing"
+            "href": "/pricing/#schools"
           },
           {
             "icon": "gamepad-2",
@@ -967,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "8 000-33 000 ¥/mois",
           "body": "Nous indiquons des repères pour l'inscription, la mensualité, les supports et la gestion. Ils varient selon le niveau, la fréquence, les supports et le contenu.",
-          "href": "https://schools.acecore.net/fr/#pricing"
+          "href": "/pricing/#schools"
         },
         {
           "icon": "clapperboard",
@@ -1012,6 +1012,120 @@
         "Domaine, serveur, publicité, impression, supports, matériel, transport et autres frais externes sont à part.",
         "Si un budget est fixé, nous organisons les priorités dans cette limite."
       ]
+    },
+    "schools": {
+      "title": "Acecore Schools",
+      "description": "Acecore Schools est un accompagnement individualise en informatique et en apprentissage, pour les eleves comme pour les adultes. Cette page resume essai gratuit, publics, frequence, jours et horaires, ainsi que la FAQ parents.",
+      "heroTitle": "Acecore Schools",
+      "heroSubtitle": "Un accompagnement individualise pour faire progresser chacun a son rythme, du primaire aux adultes, en apprentissage scolaire comme en competences IT.",
+      "heroImgAlt": "Salle de programmation et de robotique Acecore Schools",
+      "heroImgAlt2": "Apprentissage avec ordinateur portable et notes chez Acecore Schools",
+      "trial": {
+        "eyebrow": "Essai gratuit",
+        "title": "Commencez par un essai gratuit pour verifier la methode et l'adequation",
+        "body": "Pendant l'essai, nous confirmons les objectifs, la situation actuelle, les difficultes et les disponibilites avant de proposer un premier plan realiste. La reservation se fait dans la Schools app.",
+        "primaryCta": "Reserver l'essai gratuit",
+        "secondaryCta": "Voir les tarifs indicatifs",
+        "note": "La reservation et les changements sont geres dans la Schools app. acecore.net reste une page d'information et ne gere pas les modifications de reservation.",
+        "points": [
+          "Nous verifions l'objectif d'apprentissage et le niveau actuel afin de proposer un premier plan sans surcharge.",
+          "Les parents peuvent participer pour discuter des objectifs, du rythme et du suivi a la maison.",
+          "La consultation peut couvrir a la fois le soutien scolaire, la programmation, la robotique et la preparation aux examens."
+        ]
+      },
+      "courses": {
+        "eyebrow": "Cours",
+        "title": "Des cours avec publics cibles et frequence de lecon clairs",
+        "body": "Les cours sont ajustes apres l'essai gratuit selon l'objectif, l'age, l'experience, la disponibilite et la capacite de concentration.",
+        "audienceLabel": "Public cible",
+        "frequencyLabel": "Frequence",
+        "items": [
+          {
+            "title": "Soutien scolaire individualise",
+            "audience": "Eleves du primaire, college, lycee, et apprenants en reprise",
+            "frequency": "A partir de 1 fois par semaine. Ajustable avant examens ou rendus.",
+            "body": "Nous accompagnons les devoirs, les revisions, les lacunes et la planification afin d'installer un rythme durable.",
+            "icon": "book-open-check"
+          },
+          {
+            "title": "Programmation et robotique",
+            "audience": "Debutants, enfants aimant creer, eleves avec experience",
+            "frequency": "Toutes les deux semaines ou chaque semaine selon le projet.",
+            "body": "Apprentissage par projets: Minecraft, web, robots et petites automatisations pour relier idees et code.",
+            "icon": "bot"
+          },
+          {
+            "title": "Cours IT pour adultes",
+            "audience": "Parents, adultes actifs, seniors, debutants en informatique",
+            "frequency": "Consultation ponctuelle ou a partir de 2 fois par mois.",
+            "body": "Utilisation du PC, outils cloud, IA, securite et automatisation du quotidien, avec un rythme adapte.",
+            "icon": "laptop"
+          },
+          {
+            "title": "Preparation equivalence lycee",
+            "audience": "Apprenants visant l'examen d'equivalence ou souhaitant reprendre les etudes",
+            "frequency": "A partir de 1 fois par semaine, selon le nombre de matieres.",
+            "body": "Organisation des matieres, plan d'etude, revision des bases et entrainement sur annales avec un plan durable.",
+            "icon": "clipboard-check"
+          }
+        ]
+      },
+      "schedule": {
+        "eyebrow": "Horaires",
+        "title": "Discutez des jours et horaires compatibles avec votre rythme",
+        "body": "Voici les creneaux standards. Ils sont ajustes pendant l'essai gratuit selon l'ecole, les clubs, le travail et les contraintes familiales.",
+        "dayLabel": "Jour",
+        "timeLabel": "Horaire",
+        "noteLabel": "Usage",
+        "note": "Les disponibilites les plus recentes sont confirmees dans la Schools app. Vacances, jours feries et evenements peuvent avoir des creneaux separes.",
+        "items": [
+          {
+            "day": "Jours de semaine",
+            "time": "16:00-21:00",
+            "note": "Apres l'ecole, apres les clubs, ou le soir pour les adultes."
+          },
+          {
+            "day": "Samedi",
+            "time": "10:00-18:00",
+            "note": "Robotique, programmation, preparation aux examens et projets longs."
+          },
+          {
+            "day": "Dimanche / jours feries",
+            "time": "Sur consultation",
+            "note": "Sessions intensives, evenements ou creneaux supplementaires avant examen."
+          }
+        ]
+      },
+      "faqEyebrow": "FAQ",
+      "faqTitle": "FAQ pour les parents",
+      "faqs": [
+        {
+          "question": "Que se passe-t-il pendant l'essai gratuit ?",
+          "answer": "Nous examinons la situation, les objectifs et les difficultes, proposons une courte lecon d'essai et expliquons les prochaines etapes. Les parents peuvent assister."
+        },
+        {
+          "question": "Peut-on participer sans posseder d'ordinateur ?",
+          "answer": "Selon le contenu, nous pouvons proposer un pret ou une solution alternative. Le materiel necessaire est indique dans le message de confirmation."
+        },
+        {
+          "question": "Peut-on parler a la fois des etudes scolaires et de la programmation ?",
+          "answer": "Oui. Nous combinons soutien scolaire et programmation selon les objectifs et la periode, sans les traiter comme deux parcours separes."
+        },
+        {
+          "question": "Ou gerer les changements ou annulations de lecon ?",
+          "answer": "Les reservations, changements et annulations sont prevus dans le portail de la Schools app. acecore.net ne propose pas de fonction de modification."
+        },
+        {
+          "question": "Les calendriers externes peuvent-ils modifier les reservations ?",
+          "answer": "Pour des raisons de securite, les calendriers externes comme Outlook sont prevus en lecture seule. Les changements se font depuis le portail."
+        }
+      ],
+      "finalCta": {
+        "title": "Commencez par un essai gratuit",
+        "body": "Il n'est pas necessaire de choisir un cours a l'avance. Nous organiserons la premiere seance selon ce que vous voulez apprendre, vos difficultes et vos disponibilites.",
+        "primary": "Reserver dans la Schools app",
+        "secondary": "Demander via le contact"
+      }
     }
   },
   "pageNames": {

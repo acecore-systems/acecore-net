@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import Faq from '../components/Faq.astro'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
+
+interface Props {
+  locale: Locale
+}
+
+interface CourseItem {
+  title: string
+  audience: string
+  frequency: string
+  body: string
+  icon: string
+}
+
+interface ScheduleItem {
+  day: string
+  time: string
+  note: string
+}
+
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const bookingUrl = getSchoolsUrl(locale)
+const pricingUrl = u('/pricing/#schools')
+
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
+const trialPoints = getList<string>('pages.schools.trial.points')
+const courses = getList<CourseItem>('pages.schools.courses.items')
+const schedule = getList<ScheduleItem>('pages.schools.schedule.items')
+const faqItems = getList<FaqItem>('pages.schools.faqs')
+
+const schoolsLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: 'Acecore Schools',
+    url: 'https://acecore.net/schools/',
+    description: t(locale, 'pages.schools.description'),
+    sameAs: [bookingUrl],
+    provider: { '@type': 'Organization', name: 'Acecore' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+]
+---
+
+<BaseLayout
+  title={t(locale, 'pages.schools.title')}
+  description={t(locale, 'pages.schools.description')}
+  jsonLd={schoolsLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.schools.heroTitle')}
+    subtitle={t(locale, 'pages.schools.heroSubtitle')}
+    actions={[
+      {
+        href: bookingUrl,
+        label: t(locale, 'pages.schools.trial.primaryCta'),
+        icon: 'arrow-right',
+        gaLabel: 'schools_hero_booking',
+      },
+      {
+        href: pricingUrl,
+        label: t(locale, 'pages.schools.trial.secondaryCta'),
+        icon: 'circle-dollar-sign',
+        variant: 'outline',
+        gaLabel: 'schools_hero_pricing',
+      },
+    ]}
+    images={[
+      {
+        src: '/uploads/acecore-generated/education-programming-class.webp',
+        alt: t(locale, 'pages.schools.heroImgAlt'),
+      },
+      {
+        src: '/uploads/acecore-generated/work-acecore-schools-learning.webp',
+        alt: t(locale, 'pages.schools.heroImgAlt2'),
+      },
+    ]}
+  />
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.schools.title') }]}
+        locale={locale}
+      />
+
+      <div
+        class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] lg:items-start"
+      >
+        <div>
+          <p class="mb-3 text-sm font-800 uppercase text-brand-600">
+            {t(locale, 'pages.schools.trial.eyebrow')}
+          </p>
+          <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+            {t(locale, 'pages.schools.trial.title')}
+          </h2>
+          <p class="max-w-3xl text-base leading-relaxed text-slate-600">
+            {t(locale, 'pages.schools.trial.body')}
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a
+              href={bookingUrl}
+              class="ac-btn-primary justify-center gap-2"
+              data-ga-event="cta_click"
+              data-ga-label="schools_trial_booking"
+              data-ga-location="schools_trial"
+              data-ga-destination={bookingUrl}
+            >
+              {t(locale, 'pages.schools.trial.primaryCta')}
+              <Icon name="arrow-right" class="text-base" />
+            </a>
+            <a href={pricingUrl} class="ac-btn-outline justify-center gap-2">
+              {t(locale, 'pages.schools.trial.secondaryCta')}
+              <Icon name="circle-dollar-sign" class="text-base" />
+            </a>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-500">
+            {t(locale, 'pages.schools.trial.note')}
+          </p>
+        </div>
+
+        <div class="ac-surface bg-white p-5">
+          <ul class="m-0 list-none space-y-3 p-0">
+            {
+              trialPoints.map((point) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-slate-700">
+                  <Icon
+                    name="check-circle"
+                    class="mt-0.5 shrink-0 text-brand-500"
+                  />
+                  <span>{point}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <div class="mb-8">
+        <p class="mb-3 text-sm font-800 uppercase text-brand-600">
+          {t(locale, 'pages.schools.courses.eyebrow')}
+        </p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.schools.courses.title')}
+        </h2>
+        <p class="max-w-3xl leading-relaxed text-slate-600">
+          {t(locale, 'pages.schools.courses.body')}
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          courses.map((course) => (
+            <article class="ac-surface flex h-full flex-col p-6">
+              <div class="mb-4 flex items-start gap-3">
+                <span class="ac-icon-box shrink-0">
+                  <Icon name={course.icon} class="text-xl" />
+                </span>
+                <div>
+                  <h3 class="text-lg ac-heading">{course.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                    {course.body}
+                  </p>
+                </div>
+              </div>
+              <dl class="mt-auto grid gap-3 text-sm sm:grid-cols-2">
+                <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
+                  <dt class="font-800 text-slate-900">
+                    {t(locale, 'pages.schools.courses.audienceLabel')}
+                  </dt>
+                  <dd class="mt-1 text-slate-600">{course.audience}</dd>
+                </div>
+                <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
+                  <dt class="font-800 text-slate-900">
+                    {t(locale, 'pages.schools.courses.frequencyLabel')}
+                  </dt>
+                  <dd class="mt-1 text-slate-600">{course.frequency}</dd>
+                </div>
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ac-section bg-slate-50">
+    <div class="ac-container max-w-5xl">
+      <div class="mb-8">
+        <p class="mb-3 text-sm font-800 uppercase text-brand-600">
+          {t(locale, 'pages.schools.schedule.eyebrow')}
+        </p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.schools.schedule.title')}
+        </h2>
+        <p class="max-w-3xl leading-relaxed text-slate-600">
+          {t(locale, 'pages.schools.schedule.body')}
+        </p>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <table class="w-full min-w-160 border-collapse text-left text-sm">
+          <thead class="bg-slate-900 text-white">
+            <tr>
+              <th class="px-4 py-3 font-800">
+                {t(locale, 'pages.schools.schedule.dayLabel')}
+              </th>
+              <th class="px-4 py-3 font-800">
+                {t(locale, 'pages.schools.schedule.timeLabel')}
+              </th>
+              <th class="px-4 py-3 font-800">
+                {t(locale, 'pages.schools.schedule.noteLabel')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              schedule.map((item) => (
+                <tr class="border-t border-slate-200">
+                  <td class="px-4 py-3 font-800 text-slate-900">{item.day}</td>
+                  <td class="px-4 py-3 text-slate-700">{item.time}</td>
+                  <td class="px-4 py-3 text-slate-600">{item.note}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-slate-500">
+        {t(locale, 'pages.schools.schedule.note')}
+      </p>
+    </div>
+  </section>
+
+  <section class="ac-section">
+    <div class="ac-container max-w-4xl">
+      <div class="mb-8">
+        <p class="mb-3 text-sm font-800 uppercase text-brand-600">
+          {t(locale, 'pages.schools.faqEyebrow')}
+        </p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.schools.faqTitle')}
+        </h2>
+      </div>
+      <Faq items={faqItems} />
+    </div>
+  </section>
+
+  <section class="ac-section bg-brand-50">
+    <div class="ac-container max-w-4xl text-center">
+      <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        {t(locale, 'pages.schools.finalCta.title')}
+      </h2>
+      <p class="mx-auto mb-6 max-w-2xl leading-relaxed text-slate-600">
+        {t(locale, 'pages.schools.finalCta.body')}
+      </p>
+      <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={bookingUrl}
+          class="ac-btn-primary justify-center gap-2"
+          data-ga-event="cta_click"
+          data-ga-label="schools_final_booking"
+          data-ga-location="schools_final"
+          data-ga-destination={bookingUrl}
+        >
+          {t(locale, 'pages.schools.finalCta.primary')}
+          <Icon name="arrow-right" class="text-base" />
+        </a>
+        <a href={u('/contact/')} class="ac-btn-outline justify-center gap-2">
+          {t(locale, 'pages.schools.finalCta.secondary')}
+          <Icon name="message-circle" class="text-base" />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

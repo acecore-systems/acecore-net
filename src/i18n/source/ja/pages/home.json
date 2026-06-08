@@ -39,7 +39,7 @@
     {
       "title": "ITスクール / Acecore Schools",
       "description": "お子さまから大人まで、一人ひとりに合わせた個別指導。プログラミング・学習塾・高卒認定対策に対応しています。",
-      "href": "https://schools.acecore.net/",
+      "href": "/schools/",
       "icon": "graduation-cap",
       "tone": "amber"
     },
@@ -80,7 +80,7 @@
     {
       "title": "教育と伴走",
       "description": "現場で使える知識を学習支援に変換し、地域や次世代へ循環させます。",
-      "href": "https://schools.acecore.net/",
+      "href": "/schools/",
       "icon": "graduation-cap",
       "tone": "slate"
     }

@@ -8,6 +8,13 @@ interface Props {
   titleLines?: string[]
   subtitle?: string
   showCTA?: boolean
+  actions?: {
+    href: string
+    label: string
+    icon?: string
+    variant?: 'primary' | 'outline'
+    gaLabel?: string
+  }[]
   images?: {
     src: string
     alt: string
@@ -21,6 +28,27 @@ interface Props {
 const { title, titleLines, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
+const defaultActions = showCTA
+  ? [
+      {
+        href: u('/services/'),
+        label: t(locale, 'hero.ctaServices'),
+        icon: 'arrow-right',
+        variant: 'primary' as const,
+        gaLabel: 'hero_services',
+      },
+      {
+        href: u('/contact/'),
+        label: t(locale, 'hero.ctaContact'),
+        icon: 'arrow-right',
+        variant: 'outline' as const,
+        gaLabel: 'hero_contact',
+      },
+    ]
+  : []
+const heroActions = Astro.props.actions ?? defaultActions
+const actionClass = (variant: 'primary' | 'outline' = 'primary') =>
+  `${variant === 'outline' ? 'ac-btn-outline' : 'ac-btn-primary'} w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto`
 const heroImageSizes =
   '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
 const heroSrcSetOptions = {
@@ -74,30 +102,21 @@ const firstSliderImage = sliderImages[0]
         )
       }
       {
-        showCTA && (
+        heroActions.length > 0 && (
           <div class="mt-8 flex w-full max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-4">
-            <a
-              href={u('/services/')}
-              class="ac-btn-primary w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
-              data-ga-event="cta_click"
-              data-ga-label="hero_services"
-              data-ga-location="hero"
-              data-ga-destination={u('/services/')}
-            >
-              {t(locale, 'hero.ctaServices')}
-              <Icon name="arrow-right" class="text-base" />
-            </a>
-            <a
-              href={u('/contact/')}
-              class="ac-btn-outline w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
-              data-ga-event="cta_click"
-              data-ga-label="hero_contact"
-              data-ga-location="hero"
-              data-ga-destination={u('/contact/')}
-            >
-              {t(locale, 'hero.ctaContact')}
-              <Icon name="arrow-right" class="text-base" />
-            </a>
+            {heroActions.map((action) => (
+              <a
+                href={action.href}
+                class={actionClass(action.variant)}
+                data-ga-event="cta_click"
+                data-ga-label={action.gaLabel}
+                data-ga-location="hero"
+                data-ga-destination={action.href}
+              >
+                {action.label}
+                <Icon name={action.icon ?? 'arrow-right'} class="text-base" />
+              </a>
+            ))}
           </div>
         )
       }
