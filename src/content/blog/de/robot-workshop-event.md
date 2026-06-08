@@ -47,4 +47,4 @@ Durch Erlebnisse wie diese möchten wir das Interesse am Bauen und Gestalten wec
 Für Fragen oder Anmeldungen zur Veranstaltung nutzen Sie bitte das [Kontaktformular](/contact/) oder die [offizielle LINE](https://lin.ee/DjIrdqj).
 Wenn Sie etwas direkt klären möchten, hinterlassen Sie zunächst eine kurze Zusammenfassung im Formular, damit wir gezielt antworten können.
 
-AceCore Schools plant, regelmäßig Veranstaltungen durchzuführen. Aktuelle Informationen finden Sie auf der [Schools-Seite](/de/schools/) und im Blog.
+AceCore Schools plant, regelmäßig Veranstaltungen durchzuführen. Aktuelle Informationen finden Sie auf der [Schools-Seite](https://schools.acecore.net/de/) und im Blog.

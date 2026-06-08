@@ -222,7 +222,7 @@
         {
           "title": "Escuela IT / Acecore Schools",
           "description": "Tutoría personalizada para todas las edades: programación, apoyo académico y preparación de equivalencia.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/es/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "Educación y mentoría",
           "description": "Transformamos el conocimiento práctico en apoyo al aprendizaje para comunidades y futuras generaciones.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/es/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -696,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "¥8.000-¥33.000/mes",
             "note": "Los rangos de matrícula, materiales y gestión también se indican en la página de Schools.",
-            "href": "/pricing/#schools"
+            "href": "https://schools.acecore.net/es/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -967,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "¥8.000-¥33.000/mes",
           "body": "Publicamos rangos de matrícula, mensualidad, materiales y gestión. Varían por curso, frecuencia, materiales y contenido.",
-          "href": "/pricing/#schools"
+          "href": "https://schools.acecore.net/es/#pricing"
         },
         {
           "icon": "clapperboard",
@@ -1012,127 +1012,6 @@
         "Dominio, servidor, publicidad, impresión, materiales, equipos, transporte y otros costes externos son aparte.",
         "Si ya hay un presupuesto, ordenamos prioridades dentro de ese rango."
       ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools es una escuela IT y servicio de apoyo personalizado para estudiantes de primaria hasta adultos. Esta página resume prueba gratuita, destinatarios, frecuencia, horarios y FAQ para familias.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Una escuela personalizada para desarrollar apoyo académico y habilidades IT prácticas al ritmo de cada persona.",
-      "heroImgAlt": "Estudiante aprendiendo programación",
-      "heroImgAlt2": "Apoyo de aprendizaje personalizado en Acecore Schools",
-      "trial": {
-        "eyebrow": "Free Trial",
-        "title": "Empieza con una prueba gratuita para comprobar el estilo de aprendizaje",
-        "body": "En la primera sesión revisamos la situación actual, objetivos, puntos fuertes y dificultades, y proponemos el curso y la frecuencia adecuados. Las reservas y ajustes se gestionan en Schools app.",
-        "primaryCta": "Reservar prueba gratuita",
-        "secondaryCta": "Ver guía de precios",
-        "note": "Las reservas, cambios y cancelaciones se gestionan en Schools app. acecore.net solo publica información de guía.",
-        "points": [
-          "Revisamos objetivos y nivel actual para proponer un primer plan realista.",
-          "La familia puede asistir y consultar cómo combinar escuela y estudio en casa.",
-          "Tras la reserva online enviamos un correo de confirmación con preparación y acceso."
-        ]
-      },
-      "courses": {
-        "eyebrow": "Courses",
-        "title": "Cursos con destinatarios y frecuencia claros",
-        "body": "Con enseñanza individual, cubrimos desde apoyo escolar hasta programación práctica. La frecuencia se ajusta a los objetivos y rutina.",
-        "audienceLabel": "Destinatarios",
-        "frequencyLabel": "Frecuencia",
-        "items": [
-          {
-            "icon": "book-open",
-            "title": "Apoyo escolar individual",
-            "audience": "Primaria, secundaria y bachillerato",
-            "frequency": "Desde una vez por semana. Sesiones extra antes de exámenes.",
-            "body": "Repaso, preparación de pruebas y bases para exámenes según el nivel de comprensión."
-          },
-          {
-            "icon": "bot",
-            "title": "Robótica / Programación",
-            "audience": "Primaria, secundaria y principiantes",
-            "frequency": "Dos veces al mes o una vez por semana como referencia.",
-            "body": "Robótica, Minecraft, Scratch y proyectos prácticos para desarrollar pensamiento lógico."
-          },
-          {
-            "icon": "code-xml",
-            "title": "Programación práctica",
-            "audience": "Desde secundaria, adultos y personas que quieren crear proyectos",
-            "frequency": "Desde una vez por semana. Intensivos por consulta.",
-            "body": "Desarrollo web, backend, bases de datos y Git con ejercicios cercanos a la producción real."
-          },
-          {
-            "icon": "monitor-smartphone",
-            "title": "PC / Smartphone",
-            "audience": "Estudiantes, familias, adultos y mayores",
-            "frequency": "Consulta puntual o desde dos veces al mes.",
-            "body": "Operaciones básicas, Office, seguridad, ajustes de smartphone y tareas digitales cotidianas."
-          },
-          {
-            "icon": "clipboard-check",
-            "title": "Preparación de equivalencia de secundaria superior",
-            "audience": "Personas que preparan el examen o retoman estudios",
-            "frequency": "Desde una vez por semana, según materias.",
-            "body": "Organización de materias, plan de estudio, repaso básico y ejercicios de exámenes anteriores."
-          }
-        ]
-      },
-      "schedule": {
-        "eyebrow": "Schedule",
-        "title": "Consulta días y horarios compatibles con tu rutina",
-        "body": "Estos son horarios estándar. En la prueba gratuita ajustamos según escuela, clubes, trabajo y familia.",
-        "dayLabel": "Día",
-        "timeLabel": "Horario",
-        "noteLabel": "Uso",
-        "note": "Consulta la disponibilidad actual en Schools app. Festivos, vacaciones y eventos pueden tener otros horarios.",
-        "items": [
-          {
-            "day": "Entre semana",
-            "time": "16:00-21:00",
-            "note": "Después de clase, tras actividades y estudio nocturno para adultos."
-          },
-          {
-            "day": "Sábado",
-            "time": "10:00-18:00",
-            "note": "Robótica, programación, exámenes y trabajo de proyecto más largo."
-          },
-          {
-            "day": "Domingo / festivos",
-            "time": "Consulta individual",
-            "note": "Intensivos, eventos o sesiones extra antes de exámenes."
-          }
-        ]
-      },
-      "faqEyebrow": "FAQ",
-      "faqTitle": "FAQ para familias",
-      "faqs": [
-        {
-          "question": "¿Qué se hace en la prueba gratuita?",
-          "answer": "Revisamos situación, objetivos y dudas, hacemos una clase breve y proponemos cómo seguir. La familia puede asistir."
-        },
-        {
-          "question": "¿Se puede participar sin ordenador propio?",
-          "answer": "Según el contenido, podemos proponer préstamo o alternativas. Los materiales necesarios se indican en el correo de confirmación."
-        },
-        {
-          "question": "¿Puedo consultar estudios escolares y programación a la vez?",
-          "answer": "Sí. Combinamos apoyo escolar y programación según objetivos y momento, sin separarlos rígidamente."
-        },
-        {
-          "question": "¿Dónde se cambian o cancelan clases?",
-          "answer": "Las reservas, cambios y cancelaciones se gestionarán en el portal de Schools app. acecore.net no tendrá funciones de edición."
-        },
-        {
-          "question": "¿Se pueden editar reservas desde calendarios externos?",
-          "answer": "Por seguridad, calendarios como Outlook serán solo lectura. Los cambios y cancelaciones se hacen desde el portal."
-        }
-      ],
-      "finalCta": {
-        "title": "Empieza con una prueba gratuita",
-        "body": "No necesitas decidir el curso por adelantado. Organizamos la primera sesión según lo que quieras aprender, tus dudas y tus horarios.",
-        "primary": "Reservar en Schools app",
-        "secondary": "Consultar por formulario"
-      }
     }
   },
   "pageNames": {

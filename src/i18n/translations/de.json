@@ -236,7 +236,7 @@
         {
           "title": "IT-Schule / Acecore Schools",
           "description": "Individueller Unterricht für alle Altersgruppen — Programmierung, Nachhilfe und Vorbereitung auf den Schulabschluss.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/de/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -277,7 +277,7 @@
         {
           "title": "Bildung und Mentoring",
           "description": "Wir verwandeln praktisches Wissen in Lernunterstützung und geben es an Communities und die nächste Generation weiter.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/de/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -670,7 +670,7 @@
             "label": "Acecore Schools",
             "price": "8.000-33.000 ¥/Monat",
             "note": "Richtwerte für Aufnahmegebühr, Materialien und Verwaltungskosten stehen auch auf der Schools-Seite.",
-            "href": "/pricing/#schools"
+            "href": "https://schools.acecore.net/de/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -1019,7 +1019,7 @@
           "title": "Acecore Schools",
           "price": "8.000-33.000 ¥/Monat",
           "body": "Wir zeigen Richtwerte für Aufnahmegebühr, Monatsgebühr sowie Material- und Verwaltungskosten. Sie variieren nach Klassenstufe, Häufigkeit, Material und Lerninhalt.",
-          "href": "/pricing/#schools"
+          "href": "https://schools.acecore.net/de/#pricing"
         },
         {
           "icon": "clapperboard",
@@ -1064,120 +1064,6 @@
         "Domain, Server, Werbung, Druck, Materialien, Geräte, Reisekosten und andere externe Kosten fallen separat an.",
         "Wenn ein Budgetrahmen feststeht, ordnen wir die Prioritäten innerhalb dieses Rahmens."
       ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools ist eine individuelle IT-Schule und Lernbegleitung fur Kinder, Jugendliche und Erwachsene. Die Seite fasst kostenlose Probestunde, Zielgruppen, Haufigkeit, Wochentage, Zeiten und Eltern-FAQ zusammen.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Individuelle Begleitung fur Lernen und IT-Kompetenzen im eigenen Tempo, von Grundschulkindern bis Erwachsenen.",
-      "heroImgAlt": "Programmier- und Robotikraum von Acecore Schools",
-      "heroImgAlt2": "Lernen mit Laptop und Notizen bei Acecore Schools",
-      "trial": {
-        "eyebrow": "Kostenlose Probestunde",
-        "title": "Mit einer kostenlosen Probestunde Methode und Passung prufen",
-        "body": "In der Probestunde klaren wir Ziele, aktuellen Stand, Schwierigkeiten und verfugbare Zeiten und schlagen einen realistischen ersten Plan vor. Die Buchung erfolgt in der Schools app.",
-        "primaryCta": "Kostenlose Probestunde buchen",
-        "secondaryCta": "Preisubersicht ansehen",
-        "note": "Buchungen und Anderungen werden in der Schools app verwaltet. acecore.net bleibt eine Informationsseite und bietet keine Bearbeitung von Reservierungen.",
-        "points": [
-          "Wir prufen Lernziel und aktuellen Stand, um einen ersten Plan ohne Uberforderung vorzuschlagen.",
-          "Eltern konnen teilnehmen, um Ziele, Rhythmus und Begleitung zuhause abzustimmen.",
-          "Die Beratung kann Lernunterstutzung, Programmierung, Robotik und Prufungsvorbereitung gemeinsam behandeln."
-        ]
-      },
-      "courses": {
-        "eyebrow": "Kurse",
-        "title": "Kurse mit klarer Zielgruppe und Unterrichtshaufigkeit",
-        "body": "Die Kurse werden nach der kostenlosen Probestunde an Ziel, Alter, Erfahrung, Zeitplan und Konzentrationsspanne angepasst.",
-        "audienceLabel": "Zielgruppe",
-        "frequencyLabel": "Haufigkeit",
-        "items": [
-          {
-            "title": "Individuelle Lernunterstutzung",
-            "audience": "Grundschule, Mittelstufe, Oberstufe und Wiedereinsteiger",
-            "frequency": "Ab 1-mal pro Woche. Vor Prufungen oder Abgaben anpassbar.",
-            "body": "Wir begleiten Hausaufgaben, Wiederholung, Lucken und Planung, damit ein nachhaltiger Rhythmus entsteht.",
-            "icon": "book-open-check"
-          },
-          {
-            "title": "Programmierung und Robotik",
-            "audience": "Anfanger, kreative Kinder und Lernende mit Erfahrung",
-            "frequency": "Alle zwei Wochen oder wochentlich, je nach Projekt.",
-            "body": "Projektbasiertes Lernen mit Minecraft, Web, Robotern und einfachen Automatisierungen.",
-            "icon": "bot"
-          },
-          {
-            "title": "IT-Unterricht fur Erwachsene",
-            "audience": "Eltern, Berufstatige, Senioren und Computer-Anfanger",
-            "frequency": "Einmalige Beratung oder ab 2-mal pro Monat.",
-            "body": "PC-Nutzung, Cloud-Tools, KI, Sicherheit und alltagliche Automatisierung im passenden Tempo.",
-            "icon": "laptop"
-          },
-          {
-            "title": "Vorbereitung auf Schulabschluss-Aquivalenz",
-            "audience": "Lernende mit Aquivalenzprufung oder Wiedereinstieg ins Lernen",
-            "frequency": "Ab 1-mal pro Woche, je nach Anzahl der Facher.",
-            "body": "Facher ordnen, Lernplan erstellen, Grundlagen wiederholen und mit fruheren Aufgaben uben.",
-            "icon": "clipboard-check"
-          }
-        ]
-      },
-      "schedule": {
-        "eyebrow": "Zeitplan",
-        "title": "Tage und Zeiten passend zum Alltag abstimmen",
-        "body": "Dies sind Standardfenster. In der kostenlosen Probestunde passen wir sie an Schule, Vereine, Arbeit und Familie an.",
-        "dayLabel": "Tag",
-        "timeLabel": "Zeit",
-        "noteLabel": "Nutzung",
-        "note": "Aktuelle Verfugbarkeit wird in der Schools app bestatigt. Feiertage, Ferien und Events konnen eigene Zeitfenster haben.",
-        "items": [
-          {
-            "day": "Wochentage",
-            "time": "16:00-21:00",
-            "note": "Nach der Schule, nach Vereinsaktivitaten oder abends fur Erwachsene."
-          },
-          {
-            "day": "Samstag",
-            "time": "10:00-18:00",
-            "note": "Robotik, Programmierung, Prufungsvorbereitung und langere Projektzeiten."
-          },
-          {
-            "day": "Sonntag / Feiertage",
-            "time": "Nach Absprache",
-            "note": "Intensivtermine, Events oder Zusatztermine vor Prufungen."
-          }
-        ]
-      },
-      "faqEyebrow": "FAQ",
-      "faqTitle": "FAQ fur Eltern",
-      "faqs": [
-        {
-          "question": "Was passiert in der kostenlosen Probestunde?",
-          "answer": "Wir besprechen Stand, Ziele und Schwierigkeiten, machen eine kurze Probestunde und schlagen die nachsten Schritte vor. Eltern konnen dabei sein."
-        },
-        {
-          "question": "Kann man ohne eigenen Computer teilnehmen?",
-          "answer": "Je nach Inhalt konnen wir Leihgerate oder Alternativen vorschlagen. Notige Dinge stehen in der Bestatigungsnachricht."
-        },
-        {
-          "question": "Kann man Schullernen und Programmierung gemeinsam besprechen?",
-          "answer": "Ja. Wir kombinieren Lernunterstutzung und Programmierung passend zu Ziel und Zeitpunkt, statt sie strikt zu trennen."
-        },
-        {
-          "question": "Wo werden Anderungen oder Stornierungen vorgenommen?",
-          "answer": "Reservierungen, Anderungen und Stornierungen sind im Portal der Schools app vorgesehen. acecore.net bietet keine Bearbeitungsfunktion."
-        },
-        {
-          "question": "Konnen externe Kalender Reservierungen bearbeiten?",
-          "answer": "Aus Sicherheitsgrunden sollen externe Kalender wie Outlook nur lesend sein. Anderungen erfolgen im Portal."
-        }
-      ],
-      "finalCta": {
-        "title": "Mit einer kostenlosen Probestunde starten",
-        "body": "Ein Kurs muss vorher nicht feststehen. Wir organisieren die erste Stunde nach Lernwunsch, Schwierigkeiten und passenden Tagen.",
-        "primary": "In der Schools app buchen",
-        "secondary": "Uber Kontakt fragen"
-      }
     }
   },
   "pageNames": {

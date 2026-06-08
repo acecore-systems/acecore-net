@@ -222,7 +222,7 @@
         {
           "title": "IT School / Acecore Schools",
           "description": "Personalized tutoring for all ages — programming, academic support, and high school equivalency exam preparation.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/en/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "Education & Mentoring",
           "description": "We transform practical knowledge into learning support, cycling it to communities and the next generation.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/en/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -618,7 +618,7 @@
             "label": "Acecore Schools",
             "price": "¥8,000-¥33,000/month",
             "note": "Admission, materials, and management fee ranges are also listed on the Schools page.",
-            "href": "/pricing/#schools"
+            "href": "https://schools.acecore.net/en/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -967,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "¥8,000-¥33,000/month",
           "body": "Admission, tuition, and materials/management fee ranges are shown. Costs vary by grade, frequency, materials, and course content.",
-          "href": "/pricing/#schools"
+          "href": "https://schools.acecore.net/en/#pricing"
         },
         {
           "icon": "clapperboard",
@@ -1012,127 +1012,6 @@
         "External costs such as domains, servers, ads, printing, materials, equipment, and travel are separate.",
         "If you already have a budget, we will organize priorities and propose a realistic scope within it."
       ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools is a personalized IT school and learning support service for elementary students through adults. This page summarizes free trial lessons, target learners, lesson frequency, schedule, and parent FAQs.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "A personalized school that helps children, students, and adults grow academic confidence and practical IT skills at their own pace.",
-      "heroImgAlt": "Student learning programming",
-      "heroImgAlt2": "Personalized learning support at Acecore Schools",
-      "trial": {
-        "eyebrow": "Free Trial",
-        "title": "Start with a free trial to check the learning style and fit",
-        "body": "In the first session, we review the learner's current situation, goals, strengths, and difficulties, then suggest a suitable course and frequency. Reservations and schedule coordination are handled in the Schools app.",
-        "primaryCta": "Book a free trial",
-        "secondaryCta": "View pricing guide",
-        "note": "Reservations, changes, and cancellations are handled in the Schools app. acecore.net provides guide information only.",
-        "points": [
-          "We review goals and current level, then suggest a realistic first plan.",
-          "Parents can join the consultation, including questions about balancing school and home study.",
-          "After online booking, we send a confirmation email with preparation and access details."
-        ]
-      },
-      "courses": {
-        "eyebrow": "Courses",
-        "title": "Courses with target learners and lesson frequency",
-        "body": "Based on one-on-one instruction, we support everything from school study to practical programming. Frequency can be adjusted to the learner's goals and routine.",
-        "audienceLabel": "Target learners",
-        "frequencyLabel": "Lesson frequency",
-        "items": [
-          {
-            "icon": "book-open",
-            "title": "Tutoring and individual study support",
-            "audience": "Elementary, junior high, and high school students",
-            "frequency": "From once a week. Extra sessions can be discussed before exams.",
-            "body": "We support review, test preparation, and exam foundations according to each learner's understanding."
-          },
-          {
-            "icon": "bot",
-            "title": "Robotics / Programming",
-            "audience": "Elementary and junior high students, plus first-time programmers",
-            "frequency": "Usually twice a month or once a week.",
-            "body": "Learners build logical thinking through robotics, Minecraft programming, Scratch, and hands-on projects."
-          },
-          {
-            "icon": "code-xml",
-            "title": "Practical programming",
-            "audience": "Junior high students and older, adults, and people who want to build projects",
-            "frequency": "From once a week. Short intensive plans are available by consultation.",
-            "body": "We learn web development, backends, databases, Git, and production-style workflows through real exercises."
-          },
-          {
-            "icon": "monitor-smartphone",
-            "title": "PC / Smartphone lessons",
-            "audience": "Students, parents, adults, and seniors",
-            "frequency": "Single consultation or from twice a month.",
-            "body": "We help with daily digital tasks such as basic operations, Office apps, security, and smartphone settings."
-          },
-          {
-            "icon": "clipboard-check",
-            "title": "High school equivalency exam support",
-            "audience": "Learners preparing for the equivalency exam or returning to study",
-            "frequency": "From once a week, adjusted by subject count.",
-            "body": "We organize subjects, study plans, review basics, and practice past questions with a sustainable plan."
-          }
-        ]
-      },
-      "schedule": {
-        "eyebrow": "Schedule",
-        "title": "Consult about days and times that fit your routine",
-        "body": "These are standard time slots. We adjust during the free trial based on school events, clubs, work, and family schedules.",
-        "dayLabel": "Day",
-        "timeLabel": "Time",
-        "noteLabel": "Use case",
-        "note": "Check the Schools app for the latest availability. Holidays, long vacations, and events may use separate slots.",
-        "items": [
-          {
-            "day": "Weekdays",
-            "time": "16:00-21:00",
-            "note": "After-school study, post-club study, and evening lessons for adults."
-          },
-          {
-            "day": "Saturday",
-            "time": "10:00-18:00",
-            "note": "Robotics, programming, exam preparation, and longer project work."
-          },
-          {
-            "day": "Sunday / holidays",
-            "time": "By consultation",
-            "note": "Short intensive sessions, events, or extra exam-period slots."
-          }
-        ]
-      },
-      "faqEyebrow": "FAQ",
-      "faqTitle": "FAQ for parents",
-      "faqs": [
-        {
-          "question": "What happens during the free trial?",
-          "answer": "We review the learner's situation, goals, and concerns, provide a short trial lesson, and suggest how to proceed. Parents can attend."
-        },
-        {
-          "question": "Can we join without owning a computer?",
-          "answer": "Depending on the lesson, we can suggest rental or alternative options. Required items are sent in the confirmation email."
-        },
-        {
-          "question": "Can we discuss both school study and programming?",
-          "answer": "Yes. We combine study support and programming based on goals and timing instead of treating them as separate tracks."
-        },
-        {
-          "question": "Where are lesson changes and cancellations handled?",
-          "answer": "Reservations, changes, and cancellations are planned to be handled in the Schools app portal. acecore.net does not provide editing features."
-        },
-        {
-          "question": "Can external calendars edit reservations?",
-          "answer": "For safety, external calendars such as Outlook are planned to be read-only. Changes and cancellations are handled from the portal."
-        }
-      ],
-      "finalCta": {
-        "title": "Start with a free trial",
-        "body": "You do not need to choose a course in advance. We will organize the first session based on what you want to learn, where you need help, and available days.",
-        "primary": "Book in the Schools app",
-        "secondary": "Ask through contact"
-      }
     }
   },
   "pageNames": {

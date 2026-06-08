@@ -11,6 +11,7 @@ import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { getWorksCopy } from '../data/works'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -79,7 +80,7 @@ const serviceMap = [
     title: t(locale, 'pages.services.mapEducationTitle'),
     description: t(locale, 'pages.services.mapEducationDesc'),
     icon: 'graduation-cap',
-    href: u('/schools/'),
+    href: getSchoolsUrl(locale),
     tone: 'slate',
   },
 ] as const
@@ -157,7 +158,7 @@ const serviceLd = {
       name: t(locale, 'pages.services.education.title'),
       description: t(locale, 'pages.services.education.desc'),
       provider: { '@type': 'Organization', name: 'Acecore' },
-      url: `https://acecore.net${u('/schools/')}`,
+      url: getSchoolsUrl(locale),
     },
   ],
 }
@@ -556,7 +557,7 @@ const serviceLd = {
         </div>
         <div class="mt-4">
           <a
-            href={u('/schools/')}
+            href={getSchoolsUrl(locale)}
             class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
           >
             <Icon name="arrow-right" class="text-sm" />
@@ -835,7 +836,7 @@ const serviceLd = {
           <a href={u('/contact/')} class="ac-btn-primary"
             >{t(locale, 'pages.services.ctaContact')}</a
           >
-          <a href={u('/schools/')} class="ac-btn-outline"
+          <a href={getSchoolsUrl(locale)} class="ac-btn-outline"
             >{t(locale, 'pages.services.ctaSchools')}</a
           >
         </div>

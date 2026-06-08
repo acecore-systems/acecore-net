@@ -222,7 +222,7 @@
         {
           "title": "Escola de TI / Acecore Schools",
           "description": "Tutoria personalizada para todas as idades — programação, suporte acadêmico e preparação para equivalência.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/pt/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "Educação e mentoria",
           "description": "Transformamos conhecimento prático em suporte educacional para comunidades e próximas gerações.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/pt/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -696,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "¥8.000-¥33.000/mês",
             "note": "As faixas de matrícula, materiais e taxa de gestão também aparecem na página Schools.",
-            "href": "/pricing/#schools"
+            "href": "https://schools.acecore.net/pt/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -967,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "¥8.000-¥33.000/mês",
           "body": "Publicamos faixas de matrícula, mensalidade, materiais e gestão. Elas variam por série, frequência, materiais e conteúdo.",
-          "href": "/pricing/#schools"
+          "href": "https://schools.acecore.net/pt/#pricing"
         },
         {
           "icon": "clapperboard",
@@ -1012,120 +1012,6 @@
         "Domínio, servidor, anúncios, impressão, materiais, equipamentos, transporte e outros custos externos são separados.",
         "Se já houver orçamento definido, organizamos as prioridades dentro dessa faixa."
       ]
-    },
-    "schools": {
-      "title": "Acecore Schools",
-      "description": "Acecore Schools e uma escola de TI e apoio ao estudo com acompanhamento individual para criancas, jovens e adultos. A pagina resume teste gratuito, publico-alvo, frequencia, dias e horarios, e FAQ para responsaveis.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Apoio individual para desenvolver estudo e habilidades de TI no ritmo de cada pessoa, de criancas a adultos.",
-      "heroImgAlt": "Sala de programacao e robotica da Acecore Schools",
-      "heroImgAlt2": "Aula com notebook e anotacoes na Acecore Schools",
-      "trial": {
-        "eyebrow": "Teste gratuito",
-        "title": "Comece com um teste gratuito para confirmar o metodo e a compatibilidade",
-        "body": "No teste, confirmamos objetivos, situacao atual, dificuldades e disponibilidade antes de propor um primeiro plano realista. A reserva e feita no Schools app.",
-        "primaryCta": "Reservar teste gratuito",
-        "secondaryCta": "Ver referencia de precos",
-        "note": "Reservas e alteracoes sao geridas no Schools app. acecore.net funciona como pagina informativa e nao edita reservas.",
-        "points": [
-          "Confirmamos o objetivo de aprendizagem e o nivel atual para propor um plano inicial sem sobrecarga.",
-          "Responsaveis podem participar para alinhar objetivos, ritmo e acompanhamento em casa.",
-          "A consulta pode incluir apoio escolar, programacao, robotica e preparacao para exames."
-        ]
-      },
-      "courses": {
-        "eyebrow": "Cursos",
-        "title": "Cursos com publico-alvo e frequencia claramente indicados",
-        "body": "Os cursos sao ajustados apos o teste gratuito conforme objetivo, idade, experiencia, disponibilidade e capacidade de concentracao.",
-        "audienceLabel": "Publico-alvo",
-        "frequencyLabel": "Frequencia",
-        "items": [
-          {
-            "title": "Apoio escolar individual",
-            "audience": "Ensino fundamental, medio e pessoas retomando estudos",
-            "frequency": "A partir de 1 vez por semana. Ajustavel antes de provas ou entregas.",
-            "body": "Acompanhamos deveres, revisao, dificuldades e planejamento para criar um ritmo sustentavel.",
-            "icon": "book-open-check"
-          },
-          {
-            "title": "Programacao e robotica",
-            "audience": "Iniciantes, criancas criativas e alunos com experiencia",
-            "frequency": "Quinzenal ou semanal, conforme o projeto.",
-            "body": "Aprendizagem por projetos com Minecraft, web, robos e automacoes simples.",
-            "icon": "bot"
-          },
-          {
-            "title": "Aulas de TI para adultos",
-            "audience": "Responsaveis, profissionais, idosos e iniciantes em computador",
-            "frequency": "Consulta pontual ou a partir de 2 vezes por mes.",
-            "body": "Uso de PC, ferramentas cloud, IA, seguranca e automacao do dia a dia em ritmo adequado.",
-            "icon": "laptop"
-          },
-          {
-            "title": "Preparacao para equivalencia do ensino medio",
-            "audience": "Pessoas preparando prova de equivalencia ou retomando estudos",
-            "frequency": "A partir de 1 vez por semana, conforme quantidade de materias.",
-            "body": "Organizacao de materias, plano de estudo, revisao de base e pratica com provas anteriores.",
-            "icon": "clipboard-check"
-          }
-        ]
-      },
-      "schedule": {
-        "eyebrow": "Horario",
-        "title": "Consulte dias e horarios que se encaixam na rotina",
-        "body": "Estes sao os horarios padrao. Ajustamos no teste gratuito conforme escola, atividades, trabalho e agenda familiar.",
-        "dayLabel": "Dia",
-        "timeLabel": "Horario",
-        "noteLabel": "Uso",
-        "note": "As vagas mais recentes sao confirmadas no Schools app. Feriados, ferias e eventos podem ter horarios separados.",
-        "items": [
-          {
-            "day": "Dias uteis",
-            "time": "16:00-21:00",
-            "note": "Depois da escola, apos atividades, ou aulas noturnas para adultos."
-          },
-          {
-            "day": "Sabado",
-            "time": "10:00-18:00",
-            "note": "Robotica, programacao, preparacao para exames e projetos mais longos."
-          },
-          {
-            "day": "Domingo / feriados",
-            "time": "Sob consulta",
-            "note": "Aulas intensivas, eventos ou horarios extras antes de provas."
-          }
-        ]
-      },
-      "faqEyebrow": "FAQ",
-      "faqTitle": "FAQ para responsaveis",
-      "faqs": [
-        {
-          "question": "O que acontece no teste gratuito?",
-          "answer": "Revisamos a situacao, objetivos e dificuldades, fazemos uma curta aula experimental e sugerimos os proximos passos. Responsaveis podem acompanhar."
-        },
-        {
-          "question": "E possivel participar sem computador?",
-          "answer": "Dependendo do conteudo, podemos orientar emprestimo ou alternativa. Os itens necessarios sao enviados na confirmacao."
-        },
-        {
-          "question": "Podemos conversar sobre escola e programacao ao mesmo tempo?",
-          "answer": "Sim. Combinamos apoio escolar e programacao conforme objetivos e periodo, sem separar em trilhas rigidas."
-        },
-        {
-          "question": "Onde fazer alteracoes ou cancelamentos?",
-          "answer": "Reservas, alteracoes e cancelamentos serao tratados no portal do Schools app. acecore.net nao oferece edicao de reservas."
-        },
-        {
-          "question": "Calendarios externos podem editar reservas?",
-          "answer": "Por seguranca, calendarios externos como Outlook serao somente leitura. Alteracoes e cancelamentos ficam no portal."
-        }
-      ],
-      "finalCta": {
-        "title": "Comece com um teste gratuito",
-        "body": "Nao e necessario escolher um curso antes. Organizamos a primeira aula com base no que voce quer aprender, nas dificuldades e nos dias disponiveis.",
-        "primary": "Reservar no Schools app",
-        "secondary": "Perguntar pelo contato"
-      }
     }
   },
   "pageNames": {

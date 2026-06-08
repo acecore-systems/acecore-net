@@ -8,7 +8,6 @@ import homePageTranslations from './pages/home.json'
 import notFoundPageTranslations from './pages/not-found.json'
 import privacyPageTranslations from './pages/privacy.json'
 import pricingPageTranslations from './pages/pricing.json'
-import schoolsPageTranslations from './pages/schools.json'
 import servicesPageTranslations from './pages/services.json'
 
 type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
@@ -139,7 +138,6 @@ const jaTranslations = {
     notFound: notFoundPageTranslations,
     about: aboutPageTranslations,
     services: servicesPageTranslations,
-    schools: schoolsPageTranslations,
     pricing: pricingPageTranslations,
     contact: contactPageTranslations,
     privacy: privacyPageTranslations,
