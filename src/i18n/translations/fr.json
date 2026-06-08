@@ -222,7 +222,7 @@
         {
           "title": "École IT / Acecore Schools",
           "description": "Tutorat personnalisé pour tous les âges : programmation, soutien scolaire et préparation aux examens.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/fr/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "Éducation et mentorat",
           "description": "Nous transformons le savoir-faire en soutien éducatif pour les communautés et les générations futures.",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/fr/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -364,156 +364,6 @@
           "question": "Quel est le délai de réponse ?",
           "answer": "Nous répondons généralement sous 1-2 jours ouvrés. Pour compléter après l’envoi, LINE ou les options de contact ci-dessous peuvent aussi être utilisées."
         }
-      ]
-    },
-    "schools": {
-      "robotProgramming": {
-        "progImgAlt": "Image d'apprentissage de la programmation",
-        "title": "Robotique / Programmation",
-        "desc": "Nous proposons des cours de pointe en programmation de robots. Les élèves peuvent apprendre les fondamentaux de la programmation en utilisant de vrais robots.",
-        "imgAlt": "Élève engagé dans l'apprentissage de la programmation",
-        "courses": [
-          {
-            "title": "Cours de Robotique",
-            "description": "Apprenez le plaisir de créer et les mécanismes de base à travers l'assemblage pratique de robots en utilisant des kits comme la série Tamiya."
-          },
-          {
-            "title": "Cours de Programmation de Robots",
-            "description": "Apprenez à contrôler des robots avec la programmation. Développez la pensée logique à travers le contrôle de capteurs et moteurs."
-          },
-          {
-            "title": "Cours de Programmation Minecraft",
-            "description": "Apprenez les bases de la programmation dans le monde de Minecraft. Développez la pensée logique par l'apprentissage ludique."
-          }
-        ]
-      },
-      "practicalProgramming": {
-        "contentsLabel": "Contenus du Cours",
-        "title": "Programmation Pratique",
-        "desc": "Nous proposons un programme pour apprendre les compétences de programmation utilisées dans les environnements professionnels réels. Acquérez des compétences pratiques pour agir immédiatement.",
-        "contentLabel": "Ce que Vous Apprendrez",
-        "contents": [
-          "Développement web frontend avec HTML / CSS / JavaScript",
-          "Développement backend avec Python / Node.js",
-          "Conception de bases de données, développement d'API et utilisation du cloud",
-          "Git et flux de développement en équipe"
-        ]
-      },
-      "pcSmartphone": {
-        "levelsLabel": "Niveaux Pris en Charge",
-        "title": "PC / Smartphone",
-        "desc": "Apprenez les compétences informatiques et smartphone nécessaires dans la vie quotidienne et professionnelle. Nous proposons des cours pour tous les niveaux, des débutants aux avancés.",
-        "levelLabel": "Niveaux Supportés",
-        "imgAlt": "Élève apprenant sur ordinateur",
-        "levels": [
-          "Utilisation basique de PC et smartphone (débutants bienvenus)",
-          "Logiciels bureautiques : Word / Excel / PowerPoint",
-          "Configuration et utilisation d'e-mail, réseaux sociaux et réunions en ligne",
-          "Mesures de sécurité et résolution de problèmes"
-        ]
-      },
-      "title": "Acecore Schools",
-      "description": "Acecore Schools est une école d'informatique proposant une large variété de programmes éducatifs incluant le tutorat, la programmation de robots, la programmation pratique, les cours PC/smartphone et la préparation à l'équivalence du baccalauréat.",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "Enseignement personnalisé pour des compétences solides",
-      "heroImgAlt": "Scène d'apprentissage en classe",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "Découvrez le parcours d'apprentissage d'Acecore Schools",
-      "learningFlowDesc": "De l'intérêt initial à la pratique et la continuité — présenté comme un parcours d'apprentissage unique.",
-      "intro": "Nous offrons un enseignement personnalisé adapté aux objectifs et au rythme de chaque élève, des enfants aux adultes. Vous pouvez aussi voir notre positionnement dans l'aperçu des services.",
-      "juku": {
-        "title": "Tutorat",
-        "desc": "Notre programme de tutorat offre un enseignement personnalisé adapté à chaque élève, construisant les compétences académiques du niveau de base au niveau avancé. Des instructeurs expérimentés soutiennent la croissance de chaque étudiant.",
-        "featuresLabel": "Caractéristiques",
-        "imgAlt": "Session de tutorat individuel en classe",
-        "features": [
-          "Cours personnalisés adaptés au niveau de compréhension de chaque élève",
-          "Soutien étape par étape des compétences de base à l'application avancée",
-          "Préparation aux examens et examens d'entrée disponible"
-        ]
-      },
-      "compareTitle": "Comparer les Approches d'Apprentissage",
-      "compareBefore": "Autodidacte",
-      "compareAfter": "Acecore Schools",
-      "ged": {
-        "title": "Équivalence du Baccalauréat",
-        "desc": "Nous proposons des cours préparatoires à l'examen d'équivalence du baccalauréat pour ceux qui n'ont pas terminé le lycée. Nous vous soutenons dans l'obtention des connaissances et qualifications nécessaires.",
-        "supportLabel": "Contenu de Support",
-        "supports": [
-          "Préparation par matière (français, mathématiques, anglais, sciences sociales, sciences)",
-          "Plans d'études personnalisés basés sur le niveau académique individuel",
-          "Examens blancs et exercices avec des épreuves précédentes pour une préparation pratique"
-        ]
-      },
-      "ctaHeading": "Consultations et Inscriptions",
-      "ctaBody": "Pour les détails des cours et l’inscription, utilisez le formulaire de contact ou LINE. Vous pouvez demander même si vous ne savez pas quel cours choisir.",
-      "ctaForm": "Formulaire de Contact",
-      "ctaLine": "Contact via LINE",
-      "pricing": {
-        "title": "Repères de frais de cours",
-        "body": "Pour estimer le coût avant l'inscription, nous indiquons les repères de mensualité, frais d'inscription et supports. Les montants sont des estimations TTC et varient selon le niveau, la fréquence, les supports et le contenu.",
-        "ctaHeading": "Contactez-nous pour un coût détaillé.",
-        "ctaBody": "Nous clarifions le niveau, l'objectif et la fréquence possible, puis proposons un plan d'apprentissage réaliste avec son coût.",
-        "ctaPricing": "Voir le guide tarifaire",
-        "ctaContact": "Nous contacter",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "Frais d'inscription",
-            "price": "11 000-22 000 ¥",
-            "note": "Une seule fois au démarrage. Peut varier selon le niveau et le cours."
-          },
-          {
-            "icon": "calendar-days",
-            "label": "Mensualité",
-            "price": "8 000-33 000 ¥",
-            "note": "Varie selon la fréquence, la durée des cours et le niveau d'accompagnement individuel."
-          },
-          {
-            "icon": "book-open",
-            "label": "Supports et gestion",
-            "price": "environ 5 000-30 000 ¥",
-            "note": "Les supports, pièces de robotique, PC ou licences peuvent entraîner des frais réels selon le contenu."
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "Trouvez votre Intérêt",
-          "description": "À travers le tutorat et les expériences avec les robots, nous aidons à trouver le point d'entrée de chaque élève dans l'apprentissage.",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "Apprenez en Faisant",
-          "description": "Connectez expérience et compréhension à travers le travail pratique avec des robots, Minecraft et des exercices de programmation.",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "Reliez à la Pratique",
-          "description": "Élevez l'apprentissage à la résolution de problèmes réels à travers le développement web et l'utilisation d'outils.",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "Rendez Durable",
-          "description": "Créez un chemin de continuité adapté à chaque élève, incluant examens, certifications et utilisation quotidienne de l'informatique.",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "Ne sait pas par où commencer",
-        "Personne à consulter en cas de blocage",
-        "Difficile de maintenir la motivation",
-        "Ne voit pas le lien avec la pratique"
-      ],
-      "compareAfterItems": [
-        "Suggestions personnalisées de point d'entrée",
-        "Demandez aux instructeurs à tout moment",
-        "Continuité naturelle à travers l'expérience pratique",
-        "Directement connecté aux examens, certifications et travail réel"
       ]
     },
     "about": {
@@ -846,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "8 000-33 000 ¥/mois",
             "note": "Les repères pour l'inscription, les supports et les frais de gestion sont aussi indiqués sur la page Schools.",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/fr/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -1117,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "8 000-33 000 ¥/mois",
           "body": "Nous indiquons des repères pour l'inscription, la mensualité, les supports et la gestion. Ils varient selon le niveau, la fréquence, les supports et le contenu.",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/fr/#pricing"
         },
         {
           "icon": "clapperboard",

@@ -48,4 +48,4 @@ L'exclamation de joie au moment où le robot se met en marche est aussi un momen
 Pour toute question ou inscription liée à l'événement, utilisez le [formulaire de contact](/contact/) ou le [LINE officiel](https://lin.ee/DjIrdqj).
 Si vous souhaitez confirmer un point directement, commencez par laisser un bref résumé dans le formulaire afin de faciliter le suivi.
 
-Acecore Schools prévoit d'organiser régulièrement des événements à l'avenir. Les dernières informations sont publiées sur la [page Schools](/schools/) et sur le blog.
+Acecore Schools prévoit d'organiser régulièrement des événements à l'avenir. Les dernières informations sont publiées sur la [page Schools](https://schools.acecore.net/fr/) et sur le blog.

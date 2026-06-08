@@ -222,7 +222,7 @@
         {
           "title": "IT学校 / Acecore Schools",
           "description": "面向儿童到成人的个性化指导。对应编程、学习辅导、高中同等学力考试。",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/zh-cn/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -263,7 +263,7 @@
         {
           "title": "教育与陪伴",
           "description": "将实用知识转化为学习支持，传递给地区和下一代。",
-          "href": "/schools/",
+          "href": "https://schools.acecore.net/zh-cn/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
@@ -364,156 +364,6 @@
           "question": "多久会回复？",
           "answer": "通常会在 1-2 个工作日内回复。提交后的补充说明也可以使用 LINE 或下方联系方式。"
         }
-      ]
-    },
-    "schools": {
-      "robotProgramming": {
-        "progImgAlt": "编程学习图片",
-        "title": "机器人 / 编程",
-        "desc": "我们提供融合先进技术的机器人编程课程。学生可以使用实际的机器人学习编程基础。",
-        "imgAlt": "学习编程的学生",
-        "courses": [
-          {
-            "title": "机器人课程",
-            "description": "通过使用田宫工作套件等进行实际的机器人制作，学习制造的乐趣和基本原理。"
-          },
-          {
-            "title": "机器人编程课程",
-            "description": "学习通过编程控制机器人的技术。通过传感器和电机控制培养逻辑思维能力。"
-          },
-          {
-            "title": "我的世界编程课程",
-            "description": "在我的世界中快乐地学习编程基础。通过游戏培养逻辑思维能力。"
-          }
-        ]
-      },
-      "practicalProgramming": {
-        "contentsLabel": "学习内容",
-        "title": "实践编程",
-        "desc": "我们提供学习实际业务中使用的编程技术的课程。掌握实践技能，让学员能够即刻独当一面。",
-        "contentLabel": "学习内容",
-        "contents": [
-          "使用 HTML / CSS / JavaScript 进行Web前端开发",
-          "使用 Python / Node.js 等进行后端开发",
-          "数据库设计、API构建和云服务应用",
-          "Git和团队开发工作流"
-        ]
-      },
-      "pcSmartphone": {
-        "levelsLabel": "支持级别",
-        "title": "电脑 / 智能手机",
-        "desc": "学习日常生活和商务场景中所需的电脑和智能手机操作技能。为从初学者到高级用户提供全方位课程。",
-        "levelLabel": "适用级别",
-        "imgAlt": "使用电脑学习的学员",
-        "levels": [
-          "电脑和智能手机基本操作（欢迎初学者）",
-          "办公软件：Word / Excel / PowerPoint 的使用",
-          "邮件、社交媒体和在线会议的设置与使用",
-          "安全防护和故障排除"
-        ]
-      },
-      "title": "Acecore Schools",
-      "description": "Acecore Schools是一所IT学校，提供学习辅导、机器人编程、实践编程、电脑/智能手机课程和高中同等学力考试准备等广泛的教育项目。",
-      "heroTitle": "Acecore Schools",
-      "heroSubtitle": "个性化指导，培养扎实技能",
-      "heroImgAlt": "教室学习场景",
-      "learningFlowEyebrow": "Learning Flow",
-      "learningFlowTitle": "了解Acecore Schools的学习流程",
-      "learningFlowDesc": "从兴趣入门到实践再到持续学习——以一条学习路径展现。",
-      "intro": "我们为从儿童到成人的学员提供个性化指导，根据每个人的目标和节奏量身定制。您也可以在服务一览中了解我们的定位。",
-      "juku": {
-        "title": "学习辅导",
-        "desc": "我们的辅导课程为每位学生提供个性化指导，从基础到应用，培养全面的学习能力。经验丰富的讲师全力支持每位学生的成长。",
-        "featuresLabel": "特色",
-        "imgAlt": "教室个别辅导场景",
-        "features": [
-          "根据每位学生的理解程度提供个别辅导",
-          "从基础巩固到应用能力培养的阶段性支持",
-          "支持定期考试和升学考试备考"
-        ]
-      },
-      "compareTitle": "学习方式对比",
-      "compareBefore": "自学",
-      "compareAfter": "Acecore Schools",
-      "ged": {
-        "title": "高中同等学力考试",
-        "desc": "为未高中毕业者提供高中同等学力考试备考课程。帮助掌握专业知识和技能，获取高中同等资格。",
-        "supportLabel": "支持内容",
-        "supports": [
-          "各科目考试对策（语文、数学、英语、社会、理科）",
-          "根据个人学力制定学习计划",
-          "模拟考试和历年真题训练"
-        ]
-      },
-      "ctaHeading": "咨询与报名",
-      "ctaBody": "课程详情和报名请通过联系表单或 LINE 咨询。即使不确定哪个课程适合，也可以直接询问。",
-      "ctaForm": "咨询表单",
-      "ctaLine": "通过LINE咨询",
-      "pricing": {
-        "title": "学费参考",
-        "body": "为了在报名前确认费用感，我们公开月费、入会金和教材费的参考。金额为含税预估，会根据年级、次数、教材和课程内容变动。",
-        "ctaHeading": "详细费用欢迎咨询。",
-        "ctaBody": "我们会了解年级、目标和可上课次数，整理合适的学习计划与费用感。",
-        "ctaPricing": "查看费用参考",
-        "ctaContact": "联系我们",
-        "items": [
-          {
-            "icon": "log-in",
-            "label": "入会金",
-            "price": "1.1万〜2.2万日元",
-            "note": "仅首次发生。会根据年级和课程变动。"
-          },
-          {
-            "icon": "calendar-days",
-            "label": "月费",
-            "price": "8千〜3.3万日元",
-            "note": "会根据每周次数、课时和个别指导内容变动。"
-          },
-          {
-            "icon": "book-open",
-            "label": "教材与管理费",
-            "price": "约5千〜3万日元",
-            "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
-          }
-        ]
-      },
-      "learningSteps": [
-        {
-          "title": "发现兴趣",
-          "description": "通过辅导和机器人体验，为每位学生找到学习的入口。",
-          "icon": "sparkles",
-          "accent": "amber"
-        },
-        {
-          "title": "动手理解",
-          "description": "通过机器人实操、我的世界和编程练习，将体验与理解结合。",
-          "icon": "bot",
-          "accent": "brand"
-        },
-        {
-          "title": "连接实践",
-          "description": "通过Web开发和工具运用，将学习提升到解决实际问题的层面。",
-          "icon": "code-xml",
-          "accent": "emerald"
-        },
-        {
-          "title": "持续学习",
-          "description": "涵盖升学考试、资格证书和日常IT应用，为每位学员打造适合的持续学习路径。",
-          "icon": "flag",
-          "accent": "slate"
-        }
-      ],
-      "compareBeforeItems": [
-        "不知道从何开始",
-        "遇到困难无人可问",
-        "难以保持学习动力",
-        "看不到与实际应用的联系"
-      ],
-      "compareAfterItems": [
-        "根据个人情况推荐入门方式",
-        "随时可以向讲师提问",
-        "通过体验自然地持续学习",
-        "直接对接升学、资格考试和实务"
       ]
     },
     "about": {
@@ -846,7 +696,7 @@
             "label": "Acecore Schools",
             "price": "月费8千〜3.3万日元",
             "note": "入会金、教材费、管理费的参考也会在 Schools 页面说明。",
-            "href": "/schools/#pricing"
+            "href": "https://schools.acecore.net/zh-cn/#pricing"
           },
           {
             "icon": "gamepad-2",
@@ -1117,7 +967,7 @@
           "title": "Acecore Schools",
           "price": "月费8千〜3.3万日元",
           "body": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
-          "href": "/schools/#pricing"
+          "href": "https://schools.acecore.net/zh-cn/#pricing"
         },
         {
           "icon": "clapperboard",

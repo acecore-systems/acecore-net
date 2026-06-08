@@ -26,6 +26,7 @@ import {
   getBaseSlug,
   getLocalizedAuthor,
 } from '../utils/blog-i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
 import {
   getAllAuthors,
   findAuthorById,
@@ -269,7 +270,7 @@ const webPageLd = {
         <p
           class="text-lg leading-relaxed text-white/80 mb-8"
           set:html={t(locale, 'pages.home.aboutBody2', {
-            link: `<a href="${u('/schools/')}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
+            link: `<a href="${getSchoolsUrl(locale)}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
           })}
         />
         <div
