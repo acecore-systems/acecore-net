@@ -10,8 +10,8 @@
   "d1_databases": [
     {
       "binding": "COMMENTS_DB",
-      "database_name": "acecore-comments-preview",
-      "database_id": "03ad2e45-fdc9-43f6-a685-db0ee1513913",
+      "database_name": "acecore-comments-production",
+      "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
       "migrations_dir": "./migrations",
     },
   ],
@@ -24,8 +24,8 @@
       "d1_databases": [
         {
           "binding": "COMMENTS_DB",
-          "database_name": "acecore-comments-preview",
-          "database_id": "03ad2e45-fdc9-43f6-a685-db0ee1513913",
+          "database_name": "acecore-comments-production",
+          "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
           "migrations_dir": "./migrations",
         },
       ],
