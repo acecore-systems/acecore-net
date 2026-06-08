@@ -1,7 +1,7 @@
 ---
 title: '让 GitHub Copilot 完成全部报税工作 ― 从837条记账分录到申报提交'
 description: '利用云会计数据对接积累的837条记账分录的分类验证，到社保金额核对、扣除项输入、申报提交。将实际工作几乎全部交给 GitHub Copilot Agent Mode × Simple Browser 完成报税的全过程记录。'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

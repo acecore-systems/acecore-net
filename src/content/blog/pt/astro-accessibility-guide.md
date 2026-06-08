@@ -1,7 +1,7 @@
 ---
 title: 'Guia prático para tornar seu site Astro compatível com WCAG AA'
 description: 'Apresentamos todos os passos de melhoria de acessibilidade realizados em um site com Astro + UnoCSS. Abrangemos atributos aria, contraste, gerenciamento de foco, validação de formulários, suporte a leitores de tela e outras medidas necessárias para conformidade WCAG AA.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
 image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp

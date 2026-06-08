@@ -1,7 +1,7 @@
 ---
 title: 'Acecore Official Website Has Been Renewed'
 description: "Acecore's official website has been completely renewed. Here's an overview of the new site's features and future plans."
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

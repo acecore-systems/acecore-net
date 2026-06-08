@@ -2,7 +2,7 @@
 title: 'Как развивать сайт на Astro + Cloudflare по функциям'
 description: 'Как мы объединили Astro и Cloudflare Pages с AI-чатом для обращений, Sveltia CMS, многоязычным блогом, CTA услуг, безопасным Markdown-рендерингом и комментариями без внешнего сервиса.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp

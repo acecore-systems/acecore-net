@@ -1,8 +1,8 @@
 ---
 title: '实现Astro网站PageSpeed移动端99分的实践技巧'
 description: '介绍在Astro + UnoCSS + Cloudflare Pages构成的网站上达到PageSpeed Insights移动端99分所实施的优化技巧。涵盖CSS分发策略、字体设置的陷阱、响应式图片、AdSense延迟加载、缓存设置等实践方法。'
-date: 2026-03-15
-lastUpdated: 2026-03-25
+date: 2026-03-15T00:00
+lastUpdated: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp

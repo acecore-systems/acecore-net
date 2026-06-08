@@ -1,7 +1,7 @@
 ---
 title: 'Trampas y soluciones de Astro View Transitions — Guía de mejora de UX y calidad de código'
 description: 'Soluciones para el problema de scripts que dejan de funcionar con View Transitions de Astro, implementación de búsqueda de texto completo con Pagefind, mejora de seguridad de tipos TypeScript, gestión centralizada de constantes y más. Guía práctica de mejora de UX y calidad de código.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-ux-and-code-quality.webp

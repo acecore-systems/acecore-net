@@ -1,7 +1,7 @@
 ---
 title: 'От VitePress к Starlight — унификация фреймворков для документационного сайта'
 description: 'Запись миграции бизнес-плана, созданного с помощью VitePress + UnoCSS, на Astro + Starlight с унификацией фреймворка между двумя проектами. Также рассматривается миграция диаграмм Mermaid на CDN.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
 image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp

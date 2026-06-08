@@ -1,7 +1,7 @@
 ---
 title: 'Обезьянье тестирование сайта с GitHub Copilot × Playwright: практическое руководство'
 description: 'Практическое руководство по систематическому обезьяньему тестированию статического сайта с использованием VS Code Agent Mode (GitHub Copilot) в сочетании с инструментами браузера Playwright. Рассматриваются методология проектирования тестов, обнаруженные ошибки и их исправления, а также рекомендации по улучшению.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code', 'Astro', 'Webサイト']
 image: /uploads/acecore-generated/blog-ai-monkey-testing-methodology-1600.webp

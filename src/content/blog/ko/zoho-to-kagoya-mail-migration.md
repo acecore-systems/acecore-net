@@ -1,7 +1,7 @@
 ---
 title: 'Zoho Mail에서 KAGOYA MAIL로의 이전 가이드 — DNS, 인증, 데이터 감사 실전'
 description: 'Zoho Workplace에서 KAGOYA MAIL로의 전체 이전에 대한 실전 가이드. 단계별 절차, DNS 설정, SPF/DKIM 인증, Zoho Workplace 전 서비스의 포괄적 데이터 감사를 다룹니다.'
-date: 2026-03-16
+date: 2026-03-16T00:00
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
 image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp

@@ -2,7 +2,7 @@
 title: 'Cómo añadir comentarios a un blog Astro usando solo Cloudflare'
 description: 'Implementación de comentarios en un blog Astro sin servicio externo: Cloudflare Pages Functions, D1, Turnstile y configuración con Wrangler.'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

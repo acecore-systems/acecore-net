@@ -1,7 +1,7 @@
 ---
 title: 'Deixei o GitHub Copilot fazer toda a minha declaração de imposto de renda — de 837 lançamentos contábeis até a entrega'
 description: 'Da classificação e verificação de 837 lançamentos contábeis acumulados via integração de dados de contabilidade em nuvem, passando pela conferência de contribuições previdenciárias, entrada de deduções até a entrega da declaração. O registro completo de uma declaração de imposto de renda onde o trabalho foi quase totalmente delegado ao GitHub Copilot Agent Mode × Simple Browser.'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

@@ -1,7 +1,7 @@
 ---
 title: 'Acecore 官网全面改版上线'
 description: 'Acecore 的官方网站已全面改版上线。介绍新站点的特色和未来展望。'
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

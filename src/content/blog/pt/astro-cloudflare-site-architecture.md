@@ -2,7 +2,7 @@
 title: 'Como projetar um site Astro + Cloudflare que cresce por funcionalidade'
 description: 'Como combinamos Astro e Cloudflare Pages com chat de contato com IA, Sveltia CMS, blog multilíngue, CTA de serviços, renderização segura de Markdown e comentários sem serviço externo.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp

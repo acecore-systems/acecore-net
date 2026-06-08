@@ -1,7 +1,7 @@
 ---
 title: 'Безопасная доставка статического сайта с помощью Cloudflare Pages'
 description: 'Практическое руководство по деплою статического сайта на Cloudflare Pages и настройке заголовков безопасности/CSP через _headers. Также рассматривается, почему мы вернулись с Workers на Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

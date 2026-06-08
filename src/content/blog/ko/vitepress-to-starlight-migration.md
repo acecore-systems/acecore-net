@@ -1,7 +1,7 @@
 ---
 title: 'VitePress에서 Starlight로 — 문서 사이트 프레임워크 통합'
 description: 'VitePress + UnoCSS로 구축한 사업계획서를 Astro + Starlight로 마이그레이션하여 두 프로젝트의 프레임워크를 통합한 기록. Mermaid 다이어그램의 CDN 이전도 다룹니다.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Astro', 'Starlight']
 image: /uploads/acecore-generated/blog-vitepress-to-starlight-migration.webp

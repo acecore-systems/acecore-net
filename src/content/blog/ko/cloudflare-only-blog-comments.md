@@ -2,7 +2,7 @@
 title: 'Cloudflare만으로 Astro 블로그 댓글 기능 만들기'
 description: '외부 댓글 서비스를 쓰지 않고 Cloudflare Pages Functions, D1, Turnstile, Wrangler 설정만으로 Astro 블로그 댓글 기능을 구현한 기록입니다.'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

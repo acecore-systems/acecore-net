@@ -1,7 +1,7 @@
 ---
 title: 'Evento de oficina de robótica nas férias de verão'
 description: 'A AceCore Schools realizou um evento durante as férias de verão para que crianças pudessem experimentar a diversão da construção de robôs. Através da montagem, desenvolvemos conhecimento técnico e criatividade.'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

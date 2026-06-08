@@ -2,7 +2,7 @@
 title: 'Guia de instalação do Sveltia CMS'
 description: 'Guia prático para adicionar Sveltia CMS a um site Astro ou estático, cobrindo GitHub backend, OAuth Worker, uploads de imagem, operação multilíngue, PRs de CMS e aprendizados reais.'
 date: 2026-06-07T16:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp

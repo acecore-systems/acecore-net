@@ -1,7 +1,7 @@
 ---
 title: 'Acecores Serviceübersicht: IT-Lösungen aus einer Hand'
 description: 'Von der Systementwicklung über Design bis hin zur IT-Bildung — eine detaillierte Vorstellung der fünf Kernservices von Acecore.'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

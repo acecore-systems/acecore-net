@@ -1,7 +1,7 @@
 ---
 title: Aceserver, secuestrado.
 description: Registro del evento de "secuestro" que ocurrió en Aceserver. Un documento impactante en el que la razón de los miembros fue invadida uno tras otro.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

@@ -1,7 +1,7 @@
 ---
 title: 'Apresentação dos serviços da Acecore: Soluções de TI integradas'
 description: 'Do desenvolvimento de sistemas ao design e educação em TI. Apresentamos em detalhes os 5 principais serviços oferecidos pela Acecore.'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

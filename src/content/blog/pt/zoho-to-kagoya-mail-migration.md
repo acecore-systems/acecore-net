@@ -1,7 +1,7 @@
 ---
 title: 'Guia de migração do Zoho Mail para KAGOYA MAIL — Registro prático de DNS, autenticação e inventário de dados'
 description: 'Explicação prática dos procedimentos de migração do Zoho Workplace para o KAGOYA MAIL, incluindo configuração de DNS, autenticação SPF/DKIM e inventário completo de dados do Zoho Workplace.'
-date: 2026-03-16
+date: 2026-03-16T00:00
 author: gui
 tags: ['技術', 'メール', 'DNS', 'インフラ']
 image: /uploads/acecore-generated/blog-zoho-to-kagoya-mail-migration.webp

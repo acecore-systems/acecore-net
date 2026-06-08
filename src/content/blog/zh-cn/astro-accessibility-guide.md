@@ -1,7 +1,7 @@
 ---
 title: '将Astro网站的无障碍性提升至WCAG AA标准的实践指南'
 description: '介绍在Astro + UnoCSS构成的网站上实施无障碍改进的全部步骤。涵盖aria属性、对比度、焦点管理、表单验证、屏幕阅读器适配等WCAG AA标准所需的全部措施。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
 image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp

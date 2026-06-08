@@ -1,7 +1,7 @@
 ---
 title: 'GitHub Copilot에게 확정신고 전 과정을 맡겼다 — 837건의 분개부터 신고까지'
 description: '클라우드 회계의 데이터 연동으로 축적된 837건의 분개 분류·검증부터, 사회보험료 대조, 공제 입력, 신고서 제출까지. GitHub Copilot Agent Mode × Simple Browser가 실질적인 작업 대부분을 처리한 확정신고의 전 과정 기록.'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

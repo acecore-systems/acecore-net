@@ -1,7 +1,7 @@
 ---
 title: Aceserver foi invadido.
 description: Registro do evento de "invasão" que aconteceu no Aceserver. Um documento chocante sobre como a razão dos membros foi corrompida, um após o outro.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt

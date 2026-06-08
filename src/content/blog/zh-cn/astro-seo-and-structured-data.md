@@ -1,7 +1,7 @@
 ---
 title: '为Astro网站实现结构化数据和OGP的SEO改善指南'
 description: '总结了在Astro + Cloudflare Pages构成的网站上正确实现JSON-LD结构化数据、OGP、站点地图和RSS的步骤。从Google Rich Results适配到RSS Feed优化，介绍实践性的SEO改善措施。'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'SEO']
 image: /uploads/acecore-generated/blog-astro-seo-and-structured-data.webp

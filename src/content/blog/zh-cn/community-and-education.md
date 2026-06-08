@@ -1,7 +1,7 @@
 ---
 title: '社区活动与教育事业'
 description: 'Acecore 推动的社区活动、教育支持和开源贡献。通过 Aceserver、Schools 和学习会等活动的介绍。'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

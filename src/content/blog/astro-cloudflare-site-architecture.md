@@ -2,7 +2,7 @@
 title: 'Astro + Cloudflareで公式サイトを機能拡張する全体設計'
 description: 'AstroとCloudflare Pagesを土台に、問い合わせAI、Sveltia CMS、多言語ブログ、サービスCTA、Markdown安全描画、Cloudflareだけのコメント機能をどう組み合わせて公式サイトを育てたかを、他サイトにも転用しやすい全体設計として整理します。'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp

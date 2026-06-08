@@ -2,7 +2,7 @@
 title: 'Eine Astro + Cloudflare Website Schritt für Schritt erweitern'
 description: 'Wie wir Astro und Cloudflare Pages mit AI-Kontaktchat, Sveltia CMS, mehrsprachigem Blog, Service-CTA, sicherem Markdown-Rendering und Kommentaren ohne externen Dienst kombiniert haben.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp

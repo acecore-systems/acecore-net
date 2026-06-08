@@ -1,7 +1,7 @@
 ---
 title: 'Astro 사이트를 WCAG AA 준수로 만드는 실전 가이드'
 description: 'Astro + UnoCSS 사이트에서 구현한 접근성 개선에 대한 종합 가이드. aria 속성, 명도 대비, 포커스 관리, 폼 유효성 검사, 스크린 리더 지원 등 WCAG AA 준수에 필요한 모든 것을 다룹니다.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'アクセシビリティ']
 image: /uploads/acecore-generated/blog-astro-accessibility-guide.webp

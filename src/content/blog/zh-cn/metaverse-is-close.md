@@ -1,7 +1,7 @@
 ---
 title: '元宇宙其实就在我们身边'
 description: 'Facebook（Meta）的元宇宙战略让人感觉不太真实，而 Minecraft 却已经是一个拥有超过1亿用户的巨大虚拟空间。元宇宙不仅仅是 VR 头显。'
-date: 2023-03-23
+date: 2023-03-23T00:00
 tags: ['コミュニティ']
 author: gui
 image: /uploads/acecore-generated/blog-metaverse-is-close.webp

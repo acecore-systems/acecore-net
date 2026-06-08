@@ -1,7 +1,7 @@
 ---
 title: 'Entrega segura de sites estáticos com Cloudflare Pages'
 description: 'Guia prático sobre deploy de sites estáticos no Cloudflare Pages e configuração de cabeçalhos de segurança e CSP via _headers. Também apresentamos o histórico de retorno de Worker para Pages.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

@@ -1,7 +1,7 @@
 ---
 title: 'Astro 6 Website für 9 Sprachen fit machen ― Automatische Übersetzung von 168 Blogartikeln und mehrsprachige Architektur'
 description: 'Dokumentation der Internationalisierung einer Astro 6 + UnoCSS + Cloudflare Pages Website auf 9 Sprachen. Vom UI-i18n über die Übersetzung von 168 Blogartikeln bis zur mehrsprachigen Pages CMS-Konfiguration.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp

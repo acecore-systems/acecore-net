@@ -1,7 +1,7 @@
 ---
 title: 'Comment faire supporter 9 langues à un site Astro 6 ― Traduction automatique de 168 articles et architecture multilingue'
 description: "Retour d'expérience sur l'internationalisation d'un site Astro 6 + UnoCSS + Cloudflare Pages en 9 langues. Couvre l'ensemble du processus, de l'internationalisation de l'UI à la traduction de 168 articles et la configuration multilingue de Pages CMS."
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp

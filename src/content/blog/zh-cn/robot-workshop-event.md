@@ -1,7 +1,7 @@
 ---
 title: '暑期机器人制作体验活动通知'
 description: 'AceCore Schools 利用暑假为孩子们举办了体验机器人制作乐趣的活动。通过动手制作培养技术知识和创造力。'
-date: 2023-07-19
+date: 2023-07-19T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp

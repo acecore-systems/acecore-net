@@ -1,7 +1,7 @@
 ---
 title: "Le site officiel d'Acecore fait peau neuve"
 description: "Le site officiel d'Acecore a été entièrement repensé. Découvrez les caractéristiques du nouveau site et nos perspectives pour l'avenir."
-date: 2026-03-12
+date: 2026-03-12T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

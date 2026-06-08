@@ -7,7 +7,7 @@
  * blog コレクション:
  *   - Markdown 記事（src/content/blog/）を言語別サブフォルダで管理
  *   - title / description / date / author は必須、その他は任意の拡張フィールド
- *   - 日付はタイムゾーン付き（JST +09:00）でパースされる
+ *   - 日付は時刻まで必須とし、タイムゾーン未指定の場合は JST +09:00 としてパースされる
  *
  * authors / tags コレクション:
  *   - JSON ファイル（src/content/authors/, src/content/tags/）で定義
@@ -19,33 +19,23 @@ import { glob } from 'astro/loaders'
 
 /** ブログ記事の日付文字列に付与する JST タイムゾーンオフセット */
 const BLOG_TIMEZONE_OFFSET = '+09:00'
-/** 日付のみ (YYYY-MM-DD) にマッチする正規表現 */
-const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 /** 日時 (YYYY-MM-DDTHH:MM or YYYY-MM-DDTHH:MM:SS) にマッチする正規表現 */
 const LOCAL_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/
+/** タイムゾーン有無を問わず、時刻まで含む日時にマッチする正規表現 */
+const CONTENT_DATETIME_PATTERN =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?$/
 
 /**
  * フロントマターの日付文字列を JST として解釈し Date オブジェクトに変換する。
  *
- * - Date オブジェクトが渡された場合はそのままコピーして返す
- * - "YYYY-MM-DD" → "YYYY-MM-DDT00:00:00+09:00" に正規化
  * - "YYYY-MM-DDTHH:MM" → "YYYY-MM-DDTHH:MM+09:00" に正規化
  * - すでにタイムゾーン情報を含む文字列はそのままパース
  */
-function parseContentDate(value: string | Date): Date {
-  if (value instanceof Date) {
-    if (Number.isNaN(value.getTime())) {
-      throw new Error('Invalid date value in content frontmatter')
-    }
-    return new Date(value.getTime())
-  }
-
-  const raw = String(value).trim()
-  const normalized = DATE_ONLY_PATTERN.test(raw)
-    ? `${raw}T00:00:00${BLOG_TIMEZONE_OFFSET}`
-    : LOCAL_DATETIME_PATTERN.test(raw)
-      ? `${raw}${BLOG_TIMEZONE_OFFSET}`
-      : raw
+function parseContentDate(value: string): Date {
+  const raw = value.trim()
+  const normalized = LOCAL_DATETIME_PATTERN.test(raw)
+    ? `${raw}${BLOG_TIMEZONE_OFFSET}`
+    : raw
 
   const date = new Date(normalized)
   if (Number.isNaN(date.getTime())) {
@@ -55,8 +45,14 @@ function parseContentDate(value: string | Date): Date {
   return date
 }
 
-/** 文字列または Date を受け取り、JST 基準の Date に変換する Zod トランスフォーマー */
-const contentDate = z.union([z.string(), z.date()]).transform(parseContentDate)
+/** 時刻まで含む文字列を受け取り、JST 基準の Date に変換する Zod トランスフォーマー */
+const contentDate = z
+  .string()
+  .refine((value) => CONTENT_DATETIME_PATTERN.test(value.trim()), {
+    message:
+      'Content date must include time as YYYY-MM-DDTHH:mm, optionally with timezone',
+  })
+  .transform(parseContentDate)
 
 /** 著者の多言語フィールド（name / bio / skills を任意で上書き） */
 const localizedAuthorSchema = z.object({

@@ -1,7 +1,7 @@
 ---
 title: 'Cloudflare Pages로 안전한 정적 사이트 배포 달성'
 description: 'Cloudflare Pages에서의 정적 사이트 배포와 _headers를 사용한 보안 헤더/CSP 설정에 대한 실전 가이드. Workers에서 Pages로 되돌린 이유도 다룹니다.'
-date: 2026-03-15
+date: 2026-03-15T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

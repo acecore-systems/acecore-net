@@ -2,7 +2,7 @@
 title: 'Build Astro Blog Comments with Cloudflare Only'
 description: 'How we added comments to an Astro blog without an external comment service, using only Cloudflare Pages Functions, D1, Turnstile, and Wrangler configuration.'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

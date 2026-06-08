@@ -1,7 +1,7 @@
 ---
 title: 'Astro 6 사이트를 9개 언어로 지원하는 방법 ― 168개 블로그 글 자동 번역과 다국어 아키텍처'
 description: 'Astro 6 + UnoCSS + Cloudflare Pages 사이트를 9개 언어로 대응한 기록. UI 국제화부터 168개 블로그 글 번역, Pages CMS 다국어 설정까지 전체 과정을 다룹니다.'
-date: 2026-03-25
+date: 2026-03-25T00:00
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp

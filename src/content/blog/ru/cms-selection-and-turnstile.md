@@ -2,7 +2,7 @@
 title: 'Руководство по внедрению Sveltia CMS'
 description: 'Практическое руководство по добавлению Sveltia CMS в Astro или другой статический сайт: GitHub backend, OAuth Worker, загрузка изображений, многоязычная эксплуатация, CMS PR и выводы из реальных исправлений.'
 date: 2026-06-07T16:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp

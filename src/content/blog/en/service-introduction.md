@@ -1,7 +1,7 @@
 ---
 title: "Acecore's Service Overview: One-Stop IT Solutions"
 description: "From system development to design and IT education — a detailed introduction to Acecore's five core services."
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

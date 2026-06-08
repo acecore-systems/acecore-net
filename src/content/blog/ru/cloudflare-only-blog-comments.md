@@ -2,7 +2,7 @@
 title: 'Как добавить комментарии в Astro-блог только на Cloudflare'
 description: 'Как мы добавили комментарии в Astro-блог без внешнего сервиса: Cloudflare Pages Functions, D1, Turnstile и конфигурация Wrangler.'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

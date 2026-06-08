@@ -1,7 +1,7 @@
 ---
 title: 'Actividades comunitarias e iniciativas educativas'
 description: 'Sobre las actividades comunitarias, el apoyo educativo y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, escuelas y grupos de estudio.'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

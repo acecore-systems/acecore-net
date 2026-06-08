@@ -1,7 +1,7 @@
 ---
 title: 'Ich habe meine gesamte Steuererklärung von GitHub Copilot erledigen lassen — Von 837 Buchungseinträgen bis zur Abgabe'
 description: 'Von der Klassifizierung und Überprüfung von 837 Buchungseinträgen, die durch Cloud-Buchhaltungsdatensynchronisierung angesammelt wurden, über den Abgleich von Sozialversicherungsbeiträgen, die Eingabe von Abzügen bis zur Abgabe der Erklärung. Ein vollständiger Bericht über eine Steuererklärung, bei der GitHub Copilot Agent Mode × Simple Browser praktisch die gesamte eigentliche Arbeit übernommen hat.'
-date: 2026-03-17
+date: 2026-03-17T00:00
 author: gui
 tags: ['技術', 'GitHub Copilot', 'VS Code']
 image: /uploads/acecore-generated/blog-tax-return-with-copilot.webp

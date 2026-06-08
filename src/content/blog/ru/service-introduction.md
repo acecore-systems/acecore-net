@@ -1,7 +1,7 @@
 ---
 title: 'Обзор услуг Acecore: комплексные IT-решения'
 description: 'От разработки систем до дизайна и IT-образования — подробное представление пяти основных направлений услуг Acecore.'
-date: 2026-03-10
+date: 2026-03-10T00:00
 author: gui
 tags: ['サービス', 'システム開発', 'Web制作']
 image: /uploads/acecore-generated/blog-service-introduction.webp

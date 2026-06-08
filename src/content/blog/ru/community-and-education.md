@@ -1,7 +1,7 @@
 ---
 title: 'Деятельность в сообществе и приверженность образованию'
 description: 'Деятельность сообщества Acecore, образовательная поддержка и вклад в открытый исходный код. Представляем наши инициативы через Aceserver, Schools и учебные группы.'
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

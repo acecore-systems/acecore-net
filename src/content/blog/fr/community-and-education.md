@@ -1,7 +1,7 @@
 ---
 title: 'Actions communautaires et engagement éducatif'
 description: "Présentation des activités communautaires, du soutien éducatif et de la contribution à l'open source portés par Acecore. Nos initiatives à travers Aceserver, les écoles et les ateliers."
-date: 2026-03-08
+date: 2026-03-08T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-community-and-education.webp

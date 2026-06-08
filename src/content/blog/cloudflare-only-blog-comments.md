@@ -2,7 +2,7 @@
 title: 'CloudflareだけでAstroブログにコメント機能を作る方法'
 description: '外部コメントサービスに頼らず、Cloudflare Pages Functions、D1、Turnstile、Wrangler設定だけでAstroブログにコメント機能を追加した実装記録です。API設計、保存先、スパム対策、origin制御、preview/production分離、運用時の注意点まで整理します。'
 date: 2026-06-07T18:00
-lastUpdated: 2026-06-07
+lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Cloudflare', 'Astro', 'セキュリティ', 'Webサイト']
 image: /uploads/acecore-generated/blog-cloudflare-pages-security.webp

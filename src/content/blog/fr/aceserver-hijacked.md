@@ -1,7 +1,7 @@
 ---
 title: Aceserver, piraté.
 description: Chronique de l'événement « piratage » survenu sur Aceserver. Un document choquant dans lequel la raison des membres est progressivement corrompue.
-date: 2022-10-12
+date: 2022-10-12T00:00
 tags:
   - イベント
 author: hatt
