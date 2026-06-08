@@ -99,12 +99,27 @@ const servicePricingItems = getList<ServicePricingItem>(
   ...item,
   href: resolvePricingHref(item.href),
 }))
+const isBlogPricingHref = (href: string) => href.includes('/blog/')
+const isWebPricingHref = (href: string) => href.includes('/services/#web')
+const webBasePricingItem = servicePricingItems.find((item) =>
+  isWebPricingHref(item.href),
+)
 const webFeatureItems = servicePricingItems.filter((item) =>
-  item.href.includes('/blog/'),
+  isBlogPricingHref(item.href),
 )
+const webPricingTableItems = [
+  ...(webBasePricingItem ? [webBasePricingItem] : []),
+  ...webFeatureItems,
+]
 const servicePricingCoreItems = servicePricingItems.filter(
-  (item) => !item.href.includes('/blog/'),
+  (item) => !isBlogPricingHref(item.href) && !isWebPricingHref(item.href),
 )
+const webPricingTableTitle = webBasePricingItem
+  ? `${webBasePricingItem.label} / ${t(
+      locale,
+      'pages.services.web.featureLinksTitle',
+    )}`
+  : t(locale, 'pages.services.web.featureLinksTitle')
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -348,12 +363,10 @@ const serviceLd = {
           workLink={serviceWorks.web}
         />
         {
-          webFeatureItems.length > 0 && (
+          webPricingTableItems.length > 0 && (
             <div class="mt-6 border-y border-slate-200 py-5">
               <div class="mb-4">
-                <h3 class="text-lg ac-heading">
-                  {t(locale, 'pages.services.web.featureLinksTitle')}
-                </h3>
+                <h3 class="text-lg ac-heading">{webPricingTableTitle}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-slate-600">
                   {t(locale, 'pages.services.web.featureLinksBody')}
                 </p>
@@ -372,16 +385,17 @@ const serviceLd = {
                         {t(locale, 'pages.pricing.feeNote')}
                       </th>
                       <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(
-                          locale,
-                          'pages.services.web.featureLinksArticleLabel',
-                        )}
+                        {t(locale, 'pages.pricing.detailLink')}
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {webFeatureItems.map((item) => (
-                      <tr class="align-top transition hover:bg-brand-50/50">
+                    {webPricingTableItems.map((item) => (
+                      <tr
+                        class={`align-top transition hover:bg-brand-50/50 ${
+                          isWebPricingHref(item.href) ? 'bg-brand-50/40' : ''
+                        }`}
+                      >
                         <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
                           <a
                             href={item.href}
@@ -406,10 +420,12 @@ const serviceLd = {
                             href={item.href}
                             class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
                           >
-                            {t(
-                              locale,
-                              'pages.services.web.featureLinksArticleLabel',
-                            )}
+                            {isBlogPricingHref(item.href)
+                              ? t(
+                                  locale,
+                                  'pages.services.web.featureLinksArticleLabel',
+                                )
+                              : t(locale, 'pages.pricing.detailLink')}
                             <Icon name="arrow-right" class="text-xs" />
                           </a>
                         </td>
@@ -713,63 +729,77 @@ const serviceLd = {
           }
         </div>
         {
-          webFeatureItems.length > 0 && (
-            <div class="mt-6 overflow-x-auto rounded-lg border border-slate-200">
-              <table class="w-full min-w-220 border-collapse text-left text-sm">
-                <thead class="bg-slate-50 text-slate-900">
-                  <tr>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeItem')}
-                    </th>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeAmount')}
-                    </th>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeNote')}
-                    </th>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.services.web.featureLinksArticleLabel')}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {webFeatureItems.map((item) => (
-                    <tr class="align-top transition hover:bg-brand-50/50">
-                      <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
-                        <a
-                          href={item.href}
-                          class="group inline-flex items-center gap-3 no-underline"
-                        >
-                          <span class="ac-icon-box shrink-0">
-                            <Icon name={item.icon} class="text-base" />
-                          </span>
-                          <span class="transition group-hover:text-brand-600">
-                            {item.label}
-                          </span>
-                        </a>
+          webPricingTableItems.length > 0 && (
+            <div class="mt-6">
+              <div class="mb-4">
+                <h3 class="text-lg ac-heading">{webPricingTableTitle}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                  {t(locale, 'pages.services.web.featureLinksBody')}
+                </p>
+              </div>
+              <div class="overflow-x-auto rounded-lg border border-slate-200">
+                <table class="w-full min-w-220 border-collapse text-left text-sm">
+                  <thead class="bg-slate-50 text-slate-900">
+                    <tr>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeItem')}
                       </th>
-                      <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
-                        {item.price}
-                      </td>
-                      <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
-                        {item.note}
-                      </td>
-                      <td class="border-b border-slate-100 px-4 py-4">
-                        <a
-                          href={item.href}
-                          class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
-                        >
-                          {t(
-                            locale,
-                            'pages.services.web.featureLinksArticleLabel',
-                          )}
-                          <Icon name="arrow-right" class="text-xs" />
-                        </a>
-                      </td>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeAmount')}
+                      </th>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeNote')}
+                      </th>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.detailLink')}
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {webPricingTableItems.map((item) => (
+                      <tr
+                        class={`align-top transition hover:bg-brand-50/50 ${
+                          isWebPricingHref(item.href) ? 'bg-brand-50/40' : ''
+                        }`}
+                      >
+                        <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                          <a
+                            href={item.href}
+                            class="group inline-flex items-center gap-3 no-underline"
+                          >
+                            <span class="ac-icon-box shrink-0">
+                              <Icon name={item.icon} class="text-base" />
+                            </span>
+                            <span class="transition group-hover:text-brand-600">
+                              {item.label}
+                            </span>
+                          </a>
+                        </th>
+                        <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                          {item.price}
+                        </td>
+                        <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                          {item.note}
+                        </td>
+                        <td class="border-b border-slate-100 px-4 py-4">
+                          <a
+                            href={item.href}
+                            class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
+                          >
+                            {isBlogPricingHref(item.href)
+                              ? t(
+                                  locale,
+                                  'pages.services.web.featureLinksArticleLabel',
+                                )
+                              : t(locale, 'pages.pricing.detailLink')}
+                            <Icon name="arrow-right" class="text-xs" />
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )
         }
