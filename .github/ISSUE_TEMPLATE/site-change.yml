@@ -1,0 +1,109 @@
+name: サイト改善・機能追加
+description: 固定ページ、UI、導線、フォーム、コンポーネントなどの改善
+title: '[改善] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        共通項目は他の issue template と同じ順序です。実装の自由度を残す場合も、完了条件は具体的にしてください。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 何をしたいかを 1-3 行で書いてください。
+      placeholder: |
+        例: サービス詳細から問い合わせまでの導線を分かりやすくする。
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景・目的
+      description: なぜ必要か、誰に影響するかを書いてください。
+      placeholder: |
+        例: サービスページ閲覧後に次の行動が分かりにくい。
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 完了条件
+      description: レビュー時に完了判断できるチェックリストを書いてください。
+      placeholder: |
+        - [ ] 対象ページに自然な CTA が追加されている
+        - [ ] 既存の多言語 fallback が崩れていない
+        - [ ] CMS で編集すべき文言は CMS 設定に反映されている
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 対象範囲・除外範囲
+      description: 今回触る範囲と、触らない範囲を分けて書いてください。
+      placeholder: |
+        対象:
+        - /services/ の CTA
+
+        除外:
+        - 新しいサービスカテゴリの追加
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 関連パス・URL
+      description: 画面 URL、リポジトリ内パス、関連 issue/PR、CMS 項目を書いてください。
+      placeholder: |
+        - https://acecore.net/services/
+        - src/i18n/source/ja/pages/services.json
+        - public/admin/config.yml
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: 確認方法
+      description: 実行すべきコマンド、ブラウザ確認、生成物確認を書いてください。
+      placeholder: |
+        - npm run build
+        - npx prettier --check 対象ファイル
+        - デスクトップ幅とモバイル幅で対象ページを確認する
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 解きたい課題
+      description: 現状のどこが不十分かを書いてください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案内容
+      description: 具体案があれば書いてください。実装方法を固定しない場合は、その旨を書いてください。
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 表示・導線・CMS・多言語への影響
+      description: UI、翻訳、CMS 設定、内部リンク、フォーム送信などへの影響を書いてください。
+      placeholder: |
+        - 表示:
+        - CMS:
+        - 多言語:
+        - 導線:
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 補足
+      description: 権限、期限、制約、依存関係などがあれば書いてください。

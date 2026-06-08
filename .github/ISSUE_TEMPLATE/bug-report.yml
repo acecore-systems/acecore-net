@@ -1,0 +1,119 @@
+name: 不具合報告
+description: 表示崩れ、動作不良、ビルド失敗など、期待どおりに動かない問題
+title: '[不具合] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        共通項目は他の issue template と同じ順序です。再現に必要な情報は、個別項目に具体的に書いてください。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 何が起きているかを 1-3 行で書いてください。
+      placeholder: |
+        例: 料金ページのカードがモバイル幅で重なって表示される。
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景・目的
+      description: どの利用者や運用に影響するかを書いてください。
+      placeholder: |
+        例: スマートフォンから料金を確認する利用者が CTA を押しにくい。
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 完了条件
+      description: レビュー時に完了判断できるチェックリストを書いてください。
+      placeholder: |
+        - [ ] モバイル幅でカードが重ならない
+        - [ ] デスクトップ幅の表示が崩れない
+        - [ ] 対象ページのビルドが通る
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 対象範囲・除外範囲
+      description: 今回触る範囲と、触らない範囲を分けて書いてください。
+      placeholder: |
+        対象:
+        - /pricing/ の料金カード
+
+        除外:
+        - 料金文言の変更
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 関連パス・URL
+      description: 画面 URL、リポジトリ内パス、関連 issue/PR、CMS 項目を書いてください。
+      placeholder: |
+        - https://acecore.net/pricing/
+        - src/i18n/source/ja/pages/pricing.json
+        - src/views/PricingPage.astro
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: 確認方法
+      description: 実行すべきコマンド、ブラウザ確認、生成物確認を書いてください。
+      placeholder: |
+        - npm run build
+        - npx prettier --check 対象ファイル
+        - モバイル幅とデスクトップ幅で表示確認
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 現在の挙動
+      description: 実際に起きていることを書いてください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 期待する挙動
+      description: 本来どう動くべきかを書いてください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+      description: 再現できる操作、条件、入力値を書いてください。
+      placeholder: |
+        1. /pricing/ を開く
+        2. 画面幅を 390px にする
+        3. 料金カードの CTA 周辺を確認する
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 緊急度
+      options:
+        - 通常
+        - 高い
+        - 緊急
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 補足
+      description: 権限、期限、制約、依存関係などがあれば書いてください。
