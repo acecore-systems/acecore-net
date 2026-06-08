@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: 事業・Webサイトに関する問い合わせ
+    url: https://acecore.net/contact/
+    about: 事業相談や非公開の連絡は公式お問い合わせフォームを利用してください。
+  - name: セキュリティ報告
+    url: https://acecore.net/contact/
+    about: 脆弱性は公開 Issue に投稿せず、まずセキュリティポリシーと連絡窓口を確認してください。
