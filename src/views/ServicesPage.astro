@@ -102,6 +102,9 @@ const servicePricingItems = getList<ServicePricingItem>(
 const webFeatureItems = servicePricingItems.filter((item) =>
   item.href.includes('/blog/'),
 )
+const servicePricingCoreItems = servicePricingItems.filter(
+  (item) => !item.href.includes('/blog/'),
+)
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -355,32 +358,65 @@ const serviceLd = {
                   {t(locale, 'pages.services.web.featureLinksBody')}
                 </p>
               </div>
-              <div class="grid gap-3 sm:grid-cols-2">
-                {webFeatureItems.map((item) => (
-                  <a
-                    href={item.href}
-                    class="group flex min-h-24 items-start gap-3 rounded-lg border border-slate-200 bg-white p-4 no-underline transition hover:border-brand-200 hover:shadow-sm"
-                  >
-                    <span class="ac-icon-box shrink-0">
-                      <Icon name={item.icon} class="text-base" />
-                    </span>
-                    <span class="min-w-0">
-                      <span class="block text-sm font-700 text-slate-900 transition group-hover:text-brand-600">
-                        {item.label}
-                      </span>
-                      <span class="mt-1 block text-sm font-800 text-slate-800">
-                        {item.price}
-                      </span>
-                      <span class="mt-1 inline-flex items-center gap-1 text-xs font-700 text-brand-600">
+              <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+                <table class="w-full min-w-220 border-collapse text-left text-sm">
+                  <thead class="bg-slate-50 text-slate-900">
+                    <tr>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeItem')}
+                      </th>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeAmount')}
+                      </th>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
+                        {t(locale, 'pages.pricing.feeNote')}
+                      </th>
+                      <th class="border-b border-slate-200 px-4 py-3 font-700">
                         {t(
                           locale,
                           'pages.services.web.featureLinksArticleLabel',
                         )}
-                        <Icon name="arrow-right" class="text-xs" />
-                      </span>
-                    </span>
-                  </a>
-                ))}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {webFeatureItems.map((item) => (
+                      <tr class="align-top transition hover:bg-brand-50/50">
+                        <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                          <a
+                            href={item.href}
+                            class="group inline-flex items-center gap-3 no-underline"
+                          >
+                            <span class="ac-icon-box shrink-0">
+                              <Icon name={item.icon} class="text-base" />
+                            </span>
+                            <span class="transition group-hover:text-brand-600">
+                              {item.label}
+                            </span>
+                          </a>
+                        </th>
+                        <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                          {item.price}
+                        </td>
+                        <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                          {item.note}
+                        </td>
+                        <td class="border-b border-slate-100 px-4 py-4">
+                          <a
+                            href={item.href}
+                            class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
+                          >
+                            {t(
+                              locale,
+                              'pages.services.web.featureLinksArticleLabel',
+                            )}
+                            <Icon name="arrow-right" class="text-xs" />
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           )
@@ -657,7 +693,7 @@ const serviceLd = {
         </p>
         <div class="grid gap-4 md:grid-cols-2">
           {
-            servicePricingItems.map((item) => (
+            servicePricingCoreItems.map((item) => (
               <a
                 href={item.href}
                 class="ac-surface group p-5 no-underline transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
@@ -676,6 +712,67 @@ const serviceLd = {
             ))
           }
         </div>
+        {
+          webFeatureItems.length > 0 && (
+            <div class="mt-6 overflow-x-auto rounded-lg border border-slate-200">
+              <table class="w-full min-w-220 border-collapse text-left text-sm">
+                <thead class="bg-slate-50 text-slate-900">
+                  <tr>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeItem')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeAmount')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeNote')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.services.web.featureLinksArticleLabel')}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {webFeatureItems.map((item) => (
+                    <tr class="align-top transition hover:bg-brand-50/50">
+                      <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                        <a
+                          href={item.href}
+                          class="group inline-flex items-center gap-3 no-underline"
+                        >
+                          <span class="ac-icon-box shrink-0">
+                            <Icon name={item.icon} class="text-base" />
+                          </span>
+                          <span class="transition group-hover:text-brand-600">
+                            {item.label}
+                          </span>
+                        </a>
+                      </th>
+                      <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                        {item.price}
+                      </td>
+                      <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                        {item.note}
+                      </td>
+                      <td class="border-b border-slate-100 px-4 py-4">
+                        <a
+                          href={item.href}
+                          class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
+                        >
+                          {t(
+                            locale,
+                            'pages.services.web.featureLinksArticleLabel',
+                          )}
+                          <Icon name="arrow-right" class="text-xs" />
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        }
         <div class="ac-surface mt-6 bg-brand-50 p-6">
           <p class="mb-2 font-700 text-slate-900">
             {t(locale, 'pages.services.pricing.ctaHeading')}
