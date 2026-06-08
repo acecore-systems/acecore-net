@@ -1,0 +1,140 @@
+name: コンテンツ・CMS・多言語
+description: ブログ、ニュース、固定ページ文言、CMS 項目、翻訳の追加・更新
+title: '[コンテンツ] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        日本語ソース、CMS 設定、翻訳、内部リンク、Pagefind への影響を分けて書いてください。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 何を追加・変更したいかを 1-3 行で書いてください。
+      placeholder: |
+        例: Sveltia CMS の運用手順をブログ記事として追加する。
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景・目的
+      description: なぜ必要か、誰に影響するかを書いてください。
+      placeholder: |
+        例: CMS 移行後の編集フローを社内外に説明できる状態にしたい。
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 完了条件
+      description: レビュー時に完了判断できるチェックリストを書いてください。
+      placeholder: |
+        - [ ] 日本語ソース記事が追加されている
+        - [ ] 必要なタグと関連記事が設定されている
+        - [ ] 翻訳対象または翻訳不要の判断が明記されている
+        - [ ] Pagefind や sitemap への影響を確認している
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 対象範囲・除外範囲
+      description: 今回触る範囲と、触らない範囲を分けて書いてください。
+      placeholder: |
+        対象:
+        - src/content/blog/*.md
+        - src/content/tags/*.json
+
+        除外:
+        - 既存記事の全面リライト
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 関連パス・URL
+      description: 画面 URL、リポジトリ内パス、関連 issue/PR、CMS 項目を書いてください。
+      placeholder: |
+        - src/content/blog/
+        - src/i18n/source/ja/
+        - public/admin/config.yml
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: 確認方法
+      description: 実行すべきコマンド、ブラウザ確認、生成物確認を書いてください。
+      placeholder: |
+        - npm run build
+        - npx prettier --check 対象ファイル
+        - dist/sitemap-0.xml または対象ページの HTML を確認する
+    validations:
+      required: true
+
+  - type: dropdown
+    id: content-kind
+    attributes:
+      label: 種別
+      options:
+        - ブログ・ニュース
+        - 固定ページ文言
+        - CMS 設定
+        - 著者・タグ
+        - 翻訳のみ
+    validations:
+      required: true
+
+  - type: textarea
+    id: locales
+    attributes:
+      label: 対象ロケール
+      description: 対象言語と、日本語ソースを変更するかどうかを書いてください。
+      placeholder: |
+        - 日本語ソース: 変更する
+        - 翻訳: en, zh-cn, es, pt, fr, ko, de, ru
+    validations:
+      required: true
+
+  - type: textarea
+    id: cms-fields
+    attributes:
+      label: CMS 編集可否・項目
+      description: CMS から編集可能にする必要がある項目を書いてください。
+      placeholder: |
+        - CMS から編集可能にする:
+        - public/admin/config.yml の更新:
+
+  - type: textarea
+    id: publication
+    attributes:
+      label: 公開日時・表示期間
+      description: 公開日時、表示開始、表示終了、キャンペーン期間などを書いてください。
+      placeholder: |
+        - 公開日時:
+        - 表示開始:
+        - 表示終了:
+
+  - type: textarea
+    id: seo-links
+    attributes:
+      label: 内部リンク・CTA・検索への影響
+      description: 関連記事、タグ、CTA、Pagefind、sitemap への影響を書いてください。
+      placeholder: |
+        - 関連記事:
+        - タグ:
+        - CTA:
+        - Pagefind/sitemap:
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 補足
+      description: 権限、期限、制約、依存関係などがあれば書いてください。

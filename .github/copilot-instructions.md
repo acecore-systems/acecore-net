@@ -5,6 +5,7 @@
 - GitHub 上のユーザー向け文章は、明示がない限り日本語で書く。
 - PR タイトルと本文は日本語にし、`.github/pull_request_template.md` に沿って書く。
 - Issue URL が渡された場合は、本文とチェックリストを受け入れ条件として扱う。
+- Issue template の共通項目と個別項目は `.github/ISSUE_TEMPLATE/README.md` を正とする。
 - 多言語対応では日本語ソースを正とし、CMS と翻訳構成を崩さない。
 - 差分は目的に必要な範囲に絞り、既存の Astro、TypeScript、UnoCSS 構成を尊重する。
 - サイト出力に影響する変更では `npm run build` を実行する。docs/template のみなら対象ファイルの format check と `git diff --check` を行う。
