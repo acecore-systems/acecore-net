@@ -20,13 +20,13 @@ const navLinks = [
   },
   {
     href: getSchoolsUrl(locale),
-    label: t(locale, 'footer.schools'),
+    label: 'Schools',
     external: true,
     gaLabel: 'header_schools',
   },
   {
     href: SITE.social.aceserver,
-    label: 'Aceserver Portal',
+    label: locale === 'ja' ? 'エースサーバー' : 'Aceserver',
     external: true,
     gaLabel: 'header_aceserver_portal',
   },
@@ -57,7 +57,7 @@ const currentPath = Astro.url.pathname
       Acecore
     </a>
     <nav
-      class="hidden items-center gap-0 xl:flex"
+      class="hidden items-center gap-1 xl:flex"
       aria-label={t(locale, 'common.mainNav')}
     >
       {
@@ -68,7 +68,7 @@ const currentPath = Astro.url.pathname
             <a
               href={link.href}
               class:list={[
-                'inline-flex min-h-11 items-center gap-1 rounded-md px-2 text-xs font-800 no-underline transition-colors 2xl:px-3 2xl:text-sm',
+                'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
                 isCurrent
                   ? 'bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
@@ -87,12 +87,7 @@ const currentPath = Astro.url.pathname
             >
               <span>{link.label}</span>
               {link.external && (
-                <>
-                  <Icon name="external-link" class="text-xs text-slate-400" />
-                  <span class="sr-only">
-                    {t(locale, 'common.opensInNewTab')}
-                  </span>
-                </>
+                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
               )}
             </a>
           )
@@ -179,10 +174,7 @@ const currentPath = Astro.url.pathname
                     {t(locale, 'common.opensInNewTab')}
                   </span>
                 )}
-                <Icon
-                  name={link.external ? 'external-link' : 'arrow-right'}
-                  class="text-sm"
-                />
+                <Icon name="arrow-right" class="text-sm" />
               </span>
             </a>
           )
