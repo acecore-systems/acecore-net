@@ -188,9 +188,9 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: '業務システム',
-        summary: '予約、在庫、顧客管理などの業務改善システムに対応',
-        url: localizePath('/services/business-system/', locale),
+        name: 'サーバー運用',
+        summary: 'クラウド、VPS、監視、バックアップ設計の相談に対応',
+        url: localizePath('/services/server-operations/', locale),
       },
     ],
     contact: {
@@ -238,7 +238,7 @@ AIチャットはフォームの代替ではありません。問い合わせペ
 | フォーム   | 見積り、制作相談、提携、採用など、記録を残したい相談に使う |
 | 直接連絡先 | フォーム後の補足や急ぎの確認が必要な場合だけ開く           |
 
-[サービス紹介記事](/blog/service-introduction/) のような概要コンテンツと、[お問い合わせページ](/contact/) の具体的な受付導線をAIがつなぐ形にすると、訪問者は自分でページを探し直さずに済みます。
+[サービスページ](/services/) のような概要コンテンツと、[お問い合わせページ](/contact/) の具体的な受付導線をAIがつなぐ形にすると、訪問者は自分でページを探し直さずに済みます。
 
 この設計は、BtoBサイト、制作会社サイト、スクールサイト、SaaSのサポート導線でも応用できます。AIに問い合わせを完結させるのではなく、次に見るページや連絡手段を絞る用途にすると、導入しやすくなります。
 

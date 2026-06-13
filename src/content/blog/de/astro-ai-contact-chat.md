@@ -167,7 +167,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -212,7 +212,7 @@ Ein typischer Fehler ist eine zu hilfsbereite KI, die zu viel zusichert. Preise,
 | Formular      | Angebote, Produktion, Partnerschaften und Recruiting |
 | Direktkontakt | Ergänzungen nach Formular oder dringende Bestätigung |
 
-Die KI verbindet Inhalte wie [die Service-Übersicht](/blog/service-introduction/) mit konkreten Wegen auf der [Kontaktseite](/contact/). Das Muster passt zu B2B-Websites, Agenturen, Schulen und SaaS-Support.
+Die KI verbindet Inhalte wie [die Service-Übersicht](/services/) mit konkreten Wegen auf der [Kontaktseite](/contact/). Das Muster passt zu B2B-Websites, Agenturen, Schulen und SaaS-Support.
 
 ## Locale-URLs bewahren
 

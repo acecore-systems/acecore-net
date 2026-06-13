@@ -1,6 +1,6 @@
 {
   "title": "料金の目安",
-  "description": "Acecoreのシステム開発、Web制作、サーバー運用、デザイン、Acecore Schoolsなどの費用感をまとめた料金目安ページです。",
+  "description": "AcecoreのWeb制作、サーバー運用、デザイン、Acecore Schoolsなどの費用感をまとめた料金目安ページです。",
   "heroTitle": "料金の目安",
   "heroSubtitle": "検討段階で知っておきたい費用感を、サービス横断で確認できます",
   "heroImgAlt": "見積り資料を確認する作業風景",
@@ -23,13 +23,6 @@
   "ctaServices": "サービス詳細を見る",
   "ctaSchools": "Schoolsを見る",
   "items": [
-    {
-      "icon": "code-xml",
-      "title": "業務システム・アプリ開発",
-      "price": "30万円〜",
-      "body": "小規模自動化は30万円〜、業務ツールは50万円〜、中規模システムは150万円〜、統合系は250万円〜が目安です。",
-      "href": "https://systems.acecore.net/pricing/"
-    },
     {
       "icon": "message-square",
       "title": "問い合わせAIチャット",

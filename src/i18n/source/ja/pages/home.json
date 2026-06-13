@@ -1,6 +1,6 @@
 {
   "heroTitle": "開発からデザイン、教育まで。ワンストップで届けるIT支援",
-  "heroSubtitle": "システム開発・Web制作・サーバー運用・デザイン・IT教育を、一つの窓口でまとめてお任せいただけます。",
+  "heroSubtitle": "Web制作・サーバー運用・デザイン・IT教育を、一つの窓口でまとめてお任せいただけます。",
   "heroImgTeam": "コワーキングスペースで働くチーム",
   "heroImgCollaboration": "チームワークでプロジェクトを推進",
   "heroImgMeeting": "ミーティング風景",
@@ -8,13 +8,6 @@
   "servicesHeading": "主なサービス",
   "servicesLead": "「何から頼めばいいか分からない」という方もご安心ください。個人から法人まで柔軟に対応します。",
   "serviceCards": [
-    {
-      "title": "業務システム・アプリ開発",
-      "description": "日々の業務を効率化したい、データ管理を改善したいといった課題を、最適なシステムで解決します。小規模ツールから大規模サービスまで対応可能です。",
-      "href": "https://systems.acecore.net/",
-      "icon": "code-xml",
-      "tone": "brand"
-    },
     {
       "title": "サーバー構築・運用",
       "description": "サーバーが落ちない、遅くならない環境をお届けします。数百人規模の同時接続を支えてきた運用実績があります。",
@@ -53,16 +46,9 @@
   ],
   "viewServicesDetail": "サービス詳細を見る",
   "layersEyebrow": "Visual Overview",
-  "layersTitle": "Acecoreが支える4つのレイヤー",
+  "layersTitle": "Acecoreが支える3つのレイヤー",
   "layersDescription": "技術、運用、表現、教育を分断せず、一つの支援線として扱っています。",
   "layerItems": [
-    {
-      "title": "システム設計",
-      "description": "業務課題を要件に落とし込み、実装と運用まで見据えて仕組みを作ります。",
-      "href": "https://systems.acecore.net/",
-      "icon": "code-xml",
-      "tone": "brand"
-    },
     {
       "title": "インフラ運用",
       "description": "公開サーバー運用の経験をもとに、止めにくい環境と改善サイクルを整えます。",

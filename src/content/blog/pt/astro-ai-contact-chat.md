@@ -167,7 +167,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -212,7 +212,7 @@ Um erro comum é a IA tentar ajudar demais e prometer demais. Preços, prazos e 
 | Formulário     | Orçamentos, produção, parcerias e recrutamento              |
 | Contato direto | Complemento após formulário ou confirmação urgente          |
 
-A IA conecta conteúdos gerais como [introdução de serviços](/blog/service-introduction/) às rotas da [página de contato](/contact/). O padrão funciona para B2B, agências, escolas e suporte SaaS.
+A IA conecta conteúdos gerais como [introdução de serviços](/services/) às rotas da [página de contato](/contact/). O padrão funciona para B2B, agências, escolas e suporte SaaS.
 
 ## Preserve URLs por locale
 

@@ -132,11 +132,11 @@
     "searchFallbackServiceList": "→ 查看服务",
     "searchFallbackContact": "→ 联系我们",
     "blogCtaHeading": "想了解更多关于我们的服务？",
-    "blogCtaBody": "我们提供系统开发、网站设计、平面设计、IT教育等全方位支持。",
+    "blogCtaBody": "我们提供网站设计、平面设计、IT教育等全方位支持。",
     "blogCtaServices": "查看服务列表",
     "blogCtaContact": "免费咨询",
     "rssTitle": "Acecore 博客",
-    "rssDescription": "关于系统开发、网站设计、服务器运维和IT教育的技术资讯与活动报告",
+    "rssDescription": "关于网站设计、服务器运维和IT教育的技术资讯与活动报告",
     "pagefindFilterAuthor": "作者",
     "pagefindFilterYear": "年份",
     "pagefindFilterTag": "标签",
@@ -146,8 +146,8 @@
     "postNavLabel": "文章导航",
     "tagPrefix": "标签: {tag}",
     "authorPrefix": "作者: {author}",
-    "indexDescription": "Acecore博客。关于系统开发、网站设计、服务器运维和IT教育的技术资讯、活动报告和公告。",
-    "pageDescription": "Acecore博客文章列表（第{current}/{total}页）。关于系统开发、网站设计、服务器运维和IT教育的技术资讯和活动报告。",
+    "indexDescription": "Acecore博客。关于网站设计、服务器运维和IT教育的技术资讯、活动报告和公告。",
+    "pageDescription": "Acecore博客文章列表（第{current}/{total}页）。关于网站设计、服务器运维和IT教育的技术资讯和活动报告。",
     "tagListDescription": "博客文章标签一览。",
     "archiveListDescription": "博客文章按月归档列表。",
     "itemListName": "Acecore博客文章列表",
@@ -183,7 +183,7 @@
   "pages": {
     "home": {
       "heroTitle": "从开发到设计与教育，一站式IT支持",
-      "heroSubtitle": "系统开发、网站设计、服务器运维、设计、IT教育，一个窗口全部搞定。",
+      "heroSubtitle": "网站设计、服务器运维、设计、IT教育，一个窗口全部搞定。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgCollaboration": "团队协作推进项目",
       "heroImgMeeting": "会议场景",
@@ -191,13 +191,6 @@
       "servicesHeading": "主要服务",
       "servicesLead": "不确定从何开始？我们灵活地为个人和企业提供服务。",
       "serviceCards": [
-        {
-          "title": "业务系统・应用开发",
-          "description": "通过最优系统解决业务效率化、数据管理改善等课题。从小型工具到大型服务均可对应。",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "服务器搭建・运维",
           "description": "提供稳定、高速的服务器环境。拥有支撑数百人同时连接的运维实绩。",
@@ -239,13 +232,6 @@
       "layersTitle": "Acecore支撑的四个层面",
       "layersDescription": "我们将技术、运维、表达和教育作为一条完整的支援线来对待。",
       "layerItems": [
-        {
-          "title": "系统设计",
-          "description": "将业务课题转化为需求，着眼于实施和运维来构建系统。",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "基础设施运维",
           "description": "基于公开服务器运维经验，构建高可用环境和改进循环。",
@@ -303,7 +289,6 @@
       "formCategoryLabel": "咨询类型",
       "formCategoryPlaceholder": "请选择",
       "formCategoryService": "关于整体服务",
-      "formCategoryServiceSystemDev": "关于业务系统与应用开发",
       "formCategoryServiceServer": "关于服务器搭建与运维",
       "formCategoryServiceWeb": "关于网站制作与运维",
       "formCategoryServiceDesign": "关于设计与创意",
@@ -350,7 +335,7 @@
       "faqs": [
         {
           "question": "我不知道应该咨询哪项服务。",
-          "answer": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
+          "answer": "可以同时咨询网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
         },
         {
           "question": "只咨询报价也可以吗？",
@@ -377,7 +362,7 @@
       "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
       "philosophyHeading": "理念",
       "philosophyMotto": "\"技术连接，创意拓展\"",
-      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供系统开发、网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
+      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
       "philosophyBody2": "我们的使命是通过技术连接人们、通过创意拓展可能性。重视的不仅是提供技术，更是与客户和社区共同成长，创造可持续的价值。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
@@ -458,40 +443,25 @@
     },
     "services": {
       "title": "服务",
-      "description": "详细介绍Acecore提供的系统开发、网站设计、服务器运维、设计和IT教育服务。",
+      "description": "详细介绍Acecore提供的网站设计、服务器运维、设计和IT教育服务。",
       "heroTitle": "服务",
       "heroSubtitle": "一站式多元IT解决方案",
       "heroImgAlt": "科技办公室",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "一览Acecore的支持范围",
       "serviceMapDesc": "将开发、运维、信息发布和人才培养设计为一条连续的支持线。",
-      "mapDevTitle": "开发",
-      "mapDevDesc": "根据运营流程设计和实施业务系统和应用。",
       "mapInfraTitle": "运维基础",
       "mapInfraDesc": "提供稳定的云端和服务器运维，包含监控和维护。",
       "mapPublishTitle": "信息发布",
       "mapPublishDesc": "通过网站和设计制作，整理并传达您的信息。",
       "mapEducationTitle": "培育支持",
       "mapEducationDesc": "连接教育和陪伴支持，让团队能够自主运用引入的技术。",
-      "navDev": "开发",
       "navServer": "服务器",
       "navWeb": "网站设计",
       "navDesign": "设计",
       "navEducation": "IT学校",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "业务系统・应用开发",
-        "desc": "根据客户的业务效率化、自动化和数据管理等挑战，定制开发系统和应用。从小型内部工具到大型Web服务均可对应。即使不确定从何开始，也请随时咨询。",
-        "examplesLabel": "服务案例",
-        "imgAlt": "代码编辑器中的开发工作",
-        "examples": [
-          "业务管理系统、CRM和ERP的设计与构建",
-          "Web应用、SPA和移动应用开发",
-          "API设计、第三方服务集成和数据基础构建",
-          "旧系统的现代化改造"
-        ]
-      },
       "server": {
         "title": "服务器搭建・运维",
         "desc": "擅长构建和运维安全稳定的服务器环境。Acecore长期运营Aceserver（Minecraft公开服务器），并将积累的经验提供给企业客户。服务器迁移和云化咨询也欢迎联系。",
@@ -586,13 +556,6 @@
         "ctaPricing": "查看费用参考",
         "ctaContact": "免费咨询",
         "items": [
-          {
-            "icon": "code-xml",
-            "label": "业务系统与应用开发",
-            "price": "30万日元起",
-            "note": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
-            "href": "/services/#system-development"
-          },
           {
             "icon": "message-square",
             "label": "咨询 AI 聊天",
@@ -834,7 +797,7 @@
     },
     "pricing": {
       "title": "费用参考",
-      "description": "汇总 Acecore 的系统开发、网站制作、服务器运维、设计、Acecore Schools 等服务费用感的参考页面。",
+      "description": "汇总 Acecore 的网站制作、服务器运维、设计、Acecore Schools 等服务费用感的参考页面。",
       "heroTitle": "费用参考",
       "heroSubtitle": "在详细规划前，跨服务确认大致费用区间",
       "heroImgAlt": "查看报价资料的工作场景",
@@ -857,13 +820,6 @@
       "ctaServices": "查看服务详情",
       "ctaSchools": "查看 Schools",
       "items": [
-        {
-          "icon": "code-xml",
-          "title": "业务系统与应用开发",
-          "price": "30万日元起",
-          "body": "小规模自动化30万日元起，业务工具50万日元起，中型系统150万日元起，集成类250万日元起。",
-          "href": "/services/#system-development"
-        },
         {
           "icon": "message-square",
           "title": "咨询 AI 聊天",
@@ -1048,7 +1004,6 @@
     "イベント": "活动",
     "お知らせ": "公告",
     "サービス": "服务",
-    "システム開発": "系统开发",
     "オープンソース": "开源",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

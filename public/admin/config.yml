@@ -1265,14 +1265,6 @@ collections:
             label: 'サービスマップ・説明'
             hint: 'serviceMapDesc'
             widget: string
-          - name: 'mapDevTitle'
-            label: 'マップ・開発タイトル'
-            hint: 'mapDevTitle'
-            widget: string
-          - name: 'mapDevDesc'
-            label: 'マップ・開発説明'
-            hint: 'mapDevDesc'
-            widget: string
           - name: 'mapInfraTitle'
             label: 'マップ・インフラタイトル'
             hint: 'mapInfraTitle'
@@ -1296,10 +1288,6 @@ collections:
           - name: 'mapEducationDesc'
             label: 'マップ・教育説明'
             hint: 'mapEducationDesc'
-            widget: string
-          - name: 'navDev'
-            label: 'ナビ・開発'
-            hint: 'navDev'
             widget: string
           - name: 'navServer'
             label: 'ナビ・サーバー'
@@ -1325,40 +1313,6 @@ collections:
             label: 'ナビ・AceStudio'
             hint: 'navAcestudio'
             widget: string
-          - name: 'systemDev'
-            label: 'システム開発'
-            hint: 'systemDev'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'systemDev.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'systemDev.desc'
-                widget: text
-              - name: 'detailLink'
-                label: '専用サイトリンク'
-                hint: 'systemDev.detailLink'
-                widget: string
-              - name: 'examplesLabel'
-                label: '事例・ラベル'
-                hint: 'systemDev.examplesLabel'
-                widget: string
-              - name: 'examples'
-                label: '事例リスト'
-                hint: 'systemDev.examples'
-                widget: list
-                field:
-                  name: 'example'
-                  label: '事例'
-                  widget: string
-              - name: 'imgAlt'
-                label: '画像・代替テキスト'
-                hint: 'systemDev.imgAlt'
-                widget: string
           - name: 'server'
             label: 'サーバー'
             hint: 'server'
@@ -1610,7 +1564,6 @@ collections:
                     hint: 'pricing.items[].icon'
                     widget: select
                     options:
-                      - { label: '業務システム', value: code-xml }
                       - { label: 'サーバー', value: server }
                       - { label: 'Web制作', value: globe }
                       - { label: 'デザイン', value: palette }
@@ -1734,7 +1687,6 @@ collections:
                 hint: 'items[].icon'
                 widget: select
                 options:
-                  - { label: '業務システム', value: code-xml }
                   - { label: 'サーバー', value: server }
                   - { label: 'Web制作', value: globe }
                   - { label: 'デザイン', value: palette }

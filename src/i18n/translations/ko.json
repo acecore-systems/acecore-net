@@ -132,11 +132,11 @@
     "searchFallbackServiceList": "→ 서비스 보기",
     "searchFallbackContact": "→ 문의하기",
     "blogCtaHeading": "서비스에 대해 더 알고 싶으신가요?",
-    "blogCtaBody": "시스템 개발, 웹 디자인, 그래픽 디자인, IT 교육 등 포괄적인 지원을 제공합니다.",
+    "blogCtaBody": "웹 디자인, 그래픽 디자인, IT 교육 등 포괄적인 지원을 제공합니다.",
     "blogCtaServices": "서비스 목록 보기",
     "blogCtaContact": "무료 상담하기",
     "rssTitle": "Acecore 블로그",
-    "rssDescription": "시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고",
+    "rssDescription": "웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고",
     "pagefindFilterAuthor": "저자",
     "pagefindFilterYear": "연도",
     "pagefindFilterTag": "태그",
@@ -146,8 +146,8 @@
     "postNavLabel": "글 탐색",
     "tagPrefix": "태그: {tag}",
     "authorPrefix": "작성자: {author}",
-    "indexDescription": "Acecore 블로그. 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보, 활동 보고, 공지사항을 게시합니다.",
-    "pageDescription": "Acecore 블로그 글 목록 ({current}/{total}페이지). 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고를 게시합니다.",
+    "indexDescription": "Acecore 블로그. 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보, 활동 보고, 공지사항을 게시합니다.",
+    "pageDescription": "Acecore 블로그 글 목록 ({current}/{total}페이지). 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고를 게시합니다.",
     "tagListDescription": "블로그 글 태그 목록입니다.",
     "archiveListDescription": "블로그 글 월별 아카이브 목록입니다.",
     "itemListName": "Acecore 블로그 글 목록",
@@ -183,7 +183,7 @@
   "pages": {
     "home": {
       "heroTitle": "개발부터 디자인, 교육까지. 원스톱 IT 지원.",
-      "heroSubtitle": "시스템 개발, 웹 디자인, 서버 운영, 디자인, IT 교육 — 하나의 창구에서 모두 맡기실 수 있습니다.",
+      "heroSubtitle": "웹 디자인, 서버 운영, 디자인, IT 교육 — 하나의 창구에서 모두 맡기실 수 있습니다.",
       "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
       "heroImgCollaboration": "프로젝트를 추진하는 팀워크",
       "heroImgMeeting": "회의 풍경",
@@ -191,13 +191,6 @@
       "servicesHeading": "주요 서비스",
       "servicesLead": "어디서부터 시작해야 할지 모르시겠어요? 개인부터 기업까지 유연하게 대응합니다.",
       "serviceCards": [
-        {
-          "title": "업무 시스템・앱 개발",
-          "description": "업무 효율화, 데이터 관리 개선 등의 과제를 최적의 시스템으로 해결합니다.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "서버 구축・운용",
           "description": "안정적이고 빠른 서버 환경을 제공합니다. 수백 명 동시 접속을 지원한 실적이 있습니다.",
@@ -239,13 +232,6 @@
       "layersTitle": "Acecore가 지원하는 네 가지 레이어",
       "layersDescription": "기술, 운영, 표현, 교육을 분리하지 않고 하나의 지원 라인으로 다룹니다.",
       "layerItems": [
-        {
-          "title": "시스템 설계",
-          "description": "업무 과제를 요건으로 전환하고, 구현과 운영을 고려하여 시스템을 구축합니다.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "인프라 운영",
           "description": "공개 서버 운영 경험을 바탕으로 견고한 환경과 개선 사이클을 구축합니다.",
@@ -303,7 +289,6 @@
       "formCategoryLabel": "문의 유형",
       "formCategoryPlaceholder": "선택해 주세요",
       "formCategoryService": "서비스 전반에 관하여",
-      "formCategoryServiceSystemDev": "업무 시스템 및 앱 개발에 관하여",
       "formCategoryServiceServer": "서버 구축 및 운영에 관하여",
       "formCategoryServiceWeb": "웹사이트 제작 및 운영에 관하여",
       "formCategoryServiceDesign": "디자인 및 크리에이티브에 관하여",
@@ -350,7 +335,7 @@
       "faqs": [
         {
           "question": "어떤 서비스로 문의해야 할지 모르겠습니다.",
-          "answer": "시스템 개발, 웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요."
+          "answer": "웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요."
         },
         {
           "question": "견적만 문의해도 되나요?",
@@ -377,7 +362,7 @@
       "missionLoopDesc": "Acecore가 어떻게 가치를 창출하고 확장하는지를 도해로 나타냅니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "\"기술로 연결되고, 크리에이티브로 확장되다\"",
-      "philosophyBody1": "Acecore는 기술과 크리에이티브의 힘으로 다양한 가치를 창출하는 테크놀로지 그룹입니다. 시스템 개발, 웹사이트 제작, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하며 개인부터 기업까지 폭넓은 고객에게 대응합니다.",
+      "philosophyBody1": "Acecore는 기술과 크리에이티브의 힘으로 다양한 가치를 창출하는 테크놀로지 그룹입니다. 웹사이트 제작, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하며 개인부터 기업까지 폭넓은 고객에게 대응합니다.",
       "philosophyBody2": "기술의 힘으로 사람들을 연결하고 크리에이티브의 힘으로 가능성을 확장하는 것이 우리의 미션입니다. 단순히 기술을 제공하는 것이 아니라 고객 및 커뮤니티와 함께 성장하며 지속 가능한 가치를 만드는 것을 소중히 합니다.",
       "collaborationImgAlt": "팀 협업 작업",
       "activitiesTitle": "Acecore의 주요 활동",
@@ -458,40 +443,25 @@
     },
     "services": {
       "title": "서비스",
-      "description": "Acecore가 제공하는 시스템 개발, 웹사이트 제작, 서버 운영, 디자인, IT 교육 서비스의 상세를 소개합니다.",
+      "description": "Acecore가 제공하는 웹사이트 제작, 서버 운영, 디자인, IT 교육 서비스의 상세를 소개합니다.",
       "heroTitle": "서비스",
       "heroSubtitle": "원스톱으로 제공하는 다양한 IT 솔루션",
       "heroImgAlt": "테크놀로지 오피스",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Acecore의 지원 범위를 한눈에",
       "serviceMapDesc": "개발, 운영, 정보 발신, 인재 육성을 하나의 지원선으로 설계합니다.",
-      "mapDevTitle": "개발",
-      "mapDevDesc": "운영 흐름에 맞춰 업무 시스템과 앱을 설계・구현합니다.",
       "mapInfraTitle": "인프라 운영",
       "mapInfraDesc": "클라우드와 서버를 안정적으로 운영하며 모니터링과 보수까지 정비합니다.",
       "mapPublishTitle": "정보 발신",
       "mapPublishDesc": "웹사이트와 디자인 제작으로 전달해야 할 내용을 정리하여 전합니다.",
       "mapEducationTitle": "육성 지원",
       "mapEducationDesc": "도입한 기술을 현장에서 돌릴 수 있도록 교육과 동행 지원까지 연결합니다.",
-      "navDev": "개발",
       "navServer": "서버",
       "navWeb": "웹 제작",
       "navDesign": "디자인",
       "navEducation": "IT 스쿨",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "업무 시스템・앱 개발",
-        "desc": "업무 효율화, 자동화, 데이터 관리 등 고객의 과제에 맞춘 시스템과 앱을 개발합니다. 소규모 도구부터 대규모 웹 서비스까지 대응 가능합니다. 무엇부터 시작하면 좋을지 모르겠다는 단계에서도 편하게 상담해 주세요.",
-        "examplesLabel": "대응 사례",
-        "imgAlt": "코드 에디터에서의 개발 작업 이미지",
-        "examples": [
-          "업무 관리 시스템, CRM, ERP 설계 및 구축",
-          "웹 앱, SPA 및 모바일 앱 개발",
-          "API 설계, 외부 서비스 연계, 데이터 기반 구축",
-          "레거시 시스템 모더나이제이션"
-        ]
-      },
       "server": {
         "title": "서버 구축・운영",
         "desc": "안전하고 안정된 서버 환경의 구축과 운영을 전문으로 합니다. Acecore는 Aceserver(마인크래프트 공개 서버)를 장기 운영하며 그 노하우를 기업 고객에게도 제공합니다. 서버 이전이나 클라우드화 상담도 환영합니다.",
@@ -586,13 +556,6 @@
         "ctaPricing": "요금표 보기",
         "ctaContact": "무료 상담",
         "items": [
-          {
-            "icon": "code-xml",
-            "label": "업무 시스템 및 앱 개발",
-            "price": "30만 엔〜",
-            "note": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-            "href": "/services/#system-development"
-          },
           {
             "icon": "message-square",
             "label": "문의 AI 채팅",
@@ -834,7 +797,7 @@
     },
     "pricing": {
       "title": "요금 안내",
-      "description": "Acecore의 시스템 개발, 웹 제작, 서버 운영, 디자인, Acecore Schools 등 주요 서비스의 비용감을 정리한 요금 안내 페이지입니다.",
+      "description": "Acecore의 웹 제작, 서버 운영, 디자인, Acecore Schools 등 주요 서비스의 비용감을 정리한 요금 안내 페이지입니다.",
       "heroTitle": "요금 안내",
       "heroSubtitle": "본격적인 검토 전에 서비스별 비용 범위를 한 번에 확인할 수 있습니다",
       "heroImgAlt": "견적 자료를 확인하는 작업 모습",
@@ -857,13 +820,6 @@
       "ctaServices": "서비스 자세히 보기",
       "ctaSchools": "Schools 보기",
       "items": [
-        {
-          "icon": "code-xml",
-          "title": "업무 시스템 및 앱 개발",
-          "price": "30만 엔〜",
-          "body": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-          "href": "/services/#system-development"
-        },
         {
           "icon": "message-square",
           "title": "문의 AI 채팅",
@@ -1048,7 +1004,6 @@
     "イベント": "이벤트",
     "お知らせ": "공지",
     "サービス": "서비스",
-    "システム開発": "시스템 개발",
     "オープンソース": "오픈소스",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

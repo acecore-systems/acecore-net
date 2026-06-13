@@ -2,7 +2,11 @@ import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
 import type { APIContext } from 'astro'
 import { locales, defaultLocale, type Locale } from '../../i18n'
-import { isBasePost, localizePost, getLocalizedAuthor } from '../../utils/blog-i18n'
+import {
+  isBasePost,
+  localizePost,
+  getLocalizedAuthor,
+} from '../../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../../utils/tags'
 
@@ -16,11 +20,12 @@ const rssMeta: Record<string, { title: string; description: string }> = {
   en: {
     title: 'Acecore Blog',
     description:
-      'Technical articles and activity reports on system development, web production, server operations, and IT education.',
+      'Technical articles and activity reports on web production, server operations, and IT education.',
   },
   'zh-cn': {
     title: 'Acecore 博客',
-    description: '关于系统开发、Web制作、服务器运维和IT教育的技术文章和活动报告。',
+    description:
+      '关于系统开发、Web制作、服务器运维和IT教育的技术文章和活动报告。',
   },
   es: {
     title: 'Blog de Acecore',
@@ -78,14 +83,13 @@ export async function GET(context: APIContext) {
       link: `/${locale}/blog/${post.id.includes('/') ? post.id.split('/').pop() : post.id}/`,
       ...(post.data.author
         ? {
-            author:
-              getLocalizedAuthor(
-                findAuthorById(authors, post.data.author) ?? {
-                  id: post.data.author,
-                  name: post.data.author,
-                },
-                locale,
-              ).name,
+            author: getLocalizedAuthor(
+              findAuthorById(authors, post.data.author) ?? {
+                id: post.data.author,
+                name: post.data.author,
+              },
+              locale,
+            ).name,
           }
         : {}),
       categories: (post.data.tags ?? []).map((tag) =>

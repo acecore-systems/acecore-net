@@ -132,11 +132,11 @@
     "searchFallbackServiceList": "→ View services",
     "searchFallbackContact": "→ Contact us",
     "blogCtaHeading": "Want to learn more about our services?",
-    "blogCtaBody": "We provide comprehensive support including system development, web design, graphic design, and IT education.",
+    "blogCtaBody": "We provide comprehensive support including web design, graphic design, and IT education.",
     "blogCtaServices": "View Services",
     "blogCtaContact": "Free Consultation",
     "rssTitle": "Acecore Blog",
-    "rssDescription": "Tech insights and activity reports on system development, web design, server operations, and IT education",
+    "rssDescription": "Tech insights and activity reports on web design, server operations, and IT education",
     "pagefindFilterAuthor": "Author",
     "pagefindFilterYear": "Year",
     "pagefindFilterTag": "Tag",
@@ -146,8 +146,8 @@
     "postNavLabel": "Post navigation",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Author: {author}",
-    "indexDescription": "The Acecore blog. Tech insights, reports, and news on system development, web design, server operations, and IT education.",
-    "pageDescription": "Acecore blog article list (page {current} of {total}). Tech insights and activity reports on system development, web design, server operations, and IT education.",
+    "indexDescription": "The Acecore blog. Tech insights, reports, and news on web design, server operations, and IT education.",
+    "pageDescription": "Acecore blog article list (page {current} of {total}). Tech insights and activity reports on web design, server operations, and IT education.",
     "tagListDescription": "A list of all blog tags.",
     "archiveListDescription": "A monthly archive of blog posts.",
     "itemListName": "Acecore Blog Article List",
@@ -177,13 +177,13 @@
     "featurePricingContact": "Consult us"
   },
   "meta": {
-    "siteTitle": "Acecore | System Development, Web Design & IT Education",
-    "defaultDescription": "Acecore is a technology collective that provides system development, website design, server operations, design, and IT education as a one-stop solution."
+    "siteTitle": "Acecore | Web Design & IT Education",
+    "defaultDescription": "Acecore is a technology collective that provides website design, server operations, design, and IT education as a one-stop solution."
   },
   "pages": {
     "home": {
       "heroTitle": "From development to design and education. One-stop IT support.",
-      "heroSubtitle": "System development, web design, server operations, design, and IT education — all from a single point of contact.",
+      "heroSubtitle": "web design, server operations, design, and IT education — all from a single point of contact.",
       "heroImgTeam": "Team working in a co-working space",
       "heroImgCollaboration": "Team collaboration on a project",
       "heroImgMeeting": "Meeting scene",
@@ -191,13 +191,6 @@
       "servicesHeading": "Our Services",
       "servicesLead": "Not sure where to start? We flexibly serve both individuals and businesses.",
       "serviceCards": [
-        {
-          "title": "Business System & App Development",
-          "description": "We solve challenges like streamlining operations and improving data management with optimal systems. From small tools to large-scale services.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Server Setup & Operations",
           "description": "We deliver reliable, fast server environments. Proven track record supporting hundreds of simultaneous connections.",
@@ -236,16 +229,9 @@
       ],
       "viewServicesDetail": "View Service Details",
       "layersEyebrow": "Visual Overview",
-      "layersTitle": "Four Layers Acecore Supports",
+      "layersTitle": "Support Layers Acecore Supports",
       "layersDescription": "We treat technology, operations, expression, and education as a single support line.",
       "layerItems": [
-        {
-          "title": "System Design",
-          "description": "We turn business challenges into requirements, building systems with implementation and operation in mind.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Infrastructure Operations",
           "description": "Based on public server operation experience, we build resilient environments and improvement cycles.",
@@ -299,7 +285,7 @@
       "missionLoopDesc": "A visual breakdown of how Acecore creates and expands value.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Connected by technology, expanded by creativity\"",
-      "philosophyBody1": "Acecore is a technology collective that creates diverse value through the power of technology and creativity. We provide system development, website design, server operations, design, and IT education as a one-stop solution, serving a wide range of clients from individuals to businesses.",
+      "philosophyBody1": "Acecore is a technology collective that creates diverse value through the power of technology and creativity. We provide website design, server operations, design, and IT education as a one-stop solution, serving a wide range of clients from individuals to businesses.",
       "philosophyBody2": "Our mission is to connect people through technology and expand possibilities through creativity. We value not just providing technology, but growing together with our clients and community to create sustainable value.",
       "collaborationImgAlt": "Team collaboration work",
       "activitiesTitle": "Acecore's Key Activities",
@@ -320,8 +306,8 @@
       "ctaServices": "View Services",
       "valueCycle": [
         {
-          "title": "Implement Technology",
-          "description": "We build operational foundations through system development and server operations.",
+          "title": "Operate Technology",
+          "description": "We build operational foundations through server operations.",
           "icon": "cpu",
           "accent": "brand"
         },
@@ -380,40 +366,25 @@
     },
     "services": {
       "title": "Services",
-      "description": "Explore Acecore's comprehensive services including system development, website design, server operations, design, and IT education.",
+      "description": "Explore Acecore's comprehensive services including website design, server operations, design, and IT education.",
       "heroTitle": "Services",
       "heroSubtitle": "Diverse IT solutions delivered as a one-stop service",
       "heroImgAlt": "Technology office",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualize Acecore's support coverage",
-      "serviceMapDesc": "Development, operations, communication, and education are designed as a continuous support line.",
-      "mapDevTitle": "Development",
-      "mapDevDesc": "We design and implement business systems and apps to fit your operational workflow.",
+      "serviceMapDesc": "Operations, communication, and education are designed as a continuous support line.",
       "mapInfraTitle": "Infrastructure",
       "mapInfraDesc": "We provide stable cloud and server operations, including monitoring and maintenance.",
       "mapPublishTitle": "Communication",
       "mapPublishDesc": "We organize and deliver your message through website and design production.",
       "mapEducationTitle": "Education Support",
       "mapEducationDesc": "We connect education and mentoring so your team can independently operate the technology we introduce.",
-      "navDev": "Development",
       "navServer": "Server",
       "navWeb": "Web Design",
       "navDesign": "Design",
       "navEducation": "IT School",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "Business System & App Development",
-        "desc": "We develop systems and applications tailored to your challenges — from operational efficiency and automation to data management. We handle everything from small internal tools to large-scale web services. Feel free to consult us even if you're not sure where to start.",
-        "examplesLabel": "Examples",
-        "imgAlt": "Code editor showing development work",
-        "examples": [
-          "Business management system, CRM, and ERP design & development",
-          "Web application, SPA, and mobile app development",
-          "API design, third-party service integration, and data infrastructure",
-          "Legacy system modernization"
-        ]
-      },
       "server": {
         "title": "Server Setup & Operations",
         "desc": "We specialize in building and operating secure, stable server environments. Acecore has long-term experience running Aceserver (a public Minecraft server), and we bring that expertise to enterprise clients. We're also happy to discuss server migration and cloud adoption.",
@@ -508,13 +479,6 @@
         "ctaPricing": "View Pricing Guide",
         "ctaContact": "Free Consultation",
         "items": [
-          {
-            "icon": "code-xml",
-            "label": "Business System & App Development",
-            "price": "From ¥300,000",
-            "note": "Small automation from ¥300,000, business tools from ¥500,000, mid-sized systems from ¥1,500,000, integrated systems from ¥2,500,000.",
-            "href": "/services/#system-development"
-          },
           {
             "icon": "message-square",
             "label": "AI Contact Chat",
@@ -671,7 +635,6 @@
       "formCategoryLabel": "Inquiry Type",
       "formCategoryPlaceholder": "Please select",
       "formCategoryService": "About services in general",
-      "formCategoryServiceSystemDev": "About Business System & App Development",
       "formCategoryServiceServer": "About Server Setup & Operations",
       "formCategoryServiceWeb": "About Website Design & Management",
       "formCategoryServiceDesign": "About Design & Creative",
@@ -721,7 +684,7 @@
       "faqs": [
         {
           "question": "I am not sure which service to ask about.",
-          "answer": "You can ask about system development, web production, server operations, design, and IT education together. If unsure, choose Other and describe your situation."
+          "answer": "You can ask about web production, server operations, design, and IT education together. If unsure, choose Other and describe your situation."
         },
         {
           "question": "Can I ask only for an estimate?",
@@ -834,7 +797,7 @@
     },
     "pricing": {
       "title": "Pricing Guide",
-      "description": "A pricing guide for Acecore system development, website production, server operations, design, Acecore Schools, and related services.",
+      "description": "A pricing guide for Acecore website production, server operations, design, Acecore Schools, and related services.",
       "heroTitle": "Pricing Guide",
       "heroSubtitle": "Compare rough costs across services before you contact us.",
       "heroImgAlt": "Reviewing estimate documents",
@@ -857,13 +820,6 @@
       "ctaServices": "View Services",
       "ctaSchools": "View Schools",
       "items": [
-        {
-          "icon": "code-xml",
-          "title": "Business System & App Development",
-          "price": "From ¥300,000",
-          "body": "Small automation starts from ¥300,000, business tools from ¥500,000, mid-sized systems from ¥1,500,000, and integrated systems from ¥2,500,000.",
-          "href": "/services/#system-development"
-        },
         {
           "icon": "message-square",
           "title": "AI Contact Chat",
@@ -1047,7 +1003,6 @@
     "イベント": "Events",
     "Acecore Schools": "Acecore Schools",
     "サービス": "Services",
-    "システム開発": "System Development",
     "Web制作": "Web Production",
     "メール": "Email",
     "DNS": "DNS",

@@ -167,7 +167,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -212,7 +212,7 @@ L'échec classique est une IA trop serviable qui promet trop. Les prix, délais 
 | Formulaire     | Devis, production, partenariats et recrutement             |
 | Contact direct | Complément après formulaire ou confirmation urgente        |
 
-L'IA relie des contenus généraux comme [l'article de présentation des services](/blog/service-introduction/) aux entrées concrètes de la [page contact](/contact/). Le modèle s'applique aux sites B2B, agences, écoles et supports SaaS.
+L'IA relie des contenus généraux comme [l'article de présentation des services](/services/) aux entrées concrètes de la [page contact](/contact/). Le modèle s'applique aux sites B2B, agences, écoles et supports SaaS.
 
 ## Préserver les URLs par locale
 

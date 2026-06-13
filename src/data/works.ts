@@ -58,7 +58,6 @@ interface WorksCopy {
   contactCtaButton: string
   cases: WorkCase[]
   serviceLinks: {
-    systemDev: ServiceWorkLink
     server: ServiceWorkLink
     web: ServiceWorkLink
     design: ServiceWorkLink
@@ -81,10 +80,10 @@ const jaWorksCopy: WorksCopy = {
   homeCta: '実績を見る',
   stats: [
     {
-      value: '5領域',
+      value: '4領域',
       label: '横断支援',
       description:
-        'システム開発、Web制作、サーバー運用、デザイン、IT教育をまとめて相談できます。',
+        'Web制作、サーバー運用、デザイン、IT教育をまとめて相談できます。',
       icon: 'layers-3',
       tone: 'brand',
     },
@@ -228,11 +227,6 @@ const jaWorksCopy: WorksCopy = {
     },
   ],
   serviceLinks: {
-    systemDev: {
-      label: '関連事例',
-      title: 'Aceserverの公開サーバー運用',
-      href: '/works/#case-aceserver',
-    },
     server: {
       label: '関連事例',
       title: 'Aceserverの公開サーバー運用',
@@ -275,10 +269,10 @@ const enWorksCopy: WorksCopy = {
   homeCta: 'View Works',
   stats: [
     {
-      value: '5 areas',
+      value: '4 areas',
       label: 'Cross-functional support',
       description:
-        'System development, web production, server operations, design, and IT education can be discussed together.',
+        'Web production, server operations, design, and IT education can be discussed together.',
       icon: 'layers-3',
       tone: 'brand',
     },
@@ -424,11 +418,6 @@ const enWorksCopy: WorksCopy = {
     },
   ],
   serviceLinks: {
-    systemDev: {
-      label: 'Related case',
-      title: 'Public server operations for Aceserver',
-      href: '/works/#case-aceserver',
-    },
     server: {
       label: 'Related case',
       title: 'Public server operations for Aceserver',

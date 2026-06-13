@@ -192,13 +192,6 @@
       "servicesLead": "¿No sabe por dónde empezar? Atendemos con flexibilidad tanto a particulares como a empresas.",
       "serviceCards": [
         {
-          "title": "Desarrollo de sistemas y aplicaciones",
-          "description": "Resolvemos desafíos como la optimización de operaciones y la mejora de la gestión de datos con sistemas óptimos.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
-        {
           "title": "Configuración y operación de servidores",
           "description": "Entornos de servidor fiables y rápidos con experiencia probada en cientos de conexiones simultáneas.",
           "href": "/services/#server",
@@ -239,13 +232,6 @@
       "layersTitle": "Cuatro capas que soporta Acecore",
       "layersDescription": "Tratamos la tecnología, las operaciones, la expresión y la educación como una línea de soporte unificada.",
       "layerItems": [
-        {
-          "title": "Diseño de sistemas",
-          "description": "Convertimos los desafíos de negocio en requisitos, construyendo sistemas con implementación y operación en mente.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Operaciones de infraestructura",
           "description": "Construimos entornos resilientes y ciclos de mejora basados en experiencia en operación de servidores.",
@@ -303,7 +289,6 @@
       "formCategoryLabel": "Tipo de consulta",
       "formCategoryPlaceholder": "Seleccione",
       "formCategoryService": "Sobre servicios en general",
-      "formCategoryServiceSystemDev": "Sobre desarrollo de sistemas empresariales y apps",
       "formCategoryServiceServer": "Sobre configuración y operación de servidores",
       "formCategoryServiceWeb": "Sobre creación y gestión de sitios web",
       "formCategoryServiceDesign": "Sobre diseño y creatividad",
@@ -350,7 +335,7 @@
       "faqs": [
         {
           "question": "No sé por qué servicio consultar.",
-          "answer": "Puede consultar en conjunto sobre desarrollo de sistemas, web, servidores, diseño y educación IT. Si duda, elija Otro y describa la situación."
+          "answer": "Puede consultar en conjunto sobre web, servidores, diseño y educación IT. Si duda, elija Otro y describa la situación."
         },
         {
           "question": "¿Puedo pedir solo un presupuesto?",
@@ -458,40 +443,25 @@
     },
     "services": {
       "title": "Servicios",
-      "description": "Explore los servicios integrales de Acecore: desarrollo de sistemas, diseño web, operaciones de servidores, diseño y educación IT.",
+      "description": "Explore los servicios integrales de Acecore: diseño web, operaciones de servidores, diseño y educación IT.",
       "heroTitle": "Servicios",
       "heroSubtitle": "Soluciones IT diversas en un servicio integral",
       "heroImgAlt": "Oficina tecnológica",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualice el alcance de soporte de Acecore",
       "serviceMapDesc": "Desarrollo, operaciones, comunicación y educación diseñados como una línea de soporte continua.",
-      "mapDevTitle": "Desarrollo",
-      "mapDevDesc": "Diseñamos e implementamos sistemas y apps adaptados a su flujo operativo.",
       "mapInfraTitle": "Infraestructura",
       "mapInfraDesc": "Operaciones estables de nube y servidores, incluyendo monitoreo y mantenimiento.",
       "mapPublishTitle": "Comunicación",
       "mapPublishDesc": "Organizamos y transmitimos su mensaje mediante producción web y diseño.",
       "mapEducationTitle": "Apoyo educativo",
       "mapEducationDesc": "Conectamos educación y mentoría para que su equipo opere la tecnología de forma autónoma.",
-      "navDev": "Desarrollo",
       "navServer": "Servidor",
       "navWeb": "Diseño web",
       "navDesign": "Diseño",
       "navEducation": "Escuela IT",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "Desarrollo de sistemas y aplicaciones",
-        "desc": "Desarrollamos sistemas y aplicaciones adaptados a sus retos: eficiencia operativa, automatización y gestión de datos. Desde herramientas internas hasta servicios web a gran escala. Consúltenos aunque no sepa por dónde empezar.",
-        "examplesLabel": "Ejemplos",
-        "imgAlt": "Editor de código mostrando trabajo de desarrollo",
-        "examples": [
-          "Diseño y desarrollo de sistemas de gestión, CRM y ERP",
-          "Desarrollo de aplicaciones web, SPA y apps móviles",
-          "Diseño de API, integración con terceros e infraestructura de datos",
-          "Modernización de sistemas heredados"
-        ]
-      },
       "server": {
         "title": "Configuración y operación de servidores",
         "desc": "Especializados en construir y operar entornos de servidor seguros y estables. Acecore tiene amplia experiencia operando Aceserver (servidor público de Minecraft) y lleva esa expertise a clientes empresariales.",
@@ -586,13 +556,6 @@
         "ctaPricing": "Ver guía de precios",
         "ctaContact": "Consulta gratuita",
         "items": [
-          {
-            "icon": "code-xml",
-            "label": "Sistemas de negocio y desarrollo de apps",
-            "price": "desde ¥300.000",
-            "note": "Automatizaciones pequeñas desde ¥300.000, herramientas internas desde ¥500.000, sistemas medianos desde ¥1.500.000 e integraciones desde ¥2.500.000.",
-            "href": "/services/#system-development"
-          },
           {
             "icon": "message-square",
             "label": "Chat de contacto con IA",
@@ -834,7 +797,7 @@
     },
     "pricing": {
       "title": "Guía de precios",
-      "description": "Página con rangos orientativos para desarrollo de sistemas, producción web, operación de servidores, diseño, Acecore Schools y otros servicios de Acecore.",
+      "description": "Página con rangos orientativos para producción web, operación de servidores, diseño, Acecore Schools y otros servicios de Acecore.",
       "heroTitle": "Guía de precios",
       "heroSubtitle": "Revise los rangos de coste de todos los servicios antes de planificar en detalle",
       "heroImgAlt": "Persona revisando documentos de presupuesto",
@@ -857,13 +820,6 @@
       "ctaServices": "Ver servicios",
       "ctaSchools": "Ver Schools",
       "items": [
-        {
-          "icon": "code-xml",
-          "title": "Sistemas de negocio y desarrollo de apps",
-          "price": "desde ¥300.000",
-          "body": "Automatizaciones pequeñas desde ¥300.000, herramientas internas desde ¥500.000, sistemas medianos desde ¥1.500.000 e integraciones desde ¥2.500.000.",
-          "href": "/services/#system-development"
-        },
         {
           "icon": "message-square",
           "title": "Chat de contacto con IA",
@@ -1048,7 +1004,6 @@
     "イベント": "Eventos",
     "お知らせ": "Avisos",
     "サービス": "Servicios",
-    "システム開発": "Desarrollo de sistemas",
     "オープンソース": "Código abierto",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

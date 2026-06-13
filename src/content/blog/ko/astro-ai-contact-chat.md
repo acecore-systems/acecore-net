@@ -167,7 +167,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -212,7 +212,7 @@ AI가 지나치게 도와주려다 비용, 납기, 보증을 단정하는 것이
 | 폼        | 견적, 제작 상담, 제휴, 채용처럼 기록이 필요한 문의 |
 | 직접 연락 | 폼 이후 보충이나 긴급 확인에만 사용                |
 
-AI는 [서비스 소개 글](/blog/service-introduction/) 같은 개요 콘텐츠와 [문의 페이지](/contact/)의 실제 접점을 연결합니다. BtoB, 제작사, 학교, SaaS 지원에도 적용하기 쉽습니다.
+AI는 [서비스 소개 글](/services/) 같은 개요 콘텐츠와 [문의 페이지](/contact/)의 실제 접점을 연결합니다. BtoB, 제작사, 학교, SaaS 지원에도 적용하기 쉽습니다.
 
 ## locale URL 유지하기
 

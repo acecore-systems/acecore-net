@@ -132,11 +132,11 @@
     "searchFallbackServiceList": "→ Dienste anzeigen",
     "searchFallbackContact": "→ Kontaktieren Sie uns",
     "blogCtaHeading": "Möchten Sie mehr über unsere Dienste erfahren?",
-    "blogCtaBody": "Wir bieten umfassende Unterstützung, einschließlich Systementwicklung, Webdesign, Grafikdesign und IT-Bildung.",
+    "blogCtaBody": "Wir bieten umfassende Unterstützung, einschließlich Webdesign, Grafikdesign und IT-Bildung.",
     "blogCtaServices": "Dienste anzeigen",
     "blogCtaContact": "Kostenlose Beratung",
     "rssTitle": "Acecore Blog",
-    "rssDescription": "Technische Einblicke und Aktivitätsberichte zu Systementwicklung, Webdesign, Serverbetrieb und IT-Bildung",
+    "rssDescription": "Technische Einblicke und Aktivitätsberichte zu Webdesign, Serverbetrieb und IT-Bildung",
     "pagefindFilterAuthor": "Autor",
     "pagefindFilterYear": "Jahr",
     "pagefindFilterTag": "Tag",
@@ -146,8 +146,8 @@
     "postNavLabel": "Artikelnavigation",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Autor: {author}",
-    "indexDescription": "Der Acecore-Blog. Technische Einblicke, Berichte und Nachrichten zu Systementwicklung, Webdesign, Serverbetrieb und IT-Bildung.",
-    "pageDescription": "Artikelliste des Acecore-Blogs (Seite {current} von {total}). Technische Einblicke und Aktivitätsberichte zu Systementwicklung, Webdesign, Serverbetrieb und IT-Bildung.",
+    "indexDescription": "Der Acecore-Blog. Technische Einblicke, Berichte und Nachrichten zu Webdesign, Serverbetrieb und IT-Bildung.",
+    "pageDescription": "Artikelliste des Acecore-Blogs (Seite {current} von {total}). Technische Einblicke und Aktivitätsberichte zu Webdesign, Serverbetrieb und IT-Bildung.",
     "tagListDescription": "Eine Liste aller Blog-Tags.",
     "archiveListDescription": "Monatliches Archiv der Blogartikel.",
     "itemListName": "Acecore Blog Artikelliste",
@@ -191,8 +191,8 @@
     "featurePricingContact": "Anfragen"
   },
   "meta": {
-    "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
-    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet."
+    "siteTitle": "Acecore | Webdesign & IT-Bildung",
+    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet."
   },
   "pages": {
     "home": {
@@ -205,13 +205,6 @@
       "servicesHeading": "Unsere Dienste",
       "servicesLead": "Unsicher, wo Sie anfangen sollen? Wir bedienen flexibel sowohl Einzelpersonen als auch Unternehmen.",
       "serviceCards": [
-        {
-          "title": "Unternehmenssystem- und App-Entwicklung",
-          "description": "Wir lösen Herausforderungen wie Prozessoptimierung und Datenverwaltung mit optimalen Systemen. Von kleinen Tools bis zu großen Services.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Serverkonfiguration und -betrieb",
           "description": "Wir liefern zuverlässige, schnelle Serverumgebungen. Nachgewiesene Erfahrung mit hunderten gleichzeitigen Verbindungen.",
@@ -253,13 +246,6 @@
       "layersTitle": "Vier Ebenen, die Acecore unterstützt",
       "layersDescription": "Wir behandeln Technologie, Betrieb, Kommunikation und Bildung als eine durchgehende Support-Linie.",
       "layerItems": [
-        {
-          "title": "System-Design",
-          "description": "Wir verwandeln geschäftliche Herausforderungen in Anforderungen und bauen Systeme mit Blick auf Implementierung und Betrieb.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Infrastruktur-Betrieb",
           "description": "Basierend auf Erfahrung im öffentlichen Serverbetrieb schaffen wir belastbare Umgebungen und Verbesserungszyklen.",
@@ -351,7 +337,7 @@
       "missionLoopDesc": "Ein visueller Überblick darüber, wie Acecore Wert schafft und erweitert.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "\"Verbunden durch Technologie, erweitert durch Kreativität\"",
-      "philosophyBody1": "Acecore ist ein Technologiekollektiv, das durch die Kraft von Technologie und Kreativität vielfältigen Wert schafft. Wir bieten Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als integrierte Lösung — von Einzelpersonen bis zu Unternehmen.",
+      "philosophyBody1": "Acecore ist ein Technologiekollektiv, das durch die Kraft von Technologie und Kreativität vielfältigen Wert schafft. Wir bieten Webdesign, Serverbetrieb, Design und IT-Bildung als integrierte Lösung — von Einzelpersonen bis zu Unternehmen.",
       "philosophyBody2": "Unsere Mission ist es, Menschen durch Technologie zu verbinden und Möglichkeiten durch Kreativität zu erweitern. Wir legen Wert darauf, nicht nur Technologie bereitzustellen, sondern gemeinsam mit unseren Kunden und der Community zu wachsen und nachhaltigen Wert zu schaffen.",
       "collaborationImgAlt": "Kollaborative Teamarbeit",
       "activitiesTitle": "Hauptaktivitäten von Acecore",
@@ -432,40 +418,25 @@
     },
     "services": {
       "title": "Dienste",
-      "description": "Entdecken Sie die umfassenden Dienste von Acecore, einschließlich Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung.",
+      "description": "Entdecken Sie die umfassenden Dienste von Acecore, einschließlich Webdesign, Serverbetrieb, Design und IT-Bildung.",
       "heroTitle": "Dienste",
       "heroSubtitle": "Vielfältige IT-Lösungen als integrierter Service geliefert",
       "heroImgAlt": "Technologiebüro",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualisieren Sie Acecores Support-Abdeckung",
       "serviceMapDesc": "Entwicklung, Betrieb, Kommunikation und Bildung sind als durchgehende Support-Linie konzipiert.",
-      "mapDevTitle": "Entwicklung",
-      "mapDevDesc": "Wir entwerfen und implementieren Unternehmenssysteme und Apps, angepasst an Ihren Workflow.",
       "mapInfraTitle": "Infrastruktur",
       "mapInfraDesc": "Wir bieten stabilen Cloud- und Serverbetrieb, einschließlich Monitoring und Wartung.",
       "mapPublishTitle": "Kommunikation",
       "mapPublishDesc": "Wir organisieren und vermitteln Ihre Botschaft durch Website-Produktion und Design.",
       "mapEducationTitle": "Bildungsunterstützung",
       "mapEducationDesc": "Wir verbinden Bildung und Mentoring, damit Ihr Team die eingeführte Technologie eigenständig betreiben kann.",
-      "navDev": "Entwicklung",
       "navServer": "Server",
       "navWeb": "Webdesign",
       "navDesign": "Design",
       "navEducation": "IT-Schule",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "Unternehmenssystem- und App-Entwicklung",
-        "desc": "Wir entwickeln maßgeschneiderte Systeme und Anwendungen für Ihre Herausforderungen — von Betriebseffizienz und Automatisierung bis zur Datenverwaltung. Von kleinen internen Tools bis zu großen Webservices. Beraten Sie sich mit uns, auch wenn Sie nicht wissen, wo Sie anfangen sollen.",
-        "examplesLabel": "Beispiele",
-        "imgAlt": "Code-Editor zeigt Entwicklungsarbeit",
-        "examples": [
-          "Entwurf und Entwicklung von Management-Systemen, CRM und ERP",
-          "Web-App-, SPA- und Mobile-Entwicklung",
-          "API-Design, Integration von Drittanbieter-Services und Dateninfrastruktur",
-          "Modernisierung bestehender Systeme"
-        ]
-      },
       "server": {
         "title": "Serverkonfiguration und -betrieb",
         "desc": "Wir sind spezialisiert auf den Aufbau und Betrieb sicherer und stabiler Serverumgebungen. Acecore hat langjährige Erfahrung mit dem Betrieb von Aceserver (einem öffentlichen Minecraft-Server) und bringt diese Expertise auch für Geschäftskunden ein. Wir können auch Servermigration und Cloud-Einführung besprechen.",
@@ -560,13 +531,6 @@
         "ctaPricing": "Preisübersicht ansehen",
         "ctaContact": "Kostenlose Beratung",
         "items": [
-          {
-            "icon": "code-xml",
-            "label": "Geschäftssysteme und App-Entwicklung",
-            "price": "ab 300.000 ¥",
-            "note": "Kleine Automatisierungen ab 300.000 ¥, interne Tools ab 500.000 ¥, mittlere Systeme ab 1.500.000 ¥, Integrationen ab 2.500.000 ¥.",
-            "href": "/services/#system-development"
-          },
           {
             "icon": "message-square",
             "label": "KI-Kontaktchat",
@@ -723,7 +687,6 @@
       "formCategoryLabel": "Art der Anfrage",
       "formCategoryPlaceholder": "Bitte wählen",
       "formCategoryService": "Über Dienste allgemein",
-      "formCategoryServiceSystemDev": "Zu Geschäftssystem- und App-Entwicklung",
       "formCategoryServiceServer": "Zu Servereinrichtung und Betrieb",
       "formCategoryServiceWeb": "Zu Website-Erstellung und Betrieb",
       "formCategoryServiceDesign": "Zu Design und Kreativleistungen",
@@ -773,7 +736,7 @@
       "faqs": [
         {
           "question": "Ich weiß nicht, zu welchem Service ich fragen soll.",
-          "answer": "Sie können Systementwicklung, Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation."
+          "answer": "Sie können Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation."
         },
         {
           "question": "Kann ich nur ein Angebot anfragen?",
@@ -886,7 +849,7 @@
     },
     "pricing": {
       "title": "Preisübersicht",
-      "description": "Eine Übersicht über Richtwerte für Systementwicklung, Webproduktion, Serverbetrieb, Design, Acecore Schools und weitere Acecore-Angebote.",
+      "description": "Eine Übersicht über Richtwerte für Webproduktion, Serverbetrieb, Design, Acecore Schools und weitere Acecore-Angebote.",
       "heroTitle": "Preisübersicht",
       "heroSubtitle": "Prüfen Sie die Kostenrahmen über alle Services hinweg, bevor Sie tiefer planen",
       "heroImgAlt": "Arbeitsplatz, an dem Angebotsunterlagen geprüft werden",
@@ -909,13 +872,6 @@
       "ctaServices": "Services ansehen",
       "ctaSchools": "Schools ansehen",
       "items": [
-        {
-          "icon": "code-xml",
-          "title": "Geschäftssysteme und App-Entwicklung",
-          "price": "ab 300.000 ¥",
-          "body": "Kleine Automatisierungen ab 300.000 ¥, interne Tools ab 500.000 ¥, mittlere Systeme ab 1.500.000 ¥ und Integrationen ab 2.500.000 ¥.",
-          "href": "/services/#system-development"
-        },
         {
           "icon": "message-square",
           "title": "KI-Kontaktchat",
@@ -1100,7 +1056,6 @@
     "イベント": "Veranstaltungen",
     "お知らせ": "Ankündigungen",
     "サービス": "Dienste",
-    "システム開発": "Systementwicklung",
     "オープンソース": "Open Source",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

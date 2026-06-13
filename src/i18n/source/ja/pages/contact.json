@@ -21,7 +21,6 @@
   "formCategoryLabel": "お問い合わせ種別",
   "formCategoryPlaceholder": "選択してください",
   "formCategoryService": "サービス全般について",
-  "formCategoryServiceSystemDev": "業務システム・アプリ開発について",
   "formCategoryServiceServer": "サーバー構築・運用について",
   "formCategoryServiceWeb": "Webサイト制作・運用について",
   "formCategoryServiceDesign": "デザイン・クリエイティブについて",
@@ -60,7 +59,7 @@
   "faqs": [
     {
       "question": "どのサービスに相談すればよいかわかりません。",
-      "answer": "システム開発、Web制作、サーバー運用、デザイン、IT教育をまとめて相談できます。迷う場合はお問い合わせ種別を「その他」にして、現状と困っていることを書いてください。"
+      "answer": "Web制作、サーバー運用、デザイン、IT教育をまとめて相談できます。迷う場合はお問い合わせ種別を「その他」にして、現状と困っていることを書いてください。"
     },
     {
       "question": "見積りだけでも相談できますか？",
