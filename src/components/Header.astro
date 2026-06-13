@@ -21,14 +21,10 @@ const navLinks = [
   {
     href: getSchoolsUrl(locale),
     label: 'Schools',
-    external: true,
-    gaLabel: 'header_schools',
   },
   {
     href: SITE.social.aceserver,
     label: locale === 'ja' ? 'エースサーバー' : 'Aceserver',
-    external: true,
-    gaLabel: 'header_aceserver_portal',
   },
   {
     href: getLocalizedUrl('/pricing/', locale),
@@ -62,7 +58,7 @@ const currentPath = Astro.url.pathname
     >
       {
         navLinks.map((link) => {
-          const isCurrent = !link.external && currentPath === link.href
+          const isCurrent = currentPath === link.href
 
           return (
             <a
@@ -74,21 +70,8 @@ const currentPath = Astro.url.pathname
                   : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
               ]}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
-              {...(link.external
-                ? {
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                    'data-ga-event': 'external_link_click',
-                    'data-ga-label': link.gaLabel,
-                    'data-ga-location': 'header_nav',
-                    'data-ga-destination': link.href,
-                  }
-                : {})}
             >
               <span>{link.label}</span>
-              {link.external && (
-                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-              )}
             </a>
           )
         })
@@ -144,7 +127,7 @@ const currentPath = Astro.url.pathname
     <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
       {
         navLinks.map((link) => {
-          const isCurrent = !link.external && currentPath === link.href
+          const isCurrent = currentPath === link.href
 
           return (
             <a
@@ -156,24 +139,9 @@ const currentPath = Astro.url.pathname
                   : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
               ]}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
-              {...(link.external
-                ? {
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                    'data-ga-event': 'external_link_click',
-                    'data-ga-label': link.gaLabel,
-                    'data-ga-location': 'mobile_nav',
-                    'data-ga-destination': link.href,
-                  }
-                : {})}
             >
               <span>{link.label}</span>
               <span class="inline-flex items-center gap-1 text-slate-400">
-                {link.external && (
-                  <span class="sr-only">
-                    {t(locale, 'common.opensInNewTab')}
-                  </span>
-                )}
                 <Icon name="arrow-right" class="text-sm" />
               </span>
             </a>
