@@ -2,6 +2,8 @@
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
+import { SITE } from '../data/site'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
@@ -28,6 +30,20 @@ const contactLink = {
   href: getLocalizedUrl('/contact/', locale),
   label: t(locale, 'nav.contact'),
 }
+const officialLinks = [
+  {
+    href: getSchoolsUrl(locale),
+    label: t(locale, 'footer.schools'),
+    icon: 'graduation-cap',
+    gaLabel: 'header_schools',
+  },
+  {
+    href: SITE.social.aceserver,
+    label: 'Aceserver Portal',
+    icon: 'gamepad-2',
+    gaLabel: 'header_aceserver_portal',
+  },
+]
 const currentPath = Astro.url.pathname
 ---
 
@@ -105,6 +121,37 @@ const currentPath = Astro.url.pathname
       </button>
     </div>
   </div>
+  <nav
+    class="border-t border-brand-900/10 bg-slate-50/90"
+    aria-label={t(locale, 'footer.relatedLinks')}
+  >
+    <div class="ac-container flex min-h-11 flex-wrap items-center gap-2 py-2">
+      <span
+        class="hidden shrink-0 text-xs font-800 text-slate-500 sm:inline-flex"
+      >
+        {t(locale, 'footer.relatedLinks')}
+      </span>
+      {
+        officialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-800 text-slate-700 no-underline shadow-sm transition-colors hover:border-brand-200 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+            data-ga-event="external_link_click"
+            data-ga-label={link.gaLabel}
+            data-ga-location="header"
+            data-ga-destination={link.href}
+          >
+            <Icon name={link.icon} class="text-sm text-brand-500" />
+            <span>{link.label}</span>
+            <Icon name="external-link" class="text-xs text-slate-400" />
+            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        ))
+      }
+    </div>
+  </nav>
   <nav
     id="mobile-menu"
     class="hidden border-t border-brand-900/10 bg-white lg:hidden"
