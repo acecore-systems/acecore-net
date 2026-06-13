@@ -2,6 +2,8 @@
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
+import { SITE } from '../data/site'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
@@ -15,6 +17,14 @@ const navLinks = [
   {
     href: getLocalizedUrl('/services/', locale),
     label: t(locale, 'nav.services'),
+  },
+  {
+    href: getSchoolsUrl(locale),
+    label: 'Schools',
+  },
+  {
+    href: SITE.social.aceserver,
+    label: locale === 'ja' ? 'エースサーバー' : 'Aceserver',
   },
   {
     href: getLocalizedUrl('/pricing/', locale),
@@ -43,24 +53,28 @@ const currentPath = Astro.url.pathname
       Acecore
     </a>
     <nav
-      class="hidden items-center gap-1 lg:flex"
+      class="hidden items-center gap-1 xl:flex"
       aria-label={t(locale, 'common.mainNav')}
     >
       {
-        navLinks.map((link) => (
-          <a
-            href={link.href}
-            class:list={[
-              'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
-              currentPath === link.href
-                ? 'bg-brand-50 text-brand-700'
-                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
-            ]}
-            {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
-          >
-            {link.label}
-          </a>
-        ))
+        navLinks.map((link) => {
+          const isCurrent = currentPath === link.href
+
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
+                isCurrent
+                  ? 'bg-brand-50 text-brand-700'
+                  : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
+              ]}
+              {...(isCurrent ? { 'aria-current': 'page' } : {})}
+            >
+              <span>{link.label}</span>
+            </a>
+          )
+        })
       }
       <button
         data-search-trigger
@@ -79,7 +93,7 @@ const currentPath = Astro.url.pathname
         {contactLink.label}
       </a>
     </nav>
-    <div class="flex items-center gap-1 lg:hidden">
+    <div class="flex items-center gap-1 xl:hidden">
       <button
         data-search-trigger
         class="ac-touch rounded-md text-slate-500 hover:bg-slate-50 hover:text-brand-600"
@@ -107,26 +121,32 @@ const currentPath = Astro.url.pathname
   </div>
   <nav
     id="mobile-menu"
-    class="hidden border-t border-brand-900/10 bg-white lg:hidden"
+    class="hidden border-t border-brand-900/10 bg-white xl:hidden"
     aria-label={t(locale, 'common.mobileNav')}
   >
     <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
       {
-        navLinks.map((link) => (
-          <a
-            href={link.href}
-            class:list={[
-              'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
-              currentPath === link.href
-                ? 'border-brand-100 bg-brand-50 text-brand-700'
-                : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
-            ]}
-            {...(currentPath === link.href ? { 'aria-current': 'page' } : {})}
-          >
-            <span>{link.label}</span>
-            <Icon name="arrow-right" class="text-sm text-slate-400" />
-          </a>
-        ))
+        navLinks.map((link) => {
+          const isCurrent = currentPath === link.href
+
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
+                isCurrent
+                  ? 'border-brand-100 bg-brand-50 text-brand-700'
+                  : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
+              ]}
+              {...(isCurrent ? { 'aria-current': 'page' } : {})}
+            >
+              <span>{link.label}</span>
+              <span class="inline-flex items-center gap-1 text-slate-400">
+                <Icon name="arrow-right" class="text-sm" />
+              </span>
+            </a>
+          )
+        })
       }
       <a href={contactLink.href} class="ac-btn-primary mt-1 w-full">
         {contactLink.label}
