@@ -12,6 +12,7 @@ import { SITE } from '../data/site'
 import { getWorksCopy } from '../data/works'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
+import { getSystemsUrl } from '../utils/systems-url'
 
 interface Props {
   locale: Locale
@@ -19,6 +20,9 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const systemsUrl = getSystemsUrl()
+const systemDevelopmentHref =
+  locale === 'ja' ? systemsUrl : u('/services/#system-development')
 const worksCopy = getWorksCopy(locale)
 const serviceWorks = worksCopy.serviceLinks
 const contentImageWidths = [480, 800, 1200, 1600]
@@ -59,7 +63,7 @@ const serviceMap = [
     title: t(locale, 'pages.services.mapDevTitle'),
     description: t(locale, 'pages.services.mapDevDesc'),
     icon: 'code-xml',
-    href: u('/services/#system-development'),
+    href: systemDevelopmentHref,
     tone: 'brand',
   },
   {
@@ -130,7 +134,10 @@ const serviceLd = {
       name: t(locale, 'pages.services.systemDev.title'),
       description: t(locale, 'pages.services.systemDev.desc'),
       provider: { '@type': 'Organization', name: 'Acecore' },
-      url: 'https://acecore.net/services/#system-development',
+      url:
+        locale === 'ja'
+          ? getSystemsUrl()
+          : 'https://acecore.net/services/#system-development',
     },
     {
       '@type': 'Service',
@@ -271,6 +278,26 @@ const serviceLd = {
           serviceKey="system-development"
           workLink={serviceWorks.systemDev}
         />
+        {
+          locale === 'ja' && (
+            <div class="mt-4">
+              <a
+                href={systemsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center gap-2 text-sm font-700 text-brand-600 underline-offset-2 hover:text-brand-700 hover:underline"
+                data-ga-event="cta_click"
+                data-ga-label="acecore_systems_site"
+                data-ga-location="services_system_development"
+                data-ga-destination={systemsUrl}
+              >
+                <Icon name="external-link" class="text-sm" />
+                {t(locale, 'pages.services.systemDev.detailLink')}
+                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              </a>
+            </div>
+          )
+        }
       </div>
 
       <div class="mb-16">

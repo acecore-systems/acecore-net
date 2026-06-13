@@ -35,6 +35,7 @@ type AiContactPayload = {
 
 const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
 const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
+const SYSTEMS_ORIGIN = 'https://systems.acecore.net'
 const DEFAULT_MODEL = 'gpt-5.4-mini'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
@@ -272,6 +273,10 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
 function buildAcecoreContext(locale: SupportedLocale): string {
   const settings = LOCALE_SETTINGS[locale]
   const servicesPath = localizedPath('/services/', locale)
+  const systemsPath =
+    locale === 'ja'
+      ? `${SYSTEMS_ORIGIN}/`
+      : `${servicesPath}#system-development`
 
   return `
 Acecore public site context:
@@ -283,7 +288,7 @@ Acecore public site context:
 - LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
 - Useful site links for the visitor locale. Use these exact internal URLs:
   - Services overview: ${servicesPath}
-  - Business system and app development: ${servicesPath}#system-development
+  - Business system and app development: ${systemsPath}
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design

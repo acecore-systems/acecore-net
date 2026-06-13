@@ -1339,6 +1339,10 @@ collections:
                 label: '説明'
                 hint: 'systemDev.desc'
                 widget: text
+              - name: 'detailLink'
+                label: '専用サイトリンク'
+                hint: 'systemDev.detailLink'
+                widget: string
               - name: 'examplesLabel'
                 label: '事例・ラベル'
                 hint: 'systemDev.examplesLabel'

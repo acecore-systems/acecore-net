@@ -26,6 +26,7 @@
   "systemDev": {
     "title": "業務システム・アプリ開発",
     "desc": "業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。小規模な社内ツールから大規模なWebサービスまで幅広く対応可能です。「何から始めればいいか分からない」という段階でも、お気軽にご相談ください。",
+    "detailLink": "Acecore Systems の専用サイトを見る",
     "examplesLabel": "対応例",
     "imgAlt": "コードエディタでの開発作業のイメージ",
     "examples": [
@@ -129,7 +130,7 @@
         "label": "業務システム・アプリ開発",
         "price": "30万円〜",
         "note": "小規模自動化30万円〜、業務ツール50万円〜、中規模150万円〜、統合系250万円〜。",
-        "href": "/services/#system-development"
+        "href": "https://systems.acecore.net/pricing/"
       },
       {
         "icon": "message-square",

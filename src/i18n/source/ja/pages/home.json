@@ -11,7 +11,7 @@
     {
       "title": "業務システム・アプリ開発",
       "description": "日々の業務を効率化したい、データ管理を改善したいといった課題を、最適なシステムで解決します。小規模ツールから大規模サービスまで対応可能です。",
-      "href": "/services/#system-development",
+      "href": "https://systems.acecore.net/",
       "icon": "code-xml",
       "tone": "brand"
     },
@@ -59,7 +59,7 @@
     {
       "title": "システム設計",
       "description": "業務課題を要件に落とし込み、実装と運用まで見据えて仕組みを作ります。",
-      "href": "/services/#system-development",
+      "href": "https://systems.acecore.net/",
       "icon": "code-xml",
       "tone": "brand"
     },
