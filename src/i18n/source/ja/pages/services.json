@@ -19,7 +19,6 @@
   "navEducation": "ITスクール",
   "navAceserver": "Aceserver",
   "navAcestudio": "AceStudio",
-  "navPricing": "料金",
   "server": {
     "title": "サーバー構築・運用",
     "desc": "セキュアで安定したサーバー環境の構築と運用を得意としています。AcecoreではAceserver（マインクラフト公開サーバー）を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。サーバーの移行やクラウド化のご相談もお待ちしています。",
@@ -101,58 +100,6 @@
     ]
   },
   "miniCta": "このサービスについて相談する",
-  "pricing": {
-    "title": "料金の目安",
-    "body": "検討段階で判断しやすいよう、主要サービスの概算レンジを掲載しています。すべて税込目安で、外部実費や正式な要件整理後の見積りにより変動します。",
-    "ctaHeading": "詳しい費用は無料でご相談ください",
-    "ctaBody": "目的や予算感を伺い、必要な範囲と優先順位を整理してお見積りします。",
-    "ctaPricing": "料金一覧を見る",
-    "ctaContact": "無料で相談する",
-    "items": [
-      {
-        "icon": "server",
-        "label": "サーバー構築・運用",
-        "price": "初期10万〜50万円",
-        "note": "監視・保守は月額1万〜10万円が目安。クラウド利用料は別途です。",
-        "href": "/services/#server"
-      },
-      {
-        "icon": "globe",
-        "label": "Webサイト制作・運用",
-        "price": "15万円〜",
-        "note": "LP/小規模は15万円〜、コーポレートサイトは50万〜150万円、保守は月額1万〜5万円。",
-        "href": "/services/#web"
-      },
-      {
-        "icon": "palette",
-        "label": "デザイン・クリエイティブ",
-        "price": "2万円〜",
-        "note": "ロゴ5万〜15万円、チラシ・バナー2万〜12万円、ブランド/Web連携10万円〜。",
-        "href": "/services/#design"
-      },
-      {
-        "icon": "graduation-cap",
-        "label": "Acecore Schools",
-        "price": "月謝8千〜3.3万円",
-        "note": "入会金、教材費、管理費の目安はSchoolsページにも掲載しています。",
-        "href": "https://schools.acecore.net/#pricing"
-      },
-      {
-        "icon": "gamepad-2",
-        "label": "Aceserver",
-        "price": "参加無料",
-        "note": "公開サーバー参加は無料。法人向け構築・運用相談は個別見積りです。",
-        "href": "/services/#aceserver"
-      },
-      {
-        "icon": "clapperboard",
-        "label": "AceStudio / 動画制作",
-        "price": "3万〜30万円/本",
-        "note": "ショート動画・編集の目安。企画・撮影込みは個別見積りです。",
-        "href": "/acestudio/"
-      }
-    ]
-  },
   "ctaHeading": "まずはお気軽にご相談ください",
   "ctaBody": "「何を頼めるか分からない」という段階でも大丈夫です。お見積りは無料です。",
   "ctaContact": "無料で相談する",

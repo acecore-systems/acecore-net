@@ -9,7 +9,6 @@ import ServiceSectionActions from '../components/ServiceSectionActions.astro'
 import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
-import { getWorksCopy } from '../data/works'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 
@@ -19,19 +18,9 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const worksCopy = getWorksCopy(locale)
-const serviceWorks = worksCopy.serviceLinks
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
-
-interface ServicePricingItem {
-  icon: string
-  label: string
-  price: string
-  note: string
-  href: string
-}
 
 interface TimelineItem {
   date: string
@@ -41,18 +30,6 @@ interface TimelineItem {
 
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
-
-const resolvePricingHref = (href: string) => {
-  const normalizedHref = href.trim()
-  if (
-    !normalizedHref ||
-    normalizedHref.startsWith('#') ||
-    /^[a-z][a-z\d+.-]*:/i.test(normalizedHref)
-  ) {
-    return normalizedHref
-  }
-  return normalizedHref.startsWith('/') ? u(normalizedHref) : normalizedHref
-}
 
 const serviceMap = [
   {
@@ -85,20 +62,6 @@ const designExamples = getList<string>('pages.services.design.examples')
 const educationCourses = getList<string>('pages.services.education.courses')
 const aceserverFeatures = getList<string>('pages.services.aceserver.features')
 const acestudioAreas = getList<string>('pages.services.acestudio.areas')
-
-const servicePricingItems = getList<ServicePricingItem>(
-  'pages.services.pricing.items',
-).map((item) => ({
-  ...item,
-  href: resolvePricingHref(item.href),
-}))
-const isBlogPricingHref = (href: string) => href.includes('/blog/')
-const webFeatureItems = servicePricingItems.filter((item) =>
-  isBlogPricingHref(item.href),
-)
-const servicePricingCoreItems = servicePricingItems.filter(
-  (item) => !isBlogPricingHref(item.href),
-)
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -196,9 +159,6 @@ const serviceLd = {
         <a href="#acestudio" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navAcestudio')}</a
         >
-        <a href="#pricing" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navPricing')}</a
-        >
       </nav>
 
       <!-- Server -->
@@ -233,7 +193,6 @@ const serviceLd = {
           gaLabel="service_server_contact"
           gaLocation="services_server"
           serviceKey="server"
-          workLink={serviceWorks.server}
         />
       </div>
 
@@ -268,79 +227,7 @@ const serviceLd = {
           gaLabel="service_web_contact"
           gaLocation="services_web"
           serviceKey="web"
-          workLink={serviceWorks.web}
         />
-        {
-          webFeatureItems.length > 0 && (
-            <div class="mt-6 border-y border-slate-200 py-5">
-              <div class="mb-4">
-                <h3 class="text-lg ac-heading">
-                  {t(locale, 'pages.services.web.featureLinksTitle')}
-                </h3>
-                <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                  {t(locale, 'pages.services.web.featureLinksBody')}
-                </p>
-              </div>
-              <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
-                <table class="w-full min-w-220 border-collapse text-left text-sm">
-                  <thead class="bg-slate-50 text-slate-900">
-                    <tr>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeItem')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeAmount')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeNote')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.detailLink')}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {webFeatureItems.map((item) => (
-                      <tr class="align-top transition hover:bg-brand-50/50">
-                        <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
-                          <a
-                            href={item.href}
-                            class="group inline-flex items-center gap-3 no-underline"
-                          >
-                            <span class="ac-icon-box shrink-0">
-                              <Icon name={item.icon} class="text-base" />
-                            </span>
-                            <span class="transition group-hover:text-brand-600">
-                              {item.label}
-                            </span>
-                          </a>
-                        </th>
-                        <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
-                          {item.price}
-                        </td>
-                        <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
-                          {item.note}
-                        </td>
-                        <td class="border-b border-slate-100 px-4 py-4">
-                          <a
-                            href={item.href}
-                            class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
-                          >
-                            {t(
-                              locale,
-                              'pages.services.web.featureLinksArticleLabel',
-                            )}
-                            <Icon name="arrow-right" class="text-xs" />
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )
-        }
       </div>
 
       <div class="mb-16">
@@ -405,7 +292,6 @@ const serviceLd = {
           gaLabel="service_design_contact"
           gaLocation="services_design"
           serviceKey="design"
-          workLink={serviceWorks.design}
         />
       </div>
 
@@ -472,7 +358,6 @@ const serviceLd = {
           gaLabel="service_education_contact"
           gaLocation="services_education"
           serviceKey="education"
-          workLink={serviceWorks.education}
         />
       </div>
 
@@ -544,7 +429,6 @@ const serviceLd = {
           gaLabel="service_aceserver_contact"
           gaLocation="services_aceserver"
           serviceKey="aceserver"
-          workLink={serviceWorks.aceserver}
         />
       </div>
 
@@ -596,129 +480,6 @@ const serviceLd = {
           gaLocation="services_acestudio"
           serviceKey="acestudio"
         />
-      </div>
-
-      <!-- Pricing -->
-      <div class="mb-16 scroll-mt-24" id="pricing">
-        <div class="mb-6 flex items-center gap-3">
-          <span class="ac-icon-box"
-            ><Icon name="receipt" class="text-xl" /></span
-          >
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.pricing.title')}
-          </h2>
-        </div>
-        <p class="mb-6 leading-relaxed text-slate-600">
-          {t(locale, 'pages.services.pricing.body')}
-        </p>
-        <div class="grid gap-4 md:grid-cols-2">
-          {
-            servicePricingCoreItems.map((item) => (
-              <a
-                href={item.href}
-                class="ac-surface group p-5 no-underline transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-              >
-                <div class="mb-3 flex items-center gap-3">
-                  <span class="ac-icon-box">
-                    <Icon name={item.icon} class="text-lg" />
-                  </span>
-                  <h3 class="text-base ac-heading">{item.label}</h3>
-                </div>
-                <p class="mb-2 text-xl font-800 text-slate-900">{item.price}</p>
-                <p class="text-sm leading-relaxed text-slate-600">
-                  {item.note}
-                </p>
-              </a>
-            ))
-          }
-        </div>
-        {
-          webFeatureItems.length > 0 && (
-            <div class="mt-6">
-              <div class="mb-4">
-                <h3 class="text-lg ac-heading">
-                  {t(locale, 'pages.services.web.featureLinksTitle')}
-                </h3>
-                <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                  {t(locale, 'pages.services.web.featureLinksBody')}
-                </p>
-              </div>
-              <div class="overflow-x-auto rounded-lg border border-slate-200">
-                <table class="w-full min-w-220 border-collapse text-left text-sm">
-                  <thead class="bg-slate-50 text-slate-900">
-                    <tr>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeItem')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeAmount')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.feeNote')}
-                      </th>
-                      <th class="border-b border-slate-200 px-4 py-3 font-700">
-                        {t(locale, 'pages.pricing.detailLink')}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {webFeatureItems.map((item) => (
-                      <tr class="align-top transition hover:bg-brand-50/50">
-                        <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
-                          <a
-                            href={item.href}
-                            class="group inline-flex items-center gap-3 no-underline"
-                          >
-                            <span class="ac-icon-box shrink-0">
-                              <Icon name={item.icon} class="text-base" />
-                            </span>
-                            <span class="transition group-hover:text-brand-600">
-                              {item.label}
-                            </span>
-                          </a>
-                        </th>
-                        <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
-                          {item.price}
-                        </td>
-                        <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
-                          {item.note}
-                        </td>
-                        <td class="border-b border-slate-100 px-4 py-4">
-                          <a
-                            href={item.href}
-                            class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
-                          >
-                            {t(
-                              locale,
-                              'pages.services.web.featureLinksArticleLabel',
-                            )}
-                            <Icon name="arrow-right" class="text-xs" />
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )
-        }
-        <div class="ac-surface mt-6 bg-brand-50 p-6">
-          <p class="mb-2 font-700 text-slate-900">
-            {t(locale, 'pages.services.pricing.ctaHeading')}
-          </p>
-          <p class="mb-5 text-sm leading-relaxed text-slate-600">
-            {t(locale, 'pages.services.pricing.ctaBody')}
-          </p>
-          <div class="flex flex-col gap-3 sm:flex-row">
-            <a href={u('/pricing/')} class="ac-btn-outline">
-              {t(locale, 'pages.services.pricing.ctaPricing')}
-            </a>
-            <a href={u('/contact/')} class="ac-btn-primary">
-              {t(locale, 'pages.services.pricing.ctaContact')}
-            </a>
-          </div>
-        </div>
       </div>
 
       <!-- CTA -->

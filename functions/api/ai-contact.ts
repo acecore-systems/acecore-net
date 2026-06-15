@@ -289,13 +289,13 @@ Acecore public site context:
   - Acecore Systems pricing: ${SYSTEMS_ORIGIN}/pricing/
   - Acecore Systems works: ${SYSTEMS_ORIGIN}/works/
   - Acecore Systems guide: ${SYSTEMS_ORIGIN}/guide/
+  - Acecore Schools pricing: ${localizedSchoolsPath(locale)}#pricing
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design
   - Acecore Schools and IT education: ${localizedSchoolsPath(locale)}
   - Aceserver: ${servicesPath}#aceserver
   - AceStudio: ${localizedPath('/acestudio/', locale)}
-  - Works and case studies: ${localizedPath('/works/', locale)}
   - Blog: ${localizedPath('/blog/', locale)}
   - Contact form: ${localizedPath('/contact/', locale)}
   - Official LINE: https://lin.ee/DjIrdqj

@@ -44,7 +44,7 @@ linkCards:
     title: Hatts Homepage
     description: Die veröffentlichte offizielle Website von Hatt.
     icon: i-lucide-external-link
-  - href: /de/works/#case-hatt-homepage
+  - href: https://systems.acecore.net/works/#case-hatt-homepage
     title: Fallstudie zu Hatts Homepage
     description: Auch als Produktionsbeispiel auf Acecores Arbeitsseite gelistet.
     icon: i-lucide-briefcase-business
@@ -65,7 +65,7 @@ faq:
 
 Wir haben die persönliche Website [Hatts Homepage](https://hatt.acecore.net/) veröffentlicht, die Hatts kreative Aktivitäten an einem Ort bündelt.
 
-Die Website dient als Einstiegspunkt für Illustrationen, Romane sowie VRChat-Avatare und Gimmicks. Wir haben sie außerdem auf Acecores [Arbeitsseite](/de/works/#case-hatt-homepage) als Beispiel für Website-Produktion und CMS-Aufbau hinzugefügt.
+Die Website dient als Einstiegspunkt für Illustrationen, Romane sowie VRChat-Avatare und Gimmicks. Wir haben sie außerdem auf Acecores [Arbeitsseite](https://systems.acecore.net/works/#case-hatt-homepage) als Beispiel für Website-Produktion und CMS-Aufbau hinzugefügt.
 
 ## Hintergrund
 
@@ -105,7 +105,7 @@ Bei persönlichen Websites und Portfolios ist es oft wirkungsvoller, klare Wege 
 
 ## Auch als Referenz aufgenommen
 
-Wir haben das Projekt auf Acecores [Arbeits- und Portfolioseite](/de/works/) als „Produktion von Hatts Homepage“ ergänzt.
+Wir haben das Projekt auf Acecores [Arbeits- und Portfolioseite](https://systems.acecore.net/works/) als „Produktion von Hatts Homepage“ ergänzt.
 
 Diese Produktion bestand nicht nur aus der Veröffentlichung von Seiten. Sie umfasste die Ordnung kreativer Aktivitäten, CMS-Bearbeitung, Suche, OGP, Sitemap und externes Linkdesign. Auch bei einer kleinen persönlichen Website erhöht eine Struktur, die nach dem Launch wachsen kann, den Wert, wenn später mehr Werke und Artikel hinzukommen.
 

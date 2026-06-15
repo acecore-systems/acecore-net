@@ -721,7 +721,6 @@ collections:
         options:
           - { label: 'トップページ', value: home }
           - { label: 'サービス', value: services }
-          - { label: '実績', value: works }
           - { label: '会社概要', value: about }
           - { label: 'お問い合わせ', value: contact }
           - { label: 'AceStudio', value: acestudio }
@@ -830,14 +829,6 @@ collections:
               - name: 'services'
                 label: 'サービス'
                 hint: 'nav.services'
-                widget: string
-              - name: 'pricing'
-                label: '料金'
-                hint: 'nav.pricing'
-                widget: string
-              - name: 'works'
-                label: '実績'
-                hint: 'nav.works'
                 widget: string
               - name: 'about'
                 label: '会社概要'
@@ -1007,10 +998,6 @@ collections:
                 label: 'サイトマップ'
                 hint: 'footer.sitemap'
                 widget: string
-              - name: 'pricing'
-                label: '料金'
-                hint: 'footer.pricing'
-                widget: string
               - name: 'relatedLinks'
                 label: '関連・リンク'
                 hint: 'footer.relatedLinks'
@@ -1032,14 +1019,6 @@ collections:
               - name: 'services'
                 label: 'サービス'
                 hint: 'pageNames.services'
-                widget: string
-              - name: 'pricing'
-                label: '料金'
-                hint: 'pageNames.pricing'
-                widget: string
-              - name: 'works'
-                label: '実績'
-                hint: 'pageNames.works'
                 widget: string
               - name: 'schools'
                 label: 'Schools'
@@ -1539,81 +1518,6 @@ collections:
                 label: '詳細・リンク'
                 hint: 'acestudio.detailLink'
                 widget: string
-          - name: 'pricing'
-            label: '料金セクション'
-            hint: 'pricing'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: '見出し'
-                hint: 'pricing.title'
-                widget: string
-              - name: 'body'
-                label: '本文'
-                hint: 'pricing.body'
-                widget: text
-              - name: 'items'
-                label: '料金カード'
-                hint: 'pricing.items'
-                widget: list
-                summary: '{{fields.label}}'
-                fields:
-                  - name: 'icon'
-                    label: 'アイコン'
-                    hint: 'pricing.items[].icon'
-                    widget: select
-                    options:
-                      - { label: 'サーバー', value: server }
-                      - { label: 'Web制作', value: globe }
-                      - { label: 'デザイン', value: palette }
-                      - { label: 'Schools', value: graduation-cap }
-                      - { label: 'Aceserver', value: gamepad-2 }
-                      - { label: 'AceStudio', value: clapperboard }
-                      - { label: '問い合わせAI', value: message-square }
-                      - { label: 'コメント機能', value: message-square-text }
-                      - { label: 'ブログ基盤', value: newspaper }
-                      - { label: 'CMS', value: layout-template }
-                      - { label: '多言語', value: languages }
-                      - { label: 'SEO', value: search }
-                      - { label: 'サイト内検索', value: scan }
-                      - { label: '高速化', value: zap }
-                      - { label: 'アクセシビリティ', value: accessibility }
-                      - { label: 'セキュリティ', value: shield-check }
-                      - { label: 'CTA', value: mouse-pointer-click }
-                      - { label: '相談', value: messages-square }
-                  - name: 'label'
-                    label: '項目名'
-                    hint: 'pricing.items[].label'
-                    widget: string
-                  - name: 'price'
-                    label: '料金'
-                    hint: 'pricing.items[].price'
-                    widget: string
-                  - name: 'note'
-                    label: '補足'
-                    hint: 'pricing.items[].note'
-                    widget: text
-                  - name: 'href'
-                    label: 'リンク先'
-                    hint: 'pricing.items[].href'
-                    widget: string
-              - name: 'ctaHeading'
-                label: '問い合わせ見出し'
-                hint: 'pricing.ctaHeading'
-                widget: string
-              - name: 'ctaBody'
-                label: '問い合わせ本文'
-                hint: 'pricing.ctaBody'
-                widget: text
-              - name: 'ctaPricing'
-                label: '料金ページリンク'
-                hint: 'pricing.ctaPricing'
-                widget: string
-              - name: 'ctaContact'
-                label: '問い合わせリンク'
-                hint: 'pricing.ctaContact'
-                widget: string
           - name: 'ctaHeading'
             label: 'CTA見出し'
             hint: 'ctaHeading'
@@ -1631,182 +1535,6 @@ collections:
             hint: 'ctaSchools'
             widget: string
 
-      - name: 'pricing'
-        label: '料金ページ'
-        file: src/i18n/source/ja/pages/pricing.json
-        format: json
-        fields:
-          - name: 'title'
-            label: 'タイトル'
-            hint: 'title'
-            widget: string
-          - name: 'description'
-            label: '説明'
-            hint: 'description'
-            widget: text
-          - name: 'heroTitle'
-            label: 'ヒーロー見出し'
-            hint: 'heroTitle'
-            widget: string
-          - name: 'heroSubtitle'
-            label: 'ヒーロー補足'
-            hint: 'heroSubtitle'
-            widget: string
-          - name: 'heroImgAlt'
-            label: 'ヒーロー画像代替テキスト'
-            hint: 'heroImgAlt'
-            widget: string
-          - name: 'eyebrow'
-            label: '小見出し'
-            hint: 'eyebrow'
-            widget: string
-          - name: 'introTitle'
-            label: '導入見出し'
-            hint: 'introTitle'
-            widget: string
-          - name: 'introBody'
-            label: '導入本文'
-            hint: 'introBody'
-            widget: text
-          - name: 'serviceTitle'
-            label: '主要サービス見出し'
-            hint: 'serviceTitle'
-            widget: string
-          - name: 'serviceBody'
-            label: '主要サービス説明'
-            hint: 'serviceBody'
-            widget: text
-          - name: 'items'
-            label: '料金カード'
-            hint: 'items'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'items[].icon'
-                widget: select
-                options:
-                  - { label: 'サーバー', value: server }
-                  - { label: 'Web制作', value: globe }
-                  - { label: 'デザイン', value: palette }
-                  - { label: 'Schools', value: graduation-cap }
-                  - { label: 'AceStudio', value: clapperboard }
-                  - { label: 'Aceserver', value: gamepad-2 }
-                  - { label: '問い合わせAI', value: message-square }
-                  - { label: 'コメント機能', value: message-square-text }
-                  - { label: 'ブログ基盤', value: newspaper }
-                  - { label: 'CMS', value: layout-template }
-                  - { label: '多言語', value: languages }
-                  - { label: 'SEO', value: search }
-                  - { label: 'サイト内検索', value: scan }
-                  - { label: '高速化', value: zap }
-                  - { label: 'アクセシビリティ', value: accessibility }
-                  - { label: 'セキュリティ', value: shield-check }
-                  - { label: 'CTA', value: mouse-pointer-click }
-                  - { label: '相談', value: messages-square }
-              - name: 'title'
-                label: 'カード見出し'
-                hint: 'items[].title'
-                widget: string
-              - name: 'price'
-                label: '料金'
-                hint: 'items[].price'
-                widget: string
-              - name: 'body'
-                label: '説明'
-                hint: 'items[].body'
-                widget: text
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'items[].href'
-                widget: string
-          - name: 'detailLink'
-            label: '詳細リンク文言'
-            hint: 'detailLink'
-            widget: string
-          - name: 'schoolsFeeTitle'
-            label: 'Schools費用表見出し'
-            hint: 'schoolsFeeTitle'
-            widget: string
-          - name: 'schoolsFeeBody'
-            label: 'Schools費用表説明'
-            hint: 'schoolsFeeBody'
-            widget: text
-          - name: 'feeItem'
-            label: '項目見出し'
-            hint: 'feeItem'
-            widget: string
-          - name: 'feeAmount'
-            label: '金額見出し'
-            hint: 'feeAmount'
-            widget: string
-          - name: 'feeNote'
-            label: '補足見出し'
-            hint: 'feeNote'
-            widget: string
-          - name: 'schoolFees'
-            label: 'Schools費用行'
-            hint: 'schoolFees'
-            widget: list
-            summary: '{{fields.item}}'
-            fields:
-              - name: 'item'
-                label: '項目'
-                hint: 'schoolFees[].item'
-                widget: string
-              - name: 'amount'
-                label: '目安'
-                hint: 'schoolFees[].amount'
-                widget: string
-              - name: 'note'
-                label: '補足'
-                hint: 'schoolFees[].note'
-                widget: text
-          - name: 'factorTitle'
-            label: '費用変動要素見出し'
-            hint: 'factorTitle'
-            widget: string
-          - name: 'factors'
-            label: '費用変動要素'
-            hint: 'factors'
-            widget: list
-            field:
-              name: 'factor'
-              label: '要素'
-              widget: string
-          - name: 'noteTitle'
-            label: '注意事項見出し'
-            hint: 'noteTitle'
-            widget: string
-          - name: 'notes'
-            label: '注意事項'
-            hint: 'notes'
-            widget: list
-            field:
-              name: 'note'
-              label: '注意事項'
-              widget: text
-          - name: 'ctaHeading'
-            label: '問い合わせ見出し'
-            hint: 'ctaHeading'
-            widget: string
-          - name: 'ctaBody'
-            label: '問い合わせ本文'
-            hint: 'ctaBody'
-            widget: text
-          - name: 'ctaContact'
-            label: '問い合わせリンク'
-            hint: 'ctaContact'
-            widget: string
-          - name: 'ctaServices'
-            label: 'サービスリンク'
-            hint: 'ctaServices'
-            widget: string
-          - name: 'ctaSchools'
-            label: 'Schoolsリンク'
-            hint: 'ctaSchools'
-            widget: string
       - name: 'about'
         label: '会社概要ページ'
         file: src/i18n/source/ja/pages/about.json
@@ -2643,30 +2371,6 @@ collections:
           - name: 'blogCtaContact'
             label: 'ブログ・CTA・お問い合わせ'
             hint: 'blogCtaContact'
-            widget: string
-          - name: 'featurePricingEyebrow'
-            label: '機能料金・小見出し'
-            hint: 'featurePricingEyebrow'
-            widget: string
-          - name: 'featurePricingTitle'
-            label: '機能料金・見出し'
-            hint: 'featurePricingTitle'
-            widget: string
-          - name: 'featurePricingPriceLabel'
-            label: '機能料金・価格ラベル'
-            hint: 'featurePricingPriceLabel'
-            widget: string
-          - name: 'featurePricingServices'
-            label: '機能料金・サービスリンク'
-            hint: 'featurePricingServices'
-            widget: string
-          - name: 'featurePricingPricing'
-            label: '機能料金・料金リンク'
-            hint: 'featurePricingPricing'
-            widget: string
-          - name: 'featurePricingContact'
-            label: '機能料金・問い合わせリンク'
-            hint: 'featurePricingContact'
             widget: string
           - name: 'rssTitle'
             label: 'RSS・タイトル'

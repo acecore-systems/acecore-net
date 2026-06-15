@@ -2,11 +2,9 @@
   "nav": {
     "home": "Início",
     "services": "Serviços",
-    "works": "Projetos",
     "about": "Sobre nós",
     "blog": "Blog",
-    "contact": "Contato",
-    "pricing": "Preços"
+    "contact": "Contato"
   },
   "announcement": {
     "enabled": true,
@@ -80,8 +78,7 @@
     "sitemap": "Mapa do site",
     "relatedLinks": "Links relacionados",
     "schools": "Acecore Schools",
-    "privacy": "Política de privacidade",
-    "pricing": "Guia de preços"
+    "privacy": "Política de privacidade"
   },
   "blog": {
     "title": "Blog",
@@ -168,13 +165,7 @@
     "commentsValidationName": "Digite seu nome.",
     "commentsValidationBody": "Digite pelo menos 8 caracteres sem links.",
     "commentsValidationTurnstile": "Conclua a verificação antes de enviar.",
-    "commentsSending": "Enviando...",
-    "featurePricingEyebrow": "Caminho para serviço e preços",
-    "featurePricingTitle": "Consulta e preço de referência para {title}",
-    "featurePricingPriceLabel": "Preço de referência",
-    "featurePricingServices": "Página de serviço",
-    "featurePricingPricing": "Guia de preços",
-    "featurePricingContact": "Consultar"
+    "commentsSending": "Enviando..."
   },
   "meta": {
     "siteTitle": "Acecore | Desenvolvimento de sistemas, design web e educação em TI",
@@ -547,59 +538,6 @@
       "ctaBody": "Tudo bem mesmo se não souber o que pedir. Orçamentos são gratuitos.",
       "ctaContact": "Consulta Gratuita",
       "ctaSchools": "Ver Detalhes da Escola de TI",
-      "navPricing": "Preços",
-      "pricing": {
-        "title": "Guia de preços",
-        "body": "Estas faixas aproximadas ajudam a avaliar o encaixe logo no início. Todos os valores são estimativas com impostos incluídos; o orçamento final pode variar após a definição do escopo e custos externos são cobrados à parte.",
-        "ctaHeading": "Consulte gratuitamente o custo detalhado.",
-        "ctaBody": "Entendemos objetivo e orçamento, organizamos escopo e prioridades e preparamos uma estimativa.",
-        "ctaPricing": "Ver guia de preços",
-        "ctaContact": "Consulta gratuita",
-        "items": [
-          {
-            "icon": "server",
-            "label": "Construção e operação de servidores",
-            "price": "inicial ¥100.000-¥500.000",
-            "note": "Monitoramento e manutenção costumam ficar entre ¥10.000 e ¥100.000 por mês. Custos de nuvem são separados.",
-            "href": "/services/#server"
-          },
-          {
-            "icon": "globe",
-            "label": "Produção e operação web",
-            "price": "a partir de ¥150.000",
-            "note": "Landing pages e sites pequenos a partir de ¥150.000, sites corporativos ¥500.000-¥1.500.000, manutenção ¥10.000-¥50.000 por mês.",
-            "href": "/services/#web"
-          },
-          {
-            "icon": "palette",
-            "label": "Design e criação",
-            "price": "a partir de ¥20.000",
-            "note": "Logos ¥50.000-¥150.000, flyers/banners ¥20.000-¥120.000, branding com integração web a partir de ¥100.000.",
-            "href": "/services/#design"
-          },
-          {
-            "icon": "graduation-cap",
-            "label": "Acecore Schools",
-            "price": "¥8.000-¥33.000/mês",
-            "note": "As faixas de matrícula, materiais e taxa de gestão também aparecem na página Schools.",
-            "href": "https://schools.acecore.net/pt/#pricing"
-          },
-          {
-            "icon": "gamepad-2",
-            "label": "Aceserver",
-            "price": "participação gratuita",
-            "note": "A participação no servidor público é gratuita. Consultoria de construção e operação para empresas recebe orçamento individual.",
-            "href": "/services/#aceserver"
-          },
-          {
-            "icon": "clapperboard",
-            "label": "AceStudio / produção de vídeo",
-            "price": "¥30.000-¥300.000 por peça",
-            "note": "Faixa para vídeos curtos e edição. Planejamento e filmagem são orçados individualmente.",
-            "href": "/acestudio/"
-          }
-        ]
-      },
       "timeline": [
         {
           "date": "Step 1",
@@ -717,108 +655,10 @@
           "answer": "O pré-cadastro não está disponível no momento, mas seguir-nos no X manterá você informado das últimas novidades."
         }
       ]
-    },
-    "pricing": {
-      "title": "Guia de preços",
-      "description": "Página com faixas aproximadas para produção web, operação de servidores, design, Acecore Schools e outros serviços da Acecore.",
-      "heroTitle": "Guia de preços",
-      "heroSubtitle": "Confira as faixas de custo de todos os serviços antes de planejar em detalhes",
-      "heroImgAlt": "Pessoa conferindo documentos de orçamento",
-      "eyebrow": "Guia de preços",
-      "introTitle": "Comece pela faixa aproximada",
-      "introBody": "Os valores publicados são estimativas com impostos incluídos. O orçamento final varia conforme requisitos, escala, preparação de materiais e uso de serviços externos.",
-      "serviceTitle": "Custos estimados por serviço",
-      "serviceBody": "Apoiamos desde pequenas primeiras etapas até produção, desenvolvimento e operação combinados.",
-      "detailLink": "Ver detalhes",
-      "schoolsFeeTitle": "Detalhamento de custos da Schools",
-      "schoolsFeeBody": "Além da mensalidade, mostramos faixas de matrícula, materiais e gestão para facilitar a avaliação.",
-      "feeItem": "Item",
-      "feeAmount": "Estimativa",
-      "feeNote": "Observação",
-      "factorTitle": "Principais fatores que alteram o custo",
-      "noteTitle": "Sobre os preços exibidos",
-      "ctaHeading": "Se a faixa fizer sentido, comece com uma consulta gratuita.",
-      "ctaBody": "Objetivo, prazo desejado e orçamento aproximado são suficientes no início. Organizamos o escopo necessário e propomos uma forma realista de avançar.",
-      "ctaContact": "Consulta gratuita",
-      "ctaServices": "Ver serviços",
-      "ctaSchools": "Ver Schools",
-      "items": [
-        {
-          "icon": "server",
-          "title": "Construção e operação de servidores",
-          "price": "inicial ¥100.000-¥500.000",
-          "body": "Apoiamos construção em nuvem ou VPS, monitoramento e desenho de backup. Monitoramento e manutenção costumam ficar entre ¥10.000 e ¥100.000 por mês.",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "Produção e operação web",
-          "price": "a partir de ¥150.000",
-          "body": "Landing pages e sites pequenos a partir de ¥150.000, sites corporativos ¥500.000-¥1.500.000, manutenção ¥10.000-¥50.000 por mês.",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "Design e criação",
-          "price": "a partir de ¥20.000",
-          "body": "Logos ¥50.000-¥150.000, flyers/banners ¥20.000-¥120.000, branding e integração web a partir de ¥100.000.",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "¥8.000-¥33.000/mês",
-          "body": "Publicamos faixas de matrícula, mensalidade, materiais e gestão. Elas variam por série, frequência, materiais e conteúdo.",
-          "href": "https://schools.acecore.net/pt/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / produção de vídeo",
-          "price": "¥30.000-¥300.000 por peça",
-          "body": "Vídeos curtos e edição costumam ficar entre ¥30.000 e ¥300.000 por peça. Produções com planejamento e filmagem são orçadas individualmente.",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "participação gratuita",
-          "body": "A participação no servidor público é gratuita. Construção e operação de servidores de jogos para empresas recebem orçamento individual.",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "Matrícula",
-          "amount": "¥11.000-¥22.000",
-          "note": "Apenas no início. Varia conforme série e curso."
-        },
-        {
-          "item": "Mensalidade",
-          "amount": "¥8.000-¥33.000",
-          "note": "Depende de frequência, duração da aula e conteúdo individual."
-        },
-        {
-          "item": "Materiais e gestão",
-          "amount": "cerca de ¥5.000-¥30.000",
-          "note": "Materiais, peças de robótica, PC ou licenças podem gerar custos reais conforme o conteúdo."
-        }
-      ],
-      "factors": [
-        "Clareza dos requisitos, número de telas, funções e integrações externas",
-        "Nível de design e preparação de textos, fotos e vídeos",
-        "Escopo de manutenção, monitoramento, atualização e melhoria após a publicação",
-        "Custos externos como materiais, equipamentos, impressão, anúncios e uso de nuvem"
-      ],
-      "notes": [
-        "Todos os valores são estimativas com impostos incluídos. O valor formal é orçado individualmente após a conversa.",
-        "Domínio, servidor, anúncios, impressão, materiais, equipamentos, transporte e outros custos externos são separados.",
-        "Se já houver orçamento definido, organizamos as prioridades dentro dessa faixa."
-      ]
     }
   },
   "pageNames": {
     "services": "Serviços",
-    "works": "Projetos e portfólio",
     "schools": "Acecore Schools",
     "about": "Sobre nós",
     "contact": "Contato",
@@ -828,8 +668,7 @@
     "tags": "Tags",
     "authors": "Autores",
     "archive": "Arquivo",
-    "page": "Página",
-    "pricing": "Guia de preços"
+    "page": "Página"
   },
   "tags": {
     "技術": "Tecnologia",

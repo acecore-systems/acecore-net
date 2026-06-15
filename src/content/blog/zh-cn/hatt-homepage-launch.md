@@ -44,7 +44,7 @@ linkCards:
     title: Hatt 的主页
     description: 正在公开的 Hatt 官方网站。
     icon: i-lucide-external-link
-  - href: /zh-cn/works/#case-hatt-homepage
+  - href: https://systems.acecore.net/works/#case-hatt-homepage
     title: Hatt 主页制作案例
     description: 也作为制作案例刊登在 Acecore 的实绩页面。
     icon: i-lucide-briefcase-business
@@ -65,7 +65,7 @@ faq:
 
 我们公开了汇总 Hatt 创作活动的个人网站「[Hatt 的主页](https://hatt.acecore.net/)」。
 
-这个网站是把绘画、小说以及面向 VRChat 的 3D 头像和机关制作整理到一个入口的主页。我们也将它作为网站制作和 CMS 构建案例，刊登在 Acecore 的[实绩页面](/zh-cn/works/#case-hatt-homepage)。
+这个网站是把绘画、小说以及面向 VRChat 的 3D 头像和机关制作整理到一个入口的主页。我们也将它作为网站制作和 CMS 构建案例，刊登在 Acecore 的[实绩页面](https://systems.acecore.net/works/#case-hatt-homepage)。
 
 ## 制作背景
 
@@ -105,7 +105,7 @@ Hatt 的活动并不只在站内完成。小说投稿网站、BOOTH、YouTube、
 
 ## 也作为实绩刊登
 
-Acecore 的[实绩・作品集页面](/zh-cn/works/)中，也新增了“Hatt 主页制作”这一案例。
+Acecore 的[实绩・作品集页面](https://systems.acecore.net/works/)中，也新增了“Hatt 主页制作”这一案例。
 
 这次制作不只是公开页面，还包括创作活动整理、CMS 更新、搜索、OGP、站点地图和外部链接设计。即使是小规模个人网站，只要在公开后也能持续成长，未来作品和文章增加时的价值也会提高。
 

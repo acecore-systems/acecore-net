@@ -4,7 +4,6 @@ import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import InsightGrid from '../components/InsightGrid.astro'
-import Icon from '../components/Icon.astro'
 import { getCollection } from 'astro:content'
 import {
   optimizeImage,
@@ -12,7 +11,6 @@ import {
   resolveImageSource,
   type GenerateSrcSetOptions,
 } from '../utils/image'
-import { getWorksCopy } from '../data/works'
 import {
   t,
   formatDate,
@@ -59,7 +57,6 @@ const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 const resolveCardHref = (href: string) =>
   href.startsWith('http') ? href : u(href)
-const worksCopy = getWorksCopy(locale)
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
   aspectRatio: 1,
@@ -85,18 +82,6 @@ const coreLayers = getList<HomeLayer>('pages.home.layerItems').map((item) => ({
   ...item,
   href: resolveCardHref(item.href),
 }))
-const homeStatHrefByIcon: Record<string, string> = {
-  'layers-3': '/services/',
-  'server-cog': '/works/#case-aceserver',
-  'briefcase-business': '/works/',
-  'message-circle': '/contact/',
-}
-const homeStatToneClasses = {
-  brand: 'border-brand-100 bg-brand-50 text-brand-700',
-  emerald: 'border-emerald-100 bg-emerald-50 text-emerald-700',
-  amber: 'border-amber-100 bg-amber-50 text-amber-700',
-  slate: 'border-slate-200 bg-slate-50 text-slate-600',
-} satisfies Record<HomeLayer['tone'], string>
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
@@ -157,60 +142,6 @@ const webPageLd = {
   />
 
   <CampaignNotice locale={locale} page="home" />
-
-  <section class="border-b border-brand-100 bg-white py-8 sm:py-10">
-    <div class="ac-container">
-      <div
-        class="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center"
-      >
-        <div>
-          <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
-            {worksCopy.homeHeading}
-          </h2>
-          <p class="mb-6 leading-relaxed text-slate-600">
-            {worksCopy.homeLead}
-          </p>
-          <a
-            href={u('/works/')}
-            class="ac-btn-primary gap-2 text-sm no-underline"
-          >
-            <Icon name="briefcase-business" class="text-lg" />
-            {worksCopy.homeCta}
-          </a>
-        </div>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {
-            worksCopy.stats.map((stat) => (
-              <a
-                href={u(homeStatHrefByIcon[stat.icon] ?? '/works/')}
-                class="ac-card ac-rule-top group block p-6 pt-7 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-              >
-                <div class="mb-4 flex items-center gap-3">
-                  <span
-                    class:list={[
-                      'inline-flex h-10 w-10 items-center justify-center rounded-lg border text-lg',
-                      homeStatToneClasses[stat.tone],
-                    ]}
-                  >
-                    <Icon name={stat.icon} class="text-lg" />
-                  </span>
-                  <p class="text-2xl font-800 leading-none text-slate-900 sm:text-3xl">
-                    {stat.value}
-                  </p>
-                </div>
-                <h3 class="mb-1 text-sm font-700 text-slate-900 transition-colors group-hover:text-brand-600">
-                  {stat.label}
-                </h3>
-                <p class="text-sm leading-relaxed text-slate-600">
-                  {stat.description}
-                </p>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section
     class="ac-blueprint-soft border-y border-brand-100 bg-brand-50/70 pt-14 pb-8 sm:pt-16 sm:pb-10 lg:pt-20 lg:pb-10"

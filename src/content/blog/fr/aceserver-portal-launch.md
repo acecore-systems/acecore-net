@@ -44,11 +44,11 @@ linkCards:
     title: Portail Aceserver
     description: Le portail officiel publié d’Aceserver.
     icon: i-lucide-external-link
-  - href: /fr/works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: Étude de cas du portail Aceserver
     description: Également listée comme cas de production sur la page des réalisations d’Acecore.
     icon: i-lucide-briefcase-business
-  - href: /fr/works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Exploitation du serveur public Aceserver
     description: Voir le cas lié à l’exploitation serveur et à la communauté.
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 Nous avons lancé le portail officiel d’[Aceserver](https://asv.acecore.net/), un serveur Minecraft public et gratuit que tout le monde peut rejoindre.
 
-Aceserver prend en charge Java Edition et Bedrock Edition. Le nouveau portail rassemble présentation du serveur, informations de participation, vidéos, cartes des mondes et chemins vers le Wiki dans une seule entrée. Il est aussi listé sur la [page des réalisations](/fr/works/#case-aceserver-portal) d’Acecore comme cas de production web et portail de communauté.
+Aceserver prend en charge Java Edition et Bedrock Edition. Le nouveau portail rassemble présentation du serveur, informations de participation, vidéos, cartes des mondes et chemins vers le Wiki dans une seule entrée. Il est aussi listé sur la [page des réalisations](https://systems.acecore.net/works/#case-aceserver-portal) d’Acecore comme cas de production web et portail de communauté.
 
 ## Contexte
 
@@ -97,9 +97,9 @@ Notre approche de l’exploitation CMS légère est décrite dans [Guide d'insta
 
 ## Ajouté comme cas
 
-La [page réalisations et portfolio](/fr/works/) d’Acecore inclut maintenant ce projet comme “Production du portail Aceserver”.
+La [page réalisations et portfolio](https://systems.acecore.net/works/) d’Acecore inclut maintenant ce projet comme “Production du portail Aceserver”.
 
-Le cas existant d’[exploitation du serveur public Aceserver](/fr/works/#case-aceserver) couvre la fiabilité opérationnelle et la gestion de communauté. Ce nouveau cas se concentre sur le portail web qui organise les informations et parcours d’entrée pour les joueurs.
+Le cas existant d’[exploitation du serveur public Aceserver](https://systems.acecore.net/works/#case-aceserver) couvre la fiabilité opérationnelle et la gestion de communauté. Ce nouveau cas se concentre sur le portail web qui organise les informations et parcours d’entrée pour les joueurs.
 
 Pour les portails, sites de communauté et sites de services dont les informations sont réparties en plusieurs endroits, créer une première entrée claire est souvent plus utile que tout rassembler sur une seule page.
 

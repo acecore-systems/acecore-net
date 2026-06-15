@@ -44,11 +44,11 @@ linkCards:
     title: Aceserver Portal
     description: The live official portal for Aceserver.
     icon: i-lucide-external-link
-  - href: /en/works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: Aceserver Portal Case Study
     description: Also listed as a production case on Acecore's works page.
     icon: i-lucide-briefcase-business
-  - href: /en/works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Public Server Operations for Aceserver
     description: See the related server operations and community case.
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 We launched the official portal for [Aceserver](https://asv.acecore.net/), a free public Minecraft server anyone can join.
 
-Aceserver supports both Java Edition and Bedrock Edition. The new portal brings the server overview, joining information, videos, world maps, and Wiki paths into one entry point. It is also listed on Acecore's [works page](/en/works/#case-aceserver-portal) as a web production and community portal case.
+Aceserver supports both Java Edition and Bedrock Edition. The new portal brings the server overview, joining information, videos, world maps, and Wiki paths into one entry point. It is also listed on Acecore's [works page](https://systems.acecore.net/works/#case-aceserver-portal) as a web production and community portal case.
 
 ## Background
 
@@ -97,9 +97,9 @@ Our thinking around lightweight CMS operations is covered in [Sveltia CMS Setup 
 
 ## Added as a Case Study
 
-Acecore's [works page](/en/works/) now includes this project as "Aceserver Portal Production."
+Acecore's [works page](https://systems.acecore.net/works/) now includes this project as "Aceserver Portal Production."
 
-The existing [public server operations case](/en/works/#case-aceserver) covers operational reliability and community management. This new case focuses on the web portal that organizes information and entry paths for players.
+The existing [public server operations case](https://systems.acecore.net/works/#case-aceserver) covers operational reliability and community management. This new case focuses on the web portal that organizes information and entry paths for players.
 
 For portals, community sites, and service sites where information is distributed across several places, creating a clear first entry point is often more valuable than forcing every detail into one page.
 

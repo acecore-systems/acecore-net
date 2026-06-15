@@ -2,11 +2,9 @@
   "nav": {
     "home": "Startseite",
     "services": "Dienste",
-    "works": "Projekte",
     "about": "Über uns",
     "blog": "Blog",
-    "contact": "Kontakt",
-    "pricing": "Preise"
+    "contact": "Kontakt"
   },
   "announcement": {
     "enabled": true,
@@ -80,8 +78,7 @@
     "sitemap": "Seitenübersicht",
     "relatedLinks": "Verwandte Links",
     "schools": "Acecore Schools",
-    "privacy": "Datenschutzerklärung",
-    "pricing": "Preisübersicht"
+    "privacy": "Datenschutzerklärung"
   },
   "blog": {
     "title": "Blog",
@@ -182,13 +179,7 @@
     "authorLabel": "Autor",
     "archiveTitle": "Archiv: {month}",
     "archiveMeta": "Archiv der Artikel des Acecore-Blogs aus {month}.",
-    "tagListTitle": "Tag-Liste",
-    "featurePricingEyebrow": "Service- und Preisführung",
-    "featurePricingTitle": "Beratung und Preisrahmen für {title}",
-    "featurePricingPriceLabel": "Preisrahmen",
-    "featurePricingServices": "Service-Seite",
-    "featurePricingPricing": "Preisübersicht",
-    "featurePricingContact": "Anfragen"
+    "tagListTitle": "Tag-Liste"
   },
   "meta": {
     "siteTitle": "Acecore | Webdesign & IT-Bildung",
@@ -522,59 +513,6 @@
       "ctaBody": "Auch wenn Sie nicht genau wissen, was Sie brauchen. Kostenvoranschläge sind kostenlos.",
       "ctaContact": "Kostenlose Beratung",
       "ctaSchools": "Details zur IT-Schule anzeigen",
-      "navPricing": "Preise",
-      "pricing": {
-        "title": "Preisübersicht",
-        "body": "Diese groben Spannen helfen bei der frühen Einschätzung. Alle Preise sind Richtwerte inklusive Steuern; der endgültige Betrag kann nach der Scope-Definition variieren, externe Kosten kommen separat hinzu.",
-        "ctaHeading": "Fragen Sie die genauen Kosten kostenlos an.",
-        "ctaBody": "Wir klären Ziel und Budgetrahmen, ordnen Umfang und Prioritäten und erstellen daraus ein Angebot.",
-        "ctaPricing": "Preisübersicht ansehen",
-        "ctaContact": "Kostenlose Beratung",
-        "items": [
-          {
-            "icon": "server",
-            "label": "Serveraufbau und Betrieb",
-            "price": "Initial 100.000-500.000 ¥",
-            "note": "Überwachung und Wartung liegen meist bei 10.000-100.000 ¥ pro Monat. Cloud-Gebühren fallen separat an.",
-            "href": "/services/#server"
-          },
-          {
-            "icon": "globe",
-            "label": "Websites und Betrieb",
-            "price": "ab 150.000 ¥",
-            "note": "Landingpages und kleine Websites ab 150.000 ¥, Corporate Sites 500.000-1.500.000 ¥, Wartung 10.000-50.000 ¥ pro Monat.",
-            "href": "/services/#web"
-          },
-          {
-            "icon": "palette",
-            "label": "Design und Kreativleistungen",
-            "price": "ab 20.000 ¥",
-            "note": "Logos 50.000-150.000 ¥, Flyer/Banner 20.000-120.000 ¥, Branding mit Web-Anbindung ab 100.000 ¥.",
-            "href": "/services/#design"
-          },
-          {
-            "icon": "graduation-cap",
-            "label": "Acecore Schools",
-            "price": "8.000-33.000 ¥/Monat",
-            "note": "Richtwerte für Aufnahmegebühr, Materialien und Verwaltungskosten stehen auch auf der Schools-Seite.",
-            "href": "https://schools.acecore.net/de/#pricing"
-          },
-          {
-            "icon": "gamepad-2",
-            "label": "Aceserver",
-            "price": "Teilnahme kostenlos",
-            "note": "Die Teilnahme am öffentlichen Server ist kostenlos. Beratung zu Aufbau und Betrieb für Unternehmen wird individuell kalkuliert.",
-            "href": "/services/#aceserver"
-          },
-          {
-            "icon": "clapperboard",
-            "label": "AceStudio / Videoproduktion",
-            "price": "30.000-300.000 ¥ pro Video",
-            "note": "Richtwert für Kurzvideos und Schnitt. Planung und Dreh werden individuell kalkuliert.",
-            "href": "/acestudio/"
-          }
-        ]
-      },
       "timeline": [
         {
           "date": "Step 1",
@@ -769,108 +707,10 @@
           "answer": "Eine Vorab-Registrierung ist derzeit nicht verfügbar, aber wenn Sie uns auf X folgen, bleiben Sie über die neuesten Nachrichten informiert."
         }
       ]
-    },
-    "pricing": {
-      "title": "Preisübersicht",
-      "description": "Eine Übersicht über Richtwerte für Webproduktion, Serverbetrieb, Design, Acecore Schools und weitere Acecore-Angebote.",
-      "heroTitle": "Preisübersicht",
-      "heroSubtitle": "Prüfen Sie die Kostenrahmen über alle Services hinweg, bevor Sie tiefer planen",
-      "heroImgAlt": "Arbeitsplatz, an dem Angebotsunterlagen geprüft werden",
-      "eyebrow": "Preisübersicht",
-      "introTitle": "Zuerst den groben Kostenrahmen prüfen",
-      "introBody": "Die angegebenen Beträge sind Richtwerte inklusive Steuern. Das endgültige Angebot variiert je nach Anforderungen, Umfang, bereitgestellten Materialien und Nutzung externer Dienste.",
-      "serviceTitle": "Kostenrahmen nach Service",
-      "serviceBody": "Wir unterstützen kleine Einstiege ebenso wie kombinierte Pakete aus Produktion, Entwicklung und Betrieb.",
-      "detailLink": "Details ansehen",
-      "schoolsFeeTitle": "Kostenbestandteile der Schools",
-      "schoolsFeeBody": "Neben der Unterrichtsgebühr zeigen wir auch Aufnahme-, Material- und Verwaltungskosten als Richtwerte.",
-      "feeItem": "Posten",
-      "feeAmount": "Richtwert",
-      "feeNote": "Hinweis",
-      "factorTitle": "Wichtige Faktoren für Preisunterschiede",
-      "noteTitle": "Hinweise zu den Preisen",
-      "ctaHeading": "Wenn der Rahmen passt, sprechen Sie zuerst kostenlos mit uns.",
-      "ctaBody": "Ziel, gewünschter Zeitpunkt und Budgetrahmen reichen für den Anfang. Wir ordnen den nötigen Umfang und schlagen realistische nächste Schritte vor.",
-      "ctaContact": "Kostenlos beraten lassen",
-      "ctaServices": "Services ansehen",
-      "ctaSchools": "Schools ansehen",
-      "items": [
-        {
-          "icon": "server",
-          "title": "Serveraufbau und Betrieb",
-          "price": "Initial 100.000-500.000 ¥",
-          "body": "Wir unterstützen Cloud- und VPS-Aufbau, Monitoring und Backup-Design. Überwachung und Wartung liegen meist bei 10.000-100.000 ¥ pro Monat.",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "Websites und Betrieb",
-          "price": "ab 150.000 ¥",
-          "body": "Landingpages und kleine Websites ab 150.000 ¥, Corporate Sites 500.000-1.500.000 ¥, Wartung 10.000-50.000 ¥ pro Monat.",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "Design und Kreativleistungen",
-          "price": "ab 20.000 ¥",
-          "body": "Logos 50.000-150.000 ¥, Flyer/Banner 20.000-120.000 ¥, Branding und Web-Anbindung ab 100.000 ¥.",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "8.000-33.000 ¥/Monat",
-          "body": "Wir zeigen Richtwerte für Aufnahmegebühr, Monatsgebühr sowie Material- und Verwaltungskosten. Sie variieren nach Klassenstufe, Häufigkeit, Material und Lerninhalt.",
-          "href": "https://schools.acecore.net/de/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / Videoproduktion",
-          "price": "30.000-300.000 ¥ pro Video",
-          "body": "Kurzvideos und Schnitt liegen meist bei 30.000-300.000 ¥ pro Video. Produktionen mit Planung und Dreh werden individuell kalkuliert.",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "Teilnahme kostenlos",
-          "body": "Die Teilnahme am öffentlichen Server ist kostenlos. Aufbau und Betrieb von Gameservern für Unternehmen werden individuell kalkuliert.",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "Aufnahmegebühr",
-          "amount": "11.000-22.000 ¥",
-          "note": "Einmalig beim Start. Je nach Klassenstufe und Kurs unterschiedlich."
-        },
-        {
-          "item": "Monatsgebühr",
-          "amount": "8.000-33.000 ¥",
-          "note": "Abhängig von Häufigkeit, Unterrichtsdauer und individueller Betreuung."
-        },
-        {
-          "item": "Material- und Verwaltungskosten",
-          "amount": "etwa 5.000-30.000 ¥",
-          "note": "Materialien, Robotik-Teile, PC- oder Lizenzkosten können je nach Inhalt als tatsächliche Kosten anfallen."
-        }
-      ],
-      "factors": [
-        "Klarheit der Anforderungen, Anzahl der Screens, Funktionen und externe Integrationen",
-        "Ausarbeitung des Designs sowie Verfügbarkeit von Texten, Fotos und Videos",
-        "Umfang von Wartung, Monitoring, Aktualisierung und Verbesserung nach Veröffentlichung",
-        "Externe Kosten wie Materialien, Geräte, Druck, Werbung und Cloud-Nutzung"
-      ],
-      "notes": [
-        "Alle Beträge sind Richtwerte inklusive Steuern. Der endgültige Preis wird nach dem Gespräch individuell angeboten.",
-        "Domain, Server, Werbung, Druck, Materialien, Geräte, Reisekosten und andere externe Kosten fallen separat an.",
-        "Wenn ein Budgetrahmen feststeht, ordnen wir die Prioritäten innerhalb dieses Rahmens."
-      ]
     }
   },
   "pageNames": {
     "services": "Dienste",
-    "works": "Projekte und Portfolio",
     "schools": "Acecore Schools",
     "about": "Über uns",
     "contact": "Kontakt",
@@ -880,8 +720,7 @@
     "tags": "Tags",
     "authors": "Autoren",
     "archive": "Archiv",
-    "page": "Seite",
-    "pricing": "Preisübersicht"
+    "page": "Seite"
   },
   "tags": {
     "技術": "Technologie",

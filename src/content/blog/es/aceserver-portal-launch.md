@@ -44,11 +44,11 @@ linkCards:
     title: Portal de Aceserver
     description: Portal oficial de Aceserver ya publicado.
     icon: i-lucide-external-link
-  - href: /es/works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: Caso del portal de Aceserver
     description: También aparece como caso de producción en la página de trabajos de Acecore.
     icon: i-lucide-briefcase-business
-  - href: /es/works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Operación del servidor público Aceserver
     description: Caso relacionado con operación de servidor y comunidad.
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 Lanzamos el portal oficial de [Aceserver](https://asv.acecore.net/), un servidor público gratuito de Minecraft al que cualquiera puede unirse.
 
-Aceserver admite Java Edition y Bedrock Edition. El nuevo portal reúne la descripción del servidor, la guía de participación, videos, mapas del mundo y enlaces a la Wiki en una sola entrada. También lo agregamos a la [página de trabajos](/es/works/#case-aceserver-portal) de Acecore como caso de producción web y portal comunitario.
+Aceserver admite Java Edition y Bedrock Edition. El nuevo portal reúne la descripción del servidor, la guía de participación, videos, mapas del mundo y enlaces a la Wiki en una sola entrada. También lo agregamos a la [página de trabajos](https://systems.acecore.net/works/#case-aceserver-portal) de Acecore como caso de producción web y portal comunitario.
 
 ## Contexto
 
@@ -97,9 +97,9 @@ Nuestra forma de pensar la operación CMS ligera está en [Guía de instalación
 
 ## También agregado como caso
 
-La [página de trabajos y portafolio](/es/works/) de Acecore ahora incluye este proyecto como “Producción del portal de Aceserver”.
+La [página de trabajos y portafolio](https://systems.acecore.net/works/) de Acecore ahora incluye este proyecto como “Producción del portal de Aceserver”.
 
-El caso existente de [operación del servidor público Aceserver](/es/works/#case-aceserver) cubre estabilidad operativa y gestión comunitaria. Este nuevo caso se centra en el portal web que organiza la información y rutas de entrada para jugadores.
+El caso existente de [operación del servidor público Aceserver](https://systems.acecore.net/works/#case-aceserver) cubre estabilidad operativa y gestión comunitaria. Este nuevo caso se centra en el portal web que organiza la información y rutas de entrada para jugadores.
 
 Para portales, sitios comunitarios y sitios de servicios con información repartida en varios lugares, crear una primera entrada clara suele ser más valioso que forzar todo el contenido en una sola página.
 

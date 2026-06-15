@@ -107,12 +107,11 @@ Acecoreのサイトでは、[サービスCTAから問い合わせフォームへ
 
 最初に避けたいのは、サービスページの各セクションに同じリンク生成とGA属性をベタ書きすることです。サービスが7件あるなら、同じ書き方が7回出ます。文言やURL仕様を変えたくなったときに漏れやすくなります。
 
-そこで、CTAと関連事例リンクをまとめる `ServiceSectionActions` を作りました。
+そこで、問い合わせCTAをまとめる `ServiceSectionActions` を作りました。
 
 ```astro
 ---
 import Icon from './Icon.astro'
-import type { ServiceWorkLink } from '../data/works'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
@@ -120,10 +119,9 @@ interface Props {
   gaLabel: string
   gaLocation: string
   serviceKey: string
-  workLink?: ServiceWorkLink
 }
 
-const { locale, gaLabel, gaLocation, serviceKey, workLink } = Astro.props
+const { locale, gaLabel, gaLocation, serviceKey } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const contactUrl = `${u('/contact/')}?category=service&service=${encodeURIComponent(serviceKey)}#contact-form`
 ---
@@ -141,12 +139,11 @@ const contactUrl = `${u('/contact/')}?category=service&service=${encodeURICompon
 </a>
 ```
 
-このコンポーネントの責務は4つです。
+このコンポーネントの責務は3つです。
 
 - localeに合う問い合わせURLを生成する
 - service keyをURLパラメータへ入れる
 - GA計測用のlabelとlocationを持たせる
-- 既存の関連事例リンクを同じアクション領域に残す
 
 CTAはユーザーの行動点なので、UIだけでなく計測点でもあります。`data-ga-label` と `data-ga-location` は、あとから「どのサービスから相談が始まったか」を見るために残しています。
 
