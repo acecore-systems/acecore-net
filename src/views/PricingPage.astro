@@ -50,26 +50,12 @@ const pricingItems = getList<PricingItem>('pages.pricing.items').map(
   }),
 )
 const isBlogPricingHref = (href: string) => href.includes('/blog/')
-const isWebPricingHref = (href: string) => href.includes('/services/#web')
-const webBasePricingItem = pricingItems.find((item) =>
-  isWebPricingHref(item.href),
-)
 const featurePricingItems = pricingItems.filter((item) =>
   isBlogPricingHref(item.href),
 )
-const webPricingItems = [
-  ...(webBasePricingItem ? [webBasePricingItem] : []),
-  ...featurePricingItems,
-]
 const servicePricingItems = pricingItems.filter(
-  (item) => !isBlogPricingHref(item.href) && !isWebPricingHref(item.href),
+  (item) => !isBlogPricingHref(item.href),
 )
-const webPricingTableTitle = webBasePricingItem
-  ? `${webBasePricingItem.title} / ${t(
-      locale,
-      'pages.services.web.featureLinksTitle',
-    )}`
-  : t(locale, 'pages.services.web.featureLinksTitle')
 
 const schoolFees = getList<SchoolFee>('pages.pricing.schoolFees')
 const costFactors = getList<string>('pages.pricing.factors')
@@ -158,10 +144,12 @@ const pricingLd = {
       </div>
 
       {
-        webPricingItems.length > 0 && (
+        featurePricingItems.length > 0 && (
           <div class="mt-8">
             <div class="mb-4">
-              <h3 class="text-xl ac-heading">{webPricingTableTitle}</h3>
+              <h3 class="text-xl ac-heading">
+                {t(locale, 'pages.services.web.featureLinksTitle')}
+              </h3>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">
                 {t(locale, 'pages.services.web.featureLinksBody')}
               </p>
@@ -185,12 +173,8 @@ const pricingLd = {
                   </tr>
                 </thead>
                 <tbody>
-                  {webPricingItems.map((item) => (
-                    <tr
-                      class={`align-top transition hover:bg-brand-50/50 ${
-                        isWebPricingHref(item.href) ? 'bg-brand-50/40' : ''
-                      }`}
-                    >
+                  {featurePricingItems.map((item) => (
+                    <tr class="align-top transition hover:bg-brand-50/50">
                       <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
                         <a
                           href={item.href}
@@ -215,12 +199,10 @@ const pricingLd = {
                           href={item.href}
                           class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
                         >
-                          {isBlogPricingHref(item.href)
-                            ? t(
-                                locale,
-                                'pages.services.web.featureLinksArticleLabel',
-                              )
-                            : t(locale, 'pages.pricing.detailLink')}
+                          {t(
+                            locale,
+                            'pages.services.web.featureLinksArticleLabel',
+                          )}
                           <Icon name="arrow-right" class="text-xs" />
                         </a>
                       </td>

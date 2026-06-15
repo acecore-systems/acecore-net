@@ -93,26 +93,12 @@ const servicePricingItems = getList<ServicePricingItem>(
   href: resolvePricingHref(item.href),
 }))
 const isBlogPricingHref = (href: string) => href.includes('/blog/')
-const isWebPricingHref = (href: string) => href.includes('/services/#web')
-const webBasePricingItem = servicePricingItems.find((item) =>
-  isWebPricingHref(item.href),
-)
 const webFeatureItems = servicePricingItems.filter((item) =>
   isBlogPricingHref(item.href),
 )
-const webPricingTableItems = [
-  ...(webBasePricingItem ? [webBasePricingItem] : []),
-  ...webFeatureItems,
-]
 const servicePricingCoreItems = servicePricingItems.filter(
-  (item) => !isBlogPricingHref(item.href) && !isWebPricingHref(item.href),
+  (item) => !isBlogPricingHref(item.href),
 )
-const webPricingTableTitle = webBasePricingItem
-  ? `${webBasePricingItem.label} / ${t(
-      locale,
-      'pages.services.web.featureLinksTitle',
-    )}`
-  : t(locale, 'pages.services.web.featureLinksTitle')
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -285,10 +271,12 @@ const serviceLd = {
           workLink={serviceWorks.web}
         />
         {
-          webPricingTableItems.length > 0 && (
+          webFeatureItems.length > 0 && (
             <div class="mt-6 border-y border-slate-200 py-5">
               <div class="mb-4">
-                <h3 class="text-lg ac-heading">{webPricingTableTitle}</h3>
+                <h3 class="text-lg ac-heading">
+                  {t(locale, 'pages.services.web.featureLinksTitle')}
+                </h3>
                 <p class="mt-2 text-sm leading-relaxed text-slate-600">
                   {t(locale, 'pages.services.web.featureLinksBody')}
                 </p>
@@ -312,12 +300,8 @@ const serviceLd = {
                     </tr>
                   </thead>
                   <tbody>
-                    {webPricingTableItems.map((item) => (
-                      <tr
-                        class={`align-top transition hover:bg-brand-50/50 ${
-                          isWebPricingHref(item.href) ? 'bg-brand-50/40' : ''
-                        }`}
-                      >
+                    {webFeatureItems.map((item) => (
+                      <tr class="align-top transition hover:bg-brand-50/50">
                         <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
                           <a
                             href={item.href}
@@ -342,12 +326,10 @@ const serviceLd = {
                             href={item.href}
                             class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
                           >
-                            {isBlogPricingHref(item.href)
-                              ? t(
-                                  locale,
-                                  'pages.services.web.featureLinksArticleLabel',
-                                )
-                              : t(locale, 'pages.pricing.detailLink')}
+                            {t(
+                              locale,
+                              'pages.services.web.featureLinksArticleLabel',
+                            )}
                             <Icon name="arrow-right" class="text-xs" />
                           </a>
                         </td>
@@ -651,10 +633,12 @@ const serviceLd = {
           }
         </div>
         {
-          webPricingTableItems.length > 0 && (
+          webFeatureItems.length > 0 && (
             <div class="mt-6">
               <div class="mb-4">
-                <h3 class="text-lg ac-heading">{webPricingTableTitle}</h3>
+                <h3 class="text-lg ac-heading">
+                  {t(locale, 'pages.services.web.featureLinksTitle')}
+                </h3>
                 <p class="mt-2 text-sm leading-relaxed text-slate-600">
                   {t(locale, 'pages.services.web.featureLinksBody')}
                 </p>
@@ -678,12 +662,8 @@ const serviceLd = {
                     </tr>
                   </thead>
                   <tbody>
-                    {webPricingTableItems.map((item) => (
-                      <tr
-                        class={`align-top transition hover:bg-brand-50/50 ${
-                          isWebPricingHref(item.href) ? 'bg-brand-50/40' : ''
-                        }`}
-                      >
+                    {webFeatureItems.map((item) => (
+                      <tr class="align-top transition hover:bg-brand-50/50">
                         <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
                           <a
                             href={item.href}
@@ -708,12 +688,10 @@ const serviceLd = {
                             href={item.href}
                             class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
                           >
-                            {isBlogPricingHref(item.href)
-                              ? t(
-                                  locale,
-                                  'pages.services.web.featureLinksArticleLabel',
-                                )
-                              : t(locale, 'pages.pricing.detailLink')}
+                            {t(
+                              locale,
+                              'pages.services.web.featureLinksArticleLabel',
+                            )}
                             <Icon name="arrow-right" class="text-xs" />
                           </a>
                         </td>

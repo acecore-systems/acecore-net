@@ -31,6 +31,7 @@ export const SITE = {
   social: {
     x: 'https://x.com/acecorenet',
     github: 'https://github.com/acecore-systems',
+    systems: 'https://systems.acecore.net',
     aceserver: 'https://asv.acecore.net',
     discord: 'https://discord.gg/acsv',
   },

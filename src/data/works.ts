@@ -96,7 +96,7 @@ const jaWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '5事例',
+      value: '4事例',
       label: '公開中の取り組み',
       description:
         'Web、ポータル、インフラ、教育の代表的な事例を課題から成果まで確認できます。',
@@ -167,25 +167,6 @@ const jaWorksCopy: WorksCopy = {
       icon: 'map',
       tone: 'emerald',
       tags: ['Web制作', 'CMS', 'Astro', 'Minecraft'],
-    },
-    {
-      id: 'acecore-net',
-      title: 'Acecore公式サイトの多言語・高速化基盤',
-      category: 'Web制作・運用',
-      summary:
-        'サービス内容、ブログ、問い合わせ導線を一つの静的サイトに整理し、多言語展開と高速表示を両立しました。',
-      challenge:
-        'サービスの幅が広く、訪問者が「何を相談できるのか」を短時間で判断しにくい状態でした。',
-      proposal:
-        'Astroを軸にページ構成とコンテンツ導線を整理し、画像最適化、SEO、アクセシビリティを制作フローに組み込みました。',
-      result:
-        'サービス理解から問い合わせまでの流れを明確化し、ブログや多言語ページを継続的に追加できる基盤になりました。',
-      image:
-        'https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&h=520&fit=crop&q=80&fm=webp',
-      imageAlt: 'Webサイト制作の画面設計',
-      icon: 'globe',
-      tone: 'brand',
-      tags: ['Web制作', 'SEO', '多言語', 'Astro'],
     },
     {
       id: 'aceserver',
@@ -285,7 +266,7 @@ const enWorksCopy: WorksCopy = {
       tone: 'emerald',
     },
     {
-      value: '5 cases',
+      value: '4 cases',
       label: 'Published initiatives',
       description:
         'Representative web, portal, infrastructure, and education examples are available from challenge to outcome.',
@@ -358,25 +339,6 @@ const enWorksCopy: WorksCopy = {
       icon: 'map',
       tone: 'emerald',
       tags: ['Web production', 'CMS', 'Astro', 'Minecraft'],
-    },
-    {
-      id: 'acecore-net',
-      title: 'Multilingual and high-speed foundation for the Acecore website',
-      category: 'Web production & operations',
-      summary:
-        'Service information, blog content, and contact paths were organized into one static site with multilingual support and fast delivery.',
-      challenge:
-        'Because Acecore covers a wide range of services, visitors needed a clearer way to understand what they could ask for.',
-      proposal:
-        'We rebuilt the page structure around Astro and incorporated image optimization, SEO, and accessibility into the production flow.',
-      result:
-        'The site now gives visitors a clearer route from service discovery to contact, with a foundation that can keep adding blog and multilingual pages.',
-      image:
-        'https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&h=520&fit=crop&q=80&fm=webp',
-      imageAlt: 'Website production interface planning',
-      icon: 'globe',
-      tone: 'brand',
-      tags: ['Web production', 'SEO', 'Multilingual', 'Astro'],
     },
     {
       id: 'aceserver',
