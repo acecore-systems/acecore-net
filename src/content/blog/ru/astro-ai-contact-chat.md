@@ -167,7 +167,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -212,7 +212,7 @@ Rules:
 | Форма          | Оценки, производство, партнерства и найм           |
 | Прямой контакт | Дополнение после формы или срочное подтверждение   |
 
-AI соединяет общий контент вроде [обзора услуг](/blog/service-introduction/) с конкретными маршрутами на [странице контактов](/contact/). Это подходит для B2B, агентств, школ и SaaS support.
+AI соединяет общий контент вроде [обзора услуг](/services/) с конкретными маршрутами на [странице контактов](/contact/). Это подходит для B2B, агентств, школ и SaaS support.
 
 ## Сохранять URL по locale
 

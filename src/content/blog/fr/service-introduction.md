@@ -1,77 +1,67 @@
 ---
-title: 'Présentation des services Acecore : des solutions IT clés en main'
-description: 'Du développement de systèmes au design, en passant par la formation IT. Découvrez en détail les 5 principaux services proposés par Acecore.'
+title: 'Services Acecore : accompagnement IT pour le web, les serveurs, le design et l’éducation'
+description: 'Présentation des services Acecore autour de l’exploitation serveur, de la production web, du design et de l’éducation IT.'
 date: 2026-03-10T00:00
 author: gui
-tags: ['サービス', 'システム開発', 'Web制作']
-image: /uploads/acecore-generated/blog-service-introduction.webp
+tags: ['サービス', 'Web制作', '教育']
 callout:
   type: info
-  title: L'offre de services Acecore
-  text: De la création Web à l'administration de serveurs en passant par l'accompagnement pédagogique, nous proposons une offre clés en main.
+  title: Domaines de service Acecore
+  text: Acecore associe exploitation serveur, production web, design et éducation IT pour accompagner l’amélioration continue.
 checklist:
-  title: Liste des services proposés
+  title: Services proposés
   items:
-    - text: Création et gestion de sites Web
-    - text: Cours de robotique et de programmation
-    - text: Gestion de serveurs Minecraft
-    - text: Organisation de sessions d'étude IT et d'événements techniques
-    - text: Accompagnement à la gestion de communautés
+    - text: Mise en place et exploitation de serveurs
+    - text: Production et maintenance de sites web
+    - text: Design et supports créatifs
+    - text: Ateliers de robotique et de programmation
+    - text: Ateliers IT et événements communautaires
 faq:
   title: Questions fréquentes
   items:
-    - question: Quels services propose Acecore ?
-      answer: Nous proposons 5 services principaux — développement de systèmes d'entreprise et d'applications, construction et gestion de serveurs, création de sites Web, création de designs et visuels, et école IT (Acecore Schools).
-    - question: Les petits projets sont-ils acceptés ?
-      answer: Oui, nous acceptons les projets de toutes tailles. Même si vous ne savez pas exactement ce que vous pouvez nous confier, n'hésitez pas à nous contacter. Les devis sont gratuits.
-    - question: Combien de temps faut-il pour recevoir un devis ?
-      answer: Après examen de votre demande, nous vous envoyons généralement un devis sous 1 à 2 jours ouvrables.
+    - question: Par où commencer une consultation ?
+      answer: 'Nous clarifions d’abord l’objectif et les contraintes, puis nous choisissons le point de départ le plus pertinent : serveur, web, design ou éducation.'
+    - question: Acecore peut-il aider sur une petite demande ?
+      answer: Oui. Nous pouvons commencer par une amélioration ciblée de site, une revue d’exploitation, un atelier ou un ajustement CMS.
 ---
 
-Acecore propose une gamme complète de services pour répondre à tous vos besoins IT. Voici une présentation de nos 5 principaux services.
+Acecore aide les entreprises et les communautés locales à utiliser l’IT de manière concrète grâce à l’exploitation serveur, la production web, le design et l’éducation. Nous ne nous limitons pas au lancement : nous pensons aussi à l’exploitation et à l’amélioration continue.
 
-## 1. Développement de systèmes d'entreprise et d'applications
+## 1. Mise en place et exploitation de serveurs
 
-L'optimisation des processus métier commence par la mise en place de systèmes adaptés. Chez Acecore, nous analysons attentivement les flux de travail de nos clients pour concevoir et développer des systèmes sur mesure.
+Un site ou un service stable nécessite une configuration adaptée à son usage. Acecore accompagne la configuration de domaines, DNS, Cloudflare, VPS, hébergement statique, sauvegardes et opérations associées.
 
-Gestion des stocks, gestion de la relation client (CRM), gestion des commandes — nous intervenons quel que soit le secteur d'activité. Des outils internes légers aux systèmes multi-sites à grande échelle, nous proposons des solutions évolutives et flexibles.
+Les interventions courantes incluent :
 
-En exploitant les dernières technologies cloud-native, nous construisons des systèmes robustes, maintenables et extensibles. Le support opérationnel post-déploiement est également assuré.
+- Configuration de domaine, DNS et SSL/TLS
+- Configuration de Cloudflare Pages et de l’hébergement statique
+- Préparation de VPS et d’environnements d’exécution
+- Revue des sauvegardes, de la supervision et de la sécurité
+- Audit d’environnements existants et planification de migration
 
-![Conception et développement de systèmes d'entreprise](/uploads/acecore-generated/blog-service-introduction.webp)
+## 2. Production et maintenance web
 
-## 2. Construction et gestion de serveurs
+Acecore réalise des sites d’entreprise, sites de services, pages d’événements, pages de recrutement et autres expériences web adaptées à chaque objectif. Nous utilisons Astro et des architectures statiques lorsque cela est pertinent, avec une attention portée à la vitesse, la maintenabilité, le SEO et l’accessibilité.
 
-Une infrastructure IT stable est le pilier de toute activité. Acecore construit l'environnement serveur le plus adapté à vos besoins, du cloud (AWS, Azure, GCP, Cloudflare) à l'on-premise.
+Après la mise en ligne, nous pouvons continuer à améliorer le CMS, les parcours de contact, la recherche, les articles, les données structurées et l’exploitation éditoriale.
 
-Nous exploitons **Aceserver**, un serveur public Minecraft, depuis longtemps et disposons d'une solide expérience en gestion de serveurs sous forte charge et en matière de sécurité. Notre expérience dans l'exploitation stable d'une infrastructure supportant plusieurs centaines de connexions simultanées est mise au service de nos clients professionnels.
+## 3. Design et supports créatifs
 
-Surveillance 24h/24, 7j/7, mises à jour de sécurité régulières, plans de sauvegarde et de reprise après sinistre — notre service d'exploitation vous offre une tranquillité d'esprit totale.
+Bien communiquer ne consiste pas seulement à disposer des informations. Acecore accompagne aussi la création de logos, visuels principaux, bannières, documents, annonces d’événements et autres supports.
 
-## 3. Création et gestion de sites Web
+En reliant design et production web, nous gardons une cohérence entre site, réseaux sociaux, flyers et présentations.
 
-Un site Web est le « visage » d'une entreprise. Acecore conçoit des sites Web optimaux selon vos objectifs : sites institutionnels, landing pages, sites e-commerce, portfolios, etc.
+## 4. École IT / Acecore Schools
 
-Au-delà de l'esthétique du design, nous accordons une attention particulière au **référencement SEO** et aux **performances d'affichage**. Optimisation des Core Web Vitals, implémentation de données structurées, design responsive mobile-first — nous construisons des sites conformes aux derniers standards du Web.
+Acecore Schools propose des apprentissages où les enfants développent leur capacité à réfléchir, tester et exprimer leurs idées grâce à la programmation robotique, Scratch et des activités associées.
 
-La gestion et la maintenance post-lancement sont également assurées de bout en bout. De la mise à jour des contenus à l'application des correctifs de sécurité, en passant par les recommandations d'amélioration basées sur l'analyse du trafic, nous vous accompagnons pour augmenter continuellement la valeur de votre site.
+Les cours et ateliers valorisent l’expérimentation. Les élèves ne copient pas seulement un résultat final : ils explorent le fonctionnement et améliorent leurs propres idées.
 
-![De la conception à la gestion de sites Web, un accompanying complet](/uploads/acecore-generated/blog-service-introduction.webp)
+## Ce qui compte pour Acecore
 
-## 4. Design et création visuelle
+Acecore considère la production, l’exploitation et l’éducation comme des activités liées. L’objectif est de créer des outils et des expériences réellement utilisables dans la durée.
 
-Logos, cartes de visite, brochures, bannières, character design — nous accompagnons tous vos projets de communication visuelle.
-
-Nous écoutons attentivement le message que vous souhaitez transmettre et proposons un design qui résonne auprès de votre cible. Pour exprimer l'univers de votre marque de manière cohérente, nous pouvons prendre en charge le design de manière transversale, du logo au site Web en passant par les supports imprimés.
-
-Notre équipe créative, forte en numérique comme en analogique, donne forme à votre vision.
-
-## 5. École IT / Acecore Schools
-
-Sous la devise « Apprendre et appliquer immédiatement », des ingénieurs en activité dispensent des formations IT directement applicables en milieu professionnel.
-
-De l'initiation à la programmation aux cours pratiques de gestion de serveurs et de création Web, nous proposons des programmes adaptés au niveau de chaque apprenant. Centrées sur des exercices basés sur des projets réels, nos formations visent l'acquisition de « compétences qui ne restent pas théoriques, mais qui sont opérationnelles sur le terrain ».
-
-Disponibles en format hybride — en ligne et en présentiel — nos formations sont accessibles partout. Les particuliers comme les entreprises (formation professionnelle) sont les bienvenus.
-
-Pour plus de détails sur chaque service, consultez notre [page Services](/services/). Pour toute question ou consultation, n'hésitez pas à nous [contacter](/contact/).
+- Prévoir l’exploitation après le lancement
+- Équilibrer technologie et expérience utilisateur
+- Commencer petit et améliorer facilement
+- Soutenir concrètement les entreprises, les apprenants et les communautés

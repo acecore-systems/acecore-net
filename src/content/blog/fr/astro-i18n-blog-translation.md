@@ -321,7 +321,7 @@ Les noms, biographies et listes de compétences des auteurs changent également 
 {
   "id": "hatt",
   "name": "ハット",
-  "bio": "代表取締役。Web制作・システム開発…",
+  "bio": "代表取締役。Web制作・サーバー運用…",
   "skills": ["TypeScript", "Astro", "..."]
   "i18n": {
     "en": {

@@ -14,8 +14,7 @@ export async function GET(context: APIContext) {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   return rss({
     title: 'Acecore ブログ',
-    description:
-      'システム開発・Web制作・サーバー運用・IT教育に関する技術情報や活動報告',
+    description: 'Web制作・サーバー運用・IT教育に関する技術情報や活動報告',
     site: context.site!,
     items: posts.map((post) => ({
       title: post.data.title,
@@ -24,14 +23,13 @@ export async function GET(context: APIContext) {
       link: `/blog/${post.id}/`,
       ...(post.data.author
         ? {
-            author:
-              getLocalizedAuthor(
-                findAuthorById(authors, post.data.author) ?? {
-                  id: post.data.author,
-                  name: post.data.author,
-                },
-                defaultLocale,
-              ).name,
+            author: getLocalizedAuthor(
+              findAuthorById(authors, post.data.author) ?? {
+                id: post.data.author,
+                name: post.data.author,
+              },
+              defaultLocale,
+            ).name,
           }
         : {}),
       categories: (post.data.tags ?? []).map((tag) =>

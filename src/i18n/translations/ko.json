@@ -2,11 +2,9 @@
   "nav": {
     "home": "홈",
     "services": "서비스",
-    "works": "실적",
     "about": "회사 소개",
     "blog": "블로그",
-    "contact": "문의하기",
-    "pricing": "요금"
+    "contact": "문의하기"
   },
   "announcement": {
     "enabled": true,
@@ -80,8 +78,7 @@
     "sitemap": "사이트맵",
     "relatedLinks": "관련 링크",
     "schools": "Acecore Schools",
-    "privacy": "개인정보처리방침",
-    "pricing": "요금 안내"
+    "privacy": "개인정보처리방침"
   },
   "blog": {
     "title": "블로그",
@@ -132,11 +129,11 @@
     "searchFallbackServiceList": "→ 서비스 보기",
     "searchFallbackContact": "→ 문의하기",
     "blogCtaHeading": "서비스에 대해 더 알고 싶으신가요?",
-    "blogCtaBody": "시스템 개발, 웹 디자인, 그래픽 디자인, IT 교육 등 포괄적인 지원을 제공합니다.",
+    "blogCtaBody": "웹 디자인, 그래픽 디자인, IT 교육 등 포괄적인 지원을 제공합니다.",
     "blogCtaServices": "서비스 목록 보기",
     "blogCtaContact": "무료 상담하기",
     "rssTitle": "Acecore 블로그",
-    "rssDescription": "시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고",
+    "rssDescription": "웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고",
     "pagefindFilterAuthor": "저자",
     "pagefindFilterYear": "연도",
     "pagefindFilterTag": "태그",
@@ -146,8 +143,8 @@
     "postNavLabel": "글 탐색",
     "tagPrefix": "태그: {tag}",
     "authorPrefix": "작성자: {author}",
-    "indexDescription": "Acecore 블로그. 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보, 활동 보고, 공지사항을 게시합니다.",
-    "pageDescription": "Acecore 블로그 글 목록 ({current}/{total}페이지). 시스템 개발, 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고를 게시합니다.",
+    "indexDescription": "Acecore 블로그. 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보, 활동 보고, 공지사항을 게시합니다.",
+    "pageDescription": "Acecore 블로그 글 목록 ({current}/{total}페이지). 웹 디자인, 서버 운영, IT 교육에 관한 기술 정보와 활동 보고를 게시합니다.",
     "tagListDescription": "블로그 글 태그 목록입니다.",
     "archiveListDescription": "블로그 글 월별 아카이브 목록입니다.",
     "itemListName": "Acecore 블로그 글 목록",
@@ -168,13 +165,7 @@
     "commentsValidationName": "이름을 입력해 주세요.",
     "commentsValidationBody": "링크 없이 8자 이상 입력해 주세요.",
     "commentsValidationTurnstile": "보내기 전에 확인을 완료해 주세요.",
-    "commentsSending": "전송 중...",
-    "featurePricingEyebrow": "서비스·요금 안내",
-    "featurePricingTitle": "{title} 상담 및 요금 기준",
-    "featurePricingPriceLabel": "요금 기준",
-    "featurePricingServices": "서비스 페이지",
-    "featurePricingPricing": "요금표",
-    "featurePricingContact": "상담하기"
+    "commentsSending": "전송 중..."
   },
   "meta": {
     "siteTitle": "Acecore | 시스템 개발・웹 디자인・IT 교육",
@@ -183,7 +174,7 @@
   "pages": {
     "home": {
       "heroTitle": "개발부터 디자인, 교육까지. 원스톱 IT 지원.",
-      "heroSubtitle": "시스템 개발, 웹 디자인, 서버 운영, 디자인, IT 교육 — 하나의 창구에서 모두 맡기실 수 있습니다.",
+      "heroSubtitle": "웹 디자인, 서버 운영, 디자인, IT 교육 — 하나의 창구에서 모두 맡기실 수 있습니다.",
       "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
       "heroImgCollaboration": "프로젝트를 추진하는 팀워크",
       "heroImgMeeting": "회의 풍경",
@@ -191,13 +182,6 @@
       "servicesHeading": "주요 서비스",
       "servicesLead": "어디서부터 시작해야 할지 모르시겠어요? 개인부터 기업까지 유연하게 대응합니다.",
       "serviceCards": [
-        {
-          "title": "업무 시스템・앱 개발",
-          "description": "업무 효율화, 데이터 관리 개선 등의 과제를 최적의 시스템으로 해결합니다.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "서버 구축・운용",
           "description": "안정적이고 빠른 서버 환경을 제공합니다. 수백 명 동시 접속을 지원한 실적이 있습니다.",
@@ -239,13 +223,6 @@
       "layersTitle": "Acecore가 지원하는 네 가지 레이어",
       "layersDescription": "기술, 운영, 표현, 교육을 분리하지 않고 하나의 지원 라인으로 다룹니다.",
       "layerItems": [
-        {
-          "title": "시스템 설계",
-          "description": "업무 과제를 요건으로 전환하고, 구현과 운영을 고려하여 시스템을 구축합니다.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "인프라 운영",
           "description": "공개 서버 운영 경험을 바탕으로 견고한 환경과 개선 사이클을 구축합니다.",
@@ -303,7 +280,6 @@
       "formCategoryLabel": "문의 유형",
       "formCategoryPlaceholder": "선택해 주세요",
       "formCategoryService": "서비스 전반에 관하여",
-      "formCategoryServiceSystemDev": "업무 시스템 및 앱 개발에 관하여",
       "formCategoryServiceServer": "서버 구축 및 운영에 관하여",
       "formCategoryServiceWeb": "웹사이트 제작 및 운영에 관하여",
       "formCategoryServiceDesign": "디자인 및 크리에이티브에 관하여",
@@ -350,7 +326,7 @@
       "faqs": [
         {
           "question": "어떤 서비스로 문의해야 할지 모르겠습니다.",
-          "answer": "시스템 개발, 웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요."
+          "answer": "웹 제작, 서버 운영, 디자인, IT 교육을 함께 문의할 수 있습니다. 확실하지 않으면 기타를 선택하고 상황을 적어 주세요."
         },
         {
           "question": "견적만 문의해도 되나요?",
@@ -377,7 +353,7 @@
       "missionLoopDesc": "Acecore가 어떻게 가치를 창출하고 확장하는지를 도해로 나타냅니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "\"기술로 연결되고, 크리에이티브로 확장되다\"",
-      "philosophyBody1": "Acecore는 기술과 크리에이티브의 힘으로 다양한 가치를 창출하는 테크놀로지 그룹입니다. 시스템 개발, 웹사이트 제작, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하며 개인부터 기업까지 폭넓은 고객에게 대응합니다.",
+      "philosophyBody1": "Acecore는 기술과 크리에이티브의 힘으로 다양한 가치를 창출하는 테크놀로지 그룹입니다. 웹사이트 제작, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하며 개인부터 기업까지 폭넓은 고객에게 대응합니다.",
       "philosophyBody2": "기술의 힘으로 사람들을 연결하고 크리에이티브의 힘으로 가능성을 확장하는 것이 우리의 미션입니다. 단순히 기술을 제공하는 것이 아니라 고객 및 커뮤니티와 함께 성장하며 지속 가능한 가치를 만드는 것을 소중히 합니다.",
       "collaborationImgAlt": "팀 협업 작업",
       "activitiesTitle": "Acecore의 주요 활동",
@@ -458,40 +434,25 @@
     },
     "services": {
       "title": "서비스",
-      "description": "Acecore가 제공하는 시스템 개발, 웹사이트 제작, 서버 운영, 디자인, IT 교육 서비스의 상세를 소개합니다.",
+      "description": "Acecore가 제공하는 웹사이트 제작, 서버 운영, 디자인, IT 교육 서비스의 상세를 소개합니다.",
       "heroTitle": "서비스",
       "heroSubtitle": "원스톱으로 제공하는 다양한 IT 솔루션",
       "heroImgAlt": "테크놀로지 오피스",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Acecore의 지원 범위를 한눈에",
       "serviceMapDesc": "개발, 운영, 정보 발신, 인재 육성을 하나의 지원선으로 설계합니다.",
-      "mapDevTitle": "개발",
-      "mapDevDesc": "운영 흐름에 맞춰 업무 시스템과 앱을 설계・구현합니다.",
       "mapInfraTitle": "인프라 운영",
       "mapInfraDesc": "클라우드와 서버를 안정적으로 운영하며 모니터링과 보수까지 정비합니다.",
       "mapPublishTitle": "정보 발신",
       "mapPublishDesc": "웹사이트와 디자인 제작으로 전달해야 할 내용을 정리하여 전합니다.",
       "mapEducationTitle": "육성 지원",
       "mapEducationDesc": "도입한 기술을 현장에서 돌릴 수 있도록 교육과 동행 지원까지 연결합니다.",
-      "navDev": "개발",
       "navServer": "서버",
       "navWeb": "웹 제작",
       "navDesign": "디자인",
       "navEducation": "IT 스쿨",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "업무 시스템・앱 개발",
-        "desc": "업무 효율화, 자동화, 데이터 관리 등 고객의 과제에 맞춘 시스템과 앱을 개발합니다. 소규모 도구부터 대규모 웹 서비스까지 대응 가능합니다. 무엇부터 시작하면 좋을지 모르겠다는 단계에서도 편하게 상담해 주세요.",
-        "examplesLabel": "대응 사례",
-        "imgAlt": "코드 에디터에서의 개발 작업 이미지",
-        "examples": [
-          "업무 관리 시스템, CRM, ERP 설계 및 구축",
-          "웹 앱, SPA 및 모바일 앱 개발",
-          "API 설계, 외부 서비스 연계, 데이터 기반 구축",
-          "레거시 시스템 모더나이제이션"
-        ]
-      },
       "server": {
         "title": "서버 구축・운영",
         "desc": "안전하고 안정된 서버 환경의 구축과 운영을 전문으로 합니다. Acecore는 Aceserver(마인크래프트 공개 서버)를 장기 운영하며 그 노하우를 기업 고객에게도 제공합니다. 서버 이전이나 클라우드화 상담도 환영합니다.",
@@ -577,143 +538,6 @@
       "ctaBody": "무엇을 의뢰할 수 있는지 모르겠다는 단계에서도 괜찮습니다. 견적은 무료입니다.",
       "ctaContact": "무료 상담",
       "ctaSchools": "IT 스쿨 상세 보기",
-      "navPricing": "요금",
-      "pricing": {
-        "title": "요금 안내",
-        "body": "초기 검토 단계에서 판단하기 쉽도록 대략적인 범위를 정리했습니다. 모든 금액은 세금 포함 기준의 예상가이며, 실제 견적은 범위 확정 후 달라질 수 있고 외부 실비는 별도입니다.",
-        "ctaHeading": "자세한 비용은 무료로 상담해 주세요.",
-        "ctaBody": "목적과 예산감을 확인한 뒤 필요한 범위와 우선순위를 정리해 견적을 안내합니다.",
-        "ctaPricing": "요금표 보기",
-        "ctaContact": "무료 상담",
-        "items": [
-          {
-            "icon": "code-xml",
-            "label": "업무 시스템 및 앱 개발",
-            "price": "30만 엔〜",
-            "note": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "message-square",
-            "label": "문의 AI 채팅",
-            "price": "8만 엔〜",
-            "note": "정적 사이트에 문의 AI 채팅을 넣고 사이트 문맥, 레이트 리밋, Origin 확인, 안전한 링크 렌더링까지 정리합니다.",
-            "href": "/blog/astro-ai-contact-chat/"
-          },
-          {
-            "icon": "message-square-text",
-            "label": "블로그 댓글 기능",
-            "price": "¥80,000부터",
-            "note": "Cloudflare Pages Functions, D1, Turnstile로 외부 서비스에 의존하지 않는 댓글 작성과 스팸 대책을 추가합니다.",
-            "href": "/blog/cloudflare-only-blog-comments/"
-          },
-          {
-            "icon": "layout-template",
-            "label": "CMS 편집 화면 도입",
-            "price": "5만 엔〜",
-            "note": "Sveltia CMS로 블로그, 고정 페이지, 공지, 설정 항목을 브라우저에서 수정할 수 있는 관리 화면을 추가합니다.",
-            "href": "/blog/cms-selection-and-turnstile/"
-          },
-          {
-            "icon": "newspaper",
-            "label": "블로그·기사 기반",
-            "price": "5만 엔〜",
-            "note": "기사 목록, 상세 페이지, 태그/카테고리, 관련 글, RSS, 검색 동선을 갖춰 지속적인 발신 기반을 만듭니다.",
-            "href": "/blog/astro-i18n-blog-translation/"
-          },
-          {
-            "icon": "languages",
-            "label": "다국어 블로그 운영",
-            "price": "8만 엔〜",
-            "note": "일본어 source, 번역 PR, hreflang, sitemap, RSS까지 포함해 다국어 블로그 운영 흐름을 정리합니다.",
-            "href": "/blog/copilot-translation-pipeline/"
-          },
-          {
-            "icon": "search",
-            "label": "SEO·구조화 데이터",
-            "price": "5만 엔〜",
-            "note": "OGP, JSON-LD, 사이트맵, RSS, canonical 등 검색엔진에 전달할 정보를 정리합니다.",
-            "href": "/blog/astro-seo-and-structured-data/"
-          },
-          {
-            "icon": "scan",
-            "label": "Pagefind 사이트 검색",
-            "price": "3만 엔〜",
-            "note": "정적 사이트에 Pagefind 검색을 추가하고 검색 UI, URL 파라미터, 캐시 설정까지 정리합니다.",
-            "href": "/blog/astro-ux-and-code-quality/"
-          },
-          {
-            "icon": "zap",
-            "label": "표시 속도 개선",
-            "price": "5만 엔〜",
-            "note": "이미지, CSS, 폰트, 지연 로딩, 측정 결과를 확인해 Core Web Vitals 개선을 진행합니다.",
-            "href": "/blog/astro-performance-tuning/"
-          },
-          {
-            "icon": "accessibility",
-            "label": "접근성 개선",
-            "price": "5만 엔〜",
-            "note": "명도 대비, ARIA 속성, 포커스, 폼 검증을 점검하고 WCAG AA를 목표로 수정합니다.",
-            "href": "/blog/astro-accessibility-guide/"
-          },
-          {
-            "icon": "shield-check",
-            "label": "보안 헤더 / CSP",
-            "price": "3만 엔〜",
-            "note": "Cloudflare Pages의 _headers, CSP, 관리 화면 배포 설정을 정리해 더 안전한 공개 상태로 만듭니다.",
-            "href": "/blog/cloudflare-pages-security/"
-          },
-          {
-            "icon": "mouse-pointer-click",
-            "label": "CTA·폼 연계",
-            "price": "3만 엔〜",
-            "note": "서비스 CTA에서 문의 폼으로 종류, 제목, 문맥을 넘겨 상담 동선을 개선합니다.",
-            "href": "/blog/service-cta-contact-prefill/"
-          },
-          {
-            "icon": "server",
-            "label": "서버 구축 및 운영",
-            "price": "초기 10만〜50만 엔",
-            "note": "모니터링과 유지보수는 월 1만〜10만 엔이 기준입니다. 클라우드 이용료는 별도입니다.",
-            "href": "/services/#server"
-          },
-          {
-            "icon": "globe",
-            "label": "웹사이트 제작 및 운영",
-            "price": "15만 엔〜",
-            "note": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
-            "href": "/services/#web"
-          },
-          {
-            "icon": "palette",
-            "label": "디자인 및 크리에이티브",
-            "price": "2만 엔〜",
-            "note": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
-            "href": "/services/#design"
-          },
-          {
-            "icon": "graduation-cap",
-            "label": "Acecore Schools",
-            "price": "월 8천〜3.3만 엔",
-            "note": "입회금, 교재비, 관리비의 기준은 Schools 페이지에도 안내되어 있습니다.",
-            "href": "https://schools.acecore.net/ko/#pricing"
-          },
-          {
-            "icon": "gamepad-2",
-            "label": "Aceserver",
-            "price": "참가 무료",
-            "note": "공개 서버 참가는 무료입니다. 법인용 구축 및 운영 상담은 별도 견적입니다.",
-            "href": "/services/#aceserver"
-          },
-          {
-            "icon": "clapperboard",
-            "label": "AceStudio / 영상 제작",
-            "price": "건당 3만〜30만 엔",
-            "note": "숏폼 영상과 편집의 기준입니다. 기획과 촬영이 포함되는 경우는 별도 견적입니다.",
-            "href": "/acestudio/"
-          }
-        ]
-      },
       "timeline": [
         {
           "date": "Step 1",
@@ -831,192 +655,10 @@
           "answer": "현재 사전 등록은 받고 있지 않지만 X를 팔로우하시면 최신 정보를 전해 드릴 수 있습니다."
         }
       ]
-    },
-    "pricing": {
-      "title": "요금 안내",
-      "description": "Acecore의 시스템 개발, 웹 제작, 서버 운영, 디자인, Acecore Schools 등 주요 서비스의 비용감을 정리한 요금 안내 페이지입니다.",
-      "heroTitle": "요금 안내",
-      "heroSubtitle": "본격적인 검토 전에 서비스별 비용 범위를 한 번에 확인할 수 있습니다",
-      "heroImgAlt": "견적 자료를 확인하는 작업 모습",
-      "eyebrow": "요금 안내",
-      "introTitle": "먼저 대략적인 범위를 확인하기",
-      "introBody": "표시 금액은 세금 포함 기준의 예상가입니다. 요구사항, 규모, 자료 준비 상태, 외부 서비스 사용 여부에 따라 정식 견적은 달라집니다.",
-      "serviceTitle": "주요 서비스 비용감",
-      "serviceBody": "작게 시작하는 상담부터 제작, 개발, 운영을 묶은 지원까지 대응합니다.",
-      "detailLink": "자세히 보기",
-      "schoolsFeeTitle": "Schools 비용 내역",
-      "schoolsFeeBody": "수업료뿐 아니라 입회 시 비용, 교재비, 관리비도 함께 검토할 수 있도록 기준을 안내합니다.",
-      "feeItem": "항목",
-      "feeAmount": "기준",
-      "feeNote": "보충",
-      "factorTitle": "비용이 달라지는 주요 요소",
-      "noteTitle": "표시 가격 안내",
-      "ctaHeading": "비용감이 맞는다면 먼저 무료로 상담해 주세요",
-      "ctaBody": "목적, 희망 시기, 예산감을 아는 범위에서 알려주시면 됩니다. 필요한 범위를 정리하고 현실적인 진행 방식을 제안합니다.",
-      "ctaContact": "무료 상담하기",
-      "ctaServices": "서비스 자세히 보기",
-      "ctaSchools": "Schools 보기",
-      "items": [
-        {
-          "icon": "code-xml",
-          "title": "업무 시스템 및 앱 개발",
-          "price": "30만 엔〜",
-          "body": "소규모 자동화 30만 엔〜, 업무 도구 50만 엔〜, 중규모 시스템 150만 엔〜, 통합형은 250만 엔〜가 기준입니다.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "message-square",
-          "title": "문의 AI 채팅",
-          "price": "8만 엔〜",
-          "body": "정적 사이트에 문의 AI 채팅을 넣고 사이트 문맥, 레이트 리밋, Origin 확인, 안전한 링크 렌더링까지 정리합니다.",
-          "href": "/blog/astro-ai-contact-chat/"
-        },
-        {
-          "icon": "message-square-text",
-          "title": "블로그 댓글 기능",
-          "price": "¥80,000부터",
-          "body": "외부 댓글 서비스 없이 댓글 작성 API, D1 저장소, Turnstile 봇 차단, Origin 제어, 삭제 운영까지 구성합니다.",
-          "href": "/blog/cloudflare-only-blog-comments/"
-        },
-        {
-          "icon": "layout-template",
-          "title": "CMS 편집 화면 도입",
-          "price": "5만 엔〜",
-          "body": "Sveltia CMS로 블로그, 고정 페이지, 공지, 설정 항목을 브라우저에서 수정할 수 있는 관리 화면을 추가합니다.",
-          "href": "/blog/cms-selection-and-turnstile/"
-        },
-        {
-          "icon": "newspaper",
-          "title": "블로그·기사 기반",
-          "price": "5만 엔〜",
-          "body": "기사 목록, 상세 페이지, 태그/카테고리, 관련 글, RSS, 검색 동선을 갖춰 지속적인 발신 기반을 만듭니다.",
-          "href": "/blog/astro-i18n-blog-translation/"
-        },
-        {
-          "icon": "languages",
-          "title": "다국어 블로그 운영",
-          "price": "8만 엔〜",
-          "body": "일본어 source, 번역 PR, hreflang, sitemap, RSS까지 포함해 다국어 블로그 운영 흐름을 정리합니다.",
-          "href": "/blog/copilot-translation-pipeline/"
-        },
-        {
-          "icon": "search",
-          "title": "SEO·구조화 데이터",
-          "price": "5만 엔〜",
-          "body": "OGP, JSON-LD, 사이트맵, RSS, canonical 등 검색엔진에 전달할 정보를 정리합니다.",
-          "href": "/blog/astro-seo-and-structured-data/"
-        },
-        {
-          "icon": "scan",
-          "title": "Pagefind 사이트 검색",
-          "price": "3만 엔〜",
-          "body": "정적 사이트에 Pagefind 검색을 추가하고 검색 UI, URL 파라미터, 캐시 설정까지 정리합니다.",
-          "href": "/blog/astro-ux-and-code-quality/"
-        },
-        {
-          "icon": "zap",
-          "title": "표시 속도 개선",
-          "price": "5만 엔〜",
-          "body": "이미지, CSS, 폰트, 지연 로딩, 측정 결과를 확인해 Core Web Vitals 개선을 진행합니다.",
-          "href": "/blog/astro-performance-tuning/"
-        },
-        {
-          "icon": "accessibility",
-          "title": "접근성 개선",
-          "price": "5만 엔〜",
-          "body": "명도 대비, ARIA 속성, 포커스, 폼 검증을 점검하고 WCAG AA를 목표로 수정합니다.",
-          "href": "/blog/astro-accessibility-guide/"
-        },
-        {
-          "icon": "shield-check",
-          "title": "보안 헤더 / CSP",
-          "price": "3만 엔〜",
-          "body": "Cloudflare Pages의 _headers, CSP, 관리 화면 배포 설정을 정리해 더 안전한 공개 상태로 만듭니다.",
-          "href": "/blog/cloudflare-pages-security/"
-        },
-        {
-          "icon": "mouse-pointer-click",
-          "title": "CTA·폼 연계",
-          "price": "3만 엔〜",
-          "body": "서비스 CTA에서 문의 폼으로 종류, 제목, 문맥을 넘겨 상담 동선을 개선합니다.",
-          "href": "/blog/service-cta-contact-prefill/"
-        },
-        {
-          "icon": "server",
-          "title": "서버 구축 및 운영",
-          "price": "초기 10만〜50만 엔",
-          "body": "클라우드와 VPS 초기 구축, 모니터링, 백업 설계를 지원합니다. 모니터링 및 유지보수는 월 1만〜10만 엔이 기준입니다.",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "웹사이트 제작 및 운영",
-          "price": "15만 엔〜",
-          "body": "LP/소규모 사이트는 15만 엔〜, 기업 사이트는 50만〜150만 엔, 유지보수는 월 1만〜5만 엔이 기준입니다.",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "디자인 및 크리에이티브",
-          "price": "2만 엔〜",
-          "body": "로고 5만〜15만 엔, 전단/배너 2만〜12만 엔, 브랜딩과 웹 연계는 10만 엔〜가 기준입니다.",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "월 8천〜3.3만 엔",
-          "body": "입회금, 월 수업료, 교재 및 관리비의 기준을 공개합니다. 학년, 횟수, 교재, 수강 내용에 따라 달라집니다.",
-          "href": "https://schools.acecore.net/ko/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / 영상 제작",
-          "price": "건당 3만〜30만 엔",
-          "body": "숏폼 영상과 편집은 건당 3만〜30만 엔이 기준입니다. 기획과 촬영이 포함되는 제작은 내용에 따라 별도 견적입니다.",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "참가 무료",
-          "body": "공개 서버 참가는 무료입니다. 법인용 게임 서버 구축 및 운영 상담은 별도 견적입니다.",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "입회금",
-          "amount": "1.1만〜2.2만 엔",
-          "note": "처음 한 번만 발생합니다. 학년과 코스에 따라 달라집니다."
-        },
-        {
-          "item": "월 수업료",
-          "amount": "8천〜3.3만 엔",
-          "note": "주당 횟수, 수업 시간, 개별 지도 내용에 따라 달라집니다."
-        },
-        {
-          "item": "교재 및 관리비",
-          "amount": "약 5천〜3만 엔",
-          "note": "교재, 로봇 부품, PC/라이선스 비용 등은 내용에 따라 실비가 발생할 수 있습니다."
-        }
-      ],
-      "factors": [
-        "요구사항의 명확도, 화면 수, 기능 수, 외부 연동 여부",
-        "디자인 완성도, 원고/사진/영상 자료 준비 상태",
-        "공개 후 유지보수, 모니터링, 업데이트 대행, 개선 제안의 범위",
-        "교재, 장비, 인쇄, 광고, 클라우드 이용료 등 외부 실비"
-      ],
-      "notes": [
-        "모든 금액은 세금 포함 예상가입니다. 정식 금액은 상담 후 개별 견적으로 안내합니다.",
-        "도메인, 서버, 광고, 인쇄, 교재, 장비, 교통비 등 외부 실비는 별도입니다.",
-        "예산이 정해져 있다면 그 범위 안에서 우선순위를 정리해 제안합니다."
-      ]
     }
   },
   "pageNames": {
     "services": "서비스",
-    "works": "실적 및 포트폴리오",
     "schools": "Acecore Schools",
     "about": "회사 소개",
     "contact": "문의하기",
@@ -1026,8 +668,7 @@
     "tags": "태그",
     "authors": "저자",
     "archive": "아카이브",
-    "page": "페이지",
-    "pricing": "요금 안내"
+    "page": "페이지"
   },
   "tags": {
     "技術": "기술",
@@ -1048,7 +689,6 @@
     "イベント": "이벤트",
     "お知らせ": "공지",
     "サービス": "서비스",
-    "システム開発": "시스템 개발",
     "オープンソース": "오픈소스",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

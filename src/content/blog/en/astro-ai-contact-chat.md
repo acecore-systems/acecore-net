@@ -184,7 +184,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -233,7 +233,7 @@ The AI chat should not replace the contact form. The contact page works better w
 | Form           | Estimates, production inquiries, partnerships, and recruiting    |
 | Direct contact | Follow-up after the form or urgent confirmation only             |
 
-The AI connects broad service content such as the [service overview article](/blog/service-introduction/) with concrete routes on the [contact page](/contact/). This pattern works for B2B sites, agencies, schools, and SaaS support pages.
+The AI connects broad service content such as the [service overview article](/services/) with concrete routes on the [contact page](/contact/). This pattern works for B2B sites, agencies, schools, and SaaS support pages.
 
 ## Preserve Locale-Aware URLs
 

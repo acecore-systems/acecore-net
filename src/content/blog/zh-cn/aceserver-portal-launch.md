@@ -44,11 +44,11 @@ linkCards:
     title: Aceserver 门户
     description: 正在公开的 Aceserver 官方门户网站。
     icon: i-lucide-external-link
-  - href: /zh-cn/works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: Aceserver 门户制作案例
     description: 也作为制作案例刊登在 Acecore 的实绩页面。
     icon: i-lucide-briefcase-business
-  - href: /zh-cn/works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Aceserver 公共服务器运用
     description: 服务器运用和社区相关案例在这里查看。
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 我们公开了 [Aceserver](https://asv.acecore.net/) 的官方门户网站。Aceserver 是任何人都可以参加的免费 Minecraft 公共服务器。
 
-Aceserver 支持 Java 版和基岩版。新的门户将服务器概要、参加说明、视频、世界地图和 Wiki 访问路径整理到一个入口中。它也作为网站制作与社区门户案例，刊登在 Acecore 的[实绩页面](/zh-cn/works/#case-aceserver-portal)。
+Aceserver 支持 Java 版和基岩版。新的门户将服务器概要、参加说明、视频、世界地图和 Wiki 访问路径整理到一个入口中。它也作为网站制作与社区门户案例，刊登在 Acecore 的[实绩页面](https://systems.acecore.net/works/#case-aceserver-portal)。
 
 ## 制作背景
 
@@ -97,9 +97,9 @@ Wiki 链接也可以从首页进入。会持续变化的信息更适合在 Wiki 
 
 ## 也作为实绩刊登
 
-Acecore 的[实绩・作品集页面](/zh-cn/works/)中新增了“Aceserver 门户制作”案例。
+Acecore 的[实绩・作品集页面](https://systems.acecore.net/works/)中新增了“Aceserver 门户制作”案例。
 
-已有的 [Aceserver 公共服务器运用](/zh-cn/works/#case-aceserver)案例介绍服务器本身的稳定运用和社区管理。这次的新案例则聚焦于面向玩家的信息整理和入口设计。
+已有的 [Aceserver 公共服务器运用](https://systems.acecore.net/works/#case-aceserver)案例介绍服务器本身的稳定运用和社区管理。这次的新案例则聚焦于面向玩家的信息整理和入口设计。
 
 对于门户网站、社区网站和服务网站，如果信息分布在多个地方，比起把所有内容强行放到一页，更重要的是整理出最先应该访问的入口。
 

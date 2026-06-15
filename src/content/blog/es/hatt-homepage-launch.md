@@ -44,7 +44,7 @@ linkCards:
     title: Página web de Hatt
     description: Sitio oficial de Hatt ya publicado.
     icon: i-lucide-external-link
-  - href: /es/works/#case-hatt-homepage
+  - href: https://systems.acecore.net/works/#case-hatt-homepage
     title: Caso de producción de la página de Hatt
     description: También aparece como caso de producción en la página de trabajos de Acecore.
     icon: i-lucide-briefcase-business
@@ -65,7 +65,7 @@ faq:
 
 Publicamos el sitio personal [Página web de Hatt](https://hatt.acecore.net/), que reúne la actividad creativa de Hatt en un solo lugar.
 
-El sitio funciona como una entrada para ilustraciones, novelas y creación de avatares y gimmicks para VRChat. También lo agregamos a la [página de trabajos](/es/works/#case-hatt-homepage) de Acecore como caso de producción web y construcción con CMS.
+El sitio funciona como una entrada para ilustraciones, novelas y creación de avatares y gimmicks para VRChat. También lo agregamos a la [página de trabajos](https://systems.acecore.net/works/#case-hatt-homepage) de Acecore como caso de producción web y construcción con CMS.
 
 ## Contexto
 
@@ -105,7 +105,7 @@ En sitios personales y portafolios, muchas veces resulta más efectivo crear rut
 
 ## También como caso de trabajo
 
-Agregamos el proyecto a la [página de trabajos y portafolio](/es/works/) de Acecore como “Producción de la página web de Hatt”.
+Agregamos el proyecto a la [página de trabajos y portafolio](https://systems.acecore.net/works/) de Acecore como “Producción de la página web de Hatt”.
 
 Esta producción no fue solo publicar páginas. Incluyó organizar la actividad creativa, edición con CMS, búsqueda, OGP, sitemap y diseño de enlaces externos. Incluso en un sitio personal pequeño, preparar una estructura que pueda crecer después de publicarse aumenta el valor cuando se sumen nuevas obras y artículos.
 

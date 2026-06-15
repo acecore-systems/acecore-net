@@ -44,11 +44,11 @@ linkCards:
     title: Aceserver-Portal
     description: Das veröffentlichte offizielle Portal von Aceserver.
     icon: i-lucide-external-link
-  - href: /de/works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: Fallstudie zum Aceserver-Portal
     description: Auch als Produktionsbeispiel auf Acecores Arbeitsseite gelistet.
     icon: i-lucide-briefcase-business
-  - href: /de/works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Betrieb des öffentlichen Aceserver-Servers
     description: Fallstudie zu Serverbetrieb und Community.
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 Wir haben das offizielle Portal für [Aceserver](https://asv.acecore.net/) veröffentlicht, einen kostenlosen öffentlichen Minecraft-Server, dem jede Person beitreten kann.
 
-Aceserver unterstützt Java Edition und Bedrock Edition. Das neue Portal bündelt Serverüberblick, Teilnahmeinformationen, Videos, Weltkarten und Wege zum Wiki in einem Einstieg. Es ist außerdem auf Acecores [Arbeitsseite](/de/works/#case-aceserver-portal) als Fallstudie für Webproduktion und Community-Portal gelistet.
+Aceserver unterstützt Java Edition und Bedrock Edition. Das neue Portal bündelt Serverüberblick, Teilnahmeinformationen, Videos, Weltkarten und Wege zum Wiki in einem Einstieg. Es ist außerdem auf Acecores [Arbeitsseite](https://systems.acecore.net/works/#case-aceserver-portal) als Fallstudie für Webproduktion und Community-Portal gelistet.
 
 ## Hintergrund
 
@@ -97,9 +97,9 @@ Unsere Sicht auf schlanken CMS-Betrieb erklären wir im [Sveltia CMS Einrichtung
 
 ## Auch als Fallstudie ergänzt
 
-Acecores [Arbeits- und Portfolioseite](/de/works/) enthält dieses Projekt nun als “Produktion des Aceserver-Portals”.
+Acecores [Arbeits- und Portfolioseite](https://systems.acecore.net/works/) enthält dieses Projekt nun als “Produktion des Aceserver-Portals”.
 
-Die bestehende Fallstudie [Betrieb des öffentlichen Aceserver-Servers](/de/works/#case-aceserver) behandelt Betriebsstabilität und Community-Management. Diese neue Fallstudie konzentriert sich auf das Webportal, das Informationen und Einstiegswege für Spieler organisiert.
+Die bestehende Fallstudie [Betrieb des öffentlichen Aceserver-Servers](https://systems.acecore.net/works/#case-aceserver) behandelt Betriebsstabilität und Community-Management. Diese neue Fallstudie konzentriert sich auf das Webportal, das Informationen und Einstiegswege für Spieler organisiert.
 
 Für Portale, Community-Websites und Service-Websites mit verteilten Informationen ist ein klarer erster Einstieg oft wertvoller als das Erzwingen aller Inhalte auf einer einzigen Seite.
 

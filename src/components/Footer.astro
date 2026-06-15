@@ -43,23 +43,16 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </li>
           <li>
             <a
-              href={u('/pricing/')}
-              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-              >{t(locale, 'footer.pricing')}</a
-            >
-          </li>
-          <li>
-            <a
-              href={u('/works/')}
-              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-              >{t(locale, 'nav.works')}</a
-            >
-          </li>
-          <li>
-            <a
               href={getSchoolsUrl(locale)}
               class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'footer.schools')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={SITE.social.systems}
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
+              >Acecore Systems</a
             >
           </li>
           <li>

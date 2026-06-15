@@ -44,7 +44,7 @@ linkCards:
     title: Site de Hatt
     description: Le site officiel de Hatt, désormais publié.
     icon: i-lucide-external-link
-  - href: /fr/works/#case-hatt-homepage
+  - href: https://systems.acecore.net/works/#case-hatt-homepage
     title: Cas de production du site de Hatt
     description: Également publié comme cas de production sur la page travaux d’Acecore.
     icon: i-lucide-briefcase-business
@@ -65,7 +65,7 @@ faq:
 
 Nous avons publié le site personnel [Site de Hatt](https://hatt.acecore.net/), qui rassemble les activités créatives de Hatt en un seul endroit.
 
-Ce site sert de porte d’entrée pour les illustrations, les romans et la création d’avatars et de gimmicks pour VRChat. Nous l’avons également ajouté à la [page travaux](/fr/works/#case-hatt-homepage) d’Acecore comme cas de création web et de mise en place de CMS.
+Ce site sert de porte d’entrée pour les illustrations, les romans et la création d’avatars et de gimmicks pour VRChat. Nous l’avons également ajouté à la [page travaux](https://systems.acecore.net/works/#case-hatt-homepage) d’Acecore comme cas de création web et de mise en place de CMS.
 
 ## Contexte
 
@@ -105,7 +105,7 @@ Pour les sites personnels et portfolios, il est souvent plus efficace de créer 
 
 ## Ajouté comme réalisation
 
-Nous avons ajouté ce projet à la [page travaux et portfolio](/fr/works/) d’Acecore sous le nom « Production du site de Hatt ».
+Nous avons ajouté ce projet à la [page travaux et portfolio](https://systems.acecore.net/works/) d’Acecore sous le nom « Production du site de Hatt ».
 
 Ce travail ne consistait pas seulement à publier des pages. Il comprenait l’organisation des activités créatives, l’édition via CMS, la recherche, l’OGP, le sitemap et la conception des liens externes. Même pour un petit site personnel, préparer une structure qui peut grandir après la publication augmente la valeur lorsque les œuvres et les articles s’accumulent.
 

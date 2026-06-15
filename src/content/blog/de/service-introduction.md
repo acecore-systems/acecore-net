@@ -1,77 +1,67 @@
 ---
-title: 'Acecores Serviceübersicht: IT-Lösungen aus einer Hand'
-description: 'Von der Systementwicklung über Design bis hin zur IT-Bildung — eine detaillierte Vorstellung der fünf Kernservices von Acecore.'
+title: 'Acecore Services: IT-Unterstützung für Web, Server, Design und Bildung'
+description: 'Überblick über Acecore Services in Serverbetrieb, Webproduktion, Design und IT-Bildung.'
 date: 2026-03-10T00:00
 author: gui
-tags: ['サービス', 'システム開発', 'Web制作']
-image: /uploads/acecore-generated/blog-service-introduction.webp
+tags: ['サービス', 'Web制作', '教育']
 callout:
   type: info
-  title: Acecores Serviceportfolio
-  text: Von der Webentwicklung und dem Serverbetrieb bis hin zur Bildungsunterstützung — alles aus einer Hand.
+  title: Servicebereiche von Acecore
+  text: Acecore verbindet Serverbetrieb, Webproduktion, Design und IT-Bildung, um kontinuierliche Verbesserung zu unterstützen.
 checklist:
-  title: Serviceliste
+  title: Servicebereiche
   items:
-    - text: Webseitenentwicklung & Betriebsunterstützung
-    - text: Robotik- & Programmierkurse
-    - text: Minecraft-Serverbetrieb
-    - text: IT-Lerngruppen & Tech-Veranstaltungen
-    - text: Community-Management-Unterstützung
+    - text: Servereinrichtung und Betrieb
+    - text: Website-Produktion und Wartung
+    - text: Design und Kreativmaterialien
+    - text: Robotik- und Programmierkurse
+    - text: IT-Workshops und Community-Events
 faq:
   title: FAQ
   items:
-    - question: Welche Services bietet Acecore an?
-      answer: Wir bieten fünf Kernservices an — Unternehmenssystem- & App-Entwicklung, Server-Infrastruktur & Betrieb, Webseitenentwicklung, Design & Kreativproduktion sowie IT-Bildung (Acecore Schools).
-    - question: Kann ich auch bei kleineren Projekten Hilfe anfragen?
-      answer: Ja, wir nehmen Projekte jeder Größe an. Selbst wenn Sie nicht genau wissen, wonach Sie fragen sollen, können Sie uns gerne kontaktieren. Kostenvoranschläge sind kostenlos.
-    - question: Wie lange dauert es, ein Angebot zu erhalten?
-      answer: Nach Prüfung Ihrer Anfrage senden wir Ihnen in der Regel innerhalb von 1–2 Werktagen ein Angebot zu.
+    - question: Womit sollte eine Beratung beginnen?
+      answer: Wir klären zuerst Ziel und Rahmenbedingungen und entscheiden dann, ob Server, Web, Design oder Bildung der richtige Einstieg ist.
+    - question: Unterstützt Acecore auch kleine Anfragen?
+      answer: Ja. Wir können mit klar abgegrenzten Aufgaben wie Website-Verbesserungen, Betriebsreviews, Lernveranstaltungen oder CMS-Anpassungen starten.
 ---
 
-Acecore bietet ein umfassendes Spektrum an Services, um alle Ihre IT-Bedürfnisse aus einer Hand zu erfüllen. Hier stellen wir unsere fünf Kernservicebereiche vor.
+Acecore unterstützt Unternehmen und lokale Communities beim praktischen Einsatz von IT durch Serverbetrieb, Webproduktion, Design und IT-Bildung. Der Fokus liegt nicht nur auf dem Launch, sondern auch auf wartbaren Abläufen und kontinuierlicher Verbesserung.
 
-## 1. Unternehmenssystem- & App-Entwicklung
+## 1. Servereinrichtung und Betrieb
 
-Die Verbesserung der Geschäftseffizienz beginnt mit den richtigen Systemen. Bei Acecore hören wir Ihren Arbeitsabläufen aufmerksam zu und entwerfen und entwickeln das optimale System für Ihre Anforderungen.
+Stabile Websites und Services benötigen eine Umgebung, die zum Zweck passt. Acecore hilft bei Domains, DNS, Cloudflare, VPS, statischem Hosting, Backups und den dazugehörigen Betriebsaufgaben.
 
-Wir realisieren Lagerverwaltung, CRM, Auftragsverwaltung und mehr in allen Branchen. Von kleinen internen Tools bis hin zu großen Systemen, die an mehreren Standorten eingesetzt werden, liefern wir Lösungen, die flexibel skalieren.
+Typische Unterstützung umfasst:
 
-Mit Einsatz modernster Cloud-nativer Technologien bauen wir Systeme mit hervorragender Wartbarkeit und Skalierbarkeit. Wir bieten zudem umfassende Betriebsunterstützung nach der Bereitstellung.
+- Einrichtung von Domain, DNS und SSL/TLS
+- Konfiguration von Cloudflare Pages und statischem Hosting
+- Vorbereitung von VPS und Laufzeitumgebungen
+- Review von Backup, Monitoring und Sicherheit
+- Bestandsaufnahme bestehender Umgebungen und Migrationsplanung
 
-![Systementwurf und -entwicklung](/uploads/acecore-generated/blog-service-introduction.webp)
+## 2. Website-Produktion und Wartung
 
-## 2. Server-Infrastruktur & Betrieb
+Acecore erstellt Unternehmensseiten, Serviceseiten, Eventseiten, Recruiting-Seiten und andere Webauftritte passend zum jeweiligen Ziel. Wo es sinnvoll ist, setzen wir Astro und statische Architekturen ein, mit Blick auf Geschwindigkeit, Wartbarkeit, SEO und Barrierefreiheit.
 
-Eine stabile IT-Grundlage ist das Rückgrat jedes Unternehmens. Acecore baut die ideale Serverumgebung für Ihre Anforderungen auf, ob cloudbasiert (AWS, Azure, GCP, Cloudflare) oder On-Premises.
+Nach dem Launch können CMS-Einstellungen, Kontaktwege, Suche, Artikel, strukturierte Daten und redaktionelle Abläufe weiter verbessert werden.
 
-Wir betreiben **Aceserver**, einen öffentlichen Minecraft-Server, und verfügen über umfangreiche Erfahrung im Management von Hochlastumgebungen und der Implementierung von Sicherheitsmaßnahmen. Unsere nachgewiesene Erfolgsbilanz bei der Aufrechterhaltung einer stabilen Infrastruktur, die Hunderte gleichzeitiger Verbindungen bewältigen kann, fließt auch in unsere Unternehmensservices ein.
+## 3. Design und Kreativmaterialien
 
-Wir bieten 24/7-Überwachung, regelmäßige Sicherheitsupdates und Disaster-Recovery-Planung — alles, was Sie für einen sorgenfreien Betrieb benötigen.
+Gute Kommunikation entsteht nicht nur durch das Platzieren von Informationen. Acecore unterstützt auch bei Logos, Key Visuals, Bannern, Dokumenten, Eventankündigungen und weiteren Materialien.
 
-## 3. Webseitenentwicklung & Betrieb
+Wenn Design und Webproduktion zusammen gedacht werden, bleiben Website, Social Media, Flyer und Präsentationen konsistent und leichter verständlich.
 
-Ihre Webseite ist das Aushängeschild Ihres Unternehmens. Acecore erstellt die ideale Webseite für Ihre Bedürfnisse — Unternehmensseiten, Landingpages, E-Commerce-Shops, Portfolio-Seiten und mehr.
+## 4. IT-Schule / Acecore Schools
 
-Wir legen Wert nicht nur auf schönes Design, sondern auch auf **SEO** und **Performance**. Wir erstellen Seiten, die den aktuellen Webstandards entsprechen, einschließlich Core-Web-Vitals-Optimierung, Implementierung strukturierter Daten und Mobile-First-Responsive-Design.
+Acecore Schools bietet Lernangebote, in denen Kinder durch Robotikprogrammierung, Scratch und verwandte Aktivitäten denken, ausprobieren und eigene Ideen ausdrücken.
 
-Zudem bieten wir einen Komplettservice für den laufenden Betrieb und die Wartung nach dem Launch — von Content-Updates und Sicherheitspatches bis hin zu analysebasierten Verbesserungsvorschlägen — und steigern so kontinuierlich den Wert Ihrer Seite.
+In Kursen und Workshops steht Experimentieren im Mittelpunkt. Lernende kopieren nicht nur ein Ergebnis, sondern verstehen Abläufe und verbessern ihre eigenen Ideen.
 
-![Ganzheitliche Webseitenplanung und -betrieb](/uploads/acecore-generated/blog-service-introduction.webp)
+## Was Acecore wichtig ist
 
-## 4. Design & Kreativ
+Acecore betrachtet Produktion, Betrieb und Bildung als zusammenhängende Arbeit. Ziel ist es, Werkzeuge und Erlebnisse zu schaffen, die in der Praxis dauerhaft genutzt werden können.
 
-Wir unterstützen alle Bedürfnisse der visuellen Kommunikation — Logos, Visitenkarten, Broschüren, Banner, Charakterdesign und mehr.
-
-Wir hören aufmerksam zu, welche Botschaft Sie vermitteln möchten, und schlagen Designs vor, die bei Ihrer Zielgruppe ankommen. Um ein einheitliches Markenerlebnis zu schaffen, können wir Logos, Webseiten und Druckmaterialien gestalterisch aus einer Hand betreuen.
-
-Unser Kreativteam, das sowohl mit digitalen als auch analogen Medien vertraut ist, setzt Ihre Vision in die Realität um.
-
-## 5. IT-Schule / Acecore Schools
-
-Unter dem Motto „Lernen und sofort anwenden" unterrichten unsere aktiven Ingenieure praxisnahe IT-Skills, die direkt in der Arbeit anwendbar sind.
-
-Von der Einführung in die Programmierung über Serververwaltung bis hin zu praxisorientierten Webentwicklungskursen bieten wir Lehrpläne, die auf das jeweilige Niveau der Teilnehmer zugeschnitten sind. Mit Übungen basierend auf realen Projekten zielen wir darauf ab, „Fähigkeiten zu entwickeln, die in der Praxis funktionieren, nicht nur im Klassenzimmer."
-
-In hybriden Formaten — online und vor Ort — ist das Lernen von überall aus möglich. Wir heißen sowohl Einzellerner als auch Unternehmen für Schulungen willkommen.
-
-Weitere Details zu jedem Service finden Sie auf der [Service-Seite](/services/). Bei Fragen oder für eine Beratung kontaktieren Sie uns bitte über die [Kontaktseite](/contact/).
+- Betrieb über den Launch hinaus planen
+- Technik und Nutzererlebnis ausbalancieren
+- Klein starten und leicht verbessern
+- Unternehmen, Lernende und Communities praktisch unterstützen

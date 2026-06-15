@@ -1,13 +1,11 @@
 {
   "meta": {
-    "siteTitle": "Acecore | システム開発・Web制作・IT教育",
-    "defaultDescription": "Acecore（エースコア）は、システム開発・Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
+    "siteTitle": "Acecore | Web制作・サーバー運用・IT教育",
+    "defaultDescription": "Acecore（エースコア）は、Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。"
   },
   "nav": {
     "home": "ホーム",
     "services": "サービス",
-    "pricing": "料金",
-    "works": "実績",
     "about": "会社概要",
     "blog": "ブログ",
     "contact": "お問い合わせ"
@@ -73,13 +71,10 @@
     "sitemap": "サイトマップ",
     "relatedLinks": "関連リンク",
     "schools": "Acecore Schools",
-    "pricing": "料金の目安",
     "privacy": "プライバシーポリシー"
   },
   "pageNames": {
     "services": "サービス",
-    "pricing": "料金の目安",
-    "works": "実績・ポートフォリオ",
     "schools": "Acecore Schools",
     "about": "会社概要",
     "contact": "お問い合わせ",

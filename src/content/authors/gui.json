@@ -3,7 +3,7 @@
   "name": "Gui",
   "avatar": "",
   "avatarImage": "",
-  "bio": "Acecore 代表。業務システム、Web、DB/インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善までつなげて推進している。\nC#/.NET を軸にした実装力を土台に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども踏まえ、要件整理、技術選定、品質基準、GitHubベースの開発運用まで一体で設計する。\n生成AIは、開発・検証・情報整理などの業務プロセスに取り入れ、小規模チームでも速く確かな成果を出すための実務基盤として活用している。",
+  "bio": "Acecore 代表。Web、DB/インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善までつなげて推進している。\nC#/.NET を軸にした実装力を土台に、PHP/JavaScript、SQL Server/PostgreSQL/MySQL、Linux/Windows Server なども踏まえ、要件整理、技術選定、品質基準、GitHubベースの開発運用まで一体で設計する。\n生成AIは、開発・検証・情報整理などの業務プロセスに取り入れ、小規模チームでも速く確かな成果を出すための実務基盤として活用している。",
   "url": "https://acecore.net/about/",
   "github": "https://github.com/acecore-systems",
   "twitter": "https://x.com/acecorenet",
@@ -22,7 +22,7 @@
   "i18n": {
     "en": {
       "name": "Gui",
-      "bio": "CEO of Acecore. Leads business systems, web, databases and infrastructure, quality assurance, and AI adoption from business problem framing through design, rollout, and post-launch improvement.\nBuilds on hands-on C#/.NET capability while also covering PHP/JavaScript, SQL Server/PostgreSQL/MySQL, and Linux/Windows Server, designing requirements, technology choices, quality standards, and GitHub-based development operations as one coherent workflow.\nUses generative AI across development, verification, and information organization, treating it as practical infrastructure that helps small teams deliver faster and more reliably.",
+      "bio": "CEO of Acecore. Leads web, databases and infrastructure, quality assurance, and AI adoption from business problem framing through design, rollout, and post-launch improvement.\nBuilds on hands-on C#/.NET capability while also covering PHP/JavaScript, SQL Server/PostgreSQL/MySQL, and Linux/Windows Server, designing requirements, technology choices, quality standards, and GitHub-based development operations as one coherent workflow.\nUses generative AI across development, verification, and information organization, treating it as practical infrastructure that helps small teams deliver faster and more reliably.",
       "skills": [
         "Business problem framing",
         "Technology selection",

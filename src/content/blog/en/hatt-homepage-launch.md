@@ -44,7 +44,7 @@ linkCards:
     title: Hatt’s Homepage
     description: Hatt’s official site, now live.
     icon: i-lucide-external-link
-  - href: /en/works/#case-hatt-homepage
+  - href: https://systems.acecore.net/works/#case-hatt-homepage
     title: Hatt Homepage Case Study
     description: Also listed as a production case on Acecore’s works page.
     icon: i-lucide-briefcase-business
@@ -65,7 +65,7 @@ faq:
 
 We launched the personal site [Hatt’s Homepage](https://hatt.acecore.net/), which brings Hatt’s creative activity together in one place.
 
-The site serves as a homepage for artwork, novels, and VRChat avatar and gimmick creation. We also added it to Acecore’s [works page](/en/works/#case-hatt-homepage) as a website production and CMS implementation case study.
+The site serves as a homepage for artwork, novels, and VRChat avatar and gimmick creation. We also added it to Acecore’s [works page](https://systems.acecore.net/works/#case-hatt-homepage) as a website production and CMS implementation case study.
 
 ## Background
 
@@ -105,7 +105,7 @@ For personal sites and portfolio sites, it is often more effective to create cle
 
 ## Added as a Case Study
 
-We also added this project to Acecore’s [works and portfolio page](/en/works/) as “Hatt Homepage Production.”
+We also added this project to Acecore’s [works and portfolio page](https://systems.acecore.net/works/) as “Hatt Homepage Production.”
 
 This work was not just about publishing pages. It included organizing creative activity, CMS editing, search, OGP, sitemap support, and external-link design. Even for a small personal site, preparing a structure that can grow after launch increases the value of future works and posts.
 

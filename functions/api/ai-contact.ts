@@ -35,6 +35,7 @@ type AiContactPayload = {
 
 const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
 const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
+const SYSTEMS_ORIGIN = 'https://systems.acecore.net'
 const DEFAULT_MODEL = 'gpt-5.4-mini'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
@@ -275,22 +276,26 @@ function buildAcecoreContext(locale: SupportedLocale): string {
 
   return `
 Acecore public site context:
-- Acecore is a Japan-based technology collective that provides system development, website design, server operations, design, and IT education as a one-stop solution.
-- Services include business system and app development, server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
+- Acecore is a Japan-based technology collective that provides website design, server operations, design, and IT education as a one-stop solution.
+- Services include server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
+- Business systems, web apps, CMS features, AI chat, forms, search, and integrations are handled on the separate Acecore Systems site.
 - Acecore Schools handles IT learning consultations. Visitors should include what they want to learn, age or grade, and preferred learning pace.
 - Aceserver is Acecore's public Minecraft server community.
 - Estimates are free, and replies usually arrive within 1-2 business days.
 - LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
-- Useful site links for the visitor locale. Use these exact internal URLs:
+- Useful site links for the visitor locale. Use these exact URLs:
   - Services overview: ${servicesPath}
-  - Business system and app development: ${servicesPath}#system-development
+  - Acecore Systems: ${SYSTEMS_ORIGIN}/
+  - Acecore Systems pricing: ${SYSTEMS_ORIGIN}/pricing/
+  - Acecore Systems works: ${SYSTEMS_ORIGIN}/works/
+  - Acecore Systems guide: ${SYSTEMS_ORIGIN}/guide/
+  - Acecore Schools pricing: ${localizedSchoolsPath(locale)}#pricing
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design
   - Acecore Schools and IT education: ${localizedSchoolsPath(locale)}
   - Aceserver: ${servicesPath}#aceserver
   - AceStudio: ${localizedPath('/acestudio/', locale)}
-  - Works and case studies: ${localizedPath('/works/', locale)}
   - Blog: ${localizedPath('/blog/', locale)}
   - Contact form: ${localizedPath('/contact/', locale)}
   - Official LINE: https://lin.ee/DjIrdqj
@@ -385,7 +390,7 @@ export const onRequestPost = async ({
         `Answer in ${localeSettings.languageName}. The visitor locale code is ${locale}.`,
         'Answer ordinary questions about Acecore using the public site context below.',
         'Keep answers concise, practical, and helpful for choosing the next action.',
-        'Use the localized Acecore paths listed in the context exactly for internal links. Do not replace them with default-language URLs.',
+        'Use the localized Acecore paths and external Acecore service URLs listed in the context exactly. Do not replace localized paths with default-language URLs.',
         'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
         'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
         'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',

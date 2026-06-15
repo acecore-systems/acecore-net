@@ -44,11 +44,11 @@ linkCards:
     title: エースサーバーポータル
     description: 公開中のエースサーバー公式ポータルです。
     icon: i-lucide-external-link
-  - href: /works/#case-aceserver-portal
+  - href: https://systems.acecore.net/works/#case-aceserver-portal
     title: エースサーバーポータル制作実績
-    description: Acecoreの実績ページにも制作事例として掲載しています。
+    description: Acecore Systemsの実績ページにも制作事例として掲載しています。
     icon: i-lucide-briefcase-business
-  - href: /works/#case-aceserver
+  - href: https://systems.acecore.net/works/#case-aceserver
     title: Aceserverの公開サーバー運用
     description: サーバー運用・コミュニティ面の実績はこちらです。
     icon: i-lucide-server-cog
@@ -69,7 +69,7 @@ faq:
 
 誰でも参加可能なMinecraft無料公開サーバー「[エースサーバー](https://asv.acecore.net/)」の公式ポータルを公開しました。
 
-エースサーバーは、Java版・統合版のどちらでも遊べる公開サーバーです。今回のポータルでは、サーバーの概要、参加案内、動画、ワールドマップ、Wikiへの導線を一つの入口にまとめました。Acecoreの[実績・ポートフォリオ](/works/#case-aceserver-portal)にも、Web制作・コミュニティポータルの事例として掲載しています。
+エースサーバーは、Java版・統合版のどちらでも遊べる公開サーバーです。今回のポータルでは、サーバーの概要、参加案内、動画、ワールドマップ、Wikiへの導線を一つの入口にまとめました。Acecore Systemsの[実績・ポートフォリオ](https://systems.acecore.net/works/#case-aceserver-portal)にも、Web制作・コミュニティポータルの事例として掲載しています。
 
 ## 制作の背景
 
@@ -97,9 +97,9 @@ CMSを選ぶときの考え方は、[Sveltia CMS導入ガイド](/blog/cms-selec
 
 ## 実績としても掲載しました
 
-Acecoreの[実績・ポートフォリオ](/works/)には、「エースサーバーポータル制作」として事例を追加しました。
+Acecore Systemsの[実績・ポートフォリオ](https://systems.acecore.net/works/)には、「エースサーバーポータル制作」として事例を追加しました。
 
-既存の[Aceserverの公開サーバー運用](/works/#case-aceserver)は、公開サーバーそのものの安定運用やコミュニティ運営に関する事例です。今回のポータル制作は、参加者向けの情報整理と入口設計を扱う別の実績として掲載しています。
+既存の[Aceserverの公開サーバー運用](https://systems.acecore.net/works/#case-aceserver)は、公開サーバーそのものの安定運用やコミュニティ運営に関する事例です。今回のポータル制作は、参加者向けの情報整理と入口設計を扱う別の実績として掲載しています。
 
 ポータルサイト、コミュニティサイト、サービスサイトなど、情報が複数の場所に分かれているWebサイトでは、すべてを一箇所に集めるよりも「最初に見るべき入口」を整えることが重要です。
 

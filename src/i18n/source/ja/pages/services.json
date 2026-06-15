@@ -1,40 +1,24 @@
 {
   "title": "サービス",
-  "description": "Acecoreが提供するシステム開発、Webサイト制作、サーバー運用、デザイン、IT教育サービスの詳細をご紹介します。",
+  "description": "Acecoreが提供するWebサイト制作、サーバー運用、デザイン、IT教育サービスの詳細をご紹介します。",
   "heroTitle": "サービス",
   "heroSubtitle": "ワンストップで提供する多彩なITソリューション",
   "heroImgAlt": "テクノロジーオフィス",
   "serviceMapEyebrow": "Service Map",
   "serviceMapTitle": "Acecoreの支援範囲を図で把握する",
-  "serviceMapDesc": "開発・運用・発信・育成までを一続きの支援線として設計しています。",
-  "mapDevTitle": "開発",
-  "mapDevDesc": "業務システムやアプリを、運用フローに合わせて設計・実装します。",
+  "serviceMapDesc": "運用・発信・育成までを一続きの支援線として設計しています。",
   "mapInfraTitle": "運用基盤",
   "mapInfraDesc": "クラウドやサーバーを安定運用し、監視や保守まで含めて整えます。",
   "mapPublishTitle": "情報発信",
   "mapPublishDesc": "Webサイトやデザイン制作で、伝えるべき内容を整理して届けます。",
   "mapEducationTitle": "育成支援",
   "mapEducationDesc": "導入した技術を現場で回せるよう、教育と伴走支援まで接続します。",
-  "navDev": "開発",
   "navServer": "サーバー",
   "navWeb": "Web制作",
   "navDesign": "デザイン",
   "navEducation": "ITスクール",
   "navAceserver": "Aceserver",
   "navAcestudio": "AceStudio",
-  "navPricing": "料金",
-  "systemDev": {
-    "title": "業務システム・アプリ開発",
-    "desc": "業務効率化・自動化・データ管理など、お客様の課題に合わせたシステムやアプリケーションを開発します。小規模な社内ツールから大規模なWebサービスまで幅広く対応可能です。「何から始めればいいか分からない」という段階でも、お気軽にご相談ください。",
-    "examplesLabel": "対応例",
-    "imgAlt": "コードエディタでの開発作業のイメージ",
-    "examples": [
-      "業務管理システム・CRM・ERPの設計・構築",
-      "Webアプリケーション・SPA・モバイルアプリの開発",
-      "API設計・外部サービス連携・データ基盤構築",
-      "レガシーシステムのモダナイゼーション"
-    ]
-  },
   "server": {
     "title": "サーバー構築・運用",
     "desc": "セキュアで安定したサーバー環境の構築と運用を得意としています。AcecoreではAceserver（マインクラフト公開サーバー）を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。サーバーの移行やクラウド化のご相談もお待ちしています。",
@@ -116,142 +100,6 @@
     ]
   },
   "miniCta": "このサービスについて相談する",
-  "pricing": {
-    "title": "料金の目安",
-    "body": "検討段階で判断しやすいよう、主要サービスの概算レンジを掲載しています。すべて税込目安で、外部実費や正式な要件整理後の見積りにより変動します。",
-    "ctaHeading": "詳しい費用は無料でご相談ください",
-    "ctaBody": "目的や予算感を伺い、必要な範囲と優先順位を整理してお見積りします。",
-    "ctaPricing": "料金一覧を見る",
-    "ctaContact": "無料で相談する",
-    "items": [
-      {
-        "icon": "code-xml",
-        "label": "業務システム・アプリ開発",
-        "price": "30万円〜",
-        "note": "小規模自動化30万円〜、業務ツール50万円〜、中規模150万円〜、統合系250万円〜。",
-        "href": "/services/#system-development"
-      },
-      {
-        "icon": "message-square",
-        "label": "問い合わせAIチャット",
-        "price": "8万円〜",
-        "note": "静的サイトに問い合わせAIチャットを組み込み、サイト内文脈、レート制限、Originチェック、安全なリンク描画まで整えます。",
-        "href": "/blog/astro-ai-contact-chat/"
-      },
-      {
-        "icon": "message-square-text",
-        "label": "ブログコメント機能",
-        "price": "8万円〜",
-        "note": "Cloudflare Pages Functions、D1、Turnstileで、外部サービスに頼らないコメント投稿とスパム対策を追加します。",
-        "href": "/blog/cloudflare-only-blog-comments/"
-      },
-      {
-        "icon": "layout-template",
-        "label": "CMS編集画面導入",
-        "price": "5万円〜",
-        "note": "Sveltia CMSでブログ、固定ページ、告知、設定項目をブラウザから更新できる管理画面を追加します。",
-        "href": "/blog/cms-selection-and-turnstile/"
-      },
-      {
-        "icon": "newspaper",
-        "label": "ブログ・記事基盤",
-        "price": "5万円〜",
-        "note": "記事一覧、詳細ページ、タグ/カテゴリ、関連記事、RSS、検索導線など、継続発信に必要な基盤を整えます。",
-        "href": "/blog/astro-i18n-blog-translation/"
-      },
-      {
-        "icon": "languages",
-        "label": "多言語ブログ運用",
-        "price": "8万円〜",
-        "note": "日本語source、翻訳PR、hreflang、sitemap、RSSまで含めた多言語ブログ運用を整えます。",
-        "href": "/blog/copilot-translation-pipeline/"
-      },
-      {
-        "icon": "search",
-        "label": "SEO・構造化データ",
-        "price": "5万円〜",
-        "note": "OGP、JSON-LD、サイトマップ、RSS、canonicalなど、検索エンジンに伝える情報を整理します。",
-        "href": "/blog/astro-seo-and-structured-data/"
-      },
-      {
-        "icon": "scan",
-        "label": "Pagefindサイト内検索",
-        "price": "3万円〜",
-        "note": "静的サイトにPagefind検索を追加し、検索UI、URLパラメータ、キャッシュ設定まで整えます。",
-        "href": "/blog/astro-ux-and-code-quality/"
-      },
-      {
-        "icon": "zap",
-        "label": "表示速度改善",
-        "price": "5万円〜",
-        "note": "画像、CSS、フォント、遅延読み込み、計測結果を確認し、Core Web Vitalsの改善を進めます。",
-        "href": "/blog/astro-performance-tuning/"
-      },
-      {
-        "icon": "accessibility",
-        "label": "アクセシビリティ改善",
-        "price": "5万円〜",
-        "note": "コントラスト、aria属性、フォーカス、フォーム検証などを点検し、WCAG AAを目標に修正します。",
-        "href": "/blog/astro-accessibility-guide/"
-      },
-      {
-        "icon": "shield-check",
-        "label": "セキュリティヘッダー/CSP",
-        "price": "3万円〜",
-        "note": "Cloudflare Pagesの_headers、CSP、管理画面まわりの配信設定を整理し、安全な公開状態へ近づけます。",
-        "href": "/blog/cloudflare-pages-security/"
-      },
-      {
-        "icon": "mouse-pointer-click",
-        "label": "CTA・フォーム連携",
-        "price": "3万円〜",
-        "note": "サービスCTAから問い合わせフォームへ種別、件名、文脈を引き継ぎ、相談導線を改善します。",
-        "href": "/blog/service-cta-contact-prefill/"
-      },
-      {
-        "icon": "server",
-        "label": "サーバー構築・運用",
-        "price": "初期10万〜50万円",
-        "note": "監視・保守は月額1万〜10万円が目安。クラウド利用料は別途です。",
-        "href": "/services/#server"
-      },
-      {
-        "icon": "globe",
-        "label": "Webサイト制作・運用",
-        "price": "15万円〜",
-        "note": "LP/小規模は15万円〜、コーポレートサイトは50万〜150万円、保守は月額1万〜5万円。",
-        "href": "/services/#web"
-      },
-      {
-        "icon": "palette",
-        "label": "デザイン・クリエイティブ",
-        "price": "2万円〜",
-        "note": "ロゴ5万〜15万円、チラシ・バナー2万〜12万円、ブランド/Web連携10万円〜。",
-        "href": "/services/#design"
-      },
-      {
-        "icon": "graduation-cap",
-        "label": "Acecore Schools",
-        "price": "月謝8千〜3.3万円",
-        "note": "入会金、教材費、管理費の目安はSchoolsページにも掲載しています。",
-        "href": "https://schools.acecore.net/#pricing"
-      },
-      {
-        "icon": "gamepad-2",
-        "label": "Aceserver",
-        "price": "参加無料",
-        "note": "公開サーバー参加は無料。法人向け構築・運用相談は個別見積りです。",
-        "href": "/services/#aceserver"
-      },
-      {
-        "icon": "clapperboard",
-        "label": "AceStudio / 動画制作",
-        "price": "3万〜30万円/本",
-        "note": "ショート動画・編集の目安。企画・撮影込みは個別見積りです。",
-        "href": "/acestudio/"
-      }
-    ]
-  },
   "ctaHeading": "まずはお気軽にご相談ください",
   "ctaBody": "「何を頼めるか分からない」という段階でも大丈夫です。お見積りは無料です。",
   "ctaContact": "無料で相談する",

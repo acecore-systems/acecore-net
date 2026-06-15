@@ -2,11 +2,9 @@
   "nav": {
     "home": "Inicio",
     "services": "Servicios",
-    "works": "Proyectos",
     "about": "Acerca de",
     "blog": "Blog",
-    "contact": "Contacto",
-    "pricing": "Precios"
+    "contact": "Contacto"
   },
   "announcement": {
     "enabled": true,
@@ -80,8 +78,7 @@
     "sitemap": "Mapa del sitio",
     "relatedLinks": "Enlaces relacionados",
     "schools": "Acecore Schools",
-    "privacy": "Política de privacidad",
-    "pricing": "Guía de precios"
+    "privacy": "Política de privacidad"
   },
   "blog": {
     "title": "Blog",
@@ -168,13 +165,7 @@
     "commentsValidationName": "Introduce tu nombre.",
     "commentsValidationBody": "Introduce al menos 8 caracteres sin enlaces.",
     "commentsValidationTurnstile": "Completa la verificación antes de enviar.",
-    "commentsSending": "Enviando...",
-    "featurePricingEyebrow": "Ruta a servicio y precios",
-    "featurePricingTitle": "Consulta y precio orientativo de {title}",
-    "featurePricingPriceLabel": "Precio orientativo",
-    "featurePricingServices": "Página de servicio",
-    "featurePricingPricing": "Guía de precios",
-    "featurePricingContact": "Consultar"
+    "commentsSending": "Enviando..."
   },
   "meta": {
     "siteTitle": "Acecore | Desarrollo de sistemas, diseño web y educación IT",
@@ -191,13 +182,6 @@
       "servicesHeading": "Nuestros servicios",
       "servicesLead": "¿No sabe por dónde empezar? Atendemos con flexibilidad tanto a particulares como a empresas.",
       "serviceCards": [
-        {
-          "title": "Desarrollo de sistemas y aplicaciones",
-          "description": "Resolvemos desafíos como la optimización de operaciones y la mejora de la gestión de datos con sistemas óptimos.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Configuración y operación de servidores",
           "description": "Entornos de servidor fiables y rápidos con experiencia probada en cientos de conexiones simultáneas.",
@@ -239,13 +223,6 @@
       "layersTitle": "Cuatro capas que soporta Acecore",
       "layersDescription": "Tratamos la tecnología, las operaciones, la expresión y la educación como una línea de soporte unificada.",
       "layerItems": [
-        {
-          "title": "Diseño de sistemas",
-          "description": "Convertimos los desafíos de negocio en requisitos, construyendo sistemas con implementación y operación en mente.",
-          "href": "/services/#system-development",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
         {
           "title": "Operaciones de infraestructura",
           "description": "Construimos entornos resilientes y ciclos de mejora basados en experiencia en operación de servidores.",
@@ -303,7 +280,6 @@
       "formCategoryLabel": "Tipo de consulta",
       "formCategoryPlaceholder": "Seleccione",
       "formCategoryService": "Sobre servicios en general",
-      "formCategoryServiceSystemDev": "Sobre desarrollo de sistemas empresariales y apps",
       "formCategoryServiceServer": "Sobre configuración y operación de servidores",
       "formCategoryServiceWeb": "Sobre creación y gestión de sitios web",
       "formCategoryServiceDesign": "Sobre diseño y creatividad",
@@ -350,7 +326,7 @@
       "faqs": [
         {
           "question": "No sé por qué servicio consultar.",
-          "answer": "Puede consultar en conjunto sobre desarrollo de sistemas, web, servidores, diseño y educación IT. Si duda, elija Otro y describa la situación."
+          "answer": "Puede consultar en conjunto sobre web, servidores, diseño y educación IT. Si duda, elija Otro y describa la situación."
         },
         {
           "question": "¿Puedo pedir solo un presupuesto?",
@@ -458,40 +434,25 @@
     },
     "services": {
       "title": "Servicios",
-      "description": "Explore los servicios integrales de Acecore: desarrollo de sistemas, diseño web, operaciones de servidores, diseño y educación IT.",
+      "description": "Explore los servicios integrales de Acecore: diseño web, operaciones de servidores, diseño y educación IT.",
       "heroTitle": "Servicios",
       "heroSubtitle": "Soluciones IT diversas en un servicio integral",
       "heroImgAlt": "Oficina tecnológica",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualice el alcance de soporte de Acecore",
       "serviceMapDesc": "Desarrollo, operaciones, comunicación y educación diseñados como una línea de soporte continua.",
-      "mapDevTitle": "Desarrollo",
-      "mapDevDesc": "Diseñamos e implementamos sistemas y apps adaptados a su flujo operativo.",
       "mapInfraTitle": "Infraestructura",
       "mapInfraDesc": "Operaciones estables de nube y servidores, incluyendo monitoreo y mantenimiento.",
       "mapPublishTitle": "Comunicación",
       "mapPublishDesc": "Organizamos y transmitimos su mensaje mediante producción web y diseño.",
       "mapEducationTitle": "Apoyo educativo",
       "mapEducationDesc": "Conectamos educación y mentoría para que su equipo opere la tecnología de forma autónoma.",
-      "navDev": "Desarrollo",
       "navServer": "Servidor",
       "navWeb": "Diseño web",
       "navDesign": "Diseño",
       "navEducation": "Escuela IT",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
-      "systemDev": {
-        "title": "Desarrollo de sistemas y aplicaciones",
-        "desc": "Desarrollamos sistemas y aplicaciones adaptados a sus retos: eficiencia operativa, automatización y gestión de datos. Desde herramientas internas hasta servicios web a gran escala. Consúltenos aunque no sepa por dónde empezar.",
-        "examplesLabel": "Ejemplos",
-        "imgAlt": "Editor de código mostrando trabajo de desarrollo",
-        "examples": [
-          "Diseño y desarrollo de sistemas de gestión, CRM y ERP",
-          "Desarrollo de aplicaciones web, SPA y apps móviles",
-          "Diseño de API, integración con terceros e infraestructura de datos",
-          "Modernización de sistemas heredados"
-        ]
-      },
       "server": {
         "title": "Configuración y operación de servidores",
         "desc": "Especializados en construir y operar entornos de servidor seguros y estables. Acecore tiene amplia experiencia operando Aceserver (servidor público de Minecraft) y lleva esa expertise a clientes empresariales.",
@@ -577,143 +538,6 @@
       "ctaBody": "Está bien aunque no sepa qué solicitar. Los presupuestos son gratuitos.",
       "ctaContact": "Consulta gratuita",
       "ctaSchools": "Ver detalles de la Escuela IT",
-      "navPricing": "Precios",
-      "pricing": {
-        "title": "Guía de precios",
-        "body": "Estos rangos orientativos ayudan a evaluar el encaje desde el inicio. Todos los importes son estimaciones con impuestos incluidos; el presupuesto final puede variar tras definir el alcance y los costes externos se cobran aparte.",
-        "ctaHeading": "Consulte gratis el coste detallado.",
-        "ctaBody": "Revisamos objetivo y presupuesto, ordenamos alcance y prioridades, y preparamos una estimación.",
-        "ctaPricing": "Ver guía de precios",
-        "ctaContact": "Consulta gratuita",
-        "items": [
-          {
-            "icon": "code-xml",
-            "label": "Sistemas de negocio y desarrollo de apps",
-            "price": "desde ¥300.000",
-            "note": "Automatizaciones pequeñas desde ¥300.000, herramientas internas desde ¥500.000, sistemas medianos desde ¥1.500.000 e integraciones desde ¥2.500.000.",
-            "href": "/services/#system-development"
-          },
-          {
-            "icon": "message-square",
-            "label": "Chat de contacto con IA",
-            "price": "desde ¥80.000",
-            "note": "Integrar un chat de contacto con IA en un sitio estático, con contexto del sitio, límites de uso, comprobación de Origin y enlaces seguros.",
-            "href": "/blog/astro-ai-contact-chat/"
-          },
-          {
-            "icon": "message-square-text",
-            "label": "Función de comentarios del blog",
-            "price": "Desde ¥80,000",
-            "note": "Añadir comentarios y protección contra spam con Cloudflare Pages Functions, D1 y Turnstile sin depender de servicios externos.",
-            "href": "/blog/cloudflare-only-blog-comments/"
-          },
-          {
-            "icon": "layout-template",
-            "label": "Pantalla de edición CMS",
-            "price": "desde ¥50.000",
-            "note": "Añadir una pantalla de Sveltia CMS para actualizar blog, páginas fijas, avisos y ajustes desde el navegador.",
-            "href": "/blog/cms-selection-and-turnstile/"
-          },
-          {
-            "icon": "newspaper",
-            "label": "Base de blog y artículos",
-            "price": "desde ¥50.000",
-            "note": "Preparar listados, páginas de detalle, etiquetas o categorías, artículos relacionados, RSS y rutas de búsqueda para publicar de forma continua.",
-            "href": "/blog/astro-i18n-blog-translation/"
-          },
-          {
-            "icon": "languages",
-            "label": "Operación de blog multilingüe",
-            "price": "desde ¥80.000",
-            "note": "Configurar idioma fuente, PRs de traducción, hreflang, sitemap y RSS para operar un blog multilingüe.",
-            "href": "/blog/copilot-translation-pipeline/"
-          },
-          {
-            "icon": "search",
-            "label": "SEO y datos estructurados",
-            "price": "desde ¥50.000",
-            "note": "Organizar OGP, JSON-LD, sitemaps, RSS, canonical y metadatos que necesitan los buscadores.",
-            "href": "/blog/astro-seo-and-structured-data/"
-          },
-          {
-            "icon": "scan",
-            "label": "Búsqueda Pagefind",
-            "price": "desde ¥30.000",
-            "note": "Añadir búsqueda Pagefind a un sitio estático, con interfaz, parámetros de URL y configuración de caché.",
-            "href": "/blog/astro-ux-and-code-quality/"
-          },
-          {
-            "icon": "zap",
-            "label": "Mejora de rendimiento",
-            "price": "desde ¥50.000",
-            "note": "Revisar imágenes, CSS, fuentes, carga diferida y resultados de medición para mejorar Core Web Vitals.",
-            "href": "/blog/astro-performance-tuning/"
-          },
-          {
-            "icon": "accessibility",
-            "label": "Mejora de accesibilidad",
-            "price": "desde ¥50.000",
-            "note": "Revisar contraste, atributos ARIA, foco y validación de formularios, con WCAG AA como objetivo.",
-            "href": "/blog/astro-accessibility-guide/"
-          },
-          {
-            "icon": "shield-check",
-            "label": "Cabeceras de seguridad / CSP",
-            "price": "desde ¥30.000",
-            "note": "Ordenar _headers de Cloudflare Pages, CSP y entrega de la pantalla de administración para publicar con más seguridad.",
-            "href": "/blog/cloudflare-pages-security/"
-          },
-          {
-            "icon": "mouse-pointer-click",
-            "label": "CTA y formulario",
-            "price": "desde ¥30.000",
-            "note": "Pasar tipo de servicio, asunto y contexto de página desde los CTAs al formulario para mejorar la ruta de consulta.",
-            "href": "/blog/service-cta-contact-prefill/"
-          },
-          {
-            "icon": "server",
-            "label": "Construcción y operación de servidores",
-            "price": "inicial ¥100.000-¥500.000",
-            "note": "La supervisión y el mantenimiento suelen estar entre ¥10.000 y ¥100.000 al mes. Los costes de nube son aparte.",
-            "href": "/services/#server"
-          },
-          {
-            "icon": "globe",
-            "label": "Producción y operación web",
-            "price": "desde ¥150.000",
-            "note": "Landing pages y sitios pequeños desde ¥150.000, sitios corporativos ¥500.000-¥1.500.000, mantenimiento ¥10.000-¥50.000 al mes.",
-            "href": "/services/#web"
-          },
-          {
-            "icon": "palette",
-            "label": "Diseño y creatividad",
-            "price": "desde ¥20.000",
-            "note": "Logos ¥50.000-¥150.000, flyers/banners ¥20.000-¥120.000, branding con integración web desde ¥100.000.",
-            "href": "/services/#design"
-          },
-          {
-            "icon": "graduation-cap",
-            "label": "Acecore Schools",
-            "price": "¥8.000-¥33.000/mes",
-            "note": "Los rangos de matrícula, materiales y gestión también se indican en la página de Schools.",
-            "href": "https://schools.acecore.net/es/#pricing"
-          },
-          {
-            "icon": "gamepad-2",
-            "label": "Aceserver",
-            "price": "participación gratuita",
-            "note": "Participar en el servidor público es gratuito. La consultoría de construcción y operación para empresas se presupuesta de forma individual.",
-            "href": "/services/#aceserver"
-          },
-          {
-            "icon": "clapperboard",
-            "label": "AceStudio / producción de vídeo",
-            "price": "¥30.000-¥300.000 por pieza",
-            "note": "Rango para vídeos cortos y edición. La planificación y grabación se presupuestan individualmente.",
-            "href": "/acestudio/"
-          }
-        ]
-      },
       "timeline": [
         {
           "date": "Step 1",
@@ -831,192 +655,10 @@
           "answer": "El registro previo no está disponible actualmente, pero seguirnos en X le mantendrá informado."
         }
       ]
-    },
-    "pricing": {
-      "title": "Guía de precios",
-      "description": "Página con rangos orientativos para desarrollo de sistemas, producción web, operación de servidores, diseño, Acecore Schools y otros servicios de Acecore.",
-      "heroTitle": "Guía de precios",
-      "heroSubtitle": "Revise los rangos de coste de todos los servicios antes de planificar en detalle",
-      "heroImgAlt": "Persona revisando documentos de presupuesto",
-      "eyebrow": "Guía de precios",
-      "introTitle": "Primero revise el rango aproximado",
-      "introBody": "Los importes publicados son estimaciones con impuestos incluidos. El presupuesto final varía según requisitos, escala, preparación de materiales y uso de servicios externos.",
-      "serviceTitle": "Costes estimados por servicio",
-      "serviceBody": "Podemos ayudar desde una primera prueba pequeña hasta producción, desarrollo y operación combinados.",
-      "detailLink": "Ver detalles",
-      "schoolsFeeTitle": "Desglose de costes de Schools",
-      "schoolsFeeBody": "Además de la mensualidad, mostramos rangos de matrícula, materiales y gestión para facilitar la evaluación.",
-      "feeItem": "Concepto",
-      "feeAmount": "Estimación",
-      "feeNote": "Nota",
-      "factorTitle": "Factores principales que cambian el coste",
-      "noteTitle": "Sobre los precios mostrados",
-      "ctaHeading": "Si el rango encaja, empiece con una consulta gratuita.",
-      "ctaBody": "Basta con compartir objetivo, fecha deseada y presupuesto aproximado. Ordenamos el alcance necesario y proponemos una forma realista de avanzar.",
-      "ctaContact": "Consulta gratuita",
-      "ctaServices": "Ver servicios",
-      "ctaSchools": "Ver Schools",
-      "items": [
-        {
-          "icon": "code-xml",
-          "title": "Sistemas de negocio y desarrollo de apps",
-          "price": "desde ¥300.000",
-          "body": "Automatizaciones pequeñas desde ¥300.000, herramientas internas desde ¥500.000, sistemas medianos desde ¥1.500.000 e integraciones desde ¥2.500.000.",
-          "href": "/services/#system-development"
-        },
-        {
-          "icon": "message-square",
-          "title": "Chat de contacto con IA",
-          "price": "desde ¥80.000",
-          "body": "Integrar un chat de contacto con IA en un sitio estático, con contexto del sitio, límites de uso, comprobación de Origin y enlaces seguros.",
-          "href": "/blog/astro-ai-contact-chat/"
-        },
-        {
-          "icon": "message-square-text",
-          "title": "Función de comentarios del blog",
-          "price": "Desde ¥80,000",
-          "body": "Crear publicación de comentarios, almacenamiento en D1, protección bot con Turnstile, control de origin y operación de moderación sin servicios externos.",
-          "href": "/blog/cloudflare-only-blog-comments/"
-        },
-        {
-          "icon": "layout-template",
-          "title": "Pantalla de edición CMS",
-          "price": "desde ¥50.000",
-          "body": "Añadir una pantalla de Sveltia CMS para actualizar blog, páginas fijas, avisos y ajustes desde el navegador.",
-          "href": "/blog/cms-selection-and-turnstile/"
-        },
-        {
-          "icon": "newspaper",
-          "title": "Base de blog y artículos",
-          "price": "desde ¥50.000",
-          "body": "Preparar listados, páginas de detalle, etiquetas o categorías, artículos relacionados, RSS y rutas de búsqueda para publicar de forma continua.",
-          "href": "/blog/astro-i18n-blog-translation/"
-        },
-        {
-          "icon": "languages",
-          "title": "Operación de blog multilingüe",
-          "price": "desde ¥80.000",
-          "body": "Configurar idioma fuente, PRs de traducción, hreflang, sitemap y RSS para operar un blog multilingüe.",
-          "href": "/blog/copilot-translation-pipeline/"
-        },
-        {
-          "icon": "search",
-          "title": "SEO y datos estructurados",
-          "price": "desde ¥50.000",
-          "body": "Organizar OGP, JSON-LD, sitemaps, RSS, canonical y metadatos que necesitan los buscadores.",
-          "href": "/blog/astro-seo-and-structured-data/"
-        },
-        {
-          "icon": "scan",
-          "title": "Búsqueda Pagefind",
-          "price": "desde ¥30.000",
-          "body": "Añadir búsqueda Pagefind a un sitio estático, con interfaz, parámetros de URL y configuración de caché.",
-          "href": "/blog/astro-ux-and-code-quality/"
-        },
-        {
-          "icon": "zap",
-          "title": "Mejora de rendimiento",
-          "price": "desde ¥50.000",
-          "body": "Revisar imágenes, CSS, fuentes, carga diferida y resultados de medición para mejorar Core Web Vitals.",
-          "href": "/blog/astro-performance-tuning/"
-        },
-        {
-          "icon": "accessibility",
-          "title": "Mejora de accesibilidad",
-          "price": "desde ¥50.000",
-          "body": "Revisar contraste, atributos ARIA, foco y validación de formularios, con WCAG AA como objetivo.",
-          "href": "/blog/astro-accessibility-guide/"
-        },
-        {
-          "icon": "shield-check",
-          "title": "Cabeceras de seguridad / CSP",
-          "price": "desde ¥30.000",
-          "body": "Ordenar _headers de Cloudflare Pages, CSP y entrega de la pantalla de administración para publicar con más seguridad.",
-          "href": "/blog/cloudflare-pages-security/"
-        },
-        {
-          "icon": "mouse-pointer-click",
-          "title": "CTA y formulario",
-          "price": "desde ¥30.000",
-          "body": "Pasar tipo de servicio, asunto y contexto de página desde los CTAs al formulario para mejorar la ruta de consulta.",
-          "href": "/blog/service-cta-contact-prefill/"
-        },
-        {
-          "icon": "server",
-          "title": "Construcción y operación de servidores",
-          "price": "inicial ¥100.000-¥500.000",
-          "body": "Apoyamos construcción en nube o VPS, supervisión y diseño de copias de seguridad. La supervisión y el mantenimiento suelen estar entre ¥10.000 y ¥100.000 al mes.",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "Producción y operación web",
-          "price": "desde ¥150.000",
-          "body": "Landing pages y sitios pequeños desde ¥150.000, sitios corporativos ¥500.000-¥1.500.000, mantenimiento ¥10.000-¥50.000 al mes.",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "Diseño y creatividad",
-          "price": "desde ¥20.000",
-          "body": "Logos ¥50.000-¥150.000, flyers/banners ¥20.000-¥120.000, branding e integración web desde ¥100.000.",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "¥8.000-¥33.000/mes",
-          "body": "Publicamos rangos de matrícula, mensualidad, materiales y gestión. Varían por curso, frecuencia, materiales y contenido.",
-          "href": "https://schools.acecore.net/es/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / producción de vídeo",
-          "price": "¥30.000-¥300.000 por pieza",
-          "body": "Los vídeos cortos y la edición suelen estar entre ¥30.000 y ¥300.000 por pieza. La planificación y grabación se presupuestan individualmente.",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "participación gratuita",
-          "body": "Participar en el servidor público es gratuito. La construcción y operación de servidores de juego para empresas se presupuestan individualmente.",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "Matrícula",
-          "amount": "¥11.000-¥22.000",
-          "note": "Solo al inicio. Varía según curso y programa."
-        },
-        {
-          "item": "Mensualidad",
-          "amount": "¥8.000-¥33.000",
-          "note": "Depende de frecuencia, duración de clase y contenido individual."
-        },
-        {
-          "item": "Materiales y gestión",
-          "amount": "aprox. ¥5.000-¥30.000",
-          "note": "Materiales, piezas de robótica, PC o licencias pueden generar costes reales según el contenido."
-        }
-      ],
-      "factors": [
-        "Claridad de requisitos, número de pantallas, funciones e integraciones externas",
-        "Nivel de diseño y preparación de textos, fotos y vídeos",
-        "Alcance de mantenimiento, supervisión, actualización y mejora tras el lanzamiento",
-        "Costes externos como materiales, equipos, impresión, publicidad y uso de nube"
-      ],
-      "notes": [
-        "Todos los importes son estimaciones con impuestos incluidos. El importe formal se presupuesta individualmente tras la consulta.",
-        "Dominio, servidor, publicidad, impresión, materiales, equipos, transporte y otros costes externos son aparte.",
-        "Si ya hay un presupuesto, ordenamos prioridades dentro de ese rango."
-      ]
     }
   },
   "pageNames": {
     "services": "Servicios",
-    "works": "Proyectos y portafolio",
     "schools": "Acecore Schools",
     "about": "Acerca de",
     "contact": "Contacto",
@@ -1026,8 +668,7 @@
     "tags": "Etiquetas",
     "authors": "Autores",
     "archive": "Archivo",
-    "page": "Página",
-    "pricing": "Guía de precios"
+    "page": "Página"
   },
   "tags": {
     "技術": "Tecnología",
@@ -1048,7 +689,6 @@
     "イベント": "Eventos",
     "お知らせ": "Avisos",
     "サービス": "Servicios",
-    "システム開発": "Desarrollo de sistemas",
     "オープンソース": "Código abierto",
     "Starlight": "Starlight",
     "GitHub Copilot": "GitHub Copilot",

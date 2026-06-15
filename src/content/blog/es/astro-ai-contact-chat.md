@@ -182,7 +182,7 @@ function buildPublicSiteContext(locale: Locale) {
         url: localizePath('/services/web-production/', locale),
       },
       {
-        name: 'Business systems',
+        name: 'Server operations',
         summary: 'Reservation, inventory, and customer management systems',
         url: localizePath('/services/business-system/', locale),
       },
@@ -231,7 +231,7 @@ El chat no reemplaza al formulario. Cada ruta tiene un papel.
 | Formulario       | Presupuestos, producción, alianzas y reclutamiento          |
 | Contacto directo | Complementos tras el formulario o confirmación urgente      |
 
-La IA conecta contenidos generales como [la introducción de servicios](/blog/service-introduction/) con rutas concretas de la [página de contacto](/contact/). Es un patrón útil para B2B, agencias, escuelas y soporte SaaS.
+La IA conecta contenidos generales como [la introducción de servicios](/services/) con rutas concretas de la [página de contacto](/contact/). Es un patrón útil para B2B, agencias, escuelas y soporte SaaS.
 
 ## No romper URLs por locale
 

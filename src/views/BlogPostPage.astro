@@ -29,7 +29,6 @@ import BlogComments from '../components/BlogComments.astro'
 import {
   t,
   getLocalizedUrl,
-  getTranslationValue,
   formatDate,
   getDateParts,
   defaultLocale,
@@ -54,14 +53,6 @@ interface Props {
   allPosts: CollectionEntry<'blog'>[]
 }
 
-interface FeaturePricingItem {
-  icon: string
-  title: string
-  price: string
-  body: string
-  href: string
-}
-
 const { locale, post: basePost, allPosts } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const isDefaultLocale = locale === defaultLocale
@@ -73,22 +64,6 @@ const authors = await getAllAuthors()
 const tagsData = await getAllTags()
 const post = localizePost(basePost, allRawPosts, locale)
 const baseSlug = basePost.id
-const normalizeInternalPath = (href: string) => {
-  const withoutOrigin = href.trim().replace(/^https?:\/\/[^/]+/i, '')
-  const withoutLocale = withoutOrigin.replace(
-    /^\/(?:en|zh-cn|es|pt|fr|ko|de|ru)(?=\/)/,
-    '',
-  )
-  return withoutLocale.endsWith('/') ? withoutLocale : `${withoutLocale}/`
-}
-const featurePricingItems =
-  getTranslationValue<FeaturePricingItem[]>(locale, 'pages.pricing.items') ?? []
-const featurePricingItem = featurePricingItems.find(
-  (item) => normalizeInternalPath(item.href) === `/blog/${baseSlug}/`,
-)
-const featurePricingUrl = u('/pricing/')
-const featureServiceUrl = u('/services/#web')
-const featureContactUrl = `${u('/contact/')}?category=service&service=web#contact-form`
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
@@ -214,7 +189,7 @@ const ctaHeading = isDefaultLocale
           secondary: { label: '無料で相談する', href: '/contact/' },
         },
         {
-          match: ['システム開発', 'Web制作', 'Astro'],
+          match: ['Web制作', 'Astro'],
           heading: '開発・Web制作のご相談はお気軽に',
           body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。',
           primary: { label: 'サービス一覧', href: '/services/' },
@@ -417,61 +392,6 @@ const ctaHeading = isDefaultLocale
         }
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
         {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
-        {
-          featurePricingItem && (
-            <aside class="not-prose my-8 rounded-lg border border-brand-100 bg-brand-50/60 p-5">
-              <div class="flex items-start gap-4">
-                <span class="ac-icon-box shrink-0">
-                  <Icon name={featurePricingItem.icon} class="text-lg" />
-                </span>
-                <div class="min-w-0">
-                  <p class="text-xs font-800 uppercase tracking-wider text-brand-600">
-                    {t(locale, 'blog.featurePricingEyebrow')}
-                  </p>
-                  <h2 class="mt-1 text-xl ac-heading">
-                    {t(locale, 'blog.featurePricingTitle', {
-                      title: featurePricingItem.title,
-                    })}
-                  </h2>
-                  <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                    {featurePricingItem.body}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
-                <div class="rounded-lg bg-white px-4 py-3 text-sm">
-                  <span class="mr-2 text-slate-500">
-                    {t(locale, 'blog.featurePricingPriceLabel')}
-                  </span>
-                  <strong class="text-base text-slate-900">
-                    {featurePricingItem.price}
-                  </strong>
-                </div>
-                <a
-                  href={featureServiceUrl}
-                  class="ac-btn-outline gap-2 text-sm"
-                >
-                  <Icon name="globe" class="text-sm" />
-                  {t(locale, 'blog.featurePricingServices')}
-                </a>
-                <a
-                  href={featurePricingUrl}
-                  class="ac-btn-outline gap-2 text-sm"
-                >
-                  <Icon name="receipt" class="text-sm" />
-                  {t(locale, 'blog.featurePricingPricing')}
-                </a>
-                <a
-                  href={featureContactUrl}
-                  class="ac-btn-primary gap-2 text-sm"
-                >
-                  <Icon name="message-circle" class="text-sm" />
-                  {t(locale, 'blog.featurePricingContact')}
-                </a>
-              </div>
-            </aside>
-          )
-        }
         {post.data.faq && <Faq {...post.data.faq} />}
         <AdUnit containerClass="my-6" />
 

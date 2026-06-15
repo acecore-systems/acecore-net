@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro'
-import type { ServiceWorkLink } from '../data/works'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
@@ -8,10 +7,9 @@ interface Props {
   gaLabel: string
   gaLocation: string
   serviceKey: string
-  workLink?: ServiceWorkLink
 }
 
-const { locale, gaLabel, gaLocation, serviceKey, workLink } = Astro.props
+const { locale, gaLabel, gaLocation, serviceKey } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const contactUrl = `${u('/contact/')}?category=service&service=${encodeURIComponent(serviceKey)}#contact-form`
 ---
@@ -28,15 +26,4 @@ const contactUrl = `${u('/contact/')}?category=service&service=${encodeURICompon
     <Icon name="message-circle" class="text-sm" />
     {t(locale, 'pages.services.miniCta')}
   </a>
-  {
-    workLink && (
-      <a
-        href={u(workLink.href)}
-        class="inline-flex min-h-11 items-center gap-2 text-sm font-600 text-brand-600 underline-offset-2 hover:text-brand-700 hover:underline"
-      >
-        <Icon name="briefcase-business" class="text-sm" />
-        {workLink.label}: {workLink.title}
-      </a>
-    )
-  }
 </div>

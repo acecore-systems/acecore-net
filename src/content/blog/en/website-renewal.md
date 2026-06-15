@@ -51,7 +51,7 @@ We are pleased to announce the complete renewal of Acecore's official website.
 
 ## Background
 
-Since its founding, Acecore has provided a wide range of services including system development, website production, and server operations. As the business has grown, we felt the need for a website that more clearly communicates our service offerings, leading to this renewal.
+Since its founding, Acecore has provided a wide range of services including website production and server operations. As the business has grown, we felt the need for a website that more clearly communicates our service offerings, leading to this renewal.
 
 The previous site presented content in a feed format, but the new site features dedicated pages for each service and a new blog section, making it easier for clients to quickly find the information they need.
 

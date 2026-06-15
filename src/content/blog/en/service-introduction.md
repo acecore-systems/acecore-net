@@ -1,77 +1,69 @@
 ---
-title: "Acecore's Service Overview: One-Stop IT Solutions"
-description: "From system development to design and IT education — a detailed introduction to Acecore's five core services."
+title: 'Acecore Services: IT Support Across Web, Servers, Design, and Education'
+description: 'An overview of Acecore services across server operations, web production, design, and IT education.'
 date: 2026-03-10T00:00
 author: gui
-tags: ['サービス', 'システム開発', 'Web制作']
-image: /uploads/acecore-generated/blog-service-introduction.webp
+tags: ['サービス', 'Web制作', '教育']
 callout:
   type: info
-  title: Acecore's Service Portfolio
-  text: From web development and server operations to educational support — all provided as a one-stop solution.
+  title: Acecore service areas
+  text: Acecore combines server operations, web production, design, and IT education to support ongoing improvement.
 checklist:
-  title: Service List
+  title: Service areas
   items:
-    - text: Website development & operations support
-    - text: Robotics & programming classes
-    - text: Minecraft server operations
-    - text: IT study groups & tech events
-    - text: Community management support
+    - text: Server setup and operations
+    - text: Website production and maintenance
+    - text: Design and creative assets
+    - text: Robotics and programming classes
+    - text: IT workshops and community events
 faq:
   title: FAQ
   items:
-    - question: What services does Acecore offer?
-      answer: We provide five core services — enterprise system & app development, server infrastructure & operations, website development, design & creative production, and IT education (Acecore Schools).
-    - question: Can I request help with small-scale projects?
-      answer: Yes, we welcome projects of any size. Even if you're not sure what to ask for, feel free to reach out. Estimates are free.
-    - question: How long does it take to receive a quote?
-      answer: After reviewing your inquiry, we typically send a quote within 1–2 business days.
+    - question: Where should a consultation start?
+      answer: We first clarify the current goal and constraints, then decide whether to start from servers, web, design, or education.
+    - question: Can Acecore help with small requests?
+      answer: Yes. We can start with focused work such as website improvements, server reviews, learning events, or CMS updates.
 ---
 
-Acecore offers a comprehensive range of services to meet all your IT needs as a one-stop solution. Here's an introduction to our five core service areas.
+Acecore supports practical IT use for businesses and local communities through server operations, website production, design, and IT education. We focus not only on launch work, but also on maintainable operations and continuous improvement after release.
 
-## 1. Enterprise System & App Development
+## 1. Server Setup and Operations
 
-Improving business efficiency starts with the right systems. At Acecore, we carefully listen to your workflows and design and develop the optimal system for your needs.
+Stable websites and services need a hosting setup that fits their purpose. Acecore helps configure domains, DNS, Cloudflare, VPS environments, static hosting, backup policies, and related operations.
 
-We handle inventory management, CRM, order management, and more across all industries. From small internal tools to large-scale systems used across multiple locations, we deliver solutions that scale flexibly.
+Typical support includes:
 
-Leveraging the latest cloud-native technologies, we build systems with excellent maintainability and scalability. We also provide comprehensive post-deployment operational support.
+- Domain, DNS, and SSL/TLS setup
+- Cloudflare Pages and static hosting configuration
+- VPS and application runtime preparation
+- Backup, monitoring, and security reviews
+- Existing environment audits and migration planning
 
-![System design and development](/uploads/acecore-generated/blog-service-introduction.webp)
+## 2. Website Production and Maintenance
 
-## 2. Server Infrastructure & Operations
+Acecore builds corporate sites, service sites, event pages, recruitment pages, and other web experiences that match each goal. We use Astro and static-site architecture where appropriate, with attention to speed, maintainability, SEO, and accessibility.
 
-A stable IT foundation is the backbone of any business. Acecore builds the ideal server environment for your requirements, whether cloud-based (AWS, Azure, GCP, Cloudflare) or on-premises.
+After launch, we can continue improving CMS settings, contact flows, search paths, article updates, structured data, and content operations.
 
-We operate **Aceserver**, a public Minecraft server, with extensive experience in managing high-load environments and implementing security measures. Our proven track record of maintaining stable infrastructure capable of handling hundreds of simultaneous connections is applied to our enterprise services as well.
+## 3. Design and Creative Assets
 
-We offer 24/7 monitoring, regular security updates, and disaster recovery planning — everything you need for worry-free operations.
+Good communication needs more than information placement. Acecore also supports logos, key visuals, banners, documents, event announcements, and other creative assets.
 
-## 3. Website Development & Operations
+By connecting design with web production, we keep websites, social posts, flyers, and presentation materials consistent and easier for users to understand.
 
-Your website is the face of your business. Acecore creates the ideal website for your needs — corporate sites, landing pages, e-commerce sites, portfolio sites, and more.
+## 4. IT School / Acecore Schools
 
-We focus not only on beautiful design but also on **SEO** and **performance**. We build sites that comply with current web standards, including Core Web Vitals optimization, structured data implementation, and mobile-first responsive design.
+Acecore Schools offers learning opportunities where children develop the ability to think, test, and express ideas through robotics programming, Scratch, and related activities.
 
-We also provide one-stop post-launch operations and maintenance, from content updates and security patches to analytics-driven improvement proposals, continuously enhancing your site's value.
+Classes and workshops value experimentation. Instead of only copying a finished result, learners explore how things work and improve their own ideas.
 
-![End-to-end website planning and operations](/uploads/acecore-generated/blog-service-introduction.webp)
+## What Acecore Values
 
-## 4. Design & Creative
+Acecore treats production, operations, and education as connected work. The goal is to create tools and experiences that people can keep using in the real world.
 
-We support all visual communication needs — logos, business cards, brochures, banners, character design, and more.
+- Operations planning beyond the initial launch
+- Balance between technology and user experience
+- Small starts that are easy to improve
+- Practical support for businesses, learners, and communities
 
-We carefully listen to the message you want to convey and propose designs that resonate with your target audience. To create a unified brand experience, we can handle design across logos, websites, and print materials.
-
-Our creative team, skilled in both digital and analog media, brings your vision to life.
-
-## 5. IT School / Acecore Schools
-
-With the motto "Learn it, use it right away," our working engineers teach practical IT skills directly applicable to real work.
-
-From introductory programming to server management and hands-on web development courses, we offer curricula tailored to each student's level. Centered on exercises using real projects, we aim to develop "skills that work in the field, not just in the classroom."
-
-Available in both online and in-person hybrid formats, learning is accessible from anywhere. We welcome both individual learners and corporate training engagements.
-
-For more details on each service, visit the [Services page](/services/). For questions or consultation, please contact us via the [Contact page](/contact/).
+If you are reviewing a website, improving server operations, or planning a learning event, Acecore can start from the current issue and shape the next step.
