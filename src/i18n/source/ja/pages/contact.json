@@ -53,7 +53,7 @@
   "validationCategory": "お問い合わせ種別を選択してください",
   "validationName": "お名前を入力してください",
   "validationEmail": "正しいメールアドレスを入力してください",
-  "validationMessage": "お問い合わせ内容を入力してください",
+  "validationMessage": "お問い合わせ内容を10文字以上で入力してください",
   "directContactSummary": "直接やりとりしたい場合",
   "directContactLead": "フォーム送信後の補足や、直接確認したい内容がある場合はこちらを開いてください。",
   "faqs": [

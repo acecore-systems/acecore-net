@@ -579,7 +579,7 @@
       "validationCategory": "Bitte wählen Sie eine Kategorie",
       "validationName": "Bitte geben Sie Ihren Namen ein",
       "validationEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
-      "validationMessage": "Bitte geben Sie Ihre Nachricht ein",
+      "validationMessage": "Bitte geben Sie mindestens 10 aussagekräftige Zeichen ein",
       "faqTitle": "Häufige Fragen",
       "aiHeading": "KI-Chat ist ebenfalls verfügbar",
       "aiLead": "Nutzen Sie den KI-Chat unten rechts für Services, Entwicklungs- oder Website-Fragen, Schulen und Antwortzeiten. Für detaillierte Beratung können Sie mit dem Formular fortfahren.",

@@ -727,6 +727,10 @@ const faqLd = {
       const vName = contactForm?.getAttribute('data-t-validation-name') || ''
       const vEmail = contactForm?.getAttribute('data-t-validation-email') || ''
       const vMsg = contactForm?.getAttribute('data-t-validation-message') || ''
+      const minMessageMeaningfulLength = 10
+      function countMeaningfulCharacters(value) {
+        return Array.from(value.replace(/[^\p{L}\p{N}]/gu, '')).length
+      }
       const rules = {
         category: function (v) {
           return v ? '' : vCat
@@ -738,7 +742,9 @@ const faqLd = {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : vEmail
         },
         message: function (v) {
-          return v.trim() ? '' : vMsg
+          return countMeaningfulCharacters(v) >= minMessageMeaningfulLength
+            ? ''
+            : vMsg
         },
       }
       function showError(id, msg) {
@@ -759,16 +765,40 @@ const faqLd = {
           input.removeAttribute('aria-describedby')
         }
       }
+      function validateField(id) {
+        var el = document.getElementById(id)
+        if (!el) return ''
+        var msg = rules[id](el.value)
+        showError(id, msg)
+        return msg
+      }
+      function validateForm() {
+        var firstInvalid = null
+        Object.keys(rules).forEach(function (id) {
+          var el = document.getElementById(id)
+          if (!el) return
+          if (validateField(id) && !firstInvalid) {
+            firstInvalid = el
+          }
+        })
+        if (firstInvalid) firstInvalid.focus()
+        return !firstInvalid
+      }
       Object.keys(rules).forEach(function (id) {
         var el = document.getElementById(id)
         if (el) {
           el.addEventListener('blur', function () {
-            showError(id, rules[id](el.value))
+            validateField(id)
           })
           el.addEventListener('input', function () {
-            if (el.getAttribute('aria-invalid'))
-              showError(id, rules[id](el.value))
+            if (el.getAttribute('aria-invalid')) validateField(id)
           })
+        }
+      })
+      contactForm?.addEventListener('submit', function (event) {
+        if (!validateForm()) {
+          event.preventDefault()
+          event.stopImmediatePropagation()
         }
       })
     }

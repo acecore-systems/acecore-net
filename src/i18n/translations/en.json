@@ -527,7 +527,7 @@
       "validationCategory": "Please select a category",
       "validationName": "Please enter your name",
       "validationEmail": "Please enter a valid email address",
-      "validationMessage": "Please enter your message",
+      "validationMessage": "Please enter at least 10 meaningful characters",
       "faqTitle": "Frequently Asked Questions",
       "aiHeading": "AI chat is also available",
       "aiLead": "Use the AI chat in the lower right for services, development or website questions, schools, and reply timing. For detailed consultation, you can continue with the form.",
