@@ -4,6 +4,7 @@
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-03-12",
   "vars": {
+    "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
     "OPENAI_MODEL": "gpt-5.4-mini",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
     "CONTACT_FROM_EMAIL": "noreply@acecore.net",
@@ -21,6 +22,7 @@
   "env": {
     "preview": {
       "vars": {
+        "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
@@ -38,6 +40,7 @@
     },
     "production": {
       "vars": {
+        "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
