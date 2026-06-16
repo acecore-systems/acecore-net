@@ -10,7 +10,7 @@ Acecore（エースコア）公式Webサイト。
 | [UnoCSS](https://unocss.dev/)                                                                   | ユーティリティファースト CSS              |
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
-| [ssgform.com](https://ssgform.com/)                                                             | お問い合わせフォームのメール送信          |
+| [Cloudflare Email Service](https://developers.cloudflare.com/email-service/)                    | お問い合わせフォームのメール送信          |
 | [OpenAI API](https://platform.openai.com/docs/api-reference/responses/create)                   | 問い合わせ前の AI FAQ アシスタント        |
 | [Pagefind](https://pagefind.app/)                                                               | 静的全文検索                              |
 | [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ・ページ文言管理）  |
@@ -197,9 +197,19 @@ Cloudflare Pages 側で以下を設定してください。
 
 ## お問い合わせフォーム
 
-フォーム送信は現状どおり `ssgform.com` を利用します。Cloudflare Email Sending への移行は Workers Paid が必要なため、別Issueとして残しています。
+フォーム送信は `functions/api/contact.ts` の Cloudflare Pages Function で受け、Cloudflare Email Service の REST API から通知メールを送信します。ブラウザから外部フォームサービスへ直接送信しません。
 
-Cloudflare Turnstile はフォーム上に表示していますが、`ssgform.com` 利用中はサーバーサイド検証ではなく外部フォームサービス側の送信フローに委ねます。
+Cloudflare Turnstile はフォーム上に表示し、Pages Function 側で `TURNSTILE_SECRET_KEY` によるサーバーサイド検証を行います。
+
+Cloudflare 側で以下を設定してください。
+
+- Email Service: `acecore.net` を送信ドメインとしてオンボード
+- `CLOUDFLARE_ACCOUNT_ID`: Email Service を有効化した Cloudflare account ID
+- `CLOUDFLARE_EMAIL_API_TOKEN`: Email Sending 権限を持つ Cloudflare API token
+- `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile の secret key
+- `CONTACT_FROM_EMAIL`: 送信元メールアドレス（未設定時は `noreply@acecore.net`）
+- `CONTACT_TO_EMAIL`: 通知先メールアドレス（未設定時は `info@acecore.net`）
+- `CONTACT_ALLOWED_HOSTNAMES`: 問い合わせ API と Turnstile hostname 検証で許可する hostname 一覧
 
 ## ブログコメント
 
