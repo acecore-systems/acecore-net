@@ -231,7 +231,7 @@ const faqLd = {
 
       <form
         id="contact-form"
-        action="https://ssgform.com/s/a4JOVjLjyygh"
+        action="/api/contact"
         method="post"
         class="space-y-6"
         data-t-sending={t(locale, 'pages.contact.formSending')}
@@ -251,6 +251,14 @@ const faqLd = {
         )}
       >
         <input type="hidden" name="locale" value={locale} />
+        <input
+          type="text"
+          name="company_website"
+          autocomplete="off"
+          tabindex="-1"
+          class="hidden"
+          aria-hidden="true"
+        />
         <div>
           <label
             for="category"
@@ -821,6 +829,9 @@ const faqLd = {
           feedback.className = 'hidden rounded-lg p-4 text-sm'
           fetch(form.action, {
             method: 'POST',
+            headers: {
+              Accept: 'application/json',
+            },
             body: formData,
           })
             .then(async function (res) {

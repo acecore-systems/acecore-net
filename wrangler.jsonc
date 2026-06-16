@@ -6,6 +6,9 @@
   "vars": {
     "OPENAI_MODEL": "gpt-5.4-mini",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
+    "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+    "CONTACT_TO_EMAIL": "info@acecore.net",
+    "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
   },
   "d1_databases": [
     {
@@ -20,6 +23,9 @@
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+        "CONTACT_TO_EMAIL": "info@acecore.net",
+        "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
       },
       "d1_databases": [
         {
@@ -34,6 +40,9 @@
       "vars": {
         "OPENAI_MODEL": "gpt-5.4-mini",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
+        "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+        "CONTACT_TO_EMAIL": "info@acecore.net",
+        "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
       },
       "d1_databases": [
         {
