@@ -308,7 +308,7 @@
       "validationCategory": "문의 유형을 선택해 주세요",
       "validationName": "이름을 입력해 주세요",
       "validationEmail": "유효한 이메일 주소를 입력해 주세요",
-      "validationMessage": "문의 내용을 입력해 주세요",
+      "validationMessage": "의미 있는 내용을 10자 이상 입력해 주세요",
       "faqTitle": "자주 묻는 질문",
       "aiHeading": "AI 채팅도 사용할 수 있습니다",
       "aiLead": "서비스, 개발 및 웹사이트 상담, 교육, 답변 소요 시간은 오른쪽 아래 AI 채팅에서 확인할 수 있습니다. 자세한 상담은 그대로 문의 폼으로 진행할 수 있습니다.",

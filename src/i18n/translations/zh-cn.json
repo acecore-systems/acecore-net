@@ -308,7 +308,7 @@
       "validationCategory": "请选择咨询类别",
       "validationName": "请输入您的姓名",
       "validationEmail": "请输入有效的电子邮件地址",
-      "validationMessage": "请输入咨询内容",
+      "validationMessage": "请输入至少10个有效字符",
       "faqTitle": "常见问题",
       "aiHeading": "也可以使用 AI 聊天",
       "aiLead": "可使用右下角 AI 聊天了解服务、开发或网站咨询、课程和回复时间。需要详细咨询时，可继续使用联系表单。",

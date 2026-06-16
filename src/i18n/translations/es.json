@@ -308,7 +308,7 @@
       "validationCategory": "Seleccione una categoría",
       "validationName": "Introduzca su nombre",
       "validationEmail": "Introduzca un correo electrónico válido",
-      "validationMessage": "Introduzca su mensaje",
+      "validationMessage": "Introduzca al menos 10 caracteres significativos",
       "faqTitle": "Preguntas frecuentes",
       "aiHeading": "También puede usar el chat de IA",
       "aiLead": "Use el chat de IA en la esquina inferior derecha para servicios, desarrollo o sitios web, escuelas y tiempos de respuesta. Para consultas detalladas, puede continuar con el formulario.",

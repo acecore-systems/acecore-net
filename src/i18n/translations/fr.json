@@ -308,7 +308,7 @@
       "validationCategory": "Veuillez sélectionner une catégorie",
       "validationName": "Veuillez entrer votre nom",
       "validationEmail": "Veuillez entrer une adresse e-mail valide",
-      "validationMessage": "Veuillez entrer votre message",
+      "validationMessage": "Veuillez saisir au moins 10 caractères significatifs",
       "faqTitle": "Questions fréquentes",
       "aiHeading": "Le chat IA est aussi disponible",
       "aiLead": "Utilisez le chat IA en bas à droite pour les services, le développement ou les sites web, les écoles et les délais de réponse. Pour une consultation détaillée, vous pouvez poursuivre avec le formulaire.",
