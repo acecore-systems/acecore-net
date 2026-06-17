@@ -42,7 +42,7 @@ Pour Acecore, nous n'avons pas utilisé de service externe de commentaires. Dans
 - Cloudflare Pages Functions expose `/api/comments`.
 - Cloudflare D1 stocke les commentaires.
 - Cloudflare Turnstile protège les envois.
-- `wrangler.jsonc` sépare preview et production.
+- `wrangler.jsonc` définit le binding `COMMENTS_DB`.
 
 Le point fort est clair : la zone de commentaires n'est pas un îlot tiers dans la page.
 
@@ -71,9 +71,9 @@ Les requêtes passent par des prepared statements et `bind()`, sans concaténer 
 
 ## Wrangler comme contrat
 
-Le binding `COMMENTS_DB` est défini dans `wrangler.jsonc`. Preview pointe vers `acecore-comments-preview`; production vers `acecore-comments-production`.
+Le binding `COMMENTS_DB` est défini dans `wrangler.jsonc` et pointe vers l'unique base D1 `acecore-comments`.
 
-C'est important : une preview de Pull Request ne doit pas écrire dans la base de production.
+Cela garde le nom du binding stable tout en alignant le tableau de bord Cloudflare et le dépôt sur le même nom de base.
 
 La documentation Cloudflare Pages indique aussi que la configuration Wrangler devient la source de vérité du projet Pages.
 
