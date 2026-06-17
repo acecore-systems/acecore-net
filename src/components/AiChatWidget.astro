@@ -285,7 +285,7 @@ const phoneParts = SITE.phone.split('-')
             parent.appendChild(link)
           } else if (match[4] || match[5]) {
             const strong = document.createElement('strong')
-            strong.textContent = match[4] || match[5]
+            appendInlineMarkdown(strong, match[4] || match[5])
             parent.appendChild(strong)
           } else if (match[6]) {
             const code = document.createElement('code')
@@ -293,7 +293,7 @@ const phoneParts = SITE.phone.split('-')
             parent.appendChild(code)
           } else if (match[7] || match[8]) {
             const emphasis = document.createElement('em')
-            emphasis.textContent = match[7] || match[8]
+            appendInlineMarkdown(emphasis, match[7] || match[8])
             parent.appendChild(emphasis)
           } else {
             parent.appendChild(document.createTextNode(match[0]))
