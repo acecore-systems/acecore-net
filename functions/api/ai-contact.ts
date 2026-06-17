@@ -1,6 +1,6 @@
 type Env = {
-  OPENAI_API_KEY?: string
-  OPENAI_MODEL?: string
+  AI?: AiBinding
+  CLOUDFLARE_AI_MODEL?: string
 }
 
 type PagesContext = {
@@ -8,15 +8,48 @@ type PagesContext = {
   env: Env
 }
 
-type OpenAIResponse = {
+type AiBinding = {
+  run: (
+    model: string,
+    input: WorkersAiTextGenerationInput,
+  ) => Promise<WorkersAiTextGenerationResponse | string>
+}
+
+type WorkersAiMessage = {
+  role: 'system' | 'user' | 'assistant'
+  content: string
+}
+
+type WorkersAiTextGenerationInput = {
+  messages: WorkersAiMessage[]
+  max_completion_tokens: number
+  temperature: number
+}
+
+type WorkersAiResponseContent = {
+  type?: string
+  text?: string
+}
+
+type WorkersAiChoice = {
+  text?: string
+  message?: {
+    content?: string | WorkersAiResponseContent[]
+  }
+  delta?: {
+    content?: string
+  }
+}
+
+type WorkersAiTextGenerationResponse = {
+  response?: string
   output_text?: string
+  choices?: WorkersAiChoice[]
   output?: Array<{
     type?: string
-    content?: Array<{
-      type?: string
-      text?: string
-    }>
+    content?: WorkersAiResponseContent[]
   }>
+  result?: WorkersAiTextGenerationResponse
   error?: {
     message?: string
   }
@@ -33,10 +66,9 @@ type AiContactPayload = {
   messages?: ChatMessage[]
 }
 
-const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
 const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
 const SYSTEMS_ORIGIN = 'https://systems.acecore.net'
-const DEFAULT_MODEL = 'gpt-5.4-mini'
+const DEFAULT_CLOUDFLARE_AI_MODEL = '@cf/google/gemma-4-26b-a4b-it'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
@@ -346,7 +378,7 @@ export const onRequestPost = async ({
     )
   }
 
-  if (!env.OPENAI_API_KEY) {
+  if (!env.AI) {
     return jsonResponse(
       { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
       503,
@@ -377,46 +409,57 @@ export const onRequestPost = async ({
     )
   }
 
-  const response = await fetch(OPENAI_RESPONSES_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: env.OPENAI_MODEL || DEFAULT_MODEL,
-      instructions: [
-        'You are Acecore website chat assistant.',
-        `Answer in ${localeSettings.languageName}. The visitor locale code is ${locale}.`,
-        'Answer ordinary questions about Acecore using the public site context below.',
-        'Keep answers concise, practical, and helpful for choosing the next action.',
-        'Use the localized Acecore paths and external Acecore service URLs listed in the context exactly. Do not replace localized paths with default-language URLs.',
-        'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
-        'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
-        'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-        `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
-        buildAcecoreContext(locale),
-      ].join('\n'),
-      input: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
-      max_output_tokens: 360,
-    }),
-  })
-
-  const result = (await response
-    .json()
-    .catch(() => null)) as OpenAIResponse | null
-
-  if (!response.ok) {
+  let result: WorkersAiTextGenerationResponse | string | null
+  try {
+    result = await env.AI.run(
+      env.CLOUDFLARE_AI_MODEL || DEFAULT_CLOUDFLARE_AI_MODEL,
+      {
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'You are Acecore website chat assistant.',
+              `Answer in ${localeSettings.languageName}. The visitor locale code is ${locale}.`,
+              'Answer ordinary questions about Acecore using the public site context below.',
+              'Keep answers concise, practical, and helpful for choosing the next action.',
+              'Use the localized Acecore paths and external Acecore service URLs listed in the context exactly. Do not replace localized paths with default-language URLs.',
+              'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
+              'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
+              'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
+              `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
+              buildAcecoreContext(locale),
+            ].join('\n'),
+          },
+          {
+            role: 'user',
+            content: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
+          },
+        ],
+        max_completion_tokens: 360,
+        temperature: 0.2,
+      },
+    )
+  } catch {
     return jsonResponse(
       {
         ok: false,
         answer: getLocalizedMessage(locale, 'failed'),
       },
-      response.status,
+      502,
     )
   }
 
-  const answer = extractOutputText(result).trim()
+  if (typeof result !== 'string' && result?.error) {
+    return jsonResponse(
+      {
+        ok: false,
+        answer: getLocalizedMessage(locale, 'failed'),
+      },
+      502,
+    )
+  }
+
+  const answer = extractWorkersAiText(result).trim()
   return jsonResponse({
     ok: true,
     answer: answer || getLocalizedMessage(locale, 'emptyAnswer'),
@@ -525,15 +568,42 @@ function getLocalizedMessage(
   return LOCALE_SETTINGS[locale].messages[key]
 }
 
-function extractOutputText(result: OpenAIResponse | null): string {
+function extractWorkersAiText(
+  result: WorkersAiTextGenerationResponse | string | null,
+): string {
   if (!result) return ''
+  if (typeof result === 'string') return result
+  if (typeof result.response === 'string') return result.response
   if (typeof result.output_text === 'string') return result.output_text
+  if (result.result) return extractWorkersAiText(result.result)
+
+  const choicesText = (result.choices || [])
+    .map(extractChoiceText)
+    .filter(Boolean)
+    .join('\n')
+  if (choicesText) return choicesText
 
   return (result.output || [])
     .flatMap((item) => item.content || [])
     .map((content) => content.text || '')
     .filter(Boolean)
     .join('\n')
+}
+
+function extractChoiceText(choice: WorkersAiChoice): string {
+  if (typeof choice.text === 'string') return choice.text
+  if (typeof choice.delta?.content === 'string') return choice.delta.content
+
+  const content = choice.message?.content
+  if (typeof content === 'string') return content
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => part.text || '')
+      .filter(Boolean)
+      .join('\n')
+  }
+
+  return ''
 }
 
 function buildConversationInput(payload: AiContactPayload): string {
