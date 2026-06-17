@@ -42,7 +42,7 @@ Acecore는 외부 댓글 SaaS나 widget을 쓰지 않았습니다. [PR #101](htt
 - Cloudflare Pages Functions가 `/api/comments`를 제공합니다.
 - Cloudflare D1이 댓글을 저장합니다.
 - Cloudflare Turnstile이 POST를 보호합니다.
-- `wrangler.jsonc`가 preview와 production을 나눕니다.
+- `wrangler.jsonc`가 `COMMENTS_DB` binding을 정의합니다.
 
 핵심은 댓글 영역이 페이지 안의 외부 서비스가 아니라, 기존 Cloudflare 구성의 일부라는 점입니다.
 
@@ -71,9 +71,9 @@ Function은 origin, payload, Turnstile, rate limit, 중복, 금지 내용을 검
 
 ## Wrangler로 환경을 나누기
 
-`COMMENTS_DB`는 `wrangler.jsonc`에 정의합니다. preview는 `acecore-comments-preview`, production은 `acecore-comments-production`을 사용합니다.
+`COMMENTS_DB`는 `wrangler.jsonc`에 정의하며, 단일 D1 database인 `acecore-comments`를 가리킵니다.
 
-PR preview가 production DB에 쓰지 않도록 하는 것이 중요합니다.
+binding 이름은 유지하고 Cloudflare dashboard와 repository의 database 이름을 맞춥니다.
 
 ## Turnstile은 서버에서 검증
 

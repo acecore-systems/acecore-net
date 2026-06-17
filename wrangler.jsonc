@@ -18,8 +18,8 @@
   "d1_databases": [
     {
       "binding": "COMMENTS_DB",
-      "database_name": "acecore-comments-production",
-      "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
+      "database_name": "acecore-comments",
+      "database_id": "3f31c39c-e418-4460-8651-4385e0409157",
       "migrations_dir": "./migrations",
     },
   ],
@@ -40,8 +40,8 @@
       "d1_databases": [
         {
           "binding": "COMMENTS_DB",
-          "database_name": "acecore-comments-production",
-          "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
+          "database_name": "acecore-comments",
+          "database_id": "3f31c39c-e418-4460-8651-4385e0409157",
           "migrations_dir": "./migrations",
         },
       ],
@@ -62,8 +62,8 @@
       "d1_databases": [
         {
           "binding": "COMMENTS_DB",
-          "database_name": "acecore-comments-production",
-          "database_id": "10bb4e84-2c31-427f-931c-fcb123c57501",
+          "database_name": "acecore-comments",
+          "database_id": "3f31c39c-e418-4460-8651-4385e0409157",
           "migrations_dir": "./migrations",
         },
       ],

@@ -218,8 +218,7 @@ Cloudflare 側で以下を設定してください。
 
 Cloudflare Pages の Functions binding は `wrangler.jsonc` で管理します。
 
-- production: `COMMENTS_DB` -> `acecore-comments-production`
-- preview/local: `COMMENTS_DB` -> `acecore-comments-preview`
+- `COMMENTS_DB` -> `acecore-comments`
 
 Cloudflare Pages secret は以下を設定します。
 
@@ -231,8 +230,7 @@ Cloudflare Pages secret は以下を設定します。
 D1 schema は `migrations/0001_create_blog_comments.sql` です。初回は D1 database を作成後、以下で適用します。
 
 ```bash
-npx wrangler d1 execute acecore-comments-production --remote --file=./migrations/0001_create_blog_comments.sql
-npx wrangler d1 execute acecore-comments-preview --remote --file=./migrations/0001_create_blog_comments.sql
+npx wrangler d1 execute acecore-comments --remote --file=./migrations/0001_create_blog_comments.sql
 ```
 
 スパムなどを非表示にする場合は、対象レコードの `deleted_at` に ISO 8601 の日時を入れます。`deleted_at IS NULL` のコメントのみ表示されます。

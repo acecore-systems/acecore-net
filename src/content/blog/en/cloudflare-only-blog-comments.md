@@ -42,7 +42,7 @@ For Acecore, we did not add an external comment SaaS or embedded widget. The imp
 - Cloudflare Pages Functions expose `/api/comments`.
 - Cloudflare D1 stores comments.
 - Cloudflare Turnstile protects POST requests.
-- `wrangler.jsonc` defines production and preview bindings.
+- `wrangler.jsonc` defines the `COMMENTS_DB` binding.
 
 That is the main point: **the comment feature is not a third-party island inside the page**. It uses the same Cloudflare boundary as the rest of the static site.
 
@@ -86,7 +86,7 @@ Bindings are defined in `wrangler.jsonc`.
   "d1_databases": [
     {
       "binding": "COMMENTS_DB",
-      "database_name": "acecore-comments-preview",
+      "database_name": "acecore-comments",
     },
   ],
   "env": {
@@ -94,7 +94,7 @@ Bindings are defined in `wrangler.jsonc`.
       "d1_databases": [
         {
           "binding": "COMMENTS_DB",
-          "database_name": "acecore-comments-production",
+          "database_name": "acecore-comments",
         },
       ],
     },
@@ -102,7 +102,7 @@ Bindings are defined in `wrangler.jsonc`.
 }
 ```
 
-The important part is separating preview and production. A PR preview should never write to the production comments database.
+The important part is keeping the binding name stable while pointing every environment at the single D1 database, `acecore-comments`.
 
 Cloudflare Pages documentation treats Wrangler configuration as the source of truth for a Pages project, which is exactly what we want for reviewable infrastructure changes.
 
@@ -140,7 +140,7 @@ External comment services are convenient, but they are not the only option.
 
 If a site already runs on Cloudflare Pages, a lightweight comment feature can live entirely inside Cloudflare: Pages Functions for the API, D1 for storage, Turnstile for abuse prevention, and Wrangler for bindings.
 
-That keeps UI, data, security boundaries, and preview/production separation under the same operational model as the site itself.
+That keeps UI, data, security boundaries, and infrastructure configuration under the same operational model as the site itself.
 
 ## References
 

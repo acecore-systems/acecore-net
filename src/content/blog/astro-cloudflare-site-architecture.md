@@ -67,7 +67,7 @@ checklist:
       checked: true
     - text: 'フォーム導線はURLパラメータで文脈を渡し、受信値は安定した分類にする'
       checked: true
-    - text: 'コメントなど投稿データはpreviewとproductionでDBを分ける'
+    - text: 'コメントなど投稿データはD1の実体名とbindingを設定で明示する'
       checked: true
     - text: 'AI出力やユーザー投稿は、HTMLとして信頼せず許可リストで扱う'
       checked: true
@@ -276,7 +276,7 @@ AI機能をサイトに入れるときは、モデルの精度だけでなく、
 - Turnstileをserver-side validationする
 - Originとhostname allowlistを見る
 - URL、メール、HTML、Markdownリンク、宣伝語句を拒否する
-- previewとproductionでD1を分ける
+- D1の実体名とbindingをWranglerで明示する
 
 詳しくは [CloudflareだけでAstroブログにコメント機能を作る方法](/blog/cloudflare-only-blog-comments/) にまとめています。
 

@@ -42,7 +42,7 @@ En Acecore no usamos un servicio externo de comentarios. En [PR #101](https://gi
 - Cloudflare Pages Functions expone `/api/comments`.
 - Cloudflare D1 guarda los comentarios.
 - Cloudflare Turnstile protege el POST.
-- `wrangler.jsonc` separa preview y production.
+- `wrangler.jsonc` define el binding `COMMENTS_DB`.
 
 La ventaja es que el comentario no queda como una isla de terceros dentro de la página.
 
@@ -75,9 +75,9 @@ Por eso D1 es más cómodo que un almacén key-value. Además, las consultas usa
 
 ## Configuración por Wrangler
 
-El binding `COMMENTS_DB` se define en `wrangler.jsonc`. Preview apunta a `acecore-comments-preview`; production apunta a `acecore-comments-production`.
+El binding `COMMENTS_DB` se define en `wrangler.jsonc` y apunta a la única base D1 `acecore-comments`.
 
-Esta separación evita que una preview de Pull Request escriba en la base real.
+Así el nombre del binding se mantiene estable y el dashboard de Cloudflare coincide con el repositorio.
 
 ## Turnstile en servidor
 
