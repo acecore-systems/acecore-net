@@ -1,6 +1,7 @@
 type Env = {
   AI?: AiBinding
   CLOUDFLARE_AI_MODEL?: string
+  CLOUDFLARE_AI_REASONING_EFFORT?: string
 }
 
 type PagesContext = {
@@ -23,8 +24,11 @@ type WorkersAiMessage = {
 type WorkersAiTextGenerationInput = {
   messages: WorkersAiMessage[]
   max_completion_tokens: number
+  reasoning_effort: WorkersAiReasoningEffort
   temperature: number
 }
+
+type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
 
 type WorkersAiResponseContent = {
   type?: string
@@ -68,7 +72,8 @@ type AiContactPayload = {
 
 const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
 const SYSTEMS_ORIGIN = 'https://systems.acecore.net'
-const DEFAULT_CLOUDFLARE_AI_MODEL = '@cf/google/gemma-4-26b-a4b-it'
+const DEFAULT_CLOUDFLARE_AI_MODEL = '@cf/zai-org/glm-5.2'
+const DEFAULT_CLOUDFLARE_AI_REASONING_EFFORT: WorkersAiReasoningEffort = 'low'
 const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
@@ -436,6 +441,9 @@ export const onRequestPost = async ({
           },
         ],
         max_completion_tokens: 360,
+        reasoning_effort: normalizeReasoningEffort(
+          env.CLOUDFLARE_AI_REASONING_EFFORT,
+        ),
         temperature: 0.2,
       },
     )
@@ -566,6 +574,16 @@ function getLocalizedMessage(
   key: keyof LocaleSettings['messages'],
 ): string {
   return LOCALE_SETTINGS[locale].messages[key]
+}
+
+function normalizeReasoningEffort(value: unknown): WorkersAiReasoningEffort {
+  const effort = String(value || DEFAULT_CLOUDFLARE_AI_REASONING_EFFORT)
+    .trim()
+    .toLowerCase()
+
+  return effort === 'medium' || effort === 'high'
+    ? effort
+    : DEFAULT_CLOUDFLARE_AI_REASONING_EFFORT
 }
 
 function extractWorkersAiText(
