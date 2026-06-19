@@ -27,6 +27,9 @@
 - 翻訳ファイルは `src/i18n/translations/{locale}.json` に集約されている。日本語 source のキー構造と翻訳側のキー構造を揃える。
 - サイト文言を CMS から編集可能にする場合は `public/admin/config.yml` も更新し、対応する JSON key とフィールド名を揃える。
 - CMS の日時、キャンペーン、告知、募集枠など期間制御が必要な情報は、表示開始と表示終了を CMS から扱える設計にする。
+- CMS backend の publication branch は `main` にし、`publish_mode: editorial_workflow` で短命な CMS branch と PR を作らせる。
+- `cms-content` のような恒久的な CMS 投稿受け皿 branch は使わない。
+- CMS PR は merge commit または rebase merge で `main` に入れる。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合がある。
 - 翻訳作業だけを依頼された場合は、日本語 source を勝手に変更しない。placeholder、URL、コード風 token、製品名は壊さない。
 - ブログやニュースを増やす場合は、タグ、関連記事、内部リンク、CTA、Pagefind への影響を確認する。
 
