@@ -30,5 +30,8 @@
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "unocss": "^66.6.7"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
   }
 }
