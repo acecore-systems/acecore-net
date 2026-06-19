@@ -8,9 +8,9 @@ export async function getStaticPaths() {
   const allRawPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const allPosts = allRawPosts.filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = allRawPosts
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const tagMap = new Map<string, typeof allPosts>()
   for (const post of allPosts) {
     for (const tag of post.data.tags ?? []) {

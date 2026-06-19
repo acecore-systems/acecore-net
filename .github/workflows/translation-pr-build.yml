@@ -29,7 +29,6 @@ jobs:
       startsWith(github.event.pull_request.head.ref, 'copilot/')) &&
       contains(github.event.pull_request.title, '[translation]'))
     runs-on: ubuntu-latest
-
     steps:
       - name: Resolve pull request metadata
         id: pr
@@ -71,7 +70,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .node-version
           cache: npm
 
       - name: Install dependencies

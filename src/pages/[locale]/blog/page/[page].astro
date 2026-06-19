@@ -9,9 +9,9 @@ export async function getStaticPaths() {
   const allRawPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const allPosts = allRawPosts.filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = allRawPosts
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
   return locales
     .filter((l) => l !== defaultLocale)

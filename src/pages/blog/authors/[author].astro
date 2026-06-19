@@ -4,9 +4,9 @@ import { getCollection } from 'astro:content'
 import { isBasePost } from '../../../utils/blog-i18n'
 
 export async function getStaticPaths() {
-  const allPosts = (await getCollection('blog')).filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = (await getCollection('blog'))
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const authorMap = new Map<string, typeof allPosts>()
   for (const post of allPosts) {
     if (post.data.author) {
@@ -24,4 +24,9 @@ export async function getStaticPaths() {
 const { authorId, posts, allPosts } = Astro.props
 ---
 
-<BlogAuthorPage locale="ja" authorId={authorId} posts={posts} allPosts={allPosts} />
+<BlogAuthorPage
+  locale="ja"
+  authorId={authorId}
+  posts={posts}
+  allPosts={allPosts}
+/>

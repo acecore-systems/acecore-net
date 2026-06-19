@@ -1,16 +1,21 @@
 ---
 import BlogArchivePage from '../../../../views/BlogArchivePage.astro'
 import { getCollection } from 'astro:content'
-import { locales, defaultLocale, getYearMonthKey, type Locale } from '../../../../i18n'
+import {
+  locales,
+  defaultLocale,
+  getYearMonthKey,
+  type Locale,
+} from '../../../../i18n'
 import { isBasePost } from '../../../../utils/blog-i18n'
 
 export async function getStaticPaths() {
   const allRawPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const allPosts = allRawPosts.filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = allRawPosts
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const monthMap = new Map<string, typeof allPosts>()
   for (const post of allPosts) {
     const key = getYearMonthKey(post.data.date)
@@ -32,4 +37,9 @@ const locale = Astro.params.locale as Locale
 const { month, posts, allPosts } = Astro.props
 ---
 
-<BlogArchivePage locale={locale} month={month} posts={posts} allPosts={allPosts} />
+<BlogArchivePage
+  locale={locale}
+  month={month}
+  posts={posts}
+  allPosts={allPosts}
+/>

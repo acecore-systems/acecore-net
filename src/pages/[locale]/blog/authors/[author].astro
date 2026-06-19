@@ -8,9 +8,9 @@ export async function getStaticPaths() {
   const allRawPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   )
-  const allPosts = allRawPosts.filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = allRawPosts
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const authorMap = new Map<string, typeof allPosts>()
   for (const post of allPosts) {
     if (post.data.author) {
@@ -33,4 +33,9 @@ const locale = Astro.params.locale as Locale
 const { authorId, posts, allPosts } = Astro.props
 ---
 
-<BlogAuthorPage locale={locale} authorId={authorId} posts={posts} allPosts={allPosts} />
+<BlogAuthorPage
+  locale={locale}
+  authorId={authorId}
+  posts={posts}
+  allPosts={allPosts}
+/>
