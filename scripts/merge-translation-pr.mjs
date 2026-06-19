@@ -29,7 +29,9 @@ function inferRepositoryFromGitRemote() {
     const sshMatch = remoteUrl.match(/github\.com:([^/]+\/[^/.]+)(?:\.git)?$/)
     if (sshMatch) return sshMatch[1]
 
-    const httpsMatch = remoteUrl.match(/github\.com\/([^/]+\/[^/.]+)(?:\.git)?$/)
+    const httpsMatch = remoteUrl.match(
+      /github\.com\/([^/]+\/[^/.]+)(?:\.git)?$/,
+    )
     if (httpsMatch) return httpsMatch[1]
   } catch {
     return null
@@ -60,7 +62,9 @@ async function requestGitHub(path, { method = 'GET', body } = {}) {
 
   if (!response.ok) {
     const errorText = await response.text()
-    throw new Error(`GitHub API ${method} ${path} failed: ${response.status} ${errorText}`)
+    throw new Error(
+      `GitHub API ${method} ${path} failed: ${response.status} ${errorText}`,
+    )
   }
 
   if (response.status === 204) return null
@@ -96,7 +100,8 @@ async function requestGitHubGraphQl(query, variables = {}) {
 }
 
 function getRepositoryInfo() {
-  const repository = process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
+  const repository =
+    process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
   if (!repository) {
     throw new Error('GITHUB_REPOSITORY is required')
   }
@@ -127,12 +132,10 @@ function isEligibleTranslationPullRequest(pr) {
     pr &&
     pr.state === 'open' &&
     pr.base?.ref === 'main' &&
-    (
-      pr.user?.login === 'Copilot' ||
+    (pr.user?.login === 'Copilot' ||
       pr.user?.login === 'app/copilot-swe-agent' ||
       pr.user?.login === 'copilot-swe-agent[bot]' ||
-      pr.head?.ref?.startsWith('copilot/')
-    ) &&
+      pr.head?.ref?.startsWith('copilot/')) &&
     hasTranslationMarker(pr.title)
   )
 }
@@ -150,13 +153,16 @@ async function mergePullRequest(pr) {
   const { owner, repo, repository } = getRepositoryInfo()
 
   try {
-    const result = await requestGitHub(`/repos/${owner}/${repo}/pulls/${pr.number}/merge`, {
-      method: 'PUT',
-      body: {
-        merge_method: 'squash',
-        commit_title: pr.title,
+    const result = await requestGitHub(
+      `/repos/${owner}/${repo}/pulls/${pr.number}/merge`,
+      {
+        method: 'PUT',
+        body: {
+          merge_method: 'squash',
+          commit_title: pr.title,
+        },
       },
-    })
+    )
     console.log(`Merged PR #${pr.number}: ${result?.sha ?? 'ok'}`)
   } catch (error) {
     console.warn(`Could not merge PR #${pr.number}: ${error.message}`)
@@ -168,9 +174,12 @@ async function mergePullRequest(pr) {
 
   if (branchName && branchRepoFullName === repository) {
     try {
-      await requestGitHub(`/repos/${owner}/${repo}/git/refs/heads/${branchName}`, {
-        method: 'DELETE',
-      })
+      await requestGitHub(
+        `/repos/${owner}/${repo}/git/refs/heads/${branchName}`,
+        {
+          method: 'DELETE',
+        },
+      )
       console.log(`Deleted branch ${branchName}`)
     } catch (error) {
       console.warn(`Could not delete branch ${branchName}: ${error.message}`)
@@ -183,7 +192,9 @@ async function mergePullRequest(pr) {
 async function markPullRequestReadyForReview(pr) {
   if (!pr.draft) return true
   if (!pr.node_id) {
-    console.warn(`Pull request #${pr.number} has no node_id. Skipping draft conversion.`)
+    console.warn(
+      `Pull request #${pr.number} has no node_id. Skipping draft conversion.`,
+    )
     return false
   }
 
@@ -216,14 +227,18 @@ async function main() {
   }
 
   if (!isEligibleTranslationPullRequest(pullRequest)) {
-    console.log(`Pull request #${pullRequest.number} is not an eligible translation PR. Skipping.`)
+    console.log(
+      `Pull request #${pullRequest.number} is not an eligible translation PR. Skipping.`,
+    )
     return
   }
 
   if (!args.skipBuildCheck) {
     const checkRuns = await getCheckRuns(pullRequest.head.sha)
     if (!hasSuccessfulTranslationBuild(checkRuns)) {
-      console.log(`Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`)
+      console.log(
+        `Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`,
+      )
       return
     }
   }

@@ -1,30 +1,30 @@
 {
-	"id": "cms",
-	"name": "CMS",
-	"i18n": {
-		"en": {
-			"name": "CMS"
-		},
-		"zh-cn": {
-			"name": "CMS"
-		},
-		"es": {
-			"name": "CMS"
-		},
-		"pt": {
-			"name": "CMS"
-		},
-		"fr": {
-			"name": "CMS"
-		},
-		"ko": {
-			"name": "CMS"
-		},
-		"de": {
-			"name": "CMS"
-		},
-		"ru": {
-			"name": "CMS"
-		}
-	}
+  "id": "cms",
+  "name": "CMS",
+  "i18n": {
+    "en": {
+      "name": "CMS"
+    },
+    "zh-cn": {
+      "name": "CMS"
+    },
+    "es": {
+      "name": "CMS"
+    },
+    "pt": {
+      "name": "CMS"
+    },
+    "fr": {
+      "name": "CMS"
+    },
+    "ko": {
+      "name": "CMS"
+    },
+    "de": {
+      "name": "CMS"
+    },
+    "ru": {
+      "name": "CMS"
+    }
+  }
 }

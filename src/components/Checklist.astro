@@ -30,12 +30,20 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
       items.map((item) => (
         <li class="flex items-start gap-2.5">
           {item.checked !== false ? (
-            <Icon name="circle-check" class="text-emerald-500 text-sm mt-0.5 shrink-0" />
+            <Icon
+              name="circle-check"
+              class="text-emerald-500 text-sm mt-0.5 shrink-0"
+            />
           ) : (
-            <Icon name="circle" class="text-slate-300 text-sm mt-0.5 shrink-0" />
+            <Icon
+              name="circle"
+              class="text-slate-300 text-sm mt-0.5 shrink-0"
+            />
           )}
           <span class="sr-only">
-            {item.checked !== false ? t(locale, 'checklist.done') : t(locale, 'checklist.pending')}
+            {item.checked !== false
+              ? t(locale, 'checklist.done')
+              : t(locale, 'checklist.pending')}
           </span>
           <span
             class:list={[

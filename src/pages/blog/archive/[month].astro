@@ -5,9 +5,9 @@ import { getYearMonthKey } from '../../../i18n'
 import { isBasePost } from '../../../utils/blog-i18n'
 
 export async function getStaticPaths() {
-  const allPosts = (await getCollection('blog')).filter(isBasePost).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  )
+  const allPosts = (await getCollection('blog'))
+    .filter(isBasePost)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   const monthMap = new Map<string, typeof allPosts>()
   for (const post of allPosts) {
     const key = getYearMonthKey(post.data.date)

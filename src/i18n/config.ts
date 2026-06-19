@@ -13,7 +13,17 @@
 export const defaultLocale = 'ja' as const
 
 /** サポートする全ロケールの一覧 */
-export const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru'] as const
+export const locales = [
+  'ja',
+  'en',
+  'zh-cn',
+  'es',
+  'pt',
+  'fr',
+  'ko',
+  'de',
+  'ru',
+] as const
 
 /** ロケール型（サポートする全言語のユニオン型） */
 export type Locale = (typeof locales)[number]

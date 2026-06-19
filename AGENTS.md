@@ -37,6 +37,7 @@
 
 - サイト出力に影響する変更では原則 `npm run build` を実行する。
 - Markdown、JSON、YAML、Astro、TypeScript を変更した場合は、対象ファイルに対して Prettier check を行う。
+- CMS/content/schema/route/link に関わる変更では `npm run validate:content` を実行する。
 - コミット前に `git diff --check` を実行する。
 - UI 変更では可能な限りブラウザでデスクトップとモバイルを確認する。ブラウザや Playwright が使えない場合は理由と代替確認を PR に記載する。
 - ドキュメント、GitHub テンプレート、エージェント指示だけの変更では、`npm run build` は不要。対象ファイルの format check と `git diff --check` を行う。

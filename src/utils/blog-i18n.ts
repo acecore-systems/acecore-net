@@ -39,7 +39,9 @@ export function localizePost(
 /** Get localized author bio and skills, fallback to default (ja) */
 export function getLocalizedAuthor(author: AuthorData, locale: Locale) {
   if (locale === defaultLocale) return author
-  const i18n = (author as AuthorData & { i18n?: Record<string, LocalizedAuthor> }).i18n
+  const i18n = (
+    author as AuthorData & { i18n?: Record<string, LocalizedAuthor> }
+  ).i18n
   const localized = i18n?.[locale]
   return {
     ...author,

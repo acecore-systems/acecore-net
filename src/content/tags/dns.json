@@ -1,30 +1,30 @@
 {
-	"id": "dns",
-	"name": "DNS",
-	"i18n": {
-		"en": {
-			"name": "DNS"
-		},
-		"zh-cn": {
-			"name": "DNS"
-		},
-		"es": {
-			"name": "DNS"
-		},
-		"pt": {
-			"name": "DNS"
-		},
-		"fr": {
-			"name": "DNS"
-		},
-		"ko": {
-			"name": "DNS"
-		},
-		"de": {
-			"name": "DNS"
-		},
-		"ru": {
-			"name": "DNS"
-		}
-	}
+  "id": "dns",
+  "name": "DNS",
+  "i18n": {
+    "en": {
+      "name": "DNS"
+    },
+    "zh-cn": {
+      "name": "DNS"
+    },
+    "es": {
+      "name": "DNS"
+    },
+    "pt": {
+      "name": "DNS"
+    },
+    "fr": {
+      "name": "DNS"
+    },
+    "ko": {
+      "name": "DNS"
+    },
+    "de": {
+      "name": "DNS"
+    },
+    "ru": {
+      "name": "DNS"
+    }
+  }
 }

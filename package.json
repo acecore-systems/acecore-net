@@ -10,7 +10,8 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "validate:content": "node scripts/validate-content.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
