@@ -14,9 +14,8 @@
 ## Issue 対応
 
 - Issue URL だけを渡された場合でも、issue 本文、コメント、チェックリストを確認して受け入れ条件として扱う。
-- Issue template の設計と分類は `.github/ISSUE_TEMPLATE/README.md` を正とし、共通項目と個別項目を混ぜて増やさない。
-- Issue には原則として、概要、背景・目的、完了条件、対象範囲・除外範囲、関連パス・URL、確認方法を含める。
-- 新しい issue template を追加する場合は、共通項目の順序と見出しを既存 template と揃え、個別項目はその種別でしか判断できない情報に絞る。
+- Issue template は `不具合` と `タスク` を基本にし、概要、完了条件、関連情報だけで着手判断できる簡潔な入力にする。
+- 新しい issue template を追加する前に、既存の `タスク` で表現できないか確認する。
 - 実装前に既存の構成、同種コンポーネント、翻訳データ、CMS 設定、関連コンテンツを確認し、既存パターンに合わせる。
 - 要件が曖昧でも、リポジトリ内の文脈から安全に判断できる場合は作業を進める。判断が危険な場合だけ質問する。
 - Issue 対応 PR では、PR 本文の「関連 Issue」に `Closes #番号` または該当 issue への参照を残す。
@@ -27,6 +26,8 @@
 - 翻訳ファイルは `src/i18n/translations/{locale}.json` に集約されている。日本語 source のキー構造と翻訳側のキー構造を揃える。
 - サイト文言を CMS から編集可能にする場合は `public/admin/config.yml` も更新し、対応する JSON key とフィールド名を揃える。
 - CMS の日時、キャンペーン、告知、募集枠など期間制御が必要な情報は、表示開始と表示終了を CMS から扱える設計にする。
+- このリポジトリの CMS 認証は GitHub 認証型とする。Cloudflare Access を前段に置く場合も、保存認証は GitHub OAuth Worker を使う。
+- Cherry のような Cloudflare Access 型 proxy へ寄せる場合は、別途 backend actor、書き込み path 制限、CI 経由 PR 作成まで設計してから行う。
 - CMS backend の publication branch は `main` にし、`publish_mode: editorial_workflow` で短命な CMS branch と PR を作らせる。
 - `cms-content` のような恒久的な CMS 投稿受け皿 branch は使わない。
 - CMS PR は merge commit または rebase merge で `main` に入れる。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合がある。
@@ -44,6 +45,6 @@
 
 ## PR 作成
 
-- PR タイトルと本文は日本語で書き、`.github/pull_request_template.md` に沿って概要、主な変更点、確認したこと、未確認事項・補足を含める。
+- PR タイトルと本文は日本語で書き、`.github/pull_request_template.md` に沿って関連 Issue、概要、確認、補足を簡潔に書く。
 - PR は draft で作成してよい。ユーザーが ready を求めた場合、または自動化タスクが ready for review を明示している場合だけ ready にする。
 - 実行したコマンドは省略せず書く。実行していない検証は「未実施」と明記する。
