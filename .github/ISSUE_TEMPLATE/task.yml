@@ -1,0 +1,35 @@
+name: タスク
+description: 改善、コンテンツ、CMS、運用などの作業依頼
+title: '[タスク] '
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 何をしたいか、または何を変えたいかを 1-3 行で書いてください。
+      placeholder: |
+        例: トップページの導線文言を CMS から編集できるようにする。
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: 完了条件
+      description: 完了と判断できる状態をチェックリストで書いてください。
+      placeholder: |
+        - [ ] 対象文言が CMS から編集できる
+        - [ ] 既存表示が崩れない
+        - [ ] 必要な検証が通る
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 関連情報
+      description: URL、関連ファイル、期限、制約、背景があれば書いてください。
+      placeholder: |
+        - URL:
+        - 関連ファイル:
+        - 補足:
