@@ -25,6 +25,8 @@ interface Props {
   locale?: Locale
   breadcrumbItems?: { name: string; item?: string }[]
   languageSwitcherPath?: string
+  canonicalPath?: string
+  alternateUrls?: { locale: Locale; url: string }[]
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
@@ -44,12 +46,14 @@ const {
   preloadImage,
   breadcrumbItems,
   languageSwitcherPath,
+  canonicalPath,
+  alternateUrls,
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
 const gaFallbackDelay = isHome ? 12000 : 4000
 const pageTitle = isHome ? t(locale, 'meta.siteTitle') : `${title} | Acecore`
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
 const isMonetizedPage =
   Astro.url.pathname === '/blog/' || Astro.url.pathname.startsWith('/blog/')
@@ -146,7 +150,8 @@ const breadcrumbLd =
       }
     : null)
 
-const alternateUrls = getAlternateUrls(Astro.url.pathname, siteOrigin)
+const alternateUrlEntries =
+  alternateUrls ?? getAlternateUrls(Astro.url.pathname, siteOrigin)
 
 import { ClientRouter } from 'astro:transitions'
 import Header from '../components/Header.astro'
@@ -220,14 +225,14 @@ import { SITE } from '../data/site'
       href={locale === defaultLocale ? '/rss.xml' : `/${locale}/rss.xml`}
     />
     {
-      alternateUrls.map(({ locale: l, url }) => (
+      alternateUrlEntries.map(({ locale: l, url }) => (
         <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
       ))
     }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={alternateUrls.find((a) => a.locale === defaultLocale)?.url}
+      href={alternateUrlEntries.find((a) => a.locale === defaultLocale)?.url}
     />
     <link rel="preconnect" href={SITE.url} />
     {

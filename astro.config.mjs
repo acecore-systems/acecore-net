@@ -4,6 +4,44 @@ import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeOptimizeImages from './src/utils/rehype-optimize-images'
 import rehypeInjectAds from './src/utils/rehype-inject-ads'
+import { existsSync, readdirSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+
+const defaultLocale = 'ja'
+const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
+const translatedBlogSlugsByLocale = Object.fromEntries(
+  locales
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => {
+      const dir = fileURLToPath(
+        new URL(`./src/content/blog/${locale}/`, import.meta.url),
+      )
+      return [
+        locale,
+        new Set(
+          existsSync(dir)
+            ? readdirSync(dir)
+                .filter((file) => file.endsWith('.md'))
+                .map((file) => file.replace(/\.md$/, ''))
+            : [],
+        ),
+      ]
+    }),
+)
+
+function isMissingLocalizedBlogPost(page) {
+  const { pathname } = new URL(page)
+  const parts = pathname.split('/').filter(Boolean)
+  const [locale, section, slug] = parts
+  return (
+    locale &&
+    locale !== defaultLocale &&
+    translatedBlogSlugsByLocale[locale] &&
+    section === 'blog' &&
+    parts.length === 3 &&
+    !translatedBlogSlugsByLocale[locale].has(decodeURIComponent(slug))
+  )
+}
 
 export default defineConfig({
   site: 'https://acecore.net',
@@ -33,6 +71,7 @@ export default defineConfig({
       lastmod: new Date(),
       filter(page) {
         return (
+          !isMissingLocalizedBlogPost(page) &&
           !page.includes('/blog/tags/') &&
           !page.includes('/blog/archive/') &&
           !page.includes('/blog/authors/') &&
