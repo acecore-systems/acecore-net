@@ -33,6 +33,7 @@ import {
   getDateParts,
   defaultLocale,
   htmlLangMap,
+  locales,
   type Locale,
 } from '../i18n'
 import { getCollection } from 'astro:content'
@@ -64,6 +65,21 @@ const authors = await getAllAuthors()
 const tagsData = await getAllTags()
 const post = localizePost(basePost, allRawPosts, locale)
 const baseSlug = basePost.id
+const isFallbackLocalePost = locale !== defaultLocale && post.id === basePost.id
+const canonicalPostPath = isFallbackLocalePost
+  ? `/blog/${baseSlug}/`
+  : u(`/blog/${baseSlug}/`)
+const canonicalPostUrl = new URL(canonicalPostPath, Astro.site).href
+const alternateUrls = locales
+  .filter(
+    (l) =>
+      l === defaultLocale ||
+      allRawPosts.some((candidate) => candidate.id === `${l}/${baseSlug}`),
+  )
+  .map((l) => ({
+    locale: l,
+    url: new URL(getLocalizedUrl(`/blog/${baseSlug}/`, l), Astro.site).href,
+  }))
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
@@ -145,7 +161,7 @@ const blogPostingLd = {
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://acecore.net/blog/${baseSlug}/`,
+    '@id': canonicalPostUrl,
   },
   inLanguage: htmlLangMap[locale],
 }
@@ -229,9 +245,12 @@ const ctaHeading = isDefaultLocale
   jsonLd={jsonLdData}
   publishedTime={post.data.date}
   modifiedTime={post.data.lastUpdated}
+  robots={isFallbackLocalePost ? 'noindex, follow' : 'index, follow'}
   tags={post.data.tags}
   author={author?.name}
   locale={locale}
+  canonicalPath={canonicalPostPath}
+  alternateUrls={alternateUrls}
   preloadImage={postImage
     ? {
         src: optimizeImage(postImage),
@@ -397,7 +416,7 @@ const ctaHeading = isDefaultLocale
 
         <div class="my-10 border-t border-slate-200 py-6">
           <ShareButtons
-            url={`https://acecore.net/blog/${baseSlug}/`}
+            url={canonicalPostUrl}
             title={post.data.title}
             locale={locale}
           />
