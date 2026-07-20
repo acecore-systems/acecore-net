@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "블로그",
+    "seoTitleContext": "웹 제작·서버 운영·IT 교육 정보",
     "subtitle": "기술 정보・활동 보고・공지",
     "noPosts": "기사를 준비 중입니다.",
     "tags": "태그",
@@ -272,6 +273,7 @@
       "formSuccess": "문의가 전송되었습니다. 확인 이메일을 확인해 주세요.",
       "formError": "전송에 실패했습니다. 잠시 후 다시 시도하거나 아래 연락 방법을 확인해 주세요.",
       "title": "문의하기",
+      "seoTitleContext": "서비스 상담·견적·협업 문의",
       "description": "Acecore에 문의하세요. 서비스 관련 질문, 견적, 파트너십 상담 등 편하게 연락해 주세요.",
       "heroTitle": "문의하기",
       "heroSubtitle": "질문, 상담, 의뢰는 여기에서",
@@ -346,6 +348,7 @@
     },
     "about": {
       "title": "회사 소개",
+      "seoTitleContext": "미션·철학·활동 소개",
       "description": "Acecore의 사명, 철학, 활동 내용을 소개합니다. 기술과 크리에이티브의 융합으로 개발, 교육, 커뮤니티 활동을 추진합니다.",
       "heroTitle": "회사 소개",
       "heroSubtitle": "Acecore가 추구하는 것과 소중히 여기는 것",
@@ -436,6 +439,7 @@
     },
     "services": {
       "title": "서비스",
+      "seoTitleContext": "웹 제작·서버 운영·IT 교육",
       "description": "Acecore가 제공하는 웹사이트 제작, 서버 운영, 디자인, IT 교육 서비스의 상세를 소개합니다.",
       "heroTitle": "서비스",
       "heroSubtitle": "원스톱으로 제공하는 다양한 IT 솔루션",
@@ -565,6 +569,7 @@
     },
     "privacy": {
       "title": "개인정보 보호정책",
+      "seoTitleContext": "개인정보와 접근 분석",
       "description": "Acecore의 개인정보 보호정책. 개인정보 취급, 광고 게재, 접근 분석, 면책 사항에 대해 기재합니다.",
       "heroTitle": "개인정보 보호정책",
       "heroImgAlt": "서류와 펜",
@@ -592,6 +597,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "개발 중인 크리에이티브 플랫폼",
       "description": "AceStudio는 Acecore가 개발 중인 크리에이티브 플랫폼입니다. 상세는 근일 공개 예정.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "Coming Soon",

@@ -128,6 +128,7 @@ function truncateDescriptionAtSentenceBoundary(
 
 interface BuildSeoTitleOptions {
   title: string
+  titleContext?: string
   siteTitle: string
   shortTitleContext: string
   locale: Locale
@@ -136,6 +137,7 @@ interface BuildSeoTitleOptions {
 
 export function buildSeoTitle({
   title,
+  titleContext,
   siteTitle,
   shortTitleContext,
   locale,
@@ -147,7 +149,23 @@ export function buildSeoTitle({
 
   const brandSuffix = ' | Acecore'
   const titleLimit = SEO_TITLE_LENGTH.max - countCharacters(brandSuffix)
-  const conciseTitle = truncateTitleWithContext(title, titleLimit, locale)
+  const normalizedTitle = normalizeWhitespace(title)
+  const normalizedTitleContext = titleContext
+    ? normalizeWhitespace(titleContext)
+    : ''
+  const contextSeparator = ' – '
+  const contextLimit =
+    titleLimit -
+    countCharacters(normalizedTitle) -
+    countCharacters(contextSeparator)
+  const conciseTitle =
+    normalizedTitleContext && contextLimit >= 8
+      ? `${normalizedTitle}${contextSeparator}${truncateAtWordBoundary(
+          normalizedTitleContext,
+          contextLimit,
+          locale,
+        )}`
+      : truncateTitleWithContext(normalizedTitle, titleLimit, locale)
   let pageTitle = `${conciseTitle}${brandSuffix}`
 
   if (countCharacters(pageTitle) < SEO_TITLE_LENGTH.min) {

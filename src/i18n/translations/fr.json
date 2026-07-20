@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "Blog",
+    "seoTitleContext": "Technologie, projets et éducation IT",
     "subtitle": "Informations techniques, rapports et actualités",
     "noPosts": "Les articles sont en préparation.",
     "tags": "Tags",
@@ -272,6 +273,7 @@
       "formSuccess": "Votre demande a été envoyée. Veuillez vérifier votre e-mail de confirmation.",
       "formError": "L’envoi a échoué. Veuillez réessayer plus tard ou consulter les options de contact ci-dessous.",
       "title": "Contact",
+      "seoTitleContext": "Conseils, devis et demandes de projet",
       "description": "Contactez Acecore ici. N'hésitez pas à poser des questions sur nos services, devis, partenariats et plus.",
       "heroTitle": "Contact",
       "heroSubtitle": "Questions, consultations et demandes — commencez ici",
@@ -346,6 +348,7 @@
     },
     "about": {
       "title": "À propos",
+      "seoTitleContext": "Mission, valeurs et activités",
       "description": "Découvrez la mission, la philosophie et les activités d'Acecore. Nous stimulons le développement, l'éducation et l'engagement communautaire par la synergie entre technologie et créativité.",
       "heroTitle": "À propos",
       "heroSubtitle": "Ce qu'Acecore poursuit et valorise",
@@ -436,6 +439,7 @@
     },
     "services": {
       "title": "Services",
+      "seoTitleContext": "Web design, serveurs et éducation IT",
       "description": "Découvrez les services complets d'Acecore, incluant le le web design, l'exploitation de serveurs, le design et l'éducation informatique.",
       "heroTitle": "Services",
       "heroSubtitle": "Solutions informatiques diverses livrées comme service intégré",
@@ -565,6 +569,7 @@
     },
     "privacy": {
       "title": "Politique de Confidentialité",
+      "seoTitleContext": "Données et analyse",
       "description": "Politique de Confidentialité d'Acecore. Informations sur le traitement des données personnelles, la publicité, l'analyse et les clauses de non-responsabilité.",
       "heroTitle": "Politique de Confidentialité",
       "heroImgAlt": "Documents et stylo",
@@ -592,6 +597,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "Plateforme créative en développement",
       "description": "AceStudio est une plateforme créative actuellement en développement par Acecore. Détails à venir.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "Coming Soon",

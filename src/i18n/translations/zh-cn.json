@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "博客",
+    "seoTitleContext": "网站设计、服务器与IT教育资讯",
     "subtitle": "技术资讯・活动报告・公告",
     "noPosts": "文章正在准备中。",
     "tags": "标签",
@@ -272,6 +273,7 @@
       "formSuccess": "您的咨询已发送。请查看确认邮件。",
       "formError": "发送失败。请稍后重试，或查看下方联系方式。",
       "title": "联系我们",
+      "seoTitleContext": "服务咨询、报价与合作",
       "description": "在此联系Acecore。关于服务咨询、报价、合作等，请随时联系。",
       "heroTitle": "联系我们",
       "heroSubtitle": "咨询、商谈、委托请从这里开始",
@@ -346,6 +348,7 @@
     },
     "about": {
       "title": "关于我们",
+      "seoTitleContext": "使命、理念与活动",
       "description": "了解Acecore的使命、理念和活动内容。通过技术与创意的融合，推动开发、教育和社区参与。",
       "heroTitle": "关于我们",
       "heroSubtitle": "Acecore的追求与理念",
@@ -436,6 +439,7 @@
     },
     "services": {
       "title": "服务",
+      "seoTitleContext": "网站设计、服务器运维与IT教育",
       "description": "详细介绍Acecore提供的网站设计、服务器运维、设计和IT教育服务。",
       "heroTitle": "服务",
       "heroSubtitle": "一站式多元IT解决方案",
@@ -565,6 +569,7 @@
     },
     "privacy": {
       "title": "隐私政策",
+      "seoTitleContext": "个人信息与访问分析",
       "description": "Acecore的隐私政策。关于个人信息处理、广告投放、访问分析和免责声明。",
       "heroTitle": "隐私政策",
       "heroImgAlt": "文件和笔",
@@ -592,6 +597,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "正在开发的创意平台",
       "description": "AceStudio是Acecore正在开发的创意平台。详情即将公布。",
       "heroTitle": "AceStudio",
       "heroSubtitle": "即将推出",

@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "Blog",
+    "seoTitleContext": "Technik, Projekte und digitale Bildung",
     "subtitle": "Technische Einblicke, Berichte & Neuigkeiten",
     "noPosts": "Artikel werden in Kürze veröffentlicht.",
     "tags": "Tags",
@@ -321,6 +322,7 @@
     },
     "about": {
       "title": "Über uns",
+      "seoTitleContext": "Mission, Werte und Aktivitäten",
       "description": "Erfahren Sie mehr über die Mission, Philosophie und Aktivitäten von Acecore. Wir fördern Entwicklung, Bildung und Community-Engagement durch die Synergie von Technologie und Kreativität.",
       "heroTitle": "Über uns",
       "heroSubtitle": "Was Acecore verfolgt und wertschätzt",
@@ -411,6 +413,7 @@
     },
     "services": {
       "title": "Dienste",
+      "seoTitleContext": "Webdesign, Server und IT-Bildung",
       "description": "Entdecken Sie die umfassenden Dienste von Acecore, einschließlich Webdesign, Serverbetrieb, Design und IT-Bildung.",
       "heroTitle": "Dienste",
       "heroSubtitle": "Vielfältige IT-Lösungen als integrierter Service geliefert",
@@ -540,6 +543,7 @@
     },
     "contact": {
       "title": "Kontakt",
+      "seoTitleContext": "Service-, Angebots- und Projektanfragen",
       "description": "Kontaktieren Sie Acecore hier. Zögern Sie nicht, Fragen zu unseren Diensten, Kostenvoranschlägen, Partnerschaften und mehr zu stellen.",
       "heroTitle": "Kontakt",
       "heroSubtitle": "Fragen, Beratungen und Anfragen — starten Sie hier",
@@ -617,6 +621,7 @@
     },
     "privacy": {
       "title": "Datenschutzerklärung",
+      "seoTitleContext": "Daten und Analyse",
       "description": "Datenschutzerklärung von Acecore. Informationen zur Verarbeitung personenbezogener Daten, Werbung, Analyse und Haftungsausschlüsse.",
       "heroTitle": "Datenschutzerklärung",
       "heroImgAlt": "Dokumente und Stift",
@@ -644,6 +649,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "Kreative Plattform in Entwicklung",
       "description": "AceStudio ist eine kreative Plattform, die derzeit von Acecore entwickelt wird. Details folgen in Kürze.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "Coming Soon",

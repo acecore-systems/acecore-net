@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "Blog",
+    "seoTitleContext": "Tecnología, proyectos y educación IT",
     "subtitle": "Información técnica, informes y noticias",
     "noPosts": "Los artículos están en preparación.",
     "tags": "Etiquetas",
@@ -272,6 +273,7 @@
       "formSuccess": "Su consulta ha sido enviada. Revise su correo de confirmación.",
       "formError": "No se pudo enviar. Inténtelo más tarde o revise las opciones de contacto de abajo.",
       "title": "Contacto",
+      "seoTitleContext": "Consultas sobre servicios y proyectos",
       "description": "Contacte con Acecore. Consultas sobre servicios, presupuestos, alianzas y más.",
       "heroTitle": "Contacto",
       "heroSubtitle": "Consultas, asesoramiento y solicitudes desde aquí",
@@ -346,6 +348,7 @@
     },
     "about": {
       "title": "Acerca de nosotros",
+      "seoTitleContext": "Misión, valores y actividades",
       "description": "Conozca la misión, filosofía y actividades de Acecore. Impulsamos el desarrollo, la educación y la comunidad mediante la sinergia de tecnología y creatividad.",
       "heroTitle": "Acerca de nosotros",
       "heroSubtitle": "Lo que Acecore persigue y valora",
@@ -436,6 +439,7 @@
     },
     "services": {
       "title": "Servicios",
+      "seoTitleContext": "Diseño web, servidores y educación IT",
       "description": "Explore los servicios integrales de Acecore: diseño web, operaciones de servidores, diseño y educación IT.",
       "heroTitle": "Servicios",
       "heroSubtitle": "Soluciones IT diversas en un servicio integral",
@@ -565,6 +569,7 @@
     },
     "privacy": {
       "title": "Política de privacidad",
+      "seoTitleContext": "Datos y análisis",
       "description": "Política de privacidad de Acecore. Información sobre el tratamiento de datos personales, publicidad, análisis y exención de responsabilidad.",
       "heroTitle": "Política de privacidad",
       "heroImgAlt": "Documentos y bolígrafo",
@@ -592,6 +597,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "Plataforma creativa en desarrollo",
       "description": "AceStudio es una plataforma creativa en desarrollo por Acecore. Detalles próximamente.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "Próximamente",
