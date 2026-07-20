@@ -13,7 +13,8 @@
     "format:check": "prettier . --check",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
-    "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs"
+    "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
+    "validate:legacy-redirects": "node scripts/validate-legacy-redirects.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
