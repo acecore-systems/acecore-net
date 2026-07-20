@@ -8,6 +8,9 @@ const localizedRoutePrefixes = new Set([
   'ru',
   'zh-cn',
 ])
+const movedSystemDevelopmentTag =
+  encodeURIComponent('システム開発').toUpperCase()
+const systemDevelopmentGuideUrl = 'https://systems.acecore.net/guide/'
 
 /**
  * Cloudflare Pages' implicit directory redirect can emit non-ASCII tag names
@@ -34,6 +37,12 @@ export function getCanonicalTagRedirectUrl(
     parts[2] === 'tags'
 
   if (!isDefaultLocaleTag && !isLocalizedTag) return null
+
+  if (parts.at(-1)?.toUpperCase() === movedSystemDevelopmentTag) {
+    const destination = new URL(systemDevelopmentGuideUrl)
+    destination.search = url.search
+    return destination.href
+  }
 
   url.pathname = `${url.pathname}/`
   return url.href

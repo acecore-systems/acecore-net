@@ -17,13 +17,14 @@ const tags = await Promise.all(
     JSON.parse(await readFile(path.join(tagsDirectory, file), 'utf8')),
   ),
 )
-const nonAsciiTags = tags
-  .map((tag) => tag.name)
-  .filter((name) => /[^\x00-\x7f]/u.test(name))
+const tagNames = tags.map((tag) => tag.name)
+const nonAsciiTagCount = tagNames.filter((name) =>
+  /[^\x00-\x7f]/u.test(name),
+).length
 
 let checked = 0
 for (const locale of locales) {
-  for (const tag of nonAsciiTags) {
+  for (const tag of tagNames) {
     const encodedTag = encodeURIComponent(tag)
     const startUrl = `https://acecore.net/${locale}blog/tags/${encodedTag}`
     const expectedUrl = `${startUrl}/`
@@ -36,6 +37,15 @@ for (const locale of locales) {
     }
 
     assert.equal(getCanonicalTagRedirectUrl(expectedUrl, 'GET'), null)
+  }
+
+  const movedTagUrl = `https://acecore.net/${locale}blog/tags/${encodeURIComponent('システム開発')}`
+  for (const method of ['GET', 'HEAD']) {
+    assert.equal(
+      getCanonicalTagRedirectUrl(`${movedTagUrl}?from=gsc`, method),
+      'https://systems.acecore.net/guide/?from=gsc',
+    )
+    checked += 1
   }
 }
 
@@ -69,5 +79,5 @@ assert.equal(
 )
 
 console.log(
-  `Validated ${checked} GET/HEAD redirects across ${locales.length} locales and ${nonAsciiTags.length} non-ASCII tag routes.`,
+  `Validated ${checked} GET/HEAD redirects across ${locales.length} locales and ${tagNames.length} current tag routes (${nonAsciiTagCount} non-ASCII), plus the moved system-development tag.`,
 )
