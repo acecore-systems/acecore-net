@@ -38,6 +38,23 @@ function isAllowedCmsContentPath(contentPath) {
   )
 }
 
+const contextualTitleFiles = [
+  'src/i18n/source/ja/pages/services.json',
+  'src/i18n/source/ja/pages/about.json',
+  'src/i18n/source/ja/pages/contact.json',
+  'src/i18n/source/ja/pages/acestudio.json',
+  'src/i18n/source/ja/pages/privacy.json',
+  'src/i18n/source/ja/blog.json',
+]
+
+function extractCmsFileDefinition(config, contentPath) {
+  const start = config.indexOf(`file: ${contentPath}`)
+  if (start < 0) return ''
+
+  const nextDefinition = config.indexOf('\n      - name:', start)
+  return config.slice(start, nextDefinition < 0 ? undefined : nextDefinition)
+}
+
 async function validateCmsConfig() {
   const scope = 'public/admin/config.yml'
   const config = await readFile(path.join(root, scope), 'utf8')
@@ -65,6 +82,23 @@ async function validateCmsConfig() {
     }
     if (!(await fileExists(contentPath))) {
       fail(scope, `CMS content path does not exist (${contentPath})`)
+    }
+  }
+
+  for (const contentPath of contextualTitleFiles) {
+    const source = JSON.parse(
+      await readFile(path.join(root, contentPath), 'utf8'),
+    )
+    if (
+      typeof source.seoTitleContext !== 'string' ||
+      source.seoTitleContext.trim() === ''
+    ) {
+      fail(contentPath, 'seoTitleContext must be a non-empty string')
+    }
+
+    const definition = extractCmsFileDefinition(config, contentPath)
+    if (!/^\s*-\s*name:\s*['"]seoTitleContext['"]\s*$/m.test(definition)) {
+      fail(scope, `seoTitleContext field is missing for ${contentPath}`)
     }
   }
 }
