@@ -44,3 +44,6 @@ jobs:
 
       - name: Validate non-ASCII tag redirects
         run: npm run validate:tag-redirects
+
+      - name: Validate legacy redirects
+        run: npm run validate:legacy-redirects
