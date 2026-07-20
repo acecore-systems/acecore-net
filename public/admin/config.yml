@@ -1218,6 +1218,10 @@ collections:
             label: 'タイトル'
             hint: 'title'
             widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
+            widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
@@ -1546,6 +1550,10 @@ collections:
             label: 'タイトル'
             hint: 'title'
             widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
+            widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
@@ -1723,6 +1731,10 @@ collections:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
+            widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
             widget: string
           - name: 'description'
             label: '説明'
@@ -1935,6 +1947,10 @@ collections:
             label: 'タイトル'
             hint: 'title'
             widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
+            widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
@@ -2069,6 +2085,10 @@ collections:
             label: 'タイトル'
             hint: 'title'
             widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
+            widget: string
           - name: 'description'
             label: '説明'
             hint: 'description'
@@ -2173,6 +2193,10 @@ collections:
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
+            widget: string
+          - name: 'seoTitleContext'
+            label: 'SEOタイトル補足'
+            hint: 'seoTitleContext'
             widget: string
           - name: 'subtitle'
             label: 'サブタイトル'
