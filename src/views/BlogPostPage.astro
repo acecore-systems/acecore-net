@@ -41,6 +41,8 @@ import {
   localizePost,
   isBasePost,
   getLocalizedAuthor,
+  filterPostsForLocale,
+  localizeContentUrl,
 } from '../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
@@ -70,16 +72,24 @@ const canonicalPostPath = isFallbackLocalePost
   ? `/blog/${baseSlug}/`
   : u(`/blog/${baseSlug}/`)
 const canonicalPostUrl = new URL(canonicalPostPath, Astro.site).href
-const alternateUrls = locales
-  .filter(
-    (l) =>
-      l === defaultLocale ||
-      allRawPosts.some((candidate) => candidate.id === `${l}/${baseSlug}`),
+const hasPostInLocale = (targetLocale: Locale) =>
+  targetLocale === defaultLocale ||
+  allRawPosts.some(
+    (candidate) => candidate.id === `${targetLocale}/${baseSlug}`,
   )
-  .map((l) => ({
-    locale: l,
-    url: new URL(getLocalizedUrl(`/blog/${baseSlug}/`, l), Astro.site).href,
-  }))
+const alternateUrls = locales.filter(hasPostInLocale).map((l) => ({
+  locale: l,
+  url: new URL(getLocalizedUrl(`/blog/${baseSlug}/`, l), Astro.site).href,
+}))
+const languageSwitcherUrls = Object.fromEntries(
+  locales.map((targetLocale) => [
+    targetLocale,
+    getLocalizedUrl(
+      hasPostInLocale(targetLocale) ? `/blog/${baseSlug}/` : '/blog/',
+      targetLocale,
+    ),
+  ]),
+) as Record<Locale, string>
 
 const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
@@ -90,7 +100,11 @@ const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
 const relatedImageWidths = [320, 640, 960, 1200]
 const relatedImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
-const basePosts = allRawPosts.filter(isBasePost)
+const basePosts = filterPostsForLocale(
+  allRawPosts.filter(isBasePost),
+  allRawPosts,
+  locale,
+)
 
 const currentIndex = basePosts.findIndex((p) => p.id === baseSlug)
 const prevBasePost =
@@ -251,6 +265,7 @@ const ctaHeading = isDefaultLocale
   locale={locale}
   canonicalPath={canonicalPostPath}
   alternateUrls={alternateUrls}
+  languageSwitcherUrls={languageSwitcherUrls}
   preloadImage={postImage
     ? {
         src: optimizeImage(postImage),
@@ -410,7 +425,14 @@ const ctaHeading = isDefaultLocale
           ))
         }
         {post.data.pullQuote && <PullQuote {...post.data.pullQuote} />}
-        {post.data.linkCards?.map((lc) => <LinkCard {...lc} />)}
+        {
+          post.data.linkCards?.map((linkCard) => (
+            <LinkCard
+              {...linkCard}
+              href={localizeContentUrl(linkCard.href, allRawPosts, locale)}
+            />
+          ))
+        }
         {post.data.faq && <Faq {...post.data.faq} />}
         <AdUnit containerClass="my-6" />
 

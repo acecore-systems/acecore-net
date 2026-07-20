@@ -9,7 +9,11 @@ import { optimizeImage } from '../utils/image'
 import AdUnit from '../components/AdUnit.astro'
 import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
 import { t, getLocalizedUrl, getYearMonthKey, type Locale } from '../i18n'
-import { isBasePost, localizePost } from '../utils/blog-i18n'
+import {
+  filterPostsForLocale,
+  isBasePost,
+  localizePost,
+} from '../utils/blog-i18n'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
@@ -24,7 +28,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const allRawPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )
-const allPosts = allRawPosts.filter(isBasePost)
+const allPosts = filterPostsForLocale(
+  allRawPosts.filter(isBasePost),
+  allRawPosts,
+  locale,
+)
 const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 const posts = allPosts.slice(0, POSTS_PER_PAGE)
 const tagsData = await getAllTags()
@@ -233,7 +241,7 @@ const pageNumbers = buildPageNumbers(1, totalPages)
             </div>
           </div>
         </div>
-        <BlogSidebar allPosts={allPosts} locale={locale} />
+        <BlogSidebar allPosts={allRawPosts} locale={locale} />
       </div>
     </div>
   </section>

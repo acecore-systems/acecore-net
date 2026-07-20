@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
-import { localizePost } from '../utils/blog-i18n'
+import { filterPostsForLocale, localizePost } from '../utils/blog-i18n'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { locale, tag, posts, allPosts } = Astro.props
+const localizedPosts = filterPostsForLocale(posts, allPosts, locale)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const tags = await getAllTags()
 const displayTag = getLocalizedTagName(tags, tag, locale)
@@ -45,7 +46,7 @@ const breadcrumbItems = [
     name: t(locale, 'blog.articlesByTag', { tag: displayTag }),
     url: `https://acecore.net${u(`/blog/tags/${tag}/`)}`,
     description: t(locale, 'blog.tagDescription', { tag: displayTag }),
-    hasPart: posts.map((post) => ({
+    hasPart: localizedPosts.map((post) => ({
       '@type': 'BlogPosting',
       headline: localizePost(post, allPosts, locale).data.title,
       url: `https://acecore.net${u(`/blog/${post.id}/`)}`,
@@ -64,14 +65,14 @@ const breadcrumbItems = [
           <span
             class="ml-2 inline-flex rounded-lg bg-brand-50 px-3 py-1 text-sm font-700 text-brand-600"
           >
-            {t(locale, 'blog.postsCount', { count: posts.length })}
+            {t(locale, 'blog.postsCount', { count: localizedPosts.length })}
           </span>
         </p>
       </div>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
           {
-            posts.map((post) => (
+            localizedPosts.map((post) => (
               <BlogPostCard
                 post={localizePost(post, allPosts, locale)}
                 locale={locale}

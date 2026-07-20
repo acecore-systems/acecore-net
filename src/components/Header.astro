@@ -8,10 +8,12 @@ import { getSchoolsUrl } from '../utils/schools-url'
 interface Props {
   locale?: Locale
   languageSwitcherPath?: string
+  languageSwitcherUrls?: Partial<Record<Locale, string>>
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const languageSwitcherPath = Astro.props.languageSwitcherPath
+const languageSwitcherUrls = Astro.props.languageSwitcherUrls
 const navLinks = [
   { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
   {
@@ -83,7 +85,11 @@ const currentPath = Astro.url.pathname
       >
         <Icon name="search" class="text-lg" />
       </button>
-      <LanguageSwitcher locale={locale} path={languageSwitcherPath} />
+      <LanguageSwitcher
+        locale={locale}
+        path={languageSwitcherPath}
+        urls={languageSwitcherUrls}
+      />
       <a
         href={contactLink.href}
         class="ac-btn-primary ml-2 min-h-10 px-4 py-2 text-xs"
@@ -155,6 +161,7 @@ const currentPath = Astro.url.pathname
           locale={locale}
           path={languageSwitcherPath}
           showLabel={true}
+          urls={languageSwitcherUrls}
         />
       </div>
     </div>

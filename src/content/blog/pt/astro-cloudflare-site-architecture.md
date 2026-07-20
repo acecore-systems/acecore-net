@@ -2,7 +2,6 @@
 title: 'Como projetar um site Astro + Cloudflare que cresce por funcionalidade'
 description: 'Como combinamos Astro e Cloudflare Pages com chat de contato com IA, Sveltia CMS, blog multilíngue, CTA de serviços, renderização segura de Markdown e comentários sem serviço externo.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -45,7 +44,7 @@ linkCards:
     title: Blog multilíngue com Sveltia CMS
     description: Publicar páginas estáticas localizadas em vez de depender só de tradução na UI.
     icon: i-lucide-languages
-  - href: /pt/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: Passar contexto do CTA para o formulário
     description: Levar o contexto do serviço lido para categoria e assunto do formulário.
     icon: i-lucide-route
@@ -126,7 +125,7 @@ Não é preciso ler tudo primeiro. Comece pela função que você quer adicionar
 | Publicar páginas multilíngues indexáveis    | [Como operar um blog multilíngue com Sveltia CMS](/pt/blog/copilot-translation-pipeline/)          |
 | Orientar visitantes com chat de IA          | [Design técnico do chat de contato com IA](/pt/blog/astro-ai-contact-chat/)                        |
 | Renderizar links seguros em respostas de IA | [Renderização segura de links Markdown em respostas de IA](/pt/blog/ai-chat-markdown-link-safety/) |
-| Levar contexto do serviço ao formulário     | [Passar contexto do CTA para o formulário](/pt/blog/service-cta-contact-prefill/)                  |
+| Levar contexto do serviço ao formulário     | [Passar contexto do CTA para o formulário](/blog/service-cta-contact-prefill/)                     |
 | Adicionar comentários sem serviço externo   | [Comentários de blog Astro usando só Cloudflare](/pt/blog/cloudflare-only-blog-comments/)          |
 
 ## Ordem de implementação

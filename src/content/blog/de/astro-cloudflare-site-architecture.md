@@ -2,7 +2,6 @@
 title: 'Eine Astro + Cloudflare Website Schritt für Schritt erweitern'
 description: 'Wie wir Astro und Cloudflare Pages mit AI-Kontaktchat, Sveltia CMS, mehrsprachigem Blog, Service-CTA, sicherem Markdown-Rendering und Kommentaren ohne externen Dienst kombiniert haben.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -45,7 +44,7 @@ linkCards:
     title: Mehrsprachigen Blog mit Sveltia CMS betreiben
     description: Lokalisierte statische Seiten statt reiner UI-Übersetzung veröffentlichen.
     icon: i-lucide-languages
-  - href: /de/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: Service-CTA-Kontext an das Formular übergeben
     description: Den gelesenen Service in Kategorie und Betreff des Formulars übernehmen.
     icon: i-lucide-route
@@ -124,7 +123,7 @@ Man muss nicht zuerst alles lesen. Starten Sie mit der Funktion, die Sie ergänz
 | Mehrsprachige Seiten indexierbar veröffentlichen | [Mehrsprachigen Blog mit Sveltia CMS betreiben](/de/blog/copilot-translation-pipeline/)     |
 | Besucher per AI-Chat führen                      | [Technisches Design für den AI-Kontaktchat](/de/blog/astro-ai-contact-chat/)                |
 | Sichere Links in AI-Antworten rendern            | [Sichere Markdown-Links in AI-Antworten rendern](/de/blog/ai-chat-markdown-link-safety/)    |
-| Service-Kontext an das Formular übergeben        | [Service-CTA-Kontext an das Formular übergeben](/de/blog/service-cta-contact-prefill/)      |
+| Service-Kontext an das Formular übergeben        | [Service-CTA-Kontext an das Formular übergeben](/blog/service-cta-contact-prefill/)         |
 | Kommentare ohne externen Dienst ergänzen         | [Astro-Blogkommentare nur mit Cloudflare umsetzen](/de/blog/cloudflare-only-blog-comments/) |
 
 ## Implementierungsreihenfolge

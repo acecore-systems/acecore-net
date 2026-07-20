@@ -6,6 +6,7 @@ import {
   isBasePost,
   localizePost,
   getLocalizedAuthor,
+  filterPostsForLocale,
 } from '../../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../../utils/tags'
@@ -68,7 +69,9 @@ export async function GET(context: APIContext) {
     .filter(isBasePost)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 
-  const localizedPosts = basePosts.map((p) => localizePost(p, allPosts, locale))
+  const localizedPosts = filterPostsForLocale(basePosts, allPosts, locale).map(
+    (post) => localizePost(post, allPosts, locale),
+  )
 
   const meta = rssMeta[locale] ?? { title: 'Acecore Blog', description: '' }
 

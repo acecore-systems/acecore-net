@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import BlogSidebar from '../components/BlogSidebar.astro'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
-import { localizePost } from '../utils/blog-i18n'
+import { filterPostsForLocale, localizePost } from '../utils/blog-i18n'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -16,6 +16,7 @@ interface Props {
 }
 
 const { locale, month, posts, allPosts } = Astro.props
+const localizedPosts = filterPostsForLocale(posts, allPosts, locale)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const [year, m] = month.split('-')
 const label = t(locale, 'blog.yearMonth', { year, month: String(parseInt(m)) })
@@ -31,7 +32,7 @@ const archivePageLd = {
   name: t(locale, 'blog.articlesInMonth', { label }),
   description: t(locale, 'blog.monthDescription', { label }),
   url: archiveUrl,
-  hasPart: posts.map((post) => ({
+  hasPart: localizedPosts.map((post) => ({
     '@type': 'BlogPosting',
     headline: localizePost(post, allPosts, locale).data.title,
     url: `https://acecore.net${u('/blog/' + post.id + '/')}`,
@@ -62,14 +63,14 @@ const archivePageLd = {
           <span
             class="ml-2 inline-flex rounded-lg bg-brand-50 px-3 py-1 text-sm font-700 text-brand-600"
           >
-            {t(locale, 'blog.postsCount', { count: posts.length })}
+            {t(locale, 'blog.postsCount', { count: localizedPosts.length })}
           </span>
         </p>
       </div>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
           {
-            posts.map((post) => (
+            localizedPosts.map((post) => (
               <BlogPostCard
                 post={localizePost(post, allPosts, locale)}
                 locale={locale}

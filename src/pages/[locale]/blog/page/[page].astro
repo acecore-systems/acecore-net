@@ -3,7 +3,7 @@ import BlogPaginationPage from '../../../../views/BlogPaginationPage.astro'
 import { getCollection } from 'astro:content'
 import { POSTS_PER_PAGE } from '../../../../utils/pagination'
 import { locales, defaultLocale, type Locale } from '../../../../i18n'
-import { isBasePost } from '../../../../utils/blog-i18n'
+import { filterPostsForLocale, isBasePost } from '../../../../utils/blog-i18n'
 
 export async function getStaticPaths() {
   const allRawPosts = (await getCollection('blog')).sort(
@@ -12,14 +12,15 @@ export async function getStaticPaths() {
   const allPosts = allRawPosts
     .filter(isBasePost)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
   return locales
     .filter((l) => l !== defaultLocale)
-    .flatMap((locale) =>
-      Array.from({ length: totalPages - 1 }, (_, i) => ({
+    .flatMap((locale) => {
+      const localePosts = filterPostsForLocale(allPosts, allRawPosts, locale)
+      const totalPages = Math.ceil(localePosts.length / POSTS_PER_PAGE)
+      return Array.from({ length: totalPages - 1 }, (_, i) => ({
         params: { locale, page: String(i + 2) },
         props: {
-          posts: allPosts.slice(
+          posts: localePosts.slice(
             (i + 1) * POSTS_PER_PAGE,
             (i + 2) * POSTS_PER_PAGE,
           ),
@@ -27,8 +28,8 @@ export async function getStaticPaths() {
           totalPages,
           allPosts: allRawPosts,
         },
-      })),
-    )
+      }))
+    })
 }
 
 const locale = Astro.params.locale as Locale

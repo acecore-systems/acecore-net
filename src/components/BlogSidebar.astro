@@ -14,6 +14,7 @@ import {
   localizePost,
   getBaseSlug,
   getLocalizedAuthor,
+  filterPostsForLocale,
 } from '../utils/blog-i18n'
 import { getAllAuthors, type AuthorData } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
@@ -25,7 +26,11 @@ interface Props {
 
 const { allPosts: rawPosts } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const allPosts = rawPosts.filter(isBasePost)
+const allPosts = filterPostsForLocale(
+  rawPosts.filter(isBasePost),
+  rawPosts,
+  locale,
+)
 const authors: AuthorData[] = await getAllAuthors()
 const tags = await getAllTags()
 
