@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Автоматизировать эксплуатацию
-      description: Связать ветку cms-content, CMS PR и задачи перевода, не смешивая их с обычной разработкой.
+      description: Использовать main как ветку публикации и связать временные ветки editorial workflow, CMS PR и задачи перевода.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -99,11 +99,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> Cloudflare Worker для GitHub OAuth
 
-cms-content branch
-  -> ветка, куда CMS сохраняет изменения
+main branch
+  -> единственный источник для production
 
-.github/workflows/cms-content-pr.yml
-  -> открывает PR из cms-content в main
+Sveltia CMS editorial workflow
+  -> создаёт временную ветку и PR для каждого изменения
 
 .github/workflows/create-translation-prs.yml
   -> создаёт задачи перевода только для cms: commits
@@ -152,7 +152,7 @@ CMS.init({
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -161,9 +161,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-Для личного сайта можно сохранять прямо в `main`. Для корпоративного или многоязычного сайта удобнее сохранять в отдельную ветку `cms-content` и создавать PR.
+Оставьте `main` веткой публикации и включите `publish_mode: editorial_workflow`. Каждое сохранение проходит через временную ветку и PR, а не записывается напрямую в production.
+
+Постоянная ветка вроде `cms-content` требует непрерывной синхронизации и повышает риск конфликтов или неверной настройки источника deploy. Временные ветки сохраняют `main` единственным источником истины.
 
 ## 3. Добавить OAuth Worker
 
@@ -233,16 +237,20 @@ CMS.init({
 })
 ```
 
-## 9. Создавать PR из CMS-ветки
+## 9. Использовать временные ветки editorial workflow
 
-Сохранение в `cms-content` и PR в `main` сохраняют ревью контента.
+Sveltia CMS создаёт временную ветку и PR в `main` для каждого изменения через editorial workflow.
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
+
+Хотя ветка публикации — `main`, CMS не записывает изменения прямо в неё. После ревью и merge временная ветка удаляется автоматически.
 
 Способ merge важен. Задачи перевода зависят от commit subjects вроде `cms: create ...`. Если squash merge их удалит, автоматизация может не увидеть изменение source. Для CMS PR лучше merge commit или rebase merge.
 

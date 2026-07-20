@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automatizar la operación
-      description: Conecta la rama cms-content, los PRs de CMS y las tareas de traducción sin mezclarlas con desarrollo normal.
+      description: Usa main como rama de publicación y conecta ramas temporales del flujo editorial, PRs de CMS y tareas de traducción.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -101,11 +101,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> Cloudflare Worker para GitHub OAuth
 
-cms-content branch
-  -> rama donde el CMS guarda cambios
+main branch
+  -> única fuente de verdad para producción
 
-.github/workflows/cms-content-pr.yml
-  -> crea PR desde cms-content hacia main
+Sveltia CMS editorial workflow
+  -> crea una rama temporal y un PR por cada cambio
 
 .github/workflows/create-translation-prs.yml
   -> crea tareas de traducción solo para commits cms:
@@ -154,7 +154,7 @@ Lo mínimo es `backend.name` y `backend.repo`, pero en producción conviene defi
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -163,9 +163,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-Para un sitio personal, guardar en `main` puede bastar. Para un sitio corporativo o multilingüe, una rama dedicada como `cms-content` facilita revisión y rollback.
+Mantén `main` como rama de publicación y activa `publish_mode: editorial_workflow`. Cada guardado usa una rama temporal y un PR en vez de escribir directamente en producción.
+
+Una rama permanente como `cms-content` exige sincronización continua y aumenta el riesgo de conflictos o de configurar mal el origen del despliegue. Las ramas temporales mantienen `main` como única fuente de verdad.
 
 ## 3. Añadir OAuth Worker
 
@@ -235,16 +239,20 @@ CMS.init({
 })
 ```
 
-## 9. Crear PRs desde una rama CMS
+## 9. Usar ramas temporales con editorial workflow
 
-Guardar cambios en `cms-content` y crear PR hacia `main` conserva revisión y trazabilidad.
+Sveltia CMS crea una rama temporal y un PR hacia `main` para cada cambio mediante editorial workflow.
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
+
+Aunque la rama de publicación es `main`, el CMS no escribe directamente en ella. Tras revisar y fusionar el PR, la rama temporal se elimina automáticamente.
 
 La forma de merge importa. Las tareas de traducción dependen de subjects como `cms: create ...` o `cms: update ...`. Si se hace squash y se pierden, la automatización puede no detectar el cambio. Para PRs CMS, conviene merge commit o rebase merge.
 

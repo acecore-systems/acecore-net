@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automate operations
-      description: Connect the cms-content branch, CMS edit PRs, and translation PR tasks without mixing them with normal development.
+      description: Use main as the publication branch and connect editorial workflow branches, CMS edit PRs, and translation PR tasks.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -101,11 +101,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> Cloudflare Worker for GitHub OAuth
 
-cms-content branch
-  -> branch where CMS edits are saved
+main branch
+  -> the single source of truth for production
 
-.github/workflows/cms-content-pr.yml
-  -> opens a pull request from cms-content to main
+Sveltia CMS editorial workflow
+  -> creates a short-lived branch and pull request for each edit
 
 .github/workflows/create-translation-prs.yml
   -> creates translation PR tasks only for cms: commits
@@ -162,7 +162,7 @@ The minimal GitHub backend needs `backend.name` and `backend.repo`. In productio
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -171,9 +171,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-The branch choice is important. A personal site may save directly to `main`, but a business site is easier to review when CMS edits are saved to a dedicated `cms-content` branch and then turned into a pull request.
+Keep `main` as the publication branch and enable `publish_mode: editorial_workflow`. Each save then goes to a short-lived branch and pull request instead of committing directly to production.
+
+A permanent branch such as `cms-content` creates ongoing synchronization, conflict, and deployment-source risks. Closing a short-lived branch with each pull request keeps `main` as the only source of truth.
 
 ## 3. Add an OAuth Worker
 
@@ -185,9 +189,11 @@ Acecore uses Sveltia CMS Authenticator on Cloudflare Workers and points `backend
 backend:
   name: github
   repo: acecore-systems/acecore-net
-  branch: cms-content
+  branch: main
   base_url: https://sveltia-cms-auth.example.workers.dev
   auth_methods: [oauth]
+
+publish_mode: editorial_workflow
 ```
 
 The GitHub OAuth App callback points to the Worker's `/callback` URL. The Worker receives `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and optionally `ALLOWED_DOMAINS` as environment variables.
@@ -301,18 +307,20 @@ CMS.init({
 
 This keeps the shared YAML config stable while still making preview environments point at the right branch.
 
-## 9. Create PRs From a CMS Branch
+## 9. Use Editorial Workflow for Short-Lived Branches
 
-Saving CMS edits to `cms-content` and opening a pull request to `main` keeps content changes reviewable.
+Do not publish CMS saves directly. Sveltia CMS editorial workflow creates a short-lived branch and pull request for each edit.
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
 
-The workflow checks whether a CMS PR already exists and avoids opening duplicates.
+Although the publication branch is `main`, editorial workflow does not commit saves directly to it. Review and merge the generated pull request, then delete the merged branch automatically.
 
 The merge method matters. Acecore's translation task detection relies on commit subjects such as `cms: create ...` and `cms: update ...`. If a CMS PR is squash merged and those subjects disappear, the translation workflow may not detect the source change. For CMS PRs, keep the `cms:` commits through merge commit or rebase merge.
 
@@ -391,13 +399,15 @@ public/admin/runtime-config.js
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
     update: 'cms: update {{collection}} "{{slug}}"'
     delete: 'cms: delete {{collection}} "{{slug}}"'
+
+publish_mode: editorial_workflow
 
 media_folder: public/uploads
 public_folder: /uploads

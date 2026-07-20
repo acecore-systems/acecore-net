@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Betrieb automatisieren
-      description: cms-content-Branch, CMS-PRs und Übersetzungs-Tasks verbinden, ohne normalen Entwicklungsfluss zu vermischen.
+      description: main als Veröffentlichungsbranch nutzen und kurzlebige Editorial-Workflow-Branches, CMS-PRs und Übersetzungs-Tasks verbinden.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -99,11 +99,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> Cloudflare Worker für GitHub OAuth
 
-cms-content branch
-  -> Branch, auf dem das CMS Änderungen speichert
+main branch
+  -> einzige Quelle für die Produktion
 
-.github/workflows/cms-content-pr.yml
-  -> öffnet PR von cms-content nach main
+Sveltia CMS editorial workflow
+  -> erstellt pro Änderung einen kurzlebigen Branch und PR
 
 .github/workflows/create-translation-prs.yml
   -> erzeugt Übersetzungs-Tasks nur für cms:-Commits
@@ -152,7 +152,7 @@ Minimal braucht man `backend.name` und `backend.repo`. Für den Betrieb sollten 
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -161,9 +161,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-Für persönliche Websites kann `main` reichen. Für Unternehmens- oder mehrsprachige Websites ist ein eigener Branch wie `cms-content` besser reviewbar.
+`main` bleibt der Veröffentlichungsbranch. Mit `publish_mode: editorial_workflow` speichert jede Änderung in einem kurzlebigen Branch und PR statt direkt in der Produktion.
+
+Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Kurzlebige Branches halten `main` als einzige Quelle der Wahrheit.
 
 ## 3. OAuth Worker ergänzen
 
@@ -233,16 +237,20 @@ CMS.init({
 })
 ```
 
-## 9. PRs aus dem CMS-Branch erstellen
+## 9. Kurzlebige Branches mit Editorial Workflow verwenden
 
-Änderungen in `cms-content` zu speichern und PRs nach `main` zu öffnen, hält Inhalte reviewbar.
+Sveltia CMS erstellt mit Editorial Workflow für jede Änderung einen kurzlebigen Branch und einen PR nach `main`.
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
+
+Der Veröffentlichungsbranch ist `main`, aber CMS-Änderungen werden nicht direkt dorthin committed. Nach Review und Merge wird der kurzlebige Branch automatisch gelöscht.
 
 Die Merge-Methode ist wichtig. Übersetzungs-Tasks hängen an Commit-Subjects wie `cms: create ...`. Wenn Squash-Merge diese entfernt, kann Automatisierung den Source-Change übersehen. Für CMS-PRs sind Merge-Commit oder Rebase-Merge geeigneter.
 
