@@ -68,6 +68,33 @@ function extractCanonical(html) {
   return decodeHtmlEntities(match?.[2] ?? '')
 }
 
+function extractAttribute(tag, name) {
+  const match = tag.match(new RegExp(`\\b${name}=(['"])([\\s\\S]*?)\\1`, 'i'))
+  return decodeHtmlEntities(match?.[2] ?? '')
+}
+
+function extractHreflangLinks(html) {
+  return new Map(
+    Array.from(html.matchAll(/<link\s+[^>]*>/gi), (match) => match[0])
+      .filter((tag) => extractAttribute(tag, 'rel') === 'alternate')
+      .filter((tag) => extractAttribute(tag, 'hreflang'))
+      .map((tag) => [
+        extractAttribute(tag, 'hreflang'),
+        extractAttribute(tag, 'href'),
+      ]),
+  )
+}
+
+function getImageAltIssues(html, url) {
+  return Array.from(html.matchAll(/<img\s+[^>]*>/gi), (match) => match[0])
+    .filter((tag) => !extractAttribute(tag, 'alt').trim())
+    .map((tag) => ({
+      label: 'image alt is empty or missing',
+      url,
+      value: extractAttribute(tag, 'src') || '(missing src)',
+    }))
+}
+
 async function getSitemapUrls() {
   const sitemapIndex = await readFile(
     path.join(distDirectory, 'sitemap-index.xml'),
@@ -169,6 +196,38 @@ for (const url of urls) {
       value: canonical || '(missing)',
     })
   }
+
+  issues.push(...getImageAltIssues(html, url))
+}
+
+const rootUrl = 'https://acecore.net/'
+const rootHtml = await readFile(getHtmlPath(rootUrl), 'utf8')
+const rootHreflangLinks = extractHreflangLinks(rootHtml)
+const expectedRootHreflangLinks = new Map([
+  ['ja', rootUrl],
+  ['en', 'https://acecore.net/en/'],
+  ['x-default', rootUrl],
+])
+
+for (const [hreflang, expectedUrl] of expectedRootHreflangLinks) {
+  const actualUrl = rootHreflangLinks.get(hreflang)
+  if (actualUrl === expectedUrl) continue
+  issues.push({
+    label: 'root hreflang does not match the default locale policy',
+    url: rootUrl,
+    value: `${hreflang}: ${actualUrl || '(missing)'} (expected ${expectedUrl})`,
+  })
+}
+
+if (
+  rootHtml.includes('navigator.language') &&
+  rootHtml.includes('location.replace')
+) {
+  issues.push({
+    label: 'root page contains an automatic locale redirect',
+    url: rootUrl,
+    value: 'Use explicit hreflang links and the language switcher instead.',
+  })
 }
 
 const expectedContextualCorePages =
