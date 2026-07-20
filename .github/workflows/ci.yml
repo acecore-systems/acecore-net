@@ -41,3 +41,6 @@ jobs:
 
       - name: Validate generated SEO metadata
         run: npm run validate:seo
+
+      - name: Validate non-ASCII tag redirects
+        run: npm run validate:tag-redirects
