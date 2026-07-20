@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 運用を自動化する
-      description: cms-contentブランチ、CMS編集PR、翻訳PR taskをつなぎ、通常開発とCMS更新を分離します。
+      description: mainをpublication branchにし、editorial workflowの短命branch、CMS編集PR、翻訳PR taskをつなぎます。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -101,11 +101,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> GitHub OAuth用のCloudflare Worker
 
-cms-content branch
-  -> CMSが保存する作業ブランチ
+main branch
+  -> 公開ソースの唯一の正
 
-.github/workflows/cms-content-pr.yml
-  -> cms-content へのpushからmain向けPRを作成
+Sveltia CMS editorial workflow
+  -> 保存ごとに短命branchとmain向けPRを作成
 
 .github/workflows/create-translation-prs.yml
   -> cms: commitだけを翻訳PR taskの対象にする
@@ -162,7 +162,7 @@ Sveltia CMSでGitHubリポジトリを編集する最小設定は `backend.name`
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -171,11 +171,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-`branch` を `main` にするか、CMS専用ブランチにするかは運用の分かれ目です。
+publication branchは `main` に固定し、`publish_mode: editorial_workflow` で保存ごとの短命branchとPRを作るのが現在の構成です。`main` を本番ソースの唯一の正にしながら、CMS変更を直接commitせずレビューできます。
 
-小規模な個人サイトなら `main` へ直接保存しても成立します。ただし、会社サイトや多言語サイトでは、CMS保存を `cms-content` のような専用ブランチに逃がし、自動でPRを作る構成のほうがレビューしやすくなります。
+`cms-content` のような恒久branchを別本流にすると、`main` との同期、競合、deploy元の誤設定を継続的に管理する必要があります。受け皿branchを常設せず、短命branchをPRごとに閉じるほうが運用を単純にできます。
 
 ## 3. OAuth Workerを用意する
 
@@ -187,9 +189,11 @@ Acecoreでは、Sveltia CMS AuthenticatorをCloudflare Workersで動かし、`ba
 backend:
   name: github
   repo: acecore-systems/acecore-net
-  branch: cms-content
+  branch: main
   base_url: https://sveltia-cms-auth.example.workers.dev
   auth_methods: [oauth]
+
+publish_mode: editorial_workflow
 ```
 
 GitHub OAuth App側では、callback URLをWorkerの `/callback` に向けます。Worker側には `GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`、必要なら `ALLOWED_DOMAINS` を環境変数として設定します。
@@ -317,18 +321,20 @@ CMS.init({
 
 この形にしておくと、設定ファイル本体は共有したまま、previewだけ対象ブランチを切り替えられます。
 
-## 9. CMS専用ブランチからPRを作る
+## 9. Editorial workflowで短命branchとPRを作る
 
-CMSで保存した内容をそのまま本番反映するより、`cms-content` branchに保存し、GitHub Actionsでmain向けPRを作るほうが安全です。
+CMSで保存した内容をそのまま本番反映せず、Sveltia CMSのeditorial workflowで保存ごとの短命branchとmain向けPRを作ります。
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
 
-ワークフローでは、`cms-content` と `main` の差分があるときだけPRを作ります。既に開いているCMS PRがあれば追加作成しません。
+publication branchは `main` ですが、editorial workflowの保存は `main` への直接commitではありません。CMSが短命branchとPRを管理し、レビュー後にmergeします。merge後のbranch自動削除も有効にして、恒久的な別本流を残しません。
 
 ここで重要なのがmerge方法です。Acecoreの翻訳PR taskは `cms: create ...` や `cms: update ...` というcommit subjectを見て、CMS由来の日本語source更新だけを対象にしています。
 
@@ -417,13 +423,15 @@ public/admin/runtime-config.js
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
     update: 'cms: update {{collection}} "{{slug}}"'
     delete: 'cms: delete {{collection}} "{{slug}}"'
+
+publish_mode: editorial_workflow
 
 media_folder: public/uploads
 public_folder: /uploads
@@ -441,7 +449,7 @@ collections:
       - { name: body, label: 本文, widget: markdown }
 ```
 
-ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、CMS専用PR、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
+ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、editorial workflow、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
 
 ## 参考リンク
 

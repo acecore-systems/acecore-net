@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 自动化运维
-      description: 将 cms-content 分支、CMS 编辑 PR 与翻译 PR task 连接起来，并与普通开发分离。
+      description: 将 main 作为发布分支，并连接 editorial workflow 的短期分支、CMS 编辑 PR 与翻译 PR task。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -101,11 +101,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> GitHub OAuth 用 Cloudflare Worker
 
-cms-content branch
-  -> CMS 保存编辑内容的分支
+main branch
+  -> 生产环境唯一的真实来源
 
-.github/workflows/cms-content-pr.yml
-  -> 从 cms-content 自动创建 main 向 PR
+Sveltia CMS editorial workflow
+  -> 每次修改创建短期分支和 main 向 PR
 
 .github/workflows/create-translation-prs.yml
   -> 只为 cms: commit 创建翻译 PR task
@@ -156,7 +156,7 @@ CMS.init({
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -165,9 +165,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-个人网站可以直接保存到 `main`。公司网站或多语言网站则更适合保存到 `cms-content`，再自动创建 PR。
+将 `main` 保持为发布分支，并启用 `publish_mode: editorial_workflow`。每次保存都会进入短期分支和 PR，而不是直接写入生产环境。
+
+像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。按 PR 关闭短期分支，可以让 `main` 始终是唯一的真实来源。
 
 ## 3. 准备 OAuth Worker
 
@@ -255,16 +259,20 @@ CMS.init({
 
 这样可以保持 YAML 配置共通，同时让 preview 指向正确分支。
 
-## 9. 从 CMS 专用分支创建 PR
+## 9. 使用 editorial workflow 的短期分支
 
-CMS 保存到 `cms-content` 后，通过 GitHub Actions 创建 main 向 PR，可以让内容修改保持可审核。
+Sveltia CMS 通过 editorial workflow 为每次修改创建短期分支和 main 向 PR。
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
+
+虽然发布分支是 `main`，CMS 并不会直接提交到它。审核并合并 PR 后，短期分支会自动删除。
 
 这里的 merge 方法很重要。Acecore 的翻译任务依赖 `cms: create ...`、`cms: update ...` 等 commit subject。如果 squash merge 抹掉这些 subject，翻译 workflow 可能无法检测到 source 更新。CMS PR 应使用保留 `cms:` commit 的 merge commit 或 rebase merge。
 

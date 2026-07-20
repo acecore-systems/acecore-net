@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 운영 자동화
-      description: cms-content 브랜치, CMS 편집 PR, 번역 PR task를 일반 개발과 분리해 연결합니다.
+      description: main을 publication branch로 사용하고 editorial workflow의 단기 branch, CMS 편집 PR, 번역 PR task를 연결합니다.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -99,11 +99,11 @@ public/admin/config.yml
 workers/sveltia-cms-auth
   -> GitHub OAuth용 Cloudflare Worker
 
-cms-content branch
-  -> CMS 편집 내용 저장 브랜치
+main branch
+  -> 운영 환경의 유일한 기준
 
-.github/workflows/cms-content-pr.yml
-  -> cms-content에서 main으로 PR 생성
+Sveltia CMS editorial workflow
+  -> 변경마다 단기 branch와 main 대상 PR 생성
 
 .github/workflows/create-translation-prs.yml
   -> cms: commit에만 번역 PR task 생성
@@ -152,7 +152,7 @@ CMS.init({
 backend:
   name: github
   repo: owner/repository
-  branch: cms-content
+  branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
   auth_methods: [oauth]
   commit_messages:
@@ -161,9 +161,13 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
+
+publish_mode: editorial_workflow
 ```
 
-개인 사이트라면 `main`에 바로 저장해도 됩니다. 회사 사이트나 다국어 사이트라면 `cms-content` 같은 전용 branch에 저장하고 PR로 검토하는 구성이 안전합니다.
+`main`을 publication branch로 유지하고 `publish_mode: editorial_workflow`를 사용합니다. 각 저장은 운영 환경에 직접 기록되지 않고 단기 branch와 PR을 거칩니다.
+
+`cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. PR마다 단기 branch를 닫으면 `main`을 유일한 기준으로 유지할 수 있습니다.
 
 ## 3. OAuth Worker 준비
 
@@ -233,16 +237,20 @@ CMS.init({
 })
 ```
 
-## 9. CMS branch에서 PR 만들기
+## 9. Editorial workflow로 단기 branch와 PR 만들기
 
-CMS 저장을 `cms-content`로 보내고 main으로 PR을 열면 리뷰가 가능합니다.
+Sveltia CMS editorial workflow는 변경마다 단기 branch와 `main` 대상 PR을 만듭니다.
 
 ```yaml
-on:
-  push:
-    branches:
-      - cms-content
+backend:
+  name: github
+  repo: owner/repository
+  branch: main
+
+publish_mode: editorial_workflow
 ```
+
+publication branch는 `main`이지만 CMS가 여기에 직접 commit하지는 않습니다. PR을 검토하고 merge한 뒤 단기 branch를 자동으로 삭제합니다.
 
 merge 방식도 중요합니다. 번역 workflow는 `cms: create ...`, `cms: update ...` 같은 commit subject를 봅니다. squash merge로 subject가 사라지면 자동화가 감지하지 못할 수 있으므로 CMS PR은 merge commit 또는 rebase merge가 적합합니다.
 
