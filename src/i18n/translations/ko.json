@@ -169,7 +169,9 @@
   },
   "meta": {
     "siteTitle": "Acecore | 시스템 개발・웹 디자인・IT 교육",
-    "defaultDescription": "Acecore는 시스템 개발, 웹 디자인, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하는 기술 집단입니다."
+    "defaultDescription": "Acecore는 시스템 개발, 웹 디자인, 서버 운영, 디자인, IT 교육을 원스톱으로 제공하는 기술 집단입니다.",
+    "shortTitleContext": "공식 사이트",
+    "shortDescriptionContext": "Acecore의 기술 정보, 활동 소식, 서비스 내용도 자세히 확인하세요."
   },
   "pages": {
     "home": {

@@ -169,7 +169,9 @@
   },
   "meta": {
     "siteTitle": "Acecore | Web Design & IT Education",
-    "defaultDescription": "Acecore is a technology collective that provides website design, server operations, design, and IT education as a one-stop solution."
+    "defaultDescription": "Acecore is a technology collective that provides website design, server operations, design, and IT education as a one-stop solution.",
+    "shortTitleContext": "Official Site",
+    "shortDescriptionContext": "Explore more Acecore technology insights, activity reports, and service information."
   },
   "pages": {
     "home": {

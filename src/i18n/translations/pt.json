@@ -169,7 +169,9 @@
   },
   "meta": {
     "siteTitle": "Acecore | Desenvolvimento de sistemas, design web e educação em TI",
-    "defaultDescription": "Acecore é um coletivo tecnológico que oferece desenvolvimento de sistemas, design web, operações de servidores, design e educação em TI como solução integrada."
+    "defaultDescription": "Acecore é um coletivo tecnológico que oferece desenvolvimento de sistemas, design web, operações de servidores, design e educação em TI como solução integrada.",
+    "shortTitleContext": "Site oficial",
+    "shortDescriptionContext": "Saiba mais sobre tecnologia, atividades e serviços da Acecore."
   },
   "pages": {
     "home": {

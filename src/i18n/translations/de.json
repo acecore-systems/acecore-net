@@ -183,7 +183,9 @@
   },
   "meta": {
     "siteTitle": "Acecore | Webdesign & IT-Bildung",
-    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet."
+    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet.",
+    "shortTitleContext": "Offizielle Website",
+    "shortDescriptionContext": "Entdecken Sie weitere Informationen zu Technologie, Aktivitäten und Diensten von Acecore."
   },
   "pages": {
     "home": {
