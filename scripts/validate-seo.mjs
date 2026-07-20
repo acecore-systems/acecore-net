@@ -16,6 +16,14 @@ const localizedPrefixes = new Set([
   'ru',
   'zh-cn',
 ])
+const contextualCoreRoutes = new Set([
+  'about',
+  'services',
+  'contact',
+  'privacy',
+  'acestudio',
+  'blog',
+])
 
 function decodeHtmlEntities(value) {
   return value
@@ -98,6 +106,12 @@ function getLocale(url) {
   return localizedPrefixes.has(firstPathSegment) ? firstPathSegment : 'ja'
 }
 
+function isContextualCorePage(url) {
+  const segments = new URL(url).pathname.split('/').filter(Boolean)
+  if (localizedPrefixes.has(segments[0])) segments.shift()
+  return segments.length === 1 && contextualCoreRoutes.has(segments[0])
+}
+
 function getLengthIssue(label, value, range, url) {
   const length = countCharacters(value)
   if (length < range.min) {
@@ -112,6 +126,7 @@ function getLengthIssue(label, value, range, url) {
 const urls = await getSitemapUrls()
 const issues = []
 const pages = []
+let contextualCorePageCount = 0
 
 for (const url of urls) {
   const html = await readFile(getHtmlPath(url), 'utf8')
@@ -120,6 +135,17 @@ for (const url of urls) {
   const robots = extractMetaContent(html, 'robots').toLowerCase()
   const canonical = extractCanonical(html)
   pages.push({ url, title, description, locale: getLocale(url) })
+
+  if (isContextualCorePage(url)) {
+    contextualCorePageCount += 1
+    if (!title.includes(' – ')) {
+      issues.push({
+        label: 'core page title lacks page-specific context',
+        url,
+        value: title,
+      })
+    }
+  }
 
   const titleIssue = getLengthIssue('title', title, titleRange, url)
   if (titleIssue) issues.push(titleIssue)
@@ -143,6 +169,16 @@ for (const url of urls) {
       value: canonical || '(missing)',
     })
   }
+}
+
+const expectedContextualCorePages =
+  contextualCoreRoutes.size * (localizedPrefixes.size + 1)
+if (contextualCorePageCount !== expectedContextualCorePages) {
+  issues.push({
+    label: 'contextual core page coverage is incomplete',
+    url: '(sitemap)',
+    value: `${contextualCorePageCount}/${expectedContextualCorePages}`,
+  })
 }
 
 for (const field of ['title', 'description']) {
@@ -173,6 +209,9 @@ const counts = Object.fromEntries(
 )
 
 console.log(`SEO validation checked ${urls.length} sitemap URLs.`)
+console.log(
+  `Page-specific title context checked ${contextualCorePageCount} core URLs.`,
+)
 console.log(JSON.stringify(counts, null, 2))
 
 if (issues.length > 0) {

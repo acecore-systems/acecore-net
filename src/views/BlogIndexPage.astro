@@ -66,6 +66,7 @@ const pageNumbers = buildPageNumbers(1, totalPages)
 
 <BaseLayout
   title={t(locale, 'blog.title')}
+  titleContext={t(locale, 'blog.seoTitleContext')}
   description={t(locale, 'blog.indexDescription')}
   jsonLd={itemListLd}
   nextPage={totalPages > 1 ? u('/blog/page/2/') : undefined}

@@ -11,6 +11,7 @@ import { buildSeoDescription, buildSeoTitle } from '../utils/seo-meta'
 
 interface Props {
   title: string
+  titleContext?: string
   description?: string
   image?: string
   ogType?: string
@@ -35,6 +36,7 @@ interface Props {
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const {
   title,
+  titleContext,
   description = t(locale, 'meta.defaultDescription'),
   image,
   ogType = 'website',
@@ -59,6 +61,7 @@ const isHome = title === t(locale, 'nav.home')
 const gaFallbackDelay = isHome ? 12000 : 4000
 const pageTitle = buildSeoTitle({
   title,
+  titleContext,
   siteTitle: t(locale, 'meta.siteTitle'),
   shortTitleContext: t(locale, 'meta.shortTitleContext'),
   locale,

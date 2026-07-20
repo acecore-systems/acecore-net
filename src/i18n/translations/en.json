@@ -82,6 +82,7 @@
   },
   "blog": {
     "title": "Blog",
+    "seoTitleContext": "Web, server and IT education insights",
     "subtitle": "Tech insights, reports & news",
     "noPosts": "Articles are coming soon.",
     "tags": "Tags",
@@ -269,6 +270,7 @@
     },
     "about": {
       "title": "About Us",
+      "seoTitleContext": "Mission, values and activities",
       "description": "Learn about Acecore's mission, philosophy, and activities. We drive development, education, and community engagement through the synergy of technology and creativity.",
       "heroTitle": "About Us",
       "heroSubtitle": "What Acecore strives for and values",
@@ -359,6 +361,7 @@
     },
     "services": {
       "title": "Services",
+      "seoTitleContext": "Web design, servers and IT education",
       "description": "Explore Acecore's comprehensive services including website design, server operations, design, and IT education.",
       "heroTitle": "Services",
       "heroSubtitle": "Diverse IT solutions delivered as a one-stop service",
@@ -488,6 +491,7 @@
     },
     "contact": {
       "title": "Contact",
+      "seoTitleContext": "Service inquiries and consultations",
       "description": "Contact Acecore here. Feel free to reach out with questions about our services, estimates, partnership inquiries, and more.",
       "heroTitle": "Contact",
       "heroSubtitle": "Questions, consultations, and requests — start here",
@@ -565,6 +569,7 @@
     },
     "privacy": {
       "title": "Privacy Policy",
+      "seoTitleContext": "Data and analytics policy",
       "description": "Acecore's Privacy Policy. Information about personal data handling, advertising, analytics, and disclaimers.",
       "heroTitle": "Privacy Policy",
       "heroImgAlt": "Documents and pen",
@@ -592,6 +597,7 @@
     },
     "acestudio": {
       "title": "AceStudio",
+      "seoTitleContext": "Creative platform in development",
       "description": "AceStudio is a creative platform currently in development by Acecore. Details coming soon.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "Coming Soon",
