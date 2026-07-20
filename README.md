@@ -109,8 +109,8 @@ src/
 #### 本番 CMS の保存と PR 反映
 
 - 本番ソースの正は `main` です。Cloudflare Pages の production deploy 元も GitHub 連携の `main` にします。
-- Sveltia CMS は `backend.branch: main` と `publish_mode: editorial_workflow` で運用します。
-- CMS 保存時は `cms/...` のような短命 branch と PR が作られ、`main` に直接 commit しません。
+- Sveltia CMS は `backend.branch: main` と同一originのGitHub API proxyで運用します。現行SveltiaではEditorial Workflowが未実装のため、`publish_mode` には依存しません。
+- proxyがGitHub OAuth userのwrite権限と変更pathを検証し、保存ごとに `cms/acecore/*` の短命branchとPRを作ります。`main` へ直接commitしません。
 - 恒久的な `cms-content` 投稿受け皿 branch は使いません。
 - CMS PR は通常の merge commit または rebase merge でマージします。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合があります。
 - CMS PR が `main` に merge されると、Cloudflare Pages が GitHub `main` push を受けて production deploy します。
@@ -153,7 +153,7 @@ author: 'author-id'
 Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を編集できます。多言語記事本文とページ文言は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。PR 量を抑えるため、push 連動の対象は Sveltia CMS の `cms: ...` commit だけに限定します。
 
 1. 日本語ソースを Sveltia CMS で更新する
-2. editorial workflow が短命な CMS branch と `main` 向け PR を作成する
+2. CMS proxy が `cms/acecore/*` の短命branchと `main` 向けPRを作成する
 3. CMS PR を `main` にマージすると、CMS commit の本文差分または日本語文言 key 差分だけを GitHub Actions が検出する
 4. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
 5. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする

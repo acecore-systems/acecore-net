@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 운영 자동화
-      description: main을 publication branch로 사용하고 editorial workflow의 단기 branch, CMS 편집 PR, 번역 PR task를 연결합니다.
+      description: main을 publication branch로 사용하고 검증된 저장 proxy의 단기 branch, CMS 편집 PR, 번역 PR task를 연결합니다.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - GitHub나 에디터에 익숙한 사람만 쉽게 수정할 수 있음
       - 이미지 경로, 작성자 ID, 태그명을 수동 입력하기 쉬움
       - 일본어 source와 번역 파일 수정 범위가 섞이기 쉬움
-      - preview 환경이 main 내용을 읽을 수 있음
+      - 저장 대상과 쓰기 가능한 경로가 불명확해질 수 있음
   after:
     label: Sveltia CMS 편집
     items:
       - 브라우저 폼에서 Markdown과 JSON을 편집할 수 있음
       - relation, image, select로 잘못된 값을 줄임
       - CMS commit만 번역 PR task를 트리거함
-      - runtime config로 preview와 production의 CMS branch를 전환함
+      - same-origin proxy가 허용 경로만 단기 branch와 PR에 저장함
 callout:
   type: note
   title: 이 글의 전제
@@ -102,8 +102,8 @@ workers/sveltia-cms-auth
 main branch
   -> 운영 환경의 유일한 기준
 
-Sveltia CMS editorial workflow
-  -> 변경마다 단기 branch와 main 대상 PR 생성
+CMS save proxy
+  -> 허용 경로를 검증하고 변경마다 단기 branch와 main 대상 PR 생성
 
 .github/workflows/create-translation-prs.yml
   -> cms: commit에만 번역 PR task 생성
@@ -132,13 +132,13 @@ Astro에서는 `public` 아래 파일이 정적 파일로 배포됩니다. Svelt
 
 불필요한 CSS나 `type="module"`을 추가하지 않습니다. 현재 CDN bundle은 일반 script로 읽는 구성이 자연스럽습니다.
 
-Acecore에서는 preview branch를 바꾸기 위해 수동 초기화를 사용합니다.
+Acecore에서는 backend를 명시적으로 설정하기 위해 수동 초기화를 사용합니다. publication branch는 모든 환경에서 `main`으로 유지합니다.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -154,6 +154,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -161,11 +163,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-`main`을 publication branch로 유지하고 `publish_mode: editorial_workflow`를 사용합니다. 각 저장은 운영 환경에 직접 기록되지 않고 단기 branch와 PR을 거칩니다.
+`main`을 publication branch로 유지하고 읽기와 저장을 same-origin proxy로 보냅니다. proxy는 단기 branch와 PR을 만들기 전에 repository, GitHub 사용자의 쓰기 권한, 변경 경로, 최신 `main` HEAD를 검증합니다.
+
+2026년 7월 20일 기준으로 Sveltia CMS에는 Editorial Workflow가 구현되어 있지 않습니다. Decap CMS의 `publish_mode: editorial_workflow` 설정을 추가해도 Sveltia CMS가 단기 branch나 PR을 자동 생성하지는 않습니다.
 
 `cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. PR마다 단기 branch를 닫으면 `main`을 유일한 기준으로 유지할 수 있습니다.
 
@@ -223,34 +225,36 @@ Acecore는 나중에 [PR #116](https://github.com/acecore-systems/acecore-net/pu
 
 반성점은 한 번에 모든 필드를 넣지 않는 것입니다. `config.yml`이 급격히 커지면 리뷰와 유지보수가 어려워집니다. 블로그, 작성자, 태그, 공지, 자주 바뀌는 페이지부터 시작하는 편이 좋습니다.
 
-## 8. preview branch를 맞춘다
+## 8. preview에서도 publication branch를 `main`으로 유지한다
 
-Cloudflare Pages preview에서 CMS가 여전히 `main`을 읽으면, preview 화면과 CMS 내용이 어긋납니다. Acecore는 build 전에 `public/admin/runtime-config.js`를 만들고 현재 branch를 주입합니다.
+저장 proxy는 최신 `main`에서 모든 단기 branch를 만듭니다. 따라서 Cloudflare Pages preview가 backend branch를 해당 PR branch로 바꾸면 안 됩니다. 저장 결과는 생성된 CMS PR의 Pages preview에서 확인합니다.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-## 9. Editorial workflow로 단기 branch와 PR 만들기
+## 9. 저장 proxy로 단기 branch와 PR 만들기
 
-Sveltia CMS editorial workflow는 변경마다 단기 branch와 `main` 대상 PR을 만듭니다.
+same-origin 저장 proxy가 변경마다 단기 branch와 `main` 대상 PR을 만듭니다.
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-publication branch는 `main`이지만 CMS가 여기에 직접 commit하지는 않습니다. PR을 검토하고 merge한 뒤 단기 branch를 자동으로 삭제합니다.
+proxy는 `main`에 직접 commit하지 않습니다. 허용된 content와 media를 한 commit으로 묶고 최신 `main`에서 `cms/acecore/*`를 만든 뒤 PR을 엽니다. 검토와 merge 후 단기 branch를 자동 삭제합니다.
+
+GitHub OAuth 방식에서는 편집자의 token이 identity와 쓰기 actor 역할을 합니다. Cloudflare Access 방식에서는 사이트 전용 GitHub App이 actor가 될 수 있습니다. 경로 제한, 단기 branch, PR, CI 정책은 두 방식 모두 같습니다.
 
 merge 방식도 중요합니다. 번역 workflow는 `cms: create ...`, `cms: update ...` 같은 commit subject를 봅니다. squash merge로 subject가 사라지면 자동화가 감지하지 못할 수 있으므로 CMS PR은 merge commit 또는 rebase merge가 적합합니다.
 
@@ -283,7 +287,7 @@ Sveltia CMS는 GitHub backend, OAuth, collections, media, PR 운영의 문제입
 - 이미지 경로는 업로드 전에 고정해야 합니다.
 - `config.yml`은 단계적으로 확장해야 합니다.
 - `cms:`는 자동화 계약입니다.
-- preview에서 CMS가 읽는 branch를 명확히 해야 합니다.
+- publication branch는 환경별로 바꾸지 않고, preview에서는 CMS PR 결과를 확인합니다.
 
 ## 최소 시작점
 
@@ -300,6 +304,7 @@ public/admin/runtime-config.js
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow (미구현)](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

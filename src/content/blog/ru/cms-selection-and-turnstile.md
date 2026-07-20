@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Автоматизировать эксплуатацию
-      description: Использовать main как ветку публикации и связать временные ветки editorial workflow, CMS PR и задачи перевода.
+      description: Использовать main как ветку публикации и связать временные ветки проверяющего save proxy, CMS PR и задачи перевода.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - Обновлять удобно только тем, кто уверенно пользуется GitHub или редактором
       - Пути изображений, ID авторов и теги вводятся вручную
       - Изменения японского source и переводов легко смешать
-      - Preview может случайно читать main
+      - Цель сохранения и доступные для записи пути могут быть неясны
   after:
     label: Редактирование в Sveltia CMS
     items:
       - Markdown и JSON редактируются через формы в браузере
       - relation, image и select уменьшают число некорректных значений
       - Только CMS commits запускают задачи перевода
-      - runtime config переключает CMS branch между preview и production
+      - Same-origin proxy пишет только разрешённые пути во временную ветку и PR
 callout:
   type: note
   title: Предпосылка статьи
@@ -102,8 +102,8 @@ workers/sveltia-cms-auth
 main branch
   -> единственный источник для production
 
-Sveltia CMS editorial workflow
-  -> создаёт временную ветку и PR для каждого изменения
+CMS save proxy
+  -> проверяет разрешённые пути и создаёт временную ветку и PR для каждого изменения
 
 .github/workflows/create-translation-prs.yml
   -> создаёт задачи перевода только для cms: commits
@@ -132,13 +132,13 @@ Sveltia CMS editorial workflow
 
 Не стоит добавлять лишний CSS или `type="module"` без причины. Стили интерфейса уже включены в JavaScript bundle.
 
-Acecore использует ручную инициализацию, чтобы preview мог подставлять нужную ветку.
+Acecore использует ручную инициализацию для явной настройки backend. Ветка публикации остаётся `main` во всех окружениях.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -154,6 +154,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -161,11 +163,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-Оставьте `main` веткой публикации и включите `publish_mode: editorial_workflow`. Каждое сохранение проходит через временную ветку и PR, а не записывается напрямую в production.
+Оставьте `main` веткой публикации и направляйте чтение и сохранение через same-origin proxy. Перед созданием временной ветки и PR proxy проверяет репозиторий, право GitHub-пользователя на запись, изменённые пути и последний HEAD `main`.
+
+По состоянию на 20 июля 2026 года Editorial Workflow не реализован в Sveltia CMS. Настройка Decap CMS `publish_mode: editorial_workflow` не заставляет Sveltia CMS автоматически создавать временные ветки или PR.
 
 Постоянная ветка вроде `cms-content` требует непрерывной синхронизации и повышает риск конфликтов или неверной настройки источника deploy. Временные ветки сохраняют `main` единственным источником истины.
 
@@ -223,34 +225,36 @@ Acecore позже исправила этот момент в [PR #116](https:/
 
 Урок простой: не добавлять все поля сразу. `config.yml` быстро растёт. Начните с блога, авторов, тегов, объявлений и часто меняющихся страниц.
 
-## 8. Preview должен читать правильную ветку
+## 8. Сохранять `main` веткой публикации и в preview
 
-Если CMS в preview Cloudflare Pages всё ещё читает `main`, редактор видит не тот контент, что preview. Acecore перед build создаёт `public/admin/runtime-config.js` и передаёт текущий branch.
+Proxy создаёт каждую временную ветку от последнего `main`. Поэтому preview Cloudflare Pages не должен подменять backend branch своей PR-веткой. Результат проверяется в Pages preview созданного CMS PR.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-## 9. Использовать временные ветки editorial workflow
+## 9. Создавать временные ветки через save proxy
 
-Sveltia CMS создаёт временную ветку и PR в `main` для каждого изменения через editorial workflow.
+Same-origin save proxy создаёт временную ветку и PR в `main` для каждого изменения.
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-Хотя ветка публикации — `main`, CMS не записывает изменения прямо в неё. После ревью и merge временная ветка удаляется автоматически.
+Proxy не пишет напрямую в `main`. Он объединяет разрешённый контент и медиа в один commit, создаёт `cms/acecore/*` от последнего `main` и открывает PR. После ревью и merge временная ветка удаляется автоматически.
+
+При GitHub OAuth token редактора задаёт личность и выступает актором записи. При Cloudflare Access актором может быть отдельная GitHub App сайта. Ограничения путей, временные ветки, PR и CI одинаковы в обеих схемах.
 
 Способ merge важен. Задачи перевода зависят от commit subjects вроде `cms: create ...`. Если squash merge их удалит, автоматизация может не увидеть изменение source. Для CMS PR лучше merge commit или rebase merge.
 
@@ -283,7 +287,7 @@ Sveltia CMS — про GitHub backend, OAuth, collections, медиа и PR. Tur
 - Пути медиа нужно зафиксировать до загрузок.
 - `config.yml` лучше расширять постепенно.
 - `cms:` — контракт автоматизации.
-- В preview должно быть ясно, какой branch читает CMS.
+- Ветка публикации не меняется между окружениями; preview проверяет результат CMS PR.
 
 ## Минимальная отправная точка
 
@@ -300,6 +304,7 @@ public/admin/runtime-config.js
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow (не реализован)](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

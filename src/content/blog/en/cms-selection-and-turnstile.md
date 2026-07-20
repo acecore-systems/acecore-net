@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automate operations
-      description: Use main as the publication branch and connect editorial workflow branches, CMS edit PRs, and translation PR tasks.
+      description: Use main as the publication branch and connect validated save-proxy branches, CMS edit PRs, and translation PR tasks.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - Only people comfortable with GitHub or an editor can update content
       - Image paths, author IDs, and tag names are typed manually
       - Japanese source changes and translated files are easy to mix
-      - Preview environments can accidentally read content from main
+      - The save target and writable paths can be unclear
   after:
     label: Editing with Sveltia CMS
     items:
       - Markdown and JSON can be edited from a browser form
       - relation, image, and select widgets reduce broken values
       - Only CMS commits can trigger translation PR tasks
-      - Runtime config can switch the CMS branch between preview and production
+      - A same-origin proxy writes only allowed paths to a short-lived branch and PR
 callout:
   type: note
   title: Assumption for this guide
@@ -104,8 +104,8 @@ workers/sveltia-cms-auth
 main branch
   -> the single source of truth for production
 
-Sveltia CMS editorial workflow
-  -> creates a short-lived branch and pull request for each edit
+CMS save proxy
+  -> validates allowed paths and creates a short-lived branch and pull request for each edit
 
 .github/workflows/create-translation-prs.yml
   -> creates translation PR tasks only for cms: commits
@@ -136,7 +136,7 @@ A minimal page looks like this:
 
 Do not add an extra stylesheet or `type="module"` unless you have a specific reason. Sveltia CMS bundles its UI styles in the JavaScript file, and the current CDN build is loaded as a normal script.
 
-Acecore uses manual initialization so preview builds can override the branch at runtime.
+Acecore uses manual initialization so the backend can be overridden explicitly. The publication branch remains `main` in every environment.
 
 ```html
 <script src="/admin/runtime-config.js"></script>
@@ -148,7 +148,7 @@ Acecore uses manual initialization so preview builds can override the branch at 
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -164,6 +164,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -171,11 +173,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-Keep `main` as the publication branch and enable `publish_mode: editorial_workflow`. Each save then goes to a short-lived branch and pull request instead of committing directly to production.
+Keep `main` as the publication branch and route reads and saves through a same-origin API proxy. Before opening a short-lived branch and pull request, the proxy validates the repository, the GitHub user's write permission, changed paths, and the latest `main` HEAD.
+
+As of July 20, 2026, Editorial Workflow is not implemented in Sveltia CMS. Adding Decap CMS's `publish_mode: editorial_workflow` setting does not make Sveltia CMS create short-lived branches or pull requests.
 
 A permanent branch such as `cms-content` creates ongoing synchronization, conflict, and deployment-source risks. Closing a short-lived branch with each pull request keeps `main` as the only source of truth.
 
@@ -191,9 +193,9 @@ backend:
   repo: acecore-systems/acecore-net
   branch: main
   base_url: https://sveltia-cms-auth.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
-
-publish_mode: editorial_workflow
 ```
 
 The GitHub OAuth App callback points to the Worker's `/callback` URL. The Worker receives `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and optionally `ALLOWED_DOMAINS` as environment variables.
@@ -272,23 +274,16 @@ The lesson from implementation was to avoid adding every field at once. After ma
 
 For multilingual sites, do not let CMS edits directly rewrite translation files. Keeping Japanese source edits and translation pull requests separate makes review much easier.
 
-## 8. Keep Preview Branches Honest
+## 8. Keep `main` as the Publication Branch in Preview
 
-When the CMS is opened in a Cloudflare Pages preview build, it should not necessarily read `main`. If the preview is for a pull request, the CMS should know which branch it is looking at.
+The save proxy creates every short-lived branch from the latest `main`, so a Cloudflare Pages preview must not replace the backend branch with its PR branch. Use the generated CMS pull request's Pages preview to inspect the result, while every edit starts from the production source of truth.
 
-Acecore generates `public/admin/runtime-config.js` before builds:
+Acecore generates `public/admin/runtime-config.js` before builds to enable manual initialization only:
 
 ```javascript
-const cmsBranch =
-  process.env.CF_PAGES_BRANCH ||
-  process.env.GITHUB_HEAD_REF ||
-  process.env.GITHUB_REF_NAME ||
-  process.env.BRANCH ||
-  'main'
-
 await writeFile(
   'public/admin/runtime-config.js',
-  `window.CMS_MANUAL_INIT = true;\nwindow.ACECORE_CMS_BRANCH = ${JSON.stringify(cmsBranch)};\n`,
+  'window.CMS_MANUAL_INIT = true;\n',
   'utf8',
 )
 ```
@@ -299,28 +294,30 @@ Then `init.js` overrides only the backend branch.
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-This keeps the shared YAML config stable while still making preview environments point at the right branch.
+This prevents production and preview from using different save bases, and lets the proxy reject any request whose base is not `main`.
 
-## 9. Use Editorial Workflow for Short-Lived Branches
+## 9. Create Short-Lived Branches with a Save Proxy
 
-Do not publish CMS saves directly. Sveltia CMS editorial workflow creates a short-lived branch and pull request for each edit.
+Do not publish CMS saves directly. A same-origin save proxy creates a short-lived branch and pull request for each edit.
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-Although the publication branch is `main`, editorial workflow does not commit saves directly to it. Review and merge the generated pull request, then delete the merged branch automatically.
+When it receives GraphQL `createCommitOnBranch`, the proxy does not commit to `main`. It combines allowed content and media in one commit, creates a `cms/acecore/*` branch from the latest `main`, and opens a pull request. Delete the branch automatically after merge so no permanent secondary source remains.
+
+In a GitHub OAuth setup, the editor's token provides identity and acts as the GitHub writer. In a Cloudflare Access setup, Access can provide identity while a site-specific GitHub App acts as the writer. The authentication mode can differ while path restrictions, short-lived branches, pull requests, and CI remain common policy.
 
 The merge method matters. Acecore's translation task detection relies on commit subjects such as `cms: create ...` and `cms: update ...`. If a CMS PR is squash merged and those subjects disappear, the translation workflow may not detect the source change. For CMS PRs, keep the `cms:` commits through merge commit or rebase merge.
 
@@ -380,9 +377,9 @@ Putting every page text field into `config.yml` at once makes the config hard to
 
 `cms:` is not cosmetic. It is an input to automation. Using it outside the CMS flow can trigger unnecessary workflows; removing it from CMS merges can stop required workflows.
 
-### 6. Make the Active Branch Visible
+### 6. Do Not Switch the Publication Branch by Environment
 
-The CMS reads files from GitHub, so preview builds need a clear branch story. Runtime branch injection prevents preview and CMS state from drifting apart.
+Using a preview deployment branch as the CMS publication branch creates another source line and complicates proxy validation. Start every edit from `main`, then inspect the saved result in the pull request's Cloudflare Pages preview.
 
 ## Minimal Starting Point
 
@@ -401,13 +398,13 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
     update: 'cms: update {{collection}} "{{slug}}"'
     delete: 'cms: delete {{collection}} "{{slug}}"'
-
-publish_mode: editorial_workflow
 
 media_folder: public/uploads
 public_folder: /uploads
@@ -431,6 +428,7 @@ From there, add author relations, tag relations, uploaded images, source JSON ed
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow (not implemented)](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

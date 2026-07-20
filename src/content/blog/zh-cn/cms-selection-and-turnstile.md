@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 自动化运维
-      description: 将 main 作为发布分支，并连接 editorial workflow 的短期分支、CMS 编辑 PR 与翻译 PR task。
+      description: 将 main 作为发布分支，并连接经过验证的保存 proxy 短期分支、CMS 编辑 PR 与翻译 PR task。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - 只有熟悉 GitHub 或编辑器的人容易更新
       - 图片路径、作者 ID、标签名容易手写出错
       - 日语 source 与翻译文件的修改范围容易混在一起
-      - preview 环境可能仍然读取 main 的内容
+      - 保存目标和可写路径可能不够明确
   after:
     label: 使用 Sveltia CMS 编辑
     items:
       - 可以在浏览器表单中编辑 Markdown 与 JSON
       - relation、image、select 减少无效值
       - 只有 CMS commit 会触发翻译 PR task
-      - runtime config 可以在 preview 与 production 间切换 CMS branch
+      - same-origin proxy 只把允许的路径写入短期 branch 和 PR
 callout:
   type: note
   title: 本文前提
@@ -104,8 +104,8 @@ workers/sveltia-cms-auth
 main branch
   -> 生产环境唯一的真实来源
 
-Sveltia CMS editorial workflow
-  -> 每次修改创建短期分支和 main 向 PR
+CMS save proxy
+  -> 验证允许的路径，并为每次修改创建短期分支和 main 向 PR
 
 .github/workflows/create-translation-prs.yml
   -> 只为 cms: commit 创建翻译 PR task
@@ -136,13 +136,13 @@ Astro 会原样发布 `public` 目录下的文件。Sveltia CMS 官方文档也�
 
 不要额外加入不存在的 CSS，也不要随手加 `type="module"`。当前的 Sveltia CMS CDN 版本按普通 script 加载即可。
 
-Acecore 为了让 preview 环境切换 branch，使用了手动初始化。
+Acecore 使用手动初始化来明确配置 backend。所有环境的发布分支都固定为 `main`。
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -158,6 +158,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -165,11 +167,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-将 `main` 保持为发布分支，并启用 `publish_mode: editorial_workflow`。每次保存都会进入短期分支和 PR，而不是直接写入生产环境。
+将 `main` 保持为发布分支，并让读取和保存都经过 same-origin proxy。proxy 在创建短期分支和 PR 之前，会验证 repository、GitHub 用户的写权限、修改路径以及最新的 `main` HEAD。
+
+截至 2026 年 7 月 20 日，Sveltia CMS 尚未实现 Editorial Workflow。添加 Decap CMS 的 `publish_mode: editorial_workflow` 配置，并不会让 Sveltia CMS 自动创建短期分支或 PR。
 
 像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。按 PR 关闭短期分支，可以让 `main` 始终是唯一的真实来源。
 
@@ -243,36 +245,38 @@ Acecore 把 CMS 编辑范围分成四类。
 
 反省点是，一开始不要把所有字段一次性放进 `config.yml`。配置会迅速变大，既存值读取、标签命名和审核都会变困难。建议从博客、作者、标签、告知、常改页面开始，逐步扩展。
 
-## 8. preview 环境要读取正确 branch
+## 8. preview 环境也将发布分支固定为 `main`
 
-Cloudflare Pages preview 中打开 CMS 时，如果 CMS 仍然读取 `main`，看到的内容就会和 preview 页面不一致。Acecore 在构建前生成 `public/admin/runtime-config.js`，把当前 branch 注入到 `window.ACECORE_CMS_BRANCH`。
+保存 proxy 始终从最新的 `main` 创建短期 branch，因此 Cloudflare Pages preview 不应把 backend branch 替换为当前 PR branch。保存结果应在生成的 CMS PR 对应 Pages preview 中确认。
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-这样可以保持 YAML 配置共通，同时让 preview 指向正确分支。
+这样 production 与 preview 就不会使用不同的保存起点，proxy 也可以拒绝以 `main` 之外的 branch 为 base 的请求。
 
-## 9. 使用 editorial workflow 的短期分支
+## 9. 使用保存 proxy 创建短期分支
 
-Sveltia CMS 通过 editorial workflow 为每次修改创建短期分支和 main 向 PR。
+same-origin 保存 proxy 为每次修改创建短期分支和 main 向 PR。
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-虽然发布分支是 `main`，CMS 并不会直接提交到它。审核并合并 PR 后，短期分支会自动删除。
+proxy 不会直接提交到 `main`。它把允许的 content 与 media 合并到一个 commit，从最新 `main` 创建 `cms/acecore/*` 并打开 PR。审核并合并后，短期 branch 会自动删除。
+
+在 GitHub OAuth 模式中，编辑者 token 用于身份确认并作为写入 actor；在 Cloudflare Access 模式中，可以使用站点专属 GitHub App 作为 actor。路径限制、短期 branch、PR 与 CI 策略保持一致。
 
 这里的 merge 方法很重要。Acecore 的翻译任务依赖 `cms: create ...`、`cms: update ...` 等 commit subject。如果 squash merge 抹掉这些 subject，翻译 workflow 可能无法检测到 source 更新。CMS PR 应使用保留 `cms:` commit 的 merge commit 或 rebase merge。
 
@@ -305,7 +309,7 @@ Sveltia CMS 关注 GitHub backend、OAuth、collection、图片路径和 PR 运�
 - 图片路径要在编辑者上传前固定。
 - `config.yml` 的字段要逐步增加，不要一次性暴露全部页面文案。
 - `cms:` commit subject 是自动化契约，不是普通前缀。
-- preview 环境必须清楚显示 CMS 正在读哪个 branch。
+- 发布分支不随环境切换；preview 用于检查 CMS PR 的结果。
 
 ## 最小起点
 
@@ -324,6 +328,7 @@ public/admin/runtime-config.js
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow（尚未实现）](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

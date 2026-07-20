@@ -27,8 +27,9 @@
 - サイト文言を CMS から編集可能にする場合は `public/admin/config.yml` も更新し、対応する JSON key とフィールド名を揃える。
 - CMS の日時、キャンペーン、告知、募集枠など期間制御が必要な情報は、表示開始と表示終了を CMS から扱える設計にする。
 - このリポジトリの CMS 認証は GitHub 認証型とする。Cloudflare Access を前段に置く場合も、保存認証は GitHub OAuth Worker を使う。
-- Cherry のような Cloudflare Access 型 proxy へ寄せる場合は、別途 backend actor、書き込み path 制限、CI 経由 PR 作成まで設計してから行う。
-- CMS backend の publication branch は `main` にし、`publish_mode: editorial_workflow` で短命な CMS branch と PR を作らせる。
+- CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、最新HEADを検証して `cms/acecore/*` の短命branchとPRだけを作る。
+- Sveltia CMSではEditorial Workflowが未実装のため、`publish_mode: editorial_workflow` の設定だけでPR運用を成立させたと判断しない。
+- Cherry / HattのCloudflare Access認証型とは認証情報とbackend actorを共用しない。短命branch、content-only制約、PR、CIという書き込み方針だけを揃える。
 - `cms-content` のような恒久的な CMS 投稿受け皿 branch は使わない。
 - CMS PR は merge commit または rebase merge で `main` に入れる。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合がある。
 - 翻訳作業だけを依頼された場合は、日本語 source を勝手に変更しない。placeholder、URL、コード風 token、製品名は壊さない。

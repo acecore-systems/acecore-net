@@ -5,6 +5,8 @@ backend:
   repo: acecore-systems/acecore-net
   branch: main
   base_url: https://sveltia-cms-auth.sparkling-tree-7cef.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -12,8 +14,6 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 
 media_folder: /public/uploads
 public_folder: /uploads
