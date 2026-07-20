@@ -11,6 +11,8 @@
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
+    "test:cms": "node --test tests/cms-proxy.test.mjs",
+    "typecheck:functions": "tsc --project tsconfig.functions.json",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
@@ -21,17 +23,20 @@
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource/noto-sans-jp": "^5.2.9",
     "astro": "^6.1.1",
+    "graphql": "^16.14.2",
     "rehype-external-links": "^3.0.0",
     "satori": "^0.26.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260702.1",
     "@iconify-json/lucide": "^1.2.100",
     "@unocss/astro": "^66.6.7",
     "@unocss/preset-typography": "^66.6.7",
     "pagefind": "^1.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3",
     "unocss": "^66.6.7"
   },
   "overrides": {

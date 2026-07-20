@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 運用を自動化する
-      description: mainをpublication branchにし、editorial workflowの短命branch、CMS編集PR、翻訳PR taskをつなぎます。
+      description: mainをpublication branchにし、検証付き保存proxyの短命branch、CMS編集PR、翻訳PR taskをつなぎます。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - GitHubやエディタを使える人しか更新しにくい
       - 画像パス、著者ID、タグ名を手入力しがち
       - 日本語sourceと翻訳ファイルの更新範囲が混ざる
-      - 公開前のpreview branchでCMSがmainを見にいくことがある
+      - CMSの保存先や書き込み可能pathが曖昧になりやすい
   after:
     label: Sveltia CMSで編集
     items:
       - ブラウザからMarkdownやJSONをフォーム編集できる
       - relation、image、selectで入力ミスを減らせる
       - CMS commitだけを翻訳PR taskの対象にできる
-      - runtime configでpreview branchと本番branchを切り替えられる
+      - 同一origin proxyが許可pathだけを短命branchとPRへ保存する
 callout:
   type: note
   title: この記事の前提
@@ -104,8 +104,8 @@ workers/sveltia-cms-auth
 main branch
   -> 公開ソースの唯一の正
 
-Sveltia CMS editorial workflow
-  -> 保存ごとに短命branchとmain向けPRを作成
+CMS save proxy
+  -> 保存ごとに許可pathを検証し、短命branchとmain向けPRを作成
 
 .github/workflows/create-translation-prs.yml
   -> cms: commitだけを翻訳PR taskの対象にする
@@ -136,7 +136,7 @@ Astroでは `public` 配下が静的ファイルとしてそのまま配信さ�
 
 ここで余計なCSSや `type="module"` を足さないのがポイントです。Sveltia CMSは必要なスタイルをJavaScript bundleに含めており、現在の配布形態では通常のscriptとして読み込むのが素直です。
 
-Acecoreではpreview branchを扱うため、実際には `window.CMS_MANUAL_INIT = true` と `CMS.init()` を使って、あとからbranchだけ差し替えています。
+Acecoreでは設定を明示的に上書きできるよう、`window.CMS_MANUAL_INIT = true` と `CMS.init()` を使っています。publication branchは環境にかかわらず `main` に固定します。
 
 ```html
 <script src="/admin/runtime-config.js"></script>
@@ -148,7 +148,7 @@ Acecoreではpreview branchを扱うため、実際には `window.CMS_MANUAL_INI
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -164,6 +164,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -171,11 +173,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-publication branchは `main` に固定し、`publish_mode: editorial_workflow` で保存ごとの短命branchとPRを作るのが現在の構成です。`main` を本番ソースの唯一の正にしながら、CMS変更を直接commitせずレビューできます。
+publication branchは `main` に固定し、readとsaveを同一originのAPI proxyへ向けます。proxyがrepository、GitHub userのwrite権限、変更path、最新のmain HEADを検証してから、保存ごとの短命branchとPRを作ります。
+
+2026年7月20日時点で、Sveltia CMSのEditorial Workflowは未実装です。Decap CMS向けの `publish_mode: editorial_workflow` を設定しても、Sveltia CMSが短命branchやPRを作る保証にはなりません。
 
 `cms-content` のような恒久branchを別本流にすると、`main` との同期、競合、deploy元の誤設定を継続的に管理する必要があります。受け皿branchを常設せず、短命branchをPRごとに閉じるほうが運用を単純にできます。
 
@@ -191,9 +193,9 @@ backend:
   repo: acecore-systems/acecore-net
   branch: main
   base_url: https://sveltia-cms-auth.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
-
-publish_mode: editorial_workflow
 ```
 
 GitHub OAuth App側では、callback URLをWorkerの `/callback` に向けます。Worker側には `GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`、必要なら `ALLOWED_DOMAINS` を環境変数として設定します。
@@ -286,23 +288,16 @@ Markdownをフォーム化するときは、自由入力を減らすほど運用
 
 固定ページ文言をCMS化するときは、日本語sourceを勝手に翻訳ファイルへ直書きしない運用も決めておきます。翻訳側はPRで更新するほうが、レビューと差分追跡が楽です。
 
-## 8. preview branchでmainを読まないようにする
+## 8. previewでもpublication branchをmainに固定する
 
-Cloudflare Pagesのpreview環境でCMSを開くとき、CMSが常に `main` を読みにいくと確認がずれます。previewで見ているPR branchの内容をCMSでも見たい場合は、branchを実行時に差し替える必要があります。
+CMS保存proxyは最新の `main` から短命branchを作るため、Cloudflare Pagesのpreviewでもbackend branchをPR branchへ差し替えません。previewは生成されたCMS PRの表示確認に使い、編集開始点は常に本番ソースの正である `main` にします。
 
-Acecoreでは、ビルド前に `public/admin/runtime-config.js` を生成しています。
+Acecoreでは、ビルド前に `public/admin/runtime-config.js` を生成し、手動初期化だけを有効にしています。
 
 ```javascript
-const cmsBranch =
-  process.env.CF_PAGES_BRANCH ||
-  process.env.GITHUB_HEAD_REF ||
-  process.env.GITHUB_REF_NAME ||
-  process.env.BRANCH ||
-  'main'
-
 await writeFile(
   'public/admin/runtime-config.js',
-  `window.CMS_MANUAL_INIT = true;\nwindow.ACECORE_CMS_BRANCH = ${JSON.stringify(cmsBranch)};\n`,
+  'window.CMS_MANUAL_INIT = true;\n',
   'utf8',
 )
 ```
@@ -313,28 +308,30 @@ await writeFile(
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-この形にしておくと、設定ファイル本体は共有したまま、previewだけ対象ブランチを切り替えられます。
+この形ならproductionとpreviewで保存起点が分岐せず、proxyも `main` 以外をbaseにするrequestを拒否できます。
 
-## 9. Editorial workflowで短命branchとPRを作る
+## 9. 保存proxyで短命branchとPRを作る
 
-CMSで保存した内容をそのまま本番反映せず、Sveltia CMSのeditorial workflowで保存ごとの短命branchとmain向けPRを作ります。
+CMSで保存した内容をそのまま本番反映せず、同一originの保存proxyで保存ごとの短命branchとmain向けPRを作ります。
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-publication branchは `main` ですが、editorial workflowの保存は `main` への直接commitではありません。CMSが短命branchとPRを管理し、レビュー後にmergeします。merge後のbranch自動削除も有効にして、恒久的な別本流を残しません。
+proxyはGraphQLの `createCommitOnBranch` を受けても `main` へ直接commitしません。許可されたcontentとmediaだけを同じcommitへまとめ、最新の `main` から `cms/acecore/*` branchを作ってPRを開きます。merge後のbranch自動削除も有効にして、恒久的な別本流を残しません。
+
+GitHub OAuth型では編集者のtokenを本人確認と保存actorに使います。Cloudflare Access型にする場合は、Access identityを確認したうえでサイト専用GitHub Appを保存actorにできます。認証方式は異なっても、path制限、短命branch、PR、CIという書き込み方針は共通です。
 
 ここで重要なのがmerge方法です。Acecoreの翻訳PR taskは `cms: create ...` や `cms: update ...` というcommit subjectを見て、CMS由来の日本語source更新だけを対象にしています。
 
@@ -404,9 +401,9 @@ CMSを差し替えたら、設定ファイルだけでなく、関連記事と�
 
 `cms:` は見た目のprefixではなく、翻訳PR taskを起動するための契約です。CMS以外のPRで使うと不要なワークフローが動きますし、CMS PRをsquashして消すと必要なワークフローが動かないことがあります。
 
-### 6. previewでどのbranchを見ているかを明示する
+### 6. publication branchを環境で切り替えない
 
-CMSはGitHub上のファイルを読むため、preview環境で表示しているbranchとCMSが編集しているbranchがずれることがあります。runtime configでbranchを注入する設計は、preview確認が多いサイトでは早めに入れておくべきです。
+previewのdeploy branchをそのままCMSのpublication branchにすると、別本流が増えて保存proxyの検証も複雑になります。CMSは常に `main` から編集を始め、PRのCloudflare Pages previewで保存結果を確認するほうが役割を分けやすくなります。
 
 ## 導入時の最小構成
 
@@ -425,13 +422,13 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
     update: 'cms: update {{collection}} "{{slug}}"'
     delete: 'cms: delete {{collection}} "{{slug}}"'
-
-publish_mode: editorial_workflow
 
 media_folder: public/uploads
 public_folder: /uploads
@@ -449,12 +446,13 @@ collections:
       - { name: body, label: 本文, widget: markdown }
 ```
 
-ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、editorial workflow、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
+ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、検証付き保存proxy、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
 
 ## 参考リンク
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow（未実装）](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

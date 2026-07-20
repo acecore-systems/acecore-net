@@ -22,7 +22,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Betrieb automatisieren
-      description: main als Veröffentlichungsbranch nutzen und kurzlebige Editorial-Workflow-Branches, CMS-PRs und Übersetzungs-Tasks verbinden.
+      description: main als Veröffentlichungsbranch nutzen und validierte Save-Proxy-Branches, CMS-PRs und Übersetzungs-Tasks verbinden.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -33,14 +33,14 @@ compareTable:
       - Aktualisierungen sind vor allem für GitHub- oder Editor-Nutzer einfach
       - Bildpfade, Autoren-IDs und Tags werden leicht falsch getippt
       - Japanische Source und Übersetzungen können vermischt werden
-      - Preview-Umgebungen können versehentlich main lesen
+      - Speicherziel und beschreibbare Pfade können unklar sein
   after:
     label: Bearbeitung mit Sveltia CMS
     items:
       - Markdown und JSON lassen sich im Browserformular bearbeiten
       - relation, image und select reduzieren ungültige Werte
       - Nur CMS-Commits lösen Übersetzungs-Tasks aus
-      - Runtime Config wechselt den CMS-Branch zwischen Preview und Produktion
+      - Ein Same-Origin-Proxy schreibt nur erlaubte Pfade in einen kurzlebigen Branch und PR
 callout:
   type: note
   title: Annahme dieses Leitfadens
@@ -102,8 +102,8 @@ workers/sveltia-cms-auth
 main branch
   -> einzige Quelle für die Produktion
 
-Sveltia CMS editorial workflow
-  -> erstellt pro Änderung einen kurzlebigen Branch und PR
+CMS save proxy
+  -> validiert erlaubte Pfade und erstellt pro Änderung einen kurzlebigen Branch und PR
 
 .github/workflows/create-translation-prs.yml
   -> erzeugt Übersetzungs-Tasks nur für cms:-Commits
@@ -132,13 +132,13 @@ In Astro wird `public` unverändert statisch ausgeliefert. Auch die Sveltia-CMS-
 
 Zusätzliche CSS-Dateien oder `type="module"` sind nicht nötig. Die UI-Styles stecken im JavaScript-Bundle.
 
-Acecore nutzt manuelle Initialisierung, damit Preview-Branches zur Laufzeit gewechselt werden können.
+Acecore nutzt manuelle Initialisierung für explizite Backend-Konfiguration. Der Veröffentlichungsbranch bleibt in jeder Umgebung `main`.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
@@ -154,6 +154,8 @@ backend:
   repo: owner/repository
   branch: main
   base_url: https://your-sveltia-cms-auth-worker.example.workers.dev
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
   auth_methods: [oauth]
   commit_messages:
     create: 'cms: create {{collection}} "{{slug}}"'
@@ -161,11 +163,11 @@ backend:
     delete: 'cms: delete {{collection}} "{{slug}}"'
     uploadMedia: 'cms: upload "{{path}}"'
     deleteMedia: 'cms: delete media "{{path}}"'
-
-publish_mode: editorial_workflow
 ```
 
-`main` bleibt der Veröffentlichungsbranch. Mit `publish_mode: editorial_workflow` speichert jede Änderung in einem kurzlebigen Branch und PR statt direkt in der Produktion.
+`main` bleibt der Veröffentlichungsbranch. Reads und Saves laufen über einen Same-Origin-Proxy, der Repository, Schreibberechtigung des GitHub-Users, Änderungspfade und den aktuellen `main`-HEAD prüft und danach einen kurzlebigen Branch mit PR erstellt.
+
+Mit Stand vom 20. Juli 2026 ist Editorial Workflow in Sveltia CMS nicht implementiert. Die Decap-CMS-Einstellung `publish_mode: editorial_workflow` lässt Sveltia CMS nicht automatisch kurzlebige Branches oder PRs erstellen.
 
 Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Kurzlebige Branches halten `main` als einzige Quelle der Wahrheit.
 
@@ -223,34 +225,36 @@ Feste Seitentexte lassen sich ebenfalls im CMS pflegen. Acecore bündelt sie unt
 
 Die Lehre: Nicht alle Felder auf einmal hinzufügen. `config.yml` wächst schnell. Besser mit Blog, Autoren, Tags, Hinweisen und häufig geänderten Seiten starten.
 
-## 8. Preview muss den richtigen Branch lesen
+## 8. Auch in Preview `main` als Veröffentlichungsbranch behalten
 
-Wenn ein CMS in einer Cloudflare-Pages-Preview weiterhin `main` liest, passt der Editor nicht zur Preview. Acecore erzeugt vor dem Build `public/admin/runtime-config.js` und injiziert den aktuellen Branch.
+Der Save-Proxy erstellt jeden kurzlebigen Branch vom aktuellen `main`. Deshalb darf eine Cloudflare-Pages-Preview den Backend-Branch nicht durch ihren PR-Branch ersetzen. Das Ergebnis wird in der Pages-Preview des erzeugten CMS-PRs geprüft.
 
 ```javascript
 CMS.init({
   config: {
     backend: {
-      branch: window.ACECORE_CMS_BRANCH || 'main',
+      branch: 'main',
     },
   },
 })
 ```
 
-## 9. Kurzlebige Branches mit Editorial Workflow verwenden
+## 9. Kurzlebige Branches mit einem Save-Proxy erstellen
 
-Sveltia CMS erstellt mit Editorial Workflow für jede Änderung einen kurzlebigen Branch und einen PR nach `main`.
+Ein Same-Origin-Save-Proxy erstellt für jede Änderung einen kurzlebigen Branch und einen PR nach `main`.
 
 ```yaml
 backend:
   name: github
   repo: owner/repository
   branch: main
-
-publish_mode: editorial_workflow
+  api_root: /admin/api/github
+  graphql_api_root: /admin/api/graphql
 ```
 
-Der Veröffentlichungsbranch ist `main`, aber CMS-Änderungen werden nicht direkt dorthin committed. Nach Review und Merge wird der kurzlebige Branch automatisch gelöscht.
+Der Proxy schreibt nicht direkt nach `main`. Er bündelt erlaubte Inhalte und Medien in einem Commit, erstellt `cms/acecore/*` vom aktuellen `main` und öffnet einen PR. Nach Review und Merge wird der kurzlebige Branch automatisch gelöscht.
+
+Bei GitHub OAuth dient das Token des Editors als Identität und Schreib-Akteur. Bei Cloudflare Access kann ein sitespezifischer GitHub App-Akteur verwendet werden. Pfadbegrenzung, kurzlebige Branches, PRs und CI bleiben in beiden Varianten gleich.
 
 Die Merge-Methode ist wichtig. Übersetzungs-Tasks hängen an Commit-Subjects wie `cms: create ...`. Wenn Squash-Merge diese entfernt, kann Automatisierung den Source-Change übersehen. Für CMS-PRs sind Merge-Commit oder Rebase-Merge geeigneter.
 
@@ -283,7 +287,7 @@ Sveltia CMS betrifft GitHub Backend, OAuth, Collections, Medien und PRs. Turnsti
 - Medienpfade sollten vor den Uploads feststehen.
 - `config.yml` sollte schrittweise wachsen.
 - `cms:` ist ein Automatisierungsvertrag.
-- In Preview muss klar sein, welchen Branch das CMS liest.
+- Der Veröffentlichungsbranch darf nicht je Umgebung wechseln; Preview prüft das Ergebnis des CMS-PRs.
 
 ## Minimaler Startpunkt
 
@@ -300,6 +304,7 @@ Danach folgen Autoren-Relationen, Tag-Relationen, Bilder, Source-JSONs, CMS-PR-A
 
 - [Sveltia CMS Getting Started](https://sveltiacms.app/en/docs/start)
 - [Sveltia CMS GitHub Backend](https://sveltiacms.app/en/docs/backends/github)
+- [Sveltia CMS Editorial Workflow (nicht implementiert)](https://sveltiacms.app/en/docs/workflows/editorial)
 - [Sveltia CMS Internal Media Storage](https://sveltiacms.app/en/docs/media/internal)
 - [Sveltia CMS Manual Initialization](https://sveltiacms.app/en/docs/api/initialization)
 - [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth)

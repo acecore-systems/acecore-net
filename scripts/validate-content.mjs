@@ -58,6 +58,18 @@ function extractCmsFileDefinition(config, contentPath) {
 async function validateCmsConfig() {
   const scope = 'public/admin/config.yml'
   const config = await readFile(path.join(root, scope), 'utf8')
+  const graphql = await readFile(
+    path.join(root, 'functions/admin/api/graphql.ts'),
+    'utf8',
+  )
+  const oauth = await readFile(
+    path.join(root, 'functions/admin/api/_github-oauth.ts'),
+    'utf8',
+  )
+  const configFunction = await readFile(
+    path.join(root, 'functions/admin/config.yml.ts'),
+    'utf8',
+  )
 
   if (/^\s*-?\s*name:\s*path\b/m.test(config)) {
     fail(scope, 'path field must not be exposed in CMS')
@@ -68,11 +80,42 @@ async function validateCmsConfig() {
       'CMS backend branch must be main; do not use a permanent cms-content branch',
     )
   }
-  if (!/^publish_mode:\s*editorial_workflow\b/m.test(config)) {
+  if (/^publish_mode:\s*editorial_workflow\b/m.test(config)) {
     fail(
       scope,
-      'CMS must use editorial_workflow so saves create short-lived branches and PRs',
+      'Sveltia CMS does not implement editorial_workflow; use the validated PR proxy',
     )
+  }
+  if (
+    !config.includes('api_root: /admin/api/github') ||
+    !config.includes('graphql_api_root: /admin/api/graphql')
+  ) {
+    fail(scope, 'CMS must use the same-origin GitHub REST and GraphQL proxy')
+  }
+  if (
+    !graphql.includes('createCmsBranch') ||
+    !graphql.includes('cms/acecore/') ||
+    !graphql.includes('/pulls')
+  ) {
+    fail(
+      scope,
+      'CMS writes must create a short-lived cms/acecore branch and PR',
+    )
+  }
+  if (
+    !oauth.includes('repository.permissions.push !== true') ||
+    !oauth.includes("path: '/user'")
+  ) {
+    fail(
+      scope,
+      'CMS proxy must validate the GitHub user and repository write access',
+    )
+  }
+  if (
+    !configFunction.includes('$1${origin}/admin/api/github') ||
+    !configFunction.includes('$1${origin}/admin/api/graphql')
+  ) {
+    fail(scope, 'CMS runtime config must use the deployment origin proxy')
   }
 
   for (const contentPath of extractCmsContentPaths(config)) {
