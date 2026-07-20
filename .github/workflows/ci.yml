@@ -38,3 +38,6 @@ jobs:
 
       - name: Build site
         run: npm run build
+
+      - name: Validate generated SEO metadata
+        run: npm run validate:seo

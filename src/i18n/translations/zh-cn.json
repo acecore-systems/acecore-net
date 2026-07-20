@@ -169,7 +169,9 @@
   },
   "meta": {
     "siteTitle": "Acecore | 系统开发・网站设计・IT教育",
-    "defaultDescription": "Acecore是一个提供系统开发、网站设计、服务器运维、设计和IT教育一站式服务的科技团队。"
+    "defaultDescription": "Acecore是一个提供系统开发、网站设计、服务器运维、设计和IT教育一站式服务的科技团队。",
+    "shortTitleContext": "官方网站",
+    "shortDescriptionContext": "还可了解Acecore的技术资讯、活动报告和服务详情。"
   },
   "pages": {
     "home": {
