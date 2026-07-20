@@ -400,31 +400,6 @@ import { SITE } from '../data/site'
     <ClientRouter />
     <script is:inline>
       ;(function () {
-        if (localStorage.getItem('preferred-locale')) return
-        var path = location.pathname
-        if (path !== '/' && path !== '') return
-        var lang = (navigator.language || '').toLowerCase()
-        var map = {
-          en: 'en',
-          de: 'de',
-          fr: 'fr',
-          es: 'es',
-          pt: 'pt',
-          ko: 'ko',
-          ru: 'ru',
-          'zh-cn': 'zh-cn',
-          'zh-hans': 'zh-cn',
-          zh: 'zh-cn',
-        }
-        var detected = map[lang] || map[lang.split('-')[0]]
-        if (detected && detected !== 'ja') {
-          localStorage.setItem('preferred-locale', detected)
-          location.replace('/' + detected + '/')
-        }
-      })()
-    </script>
-    <script is:inline>
-      ;(function () {
         if (window.__aceAnalyticsClickTrackingInitialized) return
         window.__aceAnalyticsClickTrackingInitialized = true
 
