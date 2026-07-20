@@ -23,6 +23,7 @@ import {
   localizePost,
   getBaseSlug,
   getLocalizedAuthor,
+  filterPostsForLocale,
 } from '../utils/blog-i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 import {
@@ -69,8 +70,11 @@ const homePostImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 
 const allPosts = await getCollection('blog')
 const authors: AuthorData[] = await getAllAuthors()
-const posts = allPosts
-  .filter(isBasePost)
+const posts = filterPostsForLocale(
+  allPosts.filter(isBasePost),
+  allPosts,
+  locale,
+)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))

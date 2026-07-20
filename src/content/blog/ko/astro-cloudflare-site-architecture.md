@@ -2,7 +2,6 @@
 title: 'Astro + Cloudflare 사이트를 기능별로 확장하는 전체 설계'
 description: 'Astro와 Cloudflare Pages를 기반으로 문의 AI, Sveltia CMS, 다국어 블로그, 서비스 CTA, 안전한 Markdown 렌더링, Cloudflare만으로 만든 댓글 기능을 하나의 구조로 정리합니다.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -45,7 +44,7 @@ linkCards:
     title: Sveltia CMS로 다국어 블로그 운영하기
     description: UI 번역이 아니라 언어별 정적 페이지를 생성하는 운영입니다.
     icon: i-lucide-languages
-  - href: /ko/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: 서비스 CTA 문맥을 문의 폼으로 전달하기
     description: 읽고 있던 서비스의 문맥을 폼의 분류와 제목으로 넘깁니다.
     icon: i-lucide-route
@@ -124,7 +123,7 @@ Pages Functions가 GET/POST를 받고, D1이 저장하고, Turnstile이 제출�
 | 다국어 페이지를 검색 대상으로 만들기 | [Sveltia CMS로 다국어 블로그 운영하기](/ko/blog/copilot-translation-pipeline/)            |
 | AI 채팅으로 방문자를 안내하기        | [Astro 사이트에 문의 AI 채팅을 넣는 기술 설계](/ko/blog/astro-ai-contact-chat/)           |
 | AI 답변 링크를 안전하게 렌더링하기   | [AI 채팅 답변의 Markdown 링크 안전 렌더링](/ko/blog/ai-chat-markdown-link-safety/)        |
-| 서비스 문맥을 폼으로 넘기기          | [서비스 CTA 문맥을 문의 폼으로 전달하는 설계](/ko/blog/service-cta-contact-prefill/)      |
+| 서비스 문맥을 폼으로 넘기기          | [서비스 CTA 문맥을 문의 폼으로 전달하는 설계](/blog/service-cta-contact-prefill/)         |
 | 외부 서비스 없이 댓글 기능 넣기      | [Cloudflare만으로 Astro 블로그 댓글 기능 만들기](/ko/blog/cloudflare-only-blog-comments/) |
 
 ## 추천 구현 순서

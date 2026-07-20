@@ -2,7 +2,6 @@
 title: 'Designing an Astro + Cloudflare Website That Can Grow Feature by Feature'
 description: 'How we combined Astro and Cloudflare Pages with an AI contact chat, Sveltia CMS, multilingual blog publishing, service CTA handoff, safe Markdown rendering, and Cloudflare-only comments as one extensible website architecture.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -69,7 +68,7 @@ linkCards:
     title: Running a Multilingual Blog with Sveltia CMS
     description: Generating localized static pages instead of relying on UI-only translation.
     icon: i-lucide-languages
-  - href: /en/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: Passing Service CTA Context to a Contact Form
     description: Carrying service context from a service page into form category and subject fields.
     icon: i-lucide-route
@@ -208,7 +207,7 @@ You do not need to read everything first. Start from the feature you are trying 
 | Publish multilingual pages that search can index | [How to Run a Multilingual Blog with Sveltia CMS](/en/blog/copilot-translation-pipeline/)          |
 | Guide visitors with AI chat                      | [Technical Design for Adding an AI Contact Chat to an Astro Site](/en/blog/astro-ai-contact-chat/) |
 | Render safe links in AI answers                  | [Safe Markdown Link Rendering for AI Chat Answers](/en/blog/ai-chat-markdown-link-safety/)         |
-| Carry service-page context into the form         | [Passing Service CTA Context to a Contact Form](/en/blog/service-cta-contact-prefill/)             |
+| Carry service-page context into the form         | [Passing Service CTA Context to a Contact Form](/blog/service-cta-contact-prefill/)                |
 | Add comments without an external comment service | [Build Astro Blog Comments with Cloudflare Only](/en/blog/cloudflare-only-blog-comments/)          |
 
 ## Implementation Order

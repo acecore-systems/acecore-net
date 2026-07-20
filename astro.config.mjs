@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeOptimizeImages from './src/utils/rehype-optimize-images'
 import rehypeInjectAds from './src/utils/rehype-inject-ads'
+import rehypeLocalizeInternalLinks from './src/utils/rehype-localize-internal-links'
 import { existsSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
@@ -68,10 +69,10 @@ export default defineConfig({
       },
     }),
     sitemap({
-      lastmod: new Date(),
       filter(page) {
         return (
           !isMissingLocalizedBlogPost(page) &&
+          !page.endsWith('/404/') &&
           !page.includes('/blog/tags/') &&
           !page.includes('/blog/archive/') &&
           !page.includes('/blog/authors/') &&
@@ -124,6 +125,7 @@ export default defineConfig({
           properties: { className: ['external-link'] },
         },
       ],
+      rehypeLocalizeInternalLinks,
       rehypeOptimizeImages,
       rehypeInjectAds,
     ],

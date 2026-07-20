@@ -2,7 +2,6 @@
 title: '用 Astro + Cloudflare 逐步扩展官网功能的整体设计'
 description: '整理 Acecore 官网如何以 Astro 和 Cloudflare Pages 为基础，组合咨询 AI、Sveltia CMS、多语言博客、服务 CTA、Markdown 安全渲染和 Cloudflare 评论功能。'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -49,7 +48,7 @@ linkCards:
     title: 用 Sveltia CMS 运营多语言博客
     description: 生成各语言的静态页面，而不是只依赖浏览器 UI 翻译。
     icon: i-lucide-languages
-  - href: /zh-cn/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: 将服务 CTA 的上下文传给联系表单
     description: 把服务页面的阅读上下文传递到表单分类和主题。
     icon: i-lucide-route
@@ -138,7 +137,7 @@ Pages Functions 处理 GET/POST，D1 保存评论，Turnstile 验证提交，Ori
 | 让多语言页面进入搜索索引   | [用 Sveltia CMS 运营多语言博客](/zh-cn/blog/copilot-translation-pipeline/)              |
 | 用 AI 聊天引导访客         | [在 Astro 网站中加入咨询 AI 聊天的技术设计](/zh-cn/blog/astro-ai-contact-chat/)         |
 | 在 AI 回答中安全渲染链接   | [安全渲染 AI 聊天回答中的 Markdown 链接](/zh-cn/blog/ai-chat-markdown-link-safety/)     |
-| 把服务页上下文传给联系表单 | [将服务 CTA 的上下文传给联系表单](/zh-cn/blog/service-cta-contact-prefill/)             |
+| 把服务页上下文传给联系表单 | [将服务 CTA 的上下文传给联系表单](/blog/service-cta-contact-prefill/)                   |
 | 不依赖外部服务添加评论功能 | [只用 Cloudflare 为 Astro 博客添加评论功能](/zh-cn/blog/cloudflare-only-blog-comments/) |
 
 ## 推荐导入顺序

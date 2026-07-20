@@ -22,6 +22,14 @@
 /admin/config.yml
   Content-Type: application/yaml; charset=utf-8
 
+# RSS feeds stay out of search results while article links remain crawlable.
+/rss.xml
+  X-Robots-Tag: noindex, follow
+
+/*/rss.xml
+  X-Robots-Tag: noindex, follow
+
+
 # Astro ビルド成果物（ハッシュ付きファイル名で長期キャッシュ安全）
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

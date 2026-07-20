@@ -6,11 +6,13 @@ import { getLocalizedUrl, getLocaleFromUrl } from '../i18n'
 interface Props {
   locale?: Locale
   path?: string
+  urls?: Partial<Record<Locale, string>>
   showLabel?: boolean
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const currentPath = Astro.props.path ?? Astro.url.pathname
+const urls = Astro.props.urls
 const showLabel = Astro.props.showLabel ?? false
 ---
 
@@ -36,7 +38,7 @@ const showLabel = Astro.props.showLabel ?? false
       locales.map((l) => (
         <li role="option" aria-selected={l === locale}>
           <a
-            href={getLocalizedUrl(currentPath, l)}
+            href={urls?.[l] ?? getLocalizedUrl(currentPath, l)}
             class:list={[
               'block min-h-10 px-4 py-2.5 text-sm no-underline transition-colors',
               l === locale

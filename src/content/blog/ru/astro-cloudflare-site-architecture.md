@@ -2,7 +2,6 @@
 title: 'Как развивать сайт на Astro + Cloudflare по функциям'
 description: 'Как мы объединили Astro и Cloudflare Pages с AI-чатом для обращений, Sveltia CMS, многоязычным блогом, CTA услуг, безопасным Markdown-рендерингом и комментариями без внешнего сервиса.'
 date: 2026-06-07T19:00
-lastUpdated: 2026-06-07T00:00
 author: gui
 tags: ['技術', 'Astro', 'Cloudflare', 'Webサイト', 'AI', 'CMS']
 image: /uploads/acecore-generated/work-acecore-net-website.webp
@@ -45,7 +44,7 @@ linkCards:
     title: Многоязычный блог с Sveltia CMS
     description: Публикация локализованных статических страниц вместо перевода только в UI.
     icon: i-lucide-languages
-  - href: /ru/blog/service-cta-contact-prefill/
+  - href: /blog/service-cta-contact-prefill/
     title: Передача контекста CTA в форму
     description: Передать контекст услуги в категорию и тему формы обращения.
     icon: i-lucide-route
@@ -124,7 +123,7 @@ Pages Functions принимает GET/POST, D1 хранит комментар�
 | Публиковать индексируемые многоязычные страницы | [Как вести многоязычный блог с Sveltia CMS](/ru/blog/copilot-translation-pipeline/)              |
 | Направлять посетителей через AI-чат             | [Технический дизайн AI-чата для обращений](/ru/blog/astro-ai-contact-chat/)                      |
 | Безопасно рендерить ссылки в ответах AI         | [Безопасный рендеринг Markdown-ссылок в ответах AI-чата](/ru/blog/ai-chat-markdown-link-safety/) |
-| Передавать контекст услуги в форму              | [Передача контекста CTA услуги в форму обращения](/ru/blog/service-cta-contact-prefill/)         |
+| Передавать контекст услуги в форму              | [Передача контекста CTA услуги в форму обращения](/blog/service-cta-contact-prefill/)            |
 | Добавить комментарии без внешнего сервиса       | [Комментарии блога Astro только на Cloudflare](/ru/blog/cloudflare-only-blog-comments/)          |
 
 ## Порядок внедрения
