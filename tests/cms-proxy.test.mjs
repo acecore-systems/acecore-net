@@ -123,7 +123,7 @@ test('repositoryへのpush権限がないGitHub userを拒否する', async () =
   assert.match((await response.json()).message, /write権限/)
 })
 
-test('Sveltia CMS 0.166のlast-commit queryを許可する', async () => {
+test('Sveltia CMS 0.172のlast-commit queryを許可する', async () => {
   mockGitHub(async (url, _init, body) => {
     assert.match(url, /\/graphql$/)
     assert.match(body.query, /ref\(qualifiedName: \$branch\)/)
@@ -167,7 +167,7 @@ test('Sveltia CMS 0.166のlast-commit queryを許可する', async () => {
   assert.equal(response.status, 200)
 })
 
-test('Sveltia CMS 0.166のcontent queryをCMS対象blobだけ許可する', async () => {
+test('Sveltia CMS 0.172のcontent queryをCMS対象blobだけ許可する', async () => {
   const blobSha = 'b'.repeat(40)
 
   mockGitHub(async (url, _init, body) => {

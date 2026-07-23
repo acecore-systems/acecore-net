@@ -125,7 +125,7 @@ Dans Astro, `public` est servi comme dossier statique. La documentation Sveltia 
     <title>CMS</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
   </body>
 </html>
 ```

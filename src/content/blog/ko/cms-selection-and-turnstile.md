@@ -125,7 +125,7 @@ Astro에서는 `public` 아래 파일이 정적 파일로 배포됩니다. Svelt
     <title>CMS</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
   </body>
 </html>
 ```
