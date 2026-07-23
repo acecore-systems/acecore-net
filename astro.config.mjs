@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import { unified } from '@astrojs/markdown-remark'
 import UnoCSS from '@unocss/astro'
 import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -116,18 +117,20 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [
-      [
-        rehypeExternalLinks,
-        {
-          target: '_blank',
-          rel: ['noopener', 'noreferrer'],
-          properties: { className: ['external-link'] },
-        },
+    processor: unified({
+      rehypePlugins: [
+        [
+          rehypeExternalLinks,
+          {
+            target: '_blank',
+            rel: ['noopener', 'noreferrer'],
+            properties: { className: ['external-link'] },
+          },
+        ],
+        rehypeLocalizeInternalLinks,
+        rehypeOptimizeImages,
+        rehypeInjectAds,
       ],
-      rehypeLocalizeInternalLinks,
-      rehypeOptimizeImages,
-      rehypeInjectAds,
-    ],
+    }),
   },
 })
