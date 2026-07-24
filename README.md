@@ -6,7 +6,7 @@ Acecore（エースコア）公式Webサイト。
 
 | 技術                                                                                            | 用途                                      |
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| [Astro](https://astro.build/) v6                                                                | 静的サイトジェネレーター                  |
+| [Astro](https://astro.build/) v7                                                                | 静的サイトジェネレーター                  |
 | [UnoCSS](https://unocss.dev/)                                                                   | ユーティリティファースト CSS              |
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
@@ -31,6 +31,8 @@ Acecore（エースコア）公式Webサイト。
 - UI・固定ページ文字列は日本語ソースを `src/i18n/source/ja/`、翻訳先を `src/i18n/translations/` で管理し、Sveltia CMS の「ページ・サイト文言」からページ/用途別に編集
 
 ## 開発
+
+Node.js 24.18.0 以上が必要です。使用バージョンは `.node-version`、必要条件は `package.json` の `engines.node` を正とします。
 
 ```bash
 npm install
