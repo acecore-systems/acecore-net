@@ -129,7 +129,7 @@ Astro 会原样发布 `public` 目录下的文件。Sveltia CMS 官方文档也�
     <title>CMS</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
   </body>
 </html>
 ```

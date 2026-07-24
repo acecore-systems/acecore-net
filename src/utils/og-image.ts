@@ -12,7 +12,7 @@ import sharp from 'sharp'
 
 /** Noto Sans JP Bold フォントの CDN URL */
 const FONT_URL =
-  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf'
+  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@5.3.0/japanese-700-normal.ttf'
 /** フォントデータのメモリキャッシュ（ビルド中に 1 度だけフェッチ） */
 let fontCache: ArrayBuffer | null = null
 

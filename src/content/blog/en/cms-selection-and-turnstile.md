@@ -129,7 +129,7 @@ A minimal page looks like this:
     <title>CMS</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
   </body>
 </html>
 ```
@@ -140,7 +140,7 @@ Acecore uses manual initialization so the backend can be overridden explicitly. 
 
 ```html
 <script src="/admin/runtime-config.js"></script>
-<script src="https://unpkg.com/@sveltia/cms@0.166.0/dist/sveltia-cms.js"></script>
+<script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
 <script src="/admin/init.js"></script>
 ```
 

@@ -58,11 +58,7 @@ type TurnstileResponse = {
 }
 
 type ApiMessageKey =
-  | 'unavailable'
-  | 'invalid'
-  | 'rateLimited'
-  | 'turnstile'
-  | 'failed'
+  'unavailable' | 'invalid' | 'rateLimited' | 'turnstile' | 'failed'
 
 const SUPPORTED_LOCALES = [
   'ja',
