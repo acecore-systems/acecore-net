@@ -21,6 +21,9 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
+const organizationId = `${SITE.url}/#organization`
+const systemsServiceId = `${SITE.social.systems}/#service`
+const systemsServiceUrl = `${SITE.social.systems}/services/#business-system`
 
 interface TimelineItem {
   date: string
@@ -32,6 +35,13 @@ const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
 const serviceMap = [
+  {
+    title: t(locale, 'pages.services.mapSystemsTitle'),
+    description: t(locale, 'pages.services.mapSystemsDesc'),
+    icon: 'code-xml',
+    href: u('/services/#system-development'),
+    tone: 'brand',
+  },
   {
     title: t(locale, 'pages.services.mapInfraTitle'),
     description: t(locale, 'pages.services.mapInfraDesc'),
@@ -56,6 +66,7 @@ const serviceMap = [
 ] as const
 
 const deliveryTimeline = getList<TimelineItem>('pages.services.timeline')
+const systemsExamples = getList<string>('pages.services.systems.examples')
 const serverExamples = getList<string>('pages.services.server.examples')
 const webExamples = getList<string>('pages.services.web.examples')
 const designExamples = getList<string>('pages.services.design.examples')
@@ -68,30 +79,38 @@ const serviceLd = {
   '@graph': [
     {
       '@type': 'Service',
+      '@id': systemsServiceId,
+      name: t(locale, 'pages.services.systems.title'),
+      description: t(locale, 'pages.services.systems.desc'),
+      provider: { '@id': organizationId },
+      url: systemsServiceUrl,
+    },
+    {
+      '@type': 'Service',
       name: t(locale, 'pages.services.server.title'),
       description: t(locale, 'pages.services.server.desc'),
-      provider: { '@type': 'Organization', name: 'Acecore' },
+      provider: { '@id': organizationId },
       url: 'https://acecore.net/services/#server',
     },
     {
       '@type': 'Service',
       name: t(locale, 'pages.services.web.title'),
       description: t(locale, 'pages.services.web.desc'),
-      provider: { '@type': 'Organization', name: 'Acecore' },
+      provider: { '@id': organizationId },
       url: 'https://acecore.net/services/#web',
     },
     {
       '@type': 'Service',
       name: t(locale, 'pages.services.design.title'),
       description: t(locale, 'pages.services.design.desc'),
-      provider: { '@type': 'Organization', name: 'Acecore' },
+      provider: { '@id': organizationId },
       url: 'https://acecore.net/services/#design',
     },
     {
       '@type': 'Service',
       name: t(locale, 'pages.services.education.title'),
       description: t(locale, 'pages.services.education.desc'),
-      provider: { '@type': 'Organization', name: 'Acecore' },
+      provider: { '@id': organizationId },
       url: getSchoolsUrl(locale),
     },
   ],
@@ -142,6 +161,9 @@ const serviceLd = {
   <section class="ac-section">
     <div class="ac-container max-w-4xl">
       <nav class="mb-12 flex flex-wrap justify-center gap-2">
+        <a href="#system-development" class="ac-chip text-sm"
+          >{t(locale, 'pages.services.navSystems')}</a
+        >
         <a href="#server" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navServer')}</a
         >
@@ -161,6 +183,63 @@ const serviceLd = {
           >{t(locale, 'pages.services.navAcestudio')}</a
         >
       </nav>
+
+      <!-- Acecore Systems -->
+      <div class="mb-16" id="system-development">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box"
+            ><Icon name="code-xml" class="text-xl" /></span
+          >
+          <h2
+            class="text-xl ac-heading [overflow-wrap:normal] [word-break:normal] sm:text-2xl"
+          >
+            {t(locale, 'pages.services.systems.title')}
+          </h2>
+        </div>
+        <p
+          class="mb-4 leading-relaxed text-slate-600 [overflow-wrap:normal] [word-break:normal]"
+        >
+          {t(locale, 'pages.services.systems.desc')}
+        </p>
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.systems.examplesLabel')}
+          </h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            {
+              systemsExamples.map((example) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {example}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <a
+            href={systemsServiceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+            data-ga-event="external_link_click"
+            data-ga-label="service_systems_detail"
+            data-ga-location="services_systems"
+            data-ga-destination={systemsServiceUrl}
+          >
+            <Icon name="external-link" class="text-sm" />
+            {t(locale, 'pages.services.systems.detailLink')}<span
+              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
+            >
+          </a>
+        </div>
+        <ServiceSectionActions
+          locale={locale}
+          gaLabel="service_systems_contact"
+          gaLocation="services_systems"
+          serviceKey="systems"
+        />
+      </div>
 
       <!-- Server -->
       <div class="mb-16" id="server">

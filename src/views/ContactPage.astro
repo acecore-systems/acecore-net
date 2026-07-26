@@ -16,6 +16,7 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
 const phoneParts = SITE.phone.split('-')
@@ -29,6 +30,12 @@ const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
 const serviceCategoryOptions = [
+  {
+    key: 'systems',
+    value: '業務システム・Webアプリ開発について',
+    label: t(locale, 'pages.contact.formCategoryServiceSystems'),
+    subject: t(locale, 'pages.services.systems.title'),
+  },
   {
     key: 'server',
     value: 'サーバー構築・運用について',
@@ -74,12 +81,8 @@ const contactPageLd = {
   '@type': 'ContactPage',
   name: `${t(locale, 'pages.contact.title')} | Acecore`,
   description: t(locale, 'pages.contact.description'),
-  url: 'https://acecore.net/contact/',
-  mainEntity: {
-    '@type': 'Organization',
-    name: 'Acecore',
-    url: 'https://acecore.net',
-  },
+  url: `${SITE.url}${u('/contact/')}`,
+  mainEntity: { '@id': organizationId },
 }
 
 const faqLd = {

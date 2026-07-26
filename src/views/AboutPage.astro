@@ -17,6 +17,7 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
@@ -64,16 +65,17 @@ const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
 const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': organizationId,
   name: 'Acecore',
-  url: 'https://acecore.net',
+  url: SITE.url,
   logo: 'https://acecore.net/favicon.svg',
-  description: t(locale, 'pages.about.description'),
+  description: t(locale, 'meta.defaultDescription'),
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'JP',
   },
-  sameAs: [SITE.social.x, SITE.social.github, SITE.social.aceserver],
-  knowsAbout: ['Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
+  sameAs: [SITE.social.x, SITE.social.github],
+  knowsAbout: ['システム開発', 'Web制作', 'サーバー運用', 'デザイン', 'IT教育'],
 }
 
 const aboutPageLd = {
@@ -81,12 +83,8 @@ const aboutPageLd = {
   '@type': 'AboutPage',
   name: t(locale, 'pages.about.title'),
   description: t(locale, 'pages.about.description'),
-  url: `https://acecore.net${u('/about/')}`,
-  about: {
-    '@type': 'Organization',
-    name: 'Acecore',
-    url: 'https://acecore.net/',
-  },
+  url: `${SITE.url}${u('/about/')}`,
+  about: { '@id': organizationId },
 }
 ---
 

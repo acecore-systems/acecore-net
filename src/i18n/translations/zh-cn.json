@@ -4,7 +4,8 @@
     "services": "服务",
     "about": "关于我们",
     "blog": "博客",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "pricing": "价格"
   },
   "announcement": {
     "enabled": true,
@@ -78,7 +79,8 @@
     "sitemap": "站点地图",
     "relatedLinks": "相关链接",
     "schools": "Acecore Schools",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "pricing": "费用参考"
   },
   "blog": {
     "title": "博客",
@@ -177,7 +179,7 @@
   "pages": {
     "home": {
       "heroTitle": "从开发到设计与教育，一站式IT支持",
-      "heroSubtitle": "网站设计、服务器运维、设计、IT教育，一个窗口全部搞定。",
+      "heroSubtitle": "系统开发、网站设计、服务器运维、设计、IT教育，一个窗口全部搞定。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgCollaboration": "团队协作推进项目",
       "heroImgMeeting": "会议场景",
@@ -185,6 +187,13 @@
       "servicesHeading": "主要服务",
       "servicesLead": "不确定从何开始？我们灵活地为个人和企业提供服务。",
       "serviceCards": [
+        {
+          "title": "业务系统・Web应用开发 — Acecore Systems",
+          "description": "将业务课题转化为需求，着眼于实施和运维来构建系统。专业领域的详情请参阅 Acecore Systems。",
+          "href": "https://systems.acecore.net/services/#business-system",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
         {
           "title": "服务器搭建・运维",
           "description": "提供稳定、高速的服务器环境。拥有支撑数百人同时连接的运维实绩。",
@@ -226,6 +235,13 @@
       "layersTitle": "Acecore支撑的四个层面",
       "layersDescription": "我们将技术、运维、表达和教育作为一条完整的支援线来对待。",
       "layerItems": [
+        {
+          "title": "系统设计",
+          "description": "从业务梳理到管理界面、数据集成和运营改善，Acecore Systems根据实际工作流程设计并开发系统。",
+          "href": "https://systems.acecore.net/services/#business-system",
+          "icon": "code-xml",
+          "tone": "brand"
+        },
         {
           "title": "基础设施运维",
           "description": "基于公开服务器运维经验，构建高可用环境和改进循环。",
@@ -284,6 +300,7 @@
       "formCategoryLabel": "咨询类型",
       "formCategoryPlaceholder": "请选择",
       "formCategoryService": "关于整体服务",
+      "formCategoryServiceSystems": "关于业务系统・Web应用开发 / Acecore Systems",
       "formCategoryServiceServer": "关于服务器搭建与运维",
       "formCategoryServiceWeb": "关于网站制作与运维",
       "formCategoryServiceDesign": "关于设计与创意",
@@ -330,7 +347,7 @@
       "faqs": [
         {
           "question": "我不知道应该咨询哪项服务。",
-          "answer": "可以同时咨询网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
+          "answer": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
         },
         {
           "question": "只咨询报价也可以吗？",
@@ -358,7 +375,7 @@
       "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
       "philosophyHeading": "理念",
       "philosophyMotto": "\"技术连接，创意拓展\"",
-      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
+      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供系统开发、网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
       "philosophyBody2": "我们的使命是通过技术连接人们、通过创意拓展可能性。重视的不仅是提供技术，更是与客户和社区共同成长，创造可持续的价值。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
@@ -439,26 +456,40 @@
     },
     "services": {
       "title": "服务",
-      "seoTitleContext": "网站设计、服务器运维与IT教育",
-      "description": "详细介绍Acecore提供的网站设计、服务器运维、设计和IT教育服务。",
+      "seoTitleContext": "系统开发、网站设计、服务器运维与IT教育",
+      "description": "详细介绍Acecore提供的业务系统・Web应用开发、网站设计、服务器运维、设计和IT教育服务。",
       "heroTitle": "服务",
       "heroSubtitle": "一站式多元IT解决方案",
       "heroImgAlt": "科技办公室",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "一览Acecore的支持范围",
       "serviceMapDesc": "将开发、运维、信息发布和人才培养设计为一条连续的支持线。",
+      "mapSystemsTitle": "业务系统开发",
+      "mapSystemsDesc": "梳理现场业务，面向持续运营设计Web应用、管理界面和数据集成。",
       "mapInfraTitle": "运维基础",
       "mapInfraDesc": "提供稳定的云端和服务器运维，包含监控和维护。",
       "mapPublishTitle": "信息发布",
       "mapPublishDesc": "通过网站和设计制作，整理并传达您的信息。",
       "mapEducationTitle": "培育支持",
       "mapEducationDesc": "连接教育和陪伴支持，让团队能够自主运用引入的技术。",
+      "navSystems": "系统开发",
       "navServer": "服务器",
       "navWeb": "网站设计",
       "navDesign": "设计",
       "navEducation": "IT学校",
       "navAceserver": "Aceserver",
       "navAcestudio": "AceStudio",
+      "systems": {
+        "title": "业务系统・Web应用开发 / Acecore Systems",
+        "desc": "从订单、库存、客户、申请和预约系统，到组织内外使用的Web应用与管理界面，我们从需求梳理到开发和运营改善提供一体化支持。该专业领域的详细信息由Acecore Systems提供。",
+        "examplesLabel": "对应示例",
+        "detailLink": "在Acecore Systems查看详情",
+        "examples": [
+          "业务管理系统、CRM、ERP、预约及申请系统",
+          "Web应用、管理界面、会员功能、权限与审批流程",
+          "API、外部服务、数据库、通知与数据集成"
+        ]
+      },
       "server": {
         "title": "服务器搭建・运维",
         "desc": "擅长构建和运维安全稳定的服务器环境。Acecore长期运营Aceserver（Minecraft公开服务器），并将积累的经验提供给企业客户。服务器迁移和云化咨询也欢迎联系。",
@@ -663,6 +694,186 @@
           "answer": "目前暂未开放预注册，但关注我们的X账号可获取最新信息。"
         }
       ]
+    },
+    "pricing": {
+      "title": "费用参考",
+      "description": "汇总 Acecore 的网站制作、服务器运维、设计、Acecore Schools 等参考费用，并提供 Acecore Systems 开发费用指南。",
+      "heroTitle": "费用参考",
+      "heroSubtitle": "在详细规划前，跨服务确认大致费用区间",
+      "heroImgAlt": "查看报价资料的工作场景",
+      "eyebrow": "费用参考",
+      "introTitle": "先确认大致费用范围",
+      "introBody": "页面中的金额均为含税预估。正式报价会根据需求、规模、素材准备情况以及外部服务使用情况变动。",
+      "serviceTitle": "主要服务的费用感",
+      "serviceBody": "从小规模咨询到制作、开发、运维组合支持均可对应。",
+      "detailLink": "查看详情",
+      "schoolsFeeTitle": "Schools 费用明细",
+      "schoolsFeeBody": "不仅是学费，也公开入会时费用、教材费和管理费的参考，方便整体判断。",
+      "feeItem": "项目",
+      "feeAmount": "参考",
+      "feeNote": "补充",
+      "factorTitle": "费用变动的主要因素",
+      "noteTitle": "关于显示价格",
+      "ctaHeading": "如果费用感合适，欢迎先免费咨询",
+      "ctaBody": "只需告知目标、希望时间和大致预算。我们会整理必要范围，并提出现实的推进方式。",
+      "ctaContact": "免费咨询",
+      "ctaServices": "查看服务详情",
+      "ctaSchools": "查看 Schools",
+      "items": [
+        {
+          "icon": "message-square",
+          "title": "咨询 AI 聊天",
+          "price": "8万日元起",
+          "body": "为静态网站加入咨询 AI 聊天，并整理站内上下文、限流、Origin 检查和安全链接渲染。",
+          "href": "/blog/astro-ai-contact-chat/"
+        },
+        {
+          "icon": "message-square-text",
+          "title": "博客评论功能",
+          "price": "¥80,000起",
+          "body": "不依赖外部评论服务，构建评论提交、D1 存储、Turnstile 防护、Origin 控制和删除运营流程。",
+          "href": "/blog/cloudflare-only-blog-comments/"
+        },
+        {
+          "icon": "layout-template",
+          "title": "CMS 编辑界面导入",
+          "price": "5万日元起",
+          "body": "用 Sveltia CMS 添加管理界面，让博客、固定页面、公告和设置项可在浏览器中更新。",
+          "href": "/blog/cms-selection-and-turnstile/"
+        },
+        {
+          "icon": "newspaper",
+          "title": "博客与文章基础",
+          "price": "5万日元起",
+          "body": "整理文章列表、详情页、标签/分类、相关文章、RSS 和搜索路径，支撑持续发布。",
+          "href": "/blog/astro-i18n-blog-translation/"
+        },
+        {
+          "icon": "languages",
+          "title": "多语言博客运营",
+          "price": "8万日元起",
+          "body": "整理源语言、翻译 PR、hreflang、sitemap 和 RSS，支撑多语言博客运营。",
+          "href": "/blog/copilot-translation-pipeline/"
+        },
+        {
+          "icon": "search",
+          "title": "SEO 与结构化数据",
+          "price": "5万日元起",
+          "body": "整理 OGP、JSON-LD、站点地图、RSS、canonical 和搜索引擎需要的元信息。",
+          "href": "/blog/astro-seo-and-structured-data/"
+        },
+        {
+          "icon": "scan",
+          "title": "Pagefind 站内搜索",
+          "price": "3万日元起",
+          "body": "为静态网站加入 Pagefind 搜索，并整理搜索 UI、URL 参数和缓存设置。",
+          "href": "/blog/astro-ux-and-code-quality/"
+        },
+        {
+          "icon": "zap",
+          "title": "显示速度改善",
+          "price": "5万日元起",
+          "body": "检查图片、CSS、字体、延迟加载和测量结果，改善 Core Web Vitals。",
+          "href": "/blog/astro-performance-tuning/"
+        },
+        {
+          "icon": "accessibility",
+          "title": "可访问性改善",
+          "price": "5万日元起",
+          "body": "检查对比度、ARIA 属性、焦点状态和表单验证，以 WCAG AA 为目标进行修正。",
+          "href": "/blog/astro-accessibility-guide/"
+        },
+        {
+          "icon": "shield-check",
+          "title": "安全响应头 / CSP",
+          "price": "3万日元起",
+          "body": "整理 Cloudflare Pages 的 _headers、CSP 和管理界面发布设置，提高发布安全性。",
+          "href": "/blog/cloudflare-pages-security/"
+        },
+        {
+          "icon": "mouse-pointer-click",
+          "title": "CTA 与表单联动",
+          "price": "3万日元起",
+          "body": "把服务类型、标题和页面上下文从 CTA 传到咨询表单，改善咨询路径。",
+          "href": "/blog/service-cta-contact-prefill/"
+        },
+        {
+          "icon": "server",
+          "title": "服务器构建与运维",
+          "price": "初期10万〜50万日元",
+          "body": "支持云/VPS 初期构建、监控和备份设计。监控与维护一般为每月1万〜10万日元。",
+          "href": "/services/#server"
+        },
+        {
+          "icon": "globe",
+          "title": "网站制作与运营",
+          "price": "15万日元起",
+          "body": "LP/小型网站15万日元起，企业网站50万〜150万日元，运营维护每月1万〜5万日元。",
+          "href": "/services/#web"
+        },
+        {
+          "icon": "palette",
+          "title": "设计与创意",
+          "price": "2万日元起",
+          "body": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌设计与网站联动10万日元起。",
+          "href": "/services/#design"
+        },
+        {
+          "icon": "graduation-cap",
+          "title": "Acecore Schools",
+          "price": "月费8千〜3.3万日元",
+          "body": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
+          "href": "https://schools.acecore.net/zh-cn/#pricing"
+        },
+        {
+          "icon": "clapperboard",
+          "title": "AceStudio / 视频制作",
+          "price": "每条3万〜30万日元",
+          "body": "短视频和剪辑每条约3万〜30万日元。包含策划和拍摄的制作会按内容单独报价。",
+          "href": "/acestudio/"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver",
+          "price": "免费参加",
+          "body": "公开服务器可免费参加。面向企业的游戏服务器构建与运维咨询需单独报价。",
+          "href": "/services/#aceserver"
+        }
+      ],
+      "schoolFees": [
+        {
+          "item": "入会金",
+          "amount": "1.1万〜2.2万日元",
+          "note": "仅首次发生。会根据年级和课程变动。"
+        },
+        {
+          "item": "月费",
+          "amount": "8千〜3.3万日元",
+          "note": "会根据每周次数、课时和个别指导内容变动。"
+        },
+        {
+          "item": "教材与管理费",
+          "amount": "约5千〜3万日元",
+          "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
+        }
+      ],
+      "factors": [
+        "需求明确度、页面数量、功能数量、是否有外部联动",
+        "设计精细度、文案/照片/视频素材准备情况",
+        "上线后的维护、监控、更新代行、改进提案范围",
+        "教材、设备、印刷、广告、云服务费用等外部实费"
+      ],
+      "notes": [
+        "所有金额均为含税预估。正式金额会在沟通后单独报价。",
+        "域名、服务器、广告、印刷、教材、设备、交通费等外部实费另计。",
+        "如果预算已确定，我们会在该范围内整理优先级并提出方案。"
+      ],
+      "systemsHandoff": {
+        "eyebrow": "Acecore Systems",
+        "title": "业务系统与 Web 应用开发费用",
+        "body": "业务系统、Web 应用、管理后台、数据集成和运营改进的参考费用请查看 Acecore Systems。链接页面目前为日语。",
+        "ctaLabel": "查看 Acecore Systems 费用"
+      }
     }
   },
   "pageNames": {
@@ -676,7 +887,8 @@
     "tags": "标签",
     "authors": "作者",
     "archive": "归档",
-    "page": "页面"
+    "page": "页面",
+    "pricing": "费用参考"
   },
   "tags": {
     "技術": "技术",
