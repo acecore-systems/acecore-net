@@ -80,6 +80,7 @@ const isMonetizedPage =
 const pageNameMap: Record<string, string> = Object.fromEntries(
   Object.entries({
     services: t(locale, 'pageNames.services'),
+    pricing: t(locale, 'pageNames.pricing'),
     schools: t(locale, 'pageNames.schools'),
     about: t(locale, 'pageNames.about'),
     contact: t(locale, 'pageNames.contact'),
@@ -113,6 +114,10 @@ const pathParts =
     ? rawParts.slice(1)
     : rawParts
 const siteOrigin = Astro.site?.origin || 'https://acecore.net'
+const organizationId = `${SITE.url}/#organization`
+const websiteId = `${SITE.url}/#website`
+const systemsServiceId = `${SITE.social.systems}/#service`
+const systemsServiceUrl = `${SITE.social.systems}/services/#business-system`
 const buildAbsoluteUrl = (path: string) =>
   new URL(path, `${siteOrigin}/`).toString()
 const breadcrumbLdFromProps =
@@ -351,15 +356,18 @@ import { SITE } from '../data/site'
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Organization',
+        '@id': organizationId,
         name: 'Acecore',
-        url: 'https://acecore.net',
-        description: pageDescription,
+        url: SITE.url,
+        description: t(locale, 'meta.defaultDescription'),
         logo: 'https://acecore.net/favicon.svg',
+        email: SITE.email,
+        telephone: SITE.phoneIntl,
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'JP',
         },
-        sameAs: [SITE.social.x, SITE.social.github, SITE.social.aceserver],
+        sameAs: [SITE.social.x, SITE.social.github],
       })}
     />
     <script
@@ -367,13 +375,27 @@ import { SITE } from '../data/site'
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
+        '@id': websiteId,
         name: 'Acecore',
-        url: 'https://acecore.net',
+        url: SITE.url,
+        publisher: { '@id': organizationId },
         potentialAction: {
           '@type': 'SearchAction',
           target: 'https://acecore.net/blog/?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
+      })}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': systemsServiceId,
+        name: t(locale, 'pages.services.systems.title'),
+        description: t(locale, 'pages.services.systems.desc'),
+        url: systemsServiceUrl,
+        provider: { '@id': organizationId },
       })}
     />
     {

@@ -328,6 +328,7 @@ const phoneParts = SITE.phone.split('-')
           const url = new URL(href)
           if (url.origin === window.location.origin) return true
           if (url.origin === 'https://acecore.net') return true
+          if (url.origin === 'https://systems.acecore.net') return true
           if (url.href === 'https://lin.ee/DjIrdqj') return true
         } catch {
           return false

@@ -21,6 +21,10 @@ const navLinks = [
     label: t(locale, 'nav.services'),
   },
   {
+    href: getLocalizedUrl('/pricing/', locale),
+    label: t(locale, 'nav.pricing'),
+  },
+  {
     href: getSchoolsUrl(locale),
     label: 'Schools',
   },
@@ -70,6 +74,14 @@ const currentPath = Astro.url.pathname
                   ? 'bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
               ]}
+              {...(link.href === SITE.social.systems
+                ? {
+                    'data-ga-event': 'external_link_click',
+                    'data-ga-label': 'header_systems',
+                    'data-ga-location': 'header',
+                    'data-ga-destination': SITE.social.systems,
+                  }
+                : {})}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>
@@ -143,6 +155,14 @@ const currentPath = Astro.url.pathname
                   ? 'border-brand-100 bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
               ]}
+              {...(link.href === SITE.social.systems
+                ? {
+                    'data-ga-event': 'external_link_click',
+                    'data-ga-label': 'mobile_systems',
+                    'data-ga-location': 'mobile_navigation',
+                    'data-ga-destination': SITE.social.systems,
+                  }
+                : {})}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>

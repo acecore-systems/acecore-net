@@ -1,0 +1,445 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { SITE } from '../data/site'
+import { optimizeImage } from '../utils/image'
+import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
+
+interface Props {
+  locale: Locale
+}
+
+interface PricingItem {
+  icon: string
+  title: string
+  price: string
+  body: string
+  href: string
+}
+
+interface SchoolFee {
+  item: string
+  amount: string
+  note: string
+}
+
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const getList = <T,>(key: string): T[] =>
+  getTranslationValue<T[]>(locale, key) ?? []
+
+const resolvePricingHref = (href: string) => {
+  const normalizedHref = href.trim()
+  if (
+    !normalizedHref ||
+    normalizedHref.startsWith('#') ||
+    /^[a-z][a-z\d+.-]*:/i.test(normalizedHref)
+  ) {
+    return normalizedHref
+  }
+  return normalizedHref.startsWith('/') ? u(normalizedHref) : normalizedHref
+}
+
+const isExternalHref = (href: string) => /^https?:\/\//i.test(href)
+const isBlogPricingHref = (href: string) => href.includes('/blog/')
+const isWebPricingHref = (href: string) => href.includes('/services/#web')
+
+const pricingItems = getList<PricingItem>('pages.pricing.items').map(
+  (item) => ({
+    ...item,
+    href: resolvePricingHref(item.href),
+  }),
+)
+const webBasePricingItem = pricingItems.find((item) =>
+  isWebPricingHref(item.href),
+)
+const featurePricingItems = pricingItems.filter((item) =>
+  isBlogPricingHref(item.href),
+)
+const webPricingItems = [
+  ...(webBasePricingItem ? [webBasePricingItem] : []),
+  ...featurePricingItems,
+]
+const servicePricingItems = pricingItems.filter(
+  (item) => !isBlogPricingHref(item.href) && !isWebPricingHref(item.href),
+)
+const webPricingTableTitle = webBasePricingItem
+  ? `${webBasePricingItem.title} / ${t(
+      locale,
+      'pages.services.web.featureLinksTitle',
+    )}`
+  : t(locale, 'pages.services.web.featureLinksTitle')
+
+const schoolFees = getList<SchoolFee>('pages.pricing.schoolFees')
+const costFactors = getList<string>('pages.pricing.factors')
+const priceNotes = getList<string>('pages.pricing.notes')
+const systemsPricingUrl = `${SITE.social.systems}/pricing/`
+const schoolsUrl = getSchoolsUrl(locale)
+
+const pricingLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${t(locale, 'pages.pricing.title')} | ${SITE.name}`,
+  description: t(locale, 'pages.pricing.description'),
+  url: `${SITE.url}${u('/pricing/')}`,
+  inLanguage: locale,
+  isPartOf: {
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+  },
+}
+---
+
+<BaseLayout
+  title={t(locale, 'pages.pricing.title')}
+  description={t(locale, 'pages.pricing.description')}
+  jsonLd={pricingLd}
+  locale={locale}
+>
+  <Hero
+    title={t(locale, 'pages.pricing.heroTitle')}
+    subtitle={t(locale, 'pages.pricing.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.pricing.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-5xl">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.pricing.title') }]}
+        locale={locale}
+      />
+
+      <div class="mb-10">
+        <p class="ac-eyebrow">{t(locale, 'pages.pricing.eyebrow')}</p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.pricing.introTitle')}
+        </h2>
+        <p class="max-w-3xl ac-muted">
+          {t(locale, 'pages.pricing.introBody')}
+        </p>
+      </div>
+
+      <aside
+        class="relative mb-12 overflow-hidden rounded-lg border border-brand-700 bg-brand-900 p-6 text-white shadow-[0_18px_45px_rgba(8,37,77,0.18)] sm:p-8"
+        aria-labelledby="systems-pricing-title"
+      >
+        <div
+          class="absolute inset-0 ac-blueprint-soft opacity-10"
+          aria-hidden="true"
+        >
+        </div>
+        <div
+          class="relative grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end"
+        >
+          <div>
+            <p
+              class="mb-3 text-xs font-800 uppercase tracking-[0.16em] text-brand-200"
+            >
+              {t(locale, 'pages.pricing.systemsHandoff.eyebrow')}
+            </p>
+            <h2
+              id="systems-pricing-title"
+              class="mb-3 text-2xl font-800 leading-tight text-white sm:text-3xl"
+            >
+              {t(locale, 'pages.pricing.systemsHandoff.title')}
+            </h2>
+            <p class="max-w-2xl leading-relaxed text-slate-200">
+              {t(locale, 'pages.pricing.systemsHandoff.body')}
+            </p>
+          </div>
+          <a
+            href={systemsPricingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn inline-flex w-full items-center justify-center gap-2 border border-white/70 bg-white text-brand-800 hover:bg-brand-50 sm:w-auto"
+            data-ga-event="external_link_click"
+            data-ga-label="pricing_systems"
+            data-ga-location="pricing_handoff"
+            data-ga-destination={systemsPricingUrl}
+          >
+            {t(locale, 'pages.pricing.systemsHandoff.ctaLabel')}
+            <Icon name="external-link" class="text-sm" />
+            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="mb-8">
+        <h2 class="mb-3 text-2xl ac-heading">
+          {t(locale, 'pages.pricing.serviceTitle')}
+        </h2>
+        <p class="ac-muted">{t(locale, 'pages.pricing.serviceBody')}</p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {
+          servicePricingItems.map((item) => {
+            const external = isExternalHref(item.href)
+            return (
+              <a
+                href={item.href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                class="ac-surface group flex h-full flex-col p-6 no-underline transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lg"
+                data-ga-event={
+                  external ? 'external_link_click' : 'pricing_detail_click'
+                }
+                data-ga-label={item.title}
+                data-ga-location="pricing_service_card"
+                data-ga-destination={item.href}
+              >
+                <div class="mb-4 flex items-center gap-3">
+                  <span class="ac-icon-box">
+                    <Icon name={item.icon} class="text-xl" />
+                  </span>
+                  <h3 class="text-lg ac-heading">{item.title}</h3>
+                </div>
+                <p class="mb-3 text-2xl font-800 text-slate-900">
+                  {item.price}
+                </p>
+                <p class="mb-5 flex-1 text-sm leading-relaxed text-slate-600">
+                  {item.body}
+                </p>
+                <span class="inline-flex items-center gap-1 text-sm font-700 text-brand-600 group-hover:underline">
+                  {t(locale, 'pages.pricing.detailLink')}
+                  <Icon
+                    name={external ? 'external-link' : 'arrow-right'}
+                    class="text-sm"
+                  />
+                  {external && (
+                    <span class="sr-only">
+                      {t(locale, 'common.opensInNewTab')}
+                    </span>
+                  )}
+                </span>
+              </a>
+            )
+          })
+        }
+      </div>
+
+      {
+        webPricingItems.length > 0 && (
+          <div class="mt-10">
+            <div class="mb-4">
+              <h3 class="text-xl ac-heading">{webPricingTableTitle}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                {t(locale, 'pages.services.web.featureLinksBody')}
+              </p>
+            </div>
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+              <table class="w-full min-w-220 border-collapse text-left text-sm">
+                <thead class="bg-slate-50 text-slate-900">
+                  <tr>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeItem')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeAmount')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.feeNote')}
+                    </th>
+                    <th class="border-b border-slate-200 px-4 py-3 font-700">
+                      {t(locale, 'pages.pricing.detailLink')}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {webPricingItems.map((item) => (
+                    <tr
+                      class:list={[
+                        'align-top transition hover:bg-brand-50/50',
+                        isWebPricingHref(item.href) && 'bg-brand-50/40',
+                      ]}
+                    >
+                      <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                        <a
+                          href={item.href}
+                          class="group inline-flex items-center gap-3 no-underline"
+                          data-ga-event="pricing_detail_click"
+                          data-ga-label={item.title}
+                          data-ga-location="pricing_web_table"
+                          data-ga-destination={item.href}
+                        >
+                          <span class="ac-icon-box shrink-0">
+                            <Icon name={item.icon} class="text-base" />
+                          </span>
+                          <span class="transition group-hover:text-brand-600">
+                            {item.title}
+                          </span>
+                        </a>
+                      </th>
+                      <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                        {item.price}
+                      </td>
+                      <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                        {item.body}
+                      </td>
+                      <td class="border-b border-slate-100 px-4 py-4">
+                        <a
+                          href={item.href}
+                          class="inline-flex items-center gap-1 font-700 text-brand-600 no-underline hover:underline"
+                          data-ga-event="pricing_detail_click"
+                          data-ga-label={item.title}
+                          data-ga-location="pricing_web_table"
+                          data-ga-destination={item.href}
+                        >
+                          {isBlogPricingHref(item.href)
+                            ? t(
+                                locale,
+                                'pages.services.web.featureLinksArticleLabel',
+                              )
+                            : t(locale, 'pages.pricing.detailLink')}
+                          <Icon name="arrow-right" class="text-xs" />
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )
+      }
+
+      <div id="schools" class="mt-14 scroll-mt-24">
+        <div class="mb-6">
+          <h2 class="mb-3 text-2xl ac-heading">
+            {t(locale, 'pages.pricing.schoolsFeeTitle')}
+          </h2>
+          <p class="ac-muted">
+            {t(locale, 'pages.pricing.schoolsFeeBody')}
+          </p>
+        </div>
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table class="w-full min-w-160 border-collapse text-left text-sm">
+            <thead class="bg-slate-50 text-slate-900">
+              <tr>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeItem')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeAmount')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeNote')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                schoolFees.map((fee) => (
+                  <tr class="align-top">
+                    <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                      {fee.item}
+                    </th>
+                    <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                      {fee.amount}
+                    </td>
+                    <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                      {fee.note}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-6 lg:grid-cols-2">
+        <div class="ac-surface p-6">
+          <h2 class="mb-4 text-xl ac-heading">
+            {t(locale, 'pages.pricing.factorTitle')}
+          </h2>
+          <ul class="m-0 list-none space-y-3 p-0 text-sm text-slate-600">
+            {
+              costFactors.map((factor) => (
+                <li class="flex gap-2 leading-relaxed">
+                  <Icon name="check" class="mt-1 shrink-0 text-brand-500" />
+                  <span>{factor}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="ac-surface bg-slate-50 p-6">
+          <h2 class="mb-4 text-xl ac-heading">
+            {t(locale, 'pages.pricing.noteTitle')}
+          </h2>
+          <ul class="m-0 list-none space-y-3 p-0 text-sm text-slate-600">
+            {
+              priceNotes.map((note) => (
+                <li class="flex gap-2 leading-relaxed">
+                  <Icon name="receipt" class="mt-1 shrink-0 text-brand-500" />
+                  <span>{note}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="ac-surface mt-14 bg-brand-50 p-6 text-center sm:p-8">
+        <h2 class="mb-4 text-xl ac-heading">
+          {t(locale, 'pages.pricing.ctaHeading')}
+        </h2>
+        <p class="mx-auto mb-6 max-w-2xl text-slate-600">
+          {t(locale, 'pages.pricing.ctaBody')}
+        </p>
+        <div
+          class="flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap"
+        >
+          <a
+            href={u('/contact/')}
+            class="ac-btn-primary"
+            data-ga-event="cta_click"
+            data-ga-label="pricing_contact"
+            data-ga-location="pricing_footer"
+            data-ga-destination={u('/contact/')}
+          >
+            {t(locale, 'pages.pricing.ctaContact')}
+          </a>
+          <a
+            href={u('/services/')}
+            class="ac-btn-outline"
+            data-ga-event="cta_click"
+            data-ga-label="pricing_services"
+            data-ga-location="pricing_footer"
+            data-ga-destination={u('/services/')}
+          >
+            {t(locale, 'pages.pricing.ctaServices')}
+          </a>
+          <a
+            href={schoolsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline gap-2"
+            data-ga-event="external_link_click"
+            data-ga-label="pricing_schools"
+            data-ga-location="pricing_footer"
+            data-ga-destination={schoolsUrl}
+          >
+            {t(locale, 'pages.pricing.ctaSchools')}
+            <Icon name="external-link" class="text-sm" />
+            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

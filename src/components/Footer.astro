@@ -43,6 +43,13 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </li>
           <li>
             <a
+              href={u('/pricing/')}
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
+              >{t(locale, 'footer.pricing')}</a
+            >
+          </li>
+          <li>
+            <a
               href={getSchoolsUrl(locale)}
               class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
               >{t(locale, 'footer.schools')}</a
@@ -52,7 +59,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             <a
               href={SITE.social.systems}
               class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-              >Acecore Systems</a
+              data-ga-event="external_link_click"
+              data-ga-label="footer_systems"
+              data-ga-location="footer"
+              data-ga-destination={SITE.social.systems}>Acecore Systems</a
             >
           </li>
           <li>
