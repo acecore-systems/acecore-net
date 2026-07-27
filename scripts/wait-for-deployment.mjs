@@ -1,10 +1,12 @@
+import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const COMMIT_PATTERN = /^[0-9a-f]{40}$/i
+const CORPUS_VERSION_PATTERN = /^[0-9a-f]{20}$/i
 const MAX_MARKER_BYTES = 4096
 
-export function parseBuildMarker(text) {
+export function parseBuildMetadata(text) {
   if (Buffer.byteLength(text, 'utf8') > MAX_MARKER_BYTES) {
     throw new Error('Pages build marker is unexpectedly large.')
   }
@@ -16,11 +18,26 @@ export function parseBuildMarker(text) {
   ) {
     throw new Error('Pages build marker must contain a full 40-character SHA.')
   }
+  if (
+    typeof payload.searchCorpusVersion !== 'string' ||
+    !CORPUS_VERSION_PATTERN.test(payload.searchCorpusVersion)
+  ) {
+    throw new Error(
+      'Pages build marker must contain a 20-character search corpus version.',
+    )
+  }
 
-  return payload.commit.toLowerCase()
+  return {
+    commit: payload.commit.toLowerCase(),
+    searchCorpusVersion: payload.searchCorpusVersion.toLowerCase(),
+  }
 }
 
-export async function readDeployedCommit(
+export function parseBuildMarker(text) {
+  return parseBuildMetadata(text).commit
+}
+
+export async function readDeployedBuild(
   targetUrl,
   {
     fetchImpl = globalThis.fetch,
@@ -44,7 +61,51 @@ export async function readDeployedCommit(
     throw new Error(`Pages build marker returned HTTP ${response.status}.`)
   }
 
-  return parseBuildMarker(await response.text())
+  return parseBuildMetadata(await response.text())
+}
+
+export async function readDeployedCommit(targetUrl, options = {}) {
+  return (await readDeployedBuild(targetUrl, options)).commit
+}
+
+export async function assertDeployedBuild(
+  targetUrl,
+  expectedCommit,
+  expectedCorpusVersion,
+  {
+    fetchImpl = globalThis.fetch,
+    fetchTimeoutMs = Number(process.env.DEPLOYMENT_FETCH_TIMEOUT_MS || 10_000),
+    logger = console,
+  } = {},
+) {
+  if (!COMMIT_PATTERN.test(expectedCommit)) {
+    throw new Error('Expected commit must be a full 40-character Git SHA.')
+  }
+  if (!CORPUS_VERSION_PATTERN.test(expectedCorpusVersion)) {
+    throw new Error(
+      'Expected search corpus version must contain 20 hexadecimal characters.',
+    )
+  }
+
+  const expected = {
+    commit: expectedCommit.toLowerCase(),
+    searchCorpusVersion: expectedCorpusVersion.toLowerCase(),
+  }
+  const deployed = await readDeployedBuild(targetUrl, {
+    fetchImpl,
+    fetchTimeoutMs,
+  })
+  if (
+    deployed.commit !== expected.commit ||
+    deployed.searchCorpusVersion !== expected.searchCorpusVersion
+  ) {
+    throw new Error(
+      'Production changed or its search corpus differs from the corpus built by this workflow.',
+    )
+  }
+
+  logger.log(JSON.stringify({ event: 'pages_build_confirmed', ...expected }))
+  return deployed
 }
 
 export async function waitForDeployment(
@@ -106,12 +167,22 @@ if (isDirectExecution()) {
 
   if (!targetUrl || !command) {
     throw new Error(
-      'Usage: node scripts/wait-for-deployment.mjs <build-meta-url> <commit-sha|--print-current>',
+      'Usage: node scripts/wait-for-deployment.mjs <build-meta-url> <commit-sha|--print-current|--assert-current> [commit-sha corpus-file]',
     )
   }
 
   if (command === '--print-current') {
     console.log(await readDeployedCommit(targetUrl))
+  } else if (command === '--assert-current') {
+    const expectedCommit = process.argv[4]
+    const corpusFile = process.argv[5]
+    if (!expectedCommit || !corpusFile) {
+      throw new Error(
+        '--assert-current requires an expected commit and corpus JSON file.',
+      )
+    }
+    const corpus = JSON.parse(await readFile(resolve(corpusFile), 'utf8'))
+    await assertDeployedBuild(targetUrl, expectedCommit, corpus?.version)
   } else {
     await waitForDeployment(targetUrl, command)
   }

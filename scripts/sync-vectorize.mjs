@@ -139,13 +139,13 @@ export async function syncVectorize({
       UPSERT_BATCH_SIZE,
     )) {
       const mutationId = await upsertVectors(client, indexName, vectorBatch)
-      if (mutationId) mutationIds.push(mutationId)
+      mutationIds.push(mutationId)
     }
   }
 
   for (const idBatch of batches(idsToDelete, DELETE_BATCH_SIZE)) {
     const mutationId = await deleteVectors(client, indexName, idBatch)
-    if (mutationId) mutationIds.push(mutationId)
+    mutationIds.push(mutationId)
   }
 
   const lastMutationId = mutationIds.at(-1)
@@ -561,7 +561,12 @@ async function deleteVectors(client, indexName, ids) {
 
 function getMutationId(payload) {
   const value = payload?.result?.mutationId ?? payload?.mutationId
-  return typeof value === 'string' ? value : ''
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(
+      'Cloudflare Vectorize mutation response did not include a valid mutationId.',
+    )
+  }
+  return value
 }
 
 async function waitForMutation(client, indexName, mutationId) {

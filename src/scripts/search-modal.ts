@@ -42,6 +42,21 @@ const PAGEFIND_OVERRIDE_STYLE_ID = 'pagefind-ui-override-style'
 const SEMANTIC_DEBOUNCE_MS = 400
 const SEMANTIC_TIMEOUT_MS = 1600
 const SEARCH_CLIENT_STORAGE_KEY = 'acecore-search-client-v1'
+const SEARCH_PRIVACY_NOTICE_ID = 'semantic-search-privacy-notice'
+let searchLifecycleBound = false
+
+function bindSearchLifecycle() {
+  if (searchLifecycleBound) return
+
+  searchLifecycleBound = true
+  document.addEventListener('astro:before-swap', () => {
+    window.clearTimeout(semanticDebounceTimer)
+    semanticDebounceTimer = 0
+    searchObserver?.disconnect()
+    searchObserver = null
+    hideSemanticSearch()
+  })
+}
 
 function ensurePagefindStyle() {
   if (document.getElementById(PAGEFIND_STYLE_ID)) return
@@ -230,7 +245,17 @@ function bindSearchInput(
   dialog: HTMLDialogElement,
   container: HTMLElement,
 ) {
-  if (!input || input.dataset.searchBound === 'true') return
+  if (!input) return
+
+  const describedBy = new Set(
+    (input.getAttribute('aria-describedby') || '')
+      .split(/\s+/u)
+      .filter(Boolean),
+  )
+  describedBy.add(SEARCH_PRIVACY_NOTICE_ID)
+  input.setAttribute('aria-describedby', [...describedBy].join(' '))
+
+  if (input.dataset.searchBound === 'true') return
 
   input.dataset.searchBound = 'true'
   let lastTrackedQuery = ''
@@ -617,6 +642,8 @@ function getDialogElements() {
 }
 
 export async function openSearch(query?: string) {
+  bindSearchLifecycle()
+
   const elements = getDialogElements()
   if (!elements) return
 
@@ -640,8 +667,11 @@ export async function openSearch(query?: string) {
     if (query && input) {
       input.value = query
       input.dispatchEvent(new Event('input', { bubbles: true }))
-    } else {
-      input?.focus()
+    } else if (input) {
+      input.focus()
+      if (normalizeQuery(input.value).length >= 2) {
+        input.dispatchEvent(new Event('input', { bubbles: true }))
+      }
     }
   } catch {
     showSearchError(container, () => {

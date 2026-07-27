@@ -100,6 +100,44 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   assert.equal(calls.filter(({ url }) => url.includes('/ai/run/')).length, 1)
 })
 
+test('mutationIdがない成功応答をfail closedする', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const existingIds = corpus.chunks.slice(0, -1).map(({ id }) => id)
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse({
+        vectors: existingIds.map((id) => ({ id })),
+        isTruncated: false,
+      })
+    }
+    if (url.includes('/ai/run/')) {
+      return cloudflareResponse({ data: [embedding] })
+    }
+    if (url.endsWith('/upsert')) {
+      return cloudflareResponse({})
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /valid mutationId/,
+  )
+})
+
 test('dry-runはcredentialもnetworkも要求しない', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 

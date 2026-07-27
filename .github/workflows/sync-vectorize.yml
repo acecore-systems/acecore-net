@@ -210,20 +210,14 @@ jobs:
         run: npm run build
 
       - name: Confirm the built commit is still public
-        shell: bash
         env:
           BUILT_COMMIT: ${{ steps.site.outputs.commit }}
-        run: |
-          deployed_commit="$(
-            node tooling/scripts/wait-for-deployment.mjs \
-              https://acecore.net/.well-known/acecore-build.json \
-              --print-current
-          )"
-
-          if [[ "$deployed_commit" != "$BUILT_COMMIT" ]]; then
-            echo "::error::Production changed while the corpus was being built; a later run will reconcile it."
-            exit 1
-          fi
+        run: >-
+          node tooling/scripts/wait-for-deployment.mjs
+          https://acecore.net/.well-known/acecore-build.json
+          --assert-current
+          "$BUILT_COMMIT"
+          site/.vectorize/corpus.json
 
       - name: Sync production Vectorize index
         working-directory: site

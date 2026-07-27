@@ -136,6 +136,8 @@
     "semanticZeroResults": "No related content found",
     "semanticManyResults": "[COUNT] related results found",
     "semanticOneResult": "1 related result found",
+    "semanticPrivacyNotice": "After you enter at least two characters, Related content automatically sends your search terms to Cloudflare Workers AI. Do not enter personal or confidential information.",
+    "semanticPrivacyLink": "How search data is handled",
     "blogCtaHeading": "Want to learn more about our services?",
     "blogCtaBody": "We provide comprehensive support including system development, web design, server operations, and graphic design.",
     "blogCtaServices": "View Services",
@@ -616,6 +618,9 @@
       "analyticsBody1": "This site may use Google Analytics as an access analytics tool.",
       "analyticsBody2": "Google Analytics uses cookies for traffic data collection, but this data is collected anonymously and does not identify individuals.",
       "analyticsBody3": "You can opt out of this data collection by disabling cookies. Please check your browser settings.",
+      "searchHeading": "About Site Search",
+      "searchBody1": "Keyword search (Pagefind) is processed in your browser. For Related content, search terms of at least two characters are automatically sent to Cloudflare Workers AI about 400 milliseconds after you stop typing, converted into numeric embeddings, and matched against this site's public content stored in Cloudflare Vectorize.",
+      "searchBody2": "Acecore's application does not store or log the search terms. To prevent abuse, a one-way SHA-256 hash of the connecting IP address or a browser-session identifier and the request count are stored in Cloudflare D1 with a 10-minute expiry and removed during subsequent cleanup. The original IP address is not stored in D1. This processing is performed on Cloudflare services. Do not enter personal or confidential information in the search box.",
       "personalInfoHeading": "Handling of Personal Information",
       "personalInfoBody": "When using our contact form, we may ask for personal information such as your name and email address. Personal information collected will only be used to respond to inquiries and for necessary communications, and will not be used for any other purpose.",
       "disclosureHeading": "Disclosure of Personal Information to Third Parties",
@@ -628,7 +633,7 @@
       "copyrightBody": "The copyright of text, images, and other content published on this site belongs to Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
       "contactHeading": "Contact",
       "contactBody": "For inquiries regarding this policy, please contact us through the contact page.",
-      "effectiveDate": "Effective: January 1, 2025 / Last updated: January 1, 2025"
+      "effectiveDate": "Effective: January 1, 2025 / Last updated: July 27, 2026"
     },
     "acestudio": {
       "title": "AceStudio",

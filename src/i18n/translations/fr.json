@@ -136,6 +136,8 @@
     "semanticZeroResults": "Aucun contenu associé trouvé",
     "semanticManyResults": "[COUNT] résultats associés trouvés",
     "semanticOneResult": "1 résultat associé trouvé",
+    "semanticPrivacyNotice": "Après la saisie d'au moins deux caractères, le contenu associé envoie automatiquement vos termes de recherche à Cloudflare Workers AI. Ne saisissez aucune information personnelle ou confidentielle.",
+    "semanticPrivacyLink": "Traitement des données de recherche",
     "blogCtaHeading": "Envie d'en savoir plus sur nos services ?",
     "blogCtaBody": "Nous offrons un accompagnement complet : développement de systèmes, design web, exploitation de serveurs et design graphique.",
     "blogCtaServices": "Voir les services",
@@ -616,6 +618,9 @@
       "analyticsBody1": "Ce site peut utiliser Google Analytics comme outil d'analyse d'accès.",
       "analyticsBody2": "Google Analytics utilise des cookies pour collecter des données de trafic, mais ces données sont collectées anonymement et n'identifient pas les individus.",
       "analyticsBody3": "Vous pouvez refuser cette collecte de données en désactivant les cookies. Vérifiez les paramètres de votre navigateur.",
+      "searchHeading": "À propos de la recherche sur le site",
+      "searchBody1": "La recherche par mots-clés (Pagefind) est traitée dans votre navigateur. Pour le contenu associé, les termes d'au moins deux caractères sont automatiquement envoyés à Cloudflare Workers AI environ 400 millisecondes après la fin de la saisie, convertis en représentations numériques et comparés au contenu public de ce site stocké dans Cloudflare Vectorize.",
+      "searchBody2": "L'application d'Acecore ne stocke ni ne journalise les termes de recherche. Pour prévenir les abus, une empreinte SHA-256 à sens unique de l'adresse IP de connexion ou un identifiant propre à la session du navigateur, ainsi que le nombre de requêtes, sont conservés dans Cloudflare D1. Les données expirent après 10 minutes et sont supprimées lors d'un nettoyage ultérieur. L'adresse IP d'origine n'est pas stockée dans D1. Ce traitement est effectué par les services Cloudflare. Ne saisissez aucune information personnelle ou confidentielle dans le champ de recherche.",
       "personalInfoHeading": "Traitement des Informations Personnelles",
       "personalInfoBody": "En utilisant notre formulaire de contact, nous pouvons demander des informations personnelles telles que le nom et l'adresse e-mail. Les informations personnelles collectées seront utilisées uniquement pour répondre aux consultations et communications nécessaires, et ne seront utilisées pour aucun autre but.",
       "disclosureHeading": "Divulgation des Informations Personnelles à des Tiers",
@@ -628,7 +633,7 @@
       "copyrightBody": "Les droits d'auteur sur les textes, images et autres contenus publiés sur ce site appartiennent à Acecore ou à leurs détenteurs respectifs. La reproduction ou copie non autorisée est interdite.",
       "contactHeading": "Contact",
       "contactBody": "Pour les consultations concernant cette politique, contactez-nous via la page de contact.",
-      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 1er janvier 2025"
+      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 27 juillet 2026"
     },
     "acestudio": {
       "title": "AceStudio",

@@ -47,7 +47,7 @@ npm run typecheck:functions
 
 `.github/workflows/sync-vectorize.yml` は次の動作をします。
 
-- `main` push: production Pagesが同じcommitを公開したことを `.well-known/acecore-build.json` で確認し、corpus build後にも公開commitが変わっていないことを再確認してからproduction indexを同期する。
+- `main` push: production Pagesが同じcommitを公開したことを `.well-known/acecore-build.json` で確認し、corpus build後にも公開commitとcorpus versionの両方が変わっていないことを再確認してからproduction indexを同期する。
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動preview: `main` の最新corpusをpreview indexへ同期する。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。

@@ -136,6 +136,8 @@
     "semanticZeroResults": "No se encontró contenido relacionado",
     "semanticManyResults": "Se encontraron [COUNT] resultados relacionados",
     "semanticOneResult": "Se encontró 1 resultado relacionado",
+    "semanticPrivacyNotice": "Al introducir al menos dos caracteres, Contenido relacionado envía automáticamente sus términos de búsqueda a Cloudflare Workers AI. No introduzca información personal ni confidencial.",
+    "semanticPrivacyLink": "Tratamiento de los datos de búsqueda",
     "blogCtaHeading": "¿Quiere saber más sobre nuestros servicios?",
     "blogCtaBody": "Ofrecemos soporte integral en desarrollo de sistemas, diseño web, operaciones de servidores y diseño gráfico.",
     "blogCtaServices": "Ver servicios",
@@ -616,6 +618,9 @@
       "analyticsBody1": "Este sitio puede utilizar Google Analytics como herramienta de análisis de acceso.",
       "analyticsBody2": "Google Analytics usa cookies para recopilar datos de tráfico, pero estos datos se recopilan de forma anónima y no identifican a individuos.",
       "analyticsBody3": "Puede optar por no participar desactivando las cookies. Consulte la configuración de su navegador.",
+      "searchHeading": "Sobre la búsqueda del sitio",
+      "searchBody1": "La búsqueda por palabras clave (Pagefind) se procesa en su navegador. En «Contenido relacionado», los términos de al menos dos caracteres se envían automáticamente a Cloudflare Workers AI unos 400 milisegundos después de dejar de escribir, se convierten en representaciones numéricas y se comparan con el contenido público de este sitio almacenado en Cloudflare Vectorize.",
+      "searchBody2": "La aplicación de Acecore no almacena ni registra los términos de búsqueda. Para prevenir abusos, se guardan en Cloudflare D1 un hash unidireccional SHA-256 de la dirección IP de conexión o un identificador de la sesión del navegador, junto con el número de solicitudes. Los datos caducan a los 10 minutos y se eliminan durante una limpieza posterior. La dirección IP original no se almacena en D1. Este tratamiento se realiza mediante servicios de Cloudflare. No introduzca información personal ni confidencial en el buscador.",
       "personalInfoHeading": "Tratamiento de datos personales",
       "personalInfoBody": "Al usar nuestro formulario de contacto, podemos solicitar información personal como nombre y correo electrónico. La información recopilada solo se usará para responder consultas y comunicaciones necesarias.",
       "disclosureHeading": "Divulgación de datos personales a terceros",
@@ -628,7 +633,7 @@
       "copyrightBody": "Los derechos de autor del texto, imágenes y otro contenido publicado en este sitio pertenecen a Acecore o sus respectivos titulares. Se prohíbe la reproducción no autorizada.",
       "contactHeading": "Contacto",
       "contactBody": "Para consultas sobre esta política, contáctenos a través de la página de contacto.",
-      "effectiveDate": "Vigente desde: 1 de enero de 2025 / Última actualización: 1 de enero de 2025"
+      "effectiveDate": "Vigente desde: 1 de enero de 2025 / Última actualización: 27 de julio de 2026"
     },
     "acestudio": {
       "title": "AceStudio",
