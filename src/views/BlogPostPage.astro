@@ -206,10 +206,16 @@ const ctaHeading = isDefaultLocale
       const variants = [
         {
           match: ['教育', 'Acecore Schools'],
-          heading: 'ITスクールに興味がありますか？',
-          body: 'Acecore Schools では、初心者から経験者まで実践的に学べるカリキュラムをご用意しています。',
-          primary: { label: 'スクール詳細を見る', href: getSchoolsUrl(locale) },
-          secondary: { label: 'お問い合わせ', href: '/contact/' },
+          heading: '目的に合う学びを一緒に整理しませんか？',
+          body: 'Acecore Schoolsでは、目的と現在地から必要な学びを整理し、実際に使う場面へつながる形で支援します。',
+          primary: {
+            label: 'Schoolsで相談できることを見る',
+            href: getSchoolsUrl(locale),
+          },
+          secondary: {
+            label: '学習について相談する',
+            href: '/contact/?category=service&service=education#contact-form',
+          },
         },
         {
           match: ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'],

@@ -211,7 +211,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -227,7 +227,7 @@ El chat no reemplaza al formulario. Cada ruta tiene un papel.
 | ---------------- | ----------------------------------------------------------- |
 | FAQ              | Resolver dudas comunes dentro de la página                  |
 | Chat de IA       | Ordenar servicios, rutas de contacto y páginas relacionadas |
-| LINE             | Preguntas breves, temas de escuela y verificaciones ligeras |
+| LINE             | Preguntas breves y verificaciones ligeras                   |
 | Formulario       | Presupuestos, producción, alianzas y reclutamiento          |
 | Contacto directo | Complementos tras el formulario o confirmación urgente      |
 

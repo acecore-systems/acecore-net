@@ -1,10 +1,11 @@
 ---
 title: 'Atividades comunitárias e compromisso com a educação'
-description: 'Sobre as atividades comunitárias, apoio educacional e contribuições ao open source promovidos pela Acecore. Apresentamos nossas iniciativas através do Aceserver, escola e meetups.'
+description: 'Sobre as atividades comunitárias, apoio educacional em japonês e contribuições ao open source promovidos pela Acecore. Apresentamos iniciativas por meio do Aceserver, da Schools e dos workshops realizados no passado.'
 date: 2026-03-08T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/blog-community-and-education.webp
+image: /uploads/acecore-generated/blog-schools-online-support.webp
 insightGrid:
   title: Alcance das atividades
   items:
@@ -12,34 +13,27 @@ insightGrid:
       description: Servidor Minecraft como ponto de partida para interação comunitária.
       icon: i-lucide-gamepad-2
       tone: brand
-    - title: Meetups
-      description: Eventos técnicos regulares acessíveis até para iniciantes.
+    - title: Workshops
+      description: Registros de atividades passadas e divulgação quando houver novas edições.
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Programas educacionais que conectam experiência a habilidades profissionais.
+      description: Apoio em japonês organizado a partir do objetivo e do ponto atual.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS e comunidade local
       description: Circulação do conhecimento adquirido para a região e a comunidade.
       icon: i-lucide-heart-handshake
       tone: slate
-testimonials:
-  - quote: Ter um espaço para compartilhar tecnologia com pessoas da região é realmente valioso. Há muitas coisas que não se percebe estudando sozinho.
-    name: Participante do meetup
-    role: Membro da comunidade
-pullQuote:
-  text: O espaço de aprendizado não é de mão única — é algo que construímos juntos
-  attribution: Acecore Schools
 faq:
   title: Perguntas frequentes
   items:
     - question: O que é o Aceserver?
       answer: É um servidor público de Minecraft operado pela Acecore. Funciona como ponto de partida para interação comunitária, aprofundando conexões através de cooperação entre membros e realização de eventos.
-    - question: Qualquer pessoa pode participar dos meetups?
-      answer: Sim, desde iniciantes até experientes, qualquer pessoa pode participar. Realizamos regularmente meetups com diversos temas, como hands-on de programação e introdução a administração de servidores.
-    - question: O que se pode aprender na Acecore Schools?
-      answer: Oferecemos programas variados incluindo aulas particulares, programação de robôs, programação prática, uso de computador e smartphone, e preparação para equivalência do ensino médio. A instrução individual por engenheiros profissionais é nossa característica marcante.
+    - question: Quando são realizados os meetups e workshops?
+      answer: No momento, não há inscrições abertas com base em uma programação regular. Quando houver um novo projeto, anunciaremos no blog e nas redes sociais.
+    - question: A Acecore Schools está disponível em português?
+      answer: Não. A Acecore Schools, seu site, o apoio à aprendizagem, as orientações de inscrição e as consultas estão disponíveis apenas em japonês.
 ---
 
 Na Acecore, com o tema "conexão, descoberta e co-criação", investimos no desenvolvimento da comunidade tecnológica e na contribuição para o campo educacional.
@@ -50,33 +44,19 @@ O **Aceserver**, operado pela Acecore, é um servidor público de Minecraft util
 
 Na [comunidade Discord do Aceserver](https://discord.gg/acsv), conversas ativas acontecem não apenas sobre jogos, mas também sobre temas técnicos e interações do dia a dia. Uma atmosfera aberta onde qualquer pessoa pode participar, independente de idade ou experiência, é sua característica.
 
-![Na comunidade do Aceserver, a interação acontece independente de idade ou experiência](/uploads/acecore-generated/blog-community-and-education.webp)
+![Na comunidade do Aceserver, a interação acontece independente de idade ou experiência](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 O conhecimento obtido através da operação do servidor é retroalimentado nos serviços de infraestrutura empresarial. Contribui para o acúmulo de know-how prático como tuning de performance em ambientes de alta carga, proteção contra DDoS e gerenciamento seguro de dados de usuários.
 
-## Realização de meetups e eventos
+## Registros e avisos de workshops
 
-Realizamos regularmente meetups e workshops técnicos, apoiando o compartilhamento de conhecimento e o desenvolvimento de habilidades.
+A Acecore avalia projetos ligados à aprendizagem e ao compartilhamento de tecnologia de acordo com o conteúdo e o momento. No momento, não há inscrições abertas com base em uma programação regular. No passado, a Acecore Schools realizou uma experiência presencial de montagem de robôs por tempo limitado durante o verão.
 
-- **Hands-on de programação**: Experiência de desenvolvimento de web apps para iniciantes. Desde os fundamentos de HTML até criar um app funcional em um dia
-- **Introdução à administração de servidores**: Fundamentos de Linux e como iniciar servidores na nuvem. Conteúdo prático usando ambientes reais como AWS e Cloudflare
-- **Workshop de design**: Fundamentos de criação de logotipos e UI design. Desde como usar ferramentas de design até pontos de comunicação visual eficaz
-
-A participação é gratuita ou a preço acessível, e qualquer pessoa é bem-vinda. Informações sobre eventos são divulgadas no blog do site e nas redes sociais.
+Quando houver um novo meetup ou workshop, publicaremos no blog e nas redes sociais o conteúdo, o público e a forma de participação.
 
 ## Atividades educacionais da Acecore Schools
 
-Na escola de TI "Acecore Schools", engenheiros profissionais oferecem instrução individual. Com um currículo centrado em exercícios baseados em projetos reais, desenvolvemos competência prática para "usar imediatamente no trabalho o que foi aprendido".
-
-### Características do currículo
-
-1. **Aprendizado baseado na prática**: Foco não apenas em conhecimento teórico, mas em habilidades realmente exigidas no mercado de trabalho
-2. **Personalização individual**: Currículo flexivelmente ajustado aos objetivos e nível de cada aluno
-3. **Suporte contínuo**: Suporte para consultas técnicas não apenas durante o período de estudo, mas também após a conclusão
-
-Entre os depoimentos dos alunos: "Ficou claro o que fazer na prática" e "Consegui entender de uma vez o que não conseguia sozinho".
-
-![Alunos aprendendo com currículo baseado na prática](/uploads/acecore-generated/blog-community-and-education.webp)
+A Acecore Schools está disponível apenas em japonês. O apoio à aprendizagem, o site, as orientações de inscrição e as consultas não são oferecidos em português.
 
 ## Contribuições ao open source
 
@@ -84,10 +64,8 @@ Na Acecore, não apenas nos beneficiamos de software open source, mas também va
 
 Participar do open source também contribui para a melhoria das habilidades técnicas. Recebendo feedback de desenvolvedores do mundo inteiro, elevamos a qualidade do código e contribuímos para o desenvolvimento de habilidades da equipe.
 
-## Iniciativas de parceria local
+## Consultas sobre parceria regional
 
-Em parceria com empresas e instituições educacionais locais, trabalhamos na promoção do uso de TI e no desenvolvimento de talentos digitais. Ao apoiar a informatização regional, contribuímos também para o desenvolvimento da economia local.
-
-Concretamente, realizamos cursos de TI em escolas e faculdades locais, apoio de DX para empresas regionais e participação em projetos de digitalização de governos locais.
+Aceitamos consultas sobre uso de TI, aprendizagem digital e projetos conjuntos em empresas e instituições educacionais regionais. O conteúdo é organizado individualmente depois de confirmar o objetivo, o público e o ambiente necessário.
 
 Para participar da comunidade ou consultas sobre parcerias, entre em [contato](/contact/). Estamos sempre esperando por parceiros que queiram construir algo juntos.

@@ -47,7 +47,7 @@
     "close": "Close AI chat",
     "title": "Ask AI",
     "lead": "Short answers based on this site.",
-    "greeting": "You can ask about Acecore services, development and website projects, schools, and reply timing. For detailed estimates or formal consultation, I will guide you to the form.",
+    "greeting": "You can ask about Acecore services, development and website projects, and reply timing. For detailed estimates or formal consultation, I will guide you to the form.",
     "inputLabel": "Question for AI chat",
     "placeholder": "Type your question...",
     "send": "Send",
@@ -55,7 +55,7 @@
     "error": "AI chat is unavailable. Please use the contact form or LINE.",
     "quickServices": "Which service should I choose?",
     "quickEstimate": "How do estimates work?",
-    "quickSchools": "Tell me about schools",
+    "quickSchools": "What can I discuss with Acecore Schools?",
     "contactForm": "Contact form",
     "line": "LINE",
     "email": "Email",
@@ -132,7 +132,7 @@
     "searchFallbackServiceList": "→ View services",
     "searchFallbackContact": "→ Contact us",
     "blogCtaHeading": "Want to learn more about our services?",
-    "blogCtaBody": "We provide comprehensive support including web design, graphic design, and IT education.",
+    "blogCtaBody": "We provide comprehensive support including system development, web design, server operations, and graphic design.",
     "blogCtaServices": "View Services",
     "blogCtaContact": "Free Consultation",
     "rssTitle": "Acecore Blog",
@@ -171,15 +171,15 @@
     "commentsSending": "Sending..."
   },
   "meta": {
-    "siteTitle": "Acecore | System Development, Web Design & IT Education",
-    "defaultDescription": "Acecore is a technology collective that provides system development, website design, server operations, design, and IT education as a one-stop solution.",
+    "siteTitle": "Acecore | System Development, Web Design & Server Operations",
+    "defaultDescription": "Acecore is a technology collective that provides system development, website design, server operations, and design as integrated support.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Explore more Acecore technology insights, activity reports, and service information."
   },
   "pages": {
     "home": {
-      "heroTitle": "From development to design and education. One-stop IT support.",
-      "heroSubtitle": "System development, web design, server operations, design, and IT education — all from a single point of contact.",
+      "heroTitle": "From development to operations and design. One-stop IT support.",
+      "heroSubtitle": "System development, web design, server operations, and design — all from a single point of contact.",
       "heroImgTeam": "Team working in a co-working space",
       "heroImgCollaboration": "Team collaboration on a project",
       "heroImgMeeting": "Meeting scene",
@@ -217,8 +217,8 @@
         },
         {
           "title": "IT School / Acecore Schools",
-          "description": "Personalized tutoring for all ages — programming, academic support, and high school equivalency exam preparation.",
-          "href": "https://schools.acecore.net/en/",
+          "description": "High school equivalency, IT and programming, and PC/smartphone skills. We shape the learning you need around your goals and current situation.",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -232,8 +232,8 @@
       ],
       "viewServicesDetail": "View Service Details",
       "layersEyebrow": "Visual Overview",
-      "layersTitle": "Four Layers Acecore Supports",
-      "layersDescription": "We treat technology, operations, expression, and education as a single support line.",
+      "layersTitle": "Three Layers Acecore Supports",
+      "layersDescription": "We treat technology, operations, and communication as a single support line.",
       "layerItems": [
         {
           "title": "System Design",
@@ -259,13 +259,13 @@
         {
           "title": "Education & Mentoring",
           "description": "We transform practical knowledge into learning support, cycling it to communities and the next generation.",
-          "href": "https://schools.acecore.net/en/",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
       ],
       "aboutHeading": "About Acecore",
-      "aboutBody1": "We regularly host study groups and workshops, fostering a learning community with our clients and partners.",
+      "aboutBody1": "We apply insights gained from community management and workshops we have held in the past to information sharing and practical service improvement.",
       "aboutBody2": "Through open-source contribution, regional collaboration, and {link} initiatives, we build partnerships connecting technology and people.",
       "aboutEducationLink": "education",
       "viewAbout": "About Us",
@@ -296,18 +296,18 @@
       "missionLoopDesc": "A visual breakdown of how Acecore creates and expands value.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Connected by technology, expanded by creativity\"",
-      "philosophyBody1": "Acecore is a technology collective that creates diverse value through the power of technology and creativity. We provide system development, website design, server operations, design, and IT education as a one-stop solution, serving a wide range of clients from individuals to businesses.",
+      "philosophyBody1": "Acecore is a technology collective that creates diverse value through the power of technology and creativity. We provide system development, website design, server operations, and design as integrated support for individuals and businesses. IT education through Acecore Schools is available only in Japanese.",
       "philosophyBody2": "Our mission is to connect people through technology and expand possibilities through creativity. We value not just providing technology, but growing together with our clients and community to create sustainable value.",
       "collaborationImgAlt": "Team collaboration work",
       "activitiesTitle": "Acecore's Key Activities",
       "workshopImgAlt": "Study group and workshop scene",
       "initiativesHeading": "Activities and Initiatives",
       "communityTitle": "Community Activities",
-      "communityDesc": "Under the themes of connection, discovery, and co-creation, we regularly hold tech study groups and workshops. We provide a space where participants inspire each other and new ideas are born. Activity reports are also shared on our blog.",
+      "communityDesc": "Through Aceserver community management and records of workshops we have held, we nurture spaces where technology and people connect. If we plan new initiatives, we will announce them on our blog and social media.",
       "ossTitle": "Open Source Contributions",
       "ossDesc": "We actively promote the use and contribution to open-source software and the tech community. Some of our internally developed tools and libraries are published on GitHub.",
       "regionalTitle": "Regional Partnerships",
-      "regionalDesc": "We collaborate with regional educational institutions and businesses to promote IT adoption and develop digital talent. Our teaching at Acecore Schools is part of this effort.",
+      "regionalDesc": "We welcome consultations on IT use, digital learning, and joint initiatives in local education and business. Acecore Schools is currently provided in Japanese only.",
       "partnershipTitle": "Partnerships",
       "partnershipDesc": "We welcome project collaborations and business partnerships. We can cooperate across a wide range of fields including technology, design, and education.",
       "relatedLinksHeading": "Related Links",
@@ -342,9 +342,9 @@
         }
       ],
       "activities": [
-        "Regular study groups and workshops",
+        "Community management and experience from past workshops",
         "Open-source code publication and contributions",
-        "Collaborative teaching with regional educational institutions",
+        "Consultations on education and IT use in local communities",
         "Co-creation projects with external partners",
         "Aceserver community management"
       ],
@@ -377,14 +377,14 @@
     },
     "services": {
       "title": "Services",
-      "seoTitleContext": "System development, web design, servers and IT education",
-      "description": "Explore Acecore's services including business systems and web app development, website design, server operations, design, and IT education.",
+      "seoTitleContext": "System development, web design and server operations",
+      "description": "Explore Acecore's services including business systems and web app development, website design, server operations, and design.",
       "heroTitle": "Services",
       "heroSubtitle": "Diverse IT solutions delivered as a one-stop service",
       "heroImgAlt": "Technology office",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualize Acecore's support coverage",
-      "serviceMapDesc": "Development, operations, communication, and education are designed as a continuous support line.",
+      "serviceMapDesc": "Development, operations, and communication are designed as a continuous support line.",
       "mapSystemsTitle": "Business System Development",
       "mapSystemsDesc": "We organize real workflows and design web apps, admin screens, and data integrations with ongoing operations in mind.",
       "mapInfraTitle": "Infrastructure",
@@ -452,15 +452,14 @@
       },
       "education": {
         "title": "IT School / Acecore Schools",
-        "desc": "A school where working engineers directly teach practical IT skills. We offer a wide range of educational programs including tutoring, robot programming, practical programming, PC/smartphone classes, and high school equivalency exam preparation — all personalized to each student.",
-        "coursesLabel": "Course List",
+        "desc": "A learning school that shapes high school equivalency and next-step planning, IT and programming, PC/smartphone skills, and robotics/making around each learner's goals and current situation. Rather than fitting people into fixed courses, we clarify what they need to learn and connect it to hands-on practice. School studies and exam preparation can also be discussed according to the learner's goals. Regular learning support is currently provided online. Robotics/making is kept separate from programming, with content and timing discussed according to each case.",
+        "coursesLabel": "Learning areas you can discuss",
         "detailLink": "View Acecore Schools details",
         "courses": [
-          "Tutoring (personalized, test prep & exam preparation)",
-          "Robot / Programming (robot crafting & Minecraft programming)",
-          "Practical Programming (web dev, backend, databases)",
-          "PC / Smartphone (basics, office apps, security)",
-          "High School Equivalency (exam prep & study plans)"
+          "High school equivalency and next-step planning (exam preparation, learning plan, and exploring future options)",
+          "IT learning and programming (web creation, tool development, and publishing)",
+          "PC and smartphone skills (basics, Office, online tools, and security)",
+          "Robotics / making (mechanisms, electronics, and control; format and timing by consultation)"
         ]
       },
       "aceserver": {
@@ -567,22 +566,22 @@
       "validationMessage": "Please enter at least 10 meaningful characters",
       "faqTitle": "Frequently Asked Questions",
       "aiHeading": "AI chat is also available",
-      "aiLead": "Use the AI chat in the lower right for services, development or website questions, schools, and reply timing. For detailed consultation, you can continue with the form.",
+      "aiLead": "Use the AI chat in the lower right for questions about Acecore services, development or websites, and reply timing. For detailed consultation, you can continue with the form.",
       "aiQuestionLabel": "Question for AI",
       "aiPlaceholder": "Example: I want to discuss a website project. Where should I start?",
       "aiSubmit": "Open AI chat",
       "aiLoading": "Preparing an answer...",
       "aiError": "AI answers are unavailable. Please use the contact form.",
       "lineHeading": "You can also use LINE",
-      "lineLead": "Follow the official LINE account for updates. It is also useful for short questions and school-related messages.",
+      "lineLead": "Follow the official LINE account for updates and short questions about Acecore.",
       "lineCta": "Follow on LINE",
-      "directMethodsNote": "For short questions, use LINE. For simple checks on social media, X is also available. Detailed requests are easier to review through the form.",
+      "directMethodsNote": "Use LINE for short questions about Acecore. X is also available for simple checks on social media. Detailed requests are easier to review through the form.",
       "directContactSummary": "If you want to contact us directly",
       "directContactLead": "Open this if you need to add details after submitting the form or confirm something directly.",
       "faqs": [
         {
           "question": "I am not sure which service to ask about.",
-          "answer": "You can ask about system development, web production, server operations, design, and IT education together. If unsure, choose Other and describe your situation."
+          "answer": "You can ask about system development, web production, server operations, and design together. If unsure, choose Other and describe your situation."
         },
         {
           "question": "Can I ask only for an estimate?",
@@ -590,7 +589,7 @@
         },
         {
           "question": "Can I ask about Acecore Schools here?",
-          "answer": "Yes. Please include what you want to learn, age or grade, and preferred learning pace."
+          "answer": "Yes. Please tell us what you hope to achieve through learning, what is currently difficult, your previous experience and available setup, and how you would like to proceed. For school studies or high school equivalency, also include your grade and planned exam timing."
         },
         {
           "question": "How long does a reply take?",
@@ -697,7 +696,7 @@
     },
     "pricing": {
       "title": "Pricing Guide",
-      "description": "Indicative costs for Acecore web production, server operations, design, Acecore Schools, and a guide to development pricing at Acecore Systems.",
+      "description": "Indicative costs for Acecore web production, server operations and design, plus a guide to development pricing at Acecore Systems.",
       "heroTitle": "Pricing Guide",
       "heroSubtitle": "Compare rough costs across services before you contact us.",
       "heroImgAlt": "Reviewing estimate documents",
@@ -707,8 +706,8 @@
       "serviceTitle": "Estimated Costs by Service",
       "serviceBody": "We support small first steps as well as combined production, development, and operations work.",
       "detailLink": "View Details",
-      "schoolsFeeTitle": "Acecore Schools Fee Breakdown",
-      "schoolsFeeBody": "We list admission, tuition, and materials/management fee ranges so families can consider the total cost before contacting us.",
+      "schoolsFeeTitle": "Acecore Schools Fee Guide",
+      "schoolsFeeBody": "Standard learning support is currently provided online. Fees vary depending on your goals, the content, number of sessions, and the materials and environment used, so these figures are provided as a guide before consultation.",
       "feeItem": "Item",
       "feeAmount": "Estimate",
       "feeNote": "Note",
@@ -822,8 +821,8 @@
           "icon": "graduation-cap",
           "title": "Acecore Schools",
           "price": "¥8,000-¥33,000/month",
-          "body": "Admission, tuition, and materials/management fee ranges are shown. Costs vary by grade, frequency, materials, and course content.",
-          "href": "https://schools.acecore.net/en/#pricing"
+          "body": "Admission, tuition, and materials/management fee ranges are shown. Costs vary depending on your goals, the content, number of sessions, and the materials and environment used.",
+          "href": "https://schools.acecore.net/#consultation"
         },
         {
           "icon": "clapperboard",
@@ -844,17 +843,17 @@
         {
           "item": "Admission fee",
           "amount": "¥11,000-¥22,000",
-          "note": "One-time fee. Varies by grade and course."
+          "note": "Charged once. Varies depending on the support provided and any preparation required."
         },
         {
           "item": "Monthly tuition",
           "amount": "¥8,000-¥33,000",
-          "note": "Varies by weekly frequency, lesson time, and individual instruction content."
+          "note": "Varies depending on the number and length of sessions, the support provided, and how the learning plan is carried out."
         },
         {
           "item": "Materials / management fees",
           "amount": "Around ¥5,000-¥30,000",
-          "note": "Materials, robot parts, PC/license fees, and similar costs may be charged separately depending on the course."
+          "note": "Actual costs for learning materials, robot parts, PCs, licenses, and similar items may apply depending on the content."
         }
       ],
       "factors": [

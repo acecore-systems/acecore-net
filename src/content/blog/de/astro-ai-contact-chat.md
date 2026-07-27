@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -208,7 +208,7 @@ Ein typischer Fehler ist eine zu hilfsbereite KI, die zu viel zusichert. Preise,
 | ------------- | ---------------------------------------------------- |
 | FAQ           | Häufige Fragen direkt auf der Seite klären           |
 | KI-Chat       | Services, Kontaktwege und verwandte Seiten sortieren |
-| LINE          | Kurze Fragen, Schul-Themen und leichte Rückfragen    |
+| LINE          | Kurze Fragen und leichte Rückfragen                  |
 | Formular      | Angebote, Produktion, Partnerschaften und Recruiting |
 | Direktkontakt | Ergänzungen nach Formular oder dringende Bestätigung |
 

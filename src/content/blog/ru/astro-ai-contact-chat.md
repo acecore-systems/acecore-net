@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -208,7 +208,7 @@ Rules:
 | -------------- | -------------------------------------------------- |
 | FAQ            | Ответить на частые вопросы прямо на странице       |
 | AI-чат         | Помочь выбрать услуги, каналы и связанные страницы |
-| LINE           | Короткие вопросы, темы школы и легкие уточнения    |
+| LINE           | Короткие вопросы и легкие уточнения                |
 | Форма          | Оценки, производство, партнерства и найм           |
 | Прямой контакт | Дополнение после формы или срочное подтверждение   |
 

@@ -78,6 +78,7 @@ const blog = defineCollection({
     description: z.string(),
     date: contentDate,
     lastUpdated: contentDate.optional(),
+    translation: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
     uploadedImage: z.string().optional(),

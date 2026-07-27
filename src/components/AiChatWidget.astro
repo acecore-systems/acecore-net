@@ -2,12 +2,14 @@
 import Icon from './Icon.astro'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 import { SITE } from '../data/site'
+import { isSchoolsSupportedLocale } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const contactUrl = getLocalizedUrl('/contact/', locale)
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
 const phoneParts = SITE.phone.split('-')
@@ -24,6 +26,7 @@ const phoneParts = SITE.phone.split('-')
   data-email-user={emailUser}
   data-email-domain={emailDomain}
   data-phone-parts={phoneParts.join('|')}
+  data-schools-available={schoolsAvailable ? 'true' : 'false'}
 >
   <section
     id="ace-ai-chat-panel"
@@ -71,9 +74,13 @@ const phoneParts = SITE.phone.split('-')
         <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
           {t(locale, 'aiChat.quickEstimate')}
         </button>
-        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
-          {t(locale, 'aiChat.quickSchools')}
-        </button>
+        {
+          schoolsAvailable && (
+            <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
+              {t(locale, 'aiChat.quickSchools')}
+            </button>
+          )
+        }
       </div>
 
       <form id="ace-ai-chat-form" class="flex items-end gap-2">
@@ -145,6 +152,7 @@ const phoneParts = SITE.phone.split('-')
       const errorText = root.dataset.error || 'AI assistant is unavailable.'
       const greetingText = root.dataset.greeting || ''
       const contactUrl = root.dataset.contactUrl || '/contact/'
+      const schoolsAvailable = root.dataset.schoolsAvailable === 'true'
       const emailUser = root.dataset.emailUser || ''
       const emailDomain = root.dataset.emailDomain || ''
       const directEmail =
@@ -329,6 +337,12 @@ const phoneParts = SITE.phone.split('-')
           if (url.origin === window.location.origin) return true
           if (url.origin === 'https://acecore.net') return true
           if (url.origin === 'https://systems.acecore.net') return true
+          if (
+            schoolsAvailable &&
+            url.origin === 'https://schools.acecore.net'
+          ) {
+            return true
+          }
           if (url.href === 'https://lin.ee/DjIrdqj') return true
         } catch {
           return false

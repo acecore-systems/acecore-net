@@ -10,14 +10,14 @@
   "lineInquiry": "LINEで問い合わせる",
   "faqTitle": "よくある質問",
   "aiHeading": "AIチャットも使えます",
-  "aiLead": "サービスや制作・開発、教室、返信目安などは右下のAIチャットで確認できます。詳しい相談はそのままフォームへ進めます。",
+  "aiLead": "サービスや制作・開発、Schoolsの学習相談、返信目安などは右下のAIチャットで確認できます。詳しい相談はそのままフォームへ進めます。",
   "aiQuestionLabel": "AIに聞きたいこと",
   "aiPlaceholder": "例: ホームページ制作を相談したいです。何から始めればいいですか？",
   "aiSubmit": "AIチャットを開く",
   "aiLoading": "回答を作成中…",
   "aiError": "AI回答を利用できません。フォームからお問い合わせください。",
   "lineHeading": "LINEでも相談できます",
-  "lineLead": "公式LINEをフォローすると最新情報も受け取れます。短い相談や教室関連の連絡にも使えます。",
+  "lineLead": "公式LINEをフォローすると最新情報も受け取れます。短い相談やSchoolsに関する連絡にも使えます。",
   "lineCta": "公式LINEをフォロー",
   "formCategoryLabel": "お問い合わせ種別",
   "formCategoryPlaceholder": "選択してください",
@@ -45,7 +45,7 @@
   "serviceSubjectTemplate": "{service}について",
   "formFaqHeading": "お問い合わせ前によくある質問・関連情報を確認できます",
   "otherMethodsHeading": "フォーム以外の軽い連絡",
-  "directMethodsNote": "短い相談や教室関連はLINE、SNSでの簡単な確認はXも使えます。詳しい内容はフォームから送ると整理して確認できます。",
+  "directMethodsNote": "短い相談やSchoolsに関する連絡はLINE、SNSでの簡単な確認はXも使えます。詳しい内容はフォームから送ると整理して確認できます。",
   "methodPhone": "お電話",
   "methodEmail": "メール",
   "methodLine": "LINE",
@@ -69,7 +69,7 @@
     },
     {
       "question": "Acecore Schools の相談もこのフォームでできますか？",
-      "answer": "できます。学習したい内容、年齢や学年、希望する受講ペースを書いていただくと案内しやすくなります。"
+      "answer": "できます。学びを通じて実現したいこと、現在困っていること、これまでの経験や利用できる環境、希望する進め方を書いていただくと案内しやすくなります。学校学習や高卒認定の相談では、学年や受験予定時期も添えてください。"
     },
     {
       "question": "返信にはどのくらいかかりますか？",

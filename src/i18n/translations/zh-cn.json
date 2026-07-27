@@ -47,7 +47,7 @@
     "close": "关闭 AI 聊天",
     "title": "向 AI 提问",
     "lead": "根据本网站信息简短回答。",
-    "greeting": "可以询问 Acecore 的服务、开发与网站项目、课程和回复时间。需要详细报价或正式咨询时，我会引导您使用表单。",
+    "greeting": "可以询问 Acecore 的服务、开发与网站项目以及回复时间。需要详细报价或正式咨询时，我会引导您使用表单。",
     "inputLabel": "向 AI 聊天提问",
     "placeholder": "输入问题...",
     "send": "发送",
@@ -55,7 +55,7 @@
     "error": "当前无法使用 AI 聊天。请使用联系表单或 LINE。",
     "quickServices": "应该选择哪项服务？",
     "quickEstimate": "报价咨询如何进行？",
-    "quickSchools": "了解课程",
+    "quickSchools": "Acecore Schools 可以咨询什么？",
     "contactForm": "联系表单",
     "line": "LINE",
     "email": "邮件",
@@ -132,7 +132,7 @@
     "searchFallbackServiceList": "→ 查看服务",
     "searchFallbackContact": "→ 联系我们",
     "blogCtaHeading": "想了解更多关于我们的服务？",
-    "blogCtaBody": "我们提供网站设计、平面设计、IT教育等全方位支持。",
+    "blogCtaBody": "我们为系统开发、网站设计、服务器运维和平面设计提供综合支持。",
     "blogCtaServices": "查看服务列表",
     "blogCtaContact": "免费咨询",
     "rssTitle": "Acecore 博客",
@@ -171,15 +171,15 @@
     "commentsSending": "发送中..."
   },
   "meta": {
-    "siteTitle": "Acecore | 系统开发・网站设计・IT教育",
-    "defaultDescription": "Acecore是一个提供系统开发、网站设计、服务器运维、设计和IT教育一站式服务的科技团队。",
+    "siteTitle": "Acecore | 系统开发・网站设计・服务器运维",
+    "defaultDescription": "Acecore是一个提供系统开发、网站设计、服务器运维和设计综合支持的科技团队。",
     "shortTitleContext": "官方网站",
     "shortDescriptionContext": "还可了解Acecore的技术资讯、活动报告和服务详情。"
   },
   "pages": {
     "home": {
-      "heroTitle": "从开发到设计与教育，一站式IT支持",
-      "heroSubtitle": "系统开发、网站设计、服务器运维、设计、IT教育，一个窗口全部搞定。",
+      "heroTitle": "从开发到运维与设计，一站式IT支持",
+      "heroSubtitle": "系统开发、网站设计、服务器运维和设计，一个窗口全部搞定。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgCollaboration": "团队协作推进项目",
       "heroImgMeeting": "会议场景",
@@ -217,8 +217,8 @@
         },
         {
           "title": "IT学校 / Acecore Schools",
-          "description": "面向儿童到成人的个性化指导。对应编程、学习辅导、高中同等学力考试。",
-          "href": "https://schools.acecore.net/zh-cn/",
+          "description": "高中同等学力认定、IT与编程、电脑与智能手机应用等。从目标和当前起点出发，为每个人安排所需的学习内容。",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -232,8 +232,8 @@
       ],
       "viewServicesDetail": "查看服务详情",
       "layersEyebrow": "Visual Overview",
-      "layersTitle": "Acecore支撑的四个层面",
-      "layersDescription": "我们将技术、运维、表达和教育作为一条完整的支援线来对待。",
+      "layersTitle": "Acecore支撑的三个层面",
+      "layersDescription": "我们将技术、运维和表达作为一条完整的支援线来对待。",
       "layerItems": [
         {
           "title": "系统设计",
@@ -259,13 +259,13 @@
         {
           "title": "教育与陪伴",
           "description": "将实用知识转化为学习支持，传递给地区和下一代。",
-          "href": "https://schools.acecore.net/zh-cn/",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
       ],
       "aboutHeading": "关于Acecore",
-      "aboutBody1": "我们定期举办学习会和工作坊，珍视与客户和社区一起学习的场所。",
+      "aboutBody1": "我们将社区运营及以往工作坊中积累的经验，用于信息分享和实际服务改进。",
       "aboutBody2": "通过开源活用、地域合作以及对{link}的贡献，构建连接技术与人的伙伴关系。",
       "aboutEducationLink": "教育领域",
       "viewAbout": "查看公司概要",
@@ -332,22 +332,22 @@
       "validationMessage": "请输入至少10个有效字符",
       "faqTitle": "常见问题",
       "aiHeading": "也可以使用 AI 聊天",
-      "aiLead": "可使用右下角 AI 聊天了解服务、开发或网站咨询、课程和回复时间。需要详细咨询时，可继续使用联系表单。",
+      "aiLead": "可使用右下角 AI 聊天了解 Acecore 的服务、开发或网站咨询以及回复时间。需要详细咨询时，可继续使用联系表单。",
       "aiQuestionLabel": "想问 AI 的内容",
       "aiPlaceholder": "例：我想咨询网站制作，应该从哪里开始？",
       "aiSubmit": "打开 AI 聊天",
       "aiLoading": "正在生成回答...",
       "aiError": "当前无法使用 AI 回答。请使用联系表单。",
       "lineHeading": "也可以通过 LINE 咨询",
-      "lineLead": "关注官方 LINE 可接收最新信息，也适合简短咨询和课程相关联系。",
+      "lineLead": "关注官方 LINE 可接收最新信息，也适合有关 Acecore 的简短咨询。",
       "lineCta": "关注官方 LINE",
-      "directMethodsNote": "简短咨询和课程相关联系可使用 LINE，社交媒体上的简单确认也可使用 X。详细内容通过表单发送更便于整理确认。",
+      "directMethodsNote": "有关 Acecore 的简短咨询可使用 LINE，社交媒体上的简单确认也可使用 X。详细内容通过表单发送更便于整理确认。",
       "directContactSummary": "如果想直接联系",
       "directContactLead": "提交表单后的补充说明，或需要直接确认的内容，请展开这里。",
       "faqs": [
         {
           "question": "我不知道应该咨询哪项服务。",
-          "answer": "可以同时咨询系统开发、网站制作、服务器运维、设计和 IT 教育。不确定时请选择“其他”，并说明现状和问题。"
+          "answer": "可以同时咨询系统开发、网站制作、服务器运维和设计。不确定时请选择“其他”，并说明现状和问题。"
         },
         {
           "question": "只咨询报价也可以吗？",
@@ -355,7 +355,7 @@
         },
         {
           "question": "Acecore Schools 的咨询也可以用这个表单吗？",
-          "answer": "可以。请填写想学习的内容、年龄或年级、希望的学习节奏。"
+          "answer": "可以。请填写希望通过学习实现的目标、目前遇到的问题、以往经验和可使用的环境，以及希望的学习方式。咨询学校学习或高中同等学力认定时，也请注明年级和预计应试时间。"
         },
         {
           "question": "多久会回复？",
@@ -375,18 +375,18 @@
       "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
       "philosophyHeading": "理念",
       "philosophyMotto": "\"技术连接，创意拓展\"",
-      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队。一站式提供系统开发、网站设计、服务器运维、设计和IT教育，服务于从个人到企业的广泛客户。",
+      "philosophyBody1": "Acecore是一个通过技术和创意的力量创造多元价值的科技团队，为个人和企业综合提供系统开发、网站设计、服务器运维和设计支持。Acecore Schools 的 IT 教育目前仅提供日语服务。",
       "philosophyBody2": "我们的使命是通过技术连接人们、通过创意拓展可能性。重视的不仅是提供技术，更是与客户和社区共同成长，创造可持续的价值。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
       "workshopImgAlt": "学习会和工作坊场景",
       "initiativesHeading": "活动与倡议",
       "communityTitle": "社区活动",
-      "communityDesc": "以\"连接、发现、共创\"为主题，定期举办技术学习会和工作坊。为参与者提供相互启发、产生新创意的平台。活动报告也在博客上分享。",
+      "communityDesc": "通过 Aceserver 等社区的运营和以往工作坊的记录，我们持续营造连接技术与人的空间。如有新的活动企划，将通过博客和社交媒体发布。",
       "ossTitle": "开源贡献",
       "ossDesc": "积极推动开源软件的使用和技术社区的贡献。部分内部开发的工具和库已在GitHub上公开。",
       "regionalTitle": "地区合作",
-      "regionalDesc": "与地区教育机构和企业合作，推动IT应用和数字人才培养。Acecore Schools的教学也是其中一环。",
+      "regionalDesc": "我们接受有关地区教育与商业中的 IT 应用、数字学习和联合企划的咨询。Acecore Schools 目前仅提供日语服务。",
       "partnershipTitle": "合作伙伴关系",
       "partnershipDesc": "欢迎项目合作和商业伙伴关系。可在技术、设计、教育等广泛领域展开合作。",
       "relatedLinksHeading": "相关链接",
@@ -421,9 +421,9 @@
         }
       ],
       "activities": [
-        "定期举办学习会和工作坊",
+        "社区运营与工作坊实绩",
         "开源代码发布和贡献",
-        "与地区教育机构协作教学",
+        "地区教育与 IT 应用咨询",
         "与外部合作伙伴的共创项目",
         "Aceserver社区运营"
       ],
@@ -456,14 +456,14 @@
     },
     "services": {
       "title": "服务",
-      "seoTitleContext": "系统开发、网站设计、服务器运维与IT教育",
-      "description": "详细介绍Acecore提供的业务系统・Web应用开发、网站设计、服务器运维、设计和IT教育服务。",
+      "seoTitleContext": "系统开发、网站设计与服务器运维",
+      "description": "详细介绍Acecore提供的业务系统・Web应用开发、网站设计、服务器运维和设计服务。",
       "heroTitle": "服务",
       "heroSubtitle": "一站式多元IT解决方案",
       "heroImgAlt": "科技办公室",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "一览Acecore的支持范围",
-      "serviceMapDesc": "将开发、运维、信息发布和人才培养设计为一条连续的支持线。",
+      "serviceMapDesc": "将开发、运维和信息发布设计为一条连续的支持线。",
       "mapSystemsTitle": "业务系统开发",
       "mapSystemsDesc": "梳理现场业务，面向持续运营设计Web应用、管理界面和数据集成。",
       "mapInfraTitle": "运维基础",
@@ -531,15 +531,14 @@
       },
       "education": {
         "title": "IT学校 / Acecore Schools",
-        "desc": "由现役工程师直接教授实用IT技能的学校。提供学习辅导、机器人编程、实践编程、电脑/智能手机课程和高中同等学力考试备考等个性化教育项目。",
-        "coursesLabel": "课程列表",
+        "desc": "Acecore Schools 是一所根据个人目标和当前起点，安排高中同等学力认定及之后的选择、IT与编程、电脑与智能手机应用、机器人/创客制作等学习内容的学校。我们不把学习者套入固定课程，而是梳理所需内容，并衔接到亲手实践。此外，学校学习和考试备考也可根据目标进行咨询。目前常规学习支持在线提供；机器人/创客制作与编程分开处理，具体方式和时间根据内容另行协商。",
+        "coursesLabel": "可咨询的学习领域",
         "detailLink": "查看Acecore Schools详情",
         "courses": [
-          "学习辅导（个别指导、考试和升学备考）",
-          "机器人/编程（机器人制作和Minecraft编程）",
-          "实践编程（Web开发、后端、数据库）",
-          "电脑/智能手机（基本操作、办公软件、安全）",
-          "高中同等学力（考试对策和学习计划）"
+          "高中同等学力认定及之后的选择（考试备考、学习计划和升学就业方向梳理）",
+          "IT学习与编程（Web制作、工具开发和发布）",
+          "电脑与智能手机应用（基本操作、Office、在线服务和安全）",
+          "机器人/创客制作（机构、电子和控制；实施方式和时间另行咨询）"
         ]
       },
       "aceserver": {
@@ -697,7 +696,7 @@
     },
     "pricing": {
       "title": "费用参考",
-      "description": "汇总 Acecore 的网站制作、服务器运维、设计、Acecore Schools 等参考费用，并提供 Acecore Systems 开发费用指南。",
+      "description": "汇总 Acecore 的网站制作、服务器运维和设计等参考费用，并提供 Acecore Systems 开发费用指南。",
       "heroTitle": "费用参考",
       "heroSubtitle": "在详细规划前，跨服务确认大致费用区间",
       "heroImgAlt": "查看报价资料的工作场景",
@@ -707,8 +706,8 @@
       "serviceTitle": "主要服务的费用感",
       "serviceBody": "从小规模咨询到制作、开发、运维组合支持均可对应。",
       "detailLink": "查看详情",
-      "schoolsFeeTitle": "Schools 费用明细",
-      "schoolsFeeBody": "不仅是学费，也公开入会时费用、教材费和管理费的参考，方便整体判断。",
+      "schoolsFeeTitle": "Schools 费用参考",
+      "schoolsFeeBody": "常规学习支持目前在线提供。费用会因目标、内容、次数以及使用的教材和环境而异，因此这里列出的是咨询前的参考范围。",
       "feeItem": "项目",
       "feeAmount": "参考",
       "feeNote": "补充",
@@ -822,8 +821,8 @@
           "icon": "graduation-cap",
           "title": "Acecore Schools",
           "price": "月费8千〜3.3万日元",
-          "body": "公开入会金、月费、教材与管理费的参考。会根据年级、次数、教材和课程内容变动。",
-          "href": "https://schools.acecore.net/zh-cn/#pricing"
+          "body": "这里列出了入会金、月费、教材与管理费的参考范围。费用会因目标、内容、次数以及使用的教材和环境而变动。",
+          "href": "https://schools.acecore.net/#consultation"
         },
         {
           "icon": "clapperboard",
@@ -844,17 +843,17 @@
         {
           "item": "入会金",
           "amount": "1.1万〜2.2万日元",
-          "note": "仅首次发生。会根据年级和课程变动。"
+          "note": "仅首次收取。会根据支持内容和所需准备物品变动。"
         },
         {
           "item": "月费",
           "amount": "8千〜3.3万日元",
-          "note": "会根据每周次数、课时和个别指导内容变动。"
+          "note": "会根据次数、时长、支持内容和学习方式变动。"
         },
         {
           "item": "教材与管理费",
           "amount": "约5千〜3万日元",
-          "note": "教材、机器人零件、PC/许可证等会根据内容产生实际费用。"
+          "note": "教材、机器人部件、电脑和许可证等费用会根据内容按实际发生额收取。"
         }
       ],
       "factors": [

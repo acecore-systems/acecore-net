@@ -25,7 +25,11 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
+import {
+  getSchoolsUrl,
+  isSchoolsSupportedLocale,
+  SCHOOLS_ORIGIN,
+} from '../utils/schools-url'
 import {
   getAllAuthors,
   findAuthorById,
@@ -53,11 +57,18 @@ type HeroImage = {
 }
 
 const { locale } = Astro.props
+const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
-const resolveCardHref = (href: string) =>
-  href.startsWith('http') ? href : u(href)
+const resolveCardHref = (href: string) => {
+  if (href.startsWith(SCHOOLS_ORIGIN)) {
+    const hash = new URL(href).hash
+    return getSchoolsUrl(locale, hash)
+  }
+
+  return href.startsWith('http') ? href : u(href)
+}
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
   aspectRatio: 1,
@@ -79,13 +90,18 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const serviceCards = getList<HomeLayer>('pages.home.serviceCards').map(
-  (item) => ({ ...item, href: resolveCardHref(item.href) }),
-)
-const coreLayers = getList<HomeLayer>('pages.home.layerItems').map((item) => ({
-  ...item,
-  href: resolveCardHref(item.href),
-}))
+const serviceCards = getList<HomeLayer>('pages.home.serviceCards')
+  .filter((item) => schoolsAvailable || !item.href.startsWith(SCHOOLS_ORIGIN))
+  .map((item) => ({ ...item, href: resolveCardHref(item.href) }))
+const coreLayers = getList<HomeLayer>('pages.home.layerItems')
+  .filter((item) => schoolsAvailable || !item.href.startsWith(SCHOOLS_ORIGIN))
+  .map((item) => ({
+    ...item,
+    href: resolveCardHref(item.href),
+  }))
+const aboutEducationReference = schoolsAvailable
+  ? `<a href="${getSchoolsUrl(locale)}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`
+  : `<span>${t(locale, 'pages.home.aboutEducationLink')}</span>`
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
@@ -205,7 +221,7 @@ const webPageLd = {
         <p
           class="text-lg leading-relaxed text-white/80 mb-8"
           set:html={t(locale, 'pages.home.aboutBody2', {
-            link: `<a href="${getSchoolsUrl(locale)}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`,
+            link: aboutEducationReference,
           })}
         />
         <div

@@ -1,10 +1,11 @@
 ---
 title: 'Community-Aktivitäten und Engagement für Bildung'
-description: 'Acecores Community-Aktivitäten, Bildungsunterstützung und Open-Source-Beiträge. Vorstellung unserer Initiativen durch Aceserver, Schools und Lerngruppen.'
+description: 'Acecores Community-Aktivitäten, japanischsprachige Bildungsunterstützung und Open-Source-Beiträge. Vorstellung unserer Initiativen durch Aceserver, Schools und frühere Workshops.'
 date: 2026-03-08T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/blog-community-and-education.webp
+image: /uploads/acecore-generated/blog-schools-online-support.webp
 insightGrid:
   title: Die Breite unserer Aktivitäten
   items:
@@ -12,34 +13,27 @@ insightGrid:
       description: Ein Minecraft-Server als Ausgangspunkt für Community-Interaktion.
       icon: i-lucide-gamepad-2
       tone: brand
-    - title: Lerngruppen
-      description: Regelmäßige Tech-Veranstaltungen, die auch Anfänger willkommen heißen.
+    - title: Workshops
+      description: Berichte über frühere Workshops und Hinweise bei neuen Vorhaben.
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Bildungsprogramme, die praktische Erfahrung mit anwendbaren Fähigkeiten verbinden.
+      description: Japanischsprachige Lernbegleitung, die von den Zielen und der aktuellen Situation ausgeht.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS & Lokal
       description: Wissen an die Community und die Region zurückgeben.
       icon: i-lucide-heart-handshake
       tone: slate
-testimonials:
-  - quote: Einen Ort zu haben, an dem man Technologie mit Menschen vor Ort teilen kann, ist wirklich unbezahlbar. Es gibt so viele Dinge, die man beim Selbststudium nicht erkennen kann.
-    name: Lerngruppen-Teilnehmer
-    role: Community-Mitglied
-pullQuote:
-  text: Ein Ort des Lernens ist keine Einbahnstraße — er ist etwas, das wir gemeinsam aufbauen
-  attribution: Acecore Schools
 faq:
   title: Häufig gestellte Fragen
   items:
     - question: Was ist Aceserver?
       answer: Es ist ein öffentlicher Minecraft-Server, der von Acecore betrieben wird. Er dient als Ausgangspunkt für Community-Interaktion und vertieft die Verbindungen durch Zusammenarbeit und Veranstaltungen der Mitglieder.
-    - question: Kann jeder an den Lerngruppen teilnehmen?
-      answer: Ja, jeder kann teilnehmen — vom Anfänger bis zum erfahrenen Entwickler. Wir veranstalten regelmäßig Events zu verschiedenen Themen, darunter Programmier-Workshops und Einführungen in die Serververwaltung.
-    - question: Was kann ich bei Acecore Schools lernen?
-      answer: Wir bieten ein breites Spektrum an Programmen an, darunter Nachhilfe, Roboterprogrammierung, praxisorientierte Programmierung, PC-/Smartphone-Kenntnisse und Vorbereitung auf Schulabschlussprüfungen. Einzelunterricht durch aktive Ingenieure ist unser Markenzeichen.
+    - question: Wann finden Lerngruppen und Workshops statt?
+      answer: Derzeit gibt es keine Ausschreibung für regelmäßig stattfindende Veranstaltungen. Neue Vorhaben kündigen wir im Blog dieser Website und in den sozialen Medien an.
+    - question: Ist Acecore Schools auf Deutsch verfügbar?
+      answer: Nein. Acecore Schools, die Website, Lernbegleitung, Anmeldehinweise und Beratung sind nur auf Japanisch verfügbar.
 ---
 
 Bei Acecore setzen wir uns unter dem Motto „Verbindung, Entdeckung und gemeinsames Schaffen" für die Weiterentwicklung der Tech-Community und den Beitrag zur Bildung ein.
@@ -50,33 +44,19 @@ Bei Acecore setzen wir uns unter dem Motto „Verbindung, Entdeckung und gemeins
 
 Die Aceserver [Discord-Community](https://discord.gg/acsv) beherbergt aktive Gespräche über das Gaming hinaus, darunter technische Diskussionen und alltägliche Unterhaltungen. Es herrscht eine offene Atmosphäre, in der jeder unabhängig von Alter oder Erfahrung teilnehmen kann — vom Anfänger bis zum Veteranen.
 
-![Die Aceserver-Community fördert die Interaktion unabhängig von Alter oder Erfahrung](/uploads/acecore-generated/blog-community-and-education.webp)
+![Die Aceserver-Community fördert die Interaktion unabhängig von Alter oder Erfahrung](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 Die aus dem Serverbetrieb gewonnenen Erkenntnisse fließen in unsere Unternehmens-Infrastrukturservices zurück. Dies hat zur Ansammlung von Praxis-Know-how in den Bereichen Performance-Tuning unter Hochlastumgebungen, DDoS-Schutz und sichere Verwaltung von Nutzerdaten geführt.
 
-## Lerngruppen und Veranstaltungen
+## Dokumentation und Ankündigungen von Workshops
 
-Wir veranstalten regelmäßig technische Lerngruppen und Workshops, um den Wissensaustausch und die Kompetenzentwicklung zu unterstützen.
+Acecore prüft Vorhaben für Lernen und technischen Wissensaustausch abhängig von Inhalt und Zeitpunkt. Derzeit gibt es keine Ausschreibung für regelmäßig stattfindende Veranstaltungen. In der Vergangenheit hat Acecore Schools einen zeitlich begrenzten Präsenz-Workshop zu Robotik im Sommer durchgeführt.
 
-- **Programmier-Workshops**: Webanwendungs-Entwicklungserlebnisse für Anfänger. Von HTML-Grundlagen bis zur Erstellung einer funktionierenden App an einem einzigen Tag
-- **Einführung in die Serververwaltung**: Linux-Grundlagen und Cloud-Server-Einrichtung. Praxisnahe Inhalte mit realen Umgebungen wie AWS und Cloudflare
-- **Design-Workshops**: Logo-Erstellung und UI-Design-Grundlagen. Vom Erlernen der Design-Tools bis zur Beherrschung effektiver visueller Kommunikation
-
-Die Teilnahme ist kostenlos oder kostengünstig und steht jedem offen. Veranstaltungsinformationen werden in unserem Blog und auf Social Media geteilt.
+Wenn neue Lerngruppen oder Workshops stattfinden, kündigen wir Inhalt, Zielgruppe und Teilnahmebedingungen im Blog dieser Website und in den sozialen Medien an.
 
 ## Bildungsaktivitäten bei Acecore Schools
 
-In unserer IT-Schule „Acecore Schools" bieten aktive Ingenieure Einzelunterricht an. Der Lehrplan basiert auf Übungen mit realen Projekten und entwickelt praxistaugliche Fähigkeiten, damit „das Gelernte sofort in der Praxis eingesetzt werden kann."
-
-### Lehrplan-Highlights
-
-1. **Praxisbasiertes Lernen**: Fokus auf Fähigkeiten, die in realen Entwicklungsumgebungen gefragt sind, nicht nur Lehrbuchwissen
-2. **Individuell angepasst**: Lehrpläne werden flexibel an die Ziele und das Niveau jedes Teilnehmers angepasst
-3. **Fortlaufende Unterstützung**: Technische Beratungen sind nicht nur während des Kurses, sondern auch nach Abschluss verfügbar
-
-Teilnehmer haben Rückmeldungen geteilt wie „Es wurde klar, was ich in der Praxis tun muss" und „Ich habe sofort Dinge verstanden, die ich alleine nicht begreifen konnte."
-
-![Teilnehmer lernen durch einen praxisbasierten Lehrplan](/uploads/acecore-generated/blog-community-and-education.webp)
+Acecore Schools ist nur auf Japanisch verfügbar. Lernbegleitung, Website, Anmeldehinweise und Beratung werden nicht auf Deutsch angeboten.
 
 ## Beitrag zu Open Source
 
@@ -84,10 +64,8 @@ Bei Acecore legen wir Wert darauf, nicht nur von Open-Source-Software zu profiti
 
 Die Teilnahme an Open Source führt auch zu verbesserten technischen Fähigkeiten. Feedback von Entwicklern weltweit hilft uns, die Code-Qualität zu steigern, und trägt zur Kompetenzentwicklung des Teams bei.
 
-## Initiativen für die lokale Gemeinschaft
+## Beratung zu regionalen Kooperationen
 
-Wir arbeiten mit lokalen Unternehmen und Bildungseinrichtungen zusammen, um die IT-Einführung zu fördern und digitale Talente zu entwickeln. Durch die Unterstützung der IT-Einführung in ländlichen Gebieten möchten wir zur regionalen Wirtschaftsentwicklung beitragen.
-
-Konkret führen wir IT-Kurse an lokalen Schulen und Berufsschulen durch, bieten DX-Unterstützung für lokale Unternehmen und beteiligen uns an kommunalen Digitalisierungsprojekten.
+Wir nehmen Anfragen zur IT-Nutzung, zum digitalen Lernen und zu gemeinsamen Vorhaben für lokale Unternehmen und Bildungseinrichtungen entgegen. Die Inhalte werden nach Klärung von Ziel, Zielgruppe und benötigter Umgebung individuell abgestimmt.
 
 Für Anfragen zur Community-Teilnahme oder Kooperationsgespräche [kontaktieren Sie uns](/contact/) bitte. Wir freuen uns immer darauf, neue Partner willkommen zu heißen, um gemeinsam etwas aufzubauen.

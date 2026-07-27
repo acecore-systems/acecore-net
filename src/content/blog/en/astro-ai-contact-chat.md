@@ -213,7 +213,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -229,7 +229,7 @@ The AI chat should not replace the contact form. The contact page works better w
 | -------------- | ---------------------------------------------------------------- |
 | FAQ            | Resolve common questions on the page                             |
 | AI chat        | Help visitors choose services, contact routes, and related pages |
-| LINE           | Short questions, school-related topics, and lightweight checks   |
+| LINE           | Short questions and lightweight checks                           |
 | Form           | Estimates, production inquiries, partnerships, and recruiting    |
 | Direct contact | Follow-up after the form or urgent confirmation only             |
 

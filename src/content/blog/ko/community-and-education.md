@@ -1,10 +1,11 @@
 ---
 title: '커뮤니티 활동과 교육에 대한 헌신'
-description: 'Acecore의 커뮤니티 활동, 교육 지원, 오픈소스 기여. Aceserver, Schools, 스터디 그룹을 통한 이니셔티브를 소개합니다.'
+description: 'Acecore의 커뮤니티 활동, 일본어 교육 지원, 오픈소스 기여. Aceserver, Schools, 과거 워크숍을 통한 활동을 소개합니다.'
 date: 2026-03-08T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/blog-community-and-education.webp
+image: /uploads/acecore-generated/blog-schools-online-support.webp
 insightGrid:
   title: 활동의 폭
   items:
@@ -12,34 +13,27 @@ insightGrid:
       description: 커뮤니티 교류의 시작점이 되는 Minecraft 서버.
       icon: i-lucide-gamepad-2
       tone: brand
-    - title: 스터디 그룹
-      description: 초보자도 환영하는 정기 기술 이벤트.
+    - title: 워크숍
+      description: 과거 실시 기록과 개최 시의 안내.
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: 체험에서 실무 능력으로 이어지는 교육 프로그램.
+      description: 목적과 현재 위치에서 구성하는 일본어 학습 지원.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS & 지역
       description: 지식을 커뮤니티와 지역에 환원.
       icon: i-lucide-heart-handshake
       tone: slate
-testimonials:
-  - quote: 지역 사람들과 기술을 공유할 수 있는 장소가 있다는 것은 정말 소중합니다. 혼자 공부할 때는 깨닫지 못하는 것들이 정말 많습니다.
-    name: 스터디 그룹 참가자
-    role: 커뮤니티 멤버
-pullQuote:
-  text: 배움의 장은 일방통행이 아닙니다 — 함께 만들어가는 것입니다
-  attribution: Acecore Schools
 faq:
   title: 자주 묻는 질문
   items:
     - question: Aceserver란 무엇인가요?
       answer: Acecore가 운영하는 공개 Minecraft 서버입니다. 커뮤니티 교류의 시작점으로, 멤버 간 협력과 이벤트를 통해 유대를 깊이 다지고 있습니다.
-    - question: 스터디 그룹에는 누구나 참가할 수 있나요?
-      answer: 네, 초보자부터 숙련된 개발자까지 누구나 참가할 수 있습니다. 프로그래밍 핸즈온, 서버 관리 입문 등 다양한 주제로 정기적으로 이벤트를 개최하고 있습니다.
-    - question: Acecore Schools에서는 무엇을 배울 수 있나요?
-      answer: 학습 지원, 로봇 프로그래밍, 실무 프로그래밍, PC·스마트폰 스킬, 고등학교 졸업 검정고시 대비 등 폭넓은 프로그램을 제공합니다. 현직 엔지니어의 1대1 지도가 특징입니다.
+    - question: 스터디 그룹이나 워크숍은 언제 열리나요?
+      answer: 현재 정기 개최를 전제로 한 모집은 진행하지 않습니다. 새로운 기획을 실시할 때는 블로그와 SNS로 안내합니다.
+    - question: Acecore Schools는 한국어로 제공되나요?
+      answer: 아니요. Acecore Schools, 웹사이트, 학습 지원, 등록 안내 및 상담은 일본어로만 제공됩니다.
 ---
 
 Acecore는 "연결, 발견, 공동 창조"를 테마로 기술 커뮤니티의 발전과 교육 공헌에 힘쓰고 있습니다.
@@ -50,33 +44,19 @@ Acecore가 운영하는 **Aceserver**는 많은 플레이어가 이용하는 공
 
 Aceserver의 [Discord 커뮤니티](https://discord.gg/acsv)에서는 게임 이외에도 기술 토론, 일상적인 대화 등 활발한 교류가 이루어지고 있습니다. 초보자부터 베테랑까지 나이와 경험에 관계없이 누구나 참여할 수 있는 열린 분위기가 특징입니다.
 
-![Aceserver 커뮤니티는 나이와 경험에 관계없이 교류를 촉진합니다](/uploads/acecore-generated/blog-community-and-education.webp)
+![Aceserver 커뮤니티는 나이와 경험에 관계없이 교류를 촉진합니다](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 서버 운용에서 얻은 인사이트는 기업 인프라 서비스에 피드백됩니다. 이를 통해 고부하 환경에서의 퍼포먼스 튜닝, DDoS 방어, 안전한 사용자 데이터 관리 등의 실무 노하우가 축적되었습니다.
 
-## 스터디 그룹과 이벤트
+## 워크숍 기록과 안내
 
-지식 공유와 기술 향상을 지원하기 위해 정기적으로 기술 스터디 그룹과 워크숍을 개최하고 있습니다.
+Acecore는 학습과 기술 공유로 이어지는 기획을 내용과 시기에 따라 검토합니다. 현재 정기 개최를 전제로 한 모집은 진행하지 않습니다. 과거에는 Acecore Schools에서 여름 한정 대면 로봇 공작 체험을 실시했습니다.
 
-- **프로그래밍 핸즈온**: 초보자를 위한 웹 앱 개발 체험. HTML 기초부터 하루 만에 동작하는 앱을 만들기까지
-- **서버 관리 입문**: Linux 기초와 클라우드 서버 구축. AWS, Cloudflare 등 실제 환경을 활용한 실전적인 내용
-- **디자인 워크숍**: 로고 제작과 UI 디자인 기초. 디자인 도구 사용법부터 효과적인 시각 커뮤니케이션 습득까지
-
-참가는 무료 또는 저비용으로 누구에게나 열려 있습니다. 이벤트 정보는 블로그와 소셜 미디어에서 공유합니다.
+새로운 스터디 그룹이나 워크숍을 실시할 때는 블로그와 SNS로 내용, 대상, 참여 방법을 안내합니다.
 
 ## Acecore Schools 교육 활동
 
-IT 스쿨 "Acecore Schools"에서는 현직 엔지니어가 1대1로 지도합니다. 커리큘럼은 실제 프로젝트를 활용한 실습을 중심으로, "배운 것을 현장에서 바로 사용할 수 있는" 실무 능력을 개발합니다.
-
-### 커리큘럼의 특징
-
-1. **실전 기반 학습**: 교과서적인 지식이 아닌, 실제 개발 현장에서 요구되는 기술에 집중
-2. **개인별 맞춤형**: 각 학생의 목표와 수준에 맞춰 유연하게 조정되는 커리큘럼
-3. **지속적인 서포트**: 수강 중뿐만 아니라 수료 후에도 기술 상담 가능
-
-학생들로부터 "실무에서 무엇을 해야 하는지 명확해졌다", "혼자서는 이해할 수 없었던 것을 순식간에 이해했다" 등의 피드백을 받고 있습니다.
-
-![실전 기반 커리큘럼으로 배우는 학생들](/uploads/acecore-generated/blog-community-and-education.webp)
+Acecore Schools는 일본어로만 제공됩니다. 학습 지원, 웹사이트, 등록 안내 및 상담은 한국어로 제공되지 않습니다.
 
 ## 오픈소스 기여
 
@@ -84,10 +64,8 @@ Acecore에서는 오픈소스 소프트웨어의 혜택을 받을 뿐만 아니�
 
 오픈소스 참여는 기술력 향상에도 이어집니다. 전 세계 개발자들의 피드백을 통해 코드 품질을 높이고, 팀의 기술 향상에도 공헌하고 있습니다.
 
-## 지역 커뮤니티 이니셔티브
+## 지역 연계 상담
 
-지역 기업이나 교육 기관과 협력하여 IT 도입과 디지털 인재 육성을 추진하고 있습니다. 지방의 IT 도입을 지원함으로써 지역 경제 발전에 기여하는 것을 목표로 합니다.
-
-구체적으로는 지역 학교와 전문학교에서의 IT 강좌 실시, 지역 기업의 DX 지원, 지자체의 디지털화 프로젝트 참여 등을 진행하고 있습니다.
+지역 비즈니스와 교육 기관의 IT 활용, 디지털 학습, 공동 기획에 관한 상담을 받고 있습니다. 실시 내용은 목적, 대상, 필요한 환경을 확인한 뒤 개별적으로 정리합니다.
 
 커뮤니티 참여나 파트너십 논의에 대한 문의는 [문의해 주세요](/contact/). 함께 만들어갈 새로운 파트너를 항상 기다리고 있습니다.
