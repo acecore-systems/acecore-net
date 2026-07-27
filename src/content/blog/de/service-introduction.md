@@ -1,6 +1,6 @@
 ---
-title: 'Acecore Services: IT-Unterstützung für Web, Server, Design und Bildung auf Japanisch'
-description: 'Überblick über Acecore Services in Serverbetrieb, Webproduktion, Design und IT-Bildung auf Japanisch.'
+title: 'Acecore Services: IT-Unterstützung für Web, Server, Design und Bildung'
+description: 'Überblick über Acecore Services in Serverbetrieb, Webproduktion, Design und IT-Bildung.'
 date: 2026-03-10T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -8,25 +8,25 @@ tags: ['サービス', 'Web制作', '教育']
 callout:
   type: info
   title: Servicebereiche von Acecore
-  text: Acecore verbindet Serverbetrieb, Webproduktion, Design und IT-Bildung auf Japanisch, um kontinuierliche Verbesserung zu unterstützen.
+  text: Acecore verbindet Serverbetrieb, Webproduktion, Design und IT-Bildung, um kontinuierliche Verbesserung zu unterstützen.
 checklist:
   title: Servicebereiche
   items:
     - text: Servereinrichtung und Betrieb
     - text: Website-Produktion und Wartung
     - text: Design und Kreativmaterialien
-    - text: Japanischsprachige Lernbegleitung, die vom jeweiligen Ziel ausgeht
+    - text: Lernbegleitung, die vom jeweiligen Ziel ausgeht
     - text: Community-Management und Erfahrung aus früheren Workshops
 faq:
   title: FAQ
   items:
     - question: Womit sollte eine Beratung beginnen?
-      answer: Wir klären zuerst Ziel und Rahmenbedingungen und entscheiden dann, ob Server, Web oder Design der richtige Einstieg ist. Acecore Schools ist nur auf Japanisch verfügbar.
+      answer: Wir klären zuerst die aktuelle Aufgabe und das Ziel und entscheiden dann gemeinsam, ob Server, Web, Design oder Bildung der richtige Einstieg ist.
     - question: Unterstützt Acecore auch kleine Anfragen?
-      answer: Ja. Wir können im benötigten Umfang beginnen, etwa mit Website-Verbesserungen, einer Überprüfung des Serverbetriebs oder Veranstaltungen. Die Lernbegleitung von Acecore Schools ist nur auf Japanisch verfügbar.
+      answer: Ja. Wir können im benötigten Umfang beginnen, etwa mit Website-Verbesserungen, einer Überprüfung des Serverbetriebs, Lernbegleitung oder der Beratung zu Veranstaltungen.
 ---
 
-Acecore unterstützt Unternehmen und lokale Communities beim praktischen Einsatz von IT durch Serverbetrieb, Webproduktion, Design und IT-Bildung auf Japanisch. Der Fokus liegt nicht nur auf dem Launch, sondern auch auf wartbaren Abläufen und kontinuierlicher Verbesserung.
+Acecore unterstützt Unternehmen und lokale Communities beim praktischen Einsatz von IT durch Serverbetrieb, Webproduktion, Design und IT-Bildung. Der Fokus liegt nicht nur auf dem Launch, sondern auch auf wartbaren Abläufen und kontinuierlicher Verbesserung.
 
 ## 1. Servereinrichtung und Betrieb
 
@@ -54,7 +54,9 @@ Wenn Design und Webproduktion zusammen gedacht werden, bleiben Website, Social M
 
 ## 4. IT-Schule / Acecore Schools
 
-Acecore Schools ist nur auf Japanisch verfügbar. Lernbegleitung, Website, Anmeldehinweise und Beratung werden nicht auf Deutsch angeboten.
+Acecore Schools gestaltet die Gleichwertigkeitsprüfung zum Oberschulabschluss und die Planung der nächsten Schritte, IT und Programmierung, PC- und Smartphone-Nutzung sowie Robotik und Making nach den Zielen und der aktuellen Situation jedes Lernenden. Statt Menschen in feste Kurse einzuordnen, klären wir den tatsächlichen Lernbedarf und verbinden ihn mit praktischer Anwendung. Auch schulisches Lernen und Prüfungsvorbereitung können je nach Ziel besprochen werden. Die reguläre Lernbegleitung findet derzeit online statt. Robotik und Making werden getrennt von Programmierung behandelt; Inhalt und Zeitpunkt werden je nach Situation besprochen.
+
+Die möglichen Lernbereiche und den Ablauf finden Sie auf der [Schools-Website](https://schools.acecore.net/).
 
 ## Was Acecore wichtig ist
 

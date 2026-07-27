@@ -19,7 +19,7 @@ const COPILOT_API_BASE = 'https://api.githubcopilot.com'
 const COPILOT_API_VERSION = '2026-01-09'
 const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
 const SCHOOLS_TRANSLATION_POLICY =
-  'Acecore Schools is available only in Japanese. When source text describes or promotes Schools, do not present its learning support, website, enrollment guidance, consultation, pricing, or LINE route as available in the target language. Replace service-detail passages with a concise localized note that Schools is available only in Japanese; factual historical mentions may remain.'
+  'Acecore Schools uses the single website URL https://schools.acecore.net/ for every locale. Preserve factual Schools descriptions and this URL, do not hide Schools content based on the target locale, and never invent locale-specific Schools routes.'
 const PAGE_TRANSLATION_KEYS = {
   'about.json': 'about',
   'acestudio.json': 'acestudio',

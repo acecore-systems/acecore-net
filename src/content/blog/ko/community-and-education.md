@@ -1,6 +1,6 @@
 ---
 title: '커뮤니티 활동과 교육에 대한 헌신'
-description: 'Acecore의 커뮤니티 활동, 일본어 교육 지원, 오픈소스 기여. Aceserver, Schools, 과거 워크숍을 통한 활동을 소개합니다.'
+description: 'Acecore의 커뮤니티 활동, 교육 지원, 오픈소스 기여. Aceserver, Schools, 과거 워크숍을 통한 활동을 소개합니다.'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: 목적과 현재 위치에서 구성하는 일본어 학습 지원.
+      description: 목적과 현재 위치에서 구성하는 학습 지원.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS & 지역
@@ -32,8 +32,8 @@ faq:
       answer: Acecore가 운영하는 공개 Minecraft 서버입니다. 커뮤니티 교류의 시작점으로, 멤버 간 협력과 이벤트를 통해 유대를 깊이 다지고 있습니다.
     - question: 스터디 그룹이나 워크숍은 언제 열리나요?
       answer: 현재 정기 개최를 전제로 한 모집은 진행하지 않습니다. 새로운 기획을 실시할 때는 블로그와 SNS로 안내합니다.
-    - question: Acecore Schools는 한국어로 제공되나요?
-      answer: 아니요. Acecore Schools, 웹사이트, 학습 지원, 등록 안내 및 상담은 일본어로만 제공됩니다.
+    - question: Acecore Schools에서는 무엇을 배울 수 있나요?
+      answer: 고졸 검정고시와 그 이후의 선택, IT·프로그래밍, PC·스마트폰 활용, 로봇/메이킹을 목적과 현재 위치에 맞춰 구성합니다. 정해진 코스에 맞추는 대신 필요한 배움을 정리하고 직접 해 보는 실천으로 연결합니다. 이 밖에 학교 학습이나 시험 대비도 목적에 따라 상담할 수 있습니다. 일반 학습 지원은 현재 온라인으로 제공하며, 로봇/메이킹은 프로그래밍과 분리해 내용과 실시 시기에 따라 상담합니다.
 ---
 
 Acecore는 "연결, 발견, 공동 창조"를 테마로 기술 커뮤니티의 발전과 교육 공헌에 힘쓰고 있습니다.
@@ -56,7 +56,9 @@ Acecore는 학습과 기술 공유로 이어지는 기획을 내용과 시기에
 
 ## Acecore Schools 교육 활동
 
-Acecore Schools는 일본어로만 제공됩니다. 학습 지원, 웹사이트, 등록 안내 및 상담은 한국어로 제공되지 않습니다.
+Acecore Schools는 고졸 검정고시와 그 이후의 선택, IT·프로그래밍, PC·스마트폰 활용, 로봇/메이킹을 목적과 현재 위치에 맞춰 구성하는 학습 스쿨입니다. 정해진 코스에 맞추는 대신 필요한 배움을 정리하고 직접 해 보는 실천으로 연결합니다. 이 밖에 학교 학습이나 시험 대비도 목적에 따라 상담할 수 있습니다. 일반 학습 지원은 현재 온라인으로 제공하며, 로봇/메이킹은 프로그래밍과 분리해 내용과 실시 시기에 따라 상담합니다.
+
+상담 가능한 영역과 학습 진행 방식은 [Schools 사이트](https://schools.acecore.net/)에서 확인할 수 있습니다.
 
 ## 오픈소스 기여
 

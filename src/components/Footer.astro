@@ -1,14 +1,13 @@
 ---
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
-import { getSchoolsUrl, isSchoolsSupportedLocale } from '../utils/schools-url'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const currentYear = new Date().getFullYear()
 const u = (path: string) => getLocalizedUrl(path, locale)
 ---
@@ -49,18 +48,14 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               >{t(locale, 'footer.pricing')}</a
             >
           </li>
-          {
-            schoolsAvailable && (
-              <li>
-                <a
-                  href={getSchoolsUrl(locale)}
-                  class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  {t(locale, 'footer.schools')}
-                </a>
-              </li>
-            )
-          }
+          <li>
+            <a
+              href={getSchoolsUrl()}
+              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
+            >
+              {t(locale, 'footer.schools')}
+            </a>
+          </li>
           <li>
             <a
               href={SITE.social.systems}

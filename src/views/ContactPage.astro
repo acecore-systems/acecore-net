@@ -8,7 +8,7 @@ import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl, isSchoolsSupportedLocale } from '../utils/schools-url'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -16,7 +16,6 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
@@ -55,16 +54,12 @@ const serviceCategoryOptions = [
     label: t(locale, 'pages.contact.formCategoryServiceDesign'),
     subject: t(locale, 'pages.services.design.title'),
   },
-  ...(schoolsAvailable
-    ? [
-        {
-          key: 'education',
-          value: 'ITスクール / Acecore Schoolsについて',
-          label: t(locale, 'pages.contact.formCategoryServiceEducation'),
-          subject: t(locale, 'pages.services.education.title'),
-        },
-      ]
-    : []),
+  {
+    key: 'education',
+    value: 'ITスクール / Acecore Schoolsについて',
+    label: t(locale, 'pages.contact.formCategoryServiceEducation'),
+    subject: t(locale, 'pages.services.education.title'),
+  },
   {
     key: 'aceserver',
     value: 'Aceserverについて',
@@ -79,11 +74,7 @@ const serviceCategoryOptions = [
   },
 ]
 
-const faqItems = getList<FaqItem>('pages.contact.faqs').filter(
-  (item) =>
-    schoolsAvailable ||
-    !`${item.question} ${item.answer}`.includes('Acecore Schools'),
-)
+const faqItems = getList<FaqItem>('pages.contact.faqs')
 
 const contactPageLd = {
   '@context': 'https://schema.org',
@@ -142,13 +133,9 @@ const faqLd = {
           <a href={u('/services/')} class="ac-chip">
             {t(locale, 'pageNames.services')}
           </a>
-          {
-            schoolsAvailable && (
-              <a href={getSchoolsUrl(locale)} class="ac-chip">
-                {t(locale, 'pageNames.schools')}
-              </a>
-            )
-          }
+          <a href={getSchoolsUrl()} class="ac-chip">
+            {t(locale, 'pageNames.schools')}
+          </a>
           <a href={u('/blog/')} class="ac-chip">
             {t(locale, 'pageNames.blog')}
           </a>

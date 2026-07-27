@@ -1,6 +1,6 @@
 ---
 title: 'Actividades comunitarias e iniciativas educativas'
-description: 'Sobre las actividades comunitarias, el apoyo educativo en japonés y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, Schools y talleres realizados anteriormente.'
+description: 'Sobre las actividades comunitarias, el apoyo educativo y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, Schools y talleres realizados anteriormente.'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Apoyo en japonés organizado desde los objetivos y la situación actual.
+      description: Apoyo al aprendizaje organizado desde los objetivos y la situación actual.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS y comunidad local
@@ -32,8 +32,8 @@ faq:
       answer: Es un servidor público de Minecraft gestionado por Acecore. Funciona como punto de partida para la interacción comunitaria, fortaleciendo los vínculos entre los miembros a través de la cooperación y la organización de eventos.
     - question: ¿Cuándo se celebran los grupos de estudio y talleres?
       answer: Actualmente no hay convocatorias para actividades periódicas. Cuando haya una nueva iniciativa, la anunciaremos en el blog de este sitio y en redes sociales.
-    - question: ¿Acecore Schools está disponible en español?
-      answer: No. Acecore Schools, su sitio web, el apoyo al aprendizaje, la orientación de inscripción y las consultas están disponibles únicamente en japonés.
+    - question: ¿Qué se puede aprender en Acecore Schools?
+      answer: Organizamos el aprendizaje de equivalencia de bachillerato y las decisiones posteriores, IT y programación, uso de PC y smartphone, y robótica y creación, según los objetivos y la situación actual de cada persona. En lugar de encajar a todos en cursos fijos, aclaramos qué necesitan aprender y lo conectamos con la práctica. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo. El acompañamiento habitual se ofrece actualmente en línea. La robótica y la creación se tratan por separado de la programación; el contenido y las fechas se consultan según cada caso.
 ---
 
 En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedicamos al desarrollo de la comunidad tecnológica y a la contribución en el campo educativo.
@@ -56,7 +56,9 @@ Cuando celebremos un nuevo grupo de estudio o taller, anunciaremos su contenido,
 
 ## Actividades educativas de Acecore Schools
 
-Acecore Schools está disponible únicamente en japonés. El apoyo al aprendizaje, el sitio web, la orientación de inscripción y las consultas no se ofrecen en español.
+Acecore Schools organiza el aprendizaje de equivalencia de bachillerato y las decisiones posteriores, IT y programación, uso de PC y smartphone, y robótica y creación, según los objetivos y la situación actual de cada persona. En lugar de encajar a todos en cursos fijos, aclaramos qué necesitan aprender y lo conectamos con la práctica. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo. El acompañamiento habitual se ofrece actualmente en línea. La robótica y la creación se tratan por separado de la programación; el contenido y las fechas se consultan según cada caso.
+
+Puede consultar las áreas de aprendizaje y la forma de avanzar en el [sitio de Schools](https://schools.acecore.net/).
 
 ## Contribuciones al código abierto
 
