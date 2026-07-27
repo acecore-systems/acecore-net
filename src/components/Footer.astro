@@ -50,14 +50,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           </li>
           <li>
             <a
-              href={getSchoolsUrl(locale)}
+              href={getSchoolsUrl()}
               class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
             >
-              {
-                locale === 'ja'
-                  ? t(locale, 'footer.schools')
-                  : `${t(locale, 'footer.schools')} (JA)`
-              }
+              {t(locale, 'footer.schools')}
             </a>
           </li>
           <li>

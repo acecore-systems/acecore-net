@@ -1,6 +1,6 @@
 ---
-title: 'Serviços da Acecore: apoio IT para web, servidores, design e educação em japonês'
-description: 'Visão geral dos serviços da Acecore em operação de servidores, produção web, design e educação IT em japonês.'
+title: 'Serviços da Acecore: apoio de TI para web, servidores, design e educação'
+description: 'Visão geral dos serviços da Acecore em operação de servidores, produção web, design e educação em TI.'
 date: 2026-03-10T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -8,25 +8,25 @@ tags: ['サービス', 'Web制作', '教育']
 callout:
   type: info
   title: Áreas de serviço da Acecore
-  text: A Acecore combina operação de servidores, produção web, design e educação IT em japonês para apoiar melhorias contínuas.
+  text: A Acecore combina operação de servidores, produção web, design e educação em TI para apoiar melhorias contínuas.
 checklist:
   title: Serviços oferecidos
   items:
     - text: Configuração e operação de servidores
     - text: Produção e manutenção de sites
     - text: Design e materiais criativos
-    - text: Apoio à aprendizagem em japonês organizado a partir do objetivo
+    - text: Apoio à aprendizagem organizado a partir do objetivo
     - text: Gestão de comunidades e histórico de workshops
 faq:
   title: Perguntas frequentes
   items:
     - question: Por onde uma consulta deve começar?
-      answer: Primeiro organizamos o objetivo e as restrições atuais, depois decidimos se o início deve ser por servidores, web ou design. A Acecore Schools está disponível apenas em japonês.
+      answer: Primeiro organizamos o desafio e o objetivo atuais, depois decidimos juntos se o início deve ser por servidores, web, design ou educação.
     - question: A Acecore atende pedidos pequenos?
-      answer: Sim. Podemos começar com melhorias de site, revisão operacional, planejamento de eventos ou ajustes de CMS. O apoio da Acecore Schools está disponível apenas em japonês.
+      answer: Sim. Podemos começar com melhorias de site, revisão operacional, apoio à aprendizagem ou consultas sobre eventos, conforme a necessidade.
 ---
 
-A Acecore apoia o uso prático de IT por empresas e comunidades locais por meio de operação de servidores, produção web, design e educação em japonês. O foco não é apenas lançar algo novo, mas também manter e melhorar depois da publicação.
+A Acecore apoia o uso prático de TI por empresas e comunidades locais por meio de operação de servidores, produção web, design e educação em TI. O foco não é apenas lançar algo novo, mas também manter e melhorar depois da publicação.
 
 ## 1. Configuração e operação de servidores
 
@@ -52,9 +52,11 @@ Comunicar bem exige mais do que organizar informações. A Acecore também apoia
 
 Ao conectar design e produção web, mantemos consistência entre site, redes sociais, folhetos e apresentações.
 
-## 4. Escola IT / Acecore Schools
+## 4. Escola de TI / Acecore Schools
 
-A Acecore Schools está disponível apenas em japonês. O apoio à aprendizagem, o site, as orientações de inscrição e as consultas não são oferecidos em português.
+A Acecore Schools organiza certificação equivalente ao ensino médio e os próximos passos, TI e programação, uso de PC e smartphone e robótica/making de acordo com o objetivo e o ponto de partida de cada pessoa. Em vez de encaixar alguém em um curso fixo, organizamos o que é necessário aprender e conectamos isso à prática. Estudos escolares e preparação para provas também podem ser consultados conforme o objetivo. O suporte regular acontece atualmente online; robótica/making é tratada separadamente da programação e depende do conteúdo, do formato e da época de realização.
+
+As áreas de aprendizagem e a forma de avançar estão no [site da Schools](https://schools.acecore.net/).
 
 ## O que a Acecore valoriza
 

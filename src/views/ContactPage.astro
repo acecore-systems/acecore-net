@@ -16,7 +16,6 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const schoolsConsultationAvailable = locale === 'ja'
 const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
@@ -55,16 +54,12 @@ const serviceCategoryOptions = [
     label: t(locale, 'pages.contact.formCategoryServiceDesign'),
     subject: t(locale, 'pages.services.design.title'),
   },
-  ...(schoolsConsultationAvailable
-    ? [
-        {
-          key: 'education',
-          value: 'ITスクール / Acecore Schoolsについて',
-          label: t(locale, 'pages.contact.formCategoryServiceEducation'),
-          subject: t(locale, 'pages.services.education.title'),
-        },
-      ]
-    : []),
+  {
+    key: 'education',
+    value: 'ITスクール / Acecore Schoolsについて',
+    label: t(locale, 'pages.contact.formCategoryServiceEducation'),
+    subject: t(locale, 'pages.services.education.title'),
+  },
   {
     key: 'aceserver',
     value: 'Aceserverについて',
@@ -79,11 +74,7 @@ const serviceCategoryOptions = [
   },
 ]
 
-const faqItems = getList<FaqItem>('pages.contact.faqs').filter(
-  (item) =>
-    schoolsConsultationAvailable ||
-    !`${item.question} ${item.answer}`.includes('Acecore Schools'),
-)
+const faqItems = getList<FaqItem>('pages.contact.faqs')
 
 const contactPageLd = {
   '@context': 'https://schema.org',
@@ -142,12 +133,8 @@ const faqLd = {
           <a href={u('/services/')} class="ac-chip">
             {t(locale, 'pageNames.services')}
           </a>
-          <a href={getSchoolsUrl(locale)} class="ac-chip">
-            {
-              locale === 'ja'
-                ? t(locale, 'pageNames.schools')
-                : `${t(locale, 'pageNames.schools')} (JA)`
-            }
+          <a href={getSchoolsUrl()} class="ac-chip">
+            {t(locale, 'pageNames.schools')}
           </a>
           <a href={u('/blog/')} class="ac-chip">
             {t(locale, 'pageNames.blog')}

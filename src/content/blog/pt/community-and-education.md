@@ -1,6 +1,6 @@
 ---
 title: 'Atividades comunitárias e compromisso com a educação'
-description: 'Sobre as atividades comunitárias, apoio educacional em japonês e contribuições ao open source promovidos pela Acecore. Apresentamos iniciativas por meio do Aceserver, da Schools e dos workshops realizados no passado.'
+description: 'Sobre as atividades comunitárias, apoio educacional e contribuições ao open source promovidos pela Acecore. Apresentamos iniciativas por meio do Aceserver, da Schools e dos workshops realizados no passado.'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Apoio em japonês organizado a partir do objetivo e do ponto atual.
+      description: Apoio à aprendizagem organizado a partir do objetivo e do ponto atual.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS e comunidade local
@@ -32,8 +32,8 @@ faq:
       answer: É um servidor público de Minecraft operado pela Acecore. Funciona como ponto de partida para interação comunitária, aprofundando conexões através de cooperação entre membros e realização de eventos.
     - question: Quando são realizados os meetups e workshops?
       answer: No momento, não há inscrições abertas com base em uma programação regular. Quando houver um novo projeto, anunciaremos no blog e nas redes sociais.
-    - question: A Acecore Schools está disponível em português?
-      answer: Não. A Acecore Schools, seu site, o apoio à aprendizagem, as orientações de inscrição e as consultas estão disponíveis apenas em japonês.
+    - question: O que é possível aprender na Acecore Schools?
+      answer: Organizamos certificação equivalente ao ensino médio e os próximos passos, TI e programação, uso de PC e smartphone e robótica/making de acordo com o objetivo e o ponto de partida de cada pessoa. Em vez de encaixar alguém em um curso fixo, organizamos o que é necessário aprender e conectamos isso à prática. Estudos escolares e preparação para provas também podem ser consultados conforme o objetivo. O suporte regular acontece atualmente online; robótica/making é tratada separadamente da programação e depende do conteúdo, do formato e da época de realização.
 ---
 
 Na Acecore, com o tema "conexão, descoberta e co-criação", investimos no desenvolvimento da comunidade tecnológica e na contribuição para o campo educacional.
@@ -56,7 +56,9 @@ Quando houver um novo meetup ou workshop, publicaremos no blog e nas redes socia
 
 ## Atividades educacionais da Acecore Schools
 
-A Acecore Schools está disponível apenas em japonês. O apoio à aprendizagem, o site, as orientações de inscrição e as consultas não são oferecidos em português.
+A Acecore Schools organiza certificação equivalente ao ensino médio e os próximos passos, TI e programação, uso de PC e smartphone e robótica/making de acordo com o objetivo e o ponto de partida de cada pessoa. Em vez de encaixar alguém em um curso fixo, organizamos o que é necessário aprender e conectamos isso à prática. Estudos escolares e preparação para provas também podem ser consultados conforme o objetivo. O suporte regular acontece atualmente online; robótica/making é tratada separadamente da programação e depende do conteúdo, do formato e da época de realização.
+
+As áreas de aprendizagem e a forma de avançar estão no [site da Schools](https://schools.acecore.net/).
 
 ## Contribuições ao open source
 

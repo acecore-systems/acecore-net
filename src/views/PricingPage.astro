@@ -28,16 +28,13 @@ interface SchoolFee {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const schoolsDetailsAvailable = locale === 'ja'
-const schoolsLanguageNote =
-  locale === 'ja' ? '' : t(locale, 'common.schoolsJapaneseOnly')
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
 const resolvePricingHref = (href: string) => {
   const normalizedHref = href.trim()
   if (normalizedHref.startsWith(SCHOOLS_ORIGIN)) {
-    return getSchoolsUrl(locale, '#pricing')
+    return getSchoolsUrl('#pricing')
   }
 
   if (
@@ -54,18 +51,12 @@ const isExternalHref = (href: string) => /^https?:\/\//i.test(href)
 const isBlogPricingHref = (href: string) => href.includes('/blog/')
 const isWebPricingHref = (href: string) => href.includes('/services/#web')
 
-const pricingItems = getList<PricingItem>('pages.pricing.items').map((item) => {
-  const schoolsLink = item.href.trim().startsWith(SCHOOLS_ORIGIN)
-
-  return {
+const pricingItems = getList<PricingItem>('pages.pricing.items').map(
+  (item) => ({
     ...item,
-    body:
-      schoolsLink && schoolsLanguageNote
-        ? `${item.body} ${schoolsLanguageNote}`
-        : item.body,
     href: resolvePricingHref(item.href),
-  }
-})
+  }),
+)
 const webBasePricingItem = pricingItems.find((item) =>
   isWebPricingHref(item.href),
 )
@@ -90,7 +81,7 @@ const schoolFees = getList<SchoolFee>('pages.pricing.schoolFees')
 const costFactors = getList<string>('pages.pricing.factors')
 const priceNotes = getList<string>('pages.pricing.notes')
 const systemsPricingUrl = `${SITE.social.systems}/pricing/`
-const schoolsUrl = getSchoolsUrl(locale, '#pricing')
+const schoolsUrl = getSchoolsUrl('#pricing')
 
 const pricingLd = {
   '@context': 'https://schema.org',
@@ -328,52 +319,50 @@ const pricingLd = {
         )
       }
 
-      {
-        schoolsDetailsAvailable && (
-          <div id="schools" class="mt-14 scroll-mt-24">
-            <div class="mb-6">
-              <h2 class="mb-3 text-2xl ac-heading">
-                {t(locale, 'pages.pricing.schoolsFeeTitle')}
-              </h2>
-              <p class="ac-muted">
-                {t(locale, 'pages.pricing.schoolsFeeBody')}
-              </p>
-            </div>
-            <div class="overflow-x-auto rounded-lg border border-slate-200">
-              <table class="w-full min-w-160 border-collapse text-left text-sm">
-                <thead class="bg-slate-50 text-slate-900">
-                  <tr>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeItem')}
+      <div id="schools" class="mt-14 scroll-mt-24">
+        <div class="mb-6">
+          <h2 class="mb-3 text-2xl ac-heading">
+            {t(locale, 'pages.pricing.schoolsFeeTitle')}
+          </h2>
+          <p class="ac-muted">
+            {t(locale, 'pages.pricing.schoolsFeeBody')}
+          </p>
+        </div>
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table class="w-full min-w-160 border-collapse text-left text-sm">
+            <thead class="bg-slate-50 text-slate-900">
+              <tr>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeItem')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeAmount')}
+                </th>
+                <th class="border-b border-slate-200 px-4 py-3 font-700">
+                  {t(locale, 'pages.pricing.feeNote')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                schoolFees.map((fee) => (
+                  <tr class="align-top">
+                    <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
+                      {fee.item}
                     </th>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeAmount')}
-                    </th>
-                    <th class="border-b border-slate-200 px-4 py-3 font-700">
-                      {t(locale, 'pages.pricing.feeNote')}
-                    </th>
+                    <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
+                      {fee.amount}
+                    </td>
+                    <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
+                      {fee.note}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {schoolFees.map((fee) => (
-                    <tr class="align-top">
-                      <th class="border-b border-slate-100 px-4 py-4 font-700 text-slate-900">
-                        {fee.item}
-                      </th>
-                      <td class="border-b border-slate-100 px-4 py-4 font-800 text-brand-700">
-                        {fee.amount}
-                      </td>
-                      <td class="border-b border-slate-100 px-4 py-4 leading-relaxed text-slate-600">
-                        {fee.note}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )
-      }
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div class="mt-14 grid gap-6 lg:grid-cols-2">
         <div class="ac-surface p-6">

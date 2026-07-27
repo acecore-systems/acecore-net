@@ -1,6 +1,6 @@
 ---
 title: '社区活动与教育事业'
-description: '介绍 Acecore 推动的社区活动、仅以日语提供的教育支持和开源贡献，以及通过 Aceserver、Schools 和以往工作坊开展的相关举措。'
+description: '介绍 Acecore 推动的社区活动、教育支持和开源贡献，以及通过 Aceserver、Schools 和以往工作坊开展的相关举措。'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: 仅以日语提供、从目标和当前起点出发的学习支持。
+      description: 从目标和当前起点出发的学习支持。
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS·地域
@@ -32,8 +32,8 @@ faq:
       answer: Aceserver 是 Acecore 运营的 Minecraft 公开服务器。它作为社区交流的起点，通过成员间的协作和活动举办来加深彼此的联系。
     - question: 学习会和工作坊何时举办？
       answer: 目前没有以定期举办为前提进行招募。如有新的活动企划，将通过博客和社交媒体发布。
-    - question: Acecore Schools 提供中文服务吗？
-      answer: 不提供。Acecore Schools、网站、学习支持、报名指南和咨询均仅提供日语服务。
+    - question: 可以在 Acecore Schools 学习哪些内容？
+      answer: 我们根据个人目标和当前起点，安排高中同等学力认定及之后的选择、IT与编程、电脑与智能手机应用、机器人/创客制作等学习内容。我们不把学习者套入固定课程，而是梳理所需内容，并衔接到亲手实践。此外，学校学习和考试备考也可根据目标进行咨询。目前常规学习支持在线提供；机器人/创客制作与编程分开处理，具体方式和时间根据内容另行协商。
 ---
 
 Acecore 以"连接·发现·共创"为主题，致力于技术社区的发展和教育领域的贡献。
@@ -56,7 +56,9 @@ Acecore 会根据内容和时机，考虑与学习及技术分享相关的活动
 
 ## Acecore Schools 的教育活动
 
-Acecore Schools 仅提供日语服务。目前不提供中文学习支持、网站说明、报名指南或咨询。
+Acecore Schools 是一所根据个人目标和当前起点，安排高中同等学力认定及之后的选择、IT与编程、电脑与智能手机应用、机器人/创客制作等学习内容的学校。我们不把学习者套入固定课程，而是梳理所需内容，并衔接到亲手实践。此外，学校学习和考试备考也可根据目标进行咨询。目前常规学习支持在线提供；机器人/创客制作与编程分开处理，具体方式和时间根据内容另行协商。
+
+可咨询的学习领域和学习方式可在 [Schools 网站](https://schools.acecore.net/)查看。
 
 ## 对开源的贡献
 

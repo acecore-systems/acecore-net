@@ -896,10 +896,6 @@ collections:
                 label: '新しいタブで開く'
                 hint: 'common.opensInNewTab'
                 widget: string
-              - name: 'schoolsJapaneseOnly'
-                label: 'Schoolsの提供言語注記'
-                hint: 'common.schoolsJapaneseOnly'
-                widget: string
               - name: 'mainNav'
                 label: 'メインナビ'
                 hint: 'common.mainNav'
