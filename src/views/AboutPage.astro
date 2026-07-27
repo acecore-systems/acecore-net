@@ -233,9 +233,14 @@ const aboutPageLd = {
             </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.regionalDesc')}
-              {' '}
-              <a href={getSchoolsUrl()} class="ac-link"> Acecore Schools </a>
             </p>
+            <a
+              href={getSchoolsUrl()}
+              class="mt-2 inline-flex items-center gap-1 ac-link"
+            >
+              <Icon name="arrow-right" class="text-sm" />
+              {t(locale, 'pageNames.schools')}
+            </a>
           </div>
         </div>
         <div class="flex items-start gap-4">
