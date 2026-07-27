@@ -1,51 +1,39 @@
 ---
-title: "Annonce de l'atelier de fabrication de robots pendant les vacances d'été"
-description: "AceCore Schools a organisé un événement permettant aux enfants de découvrir le plaisir de la fabrication de robots pendant les vacances d'été. À travers la construction, nous cultivons les connaissances techniques et la créativité."
+title: 'Nous avons organisé un atelier estival de fabrication de robots'
+description: "Retour sur l'atelier présentiel de fabrication de robots organisé par Acecore Schools à l'été 2023. Des élèves du primaire et du collège ont assemblé des mécanismes, les ont modifiés et ont vérifié leurs mouvements."
 date: 2023-07-19T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp
-faq:
-  title: Questions fréquentes
-  items:
-    - question: Quelle est la tranche d'âge ciblée par l'atelier de fabrication de robots ?
-      answer: L'atelier s'adresse aux élèves du primaire et du collège. Le niveau de difficulté est adapté aux participants, ce qui permet aux débutants de participer en toute sérénité.
-    - question: Peut-on ramener le robot fabriqué chez soi ?
-      answer: Oui, les frais de participation incluent le matériel pédagogique, et le robot terminé peut être emporté à la maison. Il peut également servir de projet libre pour les vacances d'été.
-    - question: Peut-on participer sans expérience en programmation ?
-      answer: Oui, aucune expérience en programmation n'est requise. L'objectif est de découvrir le plaisir de la fabrication et de développer la pensée computationnelle à travers l'atelier.
 ---
 
-AceCore Schools a organisé un événement pendant les vacances d'été pour permettre aux enfants de découvrir le plaisir de la fabrication de robots. Cette activité permet de développer les connaissances techniques et la créativité.
+À l'été 2023, Acecore Schools a organisé un atelier présentiel de fabrication de robots pour des élèves du primaire et du collège. Cet événement estival ponctuel leur a permis de découvrir la fabrication en assemblant des mécanismes, en les modifiant et en observant leurs mouvements.
 
-## Détails de l'événement
+## Déroulement à l'été 2023
 
-- **Tranche d'âge** : Du primaire au collège (les tout-petits sont les bienvenus sur demande)
+- **Public** : Élèves du primaire et du collège (enfants plus jeunes sur consultation)
 - **Lieu** : Centre civique de Sakuradai (3e étage, salle de cours 2)
-- **Dates** : 20/08 (dim.), 27/08 (dim.)
-- **Horaires** : Début à 14h00 chaque jour (90 minutes)
-- **Programme** : 45 min de construction + 45 min de modification et test
-- **Frais de participation** : 2 000 yens par personne et par séance (matériel inclus)
-- **Matériel** : Série de construction ludique Tamiya (à emporter)
-- **Capacité** : 10 places par séance (réservation obligatoire)
-- Peut également servir de **projet de recherche libre** !
+- **Dates** : 20 et 27 août 2023
+- **Horaires** : Début à 14 h chaque jour (90 minutes)
+- **Programme** : 45 minutes de construction + 45 minutes de modification et de test des mouvements
+- **Tarif** : 2 000 yens par personne et par séance (matériel inclus)
+- **Matériel** : Série Tamiya Fun Craft (à emporter)
+- **Capacité** : 10 participants par séance (réservation obligatoire)
+- La réalisation pouvait aussi servir de **projet libre pour les vacances d'été**.
 
-## Offre spéciale
+## Offre proposée à l'époque
 
-En vous inscrivant sur LINE, vous bénéficiez d'une réduction de 200 yens.
+À l'époque, une réduction de 200 yens était proposée aux personnes inscrites sur LINE.
 
-## Déroulement de l'événement
+## Le déroulement de l'atelier
 
-Lors de l'événement, les enfants se sont concentrés avec sérieux sur l'assemblage de leurs robots, puis se sont beaucoup amusés lors des phases de modification et de test.
-L'exclamation de joie au moment où le robot se met en marche est aussi un moment magique pour le personnel.
+Les participants se sont concentrés sur l'assemblage de leur robot, puis se sont particulièrement investis dans les modifications et les essais. Les exclamations au moment où les robots se sont mis en mouvement ont également marqué l'équipe.
 
-À travers ces expériences, nous souhaitons éveiller l'intérêt pour la fabrication et développer la pensée computationnelle.
+En progressant étape par étape entre assemblage, modification et test, les participants ont pu vérifier le fonctionnement des mécanismes de leurs propres mains. Il ne s'agissait pas d'un cours de programmation, mais d'une expérience de fabrication centrée sur la mécanique et le mouvement des robots.
 
-![De l'assemblage à la modification avec la série de construction Tamiya](/uploads/acecore-generated/blog-robot-workshop-event.webp)
+![De l'assemblage à la modification avec la série Tamiya Fun Craft](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
-## Contact et inscription
+## Informations actuelles
 
-Pour toute question ou inscription liée à l'événement, utilisez le [formulaire de contact](/contact/) ou le [LINE officiel](https://lin.ee/DjIrdqj).
-Si vous souhaitez confirmer un point directement, commencez par laisser un bref résumé dans le formulaire afin de faciliter le suivi.
-
-Acecore Schools prévoit d'organiser régulièrement des événements à l'avenir. Les dernières informations sont publiées sur la [page Schools](https://schools.acecore.net/fr/) et sur le blog.
+Les inscriptions à cet événement sont closes. L'accompagnement habituel se fait actuellement en ligne. Les activités présentielles de robotique et de fabrication ne sont pas proposées en permanence ; si une nouvelle session est prévue, nous l'annoncerons sur la [page Schools](https://schools.acecore.net/) et sur ce blog. Pour une consultation générale sur l'apprentissage, utilisez le [formulaire de contact](/fr/contact/?category=service&service=education#contact-form) ou le [LINE officiel](https://lin.ee/DjIrdqj).

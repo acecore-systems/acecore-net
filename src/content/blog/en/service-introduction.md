@@ -2,6 +2,7 @@
 title: 'Acecore Services: IT Support Across Web, Servers, Design, and Education'
 description: 'An overview of Acecore services across server operations, web production, design, and IT education.'
 date: 2026-03-10T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['サービス', 'Web制作', '教育']
 callout:
@@ -14,15 +15,15 @@ checklist:
     - text: Server setup and operations
     - text: Website production and maintenance
     - text: Design and creative assets
-    - text: Robotics and programming classes
-    - text: IT workshops and community events
+    - text: Learning support shaped around each learner's goals
+    - text: Community management and a record of past workshops
 faq:
   title: FAQ
   items:
     - question: Where should a consultation start?
       answer: We first clarify the current goal and constraints, then decide whether to start from servers, web, design, or education.
     - question: Can Acecore help with small requests?
-      answer: Yes. We can start with focused work such as website improvements, server reviews, learning events, or CMS updates.
+      answer: Yes. We can start with the scope you need, such as website improvements, server operation reviews, learning support, or events.
 ---
 
 Acecore supports practical IT use for businesses and local communities through server operations, website production, design, and IT education. We focus not only on launch work, but also on maintainable operations and continuous improvement after release.
@@ -53,9 +54,11 @@ By connecting design with web production, we keep websites, social posts, flyers
 
 ## 4. IT School / Acecore Schools
 
-Acecore Schools offers learning opportunities where children develop the ability to think, test, and express ideas through robotics programming, Scratch, and related activities.
+Rather than choosing a qualification name or a fixed course first, Acecore Schools shapes the learning a person needs around what they want to achieve and where they are now. We support high school equivalency and planning what comes next, IT and programming, and PC/smartphone skills with an eye toward using what is learned in real situations. School studies and exam preparation can also be discussed based on the learner's goals.
 
-Classes and workshops value experimentation. Instead of only copying a finished result, learners explore how things work and improve their own ideas.
+Regular learning support is currently online. Robotics/making is not treated as the same course as programming; it is a separate area for exploring mechanisms, electronics, and control through hands-on work. In the past, we have also held limited summer in-person workshops.
+
+You can learn more about the topics available for consultation and how learning can proceed on the [Schools page](https://schools.acecore.net/).
 
 ## What Acecore Values
 
@@ -66,4 +69,4 @@ Acecore treats production, operations, and education as connected work. The goal
 - Small starts that are easy to improve
 - Practical support for businesses, learners, and communities
 
-If you are reviewing a website, improving server operations, or planning a learning event, Acecore can start from the current issue and shape the next step.
+If you are reviewing a website, improving server operations, or planning learning support or an event, Acecore can start from the current issue and shape the next step.

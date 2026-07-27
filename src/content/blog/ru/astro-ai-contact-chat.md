@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short questions and Acecore Schools inquiries
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -204,13 +204,13 @@ Rules:
 
 ## Разделить каналы обращения
 
-| Канал          | Роль                                               |
-| -------------- | -------------------------------------------------- |
-| FAQ            | Ответить на частые вопросы прямо на странице       |
-| AI-чат         | Помочь выбрать услуги, каналы и связанные страницы |
-| LINE           | Короткие вопросы, темы школы и легкие уточнения    |
-| Форма          | Оценки, производство, партнерства и найм           |
-| Прямой контакт | Дополнение после формы или срочное подтверждение   |
+| Канал          | Роль                                                     |
+| -------------- | -------------------------------------------------------- |
+| FAQ            | Ответить на частые вопросы прямо на странице             |
+| AI-чат         | Помочь выбрать услуги, каналы и связанные страницы       |
+| LINE           | Короткие вопросы, обращения в Schools и легкие уточнения |
+| Форма          | Оценки, производство, партнерства и найм                 |
+| Прямой контакт | Дополнение после формы или срочное подтверждение         |
 
 AI соединяет общий контент вроде [обзора услуг](/services/) с конкретными маршрутами на [странице контактов](/contact/). Это подходит для B2B, агентств, школ и SaaS support.
 

@@ -47,7 +47,7 @@
     "close": "KI-Chat schließen",
     "title": "KI fragen",
     "lead": "Kurze Antworten auf Basis dieser Website.",
-    "greeting": "Sie können nach Acecore-Services, Entwicklung und Website-Projekten, Schulen und Antwortzeiten fragen. Für detaillierte Angebote oder formale Beratung leite ich Sie zum Formular weiter.",
+    "greeting": "Sie können nach Acecore-Services, Entwicklung und Website-Projekten, Lernberatungen bei Acecore Schools und Antwortzeiten fragen. Für detaillierte Angebote oder formale Beratung leite ich Sie zum Formular weiter.",
     "inputLabel": "Frage an den KI-Chat",
     "placeholder": "Frage eingeben...",
     "send": "Senden",
@@ -55,7 +55,7 @@
     "error": "Der KI-Chat ist nicht verfügbar. Bitte nutzen Sie das Kontaktformular oder LINE.",
     "quickServices": "Welchen Service wählen?",
     "quickEstimate": "Wie laufen Angebote ab?",
-    "quickSchools": "Mehr über Schulen",
+    "quickSchools": "Was kann ich mit Acecore Schools besprechen?",
     "contactForm": "Kontaktformular",
     "line": "LINE",
     "email": "E-Mail",
@@ -231,8 +231,8 @@
         },
         {
           "title": "IT-Schule / Acecore Schools",
-          "description": "Individueller Unterricht für alle Altersgruppen — Programmierung, Nachhilfe und Vorbereitung auf den Schulabschluss.",
-          "href": "https://schools.acecore.net/de/",
+          "description": "Gleichwertigkeitsprüfung zum Oberschulabschluss, IT und Programmierung sowie PC- und Smartphone-Nutzung. Wir gestalten das benötigte Lernen ausgehend von Ihrem Ziel und Ihrer aktuellen Situation.",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -273,13 +273,13 @@
         {
           "title": "Bildung und Mentoring",
           "description": "Wir verwandeln praktisches Wissen in Lernunterstützung und geben es an Communities und die nächste Generation weiter.",
-          "href": "https://schools.acecore.net/de/",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
       ],
       "aboutHeading": "Über Acecore",
-      "aboutBody1": "Wir veranstalten regelmäßig Studiengruppen und Workshops und fördern eine lernende Gemeinschaft mit unseren Kunden und Partnern.",
+      "aboutBody1": "Erkenntnisse aus dem Community-Management und früher durchgeführten Workshops fließen in unsere Lernbegleitung und Informationsarbeit ein.",
       "aboutBody2": "Durch Open-Source-Beiträge, regionale Zusammenarbeit und {link}-Initiativen bauen wir Partnerschaften auf, die Technologie und Menschen verbinden.",
       "aboutEducationLink": "Bildung",
       "viewAbout": "Über uns",
@@ -355,11 +355,11 @@
       "workshopImgAlt": "Studiengruppe und Workshop-Szene",
       "initiativesHeading": "Aktivitäten und Initiativen",
       "communityTitle": "Community-Aktivitäten",
-      "communityDesc": "Unter den Themen Verbindung, Entdeckung und Co-Creation veranstalten wir regelmäßig Studiengruppen und Technologie-Workshops. Wir bieten einen Raum, in dem sich Teilnehmer gegenseitig inspirieren und neue Ideen entstehen. Aktivitätsberichte werden auch in unserem Blog geteilt.",
+      "communityDesc": "Durch das Management von Communities wie Aceserver und die Dokumentation bisheriger Workshops fördern wir Orte, an denen Technologie und Menschen zusammenkommen. Neue Vorhaben kündigen wir in unserem Blog und in den sozialen Medien an.",
       "ossTitle": "Open-Source-Beiträge",
       "ossDesc": "Wir fördern aktiv die Nutzung und Beiträge zu Open-Source-Software und der Tech-Community. Einige unserer intern entwickelten Tools und Bibliotheken sind auf GitHub veröffentlicht.",
       "regionalTitle": "Regionale Partnerschaften",
-      "regionalDesc": "Wir arbeiten mit regionalen Bildungseinrichtungen und Unternehmen zusammen, um die IT-Einführung zu fördern und digitale Talente zu entwickeln. Unser Unterricht an Acecore Schools ist Teil dieser Bemühung.",
+      "regionalDesc": "Wir nehmen Anfragen zur IT-Nutzung, zum digitalen Lernen und zu gemeinsamen Vorhaben in regionaler Bildung und Wirtschaft entgegen. Die Lernbegleitung von Acecore Schools ist Teil dieser Aktivitäten.",
       "partnershipTitle": "Partnerschaften",
       "partnershipDesc": "Wir sind offen für Projektkooperationen und Geschäftspartnerschaften. Wir können in verschiedenen Bereichen kooperieren, darunter Technologie, Design und Bildung.",
       "relatedLinksHeading": "Verwandte Links",
@@ -394,9 +394,9 @@
         }
       ],
       "activities": [
-        "Regelmäßige Studiengruppen und Workshops",
+        "Community-Management und Erfahrung aus früheren Workshops",
         "Veröffentlichung und Beiträge zu Open-Source-Code",
-        "Kooperativer Unterricht mit regionalen Bildungseinrichtungen",
+        "Beratung zu Bildung und IT-Nutzung in der Region",
         "Co-Creation-Projekte mit externen Partnern",
         "Verwaltung der Aceserver-Community"
       ],
@@ -504,15 +504,14 @@
       },
       "education": {
         "title": "IT-Schule / Acecore Schools",
-        "desc": "Eine Schule, in der aktive Ingenieure direkt praktische IT-Fähigkeiten vermitteln. Wir bieten eine breite Palette von Bildungsprogrammen, darunter Nachhilfe, Roboter-Programmierung, praktische Programmierung, PC/Smartphone-Kurse und Vorbereitung auf den Schulabschluss — alle individuell auf jeden Schüler zugeschnitten.",
-        "coursesLabel": "Kursangebot",
+        "desc": "Eine Lernschule, die die Gleichwertigkeitsprüfung zum Oberschulabschluss und die Planung der nächsten Schritte, IT und Programmierung, PC- und Smartphone-Nutzung sowie Robotik und Making nach den Zielen und der aktuellen Situation jedes Lernenden gestaltet. Statt Menschen in feste Kurse einzuordnen, klären wir den tatsächlichen Lernbedarf und verbinden ihn mit praktischer Anwendung. Auch schulisches Lernen und Prüfungsvorbereitung können je nach Ziel besprochen werden. Die reguläre Lernbegleitung findet derzeit online statt. Robotik und Making werden getrennt von Programmierung behandelt; Inhalt und Zeitpunkt werden je nach Situation besprochen.",
+        "coursesLabel": "Lernbereiche für eine Beratung",
         "detailLink": "Details zu Acecore Schools anzeigen",
         "courses": [
-          "Nachhilfe (individuell, Prüfungs- und Klausurvorbereitung)",
-          "Robotik / Programmierung (Roboter-Montage und Minecraft-Programmierung)",
-          "Praktische Programmierung (Webentwicklung, Backend, Datenbanken)",
-          "PC / Smartphone (Grundlagen, Büroanwendungen, Sicherheit)",
-          "Schulabschluss-Vorbereitung (Prüfungsvorbereitung und Lernpläne)"
+          "Gleichwertigkeitsprüfung zum Oberschulabschluss und nächste Schritte (Prüfungsvorbereitung, Lernplan und Orientierung für den weiteren Weg)",
+          "IT-Lernen und Programmierung (Web-Erstellung, Werkzeugentwicklung und Veröffentlichung)",
+          "PC- und Smartphone-Nutzung (Grundlagen, Office, Online-Dienste und Sicherheit)",
+          "Robotik / Making (Mechanik, Elektronik und Steuerung; Format und Zeitpunkt nach Absprache)"
         ]
       },
       "aceserver": {
@@ -619,16 +618,16 @@
       "validationMessage": "Bitte geben Sie mindestens 10 aussagekräftige Zeichen ein",
       "faqTitle": "Häufige Fragen",
       "aiHeading": "KI-Chat ist ebenfalls verfügbar",
-      "aiLead": "Nutzen Sie den KI-Chat unten rechts für Services, Entwicklungs- oder Website-Fragen, Schulen und Antwortzeiten. Für detaillierte Beratung können Sie mit dem Formular fortfahren.",
+      "aiLead": "Nutzen Sie den KI-Chat unten rechts für Services, Entwicklungs- oder Website-Fragen, Lernberatungen bei Acecore Schools und Antwortzeiten. Für eine ausführliche Beratung können Sie mit dem Formular fortfahren.",
       "aiQuestionLabel": "Frage an die KI",
       "aiPlaceholder": "Beispiel: Ich möchte eine Website besprechen. Wo soll ich anfangen?",
       "aiSubmit": "KI-Chat öffnen",
       "aiLoading": "Antwort wird erstellt...",
       "aiError": "KI-Antworten sind nicht verfügbar. Bitte nutzen Sie das Kontaktformular.",
       "lineHeading": "LINE ist ebenfalls möglich",
-      "lineLead": "Folgen Sie dem offiziellen LINE-Konto für Neuigkeiten. Es eignet sich auch für kurze Fragen und schulbezogene Nachrichten.",
+      "lineLead": "Folgen Sie dem offiziellen LINE-Konto für Neuigkeiten. Es eignet sich auch für kurze Fragen und Nachrichten zu Acecore Schools.",
       "lineCta": "Auf LINE folgen",
-      "directMethodsNote": "Für kurze Fragen nutzen Sie LINE. Für einfache Rückfragen in sozialen Medien ist auch X verfügbar. Detaillierte Anliegen lassen sich über das Formular besser prüfen.",
+      "directMethodsNote": "Nutzen Sie LINE für kurze Fragen und Nachrichten zu Acecore Schools. Für einfache Rückfragen in sozialen Medien ist auch X verfügbar. Detaillierte Anliegen lassen sich über das Formular besser prüfen.",
       "directContactSummary": "Wenn Sie direkt Kontakt aufnehmen möchten",
       "directContactLead": "Öffnen Sie dies, wenn Sie nach dem Formular noch etwas ergänzen oder direkt bestätigen möchten.",
       "faqs": [
@@ -642,7 +641,7 @@
         },
         {
           "question": "Kann ich hier auch Acecore Schools anfragen?",
-          "answer": "Ja. Nennen Sie Lernziel, Alter oder Klasse und gewünschtes Lerntempo."
+          "answer": "Ja. Beschreiben Sie bitte, was Sie durch das Lernen erreichen möchten, was Ihnen aktuell Schwierigkeiten bereitet, welche Erfahrungen und technischen Möglichkeiten Sie mitbringen und wie Sie vorgehen möchten. Bei schulischem Lernen oder der Gleichwertigkeitsprüfung zum Oberschulabschluss nennen Sie bitte auch Klassenstufe und geplanten Prüfungstermin."
         },
         {
           "question": "Wie lange dauert eine Antwort?",
@@ -759,8 +758,8 @@
       "serviceTitle": "Kostenrahmen nach Service",
       "serviceBody": "Wir unterstützen kleine Einstiege ebenso wie kombinierte Pakete aus Produktion, Entwicklung und Betrieb.",
       "detailLink": "Details ansehen",
-      "schoolsFeeTitle": "Kostenbestandteile der Schools",
-      "schoolsFeeBody": "Neben der Unterrichtsgebühr zeigen wir auch Aufnahme-, Material- und Verwaltungskosten als Richtwerte.",
+      "schoolsFeeTitle": "Preisrahmen für Acecore Schools",
+      "schoolsFeeBody": "Die reguläre Lernbegleitung findet derzeit online statt. Die Kosten richten sich nach Ziel, Inhalt, Anzahl der Termine sowie den eingesetzten Materialien und der Lernumgebung; die Angaben dienen daher als Orientierung vor einem Beratungsgespräch.",
       "feeItem": "Posten",
       "feeAmount": "Richtwert",
       "feeNote": "Hinweis",
@@ -874,8 +873,8 @@
           "icon": "graduation-cap",
           "title": "Acecore Schools",
           "price": "8.000-33.000 ¥/Monat",
-          "body": "Wir zeigen Richtwerte für Aufnahmegebühr, Monatsgebühr sowie Material- und Verwaltungskosten. Sie variieren nach Klassenstufe, Häufigkeit, Material und Lerninhalt.",
-          "href": "https://schools.acecore.net/de/#pricing"
+          "body": "Wir zeigen Richtwerte für Aufnahmegebühr, Monatsgebühr sowie Material- und Verwaltungskosten. Die Kosten richten sich nach Ziel, Inhalt, Anzahl der Termine sowie den eingesetzten Materialien und der Lernumgebung.",
+          "href": "https://schools.acecore.net/#consultation"
         },
         {
           "icon": "clapperboard",
@@ -896,17 +895,17 @@
         {
           "item": "Aufnahmegebühr",
           "amount": "11.000-22.000 ¥",
-          "note": "Einmalig beim Start. Je nach Klassenstufe und Kurs unterschiedlich."
+          "note": "Einmalig. Die Höhe richtet sich nach Umfang der Unterstützung und dem erforderlichen Vorbereitungsaufwand."
         },
         {
           "item": "Monatsgebühr",
           "amount": "8.000-33.000 ¥",
-          "note": "Abhängig von Häufigkeit, Unterrichtsdauer und individueller Betreuung."
+          "note": "Die Höhe richtet sich nach Anzahl und Dauer der Termine, Umfang der Unterstützung und Vorgehensweise."
         },
         {
           "item": "Material- und Verwaltungskosten",
           "amount": "etwa 5.000-30.000 ¥",
-          "note": "Materialien, Robotik-Teile, PC- oder Lizenzkosten können je nach Inhalt als tatsächliche Kosten anfallen."
+          "note": "Je nach Inhalt können tatsächliche Kosten für Lernmaterialien, Robotikbauteile, PC-Ausstattung oder Lizenzen anfallen."
         }
       ],
       "factors": [

@@ -316,21 +316,23 @@ Acecore public site context:
 - Acecore is a Japan-based technology collective that provides website design, server operations, design, and IT education as a one-stop solution.
 - Services include server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
 - Business systems, web apps, CMS features, AI chat, forms, search, and integrations are handled on the separate Acecore Systems site.
-- Acecore Schools handles IT learning consultations. Visitors should include what they want to learn, age or grade, and preferred learning pace.
+- Acecore Schools supports purpose-led learning for high school equivalency and next-step planning, IT and programming, and practical PC and smartphone use. School study and exam preparation can also be discussed according to the learner's goal. Robotics and making are handled separately from programming, with the delivery method and timing discussed case by case. Regular learning support is currently provided online.
+- For Schools consultations, visitors should include what they want to achieve, their current situation or experience, and their preferred learning pace. Age or grade is only useful when relevant to school study or an exam.
 - Aceserver is Acecore's public Minecraft server community.
 - Estimates are free, and replies usually arrive within 1-2 business days.
-- LINE is available for short consultations and school-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
+- LINE is available for short consultations and Acecore Schools-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
 - Useful site links for the visitor locale. Use these exact URLs:
   - Services overview: ${servicesPath}
   - Acecore Systems: ${SYSTEMS_ORIGIN}/
   - Acecore Systems pricing: ${SYSTEMS_ORIGIN}/pricing/
   - Acecore Systems works: ${SYSTEMS_ORIGIN}/works/
   - Acecore Systems guide: ${SYSTEMS_ORIGIN}/guide/
-  - Acecore Schools pricing: ${localizedSchoolsPath(locale)}#pricing
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design
-  - Acecore Schools and IT education: ${localizedSchoolsPath(locale)}
+  - Acecore Schools fee guide: ${localizedPath('/pricing/', locale)}#schools
+  - Acecore Schools learning areas: ${localizedSchoolsPath(locale)}#areas
+  - Acecore Schools consultation: ${localizedSchoolsPath(locale)}#consultation
   - Aceserver: ${servicesPath}#aceserver
   - AceStudio: ${localizedPath('/acestudio/', locale)}
   - Blog: ${localizedPath('/blog/', locale)}
@@ -431,7 +433,7 @@ export const onRequestPost = async ({
               'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
               'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
               'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-              `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and school-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
+              `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and Acecore Schools-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
               buildAcecoreContext(locale),
             ].join('\n'),
           },
@@ -495,8 +497,8 @@ function normalizeLocale(value: unknown): SupportedLocale {
     : 'ja'
 }
 
-function localizedSchoolsPath(locale: SupportedLocale): string {
-  return locale === 'ja' ? `${SCHOOLS_ORIGIN}/` : `${SCHOOLS_ORIGIN}/${locale}/`
+function localizedSchoolsPath(_locale: SupportedLocale): string {
+  return `${SCHOOLS_ORIGIN}/`
 }
 
 function localizedPath(path: string, locale: SupportedLocale): string {

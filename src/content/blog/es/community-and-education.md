@@ -1,10 +1,11 @@
 ---
 title: 'Actividades comunitarias e iniciativas educativas'
-description: 'Sobre las actividades comunitarias, el apoyo educativo y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, escuelas y grupos de estudio.'
+description: 'Sobre las actividades comunitarias, el apoyo educativo y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, Schools y talleres realizados anteriormente.'
 date: 2026-03-08T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
-image: /uploads/acecore-generated/blog-community-and-education.webp
+image: /uploads/acecore-generated/blog-schools-online-support.webp
 insightGrid:
   title: Alcance de las actividades
   items:
@@ -12,34 +13,27 @@ insightGrid:
       description: Gestión de un servidor de Minecraft como punto de partida para la interacción.
       icon: i-lucide-gamepad-2
       tone: brand
-    - title: Grupos de estudio
-      description: Eventos técnicos regulares accesibles incluso para principiantes.
+    - title: Talleres
+      description: Registro de talleres anteriores y anuncios cuando haya nuevas iniciativas.
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Programas educativos que conectan la experiencia con habilidades profesionales.
+      description: Apoyo al aprendizaje organizado desde los objetivos y la situación actual.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS y comunidad local
       description: Circulación del conocimiento adquirido hacia la comunidad y la región.
       icon: i-lucide-heart-handshake
       tone: slate
-testimonials:
-  - quote: Es realmente valioso tener un espacio donde compartir tecnología con la gente de la zona. Hay muchas cosas que no se descubren estudiando solo.
-    name: Participante de grupo de estudio
-    role: Miembro de la comunidad
-pullQuote:
-  text: El espacio de aprendizaje no es un camino de una sola vía, es algo que construimos entre todos
-  attribution: Acecore Schools
 faq:
   title: Preguntas frecuentes
   items:
     - question: ¿Qué es Aceserver?
       answer: Es un servidor público de Minecraft gestionado por Acecore. Funciona como punto de partida para la interacción comunitaria, fortaleciendo los vínculos entre los miembros a través de la cooperación y la organización de eventos.
-    - question: ¿Cualquier persona puede participar en los grupos de estudio?
-      answer: Sí, puede participar cualquiera, desde principiantes hasta expertos. Se organizan regularmente con temas variados como talleres de programación e introducción a la administración de servidores.
+    - question: ¿Cuándo se celebran los grupos de estudio y talleres?
+      answer: Actualmente no hay convocatorias para actividades periódicas. Cuando haya una nueva iniciativa, la anunciaremos en el blog de este sitio y en redes sociales.
     - question: ¿Qué se puede aprender en Acecore Schools?
-      answer: Se ofrecen programas amplios como clases de refuerzo escolar, programación de robots, programación práctica, uso de PC y smartphones, y preparación para exámenes de equivalencia de bachillerato. La instrucción personalizada por parte de ingenieros en activo es su característica distintiva.
+      answer: Organizamos la equivalencia de bachillerato y la planificación de los siguientes pasos, IT y programación, y el uso de PC y smartphone a partir de los objetivos y la situación actual de cada persona. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo. El acompañamiento habitual se realiza actualmente en línea. La robótica y la creación se tratan por separado de la programación; el formato y las fechas se consultan según el contenido.
 ---
 
 En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedicamos al desarrollo de la comunidad tecnológica y a la contribución en el campo educativo.
@@ -50,33 +44,29 @@ En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedic
 
 En la [comunidad de Discord](https://discord.gg/acsv) de Aceserver, se llevan a cabo activamente intercambios que van más allá del juego, incluyendo temas técnicos y conversaciones cotidianas. Se caracteriza por su ambiente abierto donde cualquiera puede participar, sin importar edad o experiencia.
 
-![En la comunidad de Aceserver se llevan a cabo intercambios sin importar edad o experiencia](/uploads/acecore-generated/blog-community-and-education.webp)
+![En la comunidad de Aceserver se llevan a cabo intercambios sin importar edad o experiencia](/uploads/acecore-generated/metaverse-community-lab.webp)
 
 El conocimiento obtenido a través de la operación del servidor se retroalimenta en los servicios de infraestructura para empresas. Contribuye a la acumulación de know-how práctico como el ajuste de rendimiento en entornos de alta carga, la protección contra DDoS y la gestión segura de datos de usuarios.
 
-## Organización de grupos de estudio y eventos
+## Registro y anuncios de talleres
 
-Organizamos regularmente grupos de estudio técnicos y talleres para apoyar el intercambio de conocimientos y la mejora de habilidades.
+Acecore estudia iniciativas relacionadas con el aprendizaje y el intercambio técnico según su contenido y el momento adecuado. Actualmente no hay convocatorias para actividades periódicas. En el pasado, Acecore Schools realizó un taller presencial de robótica limitado al verano.
 
-- **Talleres de programación**: Experiencia de desarrollo de aplicaciones web para principiantes. Desde los fundamentos de HTML hasta crear una aplicación funcional en un día
-- **Introducción a la administración de servidores**: Fundamentos de Linux y puesta en marcha de servidores en la nube. Contenido práctico utilizando entornos reales como AWS y Cloudflare
-- **Talleres de diseño**: Fundamentos de creación de logos y diseño UI. Desde el uso de herramientas de diseño hasta los puntos clave de la comunicación visual efectiva
-
-La participación es gratuita o a bajo costo, y está abierta a todos. La información de los eventos se publica en el blog de este sitio y en redes sociales.
+Cuando celebremos un nuevo grupo de estudio o taller, anunciaremos su contenido, público y forma de participación en el blog de este sitio y en redes sociales.
 
 ## Actividades educativas de Acecore Schools
 
-En la escuela de IT "Acecore Schools", ingenieros en activo brindan instrucción personalizada. El currículo se centra en ejercicios basados en proyectos reales, desarrollando la capacidad práctica de "poder usar inmediatamente lo aprendido".
+Acecore Schools empieza por aclarar para qué quiere aprender cada persona antes de decidir qué estudiar. Organizamos el aprendizaje necesario a partir de sus objetivos y situación actual en equivalencia de bachillerato y la planificación de los siguientes pasos, IT y programación, y uso de PC y smartphone, con la mirada puesta en su aplicación real. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo.
 
-### Características del currículo
+Los temas de aprendizaje y las vías de consulta también se explican en la [página de Schools](https://schools.acecore.net/).
 
-1. **Aprendizaje basado en la práctica**: Instrucción enfocada no solo en conocimientos teóricos, sino en las habilidades que se requieren en el desarrollo real
-2. **Personalización individual**: El currículo se ajusta de forma flexible según los objetivos y nivel de cada estudiante
-3. **Soporte continuo**: Disponibilidad para consultas técnicas no solo durante el período de formación, sino también después de completarla
+### Principios del apoyo al aprendizaje
 
-Los estudiantes han expresado opiniones como "Me quedó claro qué debo hacer en el trabajo real" y "Comprendí de golpe las partes que no podía entender por mi cuenta".
+1. **Empezar por el objetivo**: Aclarar qué se quiere conseguir, sin elegir primero una titulación o el nombre de una tecnología
+2. **Llegar hasta el uso real**: Conectar los conocimientos con la creación, la publicación y el uso cotidiano
+3. **Reorganizar el plan cuando cambien las circunstancias**: Ajustar el contenido y el ritmo a la situación y el entorno actuales
 
-![Estudiantes aprendiendo con un currículo basado en la práctica](/uploads/acecore-generated/blog-community-and-education.webp)
+El acompañamiento habitual se realiza actualmente en línea. La robótica y la creación no se agrupan con la programación, sino que forman un área independiente para explorar de forma práctica la mecánica, la electrónica y el control. En el pasado, Acecore Schools también ha realizado talleres presenciales limitados al verano.
 
 ## Contribuciones al código abierto
 
@@ -84,10 +74,8 @@ En Acecore, no solo nos beneficiamos del software de código abierto, sino que t
 
 La participación en código abierto también contribuye a mejorar las habilidades técnicas. Recibir feedback de desarrolladores de todo el mundo nos permite mejorar la calidad del código y contribuir al desarrollo de habilidades del equipo.
 
-## Iniciativas de colaboración regional
+## Consultas sobre colaboración regional
 
-Colaboramos con negocios e instituciones educativas locales para promover el uso de IT y el desarrollo de talento digital. Al apoyar la informatización de áreas locales, también contribuimos al desarrollo de la economía regional.
-
-Concretamente, realizamos cursos de IT en escuelas y academias locales, apoyo DX para empresas de la región y participación en proyectos de digitalización de gobiernos locales.
+Atendemos consultas sobre el uso de IT, el aprendizaje digital y las iniciativas conjuntas para negocios e instituciones educativas locales. El contenido se organiza de forma individual después de confirmar el objetivo, el público y el entorno necesario.
 
 Para consultas sobre participación en la comunidad o sobre asociaciones, no dude en [contactarnos](/contact/). Siempre estamos esperando a compañeros que quieran crear algo juntos.

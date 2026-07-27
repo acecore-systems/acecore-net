@@ -16,8 +16,8 @@
   "serviceTitle": "Acecoreの主要サービスの費用感",
   "serviceBody": "Web制作、サーバー、デザイン、教育、動画制作など、Acecore本体でご案内するサービスの目安です。",
   "detailLink": "詳細を見る",
-  "schoolsFeeTitle": "Schools の費用内訳",
-  "schoolsFeeBody": "授業料だけでなく、入会時・教材・管理費も含めて検討できるよう目安を掲載しています。",
+  "schoolsFeeTitle": "Schools の料金目安",
+  "schoolsFeeBody": "通常の学習サポートは現在オンラインです。目的、内容、回数、利用する教材・環境によって変わるため、相談前の目安として掲載しています。",
   "feeItem": "項目",
   "feeAmount": "目安",
   "feeNote": "補足",
@@ -131,8 +131,8 @@
       "icon": "graduation-cap",
       "title": "Acecore Schools",
       "price": "月謝8千〜3.3万円",
-      "body": "入会金、月謝、教材・管理費の目安を公開しています。学年、回数、教材、受講内容によって変動します。",
-      "href": "https://schools.acecore.net/#pricing"
+      "body": "入会金、月謝、教材・管理費の目安を掲載しています。目的、内容、回数、利用する教材・環境によって変動します。",
+      "href": "https://schools.acecore.net/#consultation"
     },
     {
       "icon": "clapperboard",
@@ -153,12 +153,12 @@
     {
       "item": "入会金",
       "amount": "1.1万〜2.2万円",
-      "note": "初回のみ。学年やコースにより変動します。"
+      "note": "初回のみ。支援内容や準備物により変動します。"
     },
     {
       "item": "月謝",
       "amount": "8千〜3.3万円",
-      "note": "週回数、授業時間、個別指導の内容により変動します。"
+      "note": "回数、時間、支援内容、進め方により変動します。"
     },
     {
       "item": "教材・管理費",

@@ -6,7 +6,7 @@ import Icon from '../components/Icon.astro'
 import { SITE } from '../data/site'
 import { optimizeImage } from '../utils/image'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
+import { getSchoolsUrl, SCHOOLS_ORIGIN } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -33,6 +33,12 @@ const getList = <T,>(key: string): T[] =>
 
 const resolvePricingHref = (href: string) => {
   const normalizedHref = href.trim()
+  if (normalizedHref.startsWith(SCHOOLS_ORIGIN)) {
+    const currentHash = new URL(normalizedHref).hash
+    const hash = currentHash === '#pricing' ? '#consultation' : currentHash
+    return getSchoolsUrl(locale, hash)
+  }
+
   if (
     !normalizedHref ||
     normalizedHref.startsWith('#') ||
@@ -77,7 +83,7 @@ const schoolFees = getList<SchoolFee>('pages.pricing.schoolFees')
 const costFactors = getList<string>('pages.pricing.factors')
 const priceNotes = getList<string>('pages.pricing.notes')
 const systemsPricingUrl = `${SITE.social.systems}/pricing/`
-const schoolsUrl = getSchoolsUrl(locale)
+const schoolsUrl = getSchoolsUrl(locale, '#consultation')
 
 const pricingLd = {
   '@context': 'https://schema.org',

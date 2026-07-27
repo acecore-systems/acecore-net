@@ -213,7 +213,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and school-related inquiries
+- Also suggest LINE for short questions and Acecore Schools inquiries
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -225,13 +225,13 @@ The common failure mode is that the AI tries to be helpful by over-committing. Q
 
 The AI chat should not replace the contact form. The contact page works better when each route has a clear role.
 
-| Route          | Role                                                             |
-| -------------- | ---------------------------------------------------------------- |
-| FAQ            | Resolve common questions on the page                             |
-| AI chat        | Help visitors choose services, contact routes, and related pages |
-| LINE           | Short questions, school-related topics, and lightweight checks   |
-| Form           | Estimates, production inquiries, partnerships, and recruiting    |
-| Direct contact | Follow-up after the form or urgent confirmation only             |
+| Route          | Role                                                               |
+| -------------- | ------------------------------------------------------------------ |
+| FAQ            | Resolve common questions on the page                               |
+| AI chat        | Help visitors choose services, contact routes, and related pages   |
+| LINE           | Short questions, Acecore Schools inquiries, and lightweight checks |
+| Form           | Estimates, production inquiries, partnerships, and recruiting      |
+| Direct contact | Follow-up after the form or urgent confirmation only               |
 
 The AI connects broad service content such as the [service overview article](/services/) with concrete routes on the [contact page](/contact/). This pattern works for B2B sites, agencies, schools, and SaaS support pages.
 

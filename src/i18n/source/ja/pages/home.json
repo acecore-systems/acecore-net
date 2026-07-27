@@ -38,7 +38,7 @@
     },
     {
       "title": "ITスクール / Acecore Schools",
-      "description": "お子さまから大人まで、一人ひとりに合わせた個別指導。プログラミング・学習塾・高卒認定対策に対応しています。",
+      "description": "高卒認定、IT・プログラミング、PC・スマホ活用など。目的と現在地から、必要な学びを一人ひとりに合わせて組み立てます。",
       "href": "https://schools.acecore.net/",
       "icon": "graduation-cap",
       "tone": "amber"
@@ -86,7 +86,7 @@
     }
   ],
   "aboutHeading": "Acecoreについて",
-  "aboutBody1": "技術の勉強会やワークショップを定期開催し、お客様やコミュニティと一緒に学び合う場を大切にしています。",
+  "aboutBody1": "コミュニティ運営や、これまで実施したワークショップで得た知見を、学習支援と情報発信に生かしています。",
   "aboutBody2": "オープンソース活用・地域連携・{link}への貢献を通じて、技術と人をつなげるパートナーシップを築いています。",
   "aboutEducationLink": "教育分野",
   "viewAbout": "会社概要を見る",

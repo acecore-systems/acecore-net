@@ -25,7 +25,7 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
+import { getSchoolsUrl, SCHOOLS_ORIGIN } from '../utils/schools-url'
 import {
   getAllAuthors,
   findAuthorById,
@@ -56,8 +56,14 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
-const resolveCardHref = (href: string) =>
-  href.startsWith('http') ? href : u(href)
+const resolveCardHref = (href: string) => {
+  if (href.startsWith(SCHOOLS_ORIGIN)) {
+    const hash = new URL(href).hash
+    return getSchoolsUrl(locale, hash)
+  }
+
+  return href.startsWith('http') ? href : u(href)
+}
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
   aspectRatio: 1,

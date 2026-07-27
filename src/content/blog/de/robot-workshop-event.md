@@ -1,50 +1,39 @@
 ---
-title: 'Roboterbau-Workshop in den Sommerferien'
-description: 'AceCore Schools veranstaltete in den Sommerferien einen praxisnahen Roboterbau-Workshop, bei dem Kinder die Freude am Roboterbauen erleben konnten. Durch handwerkliches Arbeiten fördern wir technisches Wissen und Kreativität.'
+title: 'Wir haben einen zeitlich begrenzten Roboterbau-Workshop im Sommer durchgeführt'
+description: 'Ein Rückblick auf den Präsenz-Workshop zum Roboterbau, den Acecore Schools im Sommer 2023 durchgeführt hat. Grund- und Mittelschüler bauten Mechanismen zusammen, passten sie an und prüften ihre Bewegungen.'
 date: 2023-07-19T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp
-faq:
-  title: FAQ
-  items:
-    - question: Für welche Altersgruppe ist der Roboterbau-Workshop gedacht?
-      answer: Die Veranstaltung richtet sich an Grund- und Mittelschüler. Der Schwierigkeitsgrad wird an jeden Teilnehmer angepasst, sodass auch Anfänger bedenkenlos mitmachen können.
-    - question: Können die Teilnehmer die fertigen Roboter mit nach Hause nehmen?
-      answer: Ja, die Teilnahmegebühr beinhaltet die Materialkosten, und die Teilnehmer können ihre fertigen Roboter mit nach Hause nehmen. Sie können auch für eigenständige Forschungsprojekte in den Sommerferien verwendet werden.
-    - question: Können Kinder ohne Programmiererfahrung teilnehmen?
-      answer: Ja, es sind keine Vorkenntnisse im Programmieren erforderlich. Ziel ist es, Kindern die Freude am Bauen zu vermitteln und durch praktisches Arbeiten die Grundlagen des algorithmischen Denkens zu fördern.
 ---
 
-AceCore Schools veranstaltete in den Sommerferien einen praxisnahen Roboterbau-Workshop, bei dem Kinder die Freude am Roboterbauen erleben konnten. Durch handwerkliches Arbeiten fördern wir technisches Wissen und Kreativität.
+Im Sommer 2023 führte Acecore Schools einen Präsenz-Workshop zum Roboterbau für Grund- und Mittelschüler durch. Bei dieser zeitlich begrenzten Sommerveranstaltung konnten die Teilnehmenden Making erleben, indem sie Mechanismen zusammenbauten, anpassten und ihre Bewegungen prüften.
 
-## Veranstaltungsdetails
+## Durchführung im Sommer 2023
 
-- **Zielgruppe**: Grund- und Mittelschüler (jüngere Kinder auf Anfrage willkommen)
-- **Veranstaltungsort**: Sakuradai Gemeindezentrum (3. OG, Vortragsraum 2)
-- **Termine**: 20. Aug. (So), 27. Aug. (So)
+- **Zielgruppe**: Grund- und Mittelschüler (jüngere Kinder nach Absprache)
+- **Veranstaltungsort**: Sakuradai-Gemeindezentrum (3. OG, Vortragsraum 2)
+- **Termine**: 20. und 27. August 2023
 - **Uhrzeit**: Beginn jeweils um 14:00 Uhr (90 Minuten)
-- **Ablauf**: 45 Min. Zusammenbau + 45 Min. Anpassung & Test
-- **Gebühr**: ¥2.000 pro Person und Termin (Material inklusive)
+- **Ablauf**: 45 Minuten Zusammenbau + 45 Minuten Anpassung und Bewegungstest
+- **Gebühr**: 2.000 Yen pro Person und Termin (Material inklusive)
 - **Material**: Tamiya Fun Craft Serie (zum Mitnehmen)
-- **Kapazität**: 10 Teilnehmer pro Termin (Reservierung erforderlich)
-- Kann für **eigenständige Forschungsprojekte** genutzt werden!
+- **Kapazität**: 10 Teilnehmende pro Termin (Reservierung erforderlich)
+- Das fertige Werkstück konnte auch als **Sommer-Forschungsprojekt** genutzt werden.
 
-## Sonderangebot
+## Damaliges Angebot
 
-Bei Registrierung über LINE erhalten Sie einen Rabatt von ¥200.
+Damals erhielten Teilnehmende, die sich über LINE registrierten, einen Rabatt von 200 Yen.
 
-## Veranstaltungshöhepunkte
+## Eindrücke vom Workshop
 
-Während der Veranstaltung arbeiteten die Kinder mit konzentriertem Blick am Zusammenbau ihrer Roboter, und die Sitzungen wurden während der Anpassungs- und Testphasen richtig lebendig. Der Moment, in dem sich ein Roboter zu bewegen begann, löste Jubelrufe aus, die auch für das Personal ein Highlight waren.
+Die Teilnehmenden arbeiteten konzentriert am Zusammenbau ihrer Roboter und waren bei den Anpassungen und Bewegungstests besonders engagiert. Der Jubel, als sich ein Roboter zum ersten Mal bewegte, war auch für das Team ein besonderer Moment.
 
-Durch Erlebnisse wie diese möchten wir das Interesse am Bauen und Gestalten wecken und die Grundlagen des algorithmischen Denkens fördern.
+Durch das schrittweise Bauen, Anpassen und Testen konnten die Teilnehmenden die Funktionsweise der Mechanismen mit den eigenen Händen erkunden. Dies war kein Programmierkurs, sondern ein Making-Erlebnis rund um Mechanik und Bewegung von Robotern.
 
-![Praxiserfahrung vom Zusammenbau bis zur Anpassung mit der Tamiya Craft Serie](/uploads/acecore-generated/blog-robot-workshop-event.webp)
+![Praxiserfahrung vom Zusammenbau bis zur Anpassung mit der Tamiya Fun Craft Serie](/uploads/acecore-generated/blog-robot-workshop-event.webp)
 
-## Anfragen & Anmeldung
+## Aktuelle Informationen
 
-Für Fragen oder Anmeldungen zur Veranstaltung nutzen Sie bitte das [Kontaktformular](/contact/) oder die [offizielle LINE](https://lin.ee/DjIrdqj).
-Wenn Sie etwas direkt klären möchten, hinterlassen Sie zunächst eine kurze Zusammenfassung im Formular, damit wir gezielt antworten können.
-
-AceCore Schools plant, regelmäßig Veranstaltungen durchzuführen. Aktuelle Informationen finden Sie auf der [Schools-Seite](https://schools.acecore.net/de/) und im Blog.
+Die Anmeldung zu dieser Veranstaltung ist beendet. Die reguläre Lernbegleitung findet derzeit online statt. Präsenzangebote für Robotik und Making sind kein dauerhaftes Angebot; wenn eine weitere Durchführung geplant ist, informieren wir auf der [Schools-Seite](https://schools.acecore.net/) und in diesem Blog. Für allgemeine Lernberatungen nutzen Sie das [Kontaktformular](/de/contact/?category=service&service=education#contact-form) oder die [offizielle LINE](https://lin.ee/DjIrdqj).

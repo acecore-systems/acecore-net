@@ -47,7 +47,7 @@
     "close": "Cerrar chat de IA",
     "title": "Preguntar a la IA",
     "lead": "Respuestas breves basadas en este sitio.",
-    "greeting": "Puede preguntar sobre servicios de Acecore, proyectos de desarrollo o sitios web, escuelas y tiempos de respuesta. Para presupuestos detallados o consultas formales, le guiaré al formulario.",
+    "greeting": "Puede preguntar sobre servicios de Acecore, proyectos de desarrollo o sitios web, consultas de aprendizaje en Acecore Schools y tiempos de respuesta. Para presupuestos detallados o consultas formales, le guiaré al formulario.",
     "inputLabel": "Pregunta para el chat de IA",
     "placeholder": "Escriba su pregunta...",
     "send": "Enviar",
@@ -55,7 +55,7 @@
     "error": "El chat de IA no está disponible. Use el formulario de contacto o LINE.",
     "quickServices": "¿Qué servicio elegir?",
     "quickEstimate": "¿Cómo funcionan los presupuestos?",
-    "quickSchools": "Información sobre escuelas",
+    "quickSchools": "¿Qué puedo consultar con Acecore Schools?",
     "contactForm": "Formulario de contacto",
     "line": "LINE",
     "email": "Email",
@@ -217,8 +217,8 @@
         },
         {
           "title": "Escuela IT / Acecore Schools",
-          "description": "Tutoría personalizada para todas las edades: programación, apoyo académico y preparación de equivalencia.",
-          "href": "https://schools.acecore.net/es/",
+          "description": "Equivalencia de bachillerato, IT y programación, y uso de PC y smartphone. Organizamos el aprendizaje necesario a partir de tus objetivos y situación actual.",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "amber"
         },
@@ -259,13 +259,13 @@
         {
           "title": "Educación y mentoría",
           "description": "Transformamos el conocimiento práctico en apoyo al aprendizaje para comunidades y futuras generaciones.",
-          "href": "https://schools.acecore.net/es/",
+          "href": "https://schools.acecore.net/",
           "icon": "graduation-cap",
           "tone": "slate"
         }
       ],
       "aboutHeading": "Acerca de Acecore",
-      "aboutBody1": "Organizamos regularmente grupos de estudio y talleres, fomentando una comunidad de aprendizaje.",
+      "aboutBody1": "Aplicamos lo aprendido en la gestión de comunidades y en talleres realizados anteriormente al apoyo al aprendizaje y a la difusión de información.",
       "aboutBody2": "A través de la contribución al código abierto, la colaboración regional y las iniciativas de {link}, construimos alianzas.",
       "aboutEducationLink": "educación",
       "viewAbout": "Acerca de nosotros",
@@ -332,16 +332,16 @@
       "validationMessage": "Introduzca al menos 10 caracteres significativos",
       "faqTitle": "Preguntas frecuentes",
       "aiHeading": "También puede usar el chat de IA",
-      "aiLead": "Use el chat de IA en la esquina inferior derecha para servicios, desarrollo o sitios web, escuelas y tiempos de respuesta. Para consultas detalladas, puede continuar con el formulario.",
+      "aiLead": "Use el chat de IA en la esquina inferior derecha para servicios, desarrollo o sitios web, consultas de aprendizaje en Acecore Schools y tiempos de respuesta. Para consultas detalladas, puede continuar con el formulario.",
       "aiQuestionLabel": "Pregunta para la IA",
       "aiPlaceholder": "Ejemplo: Quiero consultar sobre un sitio web. ¿Por dónde empiezo?",
       "aiSubmit": "Abrir chat de IA",
       "aiLoading": "Preparando respuesta...",
       "aiError": "La respuesta de IA no está disponible. Use el formulario de contacto.",
       "lineHeading": "También puede usar LINE",
-      "lineLead": "Siga la cuenta oficial de LINE para recibir novedades. También sirve para consultas breves y mensajes sobre la escuela.",
+      "lineLead": "Siga la cuenta oficial de LINE para recibir novedades. También sirve para consultas breves y mensajes sobre Acecore Schools.",
       "lineCta": "Seguir en LINE",
-      "directMethodsNote": "Para consultas breves use LINE. Para confirmaciones simples en redes, X también está disponible. Las solicitudes detalladas se revisan mejor desde el formulario.",
+      "directMethodsNote": "Use LINE para consultas breves y mensajes sobre Acecore Schools. Para confirmaciones simples en redes, X también está disponible. Las solicitudes detalladas se revisan mejor desde el formulario.",
       "directContactSummary": "Si quiere contactarnos directamente",
       "directContactLead": "Abra esto si necesita añadir detalles después de enviar el formulario o confirmar algo directamente.",
       "faqs": [
@@ -355,7 +355,7 @@
         },
         {
           "question": "¿Puedo consultar sobre Acecore Schools aquí?",
-          "answer": "Sí. Indique qué desea aprender, edad o curso, y ritmo de aprendizaje preferido."
+          "answer": "Sí. Indique qué quiere conseguir mediante el aprendizaje, qué dificultades tiene ahora, su experiencia previa y los recursos disponibles, y cómo prefiere avanzar. Para aprendizaje escolar o equivalencia de bachillerato, incluya también el curso y la fecha prevista del examen."
         },
         {
           "question": "¿Cuánto tarda la respuesta?",
@@ -382,11 +382,11 @@
       "workshopImgAlt": "Escena de grupo de estudio y taller",
       "initiativesHeading": "Actividades e iniciativas",
       "communityTitle": "Actividades comunitarias",
-      "communityDesc": "Bajo los temas de conexión, descubrimiento y co-creación, organizamos regularmente grupos de estudio técnico y talleres. Ofrecemos un espacio donde los participantes se inspiran mutuamente y nacen nuevas ideas. Los informes de actividad también se comparten en nuestro blog.",
+      "communityDesc": "A través de la gestión de comunidades como Aceserver y del registro de talleres ya realizados, cultivamos espacios donde la tecnología conecta a las personas. Cuando haya nuevas iniciativas, las anunciaremos en nuestro blog y en redes sociales.",
       "ossTitle": "Contribuciones al código abierto",
       "ossDesc": "Promovemos activamente el uso del software de código abierto y la contribución a la comunidad tecnológica. Algunas herramientas y bibliotecas desarrolladas internamente están publicadas en GitHub.",
       "regionalTitle": "Colaboración regional",
-      "regionalDesc": "Colaboramos con instituciones educativas y empresas locales para promover la adopción de IT y el desarrollo de talento digital. La enseñanza en Acecore Schools es parte de este esfuerzo.",
+      "regionalDesc": "Atendemos consultas sobre el uso de IT, el aprendizaje digital y las iniciativas conjuntas en la educación y los negocios locales. El apoyo al aprendizaje de Acecore Schools forma parte de estas iniciativas.",
       "partnershipTitle": "Alianzas",
       "partnershipDesc": "Damos la bienvenida a colaboraciones en proyectos y alianzas comerciales. Podemos cooperar en campos amplios como tecnología, diseño y educación.",
       "relatedLinksHeading": "Enlaces relacionados",
@@ -421,9 +421,9 @@
         }
       ],
       "activities": [
-        "Grupos de estudio y talleres regulares",
+        "Gestión de comunidades y experiencia en talleres anteriores",
         "Publicación y contribución a código abierto",
-        "Enseñanza colaborativa con instituciones educativas regionales",
+        "Consultas sobre educación y uso de IT en la comunidad local",
         "Proyectos de co-creación con socios externos",
         "Gestión de la comunidad Aceserver"
       ],
@@ -531,15 +531,14 @@
       },
       "education": {
         "title": "Escuela IT / Acecore Schools",
-        "desc": "Una escuela donde ingenieros en activo enseñan directamente habilidades IT prácticas. Ofrecemos programas educativos personalizados: tutoría, programación con robots, programación práctica, clases de PC/smartphone y preparación para equivalencia de bachillerato.",
-        "coursesLabel": "Lista de cursos",
+        "desc": "Una escuela que organiza el aprendizaje de equivalencia de bachillerato y las decisiones posteriores, IT y programación, uso de PC y smartphone, y robótica y creación, según los objetivos y la situación actual de cada persona. En lugar de encajar a todos en cursos fijos, aclaramos qué necesitan aprender y lo conectamos con la práctica. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo. El acompañamiento habitual se ofrece actualmente en línea. La robótica y la creación se tratan por separado de la programación; el contenido y las fechas se consultan según cada caso.",
+        "coursesLabel": "Áreas de aprendizaje para consultar",
         "detailLink": "Ver detalles de Acecore Schools",
         "courses": [
-          "Tutoría (individual, preparación de exámenes)",
-          "Robot/Programación (construcción de robots y programación con Minecraft)",
-          "Programación Práctica (desarrollo web, backend, bases de datos)",
-          "PC/Smartphone (operación básica, ofimática, seguridad)",
-          "Equivalencia de Bachillerato (preparación y planes de estudio)"
+          "Equivalencia de bachillerato y decisiones posteriores (preparación de exámenes, plan de aprendizaje y orientación sobre los siguientes pasos)",
+          "IT y programación (creación web, desarrollo de herramientas y publicación)",
+          "Uso de PC y smartphone (funciones básicas, Office, servicios en línea y seguridad)",
+          "Robótica / creación (mecánica, electrónica y control; formato y fechas a consultar)"
         ]
       },
       "aceserver": {
@@ -707,8 +706,8 @@
       "serviceTitle": "Costes estimados por servicio",
       "serviceBody": "Podemos ayudar desde una primera prueba pequeña hasta producción, desarrollo y operación combinados.",
       "detailLink": "Ver detalles",
-      "schoolsFeeTitle": "Desglose de costes de Schools",
-      "schoolsFeeBody": "Además de la mensualidad, mostramos rangos de matrícula, materiales y gestión para facilitar la evaluación.",
+      "schoolsFeeTitle": "Tarifas orientativas de Acecore Schools",
+      "schoolsFeeBody": "El apoyo habitual al aprendizaje se ofrece actualmente en línea. Las tarifas varían según el objetivo, el contenido, el número de sesiones y los materiales y el entorno utilizados, por lo que estos importes se muestran como orientación previa a la consulta.",
       "feeItem": "Concepto",
       "feeAmount": "Estimación",
       "feeNote": "Nota",
@@ -822,8 +821,8 @@
           "icon": "graduation-cap",
           "title": "Acecore Schools",
           "price": "¥8.000-¥33.000/mes",
-          "body": "Publicamos rangos de matrícula, mensualidad, materiales y gestión. Varían por curso, frecuencia, materiales y contenido.",
-          "href": "https://schools.acecore.net/es/#pricing"
+          "body": "Publicamos rangos orientativos de matrícula, mensualidad, materiales y gestión. Los costes varían según el objetivo, el contenido, el número de sesiones y los materiales y el entorno utilizados.",
+          "href": "https://schools.acecore.net/#consultation"
         },
         {
           "icon": "clapperboard",
@@ -844,17 +843,17 @@
         {
           "item": "Matrícula",
           "amount": "¥11.000-¥22.000",
-          "note": "Solo al inicio. Varía según curso y programa."
+          "note": "Se abona una sola vez. Varía según el apoyo previsto y la preparación necesaria."
         },
         {
           "item": "Mensualidad",
           "amount": "¥8.000-¥33.000",
-          "note": "Depende de frecuencia, duración de clase y contenido individual."
+          "note": "Varía según el número y la duración de las sesiones, el contenido del apoyo y la forma de avanzar."
         },
         {
           "item": "Materiales y gestión",
           "amount": "aprox. ¥5.000-¥30.000",
-          "note": "Materiales, piezas de robótica, PC o licencias pueden generar costes reales según el contenido."
+          "note": "Según el contenido, pueden aplicarse costes reales de materiales didácticos, piezas de robótica, equipos informáticos o licencias."
         }
       ],
       "factors": [

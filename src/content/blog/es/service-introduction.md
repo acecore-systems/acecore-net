@@ -2,6 +2,7 @@
 title: 'Servicios de Acecore: soporte IT para web, servidores, diseño y educación'
 description: 'Resumen de los servicios de Acecore en operación de servidores, producción web, diseño y educación IT.'
 date: 2026-03-10T00:00
+lastUpdated: 2026-07-27T00:00
 author: gui
 tags: ['サービス', 'Web制作', '教育']
 callout:
@@ -14,15 +15,15 @@ checklist:
     - text: Configuración y operación de servidores
     - text: Producción y mantenimiento de sitios web
     - text: Diseño y materiales creativos
-    - text: Clases de robótica y programación
-    - text: Talleres IT y eventos comunitarios
+    - text: Apoyo al aprendizaje organizado a partir del objetivo
+    - text: Gestión de comunidades y experiencia en talleres anteriores
 faq:
   title: Preguntas frecuentes
   items:
     - question: ¿Por dónde conviene empezar una consulta?
       answer: Primero organizamos el objetivo y las restricciones actuales, y luego decidimos si empezar por servidores, web, diseño o educación.
     - question: ¿Acecore acepta solicitudes pequeñas?
-      answer: Sí. Podemos empezar con mejoras concretas de un sitio, revisión de operación, eventos de aprendizaje o ajustes de CMS.
+      answer: Sí. Podemos empezar por el alcance necesario, como mejoras concretas de un sitio, revisión de la operación de servidores, apoyo al aprendizaje o eventos.
 ---
 
 Acecore apoya el uso práctico de IT para empresas y comunidades locales mediante operación de servidores, producción web, diseño y educación. No nos centramos solo en publicar algo nuevo, sino también en mantenerlo y mejorarlo después del lanzamiento.
@@ -53,9 +54,11 @@ Al conectar diseño y producción web, mantenemos coherencia entre sitio, redes 
 
 ## 4. Escuela IT / Acecore Schools
 
-Acecore Schools ofrece oportunidades de aprendizaje para que niños y niñas desarrollen la capacidad de pensar, probar y expresar ideas mediante programación robótica, Scratch y actividades relacionadas.
+En lugar de elegir primero el nombre de una titulación o un curso predefinido, Acecore Schools organiza el aprendizaje necesario a partir de lo que cada persona quiere conseguir y de su situación actual. Apoyamos la equivalencia de bachillerato y la planificación de los siguientes pasos, IT y programación, y el uso de PC y smartphone con vistas a aplicarlo en situaciones reales. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo.
 
-En clases y talleres valoramos la experimentación. No se trata solo de copiar un resultado, sino de entender cómo funciona y mejorar las propias ideas.
+El acompañamiento habitual se realiza actualmente en línea. La robótica y la creación no se tratan como el mismo curso que la programación, sino como un área independiente para explorar de forma práctica la mecánica, la electrónica y el control. En el pasado también hemos realizado talleres presenciales limitados al verano.
+
+Los temas que se pueden consultar y la forma de avanzar se explican en la [página de Schools](https://schools.acecore.net/).
 
 ## Lo que valora Acecore
 
@@ -65,3 +68,5 @@ Acecore trata la producción, la operación y la educación como trabajos conect
 - Equilibrio entre tecnología y experiencia de usuario
 - Inicio pequeño y fácil de mejorar
 - Apoyo práctico para empresas, estudiantes y comunidades
+
+Para mejorar un sitio web, revisar la operación de servidores o preparar apoyo al aprendizaje o un evento, podemos partir de la situación actual y organizar el siguiente paso.

@@ -1,10 +1,9 @@
-import { defaultLocale, type Locale } from '../i18n'
+import type { Locale } from '../i18n'
 
 export const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
 
-export function getSchoolsUrl(locale: Locale, hash = '') {
-  const localePath = locale === defaultLocale ? '/' : `/${locale}/`
+export function getSchoolsUrl(_locale: Locale, hash = '') {
   const normalizedHash = hash ? (hash.startsWith('#') ? hash : `#${hash}`) : ''
 
-  return `${SCHOOLS_ORIGIN}${localePath}${normalizedHash}`
+  return `${SCHOOLS_ORIGIN}/${normalizedHash}`
 }
