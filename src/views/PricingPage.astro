@@ -6,11 +6,7 @@ import Icon from '../components/Icon.astro'
 import { SITE } from '../data/site'
 import { optimizeImage } from '../utils/image'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import {
-  getSchoolsUrl,
-  isSchoolsSupportedLocale,
-  SCHOOLS_ORIGIN,
-} from '../utils/schools-url'
+import { getSchoolsUrl, SCHOOLS_ORIGIN } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -32,15 +28,16 @@ interface SchoolFee {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
+const schoolsDetailsAvailable = locale === 'ja'
+const schoolsLanguageNote =
+  locale === 'ja' ? '' : t(locale, 'common.schoolsJapaneseOnly')
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
 const resolvePricingHref = (href: string) => {
   const normalizedHref = href.trim()
   if (normalizedHref.startsWith(SCHOOLS_ORIGIN)) {
-    const currentHash = new URL(normalizedHref).hash
-    return getSchoolsUrl(locale, currentHash)
+    return getSchoolsUrl(locale, '#pricing')
   }
 
   if (
@@ -57,14 +54,18 @@ const isExternalHref = (href: string) => /^https?:\/\//i.test(href)
 const isBlogPricingHref = (href: string) => href.includes('/blog/')
 const isWebPricingHref = (href: string) => href.includes('/services/#web')
 
-const pricingItems = getList<PricingItem>('pages.pricing.items')
-  .filter(
-    (item) => schoolsAvailable || !item.href.trim().startsWith(SCHOOLS_ORIGIN),
-  )
-  .map((item) => ({
+const pricingItems = getList<PricingItem>('pages.pricing.items').map((item) => {
+  const schoolsLink = item.href.trim().startsWith(SCHOOLS_ORIGIN)
+
+  return {
     ...item,
+    body:
+      schoolsLink && schoolsLanguageNote
+        ? `${item.body} ${schoolsLanguageNote}`
+        : item.body,
     href: resolvePricingHref(item.href),
-  }))
+  }
+})
 const webBasePricingItem = pricingItems.find((item) =>
   isWebPricingHref(item.href),
 )
@@ -328,7 +329,7 @@ const pricingLd = {
       }
 
       {
-        schoolsAvailable && (
+        schoolsDetailsAvailable && (
           <div id="schools" class="mt-14 scroll-mt-24">
             <div class="mb-6">
               <h2 class="mb-3 text-2xl ac-heading">
@@ -438,24 +439,20 @@ const pricingLd = {
           >
             {t(locale, 'pages.pricing.ctaServices')}
           </a>
-          {
-            schoolsAvailable && (
-              <a
-                href={schoolsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="ac-btn-outline gap-2"
-                data-ga-event="external_link_click"
-                data-ga-label="pricing_schools"
-                data-ga-location="pricing_footer"
-                data-ga-destination={schoolsUrl}
-              >
-                {t(locale, 'pages.pricing.ctaSchools')}
-                <Icon name="external-link" class="text-sm" />
-                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-              </a>
-            )
-          }
+          <a
+            href={schoolsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline gap-2"
+            data-ga-event="external_link_click"
+            data-ga-label="pricing_schools"
+            data-ga-location="pricing_footer"
+            data-ga-destination={schoolsUrl}
+          >
+            {t(locale, 'pages.pricing.ctaSchools')}
+            <Icon name="external-link" class="text-sm" />
+            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+          </a>
         </div>
       </div>
     </div>

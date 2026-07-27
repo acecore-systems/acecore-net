@@ -25,11 +25,7 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import {
-  getSchoolsUrl,
-  isSchoolsSupportedLocale,
-  SCHOOLS_ORIGIN,
-} from '../utils/schools-url'
+import { getSchoolsUrl, SCHOOLS_ORIGIN } from '../utils/schools-url'
 import {
   getAllAuthors,
   findAuthorById,
@@ -57,8 +53,9 @@ type HeroImage = {
 }
 
 const { locale } = Astro.props
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const u = (path: string) => getLocalizedUrl(path, locale)
+const schoolsLanguageNote =
+  locale === 'ja' ? '' : t(locale, 'common.schoolsJapaneseOnly')
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 const resolveCardHref = (href: string) => {
@@ -68,6 +65,18 @@ const resolveCardHref = (href: string) => {
   }
 
   return href.startsWith('http') ? href : u(href)
+}
+const resolveHomeLayer = (item: HomeLayer): HomeLayer => {
+  const schoolsLink = item.href.startsWith(SCHOOLS_ORIGIN)
+
+  return {
+    ...item,
+    description:
+      schoolsLink && schoolsLanguageNote
+        ? `${item.description} ${schoolsLanguageNote}`
+        : item.description,
+    href: resolveCardHref(item.href),
+  }
 }
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
@@ -90,18 +99,17 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const serviceCards = getList<HomeLayer>('pages.home.serviceCards')
-  .filter((item) => schoolsAvailable || !item.href.startsWith(SCHOOLS_ORIGIN))
-  .map((item) => ({ ...item, href: resolveCardHref(item.href) }))
-const coreLayers = getList<HomeLayer>('pages.home.layerItems')
-  .filter((item) => schoolsAvailable || !item.href.startsWith(SCHOOLS_ORIGIN))
-  .map((item) => ({
-    ...item,
-    href: resolveCardHref(item.href),
-  }))
-const aboutEducationReference = schoolsAvailable
-  ? `<a href="${getSchoolsUrl(locale)}" class="text-white underline underline-offset-2 hover:text-brand-100">${t(locale, 'pages.home.aboutEducationLink')}</a>`
-  : `<span>${t(locale, 'pages.home.aboutEducationLink')}</span>`
+const serviceCards = getList<HomeLayer>('pages.home.serviceCards').map(
+  resolveHomeLayer,
+)
+const coreLayers = getList<HomeLayer>('pages.home.layerItems').map(
+  resolveHomeLayer,
+)
+const aboutEducationLinkLabel =
+  locale === 'ja'
+    ? t(locale, 'pages.home.aboutEducationLink')
+    : `${t(locale, 'pages.home.aboutEducationLink')} (JA)`
+const aboutEducationReference = `<a href="${getSchoolsUrl(locale)}" class="text-white underline underline-offset-2 hover:text-brand-100">${aboutEducationLinkLabel}</a>`
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(

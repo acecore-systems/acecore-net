@@ -10,7 +10,7 @@ import Timeline from '../components/Timeline.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl, isSchoolsSupportedLocale } from '../utils/schools-url'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -18,7 +18,9 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
+const schoolsConsultationAvailable = locale === 'ja'
+const schoolsLanguageNote =
+  locale === 'ja' ? '' : t(locale, 'common.schoolsJapaneseOnly')
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
@@ -57,17 +59,18 @@ const serviceMap = [
     href: u('/services/#web'),
     tone: 'amber',
   },
-  ...(schoolsAvailable
-    ? ([
-        {
-          title: t(locale, 'pages.services.mapEducationTitle'),
-          description: t(locale, 'pages.services.mapEducationDesc'),
-          icon: 'graduation-cap',
-          href: getSchoolsUrl(locale),
-          tone: 'slate',
-        },
-      ] as const)
-    : []),
+  {
+    title: t(locale, 'pages.services.mapEducationTitle'),
+    description: [
+      t(locale, 'pages.services.mapEducationDesc'),
+      schoolsLanguageNote,
+    ]
+      .filter(Boolean)
+      .join(' '),
+    icon: 'graduation-cap',
+    href: getSchoolsUrl(locale),
+    tone: 'slate',
+  },
 ] as const
 
 const deliveryTimeline = getList<TimelineItem>('pages.services.timeline')
@@ -111,17 +114,18 @@ const serviceLd = {
       provider: { '@id': organizationId },
       url: 'https://acecore.net/services/#design',
     },
-    ...(schoolsAvailable
-      ? [
-          {
-            '@type': 'Service',
-            name: t(locale, 'pages.services.education.title'),
-            description: t(locale, 'pages.services.education.desc'),
-            provider: { '@id': organizationId },
-            url: getSchoolsUrl(locale),
-          },
-        ]
-      : []),
+    {
+      '@type': 'Service',
+      name: t(locale, 'pages.services.education.title'),
+      description: [
+        t(locale, 'pages.services.education.desc'),
+        schoolsLanguageNote,
+      ]
+        .filter(Boolean)
+        .join(' '),
+      provider: { '@id': organizationId },
+      url: getSchoolsUrl(locale),
+    },
   ],
 }
 ---
@@ -182,13 +186,9 @@ const serviceLd = {
         <a href="#design" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navDesign')}</a
         >
-        {
-          schoolsAvailable && (
-            <a href="#education" class="ac-chip text-sm">
-              {t(locale, 'pages.services.navEducation')}
-            </a>
-          )
-        }
+        <a href="#education" class="ac-chip text-sm">
+          {t(locale, 'pages.services.navEducation')}
+        </a>
         <a href="#aceserver" class="ac-chip text-sm"
           >{t(locale, 'pages.services.navAceserver')}</a
         >
@@ -410,51 +410,60 @@ const serviceLd = {
       </div>
 
       <!-- Education -->
-      {
-        schoolsAvailable && (
-          <div class="mb-16" id="education">
-            <div class="mb-4 flex items-center gap-3">
-              <span class="ac-icon-box">
-                <Icon name="graduation-cap" class="text-xl" />
-              </span>
-              <h2 class="text-2xl ac-heading">
-                {t(locale, 'pages.services.education.title')}
-              </h2>
-            </div>
-            <p class="text-slate-600 leading-relaxed mb-4">
-              {t(locale, 'pages.services.education.desc')}
+      <div class="mb-16" id="education">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="ac-icon-box">
+            <Icon name="graduation-cap" class="text-xl" />
+          </span>
+          <h2 class="text-2xl ac-heading">
+            {t(locale, 'pages.services.education.title')}
+          </h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.services.education.desc')}
+        </p>
+        {
+          schoolsLanguageNote && (
+            <p class="mb-4 text-sm font-700 text-brand-700">
+              {schoolsLanguageNote}
             </p>
-            <div class="ac-surface bg-slate-50 p-6">
-              <h3 class="font-600 text-sm text-slate-900 mb-3">
-                {t(locale, 'pages.services.education.coursesLabel')}
-              </h3>
-              <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-                {educationCourses.map((course) => (
-                  <li class="flex items-center gap-2">
-                    <Icon name="check" class="text-brand-500 shrink-0" />
-                    {course}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="mt-4">
-              <a
-                href={getSchoolsUrl(locale)}
-                class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-              >
-                <Icon name="arrow-right" class="text-sm" />
-                {t(locale, 'pages.services.education.detailLink')}
-              </a>
-            </div>
+          )
+        }
+        <div class="ac-surface bg-slate-50 p-6">
+          <h3 class="font-600 text-sm text-slate-900 mb-3">
+            {t(locale, 'pages.services.education.coursesLabel')}
+          </h3>
+          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
+            {
+              educationCourses.map((course) => (
+                <li class="flex items-center gap-2">
+                  <Icon name="check" class="text-brand-500 shrink-0" />
+                  {course}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <a
+            href={getSchoolsUrl(locale)}
+            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
+          >
+            <Icon name="arrow-right" class="text-sm" />
+            {t(locale, 'pages.services.education.detailLink')}
+          </a>
+        </div>
+        {
+          schoolsConsultationAvailable && (
             <ServiceSectionActions
               locale={locale}
               gaLabel="service_education_contact"
               gaLocation="services_education"
               serviceKey="education"
             />
-          </div>
-        )
-      }
+          )
+        }
+      </div>
 
       <!-- Aceserver -->
       <div class="mb-16" id="aceserver">
@@ -591,13 +600,9 @@ const serviceLd = {
           <a href={u('/contact/')} class="ac-btn-primary"
             >{t(locale, 'pages.services.ctaContact')}</a
           >
-          {
-            schoolsAvailable && (
-              <a href={getSchoolsUrl(locale)} class="ac-btn-outline">
-                {t(locale, 'pages.services.ctaSchools')}
-              </a>
-            )
-          }
+          <a href={getSchoolsUrl(locale)} class="ac-btn-outline">
+            {t(locale, 'pages.services.ctaSchools')}
+          </a>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
 import { SITE } from '../data/site'
-import { getSchoolsUrl, isSchoolsSupportedLocale } from '../utils/schools-url'
+import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
@@ -14,7 +14,6 @@ interface Props {
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const languageSwitcherPath = Astro.props.languageSwitcherPath
 const languageSwitcherUrls = Astro.props.languageSwitcherUrls
-const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const navLinks = [
   { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
   {
@@ -25,14 +24,10 @@ const navLinks = [
     href: getLocalizedUrl('/pricing/', locale),
     label: t(locale, 'nav.pricing'),
   },
-  ...(schoolsAvailable
-    ? [
-        {
-          href: getSchoolsUrl(locale),
-          label: 'Schools',
-        },
-      ]
-    : []),
+  {
+    href: getSchoolsUrl(locale),
+    label: locale === 'ja' ? 'Schools' : 'Schools (JA)',
+  },
   {
     href: SITE.social.systems,
     label: 'Systems',
