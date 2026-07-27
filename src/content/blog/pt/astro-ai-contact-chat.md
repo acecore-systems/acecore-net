@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and Acecore Schools inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -204,13 +204,13 @@ Um erro comum é a IA tentar ajudar demais e prometer demais. Preços, prazos e 
 
 ## Separe as rotas de contato
 
-| Rota           | Papel                                                         |
-| -------------- | ------------------------------------------------------------- |
-| FAQ            | Resolver dúvidas comuns na própria página                     |
-| Chat de IA     | Organizar serviços, rotas de contato e páginas relacionadas   |
-| LINE           | Perguntas curtas, contatos sobre Schools e confirmações leves |
-| Formulário     | Orçamentos, produção, parcerias e recrutamento                |
-| Contato direto | Complemento após formulário ou confirmação urgente            |
+| Rota           | Papel                                                       |
+| -------------- | ----------------------------------------------------------- |
+| FAQ            | Resolver dúvidas comuns na própria página                   |
+| Chat de IA     | Organizar serviços, rotas de contato e páginas relacionadas |
+| LINE           | Perguntas curtas e confirmações leves                       |
+| Formulário     | Orçamentos, produção, parcerias e recrutamento              |
+| Contato direto | Complemento após formulário ou confirmação urgente          |
 
 A IA conecta conteúdos gerais como [introdução de serviços](/services/) às rotas da [página de contato](/contact/). O padrão funciona para B2B, agências, escolas e suporte SaaS.
 

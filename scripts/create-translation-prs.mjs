@@ -18,6 +18,8 @@ const ZERO_SHA = '0000000000000000000000000000000000000000'
 const COPILOT_API_BASE = 'https://api.githubcopilot.com'
 const COPILOT_API_VERSION = '2026-01-09'
 const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
+const SCHOOLS_TRANSLATION_POLICY =
+  'Acecore Schools is available only in Japanese. When source text describes or promotes Schools, do not present its learning support, website, enrollment guidance, consultation, pricing, or LINE route as available in the target language. Replace service-detail passages with a concise localized note that Schools is available only in Japanese; factual historical mentions may remain.'
 const PAGE_TRANSLATION_KEYS = {
   'about.json': 'about',
   'acestudio.json': 'acestudio',
@@ -304,6 +306,14 @@ function splitMarkdownDocument(source) {
   }
 }
 
+function isBlogTranslationDisabled(source) {
+  const { frontmatter } = splitMarkdownDocument(source)
+  return (
+    typeof frontmatter === 'string' &&
+    /^translation:\s*false\s*(?:#.*)?$/imu.test(frontmatter)
+  )
+}
+
 function truncateForPrompt(value, maxLength = 12000) {
   if (!value || value.length <= maxLength) return value || ''
   return `${value.slice(0, maxLength)}\n\n[diff truncated: ${value.length - maxLength} characters omitted]`
@@ -333,15 +343,30 @@ function getChangedBlogPost(entry, baseSha, headSha) {
     return entry
   }
 
-  const before = splitMarkdownDocument(readTextAtRef(baseSha, entry.path))
-  const after = splitMarkdownDocument(
-    readTextAtRef(headSha === 'HEAD' ? 'WORKTREE' : headSha, entry.path),
+  const beforeSource = readTextAtRef(baseSha, entry.path)
+  const afterSource = readTextAtRef(
+    headSha === 'HEAD' ? 'WORKTREE' : headSha,
+    entry.path,
   )
+  const before = splitMarkdownDocument(beforeSource)
+  const after = splitMarkdownDocument(afterSource)
 
-  return before.body !== after.body ? entry : null
+  return before.body !== after.body ||
+    (isBlogTranslationDisabled(beforeSource) &&
+      !isBlogTranslationDisabled(afterSource))
+    ? entry
+    : null
 }
 
 function getChangedBlogPostTask(entry, baseSha, headSha) {
+  if (entry.status !== 'D') {
+    const currentSource = readTextAtRef(
+      headSha === 'HEAD' ? 'WORKTREE' : headSha,
+      entry.path,
+    )
+    if (isBlogTranslationDisabled(currentSource)) return null
+  }
+
   const changedEntry = getChangedBlogPost(entry, baseSha, headSha)
   if (!changedEntry) return null
 
@@ -752,12 +777,14 @@ function buildCopilotInstructions(taskKind) {
       `Use all JSON files under ${SITE_TRANSLATION_SOURCE_DIR}/, including nested page files, as the canonical Japanese source.`,
       'Modify only src/i18n/translations/{locale}.json files for the requested target locales.',
       'Keep Japanese source fields unchanged.',
+      SCHOOLS_TRANSLATION_POLICY,
     ]
   }
 
   return [
     'Translate the Japanese source article described below into all requested locales.',
     'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
+    SCHOOLS_TRANSLATION_POLICY,
   ]
 }
 

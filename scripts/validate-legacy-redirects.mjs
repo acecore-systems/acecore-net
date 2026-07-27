@@ -30,6 +30,38 @@ const legacyCases = [
   ['/i/ロボット-プログラミング-1c6e_F76wL2/', 'https://schools.acecore.net/'],
   ['/i/パソコン-スマホ-qPJx0yQo_gH/', 'https://schools.acecore.net/'],
   [
+    '/en/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/zh-cn/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/es/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/pt/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/fr/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/ko/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/de/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
+    '/ru/blog/robot-workshop-event/',
+    'https://acecore.net/blog/robot-workshop-event/',
+  ],
+  [
     '/i/夏休みロボット工作体験イベントのご案内-bQ_RjzRutHu/',
     'https://acecore.net/blog/robot-workshop-event/',
   ],

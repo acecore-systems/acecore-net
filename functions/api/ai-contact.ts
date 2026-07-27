@@ -310,17 +310,36 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
 function buildAcecoreContext(locale: SupportedLocale): string {
   const settings = LOCALE_SETTINGS[locale]
   const servicesPath = localizedPath('/services/', locale)
+  const schoolsContext =
+    locale === 'ja'
+      ? `- Acecore Schools supports purpose-led learning for high school equivalency and next-step planning, IT and programming, and practical PC and smartphone use. School study and exam preparation can also be discussed according to the learner's goal. Robotics and making are handled separately from programming, with the delivery method and timing discussed case by case. Regular learning support is currently provided online.
+- For Schools consultations, visitors should include what they want to achieve, their current situation or experience, and their preferred learning pace. Age or grade is only useful when relevant to school study or an exam.`
+      : `- Acecore Schools is provided only in Japanese. Its website, learning support, enrollment guidance, and consultation are not available in ${settings.languageName}.
+- If a visitor asks about Acecore Schools, state only that it is a Japanese-language service. Do not provide Schools pricing, learning-area, consultation, enrollment, or LINE links.`
+  const schoolsLinks =
+    locale === 'ja'
+      ? `  - Acecore Schools fee guide: ${localizedPath('/pricing/', locale)}#schools
+  - Acecore Schools learning areas: ${localizedSchoolsPath(locale)}#areas
+  - Acecore Schools consultation: ${localizedSchoolsPath(locale)}#consultation`
+      : ''
+  const lineContext =
+    locale === 'ja'
+      ? 'LINE is available for short consultations and Acecore Schools-related messages.'
+      : 'LINE is available for short, general service questions, but not as a consultation route for Acecore Schools.'
+  const escalationContext =
+    locale === 'ja'
+      ? 'If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first.'
+      : 'If a non-Schools question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first. For Schools questions, only state that the service is available in Japanese and do not provide a contact route.'
 
   return `
 Acecore public site context:
-- Acecore is a Japan-based technology collective that provides website design, server operations, design, and IT education as a one-stop solution.
-- Services include server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
+- Acecore is a Japan-based technology collective that provides website design, server operations, design, and Japanese-language IT education as a one-stop solution.
+- Services include server setup and operations, website design and maintenance, design and creative production, and Japanese-language IT education through Acecore Schools.
 - Business systems, web apps, CMS features, AI chat, forms, search, and integrations are handled on the separate Acecore Systems site.
-- Acecore Schools supports purpose-led learning for high school equivalency and next-step planning, IT and programming, and practical PC and smartphone use. School study and exam preparation can also be discussed according to the learner's goal. Robotics and making are handled separately from programming, with the delivery method and timing discussed case by case. Regular learning support is currently provided online.
-- For Schools consultations, visitors should include what they want to achieve, their current situation or experience, and their preferred learning pace. Age or grade is only useful when relevant to school study or an exam.
+${schoolsContext}
 - Aceserver is Acecore's public Minecraft server community.
 - Estimates are free, and replies usually arrive within 1-2 business days.
-- LINE is available for short consultations and Acecore Schools-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
+- ${lineContext} The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
 - Useful site links for the visitor locale. Use these exact URLs:
   - Services overview: ${servicesPath}
   - Acecore Systems: ${SYSTEMS_ORIGIN}/
@@ -330,9 +349,7 @@ Acecore public site context:
   - Server setup and operations: ${servicesPath}#server
   - Website design and maintenance: ${servicesPath}#web
   - Design and creative production: ${servicesPath}#design
-  - Acecore Schools fee guide: ${localizedPath('/pricing/', locale)}#schools
-  - Acecore Schools learning areas: ${localizedSchoolsPath(locale)}#areas
-  - Acecore Schools consultation: ${localizedSchoolsPath(locale)}#consultation
+${schoolsLinks}
   - Aceserver: ${servicesPath}#aceserver
   - AceStudio: ${localizedPath('/acestudio/', locale)}
   - Blog: ${localizedPath('/blog/', locale)}
@@ -345,7 +362,7 @@ Acecore public site context:
   - LINE: ${settings.lineLabel}
   - Email: ${settings.emailLabel}
   - Phone: ${settings.phoneLabel}
-- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first.
+- Answer using only public site context. ${escalationContext}
 - Do not show email or phone by default. Include direct email or phone links only when the visitor asks for direct contact, says the AI did not resolve the issue, cannot use the form, or needs urgent confirmation.
 `
 }
@@ -430,10 +447,14 @@ export const onRequestPost = async ({
               'Answer ordinary questions about Acecore using the public site context below.',
               'Keep answers concise, practical, and helpful for choosing the next action.',
               'Use the localized Acecore paths and external Acecore service URLs listed in the context exactly. Do not replace localized paths with default-language URLs.',
-              'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
+              locale === 'ja'
+                ? 'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, schools, works, contact options, or next steps. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.'
+                : 'Use simple Markdown when it improves readability: short paragraphs, bullet lists, and **bold** for important service names. When a relevant Acecore page or contact path exists, make the first useful mention a Markdown link using the URLs in the context. Include links in answers about service selection, estimates, works, contact options, or next steps. For Acecore Schools, state that it is available only in Japanese and do not provide Schools, pricing, consultation, enrollment, or LINE links. Do not link every repeated mention. Do not use raw HTML or tables. Prefer bullet lists over long arrow chains.',
               'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
               'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-              `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and Acecore Schools-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
+              locale === 'ja'
+                ? `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and Acecore Schools-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`
+                : `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} only for short, general service questions. Do not offer ${localeSettings.lineLabel}, the contact form, direct contact, or enrollment guidance for Acecore Schools in this language; state that Schools is available only in Japanese. If a non-Schools conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
               buildAcecoreContext(locale),
             ].join('\n'),
           },

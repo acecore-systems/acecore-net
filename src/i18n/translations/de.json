@@ -47,7 +47,7 @@
     "close": "KI-Chat schließen",
     "title": "KI fragen",
     "lead": "Kurze Antworten auf Basis dieser Website.",
-    "greeting": "Sie können nach Acecore-Services, Entwicklung und Website-Projekten, Lernberatungen bei Acecore Schools und Antwortzeiten fragen. Für detaillierte Angebote oder formale Beratung leite ich Sie zum Formular weiter.",
+    "greeting": "Sie können nach Acecore-Services, Entwicklung und Website-Projekten sowie Antwortzeiten fragen. Für detaillierte Angebote oder formale Beratung leite ich Sie zum Formular weiter.",
     "inputLabel": "Frage an den KI-Chat",
     "placeholder": "Frage eingeben...",
     "send": "Senden",
@@ -132,7 +132,7 @@
     "searchFallbackServiceList": "→ Dienste anzeigen",
     "searchFallbackContact": "→ Kontaktieren Sie uns",
     "blogCtaHeading": "Möchten Sie mehr über unsere Dienste erfahren?",
-    "blogCtaBody": "Wir bieten umfassende Unterstützung, einschließlich Webdesign, Grafikdesign und IT-Bildung.",
+    "blogCtaBody": "Wir bieten umfassende Unterstützung für Systementwicklung, Webdesign, Serverbetrieb und Grafikdesign.",
     "blogCtaServices": "Dienste anzeigen",
     "blogCtaContact": "Kostenlose Beratung",
     "rssTitle": "Acecore Blog",
@@ -185,15 +185,15 @@
     "tagListTitle": "Tag-Liste"
   },
   "meta": {
-    "siteTitle": "Acecore | Systementwicklung, Webdesign & IT-Bildung",
-    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als Komplettlösung anbietet.",
+    "siteTitle": "Acecore | Systementwicklung, Webdesign & Serverbetrieb",
+    "defaultDescription": "Acecore ist ein Technologie-Kollektiv, das Systementwicklung, Webdesign, Serverbetrieb und Design als integrierte Unterstützung anbietet.",
     "shortTitleContext": "Offizielle Website",
     "shortDescriptionContext": "Entdecken Sie weitere Informationen zu Technologie, Aktivitäten und Diensten von Acecore."
   },
   "pages": {
     "home": {
       "heroTitle": "Verbunden durch Technologie,\nerweitert durch Kreativität",
-      "heroSubtitle": "Von Systementwicklung über Betrieb bis hin zu Design und Bildung — ein integrierter Service von einem Technologiekollektiv",
+      "heroSubtitle": "Von Systementwicklung über Betrieb bis hin zu Design — ein integrierter Service von einem Technologiekollektiv",
       "heroImgTeam": "Team arbeitet in einem Co-Working-Space",
       "heroImgCollaboration": "Team-Zusammenarbeit an einem Projekt",
       "heroImgMeeting": "Besprechungsszene",
@@ -246,8 +246,8 @@
       ],
       "viewServicesDetail": "Dienstdetails anzeigen",
       "layersEyebrow": "Visual Overview",
-      "layersTitle": "Vier Ebenen, die Acecore unterstützt",
-      "layersDescription": "Wir behandeln Technologie, Betrieb, Kommunikation und Bildung als eine durchgehende Support-Linie.",
+      "layersTitle": "Drei Ebenen, die Acecore unterstützt",
+      "layersDescription": "Wir behandeln Technologie, Betrieb und Kommunikation als eine durchgehende Support-Linie.",
       "layerItems": [
         {
           "title": "System-Design",
@@ -279,7 +279,7 @@
         }
       ],
       "aboutHeading": "Über Acecore",
-      "aboutBody1": "Erkenntnisse aus dem Community-Management und früher durchgeführten Workshops fließen in unsere Lernbegleitung und Informationsarbeit ein.",
+      "aboutBody1": "Erkenntnisse aus dem Community-Management und früher durchgeführten Workshops fließen in unsere Informationsarbeit und die praktische Verbesserung unserer Services ein.",
       "aboutBody2": "Durch Open-Source-Beiträge, regionale Zusammenarbeit und {link}-Initiativen bauen wir Partnerschaften auf, die Technologie und Menschen verbinden.",
       "aboutEducationLink": "Bildung",
       "viewAbout": "Über uns",
@@ -348,7 +348,7 @@
       "missionLoopDesc": "Ein visueller Überblick darüber, wie Acecore Wert schafft und erweitert.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "\"Verbunden durch Technologie, erweitert durch Kreativität\"",
-      "philosophyBody1": "Acecore ist ein Technologiekollektiv, das durch die Kraft von Technologie und Kreativität vielfältigen Wert schafft. Wir bieten Systementwicklung, Webdesign, Serverbetrieb, Design und IT-Bildung als integrierte Lösung — von Einzelpersonen bis zu Unternehmen.",
+      "philosophyBody1": "Acecore ist ein Technologiekollektiv, das durch die Kraft von Technologie und Kreativität vielfältigen Wert schafft. Wir bieten Systementwicklung, Webdesign, Serverbetrieb und Design als integrierte Unterstützung für Einzelpersonen und Unternehmen. Die IT-Bildung von Acecore Schools ist nur auf Japanisch verfügbar.",
       "philosophyBody2": "Unsere Mission ist es, Menschen durch Technologie zu verbinden und Möglichkeiten durch Kreativität zu erweitern. Wir legen Wert darauf, nicht nur Technologie bereitzustellen, sondern gemeinsam mit unseren Kunden und der Community zu wachsen und nachhaltigen Wert zu schaffen.",
       "collaborationImgAlt": "Kollaborative Teamarbeit",
       "activitiesTitle": "Hauptaktivitäten von Acecore",
@@ -359,7 +359,7 @@
       "ossTitle": "Open-Source-Beiträge",
       "ossDesc": "Wir fördern aktiv die Nutzung und Beiträge zu Open-Source-Software und der Tech-Community. Einige unserer intern entwickelten Tools und Bibliotheken sind auf GitHub veröffentlicht.",
       "regionalTitle": "Regionale Partnerschaften",
-      "regionalDesc": "Wir nehmen Anfragen zur IT-Nutzung, zum digitalen Lernen und zu gemeinsamen Vorhaben in regionaler Bildung und Wirtschaft entgegen. Die Lernbegleitung von Acecore Schools ist Teil dieser Aktivitäten.",
+      "regionalDesc": "Wir nehmen Anfragen zur IT-Nutzung, zum digitalen Lernen und zu gemeinsamen Vorhaben in regionaler Bildung und Wirtschaft entgegen. Acecore Schools ist derzeit nur auf Japanisch verfügbar.",
       "partnershipTitle": "Partnerschaften",
       "partnershipDesc": "Wir sind offen für Projektkooperationen und Geschäftspartnerschaften. Wir können in verschiedenen Bereichen kooperieren, darunter Technologie, Design und Bildung.",
       "relatedLinksHeading": "Verwandte Links",
@@ -429,14 +429,14 @@
     },
     "services": {
       "title": "Dienste",
-      "seoTitleContext": "Systeme, Webdesign, Server und IT-Bildung",
-      "description": "Entdecken Sie Acecores Dienste für Geschäftssysteme und Webanwendungen, Webdesign, Serverbetrieb, Design und IT-Bildung.",
+      "seoTitleContext": "Systeme, Webdesign und Serverbetrieb",
+      "description": "Entdecken Sie Acecores Dienste für Geschäftssysteme und Webanwendungen, Webdesign, Serverbetrieb und Design.",
       "heroTitle": "Dienste",
       "heroSubtitle": "Vielfältige IT-Lösungen als integrierter Service geliefert",
       "heroImgAlt": "Technologiebüro",
       "serviceMapEyebrow": "Service Map",
       "serviceMapTitle": "Visualisieren Sie Acecores Support-Abdeckung",
-      "serviceMapDesc": "Entwicklung, Betrieb, Kommunikation und Bildung sind als durchgehende Support-Linie konzipiert.",
+      "serviceMapDesc": "Entwicklung, Betrieb und Kommunikation sind als durchgehende Support-Linie konzipiert.",
       "mapSystemsTitle": "Entwicklung von Geschäftssystemen",
       "mapSystemsDesc": "Wir ordnen Arbeitsabläufe und entwickeln Webanwendungen, Verwaltungsoberflächen und Datenintegrationen für den dauerhaften Betrieb.",
       "mapInfraTitle": "Infrastruktur",
@@ -618,22 +618,22 @@
       "validationMessage": "Bitte geben Sie mindestens 10 aussagekräftige Zeichen ein",
       "faqTitle": "Häufige Fragen",
       "aiHeading": "KI-Chat ist ebenfalls verfügbar",
-      "aiLead": "Nutzen Sie den KI-Chat unten rechts für Services, Entwicklungs- oder Website-Fragen, Lernberatungen bei Acecore Schools und Antwortzeiten. Für eine ausführliche Beratung können Sie mit dem Formular fortfahren.",
+      "aiLead": "Nutzen Sie den KI-Chat unten rechts für Fragen zu Acecore-Services, Entwicklung oder Websites und Antwortzeiten. Für eine ausführliche Beratung können Sie mit dem Formular fortfahren.",
       "aiQuestionLabel": "Frage an die KI",
       "aiPlaceholder": "Beispiel: Ich möchte eine Website besprechen. Wo soll ich anfangen?",
       "aiSubmit": "KI-Chat öffnen",
       "aiLoading": "Antwort wird erstellt...",
       "aiError": "KI-Antworten sind nicht verfügbar. Bitte nutzen Sie das Kontaktformular.",
       "lineHeading": "LINE ist ebenfalls möglich",
-      "lineLead": "Folgen Sie dem offiziellen LINE-Konto für Neuigkeiten. Es eignet sich auch für kurze Fragen und Nachrichten zu Acecore Schools.",
+      "lineLead": "Folgen Sie dem offiziellen LINE-Konto für Neuigkeiten und kurze Fragen zu Acecore.",
       "lineCta": "Auf LINE folgen",
-      "directMethodsNote": "Nutzen Sie LINE für kurze Fragen und Nachrichten zu Acecore Schools. Für einfache Rückfragen in sozialen Medien ist auch X verfügbar. Detaillierte Anliegen lassen sich über das Formular besser prüfen.",
+      "directMethodsNote": "Nutzen Sie LINE für kurze Fragen zu Acecore. Für einfache Rückfragen in sozialen Medien ist auch X verfügbar. Detaillierte Anliegen lassen sich über das Formular besser prüfen.",
       "directContactSummary": "Wenn Sie direkt Kontakt aufnehmen möchten",
       "directContactLead": "Öffnen Sie dies, wenn Sie nach dem Formular noch etwas ergänzen oder direkt bestätigen möchten.",
       "faqs": [
         {
           "question": "Ich weiß nicht, zu welchem Service ich fragen soll.",
-          "answer": "Sie können Systementwicklung, Webproduktion, Serverbetrieb, Design und IT-Bildung gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation."
+          "answer": "Sie können Systementwicklung, Webproduktion, Serverbetrieb und Design gemeinsam anfragen. Wählen Sie bei Unsicherheit Sonstiges und beschreiben Sie die Situation."
         },
         {
           "question": "Kann ich nur ein Angebot anfragen?",
@@ -748,7 +748,7 @@
     },
     "pricing": {
       "title": "Preisübersicht",
-      "description": "Richtpreise für Webproduktion, Serverbetrieb, Design und Acecore Schools sowie ein Verweis auf die Entwicklungspreise von Acecore Systems.",
+      "description": "Richtpreise für Webproduktion, Serverbetrieb und Design sowie ein Verweis auf die Entwicklungspreise von Acecore Systems.",
       "heroTitle": "Preisübersicht",
       "heroSubtitle": "Prüfen Sie die Kostenrahmen über alle Services hinweg, bevor Sie tiefer planen",
       "heroImgAlt": "Arbeitsplatz, an dem Angebotsunterlagen geprüft werden",

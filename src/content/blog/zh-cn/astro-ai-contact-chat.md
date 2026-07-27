@@ -213,7 +213,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and Acecore Schools inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -229,7 +229,7 @@ AI 聊天不应替代表单。联系页面中各导线有清晰职责时更容�
 | -------- | ------------------------------------------ |
 | FAQ      | 在页面内先解决常见问题                     |
 | AI 聊天  | 帮助选择服务、咨询方式和相关页面           |
-| LINE     | 简短问题、Schools 相关联系、轻量确认       |
+| LINE     | 简短问题和轻量确认                         |
 | 表单     | 报价、制作咨询、合作、招聘等需要记录的咨询 |
 | 直接联系 | 表单后的补充或紧急确认时使用               |
 

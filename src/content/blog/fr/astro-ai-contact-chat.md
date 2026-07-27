@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and Acecore Schools inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -204,13 +204,13 @@ L'échec classique est une IA trop serviable qui promet trop. Les prix, délais 
 
 ## Séparer les parcours de contact
 
-| Parcours       | Rôle                                                                 |
-| -------------- | -------------------------------------------------------------------- |
-| FAQ            | Répondre aux questions fréquentes dans la page                       |
-| Chat IA        | Orienter vers services, canaux et pages liées                        |
-| LINE           | Questions courtes, demandes Acecore Schools et vérifications légères |
-| Formulaire     | Devis, production, partenariats et recrutement                       |
-| Contact direct | Complément après formulaire ou confirmation urgente                  |
+| Parcours       | Rôle                                                |
+| -------------- | --------------------------------------------------- |
+| FAQ            | Répondre aux questions fréquentes dans la page      |
+| Chat IA        | Orienter vers services, canaux et pages liées       |
+| LINE           | Questions courtes et vérifications légères          |
+| Formulaire     | Devis, production, partenariats et recrutement      |
+| Contact direct | Complément après formulaire ou confirmation urgente |
 
 L'IA relie des contenus généraux comme [l'article de présentation des services](/services/) aux entrées concrètes de la [page contact](/contact/). Le modèle s'applique aux sites B2B, agences, écoles et supports SaaS.
 

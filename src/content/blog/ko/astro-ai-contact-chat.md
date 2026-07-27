@@ -194,7 +194,7 @@ Answer only from public site information.
 Rules:
 - Do not make firm statements about pricing, contracts, schedules, or guarantees
 - Send formal consultations and estimates to the contact form
-- Also suggest LINE for short questions and Acecore Schools inquiries
+- Also suggest LINE for short, general service questions
 - Show email and phone only when the user asks for direct contact
 - Use URLs that match the current locale
 - If unsure, do not guess; guide the user to the form
@@ -208,7 +208,7 @@ AI가 지나치게 도와주려다 비용, 납기, 보증을 단정하는 것이
 | --------- | -------------------------------------------------- |
 | FAQ       | 페이지 안에서 자주 묻는 질문 해결                  |
 | AI 채팅   | 서비스 선택, 문의 경로, 관련 페이지를 정리         |
-| LINE      | 짧은 질문, Schools 관련 연락, 가벼운 확인          |
+| LINE      | 짧은 질문과 가벼운 확인                            |
 | 폼        | 견적, 제작 상담, 제휴, 채용처럼 기록이 필요한 문의 |
 | 직접 연락 | 폼 이후 보충이나 긴급 확인에만 사용                |
 

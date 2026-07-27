@@ -4,6 +4,7 @@ description: 'Acecore Schoolsが2023年夏に小中学生を対象として実�
 date: 2023-07-19T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
+translation: false
 tags: ['イベント', '教育', 'Acecore Schools']
 image: /uploads/acecore-generated/blog-robot-workshop-event.webp
 ---

@@ -9,13 +9,14 @@ import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
+import { getSchoolsUrl, isSchoolsSupportedLocale } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
 }
 
 const { locale } = Astro.props
+const schoolsAvailable = isSchoolsSupportedLocale(locale)
 const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
@@ -233,8 +234,13 @@ const aboutPageLd = {
             </h3>
             <p class="text-slate-600">
               {t(locale, 'pages.about.regionalDesc')}
-              <a href={getSchoolsUrl(locale)} class="ac-link">Acecore Schools</a
-              >
+              {
+                schoolsAvailable && (
+                  <a href={getSchoolsUrl(locale)} class="ac-link">
+                    Acecore Schools
+                  </a>
+                )
+              }
             </p>
           </div>
         </div>

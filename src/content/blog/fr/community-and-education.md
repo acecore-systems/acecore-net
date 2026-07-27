@@ -1,6 +1,6 @@
 ---
 title: 'Actions communautaires et engagement éducatif'
-description: "Présentation des activités communautaires, du soutien éducatif et de la contribution à l'open source portés par Acecore. Nos initiatives à travers Aceserver, Schools et les ateliers organisés par le passé."
+description: "Présentation des activités communautaires, du soutien éducatif en japonais et de la contribution à l'open source portés par Acecore. Nos initiatives à travers Aceserver, Schools et les ateliers organisés par le passé."
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Accompagnement construit à partir des objectifs et de la situation actuelle.
+      description: Accompagnement en japonais construit à partir des objectifs et de la situation actuelle.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS et engagement local
@@ -32,8 +32,8 @@ faq:
       answer: C'est un serveur Minecraft public géré par Acecore. Il sert de point de départ pour les échanges communautaires, renforçant les liens entre les membres à travers la coopération et l'organisation d'événements.
     - question: Quand les groupes d'étude et les ateliers sont-ils organisés ?
       answer: Nous ne recrutons actuellement pas pour des événements organisés de façon régulière. Toute nouvelle initiative sera annoncée sur le blog de ce site et sur les réseaux sociaux.
-    - question: Qu'apprend-on à Acecore Schools ?
-      answer: Nous construisons l'équivalence de fin d'études secondaires et les choix pour la suite, l'IT et la programmation, ainsi que l'usage du PC et du smartphone à partir des objectifs et de la situation actuelle de chaque personne. Les apprentissages scolaires et la préparation aux examens peuvent aussi être abordés selon l'objectif. L'accompagnement habituel se fait actuellement en ligne. La robotique et la fabrication sont distinctes de la programmation ; leurs modalités et leur calendrier sont étudiés selon le contenu.
+    - question: Acecore Schools est-il disponible en français ?
+      answer: Non. Acecore Schools, son site, l’accompagnement, l’orientation d’inscription et les consultations sont disponibles uniquement en japonais.
 ---
 
 Chez Acecore, nous nous engageons dans le développement de la communauté technique et la contribution au domaine éducatif, sous le thème « connexion, découverte et co-création ».
@@ -56,17 +56,7 @@ Lorsqu'un nouveau groupe d'étude ou atelier sera organisé, son contenu, son pu
 
 ## Activités éducatives d'Acecore Schools
 
-Acecore Schools commence par clarifier pourquoi la personne souhaite apprendre avant de décider quoi étudier. Nous construisons l'apprentissage nécessaire à partir de ses objectifs et de sa situation actuelle, autour de l'équivalence de fin d'études secondaires et des choix pour la suite, de l'IT et de la programmation, ainsi que de l'usage du PC et du smartphone, avec une attention portée à l'usage réel. Les apprentissages scolaires et la préparation aux examens peuvent aussi être abordés selon l'objectif.
-
-Les sujets d'apprentissage et les possibilités de consultation sont également présentés sur la [page Schools](https://schools.acecore.net/).
-
-### Principes de l'accompagnement
-
-1. **Commencer par l'objectif** : clarifier ce que la personne veut accomplir, sans choisir d'abord un diplôme ou le nom d'une technologie
-2. **Aller jusqu'à l'usage concret** : relier les connaissances à la création, à la mise en ligne et à l'utilisation quotidienne
-3. **Réorganiser selon l'évolution de la situation** : ajuster le contenu et le rythme à la situation et à l'environnement actuels
-
-L'accompagnement habituel se fait actuellement en ligne. La robotique et la fabrication ne sont pas regroupées avec la programmation : il s'agit d'un domaine distinct où l'on explore concrètement la mécanique, l'électronique et la commande. Acecore Schools a aussi organisé par le passé des ateliers en présentiel limités à l'été.
+Acecore Schools est disponible uniquement en japonais. L’accompagnement, le site, l’orientation d’inscription et les consultations ne sont pas proposés en français.
 
 ## Contribution à l'open source
 

@@ -51,6 +51,12 @@ collections:
         widget: datetime
         format: YYYY-MM-DDTHH:mm
         required: false
+      - name: translation
+        label: 翻訳対象
+        hint: オフにすると、この記事を多言語記事へ自動翻訳しません。
+        widget: boolean
+        default: true
+        required: false
       - name: tags
         label: タグ
         widget: relation

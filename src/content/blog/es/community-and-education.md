@@ -1,6 +1,6 @@
 ---
 title: 'Actividades comunitarias e iniciativas educativas'
-description: 'Sobre las actividades comunitarias, el apoyo educativo y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, Schools y talleres realizados anteriormente.'
+description: 'Sobre las actividades comunitarias, el apoyo educativo en japonés y las contribuciones al código abierto que impulsa Acecore. Presentamos las iniciativas a través de Aceserver, Schools y talleres realizados anteriormente.'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Apoyo al aprendizaje organizado desde los objetivos y la situación actual.
+      description: Apoyo en japonés organizado desde los objetivos y la situación actual.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS y comunidad local
@@ -32,8 +32,8 @@ faq:
       answer: Es un servidor público de Minecraft gestionado por Acecore. Funciona como punto de partida para la interacción comunitaria, fortaleciendo los vínculos entre los miembros a través de la cooperación y la organización de eventos.
     - question: ¿Cuándo se celebran los grupos de estudio y talleres?
       answer: Actualmente no hay convocatorias para actividades periódicas. Cuando haya una nueva iniciativa, la anunciaremos en el blog de este sitio y en redes sociales.
-    - question: ¿Qué se puede aprender en Acecore Schools?
-      answer: Organizamos la equivalencia de bachillerato y la planificación de los siguientes pasos, IT y programación, y el uso de PC y smartphone a partir de los objetivos y la situación actual de cada persona. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo. El acompañamiento habitual se realiza actualmente en línea. La robótica y la creación se tratan por separado de la programación; el formato y las fechas se consultan según el contenido.
+    - question: ¿Acecore Schools está disponible en español?
+      answer: No. Acecore Schools, su sitio web, el apoyo al aprendizaje, la orientación de inscripción y las consultas están disponibles únicamente en japonés.
 ---
 
 En Acecore, con el tema de "conexión, descubrimiento y co-creación", nos dedicamos al desarrollo de la comunidad tecnológica y a la contribución en el campo educativo.
@@ -56,17 +56,7 @@ Cuando celebremos un nuevo grupo de estudio o taller, anunciaremos su contenido,
 
 ## Actividades educativas de Acecore Schools
 
-Acecore Schools empieza por aclarar para qué quiere aprender cada persona antes de decidir qué estudiar. Organizamos el aprendizaje necesario a partir de sus objetivos y situación actual en equivalencia de bachillerato y la planificación de los siguientes pasos, IT y programación, y uso de PC y smartphone, con la mirada puesta en su aplicación real. El aprendizaje escolar y la preparación de exámenes también pueden consultarse según el objetivo.
-
-Los temas de aprendizaje y las vías de consulta también se explican en la [página de Schools](https://schools.acecore.net/).
-
-### Principios del apoyo al aprendizaje
-
-1. **Empezar por el objetivo**: Aclarar qué se quiere conseguir, sin elegir primero una titulación o el nombre de una tecnología
-2. **Llegar hasta el uso real**: Conectar los conocimientos con la creación, la publicación y el uso cotidiano
-3. **Reorganizar el plan cuando cambien las circunstancias**: Ajustar el contenido y el ritmo a la situación y el entorno actuales
-
-El acompañamiento habitual se realiza actualmente en línea. La robótica y la creación no se agrupan con la programación, sino que forman un área independiente para explorar de forma práctica la mecánica, la electrónica y el control. En el pasado, Acecore Schools también ha realizado talleres presenciales limitados al verano.
+Acecore Schools está disponible únicamente en japonés. El apoyo al aprendizaje, el sitio web, la orientación de inscripción y las consultas no se ofrecen en español.
 
 ## Contribuciones al código abierto
 

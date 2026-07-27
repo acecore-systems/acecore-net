@@ -1,6 +1,6 @@
 ---
 title: 'Community-Aktivitäten und Engagement für Bildung'
-description: 'Acecores Community-Aktivitäten, Bildungsunterstützung und Open-Source-Beiträge. Vorstellung unserer Initiativen durch Aceserver, Schools und frühere Workshops.'
+description: 'Acecores Community-Aktivitäten, japanischsprachige Bildungsunterstützung und Open-Source-Beiträge. Vorstellung unserer Initiativen durch Aceserver, Schools und frühere Workshops.'
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-27T00:00
 author: gui
@@ -18,7 +18,7 @@ insightGrid:
       icon: i-lucide-presentation
       tone: emerald
     - title: Schools
-      description: Lernbegleitung, die von den Zielen und der aktuellen Situation ausgeht.
+      description: Japanischsprachige Lernbegleitung, die von den Zielen und der aktuellen Situation ausgeht.
       icon: i-lucide-graduation-cap
       tone: amber
     - title: OSS & Lokal
@@ -32,8 +32,8 @@ faq:
       answer: Es ist ein öffentlicher Minecraft-Server, der von Acecore betrieben wird. Er dient als Ausgangspunkt für Community-Interaktion und vertieft die Verbindungen durch Zusammenarbeit und Veranstaltungen der Mitglieder.
     - question: Wann finden Lerngruppen und Workshops statt?
       answer: Derzeit gibt es keine Ausschreibung für regelmäßig stattfindende Veranstaltungen. Neue Vorhaben kündigen wir im Blog dieser Website und in den sozialen Medien an.
-    - question: Was kann ich bei Acecore Schools lernen?
-      answer: Wir gestalten die Gleichwertigkeitsprüfung zum Oberschulabschluss und die Planung der nächsten Schritte, IT und Programmierung sowie PC- und Smartphone-Nutzung nach den Zielen und der aktuellen Situation jedes Lernenden. Auch schulisches Lernen und Prüfungsvorbereitung können je nach Ziel besprochen werden. Die reguläre Lernbegleitung findet derzeit online statt. Robotik und Making sind von Programmierung getrennt; Format und Zeitpunkt werden abhängig vom Inhalt besprochen.
+    - question: Ist Acecore Schools auf Deutsch verfügbar?
+      answer: Nein. Acecore Schools, die Website, Lernbegleitung, Anmeldehinweise und Beratung sind nur auf Japanisch verfügbar.
 ---
 
 Bei Acecore setzen wir uns unter dem Motto „Verbindung, Entdeckung und gemeinsames Schaffen" für die Weiterentwicklung der Tech-Community und den Beitrag zur Bildung ein.
@@ -56,17 +56,7 @@ Wenn neue Lerngruppen oder Workshops stattfinden, kündigen wir Inhalt, Zielgrup
 
 ## Bildungsaktivitäten bei Acecore Schools
 
-Acecore Schools klärt zuerst, warum jemand lernen möchte, bevor entschieden wird, was gelernt werden soll. Aus Ziel und aktueller Situation gestalten wir die benötigte Lernbegleitung für die Gleichwertigkeitsprüfung zum Oberschulabschluss und die Planung der nächsten Schritte, IT und Programmierung sowie PC- und Smartphone-Nutzung — mit Blick auf die tatsächliche Anwendung. Auch schulisches Lernen und Prüfungsvorbereitung können je nach Ziel besprochen werden.
-
-Weitere Lernbereiche und Beratungswege finden Sie auf der [Schools-Seite](https://schools.acecore.net/).
-
-### Grundsätze der Lernbegleitung
-
-1. **Mit dem Ziel beginnen**: Klären, was erreicht werden soll, statt zuerst eine Qualifikation oder Technologie zu wählen
-2. **Bis zur praktischen Nutzung arbeiten**: Wissen mit Erstellen, Veröffentlichen und der Anwendung im Alltag verbinden
-3. **Den Plan bei Veränderungen neu gestalten**: Inhalt und Tempo an die aktuelle Situation und Umgebung anpassen
-
-Die reguläre Lernbegleitung findet derzeit online statt. Robotik und Making werden nicht mit Programmierung gebündelt, sondern bilden einen eigenen Bereich, in dem Mechanik, Elektronik und Steuerung praktisch erkundet werden. In der Vergangenheit hat Acecore Schools außerdem zeitlich begrenzte Präsenz-Workshops im Sommer durchgeführt.
+Acecore Schools ist nur auf Japanisch verfügbar. Lernbegleitung, Website, Anmeldehinweise und Beratung werden nicht auf Deutsch angeboten.
 
 ## Beitrag zu Open Source
 
