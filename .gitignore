@@ -2,6 +2,7 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+.vectorize/
 .playwright-cli/
 .serena/
 .tmp-astro-preview*.log

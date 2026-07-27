@@ -44,3 +44,6 @@
 # Pagefind 検索インデックス
 /pagefind/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/.well-known/acecore-build.json
+  Cache-Control: no-store

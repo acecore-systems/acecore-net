@@ -15,7 +15,7 @@
   },
   "common": {
     "skipToContent": "本文へスキップ",
-    "search": "記事を検索",
+    "search": "サイト内を検索",
     "searchPlaceholder": "キーワードを入力…",
     "searchShortcut": "検索 (Ctrl+K)",
     "openMenu": "メニューを開く",

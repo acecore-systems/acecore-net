@@ -39,6 +39,15 @@ jobs:
       - name: Test CMS proxy
         run: npm run test:cms
 
+      - name: Test search pipeline
+        run: npm run test:search
+
+      - name: Check generated Cloudflare binding types
+        run: npm run types:cloudflare:check
+
+      - name: Validate Pages Functions configuration
+        run: npm run check:pages-config
+
       - name: Type-check Pages Functions
         run: npm run typecheck:functions
 

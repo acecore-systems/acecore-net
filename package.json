@@ -7,11 +7,17 @@
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/write-cms-runtime-config.mjs",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "test:cms": "node --test tests/cms-proxy.test.mjs",
+    "test:search": "node --experimental-strip-types --test tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs",
+    "sync:vectorize": "node scripts/sync-vectorize.mjs",
+    "sync:vectorize:dry-run": "node scripts/sync-vectorize.mjs --dry-run",
+    "types:cloudflare": "wrangler types functions/cloudflare-env.d.ts --env-interface CloudflareEnv --include-runtime false",
+    "types:cloudflare:check": "wrangler types functions/cloudflare-env.d.ts --env-interface CloudflareEnv --include-runtime false --check",
+    "check:pages-config": "wrangler pages functions build --outdir .wrangler/pages-functions",
     "typecheck:functions": "tsc --project tsconfig.functions.json",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
@@ -34,11 +40,13 @@
     "@iconify-json/lucide": "^1.2.120",
     "@unocss/astro": "^66.7.5",
     "@unocss/preset-typography": "^66.7.5",
+    "cheerio": "^1.2.0",
     "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^7.0.2",
-    "unocss": "^66.7.5"
+    "unocss": "^66.7.5",
+    "wrangler": "^4.114.0"
   },
   "engines": {
     "node": ">=24.18.0"

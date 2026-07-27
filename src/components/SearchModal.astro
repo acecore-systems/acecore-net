@@ -29,6 +29,11 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
   data-t-fallback-blog={t(locale, 'blog.searchFallbackBlogList')}
   data-t-fallback-services={t(locale, 'blog.searchFallbackServiceList')}
   data-t-fallback-contact={t(locale, 'blog.searchFallbackContact')}
+  data-t-semantic-heading={t(locale, 'blog.semanticHeading')}
+  data-t-semantic-loading={t(locale, 'blog.semanticLoading')}
+  data-t-semantic-zero-results={t(locale, 'blog.semanticZeroResults')}
+  data-t-semantic-many-results={t(locale, 'blog.semanticManyResults')}
+  data-t-semantic-one-result={t(locale, 'blog.semanticOneResult')}
   data-link-blog={getLocalizedUrl('/blog/', locale)}
   data-link-services={getLocalizedUrl('/services/', locale)}
   data-link-contact={getLocalizedUrl('/contact/', locale)}
@@ -56,6 +61,31 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
         </button>
       </div>
       <div id="search-container" class="px-5 pt-5 pb-3"></div>
+      <section
+        id="semantic-search"
+        class="hidden border-t border-slate-100 px-5 pt-4 pb-5"
+        aria-labelledby="semantic-search-heading"
+      >
+        <div class="mb-3 flex items-center justify-between gap-4">
+          <h2
+            id="semantic-search-heading"
+            class="text-sm font-700 text-slate-700"
+          >
+            {t(locale, 'blog.semanticHeading')}
+          </h2>
+          <p
+            id="semantic-search-status"
+            class="text-xs text-slate-500"
+            aria-live="polite"
+          >
+          </p>
+        </div>
+        <ol
+          id="semantic-search-results"
+          class="m-0 max-h-72 list-none divide-y divide-slate-100 overflow-y-auto p-0"
+        >
+        </ol>
+      </section>
       <div
         id="search-ad"
         class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
