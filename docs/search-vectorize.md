@@ -56,14 +56,18 @@ push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjob�
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
-| GitHub Environment             | environment secret                       | 同期先                          |
-| ------------------------------ | ---------------------------------------- | ------------------------------- |
-| `cloudflare-search-preview`    | `CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN`    | `acecore-net-search-preview`    |
-| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN` | `acecore-net-search-production` |
+| GitHub Environment             | environment secret                       | Cloudflare account token                | 同期先                          |
+| ------------------------------ | ---------------------------------------- | --------------------------------------- | ------------------------------- |
+| `cloudflare-search-preview`    | `CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN`    | `acecore-net-vectorize-preview-sync`    | `acecore-net-search-preview`    |
+| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN` | `acecore-net-vectorize-production-sync` | `acecore-net-search-production` |
 
 両EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
-既存の広い権限を持つtokenを転用せず、各環境・対象indexごとにWorkers AI実行とVectorize読み書きに必要な最小権限のtokenを用意します。secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。token値をログ、PR本文、設定ファイルへ書かないでください。
+既存の広い権限を持つtokenは転用しません。各環境にaccount-owned tokenを1つずつ用意し、AcecoreのCloudflare accountだけをresourceに指定して、`Vectorize Write` と `Workers AI Read` だけを付与します。`Vectorize Write` は同期scriptが使うindex取得、vector一覧、upsert、delete、mutation確認を含むため、`Vectorize Read` の追加は不要です。
+
+CloudflareのVectorize権限はindex単位では制限できません。Preview / Production tokenの分離はcredentialのローテーションと障害範囲を分けるための運用境界であり、特定indexだけへ書き込めるCloudflare側ACLではありません。同期scriptのindex allowlistとEnvironmentのmain-only protectionを独立した誤操作防止策として維持します。
+
+secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。token値をログ、PR本文、設定ファイルへ書かないでください。ローテーション時は同じ2権限の新tokenを作成し、Environment secretを更新して同期成功を確認してから旧tokenを削除します。
 
 ## 手元での確認と同期
 
