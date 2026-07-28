@@ -289,10 +289,7 @@ const ctaHeading = isDefaultLocale
           <TableOfContents headings={tocHeadings} locale={locale} />
         </div>
       </aside>
-      <article
-        class="min-w-0 w-full max-w-3xl"
-        {...isDefaultLocale ? { 'data-pagefind-body': true } : {}}
-      >
+      <article class="min-w-0 w-full max-w-3xl" data-pagefind-body>
         {
           isDefaultLocale && (
             <div class="hidden" aria-hidden="true">

@@ -1,24 +1,6 @@
 /**
- * Pagefind 検索モーダル統合モジュール
- *
- * サイト内検索ダイアログの初期化・操作を管理するスクリプト。
- * Pagefind UI ライブラリを遅延読み込みし、モーダルダイアログで検索体験を提供する。
- *
- * 主な処理フロー:
- *   1. openSearch() が呼ばれるとモーダルを開き、Pagefind スクリプトを遅延ロードする
- *   2. 検索 UI を初期化し、入力欄にフォーカスを設定する
- *   3. 検索結果の変更を MutationObserver で監視し、結果ゼロ時の代替リンクや
- *      広告スロットの表示切替を行う
- *   4. GA4 アナリティクスイベント（検索実行・結果クリック）を送信する
- *
- * キーボードショートカット:
- *   - Ctrl/Cmd+K: 検索モーダルを開く
- *   - Escape: 検索モーダルを閉じる
- *
- * 外部依存:
- *   - Pagefind UI（/pagefind/pagefind-ui.js, /pagefind/pagefind-ui.css）
- *   - window.aceTrackEvent（GA4 イベント送信用グローバル関数）
- *   - window.aceInitAdSlots（広告スロット初期化用グローバル関数）
+ * Pagefindを主検索として維持し、Vectorizeの意味検索結果を補助表示する。
+ * 意味検索が失敗・制限・未設定の場合もPagefindだけで検索を継続できる。
  */
 declare global {
   interface Window {
@@ -28,19 +10,54 @@ declare global {
   }
 }
 
-/** MutationObserver: 検索結果 DOM の変更を監視し、代替リンクや広告を制御する */
-let searchObserver: MutationObserver | null = null
-/** Pagefind スクリプトのロード Promise（重複ロード防止用キャッシュ） */
-let pagefindLoadPromise: Promise<void> | null = null
-/** Pagefind UI が使用可能になったかどうかのフラグ */
-let isPagefindReady = false
+type SemanticSearchResult = {
+  id: string
+  url: string
+  title: string
+  section: string
+  excerpt: string
+  contentType: string
+  rank: number
+}
 
-/** 各リソースの DOM 要素 ID */
+type SemanticSearchResponse = {
+  ok: boolean
+  requestId?: string
+  results?: SemanticSearchResult[]
+  error?: { code?: string }
+}
+
+let searchObserver: MutationObserver | null = null
+let pagefindLoadPromise: Promise<void> | null = null
+let isPagefindReady = false
+let semanticAbortController: AbortController | null = null
+let semanticDebounceTimer = 0
+let semanticSequence = 0
+let semanticResultCount = 0
+let semanticState: 'idle' | 'loading' | 'ready' | 'empty' | 'hidden' = 'idle'
+
 const PAGEFIND_STYLE_ID = 'pagefind-ui-style'
 const PAGEFIND_SCRIPT_ID = 'pagefind-ui-script'
 const PAGEFIND_OVERRIDE_STYLE_ID = 'pagefind-ui-override-style'
+const SEMANTIC_DEBOUNCE_MS = 400
+const SEMANTIC_TIMEOUT_MS = 1600
+const SEARCH_CLIENT_STORAGE_KEY = 'acecore-search-client-v1'
+const SEARCH_PRIVACY_NOTICE_ID = 'semantic-search-privacy-notice'
+let searchLifecycleBound = false
 
-/** Pagefind UI のデフォルト CSS をページに挿入する */
+function bindSearchLifecycle() {
+  if (searchLifecycleBound) return
+
+  searchLifecycleBound = true
+  document.addEventListener('astro:before-swap', () => {
+    window.clearTimeout(semanticDebounceTimer)
+    semanticDebounceTimer = 0
+    searchObserver?.disconnect()
+    searchObserver = null
+    hideSemanticSearch()
+  })
+}
+
 function ensurePagefindStyle() {
   if (document.getElementById(PAGEFIND_STYLE_ID)) return
 
@@ -51,7 +68,6 @@ function ensurePagefindStyle() {
   document.head.appendChild(link)
 }
 
-/** サイトのデザインに合わせた Pagefind UI のスタイル上書きを挿入する */
 function ensurePagefindOverrideStyle() {
   if (document.getElementById(PAGEFIND_OVERRIDE_STYLE_ID)) return
 
@@ -94,18 +110,9 @@ function ensurePagefindOverrideStyle() {
   document.head.appendChild(style)
 }
 
-/**
- * Pagefind UI スクリプトを遅延ロードする。
- * CSS（デフォルト + オーバーライド）も同時に挿入する。
- * ロード失敗時はキャッシュをクリアして再試行可能にする。
- */
 function loadPagefindScript() {
-  if (isPagefindReady && window.PagefindUI) {
-    return Promise.resolve()
-  }
-  if (pagefindLoadPromise) {
-    return pagefindLoadPromise
-  }
+  if (isPagefindReady && window.PagefindUI) return Promise.resolve()
+  if (pagefindLoadPromise) return pagefindLoadPromise
 
   ensurePagefindStyle()
   ensurePagefindOverrideStyle()
@@ -114,7 +121,6 @@ function loadPagefindScript() {
     const existingScript = document.getElementById(
       PAGEFIND_SCRIPT_ID,
     ) as HTMLScriptElement | null
-
     if (existingScript && window.PagefindUI) {
       isPagefindReady = true
       resolve()
@@ -122,19 +128,16 @@ function loadPagefindScript() {
     }
 
     const script = existingScript ?? document.createElement('script')
-
-    function detachHandlers() {
+    const detachHandlers = () => {
       script.removeEventListener('load', handleLoad)
       script.removeEventListener('error', handleError)
     }
-
-    function handleLoad() {
+    const handleLoad = () => {
       detachHandlers()
       isPagefindReady = true
       resolve()
     }
-
-    function handleError() {
+    const handleError = () => {
       detachHandlers()
       pagefindLoadPromise = null
       isPagefindReady = false
@@ -146,27 +149,17 @@ function loadPagefindScript() {
     script.src = '/pagefind/pagefind-ui.js'
     script.addEventListener('load', handleLoad, { once: true })
     script.addEventListener('error', handleError, { once: true })
-
-    if (!existingScript) {
-      document.head.appendChild(script)
-    }
+    if (!existingScript) document.head.appendChild(script)
   })
 
   return pagefindLoadPromise
 }
 
-/**
- * Pagefind UI が DOM に検索入力欄を生成するのを待つ。
- * すでに存在する場合は即座に返し、未生成の場合は MutationObserver で監視する。
- * 3 秒のタイムアウト付き。
- */
 function waitForSearchInput(dialog: HTMLDialogElement) {
   const existingInput = dialog.querySelector<HTMLInputElement>(
     '.pagefind-ui__search-input',
   )
-  if (existingInput) {
-    return Promise.resolve(existingInput)
-  }
+  if (existingInput) return Promise.resolve(existingInput)
 
   return new Promise<HTMLInputElement | null>((resolve) => {
     const observer = new MutationObserver(() => {
@@ -174,7 +167,6 @@ function waitForSearchInput(dialog: HTMLDialogElement) {
         '.pagefind-ui__search-input',
       )
       if (!input) return
-
       observer.disconnect()
       resolve(input)
     })
@@ -189,39 +181,34 @@ function waitForSearchInput(dialog: HTMLDialogElement) {
   })
 }
 
-/** 検索 UI 読み込み中のローディングメッセージを表示する */
 function showSearchLoading(container: HTMLElement) {
-  const dialog = document.getElementById(
-    'search-dialog',
-  ) as HTMLDialogElement | null
-  const loadingText = dialog?.dataset.tLoading ?? 'Loading search...'
-  container.innerHTML = `<p class="px-1 py-5 text-sm text-slate-600">${loadingText}</p>`
+  const dialog = getDialog()
+  const message = document.createElement('p')
+  message.className = 'px-1 py-5 text-sm text-slate-600'
+  message.textContent = dialog?.dataset.tLoading ?? 'Loading search...'
+  container.replaceChildren(message)
 }
 
-/** 検索 UI 読み込み失敗時のエラーメッセージとリトライボタンを表示する */
 function showSearchError(container: HTMLElement, retry: () => void) {
-  const dialog = document.getElementById(
-    'search-dialog',
-  ) as HTMLDialogElement | null
-  const errorText = dialog?.dataset.tError ?? 'Failed to load search.'
-  const retryText = dialog?.dataset.tRetry ?? 'Retry'
-  container.innerHTML =
-    '<div class="space-y-3 px-1 py-5">' +
-    `<p class="text-sm text-red-700">${errorText}</p>` +
-    `<button type="button" class="ac-btn-outline text-sm" data-search-retry>${retryText}</button>` +
-    '</div>'
+  const dialog = getDialog()
+  const wrapper = document.createElement('div')
+  wrapper.className = 'space-y-3 px-1 py-5'
 
-  container
-    .querySelector<HTMLButtonElement>('[data-search-retry]')
-    ?.addEventListener('click', retry, { once: true })
+  const message = document.createElement('p')
+  message.className = 'text-sm text-red-700'
+  message.textContent =
+    dialog?.dataset.tError ?? 'Failed to load search. Please try again.'
+
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.className = 'ac-btn-outline text-sm'
+  button.textContent = dialog?.dataset.tRetry ?? 'Retry'
+  button.addEventListener('click', retry, { once: true })
+
+  wrapper.append(message, button)
+  container.replaceChildren(wrapper)
 }
 
-/**
- * Pagefind UI を初期化しコンテナに描画する。
- * 初回はスクリプトをロードして PagefindUI インスタンスを生成し、
- * 2 回目以降は既存の検索入力欄を返す。
- * ダイアログの data-t-* 属性から翻訳テキストを取得して UI に適用する。
- */
 async function ensureSearchUi(
   dialog: HTMLDialogElement,
   container: HTMLElement,
@@ -233,7 +220,7 @@ async function ensureSearchUi(
   showSearchLoading(container)
   await loadPagefindScript()
 
-  container.innerHTML = ''
+  container.replaceChildren()
   const d = dialog.dataset
   new window.PagefindUI!({
     element: '#search-container',
@@ -242,10 +229,9 @@ async function ensureSearchUi(
     showFilters: true,
     translations: {
       placeholder: d.tPlaceholder ?? 'Enter keywords…',
-      zero_results:
-        d.tZeroResults ?? 'No articles found matching "[SEARCH_TERM]"',
-      many_results: d.tManyResults ?? '[COUNT] articles found',
-      one_result: d.tOneResult ?? '1 article found',
+      zero_results: d.tZeroResults ?? 'No results for "[SEARCH_TERM]"',
+      many_results: d.tManyResults ?? '[COUNT] results found',
+      one_result: d.tOneResult ?? '1 result found',
       filters_label: d.tFilters ?? 'Filters',
     },
   })
@@ -254,152 +240,410 @@ async function ensureSearchUi(
   return waitForSearchInput(dialog)
 }
 
-/**
- * 検索入力欄に GA4 アナリティクスイベントをバインドする。
- * 入力後 400ms のデバウンスで search_submit イベントを送信する。
- * 2 文字未満や同一クエリの連続送信は抑制する。
- */
-function bindSearchInputAnalytics(input: HTMLInputElement | null) {
-  if (!input || input.dataset.gaBound === 'true') return
+function bindSearchInput(
+  input: HTMLInputElement | null,
+  dialog: HTMLDialogElement,
+  container: HTMLElement,
+) {
+  if (!input) return
 
-  input.dataset.gaBound = 'true'
-  let debounceTimer = 0
+  const describedBy = new Set(
+    (input.getAttribute('aria-describedby') || '')
+      .split(/\s+/u)
+      .filter(Boolean),
+  )
+  describedBy.add(SEARCH_PRIVACY_NOTICE_ID)
+  input.setAttribute('aria-describedby', [...describedBy].join(' '))
+
+  if (input.dataset.searchBound === 'true') return
+
+  input.dataset.searchBound = 'true'
   let lastTrackedQuery = ''
 
   input.addEventListener('input', () => {
-    window.clearTimeout(debounceTimer)
-    debounceTimer = window.setTimeout(() => {
-      const value = input.value.trim()
-      if (value.length < 2 || value === lastTrackedQuery) return
+    window.clearTimeout(semanticDebounceTimer)
+    hideSemanticSearch()
+    const query = normalizeQuery(input.value)
 
-      lastTrackedQuery = value
-      window.aceTrackEvent?.('search_submit', {
-        location: 'search_modal',
-        page_path: window.location.pathname,
-        page_title: document.title,
-        search_term: value,
-      })
-    }, 400)
+    if (query.length < 2) {
+      updateFallbackAndAd(dialog, container)
+      return
+    }
+
+    semanticDebounceTimer = window.setTimeout(() => {
+      if (hasActivePagefindFilter(container)) {
+        hideSemanticSearch()
+        updateFallbackAndAd(dialog, container)
+        return
+      }
+
+      if (query !== lastTrackedQuery) {
+        lastTrackedQuery = query
+        window.aceTrackEvent?.('search_submit', {
+          location: 'search_modal',
+          page_path: window.location.pathname,
+          page_title: document.title,
+          query_length: [...query].length,
+        })
+      }
+
+      void runSemanticSearch(query, dialog, container)
+    }, SEMANTIC_DEBOUNCE_MS)
+  })
+
+  container.addEventListener('change', () => {
+    input.dispatchEvent(new Event('input', { bubbles: true }))
   })
 }
 
-/** 検索ダイアログの閉じるボタンと背景クリックによる閉じ動作をバインドする */
+async function runSemanticSearch(
+  query: string,
+  dialog: HTMLDialogElement,
+  container: HTMLElement,
+) {
+  const sequence = ++semanticSequence
+  const controller = new AbortController()
+  semanticAbortController = controller
+  const timeout = window.setTimeout(
+    () => controller.abort(),
+    SEMANTIC_TIMEOUT_MS,
+  )
+  const startedAt = performance.now()
+  showSemanticLoading(dialog)
+  updateFallbackAndAd(dialog, container)
+
+  try {
+    const response = await fetch('/api/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Acecore-Search-Client': getSearchClientId(),
+      },
+      body: JSON.stringify({
+        query,
+        locale: dialog.dataset.locale || 'ja',
+      }),
+      credentials: 'same-origin',
+      signal: controller.signal,
+    })
+    const payload = (await response.json()) as SemanticSearchResponse
+    if (sequence !== semanticSequence) return
+
+    if (!response.ok || !payload.ok || !Array.isArray(payload.results)) {
+      throw new Error(payload.error?.code || `http_${response.status}`)
+    }
+
+    renderSemanticResults(payload.results, dialog)
+    updateFallbackAndAd(dialog, container)
+    window.aceTrackEvent?.('semantic_search_complete', {
+      location: 'search_modal',
+      page_path: window.location.pathname,
+      result_count: payload.results.length,
+      duration_ms: Math.round(performance.now() - startedAt),
+    })
+  } catch (error) {
+    if (sequence !== semanticSequence) return
+
+    hideSemanticSearch()
+    updateFallbackAndAd(dialog, container)
+    window.aceTrackEvent?.('semantic_search_fallback', {
+      location: 'search_modal',
+      page_path: window.location.pathname,
+      reason:
+        error instanceof DOMException && error.name === 'AbortError'
+          ? 'timeout_or_cancelled'
+          : 'unavailable',
+    })
+  } finally {
+    window.clearTimeout(timeout)
+    if (semanticAbortController === controller) {
+      semanticAbortController = null
+    }
+  }
+}
+
+function showSemanticLoading(dialog: HTMLDialogElement) {
+  const elements = getSemanticElements()
+  if (!elements) return
+
+  semanticState = 'loading'
+  semanticResultCount = 0
+  elements.section.classList.remove('hidden')
+  elements.status.textContent =
+    dialog.dataset.tSemanticLoading ?? 'Finding related content...'
+  elements.results.replaceChildren()
+}
+
+function renderSemanticResults(
+  results: SemanticSearchResult[],
+  dialog: HTMLDialogElement,
+) {
+  const elements = getSemanticElements()
+  if (!elements) return
+
+  const safeResults = results.filter(isSafeSemanticResult).slice(0, 5)
+  semanticResultCount = safeResults.length
+  semanticState = safeResults.length > 0 ? 'ready' : 'empty'
+  elements.section.classList.remove('hidden')
+  elements.status.textContent =
+    safeResults.length === 0
+      ? (dialog.dataset.tSemanticZeroResults ?? 'No related content')
+      : safeResults.length === 1
+        ? (dialog.dataset.tSemanticOneResult ?? '1 related result')
+        : (
+            dialog.dataset.tSemanticManyResults ?? '[COUNT] related results'
+          ).replace('[COUNT]', String(safeResults.length))
+
+  const items = safeResults.map((result) => {
+    const item = document.createElement('li')
+    item.className = 'py-3 first:pt-0 last:pb-0'
+
+    const link = document.createElement('a')
+    link.className =
+      'group block rounded-md outline-none focus-visible:ring-2 focus-visible:ring-brand-400'
+    link.href = result.url
+    link.dataset.semanticResult = 'true'
+    link.dataset.rank = String(result.rank)
+
+    const heading = document.createElement('span')
+    heading.className =
+      'block text-sm font-700 text-brand-800 transition-colors group-hover:text-brand-600'
+    heading.textContent = result.title
+
+    if (result.section && result.section !== result.title) {
+      const section = document.createElement('span')
+      section.className = 'mt-0.5 block text-xs font-600 text-slate-500'
+      section.textContent = result.section
+      link.append(heading, section)
+    } else {
+      link.append(heading)
+    }
+
+    if (result.excerpt) {
+      const excerpt = document.createElement('span')
+      excerpt.className =
+        'mt-1 block text-xs leading-relaxed text-slate-500 sm:text-sm'
+      excerpt.textContent = result.excerpt
+      link.append(excerpt)
+    }
+
+    item.append(link)
+    return item
+  })
+  elements.results.replaceChildren(...items)
+}
+
+function hideSemanticSearch() {
+  semanticAbortController?.abort()
+  semanticAbortController = null
+  semanticSequence += 1
+  semanticResultCount = 0
+  semanticState = 'hidden'
+
+  const elements = getSemanticElements()
+  if (!elements) return
+  elements.section.classList.add('hidden')
+  elements.status.textContent = ''
+  elements.results.replaceChildren()
+}
+
+function isSafeSemanticResult(result: SemanticSearchResult) {
+  if (
+    !result ||
+    typeof result.url !== 'string' ||
+    typeof result.title !== 'string' ||
+    typeof result.rank !== 'number' ||
+    !result.url.startsWith('/') ||
+    result.url.startsWith('//')
+  ) {
+    return false
+  }
+
+  try {
+    return new URL(result.url, window.location.href).origin === window.origin
+  } catch {
+    return false
+  }
+}
+
+function hasActivePagefindFilter(container: HTMLElement) {
+  return Array.from(
+    container.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+      '.pagefind-ui__filter-panel input, .pagefind-ui__filter-panel select',
+    ),
+  ).some((control) =>
+    control instanceof HTMLInputElement
+      ? control.checked
+      : Boolean(control.value),
+  )
+}
+
 function bindDialogChrome(dialog: HTMLDialogElement) {
   if (dialog.dataset.chromeBound === 'true') return
 
   dialog.dataset.chromeBound = 'true'
-  const closeBtn = document.getElementById('search-close')
-  closeBtn?.addEventListener('click', () => dialog.close())
+  document
+    .getElementById('search-close')
+    ?.addEventListener('click', () => dialog.close())
 
   dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) {
-      dialog.close()
-    }
+    if (event.target === dialog) dialog.close()
+  })
+  dialog.addEventListener('close', () => {
+    window.clearTimeout(semanticDebounceTimer)
+    hideSemanticSearch()
   })
 }
 
-/** 検索結果リンクのクリック時に GA4 の search_result_click イベントを送信する */
 function bindResultClickAnalytics(
   dialog: HTMLDialogElement,
   container: HTMLElement,
 ) {
-  if (container.dataset.gaClickBound === 'true') return
+  if (dialog.dataset.gaClickBound === 'true') return
 
-  container.dataset.gaClickBound = 'true'
-  container.addEventListener('click', (event) => {
+  dialog.dataset.gaClickBound = 'true'
+  dialog.addEventListener('click', (event) => {
     const target = event.target as Element | null
-    const resultLink = target?.closest(
-      '.pagefind-ui__result-link',
-    ) as HTMLAnchorElement | null
-    if (!resultLink) return
-
-    const searchInput = dialog.querySelector<HTMLInputElement>(
-      '.pagefind-ui__search-input',
+    const semanticLink = target?.closest<HTMLAnchorElement>(
+      '[data-semantic-result]',
     )
+    if (semanticLink) {
+      window.aceTrackEvent?.('search_result_click', {
+        location: 'search_modal',
+        source: 'vectorize',
+        rank: Number(semanticLink.dataset.rank || 0),
+        page_path: window.location.pathname,
+        destination: semanticLink.pathname,
+      })
+      return
+    }
+
+    const pagefindLink = target?.closest<HTMLAnchorElement>(
+      '.pagefind-ui__result-link',
+    )
+    if (!pagefindLink || !container.contains(pagefindLink)) return
+
     window.aceTrackEvent?.('search_result_click', {
       location: 'search_modal',
+      source: 'pagefind',
       page_path: window.location.pathname,
-      page_title: document.title,
-      search_term: searchInput?.value.trim() || '',
-      result_title: resultLink.textContent?.trim() || '',
-      destination: resultLink.href,
+      result_title: pagefindLink.textContent?.trim() || '',
+      destination: pagefindLink.pathname,
     })
   })
 }
 
-/**
- * 検索結果エリアの DOM 変更を MutationObserver で監視し、以下を制御する:
- * - 結果ゼロ時: 代替リンク（ブログ一覧・サービス・お問い合わせ）を表示
- * - 結果あり時: 広告スロットを表示し initAdSlots で初期化
- * - 結果なし時: 広告スロットを非表示にする
- */
 function bindSearchObserver(dialog: HTMLDialogElement, container: HTMLElement) {
   searchObserver?.disconnect()
-
   searchObserver = new MutationObserver(() => {
-    const results = document.querySelector('.pagefind-ui__results-area')
-    const ad = document.getElementById('search-ad')
-    const message = document.querySelector('.pagefind-ui__message')
-    let fallback = document.getElementById('search-fallback')
-    const d = dialog.dataset
-
-    if (
-      message?.textContent &&
-      !document.querySelector('.pagefind-ui__result')
-    ) {
-      if (!fallback) {
-        fallback = document.createElement('div')
-        fallback.id = 'search-fallback'
-        fallback.className = 'px-1 py-4 text-sm text-slate-600'
-        const blogLink = d.linkBlog ?? '/blog/'
-        const servicesLink = d.linkServices ?? '/services/'
-        const contactLink = d.linkContact ?? '/contact/'
-        fallback.innerHTML =
-          `<p class="mb-2">${d.tFallbackHeading ?? 'You may also try:'}</p>` +
-          '<ul class="m-0 list-none space-y-2 p-0">' +
-          `<li><a href="${blogLink}" class="ac-link">${d.tFallbackBlog ?? '→ Browse all articles'}</a></li>` +
-          `<li><a href="${servicesLink}" class="ac-link">${d.tFallbackServices ?? '→ View services'}</a></li>` +
-          `<li><a href="${contactLink}" class="ac-link">${d.tFallbackContact ?? '→ Contact us'}</a></li>` +
-          '</ul>'
-        message.parentNode?.insertBefore(fallback, message.nextSibling)
-      }
-    } else {
-      fallback?.remove()
-    }
-
-    if (ad) {
-      if (results && results.children.length > 0) {
-        ad.classList.remove('hidden')
-        window.aceInitAdSlots?.(ad)
-      } else {
-        ad.classList.add('hidden')
-      }
-    }
+    updateFallbackAndAd(dialog, container)
   })
-
   searchObserver.observe(container, { childList: true, subtree: true })
 }
 
-/** 検索ダイアログとコンテナの DOM 要素を取得する。見つからない場合は null を返す */
-function getDialogElements() {
-  const dialog = document.getElementById(
-    'search-dialog',
-  ) as HTMLDialogElement | null
-  const container = document.getElementById('search-container')
+function updateFallbackAndAd(
+  dialog: HTMLDialogElement,
+  container: HTMLElement,
+) {
+  const resultsArea = container.querySelector('.pagefind-ui__results-area')
+  const pagefindResults = container.querySelectorAll('.pagefind-ui__result')
+  const message = container.querySelector('.pagefind-ui__message')
+  const ad = document.getElementById('search-ad')
+  let fallback = document.getElementById('search-fallback')
+  const pagefindHasResults = pagefindResults.length > 0
+  const semanticHasResults = semanticResultCount > 0
+  const shouldShowFallback =
+    Boolean(message?.textContent) &&
+    !pagefindHasResults &&
+    !semanticHasResults &&
+    semanticState !== 'loading'
 
-  if (!dialog || !container) {
-    return null
+  if (shouldShowFallback && !fallback) {
+    fallback = createSearchFallback(dialog)
+    message?.parentNode?.insertBefore(fallback, message.nextSibling)
+  } else if (!shouldShowFallback) {
+    fallback?.remove()
   }
 
-  return { dialog, container }
+  if (!ad) return
+  if ((resultsArea && pagefindHasResults) || semanticHasResults) {
+    ad.classList.remove('hidden')
+    window.aceInitAdSlots?.(ad)
+  } else {
+    ad.classList.add('hidden')
+  }
 }
 
-/**
- * 検索モーダルを開き、Pagefind UI を初期化する公開エントリポイント。
- * query が指定された場合は自動的に検索を実行する。
- * 初期化失敗時はエラー UI を表示し、リトライボタンから再試行可能にする。
- */
+function createSearchFallback(dialog: HTMLDialogElement) {
+  const d = dialog.dataset
+  const fallback = document.createElement('div')
+  fallback.id = 'search-fallback'
+  fallback.className = 'px-1 py-4 text-sm text-slate-600'
+
+  const heading = document.createElement('p')
+  heading.className = 'mb-2'
+  heading.textContent = d.tFallbackHeading ?? 'You may also try:'
+
+  const list = document.createElement('ul')
+  list.className = 'm-0 list-none space-y-2 p-0'
+  const links = [
+    [d.linkBlog ?? '/blog/', d.tFallbackBlog ?? '→ Browse all articles'],
+    [d.linkServices ?? '/services/', d.tFallbackServices ?? '→ View services'],
+    [d.linkContact ?? '/contact/', d.tFallbackContact ?? '→ Contact us'],
+  ]
+
+  for (const [href, label] of links) {
+    const item = document.createElement('li')
+    const link = document.createElement('a')
+    link.className = 'ac-link'
+    link.href = href
+    link.textContent = label
+    item.append(link)
+    list.append(item)
+  }
+
+  fallback.append(heading, list)
+  return fallback
+}
+
+function getSearchClientId() {
+  try {
+    const existing = sessionStorage.getItem(SEARCH_CLIENT_STORAGE_KEY)
+    if (existing) return existing
+
+    const clientId = crypto.randomUUID()
+    sessionStorage.setItem(SEARCH_CLIENT_STORAGE_KEY, clientId)
+    return clientId
+  } catch {
+    return crypto.randomUUID()
+  }
+}
+
+function normalizeQuery(value: string) {
+  return value.normalize('NFKC').replace(/\s+/gu, ' ').trim()
+}
+
+function getDialog() {
+  return document.getElementById('search-dialog') as HTMLDialogElement | null
+}
+
+function getSemanticElements() {
+  const section = document.getElementById('semantic-search')
+  const status = document.getElementById('semantic-search-status')
+  const results = document.getElementById('semantic-search-results')
+  if (!section || !status || !results) return null
+  return { section, status, results }
+}
+
+function getDialogElements() {
+  const dialog = getDialog()
+  const container = document.getElementById('search-container')
+  return dialog && container ? { dialog, container } : null
+}
+
 export async function openSearch(query?: string) {
+  bindSearchLifecycle()
+
   const elements = getDialogElements()
   if (!elements) return
 
@@ -419,12 +663,15 @@ export async function openSearch(query?: string) {
 
   try {
     const input = await ensureSearchUi(dialog, container)
-    bindSearchInputAnalytics(input)
+    bindSearchInput(input, dialog, container)
     if (query && input) {
       input.value = query
       input.dispatchEvent(new Event('input', { bubbles: true }))
-    } else {
-      input?.focus()
+    } else if (input) {
+      input.focus()
+      if (normalizeQuery(input.value).length >= 2) {
+        input.dispatchEvent(new Event('input', { bubbles: true }))
+      }
     }
   } catch {
     showSearchError(container, () => {

@@ -2395,6 +2395,18 @@ collections:
             label: '解析・本文3'
             hint: 'analyticsBody3'
             widget: string
+          - name: 'searchHeading'
+            label: 'サイト内検索・見出し'
+            hint: 'searchHeading'
+            widget: string
+          - name: 'searchBody1'
+            label: 'サイト内検索・本文1'
+            hint: 'searchBody1'
+            widget: text
+          - name: 'searchBody2'
+            label: 'サイト内検索・本文2'
+            hint: 'searchBody2'
+            widget: text
           - name: 'personalInfoHeading'
             label: '個人情報見出し'
             hint: 'personalInfoHeading'
@@ -2643,6 +2655,34 @@ collections:
           - name: 'searchFallbackContact'
             label: '検索代替: お問い合わせ'
             hint: 'searchFallbackContact'
+            widget: string
+          - name: 'semanticHeading'
+            label: '意味検索・見出し'
+            hint: 'semanticHeading'
+            widget: string
+          - name: 'semanticLoading'
+            label: '意味検索・読み込み中'
+            hint: 'semanticLoading'
+            widget: string
+          - name: 'semanticZeroResults'
+            label: '意味検索・0件'
+            hint: 'semanticZeroResults'
+            widget: string
+          - name: 'semanticManyResults'
+            label: '意味検索・複数件'
+            hint: 'semanticManyResults'
+            widget: string
+          - name: 'semanticOneResult'
+            label: '意味検索・1件'
+            hint: 'semanticOneResult'
+            widget: string
+          - name: 'semanticPrivacyNotice'
+            label: '意味検索・データ取扱い案内'
+            hint: 'semanticPrivacyNotice'
+            widget: text
+          - name: 'semanticPrivacyLink'
+            label: '意味検索・プライバシーリンク'
+            hint: 'semanticPrivacyLink'
             widget: string
           - name: 'blogCtaHeading'
             label: 'ブログ・CTA・見出し'
