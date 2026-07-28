@@ -73,6 +73,90 @@ function extractAttribute(tag, name) {
   return decodeHtmlEntities(match?.[2] ?? '')
 }
 
+function extractHtmlLang(html) {
+  const tag = html.match(/<html\s+[^>]*>/i)?.[0] ?? ''
+  return extractAttribute(tag, 'lang')
+}
+
+function isWebPageEntry(entry) {
+  if (!entry || typeof entry !== 'object') return false
+
+  const types = Array.isArray(entry['@type'])
+    ? entry['@type']
+    : [entry['@type']]
+  return types.includes('WebPage')
+}
+
+function isLocalizedHomePage(url) {
+  const segments = new URL(url).pathname.split('/').filter(Boolean)
+  return (
+    segments.length === 0 ||
+    (segments.length === 1 && localizedPrefixes.has(segments[0]))
+  )
+}
+
+function getJsonLdIssues(html, url, canonical) {
+  const issues = []
+  const htmlLang = extractHtmlLang(html)
+  const entries = []
+  const scripts = Array.from(
+    html.matchAll(
+      /<script\s+[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
+    ),
+    (match) => match[1].trim(),
+  )
+
+  for (const script of scripts) {
+    let parsed
+    try {
+      parsed = JSON.parse(script)
+    } catch (error) {
+      issues.push({
+        label: 'JSON-LD is invalid',
+        url,
+        value: error instanceof Error ? error.message : String(error),
+      })
+      continue
+    }
+
+    const documents = Array.isArray(parsed) ? parsed : [parsed]
+    entries.push(
+      ...documents.flatMap((document) =>
+        Array.isArray(document?.['@graph']) ? document['@graph'] : [document],
+      ),
+    )
+  }
+
+  const webPageEntries = entries.filter(isWebPageEntry)
+  if (isLocalizedHomePage(url) && webPageEntries.length === 0) {
+    issues.push({
+      label: 'localized home WebPage JSON-LD is missing',
+      url,
+      value: '(missing)',
+    })
+  }
+
+  for (const entry of webPageEntries) {
+    if (entry.url !== canonical) {
+      issues.push({
+        label: 'WebPage JSON-LD URL does not match canonical',
+        url,
+        value: entry.url || '(missing)',
+      })
+    }
+
+    if (entry.inLanguage !== htmlLang) {
+      issues.push({
+        label: 'WebPage JSON-LD language does not match HTML',
+        url,
+        value: `${entry.inLanguage || '(missing)'} (expected ${htmlLang || '(missing)'})`,
+      })
+    }
+  }
+
+  return issues
+}
+
 function extractHreflangLinks(html) {
   return new Map(
     Array.from(html.matchAll(/<link\s+[^>]*>/gi), (match) => match[0])
@@ -83,6 +167,11 @@ function extractHreflangLinks(html) {
         extractAttribute(tag, 'href'),
       ]),
   )
+}
+
+function mapsAreEqual(left, right) {
+  if (left.size !== right.size) return false
+  return Array.from(left).every(([key, value]) => right.get(key) === value)
 }
 
 function getImageAltIssues(html, url) {
@@ -161,7 +250,17 @@ for (const url of urls) {
   const description = extractMetaContent(html, 'description').trim()
   const robots = extractMetaContent(html, 'robots').toLowerCase()
   const canonical = extractCanonical(html)
-  pages.push({ url, title, description, locale: getLocale(url) })
+  const htmlLang = extractHtmlLang(html)
+  const hreflangLinks = extractHreflangLinks(html)
+  pages.push({
+    url,
+    title,
+    description,
+    locale: getLocale(url),
+    canonical,
+    htmlLang,
+    hreflangLinks,
+  })
 
   if (isContextualCorePage(url)) {
     contextualCorePageCount += 1
@@ -197,27 +296,12 @@ for (const url of urls) {
     })
   }
 
+  issues.push(...getJsonLdIssues(html, url, canonical))
   issues.push(...getImageAltIssues(html, url))
 }
 
 const rootUrl = 'https://acecore.net/'
 const rootHtml = await readFile(getHtmlPath(rootUrl), 'utf8')
-const rootHreflangLinks = extractHreflangLinks(rootHtml)
-const expectedRootHreflangLinks = new Map([
-  ['ja', rootUrl],
-  ['en', 'https://acecore.net/en/'],
-  ['x-default', rootUrl],
-])
-
-for (const [hreflang, expectedUrl] of expectedRootHreflangLinks) {
-  const actualUrl = rootHreflangLinks.get(hreflang)
-  if (actualUrl === expectedUrl) continue
-  issues.push({
-    label: 'root hreflang does not match the default locale policy',
-    url: rootUrl,
-    value: `${hreflang}: ${actualUrl || '(missing)'} (expected ${expectedUrl})`,
-  })
-}
 
 if (
   rootHtml.includes('navigator.language') &&
@@ -228,6 +312,57 @@ if (
     url: rootUrl,
     value: 'Use explicit hreflang links and the language switcher instead.',
   })
+}
+
+const sitemapUrlSet = new Set(urls)
+const pageByUrl = new Map(pages.map((page) => [page.url, page]))
+
+for (const page of pages) {
+  const { canonical, hreflangLinks, htmlLang, url } = page
+  const selfReference = hreflangLinks.get(htmlLang)
+
+  if (selfReference !== canonical) {
+    issues.push({
+      label: 'hreflang self reference does not match canonical',
+      url,
+      value: `${selfReference || '(missing)'} (expected ${canonical || '(missing)'})`,
+    })
+  }
+
+  const japaneseUrl = hreflangLinks.get('ja')
+  const defaultUrl = hreflangLinks.get('x-default')
+  if (!japaneseUrl || defaultUrl !== japaneseUrl) {
+    issues.push({
+      label: 'hreflang x-default does not match Japanese canonical',
+      url,
+      value: `${defaultUrl || '(missing)'} (expected ${japaneseUrl || '(missing)'})`,
+    })
+  }
+
+  for (const [hreflang, alternateUrl] of hreflangLinks) {
+    if (!sitemapUrlSet.has(alternateUrl)) {
+      issues.push({
+        label: 'hreflang alternate is outside sitemap',
+        url,
+        value: `${hreflang}: ${alternateUrl}`,
+      })
+      continue
+    }
+
+    if (hreflang === 'x-default') continue
+
+    const alternatePage = pageByUrl.get(alternateUrl)
+    if (
+      alternatePage &&
+      !mapsAreEqual(hreflangLinks, alternatePage.hreflangLinks)
+    ) {
+      issues.push({
+        label: 'hreflang cluster is not reciprocal',
+        url,
+        value: `${hreflang}: ${alternateUrl}`,
+      })
+    }
+  }
 }
 
 const expectedContextualCorePages =

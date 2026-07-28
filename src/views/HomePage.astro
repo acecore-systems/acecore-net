@@ -16,6 +16,7 @@ import {
   formatDate,
   getTranslationValue,
   getLocalizedUrl,
+  htmlLangMap,
   type Locale,
 } from '../i18n'
 import {
@@ -54,6 +55,8 @@ type HeroImage = {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+const homePath = u('/')
+const homeUrl = new URL(homePath, Astro.site).href
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 const resolveCardHref = (href: string) => {
@@ -125,13 +128,15 @@ const webPageLd = {
   '@type': 'WebPage',
   name: t(locale, 'meta.siteTitle'),
   description: t(locale, 'meta.defaultDescription'),
-  url: 'https://acecore.net/',
+  url: homeUrl,
+  inLanguage: htmlLangMap[locale],
 }
 ---
 
 <BaseLayout
   locale={locale}
   title={t(locale, 'nav.home')}
+  canonicalPath={homePath}
   jsonLd={webPageLd}
   preloadImage={firstHeroImage
     ? {
