@@ -7,7 +7,7 @@
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/write-cms-runtime-config.mjs",
-    "build": "astro build && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs",
+    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
@@ -20,7 +20,7 @@
     "check:pages-config": "wrangler pages functions build --outdir .wrangler/pages-functions",
     "typecheck:functions": "tsc --project tsconfig.functions.json",
     "validate:content": "node scripts/validate-content.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs",
+    "validate:seo": "node scripts/enrich-sitemap-lastmod.mjs --check && node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
     "validate:legacy-redirects": "node scripts/validate-legacy-redirects.mjs"
   },
