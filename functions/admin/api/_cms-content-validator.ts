@@ -1,16 +1,16 @@
 import { JSON_SCHEMA, load as loadYaml } from 'js-yaml'
 import { z } from 'zod'
 
-import blogTemplate from '../../../src/i18n/source/ja/blog.json' with { type: 'json' }
-import commonTemplate from '../../../src/i18n/source/ja/common.json' with { type: 'json' }
-import aboutTemplate from '../../../src/i18n/source/ja/pages/about.json' with { type: 'json' }
-import acestudioTemplate from '../../../src/i18n/source/ja/pages/acestudio.json' with { type: 'json' }
-import contactTemplate from '../../../src/i18n/source/ja/pages/contact.json' with { type: 'json' }
-import homeTemplate from '../../../src/i18n/source/ja/pages/home.json' with { type: 'json' }
-import notFoundTemplate from '../../../src/i18n/source/ja/pages/not-found.json' with { type: 'json' }
-import pricingTemplate from '../../../src/i18n/source/ja/pages/pricing.json' with { type: 'json' }
-import privacyTemplate from '../../../src/i18n/source/ja/pages/privacy.json' with { type: 'json' }
-import servicesTemplate from '../../../src/i18n/source/ja/pages/services.json' with { type: 'json' }
+import blogTemplate from '../../../src/i18n/source/ja/blog.json'
+import commonTemplate from '../../../src/i18n/source/ja/common.json'
+import aboutTemplate from '../../../src/i18n/source/ja/pages/about.json'
+import acestudioTemplate from '../../../src/i18n/source/ja/pages/acestudio.json'
+import contactTemplate from '../../../src/i18n/source/ja/pages/contact.json'
+import homeTemplate from '../../../src/i18n/source/ja/pages/home.json'
+import notFoundTemplate from '../../../src/i18n/source/ja/pages/not-found.json'
+import pricingTemplate from '../../../src/i18n/source/ja/pages/pricing.json'
+import privacyTemplate from '../../../src/i18n/source/ja/pages/privacy.json'
+import servicesTemplate from '../../../src/i18n/source/ja/pages/services.json'
 import {
   authorSchema,
   blogSchema,

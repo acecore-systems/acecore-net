@@ -11,7 +11,7 @@
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "test:cms": "node tests/cms-proxy.test.mjs && node tests/render-safety.test.mjs && node tests/translation-trigger.test.mjs",
+    "test:cms": "node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node tests/render-safety.test.mjs && node tests/translation-trigger.test.mjs",
     "test:search": "node --experimental-strip-types --test tests/deployment-marker.test.mjs tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs",
     "sync:vectorize": "node scripts/sync-vectorize.mjs",
     "sync:vectorize:dry-run": "node scripts/sync-vectorize.mjs --dry-run",
