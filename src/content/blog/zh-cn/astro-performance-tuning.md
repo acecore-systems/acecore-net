@@ -1,8 +1,8 @@
 ---
-title: '实现Astro网站PageSpeed移动端99分的实践技巧'
-description: '介绍在Astro + UnoCSS + Cloudflare Pages构成的网站上达到PageSpeed Insights移动端99分所实施的优化技巧。涵盖CSS分发策略、字体设置的陷阱、响应式图片、AdSense延迟加载、缓存设置等实践方法。'
+title: '提升Astro网站PageSpeed的实用技巧'
+description: '面向Astro、UnoCSS和Cloudflare Pages网站的实用优化技巧，涵盖CSS分发、字体设置、响应式图片、当前AdSense与GA4加载方式以及缓存配置。'
 date: 2026-03-15T00:00
-lastUpdated: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:23+09:00'
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp
@@ -17,83 +17,76 @@ processFigure:
       description: 理解内联展开和外部文件的权衡。
       icon: i-lucide-file-code
     - title: 字体优化
-      description: 通过自托管消除外部CDN的延迟。
+      description: 确认实际加载并用于渲染的字体。
       icon: i-lucide-type
     - title: 图片优化
-      description: 使用 Cloudflare Images + srcset + sizes 分发最优尺寸。
+      description: 使用 Cloudflare Images + srcset + sizes 优化外部图片。
       icon: i-lucide-image
-    - title: 延迟加载
-      description: 在首次交互时注入AdSense和GA4。
+    - title: 加载控制
+      description: AdSense首次尝试与重试，以及GA4延迟加载。
       icon: i-lucide-timer
 compareTable:
   title: 优化前后对比
   before:
     label: 优化前
     items:
-      - Google Fonts CDN（阻塞渲染）
-      - 将190 KiB的CSS内联展开到HTML
+      - 未检查字体连接与实际渲染结果
+      - 未检查CSS输出与缓存
       - 图片以固定尺寸分发
       - AdSense脚本即时加载
-      - 移动端70分左右
+      - 不记录测试条件，只追踪固定分数
   after:
     label: 优化后
     items:
-      - '使用@fontsource自托管（以正确的字体名引用）'
-      - CSS外部文件化并以immutable缓存分发
+      - 检查字体网络请求与实际渲染字体
+      - 较大的CSS外部化，并对带哈希的资源使用immutable缓存
       - 通过srcset + sizes根据屏幕宽度分发最优尺寸
-      - AdSense和GA4在首次滚动时延迟加载
-      - 移动端99分、桌面端100分
+      - AdSense首次检查广告位并通过observer重试；GA4在交互或计时器后加载
+      - 在相同条件下重复运行PageSpeed Insights
 faq:
   title: 常见问题
   items:
     - question: CSS是内联化快还是外部文件化快？
-      answer: '取决于CSS的总量。20 KiB以下时内联化更有优势。超过此大小时，外部文件化并利用浏览器缓存，第二次及后续访问会大幅加速。'
+      answer: "取决于CSS体积、页面结构和缓存状态。使用当前的 build.inlineStylesheets: 'auto' 设置，检查生成的HTML与CSS，并在相同条件下测量。"
     - question: Google Fonts CDN为什么慢？
-      answer: 'PageSpeed Insights模拟的是slow 4G（约1.6 Mbps，RTT 150ms）。连接外部域名需要DNS查询 + TCP连接 + TLS握手，这个延迟会造成渲染阻塞。自托管从同一域名分发，这个延迟为零。'
+      answer: '外部域名可能增加DNS查询、TCP连接和TLS握手。影响取决于网络与缓存，应检查实际请求和渲染字体后再判断。'
     - question: Cloudflare Images 较慢时怎么办？
-      answer: 'Cloudflare Images 通常很快，但首次转换或缓存未命中时仍需回源抓取原图。若在 PageSpeed 测试中 LCP 变差，请为关键图片设置 <link rel="preload">，让浏览器尽早发起请求。'
-    - question: 延迟加载AdSense会影响收入吗？
-      answer: '如果首屏没有广告，首次滚动时加载的显示时机几乎相同。页面速度改善带来的SEO效果反而更有利。'
+      answer: 'Cloudflare Images的性能取决于源图、转换和缓存状态。首次转换或缓存未命中仍会抓取源图，因此应在相同条件下测量LCP候选，仅在需要时使用responsive preload。'
+    - question: AdSense加载控制会影响收入吗？
+      answer: '影响会随广告位置和访问行为而变化。请比较更改前后的可见率、广告请求和收入，并与性能指标分开评估。'
 ---
 
 ## 前言
 
-Acecore的官方网站使用Astro 6 + UnoCSS + Cloudflare Pages构建。本文介绍了在PageSpeed Insights上达到**移动端99分、桌面端100分**所实施的优化技巧。
+Acecore官方网站使用Astro 7.1.3 + UnoCSS + Cloudflare Pages构建。本文介绍截至2026年7月29日在代码仓库中确认的优化设置。
 
-最终达成的分数如下：
-
-| 指标           | 移动端  | 桌面端  |
-| -------------- | ------- | ------- |
-| Performance    | **99**  | **100** |
-| Accessibility  | **100** | **100** |
-| Best Practices | **100** | **100** |
-| SEO            | **100** | **100** |
+PageSpeed Insights结果会随测试时间、设备和网络而变化，因此本文不列出固定分数。请在相同条件下比较更改前后的Core Web Vitals和传输量。
 
 ---
 
 ## 为什么选择Astro
 
-企业网站最需要的是"速度"和"SEO"。Astro专注于静态网站生成（SSG），默认实现零JavaScript。由于不会像React或Vue那样将框架代码发送到客户端，初始显示非常快速。
+Astro支持静态网站生成（SSG），并允许只在需要的位置添加客户端JavaScript。当前网站也会分发ClientRouter、搜索、广告和分析脚本，因此不能假设页面不含客户端脚本；应测量实际传输量和渲染指标。
 
-CSS框架采用了UnoCSS。与Tailwind CSS相同的实用工具优先方法，在构建时只提取使用的类名，因此CSS体积最小。从v66开始推荐使用 `presetWind3()`，建议尽早迁移。
+当前网站使用UnoCSS和 `presetWind3()`。它根据构建时检测到的utility生成CSS，可能减少传输量，但不能保证最小体积。请检查生成的CSS和实际使用的类。
 
 ---
 
 ## CSS分发策略：内联 vs 外部文件
 
-对PageSpeed分数影响最大的就是CSS的分发策略。
+CSS分发方式会影响HTML体积、额外请求与浏览器缓存。
 
-### CSS体积较小时（~20 KiB）
+### 内联CSS时
 
-设置Astro的 `build.inlineStylesheets: 'always'`，所有CSS会直接嵌入HTML。由于无需对外部CSS文件发起HTTP请求，FCP（First Contentful Paint）会得到改善。
+设置Astro的 `build.inlineStylesheets: 'always'`，所有CSS会直接嵌入HTML。这样可省去外部CSS请求，并可能根据页面情况改善FCP（First Contentful Paint）。
 
-CSS在20 KiB左右以内时，这种方式最优。
+有利条件会随CSS体积和页面结构变化，不能只按固定阈值判断。
 
-### CSS体积较大时（20 KiB~）
+### 使用外部CSS时
 
-但使用日文Web字体（`@fontsource-variable/noto-sans-jp`）后情况就不同了。这个包包含**124个 `@font-face` 声明**（约96.7 KiB），整个CSS达到190 KiB左右。
+外部文件可通过浏览器缓存复用共享且带hash的CSS。
 
-将190 KiB的CSS内联展开到所有HTML中，首页HTML会膨胀到**225 KiB**。在slow 4G下，仅这个HTML传输就需要约1秒。
+当前网站使用 `build.inlineStylesheets: 'auto'`，调整时检查实际生成结果。
 
 ### 解决方案：外部文件化 + immutable缓存
 
@@ -115,53 +108,34 @@ export default defineConfig({
   Cache-Control: public, max-age=31536000, immutable
 ```
 
-通过此更改，HTML体积**减少了84~91%**（例：index.html从225 KiB → 35 KiB），PageSpeed分数从**96分提升至99分**。
+更改后请检查生成的HTML、CSS文件和缓存行为，并在相同条件下重新运行PageSpeed Insights。
 
 ---
 
-## 字体优化：正确的自托管设置
+## 字体优化：确认实际分发
 
-### 避免使用Google Fonts CDN
+### 比较外部与本地分发
 
-Google Fonts CDN虽然便捷，但在PageSpeed Insights的移动端测试中是致命的。实际测试表明，使用Google Fonts CDN时**FCP达到6.1秒，分数降至62分**。
+外部字体可能在关键路径中增加连接；本地分发也会从站点发送字体CSS和文件。请在相同条件下比较两种方式。
 
-在slow 4G下连接外部域名会产生DNS查询 → TCP连接 → TLS握手 → CSS下载 → 字体下载的链式请求，导致渲染严重延迟。
+在网络面板中检查字体请求、缓存与传输量，并通过Rendered Fonts确认浏览器实际使用的字体。
 
-### 引入自托管
+### 当前代码仓库状态
 
-安装 `@fontsource-variable/noto-sans-jp`，在布局文件中import即可。
+`package.json` 包含 `@fontsource/noto-sans-jp`，但截至2026年7月29日，`src` 中没有任何文件import它。仅存在依赖项并不能证明字体已被分发。
 
-```bash
-npm install @fontsource-variable/noto-sans-jp
-```
-
-```javascript
-// BaseLayout.astro
-import '@fontsource-variable/noto-sans-jp'
-```
-
-### 注意：字体名不匹配
-
-这里有一个意想不到的陷阱。`@fontsource-variable/noto-sans-jp` 在 `@font-face` 中注册的字体名是 **`Noto Sans JP Variable`**。但很多人在CSS中会写成 `Noto Sans JP`。
-
-如果存在这种不匹配，**字体无法正确应用，浏览器会一直使用回退字体**。尽管加载了96.7 KiB的字体数据，却完全没有被使用。
-
-在UnoCSS设置中正确指定字体族：
+当前UnoCSS字体栈如下：
 
 ```typescript
 // uno.config.ts
 theme: {
   fontFamily: {
-    sans: "'Noto Sans JP Variable', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif",
+    sans: "'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic', 'Meiryo', system-ui, sans-serif",
   },
 }
 ```
 
-如果出现TypeScript类型错误，在 `src/env.d.ts` 中添加模块声明：
-
-```typescript
-declare module '@fontsource-variable/noto-sans-jp'
-```
+仅有此声明不会下载Web字体。若采用自托管，请同时确认显式import、生成的CSS与字体文件以及实际渲染结果。
 
 ---
 
@@ -169,27 +143,33 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ### Cloudflare Images Transformations
 
-外部图片通过 Cloudflare Images 的 `/cdn-cgi/image/` 转换 URL 分发。只需添加转换参数即可自动完成以下处理：
+当前工具只把外部图片交给Cloudflare Images的 `/cdn-cgi/image/` 转换。根相对 `/uploads/...` 文件和受管的 `asv.acecore.net/uploads/...` 图片会直接分发。
 
 - **格式转换**：`output=auto` 根据浏览器支持自动选择AVIF / WebP
-- **质量调整**：`q=50` 在保持足够画质的同时将文件大小减少约10%
+- **质量调整**：当前工具默认使用 `quality=75`，覆盖前应检查实际图片效果
 - **缩放**：通过 `w=` 参数缩放到指定宽度
 
 ### srcset和sizes设置
 
-为所有图片设置 `srcset` 和 `sizes`，根据屏幕宽度分发最优尺寸。
+对于需要响应式分发的外部图片，通过工具生成 `srcset` 并设置 `sizes`。
 
-```html
+```astro
+---
+import { generateSrcSet, optimizeImage } from '../utils/image'
+
+const remoteImage =
+  'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=400&fit=crop'
+---
+
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp"
-  srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1600w
-  "
+  src={optimizeImage(remoteImage, { width: 800, height: 400, quality: 75 })}
+  srcset={generateSrcSet(remoteImage, [480, 640, 960, 1280, 1600], {
+    quality: 75,
+    aspectRatio: 2,
+  })}
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  width="800"
+  height="400"
   loading="lazy"
   decoding="async"
 />
@@ -201,50 +181,61 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ### LCP改善：preload
 
-对影响LCP（Largest Contentful Paint）的图片设置 `<link rel="preload">`。在Astro的布局组件中添加 `preloadImage` props，指定首页Hero图片等需要优先加载的图片。
+只preload实际的LCP候选图片。对于响应式图片，应让layout输出的 `href`、`imagesrcset`、`imagesizes` 与图片本身一致，并设置 `fetchpriority="high"`。额外的preload可能争抢资源，因此应通过测量确认对象。
 
 ```html
-<link rel="preload" as="image" href="..." />
+<link
+  rel="preload"
+  as="image"
+  href="..."
+  imagesrcset="..."
+  imagesizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  fetchpriority="high"
+/>
 ```
 
 ### CLS（布局偏移）防止
 
-为所有图片明确指定 `width` 和 `height` 属性。浏览器会预先确保图片的显示区域，防止加载完成时的布局偏移（CLS）。
+应指定与源图宽高比一致的准确 `width` 和 `height`。正确值能让浏览器预留空间，但仅有属性并不能保证消除CLS。当前hero和Markdown rewrite路径也会添加固定尺寸，应逐一核对与源图的比例并实际测量CLS。
 
 特别容易遗漏的是头像图片（32×32、48×48、64×64px）和YouTube缩略图（480×360px）。
 
 ---
 
-## 广告和分析工具的延迟加载
+## 广告加载控制与分析工具延迟加载
 
 ### AdSense
 
-Google AdSense的脚本约100 KiB，对初始显示影响很大。改为在用户首次滚动时动态注入脚本。
+当前runtime仅在日文 `/blog/` 页面启用。它为每个广告位注册 `IntersectionObserver`（`rootMargin: 200px`）和 `ResizeObserver`，随后检查可显示性并执行首次 `attemptInit()`。首次尝试不会等待intersection，因此宽度可用时可能立即发起广告请求。Observer用于intersection或尺寸变化时重试。带locale前缀的翻译URL目前会插入广告位，但不会加载该runtime。
 
 ```javascript
-window.addEventListener(
-  'scroll',
-  () => {
-    const script = document.createElement('script')
-    script.src = 'https://pagead2.googlesyndication.com/...'
-    script.async = true
-    document.head.appendChild(script)
+const retry = () => void attemptInit()
+const intersectionObserver = new IntersectionObserver(
+  (entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      retry()
+    }
   },
-  { once: true },
+  { rootMargin: '200px' },
 )
+const resizeObserver = new ResizeObserver(retry)
+
+intersectionObserver.observe(container)
+resizeObserver.observe(container)
+void attemptInit() // 首次尝试不等待intersection
 ```
 
-`{ once: true }` 使事件监听器只触发一次。这样可以将首屏的JavaScript传输量降至接近零。
+`attemptInit()`会检查广告位宽度和可见状态，并通过状态属性防止重复请求。
 
 ### GA4
 
-Google Analytics 4同样使用 `requestIdleCallback` 延迟注入。在浏览器空闲时注入脚本，不会妨碍用户操作。
+Google Analytics 4会在 `pointerdown`、`keydown`、`touchstart` 或 `scroll` 时进入加载队列。支持时使用 `requestIdleCallback`，否则使用 `setTimeout`；没有交互时，首页在12秒后、其他页面在4秒后由计时器加入队列。
 
 ---
 
 ## 缓存策略
 
-在Cloudflare Pages的 `_headers` 文件中为每种资源设置最优缓存策略。
+以下内容记录Cloudflare Pages `_headers` 的当前设置，并非适用于所有文件的通用建议。
 
 ```
 # 构建输出（带哈希的文件名）
@@ -261,29 +252,29 @@ Google Analytics 4同样使用 `requestIdleCallback` 延迟注入。在浏览器
 ```
 
 - `/_astro/*` 文件名中包含哈希值，因此1年的immutable缓存是安全的
-- `/pagefind/*` 缓存1周 + 1天的stale-while-revalidate
-- HTML始终获取最新版本
+- `/pagefind/*` 当前缓存1周 + 1天的stale-while-revalidate。固定名称的 `pagefind-entry.json` 会引用带哈希的metadata，为避免版本混用，应对entry/bootstrap文件进行revalidate，只对带哈希的chunk使用长期缓存
+- HTML使用 `max-age=0, must-revalidate`，复用缓存前会重新验证
 
 ---
 
 ## 性能优化检查清单
 
-1. **CSS分发策略是否合适**：20 KiB以下用内联，超过则用外部文件
-2. **字体是否自托管**：外部CDN在slow 4G下是致命的
-3. **字体名是否正确**：确认 `@fontsource-variable` 的注册名（`*Variable`）
-4. **所有图片是否有srcset + sizes**：特别要准备移动端的小尺寸
-5. **LCP元素是否有preload**：Hero图片和首屏图片
-6. **图片是否有width / height**：防止CLS
-7. **AdSense / GA4是否延迟加载**：首屏JS传输量降为零
-8. **缓存头部是否已设置**：immutable缓存加速后续访问
+1. **CSS分发策略是否合适**：检查 `auto` 的生成结果并在相同条件下测量
+2. **是否比较过字体分发方式**：在相同条件下测量自托管与外部CDN
+3. **是否确认实际字体分发**：检查网络请求与Rendered Fonts
+4. **响应式分发对象是否有srcset + sizes**：特别要准备移动端的小尺寸
+5. **是否只preload实际LCP候选**：保持响应式srcset、sizes与priority一致
+6. **图片width / height是否准确**：匹配源图宽高比并测量CLS
+7. **AdSense / GA4控制是否合适**：检查AdSense首次尝试与重试、GA4交互与计时器fallback
+8. **缓存头部是否已设置**：仅对带哈希的资源使用immutable
 
 ---
 
 ## 总结
 
-性能优化的原则可以用一句话概括：**"不发送不必要的东西"**。CSS内联展开乍看很快，但190 KiB时适得其反。字体自托管是必须的，但存在字体名不匹配的陷阱。
+性能优化的原则可以概括为 **"不发送不必要的东西"**。CSS分发应通过实际输出确认；字体自托管是在符合站点测量与运维需求时可选的一种方式。
 
-以Astro的零JS架构为基础，分别从CSS、字体、图片、广告脚本各方面最小化传输量，移动端99分完全可以达到。
+不要把固定分数当作结果。请在相同条件下重新测量Core Web Vitals与传输量，并一并确认广告和Analytics的行为。
 
 ---
 

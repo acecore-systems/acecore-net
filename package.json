@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
+    "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",
     "test:cms": "node --test tests/cms-proxy.test.mjs",
     "test:search": "node --experimental-strip-types --test tests/deployment-marker.test.mjs tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs",
     "sync:vectorize": "node scripts/sync-vectorize.mjs",
@@ -20,6 +21,7 @@
     "check:pages-config": "wrangler pages functions build --outdir .wrangler/pages-functions",
     "typecheck:functions": "tsc --project tsconfig.functions.json",
     "validate:content": "node scripts/validate-content.mjs",
+    "validate:blog-freshness": "node scripts/validate-blog-freshness.mjs",
     "validate:seo": "node scripts/enrich-sitemap-lastmod.mjs --check && node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
     "validate:legacy-redirects": "node scripts/validate-legacy-redirects.mjs"

@@ -1,8 +1,8 @@
 ---
-title: 'Técnicas prácticas para lograr 99 puntos en PageSpeed móvil en sitios Astro'
-description: 'Presentamos las técnicas de optimización realizadas para alcanzar 99 puntos móviles en PageSpeed Insights en un sitio con configuración Astro + UnoCSS + Cloudflare Pages. Desde la estrategia de distribución de CSS, trampas en la configuración de fuentes, imágenes responsive, carga diferida de AdSense hasta configuración de caché.'
+title: 'Técnicas prácticas para mejorar PageSpeed en sitios Astro'
+description: 'Técnicas prácticas de optimización para un sitio con Astro, UnoCSS y Cloudflare Pages. Incluye distribución de CSS, fuentes, imágenes responsive, control de carga de AdSense, carga diferida de GA4 y caché.'
 date: 2026-03-15T00:00
-lastUpdated: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:23+09:00'
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp
@@ -17,83 +17,76 @@ processFigure:
       description: Comprender el equilibrio entre inlining y archivos externos.
       icon: i-lucide-file-code
     - title: Optimización de fuentes
-      description: Eliminar la latencia de CDN externo con self-hosting.
+      description: Verificar qué fuentes se cargan y se usan para renderizar.
       icon: i-lucide-type
     - title: Optimización de imágenes
-      description: Distribuir el tamaño óptimo con Cloudflare Images + srcset + sizes.
+      description: Optimizar imágenes externas con Cloudflare Images + srcset + sizes.
       icon: i-lucide-image
-    - title: Carga diferida
-      description: Inyectar AdSense y GA4 en la primera interacción.
+    - title: Control de carga
+      description: Revisar el intento inicial y los reintentos de AdSense, más la carga diferida de GA4.
       icon: i-lucide-timer
 compareTable:
   title: Comparación antes y después de la optimización
   before:
     label: Antes de la optimización
     items:
-      - Google Fonts CDN (bloqueo de renderizado)
-      - 190 KiB de CSS inlineado en HTML
+      - Conexiones de fuentes y resultado renderizado sin comprobar
+      - Salida CSS y caché sin comprobar
       - Imágenes distribuidas con tamaño fijo
       - Script de AdSense cargado inmediatamente
-      - Puntuación móvil en los 70
+      - Seguimiento de puntuaciones fijas sin registrar las condiciones
   after:
     label: Después de la optimización
     items:
-      - 'Self-hosting con @fontsource (referenciando el nombre correcto de fuente)'
-      - CSS externalizado y distribuido con caché immutable
+      - Solicitudes y fuentes renderizadas comprobadas
+      - CSS grande externalizado y assets con hash en caché immutable
       - Tamaño óptimo distribuido según ancho de pantalla con srcset + sizes
-      - AdSense y GA4 con carga diferida al primer scroll
-      - Móvil 99 puntos, escritorio 100 puntos
+      - AdSense comprueba si puede mostrarse en el intento inicial y reintenta con observers; GA4 carga tras interacción o temporizador
+      - PageSpeed Insights repetido en condiciones equivalentes
 faq:
   title: Preguntas frecuentes
   items:
     - question: ¿Qué es más rápido, CSS inlineado o externalizado?
-      answer: 'Depende del tamaño total del CSS. Si es menos de 20 KiB, el inlining es ventajoso. Si es mayor, externalizar y aprovechar la caché del navegador hace que los accesos posteriores al primero sean significativamente más rápidos.'
+      answer: "Depende del tamaño del CSS, la estructura de la página y la caché. Use la configuración actual build.inlineStylesheets: 'auto', revise el HTML y CSS generados y mida en condiciones equivalentes."
     - question: ¿Por qué es lento el CDN de Google Fonts?
-      answer: 'PageSpeed Insights simula slow 4G (aprox. 1.6 Mbps, RTT 150ms). La conexión a un dominio externo requiere DNS lookup + conexión TCP + handshake TLS, y esta latencia causa bloqueo de renderizado. Con self-hosting se distribuye desde el mismo dominio, eliminando esta latencia.'
+      answer: 'Un dominio externo puede añadir DNS lookup, conexión TCP y handshake TLS. El efecto depende de la red y la caché; revise las solicitudes reales y las fuentes renderizadas antes de decidir.'
     - question: ¿Qué hacer si Cloudflare Images es lento?
-      answer: 'Cloudflare Images suele ser rápido, pero la primera transformación y los fallos de caché todavía necesitan descargar la imagen original. Si el LCP empeora en PageSpeed, configure <link rel="preload"> en las imágenes críticas para iniciar la carga antes.'
-    - question: ¿La carga diferida de AdSense afecta los ingresos?
-      answer: 'Si no hay publicidad en el primer pliegue, la carga al primer scroll tiene prácticamente el mismo momento de visualización. El efecto SEO de la mejora de velocidad de página tiene un impacto más positivo.'
+      answer: 'El rendimiento de Cloudflare Images depende del origen, la transformación y el estado de la caché. La primera transformación y los fallos de caché aún descargan la imagen original; mida el candidato LCP en condiciones iguales y considere responsive preload solo cuando sea necesario.'
+    - question: ¿El control de carga de AdSense afecta los ingresos?
+      answer: 'El efecto varía según la posición del anuncio y el comportamiento de los visitantes. Compare la visibilidad, las solicitudes de anuncios y los ingresos antes y después, y evalúelos por separado de las métricas de rendimiento.'
 ---
 
 ## Introducción
 
-El sitio oficial de Acecore está construido con Astro 6 + UnoCSS + Cloudflare Pages. En este artículo, presentamos las técnicas de optimización realizadas para alcanzar **99 puntos móviles y 100 puntos de escritorio** en PageSpeed Insights.
+El sitio oficial de Acecore está construido con Astro 7.1.3 + UnoCSS + Cloudflare Pages. Este artículo recoge ajustes de optimización verificados en el repositorio el 29 de julio de 2026.
 
-Las puntuaciones finales alcanzadas son las siguientes:
-
-| Indicador      | Móvil   | Escritorio |
-| -------------- | ------- | ---------- |
-| Performance    | **99**  | **100**    |
-| Accessibility  | **100** | **100**    |
-| Best Practices | **100** | **100**    |
-| SEO            | **100** | **100**    |
+Los resultados de PageSpeed Insights varían según el momento, el dispositivo y la red. Por eso no se publica una puntuación fija: los cambios se comparan en las mismas condiciones mediante Core Web Vitals y tamaño transferido.
 
 ---
 
 ## Por qué elegimos Astro
 
-Lo que se requiere de un sitio corporativo es "velocidad" y "SEO". Astro está especializado en la generación de sitios estáticos (SSG) y logra cero JavaScript por defecto. Como los componentes de frameworks como React o Vue no se envían al cliente, la visualización inicial es extremadamente rápida.
+Astro admite generación de sitios estáticos (SSG) y permite añadir JavaScript del lado del cliente solo donde se necesita. El sitio actual también distribuye scripts de ClientRouter, búsqueda, anuncios y analítica, así que no se asume una página sin JavaScript: se miden el volumen entregado y las métricas de renderizado.
 
-Como framework CSS adoptamos UnoCSS. Tiene un enfoque utility-first similar a Tailwind CSS, pero extrae solo las clases utilizadas en el build, minimizando el tamaño del CSS. Desde la v66 se recomienda `presetWind3()`, así que es recomendable migrar.
+El sitio usa UnoCSS con `presetWind3()`. Genera CSS a partir de las utilidades detectadas durante el build, lo que puede reducir el tamaño entregado, pero no garantiza un mínimo. Revise el CSS generado y las clases realmente utilizadas.
 
 ---
 
 ## Estrategia de distribución de CSS: Inline vs Archivo externo
 
-Lo que tuvo mayor impacto en la puntuación de PageSpeed fue la estrategia de distribución de CSS.
+La distribución de CSS afecta el tamaño del HTML, las solicitudes adicionales y la caché del navegador.
 
-### Cuando el tamaño de CSS es pequeño (~20 KiB)
+### Al insertar CSS inline
 
-Al configurar `build.inlineStylesheets: 'always'` en Astro, todo el CSS se incrusta directamente en el HTML. Al no requerir peticiones HTTP a archivos CSS externos, se mejora el FCP (First Contentful Paint).
+Al configurar `build.inlineStylesheets: 'always'` en Astro, todo el CSS se incrusta directamente en el HTML. Se eliminan las peticiones a CSS externo y, según la página, puede mejorar el FCP (First Contentful Paint).
 
-Si el CSS es de hasta unos 20 KiB, este método es óptimo.
+Las condiciones favorables dependen del tamaño del CSS y de la página; no se decide solo con un umbral fijo.
 
-### Cuando el tamaño de CSS es grande (20 KiB~)
+### Al usar CSS externo
 
-Sin embargo, al usar fuentes web japonesas (`@fontsource-variable/noto-sans-jp`), la situación cambia. Este paquete contiene **124 declaraciones `@font-face`** (aprox. 96.7 KiB), y el CSS total alcanza unos 190 KiB.
+Los archivos externos permiten reutilizar CSS compartido con hash mediante la caché del navegador.
 
-Si se inlinean los 190 KiB de CSS en todos los HTML, la página de inicio crece hasta **225 KiB**. En slow 4G, solo la transferencia de este HTML toma aproximadamente 1 segundo.
+El sitio actual usa `build.inlineStylesheets: 'auto'` y revisa la salida generada al ajustar este comportamiento.
 
 ### Solución: Externalización + caché immutable
 
@@ -115,53 +108,34 @@ Los archivos CSS externos se generan en el directorio `/_astro/`, por lo que se 
   Cache-Control: public, max-age=31536000, immutable
 ```
 
-Con este cambio, el tamaño del HTML se **redujo un 84-91%** (ejemplo: index.html de 225 KiB → 35 KiB) y la puntuación de PageSpeed mejoró de **96 a 99 puntos**.
+Tras cambiar la opción, revise el HTML generado, los archivos CSS y el comportamiento de la caché, y vuelva a ejecutar PageSpeed Insights en las mismas condiciones.
 
 ---
 
-## Optimización de fuentes: Configuración correcta de self-hosting
+## Optimización de fuentes: Verificar la distribución real
 
-### Evitar Google Fonts CDN
+### Comparar distribución externa y local
 
-Google Fonts CDN es práctico, pero fatal en las pruebas móviles de PageSpeed Insights. En pruebas reales, con Google Fonts CDN la puntuación bajó hasta **FCP 6.1 segundos y 62 puntos**.
+Las fuentes externas pueden añadir una conexión a la ruta crítica. La distribución local también envía CSS y archivos de fuente desde el sitio; compare ambos enfoques en las mismas condiciones.
 
-En slow 4G, la conexión a un dominio externo genera una cadena de DNS lookup → conexión TCP → handshake TLS → descarga CSS → descarga de fuente, retrasando significativamente el renderizado.
+Use el panel de red para revisar solicitudes, caché y tamaño transferido, y Rendered Fonts para ver qué fuentes utilizó realmente el navegador.
 
-### Implementación de self-hosting
+### Estado actual del repositorio
 
-Simplemente instale `@fontsource-variable/noto-sans-jp` e impórtelo en el archivo de layout.
+`package.json` incluye `@fontsource/noto-sans-jp`, pero a 29 de julio de 2026 no se importa desde ningún archivo de `src`. Una dependencia por sí sola no demuestra que la fuente se distribuya.
 
-```bash
-npm install @fontsource-variable/noto-sans-jp
-```
-
-```javascript
-// BaseLayout.astro
-import '@fontsource-variable/noto-sans-jp'
-```
-
-### Precaución: discrepancia en el nombre de la fuente
-
-Aquí hay una trampa inesperada. El nombre de fuente que `@fontsource-variable/noto-sans-jp` registra en `@font-face` es **`Noto Sans JP Variable`**. Sin embargo, muchas personas escriben `Noto Sans JP` en CSS.
-
-Si hay esta discrepancia, **la fuente no se aplica correctamente y el navegador sigue usando la fuente de respaldo**. A pesar de haber cargado 96.7 KiB de datos de fuente, no se utilizan en absoluto.
-
-Especifique correctamente la familia de fuentes en la configuración de UnoCSS.
+La pila de fuentes actual de UnoCSS es:
 
 ```typescript
 // uno.config.ts
 theme: {
   fontFamily: {
-    sans: "'Noto Sans JP Variable', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif",
+    sans: "'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic', 'Meiryo', system-ui, sans-serif",
   },
 }
 ```
 
-Si aparecen errores de tipo TypeScript, agregue una declaración de módulo en `src/env.d.ts`.
-
-```typescript
-declare module '@fontsource-variable/noto-sans-jp'
-```
+Esta declaración no descarga una fuente web por sí sola. Si se adopta self-hosting, compruebe juntos el import explícito, el CSS y los archivos de fuente generados y el resultado renderizado.
 
 ---
 
@@ -169,27 +143,33 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ### Transformaciones de Cloudflare Images
 
-Las imágenes externas se distribuyen mediante las URL de transformación `/cdn-cgi/image/` de Cloudflare Images. Solo con agregar parámetros de transformación se realizan automáticamente los siguientes procesos:
+La utilidad actual envía solo imágenes externas por la transformación `/cdn-cgi/image/` de Cloudflare Images. Los archivos root-relative `/uploads/...` y las imágenes gestionadas en `asv.acecore.net/uploads/...` se sirven directamente.
 
 - **Conversión de formato**: `output=auto` selecciona automáticamente AVIF / WebP según la compatibilidad del navegador
-- **Ajuste de calidad**: `q=50` reduce el tamaño del archivo aproximadamente un 10% manteniendo calidad suficiente
+- **Ajuste de calidad**: La utilidad actual usa `quality=75` por defecto; revise la imagen real antes de cambiarlo
 - **Redimensionamiento**: Redimensiona al ancho especificado con el parámetro `w=`
 
 ### Configuración de srcset y sizes
 
-Configure `srcset` y `sizes` en todas las imágenes para distribuir el tamaño óptimo según el ancho de pantalla.
+Para imágenes externas con entrega responsive, genere `srcset` y configure `sizes` mediante la utilidad.
 
-```html
+```astro
+---
+import { generateSrcSet, optimizeImage } from '../utils/image'
+
+const remoteImage =
+  'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=400&fit=crop'
+---
+
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp"
-  srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1600w
-  "
+  src={optimizeImage(remoteImage, { width: 800, height: 400, quality: 75 })}
+  srcset={generateSrcSet(remoteImage, [480, 640, 960, 1280, 1600], {
+    quality: 75,
+    aspectRatio: 2,
+  })}
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  width="800"
+  height="400"
   loading="lazy"
   decoding="async"
 />
@@ -201,50 +181,61 @@ Si el atributo `sizes` permanece como `100vw` (ancho completo de pantalla), el n
 
 ### Mejora del LCP: preload
 
-Para imágenes que afectan el LCP (Largest Contentful Paint), configure `<link rel="preload">`. Agregue props `preloadImage` al componente de layout de Astro y especifique las imágenes que deben cargarse con prioridad máxima, como la imagen hero de la página principal.
+Precargue únicamente la imagen que sea realmente candidata a LCP. En imágenes responsive, mantenga `href`, `imagesrcset` e `imagesizes` del layout alineados con la imagen y use `fetchpriority="high"`. Las precargas adicionales pueden competir entre sí, por lo que hay que confirmar la elección mediante mediciones.
 
 ```html
-<link rel="preload" as="image" href="..." />
+<link
+  rel="preload"
+  as="image"
+  href="..."
+  imagesrcset="..."
+  imagesizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  fetchpriority="high"
+/>
 ```
 
 ### Prevención de CLS (Layout Shift)
 
-Especifique explícitamente los atributos `width` y `height` en todas las imágenes. El navegador reserva previamente el área de visualización de la imagen, previniendo cambios de layout (CLS) al completarse la carga.
+Especifique valores precisos de `width` y `height` cuya proporción coincida con la imagen original. Los valores correctos permiten reservar espacio, pero los atributos por sí solos no garantizan eliminar el CLS. Las rutas actuales de hero y reescritura de Markdown también añaden dimensiones fijas; compare su proporción con cada original y mida el CLS.
 
 Es especialmente fácil olvidar las imágenes de avatar (32×32, 48×48, 64×64px) y las miniaturas de YouTube (480×360px).
 
 ---
 
-## Carga diferida de publicidad y analítica
+## Control de carga publicitaria y analítica diferida
 
 ### AdSense
 
-El script de Google AdSense pesa aproximadamente 100 KiB y afecta significativamente la visualización inicial. Se cambia a un método de inyección dinámica del script cuando el usuario hace scroll por primera vez.
+El runtime actual, activo en las páginas japonesas `/blog/`, registra `IntersectionObserver` (`rootMargin: 200px`) y `ResizeObserver` en cada bloque, comprueba si puede mostrarse y ejecuta un `attemptInit()` inicial. Ese primer intento no espera la intersección, por lo que un bloque con ancho utilizable puede solicitar un anuncio de inmediato. Los observers permiten reintentar por intersección o cambio de tamaño. Las URL traducidas con prefijo de locale reciben bloques, pero actualmente no cargan este runtime.
 
 ```javascript
-window.addEventListener(
-  'scroll',
-  () => {
-    const script = document.createElement('script')
-    script.src = 'https://pagead2.googlesyndication.com/...'
-    script.async = true
-    document.head.appendChild(script)
+const retry = () => void attemptInit()
+const intersectionObserver = new IntersectionObserver(
+  (entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      retry()
+    }
   },
-  { once: true },
+  { rootMargin: '200px' },
 )
+const resizeObserver = new ResizeObserver(retry)
+
+intersectionObserver.observe(container)
+resizeObserver.observe(container)
+void attemptInit() // el intento inicial no espera la intersección
 ```
 
-Con `{ once: true }` el event listener se dispara solo una vez. Esto reduce a casi cero la transferencia de JavaScript en el primer pliegue.
+`attemptInit()` comprueba ancho y visibilidad, y los atributos de estado evitan solicitudes duplicadas.
 
 ### GA4
 
-Google Analytics 4 también se inyecta de forma diferida con `requestIdleCallback`. El script se inyecta cuando el navegador está en estado idle, sin interferir con las operaciones del usuario.
+Google Analytics 4 se programa mediante `pointerdown`, `keydown`, `touchstart` o `scroll`. Usa `requestIdleCallback` cuando está disponible y `setTimeout` en caso contrario; si no hay interacción, un temporizador lo programa a los 12 segundos en la portada o a los 4 segundos en las demás páginas.
 
 ---
 
 ## Estrategia de caché
 
-Se configura la política de caché óptima para cada tipo de asset en el archivo `_headers` de Cloudflare Pages.
+El bloque siguiente documenta la configuración actual de `_headers` en Cloudflare Pages. Estos valores no son una recomendación general para todos los archivos.
 
 ```
 # Salida del build (nombres de archivo con hash)
@@ -261,29 +252,29 @@ Se configura la política de caché óptima para cada tipo de asset en el archiv
 ```
 
 - `/_astro/*` incluye hash en el nombre de archivo, por lo que un año de caché immutable es seguro
-- `/pagefind/*` tiene 1 semana de caché + 1 día de stale-while-revalidate
-- HTML siempre obtiene la última versión
+- `/pagefind/*` tiene actualmente 1 semana de caché + 1 día de stale-while-revalidate. Como `pagefind-entry.json`, de nombre fijo, referencia metadata con hash, conviene revalidar los archivos entry/bootstrap para evitar generaciones mezcladas y reservar la caché larga para chunks con hash
+- HTML usa `max-age=0, must-revalidate` y se revalida antes de reutilizar la caché
 
 ---
 
 ## Checklist de optimización de rendimiento
 
-1. **¿La estrategia de distribución de CSS es apropiada?**: Inline si es menos de 20 KiB, externo si es más
-2. **¿Las fuentes están en self-hosting?**: CDN externo es fatal en slow 4G
-3. **¿El nombre de la fuente es correcto?**: Verificar el nombre de registro de `@fontsource-variable` (`*Variable`)
-4. **¿Todas las imágenes tienen srcset + sizes?**: Especialmente preparar tamaños pequeños para móvil
-5. **¿El elemento LCP tiene preload?**: Imagen hero y de primer pliegue
-6. **¿Las imágenes tienen width / height?**: Prevención de CLS
-7. **¿AdSense / GA4 tienen carga diferida?**: Reducir a cero la transferencia de JS en el primer pliegue
-8. **¿Están configurados los headers de caché?**: Acelerar los accesos posteriores con caché immutable
+1. **¿La estrategia de distribución de CSS es apropiada?**: Revisar la salida de `auto` y medir en las mismas condiciones
+2. **¿Se ha comparado la distribución de fuentes?**: Medir self-hosting y CDN externo en las mismas condiciones
+3. **¿Se verificó la distribución real de fuentes?**: Revisar solicitudes de red y Rendered Fonts
+4. **¿Las imágenes con entrega responsive tienen srcset + sizes?**: Preparar tamaños pequeños para móvil
+5. **¿Solo se precarga el candidato LCP real?**: Alinear srcset, sizes y prioridad responsive
+6. **¿Son precisos width / height?**: Igualar la proporción original y medir CLS
+7. **¿Es adecuado el control de AdSense/GA4?**: Revisar intento inicial y reintentos de AdSense, más interacciones y fallback de GA4
+8. **¿Están configurados los headers de caché?**: Limitar immutable a assets con hash
 
 ---
 
 ## Resumen
 
-El principio de la optimización de rendimiento se resume en **"no enviar lo innecesario"**. El inlining de CSS parece rápido a primera vista, pero con 190 KiB se vuelve contraproducente. El self-hosting de fuentes es obligatorio, pero hay una trampa con la discrepancia de nombres de fuente.
+El principio de la optimización de rendimiento se resume en **"no enviar lo innecesario"**. La distribución de CSS debe comprobarse con la salida real, y el self-hosting es una opción para las fuentes cuando encaja con la medición y la operación del sitio.
 
-Basándose en la arquitectura zero JS de Astro, y minimizando la transferencia en CSS, fuentes, imágenes y scripts de publicidad respectivamente, 99 puntos en móvil es perfectamente alcanzable.
+No trate una puntuación fija como resultado. Vuelva a medir Core Web Vitals y tamaño transferido en condiciones consistentes, incluido el comportamiento de anuncios y Analytics.
 
 ---
 
