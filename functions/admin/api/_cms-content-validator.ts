@@ -20,17 +20,34 @@ import { GitHubApiError } from './_github-api.ts'
 
 const MAX_TEXT_CONTENT_BYTES = 2 * 1024 * 1024
 const MAX_FRONTMATTER_CHARS = 512 * 1024
-const DANGEROUS_PROTOCOL_PATTERN =
-  /^\s*(?:(?:javascript|vbscript)\s*:|data\s*:\s*(?:text\/html|image\/svg\+xml))/i
+const DANGEROUS_URL_PATTERN =
+  /^(?:(?:javascript|vbscript):|data:(?:text\/html|image\/svg\+xml))/i
+const DANGEROUS_EMBEDDED_URL_PATTERN = /^(?:javascript|vbscript|data):/i
 const ACTIVE_HTML_PATTERN =
   /<\s*\/?\s*(?:script|iframe|object|embed|svg|math|style|link|meta|base)\b/i
 const ACTIVE_STRING_HTML_PATTERN =
   /<\s*\/?\s*(?:script|iframe|object|embed|svg|math|style|base)\b/i
+const RAW_HTML_TAG_PATTERN = /<\s*\/?\s*[a-z][a-z0-9-]*(?=\s|\/|>)/i
 const EVENT_HANDLER_PATTERN = /<[^>]+\son[a-z][\w:-]*\s*=/i
-const ACTIVE_HTML_URL_PATTERN =
-  /\b(?:href|src|action|formaction)\s*=\s*(?:"\s*|'\s*|)(?:javascript|vbscript|data)\s*:/i
-const ACTIVE_MARKDOWN_URL_PATTERN =
-  /!?\[[^\]]*]\(\s*(?:javascript|vbscript|data)\s*:/i
+const HTML_URL_ATTRIBUTE_PATTERN =
+  /\b(?:href|src|action|formaction)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'`=<>]+))/gi
+const MARKDOWN_INLINE_URL_PREFIX_PATTERN = /]\(\s*<?([^:)]{1,256}:)/g
+const MARKDOWN_AUTOLINK_URL_PREFIX_PATTERN = /<([^<>:]{1,128}:)/g
+const MARKDOWN_REFERENCE_URL_PATTERN =
+  /\[(?:\\[^\r\n]|[^\]\\\r\n]){1,999}\]:[ \t]*(?:\r?\n[ \t]*)?(?:<([^>\r\n]*)>|([^\s<>]+))/g
+const URL_FIELD_NAMES = new Set([
+  'action',
+  'avatar',
+  'avatarimage',
+  'formaction',
+  'github',
+  'href',
+  'image',
+  'src',
+  'twitter',
+  'uploadedimage',
+  'url',
+])
 const LOCAL_DATETIME_PATTERN =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?$/
 
@@ -150,15 +167,15 @@ function validateBlogMarkdown(source: string) {
 
   assertNoDangerousStrings(frontmatter)
 
-  const body = decodeHtmlSecurityEntities(
-    stripMarkdownCode(source.slice(match[0].length)),
-  )
+  const body = stripMarkdownCode(source.slice(match[0].length))
+  const decodedBody = decodeHtmlSecurityEntities(body)
 
   if (
-    ACTIVE_HTML_PATTERN.test(body) ||
-    EVENT_HANDLER_PATTERN.test(body) ||
-    ACTIVE_HTML_URL_PATTERN.test(body) ||
-    ACTIVE_MARKDOWN_URL_PATTERN.test(body)
+    RAW_HTML_TAG_PATTERN.test(decodedBody) ||
+    ACTIVE_HTML_PATTERN.test(decodedBody) ||
+    EVENT_HANDLER_PATTERN.test(decodedBody) ||
+    containsDangerousHtmlUrl(body) ||
+    containsDangerousMarkdownUrl(body)
   ) {
     throw new Error('Active Markdown content is not allowed')
   }
@@ -269,17 +286,22 @@ export function matchesJsonTemplate(
   return typeof value === typeof template
 }
 
-function assertNoDangerousStrings(value: unknown, depth = 0) {
+function assertNoDangerousStrings(
+  value: unknown,
+  depth = 0,
+  propertyName = '',
+) {
   if (depth > 64) throw new Error('JSON nesting is too deep')
 
   if (typeof value === 'string') {
     const decoded = decodeHtmlSecurityEntities(value)
 
     if (
-      DANGEROUS_PROTOCOL_PATTERN.test(decoded) ||
       ACTIVE_STRING_HTML_PATTERN.test(decoded) ||
       EVENT_HANDLER_PATTERN.test(decoded) ||
-      ACTIVE_HTML_URL_PATTERN.test(decoded)
+      containsDangerousHtmlUrl(value) ||
+      (URL_FIELD_NAMES.has(propertyName.toLowerCase()) &&
+        isDangerousUrlValue(value))
     ) {
       throw new Error('Active HTML or URL is not allowed')
     }
@@ -287,15 +309,57 @@ function assertNoDangerousStrings(value: unknown, depth = 0) {
   }
 
   if (Array.isArray(value)) {
-    for (const item of value) assertNoDangerousStrings(item, depth + 1)
+    for (const item of value) {
+      assertNoDangerousStrings(item, depth + 1, propertyName)
+    }
     return
   }
 
   if (isRecord(value)) {
-    for (const item of Object.values(value)) {
-      assertNoDangerousStrings(item, depth + 1)
+    for (const [key, item] of Object.entries(value)) {
+      assertNoDangerousStrings(item, depth + 1, key)
     }
   }
+}
+
+function containsDangerousHtmlUrl(value: string) {
+  for (const match of value.matchAll(HTML_URL_ATTRIBUTE_PATTERN)) {
+    const url = match[1] ?? match[2] ?? match[3] ?? ''
+
+    if (isDangerousUrlValue(url, true)) return true
+  }
+
+  return false
+}
+
+function containsDangerousMarkdownUrl(value: string) {
+  const decoded = decodeHtmlSecurityEntities(value)
+
+  for (const pattern of [
+    MARKDOWN_INLINE_URL_PREFIX_PATTERN,
+    MARKDOWN_AUTOLINK_URL_PREFIX_PATTERN,
+  ]) {
+    for (const match of decoded.matchAll(pattern)) {
+      if (isDangerousUrlValue(match[1], true)) return true
+    }
+  }
+
+  for (const match of value.matchAll(MARKDOWN_REFERENCE_URL_PATTERN)) {
+    if (isDangerousUrlValue(match[1] ?? match[2] ?? '', true)) return true
+  }
+
+  return false
+}
+
+function isDangerousUrlValue(value: string, rejectAllData = false) {
+  const canonical = decodeHtmlSecurityEntities(value)
+    .replace(/\\([!-/:-@[-`{-~])/g, '$1')
+    .replace(/[\u0000-\u0020\u007f]/g, '')
+
+  return (
+    DANGEROUS_URL_PATTERN.test(canonical) ||
+    (rejectAllData && DANGEROUS_EMBEDDED_URL_PATTERN.test(canonical))
+  )
 }
 
 function decodeHtmlSecurityEntities(value: string) {
@@ -339,6 +403,13 @@ function stripMarkdownCode(source: string) {
       const marker = fence[1]
 
       if (!fenceCharacter) {
+        const info = line.slice(fence[0].length)
+
+        if (marker[0] === '`' && info.includes('`')) {
+          visibleLines.push(line)
+          continue
+        }
+
         fenceCharacter = marker[0]
         fenceLength = marker.length
         continue
@@ -358,7 +429,83 @@ function stripMarkdownCode(source: string) {
     if (!fenceCharacter) visibleLines.push(line)
   }
 
-  return visibleLines.join('\n').replace(/(`+)([^`]*?)\1/g, '')
+  return stripInlineMarkdownCode(visibleLines.join('\n'))
+}
+
+function stripInlineMarkdownCode(source: string) {
+  let visible = ''
+  let index = 0
+
+  while (index < source.length) {
+    if (source[index] !== '`' || isEscapedBacktick(source, index)) {
+      visible += source[index]
+      index += 1
+      continue
+    }
+
+    const delimiterLength = getBacktickRunLength(source, index)
+    const closingIndex = findClosingBacktickRun(
+      source,
+      index + delimiterLength,
+      delimiterLength,
+    )
+
+    if (closingIndex < 0) {
+      visible += source.slice(index, index + delimiterLength)
+      index += delimiterLength
+      continue
+    }
+
+    visible += ' '
+    index = closingIndex + delimiterLength
+  }
+
+  return visible
+}
+
+function findClosingBacktickRun(
+  source: string,
+  start: number,
+  delimiterLength: number,
+) {
+  let index = start
+
+  while (index < source.length) {
+    if (source[index] !== '`') {
+      index += 1
+      continue
+    }
+
+    const runLength = getBacktickRunLength(source, index)
+
+    if (runLength === delimiterLength) return index
+
+    index += runLength
+  }
+
+  return -1
+}
+
+function getBacktickRunLength(source: string, start: number) {
+  let end = start
+
+  while (source[end] === '`') end += 1
+
+  return end - start
+}
+
+function isEscapedBacktick(source: string, index: number) {
+  let backslashes = 0
+
+  for (
+    let cursor = index - 1;
+    cursor >= 0 && source[cursor] === '\\';
+    cursor -= 1
+  ) {
+    backslashes += 1
+  }
+
+  return backslashes % 2 === 1
 }
 
 function decodeBase64(value: string) {

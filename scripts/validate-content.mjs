@@ -55,6 +55,23 @@ function extractCmsFileDefinition(config, contentPath) {
   return config.slice(start, nextDefinition < 0 ? undefined : nextDefinition)
 }
 
+function extractCmsCollectionDefinition(config, collectionName) {
+  const definitionPattern = new RegExp(`^  - name: ${collectionName}\\s*$`, 'm')
+  const match = definitionPattern.exec(config)
+
+  if (!match) return ''
+
+  const nextDefinition = config.indexOf(
+    '\n  - name:',
+    match.index + match[0].length,
+  )
+
+  return config.slice(
+    match.index,
+    nextDefinition < 0 ? undefined : nextDefinition,
+  )
+}
+
 async function validateCmsConfig() {
   const scope = 'public/admin/config.yml'
   const config = await readFile(path.join(root, scope), 'utf8')
@@ -88,6 +105,16 @@ async function validateCmsConfig() {
   )
   const adminIndex = await readFile(
     path.join(root, 'public/admin/index.html'),
+    'utf8',
+  )
+  const readme = await readFile(path.join(root, 'README.md'), 'utf8')
+  const cmsWorkflow = await readFile(
+    path.join(root, 'docs/cms-write-workflow.md'),
+    'utf8',
+  )
+  const pagesConfig = await readFile(path.join(root, 'wrangler.jsonc'), 'utf8')
+  const oauthWorkerConfig = await readFile(
+    path.join(root, 'workers/sveltia-cms-auth/wrangler.jsonc'),
     'utf8',
   )
 
@@ -148,6 +175,27 @@ async function validateCmsConfig() {
     )
   }
   if (
+    !cmsPolicy.includes('export function isAllowedCmsDeletePath') ||
+    !graphql.includes('!isAllowedCmsDeletePath(path)')
+  ) {
+    fail(
+      scope,
+      'CMS deletion must be restricted independently from the write allowlist',
+    )
+  }
+  for (const collectionName of ['authors', 'tags']) {
+    if (
+      !/^\s{4}delete:\s*false\s*$/m.test(
+        extractCmsCollectionDefinition(config, collectionName),
+      )
+    ) {
+      fail(
+        scope,
+        `${collectionName} deletion must be disabled in the CMS interface`,
+      )
+    }
+  }
+  if (
     !graphql.includes('getGitHubAppToken(env)') ||
     !githubApi.includes('CMS_GITHUB_APP_CLIENT_ID') ||
     !githubApi.includes('CMS_GITHUB_APP_INSTALLATION_ID') ||
@@ -162,6 +210,24 @@ async function validateCmsConfig() {
     )
   }
   if (
+    !readme.includes(
+      'Client ID、Installation ID、private keyはCloudflare Pagesのproduction環境だけに設定',
+    ) ||
+    !cmsWorkflow.includes(
+      'Cloudflare Pagesのproduction環境だけに次をsecretまたはvariableとして設定',
+    ) ||
+    !cmsWorkflow.includes(
+      'preview環境にはこれらのwriter認証情報を設定しません',
+    ) ||
+    pagesConfig.includes('CMS_GITHUB_APP_') ||
+    oauthWorkerConfig.includes('CMS_GITHUB_APP_')
+  ) {
+    fail(
+      scope,
+      'CMS writer credentials must be documented and configured for production only, never Pages previews or the OAuth Worker',
+    )
+  }
+  if (
     !configFunction.includes('$1${origin}/admin/api/github') ||
     !configFunction.includes('$1${origin}/admin/api/graphql')
   ) {
@@ -169,6 +235,9 @@ async function validateCmsConfig() {
   }
   if (
     !adminInit.includes('保存すると自動で公開されます') ||
+    !adminInit.includes("endsWith('.pages.dev')") ||
+    !adminInit.includes('プレビューでは保存できません') ||
+    !adminInit.includes('著者・タグ・画像は削除できません') ||
     adminInit.includes('保存は公開ではありません') ||
     !adminIndex.includes('/admin/cms-notice.css')
   ) {

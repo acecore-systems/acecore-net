@@ -21,10 +21,11 @@
 3. Pages Functionsが専用GitHub Appから`acecore-net`だけに使える短期installation tokenを発行する。
 4. CMSのreadは、許可されたcontentとmediaのtree / blobだけを同一origin proxy経由で返す。
 5. 保存時はrepository、branch `main`、変更path、ファイル数、合計サイズ、編集開始時のHEADに加え、JSON / Markdown schema、画像の実形式、危険なHTMLやURLを同期検証する。SVGとPDFはCMSから保存できない。
-6. proxyが画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。
-7. 同時更新との競合は上書きせず409にする。GitHub応答が失われた場合も、request固有marker、親SHA、全変更path、各blob SHAが保存内容と完全一致した場合だけ成功として復旧する。
-8. GitHubの`main` pushを受けてCloudflare Pagesがproduction deployする。
-9. 日本語sourceが変わった場合は、同じdirect pushから翻訳PR task workflowが`cms: ...` subjectを検出する。
+6. 削除は記事とキャンペーンだけを許可する。著者、タグ、画像は参照整合性を同期検証できないため、CMSから削除できない。
+7. proxyが画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。
+8. 同時更新との競合は上書きせず409にする。GitHub応答が失われた場合も、request固有marker、親SHA、全変更path、各blob SHAが保存内容と完全一致した場合だけ成功として復旧する。
+9. GitHubの`main` pushを受けてCloudflare Pagesがproduction deployする。
+10. 日本語sourceが変わった場合は、同じdirect pushから翻訳PR task workflowが`cms: ...` subjectを検出する。
 
 恒久的な`cms-content` branch、短命CMS branch、CMS PRは使いません。コード、CMS設定、schema、workflow、翻訳ファイルはproxyのallowlist外であり、従来どおりPRとCIを経由します。
 
@@ -38,6 +39,8 @@
 
 翻訳ファイル、workflow、設定、source codeなど上記以外はproxyが拒否します。1回の保存は最大100ファイル、追加データ合計25 MiBです。
 
+記事とキャンペーンはCMSから削除できます。著者、タグ、画像は他のコンテンツから参照されるため、現在treeと同一mutation内の参照整合性を同期検証できる仕組みを導入するまでは削除を拒否します。
+
 ## 認証と権限
 
 GitHub OAuthは編集者本人とrepositoryへのpush権限の確認にだけ使います。OAuth tokenをGitHub上の保存actorへ流用しません。
@@ -50,11 +53,13 @@ GitHub OAuthは編集者本人とrepositoryへのpush権限の確認にだけ使
 - Metadata: Read-only
 - Webhook: 不要
 
-Cloudflare Pagesのproduction / previewへ次をsecretまたはvariableとして設定します。
+Cloudflare Pagesのproduction環境だけに次をsecretまたはvariableとして設定します。
 
 - `CMS_GITHUB_APP_CLIENT_ID`
 - `CMS_GITHUB_APP_INSTALLATION_ID`
 - `CMS_GITHUB_APP_PRIVATE_KEY`（GitHubからダウンロードしたRSA PEM。PKCS#1 / PKCS#8に対応）
+
+preview環境にはこれらのwriter認証情報を設定しません。previewの`/admin/`はコードとCMS設定の表示確認用で、repository read/writeは503で停止します。コンテンツの保存と公開はproductionの`/admin/`からだけ行います。
 
 AceServer、Cherry、Hatt、SystemsのAppやprivate keyは共用しません。
 
@@ -62,7 +67,7 @@ AceServer、Cherry、Hatt、SystemsのAppやprivate keyは共用しません。
 
 2026-07-28時点の`main`はclassic branch protectionで、strictな`Build and Format`、PR必須、admin enforcement、force push / deletion禁止です。repository rulesetは未作成です。
 
-direct publishには、一般のコード変更に対する保護を維持しながら、専用GitHub AppだけがCMS proxy経由で`main`へcommitできるbypassが必要です。Appを作成・インストールし、Cloudflare Pagesのproduction / previewへsecretを設定してから、現在のclassic protectionを同等ルールのrepository rulesetへ移し、このAppだけをbypass actorの`Always allow`にします。`For pull requests only`ではdirect commitできません。広いteamやuserへbypassを与えません。
+direct publishには、一般のコード変更に対する保護を維持しながら、専用GitHub AppだけがCMS proxy経由で`main`へcommitできるbypassが必要です。Appを作成・インストールし、Cloudflare Pagesのproduction環境だけへsecretを設定してから、現在のclassic protectionを同等ルールのrepository rulesetへ移し、このAppだけをbypass actorの`Always allow`にします。`For pull requests only`ではdirect commitできません。広いteamやuserへbypassを与えません。
 
 外部設定が揃う前にdirect publish版を本番へ反映すると、CMS read/writeは503またはbranch protectionエラーになります。コードを先に本番へ出さないでください。
 

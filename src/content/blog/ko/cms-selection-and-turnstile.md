@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 운영 자동화
-      description: main을 publication branch로 사용하고 검증된 저장 proxy의 단기 branch, CMS 편집 PR, 번역 PR task를 연결합니다.
+      description: main을 publication branch로 사용하고 검증된 direct commit, Pages deploy, 번역 PR task를 연결합니다.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - 브라우저 폼에서 Markdown과 JSON을 편집할 수 있음
       - relation, image, select로 잘못된 값을 줄임
       - CMS commit만 번역 PR task를 트리거함
-      - same-origin proxy가 허용 경로만 단기 branch와 PR에 저장함
+      - same-origin proxy가 허용된 내용을 검증하고 main에 direct commit 하나를 저장함
 callout:
   type: note
   title: 이 글의 전제
@@ -168,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-`main`을 publication branch로 유지하고 읽기와 저장을 same-origin proxy로 보냅니다. proxy는 단기 branch와 PR을 만들기 전에 repository, GitHub 사용자의 쓰기 권한, 변경 경로, 최신 `main` HEAD를 검증합니다.
+`main`을 publication branch로 유지하고 읽기와 저장을 same-origin proxy로 보냅니다. proxy는 저장할 때마다 GitHub 사용자의 쓰기 권한을 다시 확인하고, `acecore-net`에만 설치된 GitHub App으로 repository에 접근합니다. 변경 경로, 내용, 최신 `main` HEAD를 검증한 뒤 direct commit 하나만 만듭니다.
 
 2026년 7월 20일 기준으로 Sveltia CMS에는 Editorial Workflow가 구현되어 있지 않습니다. Decap CMS의 `publish_mode: editorial_workflow` 설정을 추가해도 Sveltia CMS가 단기 branch나 PR을 자동 생성하지는 않습니다.
 
-`cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. PR마다 단기 branch를 닫으면 `main`을 유일한 기준으로 유지할 수 있습니다.
+`cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. Acecore는 `main`을 유일한 기준으로 유지하고 `expectedHeadOid`로 동시 업데이트를 거부합니다.
 
 ## 3. OAuth Worker 준비
 
@@ -228,9 +228,9 @@ Acecore는 나중에 [PR #116](https://github.com/acecore-systems/acecore-net/pu
 
 반성점은 한 번에 모든 필드를 넣지 않는 것입니다. `config.yml`이 급격히 커지면 리뷰와 유지보수가 어려워집니다. 블로그, 작성자, 태그, 공지, 자주 바뀌는 페이지부터 시작하는 편이 좋습니다.
 
-## 8. preview에서도 publication branch를 `main`으로 유지한다
+## 8. writer 인증 정보는 production에만 둔다
 
-preview에서도 backend branch는 `main`으로 유지합니다. 유효한 CMS 저장은 `main`에 직접 기록되어 GitHub 연동 production deploy를 즉시 시작합니다. Pages preview는 일반 코드 및 설정 PR에 사용합니다.
+GitHub App의 client ID, installation ID, private key는 Cloudflare Pages production 환경에만 설정합니다. preview에는 writer 인증 정보를 배포하지 않으며 repository read/write를 비활성화합니다. 콘텐츠 저장과 공개는 production의 `/admin/`에서만 수행하고, Pages preview는 일반 코드 및 설정 PR 확인에 사용합니다.
 
 ```javascript
 CMS.init({
@@ -290,7 +290,7 @@ Sveltia CMS는 GitHub backend, OAuth, collections, media, PR 운영의 문제입
 - 이미지 경로는 업로드 전에 고정해야 합니다.
 - `config.yml`은 단계적으로 확장해야 합니다.
 - `cms:`는 자동화 계약입니다.
-- publication branch는 `main`으로 유지하고 preview는 일반 코드 및 설정 PR에 사용합니다.
+- writer 인증 정보는 production에만 두고, preview는 repository 접근 없이 일반 코드 및 설정 PR 확인에 사용합니다.
 
 ## 최소 시작점
 

@@ -10,8 +10,8 @@ import {
 
 import {
   CMS_REPOSITORY,
+  isAllowedCmsDeletePath,
   isAllowedCmsWritePath,
-  isRequiredCmsContentPath,
   normalizeCmsPath,
 } from './_cms-policy.ts'
 import { validateCmsAdditionContents } from './_cms-content-validator.ts'
@@ -667,8 +667,7 @@ function parseCmsCommitInput(value: unknown): CmsCommitInput | null {
     if (
       !path ||
       path !== deletion.path ||
-      !isAllowedCmsWritePath(path) ||
-      isRequiredCmsContentPath(path) ||
+      !isAllowedCmsDeletePath(path) ||
       paths.has(path)
     ) {
       return null

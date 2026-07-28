@@ -1,6 +1,6 @@
 ---
 title: 'Руководство по внедрению Sveltia CMS'
-description: 'Практическое руководство по добавлению Sveltia CMS в Astro или другой статический сайт: GitHub backend, OAuth Worker, загрузка изображений, многоязычная эксплуатация, CMS PR и выводы из реальных исправлений.'
+description: 'Практическое руководство по добавлению Sveltia CMS в Astro или другой статический сайт: GitHub OAuth, отдельное GitHub App, проверяемая прямая публикация, загрузка изображений и многоязычная эксплуатация.'
 date: 2026-06-07T16:00
 lastUpdated: 2026-07-28T12:00
 author: gui
@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Автоматизировать эксплуатацию
-      description: Использовать main как ветку публикации и связать временные ветки проверяющего save proxy, CMS PR и задачи перевода.
+      description: Использовать main как ветку публикации и связать проверяемые direct commits, Pages deploy и задачи перевода.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - Markdown и JSON редактируются через формы в браузере
       - relation, image и select уменьшают число некорректных значений
       - Только CMS commits запускают задачи перевода
-      - Same-origin proxy пишет только разрешённые пути во временную ветку и PR
+      - Same-origin proxy проверяет разрешённый контент и пишет один direct commit в main
 callout:
   type: note
   title: Предпосылка статьи
@@ -168,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-Оставьте `main` веткой публикации и направляйте чтение и сохранение через same-origin proxy. Перед созданием временной ветки и PR proxy проверяет репозиторий, право GitHub-пользователя на запись, изменённые пути и последний HEAD `main`.
+Оставьте `main` веткой публикации и направляйте чтение и сохранение через same-origin proxy. Перед каждым сохранением proxy повторно проверяет право GitHub-пользователя на запись, использует установленное только в `acecore-net` GitHub App для доступа к репозиторию и проверяет пути, содержимое и последний HEAD `main`, прежде чем создать один direct commit.
 
 По состоянию на 20 июля 2026 года Editorial Workflow не реализован в Sveltia CMS. Настройка Decap CMS `publish_mode: editorial_workflow` не заставляет Sveltia CMS автоматически создавать временные ветки или PR.
 
-Постоянная ветка вроде `cms-content` требует непрерывной синхронизации и повышает риск конфликтов или неверной настройки источника deploy. Временные ветки сохраняют `main` единственным источником истины.
+Постоянная ветка вроде `cms-content` требует непрерывной синхронизации и повышает риск конфликтов или неверной настройки источника deploy. Acecore сохраняет `main` единственным источником истины и отклоняет параллельные обновления через `expectedHeadOid`.
 
 ## 3. Добавить OAuth Worker
 
@@ -228,9 +228,9 @@ Acecore позже исправила этот момент в [PR #116](https:/
 
 Урок простой: не добавлять все поля сразу. `config.yml` быстро растёт. Начните с блога, авторов, тегов, объявлений и часто меняющихся страниц.
 
-## 8. Сохранять `main` веткой публикации и в preview
+## 8. Хранить writer credentials только в production
 
-Backend branch остаётся `main` и в preview. Корректное CMS-сохранение пишет прямо в `main` и сразу запускает production deploy, подключённый к GitHub. Pages preview остаётся для обычных PR кода и конфигурации.
+Client ID, installation ID и private key GitHub App настраиваются только в production-окружении Cloudflare Pages. Preview не получает writer credentials, поэтому чтение и запись репозитория там отключены. Контент сохраняется и публикуется только через production `/admin/`, а Pages preview используется для обычных PR кода и конфигурации.
 
 ```javascript
 CMS.init({
@@ -290,7 +290,7 @@ Sveltia CMS — про GitHub backend, OAuth, collections, медиа и PR. Tur
 - Пути медиа нужно зафиксировать до загрузок.
 - `config.yml` лучше расширять постепенно.
 - `cms:` — контракт автоматизации.
-- Ветка публикации остаётся `main`; preview используется для обычных PR кода и конфигурации.
+- Writer credentials находятся только в production; preview без доступа к репозиторию используется для обычных PR кода и конфигурации.
 
 ## Минимальная отправная точка
 

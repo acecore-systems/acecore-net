@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automatiser l'exploitation
-      description: Utiliser main comme branche de publication et relier les branches temporaires du proxy de sauvegarde validé, les PRs CMS et les tâches de traduction.
+      description: Utiliser main comme branche de publication et relier les commits directs validés, les déploiements Pages et les tâches de traduction.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - Markdown et JSON se modifient dans le navigateur
       - relation, image et select réduisent les valeurs invalides
       - Seuls les commits CMS déclenchent les tâches de traduction
-      - Un proxy same-origin écrit uniquement les chemins autorisés dans une branche temporaire et une PR
+      - Un proxy same-origin valide le contenu autorisé et écrit un commit direct sur main
 callout:
   type: note
   title: Hypothèse de ce guide
@@ -168,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-Conservez `main` comme branche de publication et faites passer les lectures et sauvegardes par un proxy same-origin. Avant de créer une branche temporaire et une PR, le proxy vérifie le dépôt, le droit d'écriture de l'utilisateur GitHub, les chemins modifiés et le dernier HEAD de `main`.
+Conservez `main` comme branche de publication et faites passer les lectures et sauvegardes par un proxy same-origin. Avant chaque sauvegarde, le proxy revérifie le droit d'écriture de l'utilisateur GitHub, utilise une GitHub App installée uniquement sur `acecore-net` pour accéder au dépôt et valide les chemins, le contenu et le dernier HEAD de `main` avant de créer un seul commit direct.
 
 Au 20 juillet 2026, Editorial Workflow n'est pas implémenté dans Sveltia CMS. Ajouter le paramètre Decap CMS `publish_mode: editorial_workflow` ne fait pas créer automatiquement des branches temporaires ou des PRs par Sveltia CMS.
 
-Une branche permanente comme `cms-content` impose une synchronisation continue et augmente le risque de conflits ou d'une mauvaise source de déploiement. Les branches temporaires gardent `main` comme source unique.
+Une branche permanente comme `cms-content` impose une synchronisation continue et augmente le risque de conflits ou d'une mauvaise source de déploiement. Acecore garde `main` comme source unique et refuse les mises à jour concurrentes avec `expectedHeadOid`.
 
 ## 3. Ajouter un OAuth Worker
 
@@ -228,9 +228,9 @@ Les textes de pages fixes peuvent aussi être exposés. Acecore les centralise d
 
 La leçon : ne pas tout ajouter d'un coup. `config.yml` grossit vite. Commencez par blog, auteurs, tags, annonces et pages qui changent souvent.
 
-## 8. Garder `main` comme branche de publication en preview
+## 8. Conserver les identifiants d'écriture uniquement en production
 
-La branche backend reste `main`, y compris en preview. Une sauvegarde réussie écrit directement sur `main` et lance le déploiement production lié à GitHub. Les previews restent réservées aux PRs normales de code ou de configuration.
+Configurez le client ID, l'installation ID et la clé privée de la GitHub App uniquement dans l'environnement production de Cloudflare Pages. Les previews ne reçoivent aucun identifiant d'écriture ; les lectures et écritures du dépôt y restent désactivées. Le contenu est sauvegardé et publié uniquement depuis le `/admin/` de production, tandis que les previews servent aux PRs normales de code ou de configuration.
 
 ```javascript
 CMS.init({
@@ -290,7 +290,7 @@ Sveltia CMS concerne le backend GitHub, OAuth, les collections, médias et PRs. 
 - Les chemins médias doivent être fixés avant les uploads.
 - `config.yml` doit grandir par étapes.
 - `cms:` est un contrat pour les workflows.
-- La branche de publication reste `main` ; la preview sert aux PRs normales de code et de configuration.
+- Les identifiants d'écriture restent uniquement en production ; la preview sert sans accès au dépôt aux PRs normales de code et de configuration.
 
 ## Point de départ minimal
 

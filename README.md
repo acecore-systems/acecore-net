@@ -114,12 +114,13 @@ src/
 - Sveltia CMS は `backend.branch: main` と同一originのGitHub API proxyで運用します。現行SveltiaではEditorial Workflowが未実装のため、`publish_mode` には依存しません。
 - proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
 - 保存すると、画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接反映します。別の更新が先に入った場合は上書きせず、CMSの再読み込みを求めます。
+- 記事とキャンペーンはCMSから削除できます。著者、タグ、画像は参照中のコンテンツを壊さないよう、CMSからの削除を禁止します。
 - `main` pushを受けてCloudflare Pagesがproduction deployし、日本語sourceの変更は翻訳PR task workflowも同じ`cms: ...` commitから検出します。
 - 恒久的な`cms-content` branchや短命CMS branch、CMS PRは作りません。
 - コード、CMS設定、schema、workflow、翻訳ファイルはCMS経路で変更できません。従来どおりbranchとPRを作成し、CIを通して`main`へ取り込みます。
 - 旧 remote `cms-content` branch は未反映差分がないことを確認して削除済みです。
 
-direct publish版を本番へ反映する前に、専用GitHub Appを`acecore-net`だけへインストールし、ContentsのRead and writeとMetadataのRead-onlyだけを付与します。Cloudflare Pagesのproduction / previewへClient ID、Installation ID、private keyを設定し、`main`のrulesetではこのAppだけをbypass actorの`Always allow`にします。外部設定が揃う前にdirect publish版を本番へ反映しないでください。
+direct publish版を本番へ反映する前に、専用GitHub Appを`acecore-net`だけへインストールし、ContentsのRead and writeとMetadataのRead-onlyだけを付与します。Client ID、Installation ID、private keyはCloudflare Pagesのproduction環境だけに設定し、preview環境にはwriter認証情報を配布しません。previewのCMS repository read/writeは無効で、保存は本番の`/admin/`からだけ行います。`main`のrulesetではこのAppだけをbypass actorの`Always allow`にします。外部設定が揃う前にdirect publish版を本番へ反映しないでください。
 
 運用判断は [docs/cms-write-workflow.md](docs/cms-write-workflow.md) を参照してください。
 

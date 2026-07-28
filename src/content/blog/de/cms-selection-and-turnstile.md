@@ -1,6 +1,6 @@
 ---
 title: 'Sveltia CMS Einrichtungsleitfaden'
-description: 'Praktischer Leitfaden zum Einbau von Sveltia CMS in Astro- und statische Websites: GitHub Backend, OAuth Worker, Medien-Uploads, Mehrsprachigkeit, CMS-PRs und Lessons Learned.'
+description: 'Praktischer Leitfaden zum Einbau von Sveltia CMS in Astro- und statische Websites: GitHub OAuth, eine Repository-spezifische GitHub App, validierte Direktveröffentlichung, Medien-Uploads und Mehrsprachigkeit.'
 date: 2026-06-07T16:00
 lastUpdated: 2026-07-28T12:00
 author: gui
@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Betrieb automatisieren
-      description: main als Veröffentlichungsbranch nutzen und validierte Save-Proxy-Branches, CMS-PRs und Übersetzungs-Tasks verbinden.
+      description: main als Veröffentlichungsbranch nutzen und validierte Direct Commits, Pages-Deployments und Übersetzungs-Tasks verbinden.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - Markdown und JSON lassen sich im Browserformular bearbeiten
       - relation, image und select reduzieren ungültige Werte
       - Nur CMS-Commits lösen Übersetzungs-Tasks aus
-      - Ein Same-Origin-Proxy schreibt nur erlaubte Pfade in einen kurzlebigen Branch und PR
+      - Ein Same-Origin-Proxy validiert erlaubte Inhalte und schreibt einen Direct Commit nach main
 callout:
   type: note
   title: Annahme dieses Leitfadens
@@ -168,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-`main` bleibt der Veröffentlichungsbranch. Reads und Saves laufen über einen Same-Origin-Proxy, der Repository, Schreibberechtigung des GitHub-Users, Änderungspfade und den aktuellen `main`-HEAD prüft und danach einen kurzlebigen Branch mit PR erstellt.
+`main` bleibt der Veröffentlichungsbranch. Reads und Saves laufen über einen Same-Origin-Proxy. Vor jedem Save prüft er die aktuelle Schreibberechtigung des GitHub-Users, verwendet für Repository-Zugriffe eine nur in `acecore-net` installierte GitHub App und validiert Änderungspfade, Inhalte sowie den aktuellen `main`-HEAD, bevor er genau einen Direct Commit erstellt.
 
 Mit Stand vom 20. Juli 2026 ist Editorial Workflow in Sveltia CMS nicht implementiert. Die Decap-CMS-Einstellung `publish_mode: editorial_workflow` lässt Sveltia CMS nicht automatisch kurzlebige Branches oder PRs erstellen.
 
-Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Kurzlebige Branches halten `main` als einzige Quelle der Wahrheit.
+Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Acecore hält `main` als einzige Quelle der Wahrheit und lehnt konkurrierende Updates mit `expectedHeadOid` ab.
 
 ## 3. OAuth Worker ergänzen
 
@@ -228,9 +228,9 @@ Feste Seitentexte lassen sich ebenfalls im CMS pflegen. Acecore bündelt sie unt
 
 Die Lehre: Nicht alle Felder auf einmal hinzufügen. `config.yml` wächst schnell. Besser mit Blog, Autoren, Tags, Hinweisen und häufig geänderten Seiten starten.
 
-## 8. Auch in Preview `main` als Veröffentlichungsbranch behalten
+## 8. Writer-Zugang nur in Production bereitstellen
 
-Der Backend-Branch bleibt auch in Preview `main`. Ein erfolgreicher CMS-Save schreibt direkt nach `main` und startet sofort das GitHub-verbundene Production-Deployment. Pages-Previews bleiben für normale Code- und Konfigurations-PRs.
+Client ID, Installation ID und Private Key der GitHub App werden nur in der Cloudflare-Pages-Production-Umgebung konfiguriert. Previews erhalten keine Writer-Zugangsdaten; Repository-Reads und -Writes bleiben dort deaktiviert. Inhalte werden ausschließlich über das Production-`/admin/` gespeichert und veröffentlicht, während Pages-Previews normalen Code- und Konfigurations-PRs dienen.
 
 ```javascript
 CMS.init({
@@ -290,7 +290,7 @@ Sveltia CMS betrifft GitHub Backend, OAuth, Collections, Medien und PRs. Turnsti
 - Medienpfade sollten vor den Uploads feststehen.
 - `config.yml` sollte schrittweise wachsen.
 - `cms:` ist ein Automatisierungsvertrag.
-- Der Veröffentlichungsbranch bleibt `main`; Preview dient normalen Code- und Konfigurations-PRs.
+- Writer-Zugangsdaten liegen nur in Production; Preview dient ohne Repository-Zugriff normalen Code- und Konfigurations-PRs.
 
 ## Minimaler Startpunkt
 

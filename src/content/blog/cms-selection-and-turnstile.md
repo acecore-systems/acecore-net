@@ -291,9 +291,9 @@ Markdownをフォーム化するときは、自由入力を減らすほど運用
 
 固定ページ文言をCMS化するときは、日本語sourceを勝手に翻訳ファイルへ直書きしない運用も決めておきます。翻訳側はPRで更新するほうが、レビューと差分追跡が楽です。
 
-## 8. previewでもpublication branchをmainに固定する
+## 8. writer認証情報はproductionだけに置く
 
-Cloudflare Pagesのpreviewでもbackend branchをPR branchへ差し替えず、編集開始点は常に本番ソースの正である`main`にします。CMS保存は`main`へ直接反映され、GitHub連携のproduction deployがすぐ始まります。previewはコードやCMS設定を変更する通常PRの確認に使います。
+CMSから`main`へ直接保存できるGitHub AppのClient ID、Installation ID、private keyはCloudflare Pagesのproduction環境だけに設定します。previewにはwriter認証情報を配布せず、repository read/writeを無効にします。コンテンツの編集と公開は本番の`/admin/`から行い、previewはコードやCMS設定を変更する通常PRの確認に使います。
 
 Acecoreでは、ビルド前に `public/admin/runtime-config.js` を生成し、手動初期化だけを有効にしています。
 
@@ -317,7 +317,7 @@ CMS.init({
 })
 ```
 
-この形ならproductionとpreviewで保存起点が分岐せず、proxyも `main` 以外をbaseにするrequestを拒否できます。
+productionのpublication branchは`main`に固定し、proxyは`main`以外をbaseにするrequestを拒否します。preview側も設定表示の整合性確認のためbranchは`main`のままですが、writer認証情報がないため保存はできません。
 
 ## 9. 保存proxyで内容を検証して直接公開する
 
@@ -404,7 +404,7 @@ CMSを差し替えたら、設定ファイルだけでなく、関連記事と�
 
 ### 6. publication branchを環境で切り替えない
 
-previewのdeploy branchをそのままCMSのpublication branchにすると、別本流が増えて保存proxyの検証も複雑になります。CMSは常に`main`から編集を始め、保存後はproduction deployの完了を確認します。Cloudflare Pages previewはコードや設定を変える通常PRの確認に使います。
+previewへruleset bypass可能なwriter認証情報を配ると、確認用deployから本番`main`へ書ける経路が増えます。CMSの編集と保存はproductionの`/admin/`だけに限定し、保存後はproduction deployの完了を確認します。Cloudflare Pages previewはwriter認証情報なしで、コードや設定を変える通常PRの確認に使います。
 
 ## 導入時の最小構成
 

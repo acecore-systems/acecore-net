@@ -29,6 +29,7 @@
 - このリポジトリの CMS ログインは GitHub 認証型とする。Cloudflare Access を前段に置く場合も、編集者本人とrepositoryへのpush権限の確認は GitHub OAuth Worker を使う。
 - CMS のrepository read/write actorは `acecore-net` だけにインストールした専用GitHub Appとし、OAuth tokenを保存actorへ流用しない。App権限はContentsのRead and write、MetadataのRead-onlyだけにする。
 - CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、件数、容量、最新HEADを検証して、CMS管理対象だけをexpected-HEAD付きの1 commitで直接保存する。
+- CMSから削除できるのは日本語sourceの記事とキャンペーンだけとする。著者、タグ、画像は現在treeと同一mutation内の参照整合性を同期検証できないため、UIとproxyの両方で削除を禁止する。
 - Sveltia CMSではEditorial Workflowが未実装のため、`publish_mode: editorial_workflow` の設定には依存しない。
 - Cherry / HattとはGitHub App、private key、編集者認証を共用しない。サイトごとにactorとsecretを分離する。
 - `cms-content` のような恒久的な CMS 投稿受け皿 branch は使わない。

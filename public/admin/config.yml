@@ -2813,6 +2813,7 @@ collections:
     label: 著者
     label_singular: 著者
     icon: person
+    delete: false
     folder: src/content/authors
     format: json
     extension: json
@@ -2922,6 +2923,7 @@ collections:
     label: タグ
     label_singular: タグ
     icon: sell
+    delete: false
     folder: src/content/tags
     format: json
     extension: json

@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automatizar la operación
-      description: Usa main como rama de publicación y conecta ramas temporales del proxy de guardado validado, PRs de CMS y tareas de traducción.
+      description: Usa main como rama de publicación y conecta commits directos validados, deploys de Pages y tareas de traducción.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - Markdown y JSON se editan desde formularios del navegador
       - relation, image y select reducen valores inválidos
       - Solo commits de CMS disparan tareas de traducción
-      - Un proxy same-origin escribe solo rutas permitidas en una rama temporal y un PR
+      - Un proxy same-origin valida el contenido permitido y escribe un commit directo en main
 callout:
   type: note
   title: Supuesto de esta guía
@@ -170,11 +170,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-Mantén `main` como rama de publicación y dirige lecturas y guardados por un proxy same-origin. Antes de crear una rama temporal y un PR, el proxy valida el repositorio, el permiso de escritura del usuario de GitHub, las rutas modificadas y el HEAD más reciente de `main`.
+Mantén `main` como rama de publicación y dirige lecturas y guardados por un proxy same-origin. Antes de cada guardado, el proxy vuelve a validar el permiso de escritura del usuario de GitHub, usa una GitHub App instalada solo en `acecore-net` para acceder al repositorio y comprueba rutas, contenido y el HEAD más reciente de `main` antes de crear un único commit directo.
 
 A 20 de julio de 2026, Editorial Workflow no está implementado en Sveltia CMS. Añadir la opción de Decap CMS `publish_mode: editorial_workflow` no hace que Sveltia CMS cree ramas temporales o PRs automáticamente.
 
-Una rama permanente como `cms-content` exige sincronización continua y aumenta el riesgo de conflictos o de configurar mal el origen del despliegue. Las ramas temporales mantienen `main` como única fuente de verdad.
+Una rama permanente como `cms-content` exige sincronización continua y aumenta el riesgo de conflictos o de configurar mal el origen del despliegue. Acecore mantiene `main` como única fuente de verdad y rechaza actualizaciones concurrentes mediante `expectedHeadOid`.
 
 ## 3. Añadir OAuth Worker
 
@@ -230,9 +230,9 @@ Los textos fijos de páginas pueden gestionarse igual. Acecore reúne la fuente 
 
 La advertencia es no añadir todos los campos de golpe. `config.yml` crece rápido y se vuelve difícil de revisar. Empieza por blog, autores, etiquetas, avisos y páginas que cambian a menudo.
 
-## 8. Mantener `main` como rama de publicación en preview
+## 8. Mantener las credenciales de escritura solo en producción
 
-La rama backend sigue siendo `main` también en preview. Un guardado correcto escribe directamente en `main` e inicia el deploy de producción conectado a GitHub. Las previews quedan para PRs normales de código o configuración.
+Configura el client ID, installation ID y private key de la GitHub App solo en el entorno de producción de Cloudflare Pages. Las previews no reciben credenciales de escritura y mantienen deshabilitadas las lecturas y escrituras del repositorio. El contenido se guarda y publica únicamente desde `/admin/` de producción; las previews quedan para PRs normales de código o configuración.
 
 ```javascript
 CMS.init({
@@ -292,7 +292,7 @@ Sveltia CMS trata de GitHub backend, OAuth, collections, medios y PRs. Turnstile
 - Las rutas de medios deben fijarse antes de subir imágenes.
 - `config.yml` debe crecer por etapas.
 - `cms:` es un contrato para automatización.
-- La rama de publicación sigue siendo `main`; la preview se usa para PRs normales de código y configuración.
+- Las credenciales de escritura existen solo en producción; la preview se usa sin acceso al repositorio para PRs normales de código y configuración.
 
 ## Punto de partida mínimo
 

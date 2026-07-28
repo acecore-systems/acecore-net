@@ -15,6 +15,15 @@ const CONTENT_RULES = [
   },
 ] as const
 
+const DELETABLE_CONTENT_RULES = [
+  { prefix: 'src/content/blog/', extension: '.md', recursive: false },
+  {
+    prefix: 'src/i18n/source/ja/campaigns/',
+    extension: '.json',
+    recursive: false,
+  },
+] as const
+
 const CONTENT_FILES = new Set([
   'src/i18n/source/ja/common.json',
   'src/i18n/source/ja/blog.json',
@@ -63,17 +72,7 @@ export function isAllowedCmsWritePath(path: string) {
 
   if (CONTENT_FILES.has(path)) return true
 
-  if (
-    CONTENT_RULES.some(({ prefix, extension, recursive }) => {
-      if (!path.startsWith(prefix) || !path.endsWith(extension)) return false
-
-      const relativePath = path.slice(prefix.length)
-
-      return (
-        relativePath.length > 0 && (recursive || !relativePath.includes('/'))
-      )
-    })
-  ) {
+  if (CONTENT_RULES.some((rule) => matchesContentRule(path, rule))) {
     return true
   }
 
@@ -82,8 +81,10 @@ export function isAllowedCmsWritePath(path: string) {
   return MEDIA_EXTENSIONS.has(getExtension(path))
 }
 
-export function isRequiredCmsContentPath(path: string) {
-  return CONTENT_FILES.has(path)
+export function isAllowedCmsDeletePath(path: string) {
+  if (normalizeCmsPath(path) !== path) return false
+
+  return DELETABLE_CONTENT_RULES.some((rule) => matchesContentRule(path, rule))
 }
 
 export function isAllowedCmsDirectoryPath(path: string) {
@@ -113,6 +114,25 @@ export function encodePathSegments(path: string) {
 
 function getDirectoryName(path: string) {
   return path.split('/').slice(0, -1).join('/')
+}
+
+function matchesContentRule(
+  path: string,
+  {
+    prefix,
+    extension,
+    recursive,
+  }: {
+    prefix: string
+    extension: string
+    recursive: boolean
+  },
+) {
+  if (!path.startsWith(prefix) || !path.endsWith(extension)) return false
+
+  const relativePath = path.slice(prefix.length)
+
+  return relativePath.length > 0 && (recursive || !relativePath.includes('/'))
 }
 
 function isDirectoryAllowedByRoot(

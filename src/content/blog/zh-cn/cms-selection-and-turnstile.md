@@ -23,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 自动化运维
-      description: 将 main 作为发布分支，并连接经过验证的保存 proxy 短期分支、CMS 编辑 PR 与翻译 PR task。
+      description: 将 main 作为发布分支，并连接经过验证的直接 commit、Pages deploy 与翻译 PR task。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -41,7 +41,7 @@ compareTable:
       - 可以在浏览器表单中编辑 Markdown 与 JSON
       - relation、image、select 减少无效值
       - 只有 CMS commit 会触发翻译 PR task
-      - same-origin proxy 只把允许的路径写入短期 branch 和 PR
+      - same-origin proxy 验证允许的内容，并向 main 写入一个直接 commit
 callout:
   type: note
   title: 本文前提
@@ -172,11 +172,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-将 `main` 保持为发布分支，并让读取和保存都经过 same-origin proxy。proxy 在创建短期分支和 PR 之前，会验证 repository、GitHub 用户的写权限、修改路径以及最新的 `main` HEAD。
+将 `main` 保持为发布分支，并让读取和保存都经过 same-origin proxy。每次保存前，proxy 都会重新验证 GitHub 用户的写权限，并使用仅安装到 `acecore-net` 的 GitHub App 访问 repository。它会验证修改路径、内容和最新的 `main` HEAD，然后只创建一个直接 commit。
 
 截至 2026 年 7 月 20 日，Sveltia CMS 尚未实现 Editorial Workflow。添加 Decap CMS 的 `publish_mode: editorial_workflow` 配置，并不会让 Sveltia CMS 自动创建短期分支或 PR。
 
-像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。按 PR 关闭短期分支，可以让 `main` 始终是唯一的真实来源。
+像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。Acecore 将 `main` 作为唯一真实来源，并通过 `expectedHeadOid` 拒绝并发更新。
 
 ## 3. 准备 OAuth Worker
 
@@ -248,9 +248,9 @@ Acecore 把 CMS 编辑范围分成四类。
 
 反省点是，一开始不要把所有字段一次性放进 `config.yml`。配置会迅速变大，既存值读取、标签命名和审核都会变困难。建议从博客、作者、标签、告知、常改页面开始，逐步扩展。
 
-## 8. preview 环境也将发布分支固定为 `main`
+## 8. writer 凭据仅放在 production
 
-preview 中的 backend branch 也保持为 `main`。有效的 CMS 保存会直接写入 `main`，立即启动 GitHub 连接的 production deploy。Pages preview 继续用于普通代码和配置 PR。
+GitHub App 的 client ID、installation ID 和 private key 只配置在 Cloudflare Pages production 环境。preview 不接收 writer 凭据，repository 读写保持禁用。内容仅从 production 的 `/admin/` 保存和发布，Pages preview 继续用于普通代码和配置 PR。
 
 ```javascript
 CMS.init({
@@ -262,7 +262,7 @@ CMS.init({
 })
 ```
 
-这样 production 与 preview 就不会使用不同的保存起点，proxy 也可以拒绝以 `main` 之外的 branch 为 base 的请求。
+production 的 publication branch 固定为 `main`，proxy 会拒绝以其他 branch 为 base 的请求。preview 为了检查配置一致性仍显示 `main`，但没有 writer 凭据，因此无法保存。
 
 ## 9. 使用保存 proxy 验证并直接发布
 
@@ -312,7 +312,7 @@ Sveltia CMS 关注 GitHub backend、OAuth、collection、图片路径和 PR 运�
 - 图片路径要在编辑者上传前固定。
 - `config.yml` 的字段要逐步增加，不要一次性暴露全部页面文案。
 - `cms:` commit subject 是自动化契约，不是普通前缀。
-- 发布分支保持为 `main`；preview 用于普通代码和配置 PR。
+- writer 凭据仅存在于 production；preview 在没有 repository 访问权的情况下用于普通代码和配置 PR。
 
 ## 最小起点
 

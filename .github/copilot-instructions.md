@@ -8,5 +8,6 @@
 - Issue template は `不具合` と `タスク` を基本にし、必要以上に入力項目を増やさない。
 - 多言語対応では日本語ソースを正とし、CMS と翻訳構成を崩さない。
 - CMSログインはGitHub OAuthで編集者本人とrepositoryへのpush権限を確認し、repositoryのread/writeは`acecore-net`専用GitHub Appへ分離する。同一origin proxyはpath、件数、容量、最新HEADを検証し、CMS管理対象だけをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。コード、設定、schema、workflow、翻訳ファイルは従来どおりPRとCIを経由する。
+- CMSから削除できるのは日本語sourceの記事とキャンペーンだけとする。参照整合性を同期検証できない著者、タグ、画像はUIとproxyの両方で削除を禁止する。
 - 差分は目的に必要な範囲に絞り、既存の Astro、TypeScript、UnoCSS 構成を尊重する。
 - サイト出力に影響する変更では `npm run build` を実行する。docs/template のみなら対象ファイルの format check と `git diff --check` を行う。

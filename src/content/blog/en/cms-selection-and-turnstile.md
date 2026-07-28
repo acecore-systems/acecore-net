@@ -277,9 +277,9 @@ The lesson from implementation was to avoid adding every field at once. After ma
 
 For multilingual sites, do not let CMS edits directly rewrite translation files. Keeping Japanese source edits and translation pull requests separate makes review much easier.
 
-## 8. Keep `main` as the Publication Branch in Preview
+## 8. Keep Writer Credentials in Production Only
 
-Do not replace the backend branch with a Cloudflare Pages preview branch. Every edit starts from the production source of truth, and a successful CMS save pushes directly to `main`, immediately starting the GitHub-connected production deploy. Pages previews remain for normal code and CMS-configuration pull requests.
+Configure the GitHub App client ID, installation ID, and private key only in the Cloudflare Pages production environment. Do not distribute writer credentials to previews; repository reads and writes remain disabled there. Editors save and publish from the production `/admin/`, while Pages previews remain for normal code and CMS-configuration pull requests.
 
 Acecore generates `public/admin/runtime-config.js` before builds to enable manual initialization only:
 
@@ -303,7 +303,7 @@ CMS.init({
 })
 ```
 
-This prevents production and preview from using different save bases, and lets the proxy reject any request whose base is not `main`.
+The production publication branch stays fixed to `main`, and the proxy rejects requests based on any other branch. Preview configuration still displays `main` for consistency checks, but cannot save without writer credentials.
 
 ## 9. Validate and Publish Directly with a Save Proxy
 
@@ -382,7 +382,7 @@ Putting every page text field into `config.yml` at once makes the config hard to
 
 ### 6. Do Not Switch the Publication Branch by Environment
 
-Using a preview deployment branch as the CMS publication branch creates another source line and complicates proxy validation. Start every edit from `main`, then confirm the production deployment after saving. Use Cloudflare Pages previews for normal code or configuration pull requests.
+Giving a preview deployment a writer credential that can bypass the ruleset creates another route into production `main`. Restrict editing and saving to the production `/admin/`, then confirm the production deployment after saving. Use Cloudflare Pages previews without writer credentials for normal code or configuration pull requests.
 
 ## Minimal Starting Point
 
