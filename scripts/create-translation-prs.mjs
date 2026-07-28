@@ -1,5 +1,7 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync, existsSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const DEFAULT_SOURCE_LOCALE = 'ja'
 const SITE_TRANSLATION_SOURCE_DIR = 'src/i18n/source/ja'
@@ -147,7 +149,7 @@ function parseNameStatusLine(line) {
   }
 }
 
-function isCmsCommitSubject(subject) {
+export function isCmsCommitSubject(subject) {
   return /^cms: (create|update|delete|upload) /.test(subject || '')
 }
 
@@ -173,21 +175,33 @@ function isMergeCommit(commit) {
   return commit.parentShas.length > 1
 }
 
-function ensureCmsOnlyChangeSet(baseSha, headSha) {
-  const commits = listCommitSubjects(baseSha, headSha)
+export function classifyCmsCommitSet(commits) {
   const contentCommits = commits.filter((commit) => !isMergeCommit(commit))
-  if (contentCommits.length === 0) return false
+  if (contentCommits.length === 0) return 'empty'
 
   const cmsCommits = contentCommits.filter((commit) =>
     isCmsCommitSubject(commit.subject),
   )
 
-  if (cmsCommits.length === 0) {
+  if (cmsCommits.length === 0) return 'none'
+  if (cmsCommits.length !== contentCommits.length) return 'mixed'
+
+  return 'cms-only'
+}
+
+function ensureCmsOnlyChangeSet(baseSha, headSha) {
+  const classification = classifyCmsCommitSet(
+    listCommitSubjects(baseSha, headSha),
+  )
+
+  if (classification === 'empty') return false
+
+  if (classification === 'none') {
     console.log('No CMS commits detected. Skipping translation PR tasks.')
     return false
   }
 
-  if (cmsCommits.length !== contentCommits.length) {
+  if (classification === 'mixed') {
     throw new Error(
       'CMS and non-CMS commits are mixed in this push. Skipping automatic translation PR tasks; re-run manually after reviewing the source diff.',
     )
@@ -1133,7 +1147,20 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error)
-  process.exitCode = 1
-})
+function isMainModule() {
+  if (!process.argv[1]) return false
+
+  const current = fileURLToPath(import.meta.url)
+  const entry = path.resolve(process.argv[1])
+
+  return process.platform === 'win32'
+    ? current.toLowerCase() === entry.toLowerCase()
+    : current === entry
+}
+
+if (isMainModule()) {
+  main().catch((error) => {
+    console.error(error)
+    process.exitCode = 1
+  })
+}

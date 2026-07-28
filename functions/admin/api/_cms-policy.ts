@@ -35,9 +35,7 @@ const MEDIA_EXTENSIONS = new Set([
   '.gif',
   '.jpeg',
   '.jpg',
-  '.pdf',
   '.png',
-  '.svg',
   '.webp',
 ])
 
@@ -84,6 +82,10 @@ export function isAllowedCmsWritePath(path: string) {
   return MEDIA_EXTENSIONS.has(getExtension(path))
 }
 
+export function isRequiredCmsContentPath(path: string) {
+  return CONTENT_FILES.has(path)
+}
+
 export function isAllowedCmsDirectoryPath(path: string) {
   if (normalizeCmsPath(path) !== path) return false
   if (path === '') return true
@@ -103,16 +105,6 @@ export function isAllowedCmsDirectoryPath(path: string) {
   return Array.from(CONTENT_FILES, (filePath) =>
     getDirectoryName(filePath),
   ).some((root) => isDirectoryAllowedByRoot(path, root, false))
-}
-
-export function sanitizeCmsBranchPart(path: string) {
-  const base = path
-    .replace(/\.[^.]+$/, '')
-    .replace(/[^A-Za-z0-9_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 48)
-
-  return base || 'content'
 }
 
 export function encodePathSegments(path: string) {

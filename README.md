@@ -100,7 +100,7 @@ src/
 ### Sveltia CMS（推奨）
 
 1. 本番では `https://acecore.net/admin/index.html`、ローカルでは `http://localhost:4321/admin/index.html` にアクセス
-2. 本番編集は GitHub OAuth でサインインする。このリポジトリは GitHub 認証型で、Cloudflare Access を使う場合も前段の入口保護に限定する
+2. 本番編集は GitHub OAuth でサインインする。OAuthは編集者本人とrepositoryへのpush権限の確認に使い、repositoryのread/writeはサイト専用GitHub Appが行う
 3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
 4. 「ブログ」から日本語ソース記事のみ新規作成・編集
 5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページの日本語テキストをページ/用途別に編集
@@ -108,15 +108,18 @@ src/
 7. 著者・タグは「著者」「タグ」から編集
 8. CMS 経由の日本語ソース編集のみ、Copilot translation PR task で翻訳へ反映
 
-#### 本番 CMS の保存と PR 反映
+#### 本番 CMS の保存と自動公開
 
 - 本番ソースの正は `main` です。Cloudflare Pages の production deploy 元も GitHub 連携の `main` にします。
 - Sveltia CMS は `backend.branch: main` と同一originのGitHub API proxyで運用します。現行SveltiaではEditorial Workflowが未実装のため、`publish_mode` には依存しません。
-- proxyがGitHub OAuth userのwrite権限と変更pathを検証し、保存ごとに `cms/acecore/*` の短命branchとPRを作ります。`main` へ直接commitしません。
-- 恒久的な `cms-content` 投稿受け皿 branch は使いません。
-- CMS PR は通常の merge commit または rebase merge でマージします。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合があります。
-- CMS PR が `main` に merge されると、Cloudflare Pages が GitHub `main` push を受けて production deploy します。
+- proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
+- 保存すると、画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接反映します。別の更新が先に入った場合は上書きせず、CMSの再読み込みを求めます。
+- `main` pushを受けてCloudflare Pagesがproduction deployし、日本語sourceの変更は翻訳PR task workflowも同じ`cms: ...` commitから検出します。
+- 恒久的な`cms-content` branchや短命CMS branch、CMS PRは作りません。
+- コード、CMS設定、schema、workflow、翻訳ファイルはCMS経路で変更できません。従来どおりbranchとPRを作成し、CIを通して`main`へ取り込みます。
 - 旧 remote `cms-content` branch は未反映差分がないことを確認して削除済みです。
+
+direct publish版を本番へ反映する前に、専用GitHub Appを`acecore-net`だけへインストールし、ContentsのRead and writeとMetadataのRead-onlyだけを付与します。Cloudflare Pagesのproduction / previewへClient ID、Installation ID、private keyを設定し、`main`のrulesetではこのAppだけをbypass actorの`Always allow`にします。外部設定が揃う前にdirect publish版を本番へ反映しないでください。
 
 運用判断は [docs/cms-write-workflow.md](docs/cms-write-workflow.md) を参照してください。
 
@@ -155,8 +158,8 @@ author: 'author-id'
 Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を編集できます。多言語記事本文とページ文言は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。PR 量を抑えるため、push 連動の対象は Sveltia CMS の `cms: ...` commit だけに限定します。
 
 1. 日本語ソースを Sveltia CMS で更新する
-2. CMS proxy が `cms/acecore/*` の短命branchと `main` 向けPRを作成する
-3. CMS PR を `main` にマージすると、CMS commit の本文差分または日本語文言 key 差分だけを GitHub Actions が検出する
+2. CMS proxy が`cms: ...` subjectの1 commitを`main`へ直接保存する
+3. 同じ`main` pushから、CMS commitの本文差分または日本語文言 key 差分だけをGitHub Actionsが検出する
 4. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
 5. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする
 
@@ -167,7 +170,8 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 - Workflow: `.github/workflows/create-translation-prs.yml`
 - Script: `scripts/create-translation-prs.mjs`
 - Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の `main` 反映時。ただし自動実行は Sveltia CMS の `cms: ...` commit のみ
-- CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める。CMS PR の merge commit はこの判定から除外する
+- 専用GitHub Appのinstallation tokenによるdirect pushでも通常どおりworkflowを起動する。`GITHUB_TOKEN`による保存へ置き換えない
+- CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める。旧CMS PRのmerge commitも後方互換のため判定から除外する
 - 日本語ソース記事ごとに Copilot translation PR task を作成し、同じソースの open PR があれば重複作成しない
 - ページ文言は変更された JSON key だけを対象に、まとめて 1 つの Copilot translation PR task を作成する
 - blog 記事は frontmatter だけの変更では task を作成せず、Markdown 本文が変わったときだけ PR task を作成する

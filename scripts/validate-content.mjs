@@ -66,8 +66,28 @@ async function validateCmsConfig() {
     path.join(root, 'functions/admin/api/_github-oauth.ts'),
     'utf8',
   )
+  const githubApi = await readFile(
+    path.join(root, 'functions/admin/api/_github-api.ts'),
+    'utf8',
+  )
+  const cmsPolicy = await readFile(
+    path.join(root, 'functions/admin/api/_cms-policy.ts'),
+    'utf8',
+  )
+  const contentValidator = await readFile(
+    path.join(root, 'functions/admin/api/_cms-content-validator.ts'),
+    'utf8',
+  )
   const configFunction = await readFile(
     path.join(root, 'functions/admin/config.yml.ts'),
+    'utf8',
+  )
+  const adminInit = await readFile(
+    path.join(root, 'public/admin/init.js'),
+    'utf8',
+  )
+  const adminIndex = await readFile(
+    path.join(root, 'public/admin/index.html'),
     'utf8',
   )
 
@@ -83,7 +103,7 @@ async function validateCmsConfig() {
   if (/^publish_mode:\s*editorial_workflow\b/m.test(config)) {
     fail(
       scope,
-      'Sveltia CMS does not implement editorial_workflow; use the validated PR proxy',
+      'Sveltia CMS does not implement editorial_workflow; use the validated direct-publish proxy',
     )
   }
   if (
@@ -93,22 +113,52 @@ async function validateCmsConfig() {
     fail(scope, 'CMS must use the same-origin GitHub REST and GraphQL proxy')
   }
   if (
-    !graphql.includes('createCmsBranch') ||
-    !graphql.includes('cms/acecore/') ||
-    !graphql.includes('/pulls')
+    !graphql.includes('expectedHeadOid: mainSha') ||
+    !graphql.includes('branchName: CMS_REPOSITORY.branch') ||
+    !graphql.includes("publication: 'direct'") ||
+    !graphql.includes('return `cms: update') ||
+    graphql.includes('/pulls') ||
+    graphql.includes('cms/acecore/')
   ) {
     fail(
       scope,
-      'CMS writes must create a short-lived cms/acecore branch and PR',
+      'CMS writes must atomically commit allowed content to the expected main HEAD with a cms: subject',
     )
   }
   if (
     !oauth.includes('repository.permissions.push !== true') ||
-    !oauth.includes("path: '/user'")
+    !oauth.includes("path: '/user'") ||
+    !graphql.includes('getGitHubEditor(request, { forceRefresh: true })')
   ) {
     fail(
       scope,
-      'CMS proxy must validate the GitHub user and repository write access',
+      'CMS proxy must freshly validate the GitHub user and repository write access before each mutation',
+    )
+  }
+  if (
+    !graphql.includes('validateCmsAdditionContents(commitInput.additions)') ||
+    !contentValidator.includes('blogSchema.strict().safeParse') ||
+    !contentValidator.includes('matchesJsonTemplate') ||
+    !contentValidator.includes('validateMedia') ||
+    cmsPolicy.includes("'.svg'")
+  ) {
+    fail(
+      scope,
+      'CMS direct publish must synchronously validate content schemas and real media formats, with SVG excluded',
+    )
+  }
+  if (
+    !graphql.includes('getGitHubAppToken(env)') ||
+    !githubApi.includes('CMS_GITHUB_APP_CLIENT_ID') ||
+    !githubApi.includes('CMS_GITHUB_APP_INSTALLATION_ID') ||
+    !githubApi.includes('CMS_GITHUB_APP_PRIVATE_KEY') ||
+    !githubApi.includes('repositories: [CMS_REPOSITORY.name]') ||
+    !githubApi.includes("contents: 'write'") ||
+    githubApi.includes("pull_requests: 'write'")
+  ) {
+    fail(
+      scope,
+      'CMS repository access must use a repository-scoped Contents-only GitHub App token',
     )
   }
   if (
@@ -116,6 +166,13 @@ async function validateCmsConfig() {
     !configFunction.includes('$1${origin}/admin/api/graphql')
   ) {
     fail(scope, 'CMS runtime config must use the deployment origin proxy')
+  }
+  if (
+    !adminInit.includes('保存すると自動で公開されます') ||
+    adminInit.includes('保存は公開ではありません') ||
+    !adminIndex.includes('/admin/cms-notice.css')
+  ) {
+    fail(scope, 'CMS admin must explain that saving starts publication')
   }
 
   for (const contentPath of extractCmsContentPaths(config)) {

@@ -26,12 +26,14 @@
 - 翻訳ファイルは `src/i18n/translations/{locale}.json` に集約されている。日本語 source のキー構造と翻訳側のキー構造を揃える。
 - サイト文言を CMS から編集可能にする場合は `public/admin/config.yml` も更新し、対応する JSON key とフィールド名を揃える。
 - CMS の日時、キャンペーン、告知、募集枠など期間制御が必要な情報は、表示開始と表示終了を CMS から扱える設計にする。
-- このリポジトリの CMS 認証は GitHub 認証型とする。Cloudflare Access を前段に置く場合も、保存認証は GitHub OAuth Worker を使う。
-- CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、最新HEADを検証して `cms/acecore/*` の短命branchとPRだけを作る。
-- Sveltia CMSではEditorial Workflowが未実装のため、`publish_mode: editorial_workflow` の設定だけでPR運用を成立させたと判断しない。
-- Cherry / HattのCloudflare Access認証型とは認証情報とbackend actorを共用しない。短命branch、content-only制約、PR、CIという書き込み方針だけを揃える。
+- このリポジトリの CMS ログインは GitHub 認証型とする。Cloudflare Access を前段に置く場合も、編集者本人とrepositoryへのpush権限の確認は GitHub OAuth Worker を使う。
+- CMS のrepository read/write actorは `acecore-net` だけにインストールした専用GitHub Appとし、OAuth tokenを保存actorへ流用しない。App権限はContentsのRead and write、MetadataのRead-onlyだけにする。
+- CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、件数、容量、最新HEADを検証して、CMS管理対象だけをexpected-HEAD付きの1 commitで直接保存する。
+- Sveltia CMSではEditorial Workflowが未実装のため、`publish_mode: editorial_workflow` の設定には依存しない。
+- Cherry / HattとはGitHub App、private key、編集者認証を共用しない。サイトごとにactorとsecretを分離する。
 - `cms-content` のような恒久的な CMS 投稿受け皿 branch は使わない。
-- CMS PR は merge commit または rebase merge で `main` に入れる。squash merge では `cms: ...` commit subject が失われ、翻訳 PR task の自動検出対象外になる場合がある。
+- CMS direct commitは `cms: ...` subjectを維持し、`main` pushを受ける翻訳PR taskの検出対象にする。
+- コード、CMS設定、schema、workflow、翻訳ファイルの変更はCMS経路へ通さず、branchとPRを作成してCIを通す。
 - 翻訳作業だけを依頼された場合は、日本語 source を勝手に変更しない。placeholder、URL、コード風 token、製品名は壊さない。
 - ブログやニュースを増やす場合は、タグ、関連記事、内部リンク、CTA、Pagefind への影響を確認する。
 

@@ -1,26 +1,77 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { createHash, createPrivateKey } from 'node:crypto'
+import { readdir, readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { afterEach, test } from 'node:test'
+import { fileURLToPath } from 'node:url'
+import { exportPKCS8, generateKeyPair, jwtVerify } from 'jose'
 
+import {
+  clearGitHubAppTokenCacheForTests,
+  getGitHubAppToken,
+} from '../functions/admin/api/_github-api.ts'
 import {
   CMS_REPOSITORY,
   isAllowedCmsDirectoryPath,
   isAllowedCmsWritePath,
 } from '../functions/admin/api/_cms-policy.ts'
+import {
+  matchesJsonTemplate,
+  validateCmsAdditionContents,
+} from '../functions/admin/api/_cms-content-validator.ts'
 import { clearGitHubEditorCacheForTests } from '../functions/admin/api/_github-oauth.ts'
 import { onRequestPost as handleGraphql } from '../functions/admin/api/graphql.ts'
 import { onRequest as handleGithubRest } from '../functions/admin/api/github/[[path]].ts'
 
 const originalFetch = globalThis.fetch
+const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const mainSha = 'a'.repeat(40)
 const oauthToken = 'test-oauth-token'
+const appToken = 'test-installation-token'
+const appClientId = 'Iv23acecorecms'
+const appInstallationId = '12345678'
+const { privateKey: appPrivateKey, publicKey: appPublicKey } =
+  await generateKeyPair('RS256', { extractable: true })
+const appPrivateKeyPem = await exportPKCS8(appPrivateKey)
+const githubDownloadedPrivateKeyPem = createPrivateKey(appPrivateKeyPem)
+  .export({ format: 'pem', type: 'pkcs1' })
+  .toString()
+const appEnv = {
+  CMS_GITHUB_APP_CLIENT_ID: appClientId,
+  CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
+  CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
+}
 const repositoryApi = `https://api.github.com/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`
-const branchPrefix =
-  CMS_REPOSITORY.name === 'acecore-net' ? 'cms/acecore/' : 'cms/aceserver/'
 const contentPath =
   CMS_REPOSITORY.name === 'acecore-net'
     ? 'src/content/blog/example.md'
     : 'src/content/pages/top.json'
+const validBlogMarkdown = `---
+title: CMS test
+description: CMS proxy test content
+date: 2026-07-28T12:00
+author: gui
+---
+
+Valid content.
+`
+const validContent =
+  CMS_REPOSITORY.name === 'acecore-net'
+    ? validBlogMarkdown
+    : JSON.stringify({ title: 'CMS test' })
+const validPng = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
+const installationTokenScope = {
+  permissions: {
+    contents: 'write',
+    metadata: 'read',
+  },
+  repositories: [
+    {
+      name: CMS_REPOSITORY.name,
+      full_name: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+    },
+  ],
+}
 const rejectedPath =
   CMS_REPOSITORY.name === 'acecore-net'
     ? 'src/i18n/translations/en.json'
@@ -51,6 +102,7 @@ const editor = {
 
 afterEach(() => {
   globalThis.fetch = originalFetch
+  clearGitHubAppTokenCacheForTests()
   clearGitHubEditorCacheForTests()
 })
 
@@ -60,6 +112,7 @@ test('CMS対象pathだけを許可する', () => {
     assert.equal(isAllowedCmsWritePath(path), true)
   }
   assert.equal(isAllowedCmsWritePath('public/uploads/example.png'), true)
+  assert.equal(isAllowedCmsWritePath('public/uploads/example.svg'), false)
   assert.equal(isAllowedCmsWritePath(rejectedPath), false)
   assert.equal(isAllowedCmsWritePath(unlistedContentPath), false)
   assert.equal(isAllowedCmsWritePath('README.md'), false)
@@ -95,6 +148,166 @@ test('CMS設定で公開したfolderとfileがproxyの許可範囲に収まる',
   }
 })
 
+test('現在のCMS管理対象ファイルが保存前の実体検証を通る', async () => {
+  const directories = [
+    'src/content/blog',
+    'src/content/authors',
+    'src/content/tags',
+    'src/i18n/source/ja/campaigns',
+    'public/uploads',
+  ]
+  const paths = []
+
+  for (const directory of directories) {
+    for (const relativePath of await listFilesRecursively(directory)) {
+      if (isAllowedCmsWritePath(relativePath)) paths.push(relativePath)
+    }
+  }
+
+  const config = await readFile(
+    path.join(repositoryRoot, 'public/admin/config.yml'),
+    'utf8',
+  )
+
+  for (const match of config.matchAll(/^\s*file:\s*([^,\s]+),?\s*$/gm)) {
+    if (isAllowedCmsWritePath(match[1])) paths.push(match[1])
+  }
+
+  for (const relativePath of new Set(paths)) {
+    const contents = await readFile(path.join(repositoryRoot, relativePath))
+
+    assert.doesNotThrow(
+      () =>
+        validateCmsAdditionContents([
+          {
+            path: relativePath,
+            contents: contents.toString('base64'),
+            byteSize: contents.byteLength,
+          },
+        ]),
+      relativePath,
+    )
+  }
+})
+
+test('fixed JSONの配列は先頭要素だけでなく許可済みshapeのunionで検証する', () => {
+  const template = [
+    { type: 'link', href: '/about/' },
+    { type: 'note', text: 'お知らせ', enabled: true },
+  ]
+
+  assert.equal(
+    matchesJsonTemplate(
+      [
+        { type: 'note', text: '更新しました', enabled: false },
+        { type: 'link', href: '/contact/' },
+      ],
+      template,
+    ),
+    true,
+  )
+  assert.equal(
+    matchesJsonTemplate([{ type: 'script', source: '<script />' }], template),
+    false,
+  )
+})
+
+test('GitHub配布形式の秘密鍵からrepository限定installation tokenを発行する', async () => {
+  globalThis.fetch = async (input, init = {}) => {
+    assert.equal(
+      String(input),
+      `https://api.github.com/app/installations/${appInstallationId}/access_tokens`,
+    )
+    assert.equal(init.method, 'POST')
+
+    const authorization = new Headers(init.headers).get('Authorization') || ''
+    const { payload } = await jwtVerify(
+      authorization.replace(/^Bearer /, ''),
+      appPublicKey,
+      {
+        algorithms: ['RS256'],
+        issuer: appClientId,
+      },
+    )
+    const body = JSON.parse(init.body)
+
+    assert.ok((payload.exp ?? 0) - (payload.iat ?? 0) <= 10 * 60)
+    assert.deepEqual(body, {
+      repositories: [CMS_REPOSITORY.name],
+      permissions: {
+        contents: 'write',
+      },
+    })
+
+    return jsonResponse({
+      token: appToken,
+      expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      ...installationTokenScope,
+    })
+  }
+
+  assert.equal(await getGitHubAppToken(appEnv), appToken)
+})
+
+test('mutationではcached tokenを使わずlive installation scopeを再確認する', async () => {
+  let tokenRequests = 0
+
+  mockGitHub(
+    async (url, _init, body) => {
+      if (url.endsWith('/git/ref/heads/main')) {
+        return jsonResponse({ object: { sha: mainSha } })
+      }
+
+      if (url.endsWith('/graphql')) {
+        return jsonResponse({
+          data: {
+            createCommitOnBranch: {
+              commit: {
+                oid: 'b'.repeat(40),
+                committedDate: '2026-07-28T00:00:00Z',
+              },
+            },
+          },
+        })
+      }
+
+      throw new Error(`Unexpected GitHub request: ${url} ${body}`)
+    },
+    true,
+    () => {
+      tokenRequests += 1
+    },
+  )
+
+  await getGitHubAppToken(appEnv)
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(tokenRequests, 2)
+})
+
+test('installation tokenの応答scopeが広い場合は拒否する', async () => {
+  globalThis.fetch = async () =>
+    jsonResponse({
+      token: appToken,
+      expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      permissions: {
+        contents: 'write',
+        metadata: 'read',
+        pull_requests: 'write',
+      },
+      repositories: installationTokenScope.repositories,
+    })
+
+  await assert.rejects(
+    () => getGitHubAppToken(appEnv, { forceRefresh: true }),
+    /installation tokenを発行できません/,
+  )
+})
+
 test('GitHub OAuth認証がないrequestを拒否する', async () => {
   let called = false
   globalThis.fetch = async () => {
@@ -103,6 +316,7 @@ test('GitHub OAuth認証がないrequestを拒否する', async () => {
   }
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlRequest({ authorization: null }),
   })
 
@@ -116,11 +330,115 @@ test('repositoryへのpush権限がないGitHub userを拒否する', async () =
   }, false)
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlRequest(),
   })
 
   assert.equal(response.status, 403)
   assert.match((await response.json()).message, /write権限/)
+})
+
+test('専用GitHub App設定がなければOAuth tokenで保存を代行しない', async () => {
+  let cmsOperationCalled = false
+
+  mockGitHub(async () => {
+    cmsOperationCalled = true
+    throw new Error('CMS operation must not continue')
+  })
+
+  const response = await handleGraphql({
+    env: {},
+    request: graphqlRequest(),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 503)
+  assert.match(result.message, /GitHub App/)
+  assert.equal(cmsOperationCalled, false)
+})
+
+test('mutation直前はcached OAuth認可を使わずpush権限を再確認する', async () => {
+  let repositoryReads = 0
+  let mutationCalled = false
+
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input)
+
+    if (url === 'https://api.github.com/user') return jsonResponse(editor)
+
+    if (url === repositoryApi) {
+      repositoryReads += 1
+      return jsonResponse({
+        permissions: { push: repositoryReads === 1 },
+      })
+    }
+
+    if (
+      url ===
+      `https://api.github.com/app/installations/${appInstallationId}/access_tokens`
+    ) {
+      return jsonResponse({
+        token: appToken,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    }
+
+    if (url.endsWith('/graphql')) {
+      const body = JSON.parse(init.body)
+
+      if (/mutation CmsCommit/.test(body.query)) mutationCalled = true
+
+      return jsonResponse({
+        data: {
+          repository: {
+            ref: {
+              target: {
+                history: { nodes: [{ oid: mainSha, message: 'latest' }] },
+              },
+            },
+          },
+        },
+      })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  }
+
+  const readResponse = await handleGraphql({
+    env: appEnv,
+    request: graphqlReadRequest(
+      `
+        query($owner: String!, $repo: String!, $branch: String!) {
+          repository(owner: $owner, name: $repo) {
+            ref(qualifiedName: $branch) {
+              target {
+                ... on Commit {
+                  history(first: 1) { nodes { oid message } }
+                }
+              }
+            }
+          }
+        }
+      `,
+      {
+        owner: CMS_REPOSITORY.owner,
+        repo: CMS_REPOSITORY.name,
+        branch: 'main',
+      },
+    ),
+  })
+
+  assert.equal(readResponse.status, 200)
+
+  const mutationResponse = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+
+  assert.equal(mutationResponse.status, 403)
+  assert.equal(repositoryReads, 2)
+  assert.equal(mutationCalled, false)
 })
 
 test('Sveltia CMS 0.172のlast-commit queryを許可する', async () => {
@@ -142,6 +460,7 @@ test('Sveltia CMS 0.172のlast-commit queryを許可する', async () => {
   })
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlReadRequest(
       `
         query($owner: String!, $repo: String!, $branch: String!) {
@@ -195,6 +514,7 @@ test('Sveltia CMS 0.172のcontent queryをCMS対象blobだけ許可する', asyn
   })
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlReadRequest(
       `
         query($owner: String!, $repo: String!, $branch: String!) {
@@ -232,9 +552,8 @@ test('Sveltia CMS 0.172のcontent queryをCMS対象blobだけ許可する', asyn
   assert.equal(response.status, 200)
 })
 
-test('画像と本文を同じ短期branchの1 commit・1 PRに保存する', async () => {
+test('画像と本文をexpected HEAD付きの1 commitでmainへ直接保存する', async () => {
   const calls = []
-  let cmsBranch = ''
 
   mockGitHub(async (url, init, body) => {
     calls.push({ url, init, body })
@@ -243,22 +562,22 @@ test('画像と本文を同じ短期branchの1 commit・1 PRに保存する', as
       return jsonResponse({ object: { sha: mainSha } })
     }
 
-    if (url.endsWith('/git/refs')) {
-      cmsBranch = body.ref.replace('refs/heads/', '')
-      assert.match(cmsBranch, new RegExp(`^${branchPrefix}`))
-      assert.equal(body.sha, mainSha)
-
-      return jsonResponse({ ref: body.ref, object: { sha: mainSha } }, 201)
-    }
-
     if (url.endsWith('/graphql')) {
       assert.match(body.query, /mutation CmsCommit/)
       assert.equal(
         body.variables.input.branch.repositoryNameWithOwner,
         `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
       )
-      assert.equal(body.variables.input.branch.branchName, cmsBranch)
+      assert.equal(body.variables.input.branch.branchName, 'main')
       assert.equal(body.variables.input.expectedHeadOid, mainSha)
+      assert.equal(
+        body.variables.input.message.headline,
+        'cms: update public/uploads/example.png (+1)',
+      )
+      assert.match(
+        body.variables.input.message.body,
+        /^GitHub editor: @editor\nCMS request: [0-9a-f-]{36}$/,
+      )
       assert.deepEqual(
         body.variables.input.fileChanges.additions.map(({ path }) => path),
         ['public/uploads/example.png', contentPath],
@@ -278,22 +597,11 @@ test('画像と本文を同じ短期branchの1 commit・1 PRに保存する', as
       })
     }
 
-    if (url.endsWith('/pulls')) {
-      assert.equal(body.head, cmsBranch)
-      assert.equal(body.base, 'main')
-      assert.match(body.body, /GitHub user: @editor/)
-      assert.match(body.body, new RegExp(contentPath.replaceAll('/', '\\/')))
-
-      return jsonResponse(
-        { number: 91, html_url: 'https://github.com/example/pull/91' },
-        201,
-      )
-    }
-
     throw new Error(`Unexpected GitHub request: ${url}`)
   })
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlRequest({
       variables: {
         input: {
@@ -306,11 +614,11 @@ test('画像と本文を同じ短期branchの1 commit・1 PRに保存する', as
             additions: [
               {
                 path: 'public/uploads/example.png',
-                contents: Buffer.from('image').toString('base64'),
+                contents: validPng.toString('base64'),
               },
               {
                 path: contentPath,
-                contents: Buffer.from('content').toString('base64'),
+                contents: Buffer.from(validContent).toString('base64'),
               },
             ],
             deletions: [],
@@ -323,9 +631,211 @@ test('画像と本文を同じ短期branchの1 commit・1 PRに保存する', as
   const result = await response.json()
 
   assert.equal(response.status, 200)
-  assert.equal(result.extensions.cms.branch, cmsBranch)
-  assert.equal(result.extensions.cms.pull_request.number, 91)
-  assert.equal(calls.length, 4)
+  assert.equal(result.extensions.cms.branch, 'main')
+  assert.equal(result.extensions.cms.publication, 'direct')
+  assert.equal(calls.length, 2)
+})
+
+test('編集開始後にmainが更新されていればcommitを送らず409にする', async () => {
+  let callCount = 0
+
+  mockGitHub(async (url) => {
+    callCount += 1
+
+    if (url.endsWith('/git/ref/heads/main')) {
+      return jsonResponse({ object: { sha: 'b'.repeat(40) } })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 409)
+  assert.match(result.message, /再読み込み/)
+  assert.equal(callCount, 1)
+})
+
+test('応答喪失後もmainの1 commitが保存内容と完全一致すれば成功として復旧する', async () => {
+  const committedSha = 'b'.repeat(40)
+  const content = Buffer.from(validContent)
+  const blobSha = gitBlobSha(content)
+  let mainRefReads = 0
+  let requestMarkerLine = ''
+
+  mockGitHub(async (url, _init, body) => {
+    if (url.endsWith('/git/ref/heads/main')) {
+      mainRefReads += 1
+
+      return jsonResponse({
+        object: { sha: mainRefReads === 1 ? mainSha : committedSha },
+      })
+    }
+
+    if (url.endsWith('/graphql')) {
+      requestMarkerLine = body.variables.input.message.body
+        .split('\n')
+        .find((line) => line.startsWith('CMS request: '))
+      throw new TypeError('response lost after request')
+    }
+
+    if (url.endsWith(`/compare/${mainSha}...${committedSha}`)) {
+      return jsonResponse({
+        status: 'ahead',
+        ahead_by: 1,
+        behind_by: 0,
+        total_commits: 1,
+        commits: [
+          {
+            sha: committedSha,
+            parents: [{ sha: mainSha }],
+            commit: {
+              message: `cms: update example\n\nGitHub editor: @editor\n${requestMarkerLine}`,
+              committer: { date: '2026-07-28T00:00:00Z' },
+            },
+          },
+        ],
+        files: [
+          {
+            filename: contentPath,
+            status: 'modified',
+            sha: blobSha,
+          },
+        ],
+      })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 200)
+  assert.equal(result.data.createCommitOnBranch.commit.oid, committedSha)
+  assert.equal(result.extensions.cms.recovered, true)
+  assert.equal(result.extensions.cms.publication, 'direct')
+  assert.equal(mainRefReads, 2)
+})
+
+test('応答が曖昧な間に別内容でmainが更新された場合は成功扱いしない', async () => {
+  const committedSha = 'b'.repeat(40)
+  let mainRefReads = 0
+
+  mockGitHub(async (url) => {
+    if (url.endsWith('/git/ref/heads/main')) {
+      mainRefReads += 1
+
+      return jsonResponse({
+        object: { sha: mainRefReads === 1 ? mainSha : committedSha },
+      })
+    }
+
+    if (url.endsWith('/graphql')) {
+      throw new TypeError('response lost after request')
+    }
+
+    if (url.endsWith(`/compare/${mainSha}...${committedSha}`)) {
+      return jsonResponse({
+        status: 'ahead',
+        ahead_by: 1,
+        behind_by: 0,
+        total_commits: 1,
+        commits: [
+          {
+            sha: committedSha,
+            parents: [{ sha: mainSha }],
+            commit: { committer: { date: '2026-07-28T00:00:00Z' } },
+          },
+        ],
+        files: [
+          {
+            filename: 'src/content/blog/other.md',
+            status: 'modified',
+            sha: 'c'.repeat(40),
+          },
+        ],
+      })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 409)
+  assert.match(result.message, /再読み込み/)
+  assert.equal(mainRefReads, 2)
+})
+
+test('親path blobが一致してもrequest markerが違えば復旧しない', async () => {
+  const committedSha = 'b'.repeat(40)
+  const content = Buffer.from(validContent)
+  const blobSha = gitBlobSha(content)
+  let mainRefReads = 0
+
+  mockGitHub(async (url) => {
+    if (url.endsWith('/git/ref/heads/main')) {
+      mainRefReads += 1
+
+      return jsonResponse({
+        object: { sha: mainRefReads === 1 ? mainSha : committedSha },
+      })
+    }
+
+    if (url.endsWith('/graphql')) {
+      throw new TypeError('response lost after request')
+    }
+
+    if (url.endsWith(`/compare/${mainSha}...${committedSha}`)) {
+      return jsonResponse({
+        status: 'ahead',
+        ahead_by: 1,
+        behind_by: 0,
+        total_commits: 1,
+        commits: [
+          {
+            sha: committedSha,
+            parents: [{ sha: mainSha }],
+            commit: {
+              message:
+                'cms: update example\n\nGitHub editor: @other\nCMS request: 00000000-0000-4000-8000-000000000000',
+              committer: { date: '2026-07-28T00:00:00Z' },
+            },
+          },
+        ],
+        files: [
+          {
+            filename: contentPath,
+            status: 'modified',
+            sha: blobSha,
+          },
+        ],
+      })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest(),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 409)
+  assert.match(result.message, /再読み込み/)
 })
 
 test('CMS管理対象外の保存をGitHubへ送らない', async () => {
@@ -337,6 +847,7 @@ test('CMS管理対象外の保存をGitHubへ送らない', async () => {
   })
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlRequest({
       variables: {
         input: {
@@ -364,6 +875,206 @@ test('CMS管理対象外の保存をGitHubへ送らない', async () => {
   assert.equal(cmsOperationCalled, false)
 })
 
+test('schema違反のMarkdownをmainへ送らず422にする', async () => {
+  let cmsOperationCalled = false
+
+  mockGitHub(async () => {
+    cmsOperationCalled = true
+    throw new Error('CMS operation must not continue')
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: {
+            additions: [
+              {
+                path: contentPath,
+                contents: Buffer.from(
+                  '---\ntitle: missing fields\n---\n<script>alert(1)</script>',
+                ).toString('base64'),
+              },
+            ],
+            deletions: [],
+          },
+          message: { headline: 'cms: update blocked' },
+        },
+      },
+    }),
+  })
+
+  assert.equal(response.status, 422)
+  assert.equal(cmsOperationCalled, false)
+})
+
+test('通常文のJavaScriptは許可しactive URL protocolだけを拒否する', () => {
+  const normal = validBlogMarkdown.replace(
+    'CMS proxy test content',
+    'JavaScriptで実装したCMS proxyの解説',
+  )
+  const dangerous = validBlogMarkdown.replace(
+    'author: gui',
+    'author: gui\nimage: javascript:alert(1)',
+  )
+
+  assert.doesNotThrow(() =>
+    validateCmsAdditionContents([
+      {
+        path: contentPath,
+        contents: Buffer.from(normal).toString('base64'),
+        byteSize: Buffer.byteLength(normal),
+      },
+    ]),
+  )
+  assert.throws(
+    () =>
+      validateCmsAdditionContents([
+        {
+          path: contentPath,
+          contents: Buffer.from(dangerous).toString('base64'),
+          byteSize: Buffer.byteLength(dangerous),
+        },
+      ]),
+    /CMS保存内容が不正/,
+  )
+})
+
+test('CMS由来のJSONにactive HTMLを保存できない', async () => {
+  const sourcePath = 'src/i18n/source/ja/pages/home.json'
+  const source = JSON.parse(
+    await readFile(path.join(repositoryRoot, sourcePath), 'utf8'),
+  )
+  source.aboutBody2 = '</script><script>alert(1)</script>'
+  const contents = JSON.stringify(source)
+
+  assert.throws(
+    () =>
+      validateCmsAdditionContents([
+        {
+          path: sourcePath,
+          contents: Buffer.from(contents).toString('base64'),
+          byteSize: Buffer.byteLength(contents),
+        },
+      ]),
+    /CMS保存内容が不正/,
+  )
+})
+
+test('HTML entityで難読化したactive URLを拒否する', () => {
+  const dangerous = validBlogMarkdown.replace(
+    'author: gui',
+    'author: gui\nimage: "java&#x73;cript&#x3a;alert(1)"',
+  )
+
+  assert.throws(
+    () =>
+      validateCmsAdditionContents([
+        {
+          path: contentPath,
+          contents: Buffer.from(dangerous).toString('base64'),
+          byteSize: Buffer.byteLength(dangerous),
+        },
+      ]),
+    /CMS保存内容が不正/,
+  )
+})
+
+test('Markdown linkで難読化したactive URLを拒否する', () => {
+  const dangerous = `${validBlogMarkdown}
+[danger](java&#x73;cript&#x3a;alert(1))
+`
+
+  assert.throws(
+    () =>
+      validateCmsAdditionContents([
+        {
+          path: contentPath,
+          contents: Buffer.from(dangerous).toString('base64'),
+          byteSize: Buffer.byteLength(dangerous),
+        },
+      ]),
+    /CMS保存内容が不正/,
+  )
+})
+
+test('実形式と拡張子が一致しないmediaをmainへ送らず422にする', async () => {
+  let cmsOperationCalled = false
+
+  mockGitHub(async () => {
+    cmsOperationCalled = true
+    throw new Error('CMS operation must not continue')
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: {
+            additions: [
+              {
+                path: 'public/uploads/not-an-image.png',
+                contents: Buffer.from('<script>alert(1)</script>').toString(
+                  'base64',
+                ),
+              },
+            ],
+            deletions: [],
+          },
+          message: { headline: 'cms: update blocked' },
+        },
+      },
+    }),
+  })
+
+  assert.equal(response.status, 422)
+  assert.equal(cmsOperationCalled, false)
+})
+
+test('必須の固定JSONはCMSから削除できない', async () => {
+  let cmsOperationCalled = false
+
+  mockGitHub(async () => {
+    cmsOperationCalled = true
+    throw new Error('CMS operation must not continue')
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: {
+            additions: [],
+            deletions: [{ path: 'src/i18n/source/ja/common.json' }],
+          },
+          message: { headline: 'cms: delete blocked' },
+        },
+      },
+    }),
+  })
+
+  assert.equal(response.status, 403)
+  assert.equal(cmsOperationCalled, false)
+})
+
 test('main以外を指定した保存を拒否する', async () => {
   let cmsOperationCalled = false
 
@@ -373,6 +1084,7 @@ test('main以外を指定した保存を拒否する', async () => {
   })
 
   const response = await handleGraphql({
+    env: appEnv,
     request: graphqlRequest({
       variables: {
         input: {
@@ -428,6 +1140,7 @@ test('Git tree responseからCMS対象外pathを除外する', async () => {
   })
 
   const response = await handleGithubRest({
+    env: appEnv,
     request: new Request(
       `https://example.com/admin/api/github/api/v3/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/main?recursive=1`,
       { headers: authorizationHeaders() },
@@ -450,6 +1163,7 @@ test('REST writeを認証前に拒否する', async () => {
   }
 
   const response = await handleGithubRest({
+    env: appEnv,
     request: new Request('https://example.com/admin/api/github/user', {
       method: 'POST',
       headers: authorizationHeaders(),
@@ -460,7 +1174,7 @@ test('REST writeを認証前に拒否する', async () => {
   assert.equal(called, false)
 })
 
-function mockGitHub(handler, push = true) {
+function mockGitHub(handler, push = true, onTokenRequest = () => {}) {
   globalThis.fetch = async (input, init = {}) => {
     const url = String(input)
     const body = typeof init.body === 'string' ? JSON.parse(init.body) : null
@@ -477,8 +1191,47 @@ function mockGitHub(handler, push = true) {
       return jsonResponse({ permissions: { push } })
     }
 
+    if (
+      url ===
+      `https://api.github.com/app/installations/${appInstallationId}/access_tokens`
+    ) {
+      onTokenRequest()
+      return jsonResponse({
+        token: appToken,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    }
+
+    assert.equal(
+      new Headers(init.headers).get('Authorization'),
+      `Bearer ${appToken}`,
+    )
+
     return handler(url, init, body)
   }
+}
+
+async function listFilesRecursively(relativeDirectory) {
+  const paths = []
+  const entries = await readdir(path.join(repositoryRoot, relativeDirectory), {
+    withFileTypes: true,
+  })
+
+  for (const entry of entries) {
+    const relativePath = `${relativeDirectory}/${entry.name}`.replaceAll(
+      '\\',
+      '/',
+    )
+
+    if (entry.isDirectory()) {
+      paths.push(...(await listFilesRecursively(relativePath)))
+    } else if (entry.isFile()) {
+      paths.push(relativePath)
+    }
+  }
+
+  return paths
 }
 
 function graphqlRequest({
@@ -494,7 +1247,7 @@ function graphqlRequest({
         additions: [
           {
             path: contentPath,
-            contents: Buffer.from('content').toString('base64'),
+            contents: Buffer.from(validContent).toString('base64'),
           },
         ],
         deletions: [],
@@ -536,6 +1289,13 @@ function graphqlReadRequest(query, variables) {
     },
     body: JSON.stringify({ query, variables }),
   })
+}
+
+function gitBlobSha(content) {
+  return createHash('sha1')
+    .update(`blob ${content.byteLength}\0`)
+    .update(content)
+    .digest('hex')
 }
 
 function jsonResponse(value, status = 200) {
