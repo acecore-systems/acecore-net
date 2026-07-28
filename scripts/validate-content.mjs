@@ -95,6 +95,10 @@ async function validateCmsConfig() {
     path.join(root, 'functions/admin/api/_cms-content-validator.ts'),
     'utf8',
   )
+  const referenceValidator = await readFile(
+    path.join(root, 'functions/admin/api/_cms-reference-validator.ts'),
+    'utf8',
+  )
   const configFunction = await readFile(
     path.join(root, 'functions/admin/config.yml.ts'),
     'utf8',
@@ -150,6 +154,21 @@ async function validateCmsConfig() {
     fail(
       scope,
       'CMS writes must atomically commit allowed content to the expected main HEAD with a cms: subject',
+    )
+  }
+  if (
+    !graphql.includes('fetchCmsReferenceState(token, mainSha)') ||
+    !graphql.includes('validateProjectedCmsReferences') ||
+    !githubApi.includes('query CmsReferenceState') ||
+    !referenceValidator.includes('src/content/blog/') ||
+    !referenceValidator.includes('frontmatter.author') ||
+    !referenceValidator.includes('frontmatter.tags') ||
+    !referenceValidator.includes('frontmatter.uploadedImage') ||
+    !referenceValidator.includes('frontmatter.gallery')
+  ) {
+    fail(
+      scope,
+      'CMS direct publish must validate projected author, tag, and media references across every locale before committing',
     )
   }
   if (

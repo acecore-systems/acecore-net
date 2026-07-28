@@ -12,15 +12,18 @@ import {
   CMS_REPOSITORY,
   isAllowedCmsDeletePath,
   isAllowedCmsWritePath,
+  isCmsReferenceStatePath,
   normalizeCmsPath,
 } from './_cms-policy.ts'
 import { validateCmsAdditionContents } from './_cms-content-validator.ts'
+import { validateProjectedCmsReferences } from './_cms-reference-validator.ts'
 import { getGitHubEditor, type GitHubEditor } from './_github-oauth.ts'
 import {
   type CmsGitHubAppEnv,
   GitHubApiError,
   copyGitHubResponse,
   fetchCmsTree,
+  fetchCmsReferenceState,
   getAllowedCmsBlobShas,
   getGitHubAppToken,
   githubJson,
@@ -192,6 +195,17 @@ async function handleCommitMutation({
     ...commitInput.additions.map(({ path }) => path),
     ...commitInput.deletions.map(({ path }) => path),
   ]
+
+  if (changedPaths.some((path) => isCmsReferenceStatePath(path))) {
+    const currentState = await fetchCmsReferenceState(token, mainSha)
+
+    validateProjectedCmsReferences({
+      additions: commitInput.additions,
+      currentState,
+      deletions: commitInput.deletions,
+    })
+  }
+
   const mutation = buildCmsCommitMutation(commitInput.additions)
   const requestMarker = crypto.randomUUID()
   let githubResult: Record<string, unknown>

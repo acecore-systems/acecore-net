@@ -15,11 +15,14 @@ import {
   isAllowedCmsDeletePath,
   isAllowedCmsDirectoryPath,
   isAllowedCmsWritePath,
+  isCmsReferenceStatePath,
+  isCmsReferenceTextPath,
 } from '../functions/admin/api/_cms-policy.ts'
 import {
   matchesJsonTemplate,
   validateCmsAdditionContents,
 } from '../functions/admin/api/_cms-content-validator.ts'
+import { validateProjectedCmsReferences } from '../functions/admin/api/_cms-reference-validator.ts'
 import { clearGitHubEditorCacheForTests } from '../functions/admin/api/_github-oauth.ts'
 import { onRequestPost as handleGraphql } from '../functions/admin/api/graphql.ts'
 import { onRequest as handleGithubRest } from '../functions/admin/api/github/[[path]].ts'
@@ -69,6 +72,9 @@ const validContent =
   CMS_REPOSITORY.name === 'acecore-net'
     ? validBlogMarkdown
     : JSON.stringify({ title: 'CMS test' })
+const defaultReferenceFiles = new Map([
+  ['src/content/authors/gui.json', JSON.stringify({ id: 'gui', name: 'Gui' })],
+])
 const validPng = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
 const installationTokenScope = {
   permissions: {
@@ -214,6 +220,210 @@ test('現在のCMS管理対象ファイルが保存前の実体検証を通る',
       relativePath,
     )
   }
+})
+
+test('現在の全言語記事と著者・タグ・画像の参照が整合する', async () => {
+  const currentState = []
+
+  for (const directory of [
+    'src/content/blog',
+    'src/content/authors',
+    'src/content/tags',
+    'public/uploads',
+  ]) {
+    for (const relativePath of await listFilesRecursively(directory)) {
+      if (!isCmsReferenceStatePath(relativePath)) continue
+
+      currentState.push({
+        path: relativePath,
+        ...(isCmsReferenceTextPath(relativePath)
+          ? {
+              contents: await readFile(
+                path.join(repositoryRoot, relativePath),
+                'utf8',
+              ),
+            }
+          : {}),
+      })
+    }
+  }
+
+  assert.doesNotThrow(() =>
+    validateProjectedCmsReferences({
+      additions: [],
+      currentState,
+      deletions: [],
+    }),
+  )
+})
+
+test('同一mutationで追加した著者・タグ・画像を新しい記事から参照できる', () => {
+  const additions = [
+    referenceAddition(
+      'src/content/authors/new-author.json',
+      JSON.stringify({ id: 'new-author', name: 'New Author' }),
+    ),
+    referenceAddition(
+      'src/content/tags/new-tag.json',
+      JSON.stringify({ id: 'new-tag', name: '新しいタグ' }),
+    ),
+    referenceAddition('public/uploads/new-image.png', validPng),
+    referenceAddition(
+      'src/content/blog/new-article.md',
+      referenceBlogMarkdown({
+        author: 'new-author',
+        tags: ['新しいタグ'],
+        uploadedImage: '/uploads/new-image.png',
+      }),
+    ),
+  ]
+
+  assert.doesNotThrow(() =>
+    validateProjectedCmsReferences({
+      additions,
+      currentState: [],
+      deletions: [],
+    }),
+  )
+})
+
+test('タグ名と全参照記事を同一mutationで変更した投影stateだけを許可する', () => {
+  const currentState = referenceFixture({
+    includeTranslatedArticle: false,
+    tagName: '旧タグ',
+  })
+  const additions = [
+    referenceAddition(
+      'src/content/tags/topic.json',
+      JSON.stringify({ id: 'topic', name: '新タグ' }),
+    ),
+    referenceAddition(
+      'src/content/blog/example.md',
+      referenceBlogMarkdown({
+        image: '/uploads/example.png',
+        tags: ['新タグ'],
+      }),
+    ),
+  ]
+
+  assert.doesNotThrow(() =>
+    validateProjectedCmsReferences({
+      additions,
+      currentState,
+      deletions: [],
+    }),
+  )
+
+  assert.throws(
+    () =>
+      validateProjectedCmsReferences({
+        additions,
+        currentState: referenceFixture({
+          includeTranslatedArticle: true,
+          tagName: '旧タグ',
+        }),
+        deletions: [],
+      }),
+    /記事のタグが存在しません.*en\/example\.md.*旧タグ/,
+  )
+})
+
+test('参照中targetの削除を拒否し、参照記事も同時に除く投影stateは整合する', () => {
+  const currentState = referenceFixture({
+    includeTranslatedArticle: true,
+    tagName: '技術',
+  })
+
+  for (const path of [
+    'src/content/authors/gui.json',
+    'src/content/tags/topic.json',
+    'public/uploads/example.png',
+  ]) {
+    assert.throws(
+      () =>
+        validateProjectedCmsReferences({
+          additions: [],
+          currentState,
+          deletions: [{ path }],
+        }),
+      /存在しません/,
+      path,
+    )
+  }
+
+  assert.doesNotThrow(() =>
+    validateProjectedCmsReferences({
+      additions: [],
+      currentState,
+      deletions: [
+        { path: 'src/content/blog/example.md' },
+        { path: 'src/content/blog/en/example.md' },
+        { path: 'src/content/authors/gui.json' },
+        { path: 'src/content/tags/topic.json' },
+        { path: 'public/uploads/example.png' },
+      ],
+    }),
+  )
+})
+
+test('記事の不存在author・tag・uploadedImage参照を拒否する', () => {
+  const currentState = referenceFixture({
+    includeTranslatedArticle: false,
+    tagName: '技術',
+  }).filter(({ path }) => !path.startsWith('src/content/blog/'))
+  const invalidArticles = [
+    {
+      expected: /記事の著者が存在しません/,
+      source: referenceBlogMarkdown({ author: 'missing-author' }),
+    },
+    {
+      expected: /記事のタグが存在しません/,
+      source: referenceBlogMarkdown({ tags: ['不存在タグ'] }),
+    },
+    {
+      expected: /記事または著者の画像が存在しません/,
+      source: referenceBlogMarkdown({
+        uploadedImage: '/uploads/missing.png',
+      }),
+    },
+    {
+      expected: /記事または著者の画像が存在しません/,
+      source: referenceBlogMarkdown({
+        galleryImage: '/uploads/missing-gallery.png',
+      }),
+    },
+  ]
+
+  for (const { expected, source } of invalidArticles) {
+    assert.throws(
+      () =>
+        validateProjectedCmsReferences({
+          additions: [referenceAddition('src/content/blog/invalid.md', source)],
+          currentState,
+          deletions: [],
+        }),
+      expected,
+    )
+  }
+
+  assert.throws(
+    () =>
+      validateProjectedCmsReferences({
+        additions: [
+          referenceAddition(
+            'src/content/authors/gui.json',
+            JSON.stringify({
+              id: 'gui',
+              name: 'Gui',
+              avatarImage: '/uploads/missing-avatar.png',
+            }),
+          ),
+        ],
+        currentState,
+        deletions: [],
+      }),
+    /記事または著者の画像が存在しません/,
+  )
 })
 
 test('fixed JSONの配列は先頭要素だけでなく許可済みshapeのunionで検証する', () => {
@@ -660,6 +870,121 @@ test('画像と本文をexpected HEAD付きの1 commitでmainへ直接保存す�
   assert.equal(result.extensions.cms.branch, 'main')
   assert.equal(result.extensions.cms.publication, 'direct')
   assert.equal(calls.length, 2)
+})
+
+test('同一mutationで追加した参照先と記事をmainへ直接保存する', async () => {
+  let commitCalled = false
+  const additions = [
+    referenceAddition(
+      'src/content/authors/new-author.json',
+      JSON.stringify({ id: 'new-author', name: 'New Author' }),
+    ),
+    referenceAddition(
+      'src/content/tags/new-tag.json',
+      JSON.stringify({ id: 'new-tag', name: '新しいタグ' }),
+    ),
+    referenceAddition('public/uploads/new-image.png', validPng),
+    referenceAddition(
+      'src/content/blog/new-article.md',
+      referenceBlogMarkdown({
+        author: 'new-author',
+        tags: ['新しいタグ'],
+        uploadedImage: '/uploads/new-image.png',
+      }),
+    ),
+  ].map(({ path, contents }) => ({ path, contents }))
+
+  mockGitHub(async (url, _init, body) => {
+    if (url.endsWith('/git/ref/heads/main')) {
+      return jsonResponse({ object: { sha: mainSha } })
+    }
+
+    if (url.endsWith('/graphql')) {
+      commitCalled = true
+      assert.deepEqual(body.variables.input.fileChanges.additions, additions)
+
+      return jsonResponse({
+        data: {
+          createCommitOnBranch: {
+            commit: {
+              oid: 'b'.repeat(40),
+              committedDate: '2026-07-29T00:00:00Z',
+            },
+          },
+        },
+      })
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: { additions, deletions: [] },
+          message: { headline: 'cms: create referenced article' },
+        },
+      },
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(commitCalled, true)
+})
+
+test('不存在参照を含む記事はcommit前に422で拒否する', async () => {
+  let commitCalled = false
+  const invalidArticle = referenceAddition(
+    'src/content/blog/invalid-reference.md',
+    referenceBlogMarkdown({ author: 'missing-author' }),
+  )
+
+  mockGitHub(async (url) => {
+    if (url.endsWith('/git/ref/heads/main')) {
+      return jsonResponse({ object: { sha: mainSha } })
+    }
+
+    if (url.endsWith('/graphql')) {
+      commitCalled = true
+      throw new Error('Invalid references must not reach the commit mutation')
+    }
+
+    throw new Error(`Unexpected GitHub request: ${url}`)
+  })
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: {
+            additions: [
+              { path: invalidArticle.path, contents: invalidArticle.contents },
+            ],
+            deletions: [],
+          },
+          message: { headline: 'cms: create invalid article' },
+        },
+      },
+    }),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 422)
+  assert.match(result.message, /記事の著者が存在しません/)
+  assert.equal(commitCalled, false)
 })
 
 test('編集開始後にmainが更新されていればcommitを送らず409にする', async () => {
@@ -1565,7 +1890,12 @@ test('REST writeを認証前に拒否する', async () => {
   assert.equal(called, false)
 })
 
-function mockGitHub(handler, push = true, onTokenRequest = () => {}) {
+function mockGitHub(
+  handler,
+  push = true,
+  onTokenRequest = () => {},
+  referenceFiles = defaultReferenceFiles,
+) {
   globalThis.fetch = async (input, init = {}) => {
     const url = String(input)
     const body = typeof init.body === 'string' ? JSON.parse(init.body) : null
@@ -1599,8 +1929,69 @@ function mockGitHub(handler, push = true, onTokenRequest = () => {}) {
       `Bearer ${appToken}`,
     )
 
+    if (url.endsWith(`/git/trees/${mainSha}?recursive=1`) && referenceFiles) {
+      return jsonResponse(buildReferenceTree(referenceFiles))
+    }
+
+    if (
+      url.endsWith('/graphql') &&
+      body?.query?.includes('query CmsReferenceState') &&
+      referenceFiles
+    ) {
+      return jsonResponse(
+        buildReferenceBlobResponse(body.query, referenceFiles),
+      )
+    }
+
     return handler(url, init, body)
   }
+}
+
+function buildReferenceTree(referenceFiles) {
+  return {
+    sha: mainSha,
+    truncated: false,
+    tree: Array.from(referenceFiles, ([path, contents]) => {
+      const bytes =
+        contents === null ? Buffer.from(`media:${path}`) : Buffer.from(contents)
+
+      return {
+        mode: '100644',
+        path,
+        sha: gitBlobSha(bytes),
+        size: bytes.byteLength,
+        type: 'blob',
+      }
+    }),
+  }
+}
+
+function buildReferenceBlobResponse(query, referenceFiles) {
+  const textBySha = new Map(
+    Array.from(referenceFiles, ([, contents]) => {
+      if (contents === null) return null
+
+      const bytes = Buffer.from(contents)
+      return [
+        gitBlobSha(bytes),
+        {
+          byteSize: bytes.byteLength,
+          isBinary: false,
+          isTruncated: false,
+          text: contents,
+        },
+      ]
+    }).filter(Boolean),
+  )
+  const repository = {}
+
+  for (const match of query.matchAll(
+    /blob(\d+): object\(oid: "([a-f0-9]{40})"\)/g,
+  )) {
+    repository[`blob${match[1]}`] = textBySha.get(match[2]) ?? null
+  }
+
+  return { data: { repository } }
 }
 
 async function listFilesRecursively(relativeDirectory) {
@@ -1680,6 +2071,66 @@ function graphqlReadRequest(query, variables) {
     },
     body: JSON.stringify({ query, variables }),
   })
+}
+
+function referenceAddition(path, value) {
+  const bytes = Buffer.isBuffer(value) ? value : Buffer.from(value)
+
+  return {
+    path,
+    contents: bytes.toString('base64'),
+    byteSize: bytes.byteLength,
+  }
+}
+
+function referenceBlogMarkdown({
+  author = 'gui',
+  galleryImage,
+  image,
+  tags = ['技術'],
+  uploadedImage,
+} = {}) {
+  return `---
+title: Reference test
+description: CMS reference validation test
+date: 2026-07-29T12:00
+author: ${author}
+tags: ${JSON.stringify(tags)}
+${image ? `image: ${image}\n` : ''}${uploadedImage ? `uploadedImage: ${uploadedImage}\n` : ''}${
+    galleryImage
+      ? `gallery:
+  items:
+    - src: ${galleryImage}
+      alt: Reference image
+`
+      : ''
+  }---
+
+Reference validation.
+`
+}
+
+function referenceFixture({ includeTranslatedArticle, tagName }) {
+  const article = referenceBlogMarkdown({
+    image: '/uploads/example.png',
+    tags: [tagName],
+  })
+
+  return [
+    {
+      path: 'src/content/authors/gui.json',
+      contents: JSON.stringify({ id: 'gui', name: 'Gui' }),
+    },
+    {
+      path: 'src/content/tags/topic.json',
+      contents: JSON.stringify({ id: 'topic', name: tagName }),
+    },
+    { path: 'public/uploads/example.png' },
+    { path: 'src/content/blog/example.md', contents: article },
+    ...(includeTranslatedArticle
+      ? [{ path: 'src/content/blog/en/example.md', contents: article }]
+      : []),
+  ]
 }
 
 function gitBlobSha(content) {

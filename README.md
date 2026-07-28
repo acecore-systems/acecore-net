@@ -112,9 +112,9 @@ src/
 
 - 本番ソースの正は `main` です。Cloudflare Pages の production deploy 元も GitHub 連携の `main` にします。
 - Sveltia CMS は `backend.branch: main` と同一originのGitHub API proxyで運用します。現行SveltiaではEditorial Workflowが未実装のため、`publish_mode` には依存しません。
-- proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
+- proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。さらに現在の`main` treeへ同一保存の追加・変更・削除を投影し、全言語記事の著者、タグ、アップロード画像、ギャラリー画像と著者画像の参照先が投影後にも存在することを確認します。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
 - 保存すると、画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接反映します。別の更新が先に入った場合は上書きせず、CMSの再読み込みを求めます。
-- 記事とキャンペーンはCMSから削除できます。著者、タグ、画像は参照中のコンテンツを壊さないよう、CMSからの削除を禁止します。
+- 記事とキャンペーンはCMSから削除できます。著者、タグ、画像は投影stateの参照検証に加え、別の安全境界としてCMSからの削除を禁止します。
 - `main` pushを受けてCloudflare Pagesがproduction deployし、日本語sourceの変更は翻訳PR task workflowも同じ`cms: ...` commitから検出します。
 - 恒久的な`cms-content` branchや短命CMS branch、CMS PRは作りません。
 - コード、CMS設定、schema、workflow、翻訳ファイルはCMS経路で変更できません。従来どおりbranchとPRを作成し、CIを通して`main`へ取り込みます。

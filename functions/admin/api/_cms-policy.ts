@@ -15,6 +15,12 @@ const CONTENT_RULES = [
   },
 ] as const
 
+const REFERENCE_TEXT_RULES = [
+  { prefix: 'src/content/blog/', extension: '.md', recursive: true },
+  { prefix: 'src/content/authors/', extension: '.json', recursive: false },
+  { prefix: 'src/content/tags/', extension: '.json', recursive: false },
+] as const
+
 const DELETABLE_CONTENT_RULES = [
   { prefix: 'src/content/blog/', extension: '.md', recursive: false },
   {
@@ -85,6 +91,21 @@ export function isAllowedCmsDeletePath(path: string) {
   if (normalizeCmsPath(path) !== path) return false
 
   return DELETABLE_CONTENT_RULES.some((rule) => matchesContentRule(path, rule))
+}
+
+export function isCmsReferenceTextPath(path: string) {
+  if (normalizeCmsPath(path) !== path) return false
+
+  return REFERENCE_TEXT_RULES.some((rule) => matchesContentRule(path, rule))
+}
+
+export function isCmsReferenceStatePath(path: string) {
+  if (isCmsReferenceTextPath(path)) return true
+  if (normalizeCmsPath(path) !== path || !path.startsWith(MEDIA_PREFIX)) {
+    return false
+  }
+
+  return MEDIA_EXTENSIONS.has(getExtension(path))
 }
 
 export function isAllowedCmsDirectoryPath(path: string) {

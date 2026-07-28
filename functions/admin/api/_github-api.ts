@@ -4,12 +4,18 @@ import {
   CMS_REPOSITORY,
   isAllowedCmsDirectoryPath,
   isAllowedCmsWritePath,
+  isCmsReferenceStatePath,
+  isCmsReferenceTextPath,
   normalizeCmsPath,
 } from './_cms-policy.ts'
 
 const GITHUB_API_VERSION = '2022-11-28'
 const USER_AGENT = 'acecore-net-sveltia-cms'
 const INSTALLATION_TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000
+const MAX_REFERENCE_TEXT_BLOBS = 600
+const MAX_REFERENCE_TEXT_BYTES = 32 * 1024 * 1024
+const REFERENCE_BLOB_BATCH_SIZE = 100
+const SHA_PATTERN = /^[a-f0-9]{40}$/i
 const RSA_ALGORITHM_IDENTIFIER = Uint8Array.from([
   0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01,
   0x05, 0x00,
@@ -253,6 +259,11 @@ export type CmsGitTree = {
   url?: string
 }
 
+export type CmsReferenceStateEntry = {
+  path: string
+  contents?: string
+}
+
 export async function githubRequest({
   accept = 'application/vnd.github+json',
   body,
@@ -370,6 +381,188 @@ export async function fetchCmsTree(
     truncated: data.truncated,
     ...(typeof data.url === 'string' ? { url: data.url } : {}),
   } satisfies CmsGitTree
+}
+
+export async function fetchCmsReferenceState(
+  token: string,
+  ref: string = CMS_REPOSITORY.branch,
+) {
+  const data = await githubJson<unknown>({
+    path: `/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/${encodeURIComponent(ref)}?recursive=1`,
+    token,
+  })
+
+  if (
+    !isRecord(data) ||
+    !Array.isArray(data.tree) ||
+    typeof data.truncated !== 'boolean'
+  ) {
+    throw new GitHubApiError('GitHub tree response が不正です。', 502)
+  }
+
+  if (data.truncated) {
+    throw new GitHubApiError(
+      'GitHub tree が省略されたためCMS参照を安全に検証できません。',
+      502,
+    )
+  }
+
+  const blobs = data.tree.flatMap(
+    (item): Array<{ path: string; sha: string; size?: number }> => {
+      if (!isRecord(item) || item.type !== 'blob') return []
+
+      const path =
+        typeof item.path === 'string' ? normalizeCmsPath(item.path) : null
+      const sha = item.sha
+
+      if (
+        !path ||
+        path !== item.path ||
+        !isCmsReferenceStatePath(path) ||
+        typeof sha !== 'string' ||
+        !SHA_PATTERN.test(sha)
+      ) {
+        return []
+      }
+
+      return [
+        {
+          path,
+          sha,
+          ...(typeof item.size === 'number' ? { size: item.size } : {}),
+        },
+      ]
+    },
+  )
+  const textBlobsBySha = new Map<
+    string,
+    { sha: string; size?: number; paths: string[] }
+  >()
+
+  for (const blob of blobs) {
+    if (!isCmsReferenceTextPath(blob.path)) continue
+
+    const existing = textBlobsBySha.get(blob.sha)
+
+    if (existing) {
+      existing.paths.push(blob.path)
+    } else {
+      textBlobsBySha.set(blob.sha, {
+        sha: blob.sha,
+        ...(blob.size === undefined ? {} : { size: blob.size }),
+        paths: [blob.path],
+      })
+    }
+  }
+
+  const textBlobs = Array.from(textBlobsBySha.values())
+  const estimatedBytes = textBlobs.reduce(
+    (total, blob) => total + (blob.size ?? 0),
+    0,
+  )
+
+  if (
+    textBlobs.length > MAX_REFERENCE_TEXT_BLOBS ||
+    estimatedBytes > MAX_REFERENCE_TEXT_BYTES
+  ) {
+    throw new GitHubApiError(
+      'CMS参照元が検証上限を超えたため保存を停止しました。',
+      503,
+    )
+  }
+
+  const contentsBySha = await fetchReferenceBlobTexts(token, textBlobs)
+
+  return blobs.map((blob): CmsReferenceStateEntry => {
+    if (!isCmsReferenceTextPath(blob.path)) return { path: blob.path }
+
+    const contents = contentsBySha.get(blob.sha)
+
+    if (contents === undefined) {
+      throw new GitHubApiError(
+        `GitHub上のCMS参照元を読み込めません: ${blob.path}`,
+        502,
+      )
+    }
+
+    return { path: blob.path, contents }
+  })
+}
+
+async function fetchReferenceBlobTexts(
+  token: string,
+  blobs: readonly { sha: string; size?: number; paths: string[] }[],
+) {
+  const contentsBySha = new Map<string, string>()
+  let fetchedBytes = 0
+
+  for (
+    let offset = 0;
+    offset < blobs.length;
+    offset += REFERENCE_BLOB_BATCH_SIZE
+  ) {
+    const batch = blobs.slice(offset, offset + REFERENCE_BLOB_BATCH_SIZE)
+    const fields = batch
+      .map(
+        ({ sha }, index) =>
+          `blob${index}: object(oid: "${sha}") { ... on Blob { byteSize isBinary isTruncated text } }`,
+      )
+      .join('\n')
+    const result = await githubJson<unknown>({
+      body: {
+        query: `query CmsReferenceState {
+          repository(owner: "${CMS_REPOSITORY.owner}", name: "${CMS_REPOSITORY.name}") {
+            ${fields}
+          }
+        }`,
+        variables: {},
+      },
+      method: 'POST',
+      path: '/graphql',
+      token,
+    })
+    const data = isRecord(result) && isRecord(result.data) ? result.data : null
+    const repository =
+      data && isRecord(data.repository) ? data.repository : null
+
+    if (!repository || (isRecord(result) && Array.isArray(result.errors))) {
+      throw new GitHubApiError('GitHub上のCMS参照元を読み込めません。', 502)
+    }
+
+    for (const [index, blob] of batch.entries()) {
+      const value = repository[`blob${index}`]
+
+      if (
+        !isRecord(value) ||
+        value.isBinary !== false ||
+        value.isTruncated !== false ||
+        typeof value.byteSize !== 'number' ||
+        !Number.isInteger(value.byteSize) ||
+        value.byteSize < 0 ||
+        typeof value.text !== 'string' ||
+        new TextEncoder().encode(value.text).byteLength !== value.byteSize ||
+        (blob.size !== undefined && blob.size !== value.byteSize)
+      ) {
+        throw new GitHubApiError(
+          `GitHub上のCMS参照元を読み込めません: ${blob.paths[0]}`,
+          502,
+        )
+      }
+
+      fetchedBytes += value.byteSize
+
+      if (fetchedBytes > MAX_REFERENCE_TEXT_BYTES) {
+        throw new GitHubApiError(
+          'CMS参照元が検証上限を超えたため保存を停止しました。',
+          503,
+        )
+      }
+
+      contentsBySha.set(blob.sha, value.text)
+    }
+  }
+
+  return contentsBySha
 }
 
 export function getAllowedCmsBlobShas(tree: CmsGitTree) {
