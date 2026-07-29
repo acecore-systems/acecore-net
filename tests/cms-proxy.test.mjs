@@ -8,8 +8,10 @@ import { exportPKCS8, generateKeyPair, jwtVerify } from 'jose'
 
 import {
   clearGitHubAppTokenCacheForTests,
+  fetchCmsReferenceState,
   getGitHubAppToken,
 } from '../functions/admin/api/_github-api.ts'
+import { MAX_CMS_TEXT_CONTENT_BYTES } from '../functions/admin/api/_cms-limits.ts'
 import {
   CMS_REPOSITORY,
   isAllowedCmsDeletePath,
@@ -222,6 +224,86 @@ test('現在のCMS管理対象ファイルが保存前の実体検証を通る',
   }
 })
 
+test('CMSテキストは448 KiBまで保存でき、1 byte超過を拒否する', () => {
+  const value = Buffer.from(
+    JSON.stringify({
+      id: 'text-boundary',
+      type: 'announcement',
+      adminTitle: 'Boundary',
+      enabled: false,
+      tone: 'brand',
+    }),
+  )
+  const exactLimit = Buffer.concat([
+    value,
+    Buffer.alloc(MAX_CMS_TEXT_CONTENT_BYTES - value.byteLength, 0x20),
+  ])
+  const path = 'src/i18n/source/ja/campaigns/text-boundary.json'
+
+  assert.doesNotThrow(() =>
+    validateCmsAdditionContents([
+      {
+        path,
+        contents: exactLimit.toString('base64'),
+        byteSize: exactLimit.byteLength,
+      },
+    ]),
+  )
+  assert.throws(
+    () =>
+      validateCmsAdditionContents([
+        {
+          path,
+          contents: Buffer.concat([exactLimit, Buffer.from(' ')]).toString(
+            'base64',
+          ),
+          byteSize: exactLimit.byteLength + 1,
+        },
+      ]),
+    /CMS保存内容が不正/,
+  )
+})
+
+test('現在のmainに448 KiBを超えるCMSテキストがあれば保存を停止する', async () => {
+  const path = 'src/content/authors/oversized.json'
+  let calls = 0
+
+  globalThis.fetch = async (input, init = {}) => {
+    calls += 1
+    assert.equal(
+      String(input),
+      `${repositoryApi}/git/trees/${mainSha}?recursive=1`,
+    )
+    assert.equal(
+      new Headers(init.headers).get('Authorization'),
+      `Bearer ${appToken}`,
+    )
+
+    return jsonResponse({
+      sha: mainSha,
+      truncated: false,
+      tree: [
+        {
+          mode: '100644',
+          path,
+          sha: 'f'.repeat(40),
+          size: MAX_CMS_TEXT_CONTENT_BYTES + 1,
+          type: 'blob',
+        },
+      ],
+    })
+  }
+
+  await assert.rejects(
+    fetchCmsReferenceState(appToken, mainSha),
+    (error) =>
+      error?.status === 503 &&
+      error.message ===
+        `CMS参照元のテキストファイルが448 KiBを超えています: ${path}`,
+  )
+  assert.equal(calls, 1)
+})
+
 test('現在の全言語記事と著者・タグ・画像の参照が整合する', async () => {
   const currentState = []
 
@@ -234,16 +316,20 @@ test('現在の全言語記事と著者・タグ・画像の参照が整合す�
     for (const relativePath of await listFilesRecursively(directory)) {
       if (!isCmsReferenceStatePath(relativePath)) continue
 
+      const contents = isCmsReferenceTextPath(relativePath)
+        ? await readFile(path.join(repositoryRoot, relativePath), 'utf8')
+        : undefined
+
+      if (contents !== undefined) {
+        assert.ok(
+          Buffer.byteLength(contents) <= MAX_CMS_TEXT_CONTENT_BYTES,
+          relativePath,
+        )
+      }
+
       currentState.push({
         path: relativePath,
-        ...(isCmsReferenceTextPath(relativePath)
-          ? {
-              contents: await readFile(
-                path.join(repositoryRoot, relativePath),
-                'utf8',
-              ),
-            }
-          : {}),
+        ...(contents === undefined ? {} : { contents }),
       })
     }
   }

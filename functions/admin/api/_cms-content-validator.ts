@@ -17,8 +17,8 @@ import {
   tagSchema,
 } from '../../../src/content-schemas.ts'
 import { GitHubApiError } from './_github-api.ts'
+import { MAX_CMS_TEXT_CONTENT_BYTES } from './_cms-limits.ts'
 
-const MAX_TEXT_CONTENT_BYTES = 2 * 1024 * 1024
 const MAX_FRONTMATTER_CHARS = 512 * 1024
 const DANGEROUS_URL_PATTERN =
   /^(?:(?:javascript|vbscript):|data:(?:text\/html|image\/svg\+xml))/i
@@ -132,7 +132,7 @@ function validateCmsAddition(addition: {
     return
   }
 
-  if (bytes.byteLength > MAX_TEXT_CONTENT_BYTES) {
+  if (bytes.byteLength > MAX_CMS_TEXT_CONTENT_BYTES) {
     throw new Error('Text content is too large')
   }
 

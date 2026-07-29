@@ -95,6 +95,10 @@ async function validateCmsConfig() {
     path.join(root, 'functions/admin/api/_cms-content-validator.ts'),
     'utf8',
   )
+  const cmsLimits = await readFile(
+    path.join(root, 'functions/admin/api/_cms-limits.ts'),
+    'utf8',
+  )
   const referenceValidator = await readFile(
     path.join(root, 'functions/admin/api/_cms-reference-validator.ts'),
     'utf8',
@@ -191,6 +195,29 @@ async function validateCmsConfig() {
     fail(
       scope,
       'CMS direct publish must synchronously validate content schemas and real media formats, with SVG excluded',
+    )
+  }
+  if (
+    !cmsLimits.includes(
+      'export const MAX_CMS_TEXT_CONTENT_BYTES = 448 * 1024',
+    ) ||
+    !contentValidator.includes(
+      "import { MAX_CMS_TEXT_CONTENT_BYTES } from './_cms-limits.ts'",
+    ) ||
+    !contentValidator.includes(
+      'bytes.byteLength > MAX_CMS_TEXT_CONTENT_BYTES',
+    ) ||
+    !githubApi.includes(
+      "import { MAX_CMS_TEXT_CONTENT_BYTES } from './_cms-limits.ts'",
+    ) ||
+    !githubApi.includes('blob.size > MAX_CMS_TEXT_CONTENT_BYTES') ||
+    !githubApi.includes('value.byteSize > MAX_CMS_TEXT_CONTENT_BYTES') ||
+    !readme.includes('テキストファイル1件あたり448 KiB') ||
+    !cmsWorkflow.includes('テキストファイル1件あたり448 KiB')
+  ) {
+    fail(
+      scope,
+      'CMS additions and current main reference text must share the documented 448 KiB per-file limit',
     )
   }
   if (

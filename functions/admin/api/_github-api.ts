@@ -8,6 +8,7 @@ import {
   isCmsReferenceTextPath,
   normalizeCmsPath,
 } from './_cms-policy.ts'
+import { MAX_CMS_TEXT_CONTENT_BYTES } from './_cms-limits.ts'
 
 const GITHUB_API_VERSION = '2022-11-28'
 const USER_AGENT = 'acecore-net-sveltia-cms'
@@ -456,6 +457,17 @@ export async function fetchCmsReferenceState(
   }
 
   const textBlobs = Array.from(textBlobsBySha.values())
+  const oversizedTextBlob = textBlobs.find(
+    (blob) => blob.size !== undefined && blob.size > MAX_CMS_TEXT_CONTENT_BYTES,
+  )
+
+  if (oversizedTextBlob) {
+    throw new GitHubApiError(
+      `CMS参照元のテキストファイルが448 KiBを超えています: ${oversizedTextBlob.paths[0]}`,
+      503,
+    )
+  }
+
   const estimatedBytes = textBlobs.reduce(
     (total, blob) => total + (blob.size ?? 0),
     0,
@@ -546,6 +558,13 @@ async function fetchReferenceBlobTexts(
         throw new GitHubApiError(
           `GitHub上のCMS参照元を読み込めません: ${blob.paths[0]}`,
           502,
+        )
+      }
+
+      if (value.byteSize > MAX_CMS_TEXT_CONTENT_BYTES) {
+        throw new GitHubApiError(
+          `CMS参照元のテキストファイルが448 KiBを超えています: ${blob.paths[0]}`,
+          503,
         )
       }
 

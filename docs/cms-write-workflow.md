@@ -38,7 +38,7 @@
 - `src/i18n/source/ja/campaigns/*.json`と`public/admin/config.yml`の`files`に列挙した日本語source JSON
 - `public/uploads/**`の許可済み画像形式（AVIF / GIF / JPEG / PNG / WebP）
 
-翻訳ファイル、workflow、設定、source codeなど上記以外はproxyが拒否します。1回の保存は最大100ファイル、追加データ合計25 MiBです。
+翻訳ファイル、workflow、設定、source codeなど上記以外はproxyが拒否します。1回の保存は最大100ファイル、追加データ合計25 MiBです。CMS管理下のテキストファイル1件あたり448 KiBを上限とし、追加・変更する内容と参照検証で読む現在の`main`の両方に適用します。GitHub GraphQLのBlob textを省略なしで同期検証するためです。
 
 記事とキャンペーンはCMSから削除できます。著者、タグ、画像は、投影stateで参照整合性を同期検証したうえでも削除操作そのものを許可しません。参照検証と削除allowlistを独立させ、将来の設定変更や想定外requestでも保護が片方だけにならないようにします。
 

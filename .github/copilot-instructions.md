@@ -9,5 +9,6 @@
 - 多言語対応では日本語ソースを正とし、CMS と翻訳構成を崩さない。
 - CMSログインはGitHub OAuthで編集者本人とrepositoryへのpush権限を確認し、repositoryのread/writeは`acecore-net`専用GitHub Appへ分離する。同一origin proxyはpath、件数、容量、最新HEADを検証し、CMS管理対象だけをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。コード、設定、schema、workflow、翻訳ファイルは従来どおりPRとCIを経由する。
 - CMS保存前に、現在の`main` treeへ同一mutationを投影し、全言語記事の著者、タグ、ローカル画像参照が投影後にも存在することを同期検証する。著者、タグ、画像の削除禁止は、参照検証とは別の安全境界として維持する。
+- CMS管理下のテキストファイルは1件448 KiB以下とし、追加・変更する内容と参照検証で読む現在の`main`の両方に同じ上限を適用する。
 - 差分は目的に必要な範囲に絞り、既存の Astro、TypeScript、UnoCSS 構成を尊重する。
 - サイト出力に影響する変更では `npm run build` を実行する。docs/template のみなら対象ファイルの format check と `git diff --check` を行う。
