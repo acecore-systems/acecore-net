@@ -8,6 +8,7 @@ import {
 } from '../i18n'
 import { defaultLocale, locales, ogLocaleMap, htmlLangMap } from '../i18n'
 import { buildSeoDescription, buildSeoTitle } from '../utils/seo-meta'
+import { serializeJsonForHtml } from '../utils/safe-json'
 
 interface Props {
   title: string
@@ -15,7 +16,7 @@ interface Props {
   description?: string
   image?: string
   ogType?: string
-  jsonLd?: Record<string, any> | Record<string, any>[]
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
   publishedTime?: Date
   modifiedTime?: Date
   prevPage?: string
@@ -353,7 +354,7 @@ import { SITE } from '../data/site'
     />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify({
+      set:html={serializeJsonForHtml({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         '@id': organizationId,
@@ -372,7 +373,7 @@ import { SITE } from '../data/site'
     />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify({
+      set:html={serializeJsonForHtml({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         '@id': websiteId,
@@ -388,7 +389,7 @@ import { SITE } from '../data/site'
     />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify({
+      set:html={serializeJsonForHtml({
         '@context': 'https://schema.org',
         '@type': 'Service',
         '@id': systemsServiceId,
@@ -402,7 +403,7 @@ import { SITE } from '../data/site'
       !isErrorPage && breadcrumbLd && (
         <script
           type="application/ld+json"
-          set:html={JSON.stringify(breadcrumbLd)}
+          set:html={serializeJsonForHtml(breadcrumbLd)}
         />
       )
     }
@@ -410,12 +411,15 @@ import { SITE } from '../data/site'
       jsonLd &&
         (Array.isArray(jsonLd) ? (
           jsonLd.map((ld) => (
-            <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+            <script
+              type="application/ld+json"
+              set:html={serializeJsonForHtml(ld)}
+            />
           ))
         ) : (
           <script
             type="application/ld+json"
-            set:html={JSON.stringify(jsonLd)}
+            set:html={serializeJsonForHtml(jsonLd)}
           />
         ))
     }

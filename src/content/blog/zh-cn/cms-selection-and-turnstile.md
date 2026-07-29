@@ -2,6 +2,7 @@
 title: 'Sveltia CMS 导入指南'
 description: '总结在 Astro 等静态网站中导入 Sveltia CMS 的方法，涵盖 GitHub backend、OAuth Worker、图片上传、多语言运维、CMS 专用 PR 流程以及实际修正中得到的经验。'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
@@ -22,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 自动化运维
-      description: 将 main 作为发布分支，并连接经过验证的保存 proxy 短期分支、CMS 编辑 PR 与翻译 PR task。
+      description: 将 main 作为发布分支，并连接经过验证的直接 commit、Pages deploy 与翻译 PR task。
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -40,7 +41,7 @@ compareTable:
       - 可以在浏览器表单中编辑 Markdown 与 JSON
       - relation、image、select 减少无效值
       - 只有 CMS commit 会触发翻译 PR task
-      - same-origin proxy 只把允许的路径写入短期 branch 和 PR
+      - same-origin proxy 验证允许的内容，并向 main 写入一个直接 commit
 callout:
   type: note
   title: 本文前提
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMS 适合在静态网站上追加一个编辑界面，而不需要把内容迁移到外部数据库。本文基于 Acecore 的 Astro 网站，整理导入步骤，以及在后续 PR 和 commit 中发现并修正的运维问题。
 
+> **2026 年 7 月 28 日更新：** CMS 保存现在会在同步验证后，以一个 `cms:` commit 直接写入 `main`。GitHub OAuth 用于确认编辑者本人及当前写权限，仅安装到 `acecore-net` 的 GitHub App 负责仓库操作。写入前会验证 JSON/Markdown schema、图片 signature、active HTML/URL 和 expected HEAD。
+
 标题故意保持简单：**Sveltia CMS 导入指南**。这不是 CMS 对比文章，而是给想在自己的网站中使用 Sveltia CMS 的人看的实用笔记。
 
 ## Sveltia CMS 适合的场景
@@ -83,7 +86,7 @@ Sveltia CMS 不是拥有独立数据库和内容 API 的 CMS。它是一个在�
 - 希望文章、作者、标签、页面文案都能以 Git diff 形式审核
 - 不想增加数据库或独立管理后台
 - 图片可以保存在 `public/uploads` 等仓库目录中
-- CMS 保存后仍希望通过 Pull Request 确认再上线
+- 希望 CMS 保存后立即开始发布，同时继续用 Pull Request 保护代码修改
 
 如果需要复杂权限、预约发布、大量媒体资产管理或实时数据编辑，完整的 headless CMS 或自定义后台会更合适。
 
@@ -105,7 +108,7 @@ main branch
   -> 生产环境唯一的真实来源
 
 CMS save proxy
-  -> 验证允许的路径，并为每次修改创建短期分支和 main 向 PR
+  -> 验证路径与内容，并向 main 写入带 expected HEAD 的 cms: commit
 
 .github/workflows/create-translation-prs.yml
   -> 只为 cms: commit 创建翻译 PR task
@@ -169,11 +172,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-将 `main` 保持为发布分支，并让读取和保存都经过 same-origin proxy。proxy 在创建短期分支和 PR 之前，会验证 repository、GitHub 用户的写权限、修改路径以及最新的 `main` HEAD。
+将 `main` 保持为发布分支，并让读取和保存都经过 same-origin proxy。每次保存前，proxy 都会重新验证 GitHub 用户的写权限，并使用仅安装到 `acecore-net` 的 GitHub App 访问 repository。它会验证修改路径、内容和最新的 `main` HEAD，然后只创建一个直接 commit。
 
 截至 2026 年 7 月 20 日，Sveltia CMS 尚未实现 Editorial Workflow。添加 Decap CMS 的 `publish_mode: editorial_workflow` 配置，并不会让 Sveltia CMS 自动创建短期分支或 PR。
 
-像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。按 PR 关闭短期分支，可以让 `main` 始终是唯一的真实来源。
+像 `cms-content` 这样的常设分支需要持续同步，并会增加冲突或错误配置部署来源的风险。Acecore 将 `main` 作为唯一真实来源，并通过 `expectedHeadOid` 拒绝并发更新。
 
 ## 3. 准备 OAuth Worker
 
@@ -245,9 +248,9 @@ Acecore 把 CMS 编辑范围分成四类。
 
 反省点是，一开始不要把所有字段一次性放进 `config.yml`。配置会迅速变大，既存值读取、标签命名和审核都会变困难。建议从博客、作者、标签、告知、常改页面开始，逐步扩展。
 
-## 8. preview 环境也将发布分支固定为 `main`
+## 8. writer 凭据仅放在 production
 
-保存 proxy 始终从最新的 `main` 创建短期 branch，因此 Cloudflare Pages preview 不应把 backend branch 替换为当前 PR branch。保存结果应在生成的 CMS PR 对应 Pages preview 中确认。
+GitHub App 的 client ID、installation ID 和 private key 只配置在 Cloudflare Pages production 环境。preview 不接收 writer 凭据，repository 读写保持禁用。内容仅从 production 的 `/admin/` 保存和发布，Pages preview 继续用于普通代码和配置 PR。
 
 ```javascript
 CMS.init({
@@ -259,11 +262,11 @@ CMS.init({
 })
 ```
 
-这样 production 与 preview 就不会使用不同的保存起点，proxy 也可以拒绝以 `main` 之外的 branch 为 base 的请求。
+production 的 publication branch 固定为 `main`，proxy 会拒绝以其他 branch 为 base 的请求。preview 为了检查配置一致性仍显示 `main`，但没有 writer 凭据，因此无法保存。
 
-## 9. 使用保存 proxy 创建短期分支
+## 9. 使用保存 proxy 验证并直接发布
 
-same-origin 保存 proxy 为每次修改创建短期分支和 main 向 PR。
+same-origin 保存 proxy 同步验证允许范围和内容，并在 `main` 上只创建一个 commit。
 
 ```yaml
 backend:
@@ -274,11 +277,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-proxy 不会直接提交到 `main`。它把允许的 content 与 media 合并到一个 commit，从最新 `main` 创建 `cms/acecore/*` 并打开 PR。审核并合并后，短期 branch 会自动删除。
+GitHub OAuth 会在保存前重新确认编辑者和写权限。仅安装到 `acecore-net` 的 GitHub App 使用短期 installation token 执行仓库读写。只允许已批准的 content 与图片，SVG 和 PDF 会被拒绝。
 
-在 GitHub OAuth 模式中，编辑者 token 用于身份确认并作为写入 actor；在 Cloudflare Access 模式中，可以使用站点专属 GitHub App 作为 actor。路径限制、短期 branch、PR 与 CI 策略保持一致。
+保存使用开始编辑时的 HEAD 作为 `expectedHeadOid`；并发更新返回 409。如果 GitHub 响应丢失，只有 request marker、parent SHA、全部 path 和 blob SHA 完全一致时才恢复为成功。
 
-这里的 merge 方法很重要。Acecore 的翻译任务依赖 `cms: create ...`、`cms: update ...` 等 commit subject。如果 squash merge 抹掉这些 subject，翻译 workflow 可能无法检测到 source 更新。CMS PR 应使用保留 `cms:` commit 的 merge commit 或 rebase merge。
+direct commit 保留 `cms: create ...` 或 `cms: update ...` 这样的 subject。同一个 GitHub App push 会启动 Pages deploy 和翻译 task。代码、schema、workflow、CMS 配置和翻译文件仍然必须经过 PR 与 CI。
 
 ## 10. 只让 CMS commit 触发翻译
 
@@ -309,7 +312,7 @@ Sveltia CMS 关注 GitHub backend、OAuth、collection、图片路径和 PR 运�
 - 图片路径要在编辑者上传前固定。
 - `config.yml` 的字段要逐步增加，不要一次性暴露全部页面文案。
 - `cms:` commit subject 是自动化契约，不是普通前缀。
-- 发布分支不随环境切换；preview 用于检查 CMS PR 的结果。
+- writer 凭据仅存在于 production；preview 在没有 repository 访问权的情况下用于普通代码和配置 PR。
 
 ## 最小起点
 
@@ -322,7 +325,7 @@ public/admin/init.js
 public/admin/runtime-config.js
 ```
 
-然后按顺序加入作者 relation、标签 relation、上传图片、source JSON、CMS PR 自动化和翻译 PR task。
+然后按顺序加入作者 relation、标签 relation、上传图片、source JSON、同步 direct publish 验证和翻译 PR task。
 
 ## 参考链接
 

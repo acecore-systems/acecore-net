@@ -1,13 +1,14 @@
 ---
 title: 'Sveltia CMS Setup Guide'
-description: 'A practical guide to adding Sveltia CMS to an Astro or static site, covering the GitHub backend, OAuth Worker, media uploads, multilingual operations, CMS pull requests, and lessons from real fixes.'
+description: 'A practical guide to adding Sveltia CMS to an Astro or static site, covering GitHub OAuth, a repository-specific GitHub App, validated direct publishing, media uploads, and multilingual operations.'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 processFigure:
   title: Sveltia CMS setup flow
-  description: Treat the admin app, authentication, editable content, media, and pull request flow as separate design decisions.
+  description: Treat the admin app, editor authentication, repository actor, editable content, media, and publication flow as separate design decisions.
   steps:
     - title: Add the admin app
       description: Place index.html and config.yml under public/admin and load the Sveltia CMS bundle.
@@ -22,8 +23,8 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automate operations
-      description: Use main as the publication branch and connect validated save-proxy branches, CMS edit PRs, and translation PR tasks.
-      icon: i-lucide-git-pull-request
+      description: Use main as the publication branch and connect validated direct commits, Pages deploys, and translation PR tasks.
+      icon: i-lucide-git-commit
       accent: slate
 compareTable:
   title: Before and after adding the CMS
@@ -40,7 +41,7 @@ compareTable:
       - Markdown and JSON can be edited from a browser form
       - relation, image, and select widgets reduce broken values
       - Only CMS commits can trigger translation PR tasks
-      - A same-origin proxy writes only allowed paths to a short-lived branch and PR
+      - A same-origin proxy validates content and writes one direct commit to main
 callout:
   type: note
   title: Assumption for this guide
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMS is a good fit when you want to add an editing screen to a static site without moving content into an external database. This guide explains how we introduced it to the Acecore Astro site and what we fixed later after real pull requests and commits exposed operational gaps.
 
+> **Updated July 28, 2026:** Acecore now publishes CMS saves as validated direct commits to `main`. GitHub OAuth verifies the editor and current write permission, while a repository-specific GitHub App performs repository operations. The proxy synchronously validates JSON and Markdown schemas, image signatures, active HTML and URLs, and the expected HEAD before writing.
+
 The title is intentionally simple: **Sveltia CMS Setup Guide**. This is not a CMS comparison article. It is a practical checklist for people who want to add Sveltia CMS to their own site.
 
 ## When Sveltia CMS Fits
@@ -83,7 +86,7 @@ It is a good match when:
 - you want article, author, tag, and page-text changes to remain reviewable as Git diffs
 - you do not want to add a database or a separate admin service
 - uploaded images can live under a folder such as `public/uploads`
-- CMS edits should still go through pull requests before production
+- CMS saves should start publication immediately while code changes remain protected by pull requests
 
 If you need complex editorial permissions, large asset management, scheduled publishing workflows, or real-time data editing, a full headless CMS or a custom admin app may be a better fit.
 
@@ -105,10 +108,10 @@ main branch
   -> the single source of truth for production
 
 CMS save proxy
-  -> validates allowed paths and creates a short-lived branch and pull request for each edit
+  -> validates allowed paths and content, then writes one expected-HEAD cms: commit to main
 
 .github/workflows/create-translation-prs.yml
-  -> creates translation PR tasks only for cms: commits
+  -> creates translation PR tasks only for direct cms: commits
 ```
 
 The first lesson is that installing the admin app is only the beginning. Authentication, media paths, preview branches, translations, and merge strategy all become part of the CMS design.
@@ -175,11 +178,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-Keep `main` as the publication branch and route reads and saves through a same-origin API proxy. Before opening a short-lived branch and pull request, the proxy validates the repository, the GitHub user's write permission, changed paths, and the latest `main` HEAD.
+Keep `main` as the publication branch and route reads and saves through a same-origin API proxy. Before every save, the proxy freshly verifies the GitHub user's write permission, then uses an `acecore-net`-specific GitHub App for repository access. It validates changed paths, JSON and Markdown schemas, image signatures, active HTML and URLs, and the latest `main` HEAD before creating one direct `cms:` commit.
 
-As of July 20, 2026, Editorial Workflow is not implemented in Sveltia CMS. Adding Decap CMS's `publish_mode: editorial_workflow` setting does not make Sveltia CMS create short-lived branches or pull requests.
+As of July 28, 2026, Editorial Workflow is not implemented in Sveltia CMS. Acecore does not depend on Decap CMS's `publish_mode: editorial_workflow`; the same-origin proxy enforces scope, content validity, and conflicts.
 
-A permanent branch such as `cms-content` creates ongoing synchronization, conflict, and deployment-source risks. Closing a short-lived branch with each pull request keeps `main` as the only source of truth.
+A permanent branch such as `cms-content` creates ongoing synchronization, conflict, and deployment-source risks. Acecore keeps `main` as the only source of truth and rejects concurrent updates through `expectedHeadOid`.
 
 ## 3. Add an OAuth Worker
 
@@ -274,9 +277,9 @@ The lesson from implementation was to avoid adding every field at once. After ma
 
 For multilingual sites, do not let CMS edits directly rewrite translation files. Keeping Japanese source edits and translation pull requests separate makes review much easier.
 
-## 8. Keep `main` as the Publication Branch in Preview
+## 8. Keep Writer Credentials in Production Only
 
-The save proxy creates every short-lived branch from the latest `main`, so a Cloudflare Pages preview must not replace the backend branch with its PR branch. Use the generated CMS pull request's Pages preview to inspect the result, while every edit starts from the production source of truth.
+Configure the GitHub App client ID, installation ID, and private key only in the Cloudflare Pages production environment. Do not distribute writer credentials to previews; repository reads and writes remain disabled there. Editors save and publish from the production `/admin/`, while Pages previews remain for normal code and CMS-configuration pull requests.
 
 Acecore generates `public/admin/runtime-config.js` before builds to enable manual initialization only:
 
@@ -300,11 +303,11 @@ CMS.init({
 })
 ```
 
-This prevents production and preview from using different save bases, and lets the proxy reject any request whose base is not `main`.
+The production publication branch stays fixed to `main`, and the proxy rejects requests based on any other branch. Preview configuration still displays `main` for consistency checks, but cannot save without writer credentials.
 
-## 9. Create Short-Lived Branches with a Save Proxy
+## 9. Validate and Publish Directly with a Save Proxy
 
-Do not publish CMS saves directly. A same-origin save proxy creates a short-lived branch and pull request for each edit.
+Treat CMS Save as the start of publication. A same-origin proxy synchronously validates the allowed scope and content, then creates exactly one commit on `main`.
 
 ```yaml
 backend:
@@ -315,11 +318,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-When it receives GraphQL `createCommitOnBranch`, the proxy does not commit to `main`. It combines allowed content and media in one commit, creates a `cms/acecore/*` branch from the latest `main`, and opens a pull request. Delete the branch automatically after merge so no permanent secondary source remains.
+The proxy does not blindly forward GraphQL `createCommitOnBranch`. GitHub OAuth freshly verifies the editor and write permission, while a short-lived installation token from an `acecore-net`-specific GitHub App performs repository reads and writes. Only allowlisted content and images are accepted; JSON and Markdown schemas, image magic bytes, and active HTML or URLs are checked before the commit. SVG and PDF uploads are rejected.
 
-In a GitHub OAuth setup, the editor's token provides identity and acts as the GitHub writer. In a Cloudflare Access setup, Access can provide identity while a site-specific GitHub App acts as the writer. The authentication mode can differ while path restrictions, short-lived branches, pull requests, and CI remain common policy.
+The save uses the editor's starting HEAD as `expectedHeadOid`, so a concurrent update returns 409 instead of being overwritten. If GitHub's response is lost, recovery succeeds only when the request marker, parent SHA, complete path set, and blob SHAs all match.
 
-The merge method matters. Acecore's translation task detection relies on commit subjects such as `cms: create ...` and `cms: update ...`. If a CMS PR is squash merged and those subjects disappear, the translation workflow may not detect the source change. For CMS PRs, keep the `cms:` commits through merge commit or rebase merge.
+Direct commits keep subjects such as `cms: create ...` and `cms: update ...`. The GitHub App push starts Cloudflare Pages deployment and the translation workflow in parallel. Code, schemas, workflows, CMS configuration, and translation files remain outside the CMS allowlist and still require pull requests and CI.
 
 ## 10. Trigger Translation Only for CMS Commits
 
@@ -375,11 +378,11 @@ Putting every page text field into `config.yml` at once makes the config hard to
 
 ### 5. Treat Commit Subjects as an API
 
-`cms:` is not cosmetic. It is an input to automation. Using it outside the CMS flow can trigger unnecessary workflows; removing it from CMS merges can stop required workflows.
+`cms:` is not cosmetic. It is an input to automation. Only the direct-publish proxy should produce that prefix; using it outside the CMS flow can trigger unnecessary workflows.
 
 ### 6. Do Not Switch the Publication Branch by Environment
 
-Using a preview deployment branch as the CMS publication branch creates another source line and complicates proxy validation. Start every edit from `main`, then inspect the saved result in the pull request's Cloudflare Pages preview.
+Giving a preview deployment a writer credential that can bypass the ruleset creates another route into production `main`. Restrict editing and saving to the production `/admin/`, then confirm the production deployment after saving. Use Cloudflare Pages previews without writer credentials for normal code or configuration pull requests.
 
 ## Minimal Starting Point
 
@@ -422,7 +425,7 @@ collections:
       - { name: body, label: Body, widget: markdown }
 ```
 
-From there, add author relations, tag relations, uploaded images, source JSON editing, CMS PR automation, and translation PR tasks in that order.
+From there, add author relations, tag relations, uploaded images, source JSON editing, synchronous direct-publish validation, and translation PR tasks in that order.
 
 ## References
 

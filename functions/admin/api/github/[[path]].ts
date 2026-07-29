@@ -1,10 +1,12 @@
 import { CMS_REPOSITORY } from '../_cms-policy.ts'
 import { getGitHubEditor, type GitHubEditor } from '../_github-oauth.ts'
 import {
+  type CmsGitHubAppEnv,
   GitHubApiError,
   copyGitHubResponse,
   fetchCmsTree,
   getAllowedCmsBlobShas,
+  getGitHubAppToken,
   githubRequest,
 } from '../_github-api.ts'
 
@@ -12,7 +14,10 @@ const SHA_PATTERN = /^[a-f0-9]{40}$/i
 
 type ReadTarget = { kind: 'tree'; ref: string } | { kind: 'blob'; sha: string }
 
-export const onRequest: PagesFunction = async ({ request }) => {
+export const onRequest: PagesFunction<CmsGitHubAppEnv> = async ({
+  request,
+  env,
+}) => {
   const method = request.method.toUpperCase()
 
   if (method !== 'GET' && method !== 'HEAD') {
@@ -25,7 +30,6 @@ export const onRequest: PagesFunction = async ({ request }) => {
 
   try {
     const auth = await getGitHubEditor(request)
-    const token = auth.token
 
     if (proxyPath === 'user') {
       return handleCurrentUser({ auth, method })
@@ -35,6 +39,7 @@ export const onRequest: PagesFunction = async ({ request }) => {
       return noContent()
     }
 
+    const token = await getGitHubAppToken(env)
     const target = getReadTarget(proxyPath, new URL(request.url))
 
     if (!target) {

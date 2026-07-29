@@ -1,7 +1,8 @@
 ---
 title: 'Sveltia CMS Einrichtungsleitfaden'
-description: 'Praktischer Leitfaden zum Einbau von Sveltia CMS in Astro- und statische Websites: GitHub Backend, OAuth Worker, Medien-Uploads, Mehrsprachigkeit, CMS-PRs und Lessons Learned.'
+description: 'Praktischer Leitfaden zum Einbau von Sveltia CMS in Astro- und statische Websites: GitHub OAuth, eine Repository-spezifische GitHub App, validierte Direktveröffentlichung, Medien-Uploads und Mehrsprachigkeit.'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
@@ -22,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Betrieb automatisieren
-      description: main als Veröffentlichungsbranch nutzen und validierte Save-Proxy-Branches, CMS-PRs und Übersetzungs-Tasks verbinden.
+      description: main als Veröffentlichungsbranch nutzen und validierte Direct Commits, Pages-Deployments und Übersetzungs-Tasks verbinden.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -40,7 +41,7 @@ compareTable:
       - Markdown und JSON lassen sich im Browserformular bearbeiten
       - relation, image und select reduzieren ungültige Werte
       - Nur CMS-Commits lösen Übersetzungs-Tasks aus
-      - Ein Same-Origin-Proxy schreibt nur erlaubte Pfade in einen kurzlebigen Branch und PR
+      - Ein Same-Origin-Proxy validiert erlaubte Inhalte und schreibt einen Direct Commit nach main
 callout:
   type: note
   title: Annahme dieses Leitfadens
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMS ist nützlich, wenn eine statische Website eine Editieroberfläche erhalten soll, ohne Inhalte in eine externe Datenbank zu verschieben. Dieser Leitfaden beschreibt den Einbau in die Acecore-Astro-Website und die Korrekturen, die sich später aus echten PRs und Commits ergeben haben.
 
+> **Aktualisiert am 28. Juli 2026:** CMS-Saves werden jetzt nach synchroner Prüfung direkt als einzelner `cms:`-Commit nach `main` geschrieben. GitHub OAuth prüft Editor und aktuelle Schreibberechtigung; eine nur für `acecore-net` installierte GitHub App führt Repository-Zugriffe aus. JSON-/Markdown-Schema, Bildsignatur, aktive HTML/URLs und erwarteter HEAD werden vor dem Schreiben geprüft.
+
 Der Titel ist bewusst schlicht: **Sveltia CMS Einrichtungsleitfaden**. Es geht nicht um einen allgemeinen CMS-Vergleich, sondern um eine übertragbare Umsetzung.
 
 ## Wann Sveltia CMS passt
@@ -83,7 +86,7 @@ Es passt gut, wenn:
 - Änderungen an Artikeln, Autoren, Tags und Seitentexten als Git-Diffs reviewbar bleiben sollen
 - keine zusätzliche Datenbank oder Admin-Anwendung eingeführt werden soll
 - Uploads unter `public/uploads` liegen können
-- CMS-Änderungen vor Produktion per Pull Request geprüft werden sollen
+- CMS-Saves die Veröffentlichung sofort starten sollen, während Codeänderungen weiter per Pull Request geschützt bleiben
 
 Für komplexe Rollen, große Mediatheken, umfangreiche Freigabeprozesse oder Echtzeitdaten ist ein vollständiges Headless CMS sinnvoller.
 
@@ -103,7 +106,7 @@ main branch
   -> einzige Quelle für die Produktion
 
 CMS save proxy
-  -> validiert erlaubte Pfade und erstellt pro Änderung einen kurzlebigen Branch und PR
+  -> validiert Pfade und Inhalte und schreibt einen expected-HEAD cms:-Commit nach main
 
 .github/workflows/create-translation-prs.yml
   -> erzeugt Übersetzungs-Tasks nur für cms:-Commits
@@ -165,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-`main` bleibt der Veröffentlichungsbranch. Reads und Saves laufen über einen Same-Origin-Proxy, der Repository, Schreibberechtigung des GitHub-Users, Änderungspfade und den aktuellen `main`-HEAD prüft und danach einen kurzlebigen Branch mit PR erstellt.
+`main` bleibt der Veröffentlichungsbranch. Reads und Saves laufen über einen Same-Origin-Proxy. Vor jedem Save prüft er die aktuelle Schreibberechtigung des GitHub-Users, verwendet für Repository-Zugriffe eine nur in `acecore-net` installierte GitHub App und validiert Änderungspfade, Inhalte sowie den aktuellen `main`-HEAD, bevor er genau einen Direct Commit erstellt.
 
 Mit Stand vom 20. Juli 2026 ist Editorial Workflow in Sveltia CMS nicht implementiert. Die Decap-CMS-Einstellung `publish_mode: editorial_workflow` lässt Sveltia CMS nicht automatisch kurzlebige Branches oder PRs erstellen.
 
-Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Kurzlebige Branches halten `main` als einzige Quelle der Wahrheit.
+Ein dauerhafter Branch wie `cms-content` erfordert laufende Synchronisierung und erhöht das Risiko für Konflikte oder eine falsche Deployment-Quelle. Acecore hält `main` als einzige Quelle der Wahrheit und lehnt konkurrierende Updates mit `expectedHeadOid` ab.
 
 ## 3. OAuth Worker ergänzen
 
@@ -225,9 +228,9 @@ Feste Seitentexte lassen sich ebenfalls im CMS pflegen. Acecore bündelt sie unt
 
 Die Lehre: Nicht alle Felder auf einmal hinzufügen. `config.yml` wächst schnell. Besser mit Blog, Autoren, Tags, Hinweisen und häufig geänderten Seiten starten.
 
-## 8. Auch in Preview `main` als Veröffentlichungsbranch behalten
+## 8. Writer-Zugang nur in Production bereitstellen
 
-Der Save-Proxy erstellt jeden kurzlebigen Branch vom aktuellen `main`. Deshalb darf eine Cloudflare-Pages-Preview den Backend-Branch nicht durch ihren PR-Branch ersetzen. Das Ergebnis wird in der Pages-Preview des erzeugten CMS-PRs geprüft.
+Client ID, Installation ID und Private Key der GitHub App werden nur in der Cloudflare-Pages-Production-Umgebung konfiguriert. Previews erhalten keine Writer-Zugangsdaten; Repository-Reads und -Writes bleiben dort deaktiviert. Inhalte werden ausschließlich über das Production-`/admin/` gespeichert und veröffentlicht, während Pages-Previews normalen Code- und Konfigurations-PRs dienen.
 
 ```javascript
 CMS.init({
@@ -239,9 +242,9 @@ CMS.init({
 })
 ```
 
-## 9. Kurzlebige Branches mit einem Save-Proxy erstellen
+## 9. Mit dem Save-Proxy prüfen und direkt veröffentlichen
 
-Ein Same-Origin-Save-Proxy erstellt für jede Änderung einen kurzlebigen Branch und einen PR nach `main`.
+Ein Same-Origin-Save-Proxy prüft den erlaubten Umfang und den Inhalt synchron und erstellt genau einen Commit auf `main`.
 
 ```yaml
 backend:
@@ -252,11 +255,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-Der Proxy schreibt nicht direkt nach `main`. Er bündelt erlaubte Inhalte und Medien in einem Commit, erstellt `cms/acecore/*` vom aktuellen `main` und öffnet einen PR. Nach Review und Merge wird der kurzlebige Branch automatisch gelöscht.
+GitHub OAuth prüft direkt vor dem Save den Editor und dessen Schreibberechtigung. Ein kurzlebiges Installation-Token der nur für `acecore-net` installierten GitHub App übernimmt Repository-Lese- und Schreibzugriffe. Erlaubt sind nur freigegebene Inhalte und Bildformate; SVG und PDF werden abgewiesen.
 
-Bei GitHub OAuth dient das Token des Editors als Identität und Schreib-Akteur. Bei Cloudflare Access kann ein sitespezifischer GitHub App-Akteur verwendet werden. Pfadbegrenzung, kurzlebige Branches, PRs und CI bleiben in beiden Varianten gleich.
+Der Save verwendet den Start-HEAD als `expectedHeadOid`; konkurrierende Änderungen liefern 409. Bei verlorener GitHub-Antwort gilt der Save nur dann als erfolgreich, wenn Request-Marker, Parent-SHA, alle Pfade und Blob-SHAs übereinstimmen.
 
-Die Merge-Methode ist wichtig. Übersetzungs-Tasks hängen an Commit-Subjects wie `cms: create ...`. Wenn Squash-Merge diese entfernt, kann Automatisierung den Source-Change übersehen. Für CMS-PRs sind Merge-Commit oder Rebase-Merge geeigneter.
+Der direkte Commit behält ein Subject wie `cms: create ...` oder `cms: update ...`. Derselbe GitHub-App-Push startet Pages Deployment und Übersetzungs-Task. Code, Schema, Workflows, CMS-Konfiguration und Übersetzungsdateien bleiben PR- und CI-pflichtig.
 
 ## 10. Übersetzung nur durch CMS-Commits auslösen
 
@@ -287,7 +290,7 @@ Sveltia CMS betrifft GitHub Backend, OAuth, Collections, Medien und PRs. Turnsti
 - Medienpfade sollten vor den Uploads feststehen.
 - `config.yml` sollte schrittweise wachsen.
 - `cms:` ist ein Automatisierungsvertrag.
-- Der Veröffentlichungsbranch darf nicht je Umgebung wechseln; Preview prüft das Ergebnis des CMS-PRs.
+- Writer-Zugangsdaten liegen nur in Production; Preview dient ohne Repository-Zugriff normalen Code- und Konfigurations-PRs.
 
 ## Minimaler Startpunkt
 
@@ -298,7 +301,7 @@ public/admin/init.js
 public/admin/runtime-config.js
 ```
 
-Danach folgen Autoren-Relationen, Tag-Relationen, Bilder, Source-JSONs, CMS-PR-Automatisierung und Übersetzungs-Tasks.
+Danach folgen Autoren-Relationen, Tag-Relationen, Bilder, Source-JSONs, synchrone Direct-Publish-Prüfung und Übersetzungs-Tasks.
 
 ## Referenzen
 

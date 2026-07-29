@@ -1,0 +1,1 @@
+export const MAX_CMS_TEXT_CONTENT_BYTES = 448 * 1024

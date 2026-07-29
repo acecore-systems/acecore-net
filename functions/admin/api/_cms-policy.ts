@@ -15,6 +15,21 @@ const CONTENT_RULES = [
   },
 ] as const
 
+const REFERENCE_TEXT_RULES = [
+  { prefix: 'src/content/blog/', extension: '.md', recursive: true },
+  { prefix: 'src/content/authors/', extension: '.json', recursive: false },
+  { prefix: 'src/content/tags/', extension: '.json', recursive: false },
+] as const
+
+const DELETABLE_CONTENT_RULES = [
+  { prefix: 'src/content/blog/', extension: '.md', recursive: false },
+  {
+    prefix: 'src/i18n/source/ja/campaigns/',
+    extension: '.json',
+    recursive: false,
+  },
+] as const
+
 const CONTENT_FILES = new Set([
   'src/i18n/source/ja/common.json',
   'src/i18n/source/ja/blog.json',
@@ -35,9 +50,7 @@ const MEDIA_EXTENSIONS = new Set([
   '.gif',
   '.jpeg',
   '.jpg',
-  '.pdf',
   '.png',
-  '.svg',
   '.webp',
 ])
 
@@ -65,21 +78,32 @@ export function isAllowedCmsWritePath(path: string) {
 
   if (CONTENT_FILES.has(path)) return true
 
-  if (
-    CONTENT_RULES.some(({ prefix, extension, recursive }) => {
-      if (!path.startsWith(prefix) || !path.endsWith(extension)) return false
-
-      const relativePath = path.slice(prefix.length)
-
-      return (
-        relativePath.length > 0 && (recursive || !relativePath.includes('/'))
-      )
-    })
-  ) {
+  if (CONTENT_RULES.some((rule) => matchesContentRule(path, rule))) {
     return true
   }
 
   if (!path.startsWith(MEDIA_PREFIX)) return false
+
+  return MEDIA_EXTENSIONS.has(getExtension(path))
+}
+
+export function isAllowedCmsDeletePath(path: string) {
+  if (normalizeCmsPath(path) !== path) return false
+
+  return DELETABLE_CONTENT_RULES.some((rule) => matchesContentRule(path, rule))
+}
+
+export function isCmsReferenceTextPath(path: string) {
+  if (normalizeCmsPath(path) !== path) return false
+
+  return REFERENCE_TEXT_RULES.some((rule) => matchesContentRule(path, rule))
+}
+
+export function isCmsReferenceStatePath(path: string) {
+  if (isCmsReferenceTextPath(path)) return true
+  if (normalizeCmsPath(path) !== path || !path.startsWith(MEDIA_PREFIX)) {
+    return false
+  }
 
   return MEDIA_EXTENSIONS.has(getExtension(path))
 }
@@ -105,22 +129,31 @@ export function isAllowedCmsDirectoryPath(path: string) {
   ).some((root) => isDirectoryAllowedByRoot(path, root, false))
 }
 
-export function sanitizeCmsBranchPart(path: string) {
-  const base = path
-    .replace(/\.[^.]+$/, '')
-    .replace(/[^A-Za-z0-9_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 48)
-
-  return base || 'content'
-}
-
 export function encodePathSegments(path: string) {
   return path.split('/').map(encodeURIComponent).join('/')
 }
 
 function getDirectoryName(path: string) {
   return path.split('/').slice(0, -1).join('/')
+}
+
+function matchesContentRule(
+  path: string,
+  {
+    prefix,
+    extension,
+    recursive,
+  }: {
+    prefix: string
+    extension: string
+    recursive: boolean
+  },
+) {
+  if (!path.startsWith(prefix) || !path.endsWith(extension)) return false
+
+  const relativePath = path.slice(prefix.length)
+
+  return relativePath.length > 0 && (recursive || !relativePath.includes('/'))
 }
 
 function isDirectoryAllowedByRoot(

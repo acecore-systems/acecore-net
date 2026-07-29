@@ -19,7 +19,10 @@ const authorizationCache = new Map<
   { expiresAt: number; user: GitHubEditor }
 >()
 
-export async function getGitHubEditor(request: Request) {
+export async function getGitHubEditor(
+  request: Request,
+  { forceRefresh = false }: { forceRefresh?: boolean } = {},
+) {
   const token = readOAuthToken(request.headers.get('Authorization'))
 
   if (!token) {
@@ -29,8 +32,8 @@ export async function getGitHubEditor(request: Request) {
   const cacheKey = await sha256(token)
   const cached = authorizationCache.get(cacheKey)
 
-  if (cached && cached.expiresAt > Date.now()) {
-    return { token, user: cached.user }
+  if (!forceRefresh && cached && cached.expiresAt > Date.now()) {
+    return { user: cached.user }
   }
 
   const user = await readCurrentUser(token)
@@ -71,7 +74,7 @@ export async function getGitHubEditor(request: Request) {
     user,
   })
 
-  return { token, user }
+  return { user }
 }
 
 export function clearGitHubEditorCacheForTests() {
