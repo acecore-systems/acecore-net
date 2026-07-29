@@ -2,6 +2,7 @@
 title: 'Guia de instalação do Sveltia CMS'
 description: 'Guia prático para adicionar Sveltia CMS a um site Astro ou estático, cobrindo GitHub backend, OAuth Worker, uploads de imagem, operação multilíngue, PRs de CMS e aprendizados reais.'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
@@ -22,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: Automatizar a operação
-      description: Use main como branch de publicação e conecte branches temporárias do proxy de salvamento validado, PRs de CMS e tarefas de tradução.
+      description: Use main como branch de publicação e conecte commits diretos validados, deploys do Pages e tarefas de tradução.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -40,7 +41,7 @@ compareTable:
       - Markdown e JSON são editados em formulários no navegador
       - relation, image e select reduzem valores inválidos
       - Apenas commits de CMS disparam tarefas de tradução
-      - Um proxy same-origin grava apenas caminhos permitidos em uma branch temporária e um PR
+      - Um proxy same-origin valida o conteúdo permitido e grava um commit direto em main
 callout:
   type: note
   title: Premissa deste guia
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMS é útil quando você quer adicionar uma tela de edição a um site estático sem mover conteúdo para um banco externo. Este guia resume como ele foi introduzido no site Astro da Acecore e quais ajustes aprendemos com PRs e commits reais.
 
+> **Atualizado em 28 de julho de 2026:** os salvamentos do CMS agora são validados de forma síncrona e gravados como um único commit `cms:` direto em `main`. GitHub OAuth confirma o editor e sua permissão atual; uma GitHub App exclusiva de `acecore-net` executa as operações do repositório. Schemas JSON/Markdown, assinaturas de imagem, HTML/URLs ativos e o HEAD esperado são verificados antes da gravação.
+
 O título é simples de propósito: **Guia de instalação do Sveltia CMS**. A meta é ajudar quem quer usar o CMS em outro site, não comparar ferramentas de forma abstrata.
 
 ## Quando usar Sveltia CMS
@@ -83,7 +86,7 @@ Ele combina bem quando:
 - mudanças de artigo, autor, tag e textos de página devem ser revisadas como Git diff
 - você não quer adicionar banco de dados ou serviço administrativo separado
 - uploads podem ficar em `public/uploads`
-- mudanças do CMS devem passar por Pull Request antes de produção
+- salvamentos do CMS devem iniciar a publicação imediatamente, enquanto mudanças de código continuam protegidas por Pull Request
 
 Se você precisa de permissões editoriais complexas, publicação agendada avançada, grande DAM ou edição em tempo real, um headless CMS completo pode ser melhor.
 
@@ -103,7 +106,7 @@ main branch
   -> única fonte de verdade para produção
 
 CMS save proxy
-  -> valida caminhos permitidos e cria uma branch temporária e um PR para cada alteração
+  -> valida caminhos e conteúdo e grava um commit cms: com expected HEAD em main
 
 .github/workflows/create-translation-prs.yml
   -> cria tarefas de tradução apenas para commits cms:
@@ -165,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-Mantenha `main` como branch de publicação e encaminhe leituras e salvamentos por um proxy same-origin. Antes de criar uma branch temporária e um PR, o proxy valida o repositório, a permissão de escrita do usuário GitHub, os caminhos alterados e o HEAD mais recente de `main`.
+Mantenha `main` como branch de publicação e encaminhe leituras e salvamentos por um proxy same-origin. Antes de cada save, o proxy revalida a permissão de escrita do usuário GitHub, usa uma GitHub App instalada apenas em `acecore-net` para acessar o repositório e valida caminhos, conteúdo e o HEAD mais recente de `main` antes de criar um único commit direto.
 
 Em 20 de julho de 2026, o Editorial Workflow ainda não está implementado no Sveltia CMS. Adicionar a opção do Decap CMS `publish_mode: editorial_workflow` não faz o Sveltia CMS criar branches temporárias ou PRs automaticamente.
 
-Uma branch permanente como `cms-content` exige sincronização contínua e aumenta o risco de conflitos ou de configurar a origem de deploy incorretamente. Branches temporárias mantêm `main` como única fonte de verdade.
+Uma branch permanente como `cms-content` exige sincronização contínua e aumenta o risco de conflitos ou de configurar a origem de deploy incorretamente. A Acecore mantém `main` como única fonte de verdade e rejeita atualizações concorrentes com `expectedHeadOid`.
 
 ## 3. Adicionar OAuth Worker
 
@@ -225,9 +228,9 @@ Textos fixos também podem entrar no CMS. A Acecore centraliza a fonte japonesa 
 
 O cuidado é não adicionar todos os campos de uma vez. `config.yml` cresce rapidamente. Comece por blog, autores, tags, avisos e páginas que mudam com frequência.
 
-## 8. Manter `main` como branch de publicação no preview
+## 8. Manter credenciais de escrita somente em produção
 
-O proxy cria cada branch temporária a partir do `main` mais recente. Portanto, um preview do Cloudflare Pages não deve substituir a branch backend pela branch do PR. O resultado é revisado no Pages preview do PR de CMS gerado.
+Configure o client ID, installation ID e private key da GitHub App somente no ambiente de produção do Cloudflare Pages. Previews não recebem credenciais de escrita e permanecem sem leitura ou escrita no repositório. O conteúdo é salvo e publicado apenas pelo `/admin/` de produção; previews ficam para PRs normais de código ou configuração.
 
 ```javascript
 CMS.init({
@@ -239,9 +242,9 @@ CMS.init({
 })
 ```
 
-## 9. Criar branches temporárias com um proxy de salvamento
+## 9. Validar e publicar diretamente com o proxy
 
-Um proxy de salvamento same-origin cria uma branch temporária e um PR para `main` a cada alteração.
+Um proxy same-origin valida de forma síncrona o escopo e o conteúdo permitidos e cria exatamente um commit em `main`.
 
 ```yaml
 backend:
@@ -252,11 +255,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-O proxy não grava diretamente em `main`. Ele reúne conteúdo e mídia permitidos em um commit, cria `cms/acecore/*` a partir do `main` mais recente e abre um PR. Após revisão e merge, a branch temporária é removida automaticamente.
+GitHub OAuth verifica novamente o editor e sua permissão de escrita antes do save. Um token curto da GitHub App exclusiva de `acecore-net` faz as leituras e gravações. Só conteúdo e imagens permitidos são aceitos; SVG e PDF são rejeitados.
 
-Com GitHub OAuth, o token do editor fornece identidade e atua como gravador. Com Cloudflare Access, uma GitHub App específica do site pode ser o ator. Restrições de caminho, branches temporárias, PRs e CI continuam comuns às duas variantes.
+O save usa o HEAD inicial como `expectedHeadOid`; uma atualização concorrente retorna 409. Se a resposta do GitHub se perder, só há recuperação quando marker da request, SHA pai, todos os paths e SHAs dos blobs coincidem.
 
-O modo de merge importa. As traduções dependem de subjects como `cms: create ...` e `cms: update ...`. Se um squash merge apaga esses subjects, a automação pode não detectar a mudança. Para PRs de CMS, preserve os commits `cms:` com merge commit ou rebase merge.
+O commit direto mantém subjects como `cms: create ...` e `cms: update ...`. O mesmo push da GitHub App inicia Pages e a tarefa de tradução. Código, schemas, workflows, configuração CMS e traduções continuam passando por PR e CI.
 
 ## 10. Tradução só para commits CMS
 
@@ -287,7 +290,7 @@ Sveltia CMS trata de backend GitHub, OAuth, collections, mídia e PRs. Turnstile
 - Caminhos de mídia devem ser definidos antes de uploads.
 - `config.yml` deve crescer por etapas.
 - `cms:` é contrato de automação.
-- A branch de publicação não muda por ambiente; o preview verifica o resultado do PR de CMS.
+- As credenciais de escrita ficam somente em produção; preview serve sem acesso ao repositório para PRs normais de código e configuração.
 
 ## Ponto inicial mínimo
 
@@ -298,7 +301,7 @@ public/admin/init.js
 public/admin/runtime-config.js
 ```
 
-Depois adicione relations de autores e tags, imagens, JSON fonte, PRs automáticos de CMS e tarefas de tradução.
+Depois adicione relations de autores e tags, imagens, JSON fonte, validação síncrona de direct publish e tarefas de tradução.
 
 ## Referências
 

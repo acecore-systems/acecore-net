@@ -9,7 +9,7 @@ Create a GitHub OAuth App with:
 - Homepage URL: `https://acecore.net/admin/`
 - Authorization callback URL: `https://sveltia-cms-auth.sparkling-tree-7cef.workers.dev/callback`
 
-`ALLOWED_DOMAINS` in `wrangler.jsonc` controls which CMS origins can use this authenticator. Keep `acecore.net` for production, `localhost` entries for local checks, and `*.acecore-net.pages.dev` for Cloudflare Pages previews.
+`ALLOWED_DOMAINS` in `wrangler.jsonc` controls which CMS origins can use this authenticator. Keep `acecore.net` for production, `localhost` entries for local checks, and `*.acecore-net.pages.dev` only for preview login and UI checks. The OAuth Worker verifies the editor but is not the repository writer. Cloudflare Pages previews must not receive any `CMS_GITHUB_APP_*` writer credential, so repository reads and saves remain disabled there.
 
 Then set the OAuth app credentials on the Worker:
 

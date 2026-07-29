@@ -2,6 +2,7 @@
 title: 'Sveltia CMS 도입 가이드'
 description: 'Astro 같은 정적 사이트에 Sveltia CMS를 도입하는 방법을 GitHub backend, OAuth Worker, 이미지 업로드, 다국어 운영, CMS 전용 PR 흐름, 실제 수정에서 얻은 교훈까지 정리합니다.'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
@@ -22,7 +23,7 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 운영 자동화
-      description: main을 publication branch로 사용하고 검증된 저장 proxy의 단기 branch, CMS 편집 PR, 번역 PR task를 연결합니다.
+      description: main을 publication branch로 사용하고 검증된 direct commit, Pages deploy, 번역 PR task를 연결합니다.
       icon: i-lucide-git-pull-request
       accent: slate
 compareTable:
@@ -40,7 +41,7 @@ compareTable:
       - 브라우저 폼에서 Markdown과 JSON을 편집할 수 있음
       - relation, image, select로 잘못된 값을 줄임
       - CMS commit만 번역 PR task를 트리거함
-      - same-origin proxy가 허용 경로만 단기 branch와 PR에 저장함
+      - same-origin proxy가 허용된 내용을 검증하고 main에 direct commit 하나를 저장함
 callout:
   type: note
   title: 이 글의 전제
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMS는 정적 사이트에 편집 화면을 추가하고 싶지만 외부 데이터베이스를 늘리고 싶지 않을 때 유용합니다. 이 글은 Acecore의 Astro 사이트에 Sveltia CMS를 도입한 방식과, 이후 PR과 commit을 통해 드러난 문제를 어떻게 고쳤는지 정리합니다.
 
+> **2026년 7월 28일 업데이트:** CMS 저장은 이제 동기 검증 후 하나의 `cms:` commit으로 `main`에 직접 기록됩니다. GitHub OAuth는 편집자와 현재 쓰기 권한을 확인하고, `acecore-net`에만 설치된 GitHub App이 repository 작업을 수행합니다. 저장 전에 JSON/Markdown schema, 이미지 signature, active HTML/URL, expected HEAD를 검사합니다.
+
 제목은 의도적으로 단순하게 **Sveltia CMS 도입 가이드** 로 정했습니다. CMS 비교 글이 아니라, 다른 사이트에 바로 적용할 수 있는 설계 메모입니다.
 
 ## Sveltia CMS가 맞는 경우
@@ -83,7 +86,7 @@ Sveltia CMS는 별도 데이터베이스와 API를 가진 CMS가 아닙니다. �
 - 기사, 작성자, 태그, 페이지 문구 변경을 Git diff로 리뷰하고 싶음
 - 외부 DB나 별도 관리자 서버를 추가하고 싶지 않음
 - 이미지를 `public/uploads` 같은 저장소 디렉터리에 둘 수 있음
-- CMS 저장 후에도 Pull Request로 확인하고 배포하고 싶음
+- CMS 저장 즉시 공개를 시작하되 코드 변경은 계속 Pull Request로 보호하고 싶음
 
 복잡한 권한, 예약 발행, 대량 미디어 관리, 실시간 데이터 편집이 필요하면 다른 headless CMS나 전용 관리자 화면이 더 적합합니다.
 
@@ -103,7 +106,7 @@ main branch
   -> 운영 환경의 유일한 기준
 
 CMS save proxy
-  -> 허용 경로를 검증하고 변경마다 단기 branch와 main 대상 PR 생성
+  -> 경로와 내용을 검증하고 expected-HEAD가 있는 cms: commit을 main에 기록
 
 .github/workflows/create-translation-prs.yml
   -> cms: commit에만 번역 PR task 생성
@@ -165,11 +168,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-`main`을 publication branch로 유지하고 읽기와 저장을 same-origin proxy로 보냅니다. proxy는 단기 branch와 PR을 만들기 전에 repository, GitHub 사용자의 쓰기 권한, 변경 경로, 최신 `main` HEAD를 검증합니다.
+`main`을 publication branch로 유지하고 읽기와 저장을 same-origin proxy로 보냅니다. proxy는 저장할 때마다 GitHub 사용자의 쓰기 권한을 다시 확인하고, `acecore-net`에만 설치된 GitHub App으로 repository에 접근합니다. 변경 경로, 내용, 최신 `main` HEAD를 검증한 뒤 direct commit 하나만 만듭니다.
 
 2026년 7월 20일 기준으로 Sveltia CMS에는 Editorial Workflow가 구현되어 있지 않습니다. Decap CMS의 `publish_mode: editorial_workflow` 설정을 추가해도 Sveltia CMS가 단기 branch나 PR을 자동 생성하지는 않습니다.
 
-`cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. PR마다 단기 branch를 닫으면 `main`을 유일한 기준으로 유지할 수 있습니다.
+`cms-content` 같은 영구 branch는 지속적인 동기화가 필요하며 충돌이나 잘못된 배포 source 설정 위험을 높입니다. Acecore는 `main`을 유일한 기준으로 유지하고 `expectedHeadOid`로 동시 업데이트를 거부합니다.
 
 ## 3. OAuth Worker 준비
 
@@ -225,9 +228,9 @@ Acecore는 나중에 [PR #116](https://github.com/acecore-systems/acecore-net/pu
 
 반성점은 한 번에 모든 필드를 넣지 않는 것입니다. `config.yml`이 급격히 커지면 리뷰와 유지보수가 어려워집니다. 블로그, 작성자, 태그, 공지, 자주 바뀌는 페이지부터 시작하는 편이 좋습니다.
 
-## 8. preview에서도 publication branch를 `main`으로 유지한다
+## 8. writer 인증 정보는 production에만 둔다
 
-저장 proxy는 최신 `main`에서 모든 단기 branch를 만듭니다. 따라서 Cloudflare Pages preview가 backend branch를 해당 PR branch로 바꾸면 안 됩니다. 저장 결과는 생성된 CMS PR의 Pages preview에서 확인합니다.
+GitHub App의 client ID, installation ID, private key는 Cloudflare Pages production 환경에만 설정합니다. preview에는 writer 인증 정보를 배포하지 않으며 repository read/write를 비활성화합니다. 콘텐츠 저장과 공개는 production의 `/admin/`에서만 수행하고, Pages preview는 일반 코드 및 설정 PR 확인에 사용합니다.
 
 ```javascript
 CMS.init({
@@ -239,9 +242,9 @@ CMS.init({
 })
 ```
 
-## 9. 저장 proxy로 단기 branch와 PR 만들기
+## 9. 저장 proxy로 검증하고 직접 공개하기
 
-same-origin 저장 proxy가 변경마다 단기 branch와 `main` 대상 PR을 만듭니다.
+same-origin 저장 proxy는 허용 범위와 내용을 동기 검증하고 `main`에 정확히 하나의 commit을 만듭니다.
 
 ```yaml
 backend:
@@ -252,11 +255,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-proxy는 `main`에 직접 commit하지 않습니다. 허용된 content와 media를 한 commit으로 묶고 최신 `main`에서 `cms/acecore/*`를 만든 뒤 PR을 엽니다. 검토와 merge 후 단기 branch를 자동 삭제합니다.
+GitHub OAuth는 저장 직전에 편집자와 쓰기 권한을 다시 확인합니다. `acecore-net` 전용 GitHub App의 단기 installation token이 repository read/write를 수행합니다. 허용된 content와 image만 저장할 수 있고 SVG와 PDF는 거부합니다.
 
-GitHub OAuth 방식에서는 편집자의 token이 identity와 쓰기 actor 역할을 합니다. Cloudflare Access 방식에서는 사이트 전용 GitHub App이 actor가 될 수 있습니다. 경로 제한, 단기 branch, PR, CI 정책은 두 방식 모두 같습니다.
+저장은 편집 시작 HEAD를 `expectedHeadOid`로 사용하며 경쟁 업데이트에는 409를 반환합니다. GitHub 응답이 유실되면 request marker, parent SHA, 전체 path, blob SHA가 모두 일치할 때만 성공으로 복구합니다.
 
-merge 방식도 중요합니다. 번역 workflow는 `cms: create ...`, `cms: update ...` 같은 commit subject를 봅니다. squash merge로 subject가 사라지면 자동화가 감지하지 못할 수 있으므로 CMS PR은 merge commit 또는 rebase merge가 적합합니다.
+direct commit은 `cms: create ...`, `cms: update ...` 같은 subject를 유지합니다. 같은 GitHub App push가 Pages deploy와 번역 task를 시작합니다. 코드, schema, workflow, CMS 설정, 번역 파일은 계속 PR과 CI를 거칩니다.
 
 ## 10. CMS commit만 번역 트리거
 
@@ -287,7 +290,7 @@ Sveltia CMS는 GitHub backend, OAuth, collections, media, PR 운영의 문제입
 - 이미지 경로는 업로드 전에 고정해야 합니다.
 - `config.yml`은 단계적으로 확장해야 합니다.
 - `cms:`는 자동화 계약입니다.
-- publication branch는 환경별로 바꾸지 않고, preview에서는 CMS PR 결과를 확인합니다.
+- writer 인증 정보는 production에만 두고, preview는 repository 접근 없이 일반 코드 및 설정 PR 확인에 사용합니다.
 
 ## 최소 시작점
 
@@ -298,7 +301,7 @@ public/admin/init.js
 public/admin/runtime-config.js
 ```
 
-그 다음 작성자 relation, 태그 relation, 이미지, source JSON, CMS PR 자동화, 번역 PR task 순서로 넓히면 됩니다.
+그 다음 작성자 relation, 태그 relation, 이미지, source JSON, 동기 direct publish 검증, 번역 PR task 순서로 넓히면 됩니다.
 
 ## 참고 링크
 

@@ -1,13 +1,14 @@
 ---
 title: 'Sveltia CMS導入ガイド'
-description: 'Astroなどの静的サイトにSveltia CMSを導入し、GitHub backend、OAuth Worker、画像アップロード、多言語運用、CMS専用PRフローまで整える手順と反省点をまとめます。'
+description: 'Astroなどの静的サイトにSveltia CMSを導入し、GitHub OAuth、専用GitHub App、検証付き直接公開、画像アップロード、多言語運用まで整える手順と反省点をまとめます。'
 date: 2026-06-07T16:00
+lastUpdated: 2026-07-28T12:00
 author: gui
 tags: ['技術', 'CMS', 'Astro', 'Cloudflare', 'セキュリティ']
 image: /uploads/acecore-generated/blog-cms-selection-and-turnstile.webp
 processFigure:
   title: Sveltia CMS導入の流れ
-  description: 静的サイトにCMSを足すときは、管理画面、認証、編集対象、画像、PR運用を分けて設計します。
+  description: 静的サイトにCMSを足すときは、管理画面、編集者認証、保存actor、編集対象、画像、公開方法を分けて設計します。
   steps:
     - title: 管理画面を置く
       description: public/admin に index.html と config.yml を置き、Sveltia CMS本体を読み込みます。
@@ -22,8 +23,8 @@ processFigure:
       icon: i-lucide-file-text
       accent: amber
     - title: 運用を自動化する
-      description: mainをpublication branchにし、検証付き保存proxyの短命branch、CMS編集PR、翻訳PR taskをつなぎます。
-      icon: i-lucide-git-pull-request
+      description: mainをpublication branchにし、同期検証付きdirect commit、Pages deploy、翻訳PR taskをつなぎます。
+      icon: i-lucide-git-commit
       accent: slate
 compareTable:
   title: CMS導入前後の違い
@@ -40,7 +41,7 @@ compareTable:
       - ブラウザからMarkdownやJSONをフォーム編集できる
       - relation、image、selectで入力ミスを減らせる
       - CMS commitだけを翻訳PR taskの対象にできる
-      - 同一origin proxyが許可pathだけを短命branchとPRへ保存する
+      - 同一origin proxyが内容を同期検証してmainへ直接保存する
 callout:
   type: note
   title: この記事の前提
@@ -56,7 +57,7 @@ checklist:
       checked: true
     - text: media_folder と public_folder をAstroのpublic配下に合わせる
       checked: true
-    - text: CMS commitと翻訳PR taskの関係を決める
+    - text: direct CMS commit、Pages deploy、翻訳PR taskの関係を決める
       checked: true
 faq:
   title: よくある質問
@@ -71,6 +72,8 @@ faq:
 
 Sveltia CMSは、静的サイトに「編集画面」を後付けしたいときに使いやすいGitベースCMSです。この記事では、Acecore公式サイトでの導入をもとに、AstroサイトへSveltia CMSを入れる手順と、実際のPRやコミットで後から直した反省点をまとめます。
 
+> **2026年7月28日更新:** Acecoreの現行運用は、CMS保存ごとの短命branchとPRから、同期検証付きの`main`直接commitへ移行しました。GitHub OAuthは編集者本人とwrite権限の確認、サイト専用GitHub Appはrepository操作に分離し、保存前にJSON / Markdown schema、画像の実形式、危険なHTMLやURL、最新HEADを検証します。
+
 タイトルはシンプルに **Sveltia CMS導入ガイド** としました。読み手に伝えたいことも同じで、CMS比較の読み物ではなく、「自分のサイトにも入れるなら何を決めればいいか」が分かる実装メモです。
 
 ## Sveltia CMSが向いているサイト
@@ -83,7 +86,7 @@ Sveltia CMSは、WordPressのようにCMS側がデータベースと表示APIを
 - 記事、著者、タグ、固定ページ文言をGit差分としてレビューしたい
 - 外部DBや独自管理画面を増やさず、静的サイトのまま運用したい
 - 画像もリポジトリ内の `public/uploads` などに置きたい
-- CMS更新後もPull Requestで確認してから本番反映したい
+- CMS保存から待たずに公開を始めつつ、コード変更はPull Requestで保護したい
 
 逆に、会員ごとの権限管理、予約投稿の複雑な承認フロー、大量の画像アセット、リアルタイムなデータ編集が必要なら、別のヘッドレスCMSや独自管理画面を検討したほうがよいです。
 
@@ -105,10 +108,10 @@ main branch
   -> 公開ソースの唯一の正
 
 CMS save proxy
-  -> 保存ごとに許可pathを検証し、短命branchとmain向けPRを作成
+  -> 許可pathと内容を同期検証し、expected-HEAD付きのcms: commitをmainへ直接保存
 
 .github/workflows/create-translation-prs.yml
-  -> cms: commitだけを翻訳PR taskの対象にする
+  -> direct pushのcms: commitだけを翻訳PR taskの対象にする
 ```
 
 最初は「CMSを置けば終わり」に見えますが、実際には認証、画像、preview、翻訳、PRの作り方まで含めて設計しないと運用で詰まります。
@@ -175,11 +178,11 @@ backend:
     deleteMedia: 'cms: delete media "{{path}}"'
 ```
 
-publication branchは `main` に固定し、readとsaveを同一originのAPI proxyへ向けます。proxyがrepository、GitHub userのwrite権限、変更path、最新のmain HEADを検証してから、保存ごとの短命branchとPRを作ります。
+publication branchは `main` に固定し、readとsaveを同一originのAPI proxyへ向けます。proxyは保存直前にGitHub userのwrite権限を再確認し、repository操作は`acecore-net`専用GitHub Appへ分離します。変更path、JSON / Markdown schema、画像の実形式、危険なHTMLやURL、最新のmain HEADを同期検証してから、expected-HEAD付きの`cms:` commitを`main`へ直接作成します。
 
-2026年7月20日時点で、Sveltia CMSのEditorial Workflowは未実装です。Decap CMS向けの `publish_mode: editorial_workflow` を設定しても、Sveltia CMSが短命branchやPRを作る保証にはなりません。
+2026年7月28日時点で、Sveltia CMSのEditorial Workflowは未実装です。Decap CMS向けの `publish_mode: editorial_workflow` には依存せず、同一origin proxyで保存範囲、内容、競合を制御します。
 
-`cms-content` のような恒久branchを別本流にすると、`main` との同期、競合、deploy元の誤設定を継続的に管理する必要があります。受け皿branchを常設せず、短命branchをPRごとに閉じるほうが運用を単純にできます。
+`cms-content` のような恒久branchを別本流にすると、`main` との同期、競合、deploy元の誤設定を継続的に管理する必要があります。Acecoreでは`main`だけを本番ソースの正にし、同時更新は`expectedHeadOid`で上書きせず409にします。
 
 ## 3. OAuth Workerを用意する
 
@@ -288,9 +291,9 @@ Markdownをフォーム化するときは、自由入力を減らすほど運用
 
 固定ページ文言をCMS化するときは、日本語sourceを勝手に翻訳ファイルへ直書きしない運用も決めておきます。翻訳側はPRで更新するほうが、レビューと差分追跡が楽です。
 
-## 8. previewでもpublication branchをmainに固定する
+## 8. writer認証情報はproductionだけに置く
 
-CMS保存proxyは最新の `main` から短命branchを作るため、Cloudflare Pagesのpreviewでもbackend branchをPR branchへ差し替えません。previewは生成されたCMS PRの表示確認に使い、編集開始点は常に本番ソースの正である `main` にします。
+CMSから`main`へ直接保存できるGitHub AppのClient ID、Installation ID、private keyはCloudflare Pagesのproduction環境だけに設定します。previewにはwriter認証情報を配布せず、repository read/writeを無効にします。コンテンツの編集と公開は本番の`/admin/`から行い、previewはコードやCMS設定を変更する通常PRの確認に使います。
 
 Acecoreでは、ビルド前に `public/admin/runtime-config.js` を生成し、手動初期化だけを有効にしています。
 
@@ -314,11 +317,11 @@ CMS.init({
 })
 ```
 
-この形ならproductionとpreviewで保存起点が分岐せず、proxyも `main` 以外をbaseにするrequestを拒否できます。
+productionのpublication branchは`main`に固定し、proxyは`main`以外をbaseにするrequestを拒否します。preview側も設定表示の整合性確認のためbranchは`main`のままですが、writer認証情報がないため保存はできません。
 
-## 9. 保存proxyで短命branchとPRを作る
+## 9. 保存proxyで内容を検証して直接公開する
 
-CMSで保存した内容をそのまま本番反映せず、同一originの保存proxyで保存ごとの短命branchとmain向けPRを作ります。
+CMSの「保存」を公開開始として扱い、同一origin proxyが許可pathと保存内容を同期検証してから`main`へ1 commitだけ作成します。
 
 ```yaml
 backend:
@@ -329,13 +332,11 @@ backend:
   graphql_api_root: /admin/api/graphql
 ```
 
-proxyはGraphQLの `createCommitOnBranch` を受けても `main` へ直接commitしません。許可されたcontentとmediaだけを同じcommitへまとめ、最新の `main` から `cms/acecore/*` branchを作ってPRを開きます。merge後のbranch自動削除も有効にして、恒久的な別本流を残しません。
+proxyはGraphQLの`createCommitOnBranch`をそのまま中継しません。GitHub OAuthで編集者本人とwrite権限を保存直前に確認し、repository read/writeには`acecore-net`だけへインストールした専用GitHub Appの短期tokenを使います。許可されたcontentと画像だけを同じcommitへまとめ、JSON / Markdown schema、画像magic bytes、危険なHTMLやURLを検証します。SVGとPDFはCMS upload対象外です。
 
-GitHub OAuth型では編集者のtokenを本人確認と保存actorに使います。Cloudflare Access型にする場合は、Access identityを確認したうえでサイト専用GitHub Appを保存actorにできます。認証方式は異なっても、path制限、短命branch、PR、CIという書き込み方針は共通です。
+保存には編集開始時のHEADを`expectedHeadOid`として指定し、先に別更新が入れば409で再読み込みを求めます。GitHub応答が失われた場合も、request固有marker、親SHA、全path、blob SHAが完全一致するときだけ成功として復旧します。
 
-ここで重要なのがmerge方法です。Acecoreの翻訳PR taskは `cms: create ...` や `cms: update ...` というcommit subjectを見て、CMS由来の日本語source更新だけを対象にしています。
-
-そのため、CMS PRをsquash mergeしてcommit subjectが消えると、翻訳PR taskが自動検出できない場合があります。CMS編集PRでは、merge commitまたはrebase mergeで `cms:` commitを残す運用にしています。
+direct commitのsubjectは`cms: create ...`や`cms: update ...`を維持します。GitHub Appによる`main` pushをCloudflare Pagesと翻訳workflowが受け、サイト公開と翻訳PR taskを並行して始めます。コード、schema、workflow、翻訳ファイルはCMS経路のallowlist外で、従来どおりPRとCIを通します。
 
 ## 10. 翻訳ワークフローはCMS commitだけに絞る
 
@@ -399,11 +400,11 @@ CMSを差し替えたら、設定ファイルだけでなく、関連記事と�
 
 ### 5. commit subjectをワークフロー契約として扱う
 
-`cms:` は見た目のprefixではなく、翻訳PR taskを起動するための契約です。CMS以外のPRで使うと不要なワークフローが動きますし、CMS PRをsquashして消すと必要なワークフローが動かないことがあります。
+`cms:` は見た目のprefixではなく、翻訳PR taskを起動するための契約です。CMS以外のcommitで使うと不要なワークフローが動くため、direct publish proxyだけがこのprefixを付けます。
 
 ### 6. publication branchを環境で切り替えない
 
-previewのdeploy branchをそのままCMSのpublication branchにすると、別本流が増えて保存proxyの検証も複雑になります。CMSは常に `main` から編集を始め、PRのCloudflare Pages previewで保存結果を確認するほうが役割を分けやすくなります。
+previewへruleset bypass可能なwriter認証情報を配ると、確認用deployから本番`main`へ書ける経路が増えます。CMSの編集と保存はproductionの`/admin/`だけに限定し、保存後はproduction deployの完了を確認します。Cloudflare Pages previewはwriter認証情報なしで、コードや設定を変える通常PRの確認に使います。
 
 ## 導入時の最小構成
 
@@ -446,7 +447,7 @@ collections:
       - { name: body, label: 本文, widget: markdown }
 ```
 
-ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、検証付き保存proxy、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
+ここから、著者relation、タグrelation、画像フィールド、固定ページJSON、同期検証付きdirect publish proxy、翻訳PR taskの順で広げれば、導入直後から運用破綻しにくくなります。
 
 ## 参考リンク
 

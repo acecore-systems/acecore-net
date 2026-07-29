@@ -148,20 +148,13 @@ faq:
 - [モバイルのレポート](https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=mobile)
 - [デスクトップのレポート](https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=desktop)
 
-<figure class="not-prose my-8">
-  <figcaption class="text-base font-700 text-slate-800 mb-3">実際の計測スクリーンショット</figcaption>
-  <p class="text-sm text-slate-500 mb-4">画像をクリックすると、該当する PageSpeed Insights のレポートをそのまま開けます。</p>
-  <div class="grid gap-4 md:grid-cols-2">
-    <a href="https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=mobile" class="block" target="_blank" rel="noopener noreferrer">
-      <img src="/uploads/pagespeed-mobile-summary-20260329.webp" alt="2026年3月29日時点の Acecore トップページの PageSpeed Insights モバイル結果。Performance、Accessibility、Best Practices、SEO がすべて100。" class="w-full rounded-lg border border-slate-200" width="1160" height="340" loading="lazy" decoding="async" />
-      <span class="mt-2 block text-sm font-700 text-slate-700">モバイル</span>
-    </a>
-    <a href="https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=desktop" class="block" target="_blank" rel="noopener noreferrer">
-      <img src="/uploads/pagespeed-desktop-summary-20260329.webp" alt="2026年3月29日時点の Acecore トップページの PageSpeed Insights デスクトップ結果。Performance、Accessibility、Best Practices、SEO がすべて100。" class="w-full rounded-lg border border-slate-200" width="1190" height="270" loading="lazy" decoding="async" />
-      <span class="mt-2 block text-sm font-700 text-slate-700">デスクトップ</span>
-    </a>
-  </div>
-</figure>
+### 実際の計測スクリーンショット
+
+画像をクリックすると、該当する PageSpeed Insights のレポートをそのまま開けます。
+
+| モバイル                                                                                                                                                                                                                                                                            | デスクトップ                                                                                                                                                                                                                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![2026年3月29日時点の Acecore トップページの PageSpeed Insights モバイル結果。Performance、Accessibility、Best Practices、SEO がすべて100。](/uploads/pagespeed-mobile-summary-20260329.webp)](https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=mobile) | [![2026年3月29日時点の Acecore トップページの PageSpeed Insights デスクトップ結果。Performance、Accessibility、Best Practices、SEO がすべて100。](/uploads/pagespeed-desktop-summary-20260329.webp)](https://pagespeed.web.dev/analysis/https-acecore-net/pipu31csmn?form_factor=desktop) |
 
 ## 100 点がどのくらいすごいのか
 
