@@ -1,7 +1,8 @@
 ---
-title: '将 Astro 6 网站扩展至9种语言 ― 168篇博客文章的自动翻译与多语言架构'
-description: '记录了将 Astro 6 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到168篇博客文章翻译、Pages CMS多语言配置的全部流程。'
+title: '将 Astro 7 网站扩展至9种语言 ― 博客翻译与多语言架构'
+description: '记录了将 Astro 7.1.3 + UnoCSS + Cloudflare Pages 架构的网站扩展至9种语言的过程。涵盖从UI国际化到博客文章翻译、Pages CMS多语言配置的全部流程。'
 date: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:02+09:00'
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
@@ -15,7 +16,7 @@ processFigure:
       description: 将页头、页脚及所有组件的显示文本多语言化。
       icon: i-lucide-languages
     - title: 博客文章翻译
-      description: 生成 168 个翻译文件（21篇文章 × 8种语言）。
+      description: 首次上线时生成168个翻译文件（21篇文章 × 8种语言）。
       icon: i-lucide-file-text
     - title: CMS 与构建验证
       description: Pages CMS 多语言配置及全部页面的构建验证。
@@ -32,11 +33,11 @@ compareTable:
       - 标签和作者数据仅日语
       - 仅1个 RSS 订阅源
   after:
-    label: 支持9种语言
+    label: 支持9种语言（首次上线时）
     items:
       - 日语 + 8种语言（en、zh-cn、es、pt、fr、ko、de、ru）
       - 23篇博客文章 + 168篇翻译 = 共191篇
-      - 生成621个页面（翻译文章带回退机制）
+      - 首次上线时生成621个页面
       - Pages CMS 包含9个语言集合
       - 25种标签和作者数据翻译至各语言
       - 多语言 RSS 订阅源（9种语言）
@@ -48,10 +49,10 @@ statBar:
   items:
     - value: '9'
       label: 支持语言数
-    - value: '168'
-      label: 翻译文章数
-    - value: '621'
-      label: 生成页面数
+    - value: '208'
+      label: 翻译文章数（截至2026年7月29日）
+    - value: '652'
+      label: 生成页面数（截至2026年7月29日）
 faq:
   title: 常见问题
   items:
@@ -60,12 +61,12 @@ faq:
     - question: 如何保证翻译质量？
       answer: '我们使用 GitHub Copilot 进行 AI 翻译。先创建英语版作为中间语言，再从英语翻译至各目标语言，以减少质量波动。frontmatter 中的标签值保持日语不变，URL、代码块和图片路径也保持不变。'
     - question: 如果翻译文章不存在会怎样？
-      answer: '回退功能会在翻译不存在时显示日语原文。可以逐步添加翻译。'
+      answer: '某个 locale 缺少翻译文件时，不会生成该语言的文章 URL。日语文章继续在原 URL 发布，语言切换器会链接到目标 locale 的博客首页。'
     - question: 添加新文章时需要翻译吗？
-      answer: '不是必须的——如果没有翻译文件，系统会回退显示日语版本。要添加翻译，只需在对应的语言目录中放置同名的 Markdown 文件即可。'
+      answer: '发布日语文章不要求同时翻译。在对应语言目录中添加同名 Markdown 文件后，该 locale 的文章 URL、sitemap 条目和 hreflang 关系才会进入生成范围。'
 ---
 
-我们将 Acecore 官方网站从仅支持日语升级为支持9种语言。本文介绍了完整的流程：UI 国际化、21篇博客文章 × 8种语言 = 168个翻译文件，以及 Pages CMS 的多语言配置。
+我们将 Acecore 官方网站从仅支持日语升级为支持9种语言。首次上线时将21篇博客文章翻译为8种语言，共生成168个文件。截至2026年7月29日，仓库包含29篇日语文章和208篇翻译，共237个文章文件，构建会生成652个页面。只有存在翻译文件时才发布对应语言的文章 URL。
 
 ## 多语言化方针
 
@@ -75,7 +76,7 @@ faq:
 
 1. **i18n 基础搭建**：Astro 内置 i18n 路由配置、翻译工具、9种语言的翻译 JSON 文件
 2. **UI 文本翻译**：页头、页脚、侧边栏及所有页面的组件文本
-3. **博客文章翻译**：全部21篇文章翻译为8种语言（生成168个文件）
+3. **博客文章翻译**：首次上线时将21篇文章翻译为8种语言（生成168个文件）
 
 ### URL 设计
 
@@ -188,6 +189,8 @@ export function localizePost(
   return allPosts.find((p) => p.id === `${locale}/${post.id}`) ?? post
 }
 ```
+
+`localizePost()` 本身仍会把日语原文作为安全回退，但公开路由和列表通过 `isPostAvailableInLocale()` 及过滤器只选择实际存在的翻译。缺少翻译时不会生成本地化文章 URL。
 
 关键在于**不修改现有的内容集合 schema**。Astro 的 glob 加载器会自动识别子目录中的文件，生成类似 `en/astro-performance-tuning` 的 ID，无需更改配置。
 
@@ -349,11 +352,14 @@ export function getLocalizedAuthor(author: Author, locale: Locale) {
 
 ### 站点地图 hreflang 支持
 
-配置了 `@astrojs/sitemap` 的 `i18n` 选项，在站点地图中自动输出 `xhtml:link rel="alternate"` 标签。
+将 `@astrojs/sitemap` 的 `i18n` 选项与检查翻译文件是否存在的过滤器配合使用。sitemap 只收录实际存在的语言版本，并自动输出对应的 `xhtml:link rel="alternate"` 标签。
 
 ```javascript
 // astro.config.mjs
 sitemap({
+  filter(page) {
+    return !isMissingLocalizedBlogPost(page)
+  },
   i18n: {
     defaultLocale: 'ja',
     locales: {
@@ -371,7 +377,7 @@ sitemap({
 })
 ```
 
-这使得每个 URL 都输出9种语言的 hreflang 链接，让 Google 能准确把握各语言版本之间的对应关系。
+同时存在9种语言的文章会生成包含9种语言的 hreflang 集群。只有日语版本的文章会保留为独立的日语 sitemap 条目，不会链接到不存在的本地化 URL。
 
 ### JSON-LD 结构化数据语言支持
 
@@ -403,7 +409,7 @@ export const getStaticPaths = () =>
 
 ## 总结
 
-通过利用 Astro 6 的内置 i18n 功能，即使是静态网站也能实现高质量的多语言支持。
+网站目前使用 Astro 7.1.3 的内置 i18n 功能生成多语言静态页面。
 
 - **i18n 基础**：使用 Astro 的 `prefixDefaultLocale: false`，日语无前缀
 - **UI 翻译**：通过 View 组件模式实现零逻辑重复
@@ -411,7 +417,7 @@ export const getStaticPaths = () =>
 - **标签翻译**：URL 保持日语 slug，仅翻译显示名称
 - **作者数据翻译**：bio 和 skills 按语言切换
 - **SEO 优化**：站点地图 hreflang、JSON-LD `inLanguage`、多语言 RSS 订阅源
-- **回退机制**：未翻译的文章自动显示日语版本
+- **缺少翻译时**：不生成本地化文章 URL，日语文章继续在原 URL 发布
 - **CMS 支持**：各语言的文章可在 Pages CMS 中独立编辑
 
-未来添加新文章时，将逐步添加翻译文件。得益于回退功能，翻译完成之前日语版本会照常显示，确保网站质量不受影响。
+翻译文件今后仍会逐步添加。在翻译存在之前只发布日语文章；添加 locale 文件后再启用该语言的文章 URL、sitemap 条目和 hreflang 关系。

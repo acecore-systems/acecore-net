@@ -1,7 +1,8 @@
 ---
-title: 'Astro 6 사이트를 9개 언어로 지원하는 방법 ― 168개 블로그 글 자동 번역과 다국어 아키텍처'
-description: 'Astro 6 + UnoCSS + Cloudflare Pages 사이트를 9개 언어로 대응한 기록. UI 국제화부터 168개 블로그 글 번역, Pages CMS 다국어 설정까지 전체 과정을 다룹니다.'
+title: 'Astro 7 사이트를 9개 언어로 지원하는 방법 ― 블로그 번역과 다국어 아키텍처'
+description: 'Astro 7.1.3 + UnoCSS + Cloudflare Pages 사이트를 9개 언어로 대응한 기록. UI 국제화부터 블로그 글 번역, Pages CMS 다국어 설정까지 전체 과정을 다룹니다.'
 date: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:02+09:00'
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
@@ -15,7 +16,7 @@ processFigure:
       description: 헤더, 푸터 및 모든 컴포넌트의 표시 텍스트 번역.
       icon: i-lucide-languages
     - title: 블로그 글 번역
-      description: 168개 번역 파일 생성(21개 글 × 8개 언어).
+      description: 최초 도입 시 168개 번역 파일 생성(21개 글 × 8개 언어).
       icon: i-lucide-file-text
     - title: CMS 및 빌드 검증
       description: Pages CMS 다국어 설정 및 전체 페이지 빌드 검증.
@@ -32,11 +33,11 @@ compareTable:
       - 태그 및 저자 데이터 일본어만
       - RSS 피드 1개
   after:
-    label: 9개 언어
+    label: 9개 언어(최초 도입 시)
     items:
       - 일본어 + 8개 언어(en, zh-cn, es, pt, fr, ko, de, ru)
       - 블로그 글 23개 + 번역 168개 = 총 191개
-      - 621개 페이지 생성(번역 글 포함, 폴백 지원)
+      - 최초 도입 시 621개 페이지 생성
       - Pages CMS 언어별 컬렉션 9개
       - 25종 태그 및 저자 데이터를 각 언어로 번역
       - 다국어 RSS 피드(9개 언어)
@@ -48,10 +49,10 @@ statBar:
   items:
     - value: '9'
       label: 지원 언어 수
-    - value: '168'
-      label: 번역 글 수
-    - value: '621'
-      label: 생성 페이지 수
+    - value: '208'
+      label: 번역 글 수(2026년 7월 29일 기준)
+    - value: '652'
+      label: 생성 페이지 수(2026년 7월 29일 기준)
 faq:
   title: 자주 묻는 질문
   items:
@@ -60,12 +61,12 @@ faq:
     - question: 번역 품질은 어떻게 보장하나요?
       answer: 'GitHub Copilot을 사용한 AI 번역을 활용합니다. 먼저 영어를 중간 언어로 만든 뒤 각 대상 언어로 번역하여 품질 편차를 줄입니다. frontmatter의 태그 값은 일본어를 유지하고, URL, 코드 블록, 이미지 경로는 변경하지 않습니다.'
     - question: 번역 글이 없으면 어떻게 되나요?
-      answer: '번역이 없을 경우 폴백 기능이 일본어 원문을 표시합니다. 번역은 점진적으로 추가할 수 있습니다.'
+      answer: '해당 locale의 번역 파일이 없으면 로컬라이즈된 글 URL을 생성하지 않습니다. 일본어 글은 원래 URL에 계속 공개되며, 언어 전환기는 대상 locale의 블로그 목록으로 연결됩니다.'
     - question: 새 글을 추가할 때 번역이 필요한가요?
-      answer: '번역은 필수가 아닙니다 — 번역 파일이 없으면 일본어 버전이 폴백으로 표시됩니다. 번역을 추가하려면 해당 언어 디렉토리에 같은 이름의 Markdown 파일을 배치하면 됩니다.'
+      answer: '일본어 글을 공개하는 데 번역은 필수가 아닙니다. 해당 언어 디렉토리에 같은 이름의 Markdown 파일을 추가하면 그 locale의 글 URL, sitemap 항목, hreflang 관계가 생성 대상이 됩니다.'
 ---
 
-Acecore 공식 웹사이트를 일본어 전용에서 9개 언어 지원으로 업그레이드했습니다. 이 글에서는 UI 국제화, 21개 블로그 글 × 8개 언어 = 168개 파일 번역, Pages CMS 다국어 설정까지 전체 과정을 다룹니다.
+Acecore 공식 웹사이트를 일본어 전용에서 9개 언어 지원으로 업그레이드했습니다. 최초 도입 시 블로그 글 21개를 8개 언어로 번역해 168개 파일을 만들었습니다. 2026년 7월 29일 기준 저장소에는 일본어 글 29개와 번역 208개, 총 237개 글 파일이 있으며 빌드는 652개 페이지를 생성합니다. 번역 파일이 실제로 있는 locale에만 글 URL을 공개합니다.
 
 ## 다국어 전략
 
@@ -75,7 +76,7 @@ Acecore 공식 웹사이트를 일본어 전용에서 9개 언어 지원으로 �
 
 1. **i18n 기반 구축**: Astro 내장 i18n 라우팅 설정, 번역 유틸리티, 9개 언어의 번역 JSON 파일
 2. **UI 텍스트 번역**: 헤더, 푸터, 사이드바 및 모든 페이지의 컴포넌트 텍스트
-3. **블로그 글 번역**: 전체 21개 글을 8개 언어로 번역(168개 파일 생성)
+3. **블로그 글 번역**: 최초 도입 시 21개 글을 8개 언어로 번역(168개 파일 생성)
 
 ### URL 설계
 
@@ -188,6 +189,8 @@ export function localizePost(
   return allPosts.find((p) => p.id === `${locale}/${post.id}`) ?? post
 }
 ```
+
+`localizePost()` 자체는 안전장치로 원문을 반환하지만, 공개 라우트와 목록은 `isPostAvailableInLocale()` 및 필터를 사용해 실제 번역만 선택합니다. 번역이 없으면 로컬라이즈된 글 URL을 생성하지 않습니다.
 
 핵심은 **기존 콘텐츠 컬렉션 스키마를 수정하지 않는 것**입니다. Astro의 glob 로더가 하위 디렉토리의 파일을 자동으로 인식하여 `en/astro-performance-tuning` 같은 ID를 생성하므로 설정 변경이 불필요합니다.
 
@@ -349,11 +352,14 @@ export function getLocalizedAuthor(author: Author, locale: Locale) {
 
 ### 사이트맵 hreflang 지원
 
-`@astrojs/sitemap`의 `i18n` 옵션을 설정하여 사이트맵에 `xhtml:link rel="alternate"` 태그를 자동 출력합니다.
+`@astrojs/sitemap`의 `i18n` 옵션과 번역 파일 존재 여부를 확인하는 필터를 함께 사용합니다. sitemap에는 실제 언어 버전만 포함하고 해당 `xhtml:link rel="alternate"` 태그를 자동 출력합니다.
 
 ```javascript
 // astro.config.mjs
 sitemap({
+  filter(page) {
+    return !isMissingLocalizedBlogPost(page)
+  },
   i18n: {
     defaultLocale: 'ja',
     locales: {
@@ -371,7 +377,7 @@ sitemap({
 })
 ```
 
-모든 URL에 9개 언어의 hreflang 링크가 출력되어 Google이 언어 버전 간의 대응 관계를 정확히 파악할 수 있습니다.
+9개 언어가 모두 있는 글에는 9개 언어의 hreflang 클러스터를 출력합니다. 일본어만 있는 글은 존재하지 않는 현지화 URL을 연결하지 않고 독립된 일본어 sitemap 항목으로 유지합니다.
 
 ### JSON-LD 구조화 데이터 언어 지원
 
@@ -403,7 +409,7 @@ export const getStaticPaths = () =>
 
 ## 정리
 
-Astro 6의 내장 i18n 기능을 활용하여 정적 사이트에서도 고품질 다국어 지원을 구현했습니다.
+현재 사이트는 Astro 7.1.3의 내장 i18n 기능을 사용해 다국어 정적 출력을 생성합니다.
 
 - **i18n 기반**: Astro의 `prefixDefaultLocale: false`로 일본어 접두사 없음
 - **UI 번역**: View 컴포넌트 패턴으로 로직 중복 제로
@@ -411,7 +417,7 @@ Astro 6의 내장 i18n 기능을 활용하여 정적 사이트에서도 고품�
 - **태그 번역**: URL은 일본어 slug, 표시 이름은 언어별 번역
 - **저자 데이터 번역**: bio와 skills가 언어별로 전환
 - **SEO**: 사이트맵 hreflang, JSON-LD `inLanguage`, 다국어 RSS 피드
-- **폴백**: 미번역 글은 자동으로 일본어 버전 표시
+- **번역 누락**: 로컬라이즈된 글 URL은 생성하지 않고 일본어 글은 원래 URL에서 계속 공개
 - **CMS 지원**: Pages CMS에서 각 언어의 글을 개별 편집 가능
 
-향후 새 글이 게시될 때마다 번역 파일을 점진적으로 추가할 예정입니다. 폴백 기능 덕분에 번역이 완료될 때까지 일본어 버전이 표시되어 사이트 품질이 유지됩니다.
+번역 파일은 앞으로도 점진적으로 추가합니다. 번역이 생기기 전에는 일본어 글만 공개하며, locale 파일을 추가하면 해당 언어의 글 URL, sitemap 항목, hreflang 관계가 활성화됩니다.

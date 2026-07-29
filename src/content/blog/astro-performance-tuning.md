@@ -1,8 +1,8 @@
 ---
-title: 'AstroサイトのPageSpeedモバイル99点を達成する実践テクニック'
-description: 'Astro + UnoCSS + Cloudflare Pages 構成のサイトで PageSpeed Insights モバイル99点を達成するまでに行った最適化テクニックを紹介します。CSS配信戦略・フォント設定の罠・レスポンシブ画像・AdSense遅延読み込み・キャッシュ設定まで、実践的な手法をまとめました。'
+title: 'AstroサイトのPageSpeedを改善する実践テクニック'
+description: 'Astro + UnoCSS + Cloudflare Pages 構成のサイトで行う最適化を紹介します。CSS配信戦略・フォント設定・レスポンシブ画像・AdSenseの読み込み制御・GA4の遅延読み込み・キャッシュ設定を、現行実装に合わせてまとめました。'
 date: 2026-03-15T00:00
-lastUpdated: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:23+09:00'
 author: gui
 tags: ['技術', 'Astro', 'パフォーマンス']
 image: /uploads/acecore-generated/blog-astro-performance-tuning.webp
@@ -17,65 +17,58 @@ processFigure:
       description: インライン展開と外部ファイルのトレードオフを理解する。
       icon: i-lucide-file-code
     - title: フォントの最適化
-      description: セルフホストで外部CDNの遅延を排除する。
+      description: 実際に読み込まれ、描画に使われるフォントを確認する。
       icon: i-lucide-type
     - title: 画像の最適化
-      description: Cloudflare Images + srcset + sizes で最適サイズを配信。
+      description: 外部画像を Cloudflare Images + srcset + sizes で最適化。
       icon: i-lucide-image
-    - title: 遅延読み込み
-      description: AdSense・GA4を初回操作時に注入する。
+    - title: 読み込み制御
+      description: AdSenseの初回試行と再試行、GA4の遅延読み込みを確認する。
       icon: i-lucide-timer
 compareTable:
   title: 最適化前後の比較
   before:
     label: 最適化前
     items:
-      - Google Fonts CDN（レンダーブロッキング）
-      - 190 KiB のCSSをHTMLにインライン展開
+      - フォントの接続・描画結果を確認しない
+      - CSSの出力とキャッシュを確認しない
       - 画像は固定サイズで配信
       - AdSense スクリプトを即時読み込み
-      - モバイル70点台
+      - 固定スコアだけを追い、計測条件を記録しない
   after:
     label: 最適化後
     items:
-      - '@fontsource でセルフホスト（正しいフォント名で参照）'
-      - CSSを外部ファイル化しimmutableキャッシュで配信
+      - フォントのネットワーク取得と描画結果を確認
+      - 大きいCSSを外部化し、ハッシュ付きアセットをimmutableキャッシュで配信
       - srcset + sizes で画面幅に応じた最適サイズを配信
-      - AdSense・GA4を初回スクロール時に遅延読み込み
-      - モバイル99点・デスクトップ100点
+      - AdSenseは表示可能性を確認して初回試行しObserverで再試行、GA4は操作またはタイマーで読み込み
+      - PageSpeed Insightsを同じ条件で継続計測
 faq:
   title: よくある質問
   items:
     - question: CSSはインライン化と外部ファイル化、どちらが速いですか？
-      answer: 'CSSの総量によります。20 KiB 以下ならインライン化が有利です。それ以上の場合は外部ファイル化してブラウザキャッシュを活かすほうが、2回目以降のアクセスが大幅に高速化します。'
+      answer: "CSSの量、ページ構成、キャッシュ状態によります。現行の build.inlineStylesheets: 'auto' に任せたうえで、生成HTMLとCSSファイルを確認し、同じ条件で計測します。"
     - question: Google Fonts CDN はなぜ遅いのですか？
-      answer: 'PageSpeed Insights はslow 4G（約1.6 Mbps、RTT 150ms）をシミュレートします。外部ドメインへの接続にはDNS lookup + TCP接続 + TLSハンドシェイクが必要で、この遅延がレンダーブロッキングになります。セルフホストなら同一ドメインから配信されるため、この遅延がゼロになります。'
+      answer: '外部ドメインへの接続ではDNS lookup、TCP接続、TLSハンドシェイクなどが追加されます。影響はネットワークやキャッシュ状態で変わるため、実際のリクエストと描画フォントを確認して判断します。'
     - question: Cloudflare Images が遅い場合はどうすればいいですか？
-      answer: 'Cloudflare Images は通常は高速ですが、初回変換やキャッシュミス時は元画像の取得待ちが発生します。PageSpeed計測時にLCPが悪化する場合は、重要な画像に <link rel="preload"> を設定し、ブラウザに早期取得を指示しましょう。'
-    - question: AdSense を遅延読み込みしても収益に影響しませんか？
-      answer: 'ファーストビューに広告がない場合、初回スクロール時の読み込みでも表示タイミングはほぼ同じです。ページ速度改善によるSEO効果のほうがプラスに働きます。'
+      answer: 'Cloudflare Images の速度は元画像、変換、キャッシュ状態で変わります。初回変換やキャッシュミスでは元画像の取得待ちが発生するため、LCP候補を同じ条件で計測し、必要な画像だけ responsive preload を検討します。'
+    - question: AdSense の読み込み制御は収益に影響しませんか？
+      answer: '影響は広告位置や閲覧行動で変わるため一律には判断できません。表示率、広告リクエスト、収益などを変更前後で確認し、パフォーマンス指標とは分けて評価します。'
 ---
 
 ## はじめに
 
-Acecore の公式サイトは Astro 6 + UnoCSS + Cloudflare Pages で構築しています。この記事では、PageSpeed Insights で **モバイル99点・デスクトップ100点** を達成するまでに行った最適化テクニックを紹介します。
+Acecore の公式サイトは Astro 7.1.3 + UnoCSS + Cloudflare Pages で構築しています。この記事では、2026年7月29日時点のリポジトリで確認できる最適化設定を紹介します。
 
-最終的に達成したスコアは以下の通りです。
-
-| 指標           | モバイル | デスクトップ |
-| -------------- | -------- | ------------ |
-| Performance    | **99**   | **100**      |
-| Accessibility  | **100**  | **100**      |
-| Best Practices | **100**  | **100**      |
-| SEO            | **100**  | **100**      |
+PageSpeed Insights の結果は計測時点、端末、ネットワーク条件で変わるため、固定スコアとしては掲載しません。変更前後を同じ条件で計測し、Core Web Vitalsと転送量を確認します。
 
 ---
 
 ## なぜ Astro を選んだのか
 
-コーポレートサイトに求められるのは「速さ」と「SEO」です。Astro は静的サイト生成（SSG）に特化しており、デフォルトでゼロ JavaScript を実現します。React や Vue のようなフレームワーク成分がクライアントに送られないため、初期表示が非常に高速です。
+Astro は静的サイト生成（SSG）を利用でき、必要な箇所だけクライアントJavaScriptを追加できます。現行サイトにもClientRouter、検索、広告、計測などのスクリプトがあるため「ゼロJavaScript」とは扱わず、実際の配信量と表示指標を計測します。
 
-CSS フレームワークには UnoCSS を採用しました。Tailwind CSS と同様のユーティリティファーストなアプローチですが、ビルド時に使用クラスだけを抽出するため CSS サイズが最小になります。v66 からは `presetWind3()` が推奨されているため、移行しておきましょう。
+CSSには UnoCSS と `presetWind3()` を使用しています。ビルド時に検出したユーティリティからCSSを生成するため配信量を抑えられる場合がありますが、最小サイズを保証するものではありません。生成CSSと利用されるクラスを確認します。
 
 SEOや構造化データまで含めたWebサイト全体の改善は、[Astroサイトの品質改善ガイド](/blog/website-improvement-batches/)で横断的にまとめています。
 
@@ -83,19 +76,19 @@ SEOや構造化データまで含めたWebサイト全体の改善は、[Astro�
 
 ## CSSの配信戦略：インライン vs 外部ファイル
 
-PageSpeedスコアに最もインパクトがあったのが、CSSの配信戦略です。
+CSSの配信方法は、生成HTMLの大きさ、追加リクエスト、ブラウザキャッシュに影響します。
 
-### CSSサイズが小さい場合（〜20 KiB）
+### CSSをインライン化する場合
 
-Astro の `build.inlineStylesheets: 'always'` を設定すると、すべてのCSSがHTMLに直接埋め込まれます。外部CSSファイルへのHTTPリクエストが不要になるため、FCP（First Contentful Paint）が改善します。
+Astro の `build.inlineStylesheets: 'always'` を設定すると、すべてのCSSがHTMLに直接埋め込まれます。外部CSSファイルへのHTTPリクエストが不要になり、構成によってはFCP（First Contentful Paint）が改善する場合があります。
 
-CSSが20 KiB程度までなら、この方式が最適です。
+有利になる条件はCSS量やページ構成で変わるため、固定の閾値だけでは判断しません。
 
-### CSSサイズが大きい場合（20 KiB〜）
+### CSSを外部ファイルにする場合
 
-しかし日本語Webフォント（`@fontsource-variable/noto-sans-jp`）を使うと状況が変わります。このパッケージは **124個の `@font-face` 宣言**（約96.7 KiB）を含んでおり、CSS全体が190 KiB前後になります。
+ページ間で共有するCSSを外部ファイルにすると、ハッシュ付きファイルをブラウザキャッシュで再利用できます。
 
-190 KiB のCSSをすべてのHTMLにインライン展開すると、トップページのHTMLが **225 KiB** に膨らみます。slow 4Gでは、このHTML転送だけで約1秒かかる計算です。
+現行サイトでは `build.inlineStylesheets: 'auto'` を使い、生成結果を確認しながら調整しています。
 
 ### 解決策：外部ファイル化 + immutableキャッシュ
 
@@ -117,53 +110,34 @@ export default defineConfig({
   Cache-Control: public, max-age=31536000, immutable
 ```
 
-この変更により、HTMLサイズが **84〜91%削減**（例：index.html が 225 KiB → 35 KiB）され、PageSpeedスコアが **96点 → 99点** に向上しました。
+変更後は生成HTML、CSSファイル、キャッシュ動作を確認し、同じ条件でPageSpeed Insightsを再計測します。
 
 ---
 
-## フォントの最適化：セルフホストの正しい設定
+## フォントの最適化：実際の配信を確認する
 
-### Google Fonts CDN は避ける
+### 外部配信とローカル配信を比較する
 
-Google Fonts CDN は手軽ですが、PageSpeed Insights のモバイルテストでは致命的です。実際にテストしたところ、Google Fonts CDN を使った状態で **FCP 6.1秒・スコア62点** まで低下しました。
+外部フォントは追加の接続が必要になる場合があります。一方、ローカル配信もフォントファイルとCSSをサイトから送るため、どちらが適切かは同じ条件で比較します。
 
-slow 4G で外部ドメインに接続すると、DNS lookup → TCP接続 → TLSハンドシェイク → CSSダウンロード → フォントダウンロードというチェーンが発生し、レンダリングが大幅に遅延します。
+ネットワークパネルでフォントのリクエスト、キャッシュ、転送量を確認し、Rendered Fontsなどで実際に描画へ使われたフォントも確認します。
 
-### セルフホストの導入
+### 現行リポジトリの状態
 
-`@fontsource-variable/noto-sans-jp` をインストールし、レイアウトファイルで import するだけです。
+`package.json` には `@fontsource/noto-sans-jp` がありますが、2026年7月29日時点では `src` からこのパッケージを import していません。依存関係に存在するだけでは、フォントが配信されているとは判断できません。
 
-```bash
-npm install @fontsource-variable/noto-sans-jp
-```
-
-```javascript
-// BaseLayout.astro
-import '@fontsource-variable/noto-sans-jp'
-```
-
-### 注意：フォント名の不一致
-
-ここで意外な落とし穴があります。`@fontsource-variable/noto-sans-jp` が `@font-face` で登録するフォント名は **`Noto Sans JP Variable`** です。しかし多くの人は CSS で `Noto Sans JP` と書いてしまいます。
-
-この不一致があると、**フォントが正しく適用されず、ブラウザのフォールバックフォントが使われ続けます**。せっかく96.7 KiB のフォントデータを読み込んでいるのに、全く使われていない状態です。
-
-UnoCSS の設定でフォントファミリーを正しく指定しましょう。
+現行の UnoCSS は次のフォントスタックを指定しています。
 
 ```typescript
 // uno.config.ts
 theme: {
   fontFamily: {
-    sans: "'Noto Sans JP Variable', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif",
+    sans: "'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic', 'Meiryo', system-ui, sans-serif",
   },
 }
 ```
 
-TypeScript の型エラーが出る場合は、`src/env.d.ts` にモジュール宣言を追加します。
-
-```typescript
-declare module '@fontsource-variable/noto-sans-jp'
-```
+この指定だけでWebフォントがダウンロードされるわけではありません。セルフホストを採用する場合は、明示的なimport、生成CSSとフォントファイル、描画結果をまとめて確認します。
 
 ---
 
@@ -171,27 +145,33 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ### Cloudflare Images Transformations
 
-外部画像は Cloudflare Images の `/_cdn-cgi/image/` 変換URLを経由して配信します。変換パラメータを付けるだけで以下の処理が自動的に行われます。
+現行ユーティリティは外部画像だけを Cloudflare Images の `/cdn-cgi/image/` 変換URLで配信します。ルート相対の `/uploads/...` と自社管理の `asv.acecore.net/uploads/...` は直接配信します。
 
 - **フォーマット変換**：`format=auto` でブラウザ対応に応じて AVIF / WebP を自動選択
-- **品質調整**：`quality=50` で十分な画質を維持しつつファイルサイズを削減
+- **品質調整**：現行ユーティリティの既定値は `quality=75`。用途に応じて実画像を確認して調整
 - **リサイズ**：`width=` / `height=` パラメータで指定サイズに変換
 
 ### srcset と sizes の設定
 
-すべての画像に `srcset` と `sizes` を設定し、画面幅に応じた最適なサイズを配信します。
+レスポンシブ配信する外部画像には、ユーティリティから `srcset` と `sizes` を設定します。
 
-```html
+```astro
+---
+import { generateSrcSet, optimizeImage } from '../utils/image'
+
+const remoteImage =
+  'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=400&fit=crop'
+---
+
 <img
-  src="/cdn-cgi/image/width=800,fit=cover,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp"
-  srcset="
-    /cdn-cgi/image/width=480,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   480w,
-    /cdn-cgi/image/width=640,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   640w,
-    /cdn-cgi/image/width=960,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp   960w,
-    /cdn-cgi/image/width=1280,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1280w,
-    /cdn-cgi/image/width=1600,fit=scale-down,format=auto,quality=50,metadata=none//uploads/acecore-generated/blog-astro-performance-tuning.webp 1600w
-  "
+  src={optimizeImage(remoteImage, { width: 800, height: 400, quality: 75 })}
+  srcset={generateSrcSet(remoteImage, [480, 640, 960, 1280, 1600], {
+    quality: 75,
+    aspectRatio: 2,
+  })}
   sizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  width="800"
+  height="400"
   loading="lazy"
   decoding="async"
 />
@@ -203,50 +183,61 @@ declare module '@fontsource-variable/noto-sans-jp'
 
 ### LCPの改善：preload
 
-LCP（Largest Contentful Paint）に影響する画像には `<link rel="preload">` を設定します。Astro のレイアウトコンポーネントに `preloadImage` props を追加し、トップページのヒーロー画像など、最優先で読み込む画像を指定します。
+実際にLCP候補になる画像だけをpreloadします。レスポンシブ画像では、レイアウトが出力する `href`、`imagesrcset`、`imagesizes` を画像本体と一致させ、`fetchpriority="high"` を指定します。候補外の画像までpreloadすると競合が増えるため、計測して選びます。
 
 ```html
-<link rel="preload" as="image" href="..." />
+<link
+  rel="preload"
+  as="image"
+  href="..."
+  imagesrcset="..."
+  imagesizes="(max-width: 768px) calc(100vw - 2rem), 800px"
+  fetchpriority="high"
+/>
 ```
 
 ### CLS（レイアウトシフト）の防止
 
-すべての画像に `width` と `height` 属性を明示します。ブラウザが画像の表示領域を事前に確保するため、読み込み完了時のレイアウトずれ（CLS）を防止できます。
+画像には、実画像と同じアスペクト比になる正確な `width` と `height` を指定します。値が正しければブラウザは表示領域を事前に確保できますが、属性があるだけでCLSを防げるとは限りません。現行のhero画像やMarkdown画像のrewriteにも固定値があるため、実画像と比率が一致するか、実測CLSとあわせて確認します。
 
 特に忘れがちなのはアバター画像（32×32、48×48、64×64px）や YouTube サムネイル（480×360px）です。
 
 ---
 
-## 広告・アナリティクスの遅延読み込み
+## 広告の読み込み制御・アナリティクスの遅延読み込み
 
 ### AdSense
 
-Google AdSense のスクリプトは約100 KiB あり、初期表示に大きく影響します。ユーザーが初めてスクロールしたタイミングで動的にスクリプトを注入する方式にします。
+日本語の `/blog/` で有効な現行runtimeは、各広告スロットに `IntersectionObserver`（`rootMargin: 200px`）と `ResizeObserver` を登録した後、表示可能性を確認して初回の `attemptInit()` を実行します。初回試行はintersectionを待たないため、表示可能な幅があればすぐ広告リクエストを開始する場合があります。Observerは接近やサイズ変更時の再試行に使います。locale prefix付きの翻訳URLには広告スロットが挿入されますが、現状ではruntimeは読み込まれません。
 
 ```javascript
-window.addEventListener(
-  'scroll',
-  () => {
-    const script = document.createElement('script')
-    script.src = 'https://pagead2.googlesyndication.com/...'
-    script.async = true
-    document.head.appendChild(script)
+const retry = () => void attemptInit()
+const intersectionObserver = new IntersectionObserver(
+  (entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      retry()
+    }
   },
-  { once: true },
+  { rootMargin: '200px' },
 )
+const resizeObserver = new ResizeObserver(retry)
+
+intersectionObserver.observe(container)
+resizeObserver.observe(container)
+void attemptInit() // intersectionを待たず初回試行
 ```
 
-`{ once: true }` でイベントリスナーは1回だけ発火します。これにより、ファーストビューの JavaScript 転送量をゼロに近づけます。
+`attemptInit()` はスロット幅や表示状態を確認し、初期化済み属性で二重リクエストも防ぎます。
 
 ### GA4
 
-Google Analytics 4 も同様に `requestIdleCallback` で遅延注入します。ブラウザがアイドル状態になったタイミングでスクリプトを注入するため、ユーザーの操作を妨げません。
+Google Analytics 4 は `pointerdown`、`keydown`、`touchstart`、`scroll` のいずれかで読み込みを予約し、`requestIdleCallback` が使える場合はアイドル時に実行します。未対応ブラウザでは `setTimeout` を使い、操作がない場合もトップページは12秒、その他のページは4秒後に読み込みを予約する fallback を設けています。
 
 ---
 
 ## キャッシュ戦略
 
-Cloudflare Pages の `_headers` ファイルで、アセットごとに最適なキャッシュポリシーを設定します。
+Cloudflare Pages の `_headers` にある現行設定を確認します。次の値は現在値であり、すべてのファイルに最適とは限りません。
 
 ```
 # ビルド出力（ハッシュ付きファイル名）
@@ -263,29 +254,29 @@ Cloudflare Pages の `_headers` ファイルで、アセットごとに最適な
 ```
 
 - `/_astro/*` はファイル名にハッシュが含まれるため、1年間のimmutableキャッシュが安全
-- `/pagefind/*` は1週間キャッシュ + 1日間の stale-while-revalidate
-- HTMLは常に最新版を取得
+- `/pagefind/*` は現在1週間キャッシュ + 1日間の stale-while-revalidate。固定名の `pagefind-entry.json` がハッシュ付きmetadataを参照するため、世代不整合を避けるにはentry/bootstrapを再検証し、長期キャッシュはハッシュ付きchunkだけに限定する方が安全
+- HTMLは `max-age=0, must-revalidate` により、キャッシュを再利用する前に再検証
 
 ---
 
 ## パフォーマンス最適化のチェックリスト
 
-1. **CSSの配信戦略は適切か**：20 KiB以下ならインライン、それ以上なら外部ファイル
-2. **フォントはセルフホストか**：外部CDNは slow 4G で致命的
-3. **フォント名は正しいか**：`@fontsource-variable` の登録名（`*Variable`）を確認
-4. **すべての画像に srcset + sizes があるか**：特にモバイル向けの小さいサイズを用意
-5. **LCP要素に preload があるか**：ヒーロー画像やファーストビューの画像
-6. **画像に width / height があるか**：CLSの防止
-7. **AdSense / GA4 は遅延読み込みか**：ファーストビューのJS転送量をゼロに
-8. **キャッシュヘッダーは設定されているか**：immutableキャッシュで2回目以降を高速化
+1. **CSSの配信戦略は適切か**：`auto` の生成結果と同じ条件での計測を確認
+2. **フォント配信を比較したか**：同じ条件でセルフホストと外部CDNを計測
+3. **フォントの実配信を確認したか**：ネットワーク取得とRendered Fontsを確認
+4. **レスポンシブ配信対象に srcset + sizes があるか**：特にモバイル向けの小さいサイズを用意
+5. **実際のLCP候補だけを preload しているか**：レスポンシブ画像はsrcset・sizes・priorityも一致させる
+6. **画像の width / height が正確か**：実画像と同じアスペクト比か確認し、CLSを実測
+7. **AdSense / GA4 の制御は適切か**：AdSenseの初回試行とObserver再試行、GA4の操作・timer fallbackを確認
+8. **キャッシュヘッダーは設定されているか**：immutableはハッシュ付きアセットに限定
 
 ---
 
 ## まとめ
 
-パフォーマンス最適化の原則は **「不要なものを送らない」** の一言に尽きます。CSSのインライン展開は一見速そうに見えますが、190 KiB では逆効果になります。フォントのセルフホストは必須ですが、フォント名の不一致という罠があります。
+パフォーマンス最適化の原則は **「不要なものを送らない」** です。CSS配信は実際の出力で確認し、フォントのセルフホストはサイトの計測結果と運用に合う場合に選べる方式の一つです。
 
-Astro のゼロ JS アーキテクチャをベースに、CSS・フォント・画像・広告スクリプトそれぞれで転送量を最小化していけば、モバイル99点は十分に到達可能です。
+固定スコアを成果として扱うのではなく、同じ計測条件で Core Web Vitals と転送量を確認し、広告や計測の動作も含めて継続的に調整します。
 
 ---
 

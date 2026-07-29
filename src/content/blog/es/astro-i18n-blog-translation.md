@@ -1,7 +1,8 @@
 ---
-title: 'Cómo hacer que un sitio Astro 6 soporte 9 idiomas ― Traducción automática de 168 artículos y arquitectura multilingüe'
-description: 'Registro de la internacionalización de un sitio Astro 6 + UnoCSS + Cloudflare Pages a 9 idiomas. Cubre todo el proceso desde la internacionalización de la UI hasta la traducción de 168 artículos y la configuración multilingüe de Pages CMS.'
+title: 'Cómo hacer que un sitio Astro 7 soporte 9 idiomas ― Traducción del blog y arquitectura multilingüe'
+description: 'Registro de la internacionalización de un sitio Astro 7.1.3 + UnoCSS + Cloudflare Pages a 9 idiomas. Cubre todo el proceso desde la internacionalización de la UI hasta la traducción del blog y la configuración multilingüe de Pages CMS.'
 date: 2026-03-25T00:00
+lastUpdated: '2026-07-29T00:28:02+09:00'
 author: gui
 tags: ['技術', 'Astro', 'i18n', 'Webサイト']
 image: /uploads/acecore-generated/blog-astro-i18n-blog-translation.webp
@@ -15,7 +16,7 @@ processFigure:
       description: Traducir los textos de encabezado, pie de página y todos los componentes.
       icon: i-lucide-languages
     - title: Traducción de artículos
-      description: Generar 168 archivos de traducción (21 artículos × 8 idiomas).
+      description: Generar 168 archivos de traducción en el despliegue inicial (21 artículos × 8 idiomas).
       icon: i-lucide-file-text
     - title: CMS y verificación de build
       description: Configurar Pages CMS multilingüe y verificar la generación de todas las páginas.
@@ -32,11 +33,11 @@ compareTable:
       - Etiquetas y datos de autor solo en japonés
       - 1 solo feed RSS
   after:
-    label: 9 idiomas
+    label: 9 idiomas (despliegue inicial)
     items:
       - Japonés + 8 idiomas (en, zh-cn, es, pt, fr, ko, de, ru)
       - 23 artículos + 168 traducciones = 191 en total
-      - 621 páginas generadas (artículos traducidos con fallback)
+      - 621 páginas generadas en el despliegue inicial
       - Pages CMS con 9 colecciones por idioma
       - 25 etiquetas y datos de autor traducidos por idioma
       - Feeds RSS multilingües (9 idiomas)
@@ -48,10 +49,10 @@ statBar:
   items:
     - value: '9'
       label: Idiomas soportados
-    - value: '168'
-      label: Artículos traducidos
-    - value: '621'
-      label: Páginas generadas
+    - value: '208'
+      label: Artículos traducidos (a 29 de julio de 2026)
+    - value: '652'
+      label: Páginas generadas (a 29 de julio de 2026)
 faq:
   title: Preguntas frecuentes
   items:
@@ -60,12 +61,12 @@ faq:
     - question: ¿Cómo se garantiza la calidad de la traducción?
       answer: 'Usamos traducción por IA con GitHub Copilot. Primero se crea la versión en inglés como idioma intermedio, luego se traduce desde el inglés a cada idioma destino para reducir la variación de calidad. Los valores de etiquetas en frontmatter se mantienen en japonés, y las URLs, bloques de código y rutas de imágenes no se modifican.'
     - question: ¿Qué ocurre cuando no existe un artículo traducido?
-      answer: 'La función de fallback muestra el artículo original en japonés cuando no existe traducción. Las traducciones pueden añadirse de forma incremental.'
+      answer: 'Si falta el archivo de traducción de un locale, no se genera una URL localizada para el artículo. El artículo japonés sigue disponible en su URL original y el selector de idioma enlaza al índice del blog del locale de destino.'
     - question: ¿Es necesario traducir al añadir un nuevo artículo?
-      answer: 'No es obligatorio — si no existe archivo de traducción, se muestra la versión japonesa como fallback. Para añadir una traducción, basta con colocar un archivo Markdown con el mismo nombre en el directorio del idioma correspondiente.'
+      answer: 'No es necesario traducir para publicar el artículo japonés. Añadir un archivo Markdown con el mismo nombre al directorio del idioma habilita la URL, la entrada de sitemap y la relación hreflang de ese locale.'
 ---
 
-Actualizamos el sitio web oficial de Acecore de solo japonés a soporte para 9 idiomas. Este artículo cubre todo el proceso: internacionalización de la UI, traducción de 21 artículos × 8 idiomas = 168 archivos, y configuración multilingüe de Pages CMS.
+Actualizamos el sitio web oficial de Acecore de solo japonés a soporte para 9 idiomas. En el despliegue inicial se tradujeron 21 artículos a 8 idiomas, generando 168 archivos. A 29 de julio de 2026, el repositorio contiene 29 artículos en japonés y 208 traducciones, 237 archivos de artículo en total, y el build genera 652 páginas. Solo se publican URLs localizadas cuando existe el archivo de traducción.
 
 ## Estrategia multilingüe
 
@@ -75,7 +76,7 @@ Abordamos el soporte multilingüe en tres fases:
 
 1. **Base i18n**: Configuración de enrutamiento i18n integrado de Astro, utilidades de traducción y archivos JSON de traducción para 9 idiomas
 2. **Traducción de textos UI**: Textos de componentes en encabezado, pie de página, barra lateral y todas las páginas
-3. **Traducción de artículos**: Los 21 artículos traducidos a 8 idiomas (168 archivos generados)
+3. **Traducción de artículos**: 21 artículos traducidos a 8 idiomas en el despliegue inicial (168 archivos generados)
 
 ### Diseño de URLs
 
@@ -188,6 +189,8 @@ export function localizePost(
   return allPosts.find((p) => p.id === `${locale}/${post.id}`) ?? post
 }
 ```
+
+`localizePost()` sigue devolviendo el artículo original como medida de seguridad, pero las rutas públicas y los listados usan `isPostAvailableInLocale()` y filtros para seleccionar solo traducciones reales. No se genera una URL localizada cuando falta la traducción.
 
 El punto clave es **no modificar el esquema existente de la colección de contenido**. El loader glob de Astro reconoce automáticamente los archivos en subdirectorios con IDs como `en/astro-performance-tuning`, sin necesidad de cambios de configuración.
 
@@ -349,11 +352,14 @@ Para maximizar los beneficios SEO del soporte multilingüe, implementamos mecani
 
 ### Soporte hreflang en sitemap
 
-Se configuró la opción `i18n` de `@astrojs/sitemap` para generar automáticamente etiquetas `xhtml:link rel="alternate"` en el sitemap.
+La opción `i18n` de `@astrojs/sitemap` se combina con un filtro que comprueba si existe el archivo de traducción. El sitemap incluye solo versiones reales y genera automáticamente sus etiquetas `xhtml:link rel="alternate"`.
 
 ```javascript
 // astro.config.mjs
 sitemap({
+  filter(page) {
+    return !isMissingLocalizedBlogPost(page)
+  },
   i18n: {
     defaultLocale: 'ja',
     locales: {
@@ -371,7 +377,7 @@ sitemap({
 })
 ```
 
-Esto genera enlaces hreflang para los 9 idiomas en cada URL, permitiendo que Google comprenda con precisión la correspondencia entre versiones de idioma.
+Los artículos disponibles en los 9 idiomas reciben un clúster hreflang de 9 idiomas. Un artículo disponible solo en japonés permanece como una entrada japonesa independiente, sin enlazar URLs localizadas inexistentes.
 
 ### Soporte de idioma en datos estructurados JSON-LD
 
@@ -403,7 +409,7 @@ El `<link rel="alternate" type="application/rss+xml">` en `BaseLayout.astro` tam
 
 ## Resumen
 
-Aprovechando las funcionalidades i18n integradas de Astro 6, logramos soporte multilingüe de alta calidad incluso en un sitio estático.
+El sitio utiliza actualmente las funciones i18n integradas de Astro 7.1.3 para generar la versión estática multilingüe.
 
 - **Base i18n**: Sin prefijo para japonés con `prefixDefaultLocale: false` de Astro
 - **Traducción de UI**: Cero duplicación de lógica mediante el Patrón View Component
@@ -411,7 +417,7 @@ Aprovechando las funcionalidades i18n integradas de Astro 6, logramos soporte mu
 - **Traducción de etiquetas**: Slugs en japonés en URLs, nombres visibles traducidos por idioma
 - **Traducción de datos de autor**: Bio y habilidades cambian según el idioma
 - **SEO**: Hreflang en sitemap, `inLanguage` en JSON-LD, feeds RSS multilingües
-- **Fallback**: Los artículos sin traducción muestran automáticamente la versión japonesa
+- **Traducciones ausentes**: No se genera una URL localizada; el artículo japonés permanece en su URL original
 - **Soporte CMS**: Los artículos de cada idioma son editables individualmente en Pages CMS
 
-En adelante, los archivos de traducción se añadirán de forma incremental a medida que se publiquen nuevos artículos. Gracias a la función de fallback, la versión japonesa se muestra hasta que las traducciones estén completas, manteniendo la calidad del sitio.
+Los archivos de traducción se seguirán añadiendo de forma incremental. Hasta que exista una traducción, solo se publica el artículo japonés; al añadir el archivo del locale se habilitan su URL, su entrada de sitemap y su relación hreflang.
