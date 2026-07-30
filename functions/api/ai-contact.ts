@@ -56,6 +56,7 @@ type WorkersAiResponseContent = {
 
 type WorkersAiChoice = {
   text?: string
+  finish_reason?: string
   message?: {
     content?: string | WorkersAiResponseContent[]
   }
@@ -67,6 +68,7 @@ type WorkersAiChoice = {
 type WorkersAiTextGenerationResponse = {
   response?: string
   output_text?: string
+  finish_reason?: string
   choices?: WorkersAiChoice[]
   output?: Array<{
     type?: string
@@ -127,6 +129,7 @@ type LocaleSettings = {
   lineLabel: string
   emailLabel: string
   phoneLabel: string
+  officialSourceLabel: string
   messages: {
     unconfigured: string
     invalidRequest: string
@@ -136,6 +139,7 @@ type LocaleSettings = {
     rateLimited: string
     failed: string
     emptyAnswer: string
+    truncatedAnswer: string
   }
 }
 
@@ -146,6 +150,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'メール',
     phoneLabel: '電話',
+    officialSourceLabel: '公式の参照先',
     messages: {
       unconfigured:
         'AIチャットはまだ設定されていません。問い合わせフォームをご利用ください。',
@@ -159,6 +164,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       failed:
         'AIチャットで回答できませんでした。問い合わせフォームをご利用ください。',
       emptyAnswer: 'この内容は問い合わせフォームからご相談ください。',
+      truncatedAnswer:
+        '回答を最後まで生成できませんでした。次の公式情報をご確認ください。',
     },
   },
   en: {
@@ -167,6 +174,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'email',
     phoneLabel: 'phone',
+    officialSourceLabel: 'Official source',
     messages: {
       unconfigured:
         'AI chat is not configured yet. Please use the contact form.',
@@ -180,6 +188,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         'Too many messages were sent in a short time. Please wait a moment and try again.',
       failed: 'AI chat failed. Please use the contact form.',
       emptyAnswer: 'Please use the contact form for this question.',
+      truncatedAnswer:
+        'The answer could not be completed. Please check the official source below.',
     },
   },
   'zh-cn': {
@@ -188,6 +198,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: '邮件',
     phoneLabel: '电话',
+    officialSourceLabel: '官方参考',
     messages: {
       unconfigured: 'AI 聊天尚未设置。请使用咨询表单。',
       invalidRequest: '请求格式不正确。',
@@ -197,6 +208,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       rateLimited: '短时间内发送次数过多。请稍后再试。',
       failed: 'AI 聊天无法回答。请使用咨询表单。',
       emptyAnswer: '此问题请通过咨询表单联系我们。',
+      truncatedAnswer: '回答未能完整生成。请查看下方官方参考。',
     },
   },
   es: {
@@ -205,6 +217,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'correo',
     phoneLabel: 'teléfono',
+    officialSourceLabel: 'Fuente oficial',
     messages: {
       unconfigured:
         'El chat de IA aún no está configurado. Utiliza el formulario de contacto.',
@@ -219,6 +232,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       failed:
         'El chat de IA no pudo responder. Utiliza el formulario de contacto.',
       emptyAnswer: 'Para esta consulta, utiliza el formulario de contacto.',
+      truncatedAnswer:
+        'No se pudo completar la respuesta. Consulta la fuente oficial indicada abajo.',
     },
   },
   pt: {
@@ -227,6 +242,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'e-mail',
     phoneLabel: 'telefone',
+    officialSourceLabel: 'Fonte oficial',
     messages: {
       unconfigured:
         'O chat de IA ainda não está configurado. Use o formulário de contato.',
@@ -240,6 +256,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       failed:
         'O chat de IA não conseguiu responder. Use o formulário de contato.',
       emptyAnswer: 'Para esta pergunta, use o formulário de contato.',
+      truncatedAnswer:
+        'Não foi possível concluir a resposta. Consulte a fonte oficial abaixo.',
     },
   },
   fr: {
@@ -248,6 +266,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'e-mail',
     phoneLabel: 'téléphone',
+    officialSourceLabel: 'Source officielle',
     messages: {
       unconfigured:
         "Le chat IA n'est pas encore configuré. Veuillez utiliser le formulaire de contact.",
@@ -263,6 +282,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         "Le chat IA n'a pas pu répondre. Veuillez utiliser le formulaire de contact.",
       emptyAnswer:
         'Pour cette question, veuillez utiliser le formulaire de contact.',
+      truncatedAnswer:
+        "La réponse n'a pas pu être terminée. Consultez la source officielle ci-dessous.",
     },
   },
   ko: {
@@ -271,6 +292,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: '이메일',
     phoneLabel: '전화',
+    officialSourceLabel: '공식 출처',
     messages: {
       unconfigured:
         'AI 채팅이 아직 설정되어 있지 않습니다. 문의 양식을 이용해 주세요.',
@@ -283,6 +305,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
         '짧은 시간에 너무 많은 메시지가 전송되었습니다. 잠시 후 다시 시도해 주세요.',
       failed: 'AI 채팅에서 답변할 수 없습니다. 문의 양식을 이용해 주세요.',
       emptyAnswer: '이 내용은 문의 양식으로 상담해 주세요.',
+      truncatedAnswer:
+        '답변을 끝까지 생성하지 못했습니다. 아래 공식 출처를 확인해 주세요.',
     },
   },
   de: {
@@ -291,6 +315,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'E-Mail',
     phoneLabel: 'Telefon',
+    officialSourceLabel: 'Offizielle Quelle',
     messages: {
       unconfigured:
         'Der KI-Chat ist noch nicht eingerichtet. Bitte nutzen Sie das Kontaktformular.',
@@ -305,6 +330,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       failed:
         'Der KI-Chat konnte nicht antworten. Bitte nutzen Sie das Kontaktformular.',
       emptyAnswer: 'Bitte nutzen Sie für diese Frage das Kontaktformular.',
+      truncatedAnswer:
+        'Die Antwort konnte nicht vollständig erstellt werden. Bitte prüfen Sie die offizielle Quelle unten.',
     },
   },
   ru: {
@@ -313,6 +340,7 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
     lineLabel: 'LINE',
     emailLabel: 'email',
     phoneLabel: 'телефон',
+    officialSourceLabel: 'Официальный источник',
     messages: {
       unconfigured:
         'AI-чат еще не настроен. Пожалуйста, используйте форму обратной связи.',
@@ -327,6 +355,8 @@ const LOCALE_SETTINGS: Record<SupportedLocale, LocaleSettings> = {
       failed:
         'AI-чат не смог ответить. Пожалуйста, используйте форму обратной связи.',
       emptyAnswer: 'По этому вопросу воспользуйтесь формой обратной связи.',
+      truncatedAnswer:
+        'Не удалось завершить ответ. Проверьте официальный источник ниже.',
     },
   },
 }
@@ -598,7 +628,7 @@ export const onRequestPost = async ({
             content: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
           },
         ],
-        max_completion_tokens: 360,
+        max_completion_tokens: 640,
         reasoning_effort: normalizeReasoningEffort(
           env.CLOUDFLARE_AI_REASONING_EFFORT,
         ),
@@ -625,9 +655,21 @@ export const onRequestPost = async ({
     )
   }
 
-  const answer = sanitizeAnswerLinks(
-    extractWorkersAiText(result).trim(),
+  const generationHitLengthLimit = didWorkersAiHitLengthLimit(result)
+  const rawAnswer = generationHitLengthLimit
+    ? getLocalizedMessage(locale, 'truncatedAnswer')
+    : extractWorkersAiText(result).trim()
+  const sanitizedAnswer = sanitizeAnswerLinks(
+    rawAnswer,
     buildAllowedAnswerLinks(locale, groundingEntries),
+  )
+  const answer = appendMissingGroundingCitation(
+    sanitizedAnswer || getLocalizedMessage(locale, 'emptyAnswer'),
+    groundingEntries,
+    locale,
+    searchPlan.sourceIntent,
+    requiresAceserverWikiEvidence(searchPlan.query, searchPlan.currentQuery),
+    generationHitLengthLimit,
   )
   return jsonResponse({
     ok: true,
@@ -898,6 +940,18 @@ function extractChoiceText(choice: WorkersAiChoice): string {
   return ''
 }
 
+function didWorkersAiHitLengthLimit(
+  result: WorkersAiTextGenerationResponse | string | null,
+): boolean {
+  if (!result || typeof result === 'string') return false
+  if (result.finish_reason === 'length') return true
+  if (result.choices?.some((choice) => choice.finish_reason === 'length')) {
+    return true
+  }
+
+  return result.result ? didWorkersAiHitLengthLimit(result.result) : false
+}
+
 function buildConversationInput(payload: AiContactPayload): string {
   const messages = Array.isArray(payload.messages) ? payload.messages : []
   const lines = messages
@@ -1001,6 +1055,61 @@ function sanitizeAnswerLinks(
       }
     },
   )
+}
+
+function appendMissingGroundingCitation(
+  answer: string,
+  groundingEntries: FederatedGroundingEntry[],
+  locale: SupportedLocale,
+  sourceIntent: AiContactSourceIntent,
+  aceserverWikiRequired: boolean,
+  generationHitLengthLimit: boolean,
+): string {
+  if (!answer) return answer
+  if (groundingEntries.length === 0) {
+    if (!generationHitLengthLimit || sourceIntent !== 'acecore') return answer
+
+    return [
+      answer.trim(),
+      `${LOCALE_SETTINGS[locale].officialSourceLabel}: [Acecore](${localizedPath('/', locale)})`,
+    ].join('\n\n')
+  }
+
+  const preferredAceserverSource =
+    sourceIntent === 'aceserver'
+      ? aceserverWikiRequired
+        ? 'aceserverWiki'
+        : 'aceserverPortal'
+      : null
+  const preferredEntries = preferredAceserverSource
+    ? groundingEntries.filter(
+        ({ source }) => source === preferredAceserverSource,
+      )
+    : groundingEntries
+  const citationEntries =
+    preferredEntries.length > 0 ? preferredEntries : groundingEntries
+  const linkedTargets = new Set(
+    Array.from(
+      answer.matchAll(/\[[^\]\r\n]{1,200}\]\(\s*([^\s)]+)\s*\)/gu),
+      (match) => match[1],
+    ),
+  )
+  const hasGroundingCitation = citationEntries.some(({ url }) =>
+    linkedTargets.has(url),
+  )
+  if (hasGroundingCitation) return answer
+
+  const primaryEntry = citationEntries[0]
+  const title =
+    primaryEntry.title
+      .replace(/[\\[\]<>]/gu, '')
+      .replace(/\s+/gu, ' ')
+      .trim() || LOCALE_SETTINGS[locale].officialSourceLabel
+
+  return [
+    answer.trim(),
+    `${LOCALE_SETTINGS[locale].officialSourceLabel}: [${title}](${primaryEntry.url})`,
+  ].join('\n\n')
 }
 
 function jsonResponse(

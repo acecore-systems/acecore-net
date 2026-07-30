@@ -143,6 +143,168 @@ for (const scenario of [
   })
 }
 
+test('生成文が根拠リンクを省略しても上位の公式参照先を追記する', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Schoolsの学習支援について教えて',
+      locale: 'ja',
+    }),
+    env: createSchoolsGenerationEnv(aiTracker, {
+      response: '公式情報です。',
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(aiTracker.generationInputs.length, 1)
+  assert.equal(aiTracker.generationInputs[0].max_completion_tokens, 640)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      '公式情報です。',
+      '公式の参照先: [Acecore Schoolsの学習支援](https://schools.acecore.net/programs/)',
+    ].join('\n\n'),
+  })
+})
+
+test('空の生成結果にもlocalized fallbackと公式参照先を返す', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Schoolsの学習支援について教えて',
+      locale: 'ja',
+    }),
+    env: createSchoolsGenerationEnv(aiTracker, {
+      response: '   ',
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      'この内容は問い合わせフォームからご相談ください。',
+      '公式の参照先: [Acecore Schoolsの学習支援](https://schools.acecore.net/programs/)',
+    ].join('\n\n'),
+  })
+})
+
+test('壊れたMarkdown断片を引用済みと誤認せず有効な参照先を追記する', async () => {
+  const aiTracker = createAiTracker()
+  const url = 'https://schools.acecore.net/programs/'
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Schoolsの学習支援について教えて',
+      locale: 'ja',
+    }),
+    env: createSchoolsGenerationEnv(aiTracker, {
+      response: `説明です。壊れた](${url})`,
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      `説明です。壊れた](${url})`,
+      `公式の参照先: [Acecore Schoolsの学習支援](${url})`,
+    ].join('\n\n'),
+  })
+})
+
+test('取得済みURLを正しく引用した回答には参照先を重複追記しない', async () => {
+  const aiTracker = createAiTracker()
+  const url = 'https://schools.acecore.net/programs/'
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Schoolsの学習支援について教えて',
+      locale: 'ja',
+    }),
+    env: createSchoolsGenerationEnv(aiTracker, {
+      response: `[学習支援](${url})をご確認ください。`,
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: `[学習支援](${url})をご確認ください。`,
+  })
+})
+
+test('生成上限到達時は部分回答を捨てて固定文と公式参照先を返す', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Schoolsの学習支援について教えて',
+      locale: 'ja',
+    }),
+    env: createSchoolsGenerationEnv(aiTracker, {
+      choices: [
+        {
+          finish_reason: 'length',
+          message: {
+            content: '途中で切れた回答',
+          },
+        },
+      ],
+    }),
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      '回答を最後まで生成できませんでした。次の公式情報をご確認ください。',
+      '公式の参照先: [Acecore Schoolsの学習支援](https://schools.acecore.net/programs/)',
+    ].join('\n\n'),
+  })
+})
+
+test('Acecore根拠がゼロ件で生成上限に達しても公式トップを示す', async () => {
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecoreについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      SEARCH_ENABLED: 'true',
+      SEARCH_INDEX: {
+        async query() {
+          return { count: 0, matches: [] }
+        },
+      },
+      AI: {
+        async run(model) {
+          if (model === '@cf/baai/bge-m3') {
+            return { data: [EMBEDDING] }
+          }
+
+          return {
+            choices: [
+              {
+                finish_reason: 'length',
+                message: {
+                  content: '途中で切れた回答',
+                },
+              },
+            ],
+          }
+        },
+      },
+    },
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      '回答を最後まで生成できませんでした。次の公式情報をご確認ください。',
+      '公式の参照先: [Acecore](/)',
+    ].join('\n\n'),
+  })
+})
+
 test(
   'Aceserverは1回のembeddingを共有してWIKIとPortalを並列検索する',
   { timeout: 5000 },
@@ -219,6 +381,92 @@ test(
     })
   },
 )
+
+test('Aceserver概要がWIKIだけを引用してもPortalを追記する', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Aceserverについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      ACESERVER_WIKI_SEARCH_ENABLED: 'true',
+      ACESERVER_WIKI_SEARCH_INDEX: {
+        async query() {
+          return {
+            count: 1,
+            matches: [matchFor('aceserverWiki')],
+          }
+        },
+      },
+      ACESERVER_PORTAL_SEARCH_ENABLED: 'true',
+      ACESERVER_PORTAL_SEARCH_INDEX: {
+        async query() {
+          return {
+            count: 1,
+            matches: [matchFor('aceserverPortal')],
+          }
+        },
+      },
+      AI: createTestAi(aiTracker, {
+        generationResponse:
+          '[WIKI](https://asv-wiki.acecore.net/article/rules/)に情報があります。',
+      }),
+    },
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      '[WIKI](https://asv-wiki.acecore.net/article/rules/)に情報があります。',
+      '公式の参照先: [Aceserverについて](https://asv.acecore.net/about/)',
+    ].join('\n\n'),
+  })
+})
+
+test('AceserverルールがPortalだけを引用してもWIKIを追記する', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Aceserverのルールを教えて',
+      locale: 'ja',
+    }),
+    env: {
+      ACESERVER_WIKI_SEARCH_ENABLED: 'true',
+      ACESERVER_WIKI_SEARCH_INDEX: {
+        async query() {
+          return {
+            count: 1,
+            matches: [matchFor('aceserverWiki')],
+          }
+        },
+      },
+      ACESERVER_PORTAL_SEARCH_ENABLED: 'true',
+      ACESERVER_PORTAL_SEARCH_INDEX: {
+        async query() {
+          return {
+            count: 1,
+            matches: [matchFor('aceserverPortal')],
+          }
+        },
+      },
+      AI: createTestAi(aiTracker, {
+        generationResponse:
+          '[Portal](https://asv.acecore.net/about/)に情報があります。',
+      }),
+    },
+  })
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: [
+      '[Portal](https://asv.acecore.net/about/)に情報があります。',
+      '公式の参照先: [Aceserverのルール](https://asv-wiki.acecore.net/article/rules/)',
+    ].join('\n\n'),
+  })
+})
 
 test('曖昧なfollow-upは直前のSystems意図と検索文脈を引き継ぐ', async () => {
   const aiTracker = createAiTracker()
@@ -969,6 +1217,31 @@ function createTestAi(
             ? generationResponse(input)
             : generationResponse,
       }
+    },
+  }
+}
+
+function createSchoolsGenerationEnv(aiTracker, generationResult) {
+  return {
+    SCHOOLS_SEARCH_ENABLED: 'true',
+    SCHOOLS_SEARCH_INDEX: {
+      async query() {
+        return {
+          count: 1,
+          matches: [matchFor('schools')],
+        }
+      },
+    },
+    AI: {
+      async run(model, input) {
+        if (model === '@cf/baai/bge-m3') {
+          aiTracker.embeddingInputs.push(input)
+          return { data: [EMBEDDING] }
+        }
+
+        aiTracker.generationInputs.push(input)
+        return generationResult
+      },
     },
   }
 }

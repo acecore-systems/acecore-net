@@ -35,7 +35,7 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 
 `*` はPreviewでは `preview`、Productionでは `production` です。Systems、Schools、World Foundationはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じBGE-M3 embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。
 
-外部indexの日本語根拠は参照データとしてGLM 5.2へ渡し、回答だけを表示localeで生成します。根拠を採用した場合は取得した公式ページのURLを回答に示し、根拠のない専門情報は生成しません。
+外部indexの日本語根拠は参照データとしてGLM 5.2へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。`finish_reason: length` の部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
 横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
 

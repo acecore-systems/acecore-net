@@ -200,7 +200,7 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 `functions/api/ai-contact.ts` の Cloudflare Pages Function から Cloudflare Workers AI binding を呼び出します。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定し、`functions/api/ai-contact-search.ts` が対応するVectorize indexを検索します。担当が明示されない質問はAcecoreを既定とし、全indexを一律には検索しません。Aceserverだけは、1回のBGE-M3 (`@cf/baai/bge-m3`) embeddingを共有してWIKIとPortalを並列検索します。
 
-Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、GLM 5.2 (`@cf/zai-org/glm-5.2`) が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、ブラウザにはAI実行用のキーを渡しません。
+Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、GLM 5.2 (`@cf/zai-org/glm-5.2`) が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。ブラウザにはAI実行用のキーを渡しません。
 
 専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。各bindingのkill switchとscore下限は個別に設定でき、Acecoreの `SEARCH_ENABLED=false` は検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に停止します。
 
