@@ -2,7 +2,7 @@
 title: 'Actividades comunitarias e iniciativas educativas'
 description: 'Resumen de Aceserver, Acecore Schools y los proyectos públicos de Acecore.'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp

@@ -2,7 +2,7 @@
 title: '社区活动与教育实践'
 description: '介绍Aceserver、Acecore Schools以及Acecore的公开项目。'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp

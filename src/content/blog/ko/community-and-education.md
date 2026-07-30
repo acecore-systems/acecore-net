@@ -2,7 +2,7 @@
 title: '커뮤니티 활동과 교육에 대한 노력'
 description: 'Aceserver, Acecore Schools, Acecore의 공개 프로젝트를 소개합니다.'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp

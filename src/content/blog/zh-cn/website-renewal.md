@@ -2,7 +2,7 @@
 title: 'Acecore官方网站已完成改版'
 description: 'Acecore官方网站现已整理为专注于公司信息、业务导航和企业新闻的公司网站。'
 date: 2026-03-12T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

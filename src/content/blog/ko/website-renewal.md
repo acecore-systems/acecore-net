@@ -2,7 +2,7 @@
 title: 'Acecore 공식 사이트를 개편했습니다'
 description: 'Acecore 공식 사이트를 회사 정보, 사업 안내, 기업 뉴스에 집중한 코퍼레이트 사이트로 정리했습니다.'
 date: 2026-03-12T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

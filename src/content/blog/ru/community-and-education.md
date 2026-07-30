@@ -2,7 +2,7 @@
 title: 'Сообщество и образовательные инициативы'
 description: 'Обзор Aceserver, Acecore Schools и открытых проектов Acecore.'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp

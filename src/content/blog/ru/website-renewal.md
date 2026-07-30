@@ -2,7 +2,7 @@
 title: 'Официальный сайт Acecore обновлён'
 description: 'Официальный сайт Acecore стал корпоративным сайтом с информацией о компании, направлениях и новостях.'
 date: 2026-03-12T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

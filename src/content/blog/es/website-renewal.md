@@ -2,7 +2,7 @@
 title: 'Renovamos el sitio web oficial de Acecore'
 description: 'El sitio oficial de Acecore es ahora un sitio corporativo centrado en la empresa, sus negocios y sus noticias.'
 date: 2026-03-12T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp

@@ -2,7 +2,7 @@
 title: 'Community Activities and Commitment to Education'
 description: "Acecore's community activities, educational support, and open source contributions. Introducing our initiatives through Aceserver, Schools, and past workshops."
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
