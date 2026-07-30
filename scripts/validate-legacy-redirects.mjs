@@ -33,8 +33,8 @@ const legacyCases = [
     '/i/夏休みロボット工作体験イベントのご案内-bQ_RjzRutHu/',
     'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
   ],
-  ['/i/design-C5qVivLXJDZ/', 'https://acecore.net/services/#design'],
-  ['/i/designs-C5qVivLXJDZ/', 'https://acecore.net/services/#design'],
+  ['/i/design-C5qVivLXJDZ/', 'https://systems.acecore.net/services/#design'],
+  ['/i/designs-C5qVivLXJDZ/', 'https://systems.acecore.net/services/#design'],
 ].flatMap(([path, destination]) => [
   { path, destination },
   { path: path.slice(0, -1), destination },
