@@ -333,6 +333,10 @@ const phoneParts = SITE.phone.split('-')
             return true
           }
           if (url.origin === 'https://asv.acecore.net') return true
+          if (url.origin === 'https://asv-wiki.acecore.net') return true
+          if (url.origin === 'https://world-foundation.acecore.net') {
+            return true
+          }
           if (url.href === 'https://lin.ee/DjIrdqj') return true
         } catch {
           return false

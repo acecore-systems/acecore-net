@@ -1,11 +1,11 @@
-# Vectorizeサイト内検索 運用ガイド
+# Vectorize検索・AI横断検索 運用ガイド
 
-Acecore公式サイトでは、同じVectorize indexを検索モーダルとAIチャットの2つから利用します。検索モーダルは次の2系統を提供します。
+Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して関連公式サイトのVectorize indexをread-onlyに使用して検索します。検索モーダルは次の2系統を提供します。
 
 - Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
 - Cloudflare Vectorize: Workers AIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
 
-Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットもVectorize部分だけを外し、固定の公式導線と問い合わせ案内で回答を継続します。
+Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットで専門サイトの根拠を取得できない場合は、詳細を推測せず、固定した担当サイトの公式ルートへ案内します。
 
 ## 構成
 
@@ -15,18 +15,47 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 4. 新規・変更chunkだけをWorkers AI `@cf/baai/bge-m3` で1024次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` も質問と直近の利用者発言を同じmodelでembeddingし、同じnamespaceから最大3件の公式ページを取得してGLM 5.2の回答根拠にする。
+7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のBGE-M3 embeddingで該当するindexだけを検索する。
+8. Acecoreは表示localeと同じnamespace、外部の関連公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、GLM 5.2が表示localeで回答する。
 
-公開書き込みAPIはありません。index更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。
+公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
-## Cloudflareリソース
+## AIチャットの横断ルーティング
+
+担当が明示されない質問はAcecoreを既定とし、すべてのindexを一律には検索しません。曖昧な続きの質問は直前の担当を引き継ぎ、別の担当サイトが明示された場合は現在の質問だけで検索queryを組み直します。
+
+| 質問の担当       | Pages binding                   | index名 (`*` は環境)        | namespace  | 情報の責任範囲                                   |
+| ---------------- | ------------------------------- | --------------------------- | ---------- | ------------------------------------------------ |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-*`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-*`  | `ja`       | 技術サービス                                     |
+| Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-*`  | `ja`       | 学習サービス                                     |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-*`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
+| Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_INDEX` | `world-foundation-search-*` | `ja`       | World Foundationの公開デザイン記録               |
+
+`*` はPreviewでは `preview`、Productionでは `production` です。Systems、Schools、World Foundationはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じBGE-M3 embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。
+
+外部indexの日本語根拠は参照データとしてGLM 5.2へ渡し、回答だけを表示localeで生成します。根拠を採用した場合は取得した公式ページのURLを回答に示し、根拠のない専門情報は生成しません。
+
+横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
+
+| 取得元           | kill switch                       | score下限                                |
+| ---------------- | --------------------------------- | ---------------------------------------- |
+| Acecore          | `SEARCH_ENABLED`                  | `SEARCH_MIN_SCORE=0.50`                  |
+| Systems          | `SYSTEMS_SEARCH_ENABLED`          | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
+| Schools          | `SCHOOLS_SEARCH_ENABLED`          | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`   | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
+| Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED` | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED` | `WORLD_FOUNDATION_SEARCH_MIN_SCORE=0.40` |
+
+## Acecoreが管理するCloudflareリソース
 
 | 環境       | Vectorize index                 | namespace                                               |
 | ---------- | ------------------------------- | ------------------------------------------------------- |
 | Preview    | `acecore-net-search-preview`    | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 | Production | `acecore-net-search-production` | 同上                                                    |
 
-両indexはBGE-M3に合わせて `dimensions: 1024`、`metric: cosine` で作成します。modelまたは次元を変更する場合は、既存indexへ混在させず、新しいindexを作成してbindingを切り替えてください。
+両indexはBGE-M3に合わせて `dimensions: 1024`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。modelまたは次元を変更する場合は、既存indexへ混在させず、新しいindexを作成してbindingを切り替えてください。
 
 検索APIのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。
 
@@ -35,7 +64,7 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 | Preview    | `acecore-net-search-preview`    | Preview APIの固定窓counter |
 | Production | `acecore-net-search-production` | 本番APIの固定窓counter     |
 
-schemaは `migrations/search/` で管理します。Pages binding、D1、kill switch、score閾値は `wrangler.jsonc` を正とします。設定変更後は次を実行して、Pagesが対応する設定だけであることと生成型を確認します。
+schemaは `migrations/search/` で管理します。Pages binding、D1、kill switch、score閾値は `wrangler.jsonc` を正とします。横断先ごとに `{SOURCE}_SEARCH_ENABLED` と `{SOURCE}_SEARCH_MIN_SCORE` を持たせ、障害や品質低下を他の検索先から分離します。設定変更後は次を実行して、Pagesが対応する設定だけであることと生成型を確認します。
 
 ```powershell
 npm run types:cloudflare
@@ -44,7 +73,7 @@ npm run check:pages-config
 npm run typecheck:functions
 ```
 
-## 自動同期
+## Acecore indexの自動同期
 
 `.github/workflows/sync-vectorize.yml` は次の動作をします。
 
@@ -82,7 +111,7 @@ CloudflareのVectorize権限はindex単位では制限できません。Preview 
 
 secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。token値をログ、PR本文、設定ファイルへ書かないでください。ローテーション時は同じ2権限の新tokenを作成し、Environment secretを更新して同期成功を確認してから旧tokenを削除します。
 
-## 手元での確認と同期
+## Acecore indexの手元確認と同期
 
 Node.jsは `.node-version` のバージョンを使います。
 
@@ -122,15 +151,15 @@ npm run sync:vectorize
 
 - `/api/search` は同一OriginのJSON POSTだけを受け付ける。
 - request bodyは `Content-Length` とbounded stream readerの両方で2KiBまで、queryは2〜160文字に制限する。
-- `/api/ai-contact` も同一OriginのJSON POSTだけを受け付け、request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを600文字までに制限する。
+- `/api/ai-contact` も同一OriginのJSON POSTだけを受け付け、request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを800文字までに制限する。
 - D1でclient単位20回/分を先に判定し、許可されたrequestだけを全体300回/分へ加算する。
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
 - rate limit rowは10分で期限切れとなり、検索requestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
 - raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。
-- API responseは `Cache-Control: no-store` とし、外部originのURLを結果に採用しない。
+- API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、AIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
-- AIチャットはVectorize metadataのlocale、same-origin URL、scoreを再検証し、重複URLを除いた最大3件だけをGLMへ渡す。取得した本文は命令ではなく参照データとして扱う。
+- AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけをGLMへ渡す。取得した本文は命令ではなく参照データとして扱う。
 - AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。
 
 ## 障害対応とrollback
@@ -138,8 +167,8 @@ npm run sync:vectorize
 1. Pagefindのキーワード検索が動くことを確認する。
 2. `/api/search` のstatusと `X-Search-Request-Id` を確認する。
 3. Pages Functionsのruntime logで `semantic_search_error` をrequest IDから追う。logにquery本文は含まれない。
-4. Workers AIまたはVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。
-5. 検索UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。AIチャットは固定の事業振り分け案内へフォールバックする。
+4. AcecoreのWorkers AIまたはVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
+5. 検索UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
 indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。
 
@@ -155,7 +184,10 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
-- Preview deploymentのAIチャットで記事固有の質問を送り、同じ言語の取得記事だけがリンクされることを確認
+- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserver、World Foundationの質問を個別に送り、意図したPreview indexだけが検索されることを確認
+- Aceserverの質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
+- 外部indexを所有する各repositoryのPreview同期とquery smoke testが成功していることを確認する。未確認の取得元がある場合は、その経路をリリース済みと扱わない
+- 各表示localeで外部の日本語根拠から回答でき、回答リンクが実際に取得した公式URLに限定されることを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
 - 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
 

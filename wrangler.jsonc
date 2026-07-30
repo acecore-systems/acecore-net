@@ -11,6 +11,26 @@
       "binding": "SEARCH_INDEX",
       "index_name": "acecore-net-search-preview",
     },
+    {
+      "binding": "SYSTEMS_SEARCH_INDEX",
+      "index_name": "acecore-systems-search-preview",
+    },
+    {
+      "binding": "SCHOOLS_SEARCH_INDEX",
+      "index_name": "acecore-schools-search-preview",
+    },
+    {
+      "binding": "ACESERVER_WIKI_SEARCH_INDEX",
+      "index_name": "aceserver-wiki-search-preview",
+    },
+    {
+      "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
+      "index_name": "aceserver-portal-search-preview",
+    },
+    {
+      "binding": "WORLD_FOUNDATION_SEARCH_INDEX",
+      "index_name": "world-foundation-search-preview",
+    },
   ],
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
@@ -22,6 +42,16 @@
     "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net,localhost,127.0.0.1",
     "SEARCH_ENABLED": "true",
     "SEARCH_MIN_SCORE": "0.50",
+    "SYSTEMS_SEARCH_ENABLED": "true",
+    "SYSTEMS_SEARCH_MIN_SCORE": "0.50",
+    "SCHOOLS_SEARCH_ENABLED": "true",
+    "SCHOOLS_SEARCH_MIN_SCORE": "0.50",
+    "ACESERVER_WIKI_SEARCH_ENABLED": "true",
+    "ACESERVER_WIKI_SEARCH_MIN_SCORE": "0.40",
+    "ACESERVER_PORTAL_SEARCH_ENABLED": "true",
+    "ACESERVER_PORTAL_SEARCH_MIN_SCORE": "0.45",
+    "WORLD_FOUNDATION_SEARCH_ENABLED": "true",
+    "WORLD_FOUNDATION_SEARCH_MIN_SCORE": "0.40",
   },
   "d1_databases": [
     {
@@ -47,6 +77,26 @@
           "binding": "SEARCH_INDEX",
           "index_name": "acecore-net-search-preview",
         },
+        {
+          "binding": "SYSTEMS_SEARCH_INDEX",
+          "index_name": "acecore-systems-search-preview",
+        },
+        {
+          "binding": "SCHOOLS_SEARCH_INDEX",
+          "index_name": "acecore-schools-search-preview",
+        },
+        {
+          "binding": "ACESERVER_WIKI_SEARCH_INDEX",
+          "index_name": "aceserver-wiki-search-preview",
+        },
+        {
+          "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
+          "index_name": "aceserver-portal-search-preview",
+        },
+        {
+          "binding": "WORLD_FOUNDATION_SEARCH_INDEX",
+          "index_name": "world-foundation-search-preview",
+        },
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
@@ -58,6 +108,16 @@
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
         "SEARCH_ENABLED": "true",
         "SEARCH_MIN_SCORE": "0.50",
+        "SYSTEMS_SEARCH_ENABLED": "true",
+        "SYSTEMS_SEARCH_MIN_SCORE": "0.50",
+        "SCHOOLS_SEARCH_ENABLED": "true",
+        "SCHOOLS_SEARCH_MIN_SCORE": "0.50",
+        "ACESERVER_WIKI_SEARCH_ENABLED": "true",
+        "ACESERVER_WIKI_SEARCH_MIN_SCORE": "0.40",
+        "ACESERVER_PORTAL_SEARCH_ENABLED": "true",
+        "ACESERVER_PORTAL_SEARCH_MIN_SCORE": "0.45",
+        "WORLD_FOUNDATION_SEARCH_ENABLED": "true",
+        "WORLD_FOUNDATION_SEARCH_MIN_SCORE": "0.40",
       },
       "d1_databases": [
         {
@@ -83,6 +143,26 @@
           "binding": "SEARCH_INDEX",
           "index_name": "acecore-net-search-production",
         },
+        {
+          "binding": "SYSTEMS_SEARCH_INDEX",
+          "index_name": "acecore-systems-search-production",
+        },
+        {
+          "binding": "SCHOOLS_SEARCH_INDEX",
+          "index_name": "acecore-schools-search-production",
+        },
+        {
+          "binding": "ACESERVER_WIKI_SEARCH_INDEX",
+          "index_name": "aceserver-wiki-search-production",
+        },
+        {
+          "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
+          "index_name": "aceserver-portal-search-production",
+        },
+        {
+          "binding": "WORLD_FOUNDATION_SEARCH_INDEX",
+          "index_name": "world-foundation-search-production",
+        },
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
@@ -94,6 +174,16 @@
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
         "SEARCH_ENABLED": "true",
         "SEARCH_MIN_SCORE": "0.50",
+        "SYSTEMS_SEARCH_ENABLED": "true",
+        "SYSTEMS_SEARCH_MIN_SCORE": "0.50",
+        "SCHOOLS_SEARCH_ENABLED": "true",
+        "SCHOOLS_SEARCH_MIN_SCORE": "0.50",
+        "ACESERVER_WIKI_SEARCH_ENABLED": "true",
+        "ACESERVER_WIKI_SEARCH_MIN_SCORE": "0.40",
+        "ACESERVER_PORTAL_SEARCH_ENABLED": "true",
+        "ACESERVER_PORTAL_SEARCH_MIN_SCORE": "0.45",
+        "WORLD_FOUNDATION_SEARCH_ENABLED": "true",
+        "WORLD_FOUNDATION_SEARCH_MIN_SCORE": "0.40",
       },
       "d1_databases": [
         {

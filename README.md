@@ -198,18 +198,23 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` の Cloudflare Pages Function から Cloudflare Workers AI binding を呼び出します。回答生成前に `functions/api/ai-contact-search.ts` が質問と直近の利用者発言を BGE-M3 (`@cf/baai/bge-m3`) でembeddingし、サイト内検索と同じVectorize indexの言語別namespaceから公式ページを最大3件取得します。取得した短い抜粋だけを根拠としてGLM 5.2 (`@cf/zai-org/glm-5.2`) へ渡し、回答リンクは固定の公式導線と実際に取得したページだけに制限します。ブラウザには AI 実行用のキーを渡しません。
+`functions/api/ai-contact.ts` の Cloudflare Pages Function から Cloudflare Workers AI binding を呼び出します。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定し、`functions/api/ai-contact-search.ts` が対応するVectorize indexを検索します。担当が明示されない質問はAcecoreを既定とし、全indexを一律には検索しません。Aceserverだけは、1回のBGE-M3 (`@cf/baai/bge-m3`) embeddingを共有してWIKIとPortalを並列検索します。
 
-Vectorize、embedding、bindingのいずれかが利用できない場合も、既存の事業振り分けと問い合わせ案内だけで回答を継続します。`SEARCH_ENABLED=false` で検索モーダルの「関連する内容」とAIチャットのVectorize groundingを同時に停止できます。
+Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、GLM 5.2 (`@cf/zai-org/glm-5.2`) が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、ブラウザにはAI実行用のキーを渡しません。
+
+専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。各bindingのkill switchとscore下限は個別に設定でき、Acecoreの `SEARCH_ENABLED=false` は検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に停止します。
 
 Cloudflare Pages 側で以下を設定してください。
 
 - Workers AI binding: `AI`
-- Vectorize binding: `SEARCH_INDEX`
-- `SEARCH_ENABLED`: Vectorize検索とAIチャットgroundingのkill switch
-- `SEARCH_MIN_SCORE`: 回答根拠に採用するscoreの下限
+- Acecore Vectorize binding: `SEARCH_INDEX`
+- 横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`、`WORLD_FOUNDATION_SEARCH_INDEX`
+- `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
+- `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 各横断検索先のkill switch / score下限
 - `CLOUDFLARE_AI_MODEL`: 使用モデル（未設定時は `@cf/zai-org/glm-5.2`）
 - `CLOUDFLARE_AI_REASONING_EFFORT`: 推論 effort（未設定時は `low`）
+
+外部indexはこのrepositoryから更新しません。corpus生成、同期、削除は各サイトを所有するrepositoryがPreview / Productionを分離して管理します。
 
 AIチャットのgrounding、フォールバック、リンク制限は `npm run test:ai-chat` で確認します。
 
