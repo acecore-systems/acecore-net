@@ -1,5 +1,9 @@
-const EMBEDDING_MODEL = '@cf/baai/bge-m3'
-const EMBEDDING_DIMENSIONS = 1024
+import {
+  createOpenAiEmbedding,
+  getOpenAiErrorCode,
+  type OpenAiEnv,
+} from '../lib/openai.ts'
+
 const DEFAULT_MIN_SCORE = 0.5
 const MAX_REQUEST_BYTES = 2048
 const MIN_QUERY_LENGTH = 2
@@ -49,7 +53,9 @@ type SearchResult = {
   rank: number
 }
 
-export const onRequestPost: PagesFunction<CloudflareEnv> = async ({
+type SearchEnv = CloudflareEnv & OpenAiEnv
+
+export const onRequestPost: PagesFunction<SearchEnv> = async ({
   request,
   env,
   waitUntil,
@@ -73,7 +79,7 @@ export const onRequestPost: PagesFunction<CloudflareEnv> = async ({
 
     if (
       env.SEARCH_ENABLED !== 'true' ||
-      !env.AI ||
+      !env.OPENAI_API_KEY?.trim() ||
       !env.SEARCH_INDEX ||
       !env.SEARCH_RATE_LIMIT_DB
     ) {
@@ -145,24 +151,11 @@ export const onRequestPost: PagesFunction<CloudflareEnv> = async ({
       return errorResponse('invalid_request', 400, requestId, startedAt)
     }
 
-    let embeddingResult: unknown
+    let embedding: number[]
     try {
-      embeddingResult = await env.AI.run(EMBEDDING_MODEL, {
-        text: [query],
-        truncate_inputs: true,
-      })
+      embedding = await createOpenAiEmbedding(env, query)
     } catch (error) {
-      logSearchError(
-        requestId,
-        locale,
-        'embedding',
-        getErrorCode(error, 'provider_error'),
-      )
-      return errorResponse('provider_error', 502, requestId, startedAt)
-    }
-    const embedding = extractEmbedding(embeddingResult)
-    if (!embedding) {
-      logSearchError(requestId, locale, 'embedding', 'invalid_embedding')
+      logSearchError(requestId, locale, 'embedding', getOpenAiErrorCode(error))
       return errorResponse('provider_error', 502, requestId, startedAt)
     }
 
@@ -332,22 +325,6 @@ function normalizeMinScore(value: string | undefined): number {
   return Number.isFinite(score) && score >= 0 && score <= 1
     ? score
     : DEFAULT_MIN_SCORE
-}
-
-function extractEmbedding(result: unknown): number[] | null {
-  if (!result || typeof result !== 'object') return null
-  const data = (result as { data?: unknown }).data
-  if (!Array.isArray(data) || !Array.isArray(data[0])) return null
-
-  const values = data[0]
-  if (
-    values.length !== EMBEDDING_DIMENSIONS ||
-    values.some((value) => !Number.isFinite(value))
-  ) {
-    return null
-  }
-
-  return values as number[]
 }
 
 function normalizeMatches(

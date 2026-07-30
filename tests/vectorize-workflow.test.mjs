@@ -44,6 +44,12 @@ test('production大量削除は公開corpusに結び付く手動承認だけで�
   assert.match(syncStep.run, /sync-vectorize\.mjs[\s\\]+--allow-large-delete/)
   assert.match(syncStep.run, /--expected-delete-count/)
   assert.match(syncStep.run, /--expected-plan-id/)
+  assert.equal(
+    syncStep.env.VECTORIZE_INDEX_NAME,
+    'acecore-net-search-openai-1536-production',
+  )
+  assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
+  assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
 })
 
 test('preview大量削除もmain corpusに結び付く手動承認だけで解除できる', async () => {
@@ -73,4 +79,10 @@ test('preview大量削除もmain corpusに結び付く手動承認だけで解�
   assert.match(syncStep.run, /sync-vectorize\.mjs[\s\\]+--allow-large-delete/)
   assert.match(syncStep.run, /--expected-delete-count/)
   assert.match(syncStep.run, /--expected-plan-id/)
+  assert.equal(
+    syncStep.env.VECTORIZE_INDEX_NAME,
+    'acecore-net-search-openai-1536-preview',
+  )
+  assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
+  assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
 })

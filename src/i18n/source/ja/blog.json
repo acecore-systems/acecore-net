@@ -52,7 +52,7 @@
   "semanticZeroResults": "関連する内容は見つかりませんでした",
   "semanticManyResults": "関連する内容が [COUNT] 件見つかりました",
   "semanticOneResult": "関連する内容が 1 件見つかりました",
-  "semanticPrivacyNotice": "2文字以上入力すると、「関連する内容」を探すため検索語をCloudflare Workers AIへ自動送信します。個人情報や機密情報は入力しないでください。",
+  "semanticPrivacyNotice": "2文字以上入力すると、「関連する内容」を探すため検索語をOpenAI APIへ自動送信します。個人情報や機密情報は入力しないでください。",
   "semanticPrivacyLink": "データの取り扱い",
   "blogCtaHeading": "Acecoreの事業について",
   "blogCtaBody": "Systems、Schools、Aceserverの各公式サイトで、詳しい情報をご案内しています。",
