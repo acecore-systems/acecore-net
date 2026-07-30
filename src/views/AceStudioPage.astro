@@ -4,12 +4,9 @@ import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
-import InsightGrid from '../components/InsightGrid.astro'
-import { optimizeImage, generateSrcSet } from '../utils/image'
+import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
-import PullQuote from '../components/PullQuote.astro'
-import Faq from '../components/Faq.astro'
-import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -17,45 +14,12 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const contentImageWidths = [480, 800, 1200, 1600]
-const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
-const contentImageSizes = '(min-width: 768px) 48rem, calc(100vw - 3rem)'
-
-interface FaqItem {
-  question: string
-  answer: string
-}
-
-interface StudioArea {
-  title: string
-  description: string
-  icon: string
-  tone: string
-}
-
-const getList = <T,>(key: string): T[] =>
-  getTranslationValue<T[]>(locale, key) ?? []
-
-const faqItems = getList<FaqItem>('pages.acestudio.faqs')
-
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: { '@type': 'Answer', text: item.answer },
-  })),
-}
-
-const studioAreas = getList<StudioArea>('pages.acestudio.studioAreas')
 ---
 
 <BaseLayout
   title={t(locale, 'pages.acestudio.title')}
   titleContext={t(locale, 'pages.acestudio.seoTitleContext')}
   description={t(locale, 'pages.acestudio.description')}
-  jsonLd={faqLd}
   locale={locale}
 >
   <Hero
@@ -78,65 +42,26 @@ const studioAreas = getList<StudioArea>('pages.acestudio.studioAreas')
       <div class="text-left">
         <Breadcrumb items={[{ label: 'AceStudio' }]} locale={locale} />
       </div>
-      <div class="text-left mb-12">
-        <InsightGrid
-          variant="card"
-          eyebrow={t(locale, 'pages.acestudio.studioScopeEyebrow')}
-          title={t(locale, 'pages.acestudio.studioScopeTitle')}
-          description={t(locale, 'pages.acestudio.studioScopeDesc')}
-          items={studioAreas}
-        />
-      </div>
 
-      <div class="mb-12">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.acestudio.creativeImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
-
-      <div class="mb-12">
+      <div class="ac-surface bg-white p-8 md:p-12 mb-12">
+        <p
+          class="text-sm font-700 uppercase tracking-widest text-brand-700 mb-4"
+        >
+          {t(locale, 'pages.acestudio.statusEyebrow')}
+        </p>
         <Icon
           name="clapperboard"
-          class="text-6xl text-brand-500 mx-auto mb-6"
+          class="text-5xl text-brand-500 mx-auto mb-6"
         />
         <h2 class="text-2xl ac-heading mb-6">
-          {t(locale, 'pages.acestudio.comingSoonHeading')}
+          {t(locale, 'pages.acestudio.statusHeading')}
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.acestudio.comingSoonBody1')}
+          {t(locale, 'pages.acestudio.statusBody')}
         </p>
-        <p class="text-lg text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.acestudio.comingSoonBody2')}
+        <p class="text-slate-500 leading-relaxed">
+          {t(locale, 'pages.acestudio.statusNote')}
         </p>
-        <p class="text-slate-500">
-          {t(locale, 'pages.acestudio.comingSoonBody3')}
-        </p>
-      </div>
-
-      <div class="text-left mb-12">
-        <PullQuote
-          text={t(locale, 'pages.acestudio.pullQuoteText')}
-          attribution={t(locale, 'pages.acestudio.pullQuoteAttribution')}
-        />
-      </div>
-
-      <div class="text-left mb-12">
-        <Faq title={t(locale, 'pages.acestudio.faqTitle')} items={faqItems} />
       </div>
 
       <div class="ac-surface mb-12 bg-slate-50 p-8">
@@ -160,7 +85,7 @@ const studioAreas = getList<StudioArea>('pages.acestudio.studioAreas')
             >
           </a>
           <a href={u('/blog/')} class="ac-btn-outline">
-            {t(locale, 'pages.acestudio.viewBlog')}
+            {t(locale, 'pages.acestudio.viewNews')}
           </a>
         </div>
       </div>

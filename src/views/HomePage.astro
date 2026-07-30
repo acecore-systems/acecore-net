@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import ServiceCard from '../components/ServiceCard.astro'
-import InsightGrid from '../components/InsightGrid.astro'
 import { getCollection } from 'astro:content'
 import {
   optimizeImage,
@@ -14,7 +13,6 @@ import {
 import {
   t,
   formatDate,
-  getTranslationValue,
   getLocalizedUrl,
   htmlLangMap,
   type Locale,
@@ -26,7 +24,8 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import { getSchoolsUrl, SCHOOLS_ORIGIN } from '../utils/schools-url'
+import { getSchoolsUrl } from '../utils/schools-url'
+import { SITE } from '../data/site'
 import {
   getAllAuthors,
   findAuthorById,
@@ -37,7 +36,7 @@ interface Props {
   locale: Locale
 }
 
-type HomeLayer = {
+type BusinessCard = {
   title: string
   description: string
   icon: string
@@ -57,20 +56,6 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const homePath = u('/')
 const homeUrl = new URL(homePath, Astro.site).href
-const getList = <T,>(key: string): T[] =>
-  getTranslationValue<T[]>(locale, key) ?? []
-const resolveCardHref = (href: string) => {
-  if (href.startsWith(SCHOOLS_ORIGIN)) {
-    const hash = new URL(href).hash
-    return getSchoolsUrl(hash)
-  }
-
-  return href.startsWith('http') ? href : u(href)
-}
-const resolveHomeLayer = (item: HomeLayer): HomeLayer => ({
-  ...item,
-  href: resolveCardHref(item.href),
-})
 const homeHeroSrcSetWidths = [360, 480, 640, 828, 1080, 1280, 1600]
 const homeHeroSrcSetOptions = {
   aspectRatio: 1,
@@ -84,7 +69,9 @@ const homePostImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const allPosts = await getCollection('blog')
 const authors: AuthorData[] = await getAllAuthors()
 const posts = filterPostsForLocale(
-  allPosts.filter(isBasePost),
+  allPosts.filter(
+    (post) => isBasePost(post) && post.data.tags?.includes('お知らせ'),
+  ),
   allPosts,
   locale,
 )
@@ -92,12 +79,29 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const serviceCards = getList<HomeLayer>('pages.home.serviceCards').map(
-  resolveHomeLayer,
-)
-const coreLayers = getList<HomeLayer>('pages.home.layerItems').map(
-  resolveHomeLayer,
-)
+const businessCards: BusinessCard[] = [
+  {
+    title: t(locale, 'pages.home.systemsTitle'),
+    description: t(locale, 'pages.home.systemsDescription'),
+    href: `${SITE.social.systems}/services/`,
+    icon: 'code-xml',
+    tone: 'brand',
+  },
+  {
+    title: t(locale, 'pages.home.schoolsTitle'),
+    description: t(locale, 'pages.home.schoolsDescription'),
+    href: getSchoolsUrl(),
+    icon: 'graduation-cap',
+    tone: 'amber',
+  },
+  {
+    title: t(locale, 'pages.home.aceserverTitle'),
+    description: t(locale, 'pages.home.aceserverDescription'),
+    href: SITE.social.aceserver,
+    icon: 'gamepad-2',
+    tone: 'emerald',
+  },
+]
 const aboutBodyParts = t(locale, 'pages.home.aboutBody2').split('{link}')
 const homeHeroImages: HeroImage[] = [
   {
@@ -152,9 +156,6 @@ const webPageLd = {
 >
   <Hero
     title={t(locale, 'pages.home.heroTitle')}
-    titleLines={locale === 'ja'
-      ? ['開発からデザイン、', '教育まで。', 'ワンストップで届けるIT支援']
-      : undefined}
     subtitle={t(locale, 'pages.home.heroSubtitle')}
     showCTA={true}
     images={homeHeroImages}
@@ -168,15 +169,15 @@ const webPageLd = {
     <div class="ac-container">
       <div class="ac-section-intro">
         <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
-          {t(locale, 'pages.home.servicesHeading')}
+          {t(locale, 'pages.home.businessesHeading')}
         </h2>
         <p class="ac-muted">
-          {t(locale, 'pages.home.servicesLead')}
+          {t(locale, 'pages.home.businessesLead')}
         </p>
       </div>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
-          serviceCards.map((item) => (
+          businessCards.map((item) => (
             <ServiceCard
               icon={item.icon}
               title={item.title}
@@ -188,23 +189,26 @@ const webPageLd = {
           ))
         }
       </div>
-      <div class="mt-10 text-center">
+      <div
+        class="mt-8 flex flex-col items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white/70 px-5 py-4 sm:flex-row sm:items-center"
+      >
+        <div>
+          <p class="font-700 text-slate-900">
+            {t(locale, 'pages.home.acestudioTitle')}
+          </p>
+          <p class="mt-1 text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.home.acestudioNote')}
+          </p>
+        </div>
+        <a href={u('/acestudio/')} class="ac-link shrink-0">
+          {t(locale, 'pages.home.acestudioTitle')}
+        </a>
+      </div>
+      <div class="mt-8 text-center">
         <a href={u('/services/')} class="ac-btn-outline"
-          >{t(locale, 'pages.home.viewServicesDetail')}</a
+          >{t(locale, 'pages.home.viewBusinessDetails')}</a
         >
       </div>
-    </div>
-  </section>
-
-  <section class="bg-white py-10 sm:py-12 lg:py-14">
-    <div class="ac-container">
-      <InsightGrid
-        variant="card"
-        eyebrow={t(locale, 'pages.home.layersEyebrow')}
-        title={t(locale, 'pages.home.layersTitle')}
-        description={t(locale, 'pages.home.layersDescription')}
-        items={coreLayers}
-      />
     </div>
   </section>
 
@@ -240,11 +244,6 @@ const webPageLd = {
           <a href={u('/about/')} class="ac-btn-primary"
             >{t(locale, 'pages.home.viewAbout')}</a
           >
-          <a
-            href={u('/services/')}
-            class="ac-btn border-2 border-white bg-transparent text-white hover:bg-white/10"
-            >{t(locale, 'pages.home.viewServices')}</a
-          >
         </div>
       </div>
     </div>
@@ -256,7 +255,7 @@ const webPageLd = {
         <div class="ac-container">
           <div class="ac-section-intro">
             <h2 class="text-2xl ac-heading sm:text-3xl">
-              {t(locale, 'pages.home.latestBlog')}
+              {t(locale, 'pages.home.latestNews')}
             </h2>
           </div>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -318,11 +317,25 @@ const webPageLd = {
           </div>
           <div class="mt-10 text-center">
             <a href={u('/blog/')} class="ac-btn-outline">
-              {t(locale, 'pages.home.viewAllPosts')}
+              {t(locale, 'pages.home.viewAllNews')}
             </a>
           </div>
         </div>
       </section>
     )
   }
+
+  <section class="ac-section bg-brand-50">
+    <div class="ac-container max-w-3xl text-center">
+      <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        {t(locale, 'pages.home.contactHeading')}
+      </h2>
+      <p class="mx-auto mb-7 max-w-2xl ac-muted">
+        {t(locale, 'pages.home.contactBody')}
+      </p>
+      <a href={u('/contact/')} class="ac-btn-primary">
+        {t(locale, 'pages.home.contactCta')}
+      </a>
+    </div>
+  </section>
 </BaseLayout>

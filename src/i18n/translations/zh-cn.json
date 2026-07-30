@@ -1,9 +1,9 @@
 {
   "nav": {
     "home": "首页",
-    "services": "服务",
+    "services": "业务",
     "about": "关于我们",
-    "blog": "博客",
+    "blog": "新闻",
     "contact": "联系我们",
     "pricing": "价格"
   },
@@ -47,22 +47,22 @@
     "close": "关闭 AI 聊天",
     "title": "向 AI 提问",
     "lead": "根据本网站信息简短回答。",
-    "greeting": "可以询问 Acecore 的服务、制作与开发、Schools 学习咨询以及回复时间。需要详细报价或正式咨询时，我会引导您使用表单。",
+    "greeting": "您可以询问Acecore Systems、Acecore Schools或Aceserver的官方信息位置，以及如何联系共用窗口。专业详情请查看各官方网站，正式咨询请使用表单。",
     "inputLabel": "向 AI 聊天提问",
     "placeholder": "输入问题...",
     "send": "发送",
     "loading": "正在生成回答...",
     "error": "当前无法使用 AI 聊天。请使用联系表单或 LINE。",
-    "quickServices": "应该选择哪项服务？",
-    "quickEstimate": "报价咨询如何进行？",
-    "quickSchools": "Acecore Schools 可以咨询什么？",
+    "quickServices": "应该查看哪个业务网站？",
+    "quickEstimate": "在哪里申请报价？",
+    "quickSchools": "Schools官方信息在哪里？",
     "contactForm": "联系表单",
     "line": "LINE",
     "email": "邮件",
     "phone": "电话"
   },
   "hero": {
-    "ctaServices": "查看服务",
+    "ctaServices": "查看业务",
     "ctaContact": "免费咨询",
     "sliderLabel": "主图轮播",
     "slide": "幻灯片",
@@ -74,8 +74,8 @@
     "pending": "未完成："
   },
   "footer": {
-    "tagline": "以技术连接，以创意拓展。",
-    "description": "创造多元价值的科技团队。",
+    "tagline": "让技术与学习成为社会的力量。",
+    "description": "Acecore的公司信息、业务与新闻。",
     "sitemap": "站点地图",
     "relatedLinks": "相关链接",
     "schools": "Acecore Schools",
@@ -83,9 +83,9 @@
     "pricing": "费用参考"
   },
   "blog": {
-    "title": "博客",
-    "seoTitleContext": "网站设计、服务器与IT教育资讯",
-    "subtitle": "技术资讯・活动报告・公告",
+    "title": "新闻",
+    "seoTitleContext": "公司、业务与活动信息",
+    "subtitle": "Acecore的新闻与活动报告",
     "noPosts": "文章正在准备中。",
     "tags": "标签",
     "tagList": "标签列表",
@@ -93,7 +93,7 @@
     "authors": "作者",
     "latestPosts": "最新文章",
     "postsCount": "{count} 篇文章",
-    "backToBlog": "返回博客列表",
+    "backToBlog": "返回新闻列表",
     "prev": "← 上一页",
     "next": "下一页 →",
     "pageNav": "页面导航",
@@ -138,26 +138,26 @@
     "semanticOneResult": "找到 1 条相关结果",
     "semanticPrivacyNotice": "输入至少两个字符后，“相关内容”会自动将搜索词发送至Cloudflare Workers AI。请勿输入个人信息或机密信息。",
     "semanticPrivacyLink": "搜索数据处理说明",
-    "blogCtaHeading": "想了解更多关于我们的服务？",
-    "blogCtaBody": "我们为系统开发、网站设计、服务器运维和平面设计提供综合支持。",
-    "blogCtaServices": "查看服务列表",
+    "blogCtaHeading": "了解Acecore的业务",
+    "blogCtaBody": "详细信息请访问Systems、Schools和Aceserver的官方网站。",
+    "blogCtaServices": "查看业务列表",
     "blogCtaContact": "免费咨询",
-    "rssTitle": "Acecore 博客",
-    "rssDescription": "关于网站设计、服务器运维和IT教育的技术资讯与活动报告",
+    "rssTitle": "Acecore 新闻",
+    "rssDescription": "Acecore的公司、业务与活动新闻",
     "pagefindFilterAuthor": "作者",
     "pagefindFilterYear": "年份",
     "pagefindFilterTag": "标签",
     "prevPost": "← 上一篇",
     "nextPost": "下一篇 →",
-    "heroAlt": "博客写作图片",
+    "heroAlt": "Acecore新闻图片",
     "postNavLabel": "文章导航",
     "tagPrefix": "标签: {tag}",
     "authorPrefix": "作者: {author}",
-    "indexDescription": "Acecore博客。关于网站设计、服务器运维和IT教育的技术资讯、活动报告和公告。",
-    "pageDescription": "Acecore博客文章列表（第{current}/{total}页）。关于网站设计、服务器运维和IT教育的技术资讯和活动报告。",
-    "tagListDescription": "博客文章标签一览。",
-    "archiveListDescription": "博客文章按月归档列表。",
-    "itemListName": "Acecore博客文章列表",
+    "indexDescription": "Acecore的公司信息、业务动态、跨业务活动及重要通知。专业技术、教育和社区详情请查看各业务官方网站。",
+    "pageDescription": "Acecore新闻列表（第{current}/{total}页）。发布公司、业务与活动信息。",
+    "tagListDescription": "Acecore新闻标签一览。",
+    "archiveListDescription": "Acecore新闻按月归档列表。",
+    "itemListName": "Acecore新闻列表",
     "language": "语言",
     "commentsTitle": "评论",
     "commentsCount": "{count}条评论",
@@ -178,107 +178,38 @@
     "commentsSending": "发送中..."
   },
   "meta": {
-    "siteTitle": "Acecore | 系统开发・网站设计・服务器运维",
-    "defaultDescription": "Acecore是一个提供系统开发、网站设计、服务器运维和设计综合支持的科技团队。",
+    "siteTitle": "Acecore | 技术与教育",
+    "defaultDescription": "Acecore通过Acecore Systems、Acecore Schools和Aceserver支持业务、学习与社区。",
     "shortTitleContext": "官方网站",
-    "shortDescriptionContext": "还可了解Acecore的技术资讯、活动报告和服务详情。"
+    "shortDescriptionContext": "Acecore的公司信息、业务与新闻。"
   },
   "pages": {
     "home": {
-      "heroTitle": "从开发到运维与设计，一站式IT支持",
-      "heroSubtitle": "系统开发、网站设计、服务器运维和设计，一个窗口全部搞定。",
+      "heroTitle": "让技术与学习成为社会的力量。",
+      "heroSubtitle": "Acecore 通过技术与教育支持业务、学习和社区。",
       "heroImgTeam": "在共享办公空间工作的团队",
-      "heroImgCollaboration": "团队协作推进项目",
       "heroImgMeeting": "会议场景",
-      "heroImgStrategy": "商业战略讨论",
-      "servicesHeading": "主要服务",
-      "servicesLead": "不确定从何开始？我们灵活地为个人和企业提供服务。",
-      "serviceCards": [
-        {
-          "title": "业务系统・Web应用开发 — Acecore Systems",
-          "description": "将业务课题转化为需求，着眼于实施和运维来构建系统。专业领域的详情请参阅 Acecore Systems。",
-          "href": "https://systems.acecore.net/services/#business-system",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
-        {
-          "title": "服务器搭建・运维",
-          "description": "提供稳定、高速的服务器环境。拥有支撑数百人同时连接的运维实绩。",
-          "href": "/services/#server",
-          "icon": "server",
-          "tone": "emerald"
-        },
-        {
-          "title": "网站设计・运营",
-          "description": "不仅注重外观，更考虑获客和用户体验。上线后的更新维护也可交给我们。",
-          "href": "/services/#web",
-          "icon": "globe",
-          "tone": "amber"
-        },
-        {
-          "title": "设计・创意",
-          "description": "Logo、名片、横幅、角色形象等，将您的「想要传达的」变为可见的形式。",
-          "href": "/services/#design",
-          "icon": "palette",
-          "tone": "slate"
-        },
-        {
-          "title": "IT学校 / Acecore Schools",
-          "description": "高中同等学力认定、IT与编程、电脑与智能手机应用等。从目标和当前起点出发，为每个人安排所需的学习内容。",
-          "href": "https://schools.acecore.net/",
-          "icon": "graduation-cap",
-          "tone": "amber"
-        },
-        {
-          "title": "Aceserver",
-          "description": "人人可免费参加的Minecraft公开服务器。支持Java版和基岩版，活跃的社区等着您。",
-          "href": "https://asv.acecore.net",
-          "icon": "gamepad-2",
-          "tone": "emerald"
-        }
-      ],
-      "viewServicesDetail": "查看服务详情",
-      "layersEyebrow": "Visual Overview",
-      "layersTitle": "Acecore支撑的三个层面",
-      "layersDescription": "我们将技术、运维和表达作为一条完整的支援线来对待。",
-      "layerItems": [
-        {
-          "title": "系统设计",
-          "description": "从业务梳理到管理界面、数据集成和运营改善，Acecore Systems根据实际工作流程设计并开发系统。",
-          "href": "https://systems.acecore.net/services/#business-system",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
-        {
-          "title": "基础设施运维",
-          "description": "基于公开服务器运维经验，构建高可用环境和改进循环。",
-          "href": "/services/#server",
-          "icon": "server-cog",
-          "tone": "emerald"
-        },
-        {
-          "title": "传达性设计",
-          "description": "将设计视为信息整理和体验设计，而非外观装饰。",
-          "href": "/services/#design",
-          "icon": "swatch-book",
-          "tone": "amber"
-        },
-        {
-          "title": "教育与陪伴",
-          "description": "将实用知识转化为学习支持，传递给地区和下一代。",
-          "href": "https://schools.acecore.net/",
-          "icon": "graduation-cap",
-          "tone": "slate"
-        }
-      ],
+      "businessesHeading": "Acecore 业务",
+      "businessesLead": "各专业业务在其官方网站发布最新服务信息。",
+      "systemsTitle": "Acecore Systems",
+      "systemsDescription": "业务系统、Web 应用、网站、基础设施以及品牌与创意设计支持请查看专业网站。",
+      "schoolsTitle": "Acecore Schools",
+      "schoolsDescription": "学习支持、费用与咨询方式请查看专业网站。",
+      "aceserverTitle": "Aceserver",
+      "aceserverDescription": "Acecore 运营的 Minecraft 社区官方参与指南与最新信息。",
+      "acestudioTitle": "AceStudio",
+      "acestudioNote": "待服务准备完成后，仅发布已确认的信息。",
+      "viewBusinessDetails": "查看业务目录",
       "aboutHeading": "关于Acecore",
       "aboutBody1": "我们将社区运营及以往工作坊中积累的经验，用于信息分享和实际服务改进。",
       "aboutBody2": "通过开源活用、地域合作以及对{link}的贡献，构建连接技术与人的伙伴关系。",
       "aboutEducationLink": "教育领域",
       "viewAbout": "查看公司概要",
-      "viewServices": "查看服务列表",
-      "latestBlog": "最新博客",
-      "viewAllPosts": "查看所有文章"
+      "latestNews": "企业新闻",
+      "viewAllNews": "查看新闻与文章",
+      "contactHeading": "联系 Acecore",
+      "contactBody": "统一受理业务咨询、合作提案及其他问题。",
+      "contactCta": "联系我们"
     },
     "notFound": {
       "title": "页面未找到",
@@ -292,26 +223,17 @@
       "latestArticles": "最新文章"
     },
     "contact": {
-      "formSending": "发送中…",
-      "formSuccess": "您的咨询已发送。请查看确认邮件。",
-      "formError": "发送失败。请稍后重试，或查看下方联系方式。",
       "title": "联系我们",
-      "seoTitleContext": "服务咨询、报价与合作",
-      "description": "在此联系Acecore。关于服务咨询、报价、合作等，请随时联系。",
+      "seoTitleContext": "业务、合作与共用窗口",
+      "description": "Acecore共用联系窗口受理跨业务咨询、合作提案，以及不确定应联系哪项业务的问题。",
       "heroTitle": "联系我们",
       "heroSubtitle": "咨询、商谈、委托请从这里开始",
       "heroImgAlt": "沟通交流图片",
-      "responseTime": "通常1-2个工作日内回复",
-      "freeEstimate": "免费报价",
-      "lineInquiry": "通过LINE咨询",
       "formCategoryLabel": "咨询类型",
       "formCategoryPlaceholder": "请选择",
-      "formCategoryService": "关于整体服务",
-      "formCategoryServiceSystems": "关于业务系统・Web应用开发 / Acecore Systems",
-      "formCategoryServiceServer": "关于服务器搭建与运维",
-      "formCategoryServiceWeb": "关于网站制作与运维",
-      "formCategoryServiceDesign": "关于设计与创意",
-      "formCategoryServiceEducation": "关于IT学校 / Acecore Schools",
+      "formCategoryService": "跨业务或不确定咨询窗口",
+      "formCategoryServiceSystems": "关于Acecore Systems",
+      "formCategoryServiceEducation": "关于Acecore Schools",
       "formCategoryServiceAceserver": "关于Aceserver",
       "formCategoryServiceAcestudio": "关于AceStudio",
       "formCategoryEstimate": "报价请求",
@@ -323,67 +245,33 @@
       "formSubjectLabel": "主题",
       "formMessageLabel": "咨询内容",
       "formSubmit": "发送",
+      "formSending": "发送中…",
+      "formSuccess": "您的咨询已发送。请查看确认邮件。",
+      "formError": "发送失败。请稍后重试。",
       "formSubmitNote": "提交后将收到确认邮件。如未收到，请检查垃圾邮件文件夹。",
       "serviceSubjectTemplate": "关于{service}",
-      "formFaqHeading": "发送前可以查看常见问题和相关信息。",
-      "otherMethodsHeading": "表单以外的轻量联系",
-      "methodPhone": "电话",
-      "methodEmail": "电子邮箱",
-      "methodLine": "LINE",
-      "methodLineDesc": "也可通过LINE联系我们",
-      "methodX": "X",
-      "methodXDesc": "也接受通过私信咨询",
       "validationCategory": "请选择咨询类别",
       "validationName": "请输入您的姓名",
       "validationEmail": "请输入有效的电子邮件地址",
       "validationMessage": "请输入至少10个有效字符",
-      "faqTitle": "常见问题",
-      "aiHeading": "也可以使用 AI 聊天",
-      "aiLead": "可使用右下角 AI 聊天了解 Acecore 的服务、制作与开发、Schools 学习咨询以及回复时间。需要详细咨询时，可继续使用联系表单。",
-      "aiQuestionLabel": "想问 AI 的内容",
-      "aiPlaceholder": "例：我想咨询网站制作，应该从哪里开始？",
-      "aiSubmit": "打开 AI 聊天",
-      "aiLoading": "正在生成回答...",
-      "aiError": "当前无法使用 AI 回答。请使用联系表单。",
-      "lineHeading": "也可以通过 LINE 咨询",
-      "lineLead": "关注官方 LINE 可接收最新信息，也可用于简短咨询和联系 Acecore Schools。",
-      "lineCta": "关注官方 LINE",
-      "directMethodsNote": "简短咨询或联系 Acecore Schools 可使用 LINE，社交媒体上的简单确认也可使用 X。详细内容通过表单发送更便于整理确认。",
-      "directContactSummary": "如果想直接联系",
-      "directContactLead": "提交表单后的补充说明，或需要直接确认的内容，请展开这里。",
-      "faqs": [
-        {
-          "question": "我不知道应该咨询哪项服务。",
-          "answer": "可以同时咨询系统开发、网站制作、服务器运维和设计。不确定时请选择“其他”，并说明现状和问题。"
-        },
-        {
-          "question": "只咨询报价也可以吗？",
-          "answer": "可以。报价免费。请尽量填写目标、期望时间、当前问题和预算范围。"
-        },
-        {
-          "question": "Acecore Schools 的咨询也可以用这个表单吗？",
-          "answer": "可以。请填写希望通过学习实现的目标、目前遇到的问题、以往经验和可使用的环境，以及希望的学习方式。咨询学校学习或高中同等学力认定时，也请注明年级和预计应试时间。"
-        },
-        {
-          "question": "多久会回复？",
-          "answer": "通常会在 1-2 个工作日内回复。提交后的补充说明也可以使用 LINE 或下方联系方式。"
-        }
-      ]
+      "aiHeading": "使用 AI 确认咨询入口",
+      "aiLead": "根据内容引导至 Acecore Systems、Acecore Schools、Aceserver 或统一窗口。",
+      "aiSubmit": "确认咨询入口"
     },
     "about": {
       "title": "关于我们",
-      "seoTitleContext": "使命、理念与活动",
-      "description": "了解Acecore的使命、理念和活动内容。通过技术与创意的融合，推动开发、教育和社区参与。",
+      "seoTitleContext": "公司、理念与业务",
+      "description": "介绍Acecore的公司信息、理念，以及Acecore Systems、Acecore Schools和Aceserver三项业务。",
       "heroTitle": "关于我们",
-      "heroSubtitle": "Acecore的追求与理念",
+      "heroSubtitle": "Acecore的理念与三项业务",
       "heroImgAlt": "团队讨论",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Acecore的价值循环体系",
       "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
       "philosophyHeading": "理念",
-      "philosophyMotto": "\"技术连接，创意拓展\"",
-      "philosophyBody1": "Acecore 是一个通过技术与创意创造多元价值的科技团队，为个人和企业一站式提供系统开发、网站制作、服务器运维、设计与 IT 教育。",
-      "philosophyBody2": "我们的使命是通过技术连接人们、通过创意拓展可能性。重视的不仅是提供技术，更是与客户和社区共同成长，创造可持续的价值。",
+      "philosophyMotto": "\"让技术与学习成为社会的力量。\"",
+      "philosophyBody1": "Acecore通过Acecore Systems、Acecore Schools和Aceserver支持业务、学习与社区。",
+      "philosophyBody2": "acecore.net提供公司信息与业务概览。服务内容、价格、案例和活动记录由各专业官方网站维护。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
       "workshopImgAlt": "学习会和工作坊场景",
@@ -398,9 +286,9 @@
       "partnershipDesc": "欢迎项目合作和商业伙伴关系。可在技术、设计、教育等广泛领域展开合作。",
       "relatedLinksHeading": "相关链接",
       "ctaHeading": "与Acecore一起迈出下一步",
-      "ctaBody": "服务咨询、合作提案，随时恭候。",
+      "ctaBody": "我们受理跨业务咨询、合作提案，以及不确定应联系哪项业务的问题。",
       "ctaContact": "联系我们",
-      "ctaServices": "查看服务列表",
+      "ctaServices": "查看业务列表",
       "valueCycle": [
         {
           "title": "技术实施",
@@ -462,147 +350,27 @@
       ]
     },
     "services": {
-      "title": "服务",
-      "seoTitleContext": "系统开发、网站设计与服务器运维",
-      "description": "详细介绍Acecore提供的业务系统・Web应用开发、网站设计、服务器运维和设计服务。",
-      "heroTitle": "服务",
-      "heroSubtitle": "一站式多元IT解决方案",
+      "title": "业务",
+      "seoTitleContext": "业务指南",
+      "description": "本页汇总Acecore Systems、Acecore Schools和Aceserver三项业务，并链接到维护专业信息的各官方网站。",
+      "heroTitle": "业务",
+      "heroSubtitle": "各专业业务的官方信息入口",
       "heroImgAlt": "科技办公室",
-      "serviceMapEyebrow": "Service Map",
-      "serviceMapTitle": "一览Acecore的支持范围",
-      "serviceMapDesc": "将开发、运维和信息发布设计为一条连续的支持线。",
-      "mapSystemsTitle": "业务系统开发",
-      "mapSystemsDesc": "梳理现场业务，面向持续运营设计Web应用、管理界面和数据集成。",
-      "mapInfraTitle": "运维基础",
-      "mapInfraDesc": "提供稳定的云端和服务器运维，包含监控和维护。",
-      "mapPublishTitle": "信息发布",
-      "mapPublishDesc": "通过网站和设计制作，整理并传达您的信息。",
-      "mapEducationTitle": "培育支持",
-      "mapEducationDesc": "连接教育和陪伴支持，让团队能够自主运用引入的技术。",
-      "navSystems": "系统开发",
-      "navServer": "服务器",
-      "navWeb": "网站设计",
-      "navDesign": "设计",
-      "navEducation": "IT学校",
-      "navAceserver": "Aceserver",
-      "navAcestudio": "AceStudio",
-      "systems": {
-        "title": "业务系统・Web应用开发 / Acecore Systems",
-        "desc": "从订单、库存、客户、申请和预约系统，到组织内外使用的Web应用与管理界面，我们从需求梳理到开发和运营改善提供一体化支持。该专业领域的详细信息由Acecore Systems提供。",
-        "examplesLabel": "对应示例",
-        "detailLink": "在Acecore Systems查看详情",
-        "examples": [
-          "业务管理系统、CRM、ERP、预约及申请系统",
-          "Web应用、管理界面、会员功能、权限与审批流程",
-          "API、外部服务、数据库、通知与数据集成"
-        ]
-      },
-      "server": {
-        "title": "服务器搭建・运维",
-        "desc": "擅长构建和运维安全稳定的服务器环境。Acecore长期运营Aceserver（Minecraft公开服务器），并将积累的经验提供给企业客户。服务器迁移和云化咨询也欢迎联系。",
-        "examplesLabel": "服务案例",
-        "examples": [
-          "云服务器（AWS / Azure / GCP / Cloudflare）的设计与搭建",
-          "Linux / Windows 服务器运维、监控和维护",
-          "游戏服务器和社区服务器的搭建",
-          "安全对策和备份体系建设"
-        ]
-      },
-      "web": {
-        "title": "网站设计・运营",
-        "desc": "从企划到制作和运维，一站式处理企业网站、作品集、电商网站和社区网站等。通过最新技术和SEO优化，打造高品质网站。",
-        "examplesLabel": "服务案例",
-        "imgAlt": "网站设计制作流程",
-        "examples": [
-          "企业网站和落地页设计",
-          "CMS构建、博客和媒体网站",
-          "电商网站和在线商店开发",
-          "SEO优化、性能调优和无障碍改善"
-        ],
-        "featureLinksTitle": "可通过文章详细了解的功能菜单",
-        "featureLinksBody": "可将价格参考中的网站制作与运营功能，和对应的实现说明文章一起查看。",
-        "featureLinksArticleLabel": "查看说明文章"
-      },
-      "timelineTitle": "从导入到持续改善的陪伴",
-      "design": {
-        "title": "设计・创意",
-        "desc": "承接Logo设计、印刷品、横幅和角色设计等广泛的创意制作。致力于准确表达客户想要传达的信息。结合网站设计服务，从设计到上线一站式完成。",
-        "examplesLabel": "服务案例",
-        "imgAlt": "创意设计工作空间",
-        "examples": [
-          "Logo和品牌识别设计",
-          "名片、宣传册、海报等印刷品",
-          "Web横幅和社交媒体创意",
-          "角色设计和插画制作"
-        ]
-      },
-      "education": {
-        "title": "IT学校 / Acecore Schools",
-        "desc": "Acecore Schools 是一所根据个人目标和当前起点，安排高中同等学力认定及之后的选择、IT与编程、电脑与智能手机应用、机器人/创客制作等学习内容的学校。我们不把学习者套入固定课程，而是梳理所需内容，并衔接到亲手实践。此外，学校学习和考试备考也可根据目标进行咨询。目前常规学习支持在线提供；机器人/创客制作与编程分开处理，具体方式和时间根据内容另行协商。",
-        "coursesLabel": "可咨询的学习领域",
-        "detailLink": "查看Acecore Schools详情",
-        "courses": [
-          "高中同等学力认定及之后的选择（考试备考、学习计划和升学就业方向梳理）",
-          "IT学习与编程（Web制作、工具开发和发布）",
-          "电脑与智能手机应用（基本操作、Office、在线服务和安全）",
-          "机器人/创客制作（机构、电子和控制；实施方式和时间另行咨询）"
-        ]
-      },
-      "aceserver": {
-        "title": "Aceserver（Minecraft公开服务器）",
-        "desc": "Aceserver是Acecore运营的Minecraft免费公开服务器。秉持「成为每个人的归属」的理念，Java版和基岩版均可参加，在接近原版的自由环境中享受多人游戏。拥有支撑数百人同时连接的稳定运维实绩，在此积累的基础设施技术也反馈到了企业服务中。",
-        "featuresLabel": "特点",
-        "features": [
-          "人人可免费参加（只需有账号）",
-          "Java版和基岩版跨平台对战",
-          "接近原版的高自由度游戏环境",
-          "活跃的Discord社区交流和信息共享",
-          "欢迎直播和宣传（无需申请）"
-        ],
-        "portalLink": "Aceserver 官方网站",
-        "wikiLink": "Aceserver Wiki",
-        "discordLink": "Aceserver Discord"
-      },
-      "acestudio": {
-        "title": "AceStudio",
-        "comingSoon": "即将推出",
-        "desc": "AceStudio是Acecore正在开发的新服务。作为最大化创作者能力的平台，将支持设计、影像、音乐、开发等广泛领域的创意活动。",
-        "areasLabel": "预设功能・领域",
-        "note": "服务详情将在准备就绪后公布。最新信息将通过X和博客随时通知。",
-        "detailLink": "查看AceStudio详情",
-        "areas": [
-          "面向创作者的协作环境",
-          "设计、影像、音乐、编程等多领域支持",
-          "从制作到发布的无缝工作流"
-        ]
-      },
-      "miniCta": "咨询此服务",
-      "ctaHeading": "欢迎随时咨询",
-      "ctaBody": "即使不确定能委托什么也没关系。报价免费。",
-      "ctaContact": "免费咨询",
-      "ctaSchools": "查看IT学校详情",
-      "timeline": [
-        {
-          "date": "Step 1",
-          "title": "需求调查",
-          "description": "整理目标和约束，明确优先级。"
-        },
-        {
-          "date": "Step 2",
-          "title": "设计・提案",
-          "description": "确定所需技术、界面和运营规则。"
-        },
-        {
-          "date": "Step 3",
-          "title": "制作・构建",
-          "description": "跨越开发、设计和基础设施进行实施。"
-        },
-        {
-          "date": "Step 4",
-          "title": "上线・维护",
-          "description": "包含改善提案和追加开发在内的持续支持。"
-        }
-      ]
+      "eyebrow": "Business Directory",
+      "introTitle": "前往各业务的信息正本",
+      "introBody": "详细内容、费用、案例与使用方法请以各专业网站的最新信息为准。",
+      "systemsTitle": "Acecore Systems",
+      "systemsDescription": "业务系统、Web 应用、网站、基础设施以及品牌与创意设计支持请查看专业网站。",
+      "schoolsTitle": "Acecore Schools",
+      "schoolsDescription": "学习支持、费用与咨询方式请查看专业网站。",
+      "aceserverTitle": "Aceserver",
+      "aceserverDescription": "Acecore 运营的 Minecraft 社区官方参与指南与最新信息。",
+      "acestudioTitle": "AceStudio",
+      "acestudioStatus": "筹备中",
+      "acestudioDescription": "待服务准备完成后，仅发布已确认的信息。",
+      "contactHeading": "联系 Acecore",
+      "contactBody": "统一受理业务咨询、合作提案及其他问题。",
+      "contactCta": "联系我们"
     },
     "privacy": {
       "title": "隐私政策",
@@ -637,260 +405,47 @@
     },
     "acestudio": {
       "title": "AceStudio",
-      "seoTitleContext": "正在开发的创意平台",
-      "description": "AceStudio是Acecore正在开发的创意平台。详情即将公布。",
+      "seoTitleContext": "筹备中的业务",
+      "description": "AceStudio目前正在筹备中。有关服务内容和启动时间的确认信息将在Acecore官方网站发布。",
       "heroTitle": "AceStudio",
-      "heroSubtitle": "即将推出",
+      "heroSubtitle": "筹备中",
       "heroImgAlt": "复古科技",
-      "studioScopeEyebrow": "Studio Scope",
-      "studioScopeTitle": "AceStudio正在准备的四个领域",
-      "studioScopeDesc": "面向公开网站的内容×社区×变现思路概要。",
-      "creativeImgAlt": "影像制作・创意工作",
-      "comingSoonHeading": "全新创意体验，即将到来。",
-      "comingSoonBody1": "AceStudio是Acecore正在开发的新服务。",
-      "comingSoonBody2": "作为最大化创作者能力的平台，将支持设计、影像、音乐、开发等广泛领域的创意活动。",
-      "comingSoonBody3": "服务详情将在准备就绪后在此页面公布。",
-      "pullQuoteText": "不只是创作。传递、培育、循环。",
-      "pullQuoteAttribution": "AceStudio的设计理念",
-      "faqTitle": "关于AceStudio的常见问题",
-      "newsHeading": "为您传递最新消息",
-      "newsBody": "发布信息和最新开发动态将通过Acecore的X账号和博客随时通知。",
-      "followX": "关注X",
-      "viewBlog": "浏览博客",
-      "inquiryText": "关于AceStudio的咨询和需求请从这里",
-      "inquiryButton": "联系我们",
-      "studioAreas": [
-        {
-          "title": "内容制作",
-          "description": "跨越影像、直播、设计和开发，将企划变为现实。",
-          "icon": "film",
-          "tone": "brand"
-        },
-        {
-          "title": "创作者支持",
-          "description": "从机制层面支持个人的创作和发布活动。",
-          "icon": "badge-help",
-          "tone": "amber"
-        },
-        {
-          "title": "社区运营",
-          "description": "重视构建作品粉丝和参与者能持续连接的场所。",
-          "icon": "messages-square",
-          "tone": "emerald"
-        },
-        {
-          "title": "收益模式验证",
-          "description": "将探讨中的收益模式落实到实际运营中。",
-          "icon": "chart-no-axes-combined",
-          "tone": "slate"
-        }
-      ],
-      "faqs": [
-        {
-          "question": "AceStudio何时发布？",
-          "answer": "目前正在准备中。发布时间确定后将通过X和博客通知。"
-        },
-        {
-          "question": "使用是否收费？",
-          "answer": "收费体系目前正在规划中。计划提供免费入门方案。"
-        },
-        {
-          "question": "支持哪些创意活动？",
-          "answer": "广泛支持设计、影像、音乐、编程等数字创意活动。"
-        },
-        {
-          "question": "可以预注册或预约吗？",
-          "answer": "目前暂未开放预注册，但关注我们的X账号可获取最新信息。"
-        }
-      ]
+      "statusEyebrow": "Status",
+      "statusHeading": "AceStudio正在筹备中",
+      "statusBody": "我们正在确定服务内容、适用对象和启动时间。具体服务与价格将在确认后发布。",
+      "statusNote": "确认后的信息将在本页面和企业新闻中公布。",
+      "newsHeading": "Acecore官方动态",
+      "newsBody": "有关AceStudio的正式公告将在Acecore官方网站和X账号发布。",
+      "followX": "查看X",
+      "viewNews": "查看企业新闻",
+      "inquiryText": "跨业务合作提案或其他咨询，请联系Acecore。",
+      "inquiryButton": "联系我们"
     },
     "pricing": {
-      "title": "费用参考",
-      "description": "汇总 Acecore 的网站制作、服务器运维、设计、Acecore Schools 等参考费用，并提供 Acecore Systems 开发费用指南。",
-      "heroTitle": "费用参考",
-      "heroSubtitle": "在详细规划前，跨服务确认大致费用区间",
+      "title": "费用与咨询入口",
+      "description": "本页汇总Acecore Systems、Acecore Schools和Aceserver当前费用、使用条件及咨询方式的官方网站入口。",
+      "heroTitle": "费用与咨询入口",
+      "heroSubtitle": "最新费用请查看各业务官方网站",
       "heroImgAlt": "查看报价资料的工作场景",
-      "eyebrow": "费用参考",
-      "introTitle": "先确认大致费用范围",
-      "introBody": "页面中的金额均为含税预估。正式报价会根据需求、规模、素材准备情况以及外部服务使用情况变动。",
-      "serviceTitle": "主要服务的费用感",
-      "serviceBody": "从小规模咨询到制作、开发、运维组合支持均可对应。",
-      "detailLink": "查看详情",
-      "schoolsFeeTitle": "Schools 费用参考",
-      "schoolsFeeBody": "常规学习支持目前在线提供。费用会因目标、内容、次数以及使用的教材和环境而异，因此这里列出的是咨询前的参考范围。",
-      "feeItem": "项目",
-      "feeAmount": "参考",
-      "feeNote": "补充",
-      "factorTitle": "费用变动的主要因素",
-      "noteTitle": "关于显示价格",
-      "ctaHeading": "如果费用感合适，欢迎先免费咨询",
-      "ctaBody": "只需告知目标、希望时间和大致预算。我们会整理必要范围，并提出现实的推进方式。",
-      "ctaContact": "免费咨询",
-      "ctaServices": "查看服务详情",
-      "ctaSchools": "查看 Schools",
-      "items": [
-        {
-          "icon": "message-square",
-          "title": "咨询 AI 聊天",
-          "price": "8万日元起",
-          "body": "为静态网站加入咨询 AI 聊天，并整理站内上下文、限流、Origin 检查和安全链接渲染。",
-          "href": "/blog/astro-ai-contact-chat/"
-        },
-        {
-          "icon": "message-square-text",
-          "title": "博客评论功能",
-          "price": "¥80,000起",
-          "body": "不依赖外部评论服务，构建评论提交、D1 存储、Turnstile 防护、Origin 控制和删除运营流程。",
-          "href": "/blog/cloudflare-only-blog-comments/"
-        },
-        {
-          "icon": "layout-template",
-          "title": "CMS 编辑界面导入",
-          "price": "5万日元起",
-          "body": "用 Sveltia CMS 添加管理界面，让博客、固定页面、公告和设置项可在浏览器中更新。",
-          "href": "/blog/cms-selection-and-turnstile/"
-        },
-        {
-          "icon": "newspaper",
-          "title": "博客与文章基础",
-          "price": "5万日元起",
-          "body": "整理文章列表、详情页、标签/分类、相关文章、RSS 和搜索路径，支撑持续发布。",
-          "href": "/blog/astro-i18n-blog-translation/"
-        },
-        {
-          "icon": "languages",
-          "title": "多语言博客运营",
-          "price": "8万日元起",
-          "body": "整理源语言、翻译 PR、hreflang、sitemap 和 RSS，支撑多语言博客运营。",
-          "href": "/blog/copilot-translation-pipeline/"
-        },
-        {
-          "icon": "search",
-          "title": "SEO 与结构化数据",
-          "price": "5万日元起",
-          "body": "整理 OGP、JSON-LD、站点地图、RSS、canonical 和搜索引擎需要的元信息。",
-          "href": "/blog/astro-seo-and-structured-data/"
-        },
-        {
-          "icon": "scan",
-          "title": "Pagefind 站内搜索",
-          "price": "3万日元起",
-          "body": "为静态网站加入 Pagefind 搜索，并整理搜索 UI、URL 参数和缓存设置。",
-          "href": "/blog/astro-ux-and-code-quality/"
-        },
-        {
-          "icon": "zap",
-          "title": "显示速度改善",
-          "price": "5万日元起",
-          "body": "检查图片、CSS、字体、延迟加载和测量结果，改善 Core Web Vitals。",
-          "href": "/blog/astro-performance-tuning/"
-        },
-        {
-          "icon": "accessibility",
-          "title": "可访问性改善",
-          "price": "5万日元起",
-          "body": "检查对比度、ARIA 属性、焦点状态和表单验证，以 WCAG AA 为目标进行修正。",
-          "href": "/blog/astro-accessibility-guide/"
-        },
-        {
-          "icon": "shield-check",
-          "title": "安全响应头 / CSP",
-          "price": "3万日元起",
-          "body": "整理 Cloudflare Pages 的 _headers、CSP 和管理界面发布设置，提高发布安全性。",
-          "href": "/blog/cloudflare-pages-security/"
-        },
-        {
-          "icon": "mouse-pointer-click",
-          "title": "CTA 与表单联动",
-          "price": "3万日元起",
-          "body": "把服务类型、标题和页面上下文从 CTA 传到咨询表单，改善咨询路径。",
-          "href": "/blog/service-cta-contact-prefill/"
-        },
-        {
-          "icon": "server",
-          "title": "服务器构建与运维",
-          "price": "初期10万〜50万日元",
-          "body": "支持云/VPS 初期构建、监控和备份设计。监控与维护一般为每月1万〜10万日元。",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "网站制作与运营",
-          "price": "15万日元起",
-          "body": "LP/小型网站15万日元起，企业网站50万〜150万日元，运营维护每月1万〜5万日元。",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "设计与创意",
-          "price": "2万日元起",
-          "body": "Logo 5万〜15万日元，传单/横幅2万〜12万日元，品牌设计与网站联动10万日元起。",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "月费8千〜3.3万日元",
-          "body": "这里列出了入会金、月费、教材与管理费的参考范围。费用会因目标、内容、次数以及使用的教材和环境而变动。",
-          "href": "https://schools.acecore.net/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / 视频制作",
-          "price": "每条3万〜30万日元",
-          "body": "短视频和剪辑每条约3万〜30万日元。包含策划和拍摄的制作会按内容单独报价。",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "免费参加",
-          "body": "公开服务器可免费参加。面向企业的游戏服务器构建与运维咨询需单独报价。",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "入会金",
-          "amount": "1.1万〜2.2万日元",
-          "note": "仅首次收取。会根据支持内容和所需准备物品变动。"
-        },
-        {
-          "item": "月费",
-          "amount": "8千〜3.3万日元",
-          "note": "会根据次数、时长、支持内容和学习方式变动。"
-        },
-        {
-          "item": "教材与管理费",
-          "amount": "约5千〜3万日元",
-          "note": "教材、机器人部件、电脑和许可证等费用会根据内容按实际发生额收取。"
-        }
-      ],
-      "factors": [
-        "需求明确度、页面数量、功能数量、是否有外部联动",
-        "设计精细度、文案/照片/视频素材准备情况",
-        "上线后的维护、监控、更新代行、改进提案范围",
-        "教材、设备、印刷、广告、云服务费用等外部实费"
-      ],
-      "notes": [
-        "所有金额均为含税预估。正式金额会在沟通后单独报价。",
-        "域名、服务器、广告、印刷、教材、设备、交通费等外部实费另计。",
-        "如果预算已确定，我们会在该范围内整理优先级并提出方案。"
-      ],
-      "systemsHandoff": {
-        "eyebrow": "Acecore Systems",
-        "title": "业务系统与 Web 应用开发费用",
-        "body": "业务系统、Web 应用、管理后台、数据集成和运营改进的参考费用请查看 Acecore Systems。链接页面目前为日语。",
-        "ctaLabel": "查看 Acecore Systems 费用"
-      }
+      "eyebrow": "Official Information",
+      "introTitle": "前往官方费用信息",
+      "introBody": "本页不重复发布金额，仅提供各业务维护的最新信息入口。",
+      "systemsTitle": "Acecore Systems 费用",
+      "systemsBody": "开发、网站制作、品牌与创意设计及运维支持的费用和咨询方式请查看 Acecore Systems。",
+      "schoolsTitle": "Acecore Schools 费用",
+      "schoolsBody": "学习支持的费用、对象与咨询方式请查看 Acecore Schools。",
+      "aceserverTitle": "Aceserver 参与指南",
+      "aceserverBody": "参与方式与使用条件请查看 Aceserver 官方网站。",
+      "contactTitle": "其他咨询",
+      "contactBody": "跨业务需求、合作提案或不确定咨询入口时，请联系 Acecore。"
     }
   },
   "pageNames": {
-    "services": "服务",
+    "services": "业务",
     "schools": "Acecore Schools",
     "about": "关于我们",
     "contact": "联系我们",
-    "blog": "博客",
+    "blog": "新闻",
     "acestudio": "AceStudio",
     "privacy": "隐私政策",
     "tags": "标签",

@@ -1,143 +1,23 @@
 {
-  "title": "サービス",
-  "seoTitleContext": "システム開発・Web制作・サーバー運用・IT教育",
-  "description": "Acecoreが提供する業務システム・Webアプリ開発、Webサイト制作、サーバー運用、デザイン、IT教育サービスの詳細をご紹介します。",
-  "heroTitle": "サービス",
-  "heroSubtitle": "ワンストップで提供する多彩なITソリューション",
+  "title": "事業",
+  "seoTitleContext": "事業案内",
+  "description": "Acecoreの事業と、それぞれの専門情報を掲載する公式サイトをご案内します。",
+  "heroTitle": "事業",
+  "heroSubtitle": "専門領域ごとの公式なご案内先をまとめています",
   "heroImgAlt": "テクノロジーオフィス",
-  "serviceMapEyebrow": "Service Map",
-  "serviceMapTitle": "Acecoreの支援範囲を図で把握する",
-  "serviceMapDesc": "開発・運用・発信・育成までを一続きの支援線として設計しています。",
-  "mapSystemsTitle": "業務システム開発",
-  "mapSystemsDesc": "現場の業務を整理し、Webアプリ、管理画面、データ連携を運用まで見据えて設計します。",
-  "mapInfraTitle": "運用基盤",
-  "mapInfraDesc": "クラウドやサーバーを安定運用し、監視や保守まで含めて整えます。",
-  "mapPublishTitle": "情報発信",
-  "mapPublishDesc": "Webサイトやデザイン制作で、伝えるべき内容を整理して届けます。",
-  "mapEducationTitle": "育成支援",
-  "mapEducationDesc": "導入した技術を現場で回せるよう、教育と伴走支援まで接続します。",
-  "navSystems": "システム開発",
-  "navServer": "サーバー",
-  "navWeb": "Web制作",
-  "navDesign": "デザイン",
-  "navEducation": "ITスクール",
-  "navAceserver": "Aceserver",
-  "navAcestudio": "AceStudio",
-  "systems": {
-    "title": "業務システム・Webアプリ開発 / Acecore Systems",
-    "desc": "受発注、在庫、顧客管理、申請、予約などの業務システムや、社内外で使うWebアプリ・管理画面を、要件整理から開発、運用改善まで一貫して支援します。専門領域はAcecore Systemsで詳しくご案内しています。",
-    "examplesLabel": "対応例",
-    "detailLink": "Acecore Systemsで詳細を見る",
-    "examples": [
-      "業務管理システム、CRM、ERP、予約・申請システム",
-      "Webアプリ、管理画面、会員機能、権限・承認フロー",
-      "API、外部サービス、データベース、通知の連携"
-    ]
-  },
-  "server": {
-    "title": "サーバー構築・運用",
-    "desc": "セキュアで安定したサーバー環境の構築と運用を得意としています。AcecoreではAceserver（マインクラフト公開サーバー）を長期運用しており、そこで培ったノウハウを企業向けにもご提供します。サーバーの移行やクラウド化のご相談もお待ちしています。",
-    "examplesLabel": "対応例",
-    "examples": [
-      "クラウドサーバー（AWS / Azure / GCP / Cloudflare）の設計・構築",
-      "Linux / Windows サーバーの運用・監視・保守",
-      "ゲームサーバー・コミュニティサーバーの構築",
-      "セキュリティ対策・バックアップ体制の整備"
-    ]
-  },
-  "web": {
-    "title": "Webサイト制作・運用",
-    "desc": "コーポレートサイト、ポートフォリオ、ECサイト、コミュニティサイトなど、各種Webサイトの企画から制作、運用保守までを一貫して対応します。最新の技術とSEO対策で高品質なサイトを実現します。",
-    "examplesLabel": "対応例",
-    "imgAlt": "Webデザインの制作プロセス",
-    "examples": [
-      "コーポレートサイト・ランディングページの制作",
-      "CMS構築・ブログ・メディアサイト",
-      "ECサイト・オンラインショップの構築",
-      "SEO対策・パフォーマンス最適化・アクセシビリティ改善"
-    ],
-    "featureLinksTitle": "記事で詳しく読める機能メニュー",
-    "featureLinksBody": "料金目安に載せているWeb制作・運用系の機能を、対応する解説記事と一緒に確認できます。",
-    "featureLinksArticleLabel": "解説記事を見る"
-  },
-  "timelineTitle": "導入から改善までの伴走イメージ",
-  "design": {
-    "title": "デザイン・クリエイティブ",
-    "desc": "ロゴデザイン、印刷物、バナー、キャラクターデザインなど幅広いクリエイティブ制作を手掛けています。お客様の「伝えたい」を的確に形にすることを大切にしています。Webサイト制作と組み合わせれば、デザインから公開まで一貫でお任せいただけます。",
-    "examplesLabel": "対応例",
-    "imgAlt": "クリエイティブなデザインワークスペース",
-    "examples": [
-      "ロゴ・ブランドアイデンティティの設計",
-      "名刺・パンフレット・ポスターなどの印刷物",
-      "Webバナー・SNS用クリエイティブ",
-      "キャラクターデザイン・イラスト制作"
-    ]
-  },
-  "education": {
-    "title": "ITスクール / Acecore Schools",
-    "desc": "高卒認定・その先の選択、IT・プログラミング、PC・スマホ活用、ロボット／メイキングを、目的と現在地に合わせて組み立てる学習スクールです。決められたコースへ当てはめず、必要な学びを整理し、手を動かす実践へつなげます。このほか、学校学習や試験対策も目的に応じて相談できます。通常の学習サポートは現在オンラインで提供し、ロボット／メイキングはプログラミングとは分けて、内容と実施時期に応じて相談しています。",
-    "coursesLabel": "相談できる学び",
-    "detailLink": "Acecore Schools の詳細を見る",
-    "courses": [
-      "高卒認定・その先の選択（試験対策・学習計画・進路の整理）",
-      "IT学習・プログラミング（Web制作・ツール開発・公開）",
-      "PC・スマホ活用（基本操作・Office・オンライン活用・セキュリティ）",
-      "ロボット／メイキング（機構・電子・制御。実施方法・時期は相談）"
-    ]
-  },
-  "aceserver": {
-    "title": "Aceserver（マインクラフト公開サーバー）",
-    "desc": "Aceserver（エースサーバー）は、Acecoreが運営するマインクラフトの無料公開サーバーです。「みんなの居場所で有ること」を理念に、Java版・統合版のどちらからでも参加でき、バニラに近い自由な環境でマルチプレイを楽しめます。数百人規模の同時接続にも耐える安定運用実績があり、ここで培ったインフラ技術は企業向けサービスにもフィードバックされています。",
-    "featuresLabel": "特徴",
-    "features": [
-      "誰でも無料で参加可能（アカウントさえあればOK）",
-      "Java版・統合版クロスプレイ対応",
-      "バニラに近い自由度の高いゲーム環境",
-      "活発なDiscordコミュニティで交流・情報共有",
-      "配信・宣伝OK（申請不要で自由にご活用いただけます）"
-    ],
-    "portalLink": "Aceserver 公式サイト",
-    "wikiLink": "Aceserver Wiki",
-    "discordLink": "Aceserver Discord"
-  },
-  "acestudio": {
-    "title": "AceStudio",
-    "comingSoon": "Coming Soon",
-    "desc": "AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。クリエイターの力を最大限に引き出すプラットフォームとして、デザイン・映像・音楽・開発など幅広い領域でのクリエイティブ活動を支援します。",
-    "areasLabel": "想定する機能・領域",
-    "note": "サービスの詳細は、準備が整い次第公開いたします。最新情報はXやブログで随時お知らせします。",
-    "detailLink": "AceStudio の詳細を見る",
-    "areas": [
-      "クリエイター向けのコラボレーション環境",
-      "デザイン・映像・音楽・プログラミングなど多領域対応",
-      "制作から公開までをシームレスに支援するワークフロー"
-    ]
-  },
-  "miniCta": "このサービスについて相談する",
-  "ctaHeading": "まずはお気軽にご相談ください",
-  "ctaBody": "「何を頼めるか分からない」という段階でも大丈夫です。お見積りは無料です。",
-  "ctaContact": "無料で相談する",
-  "ctaSchools": "ITスクールの詳細を見る",
-  "timeline": [
-    {
-      "date": "Step 1",
-      "title": "ヒアリング",
-      "description": "目的と制約を整理し、優先順位を明確に。"
-    },
-    {
-      "date": "Step 2",
-      "title": "設計・提案",
-      "description": "必要な技術・画面・運用ルールを整理。"
-    },
-    {
-      "date": "Step 3",
-      "title": "制作・構築",
-      "description": "開発・デザイン・インフラを横断して実装。"
-    },
-    {
-      "date": "Step 4",
-      "title": "公開・保守",
-      "description": "改善提案・追加開発まで含めた継続支援。"
-    }
-  ]
+  "eyebrow": "Business Directory",
+  "introTitle": "事業ごとの正本をご案内します",
+  "introBody": "詳細、料金、事例、利用方法は、各事業を運営する専門サイトで最新情報をご確認ください。",
+  "systemsTitle": "Acecore Systems",
+  "systemsDescription": "業務システム、Webアプリ、Webサイト、運用基盤、デザイン・クリエイティブ制作を専門サイトでご案内します。",
+  "schoolsTitle": "Acecore Schools",
+  "schoolsDescription": "教育と学習支援の内容、料金、ご相談方法を専門サイトでご案内します。",
+  "aceserverTitle": "Aceserver",
+  "aceserverDescription": "Acecoreが運営するMinecraftコミュニティの参加案内と最新情報を掲載しています。",
+  "acestudioTitle": "AceStudio",
+  "acestudioStatus": "準備中",
+  "acestudioDescription": "提供内容が確定した情報のみ、準備が整い次第お知らせします。",
+  "contactHeading": "Acecoreへのお問い合わせ",
+  "contactBody": "事業に関するご相談、連携のご提案、その他のお問い合わせを共通窓口で受け付けています。",
+  "contactCta": "お問い合わせ"
 }

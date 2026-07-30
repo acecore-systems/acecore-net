@@ -168,10 +168,10 @@
       Acecore
     </text>
     <text x="2" y="72" fill="#dbeafe" font-size="38" font-weight="800">
-      Web制作・サーバー運用・IT教育
+      技術と学びを、社会の力へ。
     </text>
     <text x="4" y="122" fill="#9cc8e9" font-size="24" font-weight="700">
-      Technology × Creative / One-stop digital partner
+      Acecore Systems / Schools / Aceserver
     </text>
   </g>
 
@@ -197,7 +197,7 @@
         Systems
       </text>
       <text x="20" y="103" fill="#9cc8e9" font-size="17" font-weight="700">
-        設計から運用まで
+        技術支援の公式サイト
       </text>
     </g>
     <g transform="translate(208 0)" filter="url(#softShadow)">
@@ -215,10 +215,10 @@
         02
       </text>
       <text x="20" y="78" fill="#ffffff" font-size="23" font-weight="800">
-        Web
+        Schools
       </text>
       <text x="20" y="103" fill="#9cc8e9" font-size="17" font-weight="700">
-        制作と改善を一体化
+        学習支援の公式サイト
       </text>
     </g>
     <g transform="translate(416 0)" filter="url(#softShadow)">
@@ -236,10 +236,10 @@
         03
       </text>
       <text x="20" y="78" fill="#ffffff" font-size="23" font-weight="800">
-        Education
+        Aceserver
       </text>
       <text x="20" y="103" fill="#9cc8e9" font-size="17" font-weight="700">
-        現場で使うIT教育
+        コミュニティ公式サイト
       </text>
     </g>
   </g>
@@ -363,7 +363,7 @@
         font-family="Consolas, monospace"
         font-size="20"
       >
-        build: "systems",
+        businesses: 3,
       </text>
       <text
         x="54"
@@ -372,7 +372,7 @@
         font-family="Consolas, monospace"
         font-size="20"
       >
-        ship: "web", learn: "it"
+        source: "official sites"
       </text>
     </g>
   </g>

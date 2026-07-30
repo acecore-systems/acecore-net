@@ -2,8 +2,6 @@
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
-import { SITE } from '../data/site'
-import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale?: Locale
@@ -19,22 +17,6 @@ const navLinks = [
   {
     href: getLocalizedUrl('/services/', locale),
     label: t(locale, 'nav.services'),
-  },
-  {
-    href: getLocalizedUrl('/pricing/', locale),
-    label: t(locale, 'nav.pricing'),
-  },
-  {
-    href: getSchoolsUrl(),
-    label: 'Schools',
-  },
-  {
-    href: SITE.social.systems,
-    label: 'Systems',
-  },
-  {
-    href: SITE.social.aceserver,
-    label: locale === 'ja' ? 'エースサーバー' : 'Aceserver',
   },
   { href: getLocalizedUrl('/about/', locale), label: t(locale, 'nav.about') },
   { href: getLocalizedUrl('/blog/', locale), label: t(locale, 'nav.blog') },
@@ -74,14 +56,6 @@ const currentPath = Astro.url.pathname
                   ? 'bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
               ]}
-              {...(link.href === SITE.social.systems
-                ? {
-                    'data-ga-event': 'external_link_click',
-                    'data-ga-label': 'header_systems',
-                    'data-ga-location': 'header',
-                    'data-ga-destination': SITE.social.systems,
-                  }
-                : {})}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>
@@ -155,14 +129,6 @@ const currentPath = Astro.url.pathname
                   ? 'border-brand-100 bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
               ]}
-              {...(link.href === SITE.social.systems
-                ? {
-                    'data-ga-event': 'external_link_click',
-                    'data-ga-label': 'mobile_systems',
-                    'data-ga-location': 'mobile_navigation',
-                    'data-ga-destination': SITE.social.systems,
-                  }
-                : {})}
               {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>

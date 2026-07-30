@@ -48,7 +48,6 @@ import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
 
 import type { CollectionEntry } from 'astro:content'
-import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
   locale: Locale
@@ -199,62 +198,18 @@ const faqLd = post.data.faq
 
 const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
 
-const tags = post.data.tags ?? []
-
-const ctaHeading = isDefaultLocale
-  ? (() => {
-      const variants = [
-        {
-          match: ['教育', 'Acecore Schools'],
-          heading: '目的に合う学びを一緒に整理しませんか？',
-          body: 'Acecore Schoolsでは、目的と現在地から必要な学びを整理し、実際に使う場面へつながる形で支援します。',
-          primary: {
-            label: 'Schoolsで相談できることを見る',
-            href: getSchoolsUrl(),
-          },
-          secondary: {
-            label: '学習について相談する',
-            href: '/contact/?category=service&service=education#contact-form',
-          },
-        },
-        {
-          match: ['インフラ', 'DNS', 'メール', 'Cloudflare', 'セキュリティ'],
-          heading: '運用・インフラのお悩みはありませんか？',
-          body: 'サーバー構築からメール移行、セキュリティ対策まで、安定運用をサポートします。',
-          primary: { label: 'サービス一覧', href: '/services/' },
-          secondary: { label: '無料で相談する', href: '/contact/' },
-        },
-        {
-          match: ['Web制作', 'Astro'],
-          heading: '開発・Web制作のご相談はお気軽に',
-          body: '要件整理からデザイン・実装・運用まで、ワンストップでサポートします。',
-          primary: { label: 'サービス一覧', href: '/services/' },
-          secondary: { label: 'お問い合わせ', href: '/contact/' },
-        },
-      ]
-      const defaultCta = {
-        heading: 'ご相談・ご依頼はお気軽に',
-        body: '記事の内容に関するご質問や、サービスについてのご相談をお待ちしています。',
-        primary: { label: 'お問い合わせ', href: '/contact/' },
-        secondary: { label: 'サービス一覧', href: '/services/' },
-      }
-      return (
-        variants.find((v) => tags.some((tg: string) => v.match.includes(tg))) ??
-        defaultCta
-      )
-    })()
-  : {
-      heading: t(locale, 'blog.blogCtaHeading'),
-      body: t(locale, 'blog.blogCtaBody'),
-      primary: {
-        label: t(locale, 'blog.blogCtaServices'),
-        href: u('/services/'),
-      },
-      secondary: {
-        label: t(locale, 'blog.blogCtaContact'),
-        href: u('/contact/'),
-      },
-    }
+const ctaHeading = {
+  heading: t(locale, 'blog.blogCtaHeading'),
+  body: t(locale, 'blog.blogCtaBody'),
+  primary: {
+    label: t(locale, 'blog.blogCtaServices'),
+    href: u('/services/'),
+  },
+  secondary: {
+    label: t(locale, 'blog.blogCtaContact'),
+    href: u('/contact/'),
+  },
+}
 ---
 
 <BaseLayout

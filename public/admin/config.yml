@@ -1086,719 +1086,263 @@ collections:
         format: json
         fields:
           - name: 'heroTitle'
-            label: 'ヒーロー・タイトル'
+            label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'
             widget: string
           - name: 'heroSubtitle'
-            label: 'ヒーロー・サブタイトル'
+            label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: string
           - name: 'heroImgTeam'
-            label: 'ヒーロー・画像・チーム'
+            label: 'heroImgTeam（ヒーロー）'
             hint: 'heroImgTeam'
             widget: string
-          - name: 'heroImgCollaboration'
-            label: 'ヒーロー・画像・連携'
-            hint: 'heroImgCollaboration'
-            widget: string
           - name: 'heroImgMeeting'
-            label: 'ヒーロー・画像・ミーティング'
+            label: 'heroImgMeeting（ヒーロー）'
             hint: 'heroImgMeeting'
             widget: string
-          - name: 'heroImgStrategy'
-            label: 'ヒーロー・画像・戦略'
-            hint: 'heroImgStrategy'
+          - name: 'businessesHeading'
+            label: 'businessesHeading（見出し）'
+            hint: 'businessesHeading'
             widget: string
-          - name: 'servicesHeading'
-            label: 'サービス・見出し'
-            hint: 'servicesHeading'
+          - name: 'businessesLead'
+            label: 'businessesLead（リード）'
+            hint: 'businessesLead'
+            widget: text
+          - name: 'systemsTitle'
+            label: 'systemsTitle（タイトル）'
+            hint: 'systemsTitle'
             widget: string
-          - name: 'servicesLead'
-            label: 'サービス・リード文'
-            hint: 'servicesLead'
+          - name: 'systemsDescription'
+            label: 'systemsDescription（説明）'
+            hint: 'systemsDescription'
+            widget: text
+          - name: 'schoolsTitle'
+            label: 'schoolsTitle（タイトル）'
+            hint: 'schoolsTitle'
             widget: string
-          - name: 'serviceCards'
-            label: 'サービスカード'
-            hint: 'serviceCards'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'serviceCards[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'serviceCards[].description'
-                widget: text
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'serviceCards[].href'
-                widget: string
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'serviceCards[].icon'
-                widget: string
-              - name: 'tone'
-                label: '色調'
-                hint: 'serviceCards[].tone'
-                widget: select
-                options:
-                  - { label: 'ブランド', value: 'brand' }
-                  - { label: 'エメラルド', value: 'emerald' }
-                  - { label: 'アンバー', value: 'amber' }
-                  - { label: 'スレート', value: 'slate' }
-          - name: 'viewServicesDetail'
-            label: 'サービス詳細を見る'
-            hint: 'viewServicesDetail'
+          - name: 'schoolsDescription'
+            label: 'schoolsDescription（説明）'
+            hint: 'schoolsDescription'
+            widget: text
+          - name: 'aceserverTitle'
+            label: 'aceserverTitle（タイトル）'
+            hint: 'aceserverTitle'
             widget: string
-          - name: 'layersEyebrow'
-            label: 'レイヤー・補助見出し'
-            hint: 'layersEyebrow'
+          - name: 'aceserverDescription'
+            label: 'aceserverDescription（説明）'
+            hint: 'aceserverDescription'
+            widget: text
+          - name: 'acestudioTitle'
+            label: 'acestudioTitle（タイトル）'
+            hint: 'acestudioTitle'
             widget: string
-          - name: 'layersTitle'
-            label: 'レイヤー・タイトル'
-            hint: 'layersTitle'
+          - name: 'acestudioNote'
+            label: 'acestudioNote（補足）'
+            hint: 'acestudioNote'
+            widget: text
+          - name: 'viewBusinessDetails'
+            label: 'viewBusinessDetails'
+            hint: 'viewBusinessDetails'
             widget: string
-          - name: 'layersDescription'
-            label: 'レイヤー・説明'
-            hint: 'layersDescription'
-            widget: string
-          - name: 'layerItems'
-            label: 'レイヤーカード'
-            hint: 'layerItems'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'layerItems[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'layerItems[].description'
-                widget: text
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'layerItems[].href'
-                widget: string
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'layerItems[].icon'
-                widget: string
-              - name: 'tone'
-                label: '色調'
-                hint: 'layerItems[].tone'
-                widget: select
-                options:
-                  - { label: 'ブランド', value: 'brand' }
-                  - { label: 'エメラルド', value: 'emerald' }
-                  - { label: 'アンバー', value: 'amber' }
-                  - { label: 'スレート', value: 'slate' }
           - name: 'aboutHeading'
-            label: '会社概要・見出し'
+            label: 'aboutHeading（見出し）'
             hint: 'aboutHeading'
             widget: string
           - name: 'aboutBody1'
-            label: '会社概要・本文1'
+            label: 'aboutBody1（本文）'
             hint: 'aboutBody1'
-            widget: string
+            widget: text
           - name: 'aboutBody2'
-            label: '会社概要・本文2'
+            label: 'aboutBody2（本文）'
             hint: 'aboutBody2'
-            widget: string
+            widget: text
           - name: 'aboutEducationLink'
-            label: '会社概要・教育・リンク'
+            label: 'aboutEducationLink'
             hint: 'aboutEducationLink'
             widget: string
           - name: 'viewAbout'
-            label: '会社概要を見る'
+            label: 'viewAbout'
             hint: 'viewAbout'
             widget: string
-          - name: 'viewServices'
-            label: 'サービスを見る'
-            hint: 'viewServices'
+          - name: 'latestNews'
+            label: 'latestNews'
+            hint: 'latestNews'
             widget: string
-          - name: 'latestBlog'
-            label: '最新・ブログ'
-            hint: 'latestBlog'
+          - name: 'viewAllNews'
+            label: 'viewAllNews'
+            hint: 'viewAllNews'
             widget: string
-          - name: 'viewAllPosts'
-            label: 'すべての記事を見る'
-            hint: 'viewAllPosts'
+          - name: 'contactHeading'
+            label: 'contactHeading（見出し）'
+            hint: 'contactHeading'
+            widget: string
+          - name: 'contactBody'
+            label: 'contactBody（本文）'
+            hint: 'contactBody'
+            widget: text
+          - name: 'contactCta'
+            label: 'contactCta（リンク文言）'
+            hint: 'contactCta'
             widget: string
       - name: 'services'
-        label: 'サービスページ'
+        label: 'サービス'
         file: src/i18n/source/ja/pages/services.json
         format: json
         fields:
           - name: 'title'
-            label: 'タイトル'
+            label: 'title（タイトル）'
             hint: 'title'
             widget: string
           - name: 'seoTitleContext'
-            label: 'SEOタイトル補足'
+            label: 'seoTitleContext（タイトル）'
             hint: 'seoTitleContext'
             widget: string
           - name: 'description'
-            label: '説明'
+            label: 'description（説明）'
             hint: 'description'
-            widget: string
+            widget: text
           - name: 'heroTitle'
-            label: 'ヒーロー・タイトル'
+            label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'
             widget: string
           - name: 'heroSubtitle'
-            label: 'ヒーロー・サブタイトル'
+            label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: string
           - name: 'heroImgAlt'
-            label: 'ヒーロー・画像・代替テキスト'
+            label: 'heroImgAlt（ヒーロー）'
             hint: 'heroImgAlt'
             widget: string
-          - name: 'serviceMapEyebrow'
-            label: 'サービスマップ・補助見出し'
-            hint: 'serviceMapEyebrow'
+          - name: 'eyebrow'
+            label: 'eyebrow'
+            hint: 'eyebrow'
             widget: string
-          - name: 'serviceMapTitle'
-            label: 'サービスマップ・タイトル'
-            hint: 'serviceMapTitle'
+          - name: 'introTitle'
+            label: 'introTitle（タイトル）'
+            hint: 'introTitle'
             widget: string
-          - name: 'serviceMapDesc'
-            label: 'サービスマップ・説明'
-            hint: 'serviceMapDesc'
+          - name: 'introBody'
+            label: 'introBody（本文）'
+            hint: 'introBody'
+            widget: text
+          - name: 'systemsTitle'
+            label: 'systemsTitle（タイトル）'
+            hint: 'systemsTitle'
             widget: string
-          - name: 'mapSystemsTitle'
-            label: 'マップ・システム開発タイトル'
-            hint: 'mapSystemsTitle'
+          - name: 'systemsDescription'
+            label: 'systemsDescription（説明）'
+            hint: 'systemsDescription'
+            widget: text
+          - name: 'schoolsTitle'
+            label: 'schoolsTitle（タイトル）'
+            hint: 'schoolsTitle'
             widget: string
-          - name: 'mapSystemsDesc'
-            label: 'マップ・システム開発説明'
-            hint: 'mapSystemsDesc'
+          - name: 'schoolsDescription'
+            label: 'schoolsDescription（説明）'
+            hint: 'schoolsDescription'
+            widget: text
+          - name: 'aceserverTitle'
+            label: 'aceserverTitle（タイトル）'
+            hint: 'aceserverTitle'
             widget: string
-          - name: 'mapInfraTitle'
-            label: 'マップ・インフラタイトル'
-            hint: 'mapInfraTitle'
+          - name: 'aceserverDescription'
+            label: 'aceserverDescription（説明）'
+            hint: 'aceserverDescription'
+            widget: text
+          - name: 'acestudioTitle'
+            label: 'acestudioTitle（タイトル）'
+            hint: 'acestudioTitle'
             widget: string
-          - name: 'mapInfraDesc'
-            label: 'マップ・インフラ説明'
-            hint: 'mapInfraDesc'
+          - name: 'acestudioStatus'
+            label: 'acestudioStatus'
+            hint: 'acestudioStatus'
             widget: string
-          - name: 'mapPublishTitle'
-            label: 'マップ・公開タイトル'
-            hint: 'mapPublishTitle'
+          - name: 'acestudioDescription'
+            label: 'acestudioDescription（説明）'
+            hint: 'acestudioDescription'
+            widget: text
+          - name: 'contactHeading'
+            label: 'contactHeading（見出し）'
+            hint: 'contactHeading'
             widget: string
-          - name: 'mapPublishDesc'
-            label: 'マップ・公開説明'
-            hint: 'mapPublishDesc'
+          - name: 'contactBody'
+            label: 'contactBody（本文）'
+            hint: 'contactBody'
+            widget: text
+          - name: 'contactCta'
+            label: 'contactCta（リンク文言）'
+            hint: 'contactCta'
             widget: string
-          - name: 'mapEducationTitle'
-            label: 'マップ・教育タイトル'
-            hint: 'mapEducationTitle'
-            widget: string
-          - name: 'mapEducationDesc'
-            label: 'マップ・教育説明'
-            hint: 'mapEducationDesc'
-            widget: string
-          - name: 'navSystems'
-            label: 'ナビ・システム開発'
-            hint: 'navSystems'
-            widget: string
-          - name: 'navServer'
-            label: 'ナビ・サーバー'
-            hint: 'navServer'
-            widget: string
-          - name: 'navWeb'
-            label: 'ナビ・Web'
-            hint: 'navWeb'
-            widget: string
-          - name: 'navDesign'
-            label: 'ナビ・デザイン'
-            hint: 'navDesign'
-            widget: string
-          - name: 'navEducation'
-            label: 'ナビ・教育'
-            hint: 'navEducation'
-            widget: string
-          - name: 'navAceserver'
-            label: 'ナビ・AceServer'
-            hint: 'navAceserver'
-            widget: string
-          - name: 'navAcestudio'
-            label: 'ナビ・AceStudio'
-            hint: 'navAcestudio'
-            widget: string
-          - name: 'systems'
-            label: 'Acecore Systems'
-            hint: 'systems'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'systems.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'systems.desc'
-                widget: text
-              - name: 'examplesLabel'
-                label: '事例・ラベル'
-                hint: 'systems.examplesLabel'
-                widget: string
-              - name: 'examples'
-                label: '事例リスト'
-                hint: 'systems.examples'
-                widget: list
-                field:
-                  name: 'example'
-                  label: '事例'
-                  widget: string
-              - name: 'detailLink'
-                label: '詳細・リンク'
-                hint: 'systems.detailLink'
-                widget: string
-          - name: 'server'
-            label: 'サーバー'
-            hint: 'server'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'server.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'server.desc'
-                widget: text
-              - name: 'examplesLabel'
-                label: '事例・ラベル'
-                hint: 'server.examplesLabel'
-                widget: string
-              - name: 'examples'
-                label: '事例リスト'
-                hint: 'server.examples'
-                widget: list
-                field:
-                  name: 'example'
-                  label: '事例'
-                  widget: string
-          - name: 'web'
-            label: 'Web'
-            hint: 'web'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'web.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'web.desc'
-                widget: string
-              - name: 'examplesLabel'
-                label: '事例・ラベル'
-                hint: 'web.examplesLabel'
-                widget: string
-              - name: 'examples'
-                label: '事例リスト'
-                hint: 'web.examples'
-                widget: list
-                field:
-                  name: 'example'
-                  label: '事例'
-                  widget: string
-              - name: 'imgAlt'
-                label: '画像・代替テキスト'
-                hint: 'web.imgAlt'
-                widget: string
-              - name: 'featureLinksTitle'
-                label: '機能リンク・見出し'
-                hint: 'web.featureLinksTitle'
-                widget: string
-              - name: 'featureLinksBody'
-                label: '機能リンク・本文'
-                hint: 'web.featureLinksBody'
-                widget: text
-              - name: 'featureLinksArticleLabel'
-                label: '機能リンク・記事ラベル'
-                hint: 'web.featureLinksArticleLabel'
-                widget: string
-          - name: 'timelineTitle'
-            label: 'タイムライン・タイトル'
-            hint: 'timelineTitle'
-            widget: string
-          - name: 'timeline'
-            label: 'タイムライン項目'
-            hint: 'timeline'
-            widget: list
-            summary: '{{fields.date}} {{fields.title}}'
-            fields:
-              - name: 'date'
-                label: 'ステップ表示'
-                hint: 'timeline[].date'
-                widget: string
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'timeline[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'timeline[].description'
-                widget: string
-          - name: 'design'
-            label: 'デザイン'
-            hint: 'design'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'design.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'design.desc'
-                widget: text
-              - name: 'examplesLabel'
-                label: '事例・ラベル'
-                hint: 'design.examplesLabel'
-                widget: string
-              - name: 'examples'
-                label: '事例リスト'
-                hint: 'design.examples'
-                widget: list
-                field:
-                  name: 'example'
-                  label: '事例'
-                  widget: string
-              - name: 'imgAlt'
-                label: '画像・代替テキスト'
-                hint: 'design.imgAlt'
-                widget: string
-          - name: 'education'
-            label: '教育'
-            hint: 'education'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'education.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'education.desc'
-                widget: text
-              - name: 'coursesLabel'
-                label: '講座・ラベル'
-                hint: 'education.coursesLabel'
-                widget: string
-              - name: 'courses'
-                label: '講座リスト'
-                hint: 'education.courses'
-                widget: list
-                field:
-                  name: 'course'
-                  label: '講座'
-                  widget: string
-              - name: 'detailLink'
-                label: '詳細・リンク'
-                hint: 'education.detailLink'
-                widget: string
-          - name: 'aceserver'
-            label: 'AceServer'
-            hint: 'aceserver'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'aceserver.title'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'aceserver.desc'
-                widget: text
-              - name: 'featuresLabel'
-                label: '特徴・ラベル'
-                hint: 'aceserver.featuresLabel'
-                widget: string
-              - name: 'features'
-                label: '特徴リスト'
-                hint: 'aceserver.features'
-                widget: list
-                field:
-                  name: 'feature'
-                  label: '特徴'
-                  widget: string
-              - name: 'portalLink'
-                label: '公式サイト・リンク文言'
-                hint: 'aceserver.portalLink'
-                widget: string
-              - name: 'wikiLink'
-                label: 'Wiki・リンク文言'
-                hint: 'aceserver.wikiLink'
-                widget: string
-              - name: 'discordLink'
-                label: 'Discord・リンク文言'
-                hint: 'aceserver.discordLink'
-                widget: string
-          - name: 'acestudio'
-            label: 'AceStudio'
-            hint: 'acestudio'
-            widget: object
-            collapsed: true
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'acestudio.title'
-                widget: string
-              - name: 'comingSoon'
-                label: '近日・公開'
-                hint: 'acestudio.comingSoon'
-                widget: string
-              - name: 'desc'
-                label: '説明'
-                hint: 'acestudio.desc'
-                widget: text
-              - name: 'areasLabel'
-                label: '領域・ラベル'
-                hint: 'acestudio.areasLabel'
-                widget: string
-              - name: 'areas'
-                label: '領域リスト'
-                hint: 'acestudio.areas'
-                widget: list
-                field:
-                  name: 'area'
-                  label: '領域'
-                  widget: string
-              - name: 'note'
-                label: '補足'
-                hint: 'acestudio.note'
-                widget: string
-              - name: 'detailLink'
-                label: '詳細・リンク'
-                hint: 'acestudio.detailLink'
-                widget: string
-          - name: 'ctaHeading'
-            label: 'CTA見出し'
-            hint: 'ctaHeading'
-            widget: string
-          - name: 'ctaBody'
-            label: 'CTA本文'
-            hint: 'ctaBody'
-            widget: string
-          - name: 'ctaContact'
-            label: 'CTA: お問い合わせ'
-            hint: 'ctaContact'
-            widget: string
-          - name: 'ctaSchools'
-            label: 'CTA: Schools'
-            hint: 'ctaSchools'
-            widget: string
-
       - name: 'pricing'
-        label: '料金ページ'
+        label: '料金・ご相談先'
         file: src/i18n/source/ja/pages/pricing.json
         format: json
         fields:
           - name: 'title'
-            label: 'タイトル'
+            label: 'title（タイトル）'
             hint: 'title'
             widget: string
           - name: 'description'
-            label: '説明'
+            label: 'description（説明）'
             hint: 'description'
             widget: text
           - name: 'heroTitle'
-            label: 'ヒーロー見出し'
+            label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'
             widget: string
           - name: 'heroSubtitle'
-            label: 'ヒーロー補足'
+            label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: string
           - name: 'heroImgAlt'
-            label: 'ヒーロー画像代替テキスト'
+            label: 'heroImgAlt（ヒーロー）'
             hint: 'heroImgAlt'
             widget: string
           - name: 'eyebrow'
-            label: '小見出し'
+            label: 'eyebrow'
             hint: 'eyebrow'
             widget: string
           - name: 'introTitle'
-            label: '導入見出し'
+            label: 'introTitle（タイトル）'
             hint: 'introTitle'
             widget: string
           - name: 'introBody'
-            label: '導入本文'
+            label: 'introBody（本文）'
             hint: 'introBody'
             widget: text
-          - name: 'systemsHandoff'
-            label: 'Acecore Systems料金への案内'
-            hint: 'systemsHandoff'
-            widget: object
-            fields:
-              - name: 'eyebrow'
-                label: '補助見出し'
-                hint: 'systemsHandoff.eyebrow'
-                widget: string
-              - name: 'title'
-                label: '見出し'
-                hint: 'systemsHandoff.title'
-                widget: string
-              - name: 'body'
-                label: '説明'
-                hint: 'systemsHandoff.body'
-                widget: text
-              - name: 'ctaLabel'
-                label: 'リンク文言'
-                hint: 'systemsHandoff.ctaLabel'
-                widget: string
-          - name: 'serviceTitle'
-            label: '主要サービス見出し'
-            hint: 'serviceTitle'
+          - name: 'systemsTitle'
+            label: 'systemsTitle（タイトル）'
+            hint: 'systemsTitle'
             widget: string
-          - name: 'serviceBody'
-            label: '主要サービス説明'
-            hint: 'serviceBody'
+          - name: 'systemsBody'
+            label: 'systemsBody（本文）'
+            hint: 'systemsBody'
             widget: text
-          - name: 'items'
-            label: '料金カード'
-            hint: 'items'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'items[].icon'
-                widget: select
-                options:
-                  - { label: 'サーバー', value: server }
-                  - { label: 'Web制作', value: globe }
-                  - { label: 'デザイン', value: palette }
-                  - { label: 'Schools', value: graduation-cap }
-                  - { label: 'AceStudio', value: clapperboard }
-                  - { label: 'Aceserver', value: gamepad-2 }
-                  - { label: '問い合わせAI', value: message-square }
-                  - { label: 'コメント機能', value: message-square-text }
-                  - { label: 'ブログ基盤', value: newspaper }
-                  - { label: 'CMS', value: layout-template }
-                  - { label: '多言語', value: languages }
-                  - { label: 'SEO', value: search }
-                  - { label: 'サイト内検索', value: scan }
-                  - { label: '高速化', value: zap }
-                  - { label: 'アクセシビリティ', value: accessibility }
-                  - { label: 'セキュリティ', value: shield-check }
-                  - { label: 'CTA', value: mouse-pointer-click }
-                  - { label: '相談', value: messages-square }
-              - name: 'title'
-                label: 'カード見出し'
-                hint: 'items[].title'
-                widget: string
-              - name: 'price'
-                label: '料金'
-                hint: 'items[].price'
-                widget: string
-              - name: 'body'
-                label: '説明'
-                hint: 'items[].body'
-                widget: text
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'items[].href'
-                widget: string
-          - name: 'detailLink'
-            label: '詳細リンク文言'
-            hint: 'detailLink'
+          - name: 'schoolsTitle'
+            label: 'schoolsTitle（タイトル）'
+            hint: 'schoolsTitle'
             widget: string
-          - name: 'schoolsFeeTitle'
-            label: 'Schools費用表見出し'
-            hint: 'schoolsFeeTitle'
-            widget: string
-          - name: 'schoolsFeeBody'
-            label: 'Schools費用表説明'
-            hint: 'schoolsFeeBody'
+          - name: 'schoolsBody'
+            label: 'schoolsBody（本文）'
+            hint: 'schoolsBody'
             widget: text
-          - name: 'feeItem'
-            label: '項目見出し'
-            hint: 'feeItem'
+          - name: 'aceserverTitle'
+            label: 'aceserverTitle（タイトル）'
+            hint: 'aceserverTitle'
             widget: string
-          - name: 'feeAmount'
-            label: '金額見出し'
-            hint: 'feeAmount'
-            widget: string
-          - name: 'feeNote'
-            label: '補足見出し'
-            hint: 'feeNote'
-            widget: string
-          - name: 'schoolFees'
-            label: 'Schools費用行'
-            hint: 'schoolFees'
-            widget: list
-            summary: '{{fields.item}}'
-            fields:
-              - name: 'item'
-                label: '項目'
-                hint: 'schoolFees[].item'
-                widget: string
-              - name: 'amount'
-                label: '目安'
-                hint: 'schoolFees[].amount'
-                widget: string
-              - name: 'note'
-                label: '補足'
-                hint: 'schoolFees[].note'
-                widget: text
-          - name: 'factorTitle'
-            label: '費用変動要素見出し'
-            hint: 'factorTitle'
-            widget: string
-          - name: 'factors'
-            label: '費用変動要素'
-            hint: 'factors'
-            widget: list
-            field:
-              name: 'factor'
-              label: '要素'
-              widget: string
-          - name: 'noteTitle'
-            label: '注意事項見出し'
-            hint: 'noteTitle'
-            widget: string
-          - name: 'notes'
-            label: '注意事項'
-            hint: 'notes'
-            widget: list
-            field:
-              name: 'note'
-              label: '注意事項'
-              widget: text
-          - name: 'ctaHeading'
-            label: '問い合わせ見出し'
-            hint: 'ctaHeading'
-            widget: string
-          - name: 'ctaBody'
-            label: '問い合わせ本文'
-            hint: 'ctaBody'
+          - name: 'aceserverBody'
+            label: 'aceserverBody（本文）'
+            hint: 'aceserverBody'
             widget: text
-          - name: 'ctaContact'
-            label: '問い合わせリンク'
-            hint: 'ctaContact'
+          - name: 'contactTitle'
+            label: 'contactTitle（タイトル）'
+            hint: 'contactTitle'
             widget: string
-          - name: 'ctaServices'
-            label: 'サービスリンク'
-            hint: 'ctaServices'
-            widget: string
-          - name: 'ctaSchools'
-            label: 'Schoolsリンク'
-            hint: 'ctaSchools'
-            widget: string
-
+          - name: 'contactBody'
+            label: 'contactBody（本文）'
+            hint: 'contactBody'
+            widget: text
       - name: 'about'
         label: '会社概要ページ'
         file: src/i18n/source/ja/pages/about.json
@@ -1982,223 +1526,145 @@ collections:
             hint: 'ctaServices'
             widget: string
       - name: 'contact'
-        label: 'お問い合わせページ'
+        label: 'お問い合わせ'
         file: src/i18n/source/ja/pages/contact.json
         format: json
         fields:
           - name: 'title'
-            label: 'タイトル'
+            label: 'title（タイトル）'
             hint: 'title'
             widget: string
           - name: 'seoTitleContext'
-            label: 'SEOタイトル補足'
+            label: 'seoTitleContext（タイトル）'
             hint: 'seoTitleContext'
             widget: string
           - name: 'description'
-            label: '説明'
+            label: 'description（説明）'
             hint: 'description'
-            widget: string
+            widget: text
           - name: 'heroTitle'
-            label: 'ヒーロー・タイトル'
+            label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'
             widget: string
           - name: 'heroSubtitle'
-            label: 'ヒーロー・サブタイトル'
+            label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: string
           - name: 'heroImgAlt'
-            label: 'ヒーロー・画像・代替テキスト'
+            label: 'heroImgAlt（ヒーロー）'
             hint: 'heroImgAlt'
             widget: string
-          - name: 'responseTime'
-            label: '返信・時間'
-            hint: 'responseTime'
-            widget: string
-          - name: 'freeEstimate'
-            label: '無料・見積もり'
-            hint: 'freeEstimate'
-            widget: string
-          - name: 'lineInquiry'
-            label: 'LINE相談'
-            hint: 'lineInquiry'
-            widget: string
-          - name: 'faqTitle'
-            label: 'FAQ・タイトル'
-            hint: 'faqTitle'
-            widget: string
-          - name: 'faqs'
-            label: 'FAQ項目'
-            hint: 'faqs'
-            widget: list
-            summary: '{{fields.question}}'
-            fields:
-              - name: 'question'
-                label: '質問'
-                hint: 'faqs[].question'
-                widget: string
-              - name: 'answer'
-                label: '回答'
-                hint: 'faqs[].answer'
-                widget: text
-          - name: 'aiHeading'
-            label: 'AI・見出し'
-            hint: 'aiHeading'
-            widget: string
-          - name: 'aiLead'
-            label: 'AI・リード文'
-            hint: 'aiLead'
-            widget: text
-          - name: 'aiQuestionLabel'
-            label: 'AI・質問・ラベル'
-            hint: 'aiQuestionLabel'
-            widget: string
-          - name: 'aiPlaceholder'
-            label: 'AI・プレースホルダー'
-            hint: 'aiPlaceholder'
-            widget: string
-          - name: 'aiSubmit'
-            label: 'AI・送信'
-            hint: 'aiSubmit'
-            widget: string
-          - name: 'aiLoading'
-            label: 'AI・読み込み中'
-            hint: 'aiLoading'
-            widget: string
-          - name: 'aiError'
-            label: 'AI・エラー'
-            hint: 'aiError'
-            widget: string
-          - name: 'lineHeading'
-            label: 'LINE見出し'
-            hint: 'lineHeading'
-            widget: string
-          - name: 'lineLead'
-            label: 'LINEリード文'
-            hint: 'lineLead'
-            widget: text
-          - name: 'lineCta'
-            label: 'LINE CTA'
-            hint: 'lineCta'
-            widget: string
           - name: 'formCategoryLabel'
-            label: 'フォーム・種別・ラベル'
+            label: 'formCategoryLabel（ラベル）'
             hint: 'formCategoryLabel'
             widget: string
           - name: 'formCategoryPlaceholder'
-            label: 'フォーム・種別・プレースホルダー'
+            label: 'formCategoryPlaceholder（プレースホルダー）'
             hint: 'formCategoryPlaceholder'
             widget: string
           - name: 'formCategoryService'
-            label: 'フォーム・種別・サービス'
+            label: 'formCategoryService'
             hint: 'formCategoryService'
             widget: string
           - name: 'formCategoryServiceSystems'
-            label: 'フォーム・種別・Acecore Systems'
+            label: 'formCategoryServiceSystems'
             hint: 'formCategoryServiceSystems'
             widget: string
+          - name: 'formCategoryServiceEducation'
+            label: 'formCategoryServiceEducation'
+            hint: 'formCategoryServiceEducation'
+            widget: string
+          - name: 'formCategoryServiceAceserver'
+            label: 'formCategoryServiceAceserver'
+            hint: 'formCategoryServiceAceserver'
+            widget: string
+          - name: 'formCategoryServiceAcestudio'
+            label: 'formCategoryServiceAcestudio'
+            hint: 'formCategoryServiceAcestudio'
+            widget: string
           - name: 'formCategoryEstimate'
-            label: 'フォーム・種別・見積もり'
+            label: 'formCategoryEstimate'
             hint: 'formCategoryEstimate'
             widget: string
           - name: 'formCategoryPartnership'
-            label: 'フォーム・種別・パートナーシップ'
+            label: 'formCategoryPartnership'
             hint: 'formCategoryPartnership'
             widget: string
           - name: 'formCategoryRecruit'
-            label: 'フォーム・種別・採用'
+            label: 'formCategoryRecruit'
             hint: 'formCategoryRecruit'
             widget: string
           - name: 'formCategoryOther'
-            label: 'フォーム・種別・その他'
+            label: 'formCategoryOther'
             hint: 'formCategoryOther'
             widget: string
           - name: 'formNameLabel'
-            label: 'フォーム・名前・ラベル'
+            label: 'formNameLabel（ラベル）'
             hint: 'formNameLabel'
             widget: string
           - name: 'formEmailLabel'
-            label: 'フォーム・メール・ラベル'
+            label: 'formEmailLabel（ラベル）'
             hint: 'formEmailLabel'
             widget: string
           - name: 'formSubjectLabel'
-            label: 'フォーム・件名・ラベル'
+            label: 'formSubjectLabel（ラベル）'
             hint: 'formSubjectLabel'
             widget: string
           - name: 'formMessageLabel'
-            label: 'フォーム・メッセージ・ラベル'
+            label: 'formMessageLabel（ラベル）'
             hint: 'formMessageLabel'
             widget: string
           - name: 'formSubmit'
-            label: 'フォーム・送信'
+            label: 'formSubmit（送信文言）'
             hint: 'formSubmit'
             widget: string
           - name: 'formSending'
-            label: 'フォーム送信中'
+            label: 'formSending'
             hint: 'formSending'
             widget: string
           - name: 'formSuccess'
-            label: 'フォーム成功'
+            label: 'formSuccess（完了文言）'
             hint: 'formSuccess'
             widget: string
           - name: 'formError'
-            label: 'フォーム・エラー'
+            label: 'formError（エラー文言）'
             hint: 'formError'
             widget: string
           - name: 'formSubmitNote'
-            label: 'フォーム・送信・補足'
+            label: 'formSubmitNote（補足）'
             hint: 'formSubmitNote'
-            widget: string
-          - name: 'formFaqHeading'
-            label: 'フォーム・FAQ・見出し'
-            hint: 'formFaqHeading'
-            widget: string
-          - name: 'otherMethodsHeading'
-            label: 'その他・方法・見出し'
-            hint: 'otherMethodsHeading'
-            widget: string
-          - name: 'directMethodsNote'
-            label: '直接・方法・補足'
-            hint: 'directMethodsNote'
             widget: text
-          - name: 'methodPhone'
-            label: '電話'
-            hint: 'methodPhone'
-            widget: string
-          - name: 'methodEmail'
-            label: '方法・メール'
-            hint: 'methodEmail'
-            widget: string
-          - name: 'methodLine'
-            label: 'LINE'
-            hint: 'methodLine'
-            widget: string
-          - name: 'methodLineDesc'
-            label: 'LINE説明'
-            hint: 'methodLineDesc'
-            widget: string
-          - name: 'methodX'
-            label: '方法・X'
-            hint: 'methodX'
-            widget: string
-          - name: 'methodXDesc'
-            label: 'Xの説明'
-            hint: 'methodXDesc'
+          - name: 'serviceSubjectTemplate'
+            label: 'serviceSubjectTemplate'
+            hint: 'serviceSubjectTemplate'
             widget: string
           - name: 'validationCategory'
-            label: '入力チェック・種別'
+            label: 'validationCategory'
             hint: 'validationCategory'
             widget: string
           - name: 'validationName'
-            label: '入力チェック・名前'
+            label: 'validationName'
             hint: 'validationName'
             widget: string
           - name: 'validationEmail'
-            label: '入力チェック・メール'
+            label: 'validationEmail'
             hint: 'validationEmail'
             widget: string
           - name: 'validationMessage'
-            label: '入力チェック・メッセージ'
+            label: 'validationMessage'
             hint: 'validationMessage'
+            widget: string
+          - name: 'aiHeading'
+            label: 'aiHeading（見出し）'
+            hint: 'aiHeading'
+            widget: string
+          - name: 'aiLead'
+            label: 'aiLead（リード）'
+            hint: 'aiLead'
+            widget: text
+          - name: 'aiSubmit'
+            label: 'aiSubmit（送信文言）'
+            hint: 'aiSubmit'
             widget: string
       - name: 'acestudio'
         label: 'AceStudioページ'
@@ -2229,91 +1695,22 @@ collections:
             label: 'ヒーロー・画像・代替テキスト'
             hint: 'heroImgAlt'
             widget: string
-          - name: 'studioScopeEyebrow'
-            label: 'スタジオ・範囲・補助見出し'
-            hint: 'studioScopeEyebrow'
+          - name: 'statusEyebrow'
+            label: '状態・補助見出し'
+            hint: 'statusEyebrow'
             widget: string
-          - name: 'studioScopeTitle'
-            label: 'スタジオ・範囲・タイトル'
-            hint: 'studioScopeTitle'
+          - name: 'statusHeading'
+            label: '状態・見出し'
+            hint: 'statusHeading'
             widget: string
-          - name: 'studioScopeDesc'
-            label: 'スタジオ・範囲・説明'
-            hint: 'studioScopeDesc'
+          - name: 'statusBody'
+            label: '状態・本文'
+            hint: 'statusBody'
             widget: string
-          - name: 'studioAreas'
-            label: 'スタジオ領域カード'
-            hint: 'studioAreas'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'studioAreas[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'studioAreas[].description'
-                widget: string
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'studioAreas[].icon'
-                widget: string
-              - name: 'tone'
-                label: '色'
-                hint: 'studioAreas[].tone'
-                widget: select
-                options:
-                  - { label: 'ブランド', value: brand }
-                  - { label: 'アンバー', value: amber }
-                  - { label: 'エメラルド', value: emerald }
-                  - { label: 'スレート', value: slate }
-          - name: 'creativeImgAlt'
-            label: 'クリエイティブ・画像・代替テキスト'
-            hint: 'creativeImgAlt'
+          - name: 'statusNote'
+            label: '状態・注記'
+            hint: 'statusNote'
             widget: string
-          - name: 'comingSoonHeading'
-            label: '近日・公開・見出し'
-            hint: 'comingSoonHeading'
-            widget: string
-          - name: 'comingSoonBody1'
-            label: '近日・公開・本文1'
-            hint: 'comingSoonBody1'
-            widget: string
-          - name: 'comingSoonBody2'
-            label: '近日・公開・本文2'
-            hint: 'comingSoonBody2'
-            widget: string
-          - name: 'comingSoonBody3'
-            label: '近日・公開・本文3'
-            hint: 'comingSoonBody3'
-            widget: string
-          - name: 'pullQuoteText'
-            label: '引用文'
-            hint: 'pullQuoteText'
-            widget: string
-          - name: 'pullQuoteAttribution'
-            label: '引用・引用・出典'
-            hint: 'pullQuoteAttribution'
-            widget: string
-          - name: 'faqTitle'
-            label: 'FAQ・タイトル'
-            hint: 'faqTitle'
-            widget: string
-          - name: 'faqs'
-            label: 'FAQ項目'
-            hint: 'faqs'
-            widget: list
-            summary: '{{fields.question}}'
-            fields:
-              - name: 'question'
-                label: '質問'
-                hint: 'faqs[].question'
-                widget: string
-              - name: 'answer'
-                label: '回答'
-                hint: 'faqs[].answer'
-                widget: string
           - name: 'newsHeading'
             label: 'ニュース・見出し'
             hint: 'newsHeading'
@@ -2326,9 +1723,9 @@ collections:
             label: 'フォロー・X'
             hint: 'followX'
             widget: string
-          - name: 'viewBlog'
-            label: 'ブログを見る'
-            hint: 'viewBlog'
+          - name: 'viewNews'
+            label: '企業ニュースを見る'
+            hint: 'viewNews'
             widget: string
           - name: 'inquiryText'
             label: '問い合わせ文'

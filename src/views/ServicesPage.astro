@@ -3,13 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import Icon from '../components/Icon.astro'
-import InsightGrid from '../components/InsightGrid.astro'
-import ServiceSectionActions from '../components/ServiceSectionActions.astro'
-import Timeline from '../components/Timeline.astro'
-import { optimizeImage, generateSrcSet } from '../utils/image'
+import ServiceCard from '../components/ServiceCard.astro'
+import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 
 interface Props {
@@ -18,110 +15,35 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const contentImageWidths = [480, 800, 1200, 1600]
-const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
-const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
-const organizationId = `${SITE.url}/#organization`
-const systemsServiceId = `${SITE.social.systems}/#service`
-const systemsServiceUrl = `${SITE.social.systems}/services/#business-system`
-
-interface TimelineItem {
-  date: string
-  title: string
-  description: string
-}
-
-const getList = <T,>(key: string): T[] =>
-  getTranslationValue<T[]>(locale, key) ?? []
-
-const serviceMap = [
+const businesses = [
   {
-    title: t(locale, 'pages.services.mapSystemsTitle'),
-    description: t(locale, 'pages.services.mapSystemsDesc'),
+    title: t(locale, 'pages.services.systemsTitle'),
+    description: t(locale, 'pages.services.systemsDescription'),
+    href: `${SITE.social.systems}/services/`,
     icon: 'code-xml',
-    href: u('/services/#system-development'),
-    tone: 'brand',
+    tone: 'brand' as const,
   },
   {
-    title: t(locale, 'pages.services.mapInfraTitle'),
-    description: t(locale, 'pages.services.mapInfraDesc'),
-    icon: 'server',
-    href: u('/services/#server'),
-    tone: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.services.mapPublishTitle'),
-    description: t(locale, 'pages.services.mapPublishDesc'),
-    icon: 'globe',
-    href: u('/services/#web'),
-    tone: 'amber',
-  },
-  {
-    title: t(locale, 'pages.services.mapEducationTitle'),
-    description: t(locale, 'pages.services.mapEducationDesc'),
-    icon: 'graduation-cap',
+    title: t(locale, 'pages.services.schoolsTitle'),
+    description: t(locale, 'pages.services.schoolsDescription'),
     href: getSchoolsUrl(),
-    tone: 'slate',
+    icon: 'graduation-cap',
+    tone: 'amber' as const,
   },
-] as const
-
-const deliveryTimeline = getList<TimelineItem>('pages.services.timeline')
-const systemsExamples = getList<string>('pages.services.systems.examples')
-const serverExamples = getList<string>('pages.services.server.examples')
-const webExamples = getList<string>('pages.services.web.examples')
-const designExamples = getList<string>('pages.services.design.examples')
-const educationCourses = getList<string>('pages.services.education.courses')
-const aceserverFeatures = getList<string>('pages.services.aceserver.features')
-const acestudioAreas = getList<string>('pages.services.acestudio.areas')
-
-const serviceLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Service',
-      '@id': systemsServiceId,
-      name: t(locale, 'pages.services.systems.title'),
-      description: t(locale, 'pages.services.systems.desc'),
-      provider: { '@id': organizationId },
-      url: systemsServiceUrl,
-    },
-    {
-      '@type': 'Service',
-      name: t(locale, 'pages.services.server.title'),
-      description: t(locale, 'pages.services.server.desc'),
-      provider: { '@id': organizationId },
-      url: 'https://acecore.net/services/#server',
-    },
-    {
-      '@type': 'Service',
-      name: t(locale, 'pages.services.web.title'),
-      description: t(locale, 'pages.services.web.desc'),
-      provider: { '@id': organizationId },
-      url: 'https://acecore.net/services/#web',
-    },
-    {
-      '@type': 'Service',
-      name: t(locale, 'pages.services.design.title'),
-      description: t(locale, 'pages.services.design.desc'),
-      provider: { '@id': organizationId },
-      url: 'https://acecore.net/services/#design',
-    },
-    {
-      '@type': 'Service',
-      name: t(locale, 'pages.services.education.title'),
-      description: t(locale, 'pages.services.education.desc'),
-      provider: { '@id': organizationId },
-      url: getSchoolsUrl(),
-    },
-  ],
-}
+  {
+    title: t(locale, 'pages.services.aceserverTitle'),
+    description: t(locale, 'pages.services.aceserverDescription'),
+    href: SITE.social.aceserver,
+    icon: 'gamepad-2',
+    tone: 'emerald' as const,
+  },
+]
 ---
 
 <BaseLayout
   title={t(locale, 'pages.services.title')}
   titleContext={t(locale, 'pages.services.seoTitleContext')}
   description={t(locale, 'pages.services.description')}
-  jsonLd={serviceLd}
   locale={locale}
 >
   <Hero
@@ -139,496 +61,75 @@ const serviceLd = {
 
   <CampaignNotice locale={locale} page="services" />
 
-  <div class="ac-container mt-4">
-    <Breadcrumb
-      items={[{ label: t(locale, 'pages.services.title') }]}
-      locale={locale}
-    />
-  </div>
-
   <section class="ac-section bg-slate-50">
     <div class="ac-container">
-      <InsightGrid
-        variant="card"
-        eyebrow={t(locale, 'pages.services.serviceMapEyebrow')}
-        title={t(locale, 'pages.services.serviceMapTitle')}
-        description={t(locale, 'pages.services.serviceMapDesc')}
-        items={serviceMap}
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.services.title') }]}
+        locale={locale}
       />
-    </div>
-  </section>
 
-  <section class="ac-section">
-    <div class="ac-container max-w-4xl">
-      <nav class="mb-12 flex flex-wrap justify-center gap-2">
-        <a href="#system-development" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navSystems')}</a
+      <div class="ac-section-intro">
+        <p class="ac-eyebrow">{t(locale, 'pages.services.eyebrow')}</p>
+        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.services.introTitle')}
+        </h2>
+        <p class="max-w-3xl ac-muted">
+          {t(locale, 'pages.services.introBody')}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {
+          businesses.map((business) => (
+            <ServiceCard
+              icon={business.icon}
+              title={business.title}
+              description={business.description}
+              href={business.href}
+              locale={locale}
+              tone={business.tone}
+            />
+          ))
+        }
+      </div>
+
+      <div
+        class="mt-8 rounded-lg border border-slate-200 bg-white p-6 sm:flex sm:items-center sm:justify-between sm:gap-6"
+      >
+        <div>
+          <div class="flex flex-wrap items-center gap-3">
+            <h2 class="text-lg ac-heading">
+              {t(locale, 'pages.services.acestudioTitle')}
+            </h2>
+            <span class="ac-chip text-xs">
+              {t(locale, 'pages.services.acestudioStatus')}
+            </span>
+          </div>
+          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+            {t(locale, 'pages.services.acestudioDescription')}
+          </p>
+        </div>
+        <a
+          href={u('/acestudio/')}
+          class="ac-link mt-4 inline-flex shrink-0 sm:mt-0"
         >
-        <a href="#server" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navServer')}</a
-        >
-        <a href="#web" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navWeb')}</a
-        >
-        <a href="#design" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navDesign')}</a
-        >
-        <a href="#education" class="ac-chip text-sm">
-          {t(locale, 'pages.services.navEducation')}
+          {t(locale, 'pages.services.acestudioTitle')}
         </a>
-        <a href="#aceserver" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navAceserver')}</a
-        >
-        <a href="#acestudio" class="ac-chip text-sm"
-          >{t(locale, 'pages.services.navAcestudio')}</a
-        >
-      </nav>
-
-      <!-- Acecore Systems -->
-      <div class="mb-16" id="system-development">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"
-            ><Icon name="code-xml" class="text-xl" /></span
-          >
-          <h2
-            class="text-xl ac-heading [overflow-wrap:normal] [word-break:normal] sm:text-2xl"
-          >
-            {t(locale, 'pages.services.systems.title')}
-          </h2>
-        </div>
-        <p
-          class="mb-4 leading-relaxed text-slate-600 [overflow-wrap:normal] [word-break:normal]"
-        >
-          {t(locale, 'pages.services.systems.desc')}
-        </p>
-        <div class="ac-surface bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.systems.examplesLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              systemsExamples.map((example) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {example}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div class="mt-4">
-          <a
-            href={systemsServiceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-            data-ga-event="external_link_click"
-            data-ga-label="service_systems_detail"
-            data-ga-location="services_systems"
-            data-ga-destination={systemsServiceUrl}
-          >
-            <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.systems.detailLink')}<span
-              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
-            >
-          </a>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_systems_contact"
-          gaLocation="services_systems"
-          serviceKey="systems"
-        />
-      </div>
-
-      <!-- Server -->
-      <div class="mb-16" id="server">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"><Icon name="server" class="text-xl" /></span
-          >
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.server.title')}
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.server.desc')}
-        </p>
-        <div class="ac-surface bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.server.examplesLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              serverExamples.map((example) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {example}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_server_contact"
-          gaLocation="services_server"
-          serviceKey="server"
-        />
-      </div>
-
-      <!-- Web -->
-      <div class="mb-16" id="web">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"><Icon name="globe" class="text-xl" /></span>
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.web.title')}
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.web.desc')}
-        </p>
-        <div class="ac-surface bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.web.examplesLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              webExamples.map((example) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {example}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_web_contact"
-          gaLocation="services_web"
-          serviceKey="web"
-        />
-      </div>
-
-      <div class="mb-16">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.services.web.imgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
-
-      <div class="mb-16">
-        <Timeline
-          title={t(locale, 'pages.services.timelineTitle')}
-          items={deliveryTimeline}
-          locale={locale}
-        />
-      </div>
-
-      <!-- Design -->
-      <div class="mb-16" id="design">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"
-            ><Icon name="palette" class="text-xl" /></span
-          >
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.design.title')}
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.design.desc')}
-        </p>
-        <div class="ac-surface bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.design.examplesLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              designExamples.map((example) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {example}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_design_contact"
-          gaLocation="services_design"
-          serviceKey="design"
-        />
-      </div>
-
-      <div class="mb-16">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.services.design.imgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
-
-      <!-- Education -->
-      <div class="mb-16" id="education">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box">
-            <Icon name="graduation-cap" class="text-xl" />
-          </span>
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.education.title')}
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.education.desc')}
-        </p>
-        <div class="ac-surface bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.education.coursesLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              educationCourses.map((course) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {course}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div class="mt-4">
-          <a
-            href={getSchoolsUrl()}
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-          >
-            <Icon name="arrow-right" class="text-sm" />
-            {t(locale, 'pages.services.education.detailLink')}
-          </a>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_education_contact"
-          gaLocation="services_education"
-          serviceKey="education"
-        />
-      </div>
-
-      <!-- Aceserver -->
-      <div class="mb-16" id="aceserver">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"
-            ><Icon name="gamepad-2" class="text-xl" /></span
-          >
-          <h2 class="text-2xl ac-heading">
-            {t(locale, 'pages.services.aceserver.title')}
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.aceserver.desc')}
-        </p>
-        <div class="ac-surface mb-4 bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.aceserver.featuresLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              aceserverFeatures.map((feature) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {feature}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div class="flex flex-wrap gap-3 mb-4">
-          <a
-            href={SITE.social.aceserver}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-          >
-            <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.portalLink')}<span
-              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
-            >
-          </a>
-          <a
-            href="https://aceserver-wiki.acecore.systems/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-          >
-            <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.wikiLink')}<span
-              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
-            >
-          </a>
-          <a
-            href={SITE.social.discord}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-          >
-            <Icon name="external-link" class="text-sm" />
-            {t(locale, 'pages.services.aceserver.discordLink')}<span
-              class="sr-only">{t(locale, 'common.opensInNewTab')}</span
-            >
-          </a>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_aceserver_contact"
-          gaLocation="services_aceserver"
-          serviceKey="aceserver"
-        />
-      </div>
-
-      <!-- AceStudio -->
-      <div class="mb-16" id="acestudio">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="ac-icon-box"
-            ><Icon name="clapperboard" class="text-xl" /></span
-          >
-          <h2 class="text-2xl ac-heading">
-            AceStudio <span class="text-sm font-400 text-slate-500 ml-2"
-              >{t(locale, 'pages.services.acestudio.comingSoon')}</span
-            >
-          </h2>
-        </div>
-        <p class="text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.services.acestudio.desc')}
-        </p>
-        <div class="ac-surface mb-4 bg-slate-50 p-6">
-          <h3 class="font-600 text-sm text-slate-900 mb-3">
-            {t(locale, 'pages.services.acestudio.areasLabel')}
-          </h3>
-          <ul class="text-sm text-slate-600 space-y-2 list-none p-0 m-0">
-            {
-              acestudioAreas.map((area) => (
-                <li class="flex items-center gap-2">
-                  <Icon name="check" class="text-brand-500 shrink-0" />
-                  {area}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <p class="text-sm text-slate-500 mb-4">
-          {t(locale, 'pages.services.acestudio.note')}
-        </p>
-        <div class="mt-2">
-          <a
-            href={u('/acestudio/')}
-            class="text-brand-500 hover:underline text-sm inline-flex items-center gap-1"
-          >
-            <Icon name="arrow-right" class="text-sm" />
-            {t(locale, 'pages.services.acestudio.detailLink')}
-          </a>
-        </div>
-        <ServiceSectionActions
-          locale={locale}
-          gaLabel="service_acestudio_contact"
-          gaLocation="services_acestudio"
-          serviceKey="acestudio"
-        />
-      </div>
-
-      <!-- CTA -->
-      <div class="ac-surface bg-brand-50 p-8 text-center">
-        <p class="text-lg font-700 text-slate-800 mb-2">
-          {t(locale, 'pages.services.ctaHeading')}
-        </p>
-        <p class="text-sm text-slate-600 mb-6">
-          {t(locale, 'pages.services.ctaBody')}
-        </p>
-        <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href={u('/contact/')} class="ac-btn-primary"
-            >{t(locale, 'pages.services.ctaContact')}</a
-          >
-          <a href={getSchoolsUrl()} class="ac-btn-outline">
-            {t(locale, 'pages.services.ctaSchools')}
-          </a>
-        </div>
       </div>
     </div>
   </section>
 
-  <script>
-    function initServicesSpy() {
-      const nav = document.querySelector<HTMLElement>(
-        'section.ac-section nav.mb-12',
-      )
-      if (!nav) return
-      const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')]
-      const ids = links.map((a) => a.getAttribute('href')!.slice(1))
-      const sections = ids
-        .map((id) => document.getElementById(id))
-        .filter(Boolean) as HTMLElement[]
-      if (!sections.length) return
-
-      const activeClass = 'border-brand-300 text-brand-600 bg-brand-50'
-      const inactiveClass = 'border-slate-200 text-slate-600 bg-white'
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            const idx = sections.indexOf(entry.target as HTMLElement)
-            if (idx === -1) continue
-            const link = links[idx]
-            if (entry.isIntersecting) {
-              links.forEach((l) => {
-                l.className = l.className
-                  .replace(/border-brand-300|text-brand-600|bg-brand-50/g, '')
-                  .trim()
-                if (!l.className.includes('border-slate-200'))
-                  l.className += ' ' + inactiveClass
-              })
-              link.className =
-                link.className
-                  .replace(/border-slate-200|text-slate-600|bg-white/g, '')
-                  .trim() +
-                ' ' +
-                activeClass
-            }
-          }
-        },
-        { rootMargin: '-20% 0px -60% 0px' },
-      )
-
-      sections.forEach((s) => observer.observe(s))
-    }
-    initServicesSpy()
-    document.addEventListener('astro:after-swap', initServicesSpy)
-  </script>
+  <section class="ac-section bg-white">
+    <div class="ac-container max-w-3xl text-center">
+      <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        {t(locale, 'pages.services.contactHeading')}
+      </h2>
+      <p class="mx-auto mb-7 max-w-2xl ac-muted">
+        {t(locale, 'pages.services.contactBody')}
+      </p>
+      <a href={u('/contact/')} class="ac-btn-primary">
+        {t(locale, 'pages.services.contactCta')}
+      </a>
+    </div>
+  </section>
 </BaseLayout>

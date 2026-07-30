@@ -1701,7 +1701,7 @@ test('Markdown linkとautolinkはraw HTMLとして誤拒否しない', () => {
 })
 
 test('JSON URLの制御文字entityによるactive scheme偽装だけを拒否する', async () => {
-  const sourcePath = 'src/i18n/source/ja/pages/home.json'
+  const sourcePath = 'src/i18n/source/ja/campaigns/site-renewal-2026.json'
   const sourceText = await readFile(
     path.join(repositoryRoot, sourcePath),
     'utf8',
@@ -1709,7 +1709,7 @@ test('JSON URLの制御文字entityによるactive scheme偽装だけを拒否�
 
   for (const url of obfuscatedActiveUrls) {
     const source = JSON.parse(sourceText)
-    source.serviceCards[0].href = url
+    source.href = url
     const contents = JSON.stringify(source)
 
     assert.throws(
@@ -1727,7 +1727,7 @@ test('JSON URLの制御文字entityによるactive scheme偽装だけを拒否�
   }
 
   const normalProse = JSON.parse(sourceText)
-  normalProse.aboutBody2 =
+  normalProse.body =
     'URLではない説明文ではjava&#x09;script:という文字列も保存できる'
   const normalContents = JSON.stringify(normalProse)
 
