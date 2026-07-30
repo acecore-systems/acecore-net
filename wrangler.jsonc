@@ -3,40 +3,39 @@
   "name": "acecore-net",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-07-27",
-  "ai": {
-    "binding": "AI",
-  },
   "vectorize": [
     {
       "binding": "SEARCH_INDEX",
-      "index_name": "acecore-net-search-preview",
+      "index_name": "acecore-net-search-openai-1536-preview",
     },
     {
       "binding": "SYSTEMS_SEARCH_INDEX",
-      "index_name": "acecore-systems-search-preview",
+      "index_name": "acecore-systems-search-openai-1536-preview",
     },
     {
       "binding": "SCHOOLS_SEARCH_INDEX",
-      "index_name": "acecore-schools-search-preview",
+      "index_name": "acecore-schools-search-openai-1536-preview",
     },
     {
       "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-      "index_name": "aceserver-wiki-search-preview",
+      "index_name": "aceserver-wiki-search-openai-1536-preview",
     },
     {
       "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-      "index_name": "aceserver-portal-search-preview",
+      "index_name": "aceserver-portal-search-openai-1536-preview",
     },
   ],
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-    "CLOUDFLARE_AI_MODEL": "@cf/zai-org/glm-5.2",
-    "CLOUDFLARE_AI_REASONING_EFFORT": "low",
+    "OPENAI_CHAT_MODEL": "gpt-5.6-luna",
+    "OPENAI_REASONING_EFFORT": "low",
+    "OPENAI_EMBEDDING_MODEL": "text-embedding-3-large",
+    "OPENAI_EMBEDDING_DIMENSIONS": "1536",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
     "CONTACT_FROM_EMAIL": "noreply@acecore.net",
     "CONTACT_TO_EMAIL": "info@acecore.net",
     "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net,localhost,127.0.0.1",
-    "SEARCH_ENABLED": "true",
+    "SEARCH_ENABLED": "false",
     "SEARCH_MIN_SCORE": "0.50",
     "SYSTEMS_SEARCH_ENABLED": "true",
     "SYSTEMS_SEARCH_MIN_SCORE": "0.50",
@@ -65,40 +64,39 @@
   ],
   "env": {
     "preview": {
-      "ai": {
-        "binding": "AI",
-      },
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-preview",
+          "index_name": "acecore-net-search-openai-1536-preview",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",
-          "index_name": "acecore-systems-search-preview",
+          "index_name": "acecore-systems-search-openai-1536-preview",
         },
         {
           "binding": "SCHOOLS_SEARCH_INDEX",
-          "index_name": "acecore-schools-search-preview",
+          "index_name": "acecore-schools-search-openai-1536-preview",
         },
         {
           "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-          "index_name": "aceserver-wiki-search-preview",
+          "index_name": "aceserver-wiki-search-openai-1536-preview",
         },
         {
           "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-          "index_name": "aceserver-portal-search-preview",
+          "index_name": "aceserver-portal-search-openai-1536-preview",
         },
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "CLOUDFLARE_AI_MODEL": "@cf/zai-org/glm-5.2",
-        "CLOUDFLARE_AI_REASONING_EFFORT": "low",
+        "OPENAI_CHAT_MODEL": "gpt-5.6-luna",
+        "OPENAI_REASONING_EFFORT": "low",
+        "OPENAI_EMBEDDING_MODEL": "text-embedding-3-large",
+        "OPENAI_EMBEDDING_DIMENSIONS": "1536",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
         "CONTACT_TO_EMAIL": "info@acecore.net",
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
-        "SEARCH_ENABLED": "true",
+        "SEARCH_ENABLED": "false",
         "SEARCH_MIN_SCORE": "0.50",
         "SYSTEMS_SEARCH_ENABLED": "true",
         "SYSTEMS_SEARCH_MIN_SCORE": "0.50",
@@ -127,40 +125,39 @@
       ],
     },
     "production": {
-      "ai": {
-        "binding": "AI",
-      },
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-production",
+          "index_name": "acecore-net-search-openai-1536-production",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",
-          "index_name": "acecore-systems-search-production",
+          "index_name": "acecore-systems-search-openai-1536-production",
         },
         {
           "binding": "SCHOOLS_SEARCH_INDEX",
-          "index_name": "acecore-schools-search-production",
+          "index_name": "acecore-schools-search-openai-1536-production",
         },
         {
           "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-          "index_name": "aceserver-wiki-search-production",
+          "index_name": "aceserver-wiki-search-openai-1536-production",
         },
         {
           "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-          "index_name": "aceserver-portal-search-production",
+          "index_name": "aceserver-portal-search-openai-1536-production",
         },
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "CLOUDFLARE_AI_MODEL": "@cf/zai-org/glm-5.2",
-        "CLOUDFLARE_AI_REASONING_EFFORT": "low",
+        "OPENAI_CHAT_MODEL": "gpt-5.6-luna",
+        "OPENAI_REASONING_EFFORT": "low",
+        "OPENAI_EMBEDDING_MODEL": "text-embedding-3-large",
+        "OPENAI_EMBEDDING_DIMENSIONS": "1536",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
         "CONTACT_TO_EMAIL": "info@acecore.net",
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
-        "SEARCH_ENABLED": "true",
+        "SEARCH_ENABLED": "false",
         "SEARCH_MIN_SCORE": "0.50",
         "SYSTEMS_SEARCH_ENABLED": "true",
         "SYSTEMS_SEARCH_MIN_SCORE": "0.50",

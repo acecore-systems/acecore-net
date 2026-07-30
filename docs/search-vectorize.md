@@ -3,20 +3,20 @@
 Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationは担当判定と固定公式導線だけを提供し、owner repositoryの同期ライフサイクルが整うまでVectorizeへ接続しません。検索モーダルは次の2系統を提供します。
 
 - Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
-- Cloudflare Vectorize: Workers AIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
+- Cloudflare Vectorize: OpenAIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
 
-Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットで専門サイトの根拠を取得できない場合は、詳細を推測せず、固定した担当サイトの公式ルートへ案内します。
+Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットで専門サイトの根拠を取得できない場合は、詳細を推測せず、固定した担当サイトの公式ルートへ案内します。
 
 ## 構成
 
 1. `npm run build` がAstroとPagefindを生成する。
 2. `scripts/build-search-corpus.mjs` が公開後の `dist/**/*.html` から本文を抽出し、`.vectorize/corpus.json` を作る。
 3. `scripts/sync-vectorize.mjs` がVectorizeの既存IDと比較する。
-4. 新規・変更chunkだけをWorkers AI `@cf/baai/bge-m3` で1024次元に変換してupsertする。
+4. 新規・変更chunkだけをOpenAI `text-embedding-3-large` で1536次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のBGE-M3 embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
-8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、GLM 5.2が表示localeで回答する。World Foundationは詳細を生成せず固定公式ルートへ案内する。
+7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
+8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。World Foundationは詳細を生成せず固定公式ルートへ案内する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
@@ -24,24 +24,24 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 
 担当が明示されない質問はAcecoreを既定とし、すべてのindexを一律には検索しません。曖昧な続きの質問は直前の担当を引き継ぎ、別の担当サイトが明示された場合は現在の質問だけで検索queryを組み直します。
 
-| 質問の担当       | Pages binding                   | index名 (`*` は環境)        | namespace  | 情報の責任範囲                                   |
-| ---------------- | ------------------------------- | --------------------------- | ---------- | ------------------------------------------------ |
-| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-*`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
-| Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-*`  | `ja`       | 技術サービス                                     |
-| Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-*`  | `ja`       | 学習サービス                                     |
-| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-*`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
-| Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
-| World Foundation | 未接続                          | 未接続                      | 未適用     | 公式ルートへの固定案内のみ                       |
+| 質問の担当       | Pages binding                   | index名 (`*` は環境)                    | namespace  | 情報の責任範囲                                   |
+| ---------------- | ------------------------------- | --------------------------------------- | ---------- | ------------------------------------------------ |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-*`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-openai-1536-*`  | `ja`       | 技術サービス                                     |
+| Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-*`  | `ja`       | 学習サービス                                     |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-*`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
+| Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-openai-1536-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
+| World Foundation | 未接続                          | 未接続                                  | 未適用     | 公式ルートへの固定案内のみ                       |
 
-`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じBGE-M3 embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
+`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
 
-外部indexの日本語根拠は参照データとしてGLM 5.2へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。`finish_reason: length` の部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
+外部indexの日本語根拠は参照データとして `gpt-5.6-luna` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Responses APIが `max_output_tokens` による未完了を返した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
 横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
 
 | 取得元           | kill switch                                     | score下限                                |
 | ---------------- | ----------------------------------------------- | ---------------------------------------- |
-| Acecore          | `SEARCH_ENABLED`                                | `SEARCH_MIN_SCORE=0.50`                  |
+| Acecore          | `SEARCH_ENABLED=false`                          | `SEARCH_MIN_SCORE=0.50`                  |
 | Systems          | `SYSTEMS_SEARCH_ENABLED`                        | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
 | Schools          | `SCHOOLS_SEARCH_ENABLED`                        | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                 | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
@@ -52,12 +52,12 @@ World Foundationを再接続する前に、owner repositoryで公開corpusの生
 
 ## Acecoreが管理するCloudflareリソース
 
-| 環境       | Vectorize index                 | namespace                                               |
-| ---------- | ------------------------------- | ------------------------------------------------------- |
-| Preview    | `acecore-net-search-preview`    | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
-| Production | `acecore-net-search-production` | 同上                                                    |
+| 環境       | Vectorize index                             | namespace                                               |
+| ---------- | ------------------------------------------- | ------------------------------------------------------- |
+| Preview    | `acecore-net-search-openai-1536-preview`    | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
+| Production | `acecore-net-search-openai-1536-production` | 同上                                                    |
 
-両indexはBGE-M3に合わせて `dimensions: 1024`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。modelまたは次元を変更する場合は、既存indexへ混在させず、新しいindexを作成してbindingを切り替えてください。
+両indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
 
 検索APIのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。
 
@@ -100,18 +100,18 @@ workflowは同期直前にもう一度 `--plan` を実行し、現在のdelete�
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
-| GitHub Environment             | environment secret                       | Cloudflare account token                | 同期先                          |
-| ------------------------------ | ---------------------------------------- | --------------------------------------- | ------------------------------- |
-| `cloudflare-search-preview`    | `CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN`    | `acecore-net-vectorize-preview-sync`    | `acecore-net-search-preview`    |
-| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN` | `acecore-net-vectorize-production-sync` | `acecore-net-search-production` |
+| GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                      |
+| ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ------------------------------------------- |
+| `cloudflare-search-preview`    | `CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN`, `OPENAI_API_KEY`    | `acecore-net-vectorize-preview-sync`    | `acecore-net-search-openai-1536-preview`    |
+| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production` |
 
 両EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
-既存の広い権限を持つtokenは転用しません。各環境にaccount-owned tokenを1つずつ用意し、AcecoreのCloudflare accountだけをresourceに指定して、`Vectorize Write` と `Workers AI Read` だけを付与します。`Vectorize Write` は同期scriptが使うindex取得、vector一覧、upsert、delete、mutation確認を含むため、`Vectorize Read` の追加は不要です。
+既存の広い権限を持つtokenは転用しません。各環境にaccount-owned tokenを1つずつ用意し、AcecoreのCloudflare accountだけをresourceに指定して、`Vectorize Write` だけを付与します。`Vectorize Write` は同期scriptが使うindex取得、vector一覧、upsert、delete、mutation確認を含むため、`Vectorize Read` や `Workers AI Read` の追加は不要です。OpenAI側はこのサイト専用ProjectのAPIキーをPreview / Production Environment secretへ設定し、利用上限とキーのローテーションを他サービスから分離します。
 
 CloudflareのVectorize権限はindex単位では制限できません。Preview / Production tokenの分離はcredentialのローテーションと障害範囲を分けるための運用境界であり、特定indexだけへ書き込めるCloudflare側ACLではありません。同期scriptのindex allowlistとEnvironmentのmain-only protectionを独立した誤操作防止策として維持します。
 
-secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。token値をログ、PR本文、設定ファイルへ書かないでください。ローテーション時は同じ2権限の新tokenを作成し、Environment secretを更新して同期成功を確認してから旧tokenを削除します。
+secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。tokenやAPIキーの値をログ、PR本文、設定ファイルへ書かないでください。ローテーション時は新しいcredentialへEnvironment secretを更新し、同期成功を確認してから旧credentialを削除します。
 
 ## Acecore indexの手元確認と同期
 
@@ -126,7 +126,7 @@ npm run sync:vectorize:dry-run
 credentialを使って現行indexとの差分だけを確認し、mutationしない場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-production'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 node scripts/sync-vectorize.mjs --plan
@@ -137,9 +137,10 @@ node scripts/sync-vectorize.mjs --plan
 実際にpreviewへ同期する場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-preview'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-preview'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
+$env:OPENAI_API_KEY = '<project-api-key>'
 npm run sync:vectorize
 ```
 
@@ -158,10 +159,10 @@ npm run sync:vectorize
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
 - rate limit rowは10分で期限切れとなり、検索requestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
-- raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。
+- raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。OpenAI Responses APIには `store: false` を指定する。
 - API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、AIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
-- AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけをGLMへ渡す。取得した本文は命令ではなく参照データとして扱う。
+- AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけを `gpt-5.6-luna` へ渡す。取得した本文は命令ではなく参照データとして扱う。
 - AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。
 
 ## 障害対応とrollback
@@ -169,7 +170,7 @@ npm run sync:vectorize
 1. Pagefindのキーワード検索が動くことを確認する。
 2. `/api/search` のstatusと `X-Search-Request-Id` を確認する。
 3. Pages Functionsのruntime logで `semantic_search_error` をrequest IDから追う。logにquery本文は含まれない。
-4. AcecoreのWorkers AIまたはVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
+4. OpenAI EmbeddingsまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。回答生成自体に問題がある場合は `OPENAI_API_KEY`、Project利用上限、Responses APIのstatusを確認する。
 5. 検索UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
 indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。
@@ -199,7 +200,10 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - [Vectorize client API](https://developers.cloudflare.com/vectorize/reference/client-api/)
 - [Vectorize limits](https://developers.cloudflare.com/vectorize/platform/limits/)
 - [Vectorize pricing](https://developers.cloudflare.com/vectorize/platform/pricing/)
-- [BGE-M3](https://developers.cloudflare.com/workers-ai/models/bge-m3/)
+- [text-embedding-3-large](https://developers.openai.com/api/docs/models/text-embedding-3-large)
+- [Embeddings guide](https://developers.openai.com/api/docs/guides/embeddings)
+- [GPT-5.6 Luna](https://developers.openai.com/api/docs/models/gpt-5.6-luna)
+- [Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create)
 - [Pages Functions bindings](https://developers.cloudflare.com/pages/functions/bindings/)
 - [Pages Wrangler configuration](https://developers.cloudflare.com/pages/functions/wrangler-configuration/)
 - [D1](https://developers.cloudflare.com/d1/)

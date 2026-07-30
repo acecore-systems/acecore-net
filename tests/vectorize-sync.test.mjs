@@ -10,10 +10,10 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.mjs'
 
-const PREVIEW_INDEX = 'acecore-net-search-preview'
+const PREVIEW_INDEX = 'acecore-net-search-openai-1536-preview'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
-const embedding = Array.from({ length: 1024 }, () => 0.01)
+const embedding = Array.from({ length: 1536 }, () => 0.01)
 
 after(async () => {
   await Promise.all(
@@ -23,13 +23,27 @@ after(async () => {
   )
 })
 
-test('embeddingの件数と1024次元を検証する', () => {
-  assert.deepEqual(extractEmbeddingData({ result: { data: [embedding] } }, 1), [
-    embedding,
-  ])
+test('embeddingのindex・件数・1536次元を検証する', () => {
+  assert.deepEqual(
+    extractEmbeddingData({ data: [{ index: 0, embedding }] }, 1),
+    [embedding],
+  )
   assert.throws(
-    () => extractEmbeddingData({ result: { data: [[0.1]] } }, 1),
-    /1024/,
+    () => extractEmbeddingData({ data: [{ index: 0, embedding: [0.1] }] }, 1),
+    /1536/,
+  )
+  assert.throws(
+    () =>
+      extractEmbeddingData(
+        {
+          data: [
+            { index: 0, embedding },
+            { index: 0, embedding },
+          ],
+        },
+        2,
+      ),
+    /unique indexes/,
   )
 })
 
@@ -57,18 +71,23 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
         isTruncated: false,
       })
     }
-    if (url.includes('/ai/run/')) {
-      assert.ok(url.endsWith('/ai/run/@cf/baai/bge-m3'))
+    if (url.endsWith('/v1/embeddings')) {
       const body = JSON.parse(init.body)
-      assert.deepEqual(body.text, [newChunk.text])
-      return cloudflareResponse({ data: [embedding] })
+      assert.deepEqual(body, {
+        model: 'text-embedding-3-large',
+        input: [newChunk.text],
+        dimensions: 1536,
+        encoding_format: 'float',
+      })
+      assert.equal(init.headers.get('Authorization'), 'Bearer openai-key')
+      return openAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       assert.equal(init.body.has('body'), false)
       const body = await init.body.get('vectors').text()
       const vector = JSON.parse(body.trim())
       assert.equal(vector.id, newChunk.id)
-      assert.equal(vector.values.length, 1024)
+      assert.equal(vector.values.length, 1536)
       remoteIds.add(vector.id)
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
     }
@@ -89,6 +108,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
+    openAiApiKey: 'openai-key',
     indexName: PREVIEW_INDEX,
     corpusFile,
     fetchImpl,
@@ -100,7 +120,10 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   assert.equal(result.deleted, 1)
   assert.equal(result.mutationId, 'mutation-delete')
   assert.equal(result.verified, true)
-  assert.equal(calls.filter(({ url }) => url.includes('/ai/run/')).length, 1)
+  assert.equal(
+    calls.filter(({ url }) => url.endsWith('/v1/embeddings')).length,
+    1,
+  )
 })
 
 test('mutationIdがない成功応答をfail closedする', async () => {
@@ -119,8 +142,8 @@ test('mutationIdがない成功応答をfail closedする', async () => {
         isTruncated: false,
       })
     }
-    if (url.includes('/ai/run/')) {
-      return cloudflareResponse({ data: [embedding] })
+    if (url.endsWith('/v1/embeddings')) {
+      return openAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       return cloudflareResponse({})
@@ -132,6 +155,7 @@ test('mutationIdがない成功応答をfail closedする', async () => {
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
+      openAiApiKey: 'openai-key',
       indexName: PREVIEW_INDEX,
       corpusFile,
       fetchImpl,
@@ -208,7 +232,7 @@ test('同期先indexをpreviewとproductionだけに制限する', async () => {
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: 'acecore-net-search-production',
+      indexName: 'acecore-net-search-openai-1536-production',
       logger: silentLogger,
     }),
   )
@@ -548,8 +572,8 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
         isTruncated: false,
       })
     }
-    if (url.includes('/ai/run/')) {
-      return cloudflareResponse({ data: [embedding] })
+    if (url.endsWith('/v1/embeddings')) {
+      return openAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
@@ -566,6 +590,7 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
+      openAiApiKey: 'openai-key',
       indexName: PREVIEW_INDEX,
       corpusFile,
       fetchImpl,
@@ -704,8 +729,8 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
         isTruncated: false,
       })
     }
-    if (url.includes('/ai/run/')) {
-      return cloudflareResponse({ data: [embedding] })
+    if (url.endsWith('/v1/embeddings')) {
+      return openAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       upsertRequests += 1
@@ -720,6 +745,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
+      openAiApiKey: 'openai-key',
       indexName: PREVIEW_INDEX,
       corpusFile,
       fetchImpl,
@@ -751,7 +777,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
 test('embedding設定が異なるcorpusを拒否する', () => {
   const corpus = createCorpus()
   corpus.embedding.dimensions = 768
-  assert.throws(() => validateCorpus(corpus), /1024/)
+  assert.throws(() => validateCorpus(corpus), /1536/)
 })
 
 function createCorpus({ vectorCount = 1000, sourceCount = 90 } = {}) {
@@ -784,8 +810,8 @@ function createCorpus({ vectorCount = 1000, sourceCount = 90 } = {}) {
     schemaVersion: 1,
     version: 'test',
     embedding: {
-      model: '@cf/baai/bge-m3',
-      dimensions: 1024,
+      model: 'text-embedding-3-large',
+      dimensions: 1536,
       metric: 'cosine',
     },
     sourceCount,
@@ -830,7 +856,7 @@ async function writeCorpus(corpus) {
 function indexResponse() {
   return cloudflareResponse({
     name: PREVIEW_INDEX,
-    config: { dimensions: 1024, metric: 'cosine' },
+    config: { dimensions: 1536, metric: 'cosine' },
   })
 }
 
@@ -841,6 +867,24 @@ function cloudflareResponse(result, status = 200, headers = {}) {
       result,
       errors: [],
       messages: [],
+    }),
+    {
+      status,
+      headers: { 'Content-Type': 'application/json', ...headers },
+    },
+  )
+}
+
+function openAiEmbeddingResponse(embeddings, status = 200, headers = {}) {
+  return new Response(
+    JSON.stringify({
+      object: 'list',
+      data: embeddings.map((values, index) => ({
+        object: 'embedding',
+        index,
+        embedding: values,
+      })),
+      model: 'text-embedding-3-large',
     }),
     {
       status,
