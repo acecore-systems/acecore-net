@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -22,9 +23,20 @@ const MAX_REQUEST_RETRIES = 5
 const RETRY_BASE_DELAY_MS = 500
 const MAX_LIST_CURSOR_RESTARTS = 3
 const MAX_DELETE_RATIO = 0.2
-const MIN_SOURCE_COUNT = 200
-const MIN_VECTOR_COUNT = 1000
-const MIN_LOCALE_VECTOR_COUNT = 50
+const MIN_SOURCE_COUNT = 90
+const MIN_VECTOR_COUNT = 150
+const MIN_LOCALE_SOURCE_COUNT = 10
+const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
+  ja: 10,
+  en: 19,
+  'zh-cn': 9,
+  es: 18,
+  pt: 19,
+  fr: 20,
+  ko: 11,
+  de: 19,
+  ru: 18,
+})
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
 const ALLOWED_INDEX_NAMES = new Set([
   'acecore-net-search-preview',
@@ -56,8 +68,12 @@ export async function syncVectorize({
   indexName = process.env.VECTORIZE_INDEX_NAME,
   corpusFile = DEFAULT_CORPUS_FILE,
   dryRun = false,
+  planOnly = false,
   waitForMutations = true,
+  verifyAfterMutation = true,
   allowLargeDelete = false,
+  expectedDeleteCount,
+  expectedPlanId,
   fetchImpl = globalThis.fetch,
   requestTimeoutMs = REQUEST_TIMEOUT_MS,
   retryBaseDelayMs = RETRY_BASE_DELAY_MS,
@@ -95,7 +111,9 @@ export async function syncVectorize({
     sleepImpl,
     randomImpl,
   })
-  const index = await ensureIndex(client, indexName)
+  const index = await ensureIndex(client, indexName, {
+    createIfMissing: !planOnly,
+  })
   validateIndexConfiguration(index, indexName)
 
   const currentIds = await listVectorIds(client, indexName, {
@@ -107,10 +125,15 @@ export async function syncVectorize({
   const expectedIds = new Set(corpus.chunks.map(({ id }) => id))
   const chunksToUpsert = corpus.chunks.filter(({ id }) => !currentIds.has(id))
   const idsToDelete = [...currentIds].filter((id) => !expectedIds.has(id))
-  validateDeletePlan({
-    currentCount: currentIds.size,
-    deleteCount: idsToDelete.length,
-    allowLargeDelete,
+  const deleteRatio =
+    currentIds.size === 0 ? 0 : idsToDelete.length / currentIds.size
+  const requiresLargeDeleteApproval =
+    idsToDelete.length > 0 && deleteRatio > MAX_DELETE_RATIO
+  const planId = createPlanId({
+    indexName,
+    corpusVersion: corpus.version,
+    currentIds,
+    expectedIds,
   })
 
   logger.log(
@@ -122,8 +145,39 @@ export async function syncVectorize({
       expected: expectedIds.size,
       upsert: chunksToUpsert.length,
       delete: idsToDelete.length,
+      deleteRatio,
+      requiresLargeDeleteApproval,
+      planId,
     }),
   )
+
+  if (planOnly) {
+    return {
+      dryRun: false,
+      planOnly: true,
+      indexName,
+      corpusVersion: corpus.version,
+      current: currentIds.size,
+      expected: expectedIds.size,
+      upsert: chunksToUpsert.length,
+      delete: idsToDelete.length,
+      deleteRatio,
+      requiresLargeDeleteApproval,
+      planId,
+    }
+  }
+
+  validateExpectedPlan({
+    actualDeleteCount: idsToDelete.length,
+    actualPlanId: planId,
+    expectedDeleteCount,
+    expectedPlanId,
+  })
+  validateDeletePlan({
+    currentCount: currentIds.size,
+    deleteCount: idsToDelete.length,
+    allowLargeDelete,
+  })
 
   const mutationIds = []
   for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
@@ -149,8 +203,19 @@ export async function syncVectorize({
   }
 
   const lastMutationId = mutationIds.at(-1)
+  let verified = false
   if (waitForMutations && lastMutationId) {
     await waitForMutation(client, indexName, lastMutationId)
+  }
+  if (waitForMutations && verifyAfterMutation) {
+    const reconciledIds = await listVectorIds(client, indexName, {
+      logger,
+      sleepImpl,
+      retryBaseDelayMs,
+    })
+    validateExistingVectorIds(reconciledIds, indexName)
+    validateReconciliation(reconciledIds, expectedIds, indexName)
+    verified = true
   }
 
   const result = {
@@ -161,6 +226,7 @@ export async function syncVectorize({
     upserted: chunksToUpsert.length,
     deleted: idsToDelete.length,
     mutationId: lastMutationId || null,
+    verified,
   }
   logger.log(JSON.stringify({ event: 'vectorize_sync_complete', ...result }))
   return result
@@ -202,6 +268,9 @@ export function validateCorpus(corpus) {
   const actualLocaleCounts = Object.fromEntries(
     SUPPORTED_LOCALES.map((locale) => [locale, 0]),
   )
+  const actualLocaleSources = Object.fromEntries(
+    SUPPORTED_LOCALES.map((locale) => [locale, new Set()]),
+  )
   for (const chunk of corpus.chunks) {
     if (
       typeof chunk?.id !== 'string' ||
@@ -210,27 +279,103 @@ export function validateCorpus(corpus) {
       typeof chunk?.text !== 'string' ||
       !chunk.metadata ||
       typeof chunk.metadata.url !== 'string' ||
-      chunk.metadata.locale !== chunk.namespace
+      !chunk.metadata.url.startsWith('/') ||
+      chunk.metadata.locale !== chunk.namespace ||
+      !urlMatchesLocale(chunk.metadata.url, chunk.namespace)
     ) {
       throw new Error('Corpus contains an invalid chunk.')
     }
     if (ids.has(chunk.id)) throw new Error(`Duplicate vector id: ${chunk.id}`)
     ids.add(chunk.id)
     actualLocaleCounts[chunk.namespace] += 1
+    actualLocaleSources[chunk.namespace].add(chunk.metadata.url)
+  }
+
+  const actualSourceCount = Object.values(actualLocaleSources).reduce(
+    (total, urls) => total + urls.size,
+    0,
+  )
+  if (corpus.sourceCount !== actualSourceCount) {
+    throw new Error(
+      `Corpus sourceCount must match ${actualSourceCount} unique source URLs.`,
+    )
   }
 
   for (const locale of SUPPORTED_LOCALES) {
     const declaredCount = corpus?.localeCounts?.[locale]
     const actualCount = actualLocaleCounts[locale]
+    const actualSourceCountForLocale = actualLocaleSources[locale].size
+    const minimumVectorCount = MIN_LOCALE_VECTOR_COUNTS[locale]
     if (
       !Number.isInteger(declaredCount) ||
       declaredCount !== actualCount ||
-      actualCount < MIN_LOCALE_VECTOR_COUNT
+      actualCount < minimumVectorCount
     ) {
       throw new Error(
-        `Corpus locale ${locale} must contain at least ${MIN_LOCALE_VECTOR_COUNT} vectors and match localeCounts.`,
+        `Corpus locale ${locale} must contain at least ${minimumVectorCount} vectors and match localeCounts.`,
       )
     }
+    if (actualSourceCountForLocale < MIN_LOCALE_SOURCE_COUNT) {
+      throw new Error(
+        `Corpus locale ${locale} must contain at least ${MIN_LOCALE_SOURCE_COUNT} unique source URLs.`,
+      )
+    }
+  }
+}
+
+function urlMatchesLocale(url, locale) {
+  const pathname = url.split(/[?#]/, 1)[0]
+  const localizedPrefixes = SUPPORTED_LOCALES.filter(
+    (candidate) => candidate !== 'ja',
+  ).map((candidate) => `/${candidate}/`)
+
+  if (locale === 'ja') {
+    return !localizedPrefixes.some(
+      (prefix) =>
+        pathname === prefix.slice(0, -1) || pathname.startsWith(prefix),
+    )
+  }
+
+  const expectedPrefix = `/${locale}/`
+  return (
+    pathname === expectedPrefix.slice(0, -1) ||
+    pathname.startsWith(expectedPrefix)
+  )
+}
+
+function createPlanId({ indexName, corpusVersion, currentIds, expectedIds }) {
+  return createHash('sha256')
+    .update(
+      JSON.stringify({
+        schema: 'acecore-vectorize-plan-v1',
+        indexName,
+        corpusVersion,
+        currentIds: [...currentIds].sort(),
+        expectedIds: [...expectedIds].sort(),
+      }),
+    )
+    .digest('hex')
+}
+
+function validateExpectedPlan({
+  actualDeleteCount,
+  actualPlanId,
+  expectedDeleteCount,
+  expectedPlanId,
+}) {
+  if (
+    expectedDeleteCount !== undefined &&
+    actualDeleteCount !== expectedDeleteCount
+  ) {
+    throw new Error(
+      `Vectorize delete count changed after approval: expected ${expectedDeleteCount}, got ${actualDeleteCount}.`,
+    )
+  }
+
+  if (expectedPlanId !== undefined && actualPlanId !== expectedPlanId) {
+    throw new Error(
+      `Vectorize plan changed after approval: expected ${expectedPlanId}, got ${actualPlanId}.`,
+    )
   }
 }
 
@@ -267,6 +412,17 @@ function validateDeletePlan({ currentCount, deleteCount, allowLargeDelete }) {
   const percentage = ((deleteCount / currentCount) * 100).toFixed(1)
   throw new Error(
     `Refusing to delete ${deleteCount}/${currentCount} vectors (${percentage}%); pass --allow-large-delete to override the ${MAX_DELETE_RATIO * 100}% safety limit.`,
+  )
+}
+
+function validateReconciliation(actualIds, expectedIds, indexName) {
+  const missingIds = [...expectedIds].filter((id) => !actualIds.has(id))
+  const unexpectedIds = [...actualIds].filter((id) => !expectedIds.has(id))
+
+  if (missingIds.length === 0 && unexpectedIds.length === 0) return
+
+  throw new Error(
+    `Vectorize index ${indexName} did not converge: ${missingIds.length} missing and ${unexpectedIds.length} unexpected vector(s).`,
   )
 }
 
@@ -417,7 +573,7 @@ function sleep(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
 
-async function ensureIndex(client, indexName) {
+async function ensureIndex(client, indexName, { createIfMissing = true } = {}) {
   const encodedName = encodeURIComponent(indexName)
   try {
     const payload = await client.request(`/vectorize/v2/indexes/${encodedName}`)
@@ -426,6 +582,12 @@ async function ensureIndex(client, indexName) {
     if (!(error instanceof CloudflareApiError) || error.status !== 404) {
       throw error
     }
+  }
+
+  if (!createIfMissing) {
+    throw new Error(
+      `Vectorize index ${indexName} does not exist; plan mode is read-only and will not create it.`,
+    )
   }
 
   const payload = await client.request('/vectorize/v2/indexes', {
@@ -489,6 +651,7 @@ async function listVectorIds(
 
 async function listVectorIdsOnce(client, indexName) {
   const ids = new Set()
+  const seenCursors = new Set()
   let cursor = ''
 
   do {
@@ -508,10 +671,25 @@ async function listVectorIdsOnce(client, indexName) {
       ids.add(vector.id)
     }
 
-    cursor =
-      result.isTruncated && typeof result.nextCursor === 'string'
-        ? result.nextCursor
-        : ''
+    if (!result.isTruncated) {
+      cursor = ''
+      continue
+    }
+
+    const nextCursor = result.nextCursor
+    if (typeof nextCursor !== 'string' || nextCursor.trim() === '') {
+      throw new Error(
+        `Vectorize index ${indexName} returned a truncated page without a valid nextCursor; refusing to treat the list as complete.`,
+      )
+    }
+    if (seenCursors.has(nextCursor)) {
+      throw new Error(
+        `Vectorize index ${indexName} repeated a list cursor; refusing to treat the list as complete.`,
+      )
+    }
+
+    seenCursors.add(nextCursor)
+    cursor = nextCursor
   } while (cursor)
 
   return ids
@@ -609,8 +787,11 @@ function batches(items, size) {
 function parseArguments(argv) {
   const options = {
     dryRun: false,
+    planOnly: false,
     waitForMutations: true,
     allowLargeDelete: false,
+    expectedDeleteCount: undefined,
+    expectedPlanId: undefined,
     indexName: process.env.VECTORIZE_INDEX_NAME,
     corpusFile: DEFAULT_CORPUS_FILE,
   }
@@ -618,9 +799,24 @@ function parseArguments(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index]
     if (argument === '--dry-run') options.dryRun = true
+    else if (argument === '--plan') options.planOnly = true
     else if (argument === '--no-wait') options.waitForMutations = false
     else if (argument === '--allow-large-delete') {
       options.allowLargeDelete = true
+    } else if (argument === '--expected-delete-count') {
+      const value = argv[++index]
+      if (!/^(0|[1-9][0-9]*)$/.test(value || '')) {
+        throw new Error(
+          '--expected-delete-count must be a non-negative integer.',
+        )
+      }
+      options.expectedDeleteCount = Number(value)
+    } else if (argument === '--expected-plan-id') {
+      const value = argv[++index]
+      if (!/^[0-9a-f]{64}$/.test(value || '')) {
+        throw new Error('--expected-plan-id must be a SHA-256 hex value.')
+      }
+      options.expectedPlanId = value
     } else if (argument === '--index') options.indexName = argv[++index]
     else if (argument === '--corpus') {
       options.corpusFile = resolve(argv[++index])

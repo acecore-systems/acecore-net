@@ -3,7 +3,11 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { getCanonicalTagRedirectUrl } from '../src/utils/tag-route-redirect.ts'
+import {
+  getCanonicalTagRedirectUrl,
+  localizeRedirectDestination,
+  RETIRED_TAG_DESTINATIONS,
+} from '../src/utils/tag-route-redirect.ts'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const tagsDirectory = path.join(root, 'src', 'content', 'tags')
@@ -22,6 +26,14 @@ const nonAsciiTagCount = tagNames.filter((name) =>
   /[^\x00-\x7f]/u.test(name),
 ).length
 
+for (const tag of tagNames) {
+  assert.equal(
+    RETIRED_TAG_DESTINATIONS[tag],
+    undefined,
+    `Current tag must not also be retired: ${tag}`,
+  )
+}
+
 let checked = 0
 for (const locale of locales) {
   for (const tag of tagNames) {
@@ -39,13 +51,31 @@ for (const locale of locales) {
     assert.equal(getCanonicalTagRedirectUrl(expectedUrl, 'GET'), null)
   }
 
-  const movedTagUrl = `https://acecore.net/${locale}blog/tags/${encodeURIComponent('システム開発')}`
-  for (const method of ['GET', 'HEAD']) {
-    assert.equal(
-      getCanonicalTagRedirectUrl(`${movedTagUrl}?from=gsc`, method),
-      'https://systems.acecore.net/guide/?from=gsc',
+  const localeName = locale.replace('/', '')
+  for (const [tag, destination] of Object.entries(RETIRED_TAG_DESTINATIONS)) {
+    const encodedTag = encodeURIComponent(tag)
+    const expectedUrl = new URL(
+      localizeRedirectDestination(destination, localeName),
     )
-    checked += 1
+    expectedUrl.search = '?from=gsc'
+
+    for (const trailingSlash of ['', '/']) {
+      const startUrl = `https://acecore.net/${locale}blog/tags/${encodedTag}${trailingSlash}?from=gsc`
+      for (const method of ['GET', 'HEAD']) {
+        const location = getCanonicalTagRedirectUrl(startUrl, method)
+        assert.equal(location, expectedUrl.href)
+        assert.match(location, /^[\x00-\x7f]+$/u)
+        checked += 1
+      }
+    }
+
+    assert.equal(
+      getCanonicalTagRedirectUrl(
+        `https://acecore.net/${locale}blog/tags/${encodedTag}`,
+        'POST',
+      ),
+      null,
+    )
   }
 }
 
@@ -79,5 +109,5 @@ assert.equal(
 )
 
 console.log(
-  `Validated ${checked} GET/HEAD redirects across ${locales.length} locales and ${tagNames.length} current tag routes (${nonAsciiTagCount} non-ASCII), plus the moved system-development tag.`,
+  `Validated ${checked} GET/HEAD redirects across ${locales.length} locales, ${tagNames.length} current tag routes (${nonAsciiTagCount} non-ASCII), and ${Object.keys(RETIRED_TAG_DESTINATIONS).length} retired tag routes.`,
 )

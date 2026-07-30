@@ -1,5 +1,11 @@
 import fs from 'node:fs/promises'
 
+import {
+  getCanonicalTagRedirectUrl,
+  localizeRedirectDestination,
+  RETIRED_TAG_DESTINATIONS,
+} from '../src/utils/tag-route-redirect.ts'
+
 const redirectFile = new URL('../public/_redirects', import.meta.url)
 const redirects = (await fs.readFile(redirectFile, 'utf8'))
   .split(/\r?\n/)
@@ -89,9 +95,9 @@ const specialistDestinations = {
   'metaverse-is-close': 'https://asv.acecore.net/stories/metaverse-is-close/',
   'aceserver-portal-launch':
     'https://asv.acecore.net/stories/aceserver-portal-launch/',
+  'business-system-implementation-tips': 'https://systems.acecore.net/guide/',
   'robot-workshop-event':
     'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
-  'service-introduction': 'https://acecore.net/services/',
 }
 const specialistLocales = [
   '',
@@ -104,60 +110,71 @@ const specialistLocales = [
   'de',
   'ru',
 ]
+
 const specialistCases = Object.entries(specialistDestinations).flatMap(
   ([slug, destination]) =>
     specialistLocales.flatMap((locale) => {
       const localePrefix = locale ? `/${locale}` : ''
       const path = `${localePrefix}/blog/${slug}/`
+      const localizedDestination = localizeRedirectDestination(
+        destination,
+        locale,
+      )
       return [
-        { path, destination },
-        { path: path.slice(0, -1), destination },
+        { path, destination: localizedDestination },
+        { path: path.slice(0, -1), destination: localizedDestination },
       ]
     }),
 )
-const retiredTagDestinations = {
-  アクセシビリティ: 'https://systems.acecore.net/insights/',
-  'Acecore Schools': 'https://schools.acecore.net/',
-  AI: 'https://systems.acecore.net/insights/',
-  Astro: 'https://systems.acecore.net/insights/',
-  Cloudflare: 'https://systems.acecore.net/insights/',
-  CMS: 'https://systems.acecore.net/insights/',
-  DNS: 'https://systems.acecore.net/insights/',
-  イベント:
-    'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
-  'GitHub Copilot': 'https://systems.acecore.net/insights/',
-  i18n: 'https://systems.acecore.net/insights/',
-  インフラ: 'https://systems.acecore.net/insights/',
-  メール: 'https://systems.acecore.net/insights/',
-  パフォーマンス: 'https://systems.acecore.net/insights/',
-  セキュリティ: 'https://systems.acecore.net/insights/',
-  SEO: 'https://systems.acecore.net/insights/',
-  サービス: 'https://acecore.net/services/',
-  Starlight: 'https://systems.acecore.net/insights/',
-  技術: 'https://systems.acecore.net/insights/',
-  'VS Code': 'https://systems.acecore.net/insights/',
-  Web制作: 'https://systems.acecore.net/insights/',
-}
-const retiredTagCases = Object.entries(retiredTagDestinations).flatMap(
+const retiredTagCases = Object.entries(RETIRED_TAG_DESTINATIONS).flatMap(
   ([tag, destination]) =>
     specialistLocales.flatMap((locale) => {
       const localePrefix = locale ? `/${locale}` : ''
       const path = `${localePrefix}/blog/tags/${encodeURI(tag)}/`
+      const localizedDestination = localizeRedirectDestination(
+        destination,
+        locale,
+      )
       return [
-        { path, destination },
-        { path: path.slice(0, -1), destination },
+        { path, destination: localizedDestination },
+        { path: path.slice(0, -1), destination: localizedDestination },
       ]
     }),
 )
 const redirectCases = [...legacyCases, ...specialistCases, ...retiredTagCases]
+const retainedCorporateSlugs = [
+  'website-renewal',
+  'community-and-education',
+  'service-introduction',
+]
+const retainedCorporateCases = retainedCorporateSlugs.flatMap((slug) =>
+  specialistLocales.map((locale) => {
+    const localePrefix = locale ? `/${locale}` : ''
+    return {
+      locale,
+      path: `${localePrefix}/blog/${slug}/`,
+      slug,
+    }
+  }),
+)
 
 function matches(source, path) {
-  const escaped = source
+  const normalizedSource = decodePath(source)
+  const normalizedPath = decodePath(path)
+  const escaped = normalizedSource
     .split('*')
     .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     .join('.*')
 
-  return new RegExp(`^${escaped}$`, 'u').test(path)
+  return new RegExp(`^${escaped}$`, 'u').test(normalizedPath)
+}
+
+function decodePath(value) {
+  try {
+    return decodeURI(value)
+  } catch {
+    return value
+  }
 }
 
 const duplicateSources = redirects
@@ -172,6 +189,27 @@ const firstDynamicIndex = redirects.findIndex(({ source }) =>
   source.includes('*'),
 )
 const dynamicRedirects = redirects.filter(({ source }) => source.includes('*'))
+
+for (const { locale, path: articlePath, slug } of retainedCorporateCases) {
+  const localeDirectory = locale ? `${locale}/` : ''
+  const sourceFile = new URL(
+    `../src/content/blog/${localeDirectory}${slug}.md`,
+    import.meta.url,
+  )
+
+  try {
+    await fs.access(sourceFile)
+  } catch {
+    issues.push(`Retained corporate article is missing: ${sourceFile.pathname}`)
+  }
+
+  const redirect = redirects.find(({ source }) => matches(source, articlePath))
+  if (redirect) {
+    issues.push(
+      `${articlePath} must remain a corporate article but matches redirect line ${redirect.lineNumber}`,
+    )
+  }
+}
 
 if (duplicateSources.length > 0) {
   issues.push(`Duplicate sources: ${duplicateSources.join(', ')}`)
@@ -211,6 +249,23 @@ for (const testCase of redirectCases) {
   if (match.destination !== testCase.destination) {
     issues.push(
       `${testCase.path} matches line ${match.lineNumber} with destination ${match.destination}`,
+    )
+  }
+}
+
+for (const testCase of retiredTagCases) {
+  const requestUrl = new URL(testCase.path, 'https://acecore.net')
+  requestUrl.search = '?from=legacy-validator'
+  const expectedDestination = new URL(testCase.destination)
+  expectedDestination.search = requestUrl.search
+  const middlewareDestination = getCanonicalTagRedirectUrl(
+    requestUrl.href,
+    'GET',
+  )
+
+  if (middlewareDestination !== expectedDestination.href) {
+    issues.push(
+      `${testCase.path} resolves through Pages Functions to ${middlewareDestination || '(none)'} instead of ${expectedDestination.href}`,
     )
   }
 }

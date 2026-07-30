@@ -2,6 +2,7 @@
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
+import { getSpecialistUrl } from '../utils/specialist-url'
 
 interface Props {
   locale?: Locale
@@ -20,9 +21,15 @@ const siteLinks = [
   { href: u('/privacy/'), label: t(locale, 'footer.privacy') },
 ]
 const businessLinks = [
-  { href: SITE.social.systems, label: 'Acecore Systems' },
+  {
+    href: getSpecialistUrl(SITE.social.systems, locale),
+    label: 'Acecore Systems',
+  },
   { href: getSchoolsUrl(), label: 'Acecore Schools' },
-  { href: SITE.social.aceserver, label: 'Aceserver' },
+  {
+    href: getSpecialistUrl(SITE.social.aceserver, locale),
+    label: 'Aceserver',
+  },
 ]
 ---
 

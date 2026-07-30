@@ -8,6 +8,7 @@ import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
+import { getSpecialistUrl } from '../utils/specialist-url'
 
 interface Props {
   locale: Locale
@@ -19,7 +20,7 @@ const businesses = [
   {
     title: t(locale, 'pages.services.systemsTitle'),
     description: t(locale, 'pages.services.systemsDescription'),
-    href: `${SITE.social.systems}/services/`,
+    href: getSpecialistUrl(SITE.social.systems, locale, '/services/'),
     icon: 'code-xml',
     tone: 'brand' as const,
   },
@@ -33,7 +34,7 @@ const businesses = [
   {
     title: t(locale, 'pages.services.aceserverTitle'),
     description: t(locale, 'pages.services.aceserverDescription'),
-    href: SITE.social.aceserver,
+    href: getSpecialistUrl(SITE.social.aceserver, locale),
     icon: 'gamepad-2',
     tone: 'emerald' as const,
   },

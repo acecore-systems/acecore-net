@@ -2,7 +2,7 @@
 title: '커뮤니티 활동과 교육에 대한 노력'
 description: 'Aceserver, Acecore Schools, Acecore의 공개 프로젝트를 소개합니다.'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -12,7 +12,7 @@ Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영�
 
 ## Aceserver
 
-**Aceserver**는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참가 방법, 규칙, 최신 소식은 [Aceserver 공식 포털](https://asv.acecore.net/)에서 확인할 수 있습니다.
+**Aceserver**는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참가 방법, 규칙, 최신 소식은 [Aceserver 공식 포털](https://asv.acecore.net/ko/)에서 확인할 수 있습니다.
 
 ## Acecore Schools
 
@@ -22,6 +22,6 @@ Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영�
 
 ## 오픈 소스와 협력
 
-Acecore Systems의 공개 프로젝트는 [GitHub](https://github.com/acecore-systems)에서 확인할 수 있습니다. 기술 지원과 전문 글은 [Acecore Systems](https://systems.acecore.net/)에서 관리합니다.
+Acecore Systems의 공개 프로젝트는 [GitHub](https://github.com/acecore-systems)에서 확인할 수 있습니다. 기술 지원과 전문 글은 [Acecore Systems](https://systems.acecore.net/ko/)에서 관리합니다.
 
-사업 간 협력이나 공동 기획은 [문의 양식](/contact/)을 이용해 주세요.
+사업 간 협력이나 공동 기획은 [문의 양식](/ko/contact/)을 이용해 주세요.

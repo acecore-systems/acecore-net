@@ -2,7 +2,7 @@
 title: 'Сообщество и образовательные инициативы'
 description: 'Обзор Aceserver, Acecore Schools и открытых проектов Acecore.'
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:00
+lastUpdated: 2026-07-30T00:01
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -12,7 +12,7 @@ Acecore ведёт отдельные специализированные са�
 
 ## Aceserver
 
-**Aceserver** — Minecraft-сообщество, которым управляет Acecore. Условия участия, правила и свежие новости опубликованы на [официальном портале Aceserver](https://asv.acecore.net/).
+**Aceserver** — Minecraft-сообщество, которым управляет Acecore. Условия участия, правила и свежие новости опубликованы на [официальном портале Aceserver](https://asv.acecore.net/ru/).
 
 ## Acecore Schools
 
@@ -22,6 +22,6 @@ Acecore ведёт отдельные специализированные са�
 
 ## Открытый код и сотрудничество
 
-Открытые проекты Acecore Systems доступны на [GitHub](https://github.com/acecore-systems). Технические услуги и специализированные материалы публикуются на [Acecore Systems](https://systems.acecore.net/).
+Открытые проекты Acecore Systems доступны на [GitHub](https://github.com/acecore-systems). Технические услуги и специализированные материалы публикуются на [Acecore Systems](https://systems.acecore.net/ru/).
 
-По вопросам сотрудничества между направлениями используйте [форму обратной связи](/contact/).
+По вопросам сотрудничества между направлениями используйте [форму обратной связи](/ru/contact/).

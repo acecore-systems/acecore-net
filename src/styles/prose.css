@@ -1,8 +1,10 @@
 .ac-prose {
   color: #334155;
   font-size: 1.0625rem;
+  hyphens: auto;
   line-height: 1.85;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 @media (min-width: 640px) {
@@ -123,6 +125,7 @@
   border-radius: 0.25rem;
   font-size: 0.8888889em;
   font-weight: 600;
+  overflow-wrap: anywhere;
   padding: 0.08em 0.28em;
 }
 

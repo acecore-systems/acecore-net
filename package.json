@@ -13,7 +13,8 @@
     "format:check": "prettier . --check",
     "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",
     "test:cms": "node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node tests/render-safety.test.mjs && node tests/translation-trigger.test.mjs",
-    "test:search": "node --experimental-strip-types --test tests/deployment-marker.test.mjs tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs",
+    "test:contact": "node --experimental-strip-types --test tests/contact-api.test.mjs tests/specialist-url.test.mjs",
+    "test:search": "node --experimental-strip-types --test tests/deployment-marker.test.mjs tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs tests/vectorize-workflow.test.mjs",
     "sync:vectorize": "node scripts/sync-vectorize.mjs",
     "sync:vectorize:dry-run": "node scripts/sync-vectorize.mjs --dry-run",
     "types:cloudflare": "wrangler types functions/cloudflare-env.d.ts --env-interface CloudflareEnv --include-runtime false",
@@ -24,7 +25,7 @@
     "validate:blog-freshness": "node scripts/validate-blog-freshness.mjs",
     "validate:seo": "node scripts/enrich-sitemap-lastmod.mjs --check && node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
-    "validate:legacy-redirects": "node scripts/validate-legacy-redirects.mjs"
+    "validate:legacy-redirects": "node --experimental-strip-types scripts/validate-legacy-redirects.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",

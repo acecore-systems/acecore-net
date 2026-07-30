@@ -4,6 +4,18 @@ import { fileURLToPath } from 'node:url'
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)))
 const errors = []
+const localizedLocales = ['en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
+const specialistHosts = new Set(['systems.acecore.net', 'asv.acecore.net'])
+const acecoreHosts = new Set(['acecore.net', 'www.acecore.net'])
+const localizableInternalRouteRoots = new Set([
+  'about',
+  'acestudio',
+  'blog',
+  'contact',
+  'pricing',
+  'privacy',
+  'services',
+])
 
 function fail(scope, message) {
   errors.push(`${scope}: ${message}`)
@@ -380,8 +392,121 @@ async function validateBlogDates() {
   }
 }
 
+async function validateLocalizedSpecialistLinks() {
+  const blogDirectory = path.join(root, 'src/content/blog')
+  const files = await listMarkdownFiles(blogDirectory)
+  const localizedPrefixPattern = new RegExp(
+    `^/(?:${localizedLocales.join('|')})(?:/|$)`,
+  )
+
+  for (const file of files) {
+    const scope = path.relative(root, file).split(path.sep).join('/')
+    const relativePath = path.relative(blogDirectory, file).split(path.sep)
+    const locale = localizedLocales.includes(relativePath[0])
+      ? relativePath[0]
+      : 'ja'
+    const content = await readFile(file, 'utf8')
+    const links = content.matchAll(
+      /https:\/\/(?:systems|asv)\.acecore\.net(?:\/[^)\s"'<>]*)?/g,
+    )
+
+    for (const match of links) {
+      const url = new URL(match[0])
+      if (!specialistHosts.has(url.hostname)) continue
+
+      if (locale === 'ja') {
+        if (localizedPrefixPattern.test(url.pathname)) {
+          fail(
+            scope,
+            `${url.hostname} link must keep the Japanese route without a locale prefix (${url.pathname})`,
+          )
+        }
+        continue
+      }
+
+      const expectedPrefix = `/${locale}/`
+      if (
+        url.pathname !== `/${locale}` &&
+        !url.pathname.startsWith(expectedPrefix)
+      ) {
+        fail(
+          scope,
+          `${url.hostname} link must preserve locale ${locale} (${url.pathname})`,
+        )
+      }
+    }
+  }
+}
+
+function extractMarkdownLinkTargets(content) {
+  const targets = []
+  const inlineLinks = /(?<!!)\[[^\]\n]*\]\(\s*(?:<([^>\n]+)>|([^\s)\n]+))/g
+  const referenceLinks = /^\s*\[[^\]\n]+\]:\s*(?:<([^>\n]+)>|([^\s\n]+))/gm
+
+  for (const match of content.matchAll(inlineLinks)) {
+    targets.push(match[1] || match[2])
+  }
+  for (const match of content.matchAll(referenceLinks)) {
+    targets.push(match[1] || match[2])
+  }
+
+  return targets.filter(Boolean)
+}
+
+function getAcecoreInternalPath(linkTarget) {
+  if (linkTarget.startsWith('/') && !linkTarget.startsWith('//')) {
+    return new URL(linkTarget, 'https://acecore.net').pathname
+  }
+
+  try {
+    const url = new URL(linkTarget)
+    return acecoreHosts.has(url.hostname) ? url.pathname : null
+  } catch {
+    return null
+  }
+}
+
+function isLocalizableInternalPath(pathname) {
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length === 0) return true
+
+  const firstSegment = segments[0]
+  const routeRoot =
+    firstSegment === 'ja' || localizedLocales.includes(firstSegment)
+      ? segments[1]
+      : firstSegment
+
+  return routeRoot ? localizableInternalRouteRoots.has(routeRoot) : true
+}
+
+async function validateLocalizedInternalLinks() {
+  const blogDirectory = path.join(root, 'src/content/blog')
+  const files = await listMarkdownFiles(blogDirectory)
+
+  for (const file of files) {
+    const relativePath = path.relative(blogDirectory, file).split(path.sep)
+    const locale = localizedLocales.includes(relativePath[0])
+      ? relativePath[0]
+      : 'ja'
+    if (locale === 'ja') continue
+
+    const scope = path.relative(root, file).split(path.sep).join('/')
+    const content = await readFile(file, 'utf8')
+    for (const target of extractMarkdownLinkTargets(content)) {
+      const pathname = getAcecoreInternalPath(target)
+      if (!pathname || !isLocalizableInternalPath(pathname)) continue
+
+      if (pathname !== `/${locale}` && !pathname.startsWith(`/${locale}/`)) {
+        fail(scope, `internal link must preserve locale ${locale} (${target})`)
+      }
+    }
+  }
+}
+
 await validateCmsConfig()
 await validateBlogDates()
+await validateLocalizedSpecialistLinks()
+await validateLocalizedInternalLinks()
 
 if (errors.length > 0) {
   console.error('Content validation failed:')

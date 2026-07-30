@@ -25,6 +25,7 @@ import {
   filterPostsForLocale,
 } from '../utils/blog-i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
+import { getSpecialistUrl } from '../utils/specialist-url'
 import { SITE } from '../data/site'
 import {
   getAllAuthors,
@@ -83,7 +84,7 @@ const businessCards: BusinessCard[] = [
   {
     title: t(locale, 'pages.home.systemsTitle'),
     description: t(locale, 'pages.home.systemsDescription'),
-    href: `${SITE.social.systems}/services/`,
+    href: getSpecialistUrl(SITE.social.systems, locale, '/services/'),
     icon: 'code-xml',
     tone: 'brand',
   },
@@ -97,7 +98,7 @@ const businessCards: BusinessCard[] = [
   {
     title: t(locale, 'pages.home.aceserverTitle'),
     description: t(locale, 'pages.home.aceserverDescription'),
-    href: SITE.social.aceserver,
+    href: getSpecialistUrl(SITE.social.aceserver, locale),
     icon: 'gamepad-2',
     tone: 'emerald',
   },

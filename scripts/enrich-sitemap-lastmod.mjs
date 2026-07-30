@@ -179,22 +179,67 @@ async function inspectSitemap(file, generatedArticles) {
   const updatedBlocks = urlBlocks.map((block) => {
     const locationMatch = block.match(/<loc>([\s\S]*?)<\/loc>/)
     const url = locationMatch ? decodeXmlEntities(locationMatch[1].trim()) : ''
+    const alternateTags = Array.from(
+      block.matchAll(/<xhtml:link\b[^>]*\/>/gi),
+      (match) => match[0],
+    )
+    const japaneseAlternate = alternateTags.find(
+      (tag) => extractAttribute(tag, 'hreflang') === 'ja',
+    )
+    const xDefaultAlternates = alternateTags.filter(
+      (tag) => extractAttribute(tag, 'hreflang') === 'x-default',
+    )
+    const expectedDefaultHref = japaneseAlternate
+      ? extractAttribute(japaneseAlternate, 'href')
+      : ''
+    const expectedDefaultTag = `<xhtml:link rel="alternate" hreflang="x-default" href="${expectedDefaultHref}"/>`
+    let updatedBlock = block
 
-    if (!url || !isBlogPostUrl(url)) return block
+    if (!url) {
+      errors.push(`${path.basename(file)}: sitemap URL location is missing`)
+    }
+    if (!expectedDefaultHref) {
+      errors.push(
+        `${url || path.basename(file)}: Japanese alternate is missing`,
+      )
+    } else if (xDefaultAlternates.length > 1) {
+      errors.push(`${url}: multiple x-default alternates`)
+    } else if (checkOnly) {
+      const actualDefaultHref = xDefaultAlternates[0]
+        ? extractAttribute(xDefaultAlternates[0], 'href')
+        : ''
+      if (actualDefaultHref !== expectedDefaultHref) {
+        errors.push(
+          `${url}: x-default ${actualDefaultHref || '(missing)'} does not match ${expectedDefaultHref}`,
+        )
+      }
+    } else if (xDefaultAlternates.length === 1) {
+      updatedBlock = updatedBlock.replace(
+        xDefaultAlternates[0],
+        expectedDefaultTag,
+      )
+    } else {
+      updatedBlock = updatedBlock.replace(
+        '</url>',
+        `${expectedDefaultTag}</url>`,
+      )
+    }
+
+    if (!url || !isBlogPostUrl(url)) return updatedBlock
 
     articleUrls.push(url)
     const expected = generatedArticles.get(url)
     if (!expected) {
       errors.push(`${url}: matching generated indexable article is missing`)
-      return block
+      return updatedBlock
     }
 
     const lastmodMatches = Array.from(
-      block.matchAll(/<lastmod>([\s\S]*?)<\/lastmod>/g),
+      updatedBlock.matchAll(/<lastmod>([\s\S]*?)<\/lastmod>/g),
     )
     if (lastmodMatches.length > 1) {
       errors.push(`${url}: multiple lastmod elements`)
-      return block
+      return updatedBlock
     }
 
     const actual = lastmodMatches[0]?.[1].trim() ?? ''
@@ -204,17 +249,20 @@ async function inspectSitemap(file, generatedArticles) {
           `${url}: lastmod ${actual || '(missing)'} does not match ${expected}`,
         )
       }
-      return block
+      return updatedBlock
     }
 
     if (lastmodMatches.length === 1) {
-      return block.replace(
+      return updatedBlock.replace(
         /<lastmod>[\s\S]*?<\/lastmod>/,
         `<lastmod>${expected}</lastmod>`,
       )
     }
 
-    return block.replace(/<\/loc>/, `</loc><lastmod>${expected}</lastmod>`)
+    return updatedBlock.replace(
+      /<\/loc>/,
+      `</loc><lastmod>${expected}</lastmod>`,
+    )
   })
 
   let blockIndex = 0
@@ -267,6 +315,6 @@ if (errors.length > 0) {
 
   const action = checkOnly ? 'Verified' : 'Added'
   console.log(
-    `${action} accurate sitemap lastmod values for ${generated.articles.size} blog article URLs.`,
+    `${action} x-default alternates and accurate lastmod values for ${generated.articles.size} blog article URLs.`,
   )
 }

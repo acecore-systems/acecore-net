@@ -161,6 +161,7 @@ const DEFAULT_ALLOWED_HOSTNAMES = [
   'acecore.net',
   'www.acecore.net',
   'acecore-net.pages.dev',
+  'systems.acecore.net',
   'localhost',
   '127.0.0.1',
 ]
@@ -175,11 +176,11 @@ export const onRequestPost = async ({
   env,
 }: PagesContext): Promise<Response> => {
   if (!isAllowedRequestOrigin(request, env)) {
-    return errorResponse(request, 'ja', 'invalid', 403)
+    return errorResponse(request, env, 'ja', 'invalid', 403)
   }
 
   if (isRequestBodyTooLarge(request)) {
-    return errorResponse(request, 'ja', 'invalid', 413)
+    return errorResponse(request, env, 'ja', 'invalid', 413)
   }
 
   const payload = await readContactPayload(request)
@@ -190,13 +191,13 @@ export const onRequestPost = async ({
     !env.CLOUDFLARE_EMAIL_API_TOKEN ||
     !env.TURNSTILE_SECRET_KEY
   ) {
-    return errorResponse(request, locale, 'unavailable', 503)
+    return errorResponse(request, env, locale, 'unavailable', 503)
   }
 
   const validation = validatePayload(payload)
 
   if (!validation.ok) {
-    return errorResponse(request, locale, validation.messageKey, 400)
+    return errorResponse(request, env, locale, validation.messageKey, 400)
   }
 
   const rateLimit = checkMemoryRateLimit(
@@ -206,7 +207,7 @@ export const onRequestPost = async ({
   )
 
   if (!rateLimit.allowed) {
-    return errorResponse(request, validation.locale, 'rateLimited', 429, {
+    return errorResponse(request, env, validation.locale, 'rateLimited', 429, {
       'Retry-After': String(rateLimit.retryAfterSeconds || 60),
     })
   }
@@ -218,7 +219,7 @@ export const onRequestPost = async ({
   )
 
   if (!turnstileValid) {
-    return errorResponse(request, validation.locale, 'turnstile', 403)
+    return errorResponse(request, env, validation.locale, 'turnstile', 403)
   }
 
   try {
@@ -229,7 +230,7 @@ export const onRequestPost = async ({
       return Response.redirect(
         new URL(
           localizedPath('/contact/thanks/', validation.locale),
-          request.url,
+          getHtmlRedirectOrigin(request, env),
         ).toString(),
         303,
       )
@@ -241,11 +242,12 @@ export const onRequestPost = async ({
         result: result.result || null,
       },
       201,
+      getCorsHeaders(request, env),
     )
   } catch (error) {
     console.error('Failed to send contact email:', getEmailErrorLog(error))
     const status = getEmailErrorStatus(error)
-    return errorResponse(request, validation.locale, 'failed', status)
+    return errorResponse(request, env, validation.locale, 'failed', status)
   }
 }
 
@@ -253,7 +255,7 @@ export const onRequestOptions = ({ request, env }: PagesContext): Response =>
   new Response(null, {
     status: 204,
     headers: {
-      'Access-Control-Allow-Origin': getCorsOrigin(request, env),
+      ...getCorsHeaders(request, env),
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Accept, Content-Type',
     },
@@ -613,31 +615,36 @@ function isAllowedRequestOrigin(request: Request, env: Env): boolean {
   try {
     const originUrl = new URL(origin)
     const requestUrl = new URL(request.url)
+    const isLocalDevelopment =
+      (originUrl.hostname === 'localhost' ||
+        originUrl.hostname === '127.0.0.1') &&
+      originUrl.protocol === 'http:'
 
-    if (originUrl.hostname === requestUrl.hostname) return true
+    if (originUrl.origin === requestUrl.origin) return true
+    if (
+      !isLocalDevelopment &&
+      (originUrl.protocol !== 'https:' || originUrl.port !== '')
+    ) {
+      return false
+    }
     return isAllowedVerifiedHostname(originUrl.hostname, env)
   } catch {
     return false
   }
 }
 
-function getCorsOrigin(request: Request, env: Env): string {
+function getCorsHeaders(request: Request, env: Env): Record<string, string> {
   const origin = request.headers.get('Origin')
-  if (!origin) return 'https://acecore.net'
+  const headers: Record<string, string> = { Vary: 'Origin' }
+  if (!origin || !isAllowedRequestOrigin(request, env)) return headers
 
   try {
-    const hostname = new URL(origin).hostname
-    if (
-      isAllowedRequestOrigin(request, env) ||
-      isAllowedVerifiedHostname(hostname, env)
-    ) {
-      return origin
-    }
+    headers['Access-Control-Allow-Origin'] = new URL(origin).origin
   } catch {
-    // Fall through to the production origin.
+    // An invalid origin is rejected before the response is created.
   }
 
-  return 'https://acecore.net'
+  return headers
 }
 
 function isAllowedVerifiedHostname(hostname: string, env: Env): boolean {
@@ -686,6 +693,23 @@ function localizedPath(path: string, locale: SupportedLocale): string {
   return locale === 'ja' ? normalizedPath : `/${locale}${normalizedPath}`
 }
 
+function getHtmlRedirectOrigin(request: Request, env: Env): string {
+  const requestOrigin = new URL(request.url).origin
+  const origin = request.headers.get('Origin')
+  if (!origin) return requestOrigin
+
+  try {
+    const originUrl = new URL(origin)
+    if (isAllowedRequestOrigin(request, env)) {
+      return originUrl.origin
+    }
+  } catch {
+    // Fall back to the API origin.
+  }
+
+  return requestOrigin
+}
+
 function wantsHtmlRedirect(request: Request): boolean {
   const accept = request.headers.get('Accept') || ''
   return accept.includes('text/html') && !accept.includes('application/json')
@@ -693,13 +717,17 @@ function wantsHtmlRedirect(request: Request): boolean {
 
 function errorResponse(
   request: Request,
+  env: Env,
   locale: SupportedLocale,
   key: ApiMessageKey,
   status: number,
   headers: Record<string, string> = {},
 ): Response {
   if (wantsHtmlRedirect(request)) {
-    const url = new URL(localizedPath('/contact/', locale), request.url)
+    const url = new URL(
+      localizedPath('/contact/', locale),
+      getHtmlRedirectOrigin(request, env),
+    )
     url.searchParams.set('contact', 'error')
     url.hash = 'contact-form'
     return Response.redirect(url.toString(), 303)
@@ -708,7 +736,10 @@ function errorResponse(
   return jsonResponse(
     { ok: false, message: getApiMessage(locale, key) },
     status,
-    headers,
+    {
+      ...headers,
+      ...getCorsHeaders(request, env),
+    },
   )
 }
 
