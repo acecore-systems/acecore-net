@@ -1,15 +1,16 @@
 import { z } from 'zod'
 
-const BLOG_TIMEZONE_OFFSET = '+09:00'
-const LOCAL_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/
+import {
+  isValidContentDateValue,
+  normalizeContentDateValue,
+} from './utils/content-date.ts'
+
 const CONTENT_DATETIME_PATTERN =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?$/
 
 function parseContentDate(value: string): Date {
   const raw = value.trim()
-  const normalized = LOCAL_DATETIME_PATTERN.test(raw)
-    ? `${raw}${BLOG_TIMEZONE_OFFSET}`
-    : raw
+  const normalized = normalizeContentDateValue(raw)
   const date = new Date(normalized)
 
   if (Number.isNaN(date.getTime())) {
@@ -24,6 +25,9 @@ const contentDate = z
   .refine((value) => CONTENT_DATETIME_PATTERN.test(value.trim()), {
     message:
       'Content date must include time as YYYY-MM-DDTHH:mm, optionally with timezone',
+  })
+  .refine(isValidContentDateValue, {
+    message: 'Content date must use a real calendar date and valid time',
   })
   .transform(parseContentDate)
 

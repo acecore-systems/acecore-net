@@ -1,6 +1,6 @@
 # CMS 保存・自動公開運用
 
-最終確認日: 2026-07-29
+最終確認日: 2026-07-30
 
 ## 構成
 
@@ -21,12 +21,13 @@
 3. Pages Functionsが専用GitHub Appから`acecore-net`だけに使える短期installation tokenを発行する。
 4. CMSのreadは、許可されたcontentとmediaのtree / blobだけを同一origin proxy経由で返す。
 5. 保存時はrepository、branch `main`、変更path、ファイル数、合計サイズ、編集開始時のHEADに加え、JSON / Markdown schema、画像の実形式、危険なHTMLやURLを同期検証する。SVGとPDFはCMSから保存できない。
-6. expected HEADのtreeへ同一mutationの追加・変更・削除を投影する。日本語sourceと全翻訳記事の`author`、`tags`、ローカルの`image` / `uploadedImage` / gallery画像、および著者画像が、投影後の著者・タグ・画像に解決できる場合だけ保存を続ける。
-7. 削除は記事とキャンペーンだけを許可する。著者、タグ、画像は投影stateの参照検証とは別の安全境界として、CMSから削除できない。
-8. proxyが画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。
-9. 同時更新との競合は上書きせず409にする。GitHub応答が失われた場合も、request固有marker、親SHA、全変更path、各blob SHAが保存内容と完全一致した場合だけ成功として復旧する。
-10. GitHubの`main` pushを受けてCloudflare Pagesがproduction deployする。
-11. 日本語sourceが変わった場合は、同じdirect pushから翻訳PR task workflowが`cms: ...` subjectを検出する。
+6. `date`と`lastUpdated`が実在する暦日時で、指定された`lastUpdated`が`date`以降の場合だけ保存を続ける。既存の`lastUpdated`は削除・巻き戻しできず、本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugが変わる場合は、以前より後の日時へ進める。削除と新規作成の対応関係が安全に判定できない同時保存は拒否する。新規記事は`date`だけでも保存できる。
+7. expected HEADのtreeへ同一mutationの追加・変更・削除を投影する。日本語sourceと全翻訳記事の`author`、`tags`、ローカルの`image` / `uploadedImage` / gallery画像、および著者画像が、投影後の著者・タグ・画像に解決できる場合だけ保存を続ける。
+8. 削除は記事とキャンペーンだけを許可する。著者、タグ、画像は投影stateの参照検証とは別の安全境界として、CMSから削除できない。
+9. proxyが画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。
+10. 同時更新との競合は上書きせず409にする。GitHub応答が失われた場合も、request固有marker、親SHA、全変更path、各blob SHAが保存内容と完全一致した場合だけ成功として復旧する。
+11. GitHubの`main` pushを受けてCloudflare Pagesがproduction deployする。
+12. 日本語sourceが変わった場合は、同じdirect pushから翻訳PR task workflowが`cms: ...` subjectを検出する。
 
 恒久的な`cms-content` branch、短命CMS branch、CMS PRは使いません。コード、CMS設定、schema、workflow、翻訳ファイルはproxyのallowlist外であり、従来どおりPRとCIを経由します。
 
@@ -80,10 +81,12 @@ direct commitのsubjectは`cms: create|update|delete|upload ...`形式を維持�
 
 ## 検証
 
-`npm run validate:content`は、`main`、same-origin proxy、OAuth editor検証、専用GitHub App、expected-HEAD direct commit、`cms: ...` subject、CMS公開path、管理画面案内を確認します。
+`npm run validate:content`は、`main`、same-origin proxy、OAuth editor検証、専用GitHub App、expected-HEAD direct commit、`cms: ...` subject、CMS公開path、管理画面案内を確認します。既存記事の更新日はCMS proxyが保存前に検証し、Pull Requestと`main` pushでは`npm run validate:blog-freshness`も変更記事の更新日漏れを補完検証します。
 
 ```powershell
 npm run test:cms
+npm run test:blog-freshness
+npm run test:site-config
 npm run typecheck:functions
 npm run format:check
 npm run validate:content

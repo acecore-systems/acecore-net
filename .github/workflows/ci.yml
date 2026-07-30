@@ -39,10 +39,10 @@ jobs:
         run: npm run validate:content
 
       - name: Validate blog freshness metadata
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
         env:
-          BLOG_FRESHNESS_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          BLOG_FRESHNESS_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BLOG_FRESHNESS_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          BLOG_FRESHNESS_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run validate:blog-freshness
 
       - name: Test blog freshness validation
@@ -53,6 +53,9 @@ jobs:
 
       - name: Test shared contact routing
         run: npm run test:contact
+
+      - name: Test site routing and static headers
+        run: npm run test:site-config
 
       - name: Test search pipeline
         run: npm run test:search
