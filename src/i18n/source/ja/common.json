@@ -1,16 +1,16 @@
 {
   "meta": {
-    "siteTitle": "Acecore | システム開発・Web制作・IT教育",
-    "defaultDescription": "Acecore（エースコア）は、システム開発・Webサイト制作・サーバー運用・デザイン・IT教育をワンストップで提供するテクノロジー集団です。",
+    "siteTitle": "Acecore | テクノロジーと教育のコーポレートサイト",
+    "defaultDescription": "Acecoreは、Acecore Systems、Acecore Schools、Aceserverを通じて、事業・学び・コミュニティを支える企業です。",
     "shortTitleContext": "公式サイト",
-    "shortDescriptionContext": "Acecoreの技術情報、活動報告、サービス内容も詳しくご案内します。"
+    "shortDescriptionContext": "Acecoreの会社情報、事業、企業ニュースをご案内します。"
   },
   "nav": {
     "home": "ホーム",
-    "services": "サービス",
+    "services": "事業",
     "pricing": "料金",
     "about": "会社概要",
-    "blog": "ブログ",
+    "blog": "ニュース",
     "contact": "お問い合わせ"
   },
   "common": {
@@ -42,22 +42,22 @@
     "close": "AIチャットを閉じる",
     "title": "AIに質問する",
     "lead": "サイト内の情報をもとに短く答えます。",
-    "greeting": "Acecoreのサービス、制作・開発、Schoolsの学習相談、返信目安などを質問できます。詳しい見積りや正式な相談はフォームへ案内します。",
+    "greeting": "Acecore Systems、Acecore Schools、Aceserverの公式なご案内先と、共通窓口について質問できます。専門情報は各公式サイトへ、正式なご相談はフォームへご案内します。",
     "inputLabel": "AIチャットへの質問",
     "placeholder": "質問を入力...",
     "send": "送信",
     "loading": "回答を作成中...",
     "error": "AIチャットを利用できません。問い合わせフォームまたはLINEをご利用ください。",
-    "quickServices": "どのサービスを選べばいい？",
-    "quickEstimate": "見積り相談の進め方は？",
-    "quickSchools": "Schoolsで相談できることは？",
+    "quickServices": "どの事業の公式サイトを見ればいい？",
+    "quickEstimate": "見積りはどこに相談すればいい？",
+    "quickSchools": "Schoolsの公式案内先は？",
     "contactForm": "問い合わせフォーム",
     "line": "LINE",
     "email": "メール",
     "phone": "電話"
   },
   "hero": {
-    "ctaServices": "サービスを詳しく見る",
+    "ctaServices": "事業を見る",
     "ctaContact": "無料で相談する",
     "sliderLabel": "ヒーロー画像スライダー",
     "slide": "スライド",
@@ -69,8 +69,8 @@
     "pending": "未完了: "
   },
   "footer": {
-    "tagline": "技術でつながる、クリエイティブで広がる。",
-    "description": "多様な価値を創出するテクノロジー集団です。",
+    "tagline": "技術と学びを、社会の力へ。",
+    "description": "Acecoreの会社情報と事業、企業ニュースをご案内します。",
     "sitemap": "サイトマップ",
     "relatedLinks": "関連リンク",
     "schools": "Acecore Schools",
@@ -78,12 +78,12 @@
     "privacy": "プライバシーポリシー"
   },
   "pageNames": {
-    "services": "サービス",
+    "services": "事業",
     "pricing": "料金の目安",
     "schools": "Acecore Schools",
     "about": "会社概要",
     "contact": "お問い合わせ",
-    "blog": "ブログ",
+    "blog": "ニュース",
     "acestudio": "AceStudio",
     "privacy": "プライバシーポリシー",
     "tags": "タグ",

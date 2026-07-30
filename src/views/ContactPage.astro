@@ -3,12 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import Faq from '../components/Faq.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -18,63 +16,33 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
-const [emailUser, emailDomain = ''] = SITE.email.split('@')
-const phoneParts = SITE.phone.split('-')
-
-interface FaqItem {
-  question: string
-  answer: string
-}
-
-const getList = <T,>(key: string): T[] =>
-  getTranslationValue<T[]>(locale, key) ?? []
 
 const serviceCategoryOptions = [
   {
     key: 'systems',
     value: '業務システム・Webアプリ開発について',
     label: t(locale, 'pages.contact.formCategoryServiceSystems'),
-    subject: t(locale, 'pages.services.systems.title'),
-  },
-  {
-    key: 'server',
-    value: 'サーバー構築・運用について',
-    label: t(locale, 'pages.contact.formCategoryServiceServer'),
-    subject: t(locale, 'pages.services.server.title'),
-  },
-  {
-    key: 'web',
-    value: 'Webサイト制作・運用について',
-    label: t(locale, 'pages.contact.formCategoryServiceWeb'),
-    subject: t(locale, 'pages.services.web.title'),
-  },
-  {
-    key: 'design',
-    value: 'デザイン・クリエイティブについて',
-    label: t(locale, 'pages.contact.formCategoryServiceDesign'),
-    subject: t(locale, 'pages.services.design.title'),
+    subject: t(locale, 'pages.services.systemsTitle'),
   },
   {
     key: 'education',
     value: 'ITスクール / Acecore Schoolsについて',
     label: t(locale, 'pages.contact.formCategoryServiceEducation'),
-    subject: t(locale, 'pages.services.education.title'),
+    subject: t(locale, 'pages.services.schoolsTitle'),
   },
   {
     key: 'aceserver',
     value: 'Aceserverについて',
     label: t(locale, 'pages.contact.formCategoryServiceAceserver'),
-    subject: t(locale, 'pages.services.aceserver.title'),
+    subject: t(locale, 'pages.services.aceserverTitle'),
   },
   {
     key: 'acestudio',
     value: 'AceStudioについて',
     label: t(locale, 'pages.contact.formCategoryServiceAcestudio'),
-    subject: t(locale, 'pages.services.acestudio.title'),
+    subject: t(locale, 'pages.services.acestudioTitle'),
   },
 ]
-
-const faqItems = getList<FaqItem>('pages.contact.faqs')
 
 const contactPageLd = {
   '@context': 'https://schema.org',
@@ -84,26 +52,13 @@ const contactPageLd = {
   url: `${SITE.url}${u('/contact/')}`,
   mainEntity: { '@id': organizationId },
 }
-
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-}
 ---
 
 <BaseLayout
   title={t(locale, 'pages.contact.title')}
   titleContext={t(locale, 'pages.contact.seoTitleContext')}
   description={t(locale, 'pages.contact.description')}
-  jsonLd={[contactPageLd, faqLd]}
+  jsonLd={contactPageLd}
   locale={locale}
 >
   <Hero
@@ -127,24 +82,6 @@ const faqLd = {
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
-      <div id="contact-faq" class="mb-10 scroll-mt-24">
-        <Faq title={t(locale, 'pages.contact.faqTitle')} items={faqItems} />
-        <div class="mt-4 flex flex-wrap gap-2">
-          <a href={u('/services/')} class="ac-chip">
-            {t(locale, 'pageNames.services')}
-          </a>
-          <a href={getSchoolsUrl()} class="ac-chip">
-            {t(locale, 'pageNames.schools')}
-          </a>
-          <a href={u('/blog/')} class="ac-chip">
-            {t(locale, 'pageNames.blog')}
-          </a>
-          <a href={u('/privacy/')} class="ac-chip">
-            {t(locale, 'pageNames.privacy')}
-          </a>
-        </div>
-      </div>
-
       <section
         class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
         aria-labelledby="ai-contact-heading"
@@ -178,54 +115,6 @@ const faqLd = {
           </button>
         </div>
       </section>
-
-      <div
-        class="mb-10 flex flex-col gap-4 rounded-lg border border-brand-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
-      >
-        <div class="flex items-start gap-3">
-          <span class="ac-icon-box shrink-0">
-            <Icon name="message-circle" class="text-lg" />
-          </span>
-          <div>
-            <h2 class="text-lg ac-heading">
-              {t(locale, 'pages.contact.lineHeading')}
-            </h2>
-            <p class="mt-1 text-sm leading-relaxed text-slate-600">
-              {t(locale, 'pages.contact.lineLead')}
-            </p>
-          </div>
-        </div>
-        <a
-          href={SITE.line}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-ga-event="contact_line_click"
-          data-ga-label="contact_line_follow"
-          data-ga-location="contact_line_assist"
-          data-ga-destination={SITE.line}
-          class="ac-btn-secondary shrink-0"
-        >
-          <Icon name="message-circle" class="text-base" />
-          {t(locale, 'pages.contact.lineCta')}<span class="sr-only"
-            >{t(locale, 'common.opensInNewTab')}</span
-          >
-        </a>
-      </div>
-
-      <div class="ac-surface mb-6 bg-brand-50 p-5">
-        <div
-          class="flex flex-col items-start gap-4 text-sm text-slate-700 sm:flex-row sm:items-center"
-        >
-          <div class="flex items-center gap-2">
-            <Icon name="clock" class="text-brand-500 shrink-0" />
-            <span>{t(locale, 'pages.contact.responseTime')}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <Icon name="badge-check" class="text-brand-500 shrink-0" />
-            <span>{t(locale, 'pages.contact.freeEstimate')}</span>
-          </div>
-        </div>
-      </div>
 
       <form
         id="contact-form"
@@ -404,9 +293,6 @@ const faqLd = {
           </button>
           <p class="text-xs text-slate-600 mt-3">
             {t(locale, 'pages.contact.formSubmitNote')}
-            <a href="#contact-faq" class="ac-link ml-1"
-              >{t(locale, 'pages.contact.faqTitle')}</a
-            >
           </p>
         </div>
         <div
@@ -419,195 +305,6 @@ const faqLd = {
       </form>
     </div>
   </section>
-
-  <section class="bg-slate-50 py-14 sm:py-16">
-    <div class="ac-container max-w-2xl">
-      <h2 class="text-center text-xl ac-heading">
-        {t(locale, 'pages.contact.otherMethodsHeading')}
-      </h2>
-      <p class="mx-auto mt-2 mb-8 max-w-xl text-center text-sm text-slate-600">
-        {t(locale, 'pages.contact.directMethodsNote')}
-      </p>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <a
-          href={SITE.line}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-ga-event="contact_line_click"
-          data-ga-label="contact_card_line"
-          data-ga-location="contact_methods"
-          data-ga-destination={SITE.line}
-          class="ac-card p-6 text-center no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="message-circle" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">LINE</h3>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.contact.methodLineDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
-        <a
-          href={SITE.social.x}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-ga-event="contact_x_click"
-          data-ga-label="contact_card_x"
-          data-ga-location="contact_methods"
-          data-ga-destination={SITE.social.x}
-          class="ac-card p-6 text-center no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-        >
-          <span class="ac-icon-box mx-auto mb-3">
-            <Icon name="at-sign" class="text-xl" />
-          </span>
-          <h3 class="font-600 text-slate-900 mb-1">X</h3>
-          <p class="text-sm text-slate-600">
-            {t(locale, 'pages.contact.methodXDesc')}
-          </p>
-          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-        </a>
-      </div>
-      <details
-        class="direct-contact-details mt-4 rounded-lg border border-slate-200 bg-white"
-        data-direct-contact
-        data-email-user={emailUser}
-        data-email-domain={emailDomain}
-        data-phone-parts={phoneParts.join('|')}
-      >
-        <summary
-          class="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-left"
-        >
-          <span class="flex items-center gap-3">
-            <span class="ac-icon-box shrink-0">
-              <Icon name="messages-square" class="text-lg" />
-            </span>
-            <span>
-              <span class="block font-700 text-slate-900">
-                {t(locale, 'pages.contact.directContactSummary')}
-              </span>
-              <span class="mt-1 block text-sm text-slate-600">
-                {t(locale, 'pages.contact.directContactLead')}
-              </span>
-            </span>
-          </span>
-          <Icon
-            name="chevron-down"
-            class="direct-contact-chevron shrink-0 text-lg text-slate-500 transition-transform"
-          />
-        </summary>
-        <div
-          class="grid grid-cols-1 gap-3 border-t border-slate-100 p-5 sm:grid-cols-2"
-        >
-          <a
-            href="#"
-            data-direct-email-link
-            data-ga-event="contact_email_click"
-            data-ga-label="contact_disclosure_email"
-            data-ga-location="contact_methods"
-            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
-          >
-            <span class="ac-icon-box shrink-0 bg-white">
-              <Icon name="mail" class="text-lg" />
-            </span>
-            <span>
-              <span class="block text-sm font-700 text-slate-900">
-                {t(locale, 'pages.contact.methodEmail')}
-              </span>
-              <span class="block text-sm text-brand-600" data-direct-email-value
-              ></span>
-            </span>
-          </a>
-          <a
-            href="#"
-            data-direct-phone-link
-            data-ga-event="contact_phone_click"
-            data-ga-label="contact_disclosure_phone"
-            data-ga-location="contact_methods"
-            class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
-          >
-            <span class="ac-icon-box shrink-0 bg-white">
-              <Icon name="phone" class="text-lg" />
-            </span>
-            <span>
-              <span class="block text-sm font-700 text-slate-900">
-                {t(locale, 'pages.contact.methodPhone')}
-              </span>
-              <span class="block text-sm font-700 text-brand-600">
-                <span data-direct-phone-value></span>
-              </span>
-            </span>
-          </a>
-        </div>
-      </details>
-    </div>
-  </section>
-
-  <style>
-    .direct-contact-details > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .direct-contact-details[open] .direct-contact-chevron {
-      transform: rotate(180deg);
-    }
-  </style>
-
-  <script is:inline>
-    function initDirectContactDisclosure() {
-      document
-        .querySelectorAll('[data-direct-contact]')
-        .forEach(function (details) {
-          if (details.dataset.initialized === 'true') return
-          details.dataset.initialized = 'true'
-
-          function revealContact() {
-            if (details.dataset.revealed === 'true') return
-
-            const emailUser = details.dataset.emailUser || ''
-            const emailDomain = details.dataset.emailDomain || ''
-            const phoneParts = (details.dataset.phoneParts || '')
-              .split('|')
-              .filter(Boolean)
-            const phoneDigits = phoneParts.join('')
-            const phoneDisplay = phoneParts.join('-')
-
-            const email =
-              emailUser && emailDomain ? `${emailUser}@${emailDomain}` : ''
-            const emailLink = details.querySelector('[data-direct-email-link]')
-            const emailValue = details.querySelector(
-              '[data-direct-email-value]',
-            )
-            if (email && emailLink && emailValue) {
-              emailLink.href = `mailto:${email}`
-              emailLink.dataset.gaDestination = `mailto:${email}`
-              emailValue.textContent = email
-            }
-
-            const phoneLink = details.querySelector('[data-direct-phone-link]')
-            const phoneValue = details.querySelector(
-              '[data-direct-phone-value]',
-            )
-            if (phoneDigits && phoneDisplay && phoneLink && phoneValue) {
-              phoneLink.href = `tel:${phoneDigits}`
-              phoneLink.dataset.gaDestination = `tel:${phoneDigits}`
-              phoneValue.textContent = phoneDisplay
-            }
-
-            details.dataset.revealed = 'true'
-          }
-
-          details.addEventListener('toggle', function () {
-            if (details.open) revealContact()
-          })
-
-          if (details.open) revealContact()
-        })
-    }
-
-    document.addEventListener('astro:page-load', initDirectContactDisclosure)
-    initDirectContactDisclosure()
-  </script>
 
   <script is:inline>
     function initContactTurnstile() {
@@ -684,6 +381,13 @@ const faqLd = {
       const url = new URL(window.location.href)
       const requestedCategory = url.searchParams.get('category')
       const requestedService = url.searchParams.get('service') || ''
+      const serviceAliases = {
+        server: 'systems',
+        web: 'systems',
+        design: 'systems',
+      }
+      const normalizedService =
+        serviceAliases[requestedService] || requestedService
       const category = document.getElementById('category')
       const subject = document.getElementById('subject')
 
@@ -693,7 +397,7 @@ const faqLd = {
       ) {
         const serviceOption = Array.from(category.options).find(
           function (option) {
-            return option.dataset.serviceKey === requestedService
+            return option.dataset.serviceKey === normalizedService
           },
         )
 

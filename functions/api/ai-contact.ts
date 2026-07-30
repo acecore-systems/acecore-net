@@ -72,6 +72,7 @@ type AiContactPayload = {
 
 const SCHOOLS_ORIGIN = 'https://schools.acecore.net'
 const SYSTEMS_ORIGIN = 'https://systems.acecore.net'
+const ACESERVER_ORIGIN = 'https://asv.acecore.net'
 const DEFAULT_CLOUDFLARE_AI_MODEL = '@cf/zai-org/glm-5.2'
 const DEFAULT_CLOUDFLARE_AI_REASONING_EFFORT: WorkersAiReasoningEffort = 'low'
 const MAX_QUESTION_LENGTH = 800
@@ -311,46 +312,28 @@ function buildAcecoreContext(locale: SupportedLocale): string {
   const settings = LOCALE_SETTINGS[locale]
   const servicesPath = localizedPath('/services/', locale)
   const schoolsPath = getSchoolsPath()
-  const schoolsContext = `- Acecore Schools supports purpose-led learning for high school equivalency and next-step planning, IT and programming, and practical PC and smartphone use. School study and exam preparation can also be discussed according to the learner's goal. Robotics and making are handled separately from programming, with the delivery method and timing discussed case by case. Regular learning support is currently provided online.
-- For Schools consultations, visitors should include what they want to achieve, their current situation or experience, and their preferred learning pace. Age or grade is only useful when relevant to school study or an exam.`
-  const schoolsLinks = `  - Acecore Schools: ${schoolsPath}
-  - Acecore Schools fee guide: ${schoolsPath}#pricing
-  - Acecore Schools learning areas: ${schoolsPath}#areas
-  - Acecore Schools consultation: ${schoolsPath}#consultation`
 
   return `
-Acecore public site context:
-- Acecore is a Japan-based technology collective that provides website design, server operations, design, and IT education as a one-stop solution.
-- Services include server setup and operations, website design and maintenance, design and creative production, and IT education through Acecore Schools.
-- Business systems, web apps, CMS features, AI chat, forms, search, and integrations are handled on the separate Acecore Systems site.
-${schoolsContext}
-- Aceserver is Acecore's public Minecraft server community.
-- Estimates are free, and replies usually arrive within 1-2 business days.
-- LINE is available for short consultations and Acecore Schools-related messages. The contact form is best for detailed estimates, project consultations, partnerships, recruitment, and service questions.
-- Useful site links for the visitor locale. Use these exact URLs:
+Acecore corporate-site routing context:
+- Acecore is a Japan-based organization that supports businesses, learning, and communities through technology and education.
+- This corporate site is a directory and shared contact point. Do not treat it as the source of specialist pricing, service specifications, case studies, schedules, or participation terms.
+- Route development, websites, infrastructure, and other client technology work to Acecore Systems. Its official site owns the current details and pricing.
+- Route education and learning-support questions to Acecore Schools. Its official site owns the current programs, pricing, eligibility, and consultation information.
+- Route Minecraft community participation and support questions to Aceserver.
+- AceStudio is still presented as in preparation. Do not promise features, pricing, availability, release timing, or registration.
+- Use these exact URLs:
   - Services overview: ${servicesPath}
   - Acecore Systems: ${SYSTEMS_ORIGIN}/
   - Acecore Systems pricing: ${SYSTEMS_ORIGIN}/pricing/
-  - Acecore Systems works: ${SYSTEMS_ORIGIN}/works/
-  - Acecore Systems guide: ${SYSTEMS_ORIGIN}/guide/
-  - Server setup and operations: ${servicesPath}#server
-  - Website design and maintenance: ${servicesPath}#web
-  - Design and creative production: ${servicesPath}#design
-${schoolsLinks}
-  - Aceserver: ${servicesPath}#aceserver
+  - Acecore Schools: ${schoolsPath}
+  - Acecore Schools pricing: ${schoolsPath}#pricing
+  - Aceserver: ${ACESERVER_ORIGIN}/
   - AceStudio: ${localizedPath('/acestudio/', locale)}
-  - Blog: ${localizedPath('/blog/', locale)}
+  - Corporate news and articles: ${localizedPath('/blog/', locale)}
   - Contact form: ${localizedPath('/contact/', locale)}
-  - Official LINE: https://lin.ee/DjIrdqj
-  - Direct email fallback: mailto:info@acecore.net
-  - Direct phone fallback: tel:05088902788
-- Localized contact labels:
-  - Contact form: ${settings.contactFormLabel}
-  - LINE: ${settings.lineLabel}
-  - Email: ${settings.emailLabel}
-  - Phone: ${settings.phoneLabel}
-- Answer using only public site context. If the question requires pricing, schedules, contracts, guarantees, urgent support, or private details not listed here, say what can be answered generally and guide the visitor to the contact form or LINE first.
-- Do not show email or phone by default. Include direct email or phone links only when the visitor asks for direct contact, says the AI did not resolve the issue, cannot use the form, or needs urgent confirmation.
+- Answer briefly in ${settings.languageName}. First identify the likely owner, then provide the most relevant official URL.
+- If ownership is unclear, direct the visitor to the localized ${settings.contactFormLabel}.
+- Never invent or repeat unverified prices, schedules, contracts, guarantees, support commitments, or private details.
 `
 }
 

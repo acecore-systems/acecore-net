@@ -1,89 +1,27 @@
 ---
-title: 'Hemos renovado el sitio web oficial de Acecore'
-description: 'El sitio web oficial de Acecore ha sido completamente renovado. Presentamos las características del nuevo sitio y las perspectivas a futuro.'
+title: 'Renovamos el sitio web oficial de Acecore'
+description: 'El sitio oficial de Acecore es ahora un sitio corporativo centrado en la empresa, sus negocios y sus noticias.'
 date: 2026-03-12T00:00
+lastUpdated: 2026-07-30T00:00
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: /uploads/acecore-generated/blog-website-renewal.webp
-processFigure:
-  title: Flujo de la renovación
-  steps:
-    - title: Identificación de problemas
-      description: Análisis de las carencias del sitio anterior.
-      icon: i-lucide-search
-    - title: Rediseño de estructura
-      description: Separación de servicios, blog e información corporativa.
-      icon: i-lucide-layout
-    - title: Mejora de velocidad
-      description: Optimización con Astro y generación estática.
-      icon: i-lucide-zap
-    - title: Publicación continua
-      description: Base de blog para facilitar la actualización de artículos.
-      icon: i-lucide-pen-line
-compareTable:
-  title: Comparación antes y después de la renovación
-  before:
-    label: Sitio anterior
-    items:
-      - Estructura de página única
-      - Actualizaciones manuales
-      - Velocidad de carga lenta
-      - Sin soporte para móviles
-  after:
-    label: Nuevo sitio
-    items:
-      - Estructura por página de servicio
-      - Actualizaciones fáciles con blog
-      - Carga rápida con Astro
-      - Diseño responsive
-faq:
-  title: Preguntas frecuentes
-  items:
-    - question: ¿Qué cambió con la renovación?
-      answer: Se pasó de una estructura de página única a páginas organizadas por servicio, se añadió funcionalidad de blog, soporte de diseño responsive, y se reforzaron el SEO y la accesibilidad. La velocidad de carga también mejoró significativamente.
-    - question: ¿Con qué tecnología está hecho el sitio?
-      answer: Se genera como sitio estático con Astro + UnoCSS y se aloja en Cloudflare Pages. Al generar el HTML en tiempo de build, la carga es rápida y la seguridad es superior.
-    - question: ¿Cómo se actualizará el sitio en adelante?
-      answer: Con la infraestructura de blog lista, se publicarán periódicamente artículos técnicos e información de servicios. También se ampliará la difusión de casos de éxito e información de la comunidad.
 ---
 
-Nos complace anunciar la renovación completa del sitio web oficial de Acecore.
+Renovamos el sitio de Acecore como una página corporativa concisa para consultar la empresa y acceder a cada negocio.
 
-## Contexto de la renovación
+## Responsabilidad clara de la información especializada
 
-Desde su fundación, Acecore ha ofrecido una amplia gama de servicios, incluyendo desarrollo de sistemas, creación de sitios web y operación de servidores. Con la expansión del negocio, surgió la necesidad de un sitio que comunique de forma más clara el contenido de nuestros servicios, lo que dio lugar a esta renovación.
+acecore.net publica el perfil corporativo, el directorio de negocios y las noticias de la empresa. La información detallada se mantiene en el sitio del negocio responsable:
 
-El sitio anterior presentaba el contenido en formato de feed, pero el nuevo sitio incorpora páginas detalladas por servicio y funcionalidad de blog, permitiendo encontrar la información necesaria de forma más rápida.
+- [Acecore Systems](https://systems.acecore.net/): desarrollo, producción y operaciones, precios, trabajos y artículos técnicos
+- [Acecore Schools](https://schools.acecore.net/): apoyo al aprendizaje, precios, consultas y registros de actividad
+- [Aceserver](https://asv.acecore.net/): participación, reglas e historias de la comunidad de Minecraft
 
-## Características del nuevo sitio
+Así evitamos mantener los mismos precios y descripciones en varios sitios. Cada sitio especializado es la fuente oficial de su información vigente.
 
-![El nuevo sitio está construido con un stack tecnológico moderno](/uploads/acecore-generated/blog-website-renewal.webp)
+## Noticias corporativas
 
-### Velocidad de carga rápida
+Las noticias de Acecore incluyen información de la empresa, actividades entre negocios y avisos importantes. Los artículos técnicos, detalles educativos e historias de la comunidad continúan en el sitio especializado correspondiente.
 
-El nuevo sitio adopta el framework **Astro** y logra una carga rápida mediante la generación de sitio estático (SSG). Gracias a la distribución global con **Cloudflare Pages**, se puede acceder cómodamente desde cualquier lugar.
-
-### Diseño moderno
-
-Se priorizó un diseño simple y legible. Se adoptaron layouts de tarjetas que muestran de un vistazo el contenido de cada servicio y una navegación intuitiva. El diseño responsive permite una navegación cómoda también desde dispositivos móviles.
-
-### Funcionalidad de blog
-
-Se publicará información técnica, noticias y reportes de actividades en formato de blog. Compartiremos información sobre las iniciativas de Acecore y tendencias tecnológicas, así que les invitamos a consultarlo periódicamente.
-
-### SEO y accesibilidad
-
-El diseño contempla la optimización para motores de búsqueda (SEO) y la accesibilidad web. La implementación de datos estructurados y HTML semántico mejoran la visibilidad desde los motores de búsqueda.
-
-## Perspectivas a futuro
-
-Con la renovación como punto de partida, reforzaremos las siguientes iniciativas:
-
-- **Actualización periódica del blog**: Publicación regular de artículos técnicos, reportes de actividades y tendencias del sector
-- **Ampliación de casos de éxito**: Publicación progresiva de casos de proyectos anteriores
-- **Difusión de información comunitaria**: Anuncios de talleres de estudio y eventos
-- **Ampliación de páginas de servicio**: Adición de información más detallada de cada servicio
-
-Seguiremos enriqueciendo el contenido de forma continua para ofrecer información valiosa a nuestros clientes y a la comunidad. No duden en contactarnos para consultas sobre servicios o propuestas de colaboración.
-
-Esperamos con gusto su visita.
+Para consultas entre negocios o propuestas de colaboración, utilice el [formulario de contacto](/contact/).

@@ -1,9 +1,9 @@
 {
   "nav": {
     "home": "Início",
-    "services": "Serviços",
+    "services": "Negócios",
     "about": "Sobre nós",
-    "blog": "Blog",
+    "blog": "Notícias",
     "contact": "Contato",
     "pricing": "Preços"
   },
@@ -47,22 +47,22 @@
     "close": "Fechar chat de IA",
     "title": "Perguntar à IA",
     "lead": "Respostas curtas com base neste site.",
-    "greeting": "Você pode perguntar sobre os serviços da Acecore, produção e desenvolvimento, consultas sobre aprendizagem na Acecore Schools e prazos de resposta. Para orçamentos detalhados ou consultas formais, eu encaminho ao formulário.",
+    "greeting": "Pergunte onde encontrar as informações oficiais da Acecore Systems, Acecore Schools ou Aceserver e como falar com o contato comum. Os detalhes ficam em cada site oficial; consultas formais usam o formulário.",
     "inputLabel": "Pergunta para o chat de IA",
     "placeholder": "Digite sua pergunta...",
     "send": "Enviar",
     "loading": "Preparando resposta...",
     "error": "O chat de IA está indisponível. Use o formulário de contato ou LINE.",
-    "quickServices": "Qual serviço escolher?",
-    "quickEstimate": "Como funcionam os orçamentos?",
-    "quickSchools": "O que posso consultar na Acecore Schools?",
+    "quickServices": "Qual site de negócio devo visitar?",
+    "quickEstimate": "Onde solicito um orçamento?",
+    "quickSchools": "Onde estão as informações da Schools?",
     "contactForm": "Formulário de contato",
     "line": "LINE",
     "email": "Email",
     "phone": "Telefone"
   },
   "hero": {
-    "ctaServices": "Ver serviços",
+    "ctaServices": "Ver negócios",
     "ctaContact": "Consulta gratuita",
     "sliderLabel": "Carrossel de imagens principais",
     "slide": "Slide",
@@ -74,8 +74,8 @@
     "pending": "Pendente: "
   },
   "footer": {
-    "tagline": "Conectados pela tecnologia, expandidos pela criatividade.",
-    "description": "Um coletivo tecnológico que cria valor diverso.",
+    "tagline": "Tecnologia e aprendizagem a serviço da sociedade.",
+    "description": "Informações corporativas, negócios e notícias da Acecore.",
     "sitemap": "Mapa do site",
     "relatedLinks": "Links relacionados",
     "schools": "Acecore Schools",
@@ -83,9 +83,9 @@
     "pricing": "Guia de preços"
   },
   "blog": {
-    "title": "Blog",
-    "seoTitleContext": "Tecnologia, projetos e educação em TI",
-    "subtitle": "Informações técnicas, relatórios e notícias",
+    "title": "Notícias",
+    "seoTitleContext": "Empresa, negócios e atividades",
+    "subtitle": "Notícias e relatórios de atividades da Acecore",
     "noPosts": "Os artigos estão sendo preparados.",
     "tags": "Tags",
     "tagList": "Lista de tags",
@@ -93,7 +93,7 @@
     "authors": "Autores",
     "latestPosts": "Últimos artigos",
     "postsCount": "{count} artigos",
-    "backToBlog": "Voltar ao blog",
+    "backToBlog": "Voltar às notícias",
     "prev": "← Anterior",
     "next": "Próximo →",
     "pageNav": "Navegação de páginas",
@@ -138,26 +138,26 @@
     "semanticOneResult": "1 resultado relacionado encontrado",
     "semanticPrivacyNotice": "Após você inserir pelo menos dois caracteres, Conteúdo relacionado envia automaticamente seus termos de pesquisa ao Cloudflare Workers AI. Não insira informações pessoais ou confidenciais.",
     "semanticPrivacyLink": "Como os dados de pesquisa são tratados",
-    "blogCtaHeading": "Quer saber mais sobre nossos serviços?",
-    "blogCtaBody": "Oferecemos suporte abrangente em desenvolvimento de sistemas, design web, operações de servidores e design gráfico.",
-    "blogCtaServices": "Ver serviços",
+    "blogCtaHeading": "Conheça os negócios da Acecore",
+    "blogCtaBody": "Visite os sites oficiais de Systems, Schools e Aceserver para informações detalhadas.",
+    "blogCtaServices": "Ver negócios",
     "blogCtaContact": "Consulta gratuita",
-    "rssTitle": "Blog Acecore",
-    "rssDescription": "Informações técnicas e relatórios sobre desenvolvimento de sistemas, design web, operações de servidores e educação em TI",
+    "rssTitle": "Notícias Acecore",
+    "rssDescription": "Notícias sobre a empresa, seus negócios e atividades",
     "pagefindFilterAuthor": "Autor",
     "pagefindFilterYear": "Ano",
     "pagefindFilterTag": "Tag",
     "prevPost": "← Anterior",
     "nextPost": "Próximo →",
-    "heroAlt": "Imagem de escrita do blog",
+    "heroAlt": "Imagem das notícias da Acecore",
     "postNavLabel": "Navegação de artigos",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Autor: {author}",
-    "indexDescription": "O blog da Acecore. Insights técnicos, relatórios e notícias sobre desenvolvimento de sistemas, web design, operações de servidores e educação em TI.",
-    "pageDescription": "Lista de artigos do blog da Acecore (página {current} de {total}). Insights técnicos e relatórios de atividades sobre desenvolvimento de sistemas, web design, operações de servidores e educação em TI.",
-    "tagListDescription": "Uma lista de todas as tags do blog.",
-    "archiveListDescription": "Arquivo mensal de artigos do blog.",
-    "itemListName": "Lista de Artigos do Blog Acecore",
+    "indexDescription": "Informações corporativas, atualizações de negócios e notícias de atividades da Acecore.",
+    "pageDescription": "Notícias Acecore (página {current} de {total}). Informações sobre a empresa, seus negócios e atividades.",
+    "tagListDescription": "Lista de tags das notícias da Acecore.",
+    "archiveListDescription": "Arquivo mensal de notícias da Acecore.",
+    "itemListName": "Notícias Acecore",
     "language": "Idioma",
     "commentsTitle": "Comentários",
     "commentsCount": "{count} comentários",
@@ -178,107 +178,38 @@
     "commentsSending": "Enviando..."
   },
   "meta": {
-    "siteTitle": "Acecore | Desenvolvimento de sistemas, design web e servidores",
-    "defaultDescription": "Acecore é um coletivo tecnológico que oferece desenvolvimento de sistemas, design web, operações de servidores e design como suporte integrado.",
+    "siteTitle": "Acecore | Tecnologia e educação",
+    "defaultDescription": "A Acecore apoia empresas, aprendizagem e comunidades por meio da Acecore Systems, Acecore Schools e Aceserver.",
     "shortTitleContext": "Site oficial",
-    "shortDescriptionContext": "Saiba mais sobre tecnologia, atividades e serviços da Acecore."
+    "shortDescriptionContext": "Informações corporativas, negócios e notícias da Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Do desenvolvimento às operações e ao design. Suporte de TI completo.",
-      "heroSubtitle": "Desenvolvimento de sistemas, design web, operações de servidores e design — tudo em um único ponto de contato.",
+      "heroTitle": "Transformando tecnologia e aprendizagem em valor social.",
+      "heroSubtitle": "A Acecore apoia negócios, aprendizagem e comunidades por meio de tecnologia e educação.",
       "heroImgTeam": "Equipe trabalhando em espaço de coworking",
-      "heroImgCollaboration": "Colaboração da equipe em um projeto",
       "heroImgMeeting": "Cena de reunião",
-      "heroImgStrategy": "Discussão de estratégia de negócios",
-      "servicesHeading": "Nossos serviços",
-      "servicesLead": "Não sabe por onde começar? Atendemos com flexibilidade tanto pessoas físicas quanto empresas.",
-      "serviceCards": [
-        {
-          "title": "Sistemas empresariais e aplicações web — Acecore Systems",
-          "description": "Transformamos desafios de negócios em requisitos, construindo sistemas com implementação e operação em mente. Os detalhes desta área especializada estão disponíveis na Acecore Systems.",
-          "href": "https://systems.acecore.net/services/#business-system",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
-        {
-          "title": "Configuração e operação de servidores",
-          "description": "Ambientes de servidor confiáveis e rápidos com histórico comprovado em centenas de conexões simultâneas.",
-          "href": "/services/#server",
-          "icon": "server",
-          "tone": "emerald"
-        },
-        {
-          "title": "Design e gestão de sites",
-          "description": "Sites projetados para experiência do usuário e geração de leads. Manutenção pós-lançamento incluída.",
-          "href": "/services/#web",
-          "icon": "globe",
-          "tone": "amber"
-        },
-        {
-          "title": "Design e criatividade",
-          "description": "Logos, cartões de visita, banners, personagens — damos forma visível à sua mensagem.",
-          "href": "/services/#design",
-          "icon": "palette",
-          "tone": "slate"
-        },
-        {
-          "title": "Escola de TI / Acecore Schools",
-          "description": "Certificação equivalente ao ensino médio, TI e programação, uso de PC e smartphone e muito mais. Organizamos a aprendizagem necessária a partir do objetivo e do ponto de partida de cada pessoa.",
-          "href": "https://schools.acecore.net/",
-          "icon": "graduation-cap",
-          "tone": "amber"
-        },
-        {
-          "title": "Aceserver",
-          "description": "Um servidor público gratuito de Minecraft. Suporta Java e Bedrock com uma comunidade ativa.",
-          "href": "https://asv.acecore.net",
-          "icon": "gamepad-2",
-          "tone": "emerald"
-        }
-      ],
-      "viewServicesDetail": "Ver detalhes dos serviços",
-      "layersEyebrow": "Visual Overview",
-      "layersTitle": "Três camadas que a Acecore suporta",
-      "layersDescription": "Tratamos tecnologia, operações e comunicação como uma linha de suporte unificada.",
-      "layerItems": [
-        {
-          "title": "Design de sistemas",
-          "description": "Da análise do trabalho a painéis administrativos, integração de dados e melhoria operacional, a Acecore Systems projeta e desenvolve sistemas adaptados ao trabalho real.",
-          "href": "https://systems.acecore.net/services/#business-system",
-          "icon": "code-xml",
-          "tone": "brand"
-        },
-        {
-          "title": "Operações de infraestrutura",
-          "description": "Construímos ambientes resilientes e ciclos de melhoria baseados em experiência operacional.",
-          "href": "/services/#server",
-          "icon": "server-cog",
-          "tone": "emerald"
-        },
-        {
-          "title": "Design comunicativo",
-          "description": "Abordamos design como organização de informação e design de experiência.",
-          "href": "/services/#design",
-          "icon": "swatch-book",
-          "tone": "amber"
-        },
-        {
-          "title": "Educação e mentoria",
-          "description": "Transformamos conhecimento prático em suporte educacional para comunidades e próximas gerações.",
-          "href": "https://schools.acecore.net/",
-          "icon": "graduation-cap",
-          "tone": "slate"
-        }
-      ],
+      "businessesHeading": "Negócios da Acecore",
+      "businessesLead": "Cada área especializada publica as informações mais recentes em seu site oficial.",
+      "systemsTitle": "Acecore Systems",
+      "systemsDescription": "Consulte sistemas empresariais, aplicativos web, sites e infraestrutura no site especializado.",
+      "schoolsTitle": "Acecore Schools",
+      "schoolsDescription": "Consulte apoio à aprendizagem, preços e formas de atendimento no site especializado.",
+      "aceserverTitle": "Aceserver",
+      "aceserverDescription": "Informações oficiais de participação e novidades da comunidade Minecraft operada pela Acecore.",
+      "acestudioTitle": "AceStudio",
+      "acestudioNote": "Publicaremos apenas informações confirmadas quando o serviço estiver pronto.",
+      "viewBusinessDetails": "Ver diretório de negócios",
       "aboutHeading": "Sobre a Acecore",
       "aboutBody1": "Aplicamos na divulgação de informações e na melhoria prática dos serviços o conhecimento adquirido na gestão de comunidades e nos workshops realizados até hoje.",
       "aboutBody2": "Através da contribuição open-source, colaboração regional e iniciativas de {link}, construímos parcerias.",
       "aboutEducationLink": "educação",
       "viewAbout": "Sobre nós",
-      "viewServices": "Ver serviços",
-      "latestBlog": "Últimas publicações",
-      "viewAllPosts": "Ver todos os artigos"
+      "latestNews": "Notícias corporativas",
+      "viewAllNews": "Ver notícias e artigos",
+      "contactHeading": "Fale com a Acecore",
+      "contactBody": "Nosso canal comum recebe consultas, propostas de parceria e perguntas gerais.",
+      "contactCta": "Entrar em contato"
     },
     "notFound": {
       "title": "Página não encontrada",
@@ -292,26 +223,17 @@
       "latestArticles": "Últimos artigos"
     },
     "contact": {
-      "formSending": "Enviando…",
-      "formSuccess": "Sua consulta foi enviada. Verifique seu e-mail de confirmação.",
-      "formError": "Falha no envio. Tente novamente mais tarde ou consulte as opções de contato abaixo.",
       "title": "Contato",
-      "seoTitleContext": "Consultas sobre serviços e projetos",
-      "description": "Entre em contato com a Acecore aqui. Fique à vontade para perguntar sobre nossos serviços, orçamentos, parcerias e mais.",
+      "seoTitleContext": "Negócios, parcerias e contato comum",
+      "description": "Canal comum da Acecore para consultas entre negócios, propostas de parceria e dúvidas sobre qual negócio contatar.",
       "heroTitle": "Contato",
       "heroSubtitle": "Perguntas, consultas e solicitações — comece aqui",
       "heroImgAlt": "Imagem de comunicação",
-      "responseTime": "Normalmente respondemos em 1-2 dias úteis",
-      "freeEstimate": "Orçamentos gratuitos",
-      "lineInquiry": "Contato via LINE",
       "formCategoryLabel": "Tipo de Consulta",
       "formCategoryPlaceholder": "Por favor selecione",
-      "formCategoryService": "Sobre serviços em geral",
-      "formCategoryServiceSystems": "Sobre sistemas empresariais e aplicações web / Acecore Systems",
-      "formCategoryServiceServer": "Sobre configuração e operação de servidores",
-      "formCategoryServiceWeb": "Sobre criação e gestão de sites",
-      "formCategoryServiceDesign": "Sobre design e criatividade",
-      "formCategoryServiceEducation": "Sobre escola de TI / Acecore Schools",
+      "formCategoryService": "Entre negócios ou não sei onde perguntar",
+      "formCategoryServiceSystems": "Sobre a Acecore Systems",
+      "formCategoryServiceEducation": "Sobre a Acecore Schools",
       "formCategoryServiceAceserver": "Sobre Aceserver",
       "formCategoryServiceAcestudio": "Sobre AceStudio",
       "formCategoryEstimate": "Solicitação de orçamento",
@@ -323,67 +245,33 @@
       "formSubjectLabel": "Assunto",
       "formMessageLabel": "Mensagem",
       "formSubmit": "Enviar",
+      "formSending": "Enviando…",
+      "formSuccess": "Sua consulta foi enviada. Verifique seu e-mail de confirmação.",
+      "formError": "Falha no envio. Aguarde e tente novamente.",
       "formSubmitNote": "Você receberá um e-mail de confirmação após o envio. Se não receber, verifique sua pasta de spam.",
       "serviceSubjectTemplate": "Sobre {service}",
-      "formFaqHeading": "Você pode conferir perguntas frequentes e informações relacionadas antes de enviar.",
-      "otherMethodsHeading": "Contato leve além do formulário",
-      "methodPhone": "Telefone",
-      "methodEmail": "E-mail",
-      "methodLine": "LINE",
-      "methodLineDesc": "Fique à vontade para nos contatar via LINE",
-      "methodX": "X",
-      "methodXDesc": "Também aceitamos consultas via DM",
       "validationCategory": "Selecione uma categoria",
       "validationName": "Insira seu nome",
       "validationEmail": "Insira um e-mail válido",
       "validationMessage": "Insira pelo menos 10 caracteres significativos",
-      "faqTitle": "Perguntas frequentes",
-      "aiHeading": "O chat de IA também está disponível",
-      "aiLead": "Use o chat de IA no canto inferior direito para perguntas sobre os serviços da Acecore, produção e desenvolvimento, consultas sobre aprendizagem na Acecore Schools e prazos de resposta. Para uma consulta detalhada, você pode continuar pelo formulário.",
-      "aiQuestionLabel": "Pergunta para a IA",
-      "aiPlaceholder": "Exemplo: Quero consultar sobre criação de site. Por onde começo?",
-      "aiSubmit": "Abrir chat de IA",
-      "aiLoading": "Preparando resposta...",
-      "aiError": "A resposta da IA está indisponível. Use o formulário de contato.",
-      "lineHeading": "Também é possível usar LINE",
-      "lineLead": "Siga a conta oficial do LINE para receber novidades. Você também pode usar o LINE para perguntas breves e contato com a Acecore Schools.",
-      "lineCta": "Seguir no LINE",
-      "directMethodsNote": "Use o LINE para perguntas breves e contato com a Acecore Schools. Para confirmações simples em redes sociais, o X também está disponível. Pedidos detalhados ficam mais fáceis de revisar pelo formulário.",
-      "directContactSummary": "Se quiser falar diretamente",
-      "directContactLead": "Abra isto para complementar algo após enviar o formulário ou confirmar diretamente um assunto.",
-      "faqs": [
-        {
-          "question": "Não sei qual serviço consultar.",
-          "answer": "Você pode consultar desenvolvimento de sistemas, web, servidores e design juntos. Em caso de dúvida, escolha Outros e descreva a situação."
-        },
-        {
-          "question": "Posso pedir apenas um orçamento?",
-          "answer": "Sim. Orçamentos são gratuitos. Inclua objetivo, prazo, problema atual e orçamento aproximado se houver."
-        },
-        {
-          "question": "Também posso consultar sobre Acecore Schools aqui?",
-          "answer": "Sim. Informe o que deseja realizar por meio da aprendizagem, suas dificuldades atuais, sua experiência até aqui, o ambiente disponível e como prefere avançar. Para estudos escolares ou certificação equivalente ao ensino médio, inclua também a série e a data prevista do exame."
-        },
-        {
-          "question": "Quanto tempo leva a resposta?",
-          "answer": "Normalmente respondemos em 1-2 dias úteis. Para complementar depois do envio, LINE ou as opções abaixo também podem ser usadas."
-        }
-      ]
+      "aiHeading": "Encontre o contato certo com IA",
+      "aiLead": "Vamos direcionar você à Acecore Systems, Acecore Schools, Aceserver ou ao canal comum.",
+      "aiSubmit": "Encontrar contato"
     },
     "about": {
       "title": "Sobre Nós",
-      "seoTitleContext": "Missão, valores e atividades",
-      "description": "Conheça a missão, filosofia e atividades da Acecore. Impulsionamos desenvolvimento, educação e engajamento comunitário através da sinergia entre tecnologia e criatividade.",
+      "seoTitleContext": "Empresa, filosofia e negócios",
+      "description": "Informações corporativas, filosofia e uma visão da Acecore Systems, Acecore Schools e Aceserver.",
       "heroTitle": "Sobre Nós",
-      "heroSubtitle": "O que a Acecore busca e valoriza",
+      "heroSubtitle": "A filosofia e os três negócios da Acecore",
       "heroImgAlt": "Discussão em equipe",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Como o valor da Acecore circula",
       "missionLoopDesc": "Uma análise visual de como a Acecore cria e expande valor.",
       "philosophyHeading": "Filosofia",
-      "philosophyMotto": "\"Conectados pela tecnologia, expandidos pela criatividade\"",
-      "philosophyBody1": "A Acecore é um coletivo de tecnologia que cria valor diverso por meio da tecnologia e da criatividade. Oferecemos desenvolvimento de sistemas, produção de sites, operações de servidores, design e educação em TI como suporte integrado para pessoas e empresas.",
-      "philosophyBody2": "Nossa missão é conectar pessoas através da tecnologia e expandir possibilidades através da criatividade. Valorizamos não apenas fornecer tecnologia, mas crescer junto com nossos clientes e comunidade para criar valor sustentável.",
+      "philosophyMotto": "\"Tecnologia e aprendizagem a serviço da sociedade.\"",
+      "philosophyBody1": "A Acecore apoia empresas, aprendizagem e comunidades por meio da Acecore Systems, Acecore Schools e Aceserver.",
+      "philosophyBody2": "acecore.net apresenta a empresa e seus negócios. Serviços, preços, trabalhos e registros de atividades são mantidos no site especializado responsável.",
       "collaborationImgAlt": "Trabalho colaborativo em equipe",
       "activitiesTitle": "Principais Atividades da Acecore",
       "workshopImgAlt": "Cena de grupo de estudo e workshop",
@@ -398,9 +286,9 @@
       "partnershipDesc": "Aceitamos colaborações em projetos e parcerias comerciais. Podemos cooperar em diversas áreas incluindo tecnologia, design e educação.",
       "relatedLinksHeading": "Links Relacionados",
       "ctaHeading": "Dê o próximo passo com a Acecore",
-      "ctaBody": "Estamos sempre abertos a consultas sobre serviços e propostas de parceria.",
+      "ctaBody": "Recebemos consultas entre negócios, propostas de parceria e perguntas quando você não souber qual negócio contatar.",
       "ctaContact": "Fale Conosco",
-      "ctaServices": "Ver Serviços",
+      "ctaServices": "Ver negócios",
       "valueCycle": [
         {
           "title": "Implementar Tecnologia",
@@ -462,147 +350,27 @@
       ]
     },
     "services": {
-      "title": "Serviços",
-      "seoTitleContext": "Sistemas, web design e operações de servidores",
-      "description": "Explore os serviços da Acecore, incluindo sistemas empresariais e aplicações web, web design, operações de servidores e design.",
-      "heroTitle": "Serviços",
-      "heroSubtitle": "Soluções diversas de TI entregues como serviço integrado",
+      "title": "Negócios",
+      "seoTitleContext": "Diretório de negócios",
+      "description": "Diretório dos negócios da Acecore e dos sites oficiais que mantêm suas informações especializadas.",
+      "heroTitle": "Negócios",
+      "heroSubtitle": "Destinos oficiais para cada negócio especializado",
       "heroImgAlt": "Escritório de tecnologia",
-      "serviceMapEyebrow": "Service Map",
-      "serviceMapTitle": "Visualize a cobertura de suporte da Acecore",
-      "serviceMapDesc": "Desenvolvimento, operações e comunicação são projetados como uma linha contínua de suporte.",
-      "mapSystemsTitle": "Desenvolvimento de sistemas empresariais",
-      "mapSystemsDesc": "Organizamos os fluxos de trabalho e projetamos aplicações web, painéis administrativos e integrações de dados pensando na operação contínua.",
-      "mapInfraTitle": "Infraestrutura",
-      "mapInfraDesc": "Fornecemos operações estáveis de cloud e servidores, incluindo monitoramento e manutenção.",
-      "mapPublishTitle": "Comunicação",
-      "mapPublishDesc": "Organizamos e entregamos sua mensagem através de produção de websites e design.",
-      "mapEducationTitle": "Suporte Educacional",
-      "mapEducationDesc": "Conectamos educação e mentoria para que sua equipe opere independentemente a tecnologia que introduzimos.",
-      "navSystems": "Desenvolvimento de sistemas",
-      "navServer": "Servidor",
-      "navWeb": "Web Design",
-      "navDesign": "Design",
-      "navEducation": "Escola de TI",
-      "navAceserver": "Aceserver",
-      "navAcestudio": "AceStudio",
-      "systems": {
-        "title": "Sistemas empresariais e aplicações web / Acecore Systems",
-        "desc": "De pedidos, estoque, clientes, solicitações e reservas a aplicações web e painéis administrativos, oferecemos suporte integrado dos requisitos ao desenvolvimento e à melhoria operacional. A Acecore Systems apresenta os detalhes desta área especializada.",
-        "examplesLabel": "Exemplos",
-        "detailLink": "Ver detalhes na Acecore Systems",
-        "examples": [
-          "Sistemas de gestão, CRM, ERP, reservas e solicitações",
-          "Aplicações web, painéis administrativos, áreas de membros, permissões e aprovações",
-          "Integrações com APIs, serviços externos, bancos de dados, notificações e dados"
-        ]
-      },
-      "server": {
-        "title": "Configuração e Operação de Servidores",
-        "desc": "Somos especializados em construir e operar ambientes de servidores seguros e estáveis. A Acecore tem longa experiência operando o Aceserver (um servidor público de Minecraft), e levamos essa expertise para clientes corporativos. Também podemos discutir migração de servidores e adoção de cloud.",
-        "examplesLabel": "Exemplos",
-        "examples": [
-          "Design e configuração de servidores cloud (AWS / Azure / GCP / Cloudflare)",
-          "Operação, monitoramento e manutenção de servidores Linux / Windows",
-          "Configuração de servidores de jogos e comunidade",
-          "Medidas de segurança e infraestrutura de backup"
-        ]
-      },
-      "web": {
-        "title": "Design e Gestão de Websites",
-        "desc": "Cuidamos de tudo, do planejamento à produção e manutenção para sites corporativos, portfólios, e-commerce e sites de comunidade. Entregamos sites de alta qualidade com a mais recente tecnologia e melhores práticas de SEO.",
-        "examplesLabel": "Exemplos",
-        "imgAlt": "Processo de produção de web design",
-        "examples": [
-          "Design de sites corporativos e landing pages",
-          "Configuração de CMS, blogs e sites de mídia",
-          "Desenvolvimento de e-commerce e lojas online",
-          "Otimização SEO, ajuste de performance e melhorias de acessibilidade"
-        ],
-        "featureLinksTitle": "Funcionalidades explicadas em artigos",
-        "featureLinksBody": "Confira as funcionalidades de produção e operação web do guia de preços junto com seus artigos de implementação.",
-        "featureLinksArticleLabel": "Ler artigo"
-      },
-      "timelineTitle": "Da introdução à melhoria contínua",
-      "design": {
-        "title": "Design e Criação",
-        "desc": "Cuidamos de uma ampla gama de produção criativa incluindo design de logos, materiais impressos, banners e design de personagens. Valorizamos dar forma precisa à sua mensagem. Combinado com nossos serviços de web design, cuidamos de tudo, do design à publicação.",
-        "examplesLabel": "Exemplos",
-        "imgAlt": "Espaço de trabalho de design criativo",
-        "examples": [
-          "Design de logo e identidade de marca",
-          "Cartões de visita, brochuras, pôsteres e outros materiais impressos",
-          "Banners web e criativos para redes sociais",
-          "Design de personagens e ilustração"
-        ]
-      },
-      "education": {
-        "title": "Escola de TI / Acecore Schools",
-        "desc": "Uma escola que organiza certificação equivalente ao ensino médio e os próximos passos, TI e programação, uso de PC e smartphone e robótica/making de acordo com o objetivo e o ponto de partida de cada pessoa. Em vez de encaixar alguém em um curso fixo, organizamos o que é necessário aprender e conectamos isso à prática. Estudos escolares e preparação para provas também podem ser consultados conforme o objetivo. O suporte regular acontece atualmente online; robótica/making é tratada separadamente da programação e depende do conteúdo, do formato e da época de realização.",
-        "coursesLabel": "Áreas de aprendizagem para consulta",
-        "detailLink": "Ver detalhes da Acecore Schools",
-        "courses": [
-          "Certificação equivalente ao ensino médio e próximos passos (preparação para o exame, plano de estudos e organização das opções futuras)",
-          "TI e programação (produção web, desenvolvimento de ferramentas e publicação)",
-          "Uso de PC e smartphone (operações básicas, Office, serviços online e segurança)",
-          "Robótica / making (mecânica, eletrônica e controle; formato e época sob consulta)"
-        ]
-      },
-      "aceserver": {
-        "title": "Aceserver (Servidor Público de Minecraft)",
-        "desc": "O Aceserver é um servidor público gratuito de Minecraft operado pela Acecore. Com a filosofia de ser 'um lugar para todos', os jogadores podem entrar tanto pela edição Java quanto Bedrock e aproveitar o multiplayer em um ambiente próximo ao vanilla. Com um histórico comprovado suportando centenas de conexões simultâneas, a expertise em infraestrutura adquirida aqui também é aplicada aos nossos serviços corporativos.",
-        "featuresLabel": "Características",
-        "features": [
-          "Entrada gratuita para todos (basta ter uma conta)",
-          "Suporte a cross-play Java e Bedrock",
-          "Ambiente de jogo próximo ao vanilla, com alta liberdade",
-          "Comunidade ativa no Discord para interação e compartilhamento de informações",
-          "Streaming e promoção são bem-vindos (sem necessidade de solicitação)"
-        ],
-        "portalLink": "Site oficial do Aceserver",
-        "wikiLink": "Wiki do Aceserver",
-        "discordLink": "Discord do Aceserver"
-      },
-      "acestudio": {
-        "title": "AceStudio",
-        "comingSoon": "Coming Soon",
-        "desc": "O AceStudio é um novo serviço atualmente em desenvolvimento pela Acecore. Como plataforma para maximizar o potencial criativo, apoiará atividades criativas em design, vídeo, música, desenvolvimento e mais.",
-        "areasLabel": "Recursos e Áreas Planejados",
-        "note": "Os detalhes do serviço serão publicados quando os preparativos estiverem concluídos. Siga-nos no X ou em nosso blog para as últimas atualizações.",
-        "detailLink": "Ver detalhes do AceStudio",
-        "areas": [
-          "Ambiente de colaboração para criadores",
-          "Suporte multi-domínio: design, vídeo, música, programação",
-          "Fluxo de trabalho integrado da criação à publicação"
-        ]
-      },
-      "miniCta": "Consultar sobre este serviço",
-      "ctaHeading": "Fique à vontade para entrar em contato",
-      "ctaBody": "Tudo bem mesmo se não souber o que pedir. Orçamentos são gratuitos.",
-      "ctaContact": "Consulta Gratuita",
-      "ctaSchools": "Ver Detalhes da Escola de TI",
-      "timeline": [
-        {
-          "date": "Step 1",
-          "title": "Diagnóstico",
-          "description": "Organizar objetivos e restrições, esclarecer prioridades."
-        },
-        {
-          "date": "Step 2",
-          "title": "Design e Proposta",
-          "description": "Definir tecnologia necessária, telas e regras operacionais."
-        },
-        {
-          "date": "Step 3",
-          "title": "Produção e Desenvolvimento",
-          "description": "Implementar em desenvolvimento, design e infraestrutura."
-        },
-        {
-          "date": "Step 4",
-          "title": "Lançamento e Manutenção",
-          "description": "Suporte contínuo incluindo propostas de melhoria e desenvolvimento adicional."
-        }
-      ]
+      "eyebrow": "Business Directory",
+      "introTitle": "Acesse a fonte oficial de cada negócio",
+      "introBody": "Para detalhes, preços, casos e uso atuais, consulte o site oficial especializado.",
+      "systemsTitle": "Acecore Systems",
+      "systemsDescription": "Consulte sistemas empresariais, aplicativos web, sites e infraestrutura no site especializado.",
+      "schoolsTitle": "Acecore Schools",
+      "schoolsDescription": "Consulte apoio à aprendizagem, preços e formas de atendimento no site especializado.",
+      "aceserverTitle": "Aceserver",
+      "aceserverDescription": "Informações oficiais de participação e novidades da comunidade Minecraft operada pela Acecore.",
+      "acestudioTitle": "AceStudio",
+      "acestudioStatus": "Em preparação",
+      "acestudioDescription": "Publicaremos apenas informações confirmadas quando o serviço estiver pronto.",
+      "contactHeading": "Fale com a Acecore",
+      "contactBody": "Nosso canal comum recebe consultas, propostas de parceria e perguntas gerais.",
+      "contactCta": "Entrar em contato"
     },
     "privacy": {
       "title": "Política de Privacidade",
@@ -637,260 +405,47 @@
     },
     "acestudio": {
       "title": "AceStudio",
-      "seoTitleContext": "Plataforma criativa em desenvolvimento",
-      "description": "O AceStudio é uma plataforma criativa atualmente em desenvolvimento pela Acecore. Detalhes em breve.",
+      "seoTitleContext": "Negócio em preparação",
+      "description": "O AceStudio está em preparação. Informações confirmadas sobre a oferta e o lançamento serão publicadas no site oficial da Acecore.",
       "heroTitle": "AceStudio",
-      "heroSubtitle": "Coming Soon",
+      "heroSubtitle": "Em preparação",
       "heroImgAlt": "Tecnologia retrô",
-      "studioScopeEyebrow": "Studio Scope",
-      "studioScopeTitle": "Quatro áreas que o AceStudio está preparando",
-      "studioScopeDesc": "Um resumo da nossa abordagem de conteúdo, comunidade e monetização para o site público.",
-      "creativeImgAlt": "Produção de vídeo e trabalho criativo",
-      "comingSoonHeading": "Uma nova experiência criativa, em breve.",
-      "comingSoonBody1": "O AceStudio é um novo serviço atualmente em desenvolvimento pela Acecore.",
-      "comingSoonBody2": "Como plataforma para maximizar o potencial criativo, apoiará atividades criativas em design, vídeo, música, desenvolvimento e mais.",
-      "comingSoonBody3": "Os detalhes do serviço serão publicados nesta página quando os preparativos estiverem concluídos.",
-      "pullQuoteText": "Não apenas crie. Entregue, cultive e mantenha em movimento.",
-      "pullQuoteAttribution": "Filosofia de design do AceStudio",
-      "faqTitle": "Perguntas Frequentes sobre o AceStudio",
-      "newsHeading": "Fique Atualizado",
-      "newsBody": "Informações de lançamento e as últimas atualizações de desenvolvimento serão compartilhadas na conta X da Acecore e no blog.",
-      "followX": "Seguir no X",
-      "viewBlog": "Ver Blog",
-      "inquiryText": "Para consultas e solicitações sobre o AceStudio",
-      "inquiryButton": "Fale Conosco",
-      "studioAreas": [
-        {
-          "title": "Produção de Conteúdo",
-          "description": "Damos vida a projetos em vídeo, streaming, design e desenvolvimento.",
-          "icon": "film",
-          "tone": "brand"
-        },
-        {
-          "title": "Suporte a Criadores",
-          "description": "Estamos construindo sistemas para apoiar as atividades de publicação e produção de criadores individuais.",
-          "icon": "badge-help",
-          "tone": "amber"
-        },
-        {
-          "title": "Gestão de Comunidade",
-          "description": "Priorizamos a construção de espaços onde fãs e participantes possam manter conexões contínuas.",
-          "icon": "messages-square",
-          "tone": "emerald"
-        },
-        {
-          "title": "Validação de Modelo de Receita",
-          "description": "Estamos traduzindo modelos de receita em consideração em operações reais.",
-          "icon": "chart-no-axes-combined",
-          "tone": "slate"
-        }
-      ],
-      "faqs": [
-        {
-          "question": "Quando o AceStudio será lançado?",
-          "answer": "Atualmente em preparação. Anunciaremos a data de lançamento no X e em nosso blog quando for decidida."
-        },
-        {
-          "question": "Haverá alguma taxa?",
-          "answer": "A estrutura de preços está atualmente em consideração. Planejamos oferecer um plano gratuito."
-        },
-        {
-          "question": "Que tipos de atividades criativas são cobertas?",
-          "answer": "Apoiamos amplamente atividades criativas digitais incluindo design, vídeo, música e programação."
-        },
-        {
-          "question": "Posso fazer um pré-cadastro ou reserva?",
-          "answer": "O pré-cadastro não está disponível no momento, mas seguir-nos no X manterá você informado das últimas novidades."
-        }
-      ]
+      "statusEyebrow": "Status",
+      "statusHeading": "O AceStudio está em preparação",
+      "statusBody": "Estamos definindo a oferta, o público e a data de lançamento. Serviços e preços serão publicados somente após a confirmação.",
+      "statusNote": "As informações confirmadas serão anunciadas nesta página e nas notícias corporativas.",
+      "newsHeading": "Atualizações oficiais da Acecore",
+      "newsBody": "Os anúncios oficiais do AceStudio serão publicados no site e na conta X da Acecore.",
+      "followX": "Ver X",
+      "viewNews": "Ver notícias corporativas",
+      "inquiryText": "Para propostas entre negócios ou outras consultas, entre em contato com a Acecore.",
+      "inquiryButton": "Fale conosco"
     },
     "pricing": {
-      "title": "Guia de preços",
-      "description": "Valores de referência para produção web, operação de servidores, design e Acecore Schools, com acesso aos preços de desenvolvimento da Acecore Systems.",
-      "heroTitle": "Guia de preços",
-      "heroSubtitle": "Confira as faixas de custo de todos os serviços antes de planejar em detalhes",
+      "title": "Diretório de preços e contato",
+      "description": "Destinos oficiais com preços e condições atuais de cada negócio da Acecore.",
+      "heroTitle": "Diretório de preços e contato",
+      "heroSubtitle": "Consulte os preços atuais em cada site oficial",
       "heroImgAlt": "Pessoa conferindo documentos de orçamento",
-      "eyebrow": "Guia de preços",
-      "introTitle": "Comece pela faixa aproximada",
-      "introBody": "Os valores publicados são estimativas com impostos incluídos. O orçamento final varia conforme requisitos, escala, preparação de materiais e uso de serviços externos.",
-      "serviceTitle": "Custos estimados por serviço",
-      "serviceBody": "Apoiamos desde pequenas primeiras etapas até produção, desenvolvimento e operação combinados.",
-      "detailLink": "Ver detalhes",
-      "schoolsFeeTitle": "Referência de preços da Schools",
-      "schoolsFeeBody": "O suporte regular à aprendizagem é oferecido atualmente online. Como os valores variam conforme o objetivo, o conteúdo, a frequência e os materiais e recursos utilizados, eles são apresentados como referência antes da consulta.",
-      "feeItem": "Item",
-      "feeAmount": "Estimativa",
-      "feeNote": "Observação",
-      "factorTitle": "Principais fatores que alteram o custo",
-      "noteTitle": "Sobre os preços exibidos",
-      "ctaHeading": "Se a faixa fizer sentido, comece com uma consulta gratuita.",
-      "ctaBody": "Objetivo, prazo desejado e orçamento aproximado são suficientes no início. Organizamos o escopo necessário e propomos uma forma realista de avançar.",
-      "ctaContact": "Consulta gratuita",
-      "ctaServices": "Ver serviços",
-      "ctaSchools": "Ver Schools",
-      "items": [
-        {
-          "icon": "message-square",
-          "title": "Chat de contato com IA",
-          "price": "a partir de ¥80.000",
-          "body": "Adicionar um chat de contato com IA a um site estático, com contexto do site, limites de uso, verificação de Origin e links seguros.",
-          "href": "/blog/astro-ai-contact-chat/"
-        },
-        {
-          "icon": "message-square-text",
-          "title": "Função de comentários no blog",
-          "price": "A partir de ¥80.000",
-          "body": "Criar comentários, armazenamento em D1, proteção Turnstile, controle de origin e fluxo de moderação sem serviços externos de comentários.",
-          "href": "/blog/cloudflare-only-blog-comments/"
-        },
-        {
-          "icon": "layout-template",
-          "title": "Tela de edição CMS",
-          "price": "a partir de ¥50.000",
-          "body": "Adicionar uma tela do Sveltia CMS para atualizar blog, páginas fixas, avisos e configurações pelo navegador.",
-          "href": "/blog/cms-selection-and-turnstile/"
-        },
-        {
-          "icon": "newspaper",
-          "title": "Base de blog e artigos",
-          "price": "a partir de ¥50.000",
-          "body": "Preparar listas, páginas de detalhe, tags ou categorias, posts relacionados, RSS e caminhos de busca para publicação contínua.",
-          "href": "/blog/astro-i18n-blog-translation/"
-        },
-        {
-          "icon": "languages",
-          "title": "Operação de blog multilíngue",
-          "price": "a partir de ¥80.000",
-          "body": "Configurar idioma fonte, PRs de tradução, hreflang, sitemap e RSS para operar um blog multilíngue.",
-          "href": "/blog/copilot-translation-pipeline/"
-        },
-        {
-          "icon": "search",
-          "title": "SEO e dados estruturados",
-          "price": "a partir de ¥50.000",
-          "body": "Organizar OGP, JSON-LD, sitemaps, RSS, canonical e metadados necessários aos mecanismos de busca.",
-          "href": "/blog/astro-seo-and-structured-data/"
-        },
-        {
-          "icon": "scan",
-          "title": "Busca Pagefind",
-          "price": "a partir de ¥30.000",
-          "body": "Adicionar busca Pagefind a um site estático, com UI de busca, parâmetros de URL e configurações de cache.",
-          "href": "/blog/astro-ux-and-code-quality/"
-        },
-        {
-          "icon": "zap",
-          "title": "Melhoria de performance",
-          "price": "a partir de ¥50.000",
-          "body": "Revisar imagens, CSS, fontes, carregamento tardio e medições para melhorar Core Web Vitals.",
-          "href": "/blog/astro-performance-tuning/"
-        },
-        {
-          "icon": "accessibility",
-          "title": "Melhoria de acessibilidade",
-          "price": "a partir de ¥50.000",
-          "body": "Verificar contraste, atributos ARIA, foco e validação de formulários, mirando melhorias em WCAG AA.",
-          "href": "/blog/astro-accessibility-guide/"
-        },
-        {
-          "icon": "shield-check",
-          "title": "Headers de segurança / CSP",
-          "price": "a partir de ¥30.000",
-          "body": "Organizar _headers do Cloudflare Pages, CSP e entrega da tela administrativa para uma publicação mais segura.",
-          "href": "/blog/cloudflare-pages-security/"
-        },
-        {
-          "icon": "mouse-pointer-click",
-          "title": "CTA e formulário",
-          "price": "a partir de ¥30.000",
-          "body": "Levar tipo de serviço, assunto e contexto da página dos CTAs para o formulário de contato.",
-          "href": "/blog/service-cta-contact-prefill/"
-        },
-        {
-          "icon": "server",
-          "title": "Construção e operação de servidores",
-          "price": "inicial ¥100.000-¥500.000",
-          "body": "Apoiamos construção em nuvem ou VPS, monitoramento e desenho de backup. Monitoramento e manutenção costumam ficar entre ¥10.000 e ¥100.000 por mês.",
-          "href": "/services/#server"
-        },
-        {
-          "icon": "globe",
-          "title": "Produção e operação web",
-          "price": "a partir de ¥150.000",
-          "body": "Landing pages e sites pequenos a partir de ¥150.000, sites corporativos ¥500.000-¥1.500.000, manutenção ¥10.000-¥50.000 por mês.",
-          "href": "/services/#web"
-        },
-        {
-          "icon": "palette",
-          "title": "Design e criação",
-          "price": "a partir de ¥20.000",
-          "body": "Logos ¥50.000-¥150.000, flyers/banners ¥20.000-¥120.000, branding e integração web a partir de ¥100.000.",
-          "href": "/services/#design"
-        },
-        {
-          "icon": "graduation-cap",
-          "title": "Acecore Schools",
-          "price": "¥8.000-¥33.000/mês",
-          "body": "Apresentamos referências para matrícula, mensalidade, materiais e gestão. Os valores variam conforme o objetivo, o conteúdo, a frequência e os materiais e recursos utilizados.",
-          "href": "https://schools.acecore.net/#pricing"
-        },
-        {
-          "icon": "clapperboard",
-          "title": "AceStudio / produção de vídeo",
-          "price": "¥30.000-¥300.000 por peça",
-          "body": "Vídeos curtos e edição costumam ficar entre ¥30.000 e ¥300.000 por peça. Produções com planejamento e filmagem são orçadas individualmente.",
-          "href": "/acestudio/"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver",
-          "price": "participação gratuita",
-          "body": "A participação no servidor público é gratuita. Construção e operação de servidores de jogos para empresas recebem orçamento individual.",
-          "href": "/services/#aceserver"
-        }
-      ],
-      "schoolFees": [
-        {
-          "item": "Matrícula",
-          "amount": "¥11.000-¥22.000",
-          "note": "Cobrado apenas uma vez. Varia conforme o tipo de suporte e os itens necessários para começar."
-        },
-        {
-          "item": "Mensalidade",
-          "amount": "¥8.000-¥33.000",
-          "note": "Varia conforme a frequência, a duração, o tipo de suporte e a forma de condução."
-        },
-        {
-          "item": "Materiais e gestão",
-          "amount": "cerca de ¥5.000-¥30.000",
-          "note": "Materiais didáticos, peças de robótica e custos de PC ou licenças podem ser cobrados pelo valor real, conforme o conteúdo."
-        }
-      ],
-      "factors": [
-        "Clareza dos requisitos, número de telas, funções e integrações externas",
-        "Nível de design e preparação de textos, fotos e vídeos",
-        "Escopo de manutenção, monitoramento, atualização e melhoria após a publicação",
-        "Custos externos como materiais, equipamentos, impressão, anúncios e uso de nuvem"
-      ],
-      "notes": [
-        "Todos os valores são estimativas com impostos incluídos. O valor formal é orçado individualmente após a conversa.",
-        "Domínio, servidor, anúncios, impressão, materiais, equipamentos, transporte e outros custos externos são separados.",
-        "Se já houver orçamento definido, organizamos as prioridades dentro dessa faixa."
-      ],
-      "systemsHandoff": {
-        "eyebrow": "Acecore Systems",
-        "title": "Preços de sistemas empresariais e aplicações web",
-        "body": "Consulte na Acecore Systems os valores de referência para sistemas empresariais, aplicações web, painéis administrativos, integração de dados e melhorias operacionais. A página de destino está atualmente em japonês.",
-        "ctaLabel": "Ver preços da Acecore Systems"
-      }
+      "eyebrow": "Official Information",
+      "introTitle": "Acesse a fonte oficial de preços",
+      "introBody": "Para evitar valores duplicados, esta página aponta para as informações mantidas por cada negócio.",
+      "systemsTitle": "Preços da Acecore Systems",
+      "systemsBody": "Consulte a Acecore Systems para preços e atendimento de desenvolvimento, produção e operações.",
+      "schoolsTitle": "Preços da Acecore Schools",
+      "schoolsBody": "Consulte a Acecore Schools para preços, público e atendimento de apoio à aprendizagem.",
+      "aceserverTitle": "Participação no Aceserver",
+      "aceserverBody": "Consulte o site oficial do Aceserver para informações e condições atuais.",
+      "contactTitle": "Outras consultas",
+      "contactBody": "Fale com a Acecore para demandas entre negócios, parcerias ou se não souber por onde começar."
     }
   },
   "pageNames": {
-    "services": "Serviços",
+    "services": "Negócios",
     "schools": "Acecore Schools",
     "about": "Sobre nós",
     "contact": "Contato",
-    "blog": "Blog",
+    "blog": "Notícias",
     "acestudio": "AceStudio",
     "privacy": "Política de privacidade",
     "tags": "Tags",

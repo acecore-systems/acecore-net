@@ -1,69 +1,18 @@
 {
   "title": "AceStudio",
-  "seoTitleContext": "Acecoreが開発中のクリエイティブプラットフォーム",
-  "description": "AceStudio（エーススタジオ）は、Acecoreが開発中のクリエイティブプラットフォームです。詳細は近日公開予定。",
+  "seoTitleContext": "準備中の事業",
+  "description": "AceStudioは現在準備中です。提供内容や開始時期など、確定した情報をAcecore公式サイトでお知らせします。",
   "heroTitle": "AceStudio",
-  "heroSubtitle": "Coming Soon",
+  "heroSubtitle": "準備中",
   "heroImgAlt": "レトロテクノロジー",
-  "studioScopeEyebrow": "Studio Scope",
-  "studioScopeTitle": "AceStudioが準備している4つの領域",
-  "studioScopeDesc": "コンテンツ × コミュニティ × 収益化の考え方を、公開サイト向けに要約しています。",
-  "creativeImgAlt": "映像制作・クリエイティブワーク",
-  "comingSoonHeading": "新しいクリエイティブ体験を、まもなく。",
-  "comingSoonBody1": "AceStudio（エーススタジオ）は、Acecoreが開発中の新サービスです。",
-  "comingSoonBody2": "クリエイターの力を最大限に引き出すプラットフォームとして、デザイン・映像・音楽・開発など幅広い領域でのクリエイティブ活動を支援します。",
-  "comingSoonBody3": "サービスの詳細は、準備が整い次第このページで公開いたします。",
-  "pullQuoteText": "作るだけで終わらない。届けて、育てて、回す。",
-  "pullQuoteAttribution": "AceStudioの設計思想",
-  "faqTitle": "AceStudioについてのよくある質問",
-  "newsHeading": "最新情報をお届けします",
-  "newsBody": "リリース情報や最新の開発状況は、AcecoreのXアカウントやブログで随時お知らせしていきます。",
-  "followX": "Xでフォローする",
-  "viewBlog": "ブログを見る",
-  "inquiryText": "AceStudioに関するお問い合わせやご要望はこちらから",
-  "inquiryButton": "お問い合わせ",
-  "studioAreas": [
-    {
-      "title": "コンテンツ制作",
-      "description": "映像、配信、デザイン、開発を横断しながら企画を形にします。",
-      "icon": "film",
-      "tone": "brand"
-    },
-    {
-      "title": "クリエイター支援",
-      "description": "個人の発信や制作活動を仕組み面から支える設計を進めています。",
-      "icon": "badge-help",
-      "tone": "amber"
-    },
-    {
-      "title": "コミュニティ運営",
-      "description": "作品のファンや参加者が継続的につながる場づくりを重視します。",
-      "icon": "messages-square",
-      "tone": "emerald"
-    },
-    {
-      "title": "収益モデル検証",
-      "description": "検討中の収益モデルを、実際の運用へ落とし込んでいきます。",
-      "icon": "chart-no-axes-combined",
-      "tone": "slate"
-    }
-  ],
-  "faqs": [
-    {
-      "question": "AceStudioはいつリリースされますか？",
-      "answer": "現在準備中です。リリース時期が決まり次第、Xやブログでお知らせします。"
-    },
-    {
-      "question": "利用に費用はかかりますか？",
-      "answer": "料金体系は現在検討中です。無料で始められるプランも用意する予定です。"
-    },
-    {
-      "question": "どんなクリエイティブ活動が対象ですか？",
-      "answer": "デザイン・映像・音楽・プログラミングなど、デジタルクリエイティブ全般を幅広くサポートします。"
-    },
-    {
-      "question": "事前登録や予約はできますか？",
-      "answer": "現時点では事前登録の受付は行っていませんが、Xをフォローいただければ最新情報をお届けできます。"
-    }
-  ]
+  "statusEyebrow": "Status",
+  "statusHeading": "AceStudioは準備中です",
+  "statusBody": "現在、提供内容、対象、開始時期を整理しています。確定前の個別サービスや料金はご案内していません。",
+  "statusNote": "公開できる情報が確定次第、このページと企業ニュースでお知らせします。",
+  "newsHeading": "最新情報はAcecoreからお知らせします",
+  "newsBody": "AceStudioに関する正式な発表は、Acecore公式サイトとXアカウントでご案内します。",
+  "followX": "Xを確認する",
+  "viewNews": "企業ニュースを見る",
+  "inquiryText": "事業横断のご提案や、Acecoreへのお問い合わせはこちらから",
+  "inquiryButton": "お問い合わせ"
 }

@@ -94,18 +94,6 @@ const pageNameMap: Record<string, string> = Object.fromEntries(
     page: t(locale, 'pageNames.page'),
   }),
 )
-const knownRoutes = new Set([
-  '',
-  'services',
-  'pricing',
-  'works',
-  'schools',
-  'about',
-  'contact',
-  'blog',
-  'acestudio',
-  'privacy',
-])
 // locale プレフィクスを除外してパスパーツを取得
 const rawParts = Astro.url.pathname.split('/').filter(Boolean)
 const pathParts =
@@ -117,8 +105,6 @@ const pathParts =
 const siteOrigin = Astro.site?.origin || 'https://acecore.net'
 const organizationId = `${SITE.url}/#organization`
 const websiteId = `${SITE.url}/#website`
-const systemsServiceId = `${SITE.social.systems}/#service`
-const systemsServiceUrl = `${SITE.social.systems}/services/#business-system`
 const buildAbsoluteUrl = (path: string) =>
   new URL(path, `${siteOrigin}/`).toString()
 const breadcrumbLdFromProps =
@@ -385,18 +371,6 @@ import { SITE } from '../data/site'
           target: 'https://acecore.net/?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
-      })}
-    />
-    <script
-      type="application/ld+json"
-      set:html={serializeJsonForHtml({
-        '@context': 'https://schema.org',
-        '@type': 'Service',
-        '@id': systemsServiceId,
-        name: t(locale, 'pages.services.systems.title'),
-        description: t(locale, 'pages.services.systems.desc'),
-        url: systemsServiceUrl,
-        provider: { '@id': organizationId },
       })}
     />
     {

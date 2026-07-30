@@ -30,40 +30,8 @@ const legacyCases = [
   ['/i/ロボット-プログラミング-1c6e_F76wL2/', 'https://schools.acecore.net/'],
   ['/i/パソコン-スマホ-qPJx0yQo_gH/', 'https://schools.acecore.net/'],
   [
-    '/en/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/zh-cn/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/es/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/pt/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/fr/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/ko/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/de/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
-    '/ru/blog/robot-workshop-event/',
-    'https://acecore.net/blog/robot-workshop-event/',
-  ],
-  [
     '/i/夏休みロボット工作体験イベントのご案内-bQ_RjzRutHu/',
-    'https://acecore.net/blog/robot-workshop-event/',
+    'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
   ],
   ['/i/design-C5qVivLXJDZ/', 'https://acecore.net/services/#design'],
   ['/i/designs-C5qVivLXJDZ/', 'https://acecore.net/services/#design'],
@@ -71,6 +39,117 @@ const legacyCases = [
   { path, destination },
   { path: path.slice(0, -1), destination },
 ])
+
+const specialistDestinations = {
+  'ai-chat-markdown-link-safety':
+    'https://systems.acecore.net/insights/ai-chat-markdown-link-safety/',
+  'ai-monkey-testing-methodology':
+    'https://systems.acecore.net/insights/ai-monkey-testing-methodology/',
+  'astro-accessibility-guide':
+    'https://systems.acecore.net/insights/astro-accessibility-guide/',
+  'astro-ai-contact-chat':
+    'https://systems.acecore.net/insights/astro-ai-contact-chat/',
+  'astro-cloudflare-site-architecture':
+    'https://systems.acecore.net/insights/astro-cloudflare-site-architecture/',
+  'astro-i18n-blog-translation':
+    'https://systems.acecore.net/insights/astro-i18n-blog-translation/',
+  'astro-performance-tuning':
+    'https://systems.acecore.net/insights/astro-performance-tuning/',
+  'astro-seo-and-structured-data':
+    'https://systems.acecore.net/insights/astro-seo-and-structured-data/',
+  'astro-ux-and-code-quality':
+    'https://systems.acecore.net/insights/astro-ux-and-code-quality/',
+  'cloudflare-only-blog-comments':
+    'https://systems.acecore.net/insights/cloudflare-only-blog-comments/',
+  'cloudflare-pages-security':
+    'https://systems.acecore.net/insights/cloudflare-pages-security/',
+  'cloudflare-ssl-advanced-certificate-manager':
+    'https://systems.acecore.net/insights/cloudflare-ssl-advanced-certificate-manager/',
+  'cms-selection-and-turnstile':
+    'https://systems.acecore.net/insights/cms-selection-and-turnstile/',
+  'copilot-translation-pipeline':
+    'https://systems.acecore.net/insights/copilot-translation-pipeline/',
+  'hatt-homepage-launch':
+    'https://systems.acecore.net/insights/hatt-homepage-launch/',
+  'homepage-production-cost-guide':
+    'https://systems.acecore.net/insights/homepage-production-cost-guide/',
+  'service-cta-contact-prefill':
+    'https://systems.acecore.net/insights/service-cta-contact-prefill/',
+  'tax-return-with-copilot':
+    'https://systems.acecore.net/insights/tax-return-with-copilot/',
+  'vitepress-to-starlight-migration':
+    'https://systems.acecore.net/insights/vitepress-to-starlight-migration/',
+  'website-improvement-batches':
+    'https://systems.acecore.net/insights/website-improvement-batches/',
+  'website-improvement-final-batch':
+    'https://systems.acecore.net/insights/website-improvement-final-batch/',
+  'zoho-to-kagoya-mail-migration':
+    'https://systems.acecore.net/insights/zoho-to-kagoya-mail-migration/',
+  'aceserver-hijacked': 'https://asv.acecore.net/stories/aceserver-hijacked/',
+  'metaverse-is-close': 'https://asv.acecore.net/stories/metaverse-is-close/',
+  'aceserver-portal-launch':
+    'https://asv.acecore.net/stories/aceserver-portal-launch/',
+  'robot-workshop-event':
+    'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
+  'service-introduction': 'https://acecore.net/services/',
+}
+const specialistLocales = [
+  '',
+  'en',
+  'zh-cn',
+  'es',
+  'pt',
+  'fr',
+  'ko',
+  'de',
+  'ru',
+]
+const specialistCases = Object.entries(specialistDestinations).flatMap(
+  ([slug, destination]) =>
+    specialistLocales.flatMap((locale) => {
+      const localePrefix = locale ? `/${locale}` : ''
+      const path = `${localePrefix}/blog/${slug}/`
+      return [
+        { path, destination },
+        { path: path.slice(0, -1), destination },
+      ]
+    }),
+)
+const retiredTagDestinations = {
+  アクセシビリティ: 'https://systems.acecore.net/insights/',
+  'Acecore Schools': 'https://schools.acecore.net/',
+  AI: 'https://systems.acecore.net/insights/',
+  Astro: 'https://systems.acecore.net/insights/',
+  Cloudflare: 'https://systems.acecore.net/insights/',
+  CMS: 'https://systems.acecore.net/insights/',
+  DNS: 'https://systems.acecore.net/insights/',
+  イベント:
+    'https://schools.acecore.net/activities/2023-summer-robot-workshop/',
+  'GitHub Copilot': 'https://systems.acecore.net/insights/',
+  i18n: 'https://systems.acecore.net/insights/',
+  インフラ: 'https://systems.acecore.net/insights/',
+  メール: 'https://systems.acecore.net/insights/',
+  パフォーマンス: 'https://systems.acecore.net/insights/',
+  セキュリティ: 'https://systems.acecore.net/insights/',
+  SEO: 'https://systems.acecore.net/insights/',
+  サービス: 'https://acecore.net/services/',
+  Starlight: 'https://systems.acecore.net/insights/',
+  技術: 'https://systems.acecore.net/insights/',
+  'VS Code': 'https://systems.acecore.net/insights/',
+  Web制作: 'https://systems.acecore.net/insights/',
+}
+const retiredTagCases = Object.entries(retiredTagDestinations).flatMap(
+  ([tag, destination]) =>
+    specialistLocales.flatMap((locale) => {
+      const localePrefix = locale ? `/${locale}` : ''
+      const path = `${localePrefix}/blog/tags/${encodeURI(tag)}/`
+      return [
+        { path, destination },
+        { path: path.slice(0, -1), destination },
+      ]
+    }),
+)
+const redirectCases = [...legacyCases, ...specialistCases, ...retiredTagCases]
 
 function matches(source, path) {
   const escaped = source
@@ -115,7 +194,7 @@ for (const { source, lineNumber } of dynamicRedirects) {
   }
 }
 
-for (const testCase of legacyCases) {
+for (const testCase of redirectCases) {
   const match = redirects.find(({ source }) => matches(source, testCase.path))
 
   if (!match) {
@@ -142,6 +221,6 @@ if (issues.length > 0) {
   process.exitCode = 1
 } else {
   console.log(
-    `Validated ${legacyCases.length} legacy URL variants against ${redirects.length} redirect rules.`,
+    `Validated ${redirectCases.length} legacy and specialist URL variants against ${redirects.length} redirect rules.`,
   )
 }
