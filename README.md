@@ -198,13 +198,20 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` の Cloudflare Pages Function から Cloudflare Workers AI binding を呼び出します。既定では GLM 5.2 (`@cf/zai-org/glm-5.2`) を reasoning effort `low` で使います。ブラウザには AI 実行用のキーを渡しません。
+`functions/api/ai-contact.ts` の Cloudflare Pages Function から Cloudflare Workers AI binding を呼び出します。回答生成前に `functions/api/ai-contact-search.ts` が質問と直近の利用者発言を BGE-M3 (`@cf/baai/bge-m3`) でembeddingし、サイト内検索と同じVectorize indexの言語別namespaceから公式ページを最大3件取得します。取得した短い抜粋だけを根拠としてGLM 5.2 (`@cf/zai-org/glm-5.2`) へ渡し、回答リンクは固定の公式導線と実際に取得したページだけに制限します。ブラウザには AI 実行用のキーを渡しません。
+
+Vectorize、embedding、bindingのいずれかが利用できない場合も、既存の事業振り分けと問い合わせ案内だけで回答を継続します。`SEARCH_ENABLED=false` で検索モーダルの「関連する内容」とAIチャットのVectorize groundingを同時に停止できます。
 
 Cloudflare Pages 側で以下を設定してください。
 
 - Workers AI binding: `AI`
+- Vectorize binding: `SEARCH_INDEX`
+- `SEARCH_ENABLED`: Vectorize検索とAIチャットgroundingのkill switch
+- `SEARCH_MIN_SCORE`: 回答根拠に採用するscoreの下限
 - `CLOUDFLARE_AI_MODEL`: 使用モデル（未設定時は `@cf/zai-org/glm-5.2`）
 - `CLOUDFLARE_AI_REASONING_EFFORT`: 推論 effort（未設定時は `low`）
+
+AIチャットのgrounding、フォールバック、リンク制限は `npm run test:ai-chat` で確認します。
 
 ## お問い合わせフォーム
 

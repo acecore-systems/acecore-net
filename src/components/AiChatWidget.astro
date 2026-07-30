@@ -262,7 +262,7 @@ const phoneParts = SITE.phone.split('-')
 
       function appendInlineMarkdown(parent, text) {
         const pattern =
-          /(\[([^\]]+)\]\(\s*([^)]+?)\s*\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
+          /(\[([^\]\r\n]{1,200})\]\(\s*([^\s)]+)(?:\s+"[^"\r\n]*")?\s*\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/g
         let index = 0
         let match
 
@@ -309,7 +309,7 @@ const phoneParts = SITE.phone.split('-')
 
       function isSafeMarkdownHref(value) {
         const href = String(value || '').trim()
-        if (!href) return false
+        if (!href || /[\u0000-\u001f\u007f\\]/u.test(href)) return false
 
         if (directEmail) {
           const allowedMailto = `mailto:${directEmail}`.toLowerCase()
@@ -322,16 +322,17 @@ const phoneParts = SITE.phone.split('-')
           }
         }
         if (phoneDigits && href === `tel:${phoneDigits}`) return true
-        if (href.startsWith('/')) return !href.startsWith('//')
 
         try {
-          const url = new URL(href)
+          const url = new URL(href, window.location.href)
+          if (url.username || url.password) return false
           if (url.origin === window.location.origin) return true
           if (url.origin === 'https://acecore.net') return true
           if (url.origin === 'https://systems.acecore.net') return true
           if (url.origin === 'https://schools.acecore.net') {
             return true
           }
+          if (url.origin === 'https://asv.acecore.net') return true
           if (url.href === 'https://lin.ee/DjIrdqj') return true
         } catch {
           return false

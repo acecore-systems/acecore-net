@@ -386,9 +386,9 @@
       "analyticsBody1": "This site may use Google Analytics as an access analytics tool.",
       "analyticsBody2": "Google Analytics uses cookies for traffic data collection, but this data is collected anonymously and does not identify individuals.",
       "analyticsBody3": "You can opt out of this data collection by disabling cookies. Please check your browser settings.",
-      "searchHeading": "About Site Search",
-      "searchBody1": "Keyword search (Pagefind) is processed in your browser. For Related content, search terms of at least two characters are automatically sent to Cloudflare Workers AI about 400 milliseconds after you stop typing, converted into numeric embeddings, and matched against this site's public content stored in Cloudflare Vectorize.",
-      "searchBody2": "Acecore's application does not store or log the search terms. To prevent abuse, a one-way SHA-256 hash of the connecting IP address or a browser-session identifier and the request count are stored in Cloudflare D1 with a 10-minute expiry and removed during subsequent cleanup. The original IP address is not stored in D1. This processing is performed on Cloudflare services. Do not enter personal or confidential information in the search box.",
+      "searchHeading": "About Site Search and AI Chat",
+      "searchBody1": "Keyword search (Pagefind) is processed locally in your browser. For Related content, search terms of at least two characters are automatically sent to Cloudflare Workers AI about 400 milliseconds after you stop typing, converted into numeric embeddings, and matched against this site's public content indexed in Cloudflare Vectorize. In AI chat, the question you submit and up to eight recent conversation messages are sent to Cloudflare Workers AI, and public information from this site retrieved through Vectorize is used as evidence for the response.",
+      "searchBody2": "Acecore's application does not store or log search terms, AI chat questions, or conversation messages. To prevent abuse of Related content, a one-way SHA-256 hash of the connecting IP address or a per-browser-session identifier, together with the request count, is stored in Cloudflare D1 as data that expires after 10 minutes and is deleted during subsequent cleanup. The connecting IP address itself is not stored in D1. This processing takes place on Cloudflare services. Do not enter personal or confidential information in either site search or AI chat.",
       "personalInfoHeading": "Handling of Personal Information",
       "personalInfoBody": "When using our contact form, we may ask for personal information such as your name and email address. Personal information collected will only be used to respond to inquiries and for necessary communications, and will not be used for any other purpose.",
       "disclosureHeading": "Disclosure of Personal Information to Third Parties",
@@ -401,7 +401,7 @@
       "copyrightBody": "The copyright of text, images, and other content published on this site belongs to Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
       "contactHeading": "Contact",
       "contactBody": "For inquiries regarding this policy, please contact us through the contact page.",
-      "effectiveDate": "Effective: January 1, 2025 / Last updated: July 27, 2026"
+      "effectiveDate": "Effective: January 1, 2025 / Last updated: July 30, 2026"
     },
     "acestudio": {
       "title": "AceStudio",

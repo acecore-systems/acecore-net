@@ -406,9 +406,9 @@
       "analyticsBody1": "Diese Website kann Google Analytics als Zugriffsanalyse-Tool verwenden.",
       "analyticsBody2": "Google Analytics verwendet Cookies zur Erhebung von Verkehrsdaten, aber diese Daten werden anonym erhoben und identifizieren keine Einzelpersonen.",
       "analyticsBody3": "Sie können diese Datenerhebung ablehnen, indem Sie Cookies deaktivieren. Überprüfen Sie Ihre Browser-Einstellungen.",
-      "searchHeading": "Über die Website-Suche",
-      "searchBody1": "Die Stichwortsuche (Pagefind) wird in Ihrem Browser verarbeitet. Bei „Verwandte Inhalte“ werden Suchbegriffe ab zwei Zeichen etwa 400 Millisekunden nach Ende der Eingabe automatisch an Cloudflare Workers AI gesendet, in numerische Einbettungen umgewandelt und mit den in Cloudflare Vectorize gespeicherten öffentlichen Inhalten dieser Website abgeglichen.",
-      "searchBody2": "Die Anwendung von Acecore speichert oder protokolliert die Suchbegriffe nicht. Zur Missbrauchsprävention werden ein mit SHA-256 einseitig gehashter Wert der Verbindungs-IP-Adresse oder eine Kennung der Browsersitzung sowie die Anzahl der Anfragen in Cloudflare D1 gespeichert. Die Daten laufen nach 10 Minuten ab und werden bei einer späteren Bereinigung gelöscht. Die ursprüngliche IP-Adresse wird nicht in D1 gespeichert. Die Verarbeitung erfolgt über Dienste von Cloudflare. Geben Sie keine personenbezogenen oder vertraulichen Informationen in das Suchfeld ein.",
+      "searchHeading": "Zur Website-Suche und zum KI-Chat",
+      "searchBody1": "Die Stichwortsuche (Pagefind) wird lokal in Ihrem Browser verarbeitet. Bei der Funktion „Verwandte Inhalte“ werden Suchbegriffe mit mindestens zwei Zeichen etwa 400 Millisekunden nach Ende der Eingabe automatisch an Cloudflare Workers AI gesendet, in numerische Darstellungen umgewandelt und mit den in Cloudflare Vectorize indexierten öffentlichen Inhalten dieser Website abgeglichen. Im KI-Chat werden die übermittelte Frage und bis zu acht der letzten Nachrichten aus dem Gespräch an Cloudflare Workers AI gesendet; die über Vectorize abgerufenen öffentlichen Informationen dieser Website dienen als Grundlage für die Antwort.",
+      "searchBody2": "Die Anwendung von Acecore speichert weder Suchbegriffe noch Fragen oder Gesprächsnachrichten aus dem KI-Chat und protokolliert diese auch nicht. Ausschließlich zur Missbrauchsprävention bei der Funktion „Verwandte Inhalte“ werden ein aus der Verbindungs-IP-Adresse oder einer browsersitzungsspezifischen Kennung mittels SHA-256 erzeugter Einweg-Hashwert sowie die Anzahl der Anfragen in Cloudflare D1 gespeichert. Die Daten laufen nach 10 Minuten ab und werden bei einer späteren Bereinigung gelöscht. Die Verbindungs-IP-Adresse selbst wird nicht in D1 gespeichert. Diese Verarbeitung erfolgt über Dienste von Cloudflare. Geben Sie weder in die Suche noch in den KI-Chat personenbezogene oder vertrauliche Informationen ein.",
       "personalInfoHeading": "Verarbeitung Personenbezogener Daten",
       "personalInfoBody": "Bei Nutzung unseres Kontaktformulars können wir personenbezogene Daten wie Name und E-Mail-Adresse erfragen. Die erhobenen personenbezogenen Daten werden ausschließlich zur Beantwortung von Anfragen und notwendiger Kommunikation verwendet und für keinen anderen Zweck genutzt.",
       "disclosureHeading": "Weitergabe Personenbezogener Daten an Dritte",
@@ -421,7 +421,7 @@
       "copyrightBody": "Das Urheberrecht an Texten, Bildern und anderen auf dieser Website veröffentlichten Inhalten liegt bei Acecore oder den jeweiligen Rechteinhabern. Unbefugte Vervielfältigung oder Kopie ist untersagt.",
       "contactHeading": "Kontakt",
       "contactBody": "Für Anfragen zu dieser Richtlinie kontaktieren Sie uns bitte über die Kontaktseite.",
-      "effectiveDate": "Gültig ab: 1. Januar 2025 / Letzte Aktualisierung: 27. Juli 2026"
+      "effectiveDate": "Gültig ab: 1. Januar 2025 / Letzte Aktualisierung: 30. Juli 2026"
     },
     "acestudio": {
       "title": "AceStudio",

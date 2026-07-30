@@ -13,6 +13,7 @@
     "format:check": "prettier . --check",
     "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",
     "test:cms": "node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node tests/render-safety.test.mjs && node tests/translation-trigger.test.mjs",
+    "test:ai-chat": "node --experimental-strip-types --test tests/ai-contact.test.mjs",
     "test:contact": "node --experimental-strip-types --test tests/contact-api.test.mjs tests/specialist-url.test.mjs",
     "test:search": "node --experimental-strip-types --test tests/deployment-marker.test.mjs tests/search-api.test.mjs tests/search-corpus.test.mjs tests/vectorize-sync.test.mjs tests/vectorize-workflow.test.mjs",
     "sync:vectorize": "node scripts/sync-vectorize.mjs",

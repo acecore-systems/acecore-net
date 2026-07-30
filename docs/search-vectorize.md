@@ -1,11 +1,11 @@
 # Vectorizeサイト内検索 運用ガイド
 
-Acecore公式サイトの検索は、次の2系統を同じ検索モーダルで提供します。
+Acecore公式サイトでは、同じVectorize indexを検索モーダルとAIチャットの2つから利用します。検索モーダルは次の2系統を提供します。
 
 - Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
 - Cloudflare Vectorize: Workers AIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
 
-Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。
+Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットもVectorize部分だけを外し、固定の公式導線と問い合わせ案内で回答を継続します。
 
 ## 構成
 
@@ -15,6 +15,7 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 4. 新規・変更chunkだけをWorkers AI `@cf/baai/bge-m3` で1024次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
+7. Pages Function `/api/ai-contact` も質問と直近の利用者発言を同じmodelでembeddingし、同じnamespaceから最大3件の公式ページを取得してGLM 5.2の回答根拠にする。
 
 公開書き込みAPIはありません。index更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。
 
@@ -121,13 +122,16 @@ npm run sync:vectorize
 
 - `/api/search` は同一OriginのJSON POSTだけを受け付ける。
 - request bodyは `Content-Length` とbounded stream readerの両方で2KiBまで、queryは2〜160文字に制限する。
+- `/api/ai-contact` も同一OriginのJSON POSTだけを受け付け、request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを600文字までに制限する。
 - D1でclient単位20回/分を先に判定し、許可されたrequestだけを全体300回/分へ加算する。
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
 - rate limit rowは10分で期限切れとなり、検索requestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
-- raw queryをWorkers logとGA4 eventへ記録しない。
+- raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。
 - API responseは `Cache-Control: no-store` とし、外部originのURLを結果に採用しない。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
+- AIチャットはVectorize metadataのlocale、same-origin URL、scoreを再検証し、重複URLを除いた最大3件だけをGLMへ渡す。取得した本文は命令ではなく参照データとして扱う。
+- AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。
 
 ## 障害対応とrollback
 
@@ -135,13 +139,14 @@ npm run sync:vectorize
 2. `/api/search` のstatusと `X-Search-Request-Id` を確認する。
 3. Pages Functionsのruntime logで `semantic_search_error` をrequest IDから追う。logにquery本文は含まれない。
 4. Workers AIまたはVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。
-5. UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。
+5. 検索UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。AIチャットは固定の事業振り分け案内へフォールバックする。
 
 indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。
 
 ## リリース前チェック
 
 - `npm run test:search`
+- `npm run test:ai-chat`
 - `npm run types:cloudflare:check`
 - `npm run check:pages-config`
 - `npm run typecheck:functions`
@@ -150,6 +155,7 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
+- Preview deploymentのAIチャットで記事固有の質問を送り、同じ言語の取得記事だけがリンクされることを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
 - 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
 

@@ -386,9 +386,9 @@
       "analyticsBody1": "Este site pode utilizar o Google Analytics como ferramenta de análise de acesso.",
       "analyticsBody2": "O Google Analytics usa cookies para coleta de dados de tráfego, mas esses dados são coletados anonimamente e não identificam indivíduos.",
       "analyticsBody3": "Você pode optar por não participar desta coleta de dados desativando os cookies. Verifique as configurações do seu navegador.",
-      "searchHeading": "Sobre a busca no site",
-      "searchBody1": "A busca por palavras-chave (Pagefind) é processada no seu navegador. Em Conteúdo relacionado, termos com pelo menos dois caracteres são enviados automaticamente ao Cloudflare Workers AI cerca de 400 milissegundos após você parar de digitar, convertidos em representações numéricas e comparados ao conteúdo público deste site armazenado no Cloudflare Vectorize.",
-      "searchBody2": "O aplicativo da Acecore não armazena nem registra os termos de pesquisa. Para prevenir abusos, um hash SHA-256 unidirecional do endereço IP de conexão ou um identificador da sessão do navegador, juntamente com o número de solicitações, é armazenado no Cloudflare D1. Os dados expiram após 10 minutos e são removidos em uma limpeza posterior. O endereço IP original não é armazenado no D1. Esse processamento é realizado nos serviços da Cloudflare. Não insira informações pessoais ou confidenciais no campo de busca.",
+      "searchHeading": "Sobre a busca no site e o chat de IA",
+      "searchBody1": "A busca por palavras-chave (Pagefind) é processada localmente no seu navegador. No recurso “Conteúdo relacionado”, termos de busca com pelo menos dois caracteres são enviados automaticamente ao Cloudflare Workers AI cerca de 400 milissegundos após você parar de digitar, convertidos em representações numéricas e comparados com o conteúdo público deste site indexado no Cloudflare Vectorize. No chat de IA, a pergunta enviada e até as oito mensagens mais recentes da conversa são enviadas ao Cloudflare Workers AI; as informações públicas deste site recuperadas por meio do Vectorize são usadas como base para a resposta.",
+      "searchBody2": "O aplicativo da Acecore não armazena nem registra em logs os termos de busca, as perguntas do chat de IA ou as mensagens da conversa. Exclusivamente para evitar o uso indevido do recurso “Conteúdo relacionado”, são armazenados no Cloudflare D1 o valor resultante do hash unidirecional SHA-256 aplicado ao endereço IP de conexão ou a um identificador específico da sessão do navegador, juntamente com o número de solicitações. Esses dados expiram após 10 minutos e são excluídos durante uma limpeza posterior. O endereço IP de conexão não é armazenado no D1. Esse processamento é realizado nos serviços da Cloudflare. Não insira informações pessoais ou confidenciais na busca nem no chat de IA.",
       "personalInfoHeading": "Tratamento de Informações Pessoais",
       "personalInfoBody": "Ao usar nosso formulário de contato, podemos solicitar informações pessoais como nome e endereço de e-mail. As informações pessoais coletadas serão usadas apenas para responder consultas e comunicações necessárias, e não serão usadas para nenhum outro propósito.",
       "disclosureHeading": "Divulgação de Informações Pessoais a Terceiros",
@@ -401,7 +401,7 @@
       "copyrightBody": "Os direitos autorais de textos, imagens e outros conteúdos publicados neste site pertencem à Acecore ou seus respectivos titulares. Reprodução ou cópia não autorizada é proibida.",
       "contactHeading": "Contato",
       "contactBody": "Para consultas sobre esta política, entre em contato através da página de contato.",
-      "effectiveDate": "Vigência: 1 de janeiro de 2025 / Última atualização: 27 de julho de 2026"
+      "effectiveDate": "Vigência: 1 de janeiro de 2025 / Última atualização: 30 de julho de 2026"
     },
     "acestudio": {
       "title": "AceStudio",
