@@ -6,7 +6,7 @@ export default defineConfig({
   preflights: [
     {
       getCSS: () =>
-        'html { scroll-behavior: smooth } [id] { scroll-margin-top: 5rem } main :where(h1,h2,h3,h4,p,li,a) { overflow-wrap: anywhere } @media (max-width: 639px) { main :where(h1,h2,h3,h4,p,li,a) { word-break: break-all } }',
+        'html { scroll-behavior: smooth } [id] { scroll-margin-top: 5rem } main :where(h1,h2,h3,h4,p,li,a) { hyphens: auto; overflow-wrap: break-word; word-break: normal } main :where(code) { overflow-wrap: anywhere }',
     },
   ],
   theme: {

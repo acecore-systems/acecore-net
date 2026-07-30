@@ -51,6 +51,9 @@ jobs:
       - name: Test CMS proxy
         run: npm run test:cms
 
+      - name: Test shared contact routing
+        run: npm run test:contact
+
       - name: Test search pipeline
         run: npm run test:search
 

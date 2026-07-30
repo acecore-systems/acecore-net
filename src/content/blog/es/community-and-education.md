@@ -12,7 +12,7 @@ Acecore mantiene sitios especializados para sus actividades empresariales, educa
 
 ## Aceserver
 
-**Aceserver** es una comunidad de Minecraft gestionada por Acecore. La participación, las reglas y las novedades se mantienen en el [portal oficial de Aceserver](https://asv.acecore.net/).
+**Aceserver** es una comunidad de Minecraft gestionada por Acecore. La participación, las reglas y las novedades se mantienen en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
 
 ## Acecore Schools
 
@@ -22,6 +22,6 @@ El taller de robótica realizado anteriormente se conserva como [registro de act
 
 ## Código abierto y colaboración
 
-Los proyectos públicos de Acecore Systems están disponibles en [GitHub](https://github.com/acecore-systems). Los servicios técnicos y artículos especializados se mantienen en [Acecore Systems](https://systems.acecore.net/).
+Los proyectos públicos de Acecore Systems están disponibles en [GitHub](https://github.com/acecore-systems). Los servicios técnicos y artículos especializados se mantienen en [Acecore Systems](https://systems.acecore.net/es/).
 
-Para colaboraciones entre distintas áreas, utilice el [formulario de contacto](/contact/).
+Para colaboraciones entre distintas áreas, utilice el [formulario de contacto](/es/contact/).

@@ -54,6 +54,18 @@ npm run typecheck:functions
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
+PreviewまたはProductionで既存vectorの20%を超える削除が必要な場合、通常の同期はplanを記録して変更前に停止します。解除はGitHub Actionsで対象indexを選んだ手動実行だけに限定し、次の5項目を同時に指定します。
+
+- `allow_large_delete`: `true`
+- `approved_commit`: Productionでは公開build marker、Previewでは同期対象のmainと一致する40文字のcommit SHA
+- `approved_corpus_version`: そのcommitをbuildして得たcorpus version
+- `approved_delete_count`: 直前に確認したonline planのdelete件数
+- `approved_plan_id`: 現行indexのID集合と新corpusのID集合を束ねたplan ID
+
+workflowは同期直前にもう一度 `--plan` を実行し、現在のdelete件数とplan IDが承認値に完全一致した場合だけ `--allow-large-delete` を渡します。実同期scriptも同じ2値を再検証するため、plan確認からmutationまでの間にindexが変わった場合は停止します。commit、corpus version、delete件数、現行index ID集合のどれかが変わった場合はmutation前に停止します。承認値は選択したPreviewまたはProductionの実行にだけ使用されます。
+
+`cloudflare-search-production` Environmentにはrequired reviewerを設定し、大量削除を伴う手動実行を実装者以外がplanと上記4つの固定値まで確認して承認する運用を推奨します。required reviewerの設定有無はrepository外のGitHub設定なので、リリース前に実設定を別途確認してください。
+
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
 | GitHub Environment             | environment secret                       | Cloudflare account token                | 同期先                          |
@@ -79,6 +91,17 @@ npm run build
 npm run sync:vectorize:dry-run
 ```
 
+credentialを使って現行indexとの差分だけを確認し、mutationしない場合:
+
+```powershell
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-production'
+$env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
+$env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
+node scripts/sync-vectorize.mjs --plan
+```
+
+`--plan` はread-onlyです。対象indexが存在しない場合も自動作成せずに停止します。新規indexの初回作成は、承認値を付けない通常同期で行います。
+
 実際にpreviewへ同期する場合:
 
 ```powershell
@@ -88,9 +111,11 @@ $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 npm run sync:vectorize
 ```
 
-同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になるまで待機します。
+同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になった後、indexの管理対象ID集合がcorpusと完全一致したことを再取得して確認します。
 
-同期先はAcecore検索用の2 indexだけをallowlistし、corpusが200 source・1,000 vector・各locale 50 vectorを下回る場合や、管理外IDがある場合は変更前に停止します。既存vectorの20%を超える削除も既定で停止し、内容を確認した運用者が `--allow-large-delete` を明示した場合だけ解除できます。削除はVectorize APIの上限に合わせて100 IDずつ送ります。Cloudflare RESTの一時的なnetwork error、429、5xxは、30秒timeoutと `Retry-After` を含む上限付きbackoffで再試行し、mutation直後にlist cursorが無効化された場合は先頭から安全に再取得します。
+同期先はAcecore検索用の2 indexだけをallowlistし、corpusが90 source・150 vector・各locale 10 sourceを下回る場合は変更前に停止します。localeごとのvector下限は、簡潔化後の158 vector構成に余裕を持たせた `ja: 10`, `en: 19`, `zh-cn: 9`, `es: 18`, `pt: 19`, `fr: 20`, `ko: 11`, `de: 19`, `ru: 18` です。source合計は実際のlocale別一意URL数と一致し、namespaceとURLのlocale prefixも一致しなければなりません。管理外IDがある場合もmutation前に停止します。
+
+既存vectorの20%を超える削除は既定で停止します。`--allow-large-delete` は手元で直接指定できる非常用フラグですが、共有環境では前述のcommit・corpus version・delete件数・plan IDを固定する手動workflowだけを使います。削除はVectorize APIの上限に合わせて100 IDずつ送ります。Cloudflare RESTの一時的なnetwork error、429、5xxは、30秒timeoutと `Retry-After` を含む上限付きbackoffで再試行し、mutation直後にlist cursorが無効化された場合は先頭から安全に再取得します。truncated pageのnext cursorが欠落・空・循環している場合は、ID一覧を完全とみなさずmutation前または収束確認中に停止します。
 
 ## セキュリティとプライバシー
 
@@ -126,6 +151,7 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
+- 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
 
 ## 公式資料
 

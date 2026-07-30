@@ -38,10 +38,10 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   const corpusFile = await writeCorpus(corpus)
   const newChunk = corpus.chunks.at(-1)
   const staleId = managedId(corpus.vectorCount)
-  const existingIds = [
+  const remoteIds = new Set([
     ...corpus.chunks.slice(0, -1).map(({ id }) => id),
     staleId,
-  ]
+  ])
   const calls = []
 
   const fetchImpl = async (input, init = {}) => {
@@ -53,7 +53,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
     }
     if (url.includes('/list?')) {
       return cloudflareResponse({
-        vectors: existingIds.map((id) => ({ id })),
+        vectors: [...remoteIds].map((id) => ({ id })),
         isTruncated: false,
       })
     }
@@ -69,10 +69,12 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
       const vector = JSON.parse(body.trim())
       assert.equal(vector.id, newChunk.id)
       assert.equal(vector.values.length, 1024)
+      remoteIds.add(vector.id)
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
     }
     if (url.endsWith('/delete_by_ids')) {
       assert.deepEqual(JSON.parse(init.body), { ids: [staleId] })
+      remoteIds.delete(staleId)
       return cloudflareResponse({ mutationId: 'mutation-delete' })
     }
     if (url.endsWith('/info')) {
@@ -97,6 +99,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   assert.equal(result.upserted, 1)
   assert.equal(result.deleted, 1)
   assert.equal(result.mutationId, 'mutation-delete')
+  assert.equal(result.verified, true)
   assert.equal(calls.filter(({ url }) => url.includes('/ai/run/')).length, 1)
 })
 
@@ -154,6 +157,40 @@ test('dry-runはcredentialもnetworkも要求しない', async () => {
   assert.equal(result.vectors, 1000)
 })
 
+test('planは不存在indexを作成せずfail closedする', async () => {
+  const corpusFile = await writeCorpus(createCorpus())
+  let createRequests = 0
+
+  const fetchImpl = async (input, init = {}) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return cloudflareResponse(null, 404)
+    }
+    if (
+      url.endsWith('/vectorize/v2/indexes') &&
+      (init.method || 'GET') === 'POST'
+    ) {
+      createRequests += 1
+      return indexResponse()
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      planOnly: true,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /plan mode is read-only/,
+  )
+  assert.equal(createRequests, 0)
+})
+
 test('同期先indexをpreviewとproductionだけに制限する', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
@@ -178,24 +215,43 @@ test('同期先indexをpreviewとproductionだけに制限する', async () => {
 })
 
 test('source・vector・9 localeの最低件数を検証する', () => {
-  const tooFewSources = createCorpus()
-  tooFewSources.sourceCount = 199
-  assert.throws(() => validateCorpus(tooFewSources), /at least 200/)
+  const tooFewSources = createCorpus({ sourceCount: 89 })
+  assert.throws(() => validateCorpus(tooFewSources), /at least 90/)
 
-  const tooFewVectors = createCorpus({ vectorCount: 999 })
-  assert.throws(() => validateCorpus(tooFewVectors), /between 1000/)
+  const mismatchedSourceCount = createCorpus()
+  mismatchedSourceCount.sourceCount += 1
+  assert.throws(
+    () => validateCorpus(mismatchedSourceCount),
+    /unique source URLs/,
+  )
+
+  const tooFewVectors = createCorpus({ vectorCount: 149 })
+  assert.throws(() => validateCorpus(tooFewVectors), /between 150/)
 
   const tooFewInLocale = createCorpus()
   let retainedRuVectors = 0
-  for (const chunk of tooFewInLocale.chunks) {
-    if (chunk.namespace !== 'ru') continue
+  tooFewInLocale.chunks = tooFewInLocale.chunks.filter((chunk) => {
+    if (chunk.namespace !== 'ru') return true
     retainedRuVectors += 1
-    if (retainedRuVectors <= 49) continue
-    chunk.namespace = 'ja'
-    chunk.metadata.locale = 'ja'
-  }
+    return retainedRuVectors <= 17
+  })
+  tooFewInLocale.vectorCount = tooFewInLocale.chunks.length
   tooFewInLocale.localeCounts = countLocales(tooFewInLocale.chunks)
   assert.throws(() => validateCorpus(tooFewInLocale), /locale ru/)
+})
+
+test('namespaceと公開URLのlocaleが一致しないcorpusを拒否する', () => {
+  const wrongEnglishPath = createCorpus()
+  wrongEnglishPath.chunks.find(
+    ({ namespace }) => namespace === 'en',
+  ).metadata.url = '/fr/search-0/'
+  assert.throws(() => validateCorpus(wrongEnglishPath), /invalid chunk/)
+
+  const prefixedJapanesePath = createCorpus()
+  prefixedJapanesePath.chunks.find(
+    ({ namespace }) => namespace === 'ja',
+  ).metadata.url = '/en/search-0/'
+  assert.throws(() => validateCorpus(prefixedJapanesePath), /invalid chunk/)
 })
 
 test('非管理形式の現存IDがあればmutation前にfail closedする', async () => {
@@ -240,7 +296,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
   const staleIds = Array.from({ length: 251 }, (_, index) =>
     managedId(100_000 + index),
   )
-  const currentIds = [...corpus.chunks.map(({ id }) => id), ...staleIds]
+  const remoteIds = new Set([...corpus.chunks.map(({ id }) => id), ...staleIds])
   let deleteRequests = 0
   const deletedIds = []
 
@@ -251,7 +307,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
     }
     if (url.includes('/list?')) {
       return cloudflareResponse({
-        vectors: currentIds.map((id) => ({ id })),
+        vectors: [...remoteIds].map((id) => ({ id })),
         isTruncated: false,
       })
     }
@@ -260,6 +316,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
       const payload = JSON.parse(init.body)
       assert.ok(payload.ids.length <= 100)
       deletedIds.push(...payload.ids)
+      for (const id of payload.ids) remoteIds.delete(id)
       return cloudflareResponse({ mutationId: 'mutation-delete' })
     }
     if (url.endsWith('/info')) {
@@ -269,6 +326,20 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
     }
     throw new Error(`Unexpected request: ${url}`)
   }
+
+  const plan = await syncVectorize({
+    accountId: 'account',
+    apiToken: 'token',
+    indexName: PREVIEW_INDEX,
+    corpusFile,
+    planOnly: true,
+    fetchImpl,
+    logger: silentLogger,
+  })
+  assert.equal(plan.requiresLargeDeleteApproval, true)
+  assert.equal(plan.delete, staleIds.length)
+  assert.match(plan.planId, /^[0-9a-f]{64}$/)
+  assert.equal(deleteRequests, 0)
 
   await assert.rejects(
     syncVectorize({
@@ -283,12 +354,44 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
   )
   assert.equal(deleteRequests, 0)
 
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      allowLargeDelete: true,
+      expectedDeleteCount: staleIds.length - 1,
+      expectedPlanId: plan.planId,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /delete count changed after approval/,
+  )
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      allowLargeDelete: true,
+      expectedDeleteCount: plan.delete,
+      expectedPlanId: '0'.repeat(64),
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /plan changed after approval/,
+  )
+  assert.equal(deleteRequests, 0)
+
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
     indexName: PREVIEW_INDEX,
     corpusFile,
     allowLargeDelete: true,
+    expectedDeleteCount: plan.delete,
+    expectedPlanId: plan.planId,
     fetchImpl,
     logger: silentLogger,
   })
@@ -346,11 +449,131 @@ test('mutation直後の壊れたlist cursorは先頭から再取得して収束�
     logger: silentLogger,
   })
 
-  assert.equal(firstPageRequests, 2)
+  assert.equal(firstPageRequests, 3)
   assert.equal(cursorRequests, 1)
   assert.deepEqual(sleepDelays, [10])
   assert.equal(result.upserted, 0)
   assert.equal(result.deleted, 0)
+})
+
+test('truncated listにnextCursorがなければ完全一致と誤認しない', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  let listRequests = 0
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      listRequests += 1
+      return cloudflareResponse({
+        vectors: corpus.chunks.map(({ id }) => ({ id })),
+        isTruncated: true,
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /truncated page without a valid nextCursor/,
+  )
+  assert.equal(listRequests, 1)
+})
+
+test('list cursorが循環したら完全一致と誤認しない', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const midpoint = Math.floor(corpus.chunks.length / 2)
+  let listRequests = 0
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      listRequests += 1
+      return cloudflareResponse({
+        vectors: corpus.chunks
+          .slice(
+            listRequests === 1 ? 0 : midpoint,
+            listRequests === 1 ? midpoint : undefined,
+          )
+          .map(({ id }) => ({ id })),
+        isTruncated: true,
+        nextCursor: 'repeated-cursor',
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /repeated a list cursor/,
+  )
+  assert.equal(listRequests, 2)
+})
+
+test('mutation完了後のID集合がcorpusへ収束しなければ失敗する', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const missingChunk = corpus.chunks.at(-1)
+  const remoteIds = new Set(corpus.chunks.slice(0, -1).map(({ id }) => id))
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse({
+        vectors: [...remoteIds].map((id) => ({ id })),
+        isTruncated: false,
+      })
+    }
+    if (url.includes('/ai/run/')) {
+      return cloudflareResponse({ data: [embedding] })
+    }
+    if (url.endsWith('/upsert')) {
+      return cloudflareResponse({ mutationId: 'mutation-upsert' })
+    }
+    if (url.endsWith('/info')) {
+      return cloudflareResponse({
+        processedUpToMutation: 'mutation-upsert',
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PREVIEW_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /did not converge: 1 missing/,
+  )
+  assert.equal(remoteIds.has(missingChunk.id), false)
 })
 
 test('network・429・5xxをRetry-Afterと指数backoff付きで再試行する', async () => {
@@ -531,15 +754,23 @@ test('embedding設定が異なるcorpusを拒否する', () => {
   assert.throws(() => validateCorpus(corpus), /1024/)
 })
 
-function createCorpus({ vectorCount = 1000, sourceCount = 200 } = {}) {
+function createCorpus({ vectorCount = 1000, sourceCount = 90 } = {}) {
+  const sourceCounts = distributeSourceCounts(sourceCount)
+  const localeChunkIndexes = Object.fromEntries(
+    LOCALES.map((locale) => [locale, 0]),
+  )
   const chunks = Array.from({ length: vectorCount }, (_, index) => {
     const locale = LOCALES[index % LOCALES.length]
+    const sourceIndex =
+      localeChunkIndexes[locale] % Math.max(sourceCounts[locale], 1)
+    localeChunkIndexes[locale] += 1
+    const localePrefix = locale === 'ja' ? '' : `/${locale}`
     return {
       id: managedId(index),
       namespace: locale,
       text: `vector text ${index}`,
       metadata: {
-        url: `/${locale}/search-${index}/`,
+        url: `${localePrefix}/search-${sourceIndex}/`,
         title: `Title ${index}`,
         section: `Section ${index}`,
         excerpt: `Excerpt ${index}`,
@@ -562,6 +793,17 @@ function createCorpus({ vectorCount = 1000, sourceCount = 200 } = {}) {
     localeCounts: countLocales(chunks),
     chunks,
   }
+}
+
+function distributeSourceCounts(sourceCount) {
+  const minimumPerLocale = Math.floor(sourceCount / LOCALES.length)
+  const remainder = sourceCount % LOCALES.length
+  return Object.fromEntries(
+    LOCALES.map((locale, index) => [
+      locale,
+      minimumPerLocale + (index < remainder ? 1 : 0),
+    ]),
+  )
 }
 
 function countLocales(chunks) {

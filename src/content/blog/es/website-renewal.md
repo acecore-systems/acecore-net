@@ -14,9 +14,9 @@ Renovamos el sitio de Acecore como una página corporativa concisa para consulta
 
 acecore.net publica el perfil corporativo, el directorio de negocios y las noticias de la empresa. La información detallada se mantiene en el sitio del negocio responsable:
 
-- [Acecore Systems](https://systems.acecore.net/): desarrollo, producción y operaciones, precios, trabajos y artículos técnicos
+- [Acecore Systems](https://systems.acecore.net/es/): desarrollo, producción y operaciones, precios, trabajos y artículos técnicos
 - [Acecore Schools](https://schools.acecore.net/): apoyo al aprendizaje, precios, consultas y registros de actividad
-- [Aceserver](https://asv.acecore.net/): participación, reglas e historias de la comunidad de Minecraft
+- [Aceserver](https://asv.acecore.net/es/): participación, reglas e historias de la comunidad de Minecraft
 
 Así evitamos mantener los mismos precios y descripciones en varios sitios. Cada sitio especializado es la fuente oficial de su información vigente.
 
@@ -24,4 +24,4 @@ Así evitamos mantener los mismos precios y descripciones en varios sitios. Cada
 
 Las noticias de Acecore incluyen información de la empresa, actividades entre negocios y avisos importantes. Los artículos técnicos, detalles educativos e historias de la comunidad continúan en el sitio especializado correspondiente.
 
-Para consultas entre negocios o propuestas de colaboración, utilice el [formulario de contacto](/contact/).
+Para consultas entre negocios o propuestas de colaboración, utilice el [formulario de contacto](/es/contact/).

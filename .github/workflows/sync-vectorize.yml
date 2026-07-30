@@ -16,6 +16,31 @@ on:
         options:
           - preview
           - production
+      allow_large_delete:
+        description: 選択したindexで20%超の削除を一度だけ許可する
+        required: true
+        type: boolean
+        default: false
+      approved_commit:
+        description: 大量削除を承認した公開commitの完全SHA
+        required: false
+        type: string
+        default: ''
+      approved_corpus_version:
+        description: 大量削除を承認したcorpus version
+        required: false
+        type: string
+        default: ''
+      approved_delete_count:
+        description: planで確認して承認したdelete件数
+        required: false
+        type: string
+        default: ''
+      approved_plan_id:
+        description: planで確認して承認したplan ID
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -89,6 +114,48 @@ jobs:
           COMMIT_SHA: ${{ steps.site.outputs.commit }}
         run: npm run build
 
+      - name: Validate preview large-delete approval
+        id: large-delete
+        working-directory: site
+        shell: bash
+        env:
+          ALLOW_LARGE_DELETE: ${{ inputs.allow_large_delete || false }}
+          APPROVED_COMMIT: ${{ inputs.approved_commit || '' }}
+          APPROVED_CORPUS_VERSION: ${{ inputs.approved_corpus_version || '' }}
+          APPROVED_DELETE_COUNT: ${{ inputs.approved_delete_count || '' }}
+          APPROVED_PLAN_ID: ${{ inputs.approved_plan_id || '' }}
+          BUILT_COMMIT: ${{ steps.site.outputs.commit }}
+        run: |
+          corpus_version="$(
+            node -e "const fs=require('node:fs');process.stdout.write(JSON.parse(fs.readFileSync('.vectorize/corpus.json','utf8')).version)"
+          )"
+          allow_large_delete=false
+
+          if [[ "$ALLOW_LARGE_DELETE" == "true" ]]; then
+            if [[ "$APPROVED_COMMIT" != "$BUILT_COMMIT" ]]; then
+              echo "::error::approved_commit must exactly match the main commit."
+              exit 1
+            fi
+            if [[ "$APPROVED_CORPUS_VERSION" != "$corpus_version" ]]; then
+              echo "::error::approved_corpus_version must exactly match the built corpus."
+              exit 1
+            fi
+            if [[ ! "$APPROVED_DELETE_COUNT" =~ ^[1-9][0-9]*$ ]]; then
+              echo "::error::approved_delete_count must be a positive integer from a reviewed plan."
+              exit 1
+            fi
+            if [[ ! "$APPROVED_PLAN_ID" =~ ^[0-9a-f]{64}$ ]]; then
+              echo "::error::approved_plan_id must be the SHA-256 ID from a reviewed plan."
+              exit 1
+            fi
+            allow_large_delete=true
+          elif [[ -n "$APPROVED_COMMIT$APPROVED_CORPUS_VERSION$APPROVED_DELETE_COUNT$APPROVED_PLAN_ID" ]]; then
+            echo "::error::Approval values require allow_large_delete=true."
+            exit 1
+          fi
+
+          echo "allow=$allow_large_delete" >> "$GITHUB_OUTPUT"
+
       - name: Sync preview Vectorize index
         working-directory: site
         shell: bash
@@ -96,13 +163,51 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: db9b62f409f463da7acbcc374b8385d0
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN }}
           VECTORIZE_INDEX_NAME: acecore-net-search-preview
+          ALLOW_LARGE_DELETE: ${{ steps.large-delete.outputs.allow }}
+          APPROVED_DELETE_COUNT: ${{ inputs.approved_delete_count || '' }}
+          APPROVED_PLAN_ID: ${{ inputs.approved_plan_id || '' }}
         run: |
           if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
             echo "::error::CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN is not configured."
             exit 1
           fi
 
-          node ../tooling/scripts/sync-vectorize.mjs
+          if [[ "$ALLOW_LARGE_DELETE" == "true" ]]; then
+            plan_output="$(node ../tooling/scripts/sync-vectorize.mjs --plan)"
+            printf '%s\n' "$plan_output"
+            plan_json="$(
+              printf '%s\n' "$plan_output" |
+                grep '"event":"vectorize_sync_plan"' |
+                tail -n 1
+            )"
+            if [[ -z "$plan_json" ]]; then
+              echo "::error::Vectorize plan output is missing."
+              exit 1
+            fi
+
+            actual_delete="$(
+              node -e "process.stdout.write(String(JSON.parse(process.argv[1]).delete))" \
+                "$plan_json"
+            )"
+            actual_plan_id="$(
+              node -e "process.stdout.write(JSON.parse(process.argv[1]).planId)" \
+                "$plan_json"
+            )"
+            if [[ "$actual_delete" != "$APPROVED_DELETE_COUNT" ]]; then
+              echo "::error::Current delete count does not match the reviewed plan."
+              exit 1
+            fi
+            if [[ "$actual_plan_id" != "$APPROVED_PLAN_ID" ]]; then
+              echo "::error::Current plan ID does not match the reviewed plan."
+              exit 1
+            fi
+            node ../tooling/scripts/sync-vectorize.mjs \
+              --allow-large-delete \
+              --expected-delete-count "$APPROVED_DELETE_COUNT" \
+              --expected-plan-id "$APPROVED_PLAN_ID"
+          else
+            node ../tooling/scripts/sync-vectorize.mjs
+          fi
 
   sync-production:
     name: Reconcile production index
@@ -219,6 +324,55 @@ jobs:
           "$BUILT_COMMIT"
           site/.vectorize/corpus.json
 
+      - name: Validate manual large-delete approval
+        id: large-delete
+        working-directory: site
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          TARGET: ${{ inputs.target || '' }}
+          ALLOW_LARGE_DELETE: ${{ inputs.allow_large_delete || false }}
+          APPROVED_COMMIT: ${{ inputs.approved_commit || '' }}
+          APPROVED_CORPUS_VERSION: ${{ inputs.approved_corpus_version || '' }}
+          APPROVED_DELETE_COUNT: ${{ inputs.approved_delete_count || '' }}
+          APPROVED_PLAN_ID: ${{ inputs.approved_plan_id || '' }}
+          BUILT_COMMIT: ${{ steps.site.outputs.commit }}
+        run: |
+          corpus_version="$(
+            node -e "const fs=require('node:fs');process.stdout.write(JSON.parse(fs.readFileSync('.vectorize/corpus.json','utf8')).version)"
+          )"
+          allow_large_delete=false
+
+          if [[ "$ALLOW_LARGE_DELETE" == "true" ]]; then
+            if [[ "$EVENT_NAME" != "workflow_dispatch" || "$TARGET" != "production" ]]; then
+              echo "::error::Large-delete override requires a manual production dispatch."
+              exit 1
+            fi
+            if [[ "$APPROVED_COMMIT" != "$BUILT_COMMIT" ]]; then
+              echo "::error::approved_commit must exactly match the published commit."
+              exit 1
+            fi
+            if [[ "$APPROVED_CORPUS_VERSION" != "$corpus_version" ]]; then
+              echo "::error::approved_corpus_version must exactly match the built corpus."
+              exit 1
+            fi
+            if [[ ! "$APPROVED_DELETE_COUNT" =~ ^[1-9][0-9]*$ ]]; then
+              echo "::error::approved_delete_count must be a positive integer from a reviewed plan."
+              exit 1
+            fi
+            if [[ ! "$APPROVED_PLAN_ID" =~ ^[0-9a-f]{64}$ ]]; then
+              echo "::error::approved_plan_id must be the SHA-256 ID from a reviewed plan."
+              exit 1
+            fi
+            allow_large_delete=true
+          elif [[ -n "$APPROVED_COMMIT$APPROVED_CORPUS_VERSION$APPROVED_DELETE_COUNT$APPROVED_PLAN_ID" ]]; then
+            echo "::error::Approval values require allow_large_delete=true."
+            exit 1
+          fi
+
+          echo "corpus-version=$corpus_version" >> "$GITHUB_OUTPUT"
+          echo "allow=$allow_large_delete" >> "$GITHUB_OUTPUT"
+
       - name: Sync production Vectorize index
         working-directory: site
         shell: bash
@@ -226,10 +380,48 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: db9b62f409f463da7acbcc374b8385d0
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN }}
           VECTORIZE_INDEX_NAME: acecore-net-search-production
+          ALLOW_LARGE_DELETE: ${{ steps.large-delete.outputs.allow }}
+          APPROVED_DELETE_COUNT: ${{ inputs.approved_delete_count || '' }}
+          APPROVED_PLAN_ID: ${{ inputs.approved_plan_id || '' }}
         run: |
           if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
             echo "::error::CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN is not configured."
             exit 1
           fi
 
-          node ../tooling/scripts/sync-vectorize.mjs
+          if [[ "$ALLOW_LARGE_DELETE" == "true" ]]; then
+            plan_output="$(node ../tooling/scripts/sync-vectorize.mjs --plan)"
+            printf '%s\n' "$plan_output"
+            plan_json="$(
+              printf '%s\n' "$plan_output" |
+                grep '"event":"vectorize_sync_plan"' |
+                tail -n 1
+            )"
+            if [[ -z "$plan_json" ]]; then
+              echo "::error::Vectorize plan output is missing."
+              exit 1
+            fi
+
+            actual_delete="$(
+              node -e "process.stdout.write(String(JSON.parse(process.argv[1]).delete))" \
+                "$plan_json"
+            )"
+            actual_plan_id="$(
+              node -e "process.stdout.write(JSON.parse(process.argv[1]).planId)" \
+                "$plan_json"
+            )"
+            if [[ "$actual_delete" != "$APPROVED_DELETE_COUNT" ]]; then
+              echo "::error::Current delete count does not match the reviewed plan."
+              exit 1
+            fi
+            if [[ "$actual_plan_id" != "$APPROVED_PLAN_ID" ]]; then
+              echo "::error::Current plan ID does not match the reviewed plan."
+              exit 1
+            fi
+            node ../tooling/scripts/sync-vectorize.mjs \
+              --allow-large-delete \
+              --expected-delete-count "$APPROVED_DELETE_COUNT" \
+              --expected-plan-id "$APPROVED_PLAN_ID"
+          else
+            node ../tooling/scripts/sync-vectorize.mjs
+          fi

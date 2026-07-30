@@ -12,7 +12,7 @@ Acecore分别运营面向业务、教育与社区的专业网站。本页提供�
 
 ## Aceserver
 
-**Aceserver**是由Acecore运营的Minecraft社区。参加方式、规则和最新动态请查看[Aceserver官方门户](https://asv.acecore.net/)。
+**Aceserver**是由Acecore运营的Minecraft社区。参加方式、规则和最新动态请查看[Aceserver官方门户](https://asv.acecore.net/zh-cn/)。
 
 ## Acecore Schools
 
@@ -22,6 +22,6 @@ Acecore分别运营面向业务、教育与社区的专业网站。本页提供�
 
 ## 开源与合作
 
-Acecore Systems的公开项目可在[GitHub](https://github.com/acecore-systems)查看。技术服务与专业文章集中在[Acecore Systems](https://systems.acecore.net/)。
+Acecore Systems的公开项目可在[GitHub](https://github.com/acecore-systems)查看。技术服务与专业文章集中在[Acecore Systems](https://systems.acecore.net/zh-cn/)。
 
-如需跨业务合作或共同策划，请使用[联系表单](/contact/)。
+如需跨业务合作或共同策划，请使用[联系表单](/zh-cn/contact/)。

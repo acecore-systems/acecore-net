@@ -12,7 +12,7 @@ Acecore betreibt eigene Fachwebsites für seine Geschäfts-, Bildungs- und Commu
 
 ## Aceserver
 
-**Aceserver** ist eine von Acecore betriebene Minecraft-Community. Teilnahme, Regeln und aktuelle Meldungen finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/).
+**Aceserver** ist eine von Acecore betriebene Minecraft-Community. Teilnahme, Regeln und aktuelle Meldungen finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
 
 ## Acecore Schools
 
@@ -22,6 +22,6 @@ Der frühere Robotik-Workshop ist als [Aktivitätsbericht](https://schools.aceco
 
 ## Open Source und Partnerschaften
 
-Öffentliche Projekte von Acecore Systems finden Sie auf [GitHub](https://github.com/acecore-systems). Technische Leistungen und Fachbeiträge werden auf [Acecore Systems](https://systems.acecore.net/) veröffentlicht.
+Öffentliche Projekte von Acecore Systems finden Sie auf [GitHub](https://github.com/acecore-systems). Technische Leistungen und Fachbeiträge werden auf [Acecore Systems](https://systems.acecore.net/de/) veröffentlicht.
 
-Für bereichsübergreifende Kooperationen nutzen Sie bitte das [Kontaktformular](/contact/).
+Für bereichsübergreifende Kooperationen nutzen Sie bitte das [Kontaktformular](/de/contact/).

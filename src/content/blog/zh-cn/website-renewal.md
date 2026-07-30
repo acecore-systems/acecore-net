@@ -14,9 +14,9 @@ image: /uploads/acecore-generated/blog-website-renewal.webp
 
 acecore.net发布公司简介、业务目录和企业新闻。详细信息由负责该业务的官方网站维护：
 
-- [Acecore Systems](https://systems.acecore.net/)：开发、制作与运维支持、价格、案例和技术文章
+- [Acecore Systems](https://systems.acecore.net/zh-cn/)：开发、制作与运维支持、价格、案例和技术文章
 - [Acecore Schools](https://schools.acecore.net/)：学习支持、价格、咨询和活动记录
-- [Aceserver](https://asv.acecore.net/)：Minecraft社区的参加方式、规则和故事
+- [Aceserver](https://asv.acecore.net/zh-cn/)：Minecraft社区的参加方式、规则和故事
 
 这样可避免在多个网站重复维护相同的价格与说明。各专业网站是其最新信息的官方来源。
 
@@ -24,4 +24,4 @@ acecore.net发布公司简介、业务目录和企业新闻。详细信息由负
 
 Acecore新闻发布公司信息、跨业务活动和重要通知。技术文章、教育详情和社区故事将继续在相应的专业网站发布。
 
-如需跨业务咨询或提出合作建议，请使用[联系表单](/contact/)。
+如需跨业务咨询或提出合作建议，请使用[联系表单](/zh-cn/contact/)。

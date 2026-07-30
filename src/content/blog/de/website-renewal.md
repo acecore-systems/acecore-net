@@ -14,9 +14,9 @@ Wir haben die Acecore-Website als übersichtliche Unternehmensseite für Firmeni
 
 acecore.net enthält das Unternehmensprofil, das Verzeichnis der Geschäftsbereiche und Unternehmensmeldungen. Ausführliche Informationen werden vom jeweils zuständigen Bereich gepflegt:
 
-- [Acecore Systems](https://systems.acecore.net/): Entwicklung, Produktion und Betrieb, Preise, Referenzen und Fachbeiträge
+- [Acecore Systems](https://systems.acecore.net/de/): Entwicklung, Produktion und Betrieb, Preise, Referenzen und Fachbeiträge
 - [Acecore Schools](https://schools.acecore.net/): Lernunterstützung, Preise, Beratung und Aktivitätsberichte
-- [Aceserver](https://asv.acecore.net/): Teilnahme, Regeln und Berichte aus der Minecraft-Community
+- [Aceserver](https://asv.acecore.net/de/): Teilnahme, Regeln und Berichte aus der Minecraft-Community
 
 Damit werden Preise und Beschreibungen nicht mehrfach gepflegt. Jede Fachwebsite ist die offizielle Quelle ihrer aktuellen Informationen.
 
@@ -24,4 +24,4 @@ Damit werden Preise und Beschreibungen nicht mehrfach gepflegt. Jede Fachwebsite
 
 Die Acecore-Neuigkeiten umfassen Firmeninformationen, bereichsübergreifende Aktivitäten und wichtige Mitteilungen. Technische, pädagogische und Community-Inhalte erscheinen weiterhin auf der zuständigen Fachwebsite.
 
-Für bereichsübergreifende Anfragen oder Partnerschaften nutzen Sie bitte das [Kontaktformular](/contact/).
+Für bereichsübergreifende Anfragen oder Partnerschaften nutzen Sie bitte das [Kontaktformular](/de/contact/).
