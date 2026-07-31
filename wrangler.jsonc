@@ -113,7 +113,7 @@
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
         "CONTACT_TO_EMAIL": "info@acecore.net",
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
-        "SEARCH_ENABLED": "false",
+        "SEARCH_ENABLED": "true",
         "SEARCH_MIN_SCORE": "0.50",
         "SYSTEMS_SEARCH_ENABLED": "true",
         "SYSTEMS_SEARCH_MIN_SCORE": "0.50",

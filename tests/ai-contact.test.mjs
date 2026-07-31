@@ -1423,7 +1423,7 @@ test('World FoundationのVectorizeはroot・Preview・Productionで未接続に�
   assert.doesNotMatch(config, /"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/u)
 })
 
-test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を保持する', () => {
+test('Previewを停止しProductionの確認済み検索だけを有効化する', () => {
   const config = readFileSync(
     new URL('../wrangler.jsonc', import.meta.url),
     'utf8',
@@ -1440,10 +1440,6 @@ test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を�
     'SCHOOLS_SEARCH_ENABLED',
     'ACESERVER_WIKI_SEARCH_ENABLED',
   ]
-  const disabledKillSwitches = [
-    'SEARCH_ENABLED',
-    'WORLD_FOUNDATION_SEARCH_ENABLED',
-  ]
 
   assert.doesNotMatch(config, /search-openai-1536-preview/u)
   for (const indexName of productionIndexes) {
@@ -1456,13 +1452,12 @@ test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を�
       `${variableName} must preserve the existing enabled state`,
     )
   }
-  for (const variableName of disabledKillSwitches) {
-    assert.equal(
-      config.split(`"${variableName}": "false"`).length - 1,
-      3,
-      `${variableName} must preserve the existing disabled state`,
-    )
-  }
+  assert.equal(config.match(/"SEARCH_ENABLED": "false"/gu)?.length, 2)
+  assert.equal(config.match(/"SEARCH_ENABLED": "true"/gu)?.length, 1)
+  assert.equal(
+    config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "false"/gu)?.length,
+    3,
+  )
   assert.equal(
     config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "false"/gu)?.length,
     2,
