@@ -62,9 +62,9 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 | Preview    | 未接続                                         | 未適用                                                  |
 | Production | `acecore-net-search-openai-1536-production-v2` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
-Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
+Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-07-31にv2の本番検証を完了した後、旧 `acecore-net-search-openai-1536-production` は削除しました。現在、即時に戻せる旧indexはありません。
 
-2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、このindexは変更せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認し、この変更で `wrangler.jsonc` の `SEARCH_INDEX` bindingをv2へ切り替えます。旧indexの削除はrollback確認後に別途レビューします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
+2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して `wrangler.jsonc` の `SEARCH_INDEX` bindingをv2へ切り替え、本番検索の継続応答を確認した後、明示承認のもと旧indexを削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で自サイト検索は `client:` / `global`、横断検索は `network-search:{caller}:client:` / `network-search:global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
 
@@ -174,7 +174,7 @@ npm run sync:vectorize
 4. OpenAI EmbeddingsまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。検索UIはPagefindだけを遅延読込して継続する。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
 5. 横断APIが失敗しても自サイトのVectorize結果またはPagefindフォールバックが残ることを確認する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
-indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。今回のAcecore移行では、v2同期workflowの成功を確認した後にbinding切替専用PRを作成し、旧indexはrollback確認が完了するまで保持します。
+indexを作り直す場合は、現在のindexを停止・削除する前に別のreplacement indexを作成し、公開corpusの全量同期とquery確認を完了してからbindingを切り替えます。今回のAcecore移行では、v2同期workflowの成功を確認した後にbinding切替専用PRを作成し、本番検索の継続応答を確認してから旧indexを削除しました。現在は即時rollback用の旧indexを保持しないため、障害時は `SEARCH_ENABLED` を停止してPagefindへフォールバックし、replacement indexの再作成・同期・検証を経て復旧します。
 
 ## リリース前チェック
 
