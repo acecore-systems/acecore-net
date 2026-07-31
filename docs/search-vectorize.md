@@ -1,11 +1,14 @@
 # Vectorize検索・AI横断検索 運用ガイド
 
-Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationを含む外部indexはProductionだけへ接続し、top-level／Previewには接続しません。検索モーダルは次の2系統を提供します。
+Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationを含む外部indexはProductionだけへ接続し、top-level／Previewには接続しません。検索モーダルは次の3系統を提供します。
 
-- Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
-- Cloudflare Vectorize: OpenAIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
+- Cloudflare Vectorize: OpenAIの多言語embeddingを使う自サイトの主検索。自サイトの結果を最初に表示する。
+- Pagefind: 静的ファイルだけで動くキーワード検索。Vectorizeが未設定、rate limit中、障害・timeout、または有効な結果が0件のときだけ遅延読込して表示する。
+- Acecore関連サイト: `https://acecore.net/api/network-search` が自サイト以外の接続済み公式indexをread-onlyで照会し、最大3件を下部の低優先セクションへ表示する。
 
-Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウトのいずれでも、検索モーダル全体を失敗させない設計です。AIチャットで専門サイトの根拠を取得できない場合は、詳細を推測せず、固定した担当サイトの公式ルートへ案内します。
+自サイトのVectorize、横断検索、Pagefindは互いの失敗を伝播させません。横断検索の障害では自サイト検索を維持し、自サイトのVectorizeが使えない場合だけPagefindへ切り替えます。AIチャットで専門サイトの根拠を取得できない場合は、詳細を推測せず、固定した担当サイトの公式ルートへ案内します。
+
+検索UIは自サイトのVectorize結果、または必要時のPagefindフォールバックを確定してから横断APIを呼びます。2〜160文字に正規化できない入力は、どちらのAPIにも送信しません。
 
 ## 構成
 
@@ -15,8 +18,10 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 4. 新規・変更chunkだけをOpenAI `text-embedding-3-large` で1536次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。
-8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。
+7. Pages Function `/api/network-search` は許可済みの公式 `Origin` から呼び出し元を決定し、そのサイト自身を除く接続済みindexだけを同じembeddingで並列検索する。
+8. `/api/network-search` はsourceごとのURL allowlistを通過した絶対HTTPS URL、固定したsource識別子・表示名、タイトル、見出し、抜粋だけを最大3件返す。
+9. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。
+10. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
@@ -61,7 +66,7 @@ Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `
 
 2026-07-31のProduction同期で164 vectorsの全件反映と、日本語queryで3件（先頭 `/blog/service-introduction/`）を確認済みです。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
 
-検索APIとAIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で検索は `client:` / `global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
+検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で自サイト検索は `client:` / `global`、横断検索は `network-search:{caller}:client:` / `network-search:global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
 
 | 環境       | D1 database                     | 用途                       |
 | ---------- | ------------------------------- | -------------------------- |
@@ -145,24 +150,27 @@ npm run sync:vectorize
 
 - `/api/search` は同一OriginのJSON POSTだけを受け付ける。
 - request bodyは `Content-Length` とbounded stream readerの両方で2KiBまで、queryは2〜160文字に制限する。
+- `/api/network-search` はbody・JSON・query・localeを検証できたrequestだけをD1 rate limitへ進め、不正・上限超過requestでclientまたはglobal枠を消費しない。
+- `/api/network-search` はAcecore、Systems、Schools、Aceserver WIKI、Aceserver Portal、World Foundationの本番公式 `Origin` だけを完全一致で受け付ける。body内のサイト名は受け取らず、呼び出し元は `Origin` から決定する。CORSはそのOriginだけを返し、credentialやwildcardを使わない。
+- `/api/network-search` は自サイトsourceを除外し、外部indexのURL、locale、score、公開pathを再検証する。responseには固定した `source` / `sourceLabel`、絶対HTTPS URL、タイトル、見出し、抜粋、rankだけを最大3件返す。
 - `/api/ai-contact` はAcecore、Systems、Schoolsの公式originと各管理下Pages Preview originだけからJSON POSTを受け付ける。CORSは許可した `Origin` を完全一致で返し、任意originやwildcardは使わない。request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを800文字までに制限する。
-- D1で検索はclient単位20回/分・全体300回/分、AIチャットはclient単位10回/分・全体60回/分を判定する。
+- D1で自サイト検索と横断検索はそれぞれclient単位20回/分・全体300回/分、AIチャットはclient単位10回/分・全体60回/分を判定する。
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
 - rate limit rowは10分で期限切れとなり、検索またはAIチャットrequestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
 - raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。OpenAI Responses APIには `store: false` を指定する。
-- API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、AIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。
+- API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、`/api/network-search` とAIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。URL parserの前に生pathを各decode後にNFKC正規化して判定し、管理用の `admin` / `api` path、encoded slash・backslash、query・hash、dot segment、制御文字、decode不能または正規化後にも残るpercent encodingを採用しない。返すURLは検証済みのcanonical pathから再構成する。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
 - AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけを `gpt-5.6-luna` へ渡す。取得した本文は命令ではなく参照データとして扱う。
 - AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。Acecore内の相対URLもAPI responseでは `https://acecore.net` の絶対URLへ正規化し、SystemsやSchools上で別originの同名pathへ解決されないようにする。
 
 ## 障害対応とrollback
 
-1. Pagefindのキーワード検索が動くことを確認する。
-2. `/api/search` のstatusと `X-Search-Request-Id` を確認する。
-3. Pages Functionsのruntime logで `semantic_search_error` をrequest IDから追う。logにquery本文は含まれない。
-4. OpenAI EmbeddingsまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。回答生成自体に問題がある場合は `OPENAI_API_KEY`、Project利用上限、Responses APIのstatusを確認する。
-5. 検索UIは503やtimeoutを受けるとVectorize部分だけを隠すため、Pagefindは継続する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
+1. 自サイトのVectorize検索が結果を返すことを確認する。
+2. `/api/search` と `/api/network-search` のstatus、`X-Search-Request-Id`、CORS allowlistを確認する。
+3. Pages Functionsのruntime logで `semantic_search_error` または `network_search_error` をrequest IDから追う。logにquery本文は含まれない。
+4. OpenAI EmbeddingsまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。検索UIはPagefindだけを遅延読込して継続する。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
+5. 横断APIが失敗しても自サイトのVectorize結果またはPagefindフォールバックが残ることを確認する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
 indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。
 
@@ -176,8 +184,8 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:content`
 - `npm run build`
 - `npm run validate:seo`
-- desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
-- Preview deploymentにVectorize bindingがなく、`/api/search` とAIチャットがPagefindまたは固定公式導線へ安全にフォールバックすることを確認
+- desktop/mobileでVectorize主検索、横断関連結果、0件時のPagefind、Pagefind filter利用時、横断API停止時を確認
+- Preview deploymentにVectorize bindingがなく、`/api/search` がPagefindへ、`/api/network-search` が関連結果を安全に非表示へ、AIチャットが固定公式導線へフォールバックすることを確認
 - Production deploymentのWorld Foundation質問で同サイトの根拠だけを検索し、Previewではbindingなしで固定公式ルートへ安全にフォールバックすることを確認
 - Production deploymentのAceserver質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
 - 有効化する外部indexのowner repositoryでProduction同期とquery smoke testが成功していることを確認する。未確認の取得元はkill switchを `false` にする

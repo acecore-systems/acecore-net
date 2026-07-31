@@ -76,6 +76,11 @@ class ElementMock {
     }
   }
 
+  dispatchEvent(event) {
+    this.emit(event.type)
+    return true
+  }
+
   getAttribute(name) {
     return this.attributes.get(name) ?? null
   }
@@ -167,33 +172,63 @@ class MutationObserverMock {
   disconnect() {}
 }
 
+function createElement(documentMock, id) {
+  const element = documentMock.createElement('div')
+  element.id = id
+  return element
+}
+
 function installSearchSurface(documentMock) {
   const dialog = documentMock.createElement('dialog')
   dialog.id = 'search-dialog'
   dialog.dataset.locale = 'en'
+  dialog.dataset.networkApi = 'https://acecore.net/api/network-search'
 
   const closeButton = documentMock.createElement('button')
   closeButton.id = 'search-close'
+  const input = documentMock.createElement('input')
+  input.id = 'semantic-search-input'
+  const privacy = createElement(documentMock, 'semantic-search-privacy-notice')
+  const semantic = createElement(documentMock, 'semantic-search')
+  const semanticStatus = createElement(documentMock, 'semantic-search-status')
+  const semanticResults = documentMock.createElement('ol')
+  semanticResults.id = 'semantic-search-results'
+  semantic.append(semanticStatus, semanticResults)
+  const pagefind = createElement(documentMock, 'pagefind-search')
+  const pagefindStatus = createElement(documentMock, 'pagefind-search-status')
+  const pagefindNotice = createElement(documentMock, 'pagefind-search-notice')
+  const pagefindContainer = createElement(
+    documentMock,
+    'pagefind-search-container',
+  )
+  pagefind.append(pagefindStatus, pagefindNotice, pagefindContainer)
+  const network = createElement(documentMock, 'network-search')
+  const networkStatus = createElement(documentMock, 'network-search-status')
+  const networkResults = documentMock.createElement('ol')
+  networkResults.id = 'network-search-results'
+  network.append(networkStatus, networkResults)
 
-  const container = documentMock.createElement('div')
-  container.id = 'search-container'
-
-  dialog.append(closeButton, container)
+  dialog.append(closeButton, input, privacy, semantic, pagefind, network)
   documentMock.body.replaceChildren(dialog)
-  return { container, dialog }
+  return { dialog, input, pagefindContainer }
 }
 
-test('SPA head swap後も読み込み済みPagefind runtimeのstyleを再装着する', async () => {
+function waitForFallback() {
+  return new Promise((resolve) => setTimeout(resolve, 520))
+}
+
+test('Vectorizeが主検索で、Pagefindは有効な結果がない時だけ遅延読込する', async () => {
   const originalDocument = globalThis.document
   const originalWindow = globalThis.window
   const originalMutationObserver = globalThis.MutationObserver
+  const originalFetch = globalThis.fetch
   const documentMock = new DocumentMock()
 
   class PagefindUIMock {
     constructor() {
       const input = documentMock.createElement('input')
       input.className = 'pagefind-ui__search-input'
-      documentMock.getElementById('search-container').append(input)
+      documentMock.getElementById('pagefind-search-container').append(input)
     }
   }
 
@@ -209,48 +244,282 @@ test('SPA head swap後も読み込み済みPagefind runtimeのstyleを再装着�
     setTimeout,
   }
   globalThis.MutationObserver = MutationObserverMock
+  let localResultAvailable = true
+  let localResponseResolved = false
+  let networkStartedAfterLocal = false
+  let fetchCallCount = 0
+  globalThis.fetch = async (input) => {
+    fetchCallCount += 1
+    if (String(input) !== '/api/search') {
+      networkStartedAfterLocal = localResponseResolved
+      return Response.json({
+        ok: true,
+        requestId: '018f7e5a-7b4d-7c6a-8e9f-0123456789ab',
+        results: [
+          {
+            url: 'https://schools.acecore.net/learning-support/',
+            title: 'Safe related result',
+            section: 'Learning support',
+            excerpt: 'This is allowed.',
+            source: 'schools',
+            sourceLabel: 'Acecore Schools',
+            rank: 1,
+          },
+          {
+            url: 'https://acecore.net/services/',
+            title: 'Own-site result',
+            section: 'Services',
+            excerpt: 'This must not be displayed.',
+            source: 'acecore',
+            sourceLabel: 'Acecore',
+            rank: 1,
+          },
+          {
+            url: 'https://schools.acecore.net/learning-support/',
+            title: 'Mismatched label',
+            section: 'Learning support',
+            excerpt: 'This must not be displayed.',
+            source: 'schools',
+            sourceLabel: 'Aceserver WIKI',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%61dmin/',
+            title: 'Encoded admin result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%61pi/search/',
+            title: 'Encoded API result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%2561dmin/',
+            title: 'Double encoded admin result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%2561pi/search/',
+            title: 'Double encoded API result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%00public/',
+            title: 'Encoded control result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%EF%BC%85%36%31dmin/',
+            title: 'NFKC encoded admin result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/%252e%252e/admin/',
+            title: 'Double encoded parent result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/public/%253Fprivate/',
+            title: 'Double encoded query result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/public/%2523private/',
+            title: 'Double encoded hash result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/safe/../public/',
+            title: 'Raw parent result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/safe\\private/',
+            title: 'Raw backslash result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+          {
+            url: 'https://systems.acecore.net/safe\tpublic/',
+            title: 'Raw control result',
+            section: 'Unsafe',
+            excerpt: 'This must not be displayed.',
+            source: 'systems',
+            sourceLabel: 'Acecore Systems',
+            rank: 2,
+          },
+        ],
+      })
+    }
+
+    localResponseResolved = true
+    return Response.json({
+      ok: true,
+      requestId: '018f7e5a-7b4d-7c6a-8e9f-0123456789ab',
+      results: localResultAvailable
+        ? [
+            {
+              id: 'local-result',
+              url: '/services/',
+              title: 'Website support',
+              section: 'Services',
+              excerpt: 'Official local result',
+              contentType: 'page',
+              rank: 1,
+            },
+            {
+              id: 'local-admin-result',
+              url: '/admin/',
+              title: 'Admin',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 2,
+            },
+            {
+              id: 'local-nfkc-encoded-admin-result',
+              url: '/%EF%BC%85%36%31dmin/',
+              title: 'NFKC encoded admin',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 3,
+            },
+            {
+              id: 'local-encoded-query-result',
+              url: '/public/%253Fprivate/',
+              title: 'Encoded query',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 4,
+            },
+            {
+              id: 'local-raw-parent-result',
+              url: '/safe/../services/',
+              title: 'Raw parent',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 5,
+            },
+            {
+              id: 'local-raw-backslash-result',
+              url: '/safe\\private/',
+              title: 'Raw backslash',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 6,
+            },
+            {
+              id: 'local-raw-control-result',
+              url: '/safe\tpublic/',
+              title: 'Raw control',
+              section: 'Unsafe',
+              excerpt: 'This must not be displayed.',
+              contentType: 'page',
+              rank: 7,
+            },
+          ]
+        : [],
+    })
+  }
 
   try {
     const { openSearch } = await import('../src/scripts/search-modal.ts')
+    const { input } = installSearchSurface(documentMock)
 
-    installSearchSurface(documentMock)
     await openSearch()
+    assert.equal(documentMock.getElementById('pagefind-ui-style'), null)
+    assert.equal(documentMock.getElementById('pagefind-ui-script'), null)
+
+    input.value = 'website'
+    input.emit('input')
+    await waitForFallback()
+
+    assert.equal(documentMock.getElementById('pagefind-ui-style'), null)
+    assert.equal(documentMock.getElementById('pagefind-ui-script'), null)
+    assert.equal(
+      documentMock.getElementById('semantic-search-results').children.length,
+      1,
+    )
+    assert.equal(networkStartedAfterLocal, true)
+    assert.equal(
+      documentMock.getElementById('network-search-results').children.length,
+      1,
+    )
+    assert.equal(
+      documentMock.getElementById('network-search-results').children[0]
+        .children[0].children[0].textContent,
+      'Safe related result',
+    )
+
+    const fetchCountBeforeLongQuery = fetchCallCount
+    input.value = 'x'.repeat(161)
+    input.emit('input')
+    await waitForFallback()
+    assert.equal(fetchCallCount, fetchCountBeforeLongQuery)
+
+    localResultAvailable = false
+    input.value = 'not found'
+    input.emit('input')
+    await waitForFallback()
 
     assert.ok(documentMock.getElementById('pagefind-ui-style'))
     assert.ok(documentMock.getElementById('pagefind-ui-override-style'))
     assert.ok(documentMock.getElementById('pagefind-ui-script'))
-
-    documentMock.head.replaceChildren()
-    installSearchSurface(documentMock)
-    await openSearch()
-
-    const pagefindStyle = documentMock.getElementById('pagefind-ui-style')
-    const overrideStyle = documentMock.getElementById(
-      'pagefind-ui-override-style',
-    )
-
-    assert.ok(pagefindStyle)
-    assert.equal(pagefindStyle.rel, 'stylesheet')
-    assert.equal(pagefindStyle.href, '/pagefind/pagefind-ui.css')
-    assert.ok(overrideStyle)
-    assert.match(overrideStyle.textContent, /\.pagefind-ui__search-input/)
   } finally {
-    if (originalDocument === undefined) {
-      delete globalThis.document
-    } else {
-      globalThis.document = originalDocument
-    }
-
-    if (originalWindow === undefined) {
-      delete globalThis.window
-    } else {
-      globalThis.window = originalWindow
-    }
-
-    if (originalMutationObserver === undefined) {
+    if (originalDocument === undefined) delete globalThis.document
+    else globalThis.document = originalDocument
+    if (originalWindow === undefined) delete globalThis.window
+    else globalThis.window = originalWindow
+    if (originalMutationObserver === undefined)
       delete globalThis.MutationObserver
-    } else {
-      globalThis.MutationObserver = originalMutationObserver
-    }
+    else globalThis.MutationObserver = originalMutationObserver
+    globalThis.fetch = originalFetch
   }
 })
