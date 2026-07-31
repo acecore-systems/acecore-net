@@ -36,6 +36,13 @@ const monetized = Astro.props.monetized ?? false
   data-t-semantic-zero-results={t(locale, 'blog.semanticZeroResults')}
   data-t-semantic-many-results={t(locale, 'blog.semanticManyResults')}
   data-t-semantic-one-result={t(locale, 'blog.semanticOneResult')}
+  data-t-pagefind-heading={t(locale, 'blog.pagefindFallbackHeading')}
+  data-t-pagefind-notice={t(locale, 'blog.pagefindFallbackNotice')}
+  data-t-network-heading={t(locale, 'blog.networkHeading')}
+  data-t-network-loading={t(locale, 'blog.networkLoading')}
+  data-t-network-many-results={t(locale, 'blog.networkManyResults')}
+  data-t-network-one-result={t(locale, 'blog.networkOneResult')}
+  data-network-api="https://acecore.net/api/network-search"
   data-link-blog={getLocalizedUrl('/blog/', locale)}
   data-link-services={getLocalizedUrl('/services/', locale)}
   data-link-contact={getLocalizedUrl('/contact/', locale)}
@@ -62,7 +69,21 @@ const monetized = Astro.props.monetized ?? false
           <Icon name="x" class="text-lg" />
         </button>
       </div>
-      <div id="search-container" class="px-5 pt-5 pb-3"></div>
+      <div id="search-container" class="px-5 pt-5 pb-3">
+        <label class="sr-only" for="semantic-search-input">
+          {t(locale, 'common.searchPlaceholder')}
+        </label>
+        <input
+          id="semantic-search-input"
+          class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+          type="search"
+          minlength="2"
+          maxlength="160"
+          autocomplete="off"
+          enterkeyhint="search"
+          placeholder={t(locale, 'common.searchPlaceholder')}
+        />
+      </div>
       <p
         id="semantic-search-privacy-notice"
         class="px-5 pb-4 text-xs leading-relaxed text-slate-500"
@@ -97,6 +118,57 @@ const monetized = Astro.props.monetized ?? false
         <ol
           id="semantic-search-results"
           class="m-0 max-h-72 list-none divide-y divide-slate-100 overflow-y-auto p-0"
+        >
+        </ol>
+      </section>
+      <section
+        id="pagefind-search"
+        class="hidden border-t border-slate-100 px-5 pt-4 pb-5"
+        aria-labelledby="pagefind-search-heading"
+      >
+        <div class="mb-3 flex items-center justify-between gap-4">
+          <h2
+            id="pagefind-search-heading"
+            class="text-sm font-700 text-slate-700"
+          >
+            {t(locale, 'blog.pagefindFallbackHeading')}
+          </h2>
+          <p
+            id="pagefind-search-status"
+            class="text-xs text-slate-500"
+            aria-live="polite"
+          >
+          </p>
+        </div>
+        <p
+          id="pagefind-search-notice"
+          class="mb-3 text-xs leading-relaxed text-slate-500"
+        >
+        </p>
+        <div id="pagefind-search-container"></div>
+      </section>
+      <section
+        id="network-search"
+        class="hidden border-t border-slate-100 px-5 pt-4 pb-5"
+        aria-labelledby="network-search-heading"
+      >
+        <div class="mb-3 flex items-center justify-between gap-4">
+          <h2
+            id="network-search-heading"
+            class="text-sm font-700 text-slate-700"
+          >
+            {t(locale, 'blog.networkHeading')}
+          </h2>
+          <p
+            id="network-search-status"
+            class="text-xs text-slate-500"
+            aria-live="polite"
+          >
+          </p>
+        </div>
+        <ol
+          id="network-search-results"
+          class="m-0 max-h-64 list-none divide-y divide-slate-100 overflow-y-auto p-0"
         >
         </ol>
       </section>

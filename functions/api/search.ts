@@ -10,6 +10,7 @@ const MIN_QUERY_LENGTH = 2
 const MAX_QUERY_LENGTH = 160
 const QUERY_TOP_K = 15
 const RESULT_LIMIT = 5
+const MAX_PATH_DECODE_PASSES = 4
 const RATE_LIMIT_WINDOW_SECONDS = 60
 const RATE_LIMIT_RETENTION_SECONDS = 600
 const CLIENT_RATE_LIMIT = 20
@@ -365,30 +366,84 @@ function normalizeMetadata(
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const metadata = value as Record<string, unknown>
 
-  const url = readString(metadata.url, 500)
+  const rawUrl = readRawUrl(metadata.url, 500)
   const title = readString(metadata.title, 240)
   const section = readString(metadata.section, 240) || title
   const excerpt = readString(metadata.excerpt, 500)
   const contentType = readString(metadata.contentType, 40) || 'page'
   const locale = readString(metadata.locale, 16)
   if (
-    !url ||
+    !rawUrl ||
     !title ||
     locale !== expectedLocale ||
-    !url.startsWith('/') ||
-    url.startsWith('//')
+    !rawUrl.startsWith('/') ||
+    rawUrl.startsWith('//')
   ) {
     return null
   }
 
+  const pathname = decodePublicPathname(rawUrl)
+  if (!pathname || isPrivateRootPath(pathname)) return null
+
   try {
-    const resolved = new URL(url, requestUrl)
-    if (resolved.origin !== new URL(requestUrl).origin) return null
+    const requestOrigin = new URL(requestUrl).origin
+    const resolved = new URL(pathname, requestUrl)
+    if (
+      resolved.origin !== requestOrigin ||
+      resolved.search ||
+      resolved.hash ||
+      !resolved.pathname.startsWith('/')
+    ) {
+      return null
+    }
+
+    return { url: pathname, title, section, excerpt, contentType, locale }
   } catch {
     return null
   }
+}
 
-  return { url, title, section, excerpt, contentType, locale }
+function decodePublicPathname(pathname: string): string | null {
+  let decoded = pathname
+
+  for (let attempt = 0; attempt < MAX_PATH_DECODE_PASSES; attempt += 1) {
+    decoded = decoded.normalize('NFKC')
+    if (/%(?:2f|5c)/iu.test(decoded)) return null
+
+    try {
+      const next = decodeURIComponent(decoded)
+      if (next === decoded) {
+        return isSafeDecodedPathname(decoded) ? decoded : null
+      }
+      decoded = next
+    } catch {
+      return null
+    }
+  }
+
+  const normalized = decoded.normalize('NFKC')
+  return isSafeDecodedPathname(normalized) ? normalized : null
+}
+
+function isSafeDecodedPathname(pathname: string): boolean {
+  return (
+    pathname.startsWith('/') &&
+    !pathname.includes('%') &&
+    !pathname.includes('?') &&
+    !pathname.includes('#') &&
+    !pathname.includes('//') &&
+    !/\s/u.test(pathname) &&
+    !/[\\\u0000-\u001f\u007f]/u.test(pathname) &&
+    !pathname.split('/').some((segment) => segment === '.' || segment === '..')
+  )
+}
+
+function isPrivateRootPath(pathname: string): boolean {
+  const firstPathSegment = pathname.split('/').find(Boolean)?.toLowerCase()
+  return (
+    firstPathSegment !== undefined &&
+    ['admin', 'api'].includes(firstPathSegment)
+  )
 }
 
 function getErrorCode(error: unknown, fallback: string) {
@@ -399,6 +454,12 @@ function readString(value: unknown, maxLength: number): string {
   return typeof value === 'string'
     ? value.normalize('NFKC').trim().slice(0, maxLength)
     : ''
+}
+
+function readRawUrl(value: unknown, maxLength: number): string | null {
+  return typeof value === 'string' && [...value].length <= maxLength
+    ? value
+    : null
 }
 
 function isSameOriginRequest(request: Request): boolean {

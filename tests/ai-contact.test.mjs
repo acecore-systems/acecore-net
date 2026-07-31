@@ -1381,7 +1381,7 @@ test('Aceserverの片方が障害でも残ったPortal根拠でfail-softする',
   })
 })
 
-test('metadataのlocale・origin・query・hash・admin・apiを拒否する', async () => {
+test('metadataのlocale・origin・query・hash・多重エンコードした危険pathを拒否する', async () => {
   const aiTracker = createAiTracker()
   let vectorizeInvocation
   const invalidMatches = [
@@ -1426,6 +1426,76 @@ test('metadataのlocale・origin・query・hash・admin・apiを拒否する', a
       metadata: {
         url: '/api/secret/',
         title: 'API_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'encoded-admin-url',
+      metadata: {
+        url: '/%61dmin/secret/',
+        title: 'ENCODED_ADMIN_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'encoded-api-url',
+      metadata: {
+        url: '/%61pi/secret/',
+        title: 'ENCODED_API_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'double-encoded-admin-url',
+      metadata: {
+        url: '/%2561dmin/secret/',
+        title: 'DOUBLE_ENCODED_ADMIN_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'double-encoded-api-url',
+      metadata: {
+        url: '/%2561pi/secret/',
+        title: 'DOUBLE_ENCODED_API_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'encoded-control-url',
+      metadata: {
+        url: '/%00public/',
+        title: 'ENCODED_CONTROL_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'nfkc-encoded-admin-url',
+      metadata: {
+        url: '/%EF%BC%85%36%31dmin/secret/',
+        title: 'NFKC_ENCODED_ADMIN_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'double-encoded-parent-url',
+      metadata: {
+        url: '/%252e%252e/admin/',
+        title: 'DOUBLE_ENCODED_PARENT_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'double-encoded-query-url',
+      metadata: {
+        url: '/public/%253Fprivate/',
+        title: 'DOUBLE_ENCODED_QUERY_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'double-encoded-hash-url',
+      metadata: {
+        url: '/public/%2523private/',
+        title: 'DOUBLE_ENCODED_HASH_URL',
+      },
+    }),
+    matchFor('systems', {
+      id: 'raw-parent-url',
+      metadata: {
+        url: '/safe/../public/',
+        title: 'RAW_PARENT_URL',
       },
     }),
   ]
@@ -1486,6 +1556,16 @@ test('metadataのlocale・origin・query・hash・admin・apiを拒否する', a
     'HASH_URL',
     'ADMIN_URL',
     'API_URL',
+    'ENCODED_ADMIN_URL',
+    'ENCODED_API_URL',
+    'DOUBLE_ENCODED_ADMIN_URL',
+    'DOUBLE_ENCODED_API_URL',
+    'ENCODED_CONTROL_URL',
+    'NFKC_ENCODED_ADMIN_URL',
+    'DOUBLE_ENCODED_PARENT_URL',
+    'DOUBLE_ENCODED_QUERY_URL',
+    'DOUBLE_ENCODED_HASH_URL',
+    'RAW_PARENT_URL',
   ]) {
     assert.doesNotMatch(systemPrompt, new RegExp(marker, 'u'))
   }

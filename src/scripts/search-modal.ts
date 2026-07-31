@@ -1,6 +1,7 @@
 /**
- * Pagefindを主検索として維持し、Vectorizeの意味検索結果を補助表示する。
- * 意味検索が失敗・制限・未設定の場合もPagefindだけで検索を継続できる。
+ * Vectorize is the primary on-site search. Pagefind is loaded only after the
+ * semantic endpoint has no safe result or is unavailable, while the related
+ * Acecore-site section remains independent from both local search paths.
  */
 declare global {
   interface Window {
@@ -27,22 +28,76 @@ type SemanticSearchResponse = {
   error?: { code?: string }
 }
 
-let searchObserver: MutationObserver | null = null
-let pagefindLoadPromise: Promise<void> | null = null
-let isPagefindReady = false
-let semanticAbortController: AbortController | null = null
-let semanticDebounceTimer = 0
-let semanticSequence = 0
-let semanticResultCount = 0
-let semanticState: 'idle' | 'loading' | 'ready' | 'empty' | 'hidden' = 'idle'
+type NetworkSearchSource =
+  'acecore' | 'systems' | 'schools' | 'wiki' | 'portal' | 'world-foundation'
+
+type NetworkSearchResult = {
+  url: string
+  title: string
+  section: string
+  excerpt: string
+  source: NetworkSearchSource
+  sourceLabel: string
+  rank: number
+}
+
+type NetworkSearchResponse = {
+  ok: boolean
+  requestId?: string
+  results?: NetworkSearchResult[]
+  error?: { code?: string }
+}
 
 const PAGEFIND_STYLE_ID = 'pagefind-ui-style'
 const PAGEFIND_SCRIPT_ID = 'pagefind-ui-script'
 const PAGEFIND_OVERRIDE_STYLE_ID = 'pagefind-ui-override-style'
 const SEMANTIC_DEBOUNCE_MS = 400
 const SEMANTIC_TIMEOUT_MS = 1600
+const NETWORK_TIMEOUT_MS = 1800
 const SEARCH_CLIENT_STORAGE_KEY = 'acecore-search-client-v1'
 const SEARCH_PRIVACY_NOTICE_ID = 'semantic-search-privacy-notice'
+const NETWORK_RESULT_LIMIT = 3
+const MIN_QUERY_LENGTH = 2
+const MAX_QUERY_LENGTH = 160
+const MAX_PATH_DECODE_PASSES = 4
+const REQUEST_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+const LOCAL_NETWORK_SOURCE: NetworkSearchSource = 'acecore'
+const NETWORK_SOURCE_DETAILS: Readonly<
+  Record<NetworkSearchSource, { origin: string; sourceLabel: string }>
+> = {
+  acecore: { origin: 'https://acecore.net', sourceLabel: 'Acecore' },
+  systems: {
+    origin: 'https://systems.acecore.net',
+    sourceLabel: 'Acecore Systems',
+  },
+  schools: {
+    origin: 'https://schools.acecore.net',
+    sourceLabel: 'Acecore Schools',
+  },
+  wiki: {
+    origin: 'https://asv-wiki.acecore.net',
+    sourceLabel: 'Aceserver WIKI',
+  },
+  portal: {
+    origin: 'https://asv.acecore.net',
+    sourceLabel: 'Aceserver Portal',
+  },
+  'world-foundation': {
+    origin: 'https://world-foundation.acecore.net',
+    sourceLabel: 'World Foundation',
+  },
+}
+
+let pagefindLoadPromise: Promise<void> | null = null
+let isPagefindReady = false
+let semanticAbortController: AbortController | null = null
+let networkAbortController: AbortController | null = null
+let semanticDebounceTimer = 0
+let searchSequence = 0
+let semanticResultCount = 0
+let networkResultCount = 0
+let searchObserver: MutationObserver | null = null
 let searchLifecycleBound = false
 
 function bindSearchLifecycle() {
@@ -50,11 +105,9 @@ function bindSearchLifecycle() {
 
   searchLifecycleBound = true
   document.addEventListener('astro:before-swap', () => {
-    window.clearTimeout(semanticDebounceTimer)
-    semanticDebounceTimer = 0
+    resetSearchState()
     searchObserver?.disconnect()
     searchObserver = null
-    hideSemanticSearch()
   })
 }
 
@@ -74,32 +127,24 @@ function ensurePagefindOverrideStyle() {
   const style = document.createElement('style')
   style.id = PAGEFIND_OVERRIDE_STYLE_ID
   style.textContent = `
-    .pagefind-ui__search-input {
-      border-radius: 0.5rem !important;
-      border-color: #cbd5e1 !important;
-      font-size: 1rem !important;
-      min-height: 3rem !important;
-      padding: 0.75rem 1rem 0.75rem 2.75rem !important;
-    }
-    .pagefind-ui__search-input:focus {
-      border-color: #7fa4cf !important;
-      box-shadow: 0 0 0 2px rgba(127, 164, 207, 0.25) !important;
-      outline: none !important;
+    #pagefind-search-container .pagefind-ui__form,
+    #pagefind-search-container .pagefind-ui__search-input {
+      display: none !important;
     }
     .pagefind-ui__result-link {
       color: #264b7d !important;
       font-weight: 600 !important;
     }
     .pagefind-ui__result-excerpt {
-      font-size: 0.875rem !important;
       color: #64748b !important;
+      font-size: 0.875rem !important;
       line-height: 1.65 !important;
     }
     .pagefind-ui__result {
       border-top: 1px solid #e2e8f0 !important;
       padding: 1rem 0 !important;
     }
-    #search-container .pagefind-ui {
+    #pagefind-search-container .pagefind-ui {
       --pagefind-ui-primary: #264b7d;
       --pagefind-ui-border: #e2e8f0;
       --pagefind-ui-border-width: 1px;
@@ -111,8 +156,8 @@ function ensurePagefindOverrideStyle() {
 }
 
 function loadPagefindScript() {
-  // Astroのhead swapでは動的に追加したlink/styleが外れるため、
-  // 読み込み済みruntimeを再利用するときも現在documentへ再装着する。
+  // Astro's head swap can detach dynamically added style nodes, so attach them
+  // again whenever the fallback is requested.
   ensurePagefindStyle()
   ensurePagefindOverrideStyle()
 
@@ -157,15 +202,15 @@ function loadPagefindScript() {
   return pagefindLoadPromise
 }
 
-function waitForSearchInput(dialog: HTMLDialogElement) {
-  const existingInput = dialog.querySelector<HTMLInputElement>(
+function waitForPagefindInput(container: HTMLElement) {
+  const existingInput = container.querySelector<HTMLInputElement>(
     '.pagefind-ui__search-input',
   )
   if (existingInput) return Promise.resolve(existingInput)
 
   return new Promise<HTMLInputElement | null>((resolve) => {
     const observer = new MutationObserver(() => {
-      const input = dialog.querySelector<HTMLInputElement>(
+      const input = container.querySelector<HTMLInputElement>(
         '.pagefind-ui__search-input',
       )
       if (!input) return
@@ -173,59 +218,28 @@ function waitForSearchInput(dialog: HTMLDialogElement) {
       resolve(input)
     })
 
-    observer.observe(dialog, { childList: true, subtree: true })
+    observer.observe(container, { childList: true, subtree: true })
     window.setTimeout(() => {
       observer.disconnect()
       resolve(
-        dialog.querySelector<HTMLInputElement>('.pagefind-ui__search-input'),
+        container.querySelector<HTMLInputElement>('.pagefind-ui__search-input'),
       )
     }, 3000)
   })
 }
 
-function showSearchLoading(container: HTMLElement) {
-  const dialog = getDialog()
-  const message = document.createElement('p')
-  message.className = 'px-1 py-5 text-sm text-slate-600'
-  message.textContent = dialog?.dataset.tLoading ?? 'Loading search...'
-  container.replaceChildren(message)
-}
-
-function showSearchError(container: HTMLElement, retry: () => void) {
-  const dialog = getDialog()
-  const wrapper = document.createElement('div')
-  wrapper.className = 'space-y-3 px-1 py-5'
-
-  const message = document.createElement('p')
-  message.className = 'text-sm text-red-700'
-  message.textContent =
-    dialog?.dataset.tError ?? 'Failed to load search. Please try again.'
-
-  const button = document.createElement('button')
-  button.type = 'button'
-  button.className = 'ac-btn-outline text-sm'
-  button.textContent = dialog?.dataset.tRetry ?? 'Retry'
-  button.addEventListener('click', retry, { once: true })
-
-  wrapper.append(message, button)
-  container.replaceChildren(wrapper)
-}
-
-async function ensureSearchUi(
-  dialog: HTMLDialogElement,
-  container: HTMLElement,
-) {
+async function ensurePagefindFallback(dialog: HTMLDialogElement) {
+  const container = getPagefindContainer()
+  if (!container) return null
   if (container.dataset.pagefindReady === 'true') {
-    return waitForSearchInput(dialog)
+    return waitForPagefindInput(container)
   }
 
-  showSearchLoading(container)
   await loadPagefindScript()
-
   container.replaceChildren()
   const d = dialog.dataset
   new window.PagefindUI!({
-    element: '#search-container',
+    element: '#pagefind-search-container',
     showSubResults: false,
     showImages: false,
     showFilters: true,
@@ -238,17 +252,10 @@ async function ensureSearchUi(
     },
   })
   container.dataset.pagefindReady = 'true'
-
-  return waitForSearchInput(dialog)
+  return waitForPagefindInput(container)
 }
 
-function bindSearchInput(
-  input: HTMLInputElement | null,
-  dialog: HTMLDialogElement,
-  container: HTMLElement,
-) {
-  if (!input) return
-
+function bindSearchInput(input: HTMLInputElement, dialog: HTMLDialogElement) {
   const describedBy = new Set(
     (input.getAttribute('aria-describedby') || '')
       .split(/\s+/u)
@@ -258,27 +265,16 @@ function bindSearchInput(
   input.setAttribute('aria-describedby', [...describedBy].join(' '))
 
   if (input.dataset.searchBound === 'true') return
-
   input.dataset.searchBound = 'true'
   let lastTrackedQuery = ''
 
   input.addEventListener('input', () => {
-    window.clearTimeout(semanticDebounceTimer)
-    hideSemanticSearch()
     const query = normalizeQuery(input.value)
-
-    if (query.length < 2) {
-      updateFallbackAndAd(dialog, container)
-      return
-    }
+    const sequence = resetSearchState()
+    if (!isSearchQuery(query)) return
 
     semanticDebounceTimer = window.setTimeout(() => {
-      if (hasActivePagefindFilter(container)) {
-        hideSemanticSearch()
-        updateFallbackAndAd(dialog, container)
-        return
-      }
-
+      if (sequence !== searchSequence) return
       if (query !== lastTrackedQuery) {
         lastTrackedQuery = query
         window.aceTrackEvent?.('search_submit', {
@@ -288,22 +284,26 @@ function bindSearchInput(
           query_length: [...query].length,
         })
       }
-
-      void runSemanticSearch(query, dialog, container)
+      void runSearch(query, dialog, sequence)
     }, SEMANTIC_DEBOUNCE_MS)
   })
+}
 
-  container.addEventListener('change', () => {
-    input.dispatchEvent(new Event('input', { bubbles: true }))
-  })
+async function runSearch(
+  query: string,
+  dialog: HTMLDialogElement,
+  sequence: number,
+) {
+  await runSemanticSearch(query, dialog, sequence)
+  if (sequence !== searchSequence) return
+  void runNetworkSearch(query, dialog, sequence)
 }
 
 async function runSemanticSearch(
   query: string,
   dialog: HTMLDialogElement,
-  container: HTMLElement,
+  sequence: number,
 ) {
-  const sequence = ++semanticSequence
   const controller = new AbortController()
   semanticAbortController = controller
   const timeout = window.setTimeout(
@@ -312,7 +312,7 @@ async function runSemanticSearch(
   )
   const startedAt = performance.now()
   showSemanticLoading(dialog)
-  updateFallbackAndAd(dialog, container)
+  updateAd()
 
   try {
     const response = await fetch('/api/search', {
@@ -329,25 +329,43 @@ async function runSemanticSearch(
       signal: controller.signal,
     })
     const payload = (await response.json()) as SemanticSearchResponse
-    if (sequence !== semanticSequence) return
-
-    if (!response.ok || !payload.ok || !Array.isArray(payload.results)) {
+    if (sequence !== searchSequence) return
+    if (
+      !response.ok ||
+      !payload.ok ||
+      !isRequestId(payload.requestId) ||
+      !Array.isArray(payload.results)
+    ) {
       throw new Error(payload.error?.code || `http_${response.status}`)
     }
 
-    renderSemanticResults(payload.results, dialog)
-    updateFallbackAndAd(dialog, container)
+    const results = payload.results
+      .map(normalizeSemanticResult)
+      .filter((result): result is SemanticSearchResult => result !== null)
+      .slice(0, 5)
+    if (results.length === 0) {
+      showSemanticEmpty(dialog)
+      await showPagefindFallback(query, dialog, sequence)
+      window.aceTrackEvent?.('semantic_search_fallback', {
+        location: 'search_modal',
+        page_path: window.location.pathname,
+        reason: 'no_safe_results',
+      })
+      return
+    }
+
+    renderSemanticResults(results, dialog)
     window.aceTrackEvent?.('semantic_search_complete', {
       location: 'search_modal',
       page_path: window.location.pathname,
-      result_count: payload.results.length,
+      result_count: results.length,
       duration_ms: Math.round(performance.now() - startedAt),
     })
   } catch (error) {
-    if (sequence !== semanticSequence) return
+    if (sequence !== searchSequence) return
 
     hideSemanticSearch()
-    updateFallbackAndAd(dialog, container)
+    await showPagefindFallback(query, dialog, sequence)
     window.aceTrackEvent?.('semantic_search_fallback', {
       location: 'search_modal',
       page_path: window.location.pathname,
@@ -361,6 +379,67 @@ async function runSemanticSearch(
     if (semanticAbortController === controller) {
       semanticAbortController = null
     }
+    updateAd()
+  }
+}
+
+async function runNetworkSearch(
+  query: string,
+  dialog: HTMLDialogElement,
+  sequence: number,
+) {
+  const networkApi = dialog.dataset.networkApi
+  if (!networkApi) return
+
+  const controller = new AbortController()
+  networkAbortController = controller
+  const timeout = window.setTimeout(
+    () => controller.abort(),
+    NETWORK_TIMEOUT_MS,
+  )
+  const startedAt = performance.now()
+
+  try {
+    const response = await fetch(networkApi, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query,
+        locale: dialog.dataset.locale || 'ja',
+      }),
+      credentials: 'omit',
+      signal: controller.signal,
+    })
+    const payload = (await response.json()) as NetworkSearchResponse
+    if (sequence !== searchSequence) return
+    if (
+      !response.ok ||
+      !payload.ok ||
+      !isRequestId(payload.requestId) ||
+      !Array.isArray(payload.results)
+    ) {
+      throw new Error(payload.error?.code || `http_${response.status}`)
+    }
+
+    renderNetworkResults(payload.results, dialog)
+    window.aceTrackEvent?.('network_search_complete', {
+      location: 'search_modal',
+      page_path: window.location.pathname,
+      result_count: networkResultCount,
+      duration_ms: Math.round(performance.now() - startedAt),
+    })
+  } catch {
+    if (sequence !== searchSequence) return
+    hideNetworkSearch()
+    window.aceTrackEvent?.('network_search_unavailable', {
+      location: 'search_modal',
+      page_path: window.location.pathname,
+    })
+  } finally {
+    window.clearTimeout(timeout)
+    if (networkAbortController === controller) {
+      networkAbortController = null
+    }
   }
 }
 
@@ -368,11 +447,21 @@ function showSemanticLoading(dialog: HTMLDialogElement) {
   const elements = getSemanticElements()
   if (!elements) return
 
-  semanticState = 'loading'
   semanticResultCount = 0
   elements.section.classList.remove('hidden')
   elements.status.textContent =
     dialog.dataset.tSemanticLoading ?? 'Finding related content...'
+  elements.results.replaceChildren()
+}
+
+function showSemanticEmpty(dialog: HTMLDialogElement) {
+  const elements = getSemanticElements()
+  if (!elements) return
+
+  semanticResultCount = 0
+  elements.section.classList.remove('hidden')
+  elements.status.textContent =
+    dialog.dataset.tSemanticZeroResults ?? 'No related content'
   elements.results.replaceChildren()
 }
 
@@ -383,65 +472,21 @@ function renderSemanticResults(
   const elements = getSemanticElements()
   if (!elements) return
 
-  const safeResults = results.filter(isSafeSemanticResult).slice(0, 5)
-  semanticResultCount = safeResults.length
-  semanticState = safeResults.length > 0 ? 'ready' : 'empty'
+  semanticResultCount = results.length
   elements.section.classList.remove('hidden')
-  elements.status.textContent =
-    safeResults.length === 0
-      ? (dialog.dataset.tSemanticZeroResults ?? 'No related content')
-      : safeResults.length === 1
-        ? (dialog.dataset.tSemanticOneResult ?? '1 related result')
-        : (
-            dialog.dataset.tSemanticManyResults ?? '[COUNT] related results'
-          ).replace('[COUNT]', String(safeResults.length))
-
-  const items = safeResults.map((result) => {
-    const item = document.createElement('li')
-    item.className = 'py-3 first:pt-0 last:pb-0'
-
-    const link = document.createElement('a')
-    link.className =
-      'group block rounded-md outline-none focus-visible:ring-2 focus-visible:ring-brand-400'
-    link.href = result.url
-    link.dataset.semanticResult = 'true'
-    link.dataset.rank = String(result.rank)
-
-    const heading = document.createElement('span')
-    heading.className =
-      'block text-sm font-700 text-brand-800 transition-colors group-hover:text-brand-600'
-    heading.textContent = result.title
-
-    if (result.section && result.section !== result.title) {
-      const section = document.createElement('span')
-      section.className = 'mt-0.5 block text-xs font-600 text-slate-500'
-      section.textContent = result.section
-      link.append(heading, section)
-    } else {
-      link.append(heading)
-    }
-
-    if (result.excerpt) {
-      const excerpt = document.createElement('span')
-      excerpt.className =
-        'mt-1 block text-xs leading-relaxed text-slate-500 sm:text-sm'
-      excerpt.textContent = result.excerpt
-      link.append(excerpt)
-    }
-
-    item.append(link)
-    return item
-  })
-  elements.results.replaceChildren(...items)
+  elements.status.textContent = getResultStatus(
+    results.length,
+    dialog.dataset.tSemanticOneResult,
+    dialog.dataset.tSemanticManyResults,
+  )
+  elements.results.replaceChildren(
+    ...results.map((result) => createLocalResultItem(result)),
+  )
+  updateAd()
 }
 
 function hideSemanticSearch() {
-  semanticAbortController?.abort()
-  semanticAbortController = null
-  semanticSequence += 1
   semanticResultCount = 0
-  semanticState = 'hidden'
-
   const elements = getSemanticElements()
   if (!elements) return
   elements.section.classList.add('hidden')
@@ -449,35 +494,304 @@ function hideSemanticSearch() {
   elements.results.replaceChildren()
 }
 
-function isSafeSemanticResult(result: SemanticSearchResult) {
+function renderNetworkResults(
+  results: NetworkSearchResult[],
+  dialog: HTMLDialogElement,
+) {
+  const elements = getNetworkElements()
+  if (!elements) return
+
+  const safeResults = results
+    .map(normalizeNetworkResult)
+    .filter((result): result is NetworkSearchResult => result !== null)
+    .slice(0, NETWORK_RESULT_LIMIT)
+  networkResultCount = safeResults.length
+  if (safeResults.length === 0) {
+    hideNetworkSearch()
+    return
+  }
+
+  elements.section.classList.remove('hidden')
+  elements.status.textContent = getResultStatus(
+    safeResults.length,
+    dialog.dataset.tNetworkOneResult,
+    dialog.dataset.tNetworkManyResults,
+  )
+  elements.results.replaceChildren(
+    ...safeResults.map((result) => createNetworkResultItem(result)),
+  )
+  updateAd()
+}
+
+function hideNetworkSearch() {
+  networkResultCount = 0
+  const elements = getNetworkElements()
+  if (!elements) return
+  elements.section.classList.add('hidden')
+  elements.status.textContent = ''
+  elements.results.replaceChildren()
+}
+
+async function showPagefindFallback(
+  query: string,
+  dialog: HTMLDialogElement,
+  sequence: number,
+) {
+  const elements = getPagefindElements()
+  if (!elements) return
+
+  elements.section.classList.remove('hidden')
+  elements.status.textContent = ''
+  elements.notice.textContent =
+    dialog.dataset.tPagefindNotice ??
+    'Showing keyword matches because semantic search is unavailable.'
+
+  try {
+    const pagefindInput = await ensurePagefindFallback(dialog)
+    if (!pagefindInput || sequence !== searchSequence) return
+    pagefindInput.value = query
+    pagefindInput.dispatchEvent(new Event('input', { bubbles: true }))
+  } catch {
+    if (sequence !== searchSequence) return
+    elements.notice.textContent =
+      dialog.dataset.tError ?? 'Failed to load search.'
+    elements.container.replaceChildren(createSearchFallback(dialog))
+  } finally {
+    updateAd()
+  }
+}
+
+function hidePagefindSearch() {
+  const elements = getPagefindElements()
+  if (!elements) return
+  elements.section.classList.add('hidden')
+  elements.status.textContent = ''
+  elements.notice.textContent = ''
+}
+
+function createLocalResultItem(result: SemanticSearchResult) {
+  const item = document.createElement('li')
+  item.className = 'py-3 first:pt-0 last:pb-0'
+
+  const link = document.createElement('a')
+  link.className =
+    'group block rounded-md outline-none focus-visible:ring-2 focus-visible:ring-brand-400'
+  link.href = result.url
+  link.dataset.semanticResult = 'true'
+  link.dataset.rank = String(result.rank)
+
+  appendResultContent(link, result.title, result.section, result.excerpt)
+  item.append(link)
+  return item
+}
+
+function createNetworkResultItem(result: NetworkSearchResult) {
+  const item = document.createElement('li')
+  item.className = 'py-3 first:pt-0 last:pb-0'
+
+  const link = document.createElement('a')
+  link.className =
+    'group block rounded-md outline-none focus-visible:ring-2 focus-visible:ring-brand-400'
+  link.href = result.url
+  link.dataset.networkResult = 'true'
+  link.dataset.rank = String(result.rank)
+  link.dataset.source = result.source
+
+  appendResultContent(link, result.title, result.section, result.excerpt)
+  const source = document.createElement('span')
+  source.className = 'mt-1 block text-xs font-600 text-slate-400'
+  source.textContent = result.sourceLabel
+  link.append(source)
+  item.append(link)
+  return item
+}
+
+function appendResultContent(
+  link: HTMLAnchorElement,
+  title: string,
+  section: string,
+  excerpt: string,
+) {
+  const heading = document.createElement('span')
+  heading.className =
+    'block text-sm font-700 text-brand-800 transition-colors group-hover:text-brand-600'
+  heading.textContent = title
+  link.append(heading)
+
+  if (section && section !== title) {
+    const sectionElement = document.createElement('span')
+    sectionElement.className = 'mt-0.5 block text-xs font-600 text-slate-500'
+    sectionElement.textContent = section
+    link.append(sectionElement)
+  }
+
+  if (excerpt) {
+    const excerptElement = document.createElement('span')
+    excerptElement.className =
+      'mt-1 block text-xs leading-relaxed text-slate-500 sm:text-sm'
+    excerptElement.textContent = excerpt
+    link.append(excerptElement)
+  }
+}
+
+function normalizeSemanticResult(
+  result: SemanticSearchResult,
+): SemanticSearchResult | null {
   if (
     !result ||
-    typeof result.url !== 'string' ||
-    typeof result.title !== 'string' ||
-    typeof result.rank !== 'number' ||
+    !isSafeText(result.title, 240) ||
+    !isSafeText(result.section, 240, true) ||
+    !isSafeText(result.excerpt, 500, true) ||
+    !Number.isInteger(result.rank) ||
+    result.rank < 1 ||
+    !isSafeText(result.url, 500) ||
     !result.url.startsWith('/') ||
     result.url.startsWith('//')
+  ) {
+    return null
+  }
+
+  const pathname = decodePublicPathname(result.url)
+  if (!pathname || isPrivateRootPath(pathname)) return null
+
+  try {
+    const url = new URL(pathname, window.location.href)
+    if (url.origin === window.origin && !url.search && !url.hash) {
+      return { ...result, url: pathname }
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+function normalizeNetworkResult(
+  result: NetworkSearchResult,
+): NetworkSearchResult | null {
+  const sourceDetails = NETWORK_SOURCE_DETAILS[result?.source]
+  if (
+    !result ||
+    !isSafeText(result.title, 240) ||
+    !isSafeText(result.section, 240, true) ||
+    !isSafeText(result.excerpt, 500, true) ||
+    !isSafeText(result.sourceLabel, 120) ||
+    !Number.isInteger(result.rank) ||
+    result.rank < 1 ||
+    result.rank > NETWORK_RESULT_LIMIT ||
+    result.source === LOCAL_NETWORK_SOURCE ||
+    !isSafeText(result.url, 500) ||
+    !sourceDetails ||
+    result.sourceLabel !== sourceDetails.sourceLabel
+  ) {
+    return null
+  }
+
+  const pathname = resolveRawNetworkPathname(result.url, sourceDetails.origin)
+  if (!pathname || !isSafeNetworkPath(result.source, pathname)) return null
+
+  return {
+    ...result,
+    url: `${sourceDetails.origin}${pathname}`,
+  }
+}
+
+function resolveRawNetworkPathname(
+  rawUrl: string,
+  expectedOrigin: string,
+): string | null {
+  const normalizedUrl = rawUrl.normalize('NFKC')
+  const prefix = `${expectedOrigin}/`
+  if (!normalizedUrl.startsWith(prefix)) return null
+
+  return decodePublicPathname(normalizedUrl.slice(expectedOrigin.length))
+}
+
+function isSafeNetworkPath(source: NetworkSearchSource, pathname: string) {
+  if (
+    isPrivateRootPath(pathname) ||
+    (source === 'wiki' && !pathname.startsWith('/article/'))
   ) {
     return false
   }
 
-  try {
-    return new URL(result.url, window.location.href).origin === window.origin
-  } catch {
-    return false
-  }
+  return !(
+    source === 'portal' &&
+    (/^\/(?:admin|api)(?:\/|$)/u.test(pathname) ||
+      [
+        '/vector-corpus.json',
+        '/404',
+        '/404/',
+        '/404.html',
+        '/404.html/',
+      ].includes(pathname))
+  )
 }
 
-function hasActivePagefindFilter(container: HTMLElement) {
-  return Array.from(
-    container.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-      '.pagefind-ui__filter-panel input, .pagefind-ui__filter-panel select',
-    ),
-  ).some((control) =>
-    control instanceof HTMLInputElement
-      ? control.checked
-      : Boolean(control.value),
+function decodePublicPathname(pathname: string): string | null {
+  let decoded = pathname
+
+  for (let attempt = 0; attempt < MAX_PATH_DECODE_PASSES; attempt += 1) {
+    decoded = decoded.normalize('NFKC')
+    if (/%(?:2f|5c)/iu.test(decoded)) return null
+
+    try {
+      const next = decodeURIComponent(decoded)
+      if (next === decoded) {
+        return isSafeDecodedPathname(decoded) ? decoded : null
+      }
+      decoded = next
+    } catch {
+      return null
+    }
+  }
+
+  const normalized = decoded.normalize('NFKC')
+  return isSafeDecodedPathname(normalized) ? normalized : null
+}
+
+function isPrivateRootPath(pathname: string) {
+  const firstPathSegment = pathname.split('/').find(Boolean)?.toLowerCase()
+  return (
+    firstPathSegment !== undefined &&
+    ['admin', 'api'].includes(firstPathSegment)
   )
+}
+
+function isSafeDecodedPathname(pathname: string): boolean {
+  return (
+    pathname.startsWith('/') &&
+    !pathname.includes('%') &&
+    !pathname.includes('?') &&
+    !pathname.includes('#') &&
+    !pathname.includes('//') &&
+    !/\s/u.test(pathname) &&
+    !/[\\\u0000-\u001f\u007f]/u.test(pathname) &&
+    !pathname.split('/').some((segment) => segment === '.' || segment === '..')
+  )
+}
+
+function isSafeText(value: unknown, maximumLength: number, allowEmpty = false) {
+  if (typeof value !== 'string') return false
+  const normalized = value.normalize('NFKC').replace(/\s+/gu, ' ').trim()
+  return (
+    (allowEmpty || normalized.length > 0) &&
+    normalized.length <= maximumLength &&
+    !/[<>]/u.test(normalized)
+  )
+}
+
+function isRequestId(value: unknown): value is string {
+  return typeof value === 'string' && REQUEST_ID_PATTERN.test(value)
+}
+
+function getResultStatus(
+  count: number,
+  oneResult: string | undefined,
+  manyResults: string | undefined,
+) {
+  return count === 1
+    ? (oneResult ?? '1 result found')
+    : (manyResults ?? '[COUNT] results found').replace('[COUNT]', String(count))
 }
 
 function bindDialogChrome(dialog: HTMLDialogElement) {
@@ -492,42 +806,43 @@ function bindDialogChrome(dialog: HTMLDialogElement) {
     if (event.target === dialog) dialog.close()
   })
   dialog.addEventListener('close', () => {
-    window.clearTimeout(semanticDebounceTimer)
-    hideSemanticSearch()
+    resetSearchState()
   })
 }
 
-function bindResultClickAnalytics(
-  dialog: HTMLDialogElement,
-  container: HTMLElement,
-) {
+function bindResultClickAnalytics(dialog: HTMLDialogElement) {
   if (dialog.dataset.gaClickBound === 'true') return
 
   dialog.dataset.gaClickBound = 'true'
   dialog.addEventListener('click', (event) => {
     const target = event.target as Element | null
-    const semanticLink = target?.closest<HTMLAnchorElement>(
+    const localLink = target?.closest<HTMLAnchorElement>(
       '[data-semantic-result]',
     )
-    if (semanticLink) {
-      window.aceTrackEvent?.('search_result_click', {
-        location: 'search_modal',
-        source: 'vectorize',
-        rank: Number(semanticLink.dataset.rank || 0),
-        page_path: window.location.pathname,
-        destination: semanticLink.pathname,
-      })
+    if (localLink) {
+      trackResultClick('vectorize', localLink)
+      return
+    }
+
+    const networkLink = target?.closest<HTMLAnchorElement>(
+      '[data-network-result]',
+    )
+    if (networkLink) {
+      trackResultClick(
+        'acecore_network',
+        networkLink,
+        networkLink.dataset.source,
+      )
       return
     }
 
     const pagefindLink = target?.closest<HTMLAnchorElement>(
       '.pagefind-ui__result-link',
     )
-    if (!pagefindLink || !container.contains(pagefindLink)) return
-
+    if (!pagefindLink || !getPagefindContainer()?.contains(pagefindLink)) return
     window.aceTrackEvent?.('search_result_click', {
       location: 'search_modal',
-      source: 'pagefind',
+      source: 'pagefind_fallback',
       page_path: window.location.pathname,
       result_title: pagefindLink.textContent?.trim() || '',
       destination: pagefindLink.pathname,
@@ -535,40 +850,39 @@ function bindResultClickAnalytics(
   })
 }
 
-function bindSearchObserver(dialog: HTMLDialogElement, container: HTMLElement) {
-  searchObserver?.disconnect()
-  searchObserver = new MutationObserver(() => {
-    updateFallbackAndAd(dialog, container)
+function trackResultClick(
+  source: string,
+  link: HTMLAnchorElement,
+  relatedSource?: string,
+) {
+  window.aceTrackEvent?.('search_result_click', {
+    location: 'search_modal',
+    source,
+    related_source: relatedSource,
+    rank: Number(link.dataset.rank || 0),
+    page_path: window.location.pathname,
+    destination: link.pathname,
   })
+}
+
+function bindSearchObserver() {
+  const container = getPagefindContainer()
+  if (!container || container.dataset.observerBound === 'true') return
+
+  container.dataset.observerBound = 'true'
+  searchObserver?.disconnect()
+  searchObserver = new MutationObserver(() => updateAd())
   searchObserver.observe(container, { childList: true, subtree: true })
 }
 
-function updateFallbackAndAd(
-  dialog: HTMLDialogElement,
-  container: HTMLElement,
-) {
-  const resultsArea = container.querySelector('.pagefind-ui__results-area')
-  const pagefindResults = container.querySelectorAll('.pagefind-ui__result')
-  const message = container.querySelector('.pagefind-ui__message')
+function updateAd() {
   const ad = document.getElementById('search-ad')
-  let fallback = document.getElementById('search-fallback')
-  const pagefindHasResults = pagefindResults.length > 0
-  const semanticHasResults = semanticResultCount > 0
-  const shouldShowFallback =
-    Boolean(message?.textContent) &&
-    !pagefindHasResults &&
-    !semanticHasResults &&
-    semanticState !== 'loading'
-
-  if (shouldShowFallback && !fallback) {
-    fallback = createSearchFallback(dialog)
-    message?.parentNode?.insertBefore(fallback, message.nextSibling)
-  } else if (!shouldShowFallback) {
-    fallback?.remove()
-  }
-
   if (!ad) return
-  if ((resultsArea && pagefindHasResults) || semanticHasResults) {
+
+  const pagefindCount = getPagefindContainer()?.querySelectorAll(
+    '.pagefind-ui__result',
+  ).length
+  if (semanticResultCount > 0 || networkResultCount > 0 || pagefindCount) {
     ad.classList.remove('hidden')
     window.aceInitAdSlots?.(ad)
   } else {
@@ -579,8 +893,7 @@ function updateFallbackAndAd(
 function createSearchFallback(dialog: HTMLDialogElement) {
   const d = dialog.dataset
   const fallback = document.createElement('div')
-  fallback.id = 'search-fallback'
-  fallback.className = 'px-1 py-4 text-sm text-slate-600'
+  fallback.className = 'py-3 text-sm text-slate-600'
 
   const heading = document.createElement('p')
   heading.className = 'mb-2'
@@ -608,6 +921,21 @@ function createSearchFallback(dialog: HTMLDialogElement) {
   return fallback
 }
 
+function resetSearchState() {
+  window.clearTimeout(semanticDebounceTimer)
+  semanticDebounceTimer = 0
+  semanticAbortController?.abort()
+  semanticAbortController = null
+  networkAbortController?.abort()
+  networkAbortController = null
+  searchSequence += 1
+  hideSemanticSearch()
+  hidePagefindSearch()
+  hideNetworkSearch()
+  updateAd()
+  return searchSequence
+}
+
 function getSearchClientId() {
   try {
     const existing = sessionStorage.getItem(SEARCH_CLIENT_STORAGE_KEY)
@@ -625,8 +953,19 @@ function normalizeQuery(value: string) {
   return value.normalize('NFKC').replace(/\s+/gu, ' ').trim()
 }
 
+function isSearchQuery(query: string) {
+  const length = [...query].length
+  return length >= MIN_QUERY_LENGTH && length <= MAX_QUERY_LENGTH
+}
+
 function getDialog() {
   return document.getElementById('search-dialog') as HTMLDialogElement | null
+}
+
+function getSearchInput() {
+  return document.getElementById(
+    'semantic-search-input',
+  ) as HTMLInputElement | null
 }
 
 function getSemanticElements() {
@@ -637,22 +976,38 @@ function getSemanticElements() {
   return { section, status, results }
 }
 
-function getDialogElements() {
-  const dialog = getDialog()
-  const container = document.getElementById('search-container')
-  return dialog && container ? { dialog, container } : null
+function getPagefindContainer() {
+  return document.getElementById('pagefind-search-container')
+}
+
+function getPagefindElements() {
+  const section = document.getElementById('pagefind-search')
+  const status = document.getElementById('pagefind-search-status')
+  const notice = document.getElementById('pagefind-search-notice')
+  const container = getPagefindContainer()
+  if (!section || !status || !notice || !container) return null
+  return { section, status, notice, container }
+}
+
+function getNetworkElements() {
+  const section = document.getElementById('network-search')
+  const status = document.getElementById('network-search-status')
+  const results = document.getElementById('network-search-results')
+  if (!section || !status || !results) return null
+  return { section, status, results }
 }
 
 export async function openSearch(query?: string) {
   bindSearchLifecycle()
 
-  const elements = getDialogElements()
-  if (!elements) return
+  const dialog = getDialog()
+  const input = getSearchInput()
+  if (!dialog || !input) return
 
-  const { dialog, container } = elements
   bindDialogChrome(dialog)
-  bindResultClickAnalytics(dialog, container)
-  bindSearchObserver(dialog, container)
+  bindResultClickAnalytics(dialog)
+  bindSearchObserver()
+  bindSearchInput(input, dialog)
 
   if (!dialog.open) {
     dialog.showModal()
@@ -663,21 +1018,13 @@ export async function openSearch(query?: string) {
     })
   }
 
-  try {
-    const input = await ensureSearchUi(dialog, container)
-    bindSearchInput(input, dialog, container)
-    if (query && input) {
-      input.value = query
+  if (query) {
+    input.value = query
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+  } else {
+    input.focus()
+    if (isSearchQuery(normalizeQuery(input.value))) {
       input.dispatchEvent(new Event('input', { bubbles: true }))
-    } else if (input) {
-      input.focus()
-      if (normalizeQuery(input.value).length >= 2) {
-        input.dispatchEvent(new Event('input', { bubbles: true }))
-      }
     }
-  } catch {
-    showSearchError(container, () => {
-      void openSearch(query)
-    })
   }
 }

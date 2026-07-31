@@ -82,6 +82,96 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
   })
 })
 
+test('local Vectorize metadataの管理path・多重エンコード・query/hashを返さない', async () => {
+  const env = createEnv({
+    matches: [
+      {
+        id: 'admin',
+        score: 0.99,
+        metadata: {
+          url: '/admin/',
+          title: 'ADMIN',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'encoded-admin',
+        score: 0.98,
+        metadata: {
+          url: '/%EF%BC%85%36%31dmin/',
+          title: 'ENCODED_ADMIN',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'encoded-query',
+        score: 0.97,
+        metadata: {
+          url: '/public/%253Fprivate/',
+          title: 'ENCODED_QUERY',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'raw-parent',
+        score: 0.96,
+        metadata: {
+          url: '/safe/../services/',
+          title: 'RAW_PARENT',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'raw-backslash',
+        score: 0.95,
+        metadata: {
+          url: '/safe\\private/',
+          title: 'RAW_BACKSLASH',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'raw-control',
+        score: 0.94,
+        metadata: {
+          url: '/safe\tpublic/',
+          title: 'RAW_CONTROL',
+          locale: 'ja',
+        },
+      },
+      {
+        id: 'safe',
+        score: 0.93,
+        metadata: {
+          url: '/services/',
+          title: 'SAFE',
+          locale: 'ja',
+        },
+      },
+    ],
+  })
+
+  const response = await withOpenAiEmbedding(() =>
+    onRequestPost({
+      request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
+      env,
+    }),
+  )
+
+  assert.equal(response.status, 200)
+  assert.deepEqual((await response.json()).results, [
+    {
+      id: 'safe',
+      url: '/services/',
+      title: 'SAFE',
+      section: 'SAFE',
+      excerpt: '',
+      contentType: 'page',
+      rank: 1,
+    },
+  ])
+})
+
 test('OriginがないrequestはOpenAIを呼ばずに拒否する', async () => {
   let openAiCalled = false
   const env = createEnv()

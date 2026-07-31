@@ -3,13 +3,15 @@ import type { AiContactSourceIntent } from './ai-contact-source-routing.ts'
 
 const SEARCH_TOP_K = 15
 const GROUNDING_LIMIT = 3
+const RELATED_SEARCH_LIMIT = 3
 const EXTERNAL_SEARCH_NAMESPACE = 'ja'
 const MAX_TITLE_LENGTH = 240
 const MAX_SECTION_LENGTH = 240
 const MAX_EXCERPT_LENGTH = 500
 const MAX_URL_LENGTH = 500
+const MAX_PATH_DECODE_PASSES = 4
 
-const SOURCE_SETTINGS = {
+export const FEDERATED_SOURCE_SETTINGS = {
   acecore: {
     label: 'Acecore official site',
     origin: 'https://acecore.net',
@@ -42,7 +44,7 @@ const SOURCE_SETTINGS = {
   },
 } as const
 
-export type GroundingSource = keyof typeof SOURCE_SETTINGS
+export type GroundingSource = keyof typeof FEDERATED_SOURCE_SETTINGS
 
 type EmbeddingRunner = (input: string) => Promise<number[]>
 
@@ -69,7 +71,7 @@ export type FederatedSearchEnv = {
   WORLD_FOUNDATION_SEARCH_MIN_SCORE?: string
 }
 
-type SearchOptions = {
+export type FederatedSearchOptions = {
   env: FederatedSearchEnv
   runEmbedding?: EmbeddingRunner
 }
@@ -102,11 +104,16 @@ export type FederatedGroundingResult = {
   entries: FederatedGroundingEntry[]
 }
 
+export type FederatedRelatedSearchResult = {
+  queriedSources: GroundingSource[]
+  entries: FederatedGroundingEntry[]
+}
+
 export async function retrieveFederatedGrounding(
   query: string,
   sourceIntent: AiContactSourceIntent,
   locale: string,
-  options: SearchOptions,
+  options: FederatedSearchOptions,
 ): Promise<FederatedGroundingResult> {
   const sources = getGroundingSourcesForIntent(sourceIntent).map((source) =>
     resolveSource(source, options.env),
@@ -166,6 +173,64 @@ export async function retrieveFederatedGrounding(
     sourceIntent,
     queriedSources: sourceResults.map((result) => result.source),
     entries,
+  }
+}
+
+/**
+ * Returns a small, source-balanced set of public results from other official
+ * sites. Callers must already have resolved their own site from a trusted
+ * request origin; the source name is never accepted from the browser.
+ */
+export async function retrieveFederatedRelatedSearch(
+  query: string,
+  callerSource: GroundingSource,
+  locale: string,
+  options: FederatedSearchOptions,
+): Promise<FederatedRelatedSearchResult> {
+  const candidateSources = (
+    Object.keys(FEDERATED_SOURCE_SETTINGS) as GroundingSource[]
+  ).filter((source) => source !== callerSource)
+  const queryableSources = candidateSources
+    .map((source) => resolveSource(source, options.env))
+    .filter((source) => source.enabled && source.searchIndex)
+
+  if (!query || !options.runEmbedding || queryableSources.length === 0) {
+    return { queriedSources: [], entries: [] }
+  }
+
+  let embedding: number[]
+  try {
+    embedding = await options.runEmbedding(query)
+  } catch (error) {
+    logGroundingError(
+      'federated',
+      locale,
+      'related_embedding',
+      getErrorCode(error, 'provider_error'),
+    )
+    return { queriedSources: [], entries: [] }
+  }
+
+  if (!isValidEmbedding(embedding)) {
+    logGroundingError(
+      'federated',
+      locale,
+      'related_embedding',
+      'invalid_embedding',
+    )
+    return { queriedSources: [], entries: [] }
+  }
+
+  const sourceResults = await Promise.all(
+    queryableSources.map(async (resolvedSource) => ({
+      source: resolvedSource.source,
+      entries: await querySource(resolvedSource, embedding, locale),
+    })),
+  )
+
+  return {
+    queriedSources: sourceResults.map((result) => result.source),
+    entries: selectRelatedEntries(sourceResults),
   }
 }
 
@@ -282,7 +347,7 @@ function resolveSource(
         enabled: env.SYSTEMS_SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.SYSTEMS_SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.systems.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.systems.defaultMinScore,
         ),
         searchIndex: env.SYSTEMS_SEARCH_INDEX,
       }
@@ -292,7 +357,7 @@ function resolveSource(
         enabled: env.SCHOOLS_SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.SCHOOLS_SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.schools.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.schools.defaultMinScore,
         ),
         searchIndex: env.SCHOOLS_SEARCH_INDEX,
       }
@@ -302,7 +367,7 @@ function resolveSource(
         enabled: env.ACESERVER_WIKI_SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.ACESERVER_WIKI_SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.aceserverWiki.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.aceserverWiki.defaultMinScore,
         ),
         searchIndex: env.ACESERVER_WIKI_SEARCH_INDEX,
       }
@@ -312,7 +377,7 @@ function resolveSource(
         enabled: env.ACESERVER_PORTAL_SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.ACESERVER_PORTAL_SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.aceserverPortal.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.aceserverPortal.defaultMinScore,
         ),
         searchIndex: env.ACESERVER_PORTAL_SEARCH_INDEX,
       }
@@ -322,7 +387,7 @@ function resolveSource(
         enabled: env.WORLD_FOUNDATION_SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.WORLD_FOUNDATION_SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.worldFoundation.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.worldFoundation.defaultMinScore,
         ),
         searchIndex: env.WORLD_FOUNDATION_SEARCH_INDEX,
       }
@@ -333,7 +398,7 @@ function resolveSource(
         enabled: env.SEARCH_ENABLED === 'true',
         minScore: normalizeMinScore(
           env.SEARCH_MIN_SCORE,
-          SOURCE_SETTINGS.acecore.defaultMinScore,
+          FEDERATED_SOURCE_SETTINGS.acecore.defaultMinScore,
         ),
         searchIndex: env.SEARCH_INDEX,
       }
@@ -399,7 +464,7 @@ function normalizeMetadata(
   const section = readString(metadata.section, MAX_SECTION_LENGTH) || title
   const excerpt = readString(metadata.excerpt, MAX_EXCERPT_LENGTH)
   const rawContentType = readString(metadata.contentType, 40)
-  const rawUrl = readString(metadata.url, MAX_URL_LENGTH)
+  const rawUrl = readRawUrl(metadata.url, MAX_URL_LENGTH)
 
   if (
     locale !== expectedLocale ||
@@ -414,7 +479,7 @@ function normalizeMetadata(
     return null
   }
 
-  const settings = SOURCE_SETTINGS[source]
+  const settings = FEDERATED_SOURCE_SETTINGS[source]
   if (
     ['acecore', 'systems', 'schools', 'worldFoundation'].includes(source) &&
     !rawUrl.startsWith('/')
@@ -422,35 +487,42 @@ function normalizeMetadata(
     return null
   }
 
+  const rawPathname = resolveRawPathname(rawUrl, settings.origin)
+  if (!rawPathname) return null
+
+  const decodedPathname = decodePublicPathname(rawPathname)
+  if (!decodedPathname) return null
+
   try {
-    const url = new URL(rawUrl, `${settings.origin}/`)
+    const url = new URL(decodedPathname, `${settings.origin}/`)
     if (
       url.origin !== settings.origin ||
       url.username ||
       url.password ||
       url.search ||
-      url.hash ||
-      (['acecore', 'systems', 'schools', 'worldFoundation'].includes(source) &&
-        url.pathname !== rawUrl)
+      url.hash
     ) {
       return null
     }
 
-    const firstPathSegment = url.pathname.split('/')[1]?.toLowerCase()
+    const firstPathSegment = decodedPathname
+      .split('/')
+      .find(Boolean)
+      ?.toLowerCase()
     if (
-      ((source === 'systems' || source === 'schools') &&
+      (firstPathSegment !== undefined &&
         ['admin', 'api'].includes(firstPathSegment)) ||
-      (source === 'worldFoundation' && firstPathSegment === 'api') ||
-      (source === 'aceserverWiki' && !url.pathname.startsWith('/article/')) ||
+      (source === 'aceserverWiki' &&
+        !decodedPathname.startsWith('/article/')) ||
       (source === 'aceserverPortal' &&
-        (/^\/(?:admin|api)(?:\/|$)/u.test(url.pathname) ||
+        (/^\/(?:admin|api)(?:\/|$)/u.test(decodedPathname) ||
           [
             '/vector-corpus.json',
             '/404',
             '/404/',
             '/404.html',
             '/404.html/',
-          ].includes(url.pathname)))
+          ].includes(decodedPathname)))
     ) {
       return null
     }
@@ -472,6 +544,59 @@ function normalizeMetadata(
   }
 }
 
+/**
+ * Cloudflare Pages routes can decode percent-encoded segments before routing.
+ * Decode a bounded number of times before testing public-path constraints so
+ * `/%61dmin` and double-encoded variants cannot become management routes.
+ */
+function decodePublicPathname(pathname: string): string | null {
+  let decoded = pathname
+
+  for (let attempt = 0; attempt < MAX_PATH_DECODE_PASSES; attempt += 1) {
+    decoded = decoded.normalize('NFKC')
+    if (/%(?:2f|5c)/iu.test(decoded)) return null
+
+    try {
+      const next = decodeURIComponent(decoded)
+      if (next === decoded) {
+        return isSafeDecodedPathname(decoded) ? decoded : null
+      }
+      decoded = next
+    } catch {
+      return null
+    }
+  }
+
+  const normalized = decoded.normalize('NFKC')
+  return isSafeDecodedPathname(normalized) ? normalized : null
+}
+
+function resolveRawPathname(
+  rawUrl: string,
+  expectedOrigin: string,
+): string | null {
+  if (rawUrl.startsWith('/')) return rawUrl
+
+  const normalizedUrl = rawUrl.normalize('NFKC')
+  const prefix = `${expectedOrigin}/`
+  return normalizedUrl.startsWith(prefix)
+    ? normalizedUrl.slice(expectedOrigin.length)
+    : null
+}
+
+function isSafeDecodedPathname(pathname: string): boolean {
+  return (
+    pathname.startsWith('/') &&
+    !pathname.includes('%') &&
+    !pathname.includes('?') &&
+    !pathname.includes('#') &&
+    !pathname.includes('//') &&
+    !/\s/u.test(pathname) &&
+    !/[\\\u0000-\u001f\u007f]/u.test(pathname) &&
+    !pathname.split('/').some((segment) => segment === '.' || segment === '..')
+  )
+}
+
 function normalizeOutputUrl(
   source: GroundingSource,
   url: URL,
@@ -491,8 +616,10 @@ function normalizeOutputUrl(
         ? `/${visitorLocale}/`
         : `/${visitorLocale}${normalizedPath}`
 
-  return new URL(localizedPath, `${SOURCE_SETTINGS.aceserverPortal.origin}/`)
-    .href
+  return new URL(
+    localizedPath,
+    `${FEDERATED_SOURCE_SETTINGS.aceserverPortal.origin}/`,
+  ).href
 }
 
 function inferWorldFoundationDocumentType(pathname: string): string {
@@ -533,6 +660,39 @@ function selectAceserverEntries(
   ].slice(0, GROUNDING_LIMIT)
 }
 
+function selectRelatedEntries(
+  sourceResults: Array<{
+    source: GroundingSource
+    entries: FederatedGroundingEntry[]
+  }>,
+): FederatedGroundingEntry[] {
+  const entries: FederatedGroundingEntry[] = []
+  const seenUrls = new Set<string>()
+  // All sources use the same embedding model and cosine metric. Use only each
+  // source's leading match to choose a balanced source order, then keep at
+  // most one result per source before considering second matches.
+  const orderedSourceResults = [...sourceResults].sort(
+    (left, right) =>
+      (right.entries[0]?.score ?? -1) - (left.entries[0]?.score ?? -1),
+  )
+
+  for (let offset = 0; entries.length < RELATED_SEARCH_LIMIT; offset += 1) {
+    let found = false
+    for (const result of orderedSourceResults) {
+      const entry = result.entries[offset]
+      if (!entry || seenUrls.has(entry.url)) continue
+
+      seenUrls.add(entry.url)
+      entries.push(entry)
+      found = true
+      if (entries.length >= RELATED_SEARCH_LIMIT) break
+    }
+    if (!found) break
+  }
+
+  return entries
+}
+
 function normalizeMinScore(
   value: string | undefined,
   defaultValue: number,
@@ -551,6 +711,12 @@ function readString(value: unknown, maximumLength: number): string {
         .trim()
         .slice(0, maximumLength)
     : ''
+}
+
+function readRawUrl(value: unknown, maximumLength: number): string | null {
+  return typeof value === 'string' && [...value].length <= maximumLength
+    ? value
+    : null
 }
 
 function escapeMarkdownLabel(value: string): string {
