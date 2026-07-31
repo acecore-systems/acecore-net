@@ -78,7 +78,7 @@ export const onRequestPost: PagesFunction<SearchEnv> = async ({
     }
 
     if (
-      env.SEARCH_ENABLED !== 'true' ||
+      String(env.SEARCH_ENABLED) !== 'true' ||
       !env.OPENAI_API_KEY?.trim() ||
       !env.SEARCH_INDEX ||
       !env.SEARCH_RATE_LIMIT_DB
