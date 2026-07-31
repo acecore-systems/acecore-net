@@ -15,6 +15,7 @@ import {
   isCmsReferenceStatePath,
   normalizeCmsPath,
 } from './_cms-policy.ts'
+import { validateCmsBlogFreshness } from './_cms-blog-freshness-validator.ts'
 import { validateCmsAdditionContents } from './_cms-content-validator.ts'
 import { validateProjectedCmsReferences } from './_cms-reference-validator.ts'
 import { getGitHubEditor, type GitHubEditor } from './_github-oauth.ts'
@@ -199,6 +200,11 @@ async function handleCommitMutation({
   if (changedPaths.some((path) => isCmsReferenceStatePath(path))) {
     const currentState = await fetchCmsReferenceState(token, mainSha)
 
+    validateCmsBlogFreshness({
+      additions: commitInput.additions,
+      currentState,
+      deletions: commitInput.deletions,
+    })
     validateProjectedCmsReferences({
       additions: commitInput.additions,
       currentState,

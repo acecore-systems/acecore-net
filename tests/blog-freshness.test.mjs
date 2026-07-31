@@ -12,6 +12,9 @@ import {
   validateBlogFreshnessChanges,
 } from '../scripts/validate-blog-freshness.mjs'
 
+const ARTICLE_ID = 'b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f'
+const OTHER_ARTICLE_ID = '9b30277c-64d5-4de5-b79b-3e5767d0d392'
+
 function git(repositoryRoot, args) {
   return execFileSync('git', args, {
     cwd: repositoryRoot,
@@ -21,6 +24,7 @@ function git(repositoryRoot, args) {
 }
 
 function article({
+  articleId = ARTICLE_ID,
   title = 'Title',
   description = 'Description',
   date = '2026-01-01T00:00',
@@ -28,11 +32,12 @@ function article({
   image = '/image.webp',
   body = 'Original body.',
 } = {}) {
+  const articleIdLine = articleId ? `articleId: ${articleId}\n` : ''
   const updatedLine = lastUpdated ? `lastUpdated: ${lastUpdated}\n` : ''
   return `---
 title: ${title}
 description: ${description}
-date: ${date}
+${articleIdLine}date: ${date}
 ${updatedLine}author: gui
 image: ${image}
 ---
@@ -160,6 +165,39 @@ test('lastUpdated自身と意味を変えない書式差だけなら更新対象
   assert.deepEqual(result, { errors: [], meaningfulChangeCount: 0 })
 })
 
+test('articleIdの初回付与は内容変更にせず、既存値の変更は拒否する', () => {
+  const migrated = validateBlogFreshnessChanges([
+    modifiedChange(
+      article({ articleId: null }),
+      article({ articleId: ARTICLE_ID }),
+    ),
+  ])
+  assert.deepEqual(migrated, { errors: [], meaningfulChangeCount: 0 })
+
+  const changed = validateBlogFreshnessChanges([
+    modifiedChange(
+      article({ articleId: ARTICLE_ID }),
+      article({ articleId: OTHER_ARTICLE_ID }),
+    ),
+  ])
+  assert.match(changed.errors[0], /articleId is immutable/)
+})
+
+test('内容が同一でもslug変更ではlastUpdatedの前進を要求する', () => {
+  const source = article({ lastUpdated: '2026-07-28T12:00' })
+  const result = validateBlogFreshnessChanges([
+    {
+      status: 'R',
+      basePath: 'src/content/blog/old-slug.md',
+      headPath: 'src/content/blog/new-slug.md',
+      baseContent: source,
+      headContent: source,
+    },
+  ])
+
+  assert.match(result.errors[0], /must be later than the previous value/)
+})
+
 test('同一PRで変更する同一slugのlocale群はlastUpdated日を揃える', () => {
   const base = article({ lastUpdated: '2026-07-28T12:00' })
   const changes = [
@@ -191,6 +229,33 @@ test('同一PRで変更する同一slugのlocale群はlastUpdated日を揃える
     lastUpdated: '2026-07-29T18:00',
   })
   assert.deepEqual(validateBlogFreshnessChanges(changes).errors, [])
+})
+
+test('slugが異なるlocale群も同一articleIdならlastUpdated日を揃える', () => {
+  const base = article({ lastUpdated: '2026-07-28T12:00' })
+  const changes = [
+    modifiedChange(
+      base,
+      article({
+        body: 'Japanese revision.',
+        lastUpdated: '2026-07-29T09:00',
+      }),
+      'src/content/blog/post.md',
+    ),
+    modifiedChange(
+      base,
+      article({
+        body: 'English revision.',
+        lastUpdated: '2026-07-30T09:00',
+      }),
+      'src/content/blog/en/translated-post.md',
+    ),
+  ]
+
+  assert.match(
+    validateBlogFreshnessChanges(changes).errors.at(-1),
+    /same lastUpdated calendar date for the same articleId/,
+  )
 })
 
 test('timezone付きlastUpdatedはUTC変換後でなくfrontmatter記載日で揃える', () => {
@@ -269,7 +334,7 @@ test('低類似度renameを追跡しつつ無関係な新規記事は誤認し�
 
   const blogDirectory = path.join(repositoryRoot, 'src/content/blog')
   const originalPath = path.join(blogDirectory, 'old-slug.md')
-  const movedDirectory = path.join(blogDirectory, 'en')
+  const movedDirectory = blogDirectory
   const movedPath = path.join(movedDirectory, 'new-slug.md')
   await mkdir(movedDirectory, { recursive: true })
 
@@ -303,7 +368,7 @@ test('低類似度renameを追跡しつつ無関係な新規記事は誤認し�
   assert.equal(changes.length, 1)
   assert.equal(changes[0].status, 'R')
   assert.equal(changes[0].basePath, 'src/content/blog/old-slug.md')
-  assert.equal(changes[0].headPath, 'src/content/blog/en/new-slug.md')
+  assert.equal(changes[0].headPath, 'src/content/blog/new-slug.md')
 
   const result = validateBlogFreshnessChanges(changes)
   assert.match(result.errors[0], /changed without lastUpdated/)
@@ -317,6 +382,7 @@ test('低類似度renameを追跡しつつ無関係な新規記事は誤認し�
   await writeFile(
     newPath,
     article({
+      articleId: OTHER_ARTICLE_ID,
       title: 'Brand new article',
       date: '2026-02-02T00:00',
       image: '/brand-new.webp',

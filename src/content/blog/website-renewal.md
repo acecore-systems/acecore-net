@@ -1,6 +1,7 @@
 ---
 title: 'Acecore公式サイトをリニューアルしました'
 description: 'Acecore公式サイトを、会社情報・事業案内・企業ニュースに集中したコーポレートサイトへ整理しました。'
+articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: 2026-07-30T00:00
 author: gui

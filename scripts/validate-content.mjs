@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url'
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)))
 const errors = []
 const localizedLocales = ['en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
+const ARTICLE_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const specialistHosts = new Set(['systems.acecore.net', 'asv.acecore.net'])
 const acecoreHosts = new Set(['acecore.net', 'www.acecore.net'])
 const localizableInternalRouteRoots = new Set([
@@ -392,6 +394,78 @@ async function validateBlogDates() {
   }
 }
 
+async function validateBlogArticleIds() {
+  const blogDirectory = path.join(root, 'src/content/blog')
+  const files = await listMarkdownFiles(blogDirectory)
+  const pathByLocaleArticleId = new Map()
+  const records = []
+
+  for (const file of files) {
+    const scope = path.relative(root, file).split(path.sep).join('/')
+    const relativeSegments = path.relative(blogDirectory, file).split(path.sep)
+    const isJapaneseSource = relativeSegments.length === 1
+    const isLocalizedArticle =
+      relativeSegments.length === 2 &&
+      localizedLocales.includes(relativeSegments[0])
+
+    if (!isJapaneseSource && !isLocalizedArticle) {
+      fail(scope, 'blog path must be {slug}.md or {supported-locale}/{slug}.md')
+      continue
+    }
+
+    const locale = isLocalizedArticle ? relativeSegments[0] : 'ja'
+    const slug = path.basename(file, '.md')
+    const content = await readFile(file, 'utf8')
+    const frontmatter = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1]
+    const articleId = frontmatter
+      ?.match(/^articleId:\s*['"]?([^'"\s#]+)['"]?\s*(?:#.*)?$/m)?.[1]
+      ?.trim()
+
+    if (!articleId || !ARTICLE_ID_PATTERN.test(articleId)) {
+      fail(scope, 'articleId must be a valid UUID')
+      continue
+    }
+
+    const normalizedId = articleId.toLowerCase()
+    const localeIdentity = `${locale}:${normalizedId}`
+    const duplicatePath = pathByLocaleArticleId.get(localeIdentity)
+
+    if (duplicatePath) {
+      fail(
+        scope,
+        `articleId must be unique within locale ${locale} (also used by ${duplicatePath})`,
+      )
+    } else {
+      pathByLocaleArticleId.set(localeIdentity, scope)
+    }
+
+    records.push({
+      articleId: normalizedId,
+      locale,
+      path: scope,
+      slug,
+    })
+  }
+
+  const japaneseBySlug = new Map(
+    records
+      .filter(({ locale }) => locale === 'ja')
+      .map((record) => [record.slug, record]),
+  )
+
+  for (const record of records) {
+    if (record.locale === 'ja') continue
+
+    const japaneseSource = japaneseBySlug.get(record.slug)
+    if (japaneseSource && japaneseSource.articleId !== record.articleId) {
+      fail(
+        record.path,
+        `translated article must share articleId with ${japaneseSource.path}`,
+      )
+    }
+  }
+}
+
 async function validateLocalizedSpecialistLinks() {
   const blogDirectory = path.join(root, 'src/content/blog')
   const files = await listMarkdownFiles(blogDirectory)
@@ -505,6 +579,7 @@ async function validateLocalizedInternalLinks() {
 
 await validateCmsConfig()
 await validateBlogDates()
+await validateBlogArticleIds()
 await validateLocalizedSpecialistLinks()
 await validateLocalizedInternalLinks()
 

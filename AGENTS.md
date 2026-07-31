@@ -30,6 +30,8 @@
 - CMS のrepository read/write actorは `acecore-net` だけにインストールした専用GitHub Appとし、OAuth tokenを保存actorへ流用しない。App権限はContentsのRead and write、MetadataのRead-onlyだけにする。
 - CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、件数、容量、最新HEADを検証して、CMS管理対象だけをexpected-HEAD付きの1 commitで直接保存する。
 - CMS保存前に、現在の`main` treeへ同一mutationの追加・変更・削除を投影し、全言語記事の著者、タグ、ローカル画像参照が投影後にも存在することを同期検証する。
+- ブログ記事の`articleId`はCMSが新規作成時に付与する不変UUIDとし、CMS UIではhiddenにする。同一記事の全localeで同じ値を維持し、slug変更では旧pathの削除と同じ保存内で`articleId`を引き継ぐ。
+- CMSでは`date`と`lastUpdated`の暦日時と前後関係を保存前に検証する。既存の`lastUpdated`は削除・巻き戻しできず、本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugを変更する場合は以前より後へ進める。新規記事はCMSが`articleId`を自動付与し、`lastUpdated`は省略できる。
 - CMS管理下のテキストファイルは1件448 KiB以下とし、追加・変更する内容と参照検証で読む現在の`main`の両方に同じ上限を適用する。
 - CMSから削除できるのは日本語sourceの記事とキャンペーンだけとする。参照検証とは別の安全境界として、著者、タグ、画像はUIとproxyの両方で削除を禁止する。
 - Sveltia CMSではEditorial Workflowが未実装のため、`publish_mode: editorial_workflow` の設定には依存しない。

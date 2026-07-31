@@ -24,6 +24,7 @@ import {
   matchesJsonTemplate,
   validateCmsAdditionContents,
 } from '../functions/admin/api/_cms-content-validator.ts'
+import { validateCmsBlogFreshness } from '../functions/admin/api/_cms-blog-freshness-validator.ts'
 import { validateProjectedCmsReferences } from '../functions/admin/api/_cms-reference-validator.ts'
 import { clearGitHubEditorCacheForTests } from '../functions/admin/api/_github-oauth.ts'
 import { onRequestPost as handleGraphql } from '../functions/admin/api/graphql.ts'
@@ -47,6 +48,7 @@ const appEnv = {
   CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
   CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
 }
+const defaultArticleId = '11111111-1111-4111-8111-111111111111'
 const repositoryApi = `https://api.github.com/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`
 const contentPath =
   CMS_REPOSITORY.name === 'acecore-net'
@@ -55,6 +57,7 @@ const contentPath =
 const validBlogMarkdown = `---
 title: CMS test
 description: CMS proxy test content
+articleId: ${defaultArticleId}
 date: 2026-07-28T12:00
 author: gui
 ---
@@ -369,6 +372,162 @@ test('同一mutationで追加した著者・タグ・画像を新しい記事か
       additions,
       currentState: [],
       deletions: [],
+    }),
+  )
+})
+
+test('新規記事はlastUpdatedなしで保存できる', () => {
+  assert.doesNotThrow(() =>
+    validateCmsBlogFreshness({
+      additions: [
+        referenceAddition(
+          'src/content/blog/new-article.md',
+          freshnessBlogMarkdown({ body: 'New article.' }),
+        ),
+      ],
+      currentState: [],
+    }),
+  )
+})
+
+test('既存記事の実質変更ではlastUpdatedの追加または前進を要求する', () => {
+  const path = 'src/content/blog/existing.md'
+  const baseWithoutUpdated = freshnessBlogMarkdown()
+
+  assert.throws(
+    () =>
+      validateCmsBlogFreshness({
+        additions: [
+          referenceAddition(
+            path,
+            freshnessBlogMarkdown({ body: 'Revised body.' }),
+          ),
+        ],
+        currentState: [{ path, contents: baseWithoutUpdated }],
+      }),
+    /内容を変更する場合はlastUpdatedを設定/,
+  )
+
+  assert.doesNotThrow(() =>
+    validateCmsBlogFreshness({
+      additions: [
+        referenceAddition(
+          path,
+          freshnessBlogMarkdown({
+            body: 'Revised body.',
+            lastUpdated: '2026-07-29T12:00',
+          }),
+        ),
+      ],
+      currentState: [{ path, contents: baseWithoutUpdated }],
+    }),
+  )
+
+  const baseWithUpdated = freshnessBlogMarkdown({
+    lastUpdated: '2026-07-29T12:00',
+  })
+
+  assert.throws(
+    () =>
+      validateCmsBlogFreshness({
+        additions: [
+          referenceAddition(
+            path,
+            freshnessBlogMarkdown({
+              body: 'Revised body.',
+              lastUpdated: '2026-07-29T12:00',
+            }),
+          ),
+        ],
+        currentState: [{ path, contents: baseWithUpdated }],
+      }),
+    /lastUpdatedは以前より後の日時/,
+  )
+
+  assert.throws(
+    () =>
+      validateCmsBlogFreshness({
+        additions: [
+          referenceAddition(
+            path,
+            baseWithUpdated.replace(
+              'title: Freshness test',
+              'title: Updated freshness test',
+            ),
+          ),
+        ],
+        currentState: [{ path, contents: baseWithUpdated }],
+      }),
+    /lastUpdatedは以前より後の日時/,
+  )
+
+  assert.doesNotThrow(() =>
+    validateCmsBlogFreshness({
+      additions: [
+        referenceAddition(
+          path,
+          freshnessBlogMarkdown({
+            body: 'Revised body.',
+            lastUpdated: '2026-07-30T12:00',
+          }),
+        ),
+      ],
+      currentState: [{ path, contents: baseWithUpdated }],
+    }),
+  )
+})
+
+test('lastUpdated自身の前進と意味を変えない書式差だけなら許可する', () => {
+  const path = 'src/content/blog/existing.md'
+  const base = freshnessBlogMarkdown({
+    lastUpdated: '2026-07-29T12:00',
+  })
+  const reformatted = freshnessBlogMarkdown({
+    lastUpdated: '2026-07-30T12:00',
+  })
+    .replace('title: Freshness test', 'title:   Freshness test')
+    .replace(/\n/g, '\r\n')
+
+  assert.doesNotThrow(() =>
+    validateCmsBlogFreshness({
+      additions: [referenceAddition(path, reformatted)],
+      currentState: [{ path, contents: base }],
+    }),
+  )
+})
+
+test('同一articleIdの記事名変更は同一保存なら許可し、lastUpdated更新を必須にする', () => {
+  const basePath = 'src/content/blog/old-slug.md'
+  const headPath = 'src/content/blog/new-slug.md'
+
+  assert.throws(
+    () =>
+      validateCmsBlogFreshness({
+        additions: [
+          referenceAddition(
+            headPath,
+            freshnessBlogMarkdown({ body: 'Rewritten body.' }),
+          ),
+        ],
+        currentState: [{ path: basePath, contents: freshnessBlogMarkdown() }],
+        deletions: [{ path: basePath }],
+      }),
+    /lastUpdatedを設定/,
+  )
+
+  assert.doesNotThrow(() =>
+    validateCmsBlogFreshness({
+      additions: [
+        referenceAddition(
+          headPath,
+          freshnessBlogMarkdown({
+            body: 'Rewritten body.',
+            lastUpdated: '2026-07-30T12:00',
+          }),
+        ),
+      ],
+      currentState: [{ path: basePath, contents: freshnessBlogMarkdown() }],
+      deletions: [{ path: basePath }],
     }),
   )
 })
@@ -1070,6 +1229,64 @@ test('不存在参照を含む記事はcommit前に422で拒否する', async ()
 
   assert.equal(response.status, 422)
   assert.match(result.message, /記事の著者が存在しません/)
+  assert.equal(commitCalled, false)
+})
+
+test('既存記事のlastUpdated漏れはcommit前に422で拒否する', async () => {
+  let commitCalled = false
+  const existingArticle = freshnessBlogMarkdown()
+  const revisedArticle = freshnessBlogMarkdown({ body: 'Revised body.' })
+  const referenceFiles = new Map([
+    ...defaultReferenceFiles,
+    [contentPath, existingArticle],
+  ])
+
+  mockGitHub(
+    async (url) => {
+      if (url.endsWith('/git/ref/heads/main')) {
+        return jsonResponse({ object: { sha: mainSha } })
+      }
+
+      if (url.endsWith('/graphql')) {
+        commitCalled = true
+        throw new Error('Invalid freshness must not reach the commit mutation')
+      }
+
+      throw new Error(`Unexpected GitHub request: ${url}`)
+    },
+    true,
+    () => {},
+    referenceFiles,
+  )
+
+  const response = await handleGraphql({
+    env: appEnv,
+    request: graphqlRequest({
+      variables: {
+        input: {
+          branch: {
+            repositoryNameWithOwner: `${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`,
+            branchName: 'main',
+          },
+          expectedHeadOid: mainSha,
+          fileChanges: {
+            additions: [
+              {
+                path: contentPath,
+                contents: Buffer.from(revisedArticle).toString('base64'),
+              },
+            ],
+            deletions: [],
+          },
+          message: { headline: 'cms: update existing article' },
+        },
+      },
+    }),
+  })
+  const result = await response.json()
+
+  assert.equal(response.status, 422)
+  assert.match(result.message, /lastUpdatedを設定/)
   assert.equal(commitCalled, false)
 })
 
@@ -2170,6 +2387,7 @@ function referenceAddition(path, value) {
 }
 
 function referenceBlogMarkdown({
+  articleId = defaultArticleId,
   author = 'gui',
   galleryImage,
   image,
@@ -2179,6 +2397,7 @@ function referenceBlogMarkdown({
   return `---
 title: Reference test
 description: CMS reference validation test
+articleId: ${articleId}
 date: 2026-07-29T12:00
 author: ${author}
 tags: ${JSON.stringify(tags)}
@@ -2193,6 +2412,23 @@ ${image ? `image: ${image}\n` : ''}${uploadedImage ? `uploadedImage: ${uploadedI
   }---
 
 Reference validation.
+`
+}
+
+function freshnessBlogMarkdown({
+  articleId = defaultArticleId,
+  body = 'Original body.',
+  lastUpdated,
+} = {}) {
+  return `---
+title: Freshness test
+description: CMS freshness validation test
+articleId: ${articleId}
+date: 2026-07-28T12:00
+${lastUpdated ? `lastUpdated: ${lastUpdated}\n` : ''}author: gui
+---
+
+${body}
 `
 }
 

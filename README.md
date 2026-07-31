@@ -113,7 +113,7 @@ src/
 
 - 本番ソースの正は `main` です。Cloudflare Pages の production deploy 元も GitHub 連携の `main` にします。
 - Sveltia CMS は `backend.branch: main` と同一originのGitHub API proxyで運用します。現行SveltiaではEditorial Workflowが未実装のため、`publish_mode` には依存しません。
-- proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。さらに現在の`main` treeへ同一保存の追加・変更・削除を投影し、全言語記事の著者、タグ、アップロード画像、ギャラリー画像と著者画像の参照先が投影後にも存在することを確認します。CMS管理下のテキストファイル1件あたり448 KiBを上限とし、追加・変更する内容と参照検証で読む現在の`main`の両方に適用します。GitHub GraphQLのBlob textを省略なしで同期検証するための上限です。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
+- proxyが保存直前にGitHub OAuth userのwrite権限を再確認し、変更path、件数、容量、編集開始時の`main` HEAD、JSON / Markdown schema、画像の実形式を検証します。ブログ記事にはCMSが新規作成時にhiddenの不変UUID `articleId`を付与し、全localeで同じ値を維持します。既存記事の`articleId`変更と同一locale内の重複は禁止し、slug変更は旧pathの削除と同じ保存内でIDを引き継いだ場合だけrenameとして扱います。`date`と`lastUpdated`は実在する暦日時だけを許可し、`lastUpdated`は`date`以降にします。既存値の削除・巻き戻しは禁止し、既存記事の本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugを変更するときは、`lastUpdated`を以前より後の日時へ進める必要があります。新規記事はCMSが`articleId`を自動付与し、`lastUpdated`は省略できます。さらに現在の`main` treeへ同一保存の追加・変更・削除を投影し、全言語記事の著者、タグ、アップロード画像、ギャラリー画像と著者画像の参照先が投影後にも存在することを確認します。CMS管理下のテキストファイル1件あたり448 KiBを上限とし、追加・変更する内容と参照検証で読む現在の`main`の両方に適用します。GitHub GraphQLのBlob textを省略なしで同期検証するための上限です。SVGとPDFはCMSから保存できません。repository操作には`acecore-net`専用GitHub Appの短期installation tokenを使い、OAuth tokenを保存actorへ流用しません。
 - 保存すると、画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接反映します。別の更新が先に入った場合は上書きせず、CMSの再読み込みを求めます。
 - 記事とキャンペーンはCMSから削除できます。著者、タグ、画像は投影stateの参照検証に加え、別の安全境界としてCMSからの削除を禁止します。
 - `main` pushを受けてCloudflare Pagesがproduction deployし、日本語sourceの変更は翻訳PR task workflowも同じ`cms: ...` commitから検出します。
@@ -144,7 +144,8 @@ direct publish版を本番へ反映する前に、専用GitHub Appを`acecore-ne
 ---
 title: '記事タイトル'
 description: '記事の概要'
-date: 2026-01-01
+articleId: '11111111-1111-4111-8111-111111111111' # 記事ごとに生成し、翻訳では同じ値を使う
+date: 2026-01-01T00:00
 tags: ['タグ1', 'タグ2']
 image: 'https://images.unsplash.com/photo-xxx'
 author: 'author-id'
@@ -165,7 +166,7 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 4. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
 5. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする
 
-著者情報、タグ定義の多言語フィールドは Sveltia CMS から直接編集できます。ローカル開発や通常の Git commit による日本語ソース変更では、自動翻訳 PR task は作成しません。
+翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。著者情報、タグ定義の多言語フィールドは Sveltia CMS から直接編集できます。ローカル開発や通常の Git commit による日本語ソース変更では、自動翻訳 PR task は作成しません。
 
 ### 自動 PR task workflow
 

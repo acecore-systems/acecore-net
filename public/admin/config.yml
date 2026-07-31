@@ -41,6 +41,9 @@ collections:
       - name: description
         label: 概要
         widget: text
+      - name: articleId
+        widget: hidden
+        default: '{{uuid}}'
       - name: date
         label: 公開日
         widget: datetime
@@ -48,6 +51,7 @@ collections:
         default: '{{now}}'
       - name: lastUpdated
         label: 最終更新日
+        hint: 既存記事では削除・巻き戻しできません。内容やslugを変更するときは以前より後の日時にしてください。新規記事は空欄でも保存できます。
         widget: datetime
         format: YYYY-MM-DDTHH:mm
         required: false

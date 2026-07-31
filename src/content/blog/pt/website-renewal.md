@@ -1,6 +1,7 @@
 ---
 title: 'Renovamos o site oficial da Acecore'
 description: 'O site oficial da Acecore agora é um site corporativo focado na empresa, em seus negócios e em notícias.'
+articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: 2026-07-30T00:01
 author: gui
