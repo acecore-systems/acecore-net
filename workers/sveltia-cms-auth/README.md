@@ -20,6 +20,10 @@ Create a GitHub OAuth App with:
 
 `ALLOWED_DOMAINS` in `wrangler.jsonc` controls which CMS origins can use this authenticator. Keep `acecore.net` for production, `localhost` entries for local checks, and `*.acecore-net.pages.dev` only for preview login and UI checks. The OAuth Worker verifies the editor but is not the repository writer. Cloudflare Pages previews must not receive any `CMS_GITHUB_APP_*` writer credential, so repository reads and saves remain disabled there.
 
+認証開始時に正規化・許可済みの CMS origin と CSRF token を HttpOnly cookie に束縛し、callback は同じ opener と origin にだけ OAuth 結果を返します。
+
+`wrangler.jsonc` の `secrets.required` には必要な secret 名だけを宣言します。値は Worker の secret として保持し、`wrangler types` はその名前を型へ生成し、deploy 前に不足を検証します。
+
 Then set the OAuth app credentials on the Worker:
 
 ```powershell

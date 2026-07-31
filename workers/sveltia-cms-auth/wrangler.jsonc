@@ -7,6 +7,9 @@
   "observability": {
     "enabled": true,
   },
+  "secrets": {
+    "required": ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"],
+  },
   "vars": {
     "ALLOWED_DOMAINS": "acecore.net,*.acecore-net.pages.dev,localhost,localhost:4321,127.0.0.1",
     "GITHUB_SCOPE": "repo,user",

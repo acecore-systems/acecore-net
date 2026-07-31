@@ -21,13 +21,16 @@ type GitHubAccessTokenResponse = {
   errorDescription?: string
 }
 
+type OAuthSession = {
+  csrfToken: string
+  targetOrigin: string
+}
+
 /**
- * Wrangler generates `SveltiaCmsAuthConfig` from `wrangler.jsonc`. Secrets and
- * dashboard-only variables intentionally do not appear in that generated type.
+ * `GITHUB_HOSTNAME` is an optional dashboard-only override. The required GitHub
+ * OAuth secrets are generated from `wrangler.jsonc`'s `secrets.required`.
  */
 type SveltiaCmsAuthRuntimeOverrides = {
-  readonly GITHUB_CLIENT_ID?: string
-  readonly GITHUB_CLIENT_SECRET?: string
   readonly GITHUB_HOSTNAME?: string
 }
 
@@ -41,7 +44,7 @@ const scriptString = (value: string): string =>
 
 const deleteCsrfCookie = `${csrfCookieName}=deleted; HttpOnly; Max-Age=0; Path=/; SameSite=Lax; Secure`
 
-const outputHTML = (output: OAuthOutput): Response => {
+const outputHTML = (output: OAuthOutput, targetOrigin: string): Response => {
   const state = output.type === 'error' ? 'error' : 'success'
   const payload =
     output.type === 'error'
@@ -58,18 +61,26 @@ const outputHTML = (output: OAuthOutput): Response => {
       (() => {
         const probe = ${scriptString(probe)};
         const message = ${scriptString(message)};
-        window.addEventListener('message', ({ data, origin }) => {
-          if (data === probe) {
-            window.opener?.postMessage(message, origin);
+        const targetOrigin = ${scriptString(targetOrigin)};
+        const opener = window.opener;
+        window.addEventListener('message', ({ data, origin, source }) => {
+          if (
+            opener &&
+            origin === targetOrigin &&
+            source === opener &&
+            data === probe
+          ) {
+            opener.postMessage(message, targetOrigin);
           }
         });
-        window.opener?.postMessage(probe, '*');
+        opener?.postMessage(probe, targetOrigin);
       })();
     </script>
   </body>
 </html>`,
     {
       headers: {
+        'Cache-Control': 'no-store',
         'Content-Type': 'text/html;charset=UTF-8',
         'Set-Cookie': deleteCsrfCookie,
       },
@@ -77,16 +88,26 @@ const outputHTML = (output: OAuthOutput): Response => {
   )
 }
 
-const outputError = (error: string, errorCode: AuthErrorCode): Response =>
-  outputHTML({ type: 'error', error, errorCode })
+const outputError = (
+  error: string,
+  errorCode: AuthErrorCode,
+  targetOrigin?: string,
+): Response => {
+  if (targetOrigin) {
+    return outputHTML({ type: 'error', error, errorCode }, targetOrigin)
+  }
 
-const isAllowedDomain = (
-  domain: string | null,
-  allowedDomains: string | undefined,
-): boolean => {
-  if (!allowedDomains) return true
-  if (!domain) return false
+  return new Response(JSON.stringify({ provider, error, errorCode }), {
+    status: 400,
+    headers: {
+      'Cache-Control': 'no-store',
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Set-Cookie': deleteCsrfCookie,
+    },
+  })
+}
 
+const isAllowedDomain = (domain: string, allowedDomains: string): boolean => {
   const normalizedDomain = domain.toLowerCase()
 
   return allowedDomains
@@ -102,12 +123,43 @@ const isAllowedDomain = (
     })
 }
 
-const readCsrfCookie = (cookieHeader: string | null): string | undefined =>
+const isLocalDevelopmentHost = (hostname: string): boolean =>
+  hostname === 'localhost' || hostname === '127.0.0.1'
+
+const targetOriginForSiteID = (
+  siteID: string | null,
+  allowedDomains: string,
+): string | undefined => {
+  if (!siteID) return undefined
+
+  const normalizedSiteID = siteID.toLowerCase()
+  let siteURL: URL
+  try {
+    siteURL = new URL(`https://${normalizedSiteID}`)
+  } catch {
+    return undefined
+  }
+
+  if (
+    siteURL.host !== normalizedSiteID ||
+    !isAllowedDomain(siteURL.host, allowedDomains)
+  ) {
+    return undefined
+  }
+
+  const protocol = isLocalDevelopmentHost(siteURL.hostname) ? 'http:' : 'https:'
+  return new URL(`${protocol}//${siteURL.host}`).origin
+}
+
+const readCookieValue = (
+  cookieHeader: string | null,
+  cookieName: string,
+): string | undefined =>
   cookieHeader
     ?.split(';')
     .map((part) => part.trim())
-    .find((part) => part.startsWith(`${csrfCookieName}=`))
-    ?.slice(csrfCookieName.length + 1)
+    .find((part) => part.startsWith(`${cookieName}=`))
+    ?.slice(cookieName.length + 1)
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -118,6 +170,38 @@ const readOptionalString = (
 ): string | undefined => {
   const value = record[key]
   return typeof value === 'string' ? value : undefined
+}
+
+const serializeOAuthSession = (session: OAuthSession): string =>
+  encodeURIComponent(JSON.stringify(session))
+
+const readOAuthSession = (
+  cookieHeader: string | null,
+  allowedDomains: string,
+): OAuthSession | undefined => {
+  const encodedSession = readCookieValue(cookieHeader, csrfCookieName)
+  if (!encodedSession) return undefined
+
+  try {
+    const sessionValue: unknown = JSON.parse(decodeURIComponent(encodedSession))
+    if (!isRecord(sessionValue)) return undefined
+
+    const csrfToken = readOptionalString(sessionValue, 'csrfToken')
+    const targetOrigin = readOptionalString(sessionValue, 'targetOrigin')
+    if (!csrfToken || !targetOrigin) return undefined
+
+    const targetURL = new URL(targetOrigin)
+    const expectedTargetOrigin = targetOriginForSiteID(
+      targetURL.host,
+      allowedDomains,
+    )
+
+    return expectedTargetOrigin === targetOrigin
+      ? { csrfToken, targetOrigin }
+      : undefined
+  } catch {
+    return undefined
+  }
 }
 
 const parseGitHubAccessTokenResponse = (
@@ -152,15 +236,17 @@ const handleAuth = async (
   const requestURL = new URL(request.url)
   const requestedProvider = requestURL.searchParams.get('provider')
   const siteID = requestURL.searchParams.get('site_id')
+  const targetOrigin = targetOriginForSiteID(siteID, env.ALLOWED_DOMAINS)
 
   if (requestedProvider !== provider) {
     return outputError(
       'Your Git backend is not supported by the authenticator.',
       'UNSUPPORTED_BACKEND',
+      targetOrigin,
     )
   }
 
-  if (!isAllowedDomain(siteID, env.ALLOWED_DOMAINS)) {
+  if (!targetOrigin) {
     return outputError(
       'Your domain is not allowed to use the authenticator.',
       'UNSUPPORTED_DOMAIN',
@@ -187,8 +273,9 @@ const handleAuth = async (
   return new Response('', {
     status: 302,
     headers: {
+      'Cache-Control': 'no-store',
       Location: authURL.toString(),
-      'Set-Cookie': `${csrfCookieName}=${csrfToken}; HttpOnly; Path=/; Max-Age=${csrfMaxAgeSeconds}; SameSite=Lax; Secure`,
+      'Set-Cookie': `${csrfCookieName}=${serializeOAuthSession({ csrfToken, targetOrigin })}; HttpOnly; Path=/; Max-Age=${csrfMaxAgeSeconds}; SameSite=Lax; Secure`,
     },
   })
 }
@@ -200,19 +287,25 @@ const handleCallback = async (
   const requestURL = new URL(request.url)
   const code = requestURL.searchParams.get('code')
   const state = requestURL.searchParams.get('state')
-  const csrfToken = readCsrfCookie(request.headers.get('Cookie'))
+  const session = readOAuthSession(
+    request.headers.get('Cookie'),
+    env.ALLOWED_DOMAINS,
+  )
+  const targetOrigin = session?.targetOrigin
 
   if (!code || !state) {
     return outputError(
       'Failed to receive an authorization code. Please try again later.',
       'AUTH_CODE_REQUEST_FAILED',
+      targetOrigin,
     )
   }
 
-  if (!csrfToken || !(await csrfTokensMatch(state, csrfToken))) {
+  if (!session || !(await csrfTokensMatch(state, session.csrfToken))) {
     return outputError(
       'Potential CSRF attack detected. Authentication flow aborted.',
       'CSRF_DETECTED',
+      targetOrigin,
     )
   }
 
@@ -222,6 +315,7 @@ const handleCallback = async (
     return outputError(
       'OAuth app client ID or secret is not configured.',
       'MISCONFIGURED_CLIENT',
+      targetOrigin,
     )
   }
 
@@ -246,6 +340,7 @@ const handleCallback = async (
     return outputError(
       'Failed to request an access token. Please try again later.',
       'TOKEN_REQUEST_FAILED',
+      targetOrigin,
     )
   }
 
@@ -256,6 +351,7 @@ const handleCallback = async (
     return outputError(
       'Server responded with malformed data. Please try again later.',
       'MALFORMED_RESPONSE',
+      targetOrigin,
     )
   }
 
@@ -263,6 +359,7 @@ const handleCallback = async (
     return outputError(
       tokenResponse.errorDescription || tokenResponse.error,
       'TOKEN_REQUEST_FAILED',
+      targetOrigin,
     )
   }
 
@@ -270,10 +367,14 @@ const handleCallback = async (
     return outputError(
       'Server responded with malformed data. Please try again later.',
       'MALFORMED_RESPONSE',
+      targetOrigin,
     )
   }
 
-  return outputHTML({ type: 'success', token: tokenResponse.accessToken })
+  return outputHTML(
+    { type: 'success', token: tokenResponse.accessToken },
+    session.targetOrigin,
+  )
 }
 
 export default {
