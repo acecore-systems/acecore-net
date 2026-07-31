@@ -86,7 +86,7 @@ async function onRequestPost(context) {
       env: {
         OPENAI_API_KEY: 'test-openai-key',
         OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'low',
+        OPENAI_REASONING_EFFORT: 'medium',
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
         ...context.env,
@@ -206,7 +206,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Responses APIへLuna low・store falseで直接送信する', async () => {
+test('Responses APIへLuna medium・store falseで直接送信する', async () => {
   const originalFetch = globalThis.fetch
   let responseInput
   globalThis.fetch = async (input, init = {}) => {
@@ -237,7 +237,7 @@ test('Responses APIへLuna low・store falseで直接送信する', async () => 
       env: {
         OPENAI_API_KEY: 'test-openai-key',
         OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'low',
+        OPENAI_REASONING_EFFORT: 'medium',
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
         SEARCH_ENABLED: 'false',
@@ -246,7 +246,7 @@ test('Responses APIへLuna low・store falseで直接送信する', async () => 
 
     assert.equal(response.status, 200)
     assert.equal(responseInput.model, 'gpt-5.6-luna')
-    assert.deepEqual(responseInput.reasoning, { effort: 'low' })
+    assert.deepEqual(responseInput.reasoning, { effort: 'medium' })
     assert.equal(responseInput.max_output_tokens, 640)
     assert.equal(responseInput.store, false)
     assert.match(responseInput.safety_identifier, /^acecore_[0-9a-f]{48}$/u)

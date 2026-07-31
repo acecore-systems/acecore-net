@@ -10,7 +10,7 @@ interface __BaseEnv_CloudflareEnv {
 	ACESERVER_PORTAL_SEARCH_INDEX: VectorizeIndex;
 	CLOUDFLARE_ACCOUNT_ID: "db9b62f409f463da7acbcc374b8385d0";
 	OPENAI_CHAT_MODEL: "gpt-5.6-luna";
-	OPENAI_REASONING_EFFORT: "low";
+	OPENAI_REASONING_EFFORT: "medium";
 	OPENAI_EMBEDDING_MODEL: "text-embedding-3-large";
 	OPENAI_EMBEDDING_DIMENSIONS: "1536";
 	COMMENT_ALLOWED_HOSTNAMES: "acecore.net,www.acecore.net,acecore-net.pages.dev" | "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1";
@@ -41,7 +41,7 @@ declare namespace Cloudflare {
 		ACESERVER_PORTAL_SEARCH_INDEX: VectorizeIndex;
 		CLOUDFLARE_ACCOUNT_ID: "db9b62f409f463da7acbcc374b8385d0";
 		OPENAI_CHAT_MODEL: "gpt-5.6-luna";
-		OPENAI_REASONING_EFFORT: "low";
+		OPENAI_REASONING_EFFORT: "medium";
 		OPENAI_EMBEDDING_MODEL: "text-embedding-3-large";
 		OPENAI_EMBEDDING_DIMENSIONS: "1536";
 		COMMENT_ALLOWED_HOSTNAMES: "acecore.net,www.acecore.net,acecore-net.pages.dev";
@@ -71,7 +71,7 @@ declare namespace Cloudflare {
 		ACESERVER_PORTAL_SEARCH_INDEX: VectorizeIndex;
 		CLOUDFLARE_ACCOUNT_ID: "db9b62f409f463da7acbcc374b8385d0";
 		OPENAI_CHAT_MODEL: "gpt-5.6-luna";
-		OPENAI_REASONING_EFFORT: "low";
+		OPENAI_REASONING_EFFORT: "medium";
 		OPENAI_EMBEDDING_MODEL: "text-embedding-3-large";
 		OPENAI_EMBEDDING_DIMENSIONS: "1536";
 		COMMENT_ALLOWED_HOSTNAMES: "acecore.net,www.acecore.net,acecore-net.pages.dev";

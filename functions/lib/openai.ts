@@ -1,5 +1,5 @@
 export const DEFAULT_OPENAI_CHAT_MODEL = 'gpt-5.6-luna'
-export const DEFAULT_OPENAI_REASONING_EFFORT = 'low'
+export const DEFAULT_OPENAI_REASONING_EFFORT = 'medium'
 export const DEFAULT_OPENAI_EMBEDDING_MODEL = 'text-embedding-3-large'
 export const OPENAI_EMBEDDING_DIMENSIONS = 1536
 
@@ -171,7 +171,7 @@ function normalizeEmbeddingModel(value: unknown): string {
 
 function normalizeReasoningEffort(value: unknown): OpenAiReasoningEffort {
   const effort = normalizeConfigValue(value).toLowerCase()
-  return effort === 'medium' || effort === 'high'
+  return effort === 'low' || effort === 'medium' || effort === 'high'
     ? effort
     : DEFAULT_OPENAI_REASONING_EFFORT
 }
