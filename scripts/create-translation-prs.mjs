@@ -17,6 +17,8 @@ const AUTHOR_BASE_KEYS = [
 ]
 const TAG_BASE_KEYS = ['name']
 const ZERO_SHA = '0000000000000000000000000000000000000000'
+const ARTICLE_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const COPILOT_API_BASE = 'https://api.githubcopilot.com'
 const COPILOT_API_VERSION = '2026-01-09'
 const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
@@ -320,6 +322,71 @@ function splitMarkdownDocument(source) {
   }
 }
 
+function getBlogArticleId(source) {
+  const { frontmatter } = splitMarkdownDocument(source)
+  if (typeof frontmatter !== 'string') return null
+
+  const articleId = frontmatter
+    .match(/^articleId:\s*['"]?([^'"\s#]+)['"]?\s*(?:#.*)?$/m)?.[1]
+    ?.trim()
+
+  return articleId && ARTICLE_ID_PATTERN.test(articleId)
+    ? articleId.toLowerCase()
+    : null
+}
+
+export function pairJapaneseBlogRenamesByArticleId(
+  entries,
+  { baseSha, headSha, readSource = readTextAtRef },
+) {
+  if (!baseSha) return entries
+
+  const deletionsByArticleId = new Map()
+  const additionsByArticleId = new Map()
+
+  for (const entry of entries) {
+    if (
+      (entry.status !== 'A' && entry.status !== 'D') ||
+      !isJapaneseBlogPostPath(entry.path)
+    ) {
+      continue
+    }
+
+    const ref = entry.status === 'D' ? baseSha : headSha
+    const source = readSource(ref, entry.path)
+    const articleId = getBlogArticleId(source)
+    if (!articleId) continue
+
+    const groups =
+      entry.status === 'D' ? deletionsByArticleId : additionsByArticleId
+    const matches = groups.get(articleId) ?? []
+    matches.push(entry)
+    groups.set(articleId, matches)
+  }
+
+  const previousPathByAddition = new Map()
+  const matchedDeletionPaths = new Set()
+
+  for (const [articleId, additions] of additionsByArticleId) {
+    const deletions = deletionsByArticleId.get(articleId)
+    if (additions.length !== 1 || deletions?.length !== 1) continue
+
+    previousPathByAddition.set(additions[0].path, deletions[0].path)
+    matchedDeletionPaths.add(deletions[0].path)
+  }
+
+  return entries.flatMap((entry) => {
+    if (entry.status === 'D' && matchedDeletionPaths.has(entry.path)) {
+      return []
+    }
+
+    if (entry.status !== 'A') return [entry]
+
+    const previousPath = previousPathByAddition.get(entry.path)
+    return previousPath ? [{ ...entry, status: 'R', previousPath }] : [entry]
+  })
+}
+
 function isBlogTranslationDisabled(source) {
   const { frontmatter } = splitMarkdownDocument(source)
   return (
@@ -333,7 +400,9 @@ function truncateForPrompt(value, maxLength = 12000) {
   return `${value.slice(0, maxLength)}\n\n[diff truncated: ${value.length - maxLength} characters omitted]`
 }
 
-function getSourceDiff(filePath, baseSha, headSha) {
+function getSourceDiff(filePath, baseSha, headSha, previousPath = null) {
+  const paths = previousPath ? [previousPath, filePath] : [filePath]
+
   if (!baseSha) {
     return safeRunGit([
       'show',
@@ -341,11 +410,11 @@ function getSourceDiff(filePath, baseSha, headSha) {
       '--unified=8',
       headSha,
       '--',
-      filePath,
+      ...paths,
     ])
   }
 
-  return safeRunGit(['diff', '--unified=8', baseSha, headSha, '--', filePath])
+  return safeRunGit(['diff', '--unified=8', baseSha, headSha, '--', ...paths])
 }
 
 function getChangedBlogPost(entry, baseSha, headSha) {
@@ -386,7 +455,9 @@ function getChangedBlogPostTask(entry, baseSha, headSha) {
 
   return {
     ...changedEntry,
-    sourceDiff: truncateForPrompt(getSourceDiff(entry.path, baseSha, headSha)),
+    sourceDiff: truncateForPrompt(
+      getSourceDiff(entry.path, baseSha, headSha, entry.previousPath),
+    ),
   }
 }
 
@@ -798,6 +869,7 @@ function buildCopilotInstructions(taskKind) {
   return [
     'Translate the Japanese source article described below into all requested locales.',
     'Update src/content/blog/{locale}/ files, keep frontmatter aligned with the source, and preserve links and image references.',
+    'Preserve the source articleId exactly in every locale; never regenerate or edit it.',
     SCHOOLS_TRANSLATION_POLICY,
   ]
 }
@@ -857,8 +929,9 @@ function buildProblemStatement({
   return sections.join('\n')
 }
 
-function buildBlogTaskPayload({
+export function buildBlogTaskPayload({
   sourcePath,
+  previousPath,
   changeType,
   sourceDiff,
   locales,
@@ -867,19 +940,33 @@ function buildBlogTaskPayload({
 }) {
   const marker = `translation-source:${sourcePath}`
   const slug = sourcePath.split('/').at(-1)
+  const previousSlug = previousPath?.split('/').at(-1)
+
+  if (changeType === 'R' && !previousSlug) {
+    throw new Error('A renamed blog translation task requires previousPath.')
+  }
+
   const titlePrefix =
-    changeType === 'D' ? 'Remove' : changeType === 'M' ? 'Update' : 'Translate'
+    changeType === 'D'
+      ? 'Remove'
+      : changeType === 'M'
+        ? 'Update'
+        : changeType === 'R'
+          ? 'Rename'
+          : 'Translate'
   const title = `[translation] ${titlePrefix} ${slug}`
   const instructions = [
     ...buildCopilotInstructions('blog-post'),
     changeType === 'D'
       ? '- Remove or close out the corresponding translated files under `src/content/blog/{locale}/`.'
-      : changeType === 'A'
-        ? '- Create translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.'
-        : '- Update only the translated passages affected by the Markdown body diff shown below; do not rewrite unchanged translated content.',
+      : changeType === 'R'
+        ? `- In every target locale, rename \`src/content/blog/{locale}/${previousSlug}\` to \`src/content/blog/{locale}/${slug}\`; do not leave the old translated path behind.`
+        : changeType === 'A'
+          ? '- Create translated files under `src/content/blog/{locale}/` using the Japanese source as the canonical version.'
+          : '- Update only the translated passages affected by the Markdown body diff shown below; do not rewrite unchanged translated content.',
     changeType === 'M'
-      ? '- Ignore frontmatter-only changes and keep existing translated frontmatter unless the changed body requires a title or description adjustment.'
-      : '- Keep frontmatter aligned with the source article, including `title`, `description`, `date`, `tags`, `image`, `uploadedImage`, and `author`.',
+      ? '- Set translated `lastUpdated` to the source article value; otherwise keep existing translated frontmatter unless the changed body requires a title or description adjustment.'
+      : '- Keep frontmatter aligned with the source article, including `articleId`, `title`, `description`, `date`, `lastUpdated`, `tags`, `image`, `uploadedImage`, and `author`.',
     '- Preserve internal links, image references, and structured content blocks.',
   ]
 
@@ -893,13 +980,14 @@ function buildBlogTaskPayload({
       summary: [
         `Repository: ${repository}`,
         `Source path: ${sourcePath}`,
+        ...(previousPath ? [`Previous source path: ${previousPath}`] : []),
         `Source locale: ${DEFAULT_SOURCE_LOCALE}`,
         `Change type: ${changeType}`,
         `Source commit: ${headSha}`,
       ],
       targetLocales: locales,
       instructions,
-      sourceDiff: changeType === 'M' ? sourceDiff : null,
+      sourceDiff: changeType === 'M' || changeType === 'R' ? sourceDiff : null,
     }),
   }
 }
@@ -1047,12 +1135,16 @@ async function main() {
   const forceChanged = Boolean(args.changedFiles)
   const { repository } = getRepositoryInfo()
   const locales = loadTargetLocales()
-  const changedEntries = getChangedEntries({
+  const rawChangedEntries = getChangedEntries({
     baseSha,
     headSha,
     changedFiles: args.changedFiles,
     includeNonBlog: args.includeNonBlog,
     cmsOnly: args.cmsOnly,
+  })
+  const changedEntries = pairJapaneseBlogRenamesByArticleId(rawChangedEntries, {
+    baseSha,
+    headSha,
   })
 
   const blogChanges = changedEntries
@@ -1093,6 +1185,7 @@ async function main() {
     ...blogChanges.map((entry) =>
       buildBlogTaskPayload({
         sourcePath: entry.path,
+        previousPath: entry.previousPath,
         changeType: entry.status,
         sourceDiff: entry.sourceDiff,
         locales,

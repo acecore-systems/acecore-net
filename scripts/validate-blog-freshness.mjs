@@ -6,6 +6,8 @@ import { parseFrontmatter } from '@astrojs/markdown-remark'
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)))
 const SHA_PATTERN = /^[0-9a-f]{40,64}$/i
+const ARTICLE_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const LOCAL_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/
 
 function stableValue(value) {
@@ -84,12 +86,19 @@ function extractRawFrontmatterScalar(frontmatter, key) {
 
 function parseDocument(content) {
   const parsed = parseFrontmatter(content.replace(/^\uFEFF/, ''))
-  const { lastUpdated: _lastUpdated, ...meaningfulFrontmatter } =
-    parsed.frontmatter
+  const {
+    articleId: _articleId,
+    lastUpdated: _lastUpdated,
+    ...meaningfulFrontmatter
+  } = parsed.frontmatter
 
   return {
     body: normalizeMarkdownBody(parsed.content),
     frontmatter: stableValue(meaningfulFrontmatter),
+    articleId:
+      typeof parsed.frontmatter.articleId === 'string'
+        ? parsed.frontmatter.articleId.trim()
+        : null,
     lastUpdated: parseContentDate(
       extractRawFrontmatterScalar(parsed.rawFrontmatter, 'lastUpdated'),
     ),
@@ -113,7 +122,7 @@ export function isFullCommitSha(value) {
 
 export function validateBlogFreshnessChanges(changes) {
   const errors = []
-  const updatedBySlug = new Map()
+  const updatedByArticleId = new Map()
   let meaningfulChangeCount = 0
 
   for (const change of changes) {
@@ -139,8 +148,33 @@ export function validateBlogFreshnessChanges(changes) {
     }
 
     if (
+      baseDocument.articleId &&
+      headDocument.articleId !== baseDocument.articleId
+    ) {
+      errors.push(
+        `${change.headPath}: articleId is immutable (${baseDocument.articleId} -> ${headDocument.articleId ?? 'missing'})`,
+      )
+      continue
+    }
+    if (
+      headDocument.articleId &&
+      !ARTICLE_ID_PATTERN.test(headDocument.articleId)
+    ) {
+      errors.push(
+        `${change.headPath}: articleId is invalid (${headDocument.articleId})`,
+      )
+      continue
+    }
+
+    const pathChanged =
+      change.basePath !== null &&
+      change.headPath !== null &&
+      change.basePath !== change.headPath
+
+    if (
+      !pathChanged &&
       getMeaningfulSignature(baseDocument) ===
-      getMeaningfulSignature(headDocument)
+        getMeaningfulSignature(headDocument)
     ) {
       continue
     }
@@ -168,22 +202,23 @@ export function validateBlogFreshnessChanges(changes) {
       continue
     }
 
-    const slug = getSlug(change.headPath)
-    const entries = updatedBySlug.get(slug) ?? []
+    const articleIdentity =
+      headDocument.articleId?.toLowerCase() ?? getSlug(change.headPath)
+    const entries = updatedByArticleId.get(articleIdentity) ?? []
     entries.push({
       calendarDate: headUpdated.calendarDate,
       path: change.headPath,
     })
-    updatedBySlug.set(slug, entries)
+    updatedByArticleId.set(articleIdentity, entries)
   }
 
-  for (const [slug, entries] of updatedBySlug) {
+  for (const [articleIdentity, entries] of updatedByArticleId) {
     if (entries.length < 2) continue
 
     const dates = new Set(entries.map(({ calendarDate }) => calendarDate))
     if (dates.size > 1) {
       errors.push(
-        `${slug}: changed locale variants must use the same lastUpdated calendar date (${entries
+        `${articleIdentity}: changed locale variants must use the same lastUpdated calendar date for the same articleId (${entries
           .map(
             ({ calendarDate, path: filePath }) => `${filePath}=${calendarDate}`,
           )
@@ -260,28 +295,15 @@ function getFallbackRenameIdentity(filePath, content) {
   if (!filePath || !content) return null
 
   try {
-    const { frontmatter } = parseDocument(content)
+    const { articleId } = parseDocument(content)
     const relativePath = path.posix.relative('src/content/blog', filePath)
     const directory = path.posix.dirname(relativePath)
-    const image = frontmatter.image ?? null
-    const uploadedImage = frontmatter.uploadedImage ?? null
 
-    if (
-      !frontmatter.date ||
-      !frontmatter.author ||
-      (!image && !uploadedImage)
-    ) {
-      return null
-    }
+    if (!articleId) return null
 
     return {
       locale: directory === '.' ? 'ja' : directory,
-      shared: JSON.stringify({
-        date: frontmatter.date,
-        author: frontmatter.author,
-        image,
-        uploadedImage,
-      }),
+      shared: articleId.toLowerCase(),
     }
   } catch {
     return null
@@ -343,35 +365,19 @@ export function getGitChanges(baseSha, headSha, repositoryRoot = root) {
   const deletions = rawChanges.filter(({ status }) => status === 'D')
   const additions = rawChanges.filter(({ status }) => status === 'A')
   const fallbackRenameByHeadPath = new Map()
-  const matchedBasePaths = new Set()
 
-  for (const includeLocale of [false, true]) {
-    const availableDeletions = deletions.filter(
-      ({ basePath }) => !matchedBasePaths.has(basePath),
-    )
-    const availableAdditions = additions.filter(
-      ({ headPath }) => !fallbackRenameByHeadPath.has(headPath),
-    )
-    const deletionsByIdentity = groupChangesByFallbackIdentity(
-      availableDeletions,
-      includeLocale,
-    )
-    const additionsByIdentity = groupChangesByFallbackIdentity(
-      availableAdditions,
-      includeLocale,
-    )
+  const deletionsByIdentity = groupChangesByFallbackIdentity(deletions, true)
+  const additionsByIdentity = groupChangesByFallbackIdentity(additions, true)
 
-    for (const [identity, matchingAdditions] of additionsByIdentity) {
-      const matchingDeletions = deletionsByIdentity.get(identity)
-      if (matchingAdditions.length !== 1 || matchingDeletions?.length !== 1) {
-        continue
-      }
-      fallbackRenameByHeadPath.set(
-        matchingAdditions[0].headPath,
-        matchingDeletions[0],
-      )
-      matchedBasePaths.add(matchingDeletions[0].basePath)
+  for (const [identity, matchingAdditions] of additionsByIdentity) {
+    const matchingDeletions = deletionsByIdentity.get(identity)
+    if (matchingAdditions.length !== 1 || matchingDeletions?.length !== 1) {
+      continue
     }
+    fallbackRenameByHeadPath.set(
+      matchingAdditions[0].headPath,
+      matchingDeletions[0],
+    )
   }
 
   const changes = rawChanges.flatMap((change) => {
@@ -424,7 +430,8 @@ const help = `Usage:
 
 The BLOG_FRESHNESS_BASE_SHA and BLOG_FRESHNESS_HEAD_SHA environment variables
 may be used instead. Existing articles must advance lastUpdated when their
-rendered content changes. New articles may use date without lastUpdated.`
+rendered content changes, and an existing articleId is immutable. New articles
+may use date without lastUpdated.`
 
 export function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv)

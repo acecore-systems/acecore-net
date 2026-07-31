@@ -41,6 +41,9 @@ collections:
       - name: description
         label: 概要
         widget: text
+      - name: articleId
+        widget: hidden
+        default: '{{uuid}}'
       - name: date
         label: 公開日
         widget: datetime

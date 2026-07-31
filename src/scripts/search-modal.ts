@@ -111,11 +111,13 @@ function ensurePagefindOverrideStyle() {
 }
 
 function loadPagefindScript() {
-  if (isPagefindReady && window.PagefindUI) return Promise.resolve()
-  if (pagefindLoadPromise) return pagefindLoadPromise
-
+  // Astroのhead swapでは動的に追加したlink/styleが外れるため、
+  // 読み込み済みruntimeを再利用するときも現在documentへ再装着する。
   ensurePagefindStyle()
   ensurePagefindOverrideStyle()
+
+  if (isPagefindReady && window.PagefindUI) return Promise.resolve()
+  if (pagefindLoadPromise) return pagefindLoadPromise
 
   pagefindLoadPromise = new Promise((resolve, reject) => {
     const existingScript = document.getElementById(

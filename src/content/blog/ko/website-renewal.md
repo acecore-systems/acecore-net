@@ -1,6 +1,7 @@
 ---
 title: 'Acecore 공식 사이트를 개편했습니다'
 description: 'Acecore 공식 사이트를 회사 정보, 사업 안내, 기업 뉴스에 집중한 코퍼레이트 사이트로 정리했습니다.'
+articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: 2026-07-30T00:01
 author: gui

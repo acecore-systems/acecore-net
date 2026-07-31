@@ -1,6 +1,7 @@
 ---
 title: 'Acecoreの事業案内：専門サイトへのご案内'
 description: 'Acecoreのコーポレート情報と、Systems、Schools、Aceserverそれぞれの公式な案内先を紹介します。'
+articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: 2026-07-30T00:00
 author: gui

@@ -48,6 +48,7 @@ const appEnv = {
   CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
   CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
 }
+const defaultArticleId = '11111111-1111-4111-8111-111111111111'
 const repositoryApi = `https://api.github.com/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}`
 const contentPath =
   CMS_REPOSITORY.name === 'acecore-net'
@@ -56,6 +57,7 @@ const contentPath =
 const validBlogMarkdown = `---
 title: CMS test
 description: CMS proxy test content
+articleId: ${defaultArticleId}
 date: 2026-07-28T12:00
 author: gui
 ---
@@ -494,7 +496,7 @@ test('lastUpdated自身の前進と意味を変えない書式差だけなら許
   )
 })
 
-test('記事名変更と本文変更を同時に行ってもlastUpdated検証を迂回できない', () => {
+test('同一articleIdの記事名変更は同一保存なら許可し、lastUpdated更新を必須にする', () => {
   const basePath = 'src/content/blog/old-slug.md'
   const headPath = 'src/content/blog/new-slug.md'
 
@@ -2385,6 +2387,7 @@ function referenceAddition(path, value) {
 }
 
 function referenceBlogMarkdown({
+  articleId = defaultArticleId,
   author = 'gui',
   galleryImage,
   image,
@@ -2394,6 +2397,7 @@ function referenceBlogMarkdown({
   return `---
 title: Reference test
 description: CMS reference validation test
+articleId: ${articleId}
 date: 2026-07-29T12:00
 author: ${author}
 tags: ${JSON.stringify(tags)}
@@ -2411,10 +2415,15 @@ Reference validation.
 `
 }
 
-function freshnessBlogMarkdown({ body = 'Original body.', lastUpdated } = {}) {
+function freshnessBlogMarkdown({
+  articleId = defaultArticleId,
+  body = 'Original body.',
+  lastUpdated,
+} = {}) {
   return `---
 title: Freshness test
 description: CMS freshness validation test
+articleId: ${articleId}
 date: 2026-07-28T12:00
 ${lastUpdated ? `lastUpdated: ${lastUpdated}\n` : ''}author: gui
 ---

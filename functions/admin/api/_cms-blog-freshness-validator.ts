@@ -4,6 +4,7 @@ import {
   isValidContentDateValue,
   normalizeContentDateValue,
 } from '../../../src/utils/content-date.ts'
+import { isValidArticleId } from '../../../src/utils/article-id.ts'
 import { GitHubApiError } from './_github-api.ts'
 
 type CmsBlogAddition = {
@@ -32,10 +33,7 @@ type ParsedBlogDocument = {
   frontmatter: unknown
   date: ContentDate | null
   lastUpdated: ContentDate | null
-  renameIdentity: {
-    locale: string
-    shared: string
-  } | null
+  articleId: string | null
 }
 
 const BLOG_PREFIX = 'src/content/blog/'
@@ -57,11 +55,30 @@ export function validateCmsBlogFreshness({
         : []
     }),
   )
-  const updatedBySlug = new Map<
+  const updatedByArticleId = new Map<
     string,
     Array<{ calendarDate: string; path: string }>
   >()
   const headDocuments = new Map<string, ParsedBlogDocument>()
+  const currentDocuments = new Map<string, ParsedBlogDocument>()
+  const currentPathByArticleIdentity = new Map<string, string>()
+
+  for (const [path, contents] of currentArticles) {
+    const document = parseDocument(path, contents)
+    const articleId = assertArticleId(document, path, 502)
+    const identity = getArticleIdentity(path, articleId)
+    const existingPath = currentPathByArticleIdentity.get(identity)
+
+    if (existingPath) {
+      throw new GitHubApiError(
+        `GitHub上の記事articleIdが重複しています: ${existingPath}, ${path} (${articleId})`,
+        502,
+      )
+    }
+
+    currentDocuments.set(path, document)
+    currentPathByArticleIdentity.set(identity, path)
+  }
 
   for (const addition of additions) {
     if (!isBlogPath(addition.path)) continue
@@ -70,6 +87,7 @@ export function validateCmsBlogFreshness({
       addition.path,
       decodeBase64Text(addition.path, addition.contents),
     )
+    assertArticleId(headDocument, addition.path, 422)
     const headUpdated = headDocument.lastUpdated
 
     if (headUpdated) {
@@ -101,12 +119,61 @@ export function validateCmsBlogFreshness({
     ({ path }) => isBlogPath(path) && !currentArticles.has(path),
   )
   const blogDeletions = deletions.filter(({ path }) => isBlogPath(path))
-  const renameBaseByHeadPath = matchFallbackRenames({
-    additions: newBlogAdditions,
-    currentArticles,
-    deletions: blogDeletions,
-    headDocuments,
-  })
+  const deletedPaths = new Set(blogDeletions.map(({ path }) => path))
+  const renameBaseByHeadPath = new Map<string, string>()
+  const headPathByArticleIdentity = new Map<string, string>()
+
+  for (const addition of additions) {
+    if (!isBlogPath(addition.path)) continue
+
+    const headDocument = headDocuments.get(addition.path)
+
+    if (!headDocument) {
+      throw new GitHubApiError(
+        `CMS保存内容を読み込めません: ${addition.path}`,
+        422,
+      )
+    }
+
+    const articleId = assertArticleId(headDocument, addition.path, 422)
+    const identity = getArticleIdentity(addition.path, articleId)
+    const duplicateHeadPath = headPathByArticleIdentity.get(identity)
+
+    if (duplicateHeadPath && duplicateHeadPath !== addition.path) {
+      throw new GitHubApiError(
+        `同一言語の記事articleIdを重複できません: ${duplicateHeadPath}, ${addition.path} (${articleId})`,
+        422,
+      )
+    }
+
+    headPathByArticleIdentity.set(identity, addition.path)
+
+    if (currentArticles.has(addition.path)) {
+      const currentDocument = currentDocuments.get(addition.path)
+
+      if (!currentDocument || currentDocument.articleId !== articleId) {
+        throw new GitHubApiError(
+          `既存記事のarticleIdを変更できません: ${addition.path}`,
+          422,
+        )
+      }
+      continue
+    }
+
+    const currentPath = currentPathByArticleIdentity.get(identity)
+
+    if (!currentPath) continue
+
+    if (!deletedPaths.has(currentPath)) {
+      throw new GitHubApiError(
+        `記事articleIdは既に使用されています。slug変更は旧pathの削除と同じ保存で行ってください: ${addition.path} (${articleId})`,
+        422,
+      )
+    }
+
+    renameBaseByHeadPath.set(addition.path, currentPath)
+  }
+
   const matchedBasePaths = new Set(renameBaseByHeadPath.values())
   const hasUnmatchedAddition = newBlogAdditions.some(
     ({ path }) => !renameBaseByHeadPath.has(path),
@@ -132,10 +199,10 @@ export function validateCmsBlogFreshness({
     // New articles may continue to use date without lastUpdated.
     if (baseContent === undefined) continue
 
-    const baseDocument = parseDocument(basePath, baseContent)
+    const baseDocument = currentDocuments.get(basePath)
     const headDocument = headDocuments.get(addition.path)
 
-    if (!headDocument) {
+    if (!baseDocument || !headDocument) {
       throw new GitHubApiError(
         `CMS保存内容を読み込めません: ${addition.path}`,
         422,
@@ -199,23 +266,23 @@ export function validateCmsBlogFreshness({
       )
     }
 
-    const slug = getSlug(addition.path)
-    const entries = updatedBySlug.get(slug) ?? []
+    const articleId = assertArticleId(headDocument, addition.path, 422)
+    const entries = updatedByArticleId.get(articleId.toLowerCase()) ?? []
     entries.push({
       calendarDate: headUpdated.calendarDate,
       path: addition.path,
     })
-    updatedBySlug.set(slug, entries)
+    updatedByArticleId.set(articleId.toLowerCase(), entries)
   }
 
-  for (const [slug, entries] of updatedBySlug) {
+  for (const [articleId, entries] of updatedByArticleId) {
     if (entries.length < 2) continue
 
     const dates = new Set(entries.map(({ calendarDate }) => calendarDate))
 
     if (dates.size > 1) {
       throw new GitHubApiError(
-        `${slug}: 同時に変更する多言語記事のlastUpdated日を揃えてください (${entries
+        `${articleId}: 同一記事として同時に変更する多言語記事のlastUpdated日を揃えてください (${entries
           .map(({ calendarDate, path }) => `${path}=${calendarDate}`)
           .join(', ')})`,
         422,
@@ -245,7 +312,11 @@ function parseDocument(path: string, source: string): ParsedBlogDocument {
     throw new GitHubApiError(`記事frontmatterが不正です: ${path}`, 422)
   }
 
-  const { lastUpdated: _lastUpdated, ...meaningfulFrontmatter } = frontmatter
+  const {
+    articleId: rawArticleId,
+    lastUpdated: _lastUpdated,
+    ...meaningfulFrontmatter
+  } = frontmatter
 
   return {
     body: normalizeMarkdownBody(source.slice(match[0].length)),
@@ -254,130 +325,32 @@ function parseDocument(path: string, source: string): ParsedBlogDocument {
     lastUpdated: parseContentDate(
       extractRawFrontmatterScalar(match[1], 'lastUpdated'),
     ),
-    renameIdentity: getFallbackRenameIdentity(path, frontmatter),
+    articleId: typeof rawArticleId === 'string' ? rawArticleId.trim() : null,
   }
 }
 
-function matchFallbackRenames({
-  additions,
-  currentArticles,
-  deletions,
-  headDocuments,
-}: {
-  additions: readonly CmsBlogAddition[]
-  currentArticles: ReadonlyMap<string, string>
-  deletions: readonly CmsBlogDeletion[]
-  headDocuments: ReadonlyMap<string, ParsedBlogDocument>
-}) {
-  const additionCandidates = additions.flatMap((addition) => {
-    const identity = headDocuments.get(addition.path)?.renameIdentity
-
-    return identity ? [{ identity, path: addition.path }] : []
-  })
-  const deletionCandidates = deletions.flatMap((deletion) => {
-    const contents = currentArticles.get(deletion.path)
-
-    if (contents === undefined) return []
-
-    const identity = parseDocument(deletion.path, contents).renameIdentity
-
-    return identity ? [{ identity, path: deletion.path }] : []
-  })
-  const renameBaseByHeadPath = new Map<string, string>()
-  const matchedBasePaths = new Set<string>()
-
-  for (const includeLocale of [false, true]) {
-    const availableAdditions = additionCandidates.filter(
-      ({ path }) => !renameBaseByHeadPath.has(path),
-    )
-    const availableDeletions = deletionCandidates.filter(
-      ({ path }) => !matchedBasePaths.has(path),
-    )
-    const additionsByIdentity = groupRenameCandidates(
-      availableAdditions,
-      includeLocale,
-    )
-    const deletionsByIdentity = groupRenameCandidates(
-      availableDeletions,
-      includeLocale,
-    )
-
-    for (const [identity, matchingAdditions] of additionsByIdentity) {
-      const matchingDeletions = deletionsByIdentity.get(identity)
-
-      if (matchingAdditions.length !== 1 || matchingDeletions?.length !== 1) {
-        continue
-      }
-
-      renameBaseByHeadPath.set(
-        matchingAdditions[0].path,
-        matchingDeletions[0].path,
-      )
-      matchedBasePaths.add(matchingDeletions[0].path)
-    }
-  }
-
-  return renameBaseByHeadPath
-}
-
-function groupRenameCandidates(
-  candidates: readonly {
-    identity: NonNullable<ParsedBlogDocument['renameIdentity']>
-    path: string
-  }[],
-  includeLocale: boolean,
-) {
-  const groups = new Map<string, Array<{ path: string }>>()
-
-  for (const candidate of candidates) {
-    const key = includeLocale
-      ? JSON.stringify([candidate.identity.locale, candidate.identity.shared])
-      : candidate.identity.shared
-    const entries = groups.get(key) ?? []
-
-    entries.push({ path: candidate.path })
-    groups.set(key, entries)
-  }
-
-  return groups
-}
-
-function getFallbackRenameIdentity(
-  path: string,
-  frontmatter: Record<string, unknown>,
-) {
+function getArticleIdentity(path: string, articleId: string) {
   const relativePath = path.slice(BLOG_PREFIX.length)
   const directory = relativePath.includes('/')
     ? relativePath.slice(0, relativePath.lastIndexOf('/'))
     : ''
-  const date = stableValue(frontmatter.date)
-  const author = frontmatter.author
-  const image = frontmatter.image ?? null
-  const uploadedImage = frontmatter.uploadedImage ?? null
-  const hasStableImage =
-    typeof image === 'string' || typeof uploadedImage === 'string'
-  const title = frontmatter.title
-  const description = frontmatter.description
 
-  if (
-    typeof date !== 'string' ||
-    typeof author !== 'string' ||
-    (!hasStableImage &&
-      (typeof title !== 'string' || typeof description !== 'string'))
-  ) {
-    return null
+  return JSON.stringify([directory || 'ja', articleId.toLowerCase()])
+}
+
+function assertArticleId(
+  document: ParsedBlogDocument,
+  path: string,
+  status: number,
+) {
+  if (!isValidArticleId(document.articleId)) {
+    throw new GitHubApiError(
+      `${status === 502 ? 'GitHub上の記事' : '記事'}のarticleIdが不正です: ${path}`,
+      status,
+    )
   }
 
-  return {
-    locale: directory || 'ja',
-    shared: JSON.stringify({
-      date,
-      author,
-      image: typeof image === 'string' ? image : null,
-      uploadedImage: typeof uploadedImage === 'string' ? uploadedImage : null,
-      ...(hasStableImage ? {} : { title, description }),
-    }),
-  }
+  return document.articleId
 }
 
 function getMeaningfulSignature(document: {
@@ -498,11 +471,6 @@ function isBlogPath(path: string) {
     path.length > BLOG_PREFIX.length &&
     path.endsWith('.md')
   )
-}
-
-function getSlug(path: string) {
-  const fileName = path.split('/').pop() || ''
-  return fileName.endsWith('.md') ? fileName.slice(0, -3) : fileName
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

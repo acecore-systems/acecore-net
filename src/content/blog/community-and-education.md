@@ -1,6 +1,7 @@
 ---
 title: 'コミュニティ活動と教育への取り組み'
 description: 'Acecoreのコミュニティ活動、教育支援、オープンソースへの貢献について。Aceserver、Schools、過去のワークショップを通じた取り組みを紹介します。'
+articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-30T00:00
 author: gui

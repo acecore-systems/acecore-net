@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { ARTICLE_ID_PATTERN } from './utils/article-id.ts'
 import {
   isValidContentDateValue,
   normalizeContentDateValue,
@@ -44,6 +45,7 @@ const localizedTagSchema = z.object({
 export const blogSchema = z.object({
   title: z.string(),
   description: z.string(),
+  articleId: z.string().uuid().regex(ARTICLE_ID_PATTERN),
   date: contentDate,
   lastUpdated: contentDate.optional(),
   translation: z.boolean().optional(),
