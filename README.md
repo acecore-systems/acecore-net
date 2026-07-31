@@ -202,7 +202,7 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 `functions/api/ai-contact.ts` の Cloudflare Pages Function からOpenAI Responses APIを直接呼び出します。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserverについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。担当が明示されない質問はAcecoreを既定とし、全indexを一律には検索しません。Aceserverだけは、1回のembeddingを共有してWIKIとPortalを並列検索します。
 
-Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`gpt-5.6-luna`（reasoning effort `low`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはPages Functionのsecretだけに置き、ブラウザへ渡しません。Cloudflare Workers AIとOpenAI AI Gatewayは使用しません。
+Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`gpt-5.6-luna`（reasoning effort `medium`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはPages Functionのsecretだけに置き、ブラウザへ渡しません。Cloudflare Workers AIとOpenAI AI Gatewayは使用しません。
 
 専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryにPreview / Productionのcorpus同期、削除、query smoke testがまだないため、全環境でVectorize接続を停止し、公式サイトのルートだけを案内します。各接続済みbindingのkill switchとscore下限は個別に設定でき、Acecoreの `SEARCH_ENABLED=false` は検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に停止します。
 
@@ -214,7 +214,7 @@ Cloudflare Pages 側で以下を設定してください。
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationは `WORLD_FOUNDATION_SEARCH_ENABLED=false` に固定し、bindingは設定しない
 - `OPENAI_CHAT_MODEL`: 回答モデル（既定 `gpt-5.6-luna`）
-- `OPENAI_REASONING_EFFORT`: 推論 effort（既定 `low`）
+- `OPENAI_REASONING_EFFORT`: 推論 effort（既定 `medium`）
 - `OPENAI_EMBEDDING_MODEL`: embeddingモデル（既定 `text-embedding-3-large`）
 - `OPENAI_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1536`固定）
 
