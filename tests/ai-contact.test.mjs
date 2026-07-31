@@ -1623,19 +1623,31 @@ test('World Foundationのkill switchがfalseなら誤ったbindingがあって�
   })
 })
 
-test('World FoundationのVectorizeはroot・Preview・Productionで未接続にする', () => {
+test('World FoundationのVectorizeはProductionだけに接続する', () => {
   const config = readFileSync(
     new URL('../wrangler.jsonc', import.meta.url),
     'utf8',
   )
 
-  assert.doesNotMatch(config, /WORLD_FOUNDATION_SEARCH_INDEX/u)
-  assert.doesNotMatch(config, /world-foundation-search-(?:preview|production)/u)
+  assert.doesNotMatch(config, /world-foundation-search-openai-1536-preview/u)
+  assert.equal(
+    config.split(
+      '"index_name": "world-foundation-search-openai-1536-production"',
+    ).length - 1,
+    1,
+  )
+  assert.equal(
+    config.split('"binding": "WORLD_FOUNDATION_SEARCH_INDEX"').length - 1,
+    1,
+  )
   assert.equal(
     config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "false"/gu)?.length,
-    3,
+    2,
   )
-  assert.doesNotMatch(config, /"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/u)
+  assert.equal(
+    config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/gu)?.length,
+    1,
+  )
 })
 
 test('Previewを停止しProductionの確認済み検索だけを有効化する', () => {
@@ -1649,6 +1661,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'acecore-schools-search-openai-1536-production',
     'aceserver-wiki-search-openai-1536-production',
     'aceserver-portal-search-openai-1536-production',
+    'world-foundation-search-openai-1536-production',
   ]
   const enabledKillSwitches = [
     'SYSTEMS_SEARCH_ENABLED',
@@ -1671,7 +1684,11 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
   assert.equal(config.match(/"SEARCH_ENABLED": "true"/gu)?.length, 1)
   assert.equal(
     config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "false"/gu)?.length,
-    3,
+    2,
+  )
+  assert.equal(
+    config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/gu)?.length,
+    1,
   )
   assert.equal(
     config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "false"/gu)?.length,

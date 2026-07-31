@@ -1,6 +1,6 @@
 # Vectorize検索・AI横断検索 運用ガイド
 
-Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationは担当判定と固定公式導線だけを提供し、owner repositoryの同期ライフサイクルが整うまでVectorizeへ接続しません。検索モーダルは次の2系統を提供します。
+Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationを含む外部indexはProductionだけへ接続し、top-level／Previewには接続しません。検索モーダルは次の2系統を提供します。
 
 - Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
 - Cloudflare Vectorize: OpenAIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
@@ -15,8 +15,8 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 4. 新規・変更chunkだけをOpenAI `text-embedding-3-large` で1536次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
-8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。World Foundationは詳細を生成せず固定公式ルートへ案内する。
+7. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。
+8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
@@ -31,9 +31,9 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 | Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-production`  | `ja`       | 学習サービス                                     |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-production`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
 | Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-openai-1536-production` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
-| World Foundation | 未接続                          | 未接続                                           | 未適用     | 公式ルートへの固定案内のみ                       |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_INDEX` | `world-foundation-search-openai-1536-production` | `ja`       | 制度設計、提案、研究、方針、モジュール           |
 
-Vectorize bindingはProductionだけに設定し、rootとPreviewには設定しません。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。Aceserver Portalのcorpus同期もProduction専用で、top-level／Previewの `ACESERVER_PORTAL_SEARCH_ENABLED=false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはどの環境にもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
+Vectorize bindingはProductionだけに設定し、rootとPreviewには設定しません。Systems、Schools、World Foundationはそれぞれ1つのindexだけを検索します。Aceserver PortalとWorld Foundationのcorpus同期もProduction専用で、top-level／Previewの該当kill switchを `false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。
 
 外部indexの日本語根拠は参照データとして `gpt-5.6-luna` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Responses APIが `max_output_tokens` による未完了を返した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
@@ -46,9 +46,9 @@ Vectorize bindingはProductionだけに設定し、rootとPreviewには設定し
 | Schools          | `SCHOOLS_SEARCH_ENABLED`                                            | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                                     | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
 | Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED`（Preview=false／Production=true） | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
-| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED=false`（固定）                     | 未適用                                   |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED`（Preview=false／Production=true） | `WORLD_FOUNDATION_SEARCH_MIN_SCORE=0.40` |
 
-World Foundationを再接続する前に、owner repositoryで公開corpusの生成、Production同期、削除、Production query smoke testを実装して成功させます。その確認と同じ変更でProductionのVectorize binding追加とkill switch変更を行います。一部だけを先に有効化しません。
+World Foundation owner repositoryでは、公開corpusの生成、Production同期、削除、Production query smoke testを実装済みです。2026-07-31に `world-foundation-search-openai-1536-production` が1536次元・cosine・135 vectorsであることと、日本語・英語のlive query成功を確認してからProduction bindingとkill switchを切り替えました。
 
 ## Acecoreが管理するCloudflareリソース
 
@@ -178,7 +178,7 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentにVectorize bindingがなく、`/api/search` とAIチャットがPagefindまたは固定公式導線へ安全にフォールバックすることを確認
-- World Foundationの質問ではembeddingとVectorize queryが実行されず、固定した公式ルートだけが返ることを確認
+- Production deploymentのWorld Foundation質問で同サイトの根拠だけを検索し、Previewではbindingなしで固定公式ルートへ安全にフォールバックすることを確認
 - Production deploymentのAceserver質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
 - 有効化する外部indexのowner repositoryでProduction同期とquery smoke testが成功していることを確認する。未確認の取得元はkill switchを `false` にする
 - 各表示localeで外部の日本語根拠から回答でき、回答リンクが実際に取得した公式URLに限定されることを確認
