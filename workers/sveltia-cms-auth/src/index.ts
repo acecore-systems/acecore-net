@@ -2,15 +2,51 @@ const provider = 'github'
 const csrfCookieName = 'sveltia-cms-auth-csrf'
 const csrfMaxAgeSeconds = 600
 
-const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+type AuthErrorCode =
+  | 'UNSUPPORTED_BACKEND'
+  | 'UNSUPPORTED_DOMAIN'
+  | 'MISCONFIGURED_CLIENT'
+  | 'AUTH_CODE_REQUEST_FAILED'
+  | 'CSRF_DETECTED'
+  | 'TOKEN_REQUEST_FAILED'
+  | 'MALFORMED_RESPONSE'
 
-const scriptString = (value) => JSON.stringify(value).replace(/</g, '\\u003c')
+type OAuthOutput =
+  | { type: 'success'; token: string }
+  | { type: 'error'; error: string; errorCode: AuthErrorCode }
+
+type GitHubAccessTokenResponse = {
+  accessToken?: string
+  error?: string
+  errorDescription?: string
+}
+
+/**
+ * Wrangler generates `SveltiaCmsAuthConfig` from `wrangler.jsonc`. Secrets and
+ * dashboard-only variables intentionally do not appear in that generated type.
+ */
+type SveltiaCmsAuthRuntimeOverrides = {
+  readonly GITHUB_CLIENT_ID?: string
+  readonly GITHUB_CLIENT_SECRET?: string
+  readonly GITHUB_HOSTNAME?: string
+}
+
+type SveltiaCmsAuthEnv = SveltiaCmsAuthConfig & SveltiaCmsAuthRuntimeOverrides
+
+const escapeRegExp = (value: string): string =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+const scriptString = (value: string): string =>
+  JSON.stringify(value).replace(/</g, '\\u003c')
 
 const deleteCsrfCookie = `${csrfCookieName}=deleted; HttpOnly; Max-Age=0; Path=/; SameSite=Lax; Secure`
 
-const outputHTML = ({ token, error, errorCode }) => {
-  const state = error ? 'error' : 'success'
-  const payload = error ? { provider, error, errorCode } : { provider, token }
+const outputHTML = (output: OAuthOutput): Response => {
+  const state = output.type === 'error' ? 'error' : 'success'
+  const payload =
+    output.type === 'error'
+      ? { provider, error: output.error, errorCode: output.errorCode }
+      : { provider, token: output.token }
   const message = `authorization:${provider}:${state}:${JSON.stringify(payload)}`
   const probe = `authorizing:${provider}`
 
@@ -41,9 +77,13 @@ const outputHTML = ({ token, error, errorCode }) => {
   )
 }
 
-const outputError = (error, errorCode) => outputHTML({ error, errorCode })
+const outputError = (error: string, errorCode: AuthErrorCode): Response =>
+  outputHTML({ type: 'error', error, errorCode })
 
-const isAllowedDomain = (domain, allowedDomains) => {
+const isAllowedDomain = (
+  domain: string | null,
+  allowedDomains: string | undefined,
+): boolean => {
   if (!allowedDomains) return true
   if (!domain) return false
 
@@ -62,14 +102,53 @@ const isAllowedDomain = (domain, allowedDomains) => {
     })
 }
 
-const readCsrfCookie = (cookieHeader) =>
+const readCsrfCookie = (cookieHeader: string | null): string | undefined =>
   cookieHeader
     ?.split(';')
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${csrfCookieName}=`))
     ?.slice(csrfCookieName.length + 1)
 
-const handleAuth = async (request, env) => {
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value)
+
+const readOptionalString = (
+  record: Record<string, unknown>,
+  key: string,
+): string | undefined => {
+  const value = record[key]
+  return typeof value === 'string' ? value : undefined
+}
+
+const parseGitHubAccessTokenResponse = (
+  value: unknown,
+): GitHubAccessTokenResponse | null => {
+  if (!isRecord(value)) return null
+
+  const accessToken = readOptionalString(value, 'access_token')
+  const error = readOptionalString(value, 'error')
+  const errorDescription = readOptionalString(value, 'error_description')
+
+  return accessToken || error ? { accessToken, error, errorDescription } : null
+}
+
+const csrfTokensMatch = async (
+  state: string,
+  csrfToken: string,
+): Promise<boolean> => {
+  const encoder = new TextEncoder()
+  const [stateHash, csrfHash] = await Promise.all([
+    crypto.subtle.digest('SHA-256', encoder.encode(state)),
+    crypto.subtle.digest('SHA-256', encoder.encode(csrfToken)),
+  ])
+
+  return crypto.subtle.timingSafeEqual(stateHash, csrfHash)
+}
+
+const handleAuth = async (
+  request: Request,
+  env: SveltiaCmsAuthEnv,
+): Promise<Response> => {
   const requestURL = new URL(request.url)
   const requestedProvider = requestURL.searchParams.get('provider')
   const siteID = requestURL.searchParams.get('site_id')
@@ -88,18 +167,20 @@ const handleAuth = async (request, env) => {
     )
   }
 
-  if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
+  const clientID = env.GITHUB_CLIENT_ID
+  const clientSecret = env.GITHUB_CLIENT_SECRET
+  if (!clientID || !clientSecret) {
     return outputError(
       'OAuth app client ID or secret is not configured.',
       'MISCONFIGURED_CLIENT',
     )
   }
 
-  const csrfToken = globalThis.crypto.randomUUID().replaceAll('-', '')
+  const csrfToken = crypto.randomUUID().replaceAll('-', '')
   const githubHostname = env.GITHUB_HOSTNAME || 'github.com'
   const authURL = new URL(`https://${githubHostname}/login/oauth/authorize`)
 
-  authURL.searchParams.set('client_id', env.GITHUB_CLIENT_ID)
+  authURL.searchParams.set('client_id', clientID)
   authURL.searchParams.set('scope', env.GITHUB_SCOPE || 'repo,user')
   authURL.searchParams.set('state', csrfToken)
 
@@ -112,7 +193,10 @@ const handleAuth = async (request, env) => {
   })
 }
 
-const handleCallback = async (request, env) => {
+const handleCallback = async (
+  request: Request,
+  env: SveltiaCmsAuthEnv,
+): Promise<Response> => {
   const requestURL = new URL(request.url)
   const code = requestURL.searchParams.get('code')
   const state = requestURL.searchParams.get('state')
@@ -125,14 +209,16 @@ const handleCallback = async (request, env) => {
     )
   }
 
-  if (!csrfToken || state !== csrfToken) {
+  if (!csrfToken || !(await csrfTokensMatch(state, csrfToken))) {
     return outputError(
       'Potential CSRF attack detected. Authentication flow aborted.',
       'CSRF_DETECTED',
     )
   }
 
-  if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
+  const clientID = env.GITHUB_CLIENT_ID
+  const clientSecret = env.GITHUB_CLIENT_SECRET
+  if (!clientID || !clientSecret) {
     return outputError(
       'OAuth app client ID or secret is not configured.',
       'MISCONFIGURED_CLIENT',
@@ -150,8 +236,8 @@ const handleCallback = async (request, env) => {
       },
       body: JSON.stringify({
         code,
-        client_id: env.GITHUB_CLIENT_ID,
-        client_secret: env.GITHUB_CLIENT_SECRET,
+        client_id: clientID,
+        client_secret: clientSecret,
       }),
     },
   ).catch(() => null)
@@ -163,7 +249,8 @@ const handleCallback = async (request, env) => {
     )
   }
 
-  const tokenResponse = await response.json().catch(() => null)
+  const tokenPayload: unknown = await response.json().catch(() => null)
+  const tokenResponse = parseGitHubAccessTokenResponse(tokenPayload)
 
   if (!tokenResponse) {
     return outputError(
@@ -174,16 +261,23 @@ const handleCallback = async (request, env) => {
 
   if (tokenResponse.error) {
     return outputError(
-      tokenResponse.error_description || tokenResponse.error,
+      tokenResponse.errorDescription || tokenResponse.error,
       'TOKEN_REQUEST_FAILED',
     )
   }
 
-  return outputHTML({ token: tokenResponse.access_token })
+  if (!tokenResponse.accessToken) {
+    return outputError(
+      'Server responded with malformed data. Please try again later.',
+      'MALFORMED_RESPONSE',
+    )
+  }
+
+  return outputHTML({ type: 'success', token: tokenResponse.accessToken })
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env): Promise<Response> {
     const { method } = request
     const { pathname } = new URL(request.url)
 
@@ -200,4 +294,4 @@ export default {
 
     return new Response('', { status: 404 })
   },
-}
+} satisfies ExportedHandler<SveltiaCmsAuthEnv>

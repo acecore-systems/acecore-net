@@ -2,6 +2,15 @@
 
 Cloudflare Workers OAuth client for Sveltia CMS GitHub authentication.
 
+Worker 本体は TypeScript（`src/index.ts`）です。`worker-configuration.d.ts` は
+`wrangler.jsonc` から生成します。リポジトリルートで再生成・検査する手順は次のとおりです。
+
+```powershell
+npm run types:cms-auth
+npm run typecheck:cms-auth
+npm run test:cms-auth
+```
+
 ## GitHub OAuth App
 
 Create a GitHub OAuth App with:

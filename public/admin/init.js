@@ -1,4 +1,31 @@
-CMS.init({
+// @ts-check
+
+/**
+ * @typedef {{
+ *   init: (options: { config: { backend: { branch: string } } }) => void
+ * }} SveltiaCms
+ */
+
+/** @type {unknown} */
+const cmsCandidate = Reflect.get(globalThis, 'CMS')
+
+/**
+ * @param {unknown} value
+ * @returns {value is SveltiaCms}
+ */
+const isSveltiaCms = (value) =>
+  typeof value === 'object' &&
+  value !== null &&
+  'init' in value &&
+  typeof value.init === 'function'
+
+if (!isSveltiaCms(cmsCandidate)) {
+  throw new Error('Sveltia CMS failed to load.')
+}
+
+const cms = cmsCandidate
+
+cms.init({
   config: {
     backend: {
       branch: 'main',

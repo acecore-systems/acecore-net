@@ -4,3 +4,4 @@ node_modules/
 .wrangler/
 package-lock.json
 functions/cloudflare-env.d.ts
+workers/sveltia-cms-auth/worker-configuration.d.ts
