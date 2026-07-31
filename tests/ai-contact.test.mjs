@@ -1423,6 +1423,22 @@ test('World FoundationのVectorizeはroot・Preview・Productionで未接続に�
   assert.doesNotMatch(config, /"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/u)
 })
 
+test('Aceserver PortalはPreviewを停止しProductionだけで検索する', () => {
+  const config = readFileSync(
+    new URL('../wrangler.jsonc', import.meta.url),
+    'utf8',
+  )
+
+  assert.equal(
+    config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "false"/gu)?.length,
+    2,
+  )
+  assert.equal(
+    config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "true"/gu)?.length,
+    1,
+  )
+})
+
 test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばない', async () => {
   let aiCalls = 0
   let vectorizeCalls = 0
