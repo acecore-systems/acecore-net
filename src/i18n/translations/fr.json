@@ -46,8 +46,8 @@
     "open": "Ouvrir le chat IA",
     "close": "Fermer le chat IA",
     "title": "Demander à l'IA",
-    "lead": "Réponses courtes basées sur ce site.",
-    "greeting": "Demandez où trouver les informations officielles d'Acecore Systems, Acecore Schools ou Aceserver et comment joindre le point de contact commun. Les détails figurent sur chaque site officiel ; les demandes formelles passent par le formulaire.",
+    "lead": "Recherche sur les sites officiels d'Acecore et répond brièvement à partir d'informations publiques.",
+    "greeting": "Posez vos questions sur Acecore, Acecore Systems, Acecore Schools, Aceserver ou World Foundation. Le chat recherche et cite des sources officielles pertinentes pour Acecore, Systems, Schools et Aceserver. Pour World Foundation, il vous oriente actuellement vers le site officiel. Il n’invente pas les détails qu’il ne peut pas vérifier.",
     "inputLabel": "Question pour le chat IA",
     "placeholder": "Saisissez votre question...",
     "send": "Envoyer",
@@ -386,9 +386,9 @@
       "analyticsBody1": "Ce site peut utiliser Google Analytics comme outil d'analyse d'accès.",
       "analyticsBody2": "Google Analytics utilise des cookies pour collecter des données de trafic, mais ces données sont collectées anonymement et n'identifient pas les individus.",
       "analyticsBody3": "Vous pouvez refuser cette collecte de données en désactivant les cookies. Vérifiez les paramètres de votre navigateur.",
-      "searchHeading": "À propos de la recherche sur le site",
-      "searchBody1": "La recherche par mots-clés (Pagefind) est traitée dans votre navigateur. Pour le contenu associé, les termes d'au moins deux caractères sont automatiquement envoyés à Cloudflare Workers AI environ 400 millisecondes après la fin de la saisie, convertis en représentations numériques et comparés au contenu public de ce site stocké dans Cloudflare Vectorize.",
-      "searchBody2": "L'application d'Acecore ne stocke ni ne journalise les termes de recherche. Pour prévenir les abus, une empreinte SHA-256 à sens unique de l'adresse IP de connexion ou un identifiant propre à la session du navigateur, ainsi que le nombre de requêtes, sont conservés dans Cloudflare D1. Les données expirent après 10 minutes et sont supprimées lors d'un nettoyage ultérieur. L'adresse IP d'origine n'est pas stockée dans D1. Ce traitement est effectué par les services Cloudflare. Ne saisissez aucune information personnelle ou confidentielle dans le champ de recherche.",
+      "searchHeading": "À propos de la recherche sur le site et du chat IA",
+      "searchBody1": "La recherche par mots-clés (Pagefind) est traitée localement dans votre navigateur. Avec la fonctionnalité « Contenu associé », les termes de recherche comportant au moins deux caractères sont automatiquement envoyés à Cloudflare Workers AI environ 400 millisecondes après la fin de la saisie, convertis en représentations numériques, puis comparés au contenu public de ce site indexé dans Cloudflare Vectorize. Dans le chat IA, la question envoyée et jusqu’aux huit messages les plus récents de la conversation sont transmis à Cloudflare Workers AI. Selon l’intention de la question, des informations publiques sont récupérées dans Cloudflare Vectorize pour le site officiel pertinent parmi Acecore, Acecore Systems, Acecore Schools et Aceserver, puis utilisées comme source pour la réponse. Les questions concernant World Foundation n’utilisent actuellement pas la recherche Vectorize et renvoient plutôt vers son site officiel. Pour les sites officiels connectés autres que celui-ci, la recherche porte sur leurs informations publiques en japonais et la réponse est générée dans la langue actuellement affichée.",
+      "searchBody2": "L’application d’Acecore ne stocke ni les termes de recherche, ni les questions du chat IA, ni les messages de la conversation, et ne les consigne pas non plus dans des journaux. Uniquement afin de prévenir les abus liés à la fonctionnalité « Contenu associé », Cloudflare D1 conserve une valeur obtenue par hachage SHA-256 à sens unique de l’adresse IP de connexion ou d’un identifiant propre à la session du navigateur, ainsi que le nombre de requêtes. Ces données expirent au bout de 10 minutes et sont supprimées lors d’un nettoyage ultérieur. L’adresse IP de connexion elle-même n’est pas stockée dans D1. Ce traitement est effectué au moyen des services Cloudflare. Ne saisissez aucune information personnelle ou confidentielle dans la recherche ni dans le chat IA.",
       "personalInfoHeading": "Traitement des Informations Personnelles",
       "personalInfoBody": "En utilisant notre formulaire de contact, nous pouvons demander des informations personnelles telles que le nom et l'adresse e-mail. Les informations personnelles collectées seront utilisées uniquement pour répondre aux consultations et communications nécessaires, et ne seront utilisées pour aucun autre but.",
       "disclosureHeading": "Divulgation des Informations Personnelles à des Tiers",
@@ -401,7 +401,7 @@
       "copyrightBody": "Les droits d'auteur sur les textes, images et autres contenus publiés sur ce site appartiennent à Acecore ou à leurs détenteurs respectifs. La reproduction ou copie non autorisée est interdite.",
       "contactHeading": "Contact",
       "contactBody": "Pour les consultations concernant cette politique, contactez-nous via la page de contact.",
-      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 27 juillet 2026"
+      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 30 juillet 2026"
     },
     "acestudio": {
       "title": "AceStudio",

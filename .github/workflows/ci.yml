@@ -54,6 +54,9 @@ jobs:
       - name: Test shared contact routing
         run: npm run test:contact
 
+      - name: Test AI chat grounding
+        run: npm run test:ai-chat
+
       - name: Test search pipeline
         run: npm run test:search
 
