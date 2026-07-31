@@ -42,7 +42,7 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
   ru: 18,
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
-const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production'
+const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
 const ALLOWED_INDEX_NAMES = new Set([PRODUCTION_INDEX_NAME])
 const SUPPORTED_LOCALES = [
   'ja',
@@ -206,8 +206,16 @@ export async function syncVectorize({
       : null
 
   const mutationIds = []
+  let queryCanary = null
   for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
     const embeddings = await createEmbeddings(openAiClient, chunkBatch)
+
+    if (!queryCanary) {
+      queryCanary = {
+        id: chunkBatch[0].id,
+        vector: embeddings[0],
+      }
+    }
 
     for (const vectorBatch of batches(
       chunkBatch.map((chunk, index) => ({
@@ -230,6 +238,7 @@ export async function syncVectorize({
 
   const lastMutationId = mutationIds.at(-1)
   let verified = false
+  let queryVerified = false
   if (waitForMutations && lastMutationId) {
     await waitForMutation(client, indexName, lastMutationId)
   }
@@ -241,6 +250,10 @@ export async function syncVectorize({
       maxAttempts: lastMutationId ? RECONCILIATION_MAX_ATTEMPTS : 1,
     })
     verified = true
+    if (queryCanary) {
+      await verifyQueryCanary(client, indexName, queryCanary)
+      queryVerified = true
+    }
   }
 
   const result = {
@@ -252,6 +265,7 @@ export async function syncVectorize({
     deleted: idsToDelete.length,
     mutationId: lastMutationId || null,
     verified,
+    queryVerified,
   }
   logger.log(JSON.stringify({ event: 'vectorize_sync_complete', ...result }))
   return result
@@ -480,6 +494,28 @@ async function waitForReconciliation(
       )
       await sleepImpl(RECONCILIATION_POLL_INTERVAL_MS)
     }
+  }
+}
+
+async function verifyQueryCanary(client, indexName, { id, vector }) {
+  const payload = await client.request(
+    `/vectorize/v2/indexes/${encodeURIComponent(indexName)}/query`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        vector,
+        topK: 10,
+        returnMetadata: 'none',
+        returnValues: false,
+      }),
+    },
+  )
+  const matches = payload?.result?.matches
+  if (!Array.isArray(matches) || !matches.some((match) => match?.id === id)) {
+    throw new Error(
+      `Vectorize index ${indexName} query canary did not return newly upserted vector ${id}.`,
+    )
   }
 }
 

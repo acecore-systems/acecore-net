@@ -11,7 +11,7 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.mjs'
 
-const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
+const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
 const embedding = Array.from({ length: 1536 }, () => 0.01)
@@ -53,7 +53,7 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
 
   assert.throws(
     () => parseArguments([], environment),
-    /--confirm-production acecore-net-search-openai-1536-production/u,
+    /--confirm-production acecore-net-search-openai-1536-production-v2/u,
   )
   assert.doesNotThrow(() =>
     parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
@@ -116,6 +116,18 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
         processedUpToMutation: 'mutation-delete',
       })
     }
+    if (url.endsWith('/query')) {
+      assert.deepEqual(JSON.parse(init.body), {
+        vector: embedding,
+        topK: 10,
+        returnMetadata: 'none',
+        returnValues: false,
+      })
+      return cloudflareResponse({
+        count: 1,
+        matches: [{ id: newChunk.id }],
+      })
+    }
 
     throw new Error(`Unexpected request: ${url}`)
   }
@@ -135,9 +147,63 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   assert.equal(result.deleted, 1)
   assert.equal(result.mutationId, 'mutation-delete')
   assert.equal(result.verified, true)
+  assert.equal(result.queryVerified, true)
   assert.equal(
     calls.filter(({ url }) => url.endsWith('/v1/embeddings')).length,
     1,
+  )
+  assert.equal(calls.filter(({ url }) => url.endsWith('/query')).length, 1)
+})
+
+test('newly upserted vectorがquery結果に含まれなければ同期を失敗させる', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const canaryChunk = corpus.chunks.at(-1)
+  const remoteIds = new Set(corpus.chunks.slice(0, -1).map(({ id }) => id))
+
+  const fetchImpl = async (input, init = {}) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse({
+        vectors: [...remoteIds].map((id) => ({ id })),
+        isTruncated: false,
+      })
+    }
+    if (url.endsWith('/v1/embeddings')) {
+      return openAiEmbeddingResponse([embedding])
+    }
+    if (url.endsWith('/upsert')) {
+      remoteIds.add(canaryChunk.id)
+      return cloudflareResponse({ mutationId: 'mutation-upsert' })
+    }
+    if (url.endsWith('/info')) {
+      return cloudflareResponse({
+        processedUpToMutation: 'mutation-upsert',
+      })
+    }
+    if (url.endsWith('/query')) {
+      return cloudflareResponse({
+        count: 1,
+        matches: [{ id: managedId(999_999) }],
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      openAiApiKey: 'openai-key',
+      indexName: PRODUCTION_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /query canary did not return newly upserted vector/,
   )
 })
 
@@ -247,7 +313,7 @@ test('同期先indexをproductionだけに制限する', async () => {
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: 'acecore-net-search-openai-1536-production',
+      indexName: 'acecore-net-search-openai-1536-production-v2',
       logger: silentLogger,
     }),
   )
@@ -649,6 +715,12 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
         processedUpToMutation: 'mutation-upsert',
       })
     }
+    if (url.endsWith('/query')) {
+      return cloudflareResponse({
+        count: 1,
+        matches: [{ id: missingChunk.id }],
+      })
+    }
     throw new Error(`Unexpected request: ${url}`)
   }
 
@@ -664,6 +736,7 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
   })
 
   assert.equal(result.verified, true)
+  assert.equal(result.queryVerified, true)
   assert.equal(listRequests, 3)
   assert.deepEqual(sleepDelays, [5000])
 })
