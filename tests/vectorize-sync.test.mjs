@@ -6,6 +6,7 @@ import { after, test } from 'node:test'
 
 import {
   extractEmbeddingData,
+  parseArguments,
   syncVectorize,
   validateCorpus,
 } from '../scripts/sync-vectorize.mjs'
@@ -45,6 +46,20 @@ test('embeddingのindex・件数・1536次元を検証する', () => {
       ),
     /unique indexes/,
   )
+})
+
+test('live Production同期は正確なindex名の明示確認を要求する', () => {
+  const environment = { VECTORIZE_INDEX_NAME: PRODUCTION_INDEX }
+
+  assert.throws(
+    () => parseArguments([], environment),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() =>
+    parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
+  )
+  assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
+  assert.doesNotThrow(() => parseArguments(['--plan'], environment))
 })
 
 test('corpusと既存indexの差分だけをupsert・deleteする', async () => {
@@ -612,7 +627,7 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -641,7 +656,7 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
     accountId: 'account',
     apiToken: 'token',
     openAiApiKey: 'openai-key',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     sleepImpl: async (delay) => sleepDelays.push(delay),

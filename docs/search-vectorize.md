@@ -86,6 +86,7 @@ npm run typecheck:functions
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
 Productionで既存vectorの20%を超える削除になる場合、同期scriptはplanを記録してmutation前に停止します。GitHub Actionsにはこの制限を解除するinputや `--allow-large-delete` 経路を設けません。正当な大規模再構築が必要な場合は既存indexを直接大量削除せず、新しいindexへ全corpusを同期してqueryを確認し、別のレビュー済み変更でbindingを切り替えます。
+Productionのlive同期は、index名と同じ値を`--confirm-production`へ明示しない限り開始しません。
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 

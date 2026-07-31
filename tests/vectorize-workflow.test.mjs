@@ -33,6 +33,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.doesNotMatch(syncStep.run, /--expected-delete-count/u)
   assert.doesNotMatch(syncStep.run, /--expected-plan-id/u)
   assert.match(syncStep.run, /node \.\.\/tooling\/scripts\/sync-vectorize\.mjs/)
+  assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
     'acecore-net-search-openai-1536-production',

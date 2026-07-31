@@ -142,4 +142,5 @@ jobs:
             exit 1
           fi
 
-          node ../tooling/scripts/sync-vectorize.mjs
+          node ../tooling/scripts/sync-vectorize.mjs \
+            --confirm-production "$VECTORIZE_INDEX_NAME"
