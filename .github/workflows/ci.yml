@@ -57,6 +57,9 @@ jobs:
       - name: Test site routing and static headers
         run: npm run test:site-config
 
+      - name: Test AI chat grounding
+        run: npm run test:ai-chat
+
       - name: Test search pipeline
         run: npm run test:search
 
