@@ -51,10 +51,11 @@ collections:
         default: '{{now}}'
       - name: lastUpdated
         label: 最終更新日
-        hint: 既存記事では削除・巻き戻しできません。内容やslugを変更するときは以前より後の日時にしてください。新規記事は空欄でも保存できます。
+        hint: CMSが新規記事には現在日時を初期入力します。既存記事では削除・巻き戻しできません。内容やslugを変更するときは以前より後の日時にしてください。
         widget: datetime
         format: YYYY-MM-DDTHH:mm
-        required: false
+        default: '{{now}}'
+        required: true
       - name: translation
         label: 翻訳対象
         hint: オフにすると、この記事を多言語記事へ自動翻訳しません。

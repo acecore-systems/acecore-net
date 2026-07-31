@@ -89,6 +89,10 @@ function extractCmsCollectionDefinition(config, collectionName) {
 async function validateCmsConfig() {
   const scope = 'public/admin/config.yml'
   const config = await readFile(path.join(root, scope), 'utf8')
+  const ciWorkflow = await readFile(
+    path.join(root, '.github/workflows/ci.yml'),
+    'utf8',
+  )
   const graphql = await readFile(
     path.join(root, 'functions/admin/api/graphql.ts'),
     'utf8',
@@ -148,6 +152,23 @@ async function validateCmsConfig() {
       scope,
       'CMS backend branch must be main; do not use a permanent cms-content branch',
     )
+  }
+  const blogCollection = extractCmsCollectionDefinition(config, 'blog')
+  if (
+    !/name:\s*lastUpdated\b[\s\S]*?widget:\s*datetime\b[\s\S]*?default:\s*['"]?\{\{now\}\}['"]?[\s\S]*?required:\s*true\b/.test(
+      blogCollection,
+    )
+  ) {
+    fail(
+      scope,
+      'CMS blog lastUpdated must be required and default to the current time',
+    )
+  }
+  if (
+    !/^\s*push:\s*$/m.test(ciWorkflow) ||
+    !ciWorkflow.includes('run: npm run validate:blog-freshness')
+  ) {
+    fail(scope, 'CI must validate blog freshness on direct pushes to main')
   }
   if (/^publish_mode:\s*editorial_workflow\b/m.test(config)) {
     fail(

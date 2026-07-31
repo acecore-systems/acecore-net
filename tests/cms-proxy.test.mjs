@@ -185,6 +185,21 @@ test('CMS設定で公開したfolderとfileがproxyの許可範囲に収まる',
   }
 })
 
+test('CMS記事フォームはlastUpdatedを初期入力し、必須項目として扱う', async () => {
+  const config = await readFile(
+    new URL('../public/admin/config.yml', import.meta.url),
+    'utf8',
+  )
+  const blogCollection = config.match(
+    /^  - name: blog[\s\S]*?(?=\n  - name:)/m,
+  )?.[0]
+
+  assert.match(
+    blogCollection ?? '',
+    /name: lastUpdated[\s\S]*?widget: datetime[\s\S]*?default: '\{\{now\}\}'[\s\S]*?required: true/,
+  )
+})
+
 test('現在のCMS管理対象ファイルが保存前の実体検証を通る', async () => {
   const directories = [
     'src/content/blog',

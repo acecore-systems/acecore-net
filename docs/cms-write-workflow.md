@@ -21,7 +21,7 @@
 3. Pages Functionsが専用GitHub Appから`acecore-net`だけに使える短期installation tokenを発行する。
 4. CMSのreadは、許可されたcontentとmediaのtree / blobだけを同一origin proxy経由で返す。
 5. 保存時はrepository、branch `main`、変更path、ファイル数、合計サイズ、編集開始時のHEADに加え、JSON / Markdown schema、画像の実形式、危険なHTMLやURLを同期検証する。SVGとPDFはCMSから保存できない。
-6. 新規記事ではCMSのhidden fieldがUUID `articleId`を付与する。既存記事のID変更と同一locale内の重複を拒否し、slug変更は旧pathの削除と同じ保存内でIDを引き継いだ場合だけrenameとして扱う。続けて`date`と`lastUpdated`が実在する暦日時で、指定された`lastUpdated`が`date`以降の場合だけ保存を続ける。既存の`lastUpdated`は削除・巻き戻しできず、本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugが変わる場合は、以前より後の日時へ進める。削除と新規作成の対応関係が安全に判定できない同時保存は拒否する。新規記事はCMSが`articleId`を自動付与し、`lastUpdated`は省略できる。
+6. 新規記事ではCMSのhidden fieldがUUID `articleId`を付与し、`lastUpdated`には現在日時を初期入力して必須化する。既存記事のID変更と同一locale内の重複を拒否し、slug変更は旧pathの削除と同じ保存内でIDを引き継いだ場合だけrenameとして扱う。続けて`date`と`lastUpdated`が実在する暦日時で、指定された`lastUpdated`が`date`以降の場合だけ保存を続ける。既存の`lastUpdated`は削除・巻き戻しできず、本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugが変わる場合は、以前より後の日時へ進める。削除と新規作成の対応関係が安全に判定できない同時保存は拒否する。API経由の新規記事だけは移行互換のため`lastUpdated`を省略できるが、既存記事の変更では必須とする。
 7. expected HEADのtreeへ同一mutationの追加・変更・削除を投影する。日本語sourceと全翻訳記事の`author`、`tags`、ローカルの`image` / `uploadedImage` / gallery画像、および著者画像が、投影後の著者・タグ・画像に解決できる場合だけ保存を続ける。
 8. 削除は記事とキャンペーンだけを許可する。著者、タグ、画像は投影stateの参照検証とは別の安全境界として、CMSから削除できない。
 9. proxyが画像とコンテンツをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。
