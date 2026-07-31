@@ -200,28 +200,28 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` の Cloudflare Pages FunctionからOpenAI Responses APIを直接呼び出します。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserverについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
+`functions/api/ai-contact.ts` の Cloudflare Pages FunctionからOpenAI Responses APIを直接呼び出します。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserver、World Foundationについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
 
 Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
 Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`gpt-5.6-luna`（reasoning effort `medium`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはPages Functionのsecretだけに置き、ブラウザへ渡しません。Cloudflare Workers AIとOpenAI AI Gatewayは使用しません。
 
-専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryにProductionのcorpus同期、削除、query smoke testがまだないため、全環境でVectorize接続を停止し、公式サイトのルートだけを案内します。各接続済みbindingのkill switchとscore下限は個別に設定できます。Acecoreの `SEARCH_ENABLED` はbindingを持たないtop-level／Previewでは `false`、同期とquery smoke testを確認済みのProductionだけ `true` とし、検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に制御します。
+専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryのProduction同期と日本語・英語query smoke testを確認済みのindexへ、Productionだけを接続します。top-level／Previewはbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` を維持します。各接続済みbindingのkill switchとscore下限は個別に設定できます。Acecoreの `SEARCH_ENABLED` はbindingを持たないtop-level／Previewでは `false`、同期とquery smoke testを確認済みのProductionだけ `true` とし、検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に制御します。
 
 Cloudflare PagesではD1とOpenAI設定を対象環境に設定します。Vectorize bindingはProduction環境だけに設定し、Previewには設定しません。
 
 - D1 binding: `SEARCH_RATE_LIMIT_DB`（検索APIとtableを共有し、`ai-chat:` prefixでcounterを分離）
 - ProductionのAcecore Vectorize binding: `SEARCH_INDEX`
-- Productionの横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`
+- Productionの横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`、`WORLD_FOUNDATION_SEARCH_INDEX`
 - Secret `OPENAI_API_KEY`: このサイト専用OpenAI Project APIキー
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
-- `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationは `WORLD_FOUNDATION_SEARCH_ENABLED=false` に固定し、bindingは設定しない
+- `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationはtop-level／Previewを `false`、Productionだけを `true` とする
 - `OPENAI_CHAT_MODEL`: 回答モデル（既定 `gpt-5.6-luna`）
 - `OPENAI_REASONING_EFFORT`: 推論 effort（既定 `medium`）
 - `OPENAI_EMBEDDING_MODEL`: embeddingモデル（既定 `text-embedding-3-large`）
 - `OPENAI_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1536`固定）
 
-外部indexはこのrepositoryから更新しません。corpus生成、Production同期、削除は各サイトを所有するrepositoryが管理します。Aceserver Portalを含む接続済みサイトはProduction indexだけを使います。World Foundationを再接続する場合も、owner repositoryにこのライフサイクルとProduction query smoke testを用意してから、Production bindingとkill switchを同じ変更で切り替えます。
+外部indexはこのrepositoryから更新しません。corpus生成、Production同期、削除は各サイトを所有するrepositoryが管理します。Aceserver PortalとWorld Foundationを含む接続済みサイトはProduction indexだけを使います。新しい取得元を接続する場合も、owner repositoryにこのライフサイクルとProduction query smoke testを用意してから、Production bindingとkill switchを同じ変更で切り替えます。
 
 AIチャットのgrounding、フォールバック、リンク制限は `npm run test:ai-chat` で確認します。
 
