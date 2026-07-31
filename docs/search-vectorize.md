@@ -15,14 +15,14 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 4. 新規・変更chunkだけをOpenAI `text-embedding-3-large` で1536次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
+7. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
 8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。World Foundationは詳細を生成せず固定公式ルートへ案内する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
 ## AIチャットの横断ルーティング
 
-担当が明示されない質問はAcecoreを既定とし、すべてのindexを一律には検索しません。曖昧な続きの質問は直前の担当を引き継ぎ、別の担当サイトが明示された場合は現在の質問だけで検索queryを組み直します。
+担当が明示されない質問は、Acecoreからの呼び出しではAcecore、SystemsではSystems、SchoolsではSchoolsを既定とし、すべてのindexを一律には検索しません。曖昧な続きの質問は直前の担当を引き継ぎ、別の担当サイトが明示された場合は現在の質問だけで検索queryを組み直します。呼び出し元はクライアント送信値ではなく、許可済みの `Origin` からサーバー側で決定します。
 
 | 質問の担当       | Production Pages binding        | Production index名                               | namespace  | 情報の責任範囲                                   |
 | ---------------- | ------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------ |
@@ -61,7 +61,7 @@ Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `
 
 2026-07-31のProduction同期で164 vectorsの全件反映と、日本語queryで3件（先頭 `/blog/service-introduction/`）を確認済みです。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
 
-検索APIのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。
+検索APIとAIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で検索は `client:` / `global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
 
 | 環境       | D1 database                     | 用途                       |
 | ---------- | ------------------------------- | -------------------------- |
@@ -145,16 +145,16 @@ npm run sync:vectorize
 
 - `/api/search` は同一OriginのJSON POSTだけを受け付ける。
 - request bodyは `Content-Length` とbounded stream readerの両方で2KiBまで、queryは2〜160文字に制限する。
-- `/api/ai-contact` も同一OriginのJSON POSTだけを受け付け、request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを800文字までに制限する。
-- D1でclient単位20回/分を先に判定し、許可されたrequestだけを全体300回/分へ加算する。
+- `/api/ai-contact` はAcecore、Systems、Schoolsの公式originと各管理下Pages Preview originだけからJSON POSTを受け付ける。CORSは許可した `Origin` を完全一致で返し、任意originやwildcardは使わない。request bodyを同じ二重検査で12KiBまで、質問を800文字、会話を3200文字、embedding用queryを800文字までに制限する。
+- D1で検索はclient単位20回/分・全体300回/分、AIチャットはclient単位10回/分・全体60回/分を判定する。
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
-- rate limit rowは10分で期限切れとなり、検索requestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
+- rate limit rowは10分で期限切れとなり、検索またはAIチャットrequestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
 - raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。OpenAI Responses APIには `store: false` を指定する。
 - API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、AIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
 - AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけを `gpt-5.6-luna` へ渡す。取得した本文は命令ではなく参照データとして扱う。
-- AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。
+- AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。Acecore内の相対URLもAPI responseでは `https://acecore.net` の絶対URLへ正規化し、SystemsやSchools上で別originの同名pathへ解決されないようにする。
 
 ## 障害対応とrollback
 

@@ -7,7 +7,10 @@ import {
   buildAiContactSearchPlan,
   requiresAceserverWikiEvidence,
 } from '../functions/api/ai-contact-source-routing.ts'
-import { onRequestPost as handleAiContactPost } from '../functions/api/ai-contact.ts'
+import {
+  onRequestOptions,
+  onRequestPost as handleAiContactPost,
+} from '../functions/api/ai-contact.ts'
 
 const ENDPOINT = 'https://acecore.net/api/ai-contact'
 const EMBEDDING = Array.from({ length: 1536 }, (_value, index) =>
@@ -25,8 +28,12 @@ const SOURCE_NAMES = [
 let requestSequence = 0
 
 async function onRequestPost(context) {
-  const legacyAi = context.env.AI
-  if (!legacyAi) return handleAiContactPost(context)
+  const env = {
+    SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+    ...context.env,
+  }
+  const legacyAi = env.AI
+  if (!legacyAi) return handleAiContactPost({ ...context, env })
 
   const originalFetch = globalThis.fetch
   globalThis.fetch = async (input, init = {}) => {
@@ -89,7 +96,7 @@ async function onRequestPost(context) {
         OPENAI_REASONING_EFFORT: 'medium',
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
-        ...context.env,
+        ...env,
       },
     })
   } finally {
@@ -240,6 +247,7 @@ test('Responses APIへLuna medium・store falseで直接送信する', async () 
         OPENAI_REASONING_EFFORT: 'medium',
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
+        SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
         SEARCH_ENABLED: 'false',
       },
     })
@@ -300,6 +308,213 @@ for (const scenario of [
     assert.equal(aiTracker.generationInputs.length, 1)
   })
 }
+
+for (const scenario of [
+  {
+    name: 'Systemsからの無指定質問はSystemsを既定の検索先にする',
+    origin: 'https://systems.acecore.net',
+    expectedSource: 'systems',
+  },
+  {
+    name: 'Schoolsからの無指定質問はSchoolsを既定の検索先にする',
+    origin: 'https://schools.acecore.net',
+    expectedSource: 'schools',
+  },
+]) {
+  test(scenario.name, async () => {
+    const queryCounts = createSourceCounter()
+    const aiTracker = createAiTracker()
+    const response = await onRequestPost({
+      request: createRequest(
+        {
+          question: '料金と相談方法を教えて',
+          locale: 'ja',
+        },
+        {
+          Origin: scenario.origin,
+          'Sec-Fetch-Site': 'cross-site',
+          'X-Acecore-AI-Client': '018f7e5a-7b4d-7c6a-8e9f-0123456789ab',
+        },
+      ),
+      env: createFederatedProbeEnv(queryCounts, aiTracker),
+    })
+
+    assert.equal(response.status, 200)
+    assert.equal(
+      response.headers.get('Access-Control-Allow-Origin'),
+      scenario.origin,
+    )
+    assert.equal(response.headers.get('Vary'), 'Origin')
+    assertOnlySourceQueried(queryCounts, scenario.expectedSource)
+  })
+}
+
+test('呼び出し元の既定値より質問中の明示的なサイト指定を優先する', () => {
+  const defaultSystemsPlan = buildAiContactSearchPlan(
+    { question: '料金と相談方法を教えて' },
+    'ja',
+    'systems',
+  )
+  const explicitSchoolsPlan = buildAiContactSearchPlan(
+    { question: 'Acecore Schoolsの料金を教えて' },
+    'ja',
+    'systems',
+  )
+
+  assert.equal(defaultSystemsPlan.sourceIntent, 'systems')
+  assert.equal(explicitSchoolsPlan.sourceIntent, 'schools')
+})
+
+test('横断UIでもAcecoreの相対リンクをacecore.netの絶対URLに固定する', async () => {
+  const queryCounts = createSourceCounter()
+  const aiTracker = createAiTracker()
+  const env = createFederatedProbeEnv(queryCounts, aiTracker)
+  env.AI = createTestAi(aiTracker, {
+    generationResponse: '[Acecoreについて](/about/)をご確認ください。',
+  })
+  const response = await onRequestPost({
+    request: createRequest(
+      {
+        question: 'Acecoreの事業一覧を教えて',
+        locale: 'ja',
+      },
+      {
+        Origin: 'https://systems.acecore.net',
+        'Sec-Fetch-Site': 'cross-site',
+      },
+    ),
+    env,
+  })
+
+  assert.equal(response.status, 200)
+  assertOnlySourceQueried(queryCounts, 'acecore')
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer: '[Acecoreについて](https://acecore.net/about/)をご確認ください。',
+  })
+})
+
+test('公式サイトと管理下Pages Previewだけにcross-origin preflightを許可する', () => {
+  const systemsOrigin =
+    'https://codex-systems-ai-guide-chat.acecore-systems.pages.dev'
+  const response = onRequestOptions({
+    request: new Request(ENDPOINT, {
+      method: 'OPTIONS',
+      headers: {
+        Origin: systemsOrigin,
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'content-type,x-acecore-ai-client',
+      },
+    }),
+  })
+  const rejectedResponse = onRequestOptions({
+    request: new Request(ENDPOINT, {
+      method: 'OPTIONS',
+      headers: {
+        Origin: 'https://example.com',
+        'Access-Control-Request-Method': 'POST',
+      },
+    }),
+  })
+  const rejectedTargetResponse = onRequestOptions({
+    request: new Request('https://example.com/api/ai-contact', {
+      method: 'OPTIONS',
+      headers: {
+        Origin: 'https://systems.acecore.net',
+        'Access-Control-Request-Method': 'POST',
+      },
+    }),
+  })
+
+  assert.equal(response.status, 204)
+  assert.equal(
+    response.headers.get('Access-Control-Allow-Origin'),
+    systemsOrigin,
+  )
+  assert.equal(
+    response.headers.get('Access-Control-Allow-Headers'),
+    'Accept, Content-Type, X-Acecore-AI-Client',
+  )
+  assert.equal(response.headers.get('Vary'), 'Origin')
+  assert.equal(rejectedResponse.status, 403)
+  assert.equal(
+    rejectedResponse.headers.get('Access-Control-Allow-Origin'),
+    null,
+  )
+  assert.equal(rejectedTargetResponse.status, 403)
+})
+
+test('AIチャットのrate limitをD1の専用prefixで消費する', async () => {
+  const limiterKeys = []
+  const queryCounts = createSourceCounter()
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecore Systemsについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      ...createFederatedProbeEnv(queryCounts, aiTracker),
+      SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase({
+        onConsume(key) {
+          limiterKeys.push(key)
+        },
+      }),
+    },
+  })
+
+  assert.equal(response.status, 200)
+  assert.match(limiterKeys[0], /^ai-chat:client:[0-9a-f]{64}$/u)
+  assert.equal(limiterKeys[1], 'ai-chat:global')
+})
+
+test('D1 rate limitの全体上限を超えたrequestをAI呼び出し前に拒否する', async () => {
+  const aiTracker = createAiTracker()
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'Acecoreについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      AI: createTestAi(aiTracker),
+      SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase({
+        allow(key) {
+          return key !== 'ai-chat:global'
+        },
+      }),
+    },
+  })
+
+  assert.equal(response.status, 429)
+  assert.ok(
+    Number(response.headers.get('Retry-After')) >= 1 &&
+      Number(response.headers.get('Retry-After')) <= 60,
+  )
+  assert.equal(aiTracker.embeddingInputs.length, 0)
+  assert.equal(aiTracker.generationInputs.length, 0)
+})
+
+test('D1 bindingがない環境ではfail closedにする', async () => {
+  const aiTracker = createAiTracker()
+  const response = await handleAiContactPost({
+    request: createRequest({
+      question: 'Acecoreについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      OPENAI_API_KEY: 'test-openai-key',
+      OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
+      OPENAI_REASONING_EFFORT: 'medium',
+      OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
+      OPENAI_EMBEDDING_DIMENSIONS: '1536',
+      SEARCH_ENABLED: 'false',
+    },
+  })
+
+  assert.equal(response.status, 503)
+  assert.equal(aiTracker.embeddingInputs.length, 0)
+  assert.equal(aiTracker.generationInputs.length, 0)
+})
 
 test('生成文が根拠リンクを省略しても上位の公式参照先を追記する', async () => {
   const aiTracker = createAiTracker()
@@ -458,7 +673,7 @@ test('Acecore根拠がゼロ件で生成上限に達しても公式トップを�
     ok: true,
     answer: [
       '回答を最後まで生成できませんでした。次の公式情報をご確認ください。',
-      '公式の参照先: [Acecore](/)',
+      '公式の参照先: [Acecore](https://acecore.net/)',
     ].join('\n\n'),
   })
 })
@@ -1748,6 +1963,39 @@ function createRequest(payload, extraHeaders = {}) {
     },
     body: JSON.stringify(payload),
   })
+}
+
+function createAlwaysAllowRateLimitDatabase({
+  allow = () => true,
+  onConsume = () => {},
+} = {}) {
+  return {
+    prepare(query) {
+      if (query.startsWith('DELETE')) {
+        return {
+          bind() {
+            return {
+              async run() {
+                return { success: true }
+              },
+            }
+          },
+        }
+      }
+
+      assert.match(query, /INSERT INTO semantic_search_rate_limits/u)
+      return {
+        bind(key) {
+          return {
+            async first() {
+              onConsume(key)
+              return allow(key) ? { request_count: 1 } : null
+            },
+          }
+        },
+      }
+    },
+  }
 }
 
 async function captureConsoleErrors(callback) {

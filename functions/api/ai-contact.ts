@@ -18,11 +18,15 @@ import {
   type OpenAiResponseResult,
 } from '../lib/openai.ts'
 
-type Env = FederatedSearchEnv & OpenAiEnv
+type Env = FederatedSearchEnv &
+  OpenAiEnv & {
+    SEARCH_RATE_LIMIT_DB?: D1Database
+  }
 
 type PagesContext = {
   request: Request
   env: Env
+  waitUntil?: (promise: Promise<unknown>) => void
 }
 
 type ChatMessage = {
@@ -46,11 +50,56 @@ const MAX_QUESTION_LENGTH = 800
 const MAX_HISTORY_MESSAGES = 8
 const MAX_CONVERSATION_LENGTH = 3200
 const MAX_REQUEST_BYTES = 12_288
-const RATE_LIMIT_WINDOW_MS = 60_000
-const RATE_LIMIT_MAX_REQUESTS = 10
-const RATE_LIMIT_MAX_BUCKETS = 2000
-
-const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT_WINDOW_SECONDS = 60
+const RATE_LIMIT_RETENTION_SECONDS = 600
+const CLIENT_RATE_LIMIT = 10
+const GLOBAL_RATE_LIMIT = 60
+const CLIENT_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+const API_EXACT_HOSTNAMES = new Set(['acecore.net', 'www.acecore.net'])
+const API_PAGES_HOSTNAME = 'acecore-net.pages.dev'
+const CALLER_HOSTNAME_SETTINGS = [
+  {
+    hostname: 'acecore.net',
+    allowSubdomains: false,
+    defaultSourceIntent: 'acecore',
+  },
+  {
+    hostname: 'www.acecore.net',
+    allowSubdomains: false,
+    defaultSourceIntent: 'acecore',
+  },
+  {
+    hostname: 'acecore-net.pages.dev',
+    allowSubdomains: true,
+    defaultSourceIntent: 'acecore',
+  },
+  {
+    hostname: 'systems.acecore.net',
+    allowSubdomains: false,
+    defaultSourceIntent: 'systems',
+  },
+  {
+    hostname: 'acecore-systems.pages.dev',
+    allowSubdomains: true,
+    defaultSourceIntent: 'systems',
+  },
+  {
+    hostname: 'schools.acecore.net',
+    allowSubdomains: false,
+    defaultSourceIntent: 'schools',
+  },
+  {
+    hostname: 'acecore-schools.pages.dev',
+    allowSubdomains: true,
+    defaultSourceIntent: 'schools',
+  },
+] as const satisfies readonly {
+  hostname: string
+  allowSubdomains: boolean
+  defaultSourceIntent: AiContactSourceIntent
+}[]
+const LOCAL_DEVELOPMENT_HOSTNAMES = new Set(['localhost', '127.0.0.1'])
 
 const SUPPORTED_LOCALES = [
   'ja',
@@ -374,7 +423,7 @@ function buildFederatedRoutingContext(
   sourceIntent: AiContactSourceIntent,
 ): string {
   const settings = LOCALE_SETTINGS[locale]
-  const servicesPath = localizedPath('/services/', locale)
+  const servicesPath = localizedSiteUrl('/services/', locale)
   const schoolsPath = getSchoolsPath()
   const selectedOwner = {
     acecore: 'Acecore corporate site',
@@ -403,9 +452,9 @@ Acecore official-site routing context:
   - Aceserver: ${ACESERVER_ORIGIN}/
   - Aceserver WIKI: ${ACESERVER_WIKI_ORIGIN}/
   - World Foundation: ${WORLD_FOUNDATION_ORIGIN}/
-  - AceStudio: ${localizedPath('/acestudio/', locale)}
-  - Corporate news and articles: ${localizedPath('/blog/', locale)}
-  - Contact form: ${localizedPath('/contact/', locale)}
+  - AceStudio: ${localizedSiteUrl('/acestudio/', locale)}
+  - Corporate news and articles: ${localizedSiteUrl('/blog/', locale)}
+  - Contact form: ${localizedSiteUrl('/contact/', locale)}
 - Answer briefly in ${settings.languageName}. First identify the likely owner, then provide the most relevant official URL.
 - If ownership is unclear, direct the visitor to the localized ${settings.contactFormLabel}.
 - Never invent or repeat unverified prices, schedules, contracts, guarantees, support commitments, or private details.
@@ -415,13 +464,16 @@ Acecore official-site routing context:
 export const onRequestPost = async ({
   request,
   env,
+  waitUntil,
 }: PagesContext): Promise<Response> => {
-  if (!isAllowedRequestOrigin(request)) {
+  const requestContext = getAllowedRequestContext(request)
+  if (!requestContext) {
     return jsonResponse(
       { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
       403,
     )
   }
+  const respond = createJsonResponder(requestContext.origin)
 
   if (
     !request.headers
@@ -429,7 +481,7 @@ export const onRequestPost = async ({
       ?.toLowerCase()
       .startsWith('application/json')
   ) {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
       415,
     )
@@ -437,7 +489,7 @@ export const onRequestPost = async ({
 
   const requestText = await readBoundedRequestText(request, MAX_REQUEST_BYTES)
   if (requestText === null) {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
       413,
     )
@@ -447,13 +499,13 @@ export const onRequestPost = async ({
   try {
     parsedPayload = JSON.parse(requestText)
   } catch {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
       400,
     )
   }
   if (!isAiContactPayload(parsedPayload)) {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage('ja', 'invalidRequest') },
       400,
     )
@@ -465,38 +517,30 @@ export const onRequestPost = async ({
   const localeSettings = LOCALE_SETTINGS[locale]
   const conversationInput = buildConversationInput(payload)
 
-  const rateLimit = checkRateLimit(request)
-  if (!rateLimit.allowed) {
-    return jsonResponse(
-      { ok: false, answer: getLocalizedMessage(locale, 'rateLimited') },
-      429,
-      { 'Retry-After': String(rateLimit.retryAfterSeconds || 60) },
-    )
-  }
-
-  if (!env.OPENAI_API_KEY?.trim()) {
-    return jsonResponse(
+  if (!env.OPENAI_API_KEY?.trim() || !env.SEARCH_RATE_LIMIT_DB) {
+    return respond(
       { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
       503,
     )
   }
+  const rateLimitDatabase = env.SEARCH_RATE_LIMIT_DB
 
   if (!conversationInput) {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage(locale, 'required') },
       400,
     )
   }
 
   if (question.length > MAX_QUESTION_LENGTH) {
-    return jsonResponse(
+    return respond(
       { ok: false, answer: getLocalizedMessage(locale, 'questionTooLong') },
       400,
     )
   }
 
   if (conversationInput.length > MAX_CONVERSATION_LENGTH) {
-    return jsonResponse(
+    return respond(
       {
         ok: false,
         answer: getLocalizedMessage(locale, 'conversationTooLong'),
@@ -505,7 +549,44 @@ export const onRequestPost = async ({
     )
   }
 
-  const searchPlan = buildAiContactSearchPlan(payload, locale)
+  let rateLimit: { allowed: boolean; retryAfterSeconds?: number }
+  try {
+    rateLimit = await checkRateLimit(rateLimitDatabase, request)
+  } catch (error) {
+    logAiContactError(
+      locale,
+      'rate_limit',
+      error instanceof Error ? error.name : 'unknown_error',
+    )
+    return respond(
+      { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
+      503,
+    )
+  }
+  if (!rateLimit.allowed) {
+    return respond(
+      { ok: false, answer: getLocalizedMessage(locale, 'rateLimited') },
+      429,
+      { 'Retry-After': String(rateLimit.retryAfterSeconds || 60) },
+    )
+  }
+  if (crypto.randomUUID().endsWith('00')) {
+    waitUntil?.(
+      deleteExpiredRateLimits(rateLimitDatabase).catch((error) => {
+        logAiContactError(
+          locale,
+          'rate_limit_cleanup',
+          error instanceof Error ? error.name : 'unknown_error',
+        )
+      }),
+    )
+  }
+
+  const searchPlan = buildAiContactSearchPlan(
+    payload,
+    locale,
+    requestContext.defaultSourceIntent,
+  )
   const groundingResult = searchPlan.query
     ? await retrieveFederatedGrounding(
         searchPlan.query,
@@ -530,7 +611,7 @@ export const onRequestPost = async ({
     groundingEntries,
   )
   if (deterministicFallback) {
-    return jsonResponse({
+    return respond({
       ok: true,
       answer: deterministicFallback,
     })
@@ -566,7 +647,7 @@ export const onRequestPost = async ({
     })
   } catch (error) {
     logAiContactError(locale, 'generation', getOpenAiErrorCode(error))
-    return jsonResponse(
+    return respond(
       {
         ok: false,
         answer: getLocalizedMessage(locale, 'failed'),
@@ -591,21 +672,29 @@ export const onRequestPost = async ({
     requiresAceserverWikiEvidence(searchPlan.query, searchPlan.currentQuery),
     generationHitLengthLimit,
   )
-  return jsonResponse({
+  return respond({
     ok: true,
     answer: answer || getLocalizedMessage(locale, 'emptyAnswer'),
   })
 }
 
-export const onRequestOptions = (): Response =>
-  new Response(null, {
+export const onRequestOptions = ({
+  request,
+}: Pick<PagesContext, 'request'>): Response => {
+  const requestContext = getAllowedRequestContext(request)
+  if (!requestContext) return new Response(null, { status: 403 })
+
+  return new Response(null, {
     status: 204,
     headers: {
-      'Access-Control-Allow-Origin': 'https://acecore.net',
+      ...buildCorsHeaders(requestContext.origin),
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Accept, Content-Type',
+      'Access-Control-Allow-Headers':
+        'Accept, Content-Type, X-Acecore-AI-Client',
+      'Access-Control-Max-Age': '86400',
     },
   })
+}
 
 function normalizeLocale(value: unknown): SupportedLocale {
   const locale = String(value || 'ja')
@@ -672,17 +761,109 @@ function localizedPath(path: string, locale: SupportedLocale): string {
   return locale === 'ja' ? normalizedPath : `/${locale}${normalizedPath}`
 }
 
-function isAllowedRequestOrigin(request: Request): boolean {
-  if (request.headers.get('Sec-Fetch-Site') === 'cross-site') return false
+function localizedSiteUrl(path: string, locale: SupportedLocale): string {
+  return new URL(localizedPath(path, locale), SITE_ORIGIN).href
+}
 
-  const origin = request.headers.get('Origin')
-  if (!origin) return false
+function getAllowedRequestContext(request: Request): {
+  origin: string
+  defaultSourceIntent: AiContactSourceIntent
+} | null {
+  const originHeader = request.headers.get('Origin')
+  if (!originHeader) return null
 
+  let requestUrl: URL
+  let originUrl: URL
   try {
-    return new URL(origin).origin === new URL(request.url).origin
+    requestUrl = new URL(request.url)
+    originUrl = new URL(originHeader)
   } catch {
-    return false
+    return null
   }
+
+  if (
+    requestUrl.username ||
+    requestUrl.password ||
+    originUrl.username ||
+    originUrl.password ||
+    originUrl.pathname !== '/' ||
+    originUrl.search ||
+    originUrl.hash
+  ) {
+    return null
+  }
+
+  if (
+    requestUrl.pathname !== '/api/ai-contact' ||
+    requestUrl.search ||
+    requestUrl.hash ||
+    !isAllowedApiUrl(requestUrl)
+  ) {
+    return null
+  }
+
+  if (
+    LOCAL_DEVELOPMENT_HOSTNAMES.has(originUrl.hostname) &&
+    LOCAL_DEVELOPMENT_HOSTNAMES.has(requestUrl.hostname) &&
+    (originUrl.protocol === 'http:' || originUrl.protocol === 'https:')
+  ) {
+    return {
+      origin: originUrl.origin,
+      defaultSourceIntent: 'acecore',
+    }
+  }
+
+  if (originUrl.protocol !== 'https:' || originUrl.port) return null
+  const caller = CALLER_HOSTNAME_SETTINGS.find(
+    ({ hostname, allowSubdomains }) =>
+      allowSubdomains
+        ? isHostnameOrSubdomain(originUrl.hostname, hostname)
+        : originUrl.hostname === hostname,
+  )
+  return caller
+    ? {
+        origin: originUrl.origin,
+        defaultSourceIntent: caller.defaultSourceIntent,
+      }
+    : null
+}
+
+function isAllowedApiUrl(url: URL): boolean {
+  if (
+    LOCAL_DEVELOPMENT_HOSTNAMES.has(url.hostname) &&
+    (url.protocol === 'http:' || url.protocol === 'https:')
+  ) {
+    return true
+  }
+
+  return (
+    url.protocol === 'https:' &&
+    !url.port &&
+    (API_EXACT_HOSTNAMES.has(url.hostname) ||
+      isHostnameOrSubdomain(url.hostname, API_PAGES_HOSTNAME))
+  )
+}
+
+function isHostnameOrSubdomain(
+  hostname: string,
+  baseHostname: string,
+): boolean {
+  return hostname === baseHostname || hostname.endsWith(`.${baseHostname}`)
+}
+
+function buildCorsHeaders(origin: string): Record<string, string> {
+  return {
+    'Access-Control-Allow-Origin': origin,
+    Vary: 'Origin',
+  }
+}
+
+function createJsonResponder(origin: string): typeof jsonResponse {
+  return (body, status = 200, headers = {}) =>
+    jsonResponse(body, status, {
+      ...buildCorsHeaders(origin),
+      ...headers,
+    })
 }
 
 async function readBoundedRequestText(
@@ -751,69 +932,98 @@ function isAiContactPayload(value: unknown): value is AiContactPayload {
   )
 }
 
-function checkRateLimit(request: Request): {
+async function checkRateLimit(
+  database: D1Database,
+  request: Request,
+): Promise<{
   allowed: boolean
   retryAfterSeconds?: number
-} {
-  const now = Date.now()
-  const key = getClientKey(request)
-  const current = rateLimitBuckets.get(key)
+}> {
+  const clientKey = await createClientRateLimitKey(request)
+  const clientAllowed = await consumeRateLimit(
+    database,
+    `ai-chat:client:${clientKey}`,
+    CLIENT_RATE_LIMIT,
+  )
+  const globalAllowed =
+    clientAllowed &&
+    (await consumeRateLimit(database, 'ai-chat:global', GLOBAL_RATE_LIMIT))
 
-  if (!current || current.resetAt <= now) {
-    rateLimitBuckets.set(key, {
-      count: 1,
-      resetAt: now + RATE_LIMIT_WINDOW_MS,
-    })
-    pruneRateLimitBuckets(now)
-    return { allowed: true }
-  }
-
-  current.count += 1
-
-  if (current.count > RATE_LIMIT_MAX_REQUESTS) {
-    return {
-      allowed: false,
-      retryAfterSeconds: Math.max(1, Math.ceil((current.resetAt - now) / 1000)),
-    }
-  }
-
-  return { allowed: true }
+  return globalAllowed
+    ? { allowed: true }
+    : {
+        allowed: false,
+        retryAfterSeconds:
+          RATE_LIMIT_WINDOW_SECONDS -
+          (Math.floor(Date.now() / 1000) % RATE_LIMIT_WINDOW_SECONDS),
+      }
 }
 
-function getClientKey(request: Request): string {
-  const forwardedFor = request.headers
-    .get('X-Forwarded-For')
-    ?.split(',')[0]
-    ?.trim()
-  const ip =
-    request.headers.get('CF-Connecting-IP')?.trim() ||
-    forwardedFor ||
-    request.headers.get('CF-Ray')?.trim() ||
-    'unknown'
-
-  return ip
+async function createClientRateLimitKey(request: Request): Promise<string> {
+  const connectingIp = String(
+    request.headers.get('CF-Connecting-IP') || '',
+  ).trim()
+  const clientId = normalizeClientId(request.headers.get('X-Acecore-AI-Client'))
+  const source =
+    connectingIp && connectingIp.length <= 64
+      ? `ip:${connectingIp}`
+      : `session:${clientId}`
+  const digest = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(source),
+  )
+  return Array.from(new Uint8Array(digest), (value) =>
+    value.toString(16).padStart(2, '0'),
+  ).join('')
 }
 
 async function createSafetyIdentifier(request: Request): Promise<string> {
-  const digest = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(`acecore-ai-contact:${getClientKey(request)}`),
-  )
-  const hex = Array.from(new Uint8Array(digest), (value) =>
-    value.toString(16).padStart(2, '0'),
-  ).join('')
-  return `acecore_${hex.slice(0, 48)}`
+  const clientKey = await createClientRateLimitKey(request)
+  return `acecore_${clientKey.slice(0, 48)}`
 }
 
-function pruneRateLimitBuckets(now: number): void {
-  if (rateLimitBuckets.size <= RATE_LIMIT_MAX_BUCKETS) return
+function normalizeClientId(value: string | null): string {
+  const clientId = String(value || '')
+    .trim()
+    .toLowerCase()
+  return CLIENT_ID_PATTERN.test(clientId) ? clientId : 'anonymous'
+}
 
-  for (const [key, bucket] of rateLimitBuckets) {
-    if (bucket.resetAt <= now) {
-      rateLimitBuckets.delete(key)
-    }
-    if (rateLimitBuckets.size <= RATE_LIMIT_MAX_BUCKETS) return
-  }
+async function consumeRateLimit(
+  database: D1Database,
+  limiterKey: string,
+  limit: number,
+): Promise<boolean> {
+  const now = Math.floor(Date.now() / 1000)
+  const windowStart =
+    Math.floor(now / RATE_LIMIT_WINDOW_SECONDS) * RATE_LIMIT_WINDOW_SECONDS
+  const result = await database
+    .prepare(
+      `INSERT INTO semantic_search_rate_limits
+        (limiter_key, window_start, request_count, expires_at)
+       VALUES (?, ?, 1, ?)
+       ON CONFLICT (limiter_key, window_start) DO UPDATE SET
+         request_count = semantic_search_rate_limits.request_count + 1,
+         expires_at = excluded.expires_at
+       WHERE semantic_search_rate_limits.request_count < ?
+       RETURNING request_count`,
+    )
+    .bind(limiterKey, windowStart, now + RATE_LIMIT_RETENTION_SECONDS, limit)
+    .first<{ request_count: number }>()
+
+  return Boolean(
+    result &&
+    Number.isInteger(result.request_count) &&
+    result.request_count <= limit,
+  )
+}
+
+async function deleteExpiredRateLimits(database: D1Database): Promise<void> {
+  const now = Math.floor(Date.now() / 1000)
+  await database
+    .prepare('DELETE FROM semantic_search_rate_limits WHERE expires_at < ?')
+    .bind(now)
+    .run()
 }
 
 function getLocalizedMessage(
@@ -848,8 +1058,8 @@ function buildAllowedAnswerLinks(
   const links = new Map<string, string>()
   const schoolsPath = getSchoolsPath()
   const staticLinks = [
-    '/',
-    localizedPath('/services/', locale),
+    localizedSiteUrl('/', locale),
+    localizedSiteUrl('/services/', locale),
     `${SYSTEMS_ORIGIN}/`,
     `${SYSTEMS_ORIGIN}/pricing/`,
     schoolsPath,
@@ -857,9 +1067,9 @@ function buildAllowedAnswerLinks(
     `${ACESERVER_ORIGIN}/`,
     `${ACESERVER_WIKI_ORIGIN}/`,
     `${WORLD_FOUNDATION_ORIGIN}/`,
-    localizedPath('/acestudio/', locale),
-    localizedPath('/blog/', locale),
-    localizedPath('/contact/', locale),
+    localizedSiteUrl('/acestudio/', locale),
+    localizedSiteUrl('/blog/', locale),
+    localizedSiteUrl('/contact/', locale),
     'mailto:info@acecore.net',
     'tel:05088902788',
   ]
@@ -942,7 +1152,7 @@ function appendMissingGroundingCitation(
 
     return [
       answer.trim(),
-      `${LOCALE_SETTINGS[locale].officialSourceLabel}: [Acecore](${localizedPath('/', locale)})`,
+      `${LOCALE_SETTINGS[locale].officialSourceLabel}: [Acecore](${localizedSiteUrl('/', locale)})`,
     ].join('\n\n')
   }
 
