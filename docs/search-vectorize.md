@@ -33,20 +33,20 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 | Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-openai-1536-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
 | World Foundation | 未接続                          | 未接続                                  | 未適用     | 公式ルートへの固定案内のみ                       |
 
-`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
+`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。Aceserver Portalのcorpus同期はProduction専用のため、Portal bindingはrollback用に保持しつつ、top-level／Previewの `ACESERVER_PORTAL_SEARCH_ENABLED=false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
 
 外部indexの日本語根拠は参照データとして `gpt-5.6-luna` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Responses APIが `max_output_tokens` による未完了を返した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
 横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
 
-| 取得元           | kill switch                                     | score下限                                |
-| ---------------- | ----------------------------------------------- | ---------------------------------------- |
-| Acecore          | `SEARCH_ENABLED=false`                          | `SEARCH_MIN_SCORE=0.50`                  |
-| Systems          | `SYSTEMS_SEARCH_ENABLED`                        | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
-| Schools          | `SCHOOLS_SEARCH_ENABLED`                        | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
-| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                 | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
-| Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED`               | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
-| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED=false`（固定） | 未適用                                   |
+| 取得元           | kill switch                                                         | score下限                                |
+| ---------------- | ------------------------------------------------------------------- | ---------------------------------------- |
+| Acecore          | `SEARCH_ENABLED=false`                                              | `SEARCH_MIN_SCORE=0.50`                  |
+| Systems          | `SYSTEMS_SEARCH_ENABLED`                                            | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
+| Schools          | `SCHOOLS_SEARCH_ENABLED`                                            | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                                     | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
+| Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED`（Preview=false／Production=true） | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED=false`（固定）                     | 未適用                                   |
 
 World Foundationを再接続する前に、owner repositoryで公開corpusの生成、Preview / Productionを分離した同期、削除、両環境のquery smoke testを実装して成功させます。その確認と同じ変更で、3環境のVectorize binding追加とkill switch変更を行います。一部だけを先に有効化しません。
 
@@ -187,10 +187,10 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
-- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserverの質問を個別に送り、意図したPreview indexだけが検索されることを確認
+- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserverの質問を個別に送り、Aceserver Portalを除く意図したPreview indexだけが検索されることを確認
 - World Foundationの質問ではembeddingとVectorize queryが実行されず、固定した公式ルートだけが返ることを確認
-- Aceserverの質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
-- 有効化する外部indexを所有する各repositoryのPreview同期とquery smoke testが成功していることを確認する。未確認の取得元はbindingを設定せず、kill switchを `false` にする
+- Production deploymentのAceserver質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
+- 有効化する外部indexのowner repositoryで、PortalはProduction同期、その他はPreview／Production同期とquery smoke testが成功していることを確認する。未確認の取得元はbindingを設定せず、kill switchを `false` にする
 - 各表示localeで外部の日本語根拠から回答でき、回答リンクが実際に取得した公式URLに限定されることを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
 - 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
