@@ -59,15 +59,15 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   assert.doesNotMatch(source, /acecore-net-search-openai-1536-preview/u)
 })
 
-test('replacement indexの全量同期中はProduction bindingを切り替えない', async () => {
+test('確認済みreplacement indexをProduction bindingへ設定する', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v2",/u,
   )
   assert.doesNotMatch(
     config,
-    /"index_name": "acecore-net-search-openai-1536-production-v2"/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
   )
 })
