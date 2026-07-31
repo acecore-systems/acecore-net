@@ -200,7 +200,7 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` の Cloudflare Pages Function からOpenAI Responses APIを直接呼び出します。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserverについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。担当が明示されない質問はAcecoreを既定とし、全indexを一律には検索しません。Aceserverだけは、1回のembeddingを共有してWIKIとPortalを並列検索します。
+`functions/api/ai-contact.ts` の Cloudflare Pages FunctionからOpenAI Responses APIを直接呼び出します。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserverについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
 
 Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
@@ -208,10 +208,11 @@ Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) names
 
 専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryにProductionのcorpus同期、削除、query smoke testがまだないため、全環境でVectorize接続を停止し、公式サイトのルートだけを案内します。各接続済みbindingのkill switchとscore下限は個別に設定できます。Acecoreの `SEARCH_ENABLED` はbindingを持たないtop-level／Previewでは `false`、同期とquery smoke testを確認済みのProductionだけ `true` とし、検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に制御します。
 
-Cloudflare PagesのProduction環境だけに以下を設定し、PreviewにはVectorize bindingを設定しません。
+Cloudflare PagesではD1とOpenAI設定を対象環境に設定します。Vectorize bindingはProduction環境だけに設定し、Previewには設定しません。
 
-- Acecore Vectorize binding: `SEARCH_INDEX`
-- 横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`
+- D1 binding: `SEARCH_RATE_LIMIT_DB`（検索APIとtableを共有し、`ai-chat:` prefixでcounterを分離）
+- ProductionのAcecore Vectorize binding: `SEARCH_INDEX`
+- Productionの横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`
 - Secret `OPENAI_API_KEY`: このサイト専用OpenAI Project APIキー
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationは `WORLD_FOUNDATION_SEARCH_ENABLED=false` に固定し、bindingは設定しない

@@ -477,7 +477,7 @@ function normalizeOutputUrl(
   url: URL,
   visitorLocale: string,
 ): string {
-  if (source === 'acecore') return url.pathname
+  if (source === 'acecore') return url.href
   if (source !== 'aceserverPortal') return url.href
 
   const normalizedPath =

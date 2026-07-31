@@ -506,6 +506,7 @@ export function buildAiContactSearchQuery(
 export function buildAiContactSearchPlan(
   payload: AiContactRoutingPayload,
   locale = 'ja',
+  defaultSourceIntent: AiContactSourceIntent = DEFAULT_AI_CONTACT_SOURCE_INTENT,
 ): AiContactSearchPlan {
   const userQueries = getUserQueries(payload)
   const currentQuery =
@@ -517,8 +518,7 @@ export function buildAiContactSearchPlan(
     locale,
   )
   const previousIntent =
-    findMostRecentExplicitIntent(priorQueries, locale) ||
-    DEFAULT_AI_CONTACT_SOURCE_INTENT
+    findMostRecentExplicitIntent(priorQueries, locale) || defaultSourceIntent
   const sourceIntent = currentIntent || previousIntent
   const resetSearchContext = Boolean(
     priorQueries.length > 0 &&
