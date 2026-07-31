@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import test from 'node:test'
 
 import { buildFederatedGroundingContext } from '../functions/api/ai-contact-search.ts'
@@ -537,6 +538,186 @@ test('汎用的な参加・申請follow-upはAceserverへ誤切替しない', ()
   assert.equal(systemsPlan.resetSearchContext, false)
 })
 
+for (const scenario of [
+  {
+    locale: 'ja',
+    schools: '初心者向けのプログラミング学習支援について教えて',
+    schoolsGeneral: 'どんな学習支援がありますか？',
+    systems: '業務システムの開発を相談したい',
+    systemsService: 'Web制作を依頼したい',
+    technicalSystems: '業務アプリ向けの機械学習支援を相談したい',
+  },
+  {
+    locale: 'en',
+    schools: 'What programming learning support is available for beginners?',
+    schoolsGeneral: 'What learning support is available?',
+    systems: 'I need help developing a business system.',
+    systemsService: 'I need web production for my business.',
+    technicalSystems:
+      'I need machine learning support for a business application.',
+  },
+  {
+    locale: 'zh-CN',
+    schools: '有面向初学者的编程学习支持吗？',
+    schoolsGeneral: '有哪些学习支持？',
+    systems: '我想咨询业务系统开发。',
+    systemsService: '我想咨询网站制作。',
+    technicalSystems: '我想咨询业务应用的机器学习支持。',
+  },
+  {
+    locale: 'zh-TW',
+    schools: '有適合初學者的程式設計學習支援嗎？',
+    schoolsGeneral: '有哪些學習支援？',
+    systems: '我想諮詢業務系統開發。',
+    systemsService: '我想諮詢網站製作。',
+    technicalSystems: '我想諮詢業務應用的機器學習支援。',
+  },
+  {
+    locale: 'es',
+    schools:
+      '¿Qué apoyo de aprendizaje de programación hay para principiantes?',
+    schoolsGeneral: '¿Qué apoyo educativo está disponible?',
+    systems: 'Quiero consultar sobre el desarrollo de un sistema empresarial.',
+    systemsService: 'Necesito producción web para mi empresa.',
+    technicalSystems:
+      'Necesito apoyo al aprendizaje automático para una aplicación empresarial.',
+  },
+  {
+    locale: 'pt',
+    schools: 'Que apoio ao aprendizado de programação existe para iniciantes?',
+    schoolsGeneral: 'Que apoio educacional está disponível?',
+    systems:
+      'Preciso de consultoria de TI para desenvolver um sistema empresarial.',
+    systemsService: 'Preciso de produção web para minha empresa.',
+    technicalSystems:
+      'Preciso de apoio à aprendizagem de máquina para um aplicativo empresarial.',
+  },
+  {
+    locale: 'fr',
+    schools:
+      'Quel accompagnement pour apprendre la programmation est proposé aux débutants ?',
+    schoolsGeneral: 'Quel accompagnement éducatif est proposé ?',
+    systems:
+      "Je souhaite des conseils pour le développement d'un système métier.",
+    systemsService: 'Je cherche un service de production web.',
+    technicalSystems:
+      'Je cherche une aide à l’apprentissage automatique pour une application métier.',
+  },
+  {
+    locale: 'ko',
+    schools: '초보자를 위한 프로그래밍 학습 지원이 있나요?',
+    schoolsGeneral: '어떤 학습 지원이 있나요?',
+    systems: '업무 시스템 개발 상담을 받고 싶어요.',
+    systemsService: '웹사이트 제작을 의뢰하고 싶어요.',
+    technicalSystems: '업무 앱을 위한 머신러닝 학습 지원이 필요해요.',
+  },
+  {
+    locale: 'de',
+    schools:
+      'Welche Lernunterstützung beim Programmieren gibt es für Anfänger?',
+    schoolsGeneral: 'Welche Lernunterstützung gibt es?',
+    systems: 'Ich brauche Beratung zur Entwicklung eines Geschäftssystems.',
+    systemsService: 'Ich brauche Systementwicklung und Webproduktion.',
+    technicalSystems:
+      'Ich brauche Unterstützung für maschinelles Lernen in einer Geschäftsanwendung.',
+  },
+  {
+    locale: 'ru',
+    schools: 'Какая поддержка в обучении программированию доступна начинающим?',
+    schoolsGeneral: 'Какая поддержка в обучении доступна?',
+    systems: 'Нужна консультация по разработке бизнес-системы.',
+    systemsService: 'Нужна разработка сайта для компании.',
+    technicalSystems:
+      'Нужна поддержка машинного обучения для бизнес-приложения.',
+  },
+]) {
+  for (const routingCase of [
+    {
+      label: 'Schools具体',
+      question: scenario.schools,
+      expectedSource: 'schools',
+    },
+    {
+      label: 'Schools一般',
+      question: scenario.schoolsGeneral,
+      expectedSource: 'schools',
+    },
+    {
+      label: 'Systems具体',
+      question: scenario.systems,
+      expectedSource: 'systems',
+    },
+    {
+      label: 'Systemsサービス表現',
+      question: scenario.systemsService,
+      expectedSource: 'systems',
+    },
+    {
+      label: 'Systems機械学習支援',
+      question: scenario.technicalSystems,
+      expectedSource: 'systems',
+    },
+  ]) {
+    test(`${scenario.locale}の${routingCase.label}を担当sourceへ振り分ける`, () => {
+      const plan = buildAiContactSearchPlan(
+        { question: routingCase.question },
+        scenario.locale,
+      )
+
+      assert.equal(plan.currentIntent, routingCase.expectedSource)
+      assert.equal(plan.sourceIntent, routingCase.expectedSource)
+    })
+  }
+}
+
+test('専門トピックの組み合わせを一般語やAceserver文脈と区別する', () => {
+  for (const scenario of [
+    {
+      question: 'We need machine learning system development.',
+      expectedSource: 'systems',
+    },
+    {
+      question: 'We need school website development.',
+      expectedSource: 'systems',
+    },
+    {
+      question: 'I need programming support for a business web app.',
+      expectedSource: 'systems',
+    },
+    {
+      question: 'I need AI support for an internal system.',
+      expectedSource: 'systems',
+    },
+    {
+      question: 'Acecore Systems learning support options',
+      expectedSource: 'systems',
+    },
+    {
+      question: 'Acecore Schools web production classes',
+      expectedSource: 'schools',
+    },
+    {
+      question: 'Our office needs computer support.',
+      expectedSource: 'acecore',
+    },
+    {
+      question: 'I am reading about urban learning and banking.',
+      expectedSource: 'acecore',
+    },
+    {
+      question: 'Tell me about the Aceserver application process.',
+      expectedSource: 'aceserver',
+    },
+  ]) {
+    assert.equal(
+      buildAiContactSearchPlan({ question: scenario.question }, 'en')
+        .sourceIntent,
+      scenario.expectedSource,
+      scenario.question,
+    )
+  }
+})
+
 test('このサーバーという指示語は直前の担当を引き継ぐ', () => {
   for (const question of [
     'このサーバーの費用は？',
@@ -1029,6 +1210,60 @@ test('embeddingは1024次元かつ有限値でなければVectorizeへ渡さな�
     })
     assert.doesNotMatch(message, /このサイトについて/u)
   }
+})
+
+test('World Foundationのkill switchがfalseなら誤ったbindingがあっても検索しない', async () => {
+  let aiCalls = 0
+  let vectorizeCalls = 0
+
+  const response = await onRequestPost({
+    request: createRequest({
+      question: 'World Foundationのproposalについて教えて',
+      locale: 'ja',
+    }),
+    env: {
+      WORLD_FOUNDATION_SEARCH_ENABLED: 'false',
+      WORLD_FOUNDATION_SEARCH_INDEX: {
+        async query() {
+          vectorizeCalls += 1
+          return {
+            count: 1,
+            matches: [matchFor('worldFoundation')],
+          }
+        },
+      },
+      AI: {
+        async run() {
+          aiCalls += 1
+          return { response: 'unexpected' }
+        },
+      },
+    },
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(aiCalls, 0)
+  assert.equal(vectorizeCalls, 0)
+  assert.deepEqual(await response.json(), {
+    ok: true,
+    answer:
+      '現在の公式情報から該当内容を確認できませんでした。 [World Foundation](https://world-foundation.acecore.net/) で最新情報をご確認ください。',
+  })
+})
+
+test('World FoundationのVectorizeはroot・Preview・Productionで未接続にする', () => {
+  const config = readFileSync(
+    new URL('../wrangler.jsonc', import.meta.url),
+    'utf8',
+  )
+
+  assert.doesNotMatch(config, /WORLD_FOUNDATION_SEARCH_INDEX/u)
+  assert.doesNotMatch(config, /world-foundation-search-(?:preview|production)/u)
+  assert.equal(
+    config.match(/"WORLD_FOUNDATION_SEARCH_ENABLED": "false"/gu)?.length,
+    3,
+  )
+  assert.doesNotMatch(config, /"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/u)
 })
 
 test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばない', async () => {

@@ -1,6 +1,6 @@
 # Vectorize検索・AI横断検索 運用ガイド
 
-Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して関連公式サイトのVectorize indexをread-onlyに使用して検索します。検索モーダルは次の2系統を提供します。
+Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationは担当判定と固定公式導線だけを提供し、owner repositoryの同期ライフサイクルが整うまでVectorizeへ接続しません。検索モーダルは次の2系統を提供します。
 
 - Pagefind: 静的ファイルだけで動くキーワード検索。常に主検索として残す。
 - Cloudflare Vectorize: Workers AIの多言語embeddingを使う「関連する内容」。失敗時は表示を隠し、Pagefindを継続する。
@@ -15,8 +15,8 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 4. 新規・変更chunkだけをWorkers AI `@cf/baai/bge-m3` で1024次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
-7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のBGE-M3 embeddingで該当するindexだけを検索する。
-8. Acecoreは表示localeと同じnamespace、外部の関連公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、GLM 5.2が表示localeで回答する。
+7. Pages Function `/api/ai-contact` は質問と直近の利用者発言から担当サイトを決定し、1回のBGE-M3 embeddingで接続済みの該当indexだけを検索する。World Foundation担当時はembeddingもVectorize queryも行わない。
+8. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、GLM 5.2が表示localeで回答する。World Foundationは詳細を生成せず固定公式ルートへ案内する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
@@ -31,22 +31,24 @@ Vectorizeが未設定、rate limit中、Workers AI障害、通信タイムアウ
 | Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-*`  | `ja`       | 学習サービス                                     |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-*`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
 | Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
-| World Foundation | `WORLD_FOUNDATION_SEARCH_INDEX` | `world-foundation-search-*` | `ja`       | World Foundationの公開デザイン記録               |
+| World Foundation | 未接続                          | 未接続                      | 未適用     | 公式ルートへの固定案内のみ                       |
 
-`*` はPreviewでは `preview`、Productionでは `production` です。Systems、Schools、World Foundationはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じBGE-M3 embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。
+`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。AceserverだけはWIKIとPortalへ同じBGE-M3 embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
 
 外部indexの日本語根拠は参照データとしてGLM 5.2へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。`finish_reason: length` の部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
 横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
 
-| 取得元           | kill switch                       | score下限                                |
-| ---------------- | --------------------------------- | ---------------------------------------- |
-| Acecore          | `SEARCH_ENABLED`                  | `SEARCH_MIN_SCORE=0.50`                  |
-| Systems          | `SYSTEMS_SEARCH_ENABLED`          | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
-| Schools          | `SCHOOLS_SEARCH_ENABLED`          | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
-| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`   | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
-| Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED` | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
-| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED` | `WORLD_FOUNDATION_SEARCH_MIN_SCORE=0.40` |
+| 取得元           | kill switch                                     | score下限                                |
+| ---------------- | ----------------------------------------------- | ---------------------------------------- |
+| Acecore          | `SEARCH_ENABLED`                                | `SEARCH_MIN_SCORE=0.50`                  |
+| Systems          | `SYSTEMS_SEARCH_ENABLED`                        | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
+| Schools          | `SCHOOLS_SEARCH_ENABLED`                        | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                 | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
+| Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED`               | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
+| World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED=false`（固定） | 未適用                                   |
+
+World Foundationを再接続する前に、owner repositoryで公開corpusの生成、Preview / Productionを分離した同期、削除、両環境のquery smoke testを実装して成功させます。その確認と同じ変更で、3環境のVectorize binding追加とkill switch変更を行います。一部だけを先に有効化しません。
 
 ## Acecoreが管理するCloudflareリソース
 
@@ -184,9 +186,10 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
 - Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
-- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserver、World Foundationの質問を個別に送り、意図したPreview indexだけが検索されることを確認
+- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserverの質問を個別に送り、意図したPreview indexだけが検索されることを確認
+- World Foundationの質問ではembeddingとVectorize queryが実行されず、固定した公式ルートだけが返ることを確認
 - Aceserverの質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
-- 外部indexを所有する各repositoryのPreview同期とquery smoke testが成功していることを確認する。未確認の取得元がある場合は、その経路をリリース済みと扱わない
+- 有効化する外部indexを所有する各repositoryのPreview同期とquery smoke testが成功していることを確認する。未確認の取得元はbindingを設定せず、kill switchを `false` にする
 - 各表示localeで外部の日本語根拠から回答でき、回答リンクが実際に取得した公式URLに限定されることを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
 - 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
