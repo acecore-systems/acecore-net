@@ -8,6 +8,7 @@ const workflowPath = new URL(
   '../.github/workflows/sync-vectorize.yml',
   import.meta.url,
 )
+const pagesConfigPath = new URL('../wrangler.jsonc', import.meta.url)
 
 test('Production同期workflowから20%超削除を解除できない', async () => {
   const source = await readFile(workflowPath, 'utf8')
@@ -36,7 +37,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    'acecore-net-search-openai-1536-production',
+    'acecore-net-search-openai-1536-production-v2',
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
   assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
@@ -56,4 +57,17 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   assert.doesNotMatch(source, /cloudflare-search-preview/u)
   assert.doesNotMatch(source, /CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN/u)
   assert.doesNotMatch(source, /acecore-net-search-openai-1536-preview/u)
+})
+
+test('replacement indexの全量同期中はProduction bindingを切り替えない', async () => {
+  const config = await readFile(pagesConfigPath, 'utf8')
+
+  assert.match(
+    config,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
+  )
+  assert.doesNotMatch(
+    config,
+    /"index_name": "acecore-net-search-openai-1536-production-v2"/u,
+  )
 })

@@ -64,7 +64,7 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 
 Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
 
-2026-07-31のProduction同期で164 vectorsの全件反映と、日本語queryで3件（先頭 `/blog/service-introduction/`）を確認済みです。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
+2026-07-31の監査では、現在bindingされている `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、このindexは変更せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。このPRでは自動同期先だけをv2に変更し、`wrangler.jsonc` の `SEARCH_INDEX` bindingは旧indexのまま維持します。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功した記録を確認してから、別PRでbindingをv2へ切り替えます。旧indexの削除はrollback確認後に別途レビューします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で自サイト検索は `client:` / `global`、横断検索は `network-search:{caller}:client:` / `network-search:global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
 
@@ -90,6 +90,8 @@ npm run typecheck:functions
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
+このworkflowの同期先はreplacementの `acecore-net-search-openai-1536-production-v2` です。初回は空のv2へ公開corpusを全量upsertし、既存indexの大量削除は行いません。upsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。query canaryを含む成功runを確認するまではPages bindingを変更しません。
+
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
 Productionで既存vectorの20%を超える削除になる場合、同期scriptはplanを記録してmutation前に停止します。GitHub Actionsにはこの制限を解除するinputや `--allow-large-delete` 経路を設けません。正当な大規模再構築が必要な場合は既存indexを直接大量削除せず、新しいindexへ全corpusを同期してqueryを確認し、別のレビュー済み変更でbindingを切り替えます。
@@ -97,9 +99,9 @@ Productionのlive同期は、index名と同じ値を`--confirm-production`へ明
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
-| GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                      |
-| ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ------------------------------------------- |
-| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production` |
+| GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                         |
+| ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
+| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production-v2` |
 
 EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
@@ -122,7 +124,7 @@ npm run sync:vectorize:dry-run
 credentialを使って現行indexとの差分だけを確認し、mutationしない場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 node scripts/sync-vectorize.mjs --plan
@@ -133,14 +135,14 @@ node scripts/sync-vectorize.mjs --plan
 Productionへ同期する場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 $env:OPENAI_API_KEY = '<project-api-key>'
 npm run sync:vectorize
 ```
 
-同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になった後、indexの管理対象ID集合がcorpusと完全一致したことを再取得して確認します。
+同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になった後、indexの管理対象ID集合がcorpusと完全一致したことを再取得して確認し、新規upsertがあったrunではそのembeddingを使うquery canaryの上位10件に新規IDが含まれることも確認します。
 
 同期先はAcecore検索用のProduction indexだけをallowlistし、corpusが90 source・150 vector・各locale 10 sourceを下回る場合は変更前に停止します。localeごとのvector下限は、簡潔化後の158 vector構成に余裕を持たせた `ja: 10`, `en: 19`, `zh-cn: 9`, `es: 18`, `pt: 19`, `fr: 20`, `ko: 11`, `de: 19`, `ru: 18` です。source合計は実際のlocale別一意URL数と一致し、namespaceとURLのlocale prefixも一致しなければなりません。管理外IDがある場合もmutation前に停止します。
 
@@ -172,7 +174,7 @@ npm run sync:vectorize
 4. OpenAI EmbeddingsまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。検索UIはPagefindだけを遅延読込して継続する。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
 5. 横断APIが失敗しても自サイトのVectorize結果またはPagefindフォールバックが残ることを確認する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
-indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。
+indexを作り直す場合は、新indexを同期・query確認してからbindingを切り替えます。先に旧indexを削除しないでください。今回のAcecore移行では、v2同期workflowの成功を確認した後にbinding切替専用PRを作成し、旧indexはrollback確認が完了するまで保持します。
 
 ## リリース前チェック
 
