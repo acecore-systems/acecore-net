@@ -41,7 +41,7 @@ Vectorize bindingはProductionだけに設定し、rootとPreviewには設定し
 
 | 取得元           | kill switch                                                         | score下限                                |
 | ---------------- | ------------------------------------------------------------------- | ---------------------------------------- |
-| Acecore          | `SEARCH_ENABLED=false`                                              | `SEARCH_MIN_SCORE=0.50`                  |
+| Acecore          | `SEARCH_ENABLED`（Preview=false／Production=true）                  | `SEARCH_MIN_SCORE=0.50`                  |
 | Systems          | `SYSTEMS_SEARCH_ENABLED`                                            | `SYSTEMS_SEARCH_MIN_SCORE=0.50`          |
 | Schools          | `SCHOOLS_SEARCH_ENABLED`                                            | `SCHOOLS_SEARCH_MIN_SCORE=0.50`          |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_ENABLED`                                     | `ACESERVER_WIKI_SEARCH_MIN_SCORE=0.40`   |
@@ -58,6 +58,8 @@ World Foundationを再接続する前に、owner repositoryで公開corpusの生
 | Production | `acecore-net-search-openai-1536-production` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
 Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
+
+2026-07-31のProduction同期で164 vectorsの全件反映と、日本語queryで3件（先頭 `/blog/service-introduction/`）を確認済みです。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。作成済みのPreview indexは接続・利用せず、rollback確認が終わるまで削除しません。
 
 検索APIのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。
 
