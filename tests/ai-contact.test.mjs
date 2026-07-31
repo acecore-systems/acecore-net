@@ -1439,7 +1439,6 @@ test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を�
     'SYSTEMS_SEARCH_ENABLED',
     'SCHOOLS_SEARCH_ENABLED',
     'ACESERVER_WIKI_SEARCH_ENABLED',
-    'ACESERVER_PORTAL_SEARCH_ENABLED',
   ]
   const disabledKillSwitches = [
     'SEARCH_ENABLED',
@@ -1464,6 +1463,14 @@ test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を�
       `${variableName} must preserve the existing disabled state`,
     )
   }
+  assert.equal(
+    config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "false"/gu)?.length,
+    2,
+  )
+  assert.equal(
+    config.match(/"ACESERVER_PORTAL_SEARCH_ENABLED": "true"/gu)?.length,
+    1,
+  )
 })
 
 test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばない', async () => {
