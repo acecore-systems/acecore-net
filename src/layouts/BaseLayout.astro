@@ -7,6 +7,7 @@ import {
   type Locale,
 } from '../i18n'
 import { defaultLocale, locales, ogLocaleMap, htmlLangMap } from '../i18n'
+import { isMonetizedBlogPath } from '../utils/monetized-route'
 import { buildSeoDescription, buildSeoTitle } from '../utils/seo-meta'
 import { serializeJsonForHtml } from '../utils/safe-json'
 
@@ -75,8 +76,10 @@ const pageDescription = buildSeoDescription({
 })
 const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
-const isMonetizedPage =
-  Astro.url.pathname === '/blog/' || Astro.url.pathname.startsWith('/blog/')
+const isMonetizedPage = isMonetizedBlogPath(
+  Astro.url.pathname,
+  getLocalizedUrl('/blog/', locale),
+)
 
 const pageNameMap: Record<string, string> = Object.fromEntries(
   Object.entries({
@@ -505,13 +508,18 @@ import { SITE } from '../data/site'
       languageSwitcherUrls={languageSwitcherUrls}
     />
     <AnnouncementBanner locale={locale} />
-    <main id="main" tabindex="-1" class="flex-1">
+    <main
+      id="main"
+      tabindex="-1"
+      class="flex-1"
+      data-ace-ads-enabled={isMonetizedPage ? 'true' : undefined}
+    >
       <slot />
     </main>
     <Footer locale={locale} />
     <ScrollToTop locale={locale} />
     <AiChatWidget locale={locale} />
-    <SearchModal />
+    <SearchModal monetized={isMonetizedPage} />
     {isMonetizedPage && <AdsRuntime />}
     <script>
       let searchModalModulePromise: Promise<

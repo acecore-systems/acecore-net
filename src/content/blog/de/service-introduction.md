@@ -1,6 +1,7 @@
 ---
 title: 'Acecore im Überblick: Wegweiser zu den Fachseiten'
 description: 'Informationen über Acecore und die offiziellen Anlaufstellen von Systems, Schools und Aceserver.'
+articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: 2026-07-30T00:00
 author: gui

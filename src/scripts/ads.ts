@@ -35,8 +35,22 @@ const RETRYABLE_AD_ERROR_PATTERN =
   /availableWidth=0|No slot size|All ins elements in the DOM with class=adsbygoogle already have ads in them/i
 /** 広告リクエスト後、未配信判定を行うまでの待機時間 */
 const AD_OUTCOME_CHECK_DELAY_MS = 10000
+const ADS_ENABLED_SELECTOR = '[data-ace-ads-enabled="true"]'
+const activeAdObserverCleanups = new Set<() => void>()
 
 type AdSlotState = 'pending' | 'requested' | 'filled' | 'empty' | 'error'
+
+export function hasAdsEnabledMarker(root: ParentNode = document) {
+  return root.querySelector(ADS_ENABLED_SELECTOR) !== null
+}
+
+function isAdsEnabledForCurrentPage() {
+  return hasAdsEnabledMarker(document)
+}
+
+function cleanupActiveAdObservers() {
+  for (const cleanup of [...activeAdObserverCleanups]) cleanup()
+}
 
 function getAdShell(slot: HTMLElement) {
   return (
@@ -104,12 +118,20 @@ function observeAdOutcome(slot: HTMLElement) {
   if (slot.dataset.aceAdOutcomeObserved === '1') return
   slot.dataset.aceAdOutcomeObserved = '1'
 
+  let outcomeTimer = 0
   const observer = new MutationObserver(() => {
     const outcome = updateAdSlotOutcome(slot)
     if (outcome === 'filled' || outcome === 'empty') {
-      observer.disconnect()
+      cleanup()
     }
   })
+  const cleanup = () => {
+    observer.disconnect()
+    window.clearTimeout(outcomeTimer)
+    activeAdObserverCleanups.delete(cleanup)
+  }
+
+  activeAdObserverCleanups.add(cleanup)
 
   observer.observe(slot, {
     attributes: true,
@@ -118,10 +140,10 @@ function observeAdOutcome(slot: HTMLElement) {
     attributeFilter: ['data-ad-status', 'data-adsbygoogle-status', 'style'],
   })
 
-  window.setTimeout(() => {
+  outcomeTimer = window.setTimeout(() => {
     const outcome = updateAdSlotOutcome(slot, true)
     if (outcome === 'filled' || outcome === 'empty') {
-      observer.disconnect()
+      cleanup()
     }
   }, AD_OUTCOME_CHECK_DELAY_MS)
 }
@@ -188,6 +210,7 @@ function ensureAdsScript() {
  * - コンテナ幅が最小幅 (160px) 未満、または非表示なら false
  */
 function canPushAd(slot: HTMLElement) {
+  if (!isAdsEnabledForCurrentPage()) return false
   if (slot.dataset.aceAdPushed === '1') return false
   if (
     slot.dataset.aceAdState === 'empty' ||
@@ -253,6 +276,7 @@ async function pushAdSlot(slot: HTMLElement) {
  * push 成功後は両 Observer を自動で切断する。
  */
 function observeAdSlot(slot: HTMLElement) {
+  if (!isAdsEnabledForCurrentPage()) return
   if (slot.dataset.aceAdObserved === '1') return
 
   slot.dataset.aceAdObserved = '1'
@@ -264,9 +288,16 @@ function observeAdSlot(slot: HTMLElement) {
   const cleanup = () => {
     intersectionObserver?.disconnect()
     resizeObserver?.disconnect()
+    activeAdObserverCleanups.delete(cleanup)
   }
+  activeAdObserverCleanups.add(cleanup)
 
   const attemptInit = async () => {
+    if (!isAdsEnabledForCurrentPage()) {
+      cleanup()
+      return
+    }
+
     if (
       slot.dataset.aceAdState === 'empty' ||
       slot.dataset.aceAdState === 'error'
@@ -310,6 +341,11 @@ function observeAdSlot(slot: HTMLElement) {
 
 /** 指定ルート内のすべての広告スロット要素を検出し、Observer を設定する */
 function initAdSlots(root: ParentNode = document) {
+  if (!isAdsEnabledForCurrentPage()) {
+    cleanupActiveAdObservers()
+    return
+  }
+
   root
     .querySelectorAll<HTMLElement>('[data-ace-ad-slot].adsbygoogle')
     .forEach((slot) => {
@@ -326,16 +362,19 @@ function initAdSlots(root: ParentNode = document) {
  */
 export function initAdsRuntime() {
   if (window.__aceAdsRuntimeInitialized) {
+    initAdSlots()
     return
   }
 
   window.__aceAdsRuntimeInitialized = true
-  window.aceEnsureAdsScript = ensureAdsScript
+  window.aceEnsureAdsScript = () =>
+    isAdsEnabledForCurrentPage() ? ensureAdsScript() : Promise.resolve()
   window.aceInitAdSlots = initAdSlots
   window.aceRequestAdSlot = (slot: HTMLElement) => {
-    observeAdSlot(slot)
+    if (isAdsEnabledForCurrentPage()) observeAdSlot(slot)
   }
 
   initAdSlots()
+  document.addEventListener('astro:before-swap', cleanupActiveAdObservers)
   document.addEventListener('astro:page-load', () => initAdSlots())
 }

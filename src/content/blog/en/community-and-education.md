@@ -1,6 +1,7 @@
 ---
 title: 'Community Activities and Commitment to Education'
 description: "Acecore's community activities, educational support, and open source contributions. Introducing our initiatives through Aceserver, Schools, and past workshops."
+articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: 2026-07-30T00:01
 author: gui

@@ -164,6 +164,12 @@ function validateBlogMarkdown(source: string) {
   const parsed = blogSchema.strict().safeParse(frontmatter)
 
   if (!parsed.success) throw new Error('Invalid blog schema')
+  if (
+    parsed.data.lastUpdated &&
+    parsed.data.lastUpdated.getTime() < parsed.data.date.getTime()
+  ) {
+    throw new Error('lastUpdated must not be earlier than date')
+  }
 
   assertNoDangerousStrings(frontmatter)
 

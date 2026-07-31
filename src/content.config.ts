@@ -6,7 +6,7 @@
  *
  * blog コレクション:
  *   - Markdown 記事（src/content/blog/）を言語別サブフォルダで管理
- *   - title / description / date / author は必須、その他は任意の拡張フィールド
+ *   - articleId / title / description / date / author は必須、その他は任意の拡張フィールド
  *   - 日付は時刻まで必須とし、タイムゾーン未指定の場合は JST +09:00 としてパースされる
  *
  * authors / tags コレクション:

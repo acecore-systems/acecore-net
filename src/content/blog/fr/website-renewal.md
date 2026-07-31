@@ -1,6 +1,7 @@
 ---
 title: "Le site officiel d'Acecore a été renouvelé"
 description: "Le site officiel d'Acecore est désormais un site d'entreprise centré sur la société, ses activités et ses actualités."
+articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: 2026-07-30T00:01
 author: gui
