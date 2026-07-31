@@ -594,11 +594,63 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
       indexName: PREVIEW_INDEX,
       corpusFile,
       fetchImpl,
+      sleepImpl: async () => {},
       logger: silentLogger,
     }),
     /did not converge: 1 missing/,
   )
   assert.equal(remoteIds.has(missingChunk.id), false)
+})
+
+test('mutation完了直後にlistが古くてもbounded retryで収束を確認する', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const missingChunk = corpus.chunks.at(-1)
+  const remoteIds = new Set(corpus.chunks.slice(0, -1).map(({ id }) => id))
+  const sleepDelays = []
+  let listRequests = 0
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      listRequests += 1
+      if (listRequests >= 3) remoteIds.add(missingChunk.id)
+      return cloudflareResponse({
+        vectors: [...remoteIds].map((id) => ({ id })),
+        isTruncated: false,
+      })
+    }
+    if (url.endsWith('/v1/embeddings')) {
+      return openAiEmbeddingResponse([embedding])
+    }
+    if (url.endsWith('/upsert')) {
+      return cloudflareResponse({ mutationId: 'mutation-upsert' })
+    }
+    if (url.endsWith('/info')) {
+      return cloudflareResponse({
+        processedUpToMutation: 'mutation-upsert',
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  const result = await syncVectorize({
+    accountId: 'account',
+    apiToken: 'token',
+    openAiApiKey: 'openai-key',
+    indexName: PREVIEW_INDEX,
+    corpusFile,
+    fetchImpl,
+    sleepImpl: async (delay) => sleepDelays.push(delay),
+    logger: silentLogger,
+  })
+
+  assert.equal(result.verified, true)
+  assert.equal(listRequests, 3)
+  assert.deepEqual(sleepDelays, [5000])
 })
 
 test('network・429・5xxをRetry-Afterと指数backoff付きで再試行する', async () => {

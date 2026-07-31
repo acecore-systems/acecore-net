@@ -19,6 +19,8 @@ const DELETE_BATCH_SIZE = 100
 const LIST_BATCH_SIZE = 1000
 const MUTATION_WAIT_TIMEOUT_MS = 180_000
 const MUTATION_POLL_INTERVAL_MS = 5_000
+const RECONCILIATION_MAX_ATTEMPTS = 13
+const RECONCILIATION_POLL_INTERVAL_MS = 5_000
 const REQUEST_TIMEOUT_MS = 30_000
 const MAX_API_RESPONSE_BYTES = 8 * 1024 * 1024
 const MAX_REQUEST_RETRIES = 5
@@ -234,13 +236,12 @@ export async function syncVectorize({
     await waitForMutation(client, indexName, lastMutationId)
   }
   if (waitForMutations && verifyAfterMutation) {
-    const reconciledIds = await listVectorIds(client, indexName, {
+    await waitForReconciliation(client, indexName, expectedIds, {
       logger,
       sleepImpl,
       retryBaseDelayMs,
+      maxAttempts: lastMutationId ? RECONCILIATION_MAX_ATTEMPTS : 1,
     })
-    validateExistingVectorIds(reconciledIds, indexName)
-    validateReconciliation(reconciledIds, expectedIds, indexName)
     verified = true
   }
 
@@ -450,6 +451,38 @@ function validateReconciliation(actualIds, expectedIds, indexName) {
   throw new Error(
     `Vectorize index ${indexName} did not converge: ${missingIds.length} missing and ${unexpectedIds.length} unexpected vector(s).`,
   )
+}
+
+async function waitForReconciliation(
+  client,
+  indexName,
+  expectedIds,
+  { logger, sleepImpl, retryBaseDelayMs, maxAttempts },
+) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const reconciledIds = await listVectorIds(client, indexName, {
+      logger,
+      sleepImpl,
+      retryBaseDelayMs,
+    })
+    validateExistingVectorIds(reconciledIds, indexName)
+
+    try {
+      validateReconciliation(reconciledIds, expectedIds, indexName)
+      return
+    } catch (error) {
+      if (attempt >= maxAttempts) throw error
+
+      logger.log(
+        JSON.stringify({
+          event: 'vectorize_reconciliation_retry',
+          indexName,
+          attempt,
+        }),
+      )
+      await sleepImpl(RECONCILIATION_POLL_INTERVAL_MS)
+    }
+  }
 }
 
 export function extractEmbeddingData(payload, expectedCount) {
