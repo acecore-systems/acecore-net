@@ -1423,6 +1423,49 @@ test('World FoundationのVectorizeはroot・Preview・Productionで未接続に�
   assert.doesNotMatch(config, /"WORLD_FOUNDATION_SEARCH_ENABLED": "true"/u)
 })
 
+test('Preview Vectorizeを接続せずProduction bindingとkill switch状態を保持する', () => {
+  const config = readFileSync(
+    new URL('../wrangler.jsonc', import.meta.url),
+    'utf8',
+  )
+  const productionIndexes = [
+    'acecore-net-search-openai-1536-production',
+    'acecore-systems-search-openai-1536-production',
+    'acecore-schools-search-openai-1536-production',
+    'aceserver-wiki-search-openai-1536-production',
+    'aceserver-portal-search-openai-1536-production',
+  ]
+  const enabledKillSwitches = [
+    'SYSTEMS_SEARCH_ENABLED',
+    'SCHOOLS_SEARCH_ENABLED',
+    'ACESERVER_WIKI_SEARCH_ENABLED',
+    'ACESERVER_PORTAL_SEARCH_ENABLED',
+  ]
+  const disabledKillSwitches = [
+    'SEARCH_ENABLED',
+    'WORLD_FOUNDATION_SEARCH_ENABLED',
+  ]
+
+  assert.doesNotMatch(config, /search-openai-1536-preview/u)
+  for (const indexName of productionIndexes) {
+    assert.equal(config.split(`"index_name": "${indexName}"`).length - 1, 1)
+  }
+  for (const variableName of enabledKillSwitches) {
+    assert.equal(
+      config.split(`"${variableName}": "true"`).length - 1,
+      3,
+      `${variableName} must preserve the existing enabled state`,
+    )
+  }
+  for (const variableName of disabledKillSwitches) {
+    assert.equal(
+      config.split(`"${variableName}": "false"`).length - 1,
+      3,
+      `${variableName} must preserve the existing disabled state`,
+    )
+  }
+})
+
 test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばない', async () => {
   let aiCalls = 0
   let vectorizeCalls = 0

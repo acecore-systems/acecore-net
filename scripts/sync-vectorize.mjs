@@ -41,7 +41,6 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
 const ALLOWED_INDEX_NAMES = new Set([
-  'acecore-net-search-openai-1536-preview',
   'acecore-net-search-openai-1536-production',
 ])
 const SUPPORTED_LOCALES = [

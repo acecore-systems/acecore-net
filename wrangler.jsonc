@@ -3,28 +3,6 @@
   "name": "acecore-net",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-07-27",
-  "vectorize": [
-    {
-      "binding": "SEARCH_INDEX",
-      "index_name": "acecore-net-search-openai-1536-preview",
-    },
-    {
-      "binding": "SYSTEMS_SEARCH_INDEX",
-      "index_name": "acecore-systems-search-openai-1536-preview",
-    },
-    {
-      "binding": "SCHOOLS_SEARCH_INDEX",
-      "index_name": "acecore-schools-search-openai-1536-preview",
-    },
-    {
-      "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-      "index_name": "aceserver-wiki-search-openai-1536-preview",
-    },
-    {
-      "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-      "index_name": "aceserver-portal-search-openai-1536-preview",
-    },
-  ],
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
     "OPENAI_CHAT_MODEL": "gpt-5.6-luna",
@@ -64,28 +42,6 @@
   ],
   "env": {
     "preview": {
-      "vectorize": [
-        {
-          "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-openai-1536-preview",
-        },
-        {
-          "binding": "SYSTEMS_SEARCH_INDEX",
-          "index_name": "acecore-systems-search-openai-1536-preview",
-        },
-        {
-          "binding": "SCHOOLS_SEARCH_INDEX",
-          "index_name": "acecore-schools-search-openai-1536-preview",
-        },
-        {
-          "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-          "index_name": "aceserver-wiki-search-openai-1536-preview",
-        },
-        {
-          "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-          "index_name": "aceserver-portal-search-openai-1536-preview",
-        },
-      ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
         "OPENAI_CHAT_MODEL": "gpt-5.6-luna",
