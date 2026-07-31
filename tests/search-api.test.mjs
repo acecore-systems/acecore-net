@@ -3,9 +3,10 @@ import { test } from 'node:test'
 
 import { onRequestPost } from '../functions/api/search.ts'
 
-const queryVector = Array.from({ length: 1024 }, () => 0.01)
+const queryVector = Array.from({ length: 1536 }, () => 0.01)
 
 test('同一originの検索だけを埋め込み、locale namespaceで問い合わせる', async () => {
+  let embeddingInput
   let queryOptions
   const env = createEnv({
     matches: [
@@ -51,10 +52,18 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
     },
   })
 
-  const response = await onRequestPost({
-    request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
-    env,
-  })
+  const response = await withOpenAiEmbedding(
+    () =>
+      onRequestPost({
+        request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
+        env,
+      }),
+    {
+      onRequest(body) {
+        embeddingInput = body.input
+      },
+    },
+  )
   const body = await response.json()
 
   assert.equal(response.status, 200)
@@ -64,6 +73,7 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
   assert.equal(body.results.length, 1)
   assert.equal(body.results[0].url, '/services/')
   assert.equal(body.results[0].rank, 1)
+  assert.equal(embeddingInput, 'Webサイトを作りたい')
   assert.deepEqual(queryOptions, {
     namespace: 'ja',
     topK: 15,
@@ -72,23 +82,26 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
   })
 })
 
-test('OriginがないrequestはWorkers AIを呼ばずに拒否する', async () => {
-  let aiCalled = false
-  const env = createEnv({
-    onAiRun() {
-      aiCalled = true
-    },
-  })
+test('OriginがないrequestはOpenAIを呼ばずに拒否する', async () => {
+  let openAiCalled = false
+  const env = createEnv()
   const request = new Request('https://acecore.net/api/search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await onRequestPost({ request, env })
+  const response = await withOpenAiEmbedding(
+    () => onRequestPost({ request, env }),
+    {
+      onRequest() {
+        openAiCalled = true
+      },
+    },
+  )
 
   assert.equal(response.status, 403)
-  assert.equal(aiCalled, false)
+  assert.equal(openAiCalled, false)
 })
 
 test('短すぎるqueryと未対応localeを拒否する', async () => {
@@ -133,7 +146,9 @@ test('Content-Lengthが上限を超えるbodyを読み込まず413にする', as
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await onRequestPost({ request, env })
+  const response = await withOpenAiEmbedding(() =>
+    onRequestPost({ request, env }),
+  )
 
   assert.equal(response.status, 413)
   assert.equal(request.bodyUsed, false)
@@ -194,7 +209,9 @@ test('Cloudflare接続IPをhashしたclient keyを自己申告UUIDより優先�
   const request = searchRequest({ query: 'サイト制作', locale: 'ja' })
   request.headers.set('CF-Connecting-IP', '203.0.113.9')
 
-  const response = await onRequestPost({ request, env })
+  const response = await withOpenAiEmbedding(() =>
+    onRequestPost({ request, env }),
+  )
 
   assert.equal(response.status, 200)
   assert.equal(consumedKeys.length, 2)
@@ -208,14 +225,18 @@ test('不正なembeddingを502にし、logへquery本文を残さない', async 
   console.error = (value) => logs.push(String(value))
 
   try {
-    const env = createEnv({ embedding: [0.1] })
-    const response = await onRequestPost({
-      request: searchRequest({
-        query: '秘密を含む検索テキスト',
-        locale: 'ja',
-      }),
-      env,
-    })
+    const env = createEnv()
+    const response = await withOpenAiEmbedding(
+      () =>
+        onRequestPost({
+          request: searchRequest({
+            query: '秘密を含む検索テキスト',
+            locale: 'ja',
+          }),
+          env,
+        }),
+      { embedding: [0.1] },
+    )
 
     assert.equal(response.status, 502)
     assert.equal(logs.length, 1)
@@ -240,35 +261,63 @@ function searchRequest(body) {
 
 function createEnv({
   matches = [],
-  embedding = queryVector,
   clientRateLimitSuccess = true,
   globalRateLimitSuccess = true,
-  onAiRun = () => {},
   onQuery = () => {},
   onRateLimit = () => {},
 } = {}) {
   return {
     SEARCH_ENABLED: 'true',
     SEARCH_MIN_SCORE: '0.50',
+    OPENAI_API_KEY: 'test-openai-key',
+    OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
+    OPENAI_EMBEDDING_DIMENSIONS: '1536',
     SEARCH_RATE_LIMIT_DB: createRateLimitDatabase({
       clientRateLimitSuccess,
       globalRateLimitSuccess,
       onRateLimit,
     }),
-    AI: {
-      async run(model, input) {
-        onAiRun(model, input)
-        assert.equal(model, '@cf/baai/bge-m3')
-        return { data: [embedding] }
-      },
-    },
     SEARCH_INDEX: {
       async query(values, options) {
-        assert.equal(values.length, 1024)
+        assert.equal(values.length, 1536)
         onQuery(values, options)
         return { count: matches.length, matches }
       },
     },
+  }
+}
+
+async function withOpenAiEmbedding(
+  callback,
+  { embedding = queryVector, onRequest = () => {} } = {},
+) {
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input)
+    assert.equal(url, 'https://api.openai.com/v1/embeddings')
+    assert.equal(init.method, 'POST')
+    assert.equal(init.headers.Authorization, 'Bearer test-openai-key')
+
+    const body = JSON.parse(init.body)
+    onRequest(body)
+    assert.deepEqual(body, {
+      model: 'text-embedding-3-large',
+      input: body.input,
+      dimensions: 1536,
+      encoding_format: 'float',
+    })
+
+    return Response.json({
+      object: 'list',
+      data: [{ object: 'embedding', index: 0, embedding }],
+      model: 'text-embedding-3-large',
+    })
+  }
+
+  try {
+    return await callback()
+  } finally {
+    globalThis.fetch = originalFetch
   }
 }
 

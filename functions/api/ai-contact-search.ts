@@ -1,7 +1,6 @@
+import { OPENAI_EMBEDDING_DIMENSIONS } from '../lib/openai.ts'
 import type { AiContactSourceIntent } from './ai-contact-source-routing.ts'
 
-const EMBEDDING_MODEL = '@cf/baai/bge-m3'
-const EMBEDDING_DIMENSIONS = 1024
 const SEARCH_TOP_K = 15
 const GROUNDING_LIMIT = 3
 const EXTERNAL_SEARCH_NAMESPACE = 'ja'
@@ -45,15 +44,7 @@ const SOURCE_SETTINGS = {
 
 export type GroundingSource = keyof typeof SOURCE_SETTINGS
 
-type EmbeddingInput = {
-  text: string[]
-  truncate_inputs: boolean
-}
-
-type EmbeddingRunner = (
-  model: string,
-  input: EmbeddingInput,
-) => Promise<unknown>
+type EmbeddingRunner = (input: string) => Promise<number[]>
 
 type SearchIndex = Pick<VectorizeIndex, 'query'>
 
@@ -132,12 +123,9 @@ export async function retrieveFederatedGrounding(
     }
   }
 
-  let embeddingResult: unknown
+  let embedding: number[]
   try {
-    embeddingResult = await options.runEmbedding(EMBEDDING_MODEL, {
-      text: [query],
-      truncate_inputs: true,
-    })
+    embedding = await options.runEmbedding(query)
   } catch (error) {
     logGroundingError(
       'federated',
@@ -152,8 +140,7 @@ export async function retrieveFederatedGrounding(
     }
   }
 
-  const embedding = extractEmbedding(embeddingResult)
-  if (!embedding) {
+  if (!isValidEmbedding(embedding)) {
     logGroundingError('federated', locale, 'embedding', 'invalid_embedding')
     return {
       sourceIntent,
@@ -353,20 +340,12 @@ function resolveSource(
   }
 }
 
-function extractEmbedding(result: unknown): number[] | null {
-  if (!result || typeof result !== 'object') return null
-  const data = (result as { data?: unknown }).data
-  if (!Array.isArray(data) || !Array.isArray(data[0])) return null
-
-  const values = data[0]
-  if (
-    values.length !== EMBEDDING_DIMENSIONS ||
-    values.some((value) => !Number.isFinite(value))
-  ) {
-    return null
-  }
-
-  return values as number[]
+function isValidEmbedding(values: unknown): values is number[] {
+  return (
+    Array.isArray(values) &&
+    values.length === OPENAI_EMBEDDING_DIMENSIONS &&
+    values.every((value) => Number.isFinite(value))
+  )
 }
 
 function normalizeMatches(
@@ -583,6 +562,13 @@ function escapeEvidenceText(value: string): string {
 }
 
 function getErrorCode(error: unknown, fallback: string): string {
+  if (
+    error &&
+    typeof error === 'object' &&
+    typeof (error as { code?: unknown }).code === 'string'
+  ) {
+    return (error as { code: string }).code
+  }
   return error instanceof Error && error.name ? error.name : fallback
 }
 

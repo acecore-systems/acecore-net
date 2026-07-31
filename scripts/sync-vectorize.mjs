@@ -11,6 +11,7 @@ import {
 } from './build-search-corpus.mjs'
 
 const API_BASE_URL = 'https://api.cloudflare.com/client/v4'
+const OPENAI_API_BASE_URL = 'https://api.openai.com/v1'
 const DEFAULT_CORPUS_FILE = resolve('.vectorize/corpus.json')
 const EMBEDDING_BATCH_SIZE = 32
 const UPSERT_BATCH_SIZE = 200
@@ -19,6 +20,7 @@ const LIST_BATCH_SIZE = 1000
 const MUTATION_WAIT_TIMEOUT_MS = 180_000
 const MUTATION_POLL_INTERVAL_MS = 5_000
 const REQUEST_TIMEOUT_MS = 30_000
+const MAX_API_RESPONSE_BYTES = 8 * 1024 * 1024
 const MAX_REQUEST_RETRIES = 5
 const RETRY_BASE_DELAY_MS = 500
 const MAX_LIST_CURSOR_RESTARTS = 3
@@ -39,8 +41,8 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
 const ALLOWED_INDEX_NAMES = new Set([
-  'acecore-net-search-preview',
-  'acecore-net-search-production',
+  'acecore-net-search-openai-1536-preview',
+  'acecore-net-search-openai-1536-production',
 ])
 const SUPPORTED_LOCALES = [
   'ja',
@@ -62,9 +64,18 @@ class CloudflareApiError extends Error {
   }
 }
 
+class OpenAiApiError extends Error {
+  constructor(status) {
+    super(`OpenAI API request failed with ${status}.`)
+    this.name = 'OpenAiApiError'
+    this.status = status
+  }
+}
+
 export async function syncVectorize({
   accountId = process.env.CLOUDFLARE_ACCOUNT_ID,
   apiToken = process.env.CLOUDFLARE_API_TOKEN,
+  openAiApiKey = process.env.OPENAI_API_KEY,
   indexName = process.env.VECTORIZE_INDEX_NAME,
   corpusFile = DEFAULT_CORPUS_FILE,
   dryRun = false,
@@ -179,9 +190,24 @@ export async function syncVectorize({
     allowLargeDelete,
   })
 
+  if (chunksToUpsert.length > 0 && !openAiApiKey) {
+    throw new Error('OPENAI_API_KEY is required to create embeddings.')
+  }
+  const openAiClient =
+    chunksToUpsert.length > 0
+      ? createOpenAiClient({
+          apiKey: openAiApiKey,
+          fetchImpl,
+          requestTimeoutMs,
+          retryBaseDelayMs,
+          sleepImpl,
+          randomImpl,
+        })
+      : null
+
   const mutationIds = []
   for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
-    const embeddings = await createEmbeddings(client, chunkBatch)
+    const embeddings = await createEmbeddings(openAiClient, chunkBatch)
 
     for (const vectorBatch of batches(
       chunkBatch.map((chunk, index) => ({
@@ -427,28 +453,37 @@ function validateReconciliation(actualIds, expectedIds, indexName) {
 }
 
 export function extractEmbeddingData(payload, expectedCount) {
-  const result = payload?.result ?? payload
-  const data = result?.data
+  const data = payload?.data
 
   if (!Array.isArray(data) || data.length !== expectedCount) {
     throw new Error(
-      `Workers AI returned ${Array.isArray(data) ? data.length : 0} embeddings; expected ${expectedCount}.`,
+      `OpenAI returned ${Array.isArray(data) ? data.length : 0} embeddings; expected ${expectedCount}.`,
     )
   }
 
-  for (const values of data) {
+  const embeddings = Array(expectedCount)
+  const indexes = new Set()
+  for (const item of data) {
+    const index = item?.index
+    const values = item?.embedding
     if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= expectedCount ||
+      indexes.has(index) ||
       !Array.isArray(values) ||
       values.length !== SEARCH_EMBEDDING_DIMENSIONS ||
       values.some((value) => !Number.isFinite(value))
     ) {
       throw new Error(
-        `Workers AI embedding must contain ${SEARCH_EMBEDDING_DIMENSIONS} finite values.`,
+        `OpenAI embedding response must contain unique indexes and ${SEARCH_EMBEDDING_DIMENSIONS} finite values.`,
       )
     }
+    indexes.add(index)
+    embeddings[index] = values
   }
 
-  return data
+  return embeddings
 }
 
 function createCloudflareClient({
@@ -537,6 +572,84 @@ function createCloudflareClient({
   }
 }
 
+function createOpenAiClient({
+  apiKey,
+  fetchImpl,
+  requestTimeoutMs,
+  retryBaseDelayMs,
+  sleepImpl,
+  randomImpl,
+}) {
+  return {
+    async request(path, init = {}) {
+      const headers = new Headers(init.headers)
+      headers.set('Authorization', `Bearer ${apiKey}`)
+      headers.set('Accept', 'application/json')
+
+      for (let attempt = 0; attempt <= MAX_REQUEST_RETRIES; attempt += 1) {
+        const timeoutController = new AbortController()
+        const timeout = setTimeout(
+          () => timeoutController.abort(new Error('Request timed out.')),
+          requestTimeoutMs,
+        )
+
+        try {
+          const response = await fetchImpl(`${OPENAI_API_BASE_URL}${path}`, {
+            ...init,
+            headers,
+            signal: timeoutController.signal,
+          })
+
+          if (
+            isRetryableStatus(response.status) &&
+            attempt < MAX_REQUEST_RETRIES
+          ) {
+            await response.body?.cancel().catch(() => {})
+            clearTimeout(timeout)
+            await sleepImpl(
+              getRetryDelay({
+                attempt,
+                retryAfter: response.headers.get('Retry-After'),
+                retryBaseDelayMs,
+                randomImpl,
+              }),
+            )
+            continue
+          }
+
+          if (!response.ok) {
+            await response.body?.cancel().catch(() => {})
+            throw new OpenAiApiError(response.status)
+          }
+
+          return await readJsonResponse(response, 'OpenAI')
+        } catch (error) {
+          if (
+            attempt >= MAX_REQUEST_RETRIES ||
+            error instanceof OpenAiApiError ||
+            !isRetryableNetworkError(error, timeoutController.signal.aborted)
+          ) {
+            throw error
+          }
+
+          clearTimeout(timeout)
+          await sleepImpl(
+            getRetryDelay({
+              attempt,
+              retryBaseDelayMs,
+              randomImpl,
+            }),
+          )
+        } finally {
+          clearTimeout(timeout)
+        }
+      }
+
+      throw new Error('OpenAI API request exhausted all retries.')
+    },
+  }
+}
+
 function isRetryableStatus(status) {
   return status === 429 || status >= 500
 }
@@ -595,7 +708,8 @@ async function ensureIndex(client, indexName, { createIfMissing = true } = {}) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: indexName,
-      description: 'Acecore site semantic search (BGE-M3)',
+      description:
+        'Acecore site semantic search (OpenAI text-embedding-3-large, 1536 dimensions)',
       config: {
         dimensions: SEARCH_EMBEDDING_DIMENSIONS,
         metric: SEARCH_DISTANCE_METRIC,
@@ -696,14 +810,19 @@ async function listVectorIdsOnce(client, indexName) {
 }
 
 async function createEmbeddings(client, chunks) {
-  const payload = await client.request(`/ai/run/${SEARCH_EMBEDDING_MODEL}`, {
+  const payload = await client.request('/embeddings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      text: chunks.map(({ text }) => text),
-      truncate_inputs: true,
+      model: SEARCH_EMBEDDING_MODEL,
+      input: chunks.map(({ text }) => text),
+      dimensions: SEARCH_EMBEDDING_DIMENSIONS,
+      encoding_format: 'float',
     }),
   })
+  if (payload?.model !== SEARCH_EMBEDDING_MODEL) {
+    throw new Error(`OpenAI response model must be ${SEARCH_EMBEDDING_MODEL}.`)
+  }
   return extractEmbeddingData(payload, chunks.length)
 }
 
@@ -763,15 +882,51 @@ async function waitForMutation(client, indexName, mutationId) {
   throw new Error(`Vectorize mutation ${mutationId} was not queryable in time.`)
 }
 
-async function readJsonResponse(response) {
-  const text = await response.text()
+async function readJsonResponse(response, provider = 'Cloudflare') {
+  const declaredLength = Number(response.headers.get('Content-Length'))
+  if (
+    Number.isFinite(declaredLength) &&
+    declaredLength > MAX_API_RESPONSE_BYTES
+  ) {
+    await response.body?.cancel().catch(() => {})
+    throw new Error(
+      `${provider} API response exceeded ${MAX_API_RESPONSE_BYTES} bytes.`,
+    )
+  }
+
+  const reader = response.body?.getReader()
+  if (!reader) {
+    throw new Error(`${provider} API returned an unreadable response body.`)
+  }
+
+  const decoder = new TextDecoder()
+  let bytesRead = 0
+  let text = ''
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      bytesRead += value.byteLength
+      if (bytesRead > MAX_API_RESPONSE_BYTES) {
+        await reader.cancel().catch(() => {})
+        throw new Error(
+          `${provider} API response exceeded ${MAX_API_RESPONSE_BYTES} bytes.`,
+        )
+      }
+      text += decoder.decode(value, { stream: true })
+    }
+    text += decoder.decode()
+  } finally {
+    reader.releaseLock()
+  }
+
   if (!text) return null
 
   try {
     return JSON.parse(text)
   } catch {
     throw new Error(
-      `Cloudflare API returned a non-JSON response with ${response.status}.`,
+      `${provider} API returned a non-JSON response with ${response.status}.`,
     )
   }
 }
