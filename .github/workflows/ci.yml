@@ -51,6 +51,9 @@ jobs:
       - name: Test CMS proxy
         run: npm run test:cms
 
+      - name: Test CMS OAuth Worker
+        run: npm run test:cms-auth
+
       - name: Test shared contact routing
         run: npm run test:contact
 
@@ -66,11 +69,20 @@ jobs:
       - name: Check generated Cloudflare binding types
         run: npm run types:cloudflare:check
 
+      - name: Check generated CMS OAuth Worker binding types
+        run: npm run types:cms-auth:check
+
       - name: Validate Pages Functions configuration
         run: npm run check:pages-config
 
       - name: Type-check Pages Functions
         run: npm run typecheck:functions
+
+      - name: Type-check CMS OAuth Worker
+        run: npm run typecheck:cms-auth
+
+      - name: Type-check static CMS admin script
+        run: npm run typecheck:admin
 
       - name: Build site
         run: npm run build
