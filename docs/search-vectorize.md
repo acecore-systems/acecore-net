@@ -66,12 +66,12 @@ Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `
 
 2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して `wrangler.jsonc` の `SEARCH_INDEX` bindingをv2へ切り替え、本番検索の継続応答を確認した後、明示承認のもと旧indexを削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
-検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。同じtable内で自サイト検索は `client:` / `global`、横断検索は `network-search:{caller}:client:` / `network-search:global`、AIチャットは `ai-chat:client:` / `ai-chat:global` prefixを使い、counterを分離します。
+検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionで本番D1を共有します。Previewは検索を無効のまま維持し、同じtable内では自サイト検索を `client:` / `global`、横断検索を `network-search:{caller}:client:` / `network-search:global`、AIチャットを `ai-chat:client:` / `ai-chat:global` prefixで分離します。
 
-| 環境       | D1 database                     | 用途                       |
-| ---------- | ------------------------------- | -------------------------- |
-| Preview    | `acecore-net-search-preview`    | Preview APIの固定窓counter |
-| Production | `acecore-net-search-production` | 本番APIの固定窓counter     |
+| 環境       | D1 database                     | 用途                           |
+| ---------- | ------------------------------- | ------------------------------ |
+| Preview    | `acecore-net-search-production` | Productionと共有（検索は無効） |
+| Production | `acecore-net-search-production` | 本番APIの固定窓counter         |
 
 schemaは `migrations/search/` で管理します。Pages binding、D1、kill switch、score閾値は `wrangler.jsonc` を正とします。横断先ごとに `{SOURCE}_SEARCH_ENABLED` と `{SOURCE}_SEARCH_MIN_SCORE` を持たせ、障害や品質低下を他の検索先から分離します。設定変更後は次を実行して、Pagesが対応する設定だけであることと生成型を確認します。
 

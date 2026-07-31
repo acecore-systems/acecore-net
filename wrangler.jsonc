@@ -35,8 +35,8 @@
     },
     {
       "binding": "SEARCH_RATE_LIMIT_DB",
-      "database_name": "acecore-net-search-preview",
-      "database_id": "e249ebf7-218d-4baf-b732-c0c2580141f5",
+      "database_name": "acecore-net-search-production",
+      "database_id": "3d26157c-b052-498c-af9b-82bad65b8421",
       "migrations_dir": "./migrations/search",
     },
   ],
@@ -74,8 +74,8 @@
         },
         {
           "binding": "SEARCH_RATE_LIMIT_DB",
-          "database_name": "acecore-net-search-preview",
-          "database_id": "e249ebf7-218d-4baf-b732-c0c2580141f5",
+          "database_name": "acecore-net-search-production",
+          "database_id": "3d26157c-b052-498c-af9b-82bad65b8421",
           "migrations_dir": "./migrations/search",
         },
       ],
