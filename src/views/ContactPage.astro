@@ -331,6 +331,9 @@ const contactPageLd = {
           sitekey,
           language,
           theme,
+          'expired-callback': function () {
+            window.turnstile.reset(widgetId)
+          },
         })
         turnstileEl.dataset.widgetId = String(widgetId)
       }
@@ -534,8 +537,8 @@ const contactPageLd = {
         function resetTurnstile() {
           const turnstileEl = document.getElementById('turnstile-widget')
           const widgetId = turnstileEl?.dataset.widgetId
-          if (typeof turnstile !== 'undefined' && widgetId) {
-            turnstile.reset(widgetId)
+          if (typeof window.turnstile !== 'undefined' && widgetId) {
+            window.turnstile.reset(widgetId)
           }
         }
 
@@ -568,7 +571,14 @@ const contactPageLd = {
           })
             .then(async function (res) {
               if (!res.ok) {
-                throw new Error('Failed')
+                const payload = await res.json().catch(function () {
+                  return null
+                })
+                const message =
+                  typeof payload?.message === 'string' && payload.message.trim()
+                    ? payload.message.trim()
+                    : errorText
+                throw new Error(message)
               }
               if (window.aceTrackEvent) {
                 window.aceTrackEvent('generate_lead', {
@@ -588,8 +598,12 @@ const contactPageLd = {
                 resetTurnstile()
               }
             })
-            .catch(function () {
-              showFeedback('error', errorText)
+            .catch(function (error) {
+              const message =
+                error instanceof Error && error.message
+                  ? error.message
+                  : errorText
+              showFeedback('error', message)
               resetTurnstile()
             })
             .finally(function () {
