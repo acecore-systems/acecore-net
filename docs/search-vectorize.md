@@ -24,16 +24,16 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 
 担当が明示されない質問はAcecoreを既定とし、すべてのindexを一律には検索しません。曖昧な続きの質問は直前の担当を引き継ぎ、別の担当サイトが明示された場合は現在の質問だけで検索queryを組み直します。
 
-| 質問の担当       | Pages binding                   | index名 (`*` は環境)                    | namespace  | 情報の責任範囲                                   |
-| ---------------- | ------------------------------- | --------------------------------------- | ---------- | ------------------------------------------------ |
-| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-*`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
-| Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-openai-1536-*`  | `ja`       | 技術サービス                                     |
-| Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-*`  | `ja`       | 学習サービス                                     |
-| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-*`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
-| Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-openai-1536-*` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
-| World Foundation | 未接続                          | 未接続                                  | 未適用     | 公式ルートへの固定案内のみ                       |
+| 質問の担当       | Production Pages binding        | Production index名                               | namespace  | 情報の責任範囲                                   |
+| ---------------- | ------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------ |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-production`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-openai-1536-production`  | `ja`       | 技術サービス                                     |
+| Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-production`  | `ja`       | 学習サービス                                     |
+| Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-production`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
+| Aceserver        | `ACESERVER_PORTAL_SEARCH_INDEX` | `aceserver-portal-search-openai-1536-production` | `ja`       | 概要、ワールド、ストーリー、動画、ナビゲーション |
+| World Foundation | 未接続                          | 未接続                                           | 未適用     | 公式ルートへの固定案内のみ                       |
 
-`*` はPreviewでは `preview`、Productionでは `production` です。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。Aceserver Portalのcorpus同期はProduction専用のため、Portal bindingはrollback用に保持しつつ、top-level／Previewの `ACESERVER_PORTAL_SEARCH_ENABLED=false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはroot、Preview、Productionのいずれにもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
+Vectorize bindingはProductionだけに設定し、rootとPreviewには設定しません。SystemsとSchoolsはそれぞれ1つのindexだけを検索します。Aceserver Portalのcorpus同期もProduction専用で、top-level／Previewの `ACESERVER_PORTAL_SEARCH_ENABLED=false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。World Foundationはどの環境にもbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` によって検索を停止します。
 
 外部indexの日本語根拠は参照データとして `gpt-5.6-luna` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Responses APIが `max_output_tokens` による未完了を返した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
@@ -48,16 +48,16 @@ Vectorizeが未設定、rate limit中、OpenAI API障害、通信タイムアウ
 | Aceserver Portal | `ACESERVER_PORTAL_SEARCH_ENABLED`（Preview=false／Production=true） | `ACESERVER_PORTAL_SEARCH_MIN_SCORE=0.45` |
 | World Foundation | `WORLD_FOUNDATION_SEARCH_ENABLED=false`（固定）                     | 未適用                                   |
 
-World Foundationを再接続する前に、owner repositoryで公開corpusの生成、Preview / Productionを分離した同期、削除、両環境のquery smoke testを実装して成功させます。その確認と同じ変更で、3環境のVectorize binding追加とkill switch変更を行います。一部だけを先に有効化しません。
+World Foundationを再接続する前に、owner repositoryで公開corpusの生成、Production同期、削除、Production query smoke testを実装して成功させます。その確認と同じ変更でProductionのVectorize binding追加とkill switch変更を行います。一部だけを先に有効化しません。
 
 ## Acecoreが管理するCloudflareリソース
 
 | 環境       | Vectorize index                             | namespace                                               |
 | ---------- | ------------------------------------------- | ------------------------------------------------------- |
-| Preview    | `acecore-net-search-openai-1536-preview`    | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
-| Production | `acecore-net-search-openai-1536-production` | 同上                                                    |
+| Preview    | 未接続                                      | 未適用                                                  |
+| Production | `acecore-net-search-openai-1536-production` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
-両indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
+Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。rollback確認が終わるまで旧indexは削除しません。
 
 検索APIのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionを分離します。
 
@@ -81,35 +81,24 @@ npm run typecheck:functions
 
 - `main` push: production Pagesが同じcommitを公開したことを `.well-known/acecore-build.json` で確認し、corpus build後にも公開commitとcorpus versionの両方が変わっていないことを再確認してからproduction indexを同期する。
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
-- 手動preview: `main` の最新corpusをpreview indexへ同期する。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
-PreviewまたはProductionで既存vectorの20%を超える削除が必要な場合、通常の同期はplanを記録して変更前に停止します。解除はGitHub Actionsで対象indexを選んだ手動実行だけに限定し、次の5項目を同時に指定します。
-
-- `allow_large_delete`: `true`
-- `approved_commit`: Productionでは公開build marker、Previewでは同期対象のmainと一致する40文字のcommit SHA
-- `approved_corpus_version`: そのcommitをbuildして得たcorpus version
-- `approved_delete_count`: 直前に確認したonline planのdelete件数
-- `approved_plan_id`: 現行indexのID集合と新corpusのID集合を束ねたplan ID
-
-workflowは同期直前にもう一度 `--plan` を実行し、現在のdelete件数とplan IDが承認値に完全一致した場合だけ `--allow-large-delete` を渡します。実同期scriptも同じ2値を再検証するため、plan確認からmutationまでの間にindexが変わった場合は停止します。commit、corpus version、delete件数、現行index ID集合のどれかが変わった場合はmutation前に停止します。承認値は選択したPreviewまたはProductionの実行にだけ使用されます。
-
-`cloudflare-search-production` Environmentにはrequired reviewerを設定し、大量削除を伴う手動実行を実装者以外がplanと上記4つの固定値まで確認して承認する運用を推奨します。required reviewerの設定有無はrepository外のGitHub設定なので、リリース前に実設定を別途確認してください。
+Productionで既存vectorの20%を超える削除になる場合、同期scriptはplanを記録してmutation前に停止します。GitHub Actionsにはこの制限を解除するinputや `--allow-large-delete` 経路を設けません。正当な大規模再構築が必要な場合は既存indexを直接大量削除せず、新しいindexへ全corpusを同期してqueryを確認し、別のレビュー済み変更でbindingを切り替えます。
+Productionのlive同期は、index名と同じ値を`--confirm-production`へ明示しない限り開始しません。
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
 | GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                      |
 | ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ------------------------------------------- |
-| `cloudflare-search-preview`    | `CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN`, `OPENAI_API_KEY`    | `acecore-net-vectorize-preview-sync`    | `acecore-net-search-openai-1536-preview`    |
 | `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production` |
 
-両EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
+EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
-既存の広い権限を持つtokenは転用しません。各環境にaccount-owned tokenを1つずつ用意し、AcecoreのCloudflare accountだけをresourceに指定して、`Vectorize Write` だけを付与します。`Vectorize Write` は同期scriptが使うindex取得、vector一覧、upsert、delete、mutation確認を含むため、`Vectorize Read` や `Workers AI Read` の追加は不要です。OpenAI側はこのサイト専用ProjectのAPIキーをPreview / Production Environment secretへ設定し、利用上限とキーのローテーションを他サービスから分離します。
+既存の広い権限を持つtokenは転用しません。Production用のaccount-owned tokenを1つ用意し、AcecoreのCloudflare accountだけをresourceに指定して、`Vectorize Write` だけを付与します。`Vectorize Write` は同期scriptが使うindex取得、vector一覧、upsert、delete、mutation確認を含むため、`Vectorize Read` や `Workers AI Read` の追加は不要です。OpenAI側はこのサイト専用ProjectのAPIキーをProduction Environment secretへ設定し、利用上限とキーのローテーションを他サービスから分離します。
 
-CloudflareのVectorize権限はindex単位では制限できません。Preview / Production tokenの分離はcredentialのローテーションと障害範囲を分けるための運用境界であり、特定indexだけへ書き込めるCloudflare側ACLではありません。同期scriptのindex allowlistとEnvironmentのmain-only protectionを独立した誤操作防止策として維持します。
+CloudflareのVectorize権限はindex単位では制限できません。同期scriptのProduction index allowlistとEnvironmentのmain-only protectionを独立した誤操作防止策として維持します。
 
 secretは最後の同期stepだけへ渡し、site checkout、依存関係install、buildには渡しません。tokenやAPIキーの値をログ、PR本文、設定ファイルへ書かないでください。ローテーション時は新しいcredentialへEnvironment secretを更新し、同期成功を確認してから旧credentialを削除します。
 
@@ -134,10 +123,10 @@ node scripts/sync-vectorize.mjs --plan
 
 `--plan` はread-onlyです。対象indexが存在しない場合も自動作成せずに停止します。新規indexの初回作成は、承認値を付けない通常同期で行います。
 
-実際にpreviewへ同期する場合:
+Productionへ同期する場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-preview'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 $env:OPENAI_API_KEY = '<project-api-key>'
@@ -146,9 +135,9 @@ npm run sync:vectorize
 
 同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になった後、indexの管理対象ID集合がcorpusと完全一致したことを再取得して確認します。
 
-同期先はAcecore検索用の2 indexだけをallowlistし、corpusが90 source・150 vector・各locale 10 sourceを下回る場合は変更前に停止します。localeごとのvector下限は、簡潔化後の158 vector構成に余裕を持たせた `ja: 10`, `en: 19`, `zh-cn: 9`, `es: 18`, `pt: 19`, `fr: 20`, `ko: 11`, `de: 19`, `ru: 18` です。source合計は実際のlocale別一意URL数と一致し、namespaceとURLのlocale prefixも一致しなければなりません。管理外IDがある場合もmutation前に停止します。
+同期先はAcecore検索用のProduction indexだけをallowlistし、corpusが90 source・150 vector・各locale 10 sourceを下回る場合は変更前に停止します。localeごとのvector下限は、簡潔化後の158 vector構成に余裕を持たせた `ja: 10`, `en: 19`, `zh-cn: 9`, `es: 18`, `pt: 19`, `fr: 20`, `ko: 11`, `de: 19`, `ru: 18` です。source合計は実際のlocale別一意URL数と一致し、namespaceとURLのlocale prefixも一致しなければなりません。管理外IDがある場合もmutation前に停止します。
 
-既存vectorの20%を超える削除は既定で停止します。`--allow-large-delete` は手元で直接指定できる非常用フラグですが、共有環境では前述のcommit・corpus version・delete件数・plan IDを固定する手動workflowだけを使います。削除はVectorize APIの上限に合わせて100 IDずつ送ります。Cloudflare RESTの一時的なnetwork error、429、5xxは、30秒timeoutと `Retry-After` を含む上限付きbackoffで再試行し、mutation直後にlist cursorが無効化された場合は先頭から安全に再取得します。truncated pageのnext cursorが欠落・空・循環している場合は、ID一覧を完全とみなさずmutation前または収束確認中に停止します。
+既存vectorの20%を超える削除は停止します。Production workflowからこの制限は解除できません。削除はVectorize APIの上限に合わせて100 IDずつ送ります。Cloudflare RESTの一時的なnetwork error、429、5xxは、30秒timeoutと `Retry-After` を含む上限付きbackoffで再試行し、mutation直後にlist cursorが無効化された場合は先頭から安全に再取得します。truncated pageのnext cursorが欠落・空・循環している場合は、ID一覧を完全とみなさずmutation前または収束確認中に停止します。
 
 ## セキュリティとプライバシー
 
@@ -186,14 +175,13 @@ indexを作り直す場合は、新indexを同期・query確認してからbindi
 - `npm run build`
 - `npm run validate:seo`
 - desktop/mobileでPagefind、関連結果、0件、filter利用時、API停止時を確認
-- Preview deploymentの `/api/search` がpreview indexだけを参照することを確認
-- Preview deploymentのAIチャットでAcecore、Systems、Schools、Aceserverの質問を個別に送り、Aceserver Portalを除く意図したPreview indexだけが検索されることを確認
+- Preview deploymentにVectorize bindingがなく、`/api/search` とAIチャットがPagefindまたは固定公式導線へ安全にフォールバックすることを確認
 - World Foundationの質問ではembeddingとVectorize queryが実行されず、固定した公式ルートだけが返ることを確認
 - Production deploymentのAceserver質問でWIKIとPortalが同じembeddingから検索され、ルール・コマンド・参加条件・運用情報をPortalだけで回答しないことを確認
-- 有効化する外部indexのowner repositoryで、PortalはProduction同期、その他はPreview／Production同期とquery smoke testが成功していることを確認する。未確認の取得元はbindingを設定せず、kill switchを `false` にする
+- 有効化する外部indexのowner repositoryでProduction同期とquery smoke testが成功していることを確認する。未確認の取得元はkill switchを `false` にする
 - 各表示localeで外部の日本語根拠から回答でき、回答リンクが実際に取得した公式URLに限定されることを確認
 - production merge後、production deploymentのcommit一致後に同期workflowが成功することを確認
-- 20%超削除時は、online plan、公開commit、corpus version、delete件数、plan IDを別担当者が照合し、手動production実行後に完全収束ログを確認
+- 20%超削除を検出した場合はworkflowがmutation前に停止したことを確認し、新indexへの再構築とbinding切り替えを別PRでレビューする
 
 ## 公式資料
 

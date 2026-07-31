@@ -6,11 +6,12 @@ import { after, test } from 'node:test'
 
 import {
   extractEmbeddingData,
+  parseArguments,
   syncVectorize,
   validateCorpus,
 } from '../scripts/sync-vectorize.mjs'
 
-const PREVIEW_INDEX = 'acecore-net-search-openai-1536-preview'
+const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
 const embedding = Array.from({ length: 1536 }, () => 0.01)
@@ -47,6 +48,20 @@ test('embeddingのindex・件数・1536次元を検証する', () => {
   )
 })
 
+test('live Production同期は正確なindex名の明示確認を要求する', () => {
+  const environment = { VECTORIZE_INDEX_NAME: PRODUCTION_INDEX }
+
+  assert.throws(
+    () => parseArguments([], environment),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() =>
+    parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
+  )
+  assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
+  assert.doesNotThrow(() => parseArguments(['--plan'], environment))
+})
+
 test('corpusと既存indexの差分だけをupsert・deleteする', async () => {
   const corpus = createCorpus()
   const corpusFile = await writeCorpus(corpus)
@@ -62,7 +77,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
     const url = String(input)
     calls.push({ url, method: init.method || 'GET' })
 
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -109,7 +124,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
     accountId: 'account',
     apiToken: 'token',
     openAiApiKey: 'openai-key',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     logger: silentLogger,
@@ -133,7 +148,7 @@ test('mutationIdがない成功応答をfail closedする', async () => {
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -156,7 +171,7 @@ test('mutationIdがない成功応答をfail closedする', async () => {
       accountId: 'account',
       apiToken: 'token',
       openAiApiKey: 'openai-key',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       logger: silentLogger,
@@ -187,7 +202,7 @@ test('planは不存在indexを作成せずfail closedする', async () => {
 
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return cloudflareResponse(null, 404)
     }
     if (
@@ -204,7 +219,7 @@ test('planは不存在indexを作成せずfail closedする', async () => {
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       planOnly: true,
       fetchImpl,
@@ -215,7 +230,7 @@ test('planは不存在indexを作成せずfail closedする', async () => {
   assert.equal(createRequests, 0)
 })
 
-test('同期先indexをpreviewとproductionだけに制限する', async () => {
+test('同期先indexをproductionだけに制限する', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
   await assert.rejects(
@@ -284,7 +299,7 @@ test('非管理形式の現存IDがあればmutation前にfail closedする', as
   let mutationRequested = false
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -304,7 +319,7 @@ test('非管理形式の現存IDがあればmutation前にfail closedする', as
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       logger: silentLogger,
@@ -326,7 +341,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
 
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -354,7 +369,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
   const plan = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     planOnly: true,
     fetchImpl,
@@ -369,7 +384,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       logger: silentLogger,
@@ -382,7 +397,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       allowLargeDelete: true,
       expectedDeleteCount: staleIds.length - 1,
@@ -396,7 +411,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       allowLargeDelete: true,
       expectedDeleteCount: plan.delete,
@@ -411,7 +426,7 @@ test('20%を超えるdeleteを既定で拒否し明示override時だけ許可す
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     allowLargeDelete: true,
     expectedDeleteCount: plan.delete,
@@ -433,7 +448,7 @@ test('mutation直後の壊れたlist cursorは先頭から再取得して収束�
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('cursor=')) {
@@ -465,7 +480,7 @@ test('mutation直後の壊れたlist cursorは先頭から再取得して収束�
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     retryBaseDelayMs: 10,
@@ -487,7 +502,7 @@ test('truncated listにnextCursorがなければ完全一致と誤認しない',
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -504,7 +519,7 @@ test('truncated listにnextCursorがなければ完全一致と誤認しない',
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       logger: silentLogger,
@@ -522,7 +537,7 @@ test('list cursorが循環したら完全一致と誤認しない', async () => 
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -545,7 +560,7 @@ test('list cursorが循環したら完全一致と誤認しない', async () => 
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       logger: silentLogger,
@@ -563,7 +578,7 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -591,7 +606,7 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
       accountId: 'account',
       apiToken: 'token',
       openAiApiKey: 'openai-key',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       sleepImpl: async () => {},
@@ -612,7 +627,7 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -641,7 +656,7 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
     accountId: 'account',
     apiToken: 'token',
     openAiApiKey: 'openai-key',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     sleepImpl: async (delay) => sleepDelays.push(delay),
@@ -661,7 +676,7 @@ test('network・429・5xxをRetry-Afterと指数backoff付きで再試行する'
 
   const fetchImpl = async (input) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       indexAttempts += 1
       if (indexAttempts === 1) throw new TypeError('connection reset')
       if (indexAttempts === 2) {
@@ -682,7 +697,7 @@ test('network・429・5xxをRetry-Afterと指数backoff付きで再試行する'
   await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     retryBaseDelayMs: 10,
@@ -703,7 +718,7 @@ test('再試行は最大5回で停止する', async () => {
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl: async () => {
         requests += 1
@@ -727,7 +742,7 @@ test('Cloudflare REST requestを30秒timeout対象にして再試行する', asy
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
     assert.ok(init.signal instanceof AbortSignal)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       indexAttempts += 1
       if (indexAttempts === 1) {
         return new Promise((_resolve, reject) => {
@@ -752,7 +767,7 @@ test('Cloudflare REST requestを30秒timeout対象にして再試行する', asy
   await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     requestTimeoutMs: 5,
@@ -772,7 +787,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
 
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${PREVIEW_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return indexResponse()
     }
     if (url.includes('/list?')) {
@@ -798,7 +813,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
       accountId: 'account',
       apiToken: 'token',
       openAiApiKey: 'openai-key',
-      indexName: PREVIEW_INDEX,
+      indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
       retryBaseDelayMs: 0,
@@ -813,7 +828,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
   const converged = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: PREVIEW_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     retryBaseDelayMs: 0,
@@ -907,7 +922,7 @@ async function writeCorpus(corpus) {
 
 function indexResponse() {
   return cloudflareResponse({
-    name: PREVIEW_INDEX,
+    name: PRODUCTION_INDEX,
     config: { dimensions: 1536, metric: 'cosine' },
   })
 }

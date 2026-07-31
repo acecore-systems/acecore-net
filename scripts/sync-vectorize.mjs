@@ -42,10 +42,8 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
   ru: 18,
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
-const ALLOWED_INDEX_NAMES = new Set([
-  'acecore-net-search-openai-1536-preview',
-  'acecore-net-search-openai-1536-production',
-])
+const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production'
+const ALLOWED_INDEX_NAMES = new Set([PRODUCTION_INDEX_NAME])
 const SUPPORTED_LOCALES = [
   'ja',
   'en',
@@ -972,7 +970,7 @@ function batches(items, size) {
   return result
 }
 
-function parseArguments(argv) {
+export function parseArguments(argv, environment = process.env) {
   const options = {
     dryRun: false,
     planOnly: false,
@@ -980,7 +978,8 @@ function parseArguments(argv) {
     allowLargeDelete: false,
     expectedDeleteCount: undefined,
     expectedPlanId: undefined,
-    indexName: process.env.VECTORIZE_INDEX_NAME,
+    confirmProduction: environment.VECTORIZE_CONFIRM_PRODUCTION,
+    indexName: environment.VECTORIZE_INDEX_NAME,
     corpusFile: DEFAULT_CORPUS_FILE,
   }
 
@@ -1005,6 +1004,8 @@ function parseArguments(argv) {
         throw new Error('--expected-plan-id must be a SHA-256 hex value.')
       }
       options.expectedPlanId = value
+    } else if (argument === '--confirm-production') {
+      options.confirmProduction = argv[++index]
     } else if (argument === '--index') options.indexName = argv[++index]
     else if (argument === '--corpus') {
       options.corpusFile = resolve(argv[++index])
@@ -1012,6 +1013,17 @@ function parseArguments(argv) {
       throw new Error(`Unknown argument: ${argument}`)
     }
   }
+
+  if (
+    !options.dryRun &&
+    !options.planOnly &&
+    options.confirmProduction !== PRODUCTION_INDEX_NAME
+  ) {
+    throw new Error(
+      `Production sync requires --confirm-production ${PRODUCTION_INDEX_NAME}.`,
+    )
+  }
+  delete options.confirmProduction
 
   return options
 }

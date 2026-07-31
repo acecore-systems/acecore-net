@@ -202,13 +202,13 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 `functions/api/ai-contact.ts` の Cloudflare Pages Function からOpenAI Responses APIを直接呼び出します。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserverについて、質問と直近の利用者発言をOpenAI `text-embedding-3-large` の1536次元embeddingへ変換し、対応するVectorize indexだけを検索します。担当が明示されない質問はAcecoreを既定とし、全indexを一律には検索しません。Aceserverだけは、1回のembeddingを共有してWIKIとPortalを並列検索します。
 
-Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingをrollback用に保持しつつ `ACESERVER_PORTAL_SEARCH_ENABLED=false` とし、Aceserver WIKIだけを検索します。ProductionではPortalの同期・query smoke test完了後に同flagを有効化します。
+Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
 Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`gpt-5.6-luna`（reasoning effort `medium`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはPages Functionのsecretだけに置き、ブラウザへ渡しません。Cloudflare Workers AIとOpenAI AI Gatewayは使用しません。
 
-専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryにPreview / Productionのcorpus同期、削除、query smoke testがまだないため、全環境でVectorize接続を停止し、公式サイトのルートだけを案内します。各接続済みbindingのkill switchとscore下限は個別に設定でき、Acecoreの `SEARCH_ENABLED=false` は検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に停止します。
+専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryにProductionのcorpus同期、削除、query smoke testがまだないため、全環境でVectorize接続を停止し、公式サイトのルートだけを案内します。各接続済みbindingのkill switchとscore下限は個別に設定でき、Acecoreの `SEARCH_ENABLED=false` は検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に停止します。
 
-Cloudflare Pages 側で以下を設定してください。
+Cloudflare PagesのProduction環境だけに以下を設定し、PreviewにはVectorize bindingを設定しません。
 
 - Acecore Vectorize binding: `SEARCH_INDEX`
 - 横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`
@@ -220,7 +220,7 @@ Cloudflare Pages 側で以下を設定してください。
 - `OPENAI_EMBEDDING_MODEL`: embeddingモデル（既定 `text-embedding-3-large`）
 - `OPENAI_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1536`固定）
 
-外部indexはこのrepositoryから更新しません。corpus生成、同期、削除は各サイトを所有するrepositoryが管理し、Aceserver PortalはProduction専用、その他の接続済みサイトはPreview / Productionを分離します。World Foundationを再接続する場合も、owner repositoryにこのライフサイクルと両環境のquery smoke testを用意してから、bindingとkill switchを同じ変更で切り替えます。
+外部indexはこのrepositoryから更新しません。corpus生成、Production同期、削除は各サイトを所有するrepositoryが管理します。Aceserver Portalを含む接続済みサイトはProduction indexだけを使います。World Foundationを再接続する場合も、owner repositoryにこのライフサイクルとProduction query smoke testを用意してから、Production bindingとkill switchを同じ変更で切り替えます。
 
 AIチャットのgrounding、フォールバック、リンク制限は `npm run test:ai-chat` で確認します。
 
