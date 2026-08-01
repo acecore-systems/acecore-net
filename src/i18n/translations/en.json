@@ -236,6 +236,8 @@
       "heroTitle": "About Us",
       "heroSubtitle": "Acecore's philosophy and three businesses",
       "heroImgAlt": "Team discussion",
+      "companyInfoHeading": "Corporate Information",
+      "legalNameLabel": "Legal name",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "How Acecore's value circulates",
       "missionLoopDesc": "A visual breakdown of how Acecore creates and expands value.",
@@ -467,7 +469,7 @@
       "disclaimerHeading": "Disclaimer",
       "disclaimerBody": "While we strive to provide accurate information on this site, information may become outdated or contain errors. We accept no liability for any damages arising from the information on this site.",
       "copyrightHeading": "Copyright",
-      "copyrightBody": "The copyright of text, images, and other content published on this site belongs to Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
+      "copyrightBody": "The copyright of text, images, and other content published on this site belongs to 株式会社Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
       "contactHeading": "Contact",
       "contactBody": "For inquiries regarding this policy, please contact us through the contact page.",
       "effectiveDate": "Effective: January 1, 2025 / Last updated: August 1, 2026 (Acecore ID terms version: 2026-08-01-acecoreid-v1)"

@@ -67,7 +67,8 @@ const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': organizationId,
-  name: 'Acecore',
+  name: SITE.name,
+  legalName: SITE.legalName,
   url: SITE.url,
   logo: 'https://acecore.net/favicon.svg',
   description: t(locale, 'meta.defaultDescription'),
@@ -125,6 +126,24 @@ const aboutPageLd = {
         items={[{ label: t(locale, 'pages.about.title') }]}
         locale={locale}
       />
+      <section
+        class="ac-surface mb-12 p-6 sm:p-8"
+        aria-labelledby="corporate-information-heading"
+      >
+        <h2 id="corporate-information-heading" class="text-2xl ac-heading">
+          {t(locale, 'pages.about.companyInfoHeading')}
+        </h2>
+        <dl class="mt-5">
+          <div class="border-l-4 border-brand-500 pl-4">
+            <dt class="text-sm font-600 text-slate-500">
+              {t(locale, 'pages.about.legalNameLabel')}
+            </dt>
+            <dd class="mt-1 text-xl font-700 text-slate-800">
+              {SITE.legalName}
+            </dd>
+          </div>
+        </dl>
+      </section>
       <div class="mb-12">
         <ProcessFigure
           variant="card"

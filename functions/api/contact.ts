@@ -147,6 +147,7 @@ const SITEVERIFY_ENDPOINT =
 const EMAIL_API_BASE = 'https://api.cloudflare.com/client/v4'
 const DEFAULT_FROM_EMAIL = 'noreply@acecore.net'
 const DEFAULT_TO_EMAIL = 'info@acecore.net'
+const ORGANIZATION_LEGAL_NAME = '株式会社Acecore'
 const MAX_CATEGORY_LENGTH = 80
 const MAX_NAME_LENGTH = 80
 const MAX_EMAIL_LENGTH = 254
@@ -386,11 +387,11 @@ function buildContactEmail(
   const userAgent = normalizeSingleLine(request.headers.get('User-Agent'), 300)
   const subjectSource = contact.subject || contact.category
   const subject = normalizeSingleLine(
-    `Acecore お問い合わせ: ${subjectSource}`,
+    `${ORGANIZATION_LEGAL_NAME} お問い合わせ: ${subjectSource}`,
     200,
   )
   const text = [
-    'Acecore公式サイトからお問い合わせが届きました。',
+    `${ORGANIZATION_LEGAL_NAME}公式サイトからお問い合わせが届きました。`,
     '',
     `お問い合わせ種別: ${contact.category}`,
     `お名前: ${contact.name}`,
@@ -421,7 +422,7 @@ function buildContactEmail(
   const html = `<!doctype html>
 <html lang="ja">
   <body style="font-family: sans-serif; line-height: 1.7; color: #0f172a;">
-    <h1 style="font-size: 18px;">Acecore公式サイトからお問い合わせが届きました。</h1>
+    <h1 style="font-size: 18px;">${ORGANIZATION_LEGAL_NAME}公式サイトからお問い合わせが届きました。</h1>
     <table style="border-collapse: collapse; width: 100%; max-width: 720px;">
       <tbody>
         ${htmlRows
@@ -443,7 +444,7 @@ function buildContactEmail(
     to: toEmail,
     from: {
       address: fromEmail,
-      name: 'Acecore Contact',
+      name: ORGANIZATION_LEGAL_NAME,
     },
     reply_to: contact.email,
     subject,

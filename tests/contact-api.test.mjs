@@ -70,6 +70,31 @@ test('Acecore同一originのJSON送信は従来どおり201を返す', async () 
   assert.match(response.headers.get('Vary') || '', /\bOrigin\b/)
 })
 
+test('問い合わせ通知は株式会社Acecore名で送信する', async () => {
+  const calls = mockSuccessfulContact('acecore.net')
+  const response = await onRequestPost({
+    request: jsonContactRequest({
+      origin: 'https://acecore.net',
+      locale: 'ja',
+      ip: '203.0.113.16',
+    }),
+    env: contactEnv(),
+  })
+
+  assert.equal(response.status, 201)
+  const emailCall = calls.find((call) =>
+    call.url.includes('/email/sending/send'),
+  )
+  assert.ok(emailCall)
+  assert.equal(emailCall.init?.method, 'POST')
+
+  const payload = JSON.parse(String(emailCall.init?.body))
+  assert.equal(payload.from.name, '株式会社Acecore')
+  assert.match(payload.subject, /^株式会社Acecore お問い合わせ:/)
+  assert.match(payload.text, /株式会社Acecore公式サイト/)
+  assert.match(payload.html, /株式会社Acecore公式サイト/)
+})
+
 test('許可したSystems originのJSON応答にCORSヘッダーを付ける', async () => {
   mockSuccessfulContact('systems.acecore.net')
   const response = await onRequestPost({
@@ -166,9 +191,9 @@ test('未許可originをHTMLリダイレクト先には使わない', async () =
 
 function mockSuccessfulContact(hostname) {
   const calls = []
-  globalThis.fetch = async (input) => {
+  globalThis.fetch = async (input, init) => {
     const url = String(input)
-    calls.push(url)
+    calls.push({ url, init })
     if (url.includes('/siteverify')) {
       return Response.json({ success: true, hostname })
     }

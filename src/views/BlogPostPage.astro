@@ -46,6 +46,7 @@ import {
 } from '../utils/blog-i18n'
 import { getAllAuthors, findAuthorById } from '../utils/authors'
 import { getAllTags, getLocalizedTagName } from '../utils/tags'
+import { SITE } from '../data/site'
 
 import type { CollectionEntry } from 'astro:content'
 
@@ -169,8 +170,9 @@ const blogPostingLd = {
   }),
   publisher: {
     '@type': 'Organization',
-    name: 'Acecore',
-    url: 'https://acecore.net',
+    name: SITE.name,
+    legalName: SITE.legalName,
+    url: SITE.url,
   },
   mainEntityOfPage: {
     '@type': 'WebPage',

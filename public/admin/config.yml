@@ -1377,6 +1377,14 @@ collections:
             label: 'ヒーロー・画像・代替テキスト'
             hint: 'heroImgAlt'
             widget: string
+          - name: 'companyInfoHeading'
+            label: '法人情報・見出し'
+            hint: 'companyInfoHeading'
+            widget: string
+          - name: 'legalNameLabel'
+            label: '法人名・ラベル'
+            hint: 'legalNameLabel'
+            widget: string
           - name: 'missionLoopEyebrow'
             label: 'ミッション・ループ・補助見出し'
             hint: 'missionLoopEyebrow'
