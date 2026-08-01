@@ -79,6 +79,7 @@
     "sitemap": "Plan du site",
     "relatedLinks": "Liens connexes",
     "schools": "Acecore Schools",
+    "terms": "Conditions d’utilisation d’Acecore ID",
     "privacy": "Politique de confidentialité",
     "pricing": "Guide tarifaire"
   },
@@ -409,7 +410,7 @@
       "copyrightBody": "Les droits d'auteur sur les textes, images et autres contenus publiés sur ce site appartiennent à 株式会社Acecore ou à leurs détenteurs respectifs. La reproduction ou copie non autorisée est interdite.",
       "contactHeading": "Contact",
       "contactBody": "Pour les consultations concernant cette politique, contactez-nous via la page de contact.",
-      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 30 juillet 2026"
+      "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 1er août 2026 (version des conditions Acecore ID : 2026-08-01-acecoreid-v1)"
     },
     "acestudio": {
       "title": "AceStudio",

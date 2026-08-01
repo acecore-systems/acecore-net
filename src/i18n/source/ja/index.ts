@@ -9,6 +9,7 @@ import notFoundPageTranslations from './pages/not-found.json'
 import privacyPageTranslations from './pages/privacy.json'
 import pricingPageTranslations from './pages/pricing.json'
 import servicesPageTranslations from './pages/services.json'
+import termsPageTranslations from './pages/terms.json'
 
 type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
 type CampaignEntryType = 'announcement' | 'page-notice'
@@ -140,6 +141,7 @@ const jaTranslations = {
     pricing: pricingPageTranslations,
     contact: contactPageTranslations,
     privacy: privacyPageTranslations,
+    terms: termsPageTranslations,
     acestudio: acestudioPageTranslations,
   },
   tags: legacyTagTranslations,
