@@ -271,6 +271,8 @@
       "heroTitle": "À propos",
       "heroSubtitle": "La philosophie et les trois activités d'Acecore",
       "heroImgAlt": "Discussion en équipe",
+      "companyInfoHeading": "Informations sur l’entreprise",
+      "legalNameLabel": "Dénomination sociale",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Comment la valeur d'Acecore circule",
       "missionLoopDesc": "Un aperçu visuel de la façon dont Acecore crée et développe la valeur.",
@@ -404,7 +406,7 @@
       "disclaimerHeading": "Clause de Non-Responsabilité",
       "disclaimerBody": "Bien que nous nous efforcions de fournir des informations précises sur ce site, les informations peuvent devenir obsolètes ou contenir des erreurs. Nous n'acceptons aucune responsabilité pour tout dommage résultant des informations de ce site.",
       "copyrightHeading": "Droits d'Auteur",
-      "copyrightBody": "Les droits d'auteur sur les textes, images et autres contenus publiés sur ce site appartiennent à Acecore ou à leurs détenteurs respectifs. La reproduction ou copie non autorisée est interdite.",
+      "copyrightBody": "Les droits d'auteur sur les textes, images et autres contenus publiés sur ce site appartiennent à 株式会社Acecore ou à leurs détenteurs respectifs. La reproduction ou copie non autorisée est interdite.",
       "contactHeading": "Contact",
       "contactBody": "Pour les consultations concernant cette politique, contactez-nous via la page de contact.",
       "effectiveDate": "Date d'effet : 1er janvier 2025 / Dernière mise à jour : 30 juillet 2026"
