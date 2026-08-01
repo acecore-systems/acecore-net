@@ -31,7 +31,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 | 質問の担当       | Production Pages binding        | Production index名                               | namespace  | 情報の責任範囲                                   |
 | ---------------- | ------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------ |
-| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-production-v2`   | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-production`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
 | Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-openai-1536-production`  | `ja`       | 技術サービス                                     |
 | Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-production`  | `ja`       | 学習サービス                                     |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-production`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
@@ -57,14 +57,14 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 
 ## Acecoreが管理するCloudflareリソース
 
-| 環境       | Vectorize index                                | namespace                                               |
-| ---------- | ---------------------------------------------- | ------------------------------------------------------- |
-| Preview    | 未接続                                         | 未適用                                                  |
-| Production | `acecore-net-search-openai-1536-production-v2` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
+| 環境       | Vectorize index                             | namespace                                               |
+| ---------- | ------------------------------------------- | ------------------------------------------------------- |
+| Preview    | 未接続                                      | 未適用                                                  |
+| Production | `acecore-net-search-openai-1536-production` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
-Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-07-31にv2の本番検証を完了した後、旧 `acecore-net-search-openai-1536-production` は削除しました。現在、即時に戻せる旧indexはありません。
+Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-08-01に正規名 `acecore-net-search-openai-1536-production` へ305 vectorsを全量同期し、ID集合一致とquery canaryを確認しました。Productionの通常同期とbindingはこの正規名だけを使います。
 
-2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して `wrangler.jsonc` の `SEARCH_INDEX` bindingをv2へ切り替え、本番検索の継続応答を確認した後、明示承認のもと旧indexを削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
+2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して一時的にbindingを切り替え、旧indexを削除しました。2026-08-01に正規名indexを再作成・全量同期して通常同期とbindingを戻したため、v2はcutover検証後に削除する一時rollback用です。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionで本番D1を共有します。Previewは検索を無効のまま維持し、同じtable内では自サイト検索を `client:` / `global`、横断検索を `network-search:{caller}:client:` / `network-search:global`、AIチャットを `ai-chat:client:` / `ai-chat:global` prefixで分離します。
 
@@ -90,7 +90,7 @@ npm run typecheck:functions
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
-このworkflowの同期先はreplacementの `acecore-net-search-openai-1536-production-v2` です。初回は空のv2へ公開corpusを全量upsertし、既存indexの大量削除は行いません。upsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。初回の全量同期とquery canaryを含む成功runを確認してから、別のレビュー済み変更でPages bindingをv2へ切り替えます。
+このworkflowの同期先は正規名の `acecore-net-search-openai-1536-production` です。2026-08-01に空の正規名indexへ公開corpusを305 vectors全量upsertし、ID集合の完全一致とquery canaryを確認しました。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
@@ -99,9 +99,9 @@ Productionのlive同期は、index名と同じ値を`--confirm-production`へ明
 
 GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です。
 
-| GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                         |
-| ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
-| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production-v2` |
+| GitHub Environment             | environment secrets                                        | Cloudflare account token                | 同期先                                      |
+| ------------------------------ | ---------------------------------------------------------- | --------------------------------------- | ------------------------------------------- |
+| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN`, `OPENAI_API_KEY` | `acecore-net-vectorize-production-sync` | `acecore-net-search-openai-1536-production` |
 
 EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
@@ -124,7 +124,7 @@ npm run sync:vectorize:dry-run
 credentialを使って現行indexとの差分だけを確認し、mutationしない場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 node scripts/sync-vectorize.mjs --plan
@@ -135,7 +135,7 @@ node scripts/sync-vectorize.mjs --plan
 Productionへ同期する場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 $env:OPENAI_API_KEY = '<project-api-key>'

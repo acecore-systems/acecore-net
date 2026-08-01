@@ -11,9 +11,8 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.mjs'
 
-const CURRENT_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
-const CANONICAL_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
-const PRODUCTION_INDEX = CURRENT_PRODUCTION_INDEX
+const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
+const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
 const embedding = Array.from({ length: 1536 }, () => 0.01)
@@ -51,29 +50,24 @@ test('embeddingのindex・件数・1536次元を検証する', () => {
 })
 
 test('live Production同期は正確なindex名の明示確認を要求する', () => {
-  for (const indexName of [
-    CURRENT_PRODUCTION_INDEX,
-    CANONICAL_PRODUCTION_INDEX,
-  ]) {
-    const environment = { VECTORIZE_INDEX_NAME: indexName }
+  const environment = { VECTORIZE_INDEX_NAME: PRODUCTION_INDEX }
 
-    assert.throws(
-      () => parseArguments([], environment),
-      new RegExp(`--confirm-production ${indexName}`, 'u'),
-    )
-    assert.doesNotThrow(() =>
-      parseArguments(['--confirm-production', indexName], environment),
-    )
-    assert.throws(
-      () =>
-        parseArguments(['--confirm-production', CURRENT_PRODUCTION_INDEX], {
-          VECTORIZE_INDEX_NAME: CANONICAL_PRODUCTION_INDEX,
-        }),
-      new RegExp(`--confirm-production ${CANONICAL_PRODUCTION_INDEX}`, 'u'),
-    )
-    assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
-    assert.doesNotThrow(() => parseArguments(['--plan'], environment))
-  }
+  assert.throws(
+    () => parseArguments([], environment),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() =>
+    parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
+  )
+  assert.throws(
+    () =>
+      parseArguments(['--confirm-production', RETIRED_PRODUCTION_INDEX], {
+        VECTORIZE_INDEX_NAME: RETIRED_PRODUCTION_INDEX,
+      }),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
+  assert.doesNotThrow(() => parseArguments(['--plan'], environment))
 })
 
 test('corpusと既存indexの差分だけをupsert・deleteする', async () => {
@@ -317,7 +311,7 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
 
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${CANONICAL_PRODUCTION_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return cloudflareResponse(null, 410)
     }
     if (
@@ -326,7 +320,7 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
     ) {
       createRequests += 1
       assert.deepEqual(JSON.parse(init.body), {
-        name: CANONICAL_PRODUCTION_INDEX,
+        name: PRODUCTION_INDEX,
         description:
           'Acecore site semantic search (OpenAI text-embedding-3-large, 1536 dimensions)',
         config: { dimensions: 1536, metric: 'cosine' },
@@ -345,14 +339,14 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: CANONICAL_PRODUCTION_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     logger: silentLogger,
   })
 
   assert.equal(createRequests, 1)
-  assert.equal(result.indexName, CANONICAL_PRODUCTION_INDEX)
+  assert.equal(result.indexName, PRODUCTION_INDEX)
   assert.equal(result.upserted, 0)
   assert.equal(result.deleted, 0)
   assert.equal(result.verified, true)
@@ -375,17 +369,18 @@ test('同期先indexをproductionだけに制限する', async () => {
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: CURRENT_PRODUCTION_INDEX,
+      indexName: PRODUCTION_INDEX,
       logger: silentLogger,
     }),
   )
-  await assert.doesNotReject(
+  await assert.rejects(
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: CANONICAL_PRODUCTION_INDEX,
+      indexName: RETIRED_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
+    /must be one of: acecore-net-search-openai-1536-production/u,
   )
 })
 
