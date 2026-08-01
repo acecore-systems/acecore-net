@@ -7,6 +7,8 @@
 export const SITE = {
   /** サイト名 */
   name: 'Acecore',
+  /** 法人名 */
+  legalName: '株式会社Acecore',
   /** サイトの公開 URL（Cloudflare Pages） */
   url: 'https://acecore.net',
   /** 電話番号（国内表記） */
