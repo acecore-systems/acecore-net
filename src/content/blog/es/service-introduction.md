@@ -17,7 +17,7 @@ checklist:
     - text: Acecore Systems — soporte IT, desarrollo, producción, operación y artículos técnicos
     - text: Acecore Schools — formas de aprender, apoyo educativo y registro de actividades
     - text: Aceserver — participación y actividades de la comunidad de Minecraft
-    - text: Acecore Shop — tienda en línea oficial: productos, compras, envíos y devoluciones
+    - text: 'Acecore Shop — tienda en línea oficial: productos, compras, envíos y devoluciones'
 faq:
   title: Preguntas frecuentes
   items:
