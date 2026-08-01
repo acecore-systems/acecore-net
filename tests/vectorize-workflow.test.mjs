@@ -18,7 +18,20 @@ test('Production同期workflowから20%超削除を解除できない', async ()
     ({ name }) => name === 'Sync production Vectorize index',
   )
 
-  assert.equal(workflow.on.workflow_dispatch, null)
+  assert.deepEqual(workflow.on.workflow_dispatch, {
+    inputs: {
+      index_name: {
+        description: '正規名indexへの移行時だけ選択する同期先',
+        required: false,
+        type: 'choice',
+        default: 'acecore-net-search-openai-1536-production-v2',
+        options: [
+          'acecore-net-search-openai-1536-production-v2',
+          'acecore-net-search-openai-1536-production',
+        ],
+      },
+    },
+  })
   assert.equal(
     productionSteps.find(
       ({ name }) => name === 'Validate manual large-delete approval',
@@ -37,7 +50,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    'acecore-net-search-openai-1536-production-v2',
+    "${{ inputs.index_name || 'acecore-net-search-openai-1536-production-v2' }}",
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
   assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
@@ -48,7 +61,10 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   const workflow = yaml.load(source)
 
   assert.deepEqual(Object.keys(workflow.jobs), ['sync-production'])
-  assert.equal(workflow.on.workflow_dispatch, null)
+  assert.deepEqual(workflow.on.workflow_dispatch.inputs.index_name.options, [
+    'acecore-net-search-openai-1536-production-v2',
+    'acecore-net-search-openai-1536-production',
+  ])
   assert.match(
     workflow.jobs['sync-production'].if,
     /github\.event_name == 'workflow_dispatch'/,

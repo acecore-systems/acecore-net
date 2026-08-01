@@ -42,8 +42,14 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
   ru: 18,
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
-const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production-v2'
-const ALLOWED_INDEX_NAMES = new Set([PRODUCTION_INDEX_NAME])
+const CURRENT_PRODUCTION_INDEX_NAME =
+  'acecore-net-search-openai-1536-production-v2'
+const CANONICAL_PRODUCTION_INDEX_NAME =
+  'acecore-net-search-openai-1536-production'
+const ALLOWED_INDEX_NAMES = new Set([
+  CURRENT_PRODUCTION_INDEX_NAME,
+  CANONICAL_PRODUCTION_INDEX_NAME,
+])
 const SUPPORTED_LOCALES = [
   'ja',
   'en',
@@ -1053,10 +1059,10 @@ export function parseArguments(argv, environment = process.env) {
   if (
     !options.dryRun &&
     !options.planOnly &&
-    options.confirmProduction !== PRODUCTION_INDEX_NAME
+    options.confirmProduction !== options.indexName
   ) {
     throw new Error(
-      `Production sync requires --confirm-production ${PRODUCTION_INDEX_NAME}.`,
+      `Production sync requires --confirm-production ${options.indexName}.`,
     )
   }
   delete options.confirmProduction
