@@ -47,7 +47,7 @@ const businessLinks = [
   <div class="ac-container py-14">
     <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
-        <h3 class="mb-3 text-lg font-700 text-white">Acecore</h3>
+        <h3 class="mb-3 text-lg font-700 text-white">{SITE.name}</h3>
         <p class="text-sm leading-relaxed">
           {t(locale, 'footer.tagline')}<br />
           {t(locale, 'footer.description')}
@@ -135,7 +135,7 @@ const businessLinks = [
     </div>
 
     <div class="mt-10 border-t border-slate-700 pt-8 text-center text-sm">
-      <p>&copy;{currentYear} Acecore</p>
+      <p>&copy;{currentYear} {SITE.legalName}</p>
     </div>
   </div>
 </footer>

@@ -275,6 +275,8 @@
       "heroTitle": "关于我们",
       "heroSubtitle": "Acecore的理念与四项业务",
       "heroImgAlt": "团队讨论",
+      "companyInfoHeading": "法人信息",
+      "legalNameLabel": "法人名称",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "通过四项业务支持社会",
       "missionLoopDesc": "Acecore运营涵盖技术、学习、社区和产品的官方站点。",
@@ -423,7 +425,7 @@
       "disclaimerHeading": "免责声明",
       "disclaimerBody": "本网站尽力提供准确的信息，但信息可能过时或存在错误。对于因本网站信息造成的任何损失，我方概不负责，敬请谅解。",
       "copyrightHeading": "关于版权",
-      "copyrightBody": "本网站刊载的文章、图片及其他内容的版权归Acecore或各权利持有者所有。未经许可禁止转载或复制。",
+      "copyrightBody": "本网站刊载的文章、图片及其他内容的版权归株式会社Acecore或各权利持有者所有。未经许可禁止转载或复制。",
       "contactHeading": "联系我们",
       "contactBody": "关于本政策的咨询，请通过联系页面联系我们。",
       "effectiveDate": "制定日：2025年1月1日 / 最后更新日：2026年8月1日（Acecore ID 条款版本：2026-08-01-acecoreid-v1）"

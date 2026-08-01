@@ -436,7 +436,7 @@ function buildFederatedRoutingContext(
   return `
 Acecore official-site routing context:
 - The selected information owner for this question is ${selectedOwner}. Do not answer the question with evidence owned by another site.
-- Acecore is a Japan-based organization that supports businesses, learning, and communities through technology and education.
+- 株式会社Acecore (Acecore) is a Japan-based company that supports businesses, learning, and communities through technology and education.
 - This corporate site is a directory and shared contact point. Do not treat it as the source of specialist pricing, service specifications, case studies, schedules, or participation terms.
 - Route development, websites, infrastructure, and other client technology work to Acecore Systems. Its official site owns the current details and pricing.
 - Route education and learning-support questions to Acecore Schools. Its official site owns the current programs, pricing, eligibility, and consultation information.

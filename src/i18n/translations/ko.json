@@ -275,6 +275,8 @@
       "heroTitle": "회사 소개",
       "heroSubtitle": "Acecore의 철학과 네 가지 사업",
       "heroImgAlt": "팀 토론",
+      "companyInfoHeading": "법인 정보",
+      "legalNameLabel": "법인명",
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "네 가지 사업을 통해 사회를 지원합니다",
       "missionLoopDesc": "Acecore는 기술, 배움, 커뮤니티, 프로덕트를 위한 공식 사이트를 운영합니다.",
@@ -423,7 +425,7 @@
       "disclaimerHeading": "면책 사항",
       "disclaimerBody": "본 사이트의 콘텐츠와 정보는 가능한 한 정확한 정보를 게재하도록 노력하고 있으나, 정보가 오래되거나 오류가 있을 수 있습니다. 본 사이트 정보로 발생한 어떠한 손해에 대해서도 당사는 일절 책임을 지지 않으므로 양해 부탁드립니다.",
       "copyrightHeading": "저작권에 관하여",
-      "copyrightBody": "본 사이트에 게재된 문장, 이미지 및 기타 콘텐츠의 저작권은 Acecore 또는 각 권리자에게 귀속됩니다. 무단 전재 및 복제를 삼가 주세요.",
+      "copyrightBody": "본 사이트에 게재된 문장, 이미지 및 기타 콘텐츠의 저작권은 株式会社Acecore 또는 각 권리자에게 귀속됩니다. 무단 전재 및 복제를 삼가 주세요.",
       "contactHeading": "문의",
       "contactBody": "본 정책에 관한 문의는 문의 페이지를 통해 연락해 주세요.",
       "effectiveDate": "제정일: 2025년 1월 1일 / 최종 업데이트: 2026년 8월 1일 (Acecore ID 약관 버전: 2026-08-01-acecoreid-v1)"

@@ -347,7 +347,8 @@ import { SITE } from '../data/site'
         '@context': 'https://schema.org',
         '@type': 'Organization',
         '@id': organizationId,
-        name: 'Acecore',
+        name: SITE.name,
+        legalName: SITE.legalName,
         url: SITE.url,
         description: t(locale, 'meta.defaultDescription'),
         logo: 'https://acecore.net/favicon.svg',
@@ -366,7 +367,7 @@ import { SITE } from '../data/site'
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         '@id': websiteId,
-        name: 'Acecore',
+        name: SITE.name,
         url: SITE.url,
         publisher: { '@id': organizationId },
         potentialAction: {
