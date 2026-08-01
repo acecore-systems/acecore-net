@@ -404,6 +404,14 @@
           ]
         },
         {
+          "heading": "Data controller and request channel",
+          "paragraphs": [
+            "The personal information controller for Acecore ID is 株式会社Acecore (representative: 西田凱).",
+            "To obtain the Company's address or make a request concerning notification of purpose of use, disclosure, correction, or suspension of use of retained personal data, submit a request through Acecore's contact form and state that it concerns Acecore ID personal information. After verifying the registered email address of the account concerned as necessary, we will respond without undue delay in accordance with applicable law.",
+            "We do not charge a fee. Do not submit information beyond what is necessary for identity verification, one-time codes, passkeys, or other secrets through the form."
+          ]
+        },
+        {
           "heading": "Information we collect",
           "paragraphs": [
             "We handle the following information for registration, authentication, and prevention of misuse."
@@ -449,6 +457,7 @@
           ]
         }
       ],
+      "acecoreIdRequestLink": "Make a request about Acecore ID personal information",
       "personalInfoHeading": "Handling of Personal Information",
       "personalInfoBody": "When using our contact form, we may ask for personal information such as your name and email address. Personal information collected will only be used to respond to inquiries and for necessary communications, and will not be used for any other purpose.",
       "disclosureHeading": "Disclosure of Personal Information to Third Parties",
