@@ -11,6 +11,8 @@ import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
+import { getAllAuthors, findAuthorById } from '../utils/authors'
+import { getLocalizedAuthor } from '../utils/blog-i18n'
 
 interface Props {
   locale: Locale
@@ -35,6 +37,12 @@ interface RelatedLink {
   title: string
   description: string
   href: string
+}
+
+interface ExecutiveLink {
+  href: string
+  label: string
+  icon: string
 }
 
 const getList = <T,>(key: string): T[] =>
@@ -63,6 +71,38 @@ const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
     href: resolveRelatedHref(link.href),
   }),
 )
+const authors = await getAllAuthors()
+const executive = findAuthorById(authors, 'gui')
+const executiveProfile = executive
+  ? getLocalizedAuthor(executive, locale)
+  : null
+const executiveInitial = executiveProfile
+  ? executiveProfile.name.trim().slice(0, 1).toUpperCase() || 'A'
+  : 'A'
+const executiveAvatar =
+  executiveProfile?.avatarImage || executiveProfile?.avatar || ''
+const executiveLinks: ExecutiveLink[] = executiveProfile
+  ? [
+      ...(executiveProfile.github
+        ? [
+            {
+              href: executiveProfile.github,
+              label: 'GitHub',
+              icon: 'github',
+            },
+          ]
+        : []),
+      ...(executiveProfile.twitter
+        ? [
+            {
+              href: executiveProfile.twitter,
+              label: 'X',
+              icon: 'at-sign',
+            },
+          ]
+        : []),
+    ]
+  : []
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -147,6 +187,85 @@ const aboutPageLd = {
           </div>
         </dl>
       </section>
+      {
+        executiveProfile && (
+          <section class="mb-12" aria-labelledby="executive-profile-heading">
+            <div class="mb-6">
+              <h2 id="executive-profile-heading" class="text-2xl ac-heading">
+                {t(locale, 'pages.about.executiveHeading')}
+              </h2>
+              <p class="mt-2 text-slate-600">
+                {t(locale, 'pages.about.executiveLead')}
+              </p>
+            </div>
+            <article class="grid overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm md:grid-cols-[14rem_minmax(0,1fr)]">
+              <div class="flex min-h-56 items-center justify-center bg-brand-50 p-8">
+                {executiveAvatar ? (
+                  <img
+                    src={executiveAvatar}
+                    alt={executiveProfile.name}
+                    class="h-32 w-32 rounded-full border-4 border-white object-cover shadow-md"
+                    width="128"
+                    height="128"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span
+                    class="flex h-32 w-32 items-center justify-center rounded-full border-4 border-white bg-brand-600 text-5xl font-700 text-white shadow-md"
+                    aria-hidden="true"
+                  >
+                    {executiveInitial}
+                  </span>
+                )}
+              </div>
+              <div class="p-6 sm:p-8">
+                {executiveProfile.role && (
+                  <p class="text-sm font-700 tracking-wide text-brand-600">
+                    {executiveProfile.role}
+                  </p>
+                )}
+                <h3 class="mt-1 text-2xl ac-heading sm:text-3xl">
+                  {executiveProfile.name}
+                </h3>
+                {executiveProfile.bio && (
+                  <p class="mt-4 whitespace-pre-line leading-relaxed text-slate-600">
+                    {executiveProfile.bio}
+                  </p>
+                )}
+                {executiveProfile.skills &&
+                  executiveProfile.skills.length > 0 && (
+                    <ul class="mt-6 flex flex-wrap gap-2">
+                      {executiveProfile.skills.map((skill) => (
+                        <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-600 text-slate-700">
+                          {skill}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                {executiveLinks.length > 0 && (
+                  <div class="mt-6 flex flex-wrap gap-3 border-t border-slate-200 pt-5">
+                    {executiveLinks.map((link) => (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 text-sm font-700 text-brand-600 no-underline hover:text-brand-700 hover:underline"
+                      >
+                        <Icon name={link.icon} class="text-base" />
+                        {link.label}
+                        <span class="sr-only">
+                          {t(locale, 'common.opensInNewTab')}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          </section>
+        )
+      }
       <div class="mb-12">
         <ProcessFigure
           variant="card"

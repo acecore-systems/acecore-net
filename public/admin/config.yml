@@ -1385,6 +1385,14 @@ collections:
             label: '法人名・ラベル'
             hint: 'legalNameLabel'
             widget: string
+          - name: 'executiveHeading'
+            label: '役員紹介・見出し'
+            hint: 'executiveHeading'
+            widget: string
+          - name: 'executiveLead'
+            label: '役員紹介・説明'
+            hint: 'executiveLead'
+            widget: string
           - name: 'missionLoopEyebrow'
             label: 'ミッション・ループ・補助見出し'
             hint: 'missionLoopEyebrow'
