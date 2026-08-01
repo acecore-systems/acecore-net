@@ -4,6 +4,7 @@
     "services": "Businesses",
     "about": "About",
     "blog": "News",
+    "shop": "Shop",
     "contact": "Contact",
     "pricing": "Pricing"
   },
@@ -186,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "Acecore | Technology and Education",
-    "defaultDescription": "Acecore supports business, learning, and community through Acecore Systems, Acecore Schools, and Aceserver.",
+    "defaultDescription": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
@@ -204,6 +205,8 @@
       "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "We will publish only confirmed information when the service is ready.",
       "viewBusinessDetails": "View business directory",
@@ -232,16 +235,16 @@
     "about": {
       "title": "About Us",
       "seoTitleContext": "Company, philosophy and businesses",
-      "description": "Company information, philosophy, and an overview of Acecore Systems, Acecore Schools, and Aceserver.",
+      "description": "Company information, philosophy, and an overview of Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
       "heroTitle": "About Us",
-      "heroSubtitle": "Acecore's philosophy and three businesses",
+      "heroSubtitle": "Acecore's philosophy and four businesses",
       "heroImgAlt": "Team discussion",
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "How Acecore's value circulates",
-      "missionLoopDesc": "A visual breakdown of how Acecore creates and expands value.",
+      "missionLoopTitle": "Supporting society through four businesses",
+      "missionLoopDesc": "Acecore operates official sites for technology, learning, community, and products.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Technology and learning, for society.\"",
-      "philosophyBody1": "Acecore supports business, learning, and community through Acecore Systems, Acecore Schools, and Aceserver.",
+      "philosophyBody1": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
       "philosophyBody2": "acecore.net provides company information and a business overview. Each specialist site is the official source for its services, pricing, work, and activity records.",
       "collaborationImgAlt": "Team collaboration work",
       "activitiesTitle": "Acecore's Key Activities",
@@ -280,10 +283,16 @@
           "accent": "emerald"
         },
         {
+          "title": "Acecore Shop",
+          "description": "We deliver Acecore products through the official online store.",
+          "icon": "shopping-bag",
+          "accent": "slate"
+        },
+        {
           "title": "Feed Back into New Challenges",
           "description": "We channel insights back into development and support, strengthening all activities.",
           "icon": "repeat-2",
-          "accent": "slate"
+          "accent": "brand"
         }
       ],
       "activities": [
@@ -291,9 +300,16 @@
         "Open-source code publication and contributions",
         "Consultations on education and IT use in local communities",
         "Co-creation projects with external partners",
-        "Aceserver community management"
+        "Aceserver community management",
+        "Operating the Acecore Shop official online store"
       ],
       "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Shop",
+          "description": "Acecore's official online store.",
+          "href": "shop"
+        },
         {
           "icon": "gamepad-2",
           "title": "Aceserver Portal",
@@ -336,6 +352,8 @@
       "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "In preparation",
       "acestudioDescription": "We will publish only confirmed information when the service is ready.",

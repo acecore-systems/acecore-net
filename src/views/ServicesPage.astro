@@ -38,6 +38,13 @@ const businesses = [
     icon: 'gamepad-2',
     tone: 'emerald' as const,
   },
+  {
+    title: t(locale, 'pages.services.shopTitle'),
+    description: t(locale, 'pages.services.shopDescription'),
+    href: SITE.social.shop,
+    icon: 'shopping-bag',
+    tone: 'slate' as const,
+  },
 ]
 ---
 
@@ -79,7 +86,7 @@ const businesses = [
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {
           businesses.map((business) => (
             <ServiceCard

@@ -4,6 +4,7 @@
     "services": "业务",
     "about": "关于我们",
     "blog": "新闻",
+    "shop": "商店",
     "contact": "联系我们",
     "pricing": "价格"
   },
@@ -186,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "Acecore | 技术与教育",
-    "defaultDescription": "Acecore通过Acecore Systems、Acecore Schools和Aceserver支持业务、学习与社区。",
+    "defaultDescription": "Acecore通过Acecore Systems、Acecore Schools、Aceserver和Acecore Shop支持业务、学习、社区与产品。",
     "shortTitleContext": "官方网站",
     "shortDescriptionContext": "Acecore的公司信息、业务与新闻。"
   },
@@ -204,6 +205,8 @@
       "schoolsDescription": "学习支持、费用与咨询方式请查看专业网站。",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore 运营的 Minecraft 社区官方参与指南与最新信息。",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore官方在线商店。请在此查看商品、购买方式、配送和退货的最新信息。",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "待服务准备完成后，仅发布已确认的信息。",
       "viewBusinessDetails": "查看业务目录",
@@ -268,16 +271,16 @@
     "about": {
       "title": "关于我们",
       "seoTitleContext": "公司、理念与业务",
-      "description": "介绍Acecore的公司信息、理念，以及Acecore Systems、Acecore Schools和Aceserver三项业务。",
+      "description": "介绍Acecore的公司信息、理念，以及Acecore Systems、Acecore Schools、Aceserver和Acecore Shop四项业务。",
       "heroTitle": "关于我们",
-      "heroSubtitle": "Acecore的理念与三项业务",
+      "heroSubtitle": "Acecore的理念与四项业务",
       "heroImgAlt": "团队讨论",
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Acecore的价值循环体系",
-      "missionLoopDesc": "用图解展示Acecore如何创造和扩展价值。",
+      "missionLoopTitle": "通过四项业务支持社会",
+      "missionLoopDesc": "Acecore运营涵盖技术、学习、社区和产品的官方站点。",
       "philosophyHeading": "理念",
       "philosophyMotto": "\"让技术与学习成为社会的力量。\"",
-      "philosophyBody1": "Acecore通过Acecore Systems、Acecore Schools和Aceserver支持业务、学习与社区。",
+      "philosophyBody1": "Acecore通过Acecore Systems、Acecore Schools、Aceserver和Acecore Shop支持业务、学习、社区与产品。",
       "philosophyBody2": "acecore.net提供公司信息与业务概览。服务内容、价格、案例和活动记录由各专业官方网站维护。",
       "collaborationImgAlt": "团队协作工作",
       "activitiesTitle": "Acecore的主要活动",
@@ -316,10 +319,16 @@
           "accent": "emerald"
         },
         {
+          "title": "Acecore Shop",
+          "description": "通过官方在线商店向客户提供 Acecore 产品。",
+          "icon": "shopping-bag",
+          "accent": "slate"
+        },
+        {
           "title": "反馈新挑战",
           "description": "将获得的知识反馈到开发和支持中，强化整体活动。",
           "icon": "repeat-2",
-          "accent": "slate"
+          "accent": "brand"
         }
       ],
       "activities": [
@@ -327,9 +336,16 @@
         "开源代码发布和贡献",
         "地区教育与 IT 应用咨询",
         "与外部合作伙伴的共创项目",
-        "Aceserver社区运营"
+        "Aceserver社区运营",
+        "运营 Acecore Shop 官方在线商店"
       ],
       "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Shop",
+          "description": "Acecore官方在线商店。",
+          "href": "shop"
+        },
         {
           "icon": "gamepad-2",
           "title": "Aceserver门户",
@@ -359,7 +375,7 @@
     "services": {
       "title": "业务",
       "seoTitleContext": "业务指南",
-      "description": "本页汇总Acecore Systems、Acecore Schools和Aceserver三项业务，并链接到维护专业信息的各官方网站。",
+      "description": "本页汇总Acecore Systems、Acecore Schools、Aceserver和Acecore Shop四项业务，并链接到维护专业信息的各官方网站。",
       "heroTitle": "业务",
       "heroSubtitle": "各专业业务的官方信息入口",
       "heroImgAlt": "科技办公室",
@@ -372,6 +388,8 @@
       "schoolsDescription": "学习支持、费用与咨询方式请查看专业网站。",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore 运营的 Minecraft 社区官方参与指南与最新信息。",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore官方在线商店。请在此查看商品、购买方式、配送和退货的最新信息。",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "筹备中",
       "acestudioDescription": "待服务准备完成后，仅发布已确认的信息。",

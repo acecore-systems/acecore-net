@@ -4,6 +4,7 @@
     "services": "사업",
     "about": "회사 소개",
     "blog": "뉴스",
+    "shop": "스토어",
     "contact": "문의하기",
     "pricing": "요금"
   },
@@ -186,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "Acecore | 기술과 교육",
-    "defaultDescription": "Acecore는 Acecore Systems, Acecore Schools, Aceserver를 통해 사업과 배움, 커뮤니티를 지원합니다.",
+    "defaultDescription": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Shop을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
     "shortTitleContext": "공식 사이트",
     "shortDescriptionContext": "Acecore의 회사 정보, 사업 및 뉴스를 안내합니다."
   },
@@ -204,6 +205,8 @@
       "schoolsDescription": "학습 지원, 요금, 상담 방법은 전문 사이트에서 확인하세요.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore가 운영하는 Minecraft 커뮤니티의 공식 참여 안내와 최신 소식입니다.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "서비스 준비가 완료되면 확정된 정보만 공개합니다.",
       "viewBusinessDetails": "사업 목록 보기",
@@ -268,16 +271,16 @@
     "about": {
       "title": "회사 소개",
       "seoTitleContext": "회사·철학·사업 소개",
-      "description": "Acecore의 회사 정보와 철학, Acecore Systems·Acecore Schools·Aceserver의 세 사업을 소개합니다.",
+      "description": "Acecore의 회사 정보와 철학, Acecore Systems·Acecore Schools·Aceserver·Acecore Shop의 네 사업을 소개합니다.",
       "heroTitle": "회사 소개",
-      "heroSubtitle": "Acecore의 철학과 세 가지 사업",
+      "heroSubtitle": "Acecore의 철학과 네 가지 사업",
       "heroImgAlt": "팀 토론",
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Acecore의 가치 순환 체계",
-      "missionLoopDesc": "Acecore가 어떻게 가치를 창출하고 확장하는지를 도해로 나타냅니다.",
+      "missionLoopTitle": "네 가지 사업을 통해 사회를 지원합니다",
+      "missionLoopDesc": "Acecore는 기술, 배움, 커뮤니티, 프로덕트를 위한 공식 사이트를 운영합니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "\"기술과 배움을 사회의 힘으로.\"",
-      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver를 통해 사업과 배움, 커뮤니티를 지원합니다.",
+      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Shop을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
       "philosophyBody2": "acecore.net에는 회사 정보와 사업 개요를 게시합니다. 서비스 내용, 요금, 실적, 활동 기록은 각 전문 공식 사이트에서 관리합니다.",
       "collaborationImgAlt": "팀 협업 작업",
       "activitiesTitle": "Acecore의 주요 활동",
@@ -316,10 +319,16 @@
           "accent": "emerald"
         },
         {
+          "title": "Acecore Shop",
+          "description": "공식 온라인 스토어를 통해 Acecore의 프로덕트를 제공합니다.",
+          "icon": "shopping-bag",
+          "accent": "slate"
+        },
+        {
           "title": "새로운 도전에 환원",
           "description": "얻은 지식을 개발과 지원에 되돌려 전체 활동을 강화합니다.",
           "icon": "repeat-2",
-          "accent": "slate"
+          "accent": "brand"
         }
       ],
       "activities": [
@@ -327,9 +336,16 @@
         "오픈소스 코드 공개 및 기여",
         "지역 교육 및 IT 활용 상담",
         "외부 파트너와의 공동 창작 프로젝트",
-        "Aceserver 커뮤니티 운영"
+        "Aceserver 커뮤니티 운영",
+        "Acecore Shop 공식 온라인 스토어 운영"
       ],
       "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Shop",
+          "description": "Acecore의 공식 온라인 스토어입니다.",
+          "href": "shop"
+        },
         {
           "icon": "gamepad-2",
           "title": "Aceserver 포털",
@@ -372,6 +388,8 @@
       "schoolsDescription": "학습 지원, 요금, 상담 방법은 전문 사이트에서 확인하세요.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore가 운영하는 Minecraft 커뮤니티의 공식 참여 안내와 최신 소식입니다.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "준비 중",
       "acestudioDescription": "서비스 준비가 완료되면 확정된 정보만 공개합니다.",

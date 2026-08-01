@@ -53,6 +53,7 @@ const cardAccents = {
 } satisfies Record<NonNullable<StepItem['accent']>, Record<string, string>>
 
 const isCard = variant === 'card'
+const cardGridColumns = steps.length >= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'
 ---
 
 {
@@ -67,7 +68,12 @@ const isCard = variant === 'card'
           )}
         </div>
       </div>
-      <div class="grid gap-4 px-6 py-6 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
+      <div
+        class:list={[
+          'grid gap-4 px-6 py-6 sm:grid-cols-2 sm:px-8',
+          cardGridColumns,
+        ]}
+      >
         {steps.map((step, index) => {
           const ca = cardAccents[step.accent ?? 'brand']
           return (
