@@ -62,9 +62,9 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 | Preview    | 未接続                                      | 未適用                                                  |
 | Production | `acecore-net-search-openai-1536-production` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
-Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-08-01に正規名 `acecore-net-search-openai-1536-production` へ305 vectorsを全量同期し、ID集合一致とquery canaryを確認しました。Productionの通常同期とbindingはこの正規名だけを使います。
+Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-08-01に正規名 `acecore-net-search-openai-1536-production` へ305 vectorsを全量同期し、ID集合一致とquery canaryを確認しました。同日の公開corpus差分は、明示承認済みの固定planに限定して77 upsert・74 delete（24.3%）を適用し、308 vectorsへのID集合一致とquery canaryを再確認しています。Productionの通常同期とbindingはこの正規名だけを使います。
 
-2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して一時的にbindingを切り替え、旧indexを削除しました。2026-08-01に正規名indexを再作成・全量同期して通常同期とbindingを戻したため、v2はcutover検証後に削除する一時rollback用です。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
+2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して一時的にbindingを切り替え、旧indexを削除しました。2026-08-01に正規名indexを再作成・全量同期して通常同期とbindingを戻し、収束確認後にv2も削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionで本番D1を共有します。Previewは検索を無効のまま維持し、同じtable内では自サイト検索を `client:` / `global`、横断検索を `network-search:{caller}:client:` / `network-search:global`、AIチャットを `ai-chat:client:` / `ai-chat:global` prefixで分離します。
 
@@ -90,7 +90,7 @@ npm run typecheck:functions
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
-このworkflowの同期先は正規名の `acecore-net-search-openai-1536-production` です。2026-08-01に空の正規名indexへ公開corpusを305 vectors全量upsertし、ID集合の完全一致とquery canaryを確認しました。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
+このworkflowの同期先は正規名の `acecore-net-search-openai-1536-production` です。2026-08-01に空の正規名indexへ公開corpusを305 vectors全量upsertし、その後の明示承認済み固定planで77 upsert・74 deleteを適用して308 vectorsへ収束させました。いずれもID集合の完全一致とquery canaryを確認済みで、通常同期のゼロ差分収束も確認しています。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
