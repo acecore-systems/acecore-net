@@ -7,12 +7,6 @@ on:
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
-    inputs:
-      execute_approved_plan:
-        description: 2026-08-01に承認された正規名indexの74件削除planだけを実行する
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -138,8 +132,6 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           VECTORIZE_INDEX_NAME: acecore-net-search-openai-1536-production
-          EVENT_NAME: ${{ github.event_name }}
-          EXECUTE_APPROVED_PLAN: ${{ inputs.execute_approved_plan }}
         run: |
           if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
             echo "::error::CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN is not configured."
@@ -150,15 +142,5 @@ jobs:
             exit 1
           fi
 
-          args=(
+          node ../tooling/scripts/sync-vectorize.mjs \
             --confirm-production "$VECTORIZE_INDEX_NAME"
-          )
-          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$EXECUTE_APPROVED_PLAN" == "true" ]]; then
-            args+=(
-              --allow-large-delete
-              --expected-delete-count 74
-              --expected-plan-id 19e1e130a5bda592d27edb4ecd1f68d19aebb11191723ae369d967331f7dd90b
-            )
-          fi
-
-          node ../tooling/scripts/sync-vectorize.mjs "${args[@]}"
