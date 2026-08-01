@@ -17,6 +17,7 @@ const localizableInternalRouteRoots = new Set([
   'pricing',
   'privacy',
   'services',
+  'terms',
 ])
 
 function fail(scope, message) {

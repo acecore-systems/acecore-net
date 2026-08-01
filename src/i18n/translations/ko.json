@@ -79,6 +79,7 @@
     "sitemap": "사이트맵",
     "relatedLinks": "관련 링크",
     "schools": "Acecore Schools",
+    "terms": "Acecore ID 이용약관",
     "privacy": "개인정보처리방침",
     "pricing": "요금 안내"
   },
@@ -407,7 +408,7 @@
       "copyrightBody": "본 사이트에 게재된 문장, 이미지 및 기타 콘텐츠의 저작권은 Acecore 또는 각 권리자에게 귀속됩니다. 무단 전재 및 복제를 삼가 주세요.",
       "contactHeading": "문의",
       "contactBody": "본 정책에 관한 문의는 문의 페이지를 통해 연락해 주세요.",
-      "effectiveDate": "제정일: 2025년 1월 1일 / 최종 업데이트: 2026년 7월 30일"
+      "effectiveDate": "제정일: 2025년 1월 1일 / 최종 업데이트: 2026년 8월 1일 (Acecore ID 약관 버전: 2026-08-01-acecoreid-v1)"
     },
     "acestudio": {
       "title": "AceStudio",
