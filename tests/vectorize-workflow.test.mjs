@@ -10,7 +10,7 @@ const workflowPath = new URL(
 )
 const pagesConfigPath = new URL('../wrangler.jsonc', import.meta.url)
 
-test('Production同期workflowは承認済みの固定planだけ20%超削除を実行できる', async () => {
+test('Production同期workflowから20%超削除を解除できない', async () => {
   const source = await readFile(workflowPath, 'utf8')
   const workflow = yaml.load(source)
   const productionSteps = workflow.jobs['sync-production'].steps
@@ -18,44 +18,26 @@ test('Production同期workflowは承認済みの固定planだけ20%超削除を�
     ({ name }) => name === 'Sync production Vectorize index',
   )
 
-  assert.deepEqual(workflow.on.workflow_dispatch, {
-    inputs: {
-      execute_approved_plan: {
-        description:
-          '2026-08-01に承認された正規名indexの74件削除planだけを実行する',
-        required: false,
-        type: 'boolean',
-        default: false,
-      },
-    },
-  })
+  assert.equal(workflow.on.workflow_dispatch, null)
+  assert.equal(
+    productionSteps.find(
+      ({ name }) => name === 'Validate manual large-delete approval',
+    ),
+    undefined,
+  )
+  assert.doesNotMatch(source, /allow_large_delete/u)
   assert.doesNotMatch(
     source,
-    /inputs\.(?:index_name|expected_delete_count|expected_plan_id)/u,
+    /approved_(?:commit|corpus_version|delete_count|plan_id)/u,
   )
-  assert.match(
-    syncStep.run,
-    /if \[\[ "\$EVENT_NAME" == "workflow_dispatch" && "\$EXECUTE_APPROVED_PLAN" == "true" \]\]/u,
-  )
-  assert.match(syncStep.run, /--allow-large-delete/u)
-  assert.match(syncStep.run, /--expected-delete-count 74/u)
-  assert.match(
-    syncStep.run,
-    /--expected-plan-id 19e1e130a5bda592d27edb4ecd1f68d19aebb11191723ae369d967331f7dd90b/u,
-  )
+  assert.doesNotMatch(syncStep.run, /--allow-large-delete/u)
+  assert.doesNotMatch(syncStep.run, /--expected-delete-count/u)
+  assert.doesNotMatch(syncStep.run, /--expected-plan-id/u)
   assert.match(syncStep.run, /node \.\.\/tooling\/scripts\/sync-vectorize\.mjs/)
-  assert.match(
-    syncStep.run,
-    /node \.\.\/tooling\/scripts\/sync-vectorize\.mjs "\$\{args\[@\]\}"/u,
-  )
+  assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
     'acecore-net-search-openai-1536-production',
-  )
-  assert.equal(syncStep.env.EVENT_NAME, '${{ github.event_name }}')
-  assert.equal(
-    syncStep.env.EXECUTE_APPROVED_PLAN,
-    '${{ inputs.execute_approved_plan }}',
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
   assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
@@ -66,7 +48,7 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   const workflow = yaml.load(source)
 
   assert.deepEqual(Object.keys(workflow.jobs), ['sync-production'])
-  assert.ok(workflow.on.workflow_dispatch.inputs.execute_approved_plan)
+  assert.equal(workflow.on.workflow_dispatch, null)
   assert.match(
     workflow.jobs['sync-production'].if,
     /github\.event_name == 'workflow_dispatch'/,
