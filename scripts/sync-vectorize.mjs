@@ -765,7 +765,11 @@ async function ensureIndex(client, indexName, { createIfMissing = true } = {}) {
     const payload = await client.request(`/vectorize/v2/indexes/${encodedName}`)
     return payload.result
   } catch (error) {
-    if (!(error instanceof CloudflareApiError) || error.status !== 404) {
+    // Cloudflare returns 410 for a deleted Vectorize name that can be reused.
+    if (
+      !(error instanceof CloudflareApiError) ||
+      (error.status !== 404 && error.status !== 410)
+    ) {
       throw error
     }
   }
