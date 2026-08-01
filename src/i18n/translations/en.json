@@ -400,7 +400,7 @@
         {
           "heading": "Personal information for Acecore ID",
           "paragraphs": [
-            "Acecore ID is an account used to verify identity and authenticate access to eligible Acecore services. This section describes how we handle information used for Acecore ID registration, authentication, and security."
+            "Acecore ID is an account operated by 株式会社Acecore (\"Acecore\") and used to verify identity and authenticate access to eligible Acecore services. This section describes how we handle information used for Acecore ID registration, authentication, and security."
           ]
         },
         {
@@ -469,7 +469,7 @@
       "description": "Terms governing the use of an Acecore ID account, user responsibilities, service changes, and contact information.",
       "heroTitle": "Acecore ID Terms of Use",
       "heroImgAlt": "Documents and pen",
-      "lead": "These Terms of Use (the “Terms”) govern the use of Acecore ID (the “Account”) provided by Acecore. Please read them before creating or using an Account.",
+      "lead": "These Terms of Use (the “Terms”) govern the use of Acecore ID (the “Account”) provided by 株式会社Acecore (“Acecore”). Please read them before creating or using an Account.",
       "sections": [
         {
           "heading": "Scope",
