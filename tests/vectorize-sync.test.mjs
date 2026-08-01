@@ -310,6 +310,54 @@ test('planは不存在indexを作成せずfail closedする', async () => {
   assert.equal(createRequests, 0)
 })
 
+test('削除済みの正規名indexは再作成して同期対象にできる', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  let createRequests = 0
+
+  const fetchImpl = async (input, init = {}) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${CANONICAL_PRODUCTION_INDEX}`)) {
+      return cloudflareResponse(null, 410)
+    }
+    if (
+      url.endsWith('/vectorize/v2/indexes') &&
+      (init.method || 'GET') === 'POST'
+    ) {
+      createRequests += 1
+      assert.deepEqual(JSON.parse(init.body), {
+        name: CANONICAL_PRODUCTION_INDEX,
+        description:
+          'Acecore site semantic search (OpenAI text-embedding-3-large, 1536 dimensions)',
+        config: { dimensions: 1536, metric: 'cosine' },
+      })
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse({
+        vectors: corpus.chunks.map(({ id }) => ({ id })),
+        isTruncated: false,
+      })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  const result = await syncVectorize({
+    accountId: 'account',
+    apiToken: 'token',
+    indexName: CANONICAL_PRODUCTION_INDEX,
+    corpusFile,
+    fetchImpl,
+    logger: silentLogger,
+  })
+
+  assert.equal(createRequests, 1)
+  assert.equal(result.indexName, CANONICAL_PRODUCTION_INDEX)
+  assert.equal(result.upserted, 0)
+  assert.equal(result.deleted, 0)
+  assert.equal(result.verified, true)
+})
+
 test('同期先indexをproductionだけに制限する', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
