@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "После ввода не менее двух символов этот сайт и связанные сайты Acecore отправляют ваши поисковые запросы в API OpenAI, чтобы найти связанную информацию. Не вводите персональные или конфиденциальные данные.",
     "semanticPrivacyLink": "Обработка поисковых данных",
     "blogCtaHeading": "Направления Acecore",
-    "blogCtaBody": "Подробности доступны на официальных сайтах Systems, Schools и Aceserver.",
+    "blogCtaBody": "Подробности доступны на официальных сайтах Systems, Schools, Aceserver и Acecore Shop.",
     "blogCtaServices": "Смотреть направления",
     "blogCtaContact": "Бесплатная консультация",
     "rssTitle": "Новости Acecore",
@@ -461,6 +461,8 @@
       "schoolsBody": "Цены, условия и консультации по обучению смотрите в Acecore Schools.",
       "aceserverTitle": "Участие в Aceserver",
       "aceserverBody": "Актуальную информацию об участии и условиях смотрите на официальном сайте Aceserver.",
+      "shopTitle": "Товары и покупки Acecore Shop",
+      "shopBody": "Актуальную информацию о товарах, покупках, доставке и возвратах смотрите в Acecore Shop.",
       "contactTitle": "Другие вопросы",
       "contactBody": "Свяжитесь с Acecore по междисциплинарным запросам, партнерству или если не знаете, с чего начать."
     }

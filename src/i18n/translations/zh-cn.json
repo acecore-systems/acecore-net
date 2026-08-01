@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "输入至少两个字符后，本站和Acecore相关网站会将您的搜索词发送至OpenAI API以查找相关信息。请勿输入个人信息或机密信息。",
     "semanticPrivacyLink": "搜索数据处理说明",
     "blogCtaHeading": "了解Acecore的业务",
-    "blogCtaBody": "详细信息请访问Systems、Schools和Aceserver的官方网站。",
+    "blogCtaBody": "详细信息请访问Systems、Schools、Aceserver和Acecore Shop的官方网站。",
     "blogCtaServices": "查看业务列表",
     "blogCtaContact": "免费咨询",
     "rssTitle": "Acecore 新闻",
@@ -461,6 +461,8 @@
       "schoolsBody": "学习支持的费用、对象与咨询方式请查看 Acecore Schools。",
       "aceserverTitle": "Aceserver 参与指南",
       "aceserverBody": "参与方式与使用条件请查看 Aceserver 官方网站。",
+      "shopTitle": "Acecore Shop 商品与购买指南",
+      "shopBody": "商品、购买方式、配送和退货的最新信息请查看 Acecore Shop。",
       "contactTitle": "其他咨询",
       "contactBody": "跨业务需求、合作提案或不确定咨询入口时，请联系 Acecore。"
     }

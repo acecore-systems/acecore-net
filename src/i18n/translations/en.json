@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "After you enter at least two characters, this site and related Acecore sites send your search terms to the OpenAI API to find related information. Do not enter personal or confidential information.",
     "semanticPrivacyLink": "How search data is handled",
     "blogCtaHeading": "Explore Acecore's businesses",
-    "blogCtaBody": "Visit the official sites for Systems, Schools, and Aceserver for detailed information.",
+    "blogCtaBody": "Visit the official sites for Systems, Schools, Aceserver, and Acecore Shop for detailed information.",
     "blogCtaServices": "View Businesses",
     "blogCtaContact": "Free Consultation",
     "rssTitle": "Acecore News",
@@ -615,6 +615,8 @@
       "schoolsBody": "See Acecore Schools for current learning support pricing, eligibility, and consultation details.",
       "aceserverTitle": "Aceserver participation",
       "aceserverBody": "See the official Aceserver site for current participation information and terms.",
+      "shopTitle": "Acecore Shop products and purchasing",
+      "shopBody": "See Acecore Shop for current product, purchase, shipping, and return information.",
       "contactTitle": "Other inquiries",
       "contactBody": "Contact Acecore for cross-business requests, partnership proposals, or when you are unsure where to start."
     }
