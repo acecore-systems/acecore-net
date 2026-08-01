@@ -4,6 +4,7 @@
     "services": "Activités",
     "about": "À propos",
     "blog": "Actualités",
+    "shop": "Boutique",
     "contact": "Contact",
     "pricing": "Tarifs"
   },
@@ -146,7 +147,7 @@
     "semanticPrivacyNotice": "Après la saisie d'au moins deux caractères, ce site et les sites Acecore associés envoient vos termes de recherche à l’API OpenAI pour trouver des informations associées. Ne saisissez aucune information personnelle ou confidentielle.",
     "semanticPrivacyLink": "Traitement des données de recherche",
     "blogCtaHeading": "Découvrez les activités d'Acecore",
-    "blogCtaBody": "Consultez les sites officiels de Systems, Schools et Aceserver pour plus de détails.",
+    "blogCtaBody": "Consultez les sites officiels de Systems, Schools, Aceserver et Acecore Shop pour plus de détails.",
     "blogCtaServices": "Voir les activités",
     "blogCtaContact": "Consultation gratuite",
     "rssTitle": "Actualités Acecore",
@@ -186,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "Acecore | Technologie et éducation",
-    "defaultDescription": "Acecore soutient l'entreprise, l'apprentissage et les communautés avec Acecore Systems, Acecore Schools et Aceserver.",
+    "defaultDescription": "Acecore soutient l'entreprise, l'apprentissage, les communautés et les produits avec Acecore Systems, Acecore Schools, Aceserver et Acecore Shop.",
     "shortTitleContext": "Site officiel",
     "shortDescriptionContext": "Informations sur l'entreprise, ses activités et les actualités d'Acecore."
   },
@@ -204,6 +205,8 @@
       "schoolsDescription": "Retrouvez l'accompagnement pédagogique, les tarifs et les modalités de consultation sur le site spécialisé.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Informations officielles et actualités de la communauté Minecraft opérée par Acecore.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "La boutique en ligne officielle d'Acecore. Retrouvez les dernières informations sur les produits, les achats, la livraison et les retours.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "Nous publierons uniquement les informations confirmées lorsque le service sera prêt.",
       "viewBusinessDetails": "Voir l’annuaire des activités",
@@ -268,18 +271,18 @@
     "about": {
       "title": "À propos",
       "seoTitleContext": "Entreprise, philosophie et activités",
-      "description": "Informations sur l'entreprise, sa philosophie et présentation d'Acecore Systems, Acecore Schools et Aceserver.",
+      "description": "Informations sur l'entreprise, sa philosophie et présentation d'Acecore Systems, Acecore Schools, Aceserver et Acecore Shop.",
       "heroTitle": "À propos",
-      "heroSubtitle": "La philosophie et les trois activités d'Acecore",
+      "heroSubtitle": "La philosophie et les quatre activités d'Acecore",
       "heroImgAlt": "Discussion en équipe",
       "companyInfoHeading": "Informations sur l’entreprise",
       "legalNameLabel": "Dénomination sociale",
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Comment la valeur d'Acecore circule",
-      "missionLoopDesc": "Un aperçu visuel de la façon dont Acecore crée et développe la valeur.",
+      "missionLoopTitle": "Soutenir la société à travers quatre activités",
+      "missionLoopDesc": "Acecore exploite des sites officiels pour la technologie, l'apprentissage, la communauté et les produits.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "\"La technologie et l'apprentissage au service de la société.\"",
-      "philosophyBody1": "Acecore soutient l'entreprise, l'apprentissage et les communautés avec Acecore Systems, Acecore Schools et Aceserver.",
+      "philosophyBody1": "Acecore soutient l'entreprise, l'apprentissage, les communautés et les produits avec Acecore Systems, Acecore Schools, Aceserver et Acecore Shop.",
       "philosophyBody2": "acecore.net présente l'entreprise et ses activités. Les services, tarifs, réalisations et comptes rendus sont maintenus sur le site spécialisé concerné.",
       "collaborationImgAlt": "Travail collaboratif en équipe",
       "activitiesTitle": "Principales activités d'Acecore",
@@ -318,10 +321,16 @@
           "accent": "emerald"
         },
         {
+          "title": "Acecore Shop",
+          "description": "Nous proposons les produits Acecore à travers la boutique en ligne officielle.",
+          "icon": "shopping-bag",
+          "accent": "slate"
+        },
+        {
           "title": "Rétroalimenter de Nouveaux Défis",
           "description": "Nous canalisons les connaissances vers le développement et le support, renforçant toutes les activités.",
           "icon": "repeat-2",
-          "accent": "slate"
+          "accent": "brand"
         }
       ],
       "activities": [
@@ -329,9 +338,16 @@
         "Publication et contributions de code open source",
         "Conseil sur l'éducation et les usages de l'IT dans les territoires",
         "Projets de co-création avec des partenaires externes",
-        "Gestion de la communauté Aceserver"
+        "Gestion de la communauté Aceserver",
+        "Exploitation de la boutique en ligne officielle Acecore Shop"
       ],
       "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Shop",
+          "description": "La boutique en ligne officielle d'Acecore.",
+          "href": "shop"
+        },
         {
           "icon": "gamepad-2",
           "title": "Portail Aceserver",
@@ -374,6 +390,8 @@
       "schoolsDescription": "Retrouvez l'accompagnement pédagogique, les tarifs et les modalités de consultation sur le site spécialisé.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Informations officielles et actualités de la communauté Minecraft opérée par Acecore.",
+      "shopTitle": "Acecore Shop",
+      "shopDescription": "La boutique en ligne officielle d'Acecore. Retrouvez les dernières informations sur les produits, les achats, la livraison et les retours.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En préparation",
       "acestudioDescription": "Nous publierons uniquement les informations confirmées lorsque le service sera prêt.",
@@ -445,6 +463,8 @@
       "schoolsBody": "Consultez Acecore Schools pour les tarifs, publics et modalités d'accompagnement pédagogique.",
       "aceserverTitle": "Participation à Aceserver",
       "aceserverBody": "Consultez le site officiel Aceserver pour les informations et conditions à jour.",
+      "shopTitle": "Produits et achats Acecore Shop",
+      "shopBody": "Consultez Acecore Shop pour les informations à jour sur les produits, les achats, la livraison et les retours.",
       "contactTitle": "Autres demandes",
       "contactBody": "Contactez Acecore pour les demandes transversales, partenariats ou si vous ne savez pas par où commencer."
     }

@@ -1,18 +1,18 @@
 {
   "title": "会社概要",
   "seoTitleContext": "会社情報・理念・事業",
-  "description": "Acecoreの会社情報、理念、Acecore Systems・Acecore Schools・Aceserverの3つの事業をご紹介します。",
+  "description": "Acecoreの会社情報、理念、Acecore Systems・Acecore Schools・Aceserver・Acecore Shopの4つの事業をご紹介します。",
   "heroTitle": "会社概要",
-  "heroSubtitle": "Acecoreの理念と、3つの事業",
+  "heroSubtitle": "Acecoreの理念と、4つの事業",
   "heroImgAlt": "チームディスカッション",
   "companyInfoHeading": "法人情報",
   "legalNameLabel": "法人名",
   "missionLoopEyebrow": "Mission Loop",
-  "missionLoopTitle": "3つの事業を通じて社会を支える",
-  "missionLoopDesc": "技術、学び、コミュニティの各領域を、専門の公式サイトで運営しています。",
+  "missionLoopTitle": "4つの事業を通じて社会を支える",
+  "missionLoopDesc": "技術、学び、コミュニティ、プロダクトの各領域を、専門の公式サイトで運営しています。",
   "philosophyHeading": "理念",
   "philosophyMotto": "「技術と学びを、社会の力へ。」",
-  "philosophyBody1": "Acecoreは、Acecore Systems、Acecore Schools、Aceserverを通じて、事業・学び・コミュニティを支える企業です。",
+  "philosophyBody1": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Shopを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
   "philosophyBody2": "会社情報と事業全体のご案内はacecore.netに、提供内容・料金・事例・活動記録などの専門情報は各事業の公式サイトに集約しています。",
   "collaborationImgAlt": "チームでのコラボレーション作業",
   "activitiesTitle": "Acecoreの事業と企業活動",
@@ -51,19 +51,32 @@
       "accent": "emerald"
     },
     {
-      "title": "Acecore",
-      "description": "3つの事業をつなぎ、会社情報を発信します。",
-      "icon": "repeat-2",
+      "title": "Acecore Shop",
+      "description": "公式オンラインストアでAcecoreのプロダクトを届けます。",
+      "icon": "shopping-bag",
       "accent": "slate"
+    },
+    {
+      "title": "Acecore",
+      "description": "4つの事業をつなぎ、会社情報を発信します。",
+      "icon": "repeat-2",
+      "accent": "brand"
     }
   ],
   "activities": [
     "Acecore Systemsによる技術支援",
     "Acecore Schoolsによる学習支援",
     "Aceserverコミュニティの運営",
+    "Acecore Shopによる公式オンラインストアの運営",
     "事業横断の連携と企業情報の発信"
   ],
   "relatedLinks": [
+    {
+      "icon": "shopping-bag",
+      "title": "Acecore Shop",
+      "description": "Acecoreの公式オンラインストアです。",
+      "href": "shop"
+    },
     {
       "icon": "gamepad-2",
       "title": "Aceserver ポータル",

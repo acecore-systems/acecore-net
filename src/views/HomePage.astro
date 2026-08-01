@@ -102,6 +102,13 @@ const businessCards: BusinessCard[] = [
     icon: 'gamepad-2',
     tone: 'emerald',
   },
+  {
+    title: t(locale, 'pages.home.shopTitle'),
+    description: t(locale, 'pages.home.shopDescription'),
+    href: SITE.social.shop,
+    icon: 'shopping-bag',
+    tone: 'slate',
+  },
 ]
 const aboutBodyParts = t(locale, 'pages.home.aboutBody2').split('{link}')
 const homeHeroImages: HeroImage[] = [
@@ -176,7 +183,7 @@ const webPageLd = {
           {t(locale, 'pages.home.businessesLead')}
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           businessCards.map((item) => (
             <ServiceCard
