@@ -79,6 +79,7 @@
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
     "schools": "Acecore Schools",
+    "terms": "Acecore ID Terms of Use",
     "privacy": "Privacy Policy",
     "pricing": "Pricing Guide"
   },
@@ -395,6 +396,68 @@
       "searchHeading": "About Site Search and AI Chat",
       "searchBody1": "For site search, after you enter at least two characters and stop typing for about 400 milliseconds, your search term is first sent to the OpenAI API, converted into a numeric embedding, and matched against this site's public content indexed in Cloudflare Vectorize. Keyword search (Pagefind) is processed locally in your browser only when no usable Vectorize result is available. At the same time, the same search term is matched against public information from related Acecore sites other than this site to provide a lower-priority related-results section. In AI chat, the question you submit and up to eight recent conversation messages are sent to the OpenAI API. Based on the intent of your question, public information is retrieved from Cloudflare Vectorize for the relevant official site among Acecore, Acecore Systems, Acecore Schools, Aceserver, and World Foundation and used as evidence for the response. Questions about World Foundation use its production Vectorize search when available and otherwise direct you to its official site. Connected official sites other than this site are searched using their Japanese public information, and the answer is generated in the language currently displayed.",
       "searchBody2": "Acecore's application does not store or log site-search terms, related-site search terms, AI chat questions, or conversation messages. To prevent abuse of site search, related-site search, and AI chat, a one-way SHA-256 hash of the connecting IP address or a per-browser-session identifier, together with the request count, is stored in Cloudflare D1 as data that expires after 10 minutes and is deleted during subsequent cleanup. The connecting IP address itself is not stored in D1. AI processing uses OpenAI, while delivery, search, and rate limiting use Cloudflare services. Do not enter personal or confidential information in either site search or AI chat.",
+      "acecoreIdSections": [
+        {
+          "heading": "Personal information for Acecore ID",
+          "paragraphs": [
+            "Acecore ID is an account operated by 株式会社Acecore (\"Acecore\") and used to verify identity and authenticate access to eligible Acecore services. This section describes how we handle information used for Acecore ID registration, authentication, and security."
+          ]
+        },
+        {
+          "heading": "Data controller and request channel",
+          "paragraphs": [
+            "The personal information controller for Acecore ID is 株式会社Acecore (representative: 西田凱).",
+            "To obtain the Company's address or make a request concerning notification of purpose of use, disclosure, correction, or suspension of use of retained personal data, submit a request through Acecore's contact form and state that it concerns Acecore ID personal information. After verifying the registered email address of the account concerned as necessary, we will respond without undue delay in accordance with applicable law.",
+            "We do not charge a fee. Do not submit information beyond what is necessary for identity verification, one-time codes, passkeys, or other secrets through the form."
+          ]
+        },
+        {
+          "heading": "Information we collect",
+          "paragraphs": [
+            "We handle the following information for registration, authentication, and prevention of misuse."
+          ],
+          "items": [
+            "Email address, email-verification status, account identifier, version of the terms accepted, registration and update timestamps, and account status.",
+            "Passkey credential data, including credential ID, public key, signature counter, and device or transport metadata. Biometric data itself is processed on your device or authenticator and is not collected by Acecore.",
+            "Authentication and session security data, including access time, source IP address, browser or device information, and security or audit records.",
+            "A one-way HMAC value used to verify a registration one-time code, delivery and attempt counts, expiry, and temporary passkey-enrollment data. We do not store a one-time code in plaintext."
+          ]
+        },
+        {
+          "heading": "Purposes of use",
+          "paragraphs": [
+            "We use this information to create accounts; verify email addresses and passkeys; maintain authenticated sessions; respond to support, deletion, and other requests; investigate and prevent misuse or incidents; and comply with legal obligations.",
+            "We do not sell Acecore ID information or use it to target advertising to account holders."
+          ]
+        },
+        {
+          "heading": "Service providers and third-party disclosure",
+          "paragraphs": [
+            "Acecore ID uses Cloudflare Workers, D1, Email Sending, Turnstile, rate limiting, and network-protection features as infrastructure for account delivery, email sending, misuse prevention, and secure delivery. Those service components handle information only to the extent necessary to provide those functions.",
+            "Except where required by law, with your consent, or necessary to protect life, body, or property, Acecore does not provide account information to third parties."
+          ]
+        },
+        {
+          "heading": "Retention and deletion",
+          "paragraphs": [
+            "A registration one-time code cannot be used after five minutes, and a temporary passkey-enrollment grant cannot be used after fifteen minutes. These are security expiry periods and do not mean that stored records are physically deleted immediately.",
+            "We retain account information and security or audit records for as long as needed to provide the account, protect security, resolve disputes, or meet legal retention duties. After identity verification, we handle deletion requests within a reasonable scope, except for information that must be retained for legal or security reasons."
+          ]
+        },
+        {
+          "heading": "Security measures",
+          "paragraphs": [
+            "We combine HTTPS transport protection, separated secret management, one-way HMAC processing of one-time codes, access control, expiry management, rate limiting, and bot protection to prevent unauthorized registration, authentication, and access. We will explain our safety measures to the extent that doing so does not impair system security when requested by the individual."
+          ]
+        },
+        {
+          "heading": "Requests for disclosure, correction, or suspension of use",
+          "paragraphs": [
+            "For requests to disclose, correct, delete, or suspend the use of information held for Acecore ID, please contact us through our contact channel. After confirming that you are the individual or an authorized representative, we will respond in accordance with applicable law."
+          ]
+        }
+      ],
+      "acecoreIdRequestLink": "Make a request about Acecore ID personal information",
       "personalInfoHeading": "Handling of Personal Information",
       "personalInfoBody": "When using our contact form, we may ask for personal information such as your name and email address. Personal information collected will only be used to respond to inquiries and for necessary communications, and will not be used for any other purpose.",
       "disclosureHeading": "Disclosure of Personal Information to Third Parties",
@@ -407,7 +470,99 @@
       "copyrightBody": "The copyright of text, images, and other content published on this site belongs to Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
       "contactHeading": "Contact",
       "contactBody": "For inquiries regarding this policy, please contact us through the contact page.",
-      "effectiveDate": "Effective: January 1, 2025 / Last updated: July 30, 2026"
+      "effectiveDate": "Effective: January 1, 2025 / Last updated: August 1, 2026 (Acecore ID terms version: 2026-08-01-acecoreid-v1)"
+    },
+    "terms": {
+      "title": "Acecore ID Terms of Use",
+      "seoTitleContext": "Terms for using an Acecore ID account",
+      "description": "Terms governing the use of an Acecore ID account, user responsibilities, service changes, and contact information.",
+      "heroTitle": "Acecore ID Terms of Use",
+      "heroImgAlt": "Documents and pen",
+      "lead": "These Terms of Use (the “Terms”) govern the use of Acecore ID (the “Account”) provided by 株式会社Acecore (“Acecore”). Please read them before creating or using an Account.",
+      "sections": [
+        {
+          "heading": "Scope",
+          "paragraphs": [
+            "These Terms apply to Account registration, authentication, use, and related features. If an individual Acecore service has separate terms, those terms also apply."
+          ]
+        },
+        {
+          "heading": "Registration and eligibility",
+          "paragraphs": [
+            "You must register with a valid email address that you control and provide accurate information. You must not use another person's email address, device, or authentication method without authorization.",
+            "You may use the Account only for the purpose presented at registration. Do not start or continue use if you cannot comply with applicable law or these Terms."
+          ]
+        },
+        {
+          "heading": "Passkey authentication",
+          "paragraphs": [
+            "The Account uses passkey authentication and does not issue or store passwords. Biometric information for a passkey is processed on your device or authenticator, and Acecore does not collect the biometric information itself.",
+            "You are responsible for reasonably protecting the devices and authenticators that can use your passkey, including screen locking and keeping your operating system and browser updated. If you lose a device or authenticator, or suspect misuse, promptly stop using the Account and contact Acecore."
+          ]
+        },
+        {
+          "heading": "Your responsibility",
+          "paragraphs": [
+            "You use the Account at your own responsibility and must appropriately manage access to your registered email address and authenticator. Except where required by law, Acecore is not responsible for damage arising from insufficient management, mistakes, transfer, or sharing by you."
+          ]
+        },
+        {
+          "heading": "Prohibited conduct",
+          "paragraphs": [
+            "You must not do any of the following when using the Account."
+          ],
+          "items": [
+            "Use false information, someone else's information, or unlawfully obtained authentication methods.",
+            "Share, transfer, or sell authentication codes, sessions, passkeys, or other authentication information to a third party.",
+            "Attempt unauthorized access, vulnerability probing, interference, or excessive load against the Account or related services.",
+            "Use automation or other means to bypass registration, authentication, or usage restrictions.",
+            "Violate law, public order and morals, or the rights of another person.",
+            "Engage in conduct similar to the above that causes disadvantage or damage to Acecore or another person."
+          ]
+        },
+        {
+          "heading": "Service changes and suspension",
+          "paragraphs": [
+            "Where needed for security, maintenance, legal compliance, or operations, Acecore may change, add, suspend, or end Account functions. For material changes, we will provide notice by a reasonable method before or after the change.",
+            "We may temporarily restrict use without notice for outages, maintenance, third-party service interruption, misuse response, or another reasonable reason."
+          ]
+        },
+        {
+          "heading": "Account suspension and deletion",
+          "paragraphs": [
+            "Acecore may suspend or delete an Account without prior notice if you breach these Terms, security requires it, or the law requires it.",
+            "To request account deletion or action concerning information we hold, contact us with the information needed to verify your identity. We will respond within a reasonable scope except for information that must be retained for legal or security reasons."
+          ]
+        },
+        {
+          "heading": "Intellectual property",
+          "paragraphs": [
+            "Intellectual property rights in the Account and its related software, displays, trademarks, and other materials belong to Acecore or the respective right holders. These Terms grant only a limited, non-transferable right to use the Account and grant no other rights."
+          ]
+        },
+        {
+          "heading": "Disclaimers and limitation of liability",
+          "paragraphs": [
+            "Acecore does not guarantee that the Account will always be available, fit a particular purpose, or be free from defects. Except in cases of Acecore's intentional misconduct or gross negligence, Acecore's liability is limited, to the extent permitted by law, to direct and ordinary damages."
+          ]
+        },
+        {
+          "heading": "Changes to these Terms",
+          "paragraphs": [
+            "Acecore may change these Terms where reasonably necessary because of changes in law, service content, security measures, or other circumstances. Updated Terms will be posted on this page with their effective date. By using the Account after the change, you agree to the updated Terms."
+          ]
+        },
+        {
+          "heading": "Governing law and contact",
+          "paragraphs": [
+            "These Terms are governed by the laws of Japan. For questions, complaints, or communications about the Account or these Terms, contact Acecore through its contact channel."
+          ]
+        }
+      ],
+      "privacyLinkHeading": "Personal data handling",
+      "privacyLinkBody": "Our Privacy Policy sets out the information collected for the Account, purposes of use, security measures, and the channel for requests.",
+      "privacyLinkLabel": "Read the Privacy Policy",
+      "effectiveDate": "Acecore ID terms version: 2026-08-01-acecoreid-v1 / Effective: August 1, 2026"
     },
     "acestudio": {
       "title": "AceStudio",
@@ -454,6 +609,7 @@
     "blog": "News",
     "acestudio": "AceStudio",
     "privacy": "Privacy Policy",
+    "terms": "Acecore ID Terms of Use",
     "tags": "Tags",
     "authors": "Authors",
     "archive": "Archive",

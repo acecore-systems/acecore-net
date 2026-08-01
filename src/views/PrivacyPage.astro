@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { optimizeImage } from '../utils/image'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { getLocalizedUrl, getTranslationValue, t, type Locale } from '../i18n'
 
 interface Props {
   locale: Locale
@@ -12,6 +12,30 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
+type LegalSection = {
+  heading: string
+  paragraphs: string[]
+  items?: string[]
+}
+const localizedAcecoreIdSections = getTranslationValue<LegalSection[]>(
+  locale,
+  'pages.privacy.acecoreIdSections',
+)
+const acecoreIdContentLocale: Locale = localizedAcecoreIdSections
+  ? locale
+  : 'en'
+const acecoreIdSections =
+  localizedAcecoreIdSections ??
+  getTranslationValue<LegalSection[]>(
+    'en',
+    'pages.privacy.acecoreIdSections',
+  ) ??
+  []
+const acecoreIdRequestLinkLabel =
+  getTranslationValue<string>(
+    acecoreIdContentLocale,
+    'pages.privacy.acecoreIdRequestLink',
+  ) ?? t('en', 'pages.privacy.acecoreIdRequestLink')
 ---
 
 <BaseLayout
@@ -63,6 +87,33 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         <h2>{t(locale, 'pages.privacy.searchHeading')}</h2>
         <p>{t(locale, 'pages.privacy.searchBody1')}</p>
         <p>{t(locale, 'pages.privacy.searchBody2')}</p>
+
+        {
+          acecoreIdSections.map((section) => (
+            <section lang={acecoreIdContentLocale}>
+              <h2>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.items && section.items.length > 0 ? (
+                <ul>
+                  {section.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          ))
+        }
+        {
+          acecoreIdSections.length > 0 ? (
+            <p>
+              <a href={`${u('/contact/')}#contact-form`}>
+                {acecoreIdRequestLinkLabel}
+              </a>
+            </p>
+          ) : null
+        }
 
         <h2>{t(locale, 'pages.privacy.personalInfoHeading')}</h2>
         <p>{t(locale, 'pages.privacy.personalInfoBody')}</p>

@@ -1,0 +1,86 @@
+---
+import '../styles/prose.css'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import { optimizeImage } from '../utils/image'
+import { getLocalizedUrl, getTranslationValue, t, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+type LegalSection = {
+  heading: string
+  paragraphs: string[]
+  items?: string[]
+}
+
+const { locale } = Astro.props
+const contentLocale: Locale = locale === 'ja' ? 'ja' : 'en'
+const u = (path: string) => getLocalizedUrl(path, locale)
+const sections =
+  getTranslationValue<LegalSection[]>(contentLocale, 'pages.terms.sections') ??
+  []
+---
+
+<BaseLayout
+  title={t(contentLocale, 'pages.terms.title')}
+  titleContext={t(contentLocale, 'pages.terms.seoTitleContext')}
+  description={t(contentLocale, 'pages.terms.description')}
+  locale={locale}
+>
+  <Hero
+    title={t(contentLocale, 'pages.terms.heroTitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(contentLocale, 'pages.terms.heroImgAlt'),
+      },
+    ]}
+  />
+
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb
+        items={[{ label: t(contentLocale, 'pages.terms.title') }]}
+        locale={locale}
+      />
+      <div class="ac-prose max-w-none" lang={contentLocale}>
+        <p>{t(contentLocale, 'pages.terms.lead')}</p>
+
+        {
+          sections.map((section) => (
+            <section>
+              <h2>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.items && section.items.length > 0 ? (
+                <ul>
+                  {section.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          ))
+        }
+
+        <h2>{t(contentLocale, 'pages.terms.privacyLinkHeading')}</h2>
+        <p>{t(contentLocale, 'pages.terms.privacyLinkBody')}</p>
+        <p>
+          <a href={u('/privacy/')}
+            >{t(contentLocale, 'pages.terms.privacyLinkLabel')}</a
+          >
+        </p>
+
+        <p class="text-sm text-slate-500 mt-12">
+          {t(contentLocale, 'pages.terms.effectiveDate')}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
