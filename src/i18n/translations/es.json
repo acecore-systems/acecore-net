@@ -281,7 +281,6 @@
       "executiveLead": "Conozca al equipo directivo de Acecore.",
       "officerAreasLabel": "Áreas de responsabilidad",
       "officerBiographyLabel": "Trayectoria",
-      "officerMessageLabel": "Mensaje",
       "officers": [
         {
           "name": "西田凱",
@@ -293,8 +292,7 @@
             "Aseguramiento de calidad",
             "Adopción de IA"
           ],
-          "bio": "Presidente y director representante de Acecore. Con C#/.NET como base, dirige de forma integrada web y sistemas, bases de datos e infraestructura, aseguramiento de calidad y adopción de IA, desde la definición de los retos de negocio hasta el diseño, la implementación y la mejora posterior al lanzamiento.",
-          "message": "Convertir la tecnología y el aprendizaje en una fuerza para la sociedad."
+          "bio": "Presidente y director representante de Acecore. Con C#/.NET como base, dirige de forma integrada web y sistemas, bases de datos e infraestructura, aseguramiento de calidad y adopción de IA, desde la definición de los retos de negocio hasta el diseño, la implementación y la mejora posterior al lanzamiento."
         },
         {
           "name": "佐藤凌峨",
@@ -304,8 +302,7 @@
             "Discord",
             "Desarrollo y operaciones de Minecraft"
           ],
-          "bio": "Como guardián de la comunidad de Aceserver, apoya la operación de la comunidad de Discord y el desarrollo y las operaciones relacionadas con Minecraft. Publica plugins Java para Minecraft y herramientas de integración con Discord.",
-          "message": "Trabajo con Python y plugins de Minecraft mientras aprendo FastAPI y C++."
+          "bio": "Como guardián de la comunidad de Aceserver, apoya la operación de la comunidad de Discord y el desarrollo y las operaciones relacionadas con Minecraft. Publica plugins Java para Minecraft y herramientas de integración con Discord."
         },
         {
           "name": "西田創",
@@ -315,8 +312,7 @@
             "Modelado 3D",
             "Operaciones de contenido web"
           ],
-          "bio": "Crea ilustraciones y ficción, y publica avatares 3D originales, mecanismos y accesorios para VRChat. También participa en las actualizaciones de contenido del sitio oficial de Hatt.",
-          "message": "Escribo e ilustro mientras creo avatares 3D originales, mecanismos y accesorios para VRChat."
+          "bio": "Crea ilustraciones y ficción, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

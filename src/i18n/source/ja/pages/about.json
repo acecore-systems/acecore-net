@@ -11,7 +11,6 @@
   "executiveLead": "Acecoreの役員をご紹介します。",
   "officerAreasLabel": "担当領域",
   "officerBiographyLabel": "略歴",
-  "officerMessageLabel": "一言",
   "officers": [
     {
       "name": "西田凱",
@@ -23,8 +22,7 @@
         "品質保証",
         "AI活用"
       ],
-      "bio": "Acecoreの代表取締役社長。C#/.NETを軸に、Web・システム、DB・インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善まで一体で推進しています。",
-      "message": "技術と学びを、社会の力へ。"
+      "bio": "Acecoreの代表取締役社長。C#/.NETを軸に、Web・システム、DB・インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善まで一体で推進しています。"
     },
     {
       "name": "佐藤凌峨",
@@ -34,15 +32,13 @@
         "Discord",
         "Minecraft関連の開発・運用"
       ],
-      "bio": "Aceserverの門番として、Discordコミュニティの運営とMinecraft関連の開発・運用を支援。Minecraft向けJavaプラグインやDiscord連携を扱うツールを公開しています。",
-      "message": "PythonとMinecraftプラグインに取り組み、FastAPIとC++を学んでいます。"
+      "bio": "Aceserverの門番として、Discordコミュニティの運営とMinecraft関連の開発・運用を支援。Minecraft向けJavaプラグインやDiscord連携を扱うツールを公開しています。"
     },
     {
       "name": "西田創",
       "role": "取締役",
       "areas": ["クリエイティブ制作", "3Dモデリング", "Webコンテンツ運用"],
-      "bio": "絵と小説を制作し、VRChat向けのオリジナル3Dアバター、ギミック、アクセサリーを公開。Hatt公式ホームページのコンテンツ更新にも携わっています。",
-      "message": "絵と小説を書きつつ、VRChat向けのオリジナル3Dアバター、ギミック、アクセサリーを制作しています。"
+      "bio": "絵と小説を制作し、VRChat向けのオリジナル3Dアバター、ギミック、アクセサリーを公開しています。"
     }
   ],
   "missionLoopEyebrow": "Mission Loop",
