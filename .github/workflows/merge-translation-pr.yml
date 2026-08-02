@@ -9,6 +9,7 @@ on:
         type: string
 
 permissions:
+  checks: read
   contents: write
   pull-requests: write
 
@@ -17,31 +18,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Resolve pull request metadata
-        id: pr
-        run: |
-          pr_number="${{ inputs.pr_number }}"
-          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
-
-      - name: Stop when no pull request number is available
-        if: steps.pr.outputs.pr_number == ''
-        run: echo "No pull request number found for this event."
-
       - name: Check out repository
-        if: steps.pr.outputs.pr_number != ''
         uses: actions/checkout@v7
 
       - name: Set up Node.js
-        if: steps.pr.outputs.pr_number != ''
         uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check translation merge automation
+        run: npm run typecheck:translation-merge
 
       - name: Merge eligible translation PR
-        if: steps.pr.outputs.pr_number != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          args=("--pr=${{ steps.pr.outputs.pr_number }}")
-          node scripts/merge-translation-pr.mjs "${args[@]}"
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: node --experimental-strip-types scripts/merge-translation-pr.ts --pr="$PR_NUMBER"
