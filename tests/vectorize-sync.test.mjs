@@ -1,15 +1,18 @@
 import assert from 'node:assert/strict'
+import { spawn } from 'node:child_process'
+import { once } from 'node:events'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { after, test } from 'node:test'
+import { fileURLToPath } from 'node:url'
 
 import {
   extractEmbeddingData,
   parseArguments,
   syncVectorize,
   validateCorpus,
-} from '../scripts/sync-vectorize.mjs'
+} from '../scripts/sync-vectorize.ts'
 
 const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
 const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
@@ -254,6 +257,40 @@ test('mutationIdがない成功応答をfail closedする', async () => {
   )
 })
 
+test('list応答のresultが不正ならmutation前にfail closedする', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  let mutationRequests = 0
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse(null)
+    }
+    if (url.endsWith('/upsert') || url.endsWith('/delete_by_ids')) {
+      mutationRequests += 1
+      return cloudflareResponse({ mutationId: 'unexpected-mutation' })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PRODUCTION_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /Vectorize vector list API response did not include a valid result object/,
+  )
+  assert.equal(mutationRequests, 0)
+})
+
 test('dry-runはcredentialもnetworkも要求しない', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
@@ -268,6 +305,36 @@ test('dry-runはcredentialもnetworkも要求しない', async () => {
 
   assert.equal(result.dryRun, true)
   assert.equal(result.vectors, 1000)
+})
+
+test('TypeScript CLIのdry-runはcredentialなしで実行できる', async () => {
+  const corpusFile = await writeCorpus(createCorpus())
+  const child = spawn(
+    process.execPath,
+    [
+      '--experimental-strip-types',
+      'scripts/sync-vectorize.ts',
+      '--dry-run',
+      '--corpus',
+      corpusFile,
+    ],
+    {
+      cwd: fileURLToPath(new URL('..', import.meta.url)),
+      stdio: ['ignore', 'pipe', 'pipe'],
+    },
+  )
+  let stdout = ''
+  child.stdout.setEncoding('utf8')
+  child.stdout.on('data', (chunk) => {
+    stdout += chunk
+  })
+
+  const [code, signal] = await once(child, 'close')
+
+  assert.equal(code, 0)
+  assert.equal(signal, null)
+  assert.match(stdout, /"event":"vectorize_sync_dry_run"/u)
+  assert.match(stdout, /"vectors":1000/u)
 })
 
 test('planは不存在indexを作成せずfail closedする', async () => {
