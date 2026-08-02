@@ -27,14 +27,13 @@ function createPullRequest(
   overrides: Partial<TranslationPullRequest> = {},
 ): TranslationPullRequest {
   return {
-    number: 176,
+    number: 42,
     state: 'open',
     baseRef: 'main',
-    authorLogin: 'app/copilot-swe-agent',
-    headRef: 'copilot/update-translations',
+    headRef: 'translation/openai/batch_example',
     headSha: HEAD_SHA,
     headRepositoryFullName: REPOSITORY.repository,
-    title: '[translation] Update site text translations',
+    title: '[translation] OpenAI Batch batch_example',
     body: null,
     draft: true,
     nodeId: 'PR_kwDORlSgas123',
@@ -60,10 +59,7 @@ function createLogger() {
 }
 
 test('PR番号は安全な正整数だけを受け入れ、未知の引数で停止する', () => {
-  assert.deepEqual(parseArguments(['--pr=176', '--skip-build-check']), {
-    prNumber: 176,
-    skipBuildCheck: true,
-  })
+  assert.deepEqual(parseArguments(['--pr=42']), { prNumber: 42 })
   assert.throws(
     () => parseArguments(['--pr=0']),
     /positive pull request number/,
@@ -73,13 +69,17 @@ test('PR番号は安全な正整数だけを受け入れ、未知の引数で停
     /only be provided once/,
   )
   assert.throws(() => parseArguments(['--unexpected']), /Unknown argument/)
+  assert.throws(
+    () => parseArguments(['--skip-build-check']),
+    /Unknown argument/,
+  )
 })
 
 test('対象外のPRは翻訳自動マージ対象にしない', () => {
   assert.equal(isEligibleTranslationPullRequest(createPullRequest()), true)
   assert.equal(
     isEligibleTranslationPullRequest(
-      createPullRequest({ authorLogin: 'octocat', headRef: 'feature/update' }),
+      createPullRequest({ headRef: 'feature/update' }),
     ),
     false,
   )
@@ -89,18 +89,17 @@ test('対象外のPRは翻訳自動マージ対象にしない', () => {
   )
   assert.equal(
     isEligibleTranslationPullRequest(
-      createPullRequest({ title: 'Update site text translations' }),
+      createPullRequest({ title: '[translation] Legacy translation PR' }),
     ),
     false,
   )
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({
-        authorLogin: 'github-actions[bot]',
-        headRef: 'translation/openai/batch_example',
+        headRef: 'copilot/update-translations',
       }),
     ),
-    true,
+    false,
   )
 })
 
@@ -108,12 +107,14 @@ test('GitHub API応答の必須PR head SHAを検証する', () => {
   assert.throws(
     () =>
       parsePullRequest({
-        number: 176,
+        number: 42,
         state: 'open',
         base: { ref: 'main' },
-        head: { ref: 'copilot/update-translations', sha: 'not-a-full-sha' },
-        user: { login: 'app/copilot-swe-agent' },
-        title: '[translation] Update site text translations',
+        head: {
+          ref: 'translation/openai/batch_example',
+          sha: 'not-a-full-sha',
+        },
+        title: '[translation] OpenAI Batch batch_example',
         draft: true,
         node_id: 'PR_kwDORlSgas123',
       }),
@@ -176,18 +177,18 @@ test('検証済みhead SHAをmerge APIへ固定してから同一repo枝だけ�
 
   assert.deepEqual(requests, [
     {
-      path: '/repos/acecore-systems/acecore-net/pulls/176/merge',
+      path: '/repos/acecore-systems/acecore-net/pulls/42/merge',
       options: {
         method: 'PUT',
         body: {
           merge_method: 'squash',
-          commit_title: '[translation] Update site text translations',
+          commit_title: '[translation] OpenAI Batch batch_example',
           sha: HEAD_SHA,
         },
       },
     },
     {
-      path: '/repos/acecore-systems/acecore-net/git/refs/heads/copilot/update-translations',
+      path: '/repos/acecore-systems/acecore-net/git/refs/heads/translation/openai/batch_example',
       options: { method: 'DELETE' },
     },
   ])
@@ -231,7 +232,7 @@ test('ready化のGraphQL応答が対象PRをreadyと確認できなければ停�
       return {
         markPullRequestReadyForReview: {
           pullRequest: {
-            number: 176,
+            number: 42,
             isDraft: true,
           },
         },
@@ -264,7 +265,7 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
       requests.push({ path, options })
       if (!options?.method) {
         return {
-          number: 176,
+          number: 42,
           state: 'open',
           base: { ref: 'main' },
           head: {
@@ -288,7 +289,7 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
   }
   const { logger } = createLogger()
 
-  await runMergeAutomation(['--pr=176'], {
+  await runMergeAutomation(['--pr=42'], {
     client,
     environment: { GITHUB_REPOSITORY: REPOSITORY.repository },
     logger,
@@ -297,11 +298,11 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
 
   assert.deepEqual(requests, [
     {
-      path: '/repos/acecore-systems/acecore-net/pulls/176',
+      path: '/repos/acecore-systems/acecore-net/pulls/42',
       options: undefined,
     },
     {
-      path: '/repos/acecore-systems/acecore-net/pulls/176',
+      path: '/repos/acecore-systems/acecore-net/pulls/42',
       options: { method: 'PATCH', body: { state: 'closed' } },
     },
   ])

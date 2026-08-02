@@ -69,7 +69,7 @@ test('PRのsourceHashが現在の日本語記事と異なる場合は古い版�
 
 test('WorkflowはLuna/maxをBatchへ投入し、回収後にBot PRを作る', async () => {
   const submitWorkflow = await readFile(
-    '.github/workflows/create-translation-prs.yml',
+    '.github/workflows/submit-openai-translation-batch.yml',
     'utf8',
   )
   const collectWorkflow = await readFile(

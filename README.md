@@ -28,7 +28,7 @@ Acecore（エースコア）公式Webサイト。
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
 - Sveltia CMS では日本語ソース記事、日本語ページ文言、著者、タグを管理
-- CMS 経由で編集された多言語記事・ページ文言は Copilot translation PR task で AI に委譲
+- 日本語の記事・ページ文言の更新はOpenAI Batchで8ロケールへ翻訳
 - UI・固定ページ文字列は日本語ソースを `src/i18n/source/ja/`、翻訳先を `src/i18n/translations/` で管理し、Sveltia CMS の「ページ・サイト文言」からページ/用途別に編集
 
 ## 開発
@@ -107,7 +107,7 @@ src/
 5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページの日本語テキストをページ/用途別に編集
 6. 「告知・キャンペーン」からトップ告知バナーやページ内キャンペーン通知を編集
 7. 著者・タグは「著者」「タグ」から編集
-8. CMS 経由の日本語ソース編集のみ、Copilot translation PR task で翻訳へ反映
+8. 日本語ソースの更新はOpenAI Batchで翻訳へ反映
 
 #### 本番 CMS の保存と自動公開
 
@@ -158,43 +158,34 @@ author: 'author-id'
 
 ## 翻訳ワークフロー
 
-Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を編集できます。多言語記事本文とページ文言は GitHub Copilot coding agent が作成する Pull Request ベースで管理します。PR 量を抑えるため、push 連動の対象は Sveltia CMS の `cms: ...` commit だけに限定します。
+Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ文言が`main`へ反映されると、OpenAI Batchを使って8ロケールの翻訳を更新します。
 
-1. 日本語ソースを Sveltia CMS で更新する
-2. CMS proxy が`cms: ...` subjectの1 commitを`main`へ直接保存する
-3. 同じ`main` pushから、CMS commitの本文差分または日本語文言 key 差分だけをGitHub Actionsが検出する
-4. Copilot coding agent が該当差分だけに沿って `src/content/blog/{locale}/` または `src/i18n/translations/{locale}.json` を更新する
-5. 完了時に `[translation]` PR が ready for review になったら、内容とビルドを確認してから必要に応じて手動マージする
+1. `.github/workflows/submit-openai-translation-batch.yml` が日本語sourceの更新を検出する
+2. 同じsourceへの続けての修正をまとめるため15分待ち、最新の`main`と一致する変更だけをOpenAI Batchへ投入する
+3. `.github/workflows/collect-openai-translation-batch.yml` が完了済みBatchを15分間隔で回収する
+4. 専用GitHub Appが`translation/openai/{batchId}` branchとDraft PRを作成する
+5. `Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけ自動でsquash mergeする
 
-翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。著者情報、タグ定義の多言語フィールドは Sveltia CMS から直接編集できます。ローカル開発や通常の Git commit による日本語ソース変更では、自動翻訳 PR task は作成しません。
+翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。Batch投入後に同じsourceが再編集された場合は、古い結果と古い翻訳PRを取り込まず破棄します。
 
-### 自動 PR task workflow
+### OpenAI Batch workflow
 
-- Workflow: `.github/workflows/create-translation-prs.yml`
-- Script: `scripts/create-translation-prs.ts`
-- Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の `main` 反映時。ただし自動実行は Sveltia CMS の `cms: ...` commit のみ
-- 専用GitHub Appのinstallation tokenによるdirect pushでも通常どおりworkflowを起動する。`GITHUB_TOKEN`による保存へ置き換えない
-- CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める。旧CMS PRのmerge commitも後方互換のため判定から除外する
-- 日本語ソース記事ごとに Copilot translation PR task を作成し、同じソースの open PR があれば重複作成しない
-- ページ文言は変更された JSON key だけを対象に、まとめて 1 つの Copilot translation PR task を作成する
-- blog 記事は frontmatter だけの変更では task を作成せず、Markdown 本文が変わったときだけ PR task を作成する
-- blog 記事の更新 PR task には本文 diff を渡し、翻訳済み記事の未変更部分は書き換えないよう指示する
-- 1 回の blog 翻訳 PR task 数は `max_blog_tasks`（既定値 `3`）で制限する
-- authors/tags の翻訳 PR task は `workflow_dispatch` で `include_non_blog_sources=true` を指定したときだけ作成する
-- `COPILOT_AGENT_TOKEN` secret を使い、GitHub Copilot coding agent API で issue を介さず直接 task を作成する
-- 重複判定は PR body に含める `translation-source:` マーカーで行う
+- Workflow: `.github/workflows/submit-openai-translation-batch.yml`
+- Workflow: `.github/workflows/collect-openai-translation-batch.yml`
+- Script: `scripts/openai-translation-batch.ts`
+- Model: `gpt-5.6-luna`、reasoning effort `max`
+- Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の`main`反映時
+- API secret: `OPENAI_TRANSLATION_API_KEY`
+- PR作成用GitHub App secrets: `TRANSLATION_BOT_APP_ID`、`TRANSLATION_BOT_APP_PRIVATE_KEY`
 
-`COPILOT_AGENT_TOKEN` には、Copilot coding agent API を呼べるユーザートークンを設定します。GitHub CLI で確認した現在トークンの scope は `repo` と `workflow` を含んでいます。
-
-### 自動マージ workflow
+### 翻訳PRの検証と自動マージ
 
 - Workflow: `.github/workflows/translation-pr-build.yml`
 - Workflow: `.github/workflows/merge-translation-pr.yml`
 - Script: `scripts/merge-translation-pr.ts`
-- 対象は `app/copilot-swe-agent` が作成した `[translation]` で始まる PR のみ
-- `Translation PR Build` は対象 PR のビルド確認だけを行う
-- マージは `.github/workflows/merge-translation-pr.yml` の `workflow_dispatch` で PR 番号を指定したときだけ実行する
-- 成功済みの `Translation PR Build` で検証したhead SHAをmerge APIへ固定し、`merged: true` を確認できた場合だけ同一リポジトリ上のCopilotブランチを削除する
+- 対象は`translation/openai/` branchから作成された`[translation] OpenAI Batch ...` PRだけ
+- `Translation PR Build`の成功と現在のsource hashを再確認してからsquash mergeする
+- GitHubがmerge成功を返した場合だけ、同一repositoryの翻訳branchを削除する
 
 ## AI 問い合わせアシスタント
 

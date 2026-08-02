@@ -14,7 +14,6 @@ interface Logger {
 
 export interface ParsedArguments {
   prNumber: number | null
-  skipBuildCheck: boolean
 }
 
 export interface RepositoryInfo {
@@ -27,7 +26,6 @@ export interface TranslationPullRequest {
   number: number
   state: string
   baseRef: string
-  authorLogin: string | null
   headRef: string | null
   headSha: string
   headRepositoryFullName: string | null
@@ -73,12 +71,10 @@ interface MergeAutomationOptions {
 
 const GITHUB_API_URL = 'https://api.github.com'
 const FULL_SHA_PATTERN = /^[0-9a-f]{40}$/i
+const OPENAI_TRANSLATION_TITLE_PREFIX = '[translation] OpenAI Batch '
 
 export function parseArguments(argv: readonly string[]): ParsedArguments {
-  const options: ParsedArguments = {
-    prNumber: null,
-    skipBuildCheck: false,
-  }
+  const options: ParsedArguments = { prNumber: null }
 
   for (const argument of argv) {
     if (argument.startsWith('--pr=')) {
@@ -97,11 +93,6 @@ export function parseArguments(argv: readonly string[]): ParsedArguments {
       }
 
       options.prNumber = prNumber
-      continue
-    }
-
-    if (argument === '--skip-build-check') {
-      options.skipBuildCheck = true
       continue
     }
 
@@ -209,7 +200,6 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
   const pullRequest = getRequiredRecord(value, 'GitHub pull request')
   const base = getRequiredRecord(pullRequest.base, 'GitHub pull request.base')
   const head = getRequiredRecord(pullRequest.head, 'GitHub pull request.head')
-  const author = isJsonRecord(pullRequest.user) ? pullRequest.user : null
   const headRepository = isJsonRecord(head.repo) ? head.repo : null
   const headSha = getRequiredString(head, 'sha', 'GitHub pull request.head')
 
@@ -221,7 +211,6 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
     number: getPositiveInteger(pullRequest, 'number', 'GitHub pull request'),
     state: getRequiredString(pullRequest, 'state', 'GitHub pull request'),
     baseRef: getRequiredString(base, 'ref', 'GitHub pull request.base'),
-    authorLogin: author ? getOptionalString(author, 'login') : null,
     headRef: getOptionalString(head, 'ref'),
     headSha,
     headRepositoryFullName: headRepository
@@ -386,29 +375,15 @@ async function getCheckRuns(
   return parseCheckRuns(response)
 }
 
-export function hasTranslationMarker(title: string): boolean {
-  return title.includes('[translation]')
-}
-
 export function isEligibleTranslationPullRequest(
   pullRequest: TranslationPullRequest,
 ): boolean {
   return (
     pullRequest.state === 'open' &&
     pullRequest.baseRef === 'main' &&
-    (pullRequest.authorLogin === 'Copilot' ||
-      pullRequest.authorLogin === 'app/copilot-swe-agent' ||
-      pullRequest.authorLogin === 'copilot-swe-agent[bot]' ||
-      pullRequest.headRef?.startsWith('copilot/') === true ||
-      pullRequest.headRef?.startsWith('translation/openai/') === true) &&
-    hasTranslationMarker(pullRequest.title)
+    pullRequest.headRef?.startsWith('translation/openai/') === true &&
+    pullRequest.title.startsWith(OPENAI_TRANSLATION_TITLE_PREFIX)
   )
-}
-
-export function isOpenAiTranslationPullRequest(
-  pullRequest: TranslationPullRequest,
-): boolean {
-  return pullRequest.headRef?.startsWith('translation/openai/') === true
 }
 
 async function closePullRequest(
@@ -628,10 +603,7 @@ export async function runMergeAutomation(
     return
   }
 
-  if (
-    isOpenAiTranslationPullRequest(pullRequest) &&
-    !areOpenAiTranslationMarkersCurrent(pullRequest.body)
-  ) {
+  if (!areOpenAiTranslationMarkersCurrent(pullRequest.body)) {
     await closePullRequest(
       pullRequest,
       currentRepository,
@@ -641,18 +613,16 @@ export async function runMergeAutomation(
     return
   }
 
-  if (!args.skipBuildCheck) {
-    const checkRuns = await getCheckRuns(
-      pullRequest.headSha,
-      currentRepository,
-      currentClient,
+  const checkRuns = await getCheckRuns(
+    pullRequest.headSha,
+    currentRepository,
+    currentClient,
+  )
+  if (!hasSuccessfulTranslationBuild(checkRuns)) {
+    logger.log(
+      `Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`,
     )
-    if (!hasSuccessfulTranslationBuild(checkRuns)) {
-      logger.log(
-        `Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`,
-      )
-      return
-    }
+    return
   }
 
   if (pullRequest.draft) {
