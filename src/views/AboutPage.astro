@@ -69,10 +69,6 @@ const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
   }),
 )
 const officers = getList<Officer>('pages.about.officers')
-const getOfficerInitial = (name: string) => {
-  const characters = Array.from(name.trim())
-  return characters[characters.length - 1] || 'A'
-}
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -171,14 +167,8 @@ const aboutPageLd = {
             <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {officers.map((officer) => (
                 <li>
-                  <article class="ac-card flex h-full flex-col items-center p-6 text-center">
-                    <span
-                      class="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-brand-600 text-3xl font-700 text-white shadow-md"
-                      aria-hidden="true"
-                    >
-                      {getOfficerInitial(officer.name)}
-                    </span>
-                    <h3 class="mt-4 text-xl ac-heading">{officer.name}</h3>
+                  <article class="ac-card h-full p-6 text-center">
+                    <h3 class="text-xl ac-heading">{officer.name}</h3>
                     {officer.role && (
                       <p class="mt-1 text-sm font-700 text-brand-600">
                         {officer.role}
