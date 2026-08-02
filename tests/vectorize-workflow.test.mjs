@@ -62,6 +62,33 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   assert.doesNotMatch(source, /acecore-net-search-openai-1536-preview/u)
 })
 
+test('配置待機ゲートを型検査済みのTypeScriptとして実行する', async () => {
+  const source = await readFile(workflowPath, 'utf8')
+  const workflow = yaml.load(source)
+  const productionSteps = workflow.jobs['sync-production'].steps
+  const typecheckStep = productionSteps.find(
+    ({ name }) => name === 'Type-check protected Vectorize tooling',
+  )
+  const deploymentMarkerSteps = productionSteps.filter(({ name }) =>
+    [
+      'Wait for the pushed commit to be public',
+      'Resolve deployed site commit',
+      'Confirm the built commit is still public',
+    ].includes(name),
+  )
+
+  assert.ok(typecheckStep)
+  assert.match(typecheckStep.run, /npm run typecheck:deployment-marker/u)
+  assert.equal(deploymentMarkerSteps.length, 3)
+  for (const step of deploymentMarkerSteps) {
+    assert.match(
+      step.run,
+      /node --experimental-strip-types tooling\/scripts\/wait-for-deployment\.ts/u,
+    )
+  }
+  assert.doesNotMatch(source, /wait-for-deployment\.mjs/u)
+})
+
 test('確認済み正規indexをProduction bindingへ設定する', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 

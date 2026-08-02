@@ -51,14 +51,16 @@ jobs:
 
       - name: Type-check protected Vectorize tooling
         working-directory: tooling
-        run: npm run typecheck:vectorize-sync
+        run: |
+          npm run typecheck:vectorize-sync
+          npm run typecheck:deployment-marker
 
       - name: Wait for the pushed commit to be public
         if: github.event_name == 'push'
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
         run: >-
-          node tooling/scripts/wait-for-deployment.mjs
+          node --experimental-strip-types tooling/scripts/wait-for-deployment.ts
           https://acecore.net/.well-known/acecore-build.json
           "$EXPECTED_COMMIT"
 
@@ -76,7 +78,7 @@ jobs:
             site_commit="$PUSH_COMMIT"
           else
             site_commit="$(
-              node tooling/scripts/wait-for-deployment.mjs \
+              node --experimental-strip-types tooling/scripts/wait-for-deployment.ts \
                 https://acecore.net/.well-known/acecore-build.json \
                 --print-current
             )"
@@ -122,7 +124,7 @@ jobs:
         env:
           BUILT_COMMIT: ${{ steps.site.outputs.commit }}
         run: >-
-          node tooling/scripts/wait-for-deployment.mjs
+          node --experimental-strip-types tooling/scripts/wait-for-deployment.ts
           https://acecore.net/.well-known/acecore-build.json
           --assert-current
           "$BUILT_COMMIT"
