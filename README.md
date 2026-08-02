@@ -171,7 +171,7 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 ### 自動 PR task workflow
 
 - Workflow: `.github/workflows/create-translation-prs.yml`
-- Script: `scripts/create-translation-prs.mjs`
+- Script: `scripts/create-translation-prs.ts`
 - Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の `main` 反映時。ただし自動実行は Sveltia CMS の `cms: ...` commit のみ
 - 専用GitHub Appのinstallation tokenによるdirect pushでも通常どおりworkflowを起動する。`GITHUB_TOKEN`による保存へ置き換えない
 - CMS commit と通常 commit が同じ push に混在した場合は、自動翻訳 PR task を作成せず workflow を止める。旧CMS PRのmerge commitも後方互換のため判定から除外する

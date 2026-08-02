@@ -6,7 +6,8 @@ import {
   classifyCmsCommitSet,
   isCmsCommitSubject,
   pairJapaneseBlogRenamesByArticleId,
-} from '../scripts/create-translation-prs.mjs'
+  parseOpenPullRequests,
+} from '../scripts/create-translation-prs.ts'
 
 const parentSha = 'a'.repeat(40)
 const directCmsCommit = {
@@ -131,4 +132,31 @@ Completely rewritten body.`,
       path: 'src/content/blog/new-slug.md',
     },
   ])
+})
+
+test('GitHub APIのPR一覧が想定外の形なら安全に停止する', () => {
+  assert.throws(
+    () => parseOpenPullRequests({ message: 'not an array' }),
+    /invalid pull request list/,
+  )
+})
+
+test('GitHub APIのPR一覧から重複判定に必要な値だけを正規化する', () => {
+  assert.deepEqual(
+    parseOpenPullRequests([
+      {
+        number: 42,
+        title: '[translation] Update site text translations',
+        body: '<!-- translation-source:src/i18n/source/ja -->',
+        ignored: 'value',
+      },
+    ]),
+    [
+      {
+        number: 42,
+        title: '[translation] Update site text translations',
+        body: '<!-- translation-source:src/i18n/source/ja -->',
+      },
+    ],
+  )
 })

@@ -14,8 +14,8 @@ const AUTHOR_BASE_KEYS = [
   'github',
   'twitter',
   'skills',
-]
-const TAG_BASE_KEYS = ['name']
+] as const
+const TAG_BASE_KEYS = ['name'] as const
 const ZERO_SHA = '0000000000000000000000000000000000000000'
 const ARTICLE_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -24,7 +24,7 @@ const COPILOT_API_VERSION = '2026-01-09'
 const COPILOT_INTEGRATION_ID = 'acecore-net-translation-prs'
 const SCHOOLS_TRANSLATION_POLICY =
   'Acecore Schools uses the single website URL https://schools.acecore.net/ for every locale. Preserve factual Schools descriptions and this URL, do not hide Schools content based on the target locale, and never invent locale-specific Schools routes.'
-const PAGE_TRANSLATION_KEYS = {
+const PAGE_TRANSLATION_KEYS: Readonly<Record<string, string>> = {
   'about.json': 'about',
   'acestudio.json': 'acestudio',
   'contact.json': 'contact',
@@ -35,8 +35,172 @@ const PAGE_TRANSLATION_KEYS = {
   'services.json': 'services',
 }
 
-function parseArgs(argv) {
-  const options = {
+type GitChangeStatus = string
+type CmsCommitClassification = 'empty' | 'none' | 'mixed' | 'cms-only'
+type EntityChangeType = 'added' | 'updated'
+type TaskKind = 'blog-post' | 'author-profile' | 'tag-definition' | 'site-text'
+type AuthorBaseKey = (typeof AUTHOR_BASE_KEYS)[number]
+type TagBaseKey = (typeof TAG_BASE_KEYS)[number]
+
+type JsonPrimitive = boolean | number | string | null
+type JsonValue = JsonPrimitive | JsonRecord | JsonValue[]
+type JsonRecord = { [key: string]: JsonValue }
+
+interface ParsedArgs {
+  dryRun: boolean
+  changedFiles: string[] | null
+  baseSha: string | null
+  headSha: string | null
+  includeNonBlog: boolean
+  cmsOnly: boolean
+  maxBlogTasks: number
+}
+
+interface ChangedEntry {
+  status: GitChangeStatus
+  previousPath: string | null
+  path: string
+}
+
+interface GitCommit {
+  sha: string
+  subject: string
+  parentShas: string[]
+}
+
+interface GetChangedEntriesOptions {
+  baseSha: string | null
+  headSha: string
+  changedFiles: string[] | null
+  includeNonBlog: boolean
+  cmsOnly: boolean
+}
+
+interface MarkdownDocument {
+  frontmatter: string | null
+  body: string | null
+}
+
+type ReadSource = (ref: string | null, filePath: string) => string | null
+
+interface PairJapaneseBlogRenamesOptions {
+  baseSha: string | null
+  headSha: string
+  readSource?: ReadSource
+}
+
+interface ChangedBlogPostTask extends ChangedEntry {
+  sourceDiff: string
+}
+
+interface TranslationKeyChange {
+  sourceKeyPath: string
+  translationKeyPath: string
+  changeType: 'added' | 'deleted' | 'updated'
+}
+
+interface ChangedSiteTranslationFile extends ChangedEntry {
+  keyChanges: TranslationKeyChange[]
+}
+
+interface EntityChange<Key extends string> {
+  id: string
+  sourcePath: string
+  changeType: EntityChangeType
+  fields: Key[]
+}
+
+interface TranslationTaskPayload {
+  title: string
+  marker: string
+  taskKind: TaskKind
+  problemStatement: string
+}
+
+interface BuildProblemStatementOptions {
+  title: string
+  marker: string
+  summary: string[]
+  targetLocales: string[]
+  instructions: string[]
+  sourceDiff?: string | null
+  changedKeys?: TranslationKeyChange[]
+}
+
+interface BuildBlogTaskPayloadOptions {
+  sourcePath: string
+  previousPath: string | null
+  changeType: GitChangeStatus
+  sourceDiff: string
+  locales: string[]
+  headSha: string
+  repository: string
+}
+
+interface BuildEntityTaskPayloadOptions<Key extends string> {
+  sourcePath: string
+  change: EntityChange<Key>
+  locales: string[]
+  headSha: string
+  repository: string
+}
+
+interface BuildSiteTextTaskPayloadOptions {
+  changes: ChangedSiteTranslationFile[]
+  locales: string[]
+  headSha: string
+  repository: string
+}
+
+interface GitHubRequestOptions {
+  method?: string
+  body?: JsonRecord
+  token?: string
+  headers?: Record<string, string>
+}
+
+interface RepositoryInfo {
+  owner: string
+  repo: string
+  repository: string
+}
+
+export interface OpenPullRequest {
+  number: number | null
+  title: string | null
+  body: string | null
+}
+
+interface CopilotAgentJob {
+  id?: string | number
+  jobId?: string | number
+  raw?: string
+}
+
+function isDefined<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined
+}
+
+function isJsonRecord(value: unknown): value is JsonRecord {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
+function parseJsonRecord(source: string, filePath: string): JsonRecord {
+  const value: unknown = JSON.parse(source)
+  if (!isJsonRecord(value)) {
+    throw new Error(`Expected a JSON object in ${filePath}`)
+  }
+
+  return value
+}
+
+function getStringField(record: JsonRecord | null, key: string): string | null {
+  const value = record?.[key]
+  return typeof value === 'string' ? value : null
+}
+
+function parseArgs(argv: readonly string[]): ParsedArgs {
+  const options: ParsedArgs = {
     dryRun: false,
     changedFiles: null,
     baseSha: null,
@@ -93,7 +257,7 @@ function parseArgs(argv) {
   return options
 }
 
-function getDiffTargets(includeNonBlog) {
+function getDiffTargets(includeNonBlog: boolean): string[] {
   const targets = ['src/content/blog', SITE_TRANSLATION_SOURCE_DIR]
 
   if (includeNonBlog) {
@@ -103,11 +267,11 @@ function getDiffTargets(includeNonBlog) {
   return targets
 }
 
-function runGit(args) {
+function runGit(args: readonly string[]): string {
   return execFileSync('git', args, { encoding: 'utf8' }).trim()
 }
 
-function safeRunGit(args) {
+function safeRunGit(args: readonly string[]): string {
   try {
     return runGit(args)
   } catch {
@@ -115,34 +279,38 @@ function safeRunGit(args) {
   }
 }
 
-function normalizeSha(value) {
+function normalizeSha(value: string | null | undefined): string | null {
   return value && value !== ZERO_SHA ? value : null
 }
 
-function getBaseSha(args) {
+function getBaseSha(args: ParsedArgs): string | null {
   return (
     normalizeSha(args.baseSha) ?? normalizeSha(process.env.GITHUB_EVENT_BEFORE)
   )
 }
 
-function getHeadSha(args) {
+function getHeadSha(args: ParsedArgs): string {
   return (
     normalizeSha(args.headSha) ?? normalizeSha(process.env.GITHUB_SHA) ?? 'HEAD'
   )
 }
 
-function parseNameStatusLine(line) {
+function parseNameStatusLine(line: string): ChangedEntry | null {
   const [statusText, ...rest] = line.split('\t')
   if (!statusText || rest.length === 0) return null
 
   const status = statusText[0]
-  if (status === 'R' || status === 'C') {
+  if (!status) return null
+
+  if ((status === 'R' || status === 'C') && rest[0] && rest[1]) {
     return {
       status,
       previousPath: rest[0],
       path: rest[1],
     }
   }
+
+  if (!rest[0]) return null
 
   return {
     status,
@@ -151,11 +319,16 @@ function parseNameStatusLine(line) {
   }
 }
 
-export function isCmsCommitSubject(subject) {
+export function isCmsCommitSubject(
+  subject: string | null | undefined,
+): boolean {
   return /^cms: (create|update|delete|upload) /.test(subject || '')
 }
 
-function listCommitSubjects(baseSha, headSha) {
+function listCommitSubjects(
+  baseSha: string | null,
+  headSha: string,
+): GitCommit[] {
   const output = baseSha
     ? safeRunGit(['log', '--format=%H%x00%P%x00%s', `${baseSha}..${headSha}`])
     : safeRunGit(['log', '--format=%H%x00%P%x00%s', '-n', '1', headSha])
@@ -166,18 +339,20 @@ function listCommitSubjects(baseSha, headSha) {
     const [sha, parents, subject] = line.split('\0')
 
     return {
-      sha,
+      sha: sha || '',
       subject: subject || '',
       parentShas: parents ? parents.split(' ').filter(Boolean) : [],
     }
   })
 }
 
-function isMergeCommit(commit) {
+function isMergeCommit(commit: GitCommit): boolean {
   return commit.parentShas.length > 1
 }
 
-export function classifyCmsCommitSet(commits) {
+export function classifyCmsCommitSet(
+  commits: readonly GitCommit[],
+): CmsCommitClassification {
   const contentCommits = commits.filter((commit) => !isMergeCommit(commit))
   if (contentCommits.length === 0) return 'empty'
 
@@ -191,7 +366,10 @@ export function classifyCmsCommitSet(commits) {
   return 'cms-only'
 }
 
-function ensureCmsOnlyChangeSet(baseSha, headSha) {
+function ensureCmsOnlyChangeSet(
+  baseSha: string | null,
+  headSha: string,
+): boolean {
   const classification = classifyCmsCommitSet(
     listCommitSubjects(baseSha, headSha),
   )
@@ -218,11 +396,11 @@ function getChangedEntries({
   changedFiles,
   includeNonBlog,
   cmsOnly,
-}) {
+}: GetChangedEntriesOptions): ChangedEntry[] {
   if (changedFiles) {
-    return changedFiles.map((path) => ({
+    return changedFiles.map((filePath): ChangedEntry => ({
       status: 'M',
-      path,
+      path: filePath,
       previousPath: null,
     }))
   }
@@ -257,28 +435,29 @@ function getChangedEntries({
   const output = safeRunGit(diffArgs)
   if (!output) return []
 
-  return output.split(/\r?\n/).map(parseNameStatusLine).filter(Boolean)
+  return output.split(/\r?\n/).map(parseNameStatusLine).filter(isDefined)
 }
 
-function isJapaneseBlogPostPath(path) {
-  return /^src\/content\/blog\/[^/]+\.md$/.test(path)
+function isJapaneseBlogPostPath(filePath: string): boolean {
+  return /^src\/content\/blog\/[^/]+\.md$/.test(filePath)
 }
 
-function isAuthorProfilePath(path) {
-  return /^src\/content\/authors\/[^/]+\.json$/.test(path)
+function isAuthorProfilePath(filePath: string): boolean {
+  return /^src\/content\/authors\/[^/]+\.json$/.test(filePath)
 }
 
-function isTagDefinitionPath(path) {
-  return /^src\/content\/tags\/[^/]+\.json$/.test(path)
+function isTagDefinitionPath(filePath: string): boolean {
+  return /^src\/content\/tags\/[^/]+\.json$/.test(filePath)
 }
 
-function isSiteTranslationSourcePath(path) {
+function isSiteTranslationSourcePath(filePath: string): boolean {
   return (
-    path.startsWith(`${SITE_TRANSLATION_SOURCE_DIR}/`) && path.endsWith('.json')
+    filePath.startsWith(`${SITE_TRANSLATION_SOURCE_DIR}/`) &&
+    filePath.endsWith('.json')
   )
 }
 
-function loadTargetLocales() {
+function loadTargetLocales(): string[] {
   const configPath = 'src/i18n/config.ts'
   const source = readFileSync(configPath, 'utf8')
   const match = source.match(/locales\s*=\s*\[([^\]]+)\]\s*as const/s)
@@ -286,12 +465,17 @@ function loadTargetLocales() {
     throw new Error(`Could not parse locales from ${configPath}`)
   }
 
-  return [...match[1].matchAll(/'([^']+)'/g)]
+  const localeSource = match[1]
+  if (!localeSource) {
+    throw new Error(`Could not parse locales from ${configPath}`)
+  }
+
+  return [...localeSource.matchAll(/'([^']+)'/g)]
     .map((entry) => entry[1])
     .filter((locale) => locale !== DEFAULT_SOURCE_LOCALE)
 }
 
-function readTextAtRef(ref, filePath) {
+function readTextAtRef(ref: string | null, filePath: string): string | null {
   if (!ref || ref === 'WORKTREE') {
     if (!existsSync(filePath)) return null
     return readFileSync(filePath, 'utf8')
@@ -301,7 +485,9 @@ function readTextAtRef(ref, filePath) {
   return source || null
 }
 
-function splitMarkdownDocument(source) {
+function splitMarkdownDocument(
+  source: string | null | undefined,
+): MarkdownDocument {
   if (typeof source !== 'string') {
     return { frontmatter: null, body: null }
   }
@@ -322,7 +508,7 @@ function splitMarkdownDocument(source) {
   }
 }
 
-function getBlogArticleId(source) {
+function getBlogArticleId(source: string | null | undefined): string | null {
   const { frontmatter } = splitMarkdownDocument(source)
   if (typeof frontmatter !== 'string') return null
 
@@ -336,13 +522,17 @@ function getBlogArticleId(source) {
 }
 
 export function pairJapaneseBlogRenamesByArticleId(
-  entries,
-  { baseSha, headSha, readSource = readTextAtRef },
-) {
-  if (!baseSha) return entries
+  entries: readonly ChangedEntry[],
+  {
+    baseSha,
+    headSha,
+    readSource = readTextAtRef,
+  }: PairJapaneseBlogRenamesOptions,
+): ChangedEntry[] {
+  if (!baseSha) return [...entries]
 
-  const deletionsByArticleId = new Map()
-  const additionsByArticleId = new Map()
+  const deletionsByArticleId = new Map<string, ChangedEntry[]>()
+  const additionsByArticleId = new Map<string, ChangedEntry[]>()
 
   for (const entry of entries) {
     if (
@@ -364,8 +554,8 @@ export function pairJapaneseBlogRenamesByArticleId(
     groups.set(articleId, matches)
   }
 
-  const previousPathByAddition = new Map()
-  const matchedDeletionPaths = new Set()
+  const previousPathByAddition = new Map<string, string>()
+  const matchedDeletionPaths = new Set<string>()
 
   for (const [articleId, additions] of additionsByArticleId) {
     const deletions = deletionsByArticleId.get(articleId)
@@ -387,7 +577,7 @@ export function pairJapaneseBlogRenamesByArticleId(
   })
 }
 
-function isBlogTranslationDisabled(source) {
+function isBlogTranslationDisabled(source: string | null | undefined): boolean {
   const { frontmatter } = splitMarkdownDocument(source)
   return (
     typeof frontmatter === 'string' &&
@@ -395,12 +585,17 @@ function isBlogTranslationDisabled(source) {
   )
 }
 
-function truncateForPrompt(value, maxLength = 12000) {
+function truncateForPrompt(value: string | null, maxLength = 12000): string {
   if (!value || value.length <= maxLength) return value || ''
   return `${value.slice(0, maxLength)}\n\n[diff truncated: ${value.length - maxLength} characters omitted]`
 }
 
-function getSourceDiff(filePath, baseSha, headSha, previousPath = null) {
+function getSourceDiff(
+  filePath: string,
+  baseSha: string | null,
+  headSha: string,
+  previousPath: string | null = null,
+): string {
   const paths = previousPath ? [previousPath, filePath] : [filePath]
 
   if (!baseSha) {
@@ -417,7 +612,11 @@ function getSourceDiff(filePath, baseSha, headSha, previousPath = null) {
   return safeRunGit(['diff', '--unified=8', baseSha, headSha, '--', ...paths])
 }
 
-function getChangedBlogPost(entry, baseSha, headSha) {
+function getChangedBlogPost(
+  entry: ChangedEntry,
+  baseSha: string | null,
+  headSha: string,
+): ChangedEntry | null {
   if (entry.status === 'A' || entry.status === 'D') {
     return entry
   }
@@ -441,7 +640,11 @@ function getChangedBlogPost(entry, baseSha, headSha) {
     : null
 }
 
-function getChangedBlogPostTask(entry, baseSha, headSha) {
+function getChangedBlogPostTask(
+  entry: ChangedEntry,
+  baseSha: string | null,
+  headSha: string,
+): ChangedBlogPostTask | null {
   if (entry.status !== 'D') {
     const currentSource = readTextAtRef(
       headSha === 'HEAD' ? 'WORKTREE' : headSha,
@@ -461,12 +664,15 @@ function getChangedBlogPostTask(entry, baseSha, headSha) {
   }
 }
 
-function flattenJsonPaths(value, prefix = '') {
+function flattenJsonPaths(
+  value: JsonValue,
+  prefix = '',
+): Map<string, JsonValue> {
   if (value == null || typeof value !== 'object' || Array.isArray(value)) {
     return new Map([[prefix, value]])
   }
 
-  const entries = new Map()
+  const entries = new Map<string, JsonValue>()
   for (const [key, child] of Object.entries(value)) {
     const childPrefix = prefix ? `${prefix}.${key}` : key
     for (const [path, childValue] of flattenJsonPaths(child, childPrefix)) {
@@ -476,7 +682,7 @@ function flattenJsonPaths(value, prefix = '') {
   return entries
 }
 
-function getSourceTranslationKeyPrefix(filePath) {
+function getSourceTranslationKeyPrefix(filePath: string): string {
   const relativePath = filePath
     .slice(`${SITE_TRANSLATION_SOURCE_DIR}/`.length)
     .replace(/\\/g, '/')
@@ -501,16 +707,27 @@ function getSourceTranslationKeyPrefix(filePath) {
   return relativePath.replace(/\.json$/, '').replace(/\//g, '.')
 }
 
-function buildTranslationKeyPath(filePath, sourceKeyPath) {
+function buildTranslationKeyPath(
+  filePath: string,
+  sourceKeyPath: string,
+): string {
   const prefix = getSourceTranslationKeyPrefix(filePath)
   return [prefix, sourceKeyPath].filter(Boolean).join('.')
 }
 
-function getChangedJsonKeyPaths(before, after, filePath) {
-  const beforePaths = before ? flattenJsonPaths(before) : new Map()
-  const afterPaths = after ? flattenJsonPaths(after) : new Map()
+function getChangedJsonKeyPaths(
+  before: JsonRecord | null,
+  after: JsonRecord | null,
+  filePath: string,
+): TranslationKeyChange[] {
+  const beforePaths = before
+    ? flattenJsonPaths(before)
+    : new Map<string, JsonValue>()
+  const afterPaths = after
+    ? flattenJsonPaths(after)
+    : new Map<string, JsonValue>()
   const allPaths = new Set([...beforePaths.keys(), ...afterPaths.keys()])
-  const changes = []
+  const changes: TranslationKeyChange[] = []
 
   for (const sourceKeyPath of [...allPaths].sort()) {
     const beforeValue = beforePaths.get(sourceKeyPath)
@@ -532,11 +749,11 @@ function getChangedJsonKeyPaths(before, after, filePath) {
 }
 
 function getChangedSiteTranslationFile(
-  entry,
-  baseSha,
-  headSha,
+  entry: ChangedEntry,
+  baseSha: string | null,
+  headSha: string,
   forceChanged = false,
-) {
+): ChangedSiteTranslationFile | null {
   if (entry.status === 'D') return null
 
   const before =
@@ -556,29 +773,34 @@ function getChangedSiteTranslationFile(
   }
 }
 
-function readJsonAtRef(ref, filePath) {
+function readJsonAtRef(
+  ref: string | null,
+  filePath: string,
+): JsonRecord | null {
   if (!ref || ref === 'WORKTREE') {
     if (!existsSync(filePath)) return null
-    return JSON.parse(readFileSync(filePath, 'utf8'))
+    return parseJsonRecord(readFileSync(filePath, 'utf8'), filePath)
   }
 
   const source = safeRunGit(['show', `${ref}:${filePath}`])
   if (!source) return null
-  return JSON.parse(source)
+  return parseJsonRecord(source, filePath)
 }
 
-function normalizeAuthor(author) {
+function normalizeAuthor(
+  author: JsonRecord | null,
+): Record<AuthorBaseKey, JsonValue | null> {
   return Object.fromEntries(
     AUTHOR_BASE_KEYS.map((key) => [key, author?.[key] ?? null]),
-  )
+  ) as Record<AuthorBaseKey, JsonValue | null>
 }
 
 function getChangedAuthorProfile(
-  filePath,
-  baseSha,
-  headSha,
+  filePath: string,
+  baseSha: string | null,
+  headSha: string,
   forceChanged = false,
-) {
+): EntityChange<AuthorBaseKey> | null {
   const before = readJsonAtRef(baseSha, filePath)
   const after = readJsonAtRef(
     headSha === 'HEAD' ? 'WORKTREE' : headSha,
@@ -588,8 +810,8 @@ function getChangedAuthorProfile(
   if (!before && !after) return null
 
   const id =
-    after?.id ??
-    before?.id ??
+    getStringField(after, 'id') ??
+    getStringField(before, 'id') ??
     filePath
       .split('/')
       .at(-1)
@@ -634,18 +856,20 @@ function getChangedAuthorProfile(
   }
 }
 
-function normalizeTag(tag) {
+function normalizeTag(
+  tag: JsonRecord | null,
+): Record<TagBaseKey, JsonValue | null> {
   return Object.fromEntries(
     TAG_BASE_KEYS.map((key) => [key, tag?.[key] ?? null]),
-  )
+  ) as Record<TagBaseKey, JsonValue | null>
 }
 
 function getChangedTagDefinition(
-  filePath,
-  baseSha,
-  headSha,
+  filePath: string,
+  baseSha: string | null,
+  headSha: string,
   forceChanged = false,
-) {
+): EntityChange<TagBaseKey> | null {
   const before = readJsonAtRef(baseSha, filePath)
   const after = readJsonAtRef(
     headSha === 'HEAD' ? 'WORKTREE' : headSha,
@@ -655,8 +879,8 @@ function getChangedTagDefinition(
   if (!before && !after) return null
 
   const id =
-    after?.id ??
-    before?.id ??
+    getStringField(after, 'id') ??
+    getStringField(before, 'id') ??
     filePath
       .split('/')
       .at(-1)
@@ -701,7 +925,7 @@ function getChangedTagDefinition(
   }
 }
 
-function getRepositoryInfo() {
+function getRepositoryInfo(): RepositoryInfo {
   const repository =
     process.env.GITHUB_REPOSITORY || inferRepositoryFromGitRemote()
   if (!repository) {
@@ -709,10 +933,14 @@ function getRepositoryInfo() {
   }
 
   const [owner, repo] = repository.split('/')
+  if (!owner || !repo || repository.split('/').length !== 2) {
+    throw new Error('GITHUB_REPOSITORY must use the owner/repository format')
+  }
+
   return { owner, repo, repository }
 }
 
-function inferRepositoryFromGitRemote() {
+function inferRepositoryFromGitRemote(): string | null {
   const remoteUrl = safeRunGit(['remote', 'get-url', 'origin'])
   if (!remoteUrl) return null
 
@@ -726,9 +954,9 @@ function inferRepositoryFromGitRemote() {
 }
 
 async function requestGitHub(
-  path,
-  { method = 'GET', body, token, headers } = {},
-) {
+  path: string,
+  { method = 'GET', body, token, headers }: GitHubRequestOptions = {},
+): Promise<unknown | null> {
   const authToken = token ?? process.env.GITHUB_TOKEN
   if (!authToken) {
     throw new Error('GITHUB_TOKEN is required')
@@ -754,16 +982,39 @@ async function requestGitHub(
   }
 
   if (response.status === 204) return null
-  return response.json()
+  return response.json() as Promise<unknown>
 }
 
-async function listOpenPullRequests(owner, repo) {
-  const pullRequests = []
+export function parseOpenPullRequests(value: unknown): OpenPullRequest[] {
+  if (!Array.isArray(value)) {
+    throw new Error('GitHub API returned an invalid pull request list')
+  }
+
+  return value.map((pullRequest) => {
+    if (!isJsonRecord(pullRequest)) {
+      throw new Error('GitHub API returned an invalid pull request')
+    }
+
+    const number = pullRequest.number
+    return {
+      number: typeof number === 'number' ? number : null,
+      title: getStringField(pullRequest, 'title'),
+      body: getStringField(pullRequest, 'body'),
+    }
+  })
+}
+
+async function listOpenPullRequests(
+  owner: string,
+  repo: string,
+): Promise<OpenPullRequest[]> {
+  const pullRequests: OpenPullRequest[] = []
 
   for (let page = 1; ; page += 1) {
-    const batch = await requestGitHub(
+    const response = await requestGitHub(
       `/repos/${owner}/${repo}/pulls?state=open&per_page=100&page=${page}`,
     )
+    const batch = parseOpenPullRequests(response)
     pullRequests.push(...batch)
 
     if (batch.length < 100) {
@@ -772,23 +1023,54 @@ async function listOpenPullRequests(owner, repo) {
   }
 }
 
-function isMatchingTranslationPullRequest(pullRequest, payload) {
+function isMatchingTranslationPullRequest(
+  pullRequest: OpenPullRequest,
+  payload: TranslationTaskPayload,
+): boolean {
   return (
     pullRequest?.title === payload.title ||
-    pullRequest?.body?.includes(payload.marker)
+    pullRequest.body?.includes(payload.marker) === true
   )
 }
 
-async function findOpenPullRequestForPayload(owner, repo, payload) {
+async function findOpenPullRequestForPayload(
+  owner: string,
+  repo: string,
+  payload: TranslationTaskPayload,
+): Promise<OpenPullRequest | undefined> {
   const pullRequests = await listOpenPullRequests(owner, repo)
   return pullRequests.find((pullRequest) =>
     isMatchingTranslationPullRequest(pullRequest, payload),
   )
 }
 
-function getCopilotAgentToken() {
+function getCopilotAgentToken(): string | null {
   const token = process.env.COPILOT_AGENT_TOKEN?.trim()
   return token || null
+}
+
+function getCopilotJobIdentifier(value: unknown): string | number | undefined {
+  return typeof value === 'string' || typeof value === 'number'
+    ? value
+    : undefined
+}
+
+function parseCopilotAgentJob(responseText: string): CopilotAgentJob {
+  if (!responseText) return {}
+
+  try {
+    const response: unknown = JSON.parse(responseText)
+    if (!isJsonRecord(response)) return { raw: responseText }
+
+    const id = getCopilotJobIdentifier(response.id)
+    const jobId = getCopilotJobIdentifier(response.job_id)
+    return {
+      ...(id !== undefined ? { id } : {}),
+      ...(jobId !== undefined ? { jobId } : {}),
+    }
+  } catch {
+    return { raw: responseText }
+  }
 }
 
 async function requestCopilotAgentJob({
@@ -796,7 +1078,12 @@ async function requestCopilotAgentJob({
   repo,
   title,
   problemStatement,
-}) {
+}: {
+  owner: string
+  repo: string
+  title: string
+  problemStatement: string
+}): Promise<CopilotAgentJob> {
   const token = getCopilotAgentToken()
   if (!token) {
     throw new Error(
@@ -830,16 +1117,10 @@ async function requestCopilotAgentJob({
     )
   }
 
-  if (!responseText) return {}
-
-  try {
-    return JSON.parse(responseText)
-  } catch {
-    return { raw: responseText }
-  }
+  return parseCopilotAgentJob(responseText)
 }
 
-function buildCopilotInstructions(taskKind) {
+function buildCopilotInstructions(taskKind: TaskKind): string[] {
   if (taskKind === 'author-profile') {
     return [
       'Update the author profile translations described below.',
@@ -882,7 +1163,7 @@ function buildProblemStatement({
   instructions,
   sourceDiff,
   changedKeys,
-}) {
+}: BuildProblemStatementOptions): string {
   const sections = [
     `<!-- ${marker} -->`,
     'You are handling an automated translation task for acecore-net.',
@@ -937,7 +1218,7 @@ export function buildBlogTaskPayload({
   locales,
   headSha,
   repository,
-}) {
+}: BuildBlogTaskPayloadOptions): TranslationTaskPayload {
   const marker = `translation-source:${sourcePath}`
   const slug = sourcePath.split('/').at(-1)
   const previousSlug = previousPath?.split('/').at(-1)
@@ -998,7 +1279,7 @@ function buildAuthorTaskPayload({
   locales,
   headSha,
   repository,
-}) {
+}: BuildEntityTaskPayloadOptions<AuthorBaseKey>): TranslationTaskPayload {
   const marker = `translation-source:${sourcePath}`
   const title = `[translation] Update author profile ${change.id}`
   const instructions = [
@@ -1035,7 +1316,7 @@ function buildTagTaskPayload({
   locales,
   headSha,
   repository,
-}) {
+}: BuildEntityTaskPayloadOptions<TagBaseKey>): TranslationTaskPayload {
   const marker = `translation-source:${sourcePath}`
   const title = `[translation] Update tag definition ${change.id}`
   const instructions = [
@@ -1066,7 +1347,12 @@ function buildTagTaskPayload({
   }
 }
 
-function buildSiteTextTaskPayload({ changes, locales, headSha, repository }) {
+function buildSiteTextTaskPayload({
+  changes,
+  locales,
+  headSha,
+  repository,
+}: BuildSiteTextTaskPayloadOptions): TranslationTaskPayload {
   const marker = `translation-source:${SITE_TRANSLATION_SOURCE_DIR}`
   const title = '[translation] Update site text translations'
   const instructions = [
@@ -1102,7 +1388,9 @@ function buildSiteTextTaskPayload({ changes, locales, headSha, repository }) {
   }
 }
 
-async function createTranslationPullRequestTask(payload) {
+async function createTranslationPullRequestTask(
+  payload: TranslationTaskPayload,
+): Promise<OpenPullRequest | CopilotAgentJob> {
   const { owner, repo } = getRepositoryInfo()
   const existingPullRequest = await findOpenPullRequestForPayload(
     owner,
@@ -1123,12 +1411,12 @@ async function createTranslationPullRequestTask(payload) {
     title: payload.title,
     problemStatement: payload.problemStatement,
   })
-  const jobId = job.id ?? job.job_id ?? 'unknown'
+  const jobId = job.id ?? job.jobId ?? 'unknown'
   console.log(`Started Copilot translation PR task ${jobId}: ${payload.title}`)
   return job
 }
 
-async function main() {
+async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2))
   const baseSha = getBaseSha(args)
   const headSha = getHeadSha(args)
@@ -1150,7 +1438,7 @@ async function main() {
   const blogChanges = changedEntries
     .filter((entry) => isJapaneseBlogPostPath(entry.path))
     .map((entry) => getChangedBlogPostTask(entry, baseSha, headSha))
-    .filter(Boolean)
+    .filter(isDefined)
 
   if (blogChanges.length > args.maxBlogTasks) {
     throw new Error(
@@ -1164,7 +1452,7 @@ async function main() {
         .map((entry) =>
           getChangedAuthorProfile(entry.path, baseSha, headSha, forceChanged),
         )
-        .filter(Boolean)
+        .filter(isDefined)
     : []
   const tagChanges = args.includeNonBlog
     ? changedEntries
@@ -1172,14 +1460,14 @@ async function main() {
         .map((entry) =>
           getChangedTagDefinition(entry.path, baseSha, headSha, forceChanged),
         )
-        .filter(Boolean)
+        .filter(isDefined)
     : []
   const siteTextChanges = changedEntries
     .filter((entry) => isSiteTranslationSourcePath(entry.path))
     .map((entry) =>
       getChangedSiteTranslationFile(entry, baseSha, headSha, forceChanged),
     )
-    .filter(Boolean)
+    .filter(isDefined)
 
   const payloads = [
     ...blogChanges.map((entry) =>
@@ -1240,7 +1528,7 @@ async function main() {
   }
 }
 
-function isMainModule() {
+function isMainModule(): boolean {
   if (!process.argv[1]) return false
 
   const current = fileURLToPath(import.meta.url)
