@@ -246,13 +246,15 @@
       "officers": [
         {
           "name": "西田凱",
-          "role": "Chief Executive Officer"
+          "role": "Representative Director and President"
         },
         {
-          "name": "佐藤凌峨"
+          "name": "佐藤凌峨",
+          "role": "Director"
         },
         {
-          "name": "西田創"
+          "name": "西田創",
+          "role": "Director"
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

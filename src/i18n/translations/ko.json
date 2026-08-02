@@ -282,13 +282,15 @@
       "officers": [
         {
           "name": "西田凱",
-          "role": "대표"
+          "role": "대표이사 사장"
         },
         {
-          "name": "佐藤凌峨"
+          "name": "佐藤凌峨",
+          "role": "이사"
         },
         {
-          "name": "西田創"
+          "name": "西田創",
+          "role": "이사"
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

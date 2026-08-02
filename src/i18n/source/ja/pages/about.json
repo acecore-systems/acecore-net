@@ -12,13 +12,15 @@
   "officers": [
     {
       "name": "西田凱",
-      "role": "代表"
+      "role": "代表取締役社長"
     },
     {
-      "name": "佐藤凌峨"
+      "name": "佐藤凌峨",
+      "role": "取締役"
     },
     {
-      "name": "西田創"
+      "name": "西田創",
+      "role": "取締役"
     }
   ],
   "missionLoopEyebrow": "Mission Loop",

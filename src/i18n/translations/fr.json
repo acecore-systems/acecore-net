@@ -282,13 +282,15 @@
       "officers": [
         {
           "name": "西田凱",
-          "role": "Directeur général"
+          "role": "Directeur représentant et président"
         },
         {
-          "name": "佐藤凌峨"
+          "name": "佐藤凌峨",
+          "role": "Administrateur"
         },
         {
-          "name": "西田創"
+          "name": "西田創",
+          "role": "Administrateur"
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
