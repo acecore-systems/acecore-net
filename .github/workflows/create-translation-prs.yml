@@ -1,4 +1,4 @@
-name: Create Translation PRs
+name: Submit OpenAI Translation Batch
 
 on:
   push:
@@ -10,45 +10,26 @@ on:
   workflow_dispatch:
     inputs:
       base_sha:
-        description: Optional base SHA for diff detection
+        description: Optional base SHA for changed-source detection
         required: false
         type: string
       head_sha:
-        description: Optional head SHA for diff detection
+        description: Optional source SHA to translate
         required: false
         type: string
-      changed_files:
-        description: Optional comma-separated changed files for dry runs or manual execution
-        required: false
-        type: string
-      include_non_blog_sources:
-        description: Also create translation PRs for authors and tags during manual runs
-        required: false
-        default: false
-        type: boolean
-      max_blog_tasks:
-        description: Maximum blog translation PR tasks to create in one run
-        required: false
-        default: '3'
-        type: string
-      dry_run:
-        description: Print Copilot task payloads without creating PRs
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
-  create-translation-prs:
+  submit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out source revision
         uses: actions/checkout@v7
         with:
+          ref: ${{ inputs.head_sha || github.sha }}
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -60,45 +41,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Typecheck translation PR automation
-        run: npm run typecheck:translation-prs
+      - name: Type-check OpenAI translation automation
+        run: npm run typecheck:openai-translation
 
-      - name: Create translation PR tasks
+      - name: Wait for follow-up edits to the same source
+        run: sleep 900
+
+      - name: Fetch current main
+        run: git fetch origin main:refs/remotes/origin/main --depth=1
+
+      - name: Submit current translation requests
         env:
-          COPILOT_AGENT_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          args=()
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no translation Batch was submitted."
+            exit 0
+          fi
 
+          args=(submit)
           if [ -n "${{ inputs.base_sha }}" ]; then
             args+=("--base=${{ inputs.base_sha }}")
           fi
-
           if [ -n "${{ inputs.head_sha }}" ]; then
             args+=("--head=${{ inputs.head_sha }}")
           fi
+          args+=("--current-ref=origin/main")
 
-          if [ -n "${{ inputs.changed_files }}" ]; then
-            args+=("--changed-files=${{ inputs.changed_files }}")
-          fi
-
-          if [ "${{ inputs.include_non_blog_sources }}" = "true" ]; then
-            args+=("--include-non-blog")
-          fi
-
-          if [ "${{ github.event_name }}" = "push" ]; then
-            args+=("--cms-only")
-          fi
-
-          if [ -n "${{ inputs.max_blog_tasks }}" ]; then
-            args+=("--max-blog-tasks=${{ inputs.max_blog_tasks }}")
-          fi
-
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            args+=("--dry-run")
-          fi
-
-          node --experimental-strip-types scripts/create-translation-prs.ts "${args[@]}"
+          node --experimental-strip-types scripts/openai-translation-batch.ts "${args[@]}"

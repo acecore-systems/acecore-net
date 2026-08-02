@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "scripts/openai-translation-batch.ts",
+    "tests/openai-translation-batch.test.ts"
+  ]
+}
