@@ -263,18 +263,44 @@
       "legalNameLabel": "Rechtlicher Name",
       "executiveHeading": "Unternehmensleitung",
       "executiveLead": "Lernen Sie die Leitung von Acecore kennen.",
+      "officerAreasLabel": "Verantwortungsbereiche",
+      "officerBiographyLabel": "Kurzbiografie",
+      "officerMessageLabel": "Botschaft",
       "officers": [
         {
           "name": "西田凱",
-          "role": "Vertretungsberechtigter Direktor und Präsident"
+          "role": "Vertretungsberechtigter Direktor und Präsident",
+          "areas": [
+            "Unternehmensstrategie",
+            "Web und Systeme",
+            "Datenbanken und Infrastruktur",
+            "Qualitätssicherung",
+            "KI-Einsatz"
+          ],
+          "bio": "Präsident und vertretungsberechtigter Direktor von Acecore. Auf Basis von C#/.NET führt er Web und Systeme, Datenbanken und Infrastruktur, Qualitätssicherung und KI-Einsatz integriert – von der Klärung geschäftlicher Aufgaben über Design und Einführung bis zur Verbesserung nach dem Launch.",
+          "message": "Technologie und Lernen zu einer Kraft für die Gesellschaft machen."
         },
         {
           "name": "佐藤凌峨",
-          "role": "Direktor"
+          "role": "Direktor",
+          "areas": [
+            "Betrieb der Aceserver-Community",
+            "Discord",
+            "Minecraft-Entwicklung und -Betrieb"
+          ],
+          "bio": "Als Community-Wächter von Aceserver unterstützt er den Betrieb der Discord-Community sowie die Minecraft-bezogene Entwicklung und den Betrieb. Er veröffentlicht Java-Plugins für Minecraft und Werkzeuge zur Discord-Integration.",
+          "message": "Ich arbeite mit Python und Minecraft-Plugins und lerne FastAPI und C++."
         },
         {
           "name": "西田創",
-          "role": "Direktor"
+          "role": "Direktor",
+          "areas": [
+            "Kreative Produktion",
+            "3D-Modellierung",
+            "Web-Content-Betrieb"
+          ],
+          "bio": "Er erstellt Illustrationen und Geschichten und veröffentlicht originale 3D-Avatare, Gimmicks und Accessoires für VRChat. Außerdem wirkt er an Inhaltsaktualisierungen der offiziellen Hatt-Website mit.",
+          "message": "Ich schreibe und illustriere, während ich originale 3D-Avatare, Gimmicks und Accessoires für VRChat erstelle."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

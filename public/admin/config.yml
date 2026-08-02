@@ -1408,6 +1408,25 @@ collections:
                 hint: 'officers[].role'
                 widget: string
                 required: false
+              - name: 'areas'
+                label: '担当領域'
+                hint: 'officers[].areas[]'
+                widget: list
+                required: false
+                field:
+                  name: 'area'
+                  label: '担当領域'
+                  widget: string
+              - name: 'bio'
+                label: '略歴'
+                hint: 'officers[].bio'
+                widget: text
+                required: false
+              - name: 'message'
+                label: '一言'
+                hint: 'officers[].message'
+                widget: text
+                required: false
           - name: 'missionLoopEyebrow'
             label: 'ミッション・ループ・補助見出し'
             hint: 'missionLoopEyebrow'

@@ -243,18 +243,44 @@
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
       "executiveLead": "Meet the leadership of Acecore.",
+      "officerAreasLabel": "Areas of responsibility",
+      "officerBiographyLabel": "Biography",
+      "officerMessageLabel": "Message",
       "officers": [
         {
           "name": "西田凱",
-          "role": "Representative Director and President"
+          "role": "Representative Director and President",
+          "areas": [
+            "Business strategy",
+            "Web and systems",
+            "Databases and infrastructure",
+            "Quality assurance",
+            "AI adoption"
+          ],
+          "bio": "President and Representative Director of Acecore. With C#/.NET at the core, he leads web and systems, databases and infrastructure, quality assurance, and AI adoption as an integrated effort from business problem framing through design, implementation, and post-launch improvement.",
+          "message": "Turning technology and learning into a force for society."
         },
         {
           "name": "佐藤凌峨",
-          "role": "Director"
+          "role": "Director",
+          "areas": [
+            "Aceserver community operations",
+            "Discord",
+            "Minecraft development and operations"
+          ],
+          "bio": "As an Aceserver community gatekeeper, he supports Discord community operations and Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord.",
+          "message": "I work with Python and Minecraft plugins while learning FastAPI and C++."
         },
         {
           "name": "西田創",
-          "role": "Director"
+          "role": "Director",
+          "areas": [
+            "Creative production",
+            "3D modeling",
+            "Web content operations"
+          ],
+          "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories. He also contributes to content updates for the official Hatt homepage.",
+          "message": "I write and illustrate while creating original VRChat 3D avatars, gimmicks, and accessories."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

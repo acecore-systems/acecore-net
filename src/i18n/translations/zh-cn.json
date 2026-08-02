@@ -279,18 +279,40 @@
       "legalNameLabel": "法人名称",
       "executiveHeading": "管理团队",
       "executiveLead": "了解 Acecore 的管理团队。",
+      "officerAreasLabel": "负责领域",
+      "officerBiographyLabel": "简介",
+      "officerMessageLabel": "寄语",
       "officers": [
         {
           "name": "西田凱",
-          "role": "代表董事兼社长"
+          "role": "代表董事兼社长",
+          "areas": [
+            "业务战略",
+            "Web 与系统",
+            "数据库与基础设施",
+            "质量保证",
+            "AI 应用"
+          ],
+          "bio": "Acecore 代表董事兼社长。以 C#/.NET 为核心，从业务课题梳理到设计、导入及上线后的改进，统筹推进 Web 与系统、数据库与基础设施、质量保证和 AI 应用。",
+          "message": "让技术与学习成为社会的力量。"
         },
         {
           "name": "佐藤凌峨",
-          "role": "董事"
+          "role": "董事",
+          "areas": [
+            "Aceserver 社区运营",
+            "Discord",
+            "Minecraft 相关开发与运维"
+          ],
+          "bio": "作为 Aceserver 的社区守门人，协助 Discord 社区运营，以及 Minecraft 相关的开发与运维。公开发布 Minecraft Java 插件和支持 Discord 联动的工具。",
+          "message": "专注于 Python 和 Minecraft 插件，同时学习 FastAPI 和 C++。"
         },
         {
           "name": "西田創",
-          "role": "董事"
+          "role": "董事",
+          "areas": ["创意制作", "3D 建模", "Web 内容运营"],
+          "bio": "从事插画与小说创作，发布面向 VRChat 的原创 3D 虚拟形象、互动功能和配件，也参与 Hatt 官方主页的内容更新。",
+          "message": "一边创作插画和小说，一边制作面向 VRChat 的原创 3D 虚拟形象、互动功能和配件。"
         }
       ],
       "missionLoopEyebrow": "Mission Loop",

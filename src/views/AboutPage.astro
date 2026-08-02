@@ -40,6 +40,9 @@ interface RelatedLink {
 interface Officer {
   name: string
   role?: string
+  areas?: string[]
+  bio?: string
+  message?: string
 }
 
 const getList = <T,>(key: string): T[] =>
@@ -167,12 +170,50 @@ const aboutPageLd = {
             <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {officers.map((officer) => (
                 <li>
-                  <article class="ac-card h-full p-6 text-center">
-                    <h3 class="text-xl ac-heading">{officer.name}</h3>
-                    {officer.role && (
-                      <p class="mt-1 text-sm font-700 text-brand-600">
-                        {officer.role}
-                      </p>
+                  <article class="ac-card h-full p-6">
+                    <header class="text-center">
+                      <h3 class="text-xl ac-heading">{officer.name}</h3>
+                      {officer.role && (
+                        <p class="mt-1 text-sm font-700 text-brand-600">
+                          {officer.role}
+                        </p>
+                      )}
+                    </header>
+                    {(officer.areas?.length ||
+                      officer.bio ||
+                      officer.message) && (
+                      <dl class="mt-5 space-y-4 border-t border-slate-200 pt-5 text-left">
+                        {officer.areas && officer.areas.length > 0 && (
+                          <div>
+                            <dt class="text-sm font-700 text-slate-500">
+                              {t(locale, 'pages.about.officerAreasLabel')}
+                            </dt>
+                            <dd class="mt-1 leading-relaxed text-slate-700">
+                              {officer.areas.join('・')}
+                            </dd>
+                          </div>
+                        )}
+                        {officer.bio && (
+                          <div>
+                            <dt class="text-sm font-700 text-slate-500">
+                              {t(locale, 'pages.about.officerBiographyLabel')}
+                            </dt>
+                            <dd class="mt-1 whitespace-pre-line leading-relaxed text-slate-600">
+                              {officer.bio}
+                            </dd>
+                          </div>
+                        )}
+                        {officer.message && (
+                          <div>
+                            <dt class="text-sm font-700 text-slate-500">
+                              {t(locale, 'pages.about.officerMessageLabel')}
+                            </dt>
+                            <dd class="mt-1 whitespace-pre-line font-600 leading-relaxed text-slate-700">
+                              {officer.message}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
                     )}
                   </article>
                 </li>
