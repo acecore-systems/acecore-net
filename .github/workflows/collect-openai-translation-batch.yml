@@ -1,0 +1,122 @@
+name: Collect OpenAI Translation Batch
+
+on:
+  schedule:
+    - cron: '2,17,32,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+  pull-requests: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check OpenAI translation automation
+        run: npm run typecheck:openai-translation
+
+      - name: Find processed batches
+        id: processed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ids="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | sed -n 's/^openai-translation-processed-//p' | paste -sd, - || true)"
+          echo "ids=${ids}" >> "$GITHUB_OUTPUT"
+
+      - name: Collect one completed batch
+        id: collector
+        env:
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no Batch was collected."
+            exit 0
+          fi
+          node --experimental-strip-types scripts/openai-translation-batch.ts collect --processed-batches="${{ steps.processed.outputs.ids }}"
+
+      - name: Check translation Bot configuration
+        id: bot
+        if: steps.collector.outputs.has_changes == 'true'
+        env:
+          APP_ID: ${{ secrets.TRANSLATION_BOT_APP_ID }}
+          PRIVATE_KEY: ${{ secrets.TRANSLATION_BOT_APP_PRIVATE_KEY }}
+        run: |
+          if [ -z "$APP_ID" ] || [ -z "$PRIVATE_KEY" ]; then
+            echo "::warning::TRANSLATION_BOT_APP_ID and TRANSLATION_BOT_APP_PRIVATE_KEY are required before a translation PR can be created."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create translation Bot token
+        id: app-token
+        if: steps.bot.outputs.ready == 'true'
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.TRANSLATION_BOT_APP_ID }}
+          private-key: ${{ secrets.TRANSLATION_BOT_APP_PRIVATE_KEY }}
+
+      - name: Commit current translation results
+        id: commit
+        if: steps.bot.outputs.ready == 'true'
+        env:
+          TRANSLATION_BOT_TOKEN: ${{ steps.app-token.outputs.token }}
+          BATCH_ID: ${{ steps.collector.outputs.batch_id }}
+        run: |
+          branch="translation/openai/${BATCH_ID}"
+          git switch -c "$branch"
+          git config user.name "Acecore Translation Bot"
+          git config user.email "translation-bot@users.noreply.github.com"
+          git add src/content/blog src/i18n/translations
+          git diff --cached --quiet && exit 1
+          git commit -m "翻訳を更新 (${BATCH_ID})"
+          git remote set-url origin "https://x-access-token:${TRANSLATION_BOT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --set-upstream origin "$branch"
+          echo "branch=${branch}" >> "$GITHUB_OUTPUT"
+
+      - name: Create translation pull request
+        if: steps.commit.outputs.branch != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          BODY_PATH: ${{ steps.collector.outputs.body_path }}
+          BRANCH: ${{ steps.commit.outputs.branch }}
+          BATCH_ID: ${{ steps.collector.outputs.batch_id }}
+        run: |
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base main \
+            --head "$BRANCH" \
+            --draft \
+            --title "[translation] OpenAI Batch ${BATCH_ID}" \
+            --body-file "$BODY_PATH"
+
+      - name: Mark batch as processed
+        if: >-
+          success() &&
+          steps.collector.outputs.processed_batch_id != '' &&
+          (steps.collector.outputs.has_changes != 'true' || steps.bot.outputs.ready == 'true')
+        uses: actions/upload-artifact@v4
+        with:
+          name: openai-translation-processed-${{ steps.collector.outputs.processed_batch_id }}
+          path: ${{ steps.collector.outputs.marker_path }}
+          retention-days: 30
