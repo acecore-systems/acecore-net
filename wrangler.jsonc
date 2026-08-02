@@ -40,6 +40,12 @@
       "migrations_dir": "./migrations/search",
     },
   ],
+  "services": [
+    {
+      "binding": "ACECORE_CHAT",
+      "service": "acecore-chat-worker",
+    },
+  ],
   "env": {
     "preview": {
       "vars": {
@@ -77,6 +83,12 @@
           "database_name": "acecore-net-search-production",
           "database_id": "3d26157c-b052-498c-af9b-82bad65b8421",
           "migrations_dir": "./migrations/search",
+        },
+      ],
+      "services": [
+        {
+          "binding": "ACECORE_CHAT",
+          "service": "acecore-chat-worker-preview",
         },
       ],
     },
@@ -142,6 +154,12 @@
           "database_name": "acecore-net-search-production",
           "database_id": "3d26157c-b052-498c-af9b-82bad65b8421",
           "migrations_dir": "./migrations/search",
+        },
+      ],
+      "services": [
+        {
+          "binding": "ACECORE_CHAT",
+          "service": "acecore-chat-worker",
         },
       ],
     },

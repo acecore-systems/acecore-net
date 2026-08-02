@@ -380,7 +380,7 @@ const phoneParts = SITE.phone.split('-')
         submit.disabled = true
 
         try {
-          const response = await fetch('/api/ai-contact', {
+          const response = await fetch('/api/ai-chat', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
