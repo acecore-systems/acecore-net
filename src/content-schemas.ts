@@ -34,7 +34,6 @@ const contentDate = z
 
 const localizedAuthorSchema = z.object({
   name: z.string().optional(),
-  role: z.string().optional(),
   bio: z.string().optional(),
   skills: z.array(z.string()).optional(),
 })
@@ -179,7 +178,6 @@ export const blogSchema = z.object({
 export const authorSchema = z.object({
   id: z.string(),
   name: z.string(),
-  role: z.string().optional(),
   avatar: z.string().optional(),
   avatarImage: z.string().optional(),
   bio: z.string().optional(),

@@ -279,6 +279,18 @@
       "legalNameLabel": "法人名称",
       "executiveHeading": "管理团队",
       "executiveLead": "了解 Acecore 的管理团队。",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "首席执行官"
+        },
+        {
+          "name": "佐藤凌峨"
+        },
+        {
+          "name": "西田創"
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "通过四项业务支持社会",
       "missionLoopDesc": "Acecore运营涵盖技术、学习、社区和产品的官方站点。",

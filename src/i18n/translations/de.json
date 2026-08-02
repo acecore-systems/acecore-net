@@ -263,6 +263,18 @@
       "legalNameLabel": "Rechtlicher Name",
       "executiveHeading": "Unternehmensleitung",
       "executiveLead": "Lernen Sie die Leitung von Acecore kennen.",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "Geschäftsführer"
+        },
+        {
+          "name": "佐藤凌峨"
+        },
+        {
+          "name": "西田創"
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Gesellschaft durch vier Geschäftsbereiche unterstützen",
       "missionLoopDesc": "Acecore betreibt offizielle Websites für Technologie, Lernen, Gemeinschaft und Produkte.",

@@ -243,6 +243,18 @@
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
       "executiveLead": "Meet the leadership of Acecore.",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "Chief Executive Officer"
+        },
+        {
+          "name": "佐藤凌峨"
+        },
+        {
+          "name": "西田創"
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Supporting society through four businesses",
       "missionLoopDesc": "Acecore operates official sites for technology, learning, community, and products.",

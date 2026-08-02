@@ -13,12 +13,7 @@ import { defaultLocale, getLocalizedUrl, locales, type Locale } from '../i18n'
 import type { AuthorData } from './authors'
 
 /** 著者の多言語フィールド型 */
-type LocalizedAuthor = {
-  name?: string
-  role?: string
-  bio?: string
-  skills?: string[]
-}
+type LocalizedAuthor = { name?: string; bio?: string; skills?: string[] }
 
 const nonDefaultLocalePattern = locales
   .filter((locale) => locale !== defaultLocale)
@@ -131,7 +126,6 @@ export function getLocalizedAuthor(author: AuthorData, locale: Locale) {
   return {
     ...author,
     name: localized?.name ?? author.name,
-    role: localized?.role ?? author.role,
     bio: localized?.bio ?? author.bio,
     skills: localized?.skills ?? author.skills,
   }

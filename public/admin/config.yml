@@ -1393,6 +1393,21 @@ collections:
             label: '役員紹介・説明'
             hint: 'executiveLead'
             widget: string
+          - name: 'officers'
+            label: '役員一覧'
+            hint: 'officers[]'
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - name: 'name'
+                label: '氏名'
+                hint: 'officers[].name'
+                widget: string
+              - name: 'role'
+                label: '役職'
+                hint: 'officers[].role'
+                widget: string
+                required: false
           - name: 'missionLoopEyebrow'
             label: 'ミッション・ループ・補助見出し'
             hint: 'missionLoopEyebrow'

@@ -279,6 +279,18 @@
       "legalNameLabel": "법인명",
       "executiveHeading": "경영진 소개",
       "executiveLead": "Acecore의 경영진을 소개합니다.",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "대표"
+        },
+        {
+          "name": "佐藤凌峨"
+        },
+        {
+          "name": "西田創"
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "네 가지 사업을 통해 사회를 지원합니다",
       "missionLoopDesc": "Acecore는 기술, 배움, 커뮤니티, 프로덕트를 위한 공식 사이트를 운영합니다.",
