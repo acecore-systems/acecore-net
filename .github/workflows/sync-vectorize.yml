@@ -49,6 +49,10 @@ jobs:
         working-directory: tooling
         run: npm ci
 
+      - name: Type-check protected Vectorize tooling
+        working-directory: tooling
+        run: npm run typecheck:vectorize-sync
+
       - name: Wait for the pushed commit to be public
         if: github.event_name == 'push'
         env:
@@ -142,5 +146,5 @@ jobs:
             exit 1
           fi
 
-          node ../tooling/scripts/sync-vectorize.mjs \
+          node --experimental-strip-types ../tooling/scripts/sync-vectorize.ts \
             --confirm-production "$VECTORIZE_INDEX_NAME"

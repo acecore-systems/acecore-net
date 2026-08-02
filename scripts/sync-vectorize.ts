@@ -10,6 +10,128 @@ import {
   SEARCH_VECTOR_LIMIT,
 } from './build-search-corpus.mjs'
 
+type JsonRecord = Record<string, unknown>
+type Locale = (typeof SUPPORTED_LOCALES)[number]
+type LocaleCounts = Record<Locale, number>
+type FetchImplementation = typeof globalThis.fetch
+type SleepImplementation = (milliseconds: number) => Promise<void>
+type RandomImplementation = () => number
+
+interface Logger {
+  log(message: string): void
+}
+
+interface EmbeddingConfiguration {
+  model: string
+  dimensions: number
+  metric: string
+}
+
+type VectorMetadata = JsonRecord & {
+  url: string
+  locale: Locale
+}
+
+interface CorpusChunk {
+  id: string
+  namespace: Locale
+  text: string
+  metadata: VectorMetadata
+}
+
+interface SearchCorpus {
+  version: string
+  embedding: EmbeddingConfiguration
+  chunks: CorpusChunk[]
+  sourceCount: number
+  vectorCount: number
+  localeCounts: LocaleCounts
+}
+
+interface VectorizeVector {
+  id: string
+  values: number[]
+  namespace: Locale
+  metadata: VectorMetadata
+}
+
+interface QueryCanary {
+  id: string
+  vector: number[]
+}
+
+interface ApiClient {
+  request(path: string, init?: RequestInit): Promise<JsonRecord>
+}
+
+interface SyncVectorizeOptions {
+  accountId?: string
+  apiToken?: string
+  openAiApiKey?: string
+  indexName?: string
+  corpusFile?: string
+  dryRun?: boolean
+  planOnly?: boolean
+  waitForMutations?: boolean
+  verifyAfterMutation?: boolean
+  allowLargeDelete?: boolean
+  expectedDeleteCount?: number
+  expectedPlanId?: string
+  fetchImpl?: FetchImplementation
+  requestTimeoutMs?: number
+  retryBaseDelayMs?: number
+  sleepImpl?: SleepImplementation
+  randomImpl?: RandomImplementation
+  logger?: Logger
+}
+
+interface DryRunResult {
+  dryRun: true
+  indexName: string | null
+  corpusVersion: string
+  vectors: number
+  locales: LocaleCounts
+}
+
+interface PlanResult {
+  dryRun: false
+  planOnly: true
+  indexName: string
+  corpusVersion: string
+  current: number
+  expected: number
+  upsert: number
+  delete: number
+  deleteRatio: number
+  requiresLargeDeleteApproval: boolean
+  planId: string
+}
+
+interface CompleteResult {
+  dryRun: false
+  indexName: string
+  corpusVersion: string
+  existing: number
+  upserted: number
+  deleted: number
+  mutationId: string | null
+  verified: boolean
+  queryVerified: boolean
+}
+
+type SyncVectorizeResult = DryRunResult | PlanResult | CompleteResult
+
+interface ParsedArguments {
+  dryRun: boolean
+  planOnly: boolean
+  waitForMutations: boolean
+  allowLargeDelete: boolean
+  expectedDeleteCount?: number
+  expectedPlanId?: string
+  indexName?: string
+  corpusFile: string
+}
+
 const API_BASE_URL = 'https://api.cloudflare.com/client/v4'
 const OPENAI_API_BASE_URL = 'https://api.openai.com/v1'
 const DEFAULT_CORPUS_FILE = resolve('.vectorize/corpus.json')
@@ -30,7 +152,7 @@ const MAX_DELETE_RATIO = 0.2
 const MIN_SOURCE_COUNT = 90
 const MIN_VECTOR_COUNT = 150
 const MIN_LOCALE_SOURCE_COUNT = 10
-const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
+const MIN_LOCALE_VECTOR_COUNTS: Readonly<LocaleCounts> = Object.freeze({
   ja: 10,
   en: 19,
   'zh-cn': 9,
@@ -43,7 +165,7 @@ const MIN_LOCALE_VECTOR_COUNTS = Object.freeze({
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
 const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production'
-const ALLOWED_INDEX_NAMES = new Set([PRODUCTION_INDEX_NAME])
+const ALLOWED_INDEX_NAMES = new Set<string>([PRODUCTION_INDEX_NAME])
 const SUPPORTED_LOCALES = [
   'ja',
   'en',
@@ -54,10 +176,12 @@ const SUPPORTED_LOCALES = [
   'ko',
   'de',
   'ru',
-]
+] as const
 
 class CloudflareApiError extends Error {
-  constructor(message, status) {
+  readonly status: number
+
+  constructor(message: string, status: number) {
     super(message)
     this.name = 'CloudflareApiError'
     this.status = status
@@ -65,7 +189,9 @@ class CloudflareApiError extends Error {
 }
 
 class OpenAiApiError extends Error {
-  constructor(status) {
+  readonly status: number
+
+  constructor(status: number) {
     super(`OpenAI API request failed with ${status}.`)
     this.name = 'OpenAiApiError'
     this.status = status
@@ -91,18 +217,14 @@ export async function syncVectorize({
   sleepImpl = sleep,
   randomImpl = Math.random,
   logger = console,
-} = {}) {
-  const corpus = JSON.parse(await readFile(corpusFile, 'utf8'))
-  validateCorpus(corpus)
-  if (!dryRun && (!accountId || !apiToken || !indexName)) {
-    throw new Error(
-      'CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN, and VECTORIZE_INDEX_NAME are required.',
-    )
-  }
-  validateIndexName(indexName, { required: !dryRun })
+}: SyncVectorizeOptions = {}): Promise<SyncVectorizeResult> {
+  const parsedCorpus: unknown = JSON.parse(await readFile(corpusFile, 'utf8'))
+  validateCorpus(parsedCorpus)
+  const corpus = parsedCorpus
 
   if (dryRun) {
-    const result = {
+    validateIndexName(indexName, { required: false })
+    const result: DryRunResult = {
       dryRun: true,
       indexName: indexName || null,
       corpusVersion: corpus.version,
@@ -113,26 +235,33 @@ export async function syncVectorize({
     return result
   }
 
-  const client = createCloudflareClient({
+  const credentials = requireSyncCredentials({
     accountId,
     apiToken,
+    indexName,
+  })
+  validateIndexName(credentials.indexName, { required: true })
+
+  const client = createCloudflareClient({
+    accountId: credentials.accountId,
+    apiToken: credentials.apiToken,
     fetchImpl,
     requestTimeoutMs,
     retryBaseDelayMs,
     sleepImpl,
     randomImpl,
   })
-  const index = await ensureIndex(client, indexName, {
+  const index = await ensureIndex(client, credentials.indexName, {
     createIfMissing: !planOnly,
   })
-  validateIndexConfiguration(index, indexName)
+  validateIndexConfiguration(index, credentials.indexName)
 
-  const currentIds = await listVectorIds(client, indexName, {
+  const currentIds = await listVectorIds(client, credentials.indexName, {
     logger,
     sleepImpl,
     retryBaseDelayMs,
   })
-  validateExistingVectorIds(currentIds, indexName)
+  validateExistingVectorIds(currentIds, credentials.indexName)
   const expectedIds = new Set(corpus.chunks.map(({ id }) => id))
   const chunksToUpsert = corpus.chunks.filter(({ id }) => !currentIds.has(id))
   const idsToDelete = [...currentIds].filter((id) => !expectedIds.has(id))
@@ -141,7 +270,7 @@ export async function syncVectorize({
   const requiresLargeDeleteApproval =
     idsToDelete.length > 0 && deleteRatio > MAX_DELETE_RATIO
   const planId = createPlanId({
-    indexName,
+    indexName: credentials.indexName,
     corpusVersion: corpus.version,
     currentIds,
     expectedIds,
@@ -150,7 +279,7 @@ export async function syncVectorize({
   logger.log(
     JSON.stringify({
       event: 'vectorize_sync_plan',
-      indexName,
+      indexName: credentials.indexName,
       corpusVersion: corpus.version,
       current: currentIds.size,
       expected: expectedIds.size,
@@ -166,7 +295,7 @@ export async function syncVectorize({
     return {
       dryRun: false,
       planOnly: true,
-      indexName,
+      indexName: credentials.indexName,
       corpusVersion: corpus.version,
       current: currentIds.size,
       expected: expectedIds.size,
@@ -190,49 +319,69 @@ export async function syncVectorize({
     allowLargeDelete,
   })
 
-  if (chunksToUpsert.length > 0 && !openAiApiKey) {
-    throw new Error('OPENAI_API_KEY is required to create embeddings.')
-  }
-  const openAiClient =
-    chunksToUpsert.length > 0
-      ? createOpenAiClient({
-          apiKey: openAiApiKey,
-          fetchImpl,
-          requestTimeoutMs,
-          retryBaseDelayMs,
-          sleepImpl,
-          randomImpl,
-        })
-      : null
-
-  const mutationIds = []
-  let queryCanary = null
-  for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
-    const embeddings = await createEmbeddings(openAiClient, chunkBatch)
-
-    if (!queryCanary) {
-      queryCanary = {
-        id: chunkBatch[0].id,
-        vector: embeddings[0],
-      }
+  const mutationIds: string[] = []
+  let queryCanary: QueryCanary | null = null
+  if (chunksToUpsert.length > 0) {
+    if (!openAiApiKey) {
+      throw new Error('OPENAI_API_KEY is required to create embeddings.')
     }
+    const openAiClient = createOpenAiClient({
+      apiKey: openAiApiKey,
+      fetchImpl,
+      requestTimeoutMs,
+      retryBaseDelayMs,
+      sleepImpl,
+      randomImpl,
+    })
 
-    for (const vectorBatch of batches(
-      chunkBatch.map((chunk, index) => ({
-        id: chunk.id,
-        values: embeddings[index],
-        namespace: chunk.namespace,
-        metadata: chunk.metadata,
-      })),
-      UPSERT_BATCH_SIZE,
-    )) {
-      const mutationId = await upsertVectors(client, indexName, vectorBatch)
-      mutationIds.push(mutationId)
+    for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
+      const embeddings = await createEmbeddings(openAiClient, chunkBatch)
+
+      if (!queryCanary) {
+        const canaryChunk = chunkBatch[0]
+        const canaryEmbedding = embeddings[0]
+        if (!canaryChunk || !canaryEmbedding) {
+          throw new Error(
+            'Vectorize upsert batch did not contain a query canary.',
+          )
+        }
+        queryCanary = {
+          id: canaryChunk.id,
+          vector: canaryEmbedding,
+        }
+      }
+
+      const vectors: VectorizeVector[] = chunkBatch.map((chunk, index) => {
+        const values = embeddings[index]
+        if (!values) {
+          throw new Error(
+            'OpenAI embedding response did not match its input batch.',
+          )
+        }
+        return {
+          id: chunk.id,
+          values,
+          namespace: chunk.namespace,
+          metadata: chunk.metadata,
+        }
+      })
+      for (const vectorBatch of batches(vectors, UPSERT_BATCH_SIZE)) {
+        const mutationId = await upsertVectors(
+          client,
+          credentials.indexName,
+          vectorBatch,
+        )
+        mutationIds.push(mutationId)
+      }
     }
   }
 
   for (const idBatch of batches(idsToDelete, DELETE_BATCH_SIZE)) {
-    const mutationId = await deleteVectors(client, indexName, idBatch)
+    const mutationId = await deleteVectors(
+      client,
+      credentials.indexName,
+      idBatch,
+    )
     mutationIds.push(mutationId)
   }
 
@@ -240,10 +389,10 @@ export async function syncVectorize({
   let verified = false
   let queryVerified = false
   if (waitForMutations && lastMutationId) {
-    await waitForMutation(client, indexName, lastMutationId)
+    await waitForMutation(client, credentials.indexName, lastMutationId)
   }
   if (waitForMutations && verifyAfterMutation) {
-    await waitForReconciliation(client, indexName, expectedIds, {
+    await waitForReconciliation(client, credentials.indexName, expectedIds, {
       logger,
       sleepImpl,
       retryBaseDelayMs,
@@ -251,14 +400,14 @@ export async function syncVectorize({
     })
     verified = true
     if (queryCanary) {
-      await verifyQueryCanary(client, indexName, queryCanary)
+      await verifyQueryCanary(client, credentials.indexName, queryCanary)
       queryVerified = true
     }
   }
 
-  const result = {
+  const result: CompleteResult = {
     dryRun: false,
-    indexName,
+    indexName: credentials.indexName,
     corpusVersion: corpus.version,
     existing: currentIds.size,
     upserted: chunksToUpsert.length,
@@ -271,55 +420,75 @@ export async function syncVectorize({
   return result
 }
 
-export function validateCorpus(corpus) {
-  if (
-    corpus?.embedding?.model !== SEARCH_EMBEDDING_MODEL ||
-    corpus?.embedding?.dimensions !== SEARCH_EMBEDDING_DIMENSIONS ||
-    corpus?.embedding?.metric !== SEARCH_DISTANCE_METRIC
-  ) {
+export function validateCorpus(
+  corpus: unknown,
+): asserts corpus is SearchCorpus {
+  if (!isRecord(corpus)) {
+    throw new Error('Corpus must be a JSON object.')
+  }
+  if (!isEmbeddingConfiguration(corpus.embedding)) {
     throw new Error(
       `Corpus embedding configuration must be ${SEARCH_EMBEDDING_MODEL}, ${SEARCH_EMBEDDING_DIMENSIONS} dimensions, ${SEARCH_DISTANCE_METRIC}.`,
     )
   }
-  if (!Array.isArray(corpus.chunks)) {
+  if (typeof corpus.version !== 'string' || !corpus.version.trim()) {
+    throw new Error('Corpus version must be a non-empty string.')
+  }
+
+  const chunks = corpus.chunks
+  if (!Array.isArray(chunks)) {
     throw new Error('Corpus chunks must be an array.')
   }
-  if (
-    !Number.isInteger(corpus.sourceCount) ||
-    corpus.sourceCount < MIN_SOURCE_COUNT
-  ) {
+  const sourceCount = corpus.sourceCount
+  if (!isInteger(sourceCount) || sourceCount < MIN_SOURCE_COUNT) {
     throw new Error(
       `Corpus must contain at least ${MIN_SOURCE_COUNT} source documents.`,
     )
   }
+  const vectorCount = corpus.vectorCount
   if (
-    !Number.isInteger(corpus.vectorCount) ||
-    corpus.chunks.length !== corpus.vectorCount ||
-    corpus.chunks.length < MIN_VECTOR_COUNT ||
-    corpus.chunks.length > SEARCH_VECTOR_LIMIT
+    !isInteger(vectorCount) ||
+    chunks.length !== vectorCount ||
+    chunks.length < MIN_VECTOR_COUNT ||
+    chunks.length > SEARCH_VECTOR_LIMIT
   ) {
     throw new Error(
       `Corpus vector count must be between ${MIN_VECTOR_COUNT} and ${SEARCH_VECTOR_LIMIT}.`,
     )
   }
+  const localeCounts = corpus.localeCounts
+  if (!isRecord(localeCounts)) {
+    throw new Error('Corpus localeCounts must be an object.')
+  }
 
-  const ids = new Set()
-  const actualLocaleCounts = Object.fromEntries(
-    SUPPORTED_LOCALES.map((locale) => [locale, 0]),
-  )
-  const actualLocaleSources = Object.fromEntries(
-    SUPPORTED_LOCALES.map((locale) => [locale, new Set()]),
-  )
-  for (const chunk of corpus.chunks) {
+  const ids = new Set<string>()
+  const actualLocaleCounts: LocaleCounts = {
+    ja: 0,
+    en: 0,
+    'zh-cn': 0,
+    es: 0,
+    pt: 0,
+    fr: 0,
+    ko: 0,
+    de: 0,
+    ru: 0,
+  }
+  const actualLocaleSources: Record<Locale, Set<string>> = {
+    ja: new Set(),
+    en: new Set(),
+    'zh-cn': new Set(),
+    es: new Set(),
+    pt: new Set(),
+    fr: new Set(),
+    ko: new Set(),
+    de: new Set(),
+    ru: new Set(),
+  }
+  for (const chunk of chunks) {
     if (
-      typeof chunk?.id !== 'string' ||
+      !isCorpusChunk(chunk) ||
       !MANAGED_VECTOR_ID_PATTERN.test(chunk.id) ||
-      !SUPPORTED_LOCALES.includes(chunk?.namespace) ||
-      typeof chunk?.text !== 'string' ||
-      !chunk.metadata ||
-      typeof chunk.metadata.url !== 'string' ||
       !chunk.metadata.url.startsWith('/') ||
-      chunk.metadata.locale !== chunk.namespace ||
       !urlMatchesLocale(chunk.metadata.url, chunk.namespace)
     ) {
       throw new Error('Corpus contains an invalid chunk.')
@@ -334,19 +503,19 @@ export function validateCorpus(corpus) {
     (total, urls) => total + urls.size,
     0,
   )
-  if (corpus.sourceCount !== actualSourceCount) {
+  if (sourceCount !== actualSourceCount) {
     throw new Error(
       `Corpus sourceCount must match ${actualSourceCount} unique source URLs.`,
     )
   }
 
   for (const locale of SUPPORTED_LOCALES) {
-    const declaredCount = corpus?.localeCounts?.[locale]
+    const declaredCount = localeCounts[locale]
     const actualCount = actualLocaleCounts[locale]
     const actualSourceCountForLocale = actualLocaleSources[locale].size
     const minimumVectorCount = MIN_LOCALE_VECTOR_COUNTS[locale]
     if (
-      !Number.isInteger(declaredCount) ||
+      !isInteger(declaredCount) ||
       declaredCount !== actualCount ||
       actualCount < minimumVectorCount
     ) {
@@ -362,7 +531,74 @@ export function validateCorpus(corpus) {
   }
 }
 
-function urlMatchesLocale(url, locale) {
+function isRecord(value: unknown): value is JsonRecord {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function isInteger(value: unknown): value is number {
+  return typeof value === 'number' && Number.isInteger(value)
+}
+
+function isLocale(value: unknown): value is Locale {
+  return (
+    typeof value === 'string' &&
+    SUPPORTED_LOCALES.some((locale) => locale === value)
+  )
+}
+
+function isEmbeddingConfiguration(
+  value: unknown,
+): value is EmbeddingConfiguration {
+  return (
+    isRecord(value) &&
+    value.model === SEARCH_EMBEDDING_MODEL &&
+    value.dimensions === SEARCH_EMBEDDING_DIMENSIONS &&
+    value.metric === SEARCH_DISTANCE_METRIC
+  )
+}
+
+function isVectorMetadata(
+  value: unknown,
+  namespace: Locale,
+): value is VectorMetadata {
+  return (
+    isRecord(value) &&
+    typeof value.url === 'string' &&
+    value.locale === namespace
+  )
+}
+
+function isCorpusChunk(value: unknown): value is CorpusChunk {
+  if (!isRecord(value)) return false
+
+  return (
+    typeof value.id === 'string' &&
+    isLocale(value.namespace) &&
+    typeof value.text === 'string' &&
+    isVectorMetadata(value.metadata, value.namespace)
+  )
+}
+
+function getRequiredResponseResult(
+  payload: JsonRecord,
+  provider: string,
+): JsonRecord {
+  if (!isRecord(payload.result)) {
+    throw new Error(
+      `${provider} API response did not include a valid result object.`,
+    )
+  }
+  return payload.result
+}
+
+function isFiniteNumberArray(value: unknown): value is number[] {
+  return (
+    Array.isArray(value) &&
+    value.every((item) => typeof item === 'number' && Number.isFinite(item))
+  )
+}
+
+function urlMatchesLocale(url: string, locale: Locale): boolean {
   const pathname = url.split(/[?#]/, 1)[0]
   const localizedPrefixes = SUPPORTED_LOCALES.filter(
     (candidate) => candidate !== 'ja',
@@ -382,7 +618,17 @@ function urlMatchesLocale(url, locale) {
   )
 }
 
-function createPlanId({ indexName, corpusVersion, currentIds, expectedIds }) {
+function createPlanId({
+  indexName,
+  corpusVersion,
+  currentIds,
+  expectedIds,
+}: {
+  indexName: string
+  corpusVersion: string
+  currentIds: ReadonlySet<string>
+  expectedIds: ReadonlySet<string>
+}): string {
   return createHash('sha256')
     .update(
       JSON.stringify({
@@ -401,7 +647,12 @@ function validateExpectedPlan({
   actualPlanId,
   expectedDeleteCount,
   expectedPlanId,
-}) {
+}: {
+  actualDeleteCount: number
+  actualPlanId: string
+  expectedDeleteCount?: number
+  expectedPlanId?: string
+}): void {
   if (
     expectedDeleteCount !== undefined &&
     actualDeleteCount !== expectedDeleteCount
@@ -418,8 +669,16 @@ function validateExpectedPlan({
   }
 }
 
-function validateIndexName(indexName, { required }) {
-  if (!indexName && !required) return
+function validateIndexName(
+  indexName: string | undefined,
+  { required }: { required: boolean },
+): void {
+  if (!indexName) {
+    if (!required) return
+    throw new Error(
+      `VECTORIZE_INDEX_NAME must be one of: ${[...ALLOWED_INDEX_NAMES].join(', ')}.`,
+    )
+  }
   if (!ALLOWED_INDEX_NAMES.has(indexName)) {
     throw new Error(
       `VECTORIZE_INDEX_NAME must be one of: ${[...ALLOWED_INDEX_NAMES].join(', ')}.`,
@@ -427,7 +686,28 @@ function validateIndexName(indexName, { required }) {
   }
 }
 
-function validateExistingVectorIds(ids, indexName) {
+function requireSyncCredentials({
+  accountId,
+  apiToken,
+  indexName,
+}: {
+  accountId?: string
+  apiToken?: string
+  indexName?: string
+}): { accountId: string; apiToken: string; indexName: string } {
+  if (!accountId || !apiToken || !indexName) {
+    throw new Error(
+      'CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN, and VECTORIZE_INDEX_NAME are required.',
+    )
+  }
+
+  return { accountId, apiToken, indexName }
+}
+
+function validateExistingVectorIds(
+  ids: ReadonlySet<string>,
+  indexName: string,
+): void {
   const unmanagedIds = [...ids].filter(
     (id) => !MANAGED_VECTOR_ID_PATTERN.test(id),
   )
@@ -438,7 +718,15 @@ function validateExistingVectorIds(ids, indexName) {
   )
 }
 
-function validateDeletePlan({ currentCount, deleteCount, allowLargeDelete }) {
+function validateDeletePlan({
+  currentCount,
+  deleteCount,
+  allowLargeDelete,
+}: {
+  currentCount: number
+  deleteCount: number
+  allowLargeDelete: boolean
+}): void {
   if (
     deleteCount === 0 ||
     currentCount === 0 ||
@@ -454,7 +742,11 @@ function validateDeletePlan({ currentCount, deleteCount, allowLargeDelete }) {
   )
 }
 
-function validateReconciliation(actualIds, expectedIds, indexName) {
+function validateReconciliation(
+  actualIds: ReadonlySet<string>,
+  expectedIds: ReadonlySet<string>,
+  indexName: string,
+): void {
   const missingIds = [...expectedIds].filter((id) => !actualIds.has(id))
   const unexpectedIds = [...actualIds].filter((id) => !expectedIds.has(id))
 
@@ -466,11 +758,21 @@ function validateReconciliation(actualIds, expectedIds, indexName) {
 }
 
 async function waitForReconciliation(
-  client,
-  indexName,
-  expectedIds,
-  { logger, sleepImpl, retryBaseDelayMs, maxAttempts },
-) {
+  client: ApiClient,
+  indexName: string,
+  expectedIds: ReadonlySet<string>,
+  {
+    logger,
+    sleepImpl,
+    retryBaseDelayMs,
+    maxAttempts,
+  }: {
+    logger: Logger
+    sleepImpl: SleepImplementation
+    retryBaseDelayMs: number
+    maxAttempts: number
+  },
+): Promise<void> {
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     const reconciledIds = await listVectorIds(client, indexName, {
       logger,
@@ -497,7 +799,11 @@ async function waitForReconciliation(
   }
 }
 
-async function verifyQueryCanary(client, indexName, { id, vector }) {
+async function verifyQueryCanary(
+  client: ApiClient,
+  indexName: string,
+  { id, vector }: QueryCanary,
+): Promise<void> {
   const payload = await client.request(
     `/vectorize/v2/indexes/${encodeURIComponent(indexName)}/query`,
     {
@@ -511,16 +817,22 @@ async function verifyQueryCanary(client, indexName, { id, vector }) {
       }),
     },
   )
-  const matches = payload?.result?.matches
-  if (!Array.isArray(matches) || !matches.some((match) => match?.id === id)) {
+  const matches = getRequiredResponseResult(payload, 'Vectorize query').matches
+  if (
+    !Array.isArray(matches) ||
+    !matches.some((match) => isRecord(match) && match.id === id)
+  ) {
     throw new Error(
       `Vectorize index ${indexName} query canary did not return newly upserted vector ${id}.`,
     )
   }
 }
 
-export function extractEmbeddingData(payload, expectedCount) {
-  const data = payload?.data
+export function extractEmbeddingData(
+  payload: unknown,
+  expectedCount: number,
+): number[][] {
+  const data = isRecord(payload) ? payload.data : undefined
 
   if (!Array.isArray(data) || data.length !== expectedCount) {
     throw new Error(
@@ -528,19 +840,18 @@ export function extractEmbeddingData(payload, expectedCount) {
     )
   }
 
-  const embeddings = Array(expectedCount)
-  const indexes = new Set()
+  const embeddings: Array<number[] | undefined> = Array(expectedCount)
+  const indexes = new Set<number>()
   for (const item of data) {
-    const index = item?.index
-    const values = item?.embedding
+    const index = isRecord(item) ? item.index : undefined
+    const values = isRecord(item) ? item.embedding : undefined
     if (
-      !Number.isInteger(index) ||
+      !isInteger(index) ||
       index < 0 ||
       index >= expectedCount ||
       indexes.has(index) ||
-      !Array.isArray(values) ||
-      values.length !== SEARCH_EMBEDDING_DIMENSIONS ||
-      values.some((value) => !Number.isFinite(value))
+      !isFiniteNumberArray(values) ||
+      values.length !== SEARCH_EMBEDDING_DIMENSIONS
     ) {
       throw new Error(
         `OpenAI embedding response must contain unique indexes and ${SEARCH_EMBEDDING_DIMENSIONS} finite values.`,
@@ -550,7 +861,14 @@ export function extractEmbeddingData(payload, expectedCount) {
     embeddings[index] = values
   }
 
-  return embeddings
+  return embeddings.map((embedding) => {
+    if (!embedding) {
+      throw new Error(
+        'OpenAI embedding response was missing an expected index.',
+      )
+    }
+    return embedding
+  })
 }
 
 function createCloudflareClient({
@@ -561,11 +879,19 @@ function createCloudflareClient({
   retryBaseDelayMs,
   sleepImpl,
   randomImpl,
-}) {
+}: {
+  accountId: string
+  apiToken: string
+  fetchImpl: FetchImplementation
+  requestTimeoutMs: number
+  retryBaseDelayMs: number
+  sleepImpl: SleepImplementation
+  randomImpl: RandomImplementation
+}): ApiClient {
   const accountBase = `${API_BASE_URL}/accounts/${encodeURIComponent(accountId)}`
 
   return {
-    async request(path, init = {}) {
+    async request(path: string, init: RequestInit = {}): Promise<JsonRecord> {
       const headers = new Headers(init.headers)
       headers.set('Authorization', `Bearer ${apiToken}`)
       headers.set('Accept', 'application/json')
@@ -587,7 +913,7 @@ function createCloudflareClient({
             isRetryableStatus(response.status) &&
             attempt < MAX_REQUEST_RETRIES
           ) {
-            await response.body?.cancel().catch(() => {})
+            await cancelResponseBody(response)
             clearTimeout(timeout)
             await sleepImpl(
               getRetryDelay({
@@ -602,13 +928,8 @@ function createCloudflareClient({
 
           const payload = await readJsonResponse(response)
 
-          if (!response.ok || payload?.success === false) {
-            const message =
-              payload?.errors
-                ?.map((error) => error?.message)
-                .filter(Boolean)
-                .join('; ') ||
-              `Cloudflare API request failed with ${response.status}.`
+          if (!response.ok || payload.success === false) {
+            const message = getCloudflareErrorMessage(payload, response.status)
             throw new CloudflareApiError(message, response.status)
           }
 
@@ -646,9 +967,16 @@ function createOpenAiClient({
   retryBaseDelayMs,
   sleepImpl,
   randomImpl,
-}) {
+}: {
+  apiKey: string
+  fetchImpl: FetchImplementation
+  requestTimeoutMs: number
+  retryBaseDelayMs: number
+  sleepImpl: SleepImplementation
+  randomImpl: RandomImplementation
+}): ApiClient {
   return {
-    async request(path, init = {}) {
+    async request(path: string, init: RequestInit = {}): Promise<JsonRecord> {
       const headers = new Headers(init.headers)
       headers.set('Authorization', `Bearer ${apiKey}`)
       headers.set('Accept', 'application/json')
@@ -671,7 +999,7 @@ function createOpenAiClient({
             isRetryableStatus(response.status) &&
             attempt < MAX_REQUEST_RETRIES
           ) {
-            await response.body?.cancel().catch(() => {})
+            await cancelResponseBody(response)
             clearTimeout(timeout)
             await sleepImpl(
               getRetryDelay({
@@ -685,7 +1013,7 @@ function createOpenAiClient({
           }
 
           if (!response.ok) {
-            await response.body?.cancel().catch(() => {})
+            await cancelResponseBody(response)
             throw new OpenAiApiError(response.status)
           }
 
@@ -717,27 +1045,59 @@ function createOpenAiClient({
   }
 }
 
-function isRetryableStatus(status) {
+function getCloudflareErrorMessage(
+  payload: JsonRecord,
+  status: number,
+): string {
+  const errors = payload.errors
+  const messages = Array.isArray(errors)
+    ? errors.flatMap((error) => {
+        if (!isRecord(error) || typeof error.message !== 'string') return []
+        return [error.message]
+      })
+    : []
+  return messages.join('; ') || `Cloudflare API request failed with ${status}.`
+}
+
+async function cancelResponseBody(response: Response): Promise<void> {
+  try {
+    await response.body?.cancel()
+  } catch {
+    // Releasing a failed response body is best-effort before a retry.
+  }
+}
+
+function isRetryableStatus(status: number): boolean {
   return status === 429 || status >= 500
 }
 
-function isRetryableNetworkError(error, timedOut) {
+function isRetryableNetworkError(error: unknown, timedOut: boolean): boolean {
   return (
     timedOut ||
     error instanceof TypeError ||
-    error?.name === 'AbortError' ||
-    error?.name === 'TimeoutError'
+    (error instanceof Error &&
+      (error.name === 'AbortError' || error.name === 'TimeoutError'))
   )
 }
 
-function getRetryDelay({ attempt, retryAfter, retryBaseDelayMs, randomImpl }) {
+function getRetryDelay({
+  attempt,
+  retryAfter,
+  retryBaseDelayMs,
+  randomImpl,
+}: {
+  attempt: number
+  retryAfter?: string | null
+  retryBaseDelayMs: number
+  randomImpl: RandomImplementation
+}): number {
   const exponentialDelay = retryBaseDelayMs * 2 ** attempt
   const jitter = randomImpl() * retryBaseDelayMs
   const retryAfterDelay = parseRetryAfter(retryAfter)
   return Math.max(exponentialDelay + jitter, retryAfterDelay)
 }
 
-function parseRetryAfter(value) {
+function parseRetryAfter(value: string | null | undefined): number {
   if (!value) return 0
 
   const seconds = Number(value)
@@ -749,15 +1109,19 @@ function parseRetryAfter(value) {
   return Number.isFinite(timestamp) ? Math.max(0, timestamp - Date.now()) : 0
 }
 
-function sleep(milliseconds) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+function sleep(milliseconds: number): Promise<void> {
+  return new Promise<void>((resolve) => setTimeout(resolve, milliseconds))
 }
 
-async function ensureIndex(client, indexName, { createIfMissing = true } = {}) {
+async function ensureIndex(
+  client: ApiClient,
+  indexName: string,
+  { createIfMissing = true }: { createIfMissing?: boolean } = {},
+): Promise<JsonRecord> {
   const encodedName = encodeURIComponent(indexName)
   try {
     const payload = await client.request(`/vectorize/v2/indexes/${encodedName}`)
-    return payload.result
+    return getRequiredResponseResult(payload, 'Vectorize index')
   } catch (error) {
     // Cloudflare returns 410 for a deleted Vectorize name that can be reused.
     if (
@@ -787,14 +1151,18 @@ async function ensureIndex(client, indexName, { createIfMissing = true } = {}) {
       },
     }),
   })
-  return payload.result
+  return getRequiredResponseResult(payload, 'Vectorize index creation')
 }
 
-function validateIndexConfiguration(index, indexName) {
-  const config = index?.config
+function validateIndexConfiguration(
+  index: JsonRecord,
+  indexName: string,
+): void {
+  const config = index.config
   if (
-    config?.dimensions !== SEARCH_EMBEDDING_DIMENSIONS ||
-    config?.metric !== SEARCH_DISTANCE_METRIC
+    !isRecord(config) ||
+    config.dimensions !== SEARCH_EMBEDDING_DIMENSIONS ||
+    config.metric !== SEARCH_DISTANCE_METRIC
   ) {
     throw new Error(
       `Vectorize index ${indexName} must use ${SEARCH_EMBEDDING_DIMENSIONS} dimensions and ${SEARCH_DISTANCE_METRIC}.`,
@@ -803,10 +1171,18 @@ function validateIndexConfiguration(index, indexName) {
 }
 
 async function listVectorIds(
-  client,
-  indexName,
-  { logger, sleepImpl, retryBaseDelayMs },
-) {
+  client: ApiClient,
+  indexName: string,
+  {
+    logger,
+    sleepImpl,
+    retryBaseDelayMs,
+  }: {
+    logger: Logger
+    sleepImpl: SleepImplementation
+    retryBaseDelayMs: number
+  },
+): Promise<Set<string>> {
   for (let restart = 0; restart <= MAX_LIST_CURSOR_RESTARTS; restart += 1) {
     try {
       return await listVectorIdsOnce(client, indexName)
@@ -834,9 +1210,12 @@ async function listVectorIds(
   throw new Error('Vectorize list pagination exhausted all cursor restarts.')
 }
 
-async function listVectorIdsOnce(client, indexName) {
-  const ids = new Set()
-  const seenCursors = new Set()
+async function listVectorIdsOnce(
+  client: ApiClient,
+  indexName: string,
+): Promise<Set<string>> {
+  const ids = new Set<string>()
+  const seenCursors = new Set<string>()
   let cursor = ''
 
   do {
@@ -845,10 +1224,16 @@ async function listVectorIdsOnce(client, indexName) {
     const payload = await client.request(
       `/vectorize/v2/indexes/${encodeURIComponent(indexName)}/list?${query}`,
     )
-    const result = payload.result || {}
+    const result = getRequiredResponseResult(payload, 'Vectorize vector list')
+    const vectors = result.vectors
+    if (!Array.isArray(vectors)) {
+      throw new Error(
+        `Vectorize index ${indexName} returned an invalid vector list; refusing to mutate it.`,
+      )
+    }
 
-    for (const vector of result.vectors || []) {
-      if (typeof vector?.id !== 'string') {
+    for (const vector of vectors) {
+      if (!isRecord(vector) || typeof vector.id !== 'string') {
         throw new Error(
           `Vectorize index ${indexName} returned a vector without a valid id; refusing to mutate it.`,
         )
@@ -856,9 +1241,14 @@ async function listVectorIdsOnce(client, indexName) {
       ids.add(vector.id)
     }
 
-    if (!result.isTruncated) {
+    if (result.isTruncated === false) {
       cursor = ''
       continue
+    }
+    if (result.isTruncated !== true) {
+      throw new Error(
+        `Vectorize index ${indexName} returned an invalid truncation state; refusing to treat the list as complete.`,
+      )
     }
 
     const nextCursor = result.nextCursor
@@ -880,7 +1270,10 @@ async function listVectorIdsOnce(client, indexName) {
   return ids
 }
 
-async function createEmbeddings(client, chunks) {
+async function createEmbeddings(
+  client: ApiClient,
+  chunks: readonly CorpusChunk[],
+): Promise<number[][]> {
   const payload = await client.request('/embeddings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -891,13 +1284,17 @@ async function createEmbeddings(client, chunks) {
       encoding_format: 'float',
     }),
   })
-  if (payload?.model !== SEARCH_EMBEDDING_MODEL) {
+  if (payload.model !== SEARCH_EMBEDDING_MODEL) {
     throw new Error(`OpenAI response model must be ${SEARCH_EMBEDDING_MODEL}.`)
   }
   return extractEmbeddingData(payload, chunks.length)
 }
 
-async function upsertVectors(client, indexName, vectors) {
+async function upsertVectors(
+  client: ApiClient,
+  indexName: string,
+  vectors: readonly VectorizeVector[],
+): Promise<string> {
   const ndjson = vectors.map((vector) => JSON.stringify(vector)).join('\n')
   const form = new FormData()
   form.set(
@@ -915,7 +1312,11 @@ async function upsertVectors(client, indexName, vectors) {
   return getMutationId(payload)
 }
 
-async function deleteVectors(client, indexName, ids) {
+async function deleteVectors(
+  client: ApiClient,
+  indexName: string,
+  ids: readonly string[],
+): Promise<string> {
   const payload = await client.request(
     `/vectorize/v2/indexes/${encodeURIComponent(indexName)}/delete_by_ids`,
     {
@@ -927,8 +1328,9 @@ async function deleteVectors(client, indexName, ids) {
   return getMutationId(payload)
 }
 
-function getMutationId(payload) {
-  const value = payload?.result?.mutationId ?? payload?.mutationId
+function getMutationId(payload: JsonRecord): string {
+  const result = isRecord(payload.result) ? payload.result : undefined
+  const value = result?.mutationId ?? payload.mutationId
   if (typeof value !== 'string' || !value.trim()) {
     throw new Error(
       'Cloudflare Vectorize mutation response did not include a valid mutationId.',
@@ -937,15 +1339,20 @@ function getMutationId(payload) {
   return value
 }
 
-async function waitForMutation(client, indexName, mutationId) {
+async function waitForMutation(
+  client: ApiClient,
+  indexName: string,
+  mutationId: string,
+): Promise<void> {
   const deadline = Date.now() + MUTATION_WAIT_TIMEOUT_MS
 
   while (Date.now() < deadline) {
     const payload = await client.request(
       `/vectorize/v2/indexes/${encodeURIComponent(indexName)}/info`,
     )
-    if (payload?.result?.processedUpToMutation === mutationId) return
-    await new Promise((resolve) =>
+    const result = isRecord(payload.result) ? payload.result : undefined
+    if (result?.processedUpToMutation === mutationId) return
+    await new Promise<void>((resolve) =>
       setTimeout(resolve, MUTATION_POLL_INTERVAL_MS),
     )
   }
@@ -953,13 +1360,16 @@ async function waitForMutation(client, indexName, mutationId) {
   throw new Error(`Vectorize mutation ${mutationId} was not queryable in time.`)
 }
 
-async function readJsonResponse(response, provider = 'Cloudflare') {
+async function readJsonResponse(
+  response: Response,
+  provider = 'Cloudflare',
+): Promise<JsonRecord> {
   const declaredLength = Number(response.headers.get('Content-Length'))
   if (
     Number.isFinite(declaredLength) &&
     declaredLength > MAX_API_RESPONSE_BYTES
   ) {
-    await response.body?.cancel().catch(() => {})
+    await cancelResponseBody(response)
     throw new Error(
       `${provider} API response exceeded ${MAX_API_RESPONSE_BYTES} bytes.`,
     )
@@ -977,9 +1387,16 @@ async function readJsonResponse(response, provider = 'Cloudflare') {
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
+      if (!value) {
+        throw new Error(`${provider} API returned an unreadable response body.`)
+      }
       bytesRead += value.byteLength
       if (bytesRead > MAX_API_RESPONSE_BYTES) {
-        await reader.cancel().catch(() => {})
+        try {
+          await reader.cancel()
+        } catch {
+          // The size limit is still enforced if cancellation itself fails.
+        }
         throw new Error(
           `${provider} API response exceeded ${MAX_API_RESPONSE_BYTES} bytes.`,
         )
@@ -991,64 +1408,81 @@ async function readJsonResponse(response, provider = 'Cloudflare') {
     reader.releaseLock()
   }
 
-  if (!text) return null
+  if (!text) {
+    throw new Error(
+      `${provider} API returned an empty response with ${response.status}.`,
+    )
+  }
 
+  let payload: unknown
   try {
-    return JSON.parse(text)
+    payload = JSON.parse(text)
   } catch {
     throw new Error(
       `${provider} API returned a non-JSON response with ${response.status}.`,
     )
   }
+  if (!isRecord(payload)) {
+    throw new Error(
+      `${provider} API returned a non-object JSON response with ${response.status}.`,
+    )
+  }
+  return payload
 }
 
-function batches(items, size) {
-  const result = []
+function batches<T>(items: readonly T[], size: number): T[][] {
+  const result: T[][] = []
   for (let index = 0; index < items.length; index += size) {
     result.push(items.slice(index, index + size))
   }
   return result
 }
 
-export function parseArguments(argv, environment = process.env) {
-  const options = {
+export function parseArguments(
+  argv: readonly string[],
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+): ParsedArguments {
+  const options: ParsedArguments = {
     dryRun: false,
     planOnly: false,
     waitForMutations: true,
     allowLargeDelete: false,
-    expectedDeleteCount: undefined,
-    expectedPlanId: undefined,
-    confirmProduction: environment.VECTORIZE_CONFIRM_PRODUCTION,
-    indexName: environment.VECTORIZE_INDEX_NAME,
     corpusFile: DEFAULT_CORPUS_FILE,
   }
+  const environmentIndexName = environment.VECTORIZE_INDEX_NAME
+  if (environmentIndexName !== undefined) {
+    options.indexName = environmentIndexName
+  }
+  let confirmProduction = environment.VECTORIZE_CONFIRM_PRODUCTION
 
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index]
+    if (argument === undefined) continue
     if (argument === '--dry-run') options.dryRun = true
     else if (argument === '--plan') options.planOnly = true
     else if (argument === '--no-wait') options.waitForMutations = false
     else if (argument === '--allow-large-delete') {
       options.allowLargeDelete = true
     } else if (argument === '--expected-delete-count') {
-      const value = argv[++index]
-      if (!/^(0|[1-9][0-9]*)$/.test(value || '')) {
+      const value = readArgumentValue(argv, ++index, argument)
+      if (!/^(0|[1-9][0-9]*)$/.test(value)) {
         throw new Error(
           '--expected-delete-count must be a non-negative integer.',
         )
       }
       options.expectedDeleteCount = Number(value)
     } else if (argument === '--expected-plan-id') {
-      const value = argv[++index]
-      if (!/^[0-9a-f]{64}$/.test(value || '')) {
+      const value = readArgumentValue(argv, ++index, argument)
+      if (!/^[0-9a-f]{64}$/.test(value)) {
         throw new Error('--expected-plan-id must be a SHA-256 hex value.')
       }
       options.expectedPlanId = value
     } else if (argument === '--confirm-production') {
-      options.confirmProduction = argv[++index]
-    } else if (argument === '--index') options.indexName = argv[++index]
-    else if (argument === '--corpus') {
-      options.corpusFile = resolve(argv[++index])
+      confirmProduction = readArgumentValue(argv, ++index, argument)
+    } else if (argument === '--index') {
+      options.indexName = readArgumentValue(argv, ++index, argument)
+    } else if (argument === '--corpus') {
+      options.corpusFile = resolve(readArgumentValue(argv, ++index, argument))
     } else {
       throw new Error(`Unknown argument: ${argument}`)
     }
@@ -1057,18 +1491,28 @@ export function parseArguments(argv, environment = process.env) {
   if (
     !options.dryRun &&
     !options.planOnly &&
-    options.confirmProduction !== PRODUCTION_INDEX_NAME
+    confirmProduction !== PRODUCTION_INDEX_NAME
   ) {
     throw new Error(
       `Production sync requires --confirm-production ${PRODUCTION_INDEX_NAME}.`,
     )
   }
-  delete options.confirmProduction
-
   return options
 }
 
-function isDirectExecution() {
+function readArgumentValue(
+  argv: readonly string[],
+  index: number,
+  argument: string,
+): string {
+  const value = argv[index]
+  if (value === undefined) {
+    throw new Error(`${argument} requires a value.`)
+  }
+  return value
+}
+
+function isDirectExecution(): boolean {
   if (!process.argv[1]) return false
   return (
     resolve(process.argv[1]).toLowerCase() ===

@@ -14,7 +14,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 1. `npm run build` がAstroとPagefindを生成する。
 2. `scripts/build-search-corpus.mjs` が公開後の `dist/**/*.html` から本文を抽出し、`.vectorize/corpus.json` を作る。
-3. `scripts/sync-vectorize.mjs` がVectorizeの既存IDと比較する。
+3. `scripts/sync-vectorize.ts` がVectorizeの既存IDと比較する。
 4. 新規・変更chunkだけをOpenAI `text-embedding-3-large` で1536次元に変換してupsertする。
 5. corpusから消えたIDをVectorizeから削除する。
 6. Pages Function `/api/search` がqueryを同じmodelでembeddingし、locale別namespaceを検索する。
@@ -127,7 +127,7 @@ credentialを使って現行indexとの差分だけを確認し、mutationしな
 $env:VECTORIZE_INDEX_NAME = 'acecore-net-search-openai-1536-production'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
-node scripts/sync-vectorize.mjs --plan
+node --experimental-strip-types scripts/sync-vectorize.ts --plan
 ```
 
 `--plan` はread-onlyです。対象indexが存在しない場合も自動作成せずに停止します。新規indexの初回作成は、承認値を付けない通常同期で行います。

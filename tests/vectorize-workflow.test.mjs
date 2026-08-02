@@ -33,7 +33,10 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.doesNotMatch(syncStep.run, /--allow-large-delete/u)
   assert.doesNotMatch(syncStep.run, /--expected-delete-count/u)
   assert.doesNotMatch(syncStep.run, /--expected-plan-id/u)
-  assert.match(syncStep.run, /node \.\.\/tooling\/scripts\/sync-vectorize\.mjs/)
+  assert.match(
+    syncStep.run,
+    /node --experimental-strip-types \.\.\/tooling\/scripts\/sync-vectorize\.ts/,
+  )
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
