@@ -190,11 +190,11 @@ Sveltia CMS は日本語ソース記事と日本語の固定ページ文言を�
 
 - Workflow: `.github/workflows/translation-pr-build.yml`
 - Workflow: `.github/workflows/merge-translation-pr.yml`
-- Script: `scripts/merge-translation-pr.mjs`
+- Script: `scripts/merge-translation-pr.ts`
 - 対象は `app/copilot-swe-agent` が作成した `[translation]` で始まる PR のみ
 - `Translation PR Build` は対象 PR のビルド確認だけを行う
 - マージは `.github/workflows/merge-translation-pr.yml` の `workflow_dispatch` で PR 番号を指定したときだけ実行する
-- merge 後は同一リポジトリ上の Copilot ブランチを削除する
+- 成功済みの `Translation PR Build` で検証したhead SHAをmerge APIへ固定し、`merged: true` を確認できた場合だけ同一リポジトリ上のCopilotブランチを削除する
 
 ## AI 問い合わせアシスタント
 
