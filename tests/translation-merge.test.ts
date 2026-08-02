@@ -9,6 +9,7 @@ import {
   mergePullRequest,
   parseArguments,
   parsePullRequest,
+  runMergeAutomation,
   type GitHubClient,
   type RepositoryInfo,
   type TranslationPullRequest,
@@ -34,6 +35,7 @@ function createPullRequest(
     headSha: HEAD_SHA,
     headRepositoryFullName: REPOSITORY.repository,
     title: '[translation] Update site text translations',
+    body: null,
     draft: true,
     nodeId: 'PR_kwDORlSgas123',
     ...overrides,
@@ -90,6 +92,15 @@ test('対象外のPRは翻訳自動マージ対象にしない', () => {
       createPullRequest({ title: 'Update site text translations' }),
     ),
     false,
+  )
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({
+        authorLogin: 'github-actions[bot]',
+        headRef: 'translation/openai/batch_example',
+      }),
+    ),
+    true,
   )
 })
 
@@ -239,16 +250,74 @@ test('ready化のGraphQL応答が対象PRをreadyと確認できなければ停�
   assert.match(warnings[0] ?? '', /did not mark PR/)
 })
 
-test('workflow入力は環境変数で渡し、TypeScriptの型チェック後に実行する', async () => {
+test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマージしない', async () => {
+  const staleMarker = Buffer.from(
+    JSON.stringify({
+      kind: 'blog',
+      sourcePath: 'src/content/blog/website-renewal.md',
+      sourceHash: '0'.repeat(64),
+    }),
+  ).toString('base64url')
+  const requests: Array<{ path: string; options?: unknown }> = []
+  const client: GitHubClient = {
+    async request(path, options) {
+      requests.push({ path, options })
+      if (!options?.method) {
+        return {
+          number: 176,
+          state: 'open',
+          base: { ref: 'main' },
+          head: {
+            ref: 'translation/openai/batch_stale',
+            sha: HEAD_SHA,
+            repo: { full_name: REPOSITORY.repository },
+          },
+          user: { login: 'github-actions[bot]' },
+          title: '[translation] OpenAI Batch batch_stale',
+          body: `<!-- openai-translation-source:${staleMarker} -->`,
+          draft: true,
+          node_id: 'PR_kwDORlSgas123',
+        }
+      }
+      if (options.method === 'PATCH') return {}
+      throw new Error(`Unexpected request: ${path}`)
+    },
+    async graphql() {
+      throw new Error('GraphQL must not be called for a stale PR.')
+    },
+  }
+  const { logger } = createLogger()
+
+  await runMergeAutomation(['--pr=176'], {
+    client,
+    environment: { GITHUB_REPOSITORY: REPOSITORY.repository },
+    logger,
+    repository: REPOSITORY,
+  })
+
+  assert.deepEqual(requests, [
+    {
+      path: '/repos/acecore-systems/acecore-net/pulls/176',
+      options: undefined,
+    },
+    {
+      path: '/repos/acecore-systems/acecore-net/pulls/176',
+      options: { method: 'PATCH', body: { state: 'closed' } },
+    },
+  ])
+})
+
+test('成功した翻訳buildの完了後に、現行mainを基準として自動マージする', async () => {
   const workflow = await readFile(
     '.github/workflows/merge-translation-pr.yml',
     'utf8',
   )
 
-  assert.match(workflow, /PR_NUMBER: \$\{\{ inputs\.pr_number \}\}/u)
-  assert.doesNotMatch(workflow, /pr_number="\$\{\{ inputs\.pr_number \}\}"/u)
+  assert.match(workflow, /workflow_run:/u)
+  assert.match(workflow, /PR_NUMBER: \$\{\{ steps\.pr\.outputs\.number \}\}/u)
   assert.match(workflow, /checks:\s+read/u)
   assert.match(workflow, /npm run typecheck:translation-merge/u)
+  assert.match(workflow, /npm run typecheck:openai-translation/u)
   assert.match(
     workflow,
     /node --experimental-strip-types scripts\/merge-translation-pr\.ts --pr="\$PR_NUMBER"/u,

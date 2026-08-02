@@ -2,6 +2,8 @@ import { execFileSync } from 'node:child_process'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { areOpenAiTranslationMarkersCurrent } from './openai-translation-batch.ts'
+
 type JsonRecord = Record<string, unknown>
 type FetchImplementation = typeof globalThis.fetch
 
@@ -30,6 +32,7 @@ export interface TranslationPullRequest {
   headSha: string
   headRepositoryFullName: string | null
   title: string
+  body: string | null
   draft: boolean
   nodeId: string | null
 }
@@ -225,6 +228,7 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
       ? getOptionalString(headRepository, 'full_name')
       : null,
     title: getRequiredString(pullRequest, 'title', 'GitHub pull request'),
+    body: getOptionalString(pullRequest, 'body'),
     draft: getRequiredBoolean(pullRequest, 'draft', 'GitHub pull request'),
     nodeId: getOptionalString(pullRequest, 'node_id'),
   }
@@ -395,9 +399,29 @@ export function isEligibleTranslationPullRequest(
     (pullRequest.authorLogin === 'Copilot' ||
       pullRequest.authorLogin === 'app/copilot-swe-agent' ||
       pullRequest.authorLogin === 'copilot-swe-agent[bot]' ||
-      pullRequest.headRef?.startsWith('copilot/') === true) &&
+      pullRequest.headRef?.startsWith('copilot/') === true ||
+      pullRequest.headRef?.startsWith('translation/openai/') === true) &&
     hasTranslationMarker(pullRequest.title)
   )
+}
+
+export function isOpenAiTranslationPullRequest(
+  pullRequest: TranslationPullRequest,
+): boolean {
+  return pullRequest.headRef?.startsWith('translation/openai/') === true
+}
+
+async function closePullRequest(
+  pullRequest: TranslationPullRequest,
+  repository: RepositoryInfo,
+  client: GitHubClient,
+  logger: Logger,
+): Promise<void> {
+  await client.request(
+    `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/pulls/${pullRequest.number}`,
+    { method: 'PATCH', body: { state: 'closed' } },
+  )
+  logger.log(`Closed stale OpenAI translation PR #${pullRequest.number}.`)
 }
 
 export function hasSuccessfulTranslationBuild(
@@ -600,6 +624,19 @@ export async function runMergeAutomation(
   if (!isEligibleTranslationPullRequest(pullRequest)) {
     logger.log(
       `Pull request #${pullRequest.number} is not an eligible translation PR. Skipping.`,
+    )
+    return
+  }
+
+  if (
+    isOpenAiTranslationPullRequest(pullRequest) &&
+    !areOpenAiTranslationMarkersCurrent(pullRequest.body)
+  ) {
+    await closePullRequest(
+      pullRequest,
+      currentRepository,
+      currentClient,
+      logger,
     )
     return
   }
