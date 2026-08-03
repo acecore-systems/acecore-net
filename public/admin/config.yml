@@ -1385,6 +1385,43 @@ collections:
             label: '法人名・ラベル'
             hint: 'legalNameLabel'
             widget: string
+          - name: 'executiveHeading'
+            label: '役員紹介・見出し'
+            hint: 'executiveHeading'
+            widget: string
+          - name: 'executiveLead'
+            label: '役員紹介・説明'
+            hint: 'executiveLead'
+            widget: string
+          - name: 'officers'
+            label: '役員一覧'
+            hint: 'officers[]'
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - name: 'name'
+                label: '氏名'
+                hint: 'officers[].name'
+                widget: string
+              - name: 'role'
+                label: '役職'
+                hint: 'officers[].role'
+                widget: string
+                required: false
+              - name: 'areas'
+                label: '担当領域'
+                hint: 'officers[].areas[]'
+                widget: list
+                required: false
+                field:
+                  name: 'area'
+                  label: '担当領域'
+                  widget: string
+              - name: 'bio'
+                label: '略歴'
+                hint: 'officers[].bio'
+                widget: text
+                required: false
           - name: 'missionLoopEyebrow'
             label: 'ミッション・ループ・補助見出し'
             hint: 'missionLoopEyebrow'

@@ -277,6 +277,44 @@
       "heroImgAlt": "Discussion en équipe",
       "companyInfoHeading": "Informations sur l’entreprise",
       "legalNameLabel": "Dénomination sociale",
+      "executiveHeading": "Direction",
+      "executiveLead": "Découvrez la direction d’Acecore.",
+      "officerAreasLabel": "Domaines de responsabilité",
+      "officerBiographyLabel": "Parcours",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "Directeur représentant et président",
+          "areas": [
+            "Stratégie d’entreprise",
+            "Web et systèmes",
+            "Bases de données et infrastructure",
+            "Assurance qualité",
+            "Adoption de l’IA"
+          ],
+          "bio": "Président et directeur représentant d’Acecore. Avec C#/.NET comme socle, il pilote de manière intégrée le web et les systèmes, les bases de données et l’infrastructure, l’assurance qualité et l’adoption de l’IA, du cadrage des enjeux métier à la conception, au déploiement et à l’amélioration après lancement."
+        },
+        {
+          "name": "佐藤凌峨",
+          "role": "Directeur exécutif et chef de division",
+          "areas": [
+            "Opérations de la communauté Aceserver",
+            "Discord",
+            "Développement et opérations Minecraft"
+          ],
+          "bio": "En tant que gardien de la communauté Aceserver, il soutient les opérations de la communauté Discord ainsi que le développement et les opérations liés à Minecraft. Il publie des plugins Java pour Minecraft et des outils d’intégration avec Discord."
+        },
+        {
+          "name": "西田創",
+          "role": "Administrateur",
+          "areas": [
+            "Création créative",
+            "Modélisation 3D",
+            "Opérations de contenu web"
+          ],
+          "bio": "Il crée des illustrations et de la fiction, et publie des avatars 3D originaux, des mécanismes et des accessoires pour VRChat."
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Soutenir la société à travers quatre activités",
       "missionLoopDesc": "Acecore exploite des sites officiels pour la technologie, l'apprentissage, la communauté et les produits.",

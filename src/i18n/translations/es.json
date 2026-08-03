@@ -277,6 +277,44 @@
       "heroImgAlt": "Discusión en equipo",
       "companyInfoHeading": "Información corporativa",
       "legalNameLabel": "Nombre legal",
+      "executiveHeading": "Equipo directivo",
+      "executiveLead": "Conozca al equipo directivo de Acecore.",
+      "officerAreasLabel": "Áreas de responsabilidad",
+      "officerBiographyLabel": "Trayectoria",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "Director representante y presidente",
+          "areas": [
+            "Estrategia empresarial",
+            "Web y sistemas",
+            "Bases de datos e infraestructura",
+            "Aseguramiento de calidad",
+            "Adopción de IA"
+          ],
+          "bio": "Presidente y director representante de Acecore. Con C#/.NET como base, dirige de forma integrada web y sistemas, bases de datos e infraestructura, aseguramiento de calidad y adopción de IA, desde la definición de los retos de negocio hasta el diseño, la implementación y la mejora posterior al lanzamiento."
+        },
+        {
+          "name": "佐藤凌峨",
+          "role": "Director ejecutivo y jefe de división",
+          "areas": [
+            "Operación de la comunidad de Aceserver",
+            "Discord",
+            "Desarrollo y operaciones de Minecraft"
+          ],
+          "bio": "Como guardián de la comunidad de Aceserver, apoya la operación de la comunidad de Discord y el desarrollo y las operaciones relacionadas con Minecraft. Publica plugins Java para Minecraft y herramientas de integración con Discord."
+        },
+        {
+          "name": "西田創",
+          "role": "Director",
+          "areas": [
+            "Producción creativa",
+            "Modelado 3D",
+            "Operaciones de contenido web"
+          ],
+          "bio": "Crea ilustraciones y ficción, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Apoyar a la sociedad a través de cuatro negocios",
       "missionLoopDesc": "Acecore opera sitios oficiales para tecnología, aprendizaje, comunidad y productos.",
