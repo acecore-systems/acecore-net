@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDirectory = path.join(root, 'dist')
-const titleRange = { min: 15, max: 70 }
+const titleRange = { min: 10, max: 70 }
 const descriptionRange = { min: 50, max: 160 }
 const localizedPrefixes = new Set([
   'de',

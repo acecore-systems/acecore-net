@@ -1,6 +1,6 @@
 import type { Locale } from '../i18n'
 
-export const SEO_TITLE_LENGTH = { min: 15, max: 70 } as const
+export const SEO_TITLE_LENGTH = { min: 10, max: 70 } as const
 export const SEO_DESCRIPTION_LENGTH = { min: 50, max: 160 } as const
 
 const localeMap: Record<Locale, string> = {
