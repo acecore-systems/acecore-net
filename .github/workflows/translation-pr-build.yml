@@ -23,11 +23,8 @@ jobs:
   build:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      ((github.event.pull_request.user.login == 'Copilot' ||
-      github.event.pull_request.user.login == 'app/copilot-swe-agent' ||
-      github.event.pull_request.user.login == 'copilot-swe-agent[bot]' ||
-      startsWith(github.event.pull_request.head.ref, 'copilot/')) &&
-      contains(github.event.pull_request.title, '[translation]'))
+      (startsWith(github.event.pull_request.head.ref, 'translation/openai/') &&
+      startsWith(github.event.pull_request.title, '[translation] OpenAI Batch '))
     runs-on: ubuntu-latest
     steps:
       - name: Resolve pull request metadata
@@ -36,28 +33,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            pr_json=$(gh pr view "${{ inputs.pr_number }}" --repo "${{ github.repository }}" --json number,headRefName,headRefOid,title,author)
+            pr_json=$(gh pr view "${{ inputs.pr_number }}" --repo "${{ github.repository }}" --json number,headRefName,headRefOid,title)
             echo "number=$(echo "$pr_json" | jq -r '.number')" >> "$GITHUB_OUTPUT"
             echo "head_ref=$(echo "$pr_json" | jq -r '.headRefName')" >> "$GITHUB_OUTPUT"
             echo "head_sha=$(echo "$pr_json" | jq -r '.headRefOid')" >> "$GITHUB_OUTPUT"
             echo "title=$(echo "$pr_json" | jq -r '.title')" >> "$GITHUB_OUTPUT"
-            echo "author=$(echo "$pr_json" | jq -r '.author.login')" >> "$GITHUB_OUTPUT"
           else
             echo "number=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
             echo "head_ref=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
             echo "head_sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
             echo "title=${{ github.event.pull_request.title }}" >> "$GITHUB_OUTPUT"
-            echo "author=${{ github.event.pull_request.user.login }}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Stop if manual target is not an eligible translation PR
         if: >-
           github.event_name == 'workflow_dispatch' &&
-          ((steps.pr.outputs.author != 'Copilot' &&
-          steps.pr.outputs.author != 'app/copilot-swe-agent' &&
-          steps.pr.outputs.author != 'copilot-swe-agent[bot]' &&
-          !startsWith(steps.pr.outputs.head_ref, 'copilot/')) ||
-          !contains(steps.pr.outputs.title, '[translation]'))
+          (!startsWith(steps.pr.outputs.head_ref, 'translation/openai/') ||
+          !startsWith(steps.pr.outputs.title, '[translation] OpenAI Batch '))
         run: |
           echo "The specified PR is not an eligible translation PR."
           exit 1

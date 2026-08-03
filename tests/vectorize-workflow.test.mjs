@@ -18,20 +18,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
     ({ name }) => name === 'Sync production Vectorize index',
   )
 
-  assert.deepEqual(workflow.on.workflow_dispatch, {
-    inputs: {
-      index_name: {
-        description: '正規名indexへの移行時だけ選択する同期先',
-        required: false,
-        type: 'choice',
-        default: 'acecore-net-search-openai-1536-production-v2',
-        options: [
-          'acecore-net-search-openai-1536-production-v2',
-          'acecore-net-search-openai-1536-production',
-        ],
-      },
-    },
-  })
+  assert.equal(workflow.on.workflow_dispatch, null)
   assert.equal(
     productionSteps.find(
       ({ name }) => name === 'Validate manual large-delete approval',
@@ -46,11 +33,14 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.doesNotMatch(syncStep.run, /--allow-large-delete/u)
   assert.doesNotMatch(syncStep.run, /--expected-delete-count/u)
   assert.doesNotMatch(syncStep.run, /--expected-plan-id/u)
-  assert.match(syncStep.run, /node \.\.\/tooling\/scripts\/sync-vectorize\.mjs/)
+  assert.match(
+    syncStep.run,
+    /node --experimental-strip-types \.\.\/tooling\/scripts\/sync-vectorize\.ts/,
+  )
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    "${{ inputs.index_name || 'acecore-net-search-openai-1536-production-v2' }}",
+    'acecore-net-search-openai-1536-production',
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
   assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
@@ -61,10 +51,7 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   const workflow = yaml.load(source)
 
   assert.deepEqual(Object.keys(workflow.jobs), ['sync-production'])
-  assert.deepEqual(workflow.on.workflow_dispatch.inputs.index_name.options, [
-    'acecore-net-search-openai-1536-production-v2',
-    'acecore-net-search-openai-1536-production',
-  ])
+  assert.equal(workflow.on.workflow_dispatch, null)
   assert.match(
     workflow.jobs['sync-production'].if,
     /github\.event_name == 'workflow_dispatch'/,
@@ -75,15 +62,42 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   assert.doesNotMatch(source, /acecore-net-search-openai-1536-preview/u)
 })
 
-test('確認済みreplacement indexをProduction bindingへ設定する', async () => {
+test('配置待機ゲートを型検査済みのTypeScriptとして実行する', async () => {
+  const source = await readFile(workflowPath, 'utf8')
+  const workflow = yaml.load(source)
+  const productionSteps = workflow.jobs['sync-production'].steps
+  const typecheckStep = productionSteps.find(
+    ({ name }) => name === 'Type-check protected Vectorize tooling',
+  )
+  const deploymentMarkerSteps = productionSteps.filter(({ name }) =>
+    [
+      'Wait for the pushed commit to be public',
+      'Resolve deployed site commit',
+      'Confirm the built commit is still public',
+    ].includes(name),
+  )
+
+  assert.ok(typecheckStep)
+  assert.match(typecheckStep.run, /npm run typecheck:deployment-marker/u)
+  assert.equal(deploymentMarkerSteps.length, 3)
+  for (const step of deploymentMarkerSteps) {
+    assert.match(
+      step.run,
+      /node --experimental-strip-types tooling\/scripts\/wait-for-deployment\.ts/u,
+    )
+  }
+  assert.doesNotMatch(source, /wait-for-deployment\.mjs/u)
+})
+
+test('確認済み正規indexをProduction bindingへ設定する', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v2",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
   )
   assert.doesNotMatch(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v2",/u,
   )
 })

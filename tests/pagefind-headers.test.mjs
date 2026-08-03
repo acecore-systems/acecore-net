@@ -83,12 +83,14 @@ function assertCacheControl(rules, pathname, expected) {
 
 test('Pagefind rootは再検証し、content hash付きchunkだけimmutableにする', async () => {
   const rules = parseHeaderRules(await readFile(HEADERS_URL, 'utf8'))
-  const pagefindRules = rules.filter((rule) =>
-    rule.pattern.startsWith('/pagefind/'),
+  const pagefindCacheRules = rules.filter(
+    (rule) =>
+      rule.pattern.startsWith('/pagefind/') &&
+      rule.directives.some((directive) => directive.name === 'cache-control'),
   )
 
   assert.deepEqual(
-    pagefindRules.map((rule) => rule.pattern),
+    pagefindCacheRules.map((rule) => rule.pattern),
     CHUNK_DIRECTORIES.map((directory) => `/pagefind/${directory}/*`),
   )
 
@@ -111,6 +113,19 @@ test('Pagefind rootは再検証し、content hash付きchunkだけimmutableに�
       `/pagefind/${directory}/en_deadbee.pf_${directory}`,
       IMMUTABLE,
     )
+  }
+})
+
+test('Pagefindの検索用ファイルは検索結果へ載せない', async () => {
+  const rules = parseHeaderRules(await readFile(HEADERS_URL, 'utf8'))
+
+  for (const pathname of [
+    '/pagefind/pagefind.js',
+    '/pagefind/index/en_deadbee.pf_index',
+  ]) {
+    assert.deepEqual(effectiveHeaderValues(rules, pathname, 'X-Robots-Tag'), [
+      'noindex',
+    ])
   }
 })
 

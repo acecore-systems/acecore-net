@@ -40,6 +40,12 @@
       "migrations_dir": "./migrations/search",
     },
   ],
+  "services": [
+    {
+      "binding": "ACECORE_CHAT",
+      "service": "acecore-chat-worker",
+    },
+  ],
   "env": {
     "preview": {
       "vars": {
@@ -79,12 +85,18 @@
           "migrations_dir": "./migrations/search",
         },
       ],
+      "services": [
+        {
+          "binding": "ACECORE_CHAT",
+          "service": "acecore-chat-worker-preview",
+        },
+      ],
     },
     "production": {
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-openai-1536-production-v2",
+          "index_name": "acecore-net-search-openai-1536-production",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",
@@ -142,6 +154,12 @@
           "database_name": "acecore-net-search-production",
           "database_id": "3d26157c-b052-498c-af9b-82bad65b8421",
           "migrations_dir": "./migrations/search",
+        },
+      ],
+      "services": [
+        {
+          "binding": "ACECORE_CHAT",
+          "service": "acecore-chat-worker",
         },
       ],
     },

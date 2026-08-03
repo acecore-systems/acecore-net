@@ -7,15 +7,6 @@ on:
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
-    inputs:
-      index_name:
-        description: 正規名indexへの移行時だけ選択する同期先
-        required: false
-        type: choice
-        default: acecore-net-search-openai-1536-production-v2
-        options:
-          - acecore-net-search-openai-1536-production-v2
-          - acecore-net-search-openai-1536-production
 
 permissions:
   contents: read
@@ -58,12 +49,18 @@ jobs:
         working-directory: tooling
         run: npm ci
 
+      - name: Type-check protected Vectorize tooling
+        working-directory: tooling
+        run: |
+          npm run typecheck:vectorize-sync
+          npm run typecheck:deployment-marker
+
       - name: Wait for the pushed commit to be public
         if: github.event_name == 'push'
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
         run: >-
-          node tooling/scripts/wait-for-deployment.mjs
+          node --experimental-strip-types tooling/scripts/wait-for-deployment.ts
           https://acecore.net/.well-known/acecore-build.json
           "$EXPECTED_COMMIT"
 
@@ -81,7 +78,7 @@ jobs:
             site_commit="$PUSH_COMMIT"
           else
             site_commit="$(
-              node tooling/scripts/wait-for-deployment.mjs \
+              node --experimental-strip-types tooling/scripts/wait-for-deployment.ts \
                 https://acecore.net/.well-known/acecore-build.json \
                 --print-current
             )"
@@ -127,7 +124,7 @@ jobs:
         env:
           BUILT_COMMIT: ${{ steps.site.outputs.commit }}
         run: >-
-          node tooling/scripts/wait-for-deployment.mjs
+          node --experimental-strip-types tooling/scripts/wait-for-deployment.ts
           https://acecore.net/.well-known/acecore-build.json
           --assert-current
           "$BUILT_COMMIT"
@@ -140,7 +137,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: db9b62f409f463da7acbcc374b8385d0
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          VECTORIZE_INDEX_NAME: ${{ inputs.index_name || 'acecore-net-search-openai-1536-production-v2' }}
+          VECTORIZE_INDEX_NAME: acecore-net-search-openai-1536-production
         run: |
           if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
             echo "::error::CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN is not configured."
@@ -151,5 +148,5 @@ jobs:
             exit 1
           fi
 
-          node ../tooling/scripts/sync-vectorize.mjs \
+          node --experimental-strip-types ../tooling/scripts/sync-vectorize.ts \
             --confirm-production "$VECTORIZE_INDEX_NAME"

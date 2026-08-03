@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2023"],
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "scripts/merge-translation-pr.ts",
+    "tests/translation-merge.test.ts"
+  ]
+}

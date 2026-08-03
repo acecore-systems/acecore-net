@@ -1,19 +1,21 @@
 import assert from 'node:assert/strict'
+import { spawn } from 'node:child_process'
+import { once } from 'node:events'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { after, test } from 'node:test'
+import { fileURLToPath } from 'node:url'
 
 import {
   extractEmbeddingData,
   parseArguments,
   syncVectorize,
   validateCorpus,
-} from '../scripts/sync-vectorize.mjs'
+} from '../scripts/sync-vectorize.ts'
 
-const CURRENT_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
-const CANONICAL_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
-const PRODUCTION_INDEX = CURRENT_PRODUCTION_INDEX
+const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
+const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
 const embedding = Array.from({ length: 1536 }, () => 0.01)
@@ -51,29 +53,24 @@ test('embeddingのindex・件数・1536次元を検証する', () => {
 })
 
 test('live Production同期は正確なindex名の明示確認を要求する', () => {
-  for (const indexName of [
-    CURRENT_PRODUCTION_INDEX,
-    CANONICAL_PRODUCTION_INDEX,
-  ]) {
-    const environment = { VECTORIZE_INDEX_NAME: indexName }
+  const environment = { VECTORIZE_INDEX_NAME: PRODUCTION_INDEX }
 
-    assert.throws(
-      () => parseArguments([], environment),
-      new RegExp(`--confirm-production ${indexName}`, 'u'),
-    )
-    assert.doesNotThrow(() =>
-      parseArguments(['--confirm-production', indexName], environment),
-    )
-    assert.throws(
-      () =>
-        parseArguments(['--confirm-production', CURRENT_PRODUCTION_INDEX], {
-          VECTORIZE_INDEX_NAME: CANONICAL_PRODUCTION_INDEX,
-        }),
-      new RegExp(`--confirm-production ${CANONICAL_PRODUCTION_INDEX}`, 'u'),
-    )
-    assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
-    assert.doesNotThrow(() => parseArguments(['--plan'], environment))
-  }
+  assert.throws(
+    () => parseArguments([], environment),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() =>
+    parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
+  )
+  assert.throws(
+    () =>
+      parseArguments(['--confirm-production', RETIRED_PRODUCTION_INDEX], {
+        VECTORIZE_INDEX_NAME: RETIRED_PRODUCTION_INDEX,
+      }),
+    /--confirm-production acecore-net-search-openai-1536-production/u,
+  )
+  assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
+  assert.doesNotThrow(() => parseArguments(['--plan'], environment))
 })
 
 test('corpusと既存indexの差分だけをupsert・deleteする', async () => {
@@ -260,6 +257,40 @@ test('mutationIdがない成功応答をfail closedする', async () => {
   )
 })
 
+test('list応答のresultが不正ならmutation前にfail closedする', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  let mutationRequests = 0
+
+  const fetchImpl = async (input) => {
+    const url = String(input)
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse(null)
+    }
+    if (url.endsWith('/upsert') || url.endsWith('/delete_by_ids')) {
+      mutationRequests += 1
+      return cloudflareResponse({ mutationId: 'unexpected-mutation' })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  await assert.rejects(
+    syncVectorize({
+      accountId: 'account',
+      apiToken: 'token',
+      indexName: PRODUCTION_INDEX,
+      corpusFile,
+      fetchImpl,
+      logger: silentLogger,
+    }),
+    /Vectorize vector list API response did not include a valid result object/,
+  )
+  assert.equal(mutationRequests, 0)
+})
+
 test('dry-runはcredentialもnetworkも要求しない', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
@@ -274,6 +305,36 @@ test('dry-runはcredentialもnetworkも要求しない', async () => {
 
   assert.equal(result.dryRun, true)
   assert.equal(result.vectors, 1000)
+})
+
+test('TypeScript CLIのdry-runはcredentialなしで実行できる', async () => {
+  const corpusFile = await writeCorpus(createCorpus())
+  const child = spawn(
+    process.execPath,
+    [
+      '--experimental-strip-types',
+      'scripts/sync-vectorize.ts',
+      '--dry-run',
+      '--corpus',
+      corpusFile,
+    ],
+    {
+      cwd: fileURLToPath(new URL('..', import.meta.url)),
+      stdio: ['ignore', 'pipe', 'pipe'],
+    },
+  )
+  let stdout = ''
+  child.stdout.setEncoding('utf8')
+  child.stdout.on('data', (chunk) => {
+    stdout += chunk
+  })
+
+  const [code, signal] = await once(child, 'close')
+
+  assert.equal(code, 0)
+  assert.equal(signal, null)
+  assert.match(stdout, /"event":"vectorize_sync_dry_run"/u)
+  assert.match(stdout, /"vectors":1000/u)
 })
 
 test('planは不存在indexを作成せずfail closedする', async () => {
@@ -317,7 +378,7 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
 
   const fetchImpl = async (input, init = {}) => {
     const url = String(input)
-    if (url.endsWith(`/vectorize/v2/indexes/${CANONICAL_PRODUCTION_INDEX}`)) {
+    if (url.endsWith(`/vectorize/v2/indexes/${PRODUCTION_INDEX}`)) {
       return cloudflareResponse(null, 410)
     }
     if (
@@ -326,7 +387,7 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
     ) {
       createRequests += 1
       assert.deepEqual(JSON.parse(init.body), {
-        name: CANONICAL_PRODUCTION_INDEX,
+        name: PRODUCTION_INDEX,
         description:
           'Acecore site semantic search (OpenAI text-embedding-3-large, 1536 dimensions)',
         config: { dimensions: 1536, metric: 'cosine' },
@@ -345,14 +406,14 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    indexName: CANONICAL_PRODUCTION_INDEX,
+    indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
     logger: silentLogger,
   })
 
   assert.equal(createRequests, 1)
-  assert.equal(result.indexName, CANONICAL_PRODUCTION_INDEX)
+  assert.equal(result.indexName, PRODUCTION_INDEX)
   assert.equal(result.upserted, 0)
   assert.equal(result.deleted, 0)
   assert.equal(result.verified, true)
@@ -375,17 +436,18 @@ test('同期先indexをproductionだけに制限する', async () => {
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: CURRENT_PRODUCTION_INDEX,
+      indexName: PRODUCTION_INDEX,
       logger: silentLogger,
     }),
   )
-  await assert.doesNotReject(
+  await assert.rejects(
     syncVectorize({
       corpusFile,
       dryRun: true,
-      indexName: CANONICAL_PRODUCTION_INDEX,
+      indexName: RETIRED_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
+    /must be one of: acecore-net-search-openai-1536-production/u,
   )
 })
 
