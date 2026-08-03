@@ -147,7 +147,7 @@ export function buildSeoTitle({
     return truncateAtWordBoundary(siteTitle, SEO_TITLE_LENGTH.max, locale)
   }
 
-  const brandSuffix = ' | Acecore'
+  const brandSuffix = ` | ${siteTitle}`
   const titleLimit = SEO_TITLE_LENGTH.max - countCharacters(brandSuffix)
   const normalizedTitle = normalizeWhitespace(title)
   const normalizedTitleContext = titleContext
