@@ -4,7 +4,7 @@
     "services": "Businesses",
     "about": "About",
     "blog": "News",
-    "shop": "Shop",
+    "store": "Store",
     "contact": "Contact",
     "pricing": "Pricing"
   },
@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "After you enter at least two characters, this site and related Acecore sites send your search terms to the OpenAI API to find related information. Do not enter personal or confidential information.",
     "semanticPrivacyLink": "How search data is handled",
     "blogCtaHeading": "Explore Acecore's businesses",
-    "blogCtaBody": "Visit the official sites for Systems, Schools, Aceserver, and Acecore Shop for detailed information.",
+    "blogCtaBody": "Visit the official sites for Systems, Schools, Aceserver, and Acecore Store for detailed information.",
     "blogCtaServices": "View Businesses",
     "blogCtaContact": "Free Consultation",
     "rssTitle": "Acecore News",
@@ -187,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
+    "defaultDescription": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
@@ -205,8 +205,8 @@
       "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "We will publish only confirmed information when the service is ready.",
       "viewBusinessDetails": "View business directory",
@@ -235,7 +235,7 @@
     "about": {
       "title": "About Us",
       "seoTitleContext": "Company, philosophy and businesses",
-      "description": "Company information, philosophy, and an overview of Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
+      "description": "Company information, philosophy, and an overview of Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
       "heroTitle": "About Us",
       "heroSubtitle": "Acecore's philosophy and four businesses",
       "heroImgAlt": "Team discussion",
@@ -284,7 +284,7 @@
       "missionLoopDesc": "Acecore operates official sites for technology, learning, community, and products.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Technology and learning, for society.\"",
-      "philosophyBody1": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Shop.",
+      "philosophyBody1": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
       "philosophyBody2": "acecore.net provides company information and a business overview. Each specialist site is the official source for its services, pricing, work, and activity records.",
       "collaborationImgAlt": "Team collaboration work",
       "activitiesTitle": "Acecore's Key Activities",
@@ -323,7 +323,7 @@
           "accent": "emerald"
         },
         {
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "We deliver Acecore products through the official online store.",
           "icon": "shopping-bag",
           "accent": "slate"
@@ -341,14 +341,14 @@
         "Consultations on education and IT use in local communities",
         "Co-creation projects with external partners",
         "Aceserver community management",
-        "Operating the Acecore Shop official online store"
+        "Operating the Acecore Store official online store"
       ],
       "relatedLinks": [
         {
           "icon": "shopping-bag",
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "Acecore's official online store.",
-          "href": "shop"
+          "href": "store"
         },
         {
           "icon": "gamepad-2",
@@ -392,8 +392,8 @@
       "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "In preparation",
       "acestudioDescription": "We will publish only confirmed information when the service is ready.",
@@ -655,8 +655,8 @@
       "schoolsBody": "See Acecore Schools for current learning support pricing, eligibility, and consultation details.",
       "aceserverTitle": "Aceserver participation",
       "aceserverBody": "See the official Aceserver site for current participation information and terms.",
-      "shopTitle": "Acecore Shop products and purchasing",
-      "shopBody": "See Acecore Shop for current product, purchase, shipping, and return information.",
+      "storeTitle": "Acecore Store products and purchasing",
+      "storeBody": "See Acecore Store for current product, purchase, shipping, and return information.",
       "contactTitle": "Other inquiries",
       "contactBody": "Contact Acecore for cross-business requests, partnership proposals, or when you are unsure where to start."
     }

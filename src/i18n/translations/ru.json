@@ -4,7 +4,7 @@
     "services": "Направления",
     "about": "О нас",
     "blog": "Новости",
-    "shop": "Магазин",
+    "store": "Магазин",
     "contact": "Контакты",
     "pricing": "Цены"
   },
@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "После ввода не менее двух символов этот сайт и связанные сайты Acecore отправляют ваши поисковые запросы в API OpenAI, чтобы найти связанную информацию. Не вводите персональные или конфиденциальные данные.",
     "semanticPrivacyLink": "Обработка поисковых данных",
     "blogCtaHeading": "Направления Acecore",
-    "blogCtaBody": "Подробности доступны на официальных сайтах Systems, Schools, Aceserver и Acecore Shop.",
+    "blogCtaBody": "Подробности доступны на официальных сайтах Systems, Schools, Aceserver и Acecore Store.",
     "blogCtaServices": "Смотреть направления",
     "blogCtaContact": "Бесплатная консультация",
     "rssTitle": "Новости Acecore",
@@ -187,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecore поддерживает бизнес, обучение, сообщества и продукты через Acecore Systems, Acecore Schools, Aceserver и Acecore Shop.",
+    "defaultDescription": "Acecore поддерживает бизнес, обучение, сообщества и продукты через Acecore Systems, Acecore Schools, Aceserver и Acecore Store.",
     "shortTitleContext": "Официальный сайт",
     "shortDescriptionContext": "Информация о компании, направлениях и новостях Acecore."
   },
@@ -205,8 +205,8 @@
       "schoolsDescription": "Информация об обучении, ценах и консультациях размещена на профильном сайте.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Официальная информация об участии и новости Minecraft-сообщества, которым управляет Acecore.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Официальный интернет-магазин Acecore. Здесь публикуется актуальная информация о товарах, покупке, доставке и возврате.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Официальный интернет-магазин Acecore. Здесь публикуется актуальная информация о товарах, покупке, доставке и возврате.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "Мы опубликуем только подтвержденную информацию, когда сервис будет готов.",
       "viewBusinessDetails": "Открыть каталог направлений",
@@ -271,7 +271,7 @@
     "about": {
       "title": "О нас",
       "seoTitleContext": "Компания, философия и направления",
-      "description": "Информация о компании, её философии и направлениях Acecore Systems, Acecore Schools, Aceserver и Acecore Shop.",
+      "description": "Информация о компании, её философии и направлениях Acecore Systems, Acecore Schools, Aceserver и Acecore Store.",
       "heroTitle": "О нас",
       "heroSubtitle": "Философия и четыре направления Acecore",
       "heroImgAlt": "Обсуждение в команде",
@@ -320,7 +320,7 @@
       "missionLoopDesc": "Acecore управляет официальными сайтами для технологий, обучения, сообществ и продуктов.",
       "philosophyHeading": "Философия",
       "philosophyMotto": "\"Технологии и обучение на пользу обществу.\"",
-      "philosophyBody1": "Acecore поддерживает бизнес, обучение, сообщества и продукты через Acecore Systems, Acecore Schools, Aceserver и Acecore Shop.",
+      "philosophyBody1": "Acecore поддерживает бизнес, обучение, сообщества и продукты через Acecore Systems, Acecore Schools, Aceserver и Acecore Store.",
       "philosophyBody2": "acecore.net содержит информацию о компании и обзор направлений. Услуги, цены, работы и отчёты о деятельности поддерживаются на соответствующих специализированных сайтах.",
       "collaborationImgAlt": "Совместная работа команды",
       "activitiesTitle": "Основные виды деятельности Acecore",
@@ -359,7 +359,7 @@
           "accent": "emerald"
         },
         {
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "Мы предлагаем продукты Acecore через официальный интернет-магазин.",
           "icon": "shopping-bag",
           "accent": "slate"
@@ -377,14 +377,14 @@
         "Консультации по региональному образованию и использованию ИТ",
         "Проекты совместного творчества с внешними партнёрами",
         "Управление сообществом Aceserver",
-        "Работа официального интернет-магазина Acecore Shop"
+        "Работа официального интернет-магазина Acecore Store"
       ],
       "relatedLinks": [
         {
           "icon": "shopping-bag",
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "Официальный интернет-магазин Acecore.",
-          "href": "shop"
+          "href": "store"
         },
         {
           "icon": "gamepad-2",
@@ -428,8 +428,8 @@
       "schoolsDescription": "Информация об обучении, ценах и консультациях размещена на профильном сайте.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Официальная информация об участии и новости Minecraft-сообщества, которым управляет Acecore.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Официальный интернет-магазин Acecore. Здесь публикуется актуальная информация о товарах, покупке, доставке и возврате.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Официальный интернет-магазин Acecore. Здесь публикуется актуальная информация о товарах, покупке, доставке и возврате.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "В подготовке",
       "acestudioDescription": "Мы опубликуем только подтвержденную информацию, когда сервис будет готов.",
@@ -501,8 +501,8 @@
       "schoolsBody": "Цены, условия и консультации по обучению смотрите в Acecore Schools.",
       "aceserverTitle": "Участие в Aceserver",
       "aceserverBody": "Актуальную информацию об участии и условиях смотрите на официальном сайте Aceserver.",
-      "shopTitle": "Товары и покупки Acecore Shop",
-      "shopBody": "Актуальную информацию о товарах, покупках, доставке и возвратах смотрите в Acecore Shop.",
+      "storeTitle": "Товары и покупки Acecore Store",
+      "storeBody": "Актуальную информацию о товарах, покупках, доставке и возвратах смотрите в Acecore Store.",
       "contactTitle": "Другие вопросы",
       "contactBody": "Свяжитесь с Acecore по междисциплинарным запросам, партнерству или если не знаете, с чего начать."
     }

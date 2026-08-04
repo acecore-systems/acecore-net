@@ -1,9 +1,9 @@
 ---
 title: 'Acecore Business Guide: Our Specialist Sites'
-description: 'Corporate information about Acecore and the official sites for Systems, Schools, Aceserver, and Acecore Shop.'
+description: 'Corporate information about Acecore and the official sites for Systems, Schools, Aceserver, and Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-01T00:00
+lastUpdated: 2026-08-04T00:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -17,7 +17,7 @@ checklist:
     - text: Acecore Systems — IT support, development, production, operations, and technical articles
     - text: Acecore Schools — ways to learn, educational support, and activity records
     - text: Aceserver — joining and taking part in the Minecraft community
-    - text: Acecore Shop — official online store products, purchasing, shipping, and returns
+    - text: Acecore Store — official online store products, purchasing, shipping, and returns
 faq:
   title: FAQ
   items:
@@ -26,7 +26,7 @@ faq:
     - question: Where can I find information about education or the Minecraft community?
       answer: Please check the official Acecore Schools site for education and the official Aceserver site for the Minecraft community.
     - question: Where can I find product, purchase, and shipping information for the online store?
-      answer: Please check Acecore Shop for current product, purchase, shipping, and return information.
+      answer: Please check Acecore Store for current product, purchase, shipping, and return information.
 ---
 
 Acecore is the corporate site that brings together information about the organization and provides an entry point to each of its businesses. To avoid maintaining specialist explanations and updates in multiple places, detailed information for each field is consolidated on the following official sites.
@@ -43,9 +43,9 @@ For ways to learn, educational support, consultation details, and activity recor
 
 For information on joining the Minecraft community, related services, and the latest activities, visit the [official Aceserver portal](https://asv.acecore.net/en/).
 
-## Acecore Shop
+## Acecore Store
 
-For current product, purchase, shipping, and return information, visit [Acecore Shop](https://shop.acecore.net/).
+For current product, purchase, shipping, and return information, visit [Acecore Store](https://store.acecore.net/).
 
 ## Contact Acecore
 

@@ -1,9 +1,9 @@
 ---
 title: 'Guide des activités Acecore : nos sites spécialisés'
-description: 'Informations sur Acecore et sites officiels de Systems, Schools, Aceserver et Acecore Shop.'
+description: 'Informations sur Acecore et sites officiels de Systems, Schools, Aceserver et Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-01T00:00
+lastUpdated: 2026-08-04T00:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -17,7 +17,7 @@ checklist:
     - text: Acecore Systems — accompagnement IT, développement, production, exploitation et articles techniques
     - text: Acecore Schools — parcours d’apprentissage, accompagnement éducatif et activités
     - text: Aceserver — rejoindre la communauté Minecraft et participer à ses activités
-    - text: 'Acecore Shop — boutique en ligne officielle : produits, achats, livraison et retours'
+    - text: 'Acecore Store — boutique en ligne officielle : produits, achats, livraison et retours'
 faq:
   title: Questions fréquentes
   items:
@@ -26,7 +26,7 @@ faq:
     - question: Où trouver des informations sur l’éducation ou la communauté Minecraft ?
       answer: Consultez le site officiel Acecore Schools pour l’éducation et le site Aceserver pour la communauté Minecraft.
     - question: Où trouver les produits, les achats et la livraison de la boutique en ligne ?
-      answer: Consultez Acecore Shop pour les informations à jour sur les produits, les achats, la livraison et les retours.
+      answer: Consultez Acecore Store pour les informations à jour sur les produits, les achats, la livraison et les retours.
 ---
 
 Acecore est le site institutionnel qui rassemble les informations sur l’ensemble de l’organisation et oriente vers chacune de ses activités. Afin de ne pas gérer en double les explications spécialisées et les actualités, les informations détaillées de chaque domaine sont regroupées sur les sites officiels suivants.
@@ -43,9 +43,9 @@ Les parcours d’apprentissage, l’accompagnement éducatif, les modalités de 
 
 Les modalités pour rejoindre la communauté Minecraft, les services associés et les dernières activités sont présentés sur le [portail officiel Aceserver](https://asv.acecore.net/fr/).
 
-## Acecore Shop
+## Acecore Store
 
-Les produits et les informations à jour sur les achats, la livraison et les retours sont présentés sur [Acecore Shop](https://shop.acecore.net/).
+Les produits et les informations à jour sur les achats, la livraison et les retours sont présentés sur [Acecore Store](https://store.acecore.net/).
 
 ## Contacter Acecore
 

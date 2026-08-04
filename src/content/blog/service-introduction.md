@@ -1,9 +1,9 @@
 ---
 title: 'Acecoreの事業案内：専門サイトへのご案内'
-description: 'Acecoreのコーポレート情報と、Systems、Schools、Aceserver、Acecore Shopそれぞれの公式な案内先を紹介します。'
+description: 'Acecoreのコーポレート情報と、Systems、Schools、Aceserver、Acecore Storeそれぞれの公式な案内先を紹介します。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-01T00:00
+lastUpdated: 2026-08-04T00:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -17,7 +17,7 @@ checklist:
     - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
     - text: Acecore Schools：学び方、教育支援、活動記録
     - text: Aceserver：Minecraftコミュニティへの参加と活動
-    - text: Acecore Shop：公式オンラインストアの商品、購入方法、配送・返品に関する情報
+    - text: Acecore Store：公式オンラインストアの商品、購入方法、配送・返品に関する情報
 faq:
   title: よくある質問
   items:
@@ -25,8 +25,8 @@ faq:
       answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
     - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
       answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
-    - question: ショップの商品や購入・配送についてはどこで確認できますか？
-      answer: Acecore Shopで商品、購入方法、配送・返品に関する最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
 Acecoreは、団体全体の情報と各事業への入口をまとめるコーポレートサイトです。専門的な説明や更新情報を二重管理しないため、各分野の詳しい内容は次の公式サイトに集約しています。
@@ -43,9 +43,9 @@ IT支援、システム・Web開発、デザイン、運用支援、料金、事
 
 Minecraftコミュニティへの参加方法、関連サービス、活動の最新情報は、[Aceserver公式ポータル](https://asv.acecore.net/)でご案内しています。
 
-## Acecore Shop
+## Acecore Store
 
-商品、購入方法、配送・返品に関する最新情報は、[Acecore Shop](https://shop.acecore.net/)でご案内しています。
+商品、購入方法、配送・返品に関する最新情報は、[Acecore Store](https://store.acecore.net/)でご案内しています。
 
 ## Acecoreへのお問い合わせ
 
