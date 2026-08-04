@@ -75,11 +75,11 @@ direct publishには、一般のコード変更に対する保護を維持しな
 
 ## 翻訳workflow
 
-direct commitのsubjectは`cms: create|update|delete|upload ...`形式を維持します。`.github/workflows/create-translation-prs.yml`は`main` pushのbefore/head間にあるnon-merge commitを確認し、すべてが`cms: ...`の場合だけ翻訳PR taskを作成します。
+direct commitのsubjectは`cms: create|update|delete|upload ...`形式を維持します。`.github/workflows/submit-openai-translation-batch.yml`は日本語sourceの`main`更新を検出し、続けての修正をまとめるため15分待ってから、最新の`main`と一致する変更だけをOpenAI Batchへ投入します。
 
-専用GitHub App installation tokenによるpushはGitHub Actionsを起動します。`GITHUB_TOKEN`による保存へ置き換えると後続workflowが抑止されるため使用しません。旧CMS PRのmerge commitは後方互換のため判定から除外します。
+専用GitHub App installation tokenによるpushはGitHub Actionsを起動します。`GITHUB_TOKEN`による保存へ置き換えると後続workflowが抑止されるため使用しません。
 
-翻訳記事は日本語sourceと同じslug・`articleId`を維持します。日本語sourceのslug変更はCMSで旧path削除と新path追加を1 commitで行い、生成される1件の翻訳PR taskが全localeの旧path削除・新path追加・`articleId`維持を明示します。生成差分をレビューしてから取り込みます。
+翻訳記事は日本語sourceと同じslug・`articleId`を維持します。日本語sourceのslug変更はCMSで旧path削除と新path追加を1 commitで行い、OpenAI Batchの結果を回収する際に全localeの旧path削除・新path追加・`articleId`維持を同じ翻訳PRへ反映します。source hashが現在の日本語sourceと異なる古い結果やPRは取り込みません。
 
 ## 検証
 

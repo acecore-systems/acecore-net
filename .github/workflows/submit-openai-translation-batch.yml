@@ -1,0 +1,74 @@
+name: Submit OpenAI Translation Batch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/content/blog/*.md
+      - src/i18n/source/ja/**/*.json
+  workflow_dispatch:
+    inputs:
+      base_sha:
+        description: Optional base SHA for changed-source detection
+        required: false
+        type: string
+      head_sha:
+        description: Optional source SHA to translate
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source revision
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check OpenAI translation automation
+        run: npm run typecheck:openai-translation
+
+      - name: Wait for follow-up edits to the same source
+        run: sleep 900
+
+      - name: Fetch current main
+        run: git fetch origin main:refs/remotes/origin/main --depth=1
+
+      - name: Submit current translation requests
+        env:
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no translation Batch was submitted."
+            exit 0
+          fi
+
+          args=(submit)
+          if [ -n "${{ inputs.base_sha }}" ]; then
+            args+=("--base=${{ inputs.base_sha }}")
+          fi
+          if [ -n "${{ inputs.head_sha }}" ]; then
+            args+=("--head=${{ inputs.head_sha }}")
+          fi
+          args+=("--current-ref=origin/main")
+
+          node --experimental-strip-types scripts/openai-translation-batch.ts "${args[@]}"

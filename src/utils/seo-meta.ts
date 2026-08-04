@@ -1,6 +1,6 @@
 import type { Locale } from '../i18n'
 
-export const SEO_TITLE_LENGTH = { min: 15, max: 70 } as const
+export const SEO_TITLE_LENGTH = { min: 10, max: 70 } as const
 export const SEO_DESCRIPTION_LENGTH = { min: 50, max: 160 } as const
 
 const localeMap: Record<Locale, string> = {
@@ -147,7 +147,7 @@ export function buildSeoTitle({
     return truncateAtWordBoundary(siteTitle, SEO_TITLE_LENGTH.max, locale)
   }
 
-  const brandSuffix = ' | Acecore'
+  const brandSuffix = ` | ${siteTitle}`
   const titleLimit = SEO_TITLE_LENGTH.max - countCharacters(brandSuffix)
   const normalizedTitle = normalizeWhitespace(title)
   const normalizedTitleContext = titleContext
