@@ -3,7 +3,7 @@ title: 'Направления Acecore: ссылки на профильные �
 description: 'Корпоративная информация Acecore и официальные сайты Systems, Schools, Aceserver и Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-01T00:00
+lastUpdated: 2026-08-04T00:00
 author: gui
 tags: ['お知らせ']
 callout:

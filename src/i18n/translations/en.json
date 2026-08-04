@@ -241,6 +241,44 @@
       "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
+      "executiveHeading": "Leadership",
+      "executiveLead": "Meet the leadership of Acecore.",
+      "officerAreasLabel": "Areas of responsibility",
+      "officerBiographyLabel": "Biography",
+      "officers": [
+        {
+          "name": "西田凱",
+          "role": "Representative Director and President",
+          "areas": [
+            "Business strategy",
+            "Web and systems",
+            "Databases and infrastructure",
+            "Quality assurance",
+            "AI adoption"
+          ],
+          "bio": "President and Representative Director of Acecore. With C#/.NET at the core, he leads web and systems, databases and infrastructure, quality assurance, and AI adoption as an integrated effort from business problem framing through design, implementation, and post-launch improvement."
+        },
+        {
+          "name": "佐藤凌峨",
+          "role": "Senior Managing Director and General Manager",
+          "areas": [
+            "Aceserver community operations",
+            "Discord",
+            "Minecraft development and operations"
+          ],
+          "bio": "As an Aceserver community gatekeeper, he supports Discord community operations and Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord."
+        },
+        {
+          "name": "西田創",
+          "role": "Director",
+          "areas": [
+            "Creative production",
+            "3D modeling",
+            "Web content operations"
+          ],
+          "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
+        }
+      ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Supporting society through four businesses",
       "missionLoopDesc": "Acecore operates official sites for technology, learning, community, and products.",

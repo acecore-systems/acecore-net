@@ -3,7 +3,7 @@ title: 'Acecore 사업 안내: 전문 사이트 안내'
 description: 'Acecore의 단체 정보와 Systems, Schools, Aceserver, Acecore Store의 공식 안내처를 소개합니다.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-01T00:00
+lastUpdated: 2026-08-04T00:00
 author: gui
 tags: ['お知らせ']
 callout:
