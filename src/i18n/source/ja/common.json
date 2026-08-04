@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteTitle": "Acecore | テクノロジーと教育のコーポレートサイト",
-    "defaultDescription": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Shopを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
+    "defaultDescription": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Storeを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
     "shortTitleContext": "公式サイト",
     "shortDescriptionContext": "Acecoreの会社情報、事業、企業ニュースをご案内します。"
   },
@@ -11,7 +11,7 @@
     "pricing": "料金",
     "about": "会社概要",
     "blog": "ニュース",
-    "shop": "ショップ",
+    "store": "ストア",
     "contact": "お問い合わせ"
   },
   "common": {

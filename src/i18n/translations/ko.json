@@ -4,7 +4,7 @@
     "services": "사업",
     "about": "회사 소개",
     "blog": "뉴스",
-    "shop": "스토어",
+    "store": "스토어",
     "contact": "문의하기",
     "pricing": "요금"
   },
@@ -147,7 +147,7 @@
     "semanticPrivacyNotice": "2자 이상 입력하면 이 사이트와 Acecore 관련 사이트의 관련 정보를 찾기 위해 검색어가 OpenAI API로 자동 전송됩니다. 개인정보나 기밀정보를 입력하지 마세요.",
     "semanticPrivacyLink": "검색 데이터 처리 방법",
     "blogCtaHeading": "Acecore의 사업 알아보기",
-    "blogCtaBody": "자세한 내용은 Systems, Schools, Aceserver, Acecore Shop의 공식 사이트에서 확인하세요.",
+    "blogCtaBody": "자세한 내용은 Systems, Schools, Aceserver, Acecore Store의 공식 사이트에서 확인하세요.",
     "blogCtaServices": "사업 목록 보기",
     "blogCtaContact": "무료 상담하기",
     "rssTitle": "Acecore 뉴스",
@@ -187,7 +187,7 @@
   },
   "meta": {
     "siteTitle": "Acecore | 기술과 교육",
-    "defaultDescription": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Shop을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
+    "defaultDescription": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Store을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
     "shortTitleContext": "공식 사이트",
     "shortDescriptionContext": "Acecore의 회사 정보, 사업 및 뉴스를 안내합니다."
   },
@@ -205,8 +205,8 @@
       "schoolsDescription": "학습 지원, 요금, 상담 방법은 전문 사이트에서 확인하세요.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore가 운영하는 Minecraft 커뮤니티의 공식 참여 안내와 최신 소식입니다.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
       "acestudioTitle": "AceStudio",
       "acestudioNote": "서비스 준비가 완료되면 확정된 정보만 공개합니다.",
       "viewBusinessDetails": "사업 목록 보기",
@@ -271,7 +271,7 @@
     "about": {
       "title": "회사 소개",
       "seoTitleContext": "회사·철학·사업 소개",
-      "description": "Acecore의 회사 정보와 철학, Acecore Systems·Acecore Schools·Aceserver·Acecore Shop의 네 사업을 소개합니다.",
+      "description": "Acecore의 회사 정보와 철학, Acecore Systems·Acecore Schools·Aceserver·Acecore Store의 네 사업을 소개합니다.",
       "heroTitle": "회사 소개",
       "heroSubtitle": "Acecore의 철학과 네 가지 사업",
       "heroImgAlt": "팀 토론",
@@ -282,7 +282,7 @@
       "missionLoopDesc": "Acecore는 기술, 배움, 커뮤니티, 프로덕트를 위한 공식 사이트를 운영합니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "\"기술과 배움을 사회의 힘으로.\"",
-      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Shop을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
+      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Store을 통해 사업, 배움, 커뮤니티, 프로덕트를 지원합니다.",
       "philosophyBody2": "acecore.net에는 회사 정보와 사업 개요를 게시합니다. 서비스 내용, 요금, 실적, 활동 기록은 각 전문 공식 사이트에서 관리합니다.",
       "collaborationImgAlt": "팀 협업 작업",
       "activitiesTitle": "Acecore의 주요 활동",
@@ -321,7 +321,7 @@
           "accent": "emerald"
         },
         {
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "공식 온라인 스토어를 통해 Acecore의 프로덕트를 제공합니다.",
           "icon": "shopping-bag",
           "accent": "slate"
@@ -339,14 +339,14 @@
         "지역 교육 및 IT 활용 상담",
         "외부 파트너와의 공동 창작 프로젝트",
         "Aceserver 커뮤니티 운영",
-        "Acecore Shop 공식 온라인 스토어 운영"
+        "Acecore Store 공식 온라인 스토어 운영"
       ],
       "relatedLinks": [
         {
           "icon": "shopping-bag",
-          "title": "Acecore Shop",
+          "title": "Acecore Store",
           "description": "Acecore의 공식 온라인 스토어입니다.",
-          "href": "shop"
+          "href": "store"
         },
         {
           "icon": "gamepad-2",
@@ -390,8 +390,8 @@
       "schoolsDescription": "학습 지원, 요금, 상담 방법은 전문 사이트에서 확인하세요.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Acecore가 운영하는 Minecraft 커뮤니티의 공식 참여 안내와 최신 소식입니다.",
-      "shopTitle": "Acecore Shop",
-      "shopDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
+      "storeTitle": "Acecore Store",
+      "storeDescription": "Acecore의 공식 온라인 스토어입니다. 상품, 구매 방법, 배송 및 반품에 관한 최신 정보를 확인하세요.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "준비 중",
       "acestudioDescription": "서비스 준비가 완료되면 확정된 정보만 공개합니다.",
@@ -463,8 +463,8 @@
       "schoolsBody": "학습 지원의 요금, 대상, 상담 방법은 Acecore Schools에서 확인하세요.",
       "aceserverTitle": "Aceserver 참여 안내",
       "aceserverBody": "참여 방법과 이용 조건은 Aceserver 공식 사이트에서 확인하세요.",
-      "shopTitle": "Acecore Shop 상품 및 구매 안내",
-      "shopBody": "상품, 구매 방법, 배송 및 반품에 관한 최신 정보는 Acecore Shop에서 확인하세요.",
+      "storeTitle": "Acecore Store 상품 및 구매 안내",
+      "storeBody": "상품, 구매 방법, 배송 및 반품에 관한 최신 정보는 Acecore Store에서 확인하세요.",
       "contactTitle": "기타 문의",
       "contactBody": "사업 간 상담, 제휴 제안 또는 문의처를 모를 때는 Acecore로 문의하세요."
     }

@@ -1,6 +1,6 @@
 ---
 title: 'Acecore 业务指南：前往各专业网站'
-description: '介绍 Acecore 的组织信息，以及 Systems、Schools、Aceserver 和 Acecore Shop 各自的官方信息渠道。'
+description: '介绍 Acecore 的组织信息，以及 Systems、Schools、Aceserver 和 Acecore Store 各自的官方信息渠道。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: 2026-08-01T00:00
@@ -17,7 +17,7 @@ checklist:
     - text: Acecore Systems：IT 支持、开发、制作、运维和技术解说
     - text: Acecore Schools：学习方式、教育支持和活动记录
     - text: Aceserver：参与 Minecraft 社区及其活动
-    - text: Acecore Shop：官方在线商店的商品、购买方式、配送与退货信息
+    - text: Acecore Store：官方在线商店的商品、购买方式、配送与退货信息
 faq:
   title: 常见问题
   items:
@@ -26,7 +26,7 @@ faq:
     - question: 在哪里可以查看教育和 Minecraft 社区的信息？
       answer: 教育信息请查看 Acecore Schools，Minecraft 社区信息请查看 Aceserver 的官方网站。
     - question: 在哪里可以查看官方在线商店的商品、购买和配送信息？
-      answer: 请在 Acecore Shop 查看商品、购买方式、配送和退货的最新信息。
+      answer: 请在 Acecore Store 查看商品、购买方式、配送和退货的最新信息。
 ---
 
 Acecore 是汇总组织整体信息并连接各项业务的企业网站。为了避免重复管理专业说明和更新信息，各领域的详细内容均集中在以下官方网站。
@@ -43,9 +43,9 @@ Acecore 是汇总组织整体信息并连接各项业务的企业网站。为了
 
 有关 Minecraft 社区的参与方式、相关服务和最新活动信息，请查看 [Aceserver 官方门户](https://asv.acecore.net/zh-cn/)。
 
-## Acecore Shop
+## Acecore Store
 
-有关商品、购买方式、配送和退货的最新信息，请查看 [Acecore Shop](https://shop.acecore.net/)。
+有关商品、购买方式、配送和退货的最新信息，请查看 [Acecore Store](https://store.acecore.net/)。
 
 ## 联系 Acecore
 
