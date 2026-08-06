@@ -25,7 +25,16 @@ test('Systemsのurlencodedフォームは同じlocaleの完了画面へ戻る', 
     response.headers.get('Location'),
     'https://systems.acecore.net/ru/contact/thanks/',
   )
-  assert.equal(calls.length, 2)
+  assert.equal(calls.length, 3)
+  const emails = getEmailPayloads(calls)
+  assert.equal(emails.length, 2)
+  assert.equal(emails[0].to, 'info@acecore.net')
+  assert.equal(emails[1].to, 'test@example.com')
+  assert.equal(emails[0].html, undefined)
+  assert.equal(emails[1].html, undefined)
+  assert.equal(emails[1].subject, 'Спасибо за обращение в Acecore')
+  assert.match(emails[1].text, /Мы получили ваше обращение/)
+  assert.equal(emails[1].reply_to, 'info@acecore.net')
 })
 
 test('SystemsのFormData入力エラーも同じlocaleのフォームへ戻る', async () => {
@@ -92,7 +101,7 @@ test('問い合わせ通知は株式会社Acecore名で送信する', async () =
   assert.equal(payload.from.name, '株式会社Acecore')
   assert.match(payload.subject, /^株式会社Acecore お問い合わせ:/)
   assert.match(payload.text, /株式会社Acecore公式サイト/)
-  assert.match(payload.html, /株式会社Acecore公式サイト/)
+  assert.equal(payload.html, undefined)
 })
 
 test('許可したSystems originのJSON応答にCORSヘッダーを付ける', async () => {
@@ -203,6 +212,12 @@ function mockSuccessfulContact(hostname) {
     })
   }
   return calls
+}
+
+function getEmailPayloads(calls) {
+  return calls
+    .filter(({ url }) => url.includes('/email/sending/send'))
+    .map(({ init }) => JSON.parse(init.body))
 }
 
 function nativeContactFields(locale) {
