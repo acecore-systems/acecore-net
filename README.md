@@ -123,7 +123,9 @@ src/
 
 direct publish版を本番へ反映する前に、専用GitHub Appを`acecore-net`だけへインストールし、ContentsのRead and writeとMetadataのRead-onlyだけを付与します。Client ID、Installation ID、private keyはCloudflare Pagesのproduction環境だけに設定し、preview環境にはwriter認証情報を配布しません。previewのCMS repository read/writeは無効で、保存は本番の`/admin/`からだけ行います。`main`のrulesetではこのAppだけをbypass actorの`Always allow`にします。外部設定が揃う前にdirect publish版を本番へ反映しないでください。
 
-運用判断は [docs/cms-write-workflow.md](docs/cms-write-workflow.md) を参照してください。
+運用判断は [CMS保存・自動公開運用](docs/04_運用設計/01_CMS保存・自動公開運用.md) を参照してください。
+
+設計文書の入口は [docs/README.md](docs/README.md) です。
 
 #### キャンペーン告知の運用
 

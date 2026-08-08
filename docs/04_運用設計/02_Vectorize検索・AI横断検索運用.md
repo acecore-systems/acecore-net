@@ -1,4 +1,4 @@
-# Vectorize検索・AI横断検索 運用ガイド
+# Vectorize検索・AI横断検索運用
 
 Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVectorize indexをAIチャットと共有します。AIチャットはそれに加えて、質問の担当を決定して接続済みの関連公式サイトのVectorize indexをread-onlyに使用して検索します。World Foundationを含む外部indexはProductionだけへ接続し、top-level／Previewには接続しません。検索モーダルは次の3系統を提供します。
 
