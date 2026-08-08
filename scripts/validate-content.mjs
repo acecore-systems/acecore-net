@@ -136,7 +136,7 @@ async function validateCmsConfig() {
   )
   const readme = await readFile(path.join(root, 'README.md'), 'utf8')
   const cmsWorkflow = await readFile(
-    path.join(root, 'docs/cms-write-workflow.md'),
+    path.join(root, 'docs/04_運用設計/01_CMS保存・自動公開運用.md'),
     'utf8',
   )
   const pagesConfig = await readFile(path.join(root, 'wrangler.jsonc'), 'utf8')
