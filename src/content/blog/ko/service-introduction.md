@@ -1,9 +1,9 @@
 ---
-title: "Acecore 사업 안내: 전문 사이트 안내"
-description: "Acecore의 단체 정보와 Systems, Schools, Aceserver, Acecore Store 각각의 공식 안내처를 소개합니다."
+title: 'Acecore 사업 안내: 전문 사이트 안내'
+description: 'Acecore의 단체 정보와 Systems, Schools, Aceserver, Acecore Store 각각의 공식 안내처를 소개합니다.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore는 단체 전체의 정보와 각 사업으로 이어지는 창구를 �
 
 ## Acecore Systems
 
-IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기술 해설은 [Acecore Systems](https://systems.acecore.net/)에서 안내합니다.
+IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기술 해설은 [Acecore Systems](https://systems.acecore.net/ko/)에서 안내합니다.
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기�
 
 ## Aceserver
 
-Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 [Aceserver 공식 포털](https://asv.acecore.net/)에서 안내합니다.
+Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 [Aceserver 공식 포털](https://asv.acecore.net/ko/)에서 안내합니다.
 
 ## Acecore Store
 

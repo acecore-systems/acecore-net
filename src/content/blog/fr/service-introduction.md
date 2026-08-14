@@ -1,9 +1,9 @@
 ---
-title: "Présentation des activités d’Acecore : nos sites spécialisés"
-description: "Présentation des informations institutionnelles d’Acecore et des sites officiels de Systems, Schools, Aceserver et Acecore Store."
+title: 'Présentation des activités d’Acecore : nos sites spécialisés'
+description: 'Présentation des informations institutionnelles d’Acecore et des sites officiels de Systems, Schools, Aceserver et Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore est le site institutionnel qui rassemble les informations sur l’ensemb
 
 ## Acecore Systems
 
-L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/).
+L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/fr/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Les méthodes d’apprentissage, l’accompagnement éducatif, les modalités de
 
 ## Aceserver
 
-Les modalités pour rejoindre la communauté Minecraft, les services associés et les dernières informations sur les activités sont présentés sur le [portail officiel Aceserver](https://asv.acecore.net/).
+Les modalités pour rejoindre la communauté Minecraft, les services associés et les dernières informations sur les activités sont présentés sur le [portail officiel Aceserver](https://asv.acecore.net/fr/).
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ Les produits, les modalités d’achat et les dernières informations concernant
 
 ## Contacter Acecore
 
-Pour les informations sur l’organisation, consultez [À propos](/about/) ; pour toute demande transversale ou proposition de collaboration, consultez [Contact](/contact/).
+Pour les informations sur l’organisation, consultez [À propos](/fr/about/) ; pour toute demande transversale ou proposition de collaboration, consultez [Contact](/fr/contact/).

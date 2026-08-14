@@ -1,9 +1,9 @@
 ---
-title: "Acecore Business Guide: Our Specialist Sites"
-description: "This page introduces Acecore’s corporate information and the official sites for Systems, Schools, Aceserver, and Acecore Store."
+title: 'Acecore Business Guide: Our Specialist Sites'
+description: 'This page introduces Acecore’s corporate information and the official sites for Systems, Schools, Aceserver, and Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore is the corporate site that brings together information about the organiz
 
 ## Acecore Systems
 
-Information about IT support, system and web development, design, operational support, pricing, case studies, and technical articles is available at [Acecore Systems](https://systems.acecore.net/).
+Information about IT support, system and web development, design, operational support, pricing, case studies, and technical articles is available at [Acecore Systems](https://systems.acecore.net/en/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Information about ways to learn, educational support, consultation methods, and 
 
 ## Aceserver
 
-Information about how to join the Minecraft community, related services, and the latest activities is available at the [official Aceserver portal](https://asv.acecore.net/).
+Information about how to join the Minecraft community, related services, and the latest activities is available at the [official Aceserver portal](https://asv.acecore.net/en/).
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ The latest information about products, purchasing, shipping, and returns is avai
 
 ## Contact Acecore
 
-For information about the organization, see [About us](/about/). For cross-business inquiries and collaboration, see [Contact](/contact/).
+For information about the organization, see [About us](/en/about/). For cross-business inquiries and collaboration, see [Contact](/en/contact/).

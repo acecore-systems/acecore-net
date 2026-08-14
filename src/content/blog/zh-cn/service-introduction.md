@@ -1,9 +1,9 @@
 ---
-title: "Acecore 业务指南：前往各专业网站"
-description: "介绍 Acecore 的组织信息，以及 Systems、Schools、Aceserver 和 Acecore Store 各自的官方信息渠道。"
+title: 'Acecore 业务指南：前往各专业网站'
+description: '介绍 Acecore 的组织信息，以及 Systems、Schools、Aceserver 和 Acecore Store 各自的官方信息渠道。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore 是汇总整个组织信息并提供各项业务入口的企业网站。
 
 ## Acecore Systems
 
-有关 IT 支持、系统与 Web 开发、设计、运维支持、价格、案例和技术说明，请查看 [Acecore Systems](https://systems.acecore.net/)。
+有关 IT 支持、系统与 Web 开发、设计、运维支持、价格、案例和技术说明，请查看 [Acecore Systems](https://systems.acecore.net/zh-cn/)。
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Acecore 是汇总整个组织信息并提供各项业务入口的企业网站。
 
 ## Aceserver
 
-有关 Minecraft 社区的参与方式、相关服务和活动的最新信息，请查看 [Aceserver 官方门户](https://asv.acecore.net/)。
+有关 Minecraft 社区的参与方式、相关服务和活动的最新信息，请查看 [Aceserver 官方门户](https://asv.acecore.net/zh-cn/)。
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ Acecore 是汇总整个组织信息并提供各项业务入口的企业网站。
 
 ## 联系 Acecore
 
-组织信息请查看[关于我们](/about/)，跨业务咨询与合作事宜请查看[联系我们](/contact/)。
+组织信息请查看[关于我们](/zh-cn/about/)，跨业务咨询与合作事宜请查看[联系我们](/zh-cn/contact/)。

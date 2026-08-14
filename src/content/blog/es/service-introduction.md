@@ -1,9 +1,9 @@
 ---
-title: "Guía de actividades de Acecore: sitios especializados"
-description: "Información corporativa de Acecore y sitios oficiales de Systems, Schools, Aceserver y Acecore Store."
+title: 'Guía de actividades de Acecore: sitios especializados'
+description: 'Información corporativa de Acecore y sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore es el sitio corporativo que reúne la información general de la organiz
 
 ## Acecore Systems
 
-El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se presentan en [Acecore Systems](https://systems.acecore.net/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se presentan en [Acecore Systems](https://systems.acecore.net/es/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el regist
 
 ## Aceserver
 
-La forma de unirse a la comunidad de Minecraft, los servicios relacionados y la información más reciente sobre las actividades se presentan en el [portal oficial de Aceserver](https://asv.acecore.net/).
+La forma de unirse a la comunidad de Minecraft, los servicios relacionados y la información más reciente sobre las actividades se presentan en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
 
 ## Acecore Store
 

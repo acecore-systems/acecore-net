@@ -161,7 +161,7 @@
     "postNavLabel": "文章导航",
     "tagPrefix": "标签：{tag}",
     "authorPrefix": "作者：{author}",
-    "indexDescription": "这里刊载Acecore的企业信息、业务与活动新闻。",
+    "indexDescription": "Acecore的公司信息、业务动态、跨业务活动及重要通知。专业技术、教育和社区详情请查看各业务官方网站。",
     "pageDescription": "Acecore新闻列表（第{current}/{total}页）。刊载企业信息、业务与活动通知。",
     "tagListDescription": "这是Acecore新闻的标签列表。",
     "archiveListDescription": "这是Acecore新闻的按月归档列表。",
@@ -307,11 +307,7 @@
         {
           "name": "西田創",
           "role": "董事",
-          "areas": [
-            "创意制作",
-            "3D 建模",
-            "Web 内容运营"
-          ],
+          "areas": ["创意制作", "3D 建模", "Web 内容运营"],
           "bio": "创作绘画与小说，并发布面向 VRChat 的原创 3D 虚拟形象、互动装置和配件。"
         }
       ],

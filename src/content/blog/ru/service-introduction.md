@@ -1,9 +1,9 @@
 ---
-title: "Направления Acecore: ссылки на профильные сайты"
-description: "Здесь представлена корпоративная информация Acecore и указаны официальные сайты направлений Systems, Schools, Aceserver и Acecore Store."
+title: 'Направления Acecore: ссылки на профильные сайты'
+description: 'Здесь представлена корпоративная информация Acecore и указаны официальные сайты направлений Systems, Schools, Aceserver и Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -33,7 +33,7 @@ Acecore — корпоративный сайт, объединяющий инф
 
 ## Acecore Systems
 
-ИТ-поддержка, разработка систем и веб-сайтов, дизайн, сопровождение, цены, примеры работ и технические материалы представлены на сайте [Acecore Systems](https://systems.acecore.net/).
+ИТ-поддержка, разработка систем и веб-сайтов, дизайн, сопровождение, цены, примеры работ и технические материалы представлены на сайте [Acecore Systems](https://systems.acecore.net/ru/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Acecore — корпоративный сайт, объединяющий инф
 
 ## Aceserver
 
-Способы участия в сообществе Minecraft, связанные сервисы и последние новости о деятельности представлены на [официальном портале Aceserver](https://asv.acecore.net/).
+Способы участия в сообществе Minecraft, связанные сервисы и последние новости о деятельности представлены на [официальном портале Aceserver](https://asv.acecore.net/ru/).
 
 ## Acecore Store
 
