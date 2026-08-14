@@ -54,6 +54,14 @@ jobs:
           fi
           node --experimental-strip-types scripts/openai-translation-batch.ts collect --processed-batches="${{ steps.processed.outputs.ids }}"
 
+      - name: Format collected translation files
+        if: steps.collector.outputs.has_changes == 'true'
+        run: |
+          {
+            git diff --name-only --diff-filter=ACMRT -z -- src/content/blog src/i18n/translations
+            git ls-files --others --exclude-standard -z -- src/content/blog src/i18n/translations
+          } | sort -zu | xargs -0 -r npx prettier --write --
+
       - name: Check translation Bot configuration
         id: bot
         if: steps.collector.outputs.has_changes == 'true'

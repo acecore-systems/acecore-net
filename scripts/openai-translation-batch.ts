@@ -894,7 +894,7 @@ function createBlogBatchRequest(
       reasoning: { effort: 'max' },
       max_output_tokens: 32768,
       instructions:
-        'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
+        'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Keep description between 50 and 160 Unicode characters so it can be used as a meta description. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
       input: JSON.stringify({
         targetLocale: metadata.locale,
         source: {
@@ -942,7 +942,7 @@ function createSiteBatchRequest(
       reasoning: { effort: 'max' },
       max_output_tokens: 32768,
       instructions:
-        'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
+        'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
       input: JSON.stringify({
         targetLocale: metadata.locale,
         sourcePath: metadata.sourcePath,
@@ -1423,7 +1423,7 @@ function makePrBody(
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',
-    '- Translation PR Build が自動実行されます。',
+    '- Translation PR Build と必須CIの成功後にsquashで自動マージされます。',
     '',
     '## 補足',
     '自動生成された翻訳PRです。',
@@ -1574,7 +1574,8 @@ export function isCurrentTranslationMarker(metadata: RequestMetadata): boolean {
 export function areOpenAiTranslationMarkersCurrent(
   body: string | null | undefined,
 ): boolean {
-  return parseSourceMarkers(body).every(isCurrentTranslationMarker)
+  const markers = parseSourceMarkers(body)
+  return markers.length > 0 && markers.every(isCurrentTranslationMarker)
 }
 
 async function closeStaleOpenAiTranslationPullRequests(): Promise<void> {

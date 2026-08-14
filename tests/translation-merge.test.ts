@@ -3,13 +3,15 @@ import { readFile } from 'node:fs/promises'
 import { test } from 'node:test'
 
 import {
+  enablePullRequestAutoMerge,
+  hasOnlyAllowedTranslationFiles,
   hasSuccessfulTranslationBuild,
   isEligibleTranslationPullRequest,
   markPullRequestReadyForReview,
-  mergePullRequest,
   parseArguments,
   parsePullRequest,
   runMergeAutomation,
+  updatePullRequestBranch,
   type GitHubClient,
   type RepositoryInfo,
   type TranslationPullRequest,
@@ -21,7 +23,6 @@ const REPOSITORY: RepositoryInfo = {
   repository: 'acecore-systems/acecore-net',
 }
 const HEAD_SHA = 'a'.repeat(40)
-const MERGE_SHA = 'b'.repeat(40)
 
 function createPullRequest(
   overrides: Partial<TranslationPullRequest> = {},
@@ -35,7 +36,10 @@ function createPullRequest(
     headRepositoryFullName: REPOSITORY.repository,
     title: '[translation] OpenAI Batch batch_example',
     body: null,
+    authorLogin: 'acecore-translation-bot[bot]',
     draft: true,
+    mergeableState: 'clean',
+    autoMergeEnabled: false,
     nodeId: 'PR_kwDORlSgas123',
     ...overrides,
   }
@@ -76,20 +80,28 @@ test('PR番号は安全な正整数だけを受け入れ、未知の引数で停
 })
 
 test('対象外のPRは翻訳自動マージ対象にしない', () => {
-  assert.equal(isEligibleTranslationPullRequest(createPullRequest()), true)
+  assert.equal(
+    isEligibleTranslationPullRequest(createPullRequest(), REPOSITORY),
+    true,
+  )
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({ headRef: 'feature/update' }),
+      REPOSITORY,
     ),
     false,
   )
   assert.equal(
-    isEligibleTranslationPullRequest(createPullRequest({ baseRef: 'develop' })),
+    isEligibleTranslationPullRequest(
+      createPullRequest({ baseRef: 'develop' }),
+      REPOSITORY,
+    ),
     false,
   )
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({ title: '[translation] Legacy translation PR' }),
+      REPOSITORY,
     ),
     false,
   )
@@ -98,7 +110,44 @@ test('対象外のPRは翻訳自動マージ対象にしない', () => {
       createPullRequest({
         headRef: 'copilot/update-translations',
       }),
+      REPOSITORY,
     ),
+    false,
+  )
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({
+        headRepositoryFullName: 'untrusted-fork/acecore-net',
+      }),
+      REPOSITORY,
+    ),
+    false,
+  )
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({ authorLogin: 'untrusted-user' }),
+      REPOSITORY,
+    ),
+    false,
+  )
+})
+
+test('翻訳PRは8ロケールのMarkdownと翻訳JSONだけを変更できる', () => {
+  assert.equal(
+    hasOnlyAllowedTranslationFiles([
+      'src/content/blog/en/example.md',
+      'src/content/blog/zh-cn/example.md',
+      'src/i18n/translations/de.json',
+    ]),
+    true,
+  )
+  assert.equal(hasOnlyAllowedTranslationFiles([]), false)
+  assert.equal(
+    hasOnlyAllowedTranslationFiles(['src/content/blog/example.md']),
+    false,
+  )
+  assert.equal(
+    hasOnlyAllowedTranslationFiles(['.github/workflows/ci.yml']),
     false,
   )
 })
@@ -145,82 +194,123 @@ test('成功済みTranslation PR Buildだけをマージ条件として認める
   )
 })
 
-test('検証済みhead SHAをmerge APIへ固定してから同一repo枝だけを削除する', async () => {
-  const requests: Array<{ path: string; options?: unknown }> = []
+test('検証済みhead SHAとsquash方式を固定してGitHub Auto-mergeを予約する', async () => {
+  const graphqlCalls: Array<{ query: string; variables?: unknown }> = []
   const client: GitHubClient = {
-    async request(path, options) {
-      requests.push({ path, options })
-      if (options?.method === 'PUT') {
-        return {
-          merged: true,
-          sha: MERGE_SHA,
-          message: 'Pull Request successfully merged',
-        }
-      }
-      if (options?.method === 'DELETE') return null
-      throw new Error(`Unexpected request: ${path}`)
+    async request() {
+      throw new Error('REST API must not be called while enabling auto-merge.')
     },
-    async graphql() {
-      throw new Error('GraphQL must not be called while merging a ready PR.')
+    async graphql(query, variables) {
+      graphqlCalls.push({ query, variables })
+      return {
+        enablePullRequestAutoMerge: {
+          pullRequest: {
+            number: 42,
+            merged: false,
+            autoMergeRequest: { mergeMethod: 'SQUASH' },
+          },
+        },
+      }
     },
   }
   const { logger } = createLogger()
 
   assert.equal(
-    await mergePullRequest(createPullRequest(), {
+    await enablePullRequestAutoMerge(createPullRequest(), {
       client,
       logger,
-      repository: REPOSITORY,
     }),
     true,
   )
 
-  assert.deepEqual(requests, [
-    {
-      path: '/repos/acecore-systems/acecore-net/pulls/42/merge',
-      options: {
-        method: 'PUT',
-        body: {
-          merge_method: 'squash',
-          commit_title: '[translation] OpenAI Batch batch_example',
-          sha: HEAD_SHA,
-        },
-      },
-    },
-    {
-      path: '/repos/acecore-systems/acecore-net/git/refs/heads/translation/openai/batch_example',
-      options: { method: 'DELETE' },
-    },
-  ])
+  assert.equal(graphqlCalls.length, 1)
+  assert.match(graphqlCalls[0]?.query ?? '', /mergeMethod: SQUASH/u)
+  assert.deepEqual(graphqlCalls[0]?.variables, {
+    pullRequestId: 'PR_kwDORlSgas123',
+    expectedHeadOid: HEAD_SHA,
+    commitHeadline: '[translation] OpenAI Batch batch_example',
+  })
 })
 
-test('GitHubがmerged: trueを返さなければ枝を削除しない', async () => {
-  const requests: Array<{ path: string; options?: unknown }> = []
+test('GitHubがAuto-merge予約も即時mergeも返さなければ失敗する', async () => {
   const client: GitHubClient = {
-    async request(path, options) {
-      requests.push({ path, options })
-      return {
-        merged: false,
-        sha: null,
-        message: 'Pull Request is not mergeable',
-      }
+    async request() {
+      throw new Error('REST API must not be called while enabling auto-merge.')
     },
     async graphql() {
-      throw new Error('GraphQL must not be called while merging a ready PR.')
+      return {
+        enablePullRequestAutoMerge: {
+          pullRequest: {
+            number: 42,
+            merged: false,
+            autoMergeRequest: null,
+          },
+        },
+      }
     },
   }
   const { logger, warnings } = createLogger()
 
   assert.equal(
-    await mergePullRequest(createPullRequest({ draft: false }), {
+    await enablePullRequestAutoMerge(createPullRequest({ draft: false }), {
       client,
       logger,
-      repository: REPOSITORY,
     }),
     false,
   )
-  assert.equal(requests.length, 1)
-  assert.match(warnings[0] ?? '', /did not merge/)
+  assert.match(warnings[0] ?? '', /did not enable auto-merge/)
+})
+
+test('既にAuto-merge予約済みならGitHub APIを再呼び出ししない', async () => {
+  const client: GitHubClient = {
+    async request() {
+      throw new Error('REST API must not be called for an existing request.')
+    },
+    async graphql() {
+      throw new Error('GraphQL must not be called for an existing request.')
+    },
+  }
+  const { logger, logs } = createLogger()
+
+  assert.equal(
+    await enablePullRequestAutoMerge(
+      createPullRequest({ autoMergeEnabled: true }),
+      { client, logger },
+    ),
+    true,
+  )
+  assert.match(logs[0] ?? '', /already enabled/)
+})
+
+test('behindの翻訳PRは検証済みHEAD SHAを固定してmainへ追従させる', async () => {
+  const requests: Array<{ path: string; options?: unknown }> = []
+  const client: GitHubClient = {
+    async request(path, options) {
+      requests.push({ path, options })
+      return { message: 'Updating pull request branch.' }
+    },
+    async graphql() {
+      throw new Error('GraphQL must not be called while updating a branch.')
+    },
+  }
+  const { logger } = createLogger()
+
+  assert.equal(
+    await updatePullRequestBranch(
+      createPullRequest({ mergeableState: 'behind' }),
+      { client, logger, repository: REPOSITORY },
+    ),
+    true,
+  )
+  assert.deepEqual(requests, [
+    {
+      path: '/repos/acecore-systems/acecore-net/pulls/42/update-branch',
+      options: {
+        method: 'PUT',
+        body: { expected_head_sha: HEAD_SHA },
+      },
+    },
+  ])
 })
 
 test('ready化のGraphQL応答が対象PRをreadyと確認できなければ停止する', async () => {
@@ -273,10 +363,11 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
             sha: HEAD_SHA,
             repo: { full_name: REPOSITORY.repository },
           },
-          user: { login: 'github-actions[bot]' },
           title: '[translation] OpenAI Batch batch_stale',
           body: `<!-- openai-translation-source:${staleMarker} -->`,
+          user: { login: 'acecore-translation-bot[bot]' },
           draft: true,
+          mergeable_state: 'clean',
           node_id: 'PR_kwDORlSgas123',
         }
       }
@@ -308,19 +399,28 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
   ])
 })
 
-test('成功した翻訳buildの完了後に、現行mainを基準として自動マージする', async () => {
+test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する', async () => {
   const workflow = await readFile(
     '.github/workflows/merge-translation-pr.yml',
     'utf8',
   )
 
   assert.match(workflow, /workflow_run:/u)
-  assert.match(workflow, /PR_NUMBER: \$\{\{ steps\.pr\.outputs\.number \}\}/u)
+  assert.match(workflow, /push:\s+branches:\s+- main/u)
+  assert.match(workflow, /PR_NUMBERS: \$\{\{ steps\.pr\.outputs\.numbers \}\}/u)
   assert.match(workflow, /checks:\s+read/u)
+  assert.match(workflow, /contents:\s+read/u)
+  assert.match(workflow, /pull-requests:\s+read/u)
+  assert.match(workflow, /actions\/create-github-app-token@v3/u)
+  assert.match(
+    workflow,
+    /GITHUB_TOKEN: \$\{\{ steps\.app-token\.outputs\.token \}\}/u,
+  )
+  assert.match(workflow, /Enable auto-merge for eligible translation PR/u)
   assert.match(workflow, /npm run typecheck:translation-merge/u)
   assert.match(workflow, /npm run typecheck:openai-translation/u)
   assert.match(
     workflow,
-    /node --experimental-strip-types scripts\/merge-translation-pr\.ts --pr="\$PR_NUMBER"/u,
+    /node --experimental-strip-types scripts\/merge-translation-pr\.ts --pr="\$pr_number"/u,
   )
 })
