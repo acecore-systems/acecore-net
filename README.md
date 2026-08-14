@@ -179,7 +179,7 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 - Model: `gpt-5.6-luna`、reasoning effort `max`
 - Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の`main`反映時
 - API secret: `OPENAI_TRANSLATION_API_KEY`
-- PR作成用GitHub App secrets: `TRANSLATION_BOT_APP_ID`、`TRANSLATION_BOT_APP_PRIVATE_KEY`
+- PR作成用GitHub App secrets: `TRANSLATION_BOT_CLIENT_ID`、`TRANSLATION_BOT_APP_PRIVATE_KEY`
 
 ### 翻訳PRの検証と自動マージ
 
