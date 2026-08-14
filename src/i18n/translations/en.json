@@ -2,11 +2,11 @@
   "nav": {
     "home": "Home",
     "services": "Businesses",
+    "pricing": "Pricing",
     "about": "About",
     "blog": "News",
     "store": "Store",
-    "contact": "Contact",
-    "pricing": "Pricing"
+    "contact": "Contact"
   },
   "announcement": {
     "enabled": true,
@@ -80,9 +80,9 @@
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
     "schools": "Acecore Schools",
+    "pricing": "Pricing Guide",
     "terms": "Acecore ID Terms of Use",
-    "privacy": "Privacy Policy",
-    "pricing": "Pricing Guide"
+    "privacy": "Privacy Policy"
   },
   "blog": {
     "title": "News",
@@ -186,37 +186,37 @@
     "commentsSending": "Sending..."
   },
   "meta": {
-    "siteTitle": "株式会社Acecore",
+    "siteTitle": "Acecore Co., Ltd.",
     "defaultDescription": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Turning technology and learning into shared value.",
+      "heroTitle": "Turning technology and learning into a force for society.",
       "heroSubtitle": "Acecore supports businesses, learning, and communities through technology and education.",
-      "heroImgTeam": "Team working in a co-working space",
-      "heroImgMeeting": "Meeting scene",
-      "businessesHeading": "Acecore businesses",
-      "businessesLead": "Each specialist business publishes its latest service information on its official site.",
+      "heroImgTeam": "Team working in a coworking space",
+      "heroImgMeeting": "Meeting in progress",
+      "businessesHeading": "Acecore's businesses",
+      "businessesLead": "Our official sites for each area of expertise provide the latest information about our services.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Find business systems, web apps, websites, infrastructure, and brand and creative design support on the specialist site.",
+      "systemsDescription": "Learn about business systems, web apps, websites, operational infrastructure, and design and creative services on our specialist site.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
+      "schoolsDescription": "Learn about our education and learning support services, pricing, and how to get in touch for a consultation on the specialist site.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
+      "aceserverDescription": "Find information on joining the Minecraft community operated by Acecore, along with the latest updates.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
+      "storeDescription": "Acecore's official online store. Find the latest information on products, how to purchase them, delivery, and returns.",
       "acestudioTitle": "AceStudio",
-      "acestudioNote": "We will publish only confirmed information when the service is ready.",
+      "acestudioNote": "We will announce confirmed details as soon as preparations are complete.",
       "viewBusinessDetails": "View business directory",
       "aboutHeading": "About Acecore",
-      "aboutBody1": "We apply insights gained from community management and workshops we have held in the past to information sharing and practical service improvement.",
-      "aboutBody2": "Through open-source contribution, regional collaboration, and {link} initiatives, we build partnerships connecting technology and people.",
+      "aboutBody1": "We apply insights gained through community management and the workshops we have held to learning support and information sharing.",
+      "aboutBody2": "Through open-source adoption, regional collaboration, and contributions to {link}, we build partnerships that connect technology and people.",
       "aboutEducationLink": "education",
-      "viewAbout": "About Us",
+      "viewAbout": "View company overview",
       "latestNews": "Corporate news",
-      "viewAllNews": "View news and articles",
+      "viewAllNews": "View all news and articles",
       "contactHeading": "Contact Acecore",
       "contactBody": "Use our shared contact desk for business inquiries, partnership proposals, and general questions.",
       "contactCta": "Contact us"
@@ -234,15 +234,15 @@
     },
     "about": {
       "title": "About Us",
-      "seoTitleContext": "Company, philosophy and businesses",
-      "description": "Company information, philosophy, and an overview of Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
+      "seoTitleContext": "Company Information, Philosophy, and Businesses",
+      "description": "Discover Acecore's company information and philosophy, along with its four businesses: Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
       "heroTitle": "About Us",
       "heroSubtitle": "Acecore's philosophy and four businesses",
       "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
-      "executiveLead": "Meet the leadership of Acecore.",
+      "executiveLead": "Meet Acecore's leadership.",
       "officerAreasLabel": "Areas of responsibility",
       "officerBiographyLabel": "Biography",
       "officers": [
@@ -264,7 +264,7 @@
           "areas": [
             "Aceserver community operations",
             "Discord",
-            "Minecraft development and operations"
+            "Minecraft-related development and operations"
           ],
           "bio": "As an Aceserver community gatekeeper, he supports Discord community operations and Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord."
         },
@@ -281,23 +281,23 @@
       ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Supporting society through four businesses",
-      "missionLoopDesc": "Acecore operates official sites for technology, learning, community, and products.",
+      "missionLoopDesc": "We operate specialized official websites for technology, learning, community, and products.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Technology and learning, for society.\"",
       "philosophyBody1": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
-      "philosophyBody2": "acecore.net provides company information and a business overview. Each specialist site is the official source for its services, pricing, work, and activity records.",
-      "collaborationImgAlt": "Team collaboration work",
-      "activitiesTitle": "Acecore's Key Activities",
-      "workshopImgAlt": "Study group and workshop scene",
+      "philosophyBody2": "Company information and an overview of all four businesses are available on acecore.net, while specialized information such as offerings, pricing, case studies, and activity records is consolidated on each business's official website.",
+      "collaborationImgAlt": "Team collaboration",
+      "activitiesTitle": "Acecore's Businesses and Corporate Activities",
+      "workshopImgAlt": "Study group and workshop",
       "initiativesHeading": "Activities and Initiatives",
       "communityTitle": "Community Activities",
-      "communityDesc": "Through Aceserver community management and records of workshops we have held, we nurture spaces where technology and people connect. If we plan new initiatives, we will announce them on our blog and social media.",
-      "ossTitle": "Open Source Contributions",
-      "ossDesc": "We actively promote the use and contribution to open-source software and the tech community. Some of our internally developed tools and libraries are published on GitHub.",
-      "regionalTitle": "Regional Partnerships",
-      "regionalDesc": "We welcome consultations on IT use, digital learning, and joint initiatives in local education and business. Learning support through Acecore Schools is one of these initiatives.",
-      "partnershipTitle": "Partnerships",
-      "partnershipDesc": "We welcome project collaborations and business partnerships. We can cooperate across a wide range of fields including technology, design, and education.",
+      "communityDesc": "Aceserver is a Minecraft community operated by Acecore. Information on how to participate and activity records are managed on the official portal, while important company announcements are",
+      "ossTitle": "Acecore Systems",
+      "ossDesc": "Acecore Systems manages development, production, operational support, and technical documentation, while public projects can be found on GitHub.",
+      "regionalTitle": "Acecore Schools",
+      "regionalDesc": "Information on learning support eligibility, the process, fees, and activity records is available on the official Acecore Schools website.",
+      "partnershipTitle": "Cross-business collaboration",
+      "partnershipDesc": "We accept inquiries spanning multiple businesses and joint project proposals through Acecore's contact desk. For an overview of our businesses,",
       "relatedLinksHeading": "Related Links",
       "ctaHeading": "Take the next step with Acecore",
       "ctaBody": "We welcome cross-business inquiries, partnership proposals, and questions when you are unsure which business to contact.",
@@ -305,20 +305,20 @@
       "ctaServices": "View Businesses",
       "valueCycle": [
         {
-          "title": "Implement Technology",
-          "description": "We build operational foundations through system development and server operations.",
+          "title": "Acecore Systems",
+          "description": "We support businesses and operations through technology.",
           "icon": "cpu",
           "accent": "brand"
         },
         {
-          "title": "Transform into Expression",
-          "description": "We deliver compelling experiences through web design and creative work.",
+          "title": "Acecore Schools",
+          "description": "We design learning around your goals.",
           "icon": "palette",
           "accent": "amber"
         },
         {
-          "title": "Nurture People and Spaces",
-          "description": "We foster new participants and learning through community and educational activities.",
+          "title": "Aceserver",
+          "description": "We run a community through Minecraft.",
           "icon": "users",
           "accent": "emerald"
         },
@@ -329,19 +329,18 @@
           "accent": "slate"
         },
         {
-          "title": "Feed Back into New Challenges",
-          "description": "We channel insights back into development and support, strengthening all activities.",
+          "title": "Acecore",
+          "description": "We connect the four businesses and share company information.",
           "icon": "repeat-2",
           "accent": "brand"
         }
       ],
       "activities": [
-        "Community management and experience from past workshops",
-        "Open-source code publication and contributions",
-        "Consultations on education and IT use in local communities",
-        "Co-creation projects with external partners",
+        "Technical support from Acecore Systems",
+        "Learning support from Acecore Schools",
         "Aceserver community management",
-        "Operating the Acecore Store official online store"
+        "Operation of the official online store by Acecore Store",
+        "Cross-business collaboration and corporate information sharing"
       ],
       "relatedLinks": [
         {
@@ -353,13 +352,13 @@
         {
           "icon": "gamepad-2",
           "title": "Aceserver Portal",
-          "description": "The official site for our free public Minecraft server.",
+          "description": "The official site for a free public Minecraft server.",
           "href": "aceserver"
         },
         {
           "icon": "at-sign",
           "title": "X (formerly Twitter)",
-          "description": "Stay updated with the latest Acecore news.",
+          "description": "Stay up to date with the latest Acecore news.",
           "href": "x"
         },
         {
@@ -378,27 +377,27 @@
     },
     "services": {
       "title": "Businesses",
-      "seoTitleContext": "Business directory",
-      "description": "A directory of Acecore businesses and the official sites that own their specialist information.",
+      "seoTitleContext": "Business Directory",
+      "description": "Explore Acecore’s businesses and the official websites providing specialist information about each one.",
       "heroTitle": "Businesses",
-      "heroSubtitle": "Official destinations for each specialist business",
+      "heroSubtitle": "Official sites for each area of expertise, all in one place",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
-      "introTitle": "Go to the source for each business",
-      "introBody": "For current details, pricing, case studies, and usage information, visit the official specialist site.",
+      "introTitle": "Find the authoritative source for each business",
+      "introBody": "For the latest details, pricing, case studies, and usage information, visit the specialist site for each business.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Find business systems, web apps, websites, infrastructure, and brand and creative design support on the specialist site.",
+      "systemsDescription": "Explore business systems, web apps, websites, operational infrastructure, and design and creative production on the specialist site.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Find learning support, pricing, and consultation information on the specialist site.",
+      "schoolsDescription": "Find information about education and learning support services, pricing, and how to arrange a consultation on the specialist site.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Official participation information and updates for the Minecraft community operated by Acecore.",
+      "aceserverDescription": "Learn how to join the Minecraft community operated by Acecore and find the latest updates.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "Acecore's official online store. Find the latest information on products, purchasing, delivery, and returns.",
+      "storeDescription": "Acecore’s official online store. Find the latest information on products, how to purchase, shipping, and returns.",
       "acestudioTitle": "AceStudio",
-      "acestudioStatus": "In preparation",
-      "acestudioDescription": "We will publish only confirmed information when the service is ready.",
+      "acestudioStatus": "Coming soon",
+      "acestudioDescription": "We will share confirmed details as soon as preparations are complete.",
       "contactHeading": "Contact Acecore",
-      "contactBody": "Use our shared contact desk for business inquiries, partnership proposals, and general questions.",
+      "contactBody": "We accept business inquiries, partnership proposals, and other questions through our shared contact desk.",
       "contactCta": "Contact us"
     },
     "contact": {
@@ -641,40 +640,39 @@
       "inquiryButton": "Contact Us"
     },
     "pricing": {
-      "title": "Pricing and contact directory",
-      "description": "Official destinations for current pricing and usage terms for each Acecore business.",
-      "heroTitle": "Pricing and contact directory",
-      "heroSubtitle": "Check each official business site for current pricing",
+      "title": "Pricing and contact information",
+      "description": "We direct you to the official website for each business, where you can find the latest pricing and terms of use.",
+      "heroTitle": "Pricing and contact information",
+      "heroSubtitle": "Please check each business's official website for pricing information.",
       "heroImgAlt": "Reviewing estimate documents",
       "eyebrow": "Official Information",
-      "introTitle": "Go to the official pricing source",
-      "introBody": "To avoid duplicate figures, this page links to the latest information maintained by each business.",
+      "introTitle": "Go to the official source for pricing information",
+      "introBody": "To avoid duplicating prices, this page brings together links to the latest information maintained by each business.",
       "systemsTitle": "Acecore Systems pricing",
-      "systemsBody": "See Acecore Systems for pricing and consultation details for development, web production, brand and creative design, and operations support.",
+      "systemsBody": "For pricing and consultation details regarding development, web production, design and creative production, and operations support, please visit Acecore Systems.",
       "schoolsTitle": "Acecore Schools pricing",
-      "schoolsBody": "See Acecore Schools for current learning support pricing, eligibility, and consultation details.",
-      "aceserverTitle": "Aceserver participation",
-      "aceserverBody": "See the official Aceserver site for current participation information and terms.",
-      "storeTitle": "Acecore Store products and purchasing",
-      "storeBody": "See Acecore Store for current product, purchase, shipping, and return information.",
+      "schoolsBody": "Please check Acecore Schools for the latest information on learning support pricing, eligibility, and how to inquire.",
+      "aceserverTitle": "Aceserver usage information",
+      "aceserverBody": "Please check the official Aceserver website for the latest information on how to participate and the terms of use.",
+      "storeTitle": "Acecore Store products and how to purchase",
+      "storeBody": "Please check Acecore Store for the latest information on products, purchasing, shipping, and returns.",
       "contactTitle": "Other inquiries",
-      "contactBody": "Contact Acecore for cross-business requests, partnership proposals, or when you are unsure where to start."
+      "contactBody": "Contact Acecore for inquiries involving multiple businesses, partnership proposals, or if you are unsure which contact to use."
     }
   },
   "pageNames": {
     "services": "Businesses",
+    "pricing": "Pricing Guide",
     "schools": "Acecore Schools",
     "about": "About",
     "contact": "Contact",
     "blog": "News",
     "acestudio": "AceStudio",
     "privacy": "Privacy Policy",
-    "terms": "Acecore ID Terms of Use",
     "tags": "Tags",
     "authors": "Authors",
     "archive": "Archive",
-    "page": "Page",
-    "pricing": "Pricing Guide"
+    "page": "ページ"
   },
   "tags": {
     "技術": "Technology",

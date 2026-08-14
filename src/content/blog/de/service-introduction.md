@@ -1,51 +1,51 @@
 ---
 title: 'Acecore im Überblick: Wegweiser zu den Fachseiten'
-description: 'Informationen über Acecore und die offiziellen Anlaufstellen von Systems, Schools, Aceserver und Acecore Store.'
+description: 'Hier finden Sie die Unternehmensinformationen von Acecore sowie die offiziellen Anlaufstellen für Systems, Schools, Aceserver und den Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
   type: info
-  title: Verbindliche Informationsquellen
-  text: Leistungsumfang, Preise, Teilnahme und Neuigkeiten der einzelnen Bereiche werden verbindlich auf den jeweiligen Fachseiten gepflegt.
+  title: 情報の正本
+  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
 checklist:
-  title: Anlaufstellen nach Anliegen
+  title: 目的別の案内先
   items:
-    - text: Acecore – Organisation, Grundsätze und bereichsübergreifende Anfragen
-    - text: Acecore Systems – IT-Unterstützung, Entwicklung, Produktion, Betrieb und technische Beiträge
-    - text: Acecore Schools – Lernwege, Bildungsunterstützung und Aktivitäten
-    - text: Aceserver – Teilnahme an der Minecraft-Community und ihre Aktivitäten
-    - text: 'Acecore Store – offizieller Onlineshop: Produkte, Kauf, Versand und Rückgaben'
+    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
+    - text: Acecore Schools：学び方、教育支援、活動記録
+    - text: Aceserver：Minecraftコミュニティへの参加と活動
+    - text: Acecore Store：公式オンラインストアの商品、購入方法、配送・返品に関する情報
 faq:
-  title: Häufige Fragen
+  title: よくある質問
   items:
-    - question: An wen kann ich mich für Systementwicklung oder Webproduktion wenden?
-      answer: Nutzen Sie bitte die Leistungsübersicht und das Kontaktangebot von Acecore Systems.
-    - question: Wo finde ich Informationen zu Bildung und zur Minecraft-Community?
-      answer: Aktuelle Bildungsinformationen finden Sie bei Acecore Schools, Informationen zur Minecraft-Community auf der offiziellen Website von Aceserver.
-    - question: Wo finde ich Informationen zu Produkten, Kauf und Versand des Onlineshops?
-      answer: Aktuelle Informationen zu Produkten, Kauf, Versand und Rückgaben finden Sie bei Acecore Store.
+    - question: システム開発やWeb制作はどこへ相談すればよいですか？
+      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
+    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
+      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore ist die Unternehmenswebsite mit Informationen zur gesamten Organisation und den Einstiegen in ihre einzelnen Bereiche. Damit Fachinformationen und Neuigkeiten nicht doppelt gepflegt werden, sind die Details auf den folgenden offiziellen Websites gebündelt.
+Acecore ist die Unternehmenswebsite, die Informationen zur gesamten Organisation und die Einstiege in die einzelnen Geschäftsbereiche bündelt. Damit fachliche Erläuterungen und Aktualisierungen nicht doppelt gepflegt werden müssen, sind die ausführlichen Inhalte zu den jeweiligen Bereichen auf den folgenden offiziellen Websites gebündelt.
 
 ## Acecore Systems
 
-IT-Unterstützung, System- und Webentwicklung, Design, Betriebsunterstützung, Preise, Referenzen und technische Beiträge finden Sie bei [Acecore Systems](https://systems.acecore.net/de/).
+Informationen zu IT-Unterstützung, System- und Webentwicklung, Design, Betriebsunterstützung, Preisen, Referenzprojekten und technischen Erläuterungen finden Sie bei [Acecore Systems](https://systems.acecore.net/de/).
 
 ## Acecore Schools
 
-Informationen zu Lernwegen, Bildungsunterstützung, Beratung und Aktivitäten finden Sie bei [Acecore Schools](https://schools.acecore.net/).
+Informationen zu Lernwegen, Bildungsunterstützung, Beratungsmöglichkeiten und Aktivitätsberichten finden Sie bei [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Teilnahmemöglichkeiten für die Minecraft-Community, zugehörige Angebote und aktuelle Aktivitäten finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
+Informationen zur Teilnahme an der Minecraft-Community, zugehörigen Diensten und aktuellen Aktivitäten finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
 
 ## Acecore Store
 
-Aktuelle Informationen zu Produkten, Kauf, Versand und Rückgaben finden Sie bei [Acecore Store](https://store.acecore.net/).
+Aktuelle Informationen zu Produkten, Kaufmöglichkeiten, Versand und Rückgaben finden Sie bei [Acecore Store](https://store.acecore.net/).
 
 ## Kontakt zu Acecore
 
