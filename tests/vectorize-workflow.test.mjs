@@ -40,7 +40,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    'acecore-net-search-openai-1536-production',
+    'acecore-net-search-openai-1536-production-v3',
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
   assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
@@ -89,7 +89,7 @@ test('配置待機ゲートを型検査済みのTypeScriptとして実行する'
   assert.doesNotMatch(source, /wait-for-deployment\.mjs/u)
 })
 
-test('確認済み正規indexをProduction bindingへ設定する', async () => {
+test('replacement構築中も確認済み正規indexをProduction bindingへ維持する', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 
   assert.match(
@@ -99,5 +99,9 @@ test('確認済み正規indexをProduction bindingへ設定する', async () => 
   assert.doesNotMatch(
     config,
     /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v2",/u,
+  )
+  assert.doesNotMatch(
+    config,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v3",/u,
   )
 })
