@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { test } from 'node:test'
 
-import yaml from 'js-yaml'
+import { load } from 'js-yaml'
 
 const workflowPath = new URL(
   '../.github/workflows/sync-vectorize.yml',
@@ -12,7 +12,7 @@ const pagesConfigPath = new URL('../wrangler.jsonc', import.meta.url)
 
 test('Production同期workflowから20%超削除を解除できない', async () => {
   const source = await readFile(workflowPath, 'utf8')
-  const workflow = yaml.load(source)
+  const workflow = load(source)
   const productionSteps = workflow.jobs['sync-production'].steps
   const syncStep = productionSteps.find(
     ({ name }) => name === 'Sync production Vectorize index',
@@ -48,7 +48,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
 
 test('Vectorize同期workflowはProduction専用でPreview credentialを参照しない', async () => {
   const source = await readFile(workflowPath, 'utf8')
-  const workflow = yaml.load(source)
+  const workflow = load(source)
 
   assert.deepEqual(Object.keys(workflow.jobs), ['sync-production'])
   assert.equal(workflow.on.workflow_dispatch, null)
@@ -64,7 +64,7 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
 
 test('配置待機ゲートを型検査済みのTypeScriptとして実行する', async () => {
   const source = await readFile(workflowPath, 'utf8')
-  const workflow = yaml.load(source)
+  const workflow = load(source)
   const productionSteps = workflow.jobs['sync-production'].steps
   const typecheckStep = productionSteps.find(
     ({ name }) => name === 'Type-check protected Vectorize tooling',

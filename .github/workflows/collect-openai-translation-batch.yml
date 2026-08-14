@@ -71,7 +71,7 @@ jobs:
       - name: Create translation Bot token
         id: app-token
         if: steps.bot.outputs.ready == 'true'
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.TRANSLATION_BOT_APP_ID }}
           private-key: ${{ secrets.TRANSLATION_BOT_APP_PRIVATE_KEY }}
@@ -115,7 +115,7 @@ jobs:
           success() &&
           steps.collector.outputs.processed_batch_id != '' &&
           (steps.collector.outputs.has_changes != 'true' || steps.bot.outputs.ready == 'true')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: openai-translation-processed-${{ steps.collector.outputs.processed_batch_id }}
           path: ${{ steps.collector.outputs.marker_path }}

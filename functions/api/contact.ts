@@ -8,7 +8,6 @@ type EmailApiMessage = {
   from: string | EmailAddress
   subject: string
   text?: string
-  html?: string
   reply_to?: string | EmailAddress
   headers?: Record<string, string>
 }
@@ -73,6 +72,32 @@ const SUPPORTED_LOCALES = [
 ] as const
 
 type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
+
+type ContactDetails = {
+  locale: SupportedLocale
+  category: string
+  name: string
+  email: string
+  subject: string
+  message: string
+}
+
+type ValidatedContact = ContactDetails & {
+  ok: true
+  turnstileToken: string
+}
+
+type ContactAcknowledgementCopy = {
+  subject: string
+  greeting: (name: string) => string
+  received: string
+  next: string
+  categoryLabel: string
+  subjectLabel: string
+  receivedAtLabel: string
+  emptySubject: string
+  noReply: string
+}
 
 const API_MESSAGES: Record<SupportedLocale, Record<ApiMessageKey, string>> = {
   ja: {
@@ -142,6 +167,110 @@ const API_MESSAGES: Record<SupportedLocale, Record<ApiMessageKey, string>> = {
   },
 }
 
+const CONTACT_ACK_COPY: Record<SupportedLocale, ContactAcknowledgementCopy> = {
+  ja: {
+    subject: 'お問い合わせありがとうございました',
+    greeting: (name) => name + ' 様',
+    received: 'お問い合わせを受け付けました。',
+    next: '内容を確認のうえ、必要に応じてご連絡します。',
+    categoryLabel: 'お問い合わせ種別',
+    subjectLabel: '件名',
+    receivedAtLabel: '受付日時',
+    emptySubject: '未入力',
+    noReply: 'このメールはお問い合わせフォームからの自動返信です。',
+  },
+  en: {
+    subject: 'Thank you for contacting Acecore',
+    greeting: (name) => 'Hello ' + name + ',',
+    received: 'We have received your contact request.',
+    next: 'We will review your message and contact you if needed.',
+    categoryLabel: 'Category',
+    subjectLabel: 'Subject',
+    receivedAtLabel: 'Received at',
+    emptySubject: 'Not provided',
+    noReply: 'This is an automated reply from the Acecore contact form.',
+  },
+  'zh-cn': {
+    subject: '感谢您的咨询',
+    greeting: (name) => name + ' 您好：',
+    received: '我们已收到您的咨询。',
+    next: '我们会确认内容，并在需要时与您联系。',
+    categoryLabel: '咨询类型',
+    subjectLabel: '主题',
+    receivedAtLabel: '接收时间',
+    emptySubject: '未填写',
+    noReply: '这是一封来自 Acecore 咨询表单的自动回复邮件。',
+  },
+  es: {
+    subject: 'Gracias por contactar con Acecore',
+    greeting: (name) => 'Hola ' + name + ':',
+    received: 'Hemos recibido tu consulta.',
+    next: 'Revisaremos tu mensaje y nos pondremos en contacto contigo si es necesario.',
+    categoryLabel: 'Categoría',
+    subjectLabel: 'Asunto',
+    receivedAtLabel: 'Recibido el',
+    emptySubject: 'No indicado',
+    noReply:
+      'Este es un mensaje automático del formulario de contacto de Acecore.',
+  },
+  pt: {
+    subject: 'Obrigado por entrar em contato com a Acecore',
+    greeting: (name) => 'Olá, ' + name + ':',
+    received: 'Recebemos sua mensagem.',
+    next: 'Vamos analisar o conteúdo e entraremos em contato se necessário.',
+    categoryLabel: 'Categoria',
+    subjectLabel: 'Assunto',
+    receivedAtLabel: 'Recebido em',
+    emptySubject: 'Não informado',
+    noReply:
+      'Esta é uma resposta automática do formulário de contato da Acecore.',
+  },
+  fr: {
+    subject: 'Merci d’avoir contacté Acecore',
+    greeting: (name) => 'Bonjour ' + name + ',',
+    received: 'Nous avons bien reçu votre demande.',
+    next: 'Nous allons examiner votre message et vous contacter si nécessaire.',
+    categoryLabel: 'Catégorie',
+    subjectLabel: 'Objet',
+    receivedAtLabel: 'Reçu le',
+    emptySubject: 'Non renseigné',
+    noReply:
+      'Ceci est une réponse automatique du formulaire de contact d’Acecore.',
+  },
+  ko: {
+    subject: '문의해 주셔서 감사합니다',
+    greeting: (name) => name + '님, 안녕하세요.',
+    received: '문의가 정상적으로 접수되었습니다.',
+    next: '내용을 확인한 후 필요한 경우 연락드리겠습니다.',
+    categoryLabel: '문의 유형',
+    subjectLabel: '제목',
+    receivedAtLabel: '접수 일시',
+    emptySubject: '입력되지 않음',
+    noReply: '이 메일은 Acecore 문의 양식에서 자동으로 발송되었습니다.',
+  },
+  de: {
+    subject: 'Vielen Dank für Ihre Anfrage an Acecore',
+    greeting: (name) => 'Hallo ' + name + ',',
+    received: 'Wir haben Ihre Anfrage erhalten.',
+    next: 'Wir prüfen Ihre Nachricht und melden uns bei Bedarf bei Ihnen.',
+    categoryLabel: 'Kategorie',
+    subjectLabel: 'Betreff',
+    receivedAtLabel: 'Eingegangen am',
+    emptySubject: 'Nicht angegeben',
+    noReply: 'Dies ist eine automatische Antwort des Acecore-Kontaktformulars.',
+  },
+  ru: {
+    subject: 'Спасибо за обращение в Acecore',
+    greeting: (name) => 'Здравствуйте, ' + name + '!',
+    received: 'Мы получили ваше обращение.',
+    next: 'Мы рассмотрим ваше сообщение и свяжемся с вами при необходимости.',
+    categoryLabel: 'Категория',
+    subjectLabel: 'Тема',
+    receivedAtLabel: 'Получено',
+    emptySubject: 'Не указана',
+    noReply: 'Это автоматический ответ формы обратной связи Acecore.',
+  },
+}
 const SITEVERIFY_ENDPOINT =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 const EMAIL_API_BASE = 'https://api.cloudflare.com/client/v4'
@@ -224,8 +353,13 @@ export const onRequestPost = async ({
   }
 
   try {
-    const email = buildContactEmail(request, env, validation)
+    const submittedAt = new Date().toISOString()
+    const email = buildContactEmail(request, env, validation, submittedAt)
     const result = await sendContactEmail(env, email)
+    await sendContactEmail(
+      env,
+      buildContactAcknowledgementEmail(env, validation, submittedAt),
+    )
 
     if (wantsHtmlRedirect(request)) {
       return Response.redirect(
@@ -301,18 +435,9 @@ async function readContactPayload(
   }
 }
 
-function validatePayload(payload: ContactPayload | null):
-  | {
-      ok: true
-      locale: SupportedLocale
-      category: string
-      name: string
-      email: string
-      subject: string
-      message: string
-      turnstileToken: string
-    }
-  | { ok: false; messageKey: ApiMessageKey } {
+function validatePayload(
+  payload: ContactPayload | null,
+): ValidatedContact | { ok: false; messageKey: ApiMessageKey } {
   if (!payload || typeof payload !== 'object') {
     return { ok: false, messageKey: 'invalid' }
   }
@@ -371,18 +496,11 @@ function validatePayload(payload: ContactPayload | null):
 function buildContactEmail(
   request: Request,
   env: Env,
-  contact: {
-    locale: SupportedLocale
-    category: string
-    name: string
-    email: string
-    subject: string
-    message: string
-  },
+  contact: ContactDetails,
+  submittedAt: string,
 ): EmailApiMessage {
   const fromEmail = getConfigEmail(env.CONTACT_FROM_EMAIL, DEFAULT_FROM_EMAIL)
   const toEmail = getConfigEmail(env.CONTACT_TO_EMAIL, DEFAULT_TO_EMAIL)
-  const submittedAt = new Date().toISOString()
   const referer = normalizeSingleLine(request.headers.get('Referer'), 300)
   const userAgent = normalizeSingleLine(request.headers.get('User-Agent'), 300)
   const subjectSource = contact.subject || contact.category
@@ -408,38 +526,6 @@ function buildContactEmail(
     .filter((line) => line !== '')
     .join('\n')
 
-  const htmlRows = [
-    ['お問い合わせ種別', contact.category],
-    ['お名前', contact.name],
-    ['メールアドレス', contact.email],
-    ['件名', contact.subject || '未入力'],
-    ['言語', contact.locale],
-    ['送信日時', submittedAt],
-    referer ? ['送信元ページ', referer] : null,
-    userAgent ? ['User-Agent', userAgent] : null,
-  ].filter((row): row is [string, string] => Boolean(row))
-
-  const html = `<!doctype html>
-<html lang="ja">
-  <body style="font-family: sans-serif; line-height: 1.7; color: #0f172a;">
-    <h1 style="font-size: 18px;">${ORGANIZATION_LEGAL_NAME}公式サイトからお問い合わせが届きました。</h1>
-    <table style="border-collapse: collapse; width: 100%; max-width: 720px;">
-      <tbody>
-        ${htmlRows
-          .map(
-            ([label, value]) => `<tr>
-          <th style="width: 160px; border: 1px solid #cbd5e1; background: #f8fafc; padding: 8px; text-align: left;">${escapeHtml(label)}</th>
-          <td style="border: 1px solid #cbd5e1; padding: 8px;">${escapeHtml(value)}</td>
-        </tr>`,
-          )
-          .join('\n')}
-      </tbody>
-    </table>
-    <h2 style="font-size: 16px; margin-top: 24px;">お問い合わせ内容</h2>
-    <pre style="white-space: pre-wrap; background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px;">${escapeHtml(contact.message)}</pre>
-  </body>
-</html>`
-
   return {
     to: toEmail,
     from: {
@@ -449,13 +535,48 @@ function buildContactEmail(
     reply_to: contact.email,
     subject,
     text,
-    html,
     headers: {
       'X-Acecore-Contact-Locale': contact.locale,
     },
   }
 }
 
+function buildContactAcknowledgementEmail(
+  env: Env,
+  contact: ContactDetails,
+  submittedAt: string,
+): EmailApiMessage {
+  const fromEmail = getConfigEmail(env.CONTACT_FROM_EMAIL, DEFAULT_FROM_EMAIL)
+  const toEmail = getConfigEmail(env.CONTACT_TO_EMAIL, DEFAULT_TO_EMAIL)
+  const copy = CONTACT_ACK_COPY[contact.locale]
+  const text = [
+    copy.greeting(contact.name),
+    '',
+    copy.received,
+    copy.next,
+    '',
+    copy.categoryLabel + ': ' + contact.category,
+    copy.subjectLabel + ': ' + (contact.subject || copy.emptySubject),
+    copy.receivedAtLabel + ': ' + submittedAt,
+    '',
+    copy.noReply,
+  ].join('\n')
+
+  return {
+    to: contact.email,
+    from: {
+      address: fromEmail,
+      name: 'Acecore',
+    },
+    reply_to: toEmail,
+    subject: copy.subject,
+    text,
+    headers: {
+      'X-Acecore-Contact-Locale': contact.locale,
+      'X-Acecore-Contact-Type': 'acknowledgement',
+    },
+  }
+}
 async function sendContactEmail(
   env: Env,
   email: EmailApiMessage,
@@ -760,15 +881,6 @@ function jsonResponse(
 
 function getApiMessage(locale: SupportedLocale, key: ApiMessageKey): string {
   return API_MESSAGES[locale][key]
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
 }
 
 function getEmailErrorStatus(error: unknown): number {
