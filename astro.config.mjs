@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
-import UnoCSS from '@unocss/astro'
 import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeOptimizeImages from './src/utils/rehype-optimize-images'
@@ -58,17 +57,6 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   integrations: [
-    UnoCSS({
-      injectReset: true,
-      content: {
-        pipeline: {
-          exclude: [
-            /\.(css|postcss|sass|scss|less|stylus|styl)($|\?)/,
-            /\/src\/content\/.*\.mdx?($|\?)/,
-          ],
-        },
-      },
-    }),
     sitemap({
       filter(page) {
         return (

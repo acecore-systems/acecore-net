@@ -7,7 +7,7 @@ Acecore（エースコア）公式Webサイト。
 | 技術                                                                                            | 用途                                      |
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------- |
 | [Astro](https://astro.build/) v7                                                                | 静的サイトジェネレーター                  |
-| [UnoCSS](https://unocss.dev/)                                                                   | ユーティリティファースト CSS              |
+| [Tailwind CSS](https://tailwindcss.com/) v4                                                     | ユーティリティファースト CSS              |
 | [Cloudflare Pages](https://pages.cloudflare.com/)                                               | ホスティング・CDN                         |
 | [Cloudflare Images Transformations](https://developers.cloudflare.com/images/transform-images/) | 外部画像の自動最適化（`/cdn-cgi/image/`） |
 | [Cloudflare Email Service](https://developers.cloudflare.com/email-service/)                    | お問い合わせフォームのメール送信          |
@@ -271,7 +271,8 @@ GitHub への push で自動デプロイされます。
 | ファイル                   | 説明                                                            |
 | -------------------------- | --------------------------------------------------------------- |
 | `astro.config.mjs`         | Astro 設定（i18n・rehype プラグイン含む）                       |
-| `uno.config.ts`            | UnoCSS テーマ・ショートカット                                   |
+| `postcss.config.cjs`       | Tailwind CSS v4 の Astro/Vite CSS 統合                          |
+| `src/styles/global.css`    | Acecore トークン、共通UI規約、Preflight 方針                    |
 | `src/content.config.ts`    | コンテンツコレクション定義                                      |
 | `public/admin/index.html`  | Sveltia CMS 管理画面                                            |
 | `public/admin/config.yml`  | Sveltia CMS 設定                                                |
