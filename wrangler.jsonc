@@ -96,7 +96,7 @@
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-openai-1536-production",
+          "index_name": "acecore-net-search-openai-1536-production-v3",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",

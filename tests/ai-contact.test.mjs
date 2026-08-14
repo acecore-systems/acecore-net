@@ -1736,7 +1736,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'utf8',
   )
   const productionIndexes = [
-    'acecore-net-search-openai-1536-production',
+    'acecore-net-search-openai-1536-production-v3',
     'acecore-systems-search-openai-1536-production',
     'acecore-schools-search-openai-1536-production',
     'aceserver-wiki-search-openai-1536-production',

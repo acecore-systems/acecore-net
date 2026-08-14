@@ -31,7 +31,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 | 質問の担当       | Production Pages binding        | Production index名                               | namespace  | 情報の責任範囲                                   |
 | ---------------- | ------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------ |
-| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-production`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-openai-1536-production-v3`   | 表示locale | 会社情報、事業の案内、共通窓口                   |
 | Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-openai-1536-production`  | `ja`       | 技術サービス                                     |
 | Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-openai-1536-production`  | `ja`       | 学習サービス                                     |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-openai-1536-production`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
@@ -57,16 +57,16 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 
 ## Acecoreが管理するCloudflareリソース
 
-| 環境       | Vectorize index                             | namespace                                               |
-| ---------- | ------------------------------------------- | ------------------------------------------------------- |
-| Preview    | 未接続                                      | 未適用                                                  |
-| Production | `acecore-net-search-openai-1536-production` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
+| 環境       | Vectorize index                                | namespace                                               |
+| ---------- | ---------------------------------------------- | ------------------------------------------------------- |
+| Preview    | 未接続                                         | 未適用                                                  |
+| Production | `acecore-net-search-openai-1536-production-v3` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
-Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-08-01に正規名 `acecore-net-search-openai-1536-production` へ305 vectorsを全量同期し、ID集合一致とquery canaryを確認しました。同日の公開corpus差分は、明示承認済みの固定planに限定して77 upsert・74 delete（24.3%）を適用し、308 vectorsへのID集合一致とquery canaryを再確認しています。Productionの現在のbindingはこの正規名です。
+Production indexは `text-embedding-3-large` の短縮embeddingに合わせて `dimensions: 1536`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とします。旧BGE-M3用1024次元indexへ混在させず、新indexの全corpus同期と代表的な日本語queryの確認が終わってからbindingを切り替えます。2026-08-01に正規名 `acecore-net-search-openai-1536-production` へ305 vectorsを全量同期し、ID集合一致とquery canaryを確認しました。同日の公開corpus差分は、明示承認済みの固定planに限定して77 upsert・74 delete（24.3%）を適用し、308 vectorsへのID集合一致とquery canaryを再確認しています。2026-08-14以降のProduction bindingと通常同期先はv3です。
 
 2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して一時的にbindingを切り替え、旧indexを削除しました。2026-08-01に正規名indexを再作成・全量同期して通常同期とbindingを戻し、収束確認後にv2も削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
-2026-08-14の公開corpusは341 vectorsで、正規名indexの330 vectorsに対して106 upsert・95 delete（28.8%）となり、20%の安全gateがmutation前に停止しました。既存indexへ大量deleteを適用せず、承認済みのreplacement `acecore-net-search-openai-1536-production-v3` へ全corpusを同期します。v3のID集合一致とquery canaryを確認するまではProduction bindingを正規名へ維持し、正規名indexもロールバック用に保持します。再構築中の同期workflowとscriptはv3だけをmutation許可対象に固定します。
+2026-08-14の公開corpusは341 vectorsで、正規名indexの330 vectorsに対して106 upsert・95 delete（28.8%）となり、20%の安全gateがmutation前に停止しました。既存indexへ大量deleteを適用せず、承認済みのreplacement `acecore-net-search-openai-1536-production-v3` を新規作成して341 vectorsを全量upsertしました。同期workflowでID集合の完全一致とquery canaryを確認してからProduction bindingをv3へ切り替え、正規名indexは330 vectorsのままロールバック用に保持します。同期workflowとscriptはv3だけをmutation許可対象に固定します。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionで本番D1を共有します。Previewは検索を無効のまま維持し、同じtable内では自サイト検索を `client:` / `global`、横断検索を `network-search:{caller}:client:` / `network-search:global`、AIチャットを `ai-chat:client:` / `ai-chat:global` prefixで分離します。
 
@@ -92,7 +92,7 @@ npm run typecheck:functions
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
-2026-08-14のreplacement再構築中は、workflowの同期先を固定名 `acecore-net-search-openai-1536-production-v3` とします。存在しない場合は1536次元・cosineで作成し、公開corpusを全量upsertしてID集合の完全一致とquery canaryを確認します。確認が完了するまでProduction bindingは正規名indexのままとし、別のレビュー済み変更だけでv3へ切り替えます。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
+workflowの同期先は固定名 `acecore-net-search-openai-1536-production-v3` です。2026-08-14に1536次元・cosineで新規作成し、公開corpus 341 vectorsの全量upsert、ID集合の完全一致、query canaryを確認してからProduction bindingもv3へ切り替えました。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
