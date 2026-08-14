@@ -138,17 +138,3 @@
     linear-gradient(90deg, rgba(11, 95, 211, 0.055) 1px, transparent 1px);
   background-size: 28px 28px;
 }
-
-@utility ac-rule-top {
-  position: relative;
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3rem;
-    height: 0.125rem;
-    background-color: var(--color-brand-600);
-    content: '';
-  }
-}
