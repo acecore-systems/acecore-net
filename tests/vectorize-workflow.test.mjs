@@ -89,12 +89,12 @@ test('配置待機ゲートを型検査済みのTypeScriptとして実行する'
   assert.doesNotMatch(source, /wait-for-deployment\.mjs/u)
 })
 
-test('replacement構築中も確認済み正規indexをProduction bindingへ維持する', async () => {
+test('全量同期済みreplacementをProduction bindingへ設定する', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v3",/u,
   )
   assert.doesNotMatch(
     config,
@@ -102,6 +102,6 @@ test('replacement構築中も確認済み正規indexをProduction bindingへ維�
   )
   assert.doesNotMatch(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v3",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
   )
 })
