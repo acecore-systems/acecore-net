@@ -32,6 +32,8 @@ export interface TranslationPullRequest {
   title: string
   body: string | null
   draft: boolean
+  mergeableState: string
+  autoMergeEnabled: boolean
   nodeId: string | null
 }
 
@@ -51,15 +53,15 @@ export interface GitHubClient {
   graphql(query: string, variables?: JsonRecord): Promise<JsonRecord>
 }
 
-interface MergeResult {
-  merged: boolean
-  sha: string | null
-  message: string
-}
-
 interface ReadyForReviewResult {
   number: number
   isDraft: boolean
+}
+
+interface AutoMergeResult {
+  number: number
+  merged: boolean
+  autoMergeEnabled: boolean
 }
 
 interface MergeAutomationOptions {
@@ -219,6 +221,12 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
     title: getRequiredString(pullRequest, 'title', 'GitHub pull request'),
     body: getOptionalString(pullRequest, 'body'),
     draft: getRequiredBoolean(pullRequest, 'draft', 'GitHub pull request'),
+    mergeableState: getRequiredString(
+      pullRequest,
+      'mergeable_state',
+      'GitHub pull request',
+    ),
+    autoMergeEnabled: isJsonRecord(pullRequest.auto_merge),
     nodeId: getOptionalString(pullRequest, 'node_id'),
   }
 }
@@ -410,35 +418,112 @@ export function hasSuccessfulTranslationBuild(
   )
 }
 
-function parseMergeResult(value: unknown): MergeResult {
-  const result = getRequiredRecord(value, 'GitHub merge response')
-  const merged = getRequiredBoolean(result, 'merged', 'GitHub merge response')
-  const sha = result.sha
-
-  if (sha !== null && typeof sha !== 'string') {
-    throw new Error('GitHub merge response.sha must be a string or null.')
-  }
-  if (merged && (!sha || !FULL_SHA_PATTERN.test(sha))) {
-    throw new Error(
-      'A successful GitHub merge response must include a full Git SHA.',
-    )
-  }
+function parseAutoMergeResult(value: JsonRecord): AutoMergeResult {
+  const mutation = getRequiredRecord(
+    value.enablePullRequestAutoMerge,
+    'GitHub GraphQL enablePullRequestAutoMerge response',
+  )
+  const pullRequest = getRequiredRecord(
+    mutation.pullRequest,
+    'GitHub GraphQL enablePullRequestAutoMerge response.pullRequest',
+  )
 
   return {
-    merged,
-    sha,
-    message:
-      typeof result.message === 'string'
-        ? result.message
-        : 'GitHub did not provide a merge message.',
+    number: getPositiveInteger(
+      pullRequest,
+      'number',
+      'GitHub GraphQL enablePullRequestAutoMerge response.pullRequest',
+    ),
+    merged: getRequiredBoolean(
+      pullRequest,
+      'merged',
+      'GitHub GraphQL enablePullRequestAutoMerge response.pullRequest',
+    ),
+    autoMergeEnabled: isJsonRecord(pullRequest.autoMergeRequest),
   }
 }
 
-function encodeGitReference(reference: string): string {
-  return reference.split('/').map(encodeURIComponent).join('/')
+export async function enablePullRequestAutoMerge(
+  pullRequest: TranslationPullRequest,
+  {
+    client,
+    logger = console,
+  }: {
+    client: GitHubClient
+    logger?: Logger
+  },
+): Promise<boolean> {
+  if (pullRequest.autoMergeEnabled) {
+    logger.log(`Auto-merge is already enabled for PR #${pullRequest.number}.`)
+    return true
+  }
+  if (!pullRequest.nodeId) {
+    logger.warn(
+      `Pull request #${pullRequest.number} has no node_id. Cannot enable auto-merge.`,
+    )
+    return false
+  }
+
+  let result: AutoMergeResult
+
+  try {
+    const data = await client.graphql(
+      `mutation EnablePullRequestAutoMerge(
+        $pullRequestId: ID!
+        $expectedHeadOid: GitObjectID!
+        $commitHeadline: String!
+      ) {
+        enablePullRequestAutoMerge(
+          input: {
+            pullRequestId: $pullRequestId
+            expectedHeadOid: $expectedHeadOid
+            mergeMethod: SQUASH
+            commitHeadline: $commitHeadline
+          }
+        ) {
+          pullRequest {
+            number
+            merged
+            autoMergeRequest {
+              mergeMethod
+            }
+          }
+        }
+      }`,
+      {
+        pullRequestId: pullRequest.nodeId,
+        expectedHeadOid: pullRequest.headSha,
+        commitHeadline: pullRequest.title,
+      },
+    )
+    result = parseAutoMergeResult(data)
+  } catch (error) {
+    logger.warn(
+      `Could not enable auto-merge for PR #${pullRequest.number}: ${error instanceof Error ? error.message : String(error)}`,
+    )
+    return false
+  }
+
+  if (
+    result.number !== pullRequest.number ||
+    (!result.merged && !result.autoMergeEnabled)
+  ) {
+    logger.warn(
+      `GitHub did not enable auto-merge for PR #${pullRequest.number}.`,
+    )
+    return false
+  }
+
+  logger.log(
+    result.merged
+      ? `PR #${pullRequest.number} merged immediately when auto-merge was enabled.`
+      : `Enabled squash auto-merge for PR #${pullRequest.number}.`,
+  )
+
+  return true
 }
 
-export async function mergePullRequest(
+export async function updatePullRequestBranch(
   pullRequest: TranslationPullRequest,
   {
     client,
@@ -450,54 +535,33 @@ export async function mergePullRequest(
     repository: RepositoryInfo
   },
 ): Promise<boolean> {
-  let mergeResult: MergeResult
+  let response: unknown | null
 
   try {
-    const response = await client.request(
-      `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/pulls/${pullRequest.number}/merge`,
+    response = await client.request(
+      `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/pulls/${pullRequest.number}/update-branch`,
       {
         method: 'PUT',
-        body: {
-          merge_method: 'squash',
-          commit_title: pullRequest.title,
-          sha: pullRequest.headSha,
-        },
+        body: { expected_head_sha: pullRequest.headSha },
       },
     )
-    mergeResult = parseMergeResult(response)
   } catch (error) {
     logger.warn(
-      `Could not merge PR #${pullRequest.number}: ${error instanceof Error ? error.message : String(error)}`,
+      `Could not update PR #${pullRequest.number} with current main: ${error instanceof Error ? error.message : String(error)}`,
     )
     return false
   }
 
-  if (!mergeResult.merged || !mergeResult.sha) {
+  if (!isJsonRecord(response) || typeof response.message !== 'string') {
     logger.warn(
-      `GitHub did not merge PR #${pullRequest.number}: ${mergeResult.message}`,
+      `GitHub did not confirm the branch update for PR #${pullRequest.number}.`,
     )
     return false
   }
 
-  logger.log(`Merged PR #${pullRequest.number}: ${mergeResult.sha}`)
-
-  if (
-    pullRequest.headRef &&
-    pullRequest.headRepositoryFullName === repository.repository
-  ) {
-    try {
-      await client.request(
-        `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/git/refs/heads/${encodeGitReference(pullRequest.headRef)}`,
-        { method: 'DELETE' },
-      )
-      logger.log(`Deleted branch ${pullRequest.headRef}`)
-    } catch (error) {
-      logger.warn(
-        `Could not delete branch ${pullRequest.headRef}: ${error instanceof Error ? error.message : String(error)}`,
-      )
-    }
-  }
-
+  logger.log(
+    `Updating PR #${pullRequest.number} with current main before enabling auto-merge.`,
+  )
   return true
 }
 
@@ -625,19 +689,41 @@ export async function runMergeAutomation(
     return
   }
 
+  if (pullRequest.mergeableState === 'behind') {
+    const updated = await updatePullRequestBranch(pullRequest, {
+      client: currentClient,
+      logger,
+      repository: currentRepository,
+    })
+    if (!updated) {
+      throw new Error(
+        `Could not update translation PR #${pullRequest.number} with current main.`,
+      )
+    }
+    return
+  }
+
   if (pullRequest.draft) {
     const markedReady = await markPullRequestReadyForReview(pullRequest, {
       client: currentClient,
       logger,
     })
-    if (!markedReady) return
+    if (!markedReady) {
+      throw new Error(
+        `Could not mark translation PR #${pullRequest.number} ready for review.`,
+      )
+    }
   }
 
-  await mergePullRequest(pullRequest, {
+  const autoMergeEnabled = await enablePullRequestAutoMerge(pullRequest, {
     client: currentClient,
     logger,
-    repository: currentRepository,
   })
+  if (!autoMergeEnabled) {
+    throw new Error(
+      `Could not enable auto-merge for translation PR #${pullRequest.number}.`,
+    )
+  }
 }
 
 function isDirectExecution(): boolean {

@@ -83,12 +83,17 @@ test('WorkflowはLuna/maxをBatchへ投入し、回収後にBot PRを作る', as
   assert.match(collectWorkflow, /translation\/openai\//u)
   assert.match(collectWorkflow, /TRANSLATION_BOT_APP_ID/u)
   assert.match(collectWorkflow, /openai-translation-processed-/u)
+  assert.match(collectWorkflow, /Format collected translation files/u)
+  assert.match(collectWorkflow, /git diff --name-only --diff-filter=ACMRT -z/u)
+  assert.match(collectWorkflow, /npx prettier --write --/u)
   assert.match(
     collectWorkflow,
     /GITHUB_TOKEN: \$\{\{ secrets\.GITHUB_TOKEN \}\}/u,
   )
-  assert.match(
-    readFileSync('scripts/openai-translation-batch.ts', 'utf8'),
-    /closeStaleOpenAiTranslationPullRequests/u,
+  const batchScript = readFileSync(
+    'scripts/openai-translation-batch.ts',
+    'utf8',
   )
+  assert.match(batchScript, /closeStaleOpenAiTranslationPullRequests/u)
+  assert.match(batchScript, /between 50 and 160 Unicode characters/u)
 })

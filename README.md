@@ -166,7 +166,8 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 2. 同じsourceへの続けての修正をまとめるため15分待ち、最新の`main`と一致する変更だけをOpenAI Batchへ投入する
 3. `.github/workflows/collect-openai-translation-batch.yml` が完了済みBatchを15分間隔で回収する
 4. 専用GitHub Appが`translation/openai/{batchId}` branchとDraft PRを作成する
-5. `Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけ自動でsquash mergeする
+5. `Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけDraftを解除してGitHubのAuto-mergeを予約する
+6. behindの場合は検証したHEAD SHAを指定して最新の`main`を取り込み、required checkの`Build and Format`が成功した時点でGitHubがsquash mergeする
 
 翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。Batch投入後に同じsourceが再編集された場合は、古い結果と古い翻訳PRを取り込まず破棄します。
 
@@ -186,8 +187,11 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 - Workflow: `.github/workflows/merge-translation-pr.yml`
 - Script: `scripts/merge-translation-pr.ts`
 - 対象は`translation/openai/` branchから作成された`[translation] OpenAI Batch ...` PRだけ
-- `Translation PR Build`の成功と現在のsource hashを再確認してからsquash mergeする
-- GitHubがmerge成功を返した場合だけ、同一repositoryの翻訳branchを削除する
+- Batch回収時に変更・追加された翻訳ファイルだけをPrettierで整形してからcommitする
+- `Translation PR Build`の成功と現在のsource hashを再確認してからDraftを解除し、GitHubのAuto-mergeをsquashで予約する
+- 翻訳PRがbehindなら専用GitHub App tokenでGitHubのupdate branch APIを呼び、後続CIを起動して`main`を取り込む。`main`更新時にも未完了の翻訳PRを再評価する
+- required checkとbranch protectionの条件をGitHub側で満たした場合だけmergeし、repositoryの自動削除設定で翻訳branchを削除する
+- repository設定ではAuto-mergeとhead branchの自動削除を有効にしておく
 
 ## AI 問い合わせアシスタント
 

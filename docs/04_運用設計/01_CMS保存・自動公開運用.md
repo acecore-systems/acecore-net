@@ -81,6 +81,8 @@ direct commitのsubjectは`cms: create|update|delete|upload ...`形式を維持�
 
 翻訳記事は日本語sourceと同じslug・`articleId`を維持します。日本語sourceのslug変更はCMSで旧path削除と新path追加を1 commitで行い、OpenAI Batchの結果を回収する際に全localeの旧path削除・新path追加・`articleId`維持を同じ翻訳PRへ反映します。source hashが現在の日本語sourceと異なる古い結果やPRは取り込みません。
 
+Batch回収時は変更・追加された翻訳ファイルだけをPrettierで整形してからcommitします。翻訳PRは`Translation PR Build`の成功とsource hashを再確認し、behindなら検証したHEAD SHAと専用GitHub App tokenを使ってupdate branch APIで`main`を取り込み、後続CIを起動します。追従後にDraftを解除してGitHubのAuto-mergeを予約し、required checkの`Build and Format`とbranch protectionを満たした時点でsquash mergeします。`main`更新時にも未完了の翻訳PRを再評価します。repository設定ではAuto-mergeとhead branchの自動削除を有効にしておきます。
+
 ## 検証
 
 `npm run validate:content`は、`main`、same-origin proxy、OAuth editor検証、専用GitHub App、expected-HEAD direct commit、`cms: ...` subject、CMS公開path、管理画面案内に加え、記事`articleId`のUUID・locale内一意性・同一slugの日本語sourceが存在する場合のlocale間一致を確認します。CMS direct commit直後は後続翻訳PRが完了するまで旧slugの翻訳記事やsource削除後の翻訳記事が一時的に残るため、その中間stateは許容します。既存記事の更新日はCMS proxyが保存前に検証し、Pull Requestと`main` pushでは`npm run validate:blog-freshness`も`articleId`の不変性と変更記事の更新日漏れを補完検証します。
