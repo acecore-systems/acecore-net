@@ -14,7 +14,8 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.ts'
 
-const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
+const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v3'
+const PREVIOUS_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
 const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
@@ -57,17 +58,17 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
 
   assert.throws(
     () => parseArguments([], environment),
-    /--confirm-production acecore-net-search-openai-1536-production/u,
+    /--confirm-production acecore-net-search-openai-1536-production-v3/u,
   )
   assert.doesNotThrow(() =>
     parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
   )
   assert.throws(
     () =>
-      parseArguments(['--confirm-production', RETIRED_PRODUCTION_INDEX], {
-        VECTORIZE_INDEX_NAME: RETIRED_PRODUCTION_INDEX,
+      parseArguments(['--confirm-production', PREVIOUS_PRODUCTION_INDEX], {
+        VECTORIZE_INDEX_NAME: PREVIOUS_PRODUCTION_INDEX,
       }),
-    /--confirm-production acecore-net-search-openai-1536-production/u,
+    /--confirm-production acecore-net-search-openai-1536-production-v3/u,
   )
   assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
   assert.doesNotThrow(() => parseArguments(['--plan'], environment))
@@ -371,7 +372,7 @@ test('planは不存在indexを作成せずfail closedする', async () => {
   assert.equal(createRequests, 0)
 })
 
-test('削除済みの正規名indexは再作成して同期対象にできる', async () => {
+test('不存在の承認済みreplacement indexは作成して同期対象にできる', async () => {
   const corpus = createCorpus()
   const corpusFile = await writeCorpus(corpus)
   let createRequests = 0
@@ -419,7 +420,7 @@ test('削除済みの正規名indexは再作成して同期対象にできる', 
   assert.equal(result.verified, true)
 })
 
-test('同期先indexをproductionだけに制限する', async () => {
+test('同期先indexを承認済みreplacementだけに制限する', async () => {
   const corpusFile = await writeCorpus(createCorpus())
 
   await assert.rejects(
@@ -444,10 +445,19 @@ test('同期先indexをproductionだけに制限する', async () => {
     syncVectorize({
       corpusFile,
       dryRun: true,
+      indexName: PREVIOUS_PRODUCTION_INDEX,
+      logger: silentLogger,
+    }),
+    /must be one of: acecore-net-search-openai-1536-production-v3/u,
+  )
+  await assert.rejects(
+    syncVectorize({
+      corpusFile,
+      dryRun: true,
       indexName: RETIRED_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
-    /must be one of: acecore-net-search-openai-1536-production/u,
+    /must be one of: acecore-net-search-openai-1536-production-v3/u,
   )
 })
 

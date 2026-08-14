@@ -164,7 +164,7 @@ const MIN_LOCALE_VECTOR_COUNTS: Readonly<LocaleCounts> = Object.freeze({
   ru: 18,
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
-const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production'
+const PRODUCTION_INDEX_NAME = 'acecore-net-search-openai-1536-production-v3'
 const ALLOWED_INDEX_NAMES = new Set<string>([PRODUCTION_INDEX_NAME])
 const SUPPORTED_LOCALES = [
   'ja',
