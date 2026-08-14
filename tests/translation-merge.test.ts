@@ -4,6 +4,7 @@ import { test } from 'node:test'
 
 import {
   enablePullRequestAutoMerge,
+  hasOnlyAllowedTranslationFiles,
   hasSuccessfulTranslationBuild,
   isEligibleTranslationPullRequest,
   markPullRequestReadyForReview,
@@ -35,6 +36,7 @@ function createPullRequest(
     headRepositoryFullName: REPOSITORY.repository,
     title: '[translation] OpenAI Batch batch_example',
     body: null,
+    authorLogin: 'acecore-translation-bot[bot]',
     draft: true,
     mergeableState: 'clean',
     autoMergeEnabled: false,
@@ -78,20 +80,28 @@ test('PR番号は安全な正整数だけを受け入れ、未知の引数で停
 })
 
 test('対象外のPRは翻訳自動マージ対象にしない', () => {
-  assert.equal(isEligibleTranslationPullRequest(createPullRequest()), true)
+  assert.equal(
+    isEligibleTranslationPullRequest(createPullRequest(), REPOSITORY),
+    true,
+  )
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({ headRef: 'feature/update' }),
+      REPOSITORY,
     ),
     false,
   )
   assert.equal(
-    isEligibleTranslationPullRequest(createPullRequest({ baseRef: 'develop' })),
+    isEligibleTranslationPullRequest(
+      createPullRequest({ baseRef: 'develop' }),
+      REPOSITORY,
+    ),
     false,
   )
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({ title: '[translation] Legacy translation PR' }),
+      REPOSITORY,
     ),
     false,
   )
@@ -100,7 +110,44 @@ test('対象外のPRは翻訳自動マージ対象にしない', () => {
       createPullRequest({
         headRef: 'copilot/update-translations',
       }),
+      REPOSITORY,
     ),
+    false,
+  )
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({
+        headRepositoryFullName: 'untrusted-fork/acecore-net',
+      }),
+      REPOSITORY,
+    ),
+    false,
+  )
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({ authorLogin: 'untrusted-user' }),
+      REPOSITORY,
+    ),
+    false,
+  )
+})
+
+test('翻訳PRは8ロケールのMarkdownと翻訳JSONだけを変更できる', () => {
+  assert.equal(
+    hasOnlyAllowedTranslationFiles([
+      'src/content/blog/en/example.md',
+      'src/content/blog/zh-cn/example.md',
+      'src/i18n/translations/de.json',
+    ]),
+    true,
+  )
+  assert.equal(hasOnlyAllowedTranslationFiles([]), false)
+  assert.equal(
+    hasOnlyAllowedTranslationFiles(['src/content/blog/example.md']),
+    false,
+  )
+  assert.equal(
+    hasOnlyAllowedTranslationFiles(['.github/workflows/ci.yml']),
     false,
   )
 })
@@ -316,9 +363,9 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
             sha: HEAD_SHA,
             repo: { full_name: REPOSITORY.repository },
           },
-          user: { login: 'github-actions[bot]' },
           title: '[translation] OpenAI Batch batch_stale',
           body: `<!-- openai-translation-source:${staleMarker} -->`,
+          user: { login: 'acecore-translation-bot[bot]' },
           draft: true,
           mergeable_state: 'clean',
           node_id: 'PR_kwDORlSgas123',
@@ -362,6 +409,8 @@ test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する
   assert.match(workflow, /push:\s+branches:\s+- main/u)
   assert.match(workflow, /PR_NUMBERS: \$\{\{ steps\.pr\.outputs\.numbers \}\}/u)
   assert.match(workflow, /checks:\s+read/u)
+  assert.match(workflow, /contents:\s+read/u)
+  assert.match(workflow, /pull-requests:\s+read/u)
   assert.match(workflow, /actions\/create-github-app-token@v3/u)
   assert.match(
     workflow,

@@ -35,7 +35,7 @@ test('ページsourceは対応する翻訳JSONのpages配下だけを更新す�
   )
 })
 
-test('PRのsourceHashが現在の日本語記事と異なる場合は古い版として扱う', () => {
+test('PRはsource markerを必須とし、sourceHashが異なる場合は古い版として扱う', () => {
   const sourcePath = 'src/content/blog/website-renewal.md'
   const source = readFileSync(sourcePath, 'utf8')
   const marker = Buffer.from(
@@ -65,6 +65,8 @@ test('PRのsourceHashが現在の日本語記事と異なる場合は古い版�
     ),
     false,
   )
+  assert.equal(areOpenAiTranslationMarkersCurrent(null), false)
+  assert.equal(areOpenAiTranslationMarkersCurrent('markerなし'), false)
 })
 
 test('WorkflowはLuna/maxをBatchへ投入し、回収後にBot PRを作る', async () => {

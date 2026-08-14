@@ -31,6 +31,7 @@ export interface TranslationPullRequest {
   headRepositoryFullName: string | null
   title: string
   body: string | null
+  authorLogin: string
   draft: boolean
   mergeableState: string
   autoMergeEnabled: boolean
@@ -74,6 +75,11 @@ interface MergeAutomationOptions {
 const GITHUB_API_URL = 'https://api.github.com'
 const FULL_SHA_PATTERN = /^[0-9a-f]{40}$/i
 const OPENAI_TRANSLATION_TITLE_PREFIX = '[translation] OpenAI Batch '
+const OPENAI_TRANSLATION_BOT_LOGIN = 'acecore-translation-bot[bot]'
+const TRANSLATION_CONTENT_PATH_PATTERN =
+  /^src\/content\/blog\/(?:en|zh-cn|es|pt|fr|ko|de|ru)\/.+\.md$/u
+const TRANSLATION_JSON_PATH_PATTERN =
+  /^src\/i18n\/translations\/(?:en|zh-cn|es|pt|fr|ko|de|ru)\.json$/u
 
 export function parseArguments(argv: readonly string[]): ParsedArguments {
   const options: ParsedArguments = { prNumber: null }
@@ -208,6 +214,7 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
   if (!FULL_SHA_PATTERN.test(headSha)) {
     throw new Error('GitHub pull request.head.sha must be a full Git SHA.')
   }
+  const author = getRequiredRecord(pullRequest.user, 'GitHub pull request.user')
 
   return {
     number: getPositiveInteger(pullRequest, 'number', 'GitHub pull request'),
@@ -220,6 +227,7 @@ export function parsePullRequest(value: unknown): TranslationPullRequest {
       : null,
     title: getRequiredString(pullRequest, 'title', 'GitHub pull request'),
     body: getOptionalString(pullRequest, 'body'),
+    authorLogin: getRequiredString(author, 'login', 'GitHub pull request.user'),
     draft: getRequiredBoolean(pullRequest, 'draft', 'GitHub pull request'),
     mergeableState: getRequiredString(
       pullRequest,
@@ -383,12 +391,64 @@ async function getCheckRuns(
   return parseCheckRuns(response)
 }
 
+async function getPullRequestFiles(
+  prNumber: number,
+  repository: RepositoryInfo,
+  client: GitHubClient,
+): Promise<string[]> {
+  const filenames: string[] = []
+
+  for (let page = 1; page <= 30; page += 1) {
+    const response = await client.request(
+      `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/pulls/${prNumber}/files?per_page=100&page=${page}`,
+    )
+    if (!Array.isArray(response)) {
+      throw new Error('GitHub pull request files response must be an array.')
+    }
+
+    response.forEach((entry, index) => {
+      const file = getRequiredRecord(
+        entry,
+        `GitHub pull request files response[${index}]`,
+      )
+      filenames.push(
+        getRequiredString(
+          file,
+          'filename',
+          `GitHub pull request files response[${index}]`,
+        ),
+      )
+    })
+
+    if (response.length < 100) return filenames
+  }
+
+  throw new Error('Translation pull request exceeds the 3000-file API limit.')
+}
+
+function isAllowedTranslationFile(filename: string): boolean {
+  return (
+    TRANSLATION_CONTENT_PATH_PATTERN.test(filename) ||
+    TRANSLATION_JSON_PATH_PATTERN.test(filename)
+  )
+}
+
+export function hasOnlyAllowedTranslationFiles(
+  filenames: readonly string[],
+): boolean {
+  return filenames.length > 0 && filenames.every(isAllowedTranslationFile)
+}
+
 export function isEligibleTranslationPullRequest(
   pullRequest: TranslationPullRequest,
+  repository: RepositoryInfo,
 ): boolean {
   return (
     pullRequest.state === 'open' &&
     pullRequest.baseRef === 'main' &&
+    pullRequest.authorLogin === OPENAI_TRANSLATION_BOT_LOGIN &&
+    pullRequest.headRepositoryFullName?.toLowerCase() ===
+      repository.repository.toLowerCase() &&
     pullRequest.headRef?.startsWith('translation/openai/') === true &&
     pullRequest.title.startsWith(OPENAI_TRANSLATION_TITLE_PREFIX)
   )
@@ -660,7 +720,7 @@ export async function runMergeAutomation(
     return
   }
 
-  if (!isEligibleTranslationPullRequest(pullRequest)) {
+  if (!isEligibleTranslationPullRequest(pullRequest, currentRepository)) {
     logger.log(
       `Pull request #${pullRequest.number} is not an eligible translation PR. Skipping.`,
     )
@@ -675,6 +735,20 @@ export async function runMergeAutomation(
       logger,
     )
     return
+  }
+
+  const changedFiles = await getPullRequestFiles(
+    pullRequest.number,
+    currentRepository,
+    currentClient,
+  )
+  if (!hasOnlyAllowedTranslationFiles(changedFiles)) {
+    const unexpectedFiles = changedFiles.filter(
+      (filename) => !isAllowedTranslationFile(filename),
+    )
+    throw new Error(
+      `Translation PR #${pullRequest.number} contains unexpected files: ${unexpectedFiles.join(', ') || '(none)'}`,
+    )
   }
 
   const checkRuns = await getCheckRuns(

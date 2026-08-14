@@ -81,7 +81,7 @@ direct commitのsubjectは`cms: create|update|delete|upload ...`形式を維持�
 
 翻訳記事は日本語sourceと同じslug・`articleId`を維持します。日本語sourceのslug変更はCMSで旧path削除と新path追加を1 commitで行い、OpenAI Batchの結果を回収する際に全localeの旧path削除・新path追加・`articleId`維持を同じ翻訳PRへ反映します。source hashが現在の日本語sourceと異なる古い結果やPRは取り込みません。
 
-Batch回収時は変更・追加された翻訳ファイルだけをPrettierで整形してからcommitします。翻訳PRは`Translation PR Build`の成功とsource hashを再確認し、behindなら検証したHEAD SHAと専用GitHub App tokenを使ってupdate branch APIで`main`を取り込み、後続CIを起動します。追従後にDraftを解除してGitHubのAuto-mergeを予約し、required checkの`Build and Format`とbranch protectionを満たした時点でsquash mergeします。`main`更新時にも未完了の翻訳PRを再評価します。repository設定ではAuto-mergeとhead branchの自動削除を有効にしておきます。
+Batch回収時は変更・追加された翻訳ファイルだけをPrettierで整形してからcommitします。自動マージ対象は専用Translation Botが同一repositoryの`translation/openai/` branchと所定タイトルを使って作成し、1件以上の有効なsource markerを持つ翻訳PRだけです。変更pathも8ロケールの翻訳Markdownと翻訳JSONだけに限定します。`Translation PR Build`の成功とsource hashを再確認し、behindなら検証したHEAD SHAと専用GitHub App tokenを使ってupdate branch APIで`main`を取り込み、後続CIを起動します。追従後にDraftを解除してGitHubのAuto-mergeを予約し、required checkの`Build and Format`とbranch protectionを満たした時点でsquash mergeします。`main`更新時にも未完了の翻訳PRを再評価します。repository設定ではAuto-mergeとhead branchの自動削除を有効にしておきます。
 
 ## 検証
 

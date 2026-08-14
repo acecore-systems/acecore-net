@@ -1574,7 +1574,8 @@ export function isCurrentTranslationMarker(metadata: RequestMetadata): boolean {
 export function areOpenAiTranslationMarkersCurrent(
   body: string | null | undefined,
 ): boolean {
-  return parseSourceMarkers(body).every(isCurrentTranslationMarker)
+  const markers = parseSourceMarkers(body)
+  return markers.length > 0 && markers.every(isCurrentTranslationMarker)
 }
 
 async function closeStaleOpenAiTranslationPullRequests(): Promise<void> {

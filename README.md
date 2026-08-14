@@ -186,7 +186,8 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 - Workflow: `.github/workflows/translation-pr-build.yml`
 - Workflow: `.github/workflows/merge-translation-pr.yml`
 - Script: `scripts/merge-translation-pr.ts`
-- 対象は`translation/openai/` branchから作成された`[translation] OpenAI Batch ...` PRだけ
+- 対象は専用Translation Botが同一repositoryの`translation/openai/` branchから作成し、1件以上の有効なsource markerを持つ`[translation] OpenAI Batch ...` PRだけ
+- 変更できるpathは8ロケールの`src/content/blog/{locale}/*.md`と`src/i18n/translations/{locale}.json`だけ
 - Batch回収時に変更・追加された翻訳ファイルだけをPrettierで整形してからcommitする
 - `Translation PR Build`の成功と現在のsource hashを再確認してからDraftを解除し、GitHubのAuto-mergeをsquashで予約する
 - 翻訳PRがbehindなら専用GitHub App tokenでGitHubのupdate branch APIを呼び、後続CIを起動して`main`を取り込む。`main`更新時にも未完了の翻訳PRを再評価する
