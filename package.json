@@ -58,15 +58,14 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260730.1",
     "@iconify-json/lucide": "^1.2.120",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/js-yaml": "^4.0.9",
-    "@unocss/astro": "^66.7.5",
-    "@unocss/preset-typography": "^66.7.5",
     "cheerio": "^1.2.0",
     "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
+    "tailwindcss": "4.3.3",
     "typescript": "^7.0.2",
-    "unocss": "^66.7.5",
     "wrangler": "^4.116.0"
   },
   "engines": {

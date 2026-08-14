@@ -1,0 +1,154 @@
+/*
+ * Tailwind CSS v4 のグローバル入口です。
+ * UnoCSS では reset を注入していたため、既存画面の基本スタイルを揃える目的で
+ * Tailwind Preflight を明示的に採用します。
+ */
+/* Tailwind が公開する CSS エントリを明示し、Vite/PostCSS の解決経路を固定する。 */
+@import 'tailwindcss/index.css' source('../');
+
+@theme {
+  --color-brand-50: #eef6ff;
+  --color-brand-100: #d8eaff;
+  --color-brand-200: #acd3ff;
+  --color-brand-300: #73b2f8;
+  --color-brand-400: #3287e6;
+  --color-brand-500: #0b5fd3;
+  --color-brand-600: #063d91;
+  --color-brand-700: #053373;
+  --color-brand-800: #062c5f;
+  --color-brand-900: #08254d;
+  --color-brand-950: #00022b;
+
+  --font-sans:
+    'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+    'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+  --font-mono: Consolas, Monaco, monospace;
+
+  /* UnoCSS で使っていた数値ウェイトを互換ユーティリティとして残す。 */
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+  --z-index-100: 100;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  main :where(h1, h2, h3, h4, p, li, a) {
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  main :where(code) {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Acecore 共通 UI 規約 */
+@utility ac-container {
+  @apply mx-auto max-w-[70rem] px-5 sm:px-6 lg:px-8;
+}
+
+@utility ac-container-readable {
+  @apply mx-auto max-w-3xl px-5 sm:px-6 lg:px-8;
+}
+
+@utility ac-readable {
+  @apply max-w-3xl;
+}
+
+@utility ac-section {
+  @apply py-14 sm:py-16 lg:py-20;
+}
+
+@utility ac-section-intro {
+  @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12;
+}
+
+@utility ac-eyebrow {
+  @apply mb-2 text-xs font-800 uppercase text-brand-600;
+}
+
+@utility ac-heading {
+  @apply font-800 leading-tight text-slate-950;
+}
+
+@utility ac-muted {
+  @apply leading-relaxed text-slate-600;
+}
+
+@utility ac-card {
+  @apply rounded-lg border border-slate-200/90 bg-white shadow-[0_10px_28px_rgba(15,35,56,0.06)];
+}
+
+@utility ac-surface {
+  @apply rounded-lg border border-slate-200/90 bg-white shadow-[0_10px_28px_rgba(15,35,56,0.06)];
+}
+
+@utility ac-chip {
+  @apply inline-flex min-h-8 items-center rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-700 text-slate-600 no-underline transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600;
+}
+
+@utility ac-chip-static {
+  @apply inline-flex min-h-8 items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-700 text-slate-600;
+}
+
+@utility ac-icon-box {
+  @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-brand-200 bg-brand-50 text-brand-600 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)];
+}
+
+@utility ac-touch {
+  @apply inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+}
+
+@utility ac-input {
+  @apply w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand-500;
+}
+
+@utility ac-btn {
+  @apply inline-flex min-h-11 items-center justify-center rounded-md px-5 py-3 text-sm font-800 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+}
+
+@utility ac-btn-primary {
+  @apply ac-btn bg-brand-600 text-white shadow-[0_10px_24px_rgba(6,61,145,0.18)] hover:bg-brand-700 active:bg-brand-800;
+}
+
+@utility ac-btn-secondary {
+  @apply ac-btn border-2 border-brand-600 bg-brand-600 text-white hover:border-brand-700 hover:bg-brand-700 active:border-brand-800 active:bg-brand-800;
+}
+
+@utility ac-btn-outline {
+  @apply ac-btn border-2 border-brand-600 bg-white text-brand-600 hover:bg-brand-50;
+}
+
+@utility ac-link {
+  @apply text-brand-600 underline underline-offset-2 transition-colors hover:text-brand-700;
+}
+
+@utility ac-blueprint-soft {
+  background-image:
+    linear-gradient(rgba(11, 95, 211, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 95, 211, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility ac-rule-top {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 0.125rem;
+    background-color: var(--color-brand-600);
+    content: '';
+  }
+}
