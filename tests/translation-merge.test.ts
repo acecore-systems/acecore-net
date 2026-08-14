@@ -414,6 +414,12 @@ test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する
   assert.match(workflow, /actions\/create-github-app-token@v3/u)
   assert.match(
     workflow,
+    /client-id:\s+\$\{\{ secrets\.TRANSLATION_BOT_CLIENT_ID \}\}/u,
+  )
+  assert.doesNotMatch(workflow, /TRANSLATION_BOT_APP_ID/u)
+  assert.doesNotMatch(workflow, /^\s+app-id:/mu)
+  assert.match(
+    workflow,
     /GITHUB_TOKEN: \$\{\{ steps\.app-token\.outputs\.token \}\}/u,
   )
   assert.match(workflow, /Enable auto-merge for eligible translation PR/u)

@@ -62,7 +62,7 @@ jobs:
         if: steps.pr.outputs.numbers != ''
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.TRANSLATION_BOT_APP_ID }}
+          client-id: ${{ secrets.TRANSLATION_BOT_CLIENT_ID }}
           private-key: ${{ secrets.TRANSLATION_BOT_APP_PRIVATE_KEY }}
 
       - name: Set up Node.js

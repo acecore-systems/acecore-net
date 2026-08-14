@@ -83,7 +83,12 @@ test('WorkflowはLuna/maxをBatchへ投入し、回収後にBot PRを作る', as
   assert.match(submitWorkflow, /sleep 900/u)
   assert.doesNotMatch(submitWorkflow, /cms_only|cms-only/u)
   assert.match(collectWorkflow, /translation\/openai\//u)
-  assert.match(collectWorkflow, /TRANSLATION_BOT_APP_ID/u)
+  assert.match(
+    collectWorkflow,
+    /client-id:\s+\$\{\{ secrets\.TRANSLATION_BOT_CLIENT_ID \}\}/u,
+  )
+  assert.doesNotMatch(collectWorkflow, /TRANSLATION_BOT_APP_ID/u)
+  assert.doesNotMatch(collectWorkflow, /^\s+app-id:/mu)
   assert.match(collectWorkflow, /openai-translation-processed-/u)
   assert.match(collectWorkflow, /Format collected translation files/u)
   assert.match(collectWorkflow, /git diff --name-only --diff-filter=ACMRT -z/u)
