@@ -2,11 +2,11 @@
   "nav": {
     "home": "Inicio",
     "services": "Negocios",
+    "pricing": "Precios",
     "about": "Acerca de",
     "blog": "Noticias",
     "store": "Tienda",
-    "contact": "Contacto",
-    "pricing": "Precios"
+    "contact": "Contacto"
   },
   "announcement": {
     "enabled": true,
@@ -20,7 +20,7 @@
   },
   "campaignNotices": [],
   "common": {
-    "skipToContent": "Ir al contenido",
+    "skipToContent": "Saltar al contenido",
     "search": "Buscar en el sitio",
     "searchPlaceholder": "Introduce palabras clave…",
     "searchShortcut": "Buscar (Ctrl+K)",
@@ -28,7 +28,7 @@
     "closeMenu": "Cerrar menú",
     "close": "Cerrar",
     "scrollToTop": "Volver arriba",
-    "opensInNewTab": "(se abre en nueva pestaña)",
+    "opensInNewTab": "(se abre en una nueva pestaña)",
     "mainNav": "Navegación principal",
     "mobileNav": "Navegación móvil",
     "breadcrumb": "Migas de pan",
@@ -47,28 +47,28 @@
     "open": "Abrir chat de IA",
     "close": "Cerrar chat de IA",
     "title": "Preguntar a la IA",
-    "lead": "Busca en los sitios oficiales de Acecore y responde brevemente a partir de información pública.",
-    "greeting": "Pregunte sobre Acecore, Acecore Systems, Acecore Schools, Aceserver o World Foundation. El chat busca y cita fuentes oficiales pertinentes de Acecore, Systems, Schools y Aceserver. Para World Foundation, actualmente remite al sitio oficial. No adivina detalles que no puede verificar.",
+    "lead": "Busca en los sitios oficiales relacionados con Acecore y responde brevemente a partir de información pública.",
+    "greeting": "A partir de la información pública de Acecore, Acecore Systems, Acecore Schools y Aceserver, busca las páginas oficiales que correspondan a la pregunta y las cita como referencia. Para World Foundation, actualmente remite al sitio oficial. No especula sobre detalles que no puede verificar.",
     "inputLabel": "Pregunta para el chat de IA",
     "placeholder": "Escriba su pregunta...",
     "send": "Enviar",
-    "loading": "Preparando respuesta...",
+    "loading": "Generando respuesta...",
     "error": "El chat de IA no está disponible. Use el formulario de contacto o LINE.",
-    "quickServices": "¿Qué sitio de negocio debo visitar?",
-    "quickEstimate": "¿Dónde solicito un presupuesto?",
-    "quickSchools": "¿Dónde está la información de Schools?",
+    "quickServices": "¿Qué sitio oficial debo consultar para cada negocio?",
+    "quickEstimate": "¿Dónde puedo solicitar un presupuesto?",
+    "quickSchools": "¿Dónde está la información oficial de Schools?",
     "contactForm": "Formulario de contacto",
     "line": "LINE",
-    "email": "Email",
+    "email": "Correo electrónico",
     "phone": "Teléfono"
   },
   "hero": {
     "ctaServices": "Ver negocios",
-    "ctaContact": "Consulta gratuita",
+    "ctaContact": "Solicitar una consulta gratuita",
     "sliderLabel": "Carrusel de imágenes principales",
     "slide": "Diapositiva",
-    "pauseAutoplay": "Pausar reproducción automática",
-    "resumeAutoplay": "Reanudar reproducción automática"
+    "pauseAutoplay": "Pausar la reproducción automática",
+    "resumeAutoplay": "Reanudar la reproducción automática"
   },
   "checklist": {
     "done": "Completado: ",
@@ -80,15 +80,15 @@
     "sitemap": "Mapa del sitio",
     "relatedLinks": "Enlaces relacionados",
     "schools": "Acecore Schools",
+    "pricing": "Guía de precios",
     "terms": "Términos de uso de Acecore ID",
-    "privacy": "Política de privacidad",
-    "pricing": "Guía de precios"
+    "privacy": "Política de privacidad"
   },
   "blog": {
     "title": "Noticias",
-    "seoTitleContext": "Empresa, negocios y actividades",
+    "seoTitleContext": "Información corporativa, negocios y actividades",
     "subtitle": "Noticias e informes de actividad de Acecore",
-    "noPosts": "Los artículos están en preparación.",
+    "noPosts": "Los artículos se están preparando.",
     "tags": "Etiquetas",
     "tagList": "Lista de etiquetas",
     "archive": "Archivo",
@@ -101,7 +101,7 @@
     "pageNav": "Navegación de páginas",
     "pageOf": "({current}/{total} páginas)",
     "pageN": "Página {n}",
-    "articlesByTag": "Artículos con etiqueta \"{tag}\"",
+    "articlesByTag": "Artículos con la etiqueta \"{tag}\"",
     "tagDescription": "Lista de artículos relacionados con la etiqueta \"{tag}\".",
     "articlesByAuthor": "Artículos de {author}",
     "authorDescription": "Lista de artículos escritos por {author}.",
@@ -125,9 +125,9 @@
     "searchLoading": "Cargando búsqueda...",
     "searchError": "Error al cargar la búsqueda. Verifique su conexión e intente de nuevo.",
     "searchRetry": "Reintentar",
-    "zeroResults": "No se encontró contenido para \"[SEARCH_TERM]\"",
-    "manyResults": "[COUNT] resultados encontrados",
-    "oneResult": "1 resultado encontrado",
+    "zeroResults": "No se encontró contenido que coincida con \"[SEARCH_TERM]\"",
+    "manyResults": "Se encontraron [COUNT] resultados de búsqueda",
+    "oneResult": "Se encontró 1 resultado de búsqueda",
     "filtersLabel": "Filtros",
     "searchFallbackHeading": "También puede intentar:",
     "searchFallbackBlogList": "→ Ver todos los artículos",
@@ -141,10 +141,10 @@
     "pagefindFallbackHeading": "Resultados de búsqueda por palabras clave",
     "pagefindFallbackNotice": "Se muestran coincidencias por palabras clave porque Vectorize no devolvió un resultado utilizable para este sitio.",
     "networkHeading": "Información relacionada de sitios de Acecore",
-    "networkLoading": "Buscando en sitios relacionados de Acecore...",
+    "networkLoading": "Buscando en sitios relacionados con Acecore...",
     "networkManyResults": "Se encontraron [COUNT] resultados relacionados de sitios de Acecore",
     "networkOneResult": "Se encontró 1 resultado relacionado de un sitio de Acecore",
-    "semanticPrivacyNotice": "Al introducir al menos dos caracteres, este sitio y los sitios relacionados de Acecore envían sus términos de búsqueda a la API de OpenAI para encontrar información relacionada. No introduzca información personal ni confidencial.",
+    "semanticPrivacyNotice": "Al introducir al menos dos caracteres, el término de búsqueda se envía automáticamente a OpenAI API para buscar información relacionada en este sitio y en los sitios relacionados con Acecore. No introduzca información personal ni confidencial.",
     "semanticPrivacyLink": "Tratamiento de los datos de búsqueda",
     "blogCtaHeading": "Conozca los negocios de Acecore",
     "blogCtaBody": "Visite los sitios oficiales de Systems, Schools, Aceserver y Acecore Store para obtener información detallada.",
@@ -161,7 +161,7 @@
     "postNavLabel": "Navegación de artículos",
     "tagPrefix": "Etiqueta: {tag}",
     "authorPrefix": "Autor: {author}",
-    "indexDescription": "Información corporativa, actualizaciones de negocios y noticias de actividades de Acecore.",
+    "indexDescription": "Noticias sobre la información corporativa, los negocios y las actividades de Acecore.",
     "pageDescription": "Noticias de Acecore (página {current} de {total}). Información de la empresa, sus negocios y actividades.",
     "tagListDescription": "Lista de etiquetas de las noticias de Acecore.",
     "archiveListDescription": "Archivo mensual de noticias de Acecore.",
@@ -173,7 +173,7 @@
     "commentsNamePlaceholder": "Nombre visible",
     "commentsBodyLabel": "Comentario",
     "commentsBodyPlaceholder": "Comparte una reacción o una nota útil",
-    "commentsRule": "No se pueden publicar enlaces, correos ni textos promocionales.",
+    "commentsRule": "No se pueden publicar URL, direcciones de correo electrónico ni textos promocionales.",
     "commentsSubmit": "Publicar comentario",
     "commentsLoading": "Cargando comentarios...",
     "commentsEmpty": "Aún no hay comentarios.",
@@ -181,44 +181,44 @@
     "commentsPosted": "Comentario publicado.",
     "commentsError": "No se pudo publicar el comentario.",
     "commentsValidationName": "Introduce tu nombre.",
-    "commentsValidationBody": "Introduce al menos 8 caracteres sin enlaces.",
+    "commentsValidationBody": "Introduce un comentario de al menos 8 caracteres. No se pueden incluir URL.",
     "commentsValidationTurnstile": "Completa la verificación antes de enviar.",
     "commentsSending": "Enviando..."
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecore apoya a empresas, aprendizaje, comunidades y productos a través de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
+    "defaultDescription": "Acecore es una empresa que apoya los negocios, el aprendizaje, las comunidades y los productos a través de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
     "shortTitleContext": "Sitio oficial",
     "shortDescriptionContext": "Información corporativa, negocios y noticias de Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Convertimos la tecnología y el aprendizaje en valor social.",
-      "heroSubtitle": "Acecore apoya a empresas, aprendizaje y comunidades mediante tecnología y educación.",
+      "heroTitle": "Convertimos la tecnología y el aprendizaje en una fuerza para la sociedad.",
+      "heroSubtitle": "Acecore es una empresa que apoya la actividad empresarial, el aprendizaje y las comunidades mediante la tecnología y la educación.",
       "heroImgTeam": "Equipo trabajando en un espacio de coworking",
-      "heroImgMeeting": "Escena de reunión",
+      "heroImgMeeting": "Escena de una reunión",
       "businessesHeading": "Negocios de Acecore",
-      "businessesLead": "Cada área especializada publica la información más reciente en su sitio oficial.",
+      "businessesLead": "En los sitios web oficiales de cada área especializada encontrarás la información más reciente sobre nuestros servicios.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Consulta sistemas empresariales, aplicaciones web, sitios, infraestructura, diseño de marca y producción creativa en el sitio especializado.",
+      "systemsDescription": "Consulta en el sitio especializado nuestros servicios de sistemas empresariales, aplicaciones web, sitios web, infraestructura operativa y diseño y producción creativa.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Consulta apoyo educativo, precios y formas de asesoramiento en el sitio especializado.",
+      "schoolsDescription": "Consulta en el sitio especializado los servicios de educación y apoyo al aprendizaje, las tarifas y cómo solicitar asesoramiento.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Información oficial para participar y novedades de la comunidad de Minecraft operada por Acecore.",
+      "aceserverDescription": "Información sobre cómo participar en la comunidad de Minecraft gestionada por Acecore y sus últimas novedades.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "La tienda en línea oficial de Acecore. Consulta la información más reciente sobre productos, compras, envíos y devoluciones.",
+      "storeDescription": "Esta es la tienda en línea oficial de Acecore. Consulta la información más reciente sobre productos, cómo comprar, envíos y devoluciones.",
       "acestudioTitle": "AceStudio",
-      "acestudioNote": "Publicaremos únicamente información confirmada cuando el servicio esté preparado.",
-      "viewBusinessDetails": "Ver directorio de negocios",
+      "acestudioNote": "Solo anunciaremos los servicios confirmados cuando todo esté listo.",
+      "viewBusinessDetails": "Ver el directorio de negocios",
       "aboutHeading": "Acerca de Acecore",
-      "aboutBody1": "Aplicamos lo aprendido en la gestión de comunidades y en talleres realizados anteriormente a la difusión de información y a la mejora práctica de nuestros servicios.",
-      "aboutBody2": "A través de la contribución al código abierto, la colaboración regional y las iniciativas de {link}, construimos alianzas.",
+      "aboutBody1": "Aplicamos los conocimientos adquiridos en la gestión de comunidades y en los talleres realizados hasta la fecha para apoyar el aprendizaje y difundir información.",
+      "aboutBody2": "A través del uso del código abierto, la colaboración regional y nuestra contribución a la {link}, construimos alianzas que conectan la tecnología con las personas.",
       "aboutEducationLink": "educación",
-      "viewAbout": "Acerca de nosotros",
+      "viewAbout": "Ver el perfil de la empresa",
       "latestNews": "Noticias corporativas",
-      "viewAllNews": "Ver noticias y artículos",
+      "viewAllNews": "Ver todas las noticias y artículos",
       "contactHeading": "Contactar con Acecore",
-      "contactBody": "Nuestro punto de contacto común recibe consultas, propuestas de colaboración y preguntas generales.",
+      "contactBody": "En nuestro punto de contacto común atendemos consultas sobre nuestros negocios, propuestas de colaboración y cualquier otro asunto.",
       "contactCta": "Contactar"
     },
     "notFound": {
@@ -271,9 +271,9 @@
     "about": {
       "title": "Acerca de nosotros",
       "seoTitleContext": "Empresa, filosofía y negocios",
-      "description": "Información corporativa, filosofía y una visión de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
+      "description": "Presentamos la información corporativa y la filosofía de Acecore, junto con sus cuatro negocios: Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
       "heroTitle": "Acerca de nosotros",
-      "heroSubtitle": "La filosofía y los cuatro negocios de Acecore",
+      "heroSubtitle": "La filosofía de Acecore y sus cuatro negocios",
       "heroImgAlt": "Discusión en equipo",
       "companyInfoHeading": "Información corporativa",
       "legalNameLabel": "Nombre legal",
@@ -288,21 +288,21 @@
           "areas": [
             "Estrategia empresarial",
             "Web y sistemas",
-            "Bases de datos e infraestructura",
-            "Aseguramiento de calidad",
-            "Adopción de IA"
+            "DB e infraestructura",
+            "Aseguramiento de la calidad",
+            "Uso de AI"
           ],
-          "bio": "Presidente y director representante de Acecore. Con C#/.NET como base, dirige de forma integrada web y sistemas, bases de datos e infraestructura, aseguramiento de calidad y adopción de IA, desde la definición de los retos de negocio hasta el diseño, la implementación y la mejora posterior al lanzamiento."
+          "bio": "Presidente y director representante de Acecore. Con C#/.NET como eje, impulsa de forma integral las áreas de Web y sistemas, DB e infraestructura, aseguramiento de la calidad y uso de AI, desde la identificación de los retos empresariales hasta el diseño, la implementación y las mejoras posteriores."
         },
         {
           "name": "佐藤凌峨",
           "role": "Director ejecutivo y jefe de división",
           "areas": [
-            "Operación de la comunidad de Aceserver",
+            "Gestión de la comunidad de Aceserver",
             "Discord",
-            "Desarrollo y operaciones de Minecraft"
+            "Desarrollo y operaciones relacionadas con Minecraft"
           ],
-          "bio": "Como guardián de la comunidad de Aceserver, apoya la operación de la comunidad de Discord y el desarrollo y las operaciones relacionadas con Minecraft. Publica plugins Java para Minecraft y herramientas de integración con Discord."
+          "bio": "Como guardián de Aceserver, apoya la gestión de la comunidad de Discord y el desarrollo y las operaciones relacionados con Minecraft. Publica plugins de Java para Minecraft y herramientas de integración con Discord."
         },
         {
           "name": "西田創",
@@ -310,74 +310,73 @@
           "areas": [
             "Producción creativa",
             "Modelado 3D",
-            "Operaciones de contenido web"
+            "Gestión de contenidos Web"
           ],
-          "bio": "Crea ilustraciones y ficción, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
+          "bio": "Crea ilustraciones y novelas, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Apoyar a la sociedad a través de cuatro negocios",
-      "missionLoopDesc": "Acecore opera sitios oficiales para tecnología, aprendizaje, comunidad y productos.",
+      "missionLoopDesc": "Gestionamos las áreas de tecnología, aprendizaje, comunidad y productos a través de sus respectivos sitios oficiales especializados.",
       "philosophyHeading": "Filosofía",
       "philosophyMotto": "\"Tecnología y aprendizaje al servicio de la sociedad.\"",
-      "philosophyBody1": "Acecore apoya a empresas, aprendizaje, comunidades y productos a través de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
-      "philosophyBody2": "acecore.net ofrece información de la empresa y una visión de sus negocios. Los servicios, precios, trabajos y actividades se mantienen en el sitio especializado correspondiente.",
+      "philosophyBody1": "Acecore es una empresa que apoya los negocios, el aprendizaje, las comunidades y los productos a través de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
+      "philosophyBody2": "acecore.net reúne la información de la empresa y una visión general de todos sus negocios, mientras que la información especializada sobre la oferta, los precios, los casos prácticos y el registro de actividades se concentra en el sitio oficial de cada negocio.",
       "collaborationImgAlt": "Trabajo colaborativo en equipo",
-      "activitiesTitle": "Actividades principales de Acecore",
-      "workshopImgAlt": "Escena de grupo de estudio y taller",
+      "activitiesTitle": "Negocios y actividades corporativas de Acecore",
+      "workshopImgAlt": "Sesión de estudio y taller",
       "initiativesHeading": "Actividades e iniciativas",
       "communityTitle": "Actividades comunitarias",
-      "communityDesc": "A través de la gestión de comunidades como Aceserver y del registro de talleres ya realizados, cultivamos espacios donde la tecnología conecta a las personas. Cuando haya nuevas iniciativas, las anunciaremos en nuestro blog y en redes sociales.",
-      "ossTitle": "Contribuciones al código abierto",
-      "ossDesc": "Promovemos activamente el uso del software de código abierto y la contribución a la comunidad tecnológica. Algunas herramientas y bibliotecas desarrolladas internamente están publicadas en GitHub.",
-      "regionalTitle": "Colaboración regional",
-      "regionalDesc": "Atendemos consultas sobre el uso de IT, el aprendizaje digital y las iniciativas conjuntas en la educación y los negocios locales. El apoyo educativo de Acecore Schools forma parte de estas iniciativas.",
-      "partnershipTitle": "Alianzas",
-      "partnershipDesc": "Damos la bienvenida a colaboraciones en proyectos y alianzas comerciales. Podemos cooperar en campos amplios como tecnología, diseño y educación.",
+      "communityDesc": "Aceserver es una comunidad de Minecraft gestionada por Acecore. La forma de participar y el registro de actividades se gestionan en el portal oficial; en cuanto a los anuncios importantes de la empresa,",
+      "ossTitle": "Acecore Systems",
+      "ossDesc": "Acecore Systems gestiona el desarrollo, la producción, el apoyo operativo y las explicaciones técnicas; los proyectos publicados pueden consultarse en GitHub.",
+      "regionalTitle": "Acecore Schools",
+      "regionalDesc": "La información sobre quién puede recibir apoyo educativo, el proceso, las tarifas y el registro de actividades se centraliza en el sitio oficial de Acecore Schools.",
+      "partnershipTitle": "Colaboración transversal entre negocios",
+      "partnershipDesc": "Las consultas y los proyectos conjuntos que abarcan varios negocios se atienden a través del contacto de Acecore. En cuanto a la información general de los negocios,",
       "relatedLinksHeading": "Enlaces relacionados",
       "ctaHeading": "Dé el siguiente paso con Acecore",
-      "ctaBody": "Atendemos consultas entre negocios, propuestas de colaboración y preguntas cuando no sepa a qué negocio dirigirse.",
+      "ctaBody": "Atendemos consultas que abarcan varios negocios, propuestas de colaboración y consultas para las que no sepa a qué contacto dirigirse.",
       "ctaContact": "Contacto",
-      "ctaServices": "Ver negocios",
+      "ctaServices": "Ver la lista de negocios",
       "valueCycle": [
         {
-          "title": "Implementar tecnología",
-          "description": "Construimos bases operativas mediante desarrollo de sistemas y operaciones de servidores.",
+          "title": "Acecore Systems",
+          "description": "Apoyamos los negocios y las operaciones mediante la tecnología.",
           "icon": "cpu",
           "accent": "brand"
         },
         {
-          "title": "Transformar en expresión",
-          "description": "Creamos experiencias atractivas a través del diseño web y el trabajo creativo.",
+          "title": "Acecore Schools",
+          "description": "Diseñamos el aprendizaje a partir de los objetivos.",
           "icon": "palette",
           "accent": "amber"
         },
         {
-          "title": "Cultivar personas y espacios",
-          "description": "Fomentamos nuevos participantes y aprendizaje mediante actividades comunitarias y educativas.",
+          "title": "Aceserver",
+          "description": "Gestionamos una comunidad a través de Minecraft.",
           "icon": "users",
           "accent": "emerald"
         },
         {
           "title": "Acecore Store",
-          "description": "Entregamos productos de Acecore a través de la tienda en línea oficial.",
+          "description": "Entregamos los productos de Acecore a través de la tienda en línea oficial.",
           "icon": "shopping-bag",
           "accent": "slate"
         },
         {
-          "title": "Retroalimentar nuevos desafíos",
-          "description": "Canalizamos las ideas de vuelta al desarrollo y soporte, fortaleciendo todas las actividades.",
+          "title": "Acecore",
+          "description": "Conectamos los cuatro negocios y difundimos la información de la empresa.",
           "icon": "repeat-2",
           "accent": "brand"
         }
       ],
       "activities": [
-        "Gestión de comunidades y experiencia en talleres anteriores",
-        "Publicación y contribución a código abierto",
-        "Consultas sobre educación y uso de IT en la comunidad local",
-        "Proyectos de co-creación con socios externos",
-        "Gestión de la comunidad Aceserver",
-        "Operación de la tienda en línea oficial Acecore Store"
+        "Apoyo técnico de Acecore Systems",
+        "Apoyo al aprendizaje de Acecore Schools",
+        "Gestión de la comunidad de Aceserver",
+        "Gestión de la tienda en línea oficial de Acecore Store",
+        "Colaboración transversal entre negocios y difusión de información corporativa"
       ],
       "relatedLinks": [
         {
@@ -389,25 +388,25 @@
         {
           "icon": "gamepad-2",
           "title": "Portal de Aceserver",
-          "description": "Sitio oficial de nuestro servidor público gratuito de Minecraft.",
+          "description": "Sitio oficial del servidor público gratuito de Minecraft.",
           "href": "aceserver"
         },
         {
           "icon": "at-sign",
           "title": "X (antes Twitter)",
-          "description": "Manténgase informado con las últimas noticias de Acecore.",
+          "description": "Publicamos las últimas novedades de Acecore.",
           "href": "x"
         },
         {
           "icon": "github",
           "title": "GitHub",
-          "description": "Nuestros proyectos de código abierto están publicados aquí.",
+          "description": "Publicamos proyectos de código abierto.",
           "href": "github"
         },
         {
           "icon": "message-circle",
           "title": "Aceserver Discord",
-          "description": "El servidor Discord donde la comunidad Aceserver está activa.",
+          "description": "Es el servidor de Discord en el que está activa la comunidad de Aceserver.",
           "href": "discord"
         }
       ]
@@ -415,26 +414,26 @@
     "services": {
       "title": "Negocios",
       "seoTitleContext": "Directorio de negocios",
-      "description": "Directorio de los negocios de Acecore y de los sitios oficiales que mantienen su información especializada.",
+      "description": "Consulta los negocios de Acecore y los sitios oficiales con información especializada sobre cada uno.",
       "heroTitle": "Negocios",
-      "heroSubtitle": "Destinos oficiales para cada negocio especializado",
+      "heroSubtitle": "Hemos reunido los sitios oficiales de cada área especializada",
       "heroImgAlt": "Oficina tecnológica",
       "eyebrow": "Business Directory",
       "introTitle": "Consulta la fuente oficial de cada negocio",
-      "introBody": "Para detalles, precios, casos y uso actuales, visita el sitio oficial especializado.",
+      "introBody": "Consulta la información más reciente sobre detalles, precios, casos prácticos y formas de uso en el sitio especializado de cada negocio.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Consulta sistemas empresariales, aplicaciones web, sitios, infraestructura, diseño de marca y producción creativa en el sitio especializado.",
+      "systemsDescription": "En el sitio especializado encontrarás información sobre sistemas empresariales, aplicaciones web, sitios web, infraestructura operativa y diseño y producción creativa.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Consulta apoyo educativo, precios y formas de asesoramiento en el sitio especializado.",
+      "schoolsDescription": "Consulta en el sitio especializado información sobre educación y apoyo al aprendizaje, precios y cómo realizar una consulta.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Información oficial para participar y novedades de la comunidad de Minecraft operada por Acecore.",
+      "aceserverDescription": "Aquí encontrarás información sobre cómo participar en la comunidad de Minecraft operada por Acecore y sus últimas novedades.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "La tienda en línea oficial de Acecore. Consulta la información más reciente sobre productos, compras, envíos y devoluciones.",
+      "storeDescription": "Es la tienda en línea oficial de Acecore. Consulta la información más reciente sobre productos, cómo comprar, envíos y devoluciones.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En preparación",
-      "acestudioDescription": "Publicaremos únicamente información confirmada cuando el servicio esté preparado.",
+      "acestudioDescription": "Te informaremos tan pronto como todo esté preparado, únicamente con información confirmada sobre lo que ofreceremos.",
       "contactHeading": "Contactar con Acecore",
-      "contactBody": "Nuestro punto de contacto común recibe consultas, propuestas de colaboración y preguntas generales.",
+      "contactBody": "Atendemos consultas sobre nuestros negocios, propuestas de colaboración y cualquier otra solicitud a través de un único punto de contacto.",
       "contactCta": "Contactar"
     },
     "privacy": {
@@ -488,27 +487,28 @@
     },
     "pricing": {
       "title": "Directorio de precios y consultas",
-      "description": "Destinos oficiales con los precios y condiciones vigentes de cada negocio de Acecore.",
+      "description": "Te guiamos a los sitios web oficiales de cada negocio, donde encontrarás la información más reciente sobre precios y condiciones de uso.",
       "heroTitle": "Directorio de precios y consultas",
-      "heroSubtitle": "Consulta los precios vigentes en cada sitio oficial",
+      "heroSubtitle": "Consulta la información sobre precios en el sitio web oficial de cada negocio",
       "heroImgAlt": "Persona revisando documentos de presupuesto",
-      "eyebrow": "Official Information",
+      "eyebrow": "Información oficial",
       "introTitle": "Consulta la fuente oficial de precios",
-      "introBody": "Para evitar cifras duplicadas, esta página enlaza la información que mantiene cada negocio.",
+      "introBody": "Para evitar duplicar los precios, esta página reúne enlaces a la información más reciente que gestiona cada negocio.",
       "systemsTitle": "Precios de Acecore Systems",
-      "systemsBody": "Consulta en Acecore Systems los precios y el asesoramiento para desarrollo, producción web, diseño de marca, producción creativa y operaciones.",
+      "systemsBody": "Consulta en Acecore Systems los precios y cómo solicitar una consulta sobre desarrollo, producción web, diseño y producción creativa, y soporte operativo.",
       "schoolsTitle": "Precios de Acecore Schools",
-      "schoolsBody": "Consulta en Acecore Schools los precios, requisitos y asesoramiento de apoyo educativo.",
-      "aceserverTitle": "Participación en Aceserver",
-      "aceserverBody": "Consulta el sitio oficial de Aceserver para información y condiciones vigentes.",
-      "storeTitle": "Productos y compras de Acecore Store",
-      "storeBody": "Consulta Acecore Store para conocer la información actual sobre productos, compras, envíos y devoluciones.",
+      "schoolsBody": "Consulta en Acecore Schools los precios, a quién va dirigido el apoyo educativo y cómo solicitar una consulta.",
+      "aceserverTitle": "Guía de uso de Aceserver",
+      "aceserverBody": "Consulta en el sitio web oficial de Aceserver la información más reciente sobre cómo participar y las condiciones de uso.",
+      "storeTitle": "Información sobre productos y compras de Acecore Store",
+      "storeBody": "Consulta en Acecore Store la información más reciente sobre productos, métodos de compra, envíos y devoluciones.",
       "contactTitle": "Otras consultas",
-      "contactBody": "Contacta con Acecore para solicitudes transversales, colaboraciones o si no sabes por dónde empezar."
+      "contactBody": "Contacta con Acecore si tienes una consulta que abarque varias áreas de negocio, quieres proponer una colaboración o no sabes a qué contacto dirigirte."
     }
   },
   "pageNames": {
     "services": "Negocios",
+    "pricing": "Guía de precios",
     "schools": "Acecore Schools",
     "about": "Acerca de",
     "contact": "Contacto",
@@ -518,8 +518,7 @@
     "tags": "Etiquetas",
     "authors": "Autores",
     "archive": "Archivo",
-    "page": "Página",
-    "pricing": "Guía de precios"
+    "page": "ページ"
   },
   "tags": {
     "技術": "Tecnología",

@@ -3,50 +3,50 @@ title: 'Guía de actividades de Acecore: sitios especializados'
 description: 'Información corporativa de Acecore y sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-08-14T19:00
 author: gui
 tags: ['お知らせ']
 callout:
   type: info
-  title: Fuentes oficiales de información
-  text: El alcance, las tarifas, las formas de participación y las novedades de cada actividad se actualizan en su sitio especializado como fuente oficial.
+  title: 情報の正本
+  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
 checklist:
-  title: Sitio adecuado para cada objetivo
+  title: 目的別の案内先
   items:
-    - text: Acecore — información de la organización, principios y consultas transversales
-    - text: Acecore Systems — soporte IT, desarrollo, producción, operación y artículos técnicos
-    - text: Acecore Schools — formas de aprender, apoyo educativo y registro de actividades
-    - text: Aceserver — participación y actividades de la comunidad de Minecraft
-    - text: 'Acecore Store — tienda en línea oficial: productos, compras, envíos y devoluciones'
+    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
+    - text: Acecore Schools：学び方、教育支援、活動記録
+    - text: Aceserver：Minecraftコミュニティへの参加と活動
+    - text: Acecore Store：公式オンラインストアの商品、購入方法、配送・返品に関する情報
 faq:
-  title: Preguntas frecuentes
+  title: よくある質問
   items:
-    - question: ¿Dónde puedo consultar sobre desarrollo de sistemas o producción web?
-      answer: Utilice la información de servicios y el formulario de contacto de Acecore Systems.
-    - question: ¿Dónde puedo consultar información sobre educación o la comunidad de Minecraft?
-      answer: Consulte el sitio oficial de Acecore Schools para educación y el de Aceserver para la comunidad de Minecraft.
-    - question: ¿Dónde puedo consultar productos, compras y envíos de la tienda en línea?
-      answer: Consulte Acecore Store para conocer la información actual sobre productos, compras, envíos y devoluciones.
+    - question: システム開発やWeb制作はどこへ相談すればよいですか？
+      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
+    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
+      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
 Acecore es el sitio corporativo que reúne la información general de la organización y sirve de entrada a cada una de sus actividades. Para evitar mantener por duplicado las explicaciones especializadas y las novedades, la información detallada de cada área se concentra en los siguientes sitios oficiales.
 
 ## Acecore Systems
 
-El soporte IT, el desarrollo de sistemas y web, el diseño, el apoyo operativo, las tarifas, los casos de trabajo y los artículos técnicos se presentan en [Acecore Systems](https://systems.acecore.net/es/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se presentan en [Acecore Systems](https://systems.acecore.net/es/).
 
 ## Acecore Schools
 
-Las formas de aprender, el apoyo educativo, las vías de consulta y el registro de actividades se presentan en [Acecore Schools](https://schools.acecore.net/).
+Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el registro de actividades se presentan en [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-La forma de unirse a la comunidad de Minecraft, los servicios relacionados y las últimas actividades se presentan en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
+La forma de unirse a la comunidad de Minecraft, los servicios relacionados y la información más reciente sobre las actividades se presentan en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
 
 ## Acecore Store
 
-Los productos y la información actual sobre compras, envíos y devoluciones se presentan en [Acecore Store](https://store.acecore.net/).
+Los productos, las formas de compra y la información más reciente sobre envíos y devoluciones se presentan en [Acecore Store](https://store.acecore.net/).
 
 ## Contactar con Acecore
 
-Consulte [Quiénes somos](/es/about/) para conocer la organización, o [Contacto](/es/contact/) para consultas transversales y propuestas de colaboración.
+Consulte [Quiénes somos](/es/about/) para conocer la organización, o [Contacto](/es/contact/) para consultas que abarquen varias áreas de actividad y propuestas de colaboración.
