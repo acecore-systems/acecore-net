@@ -27,6 +27,18 @@ const SOURCE_NAMES = [
 
 let requestSequence = 0
 
+test('チャット入力欄をiPhoneの自動拡大が起きない16pxで表示する', () => {
+  const component = readFileSync(
+    new URL('../src/components/AiChatWidget.astro', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(
+    component,
+    /<textarea[\s\S]*?id="ace-ai-chat-input"[\s\S]*?class="[^"]*\btext-base\b[^"]*"/u,
+  )
+})
+
 async function onRequestPost(context) {
   const env = {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
