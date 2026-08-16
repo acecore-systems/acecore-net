@@ -134,6 +134,7 @@ async function validateCmsConfig() {
     path.join(root, 'public/admin/index.html'),
     'utf8',
   )
+  const headers = await readFile(path.join(root, 'public/_headers'), 'utf8')
   const readme = await readFile(path.join(root, 'README.md'), 'utf8')
   const cmsWorkflow = await readFile(
     path.join(root, 'docs/04_運用設計/01_CMS保存・自動公開運用.md'),
@@ -144,6 +145,23 @@ async function validateCmsConfig() {
     path.join(root, 'workers/sveltia-cms-auth/wrangler.jsonc'),
     'utf8',
   )
+
+  if (
+    !adminIndex.includes(
+      'src="https://unpkg.com/@sveltia/cms@0.191.1/dist/sveltia-cms.js"',
+    ) ||
+    !adminIndex.includes(
+      'integrity="sha384-1e+sEYxphmj/Z7BnuanO53c4BveZJ5fdJIkHSuHRO2T7jmC7Ih0BeJPK6x5XHxx6"',
+    )
+  ) {
+    fail(scope, 'CMS script must use the reviewed 0.191.1 bundle and SRI')
+  }
+  if (
+    !/font-src[^;]*https:\/\/cdn\.jsdelivr\.net/u.test(headers) ||
+    !/connect-src[^;]*https:\/\/unpkg\.com/u.test(headers)
+  ) {
+    fail(scope, 'CMS CSP must allow the pinned bundle fonts and locale data')
+  }
 
   if (/^\s*-?\s*name:\s*path\b/m.test(config)) {
     fail(scope, 'path field must not be exposed in CMS')
