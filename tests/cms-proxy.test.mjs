@@ -937,7 +937,7 @@ test('mutation直前はcached OAuth認可を使わずpush権限を再確認す�
   assert.equal(mutationCalled, false)
 })
 
-test('Sveltia CMS 0.172のlast-commit queryを許可する', async () => {
+test('Sveltia CMS 0.191のlast-commit queryを許可する', async () => {
   mockGitHub(async (url, _init, body) => {
     assert.match(url, /\/graphql$/)
     assert.match(body.query, /ref\(qualifiedName: \$branch\)/)
@@ -982,7 +982,7 @@ test('Sveltia CMS 0.172のlast-commit queryを許可する', async () => {
   assert.equal(response.status, 200)
 })
 
-test('Sveltia CMS 0.172のcontent queryをCMS対象blobだけ許可する', async () => {
+test('Sveltia CMS 0.191のcontent queryをCMS対象blobだけ許可する', async () => {
   const blobSha = 'b'.repeat(40)
 
   mockGitHub(async (url, _init, body) => {
