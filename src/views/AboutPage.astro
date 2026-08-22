@@ -39,6 +39,7 @@ interface RelatedLink {
 
 interface Officer {
   name: string
+  image?: string
   role?: string
   areas?: string[]
   bio?: string
@@ -170,6 +171,17 @@ const aboutPageLd = {
               {officers.map((officer) => (
                 <li>
                   <article class="ac-card h-full p-6">
+                    {officer.image && (
+                      <img
+                        src={officer.image}
+                        alt={officer.name}
+                        width={1280}
+                        height={720}
+                        loading="lazy"
+                        decoding="async"
+                        class="mb-5 aspect-video w-full rounded-lg border border-slate-200 bg-black object-cover"
+                      />
+                    )}
                     <header class="text-center">
                       <h3 class="text-xl ac-heading">{officer.name}</h3>
                       {officer.role && (
