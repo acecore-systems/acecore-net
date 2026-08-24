@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+
+# CMS と API は利用者向けの検索コンテンツではないため、crawl 対象にしない。
+Disallow: /admin/
+Disallow: /api/
 Disallow: /pagefind/
 
 Sitemap: https://acecore.net/sitemap-index.xml
