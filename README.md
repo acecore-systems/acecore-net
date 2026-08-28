@@ -202,7 +202,7 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 
 Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
-Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`@cf/zai-org/glm-5.3-flash`（reasoning effort `medium`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはembedding専用のPages Function secretだけに置き、ブラウザへ渡しません。GLM 5.3 Flashは有料またはプリペイドWorkersプランが必要です。
+Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`@cf/zai-org/glm-5.3-flash`（reasoning effort `low`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはembedding専用のPages Function secretだけに置き、ブラウザへ渡しません。GLM 5.3 Flashは有料またはプリペイドWorkersプランが必要です。
 
 専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryのProduction同期と日本語・英語query smoke testを確認済みのindexへ、Productionだけを接続します。top-level／Previewはbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` を維持します。各接続済みbindingのkill switchとscore下限は個別に設定できます。Acecoreの `SEARCH_ENABLED` はbindingを持たないtop-level／Previewでは `false`、同期とquery smoke testを確認済みのProductionだけ `true` とし、検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に制御します。
 
@@ -216,7 +216,7 @@ Cloudflare PagesではD1、Workers AI、OpenAI Embeddingsの設定を対象環�
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationはtop-level／Previewを `false`、Productionだけを `true` とする
 - `WORKERS_AI_CHAT_MODEL`: 回答モデル（`@cf/zai-org/glm-5.3-flash`固定）
-- `WORKERS_AI_REASONING_EFFORT`: 推論 effort（既定 `medium`）
+- `WORKERS_AI_REASONING_EFFORT`: 推論 effort（既定 `low`）
 - `OPENAI_EMBEDDING_MODEL`: embeddingモデル（既定 `text-embedding-3-large`）
 - `OPENAI_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1536`固定）
 

@@ -75,7 +75,7 @@ async function onRequestPost(context) {
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
         WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
-        WORKERS_AI_REASONING_EFFORT: 'medium',
+        WORKERS_AI_REASONING_EFFORT: 'low',
         ...env,
       },
     })
@@ -159,7 +159,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Workers AI bindingへGLM 5.3 Flash medium・store falseで送信する', async () => {
+test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', async () => {
   let responseInput
   let responseOptions
   let responseModel
@@ -173,7 +173,7 @@ test('Workers AI bindingへGLM 5.3 Flash medium・store falseで送信する', a
       OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
       OPENAI_EMBEDDING_DIMENSIONS: '1536',
       WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
-      WORKERS_AI_REASONING_EFFORT: 'medium',
+      WORKERS_AI_REASONING_EFFORT: 'low',
       SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
       SEARCH_ENABLED: 'false',
       AI: {
@@ -191,7 +191,7 @@ test('Workers AI bindingへGLM 5.3 Flash medium・store falseで送信する', a
 
   assert.equal(response.status, 200)
   assert.equal(responseModel, '@cf/zai-org/glm-5.3-flash')
-  assert.equal(responseInput.reasoning_effort, 'medium')
+  assert.equal(responseInput.reasoning_effort, 'low')
   assert.equal(responseInput.max_completion_tokens, 640)
   assert.equal(responseInput.store, false)
   assert.match(responseInput.user, /^acecore_[0-9a-f]{48}$/u)

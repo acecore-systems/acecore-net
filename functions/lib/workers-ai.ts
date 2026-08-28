@@ -1,5 +1,5 @@
 export const WORKERS_AI_CHAT_MODEL = '@cf/zai-org/glm-5.3-flash' as const
-export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'medium' as const
+export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'low' as const
 
 export type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
 
