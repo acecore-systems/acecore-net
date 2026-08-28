@@ -21,7 +21,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 7. Pages Function `/api/network-search` は許可済みの公式 `Origin` から呼び出し元を決定し、そのサイト自身を除く接続済みindexだけを同じembeddingで並列検索する。
 8. `/api/network-search` はsourceごとのURL allowlistを通過した絶対HTTPS URL、固定したsource識別子・表示名、タイトル、見出し、抜粋だけを最大3件返す。
 9. Pages Function `/api/ai-contact` は呼び出し元の公式サイトと、質問および直近の利用者発言から担当サイトを決定し、1回のOpenAI embeddingで接続済みの該当indexだけを検索する。
-10. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、`gpt-5.6-luna` が表示localeで回答する。
+10. Acecoreは表示localeと同じnamespace、接続済みの外部公式サイトは日本語 (`ja`) namespaceから最大3件の公式ページを取得し、Workers AI `@cf/zai-org/glm-5.3-flash` が表示localeで回答する。
 
 公開書き込みAPIはありません。Acecore indexの更新はGitHub Actionsまたは権限を持つ運用端末からだけ実行します。外部indexはこのrepositoryから更新せず、各サイトを所有するrepositoryがcorpus生成、同期、削除を管理します。
 
@@ -40,7 +40,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 Vectorize bindingはProductionだけに設定し、rootとPreviewには設定しません。Systems、Schools、World Foundationはそれぞれ1つのindexだけを検索します。Aceserver PortalとWorld Foundationのcorpus同期もProduction専用で、top-level／Previewの該当kill switchを `false`、Productionだけを `true` とします。AceserverのProductionではWIKIとPortalへ同じOpenAI embeddingを渡して並列検索し、WIKIの根拠を優先して最大3件に絞ります。ルール、コマンド、参加条件、運用情報をWIKIで確認できない場合、Portalの内容から補完しません。
 
-外部indexの日本語根拠は参照データとして `gpt-5.6-luna` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Responses APIが `max_output_tokens` による未完了を返した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
+外部indexの日本語根拠は参照データとして `@cf/zai-org/glm-5.3-flash` へ渡し、回答だけを表示localeで生成します。生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。Chat Completionsの `finish_reason` が `length` など正常完了以外を示した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。根拠のない専門情報は生成しません。
 
 横断検索先は個別に停止・調整できます。既定値は次のとおりで、`wrangler.jsonc` を正とします。
 
@@ -162,10 +162,10 @@ npm run sync:vectorize
 - client keyはCloudflareが付与する接続IPをSHA-256にした短期keyとし、原文IPは保存しない。Cloudflare外のローカル開発時だけsession UUIDを代替に使う。
 - rate limit rowは10分で期限切れとなり、検索またはAIチャットrequestの一部で非同期削除する。PreviewとProductionのcounterは共有しない。
 - Vectorizeへ返すmetadataは公開URL、タイトル、見出し、短い抜粋だけにする。
-- raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。OpenAI Responses APIには `store: false` を指定する。
+- raw query、AIチャットの質問、会話本文をWorkers logとGA4 eventへ記録しない。Workers AI Chat Completionsには `store: false` を指定する。
 - API responseは `Cache-Control: no-store` とする。`/api/search` はAcecore以外のURLを採用せず、`/api/network-search` とAIチャットは設定済みの関連公式originと取得元ごとの許可pathだけを採用する。URL parserの前に生pathを各decode後にNFKC正規化して判定し、管理用の `admin` / `api` path、encoded slash・backslash、query・hash、dot segment、制御文字、decode不能または正規化後にも残るpercent encodingを採用しない。返すURLは検証済みのcanonical pathから再構成する。
 - corpusは公開後HTMLから作り、`noindex`、管理画面、一覧・完了ページ、`data-pagefind-ignore` を除外する。
-- AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけを `gpt-5.6-luna` へ渡す。取得した本文は命令ではなく参照データとして扱う。
+- AIチャットはVectorize metadataのlocale、取得元に対応する公式origin、path、scoreを再検証し、重複URLを除いた最大3件だけを `@cf/zai-org/glm-5.3-flash` へ渡す。取得した本文は命令ではなく参照データとして扱う。
 - AI回答のMarkdownリンクは、固定の公式導線と実際にVectorizeから取得したURLのallowlistに一致するものだけを残す。Acecore内の相対URLもAPI responseでは `https://acecore.net` の絶対URLへ正規化し、SystemsやSchools上で別originの同名pathへ解決されないようにする。
 
 ## 障害対応とrollback
@@ -204,8 +204,8 @@ indexを作り直す場合は、現在のindexを停止・削除する前に別�
 - [Vectorize pricing](https://developers.cloudflare.com/vectorize/platform/pricing/)
 - [text-embedding-3-large](https://developers.openai.com/api/docs/models/text-embedding-3-large)
 - [Embeddings guide](https://developers.openai.com/api/docs/guides/embeddings)
-- [GPT-5.6 Luna](https://developers.openai.com/api/docs/models/gpt-5.6-luna)
-- [Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create)
+- [GLM 5.3 Flash](https://developers.cloudflare.com/workers-ai/models/glm-5.3-flash/)
+- [Workers AI Batch REST API](https://developers.cloudflare.com/workers-ai/features/batch-api/rest-api/)
 - [Pages Functions bindings](https://developers.cloudflare.com/pages/functions/bindings/)
 - [Pages Wrangler configuration](https://developers.cloudflare.com/pages/functions/wrangler-configuration/)
 - [D1](https://developers.cloudflare.com/d1/)

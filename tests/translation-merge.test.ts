@@ -31,10 +31,10 @@ function createPullRequest(
     number: 42,
     state: 'open',
     baseRef: 'main',
-    headRef: 'translation/openai/batch_example',
+    headRef: 'translation/workers-ai/batch_example',
     headSha: HEAD_SHA,
     headRepositoryFullName: REPOSITORY.repository,
-    title: '[translation] OpenAI Batch batch_example',
+    title: '[translation] Workers AI Batch batch_example',
     body: null,
     authorLogin: 'acecore-translation-bot[bot]',
     draft: true,
@@ -80,6 +80,16 @@ test('PR番号は安全な正整数だけを受け入れ、未知の引数で停
 })
 
 test('対象外のPRは翻訳自動マージ対象にしない', () => {
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({
+        headRef: 'translation/openai/batch_legacy',
+        title: '[translation] OpenAI Batch batch_legacy',
+      }),
+      REPOSITORY,
+    ),
+    true,
+  )
   assert.equal(
     isEligibleTranslationPullRequest(createPullRequest(), REPOSITORY),
     true,
@@ -228,7 +238,7 @@ test('検証済みhead SHAとsquash方式を固定してGitHub Auto-mergeを予�
   assert.deepEqual(graphqlCalls[0]?.variables, {
     pullRequestId: 'PR_kwDORlSgas123',
     expectedHeadOid: HEAD_SHA,
-    commitHeadline: '[translation] OpenAI Batch batch_example',
+    commitHeadline: '[translation] Workers AI Batch batch_example',
   })
 })
 

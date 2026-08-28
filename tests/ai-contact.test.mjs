@@ -64,38 +64,6 @@ async function onRequestPost(context) {
       })
     }
 
-    if (url.endsWith('/v1/responses')) {
-      const result = await legacyAi.run('@cf/zai-org/glm-5.2', {
-        messages: [
-          { role: 'system', content: body.instructions },
-          { role: 'user', content: body.input },
-        ],
-        max_completion_tokens: body.max_output_tokens,
-        reasoning_effort: body.reasoning?.effort,
-        temperature: 0.2,
-      })
-      if (result && typeof result === 'object' && result.error) {
-        return Response.json(
-          { error: { code: 'provider_error' } },
-          { status: 500 },
-        )
-      }
-
-      const { text, hitOutputTokenLimit } = extractLegacyGeneration(result)
-      return Response.json({
-        status: hitOutputTokenLimit ? 'incomplete' : 'completed',
-        ...(hitOutputTokenLimit
-          ? { incomplete_details: { reason: 'max_output_tokens' } }
-          : {}),
-        output: [
-          {
-            type: 'message',
-            content: [{ type: 'output_text', text }],
-          },
-        ],
-      })
-    }
-
     return originalFetch(input, init)
   }
 
@@ -104,49 +72,15 @@ async function onRequestPost(context) {
       ...context,
       env: {
         OPENAI_API_KEY: 'test-openai-key',
-        OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'medium',
         OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
         OPENAI_EMBEDDING_DIMENSIONS: '1536',
+        WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+        WORKERS_AI_REASONING_EFFORT: 'medium',
         ...env,
       },
     })
   } finally {
     globalThis.fetch = originalFetch
-  }
-}
-
-function extractLegacyGeneration(result) {
-  if (!result) return { text: '', hitOutputTokenLimit: false }
-  if (typeof result === 'string') {
-    return { text: result, hitOutputTokenLimit: false }
-  }
-
-  const choices = Array.isArray(result.choices) ? result.choices : []
-  const hitOutputTokenLimit =
-    result.finish_reason === 'length' ||
-    choices.some((choice) => choice?.finish_reason === 'length')
-  const choiceText = choices
-    .map((choice) => {
-      const content = choice?.message?.content
-      if (typeof content === 'string') return content
-      if (Array.isArray(content)) {
-        return content.map((part) => part?.text || '').join('\n')
-      }
-      return choice?.text || choice?.delta?.content || ''
-    })
-    .filter(Boolean)
-    .join('\n')
-
-  return {
-    text:
-      result.response ||
-      result.output_text ||
-      choiceText ||
-      extractLegacyGeneration(result.result).text,
-    hitOutputTokenLimit:
-      hitOutputTokenLimit ||
-      extractLegacyGeneration(result.result).hitOutputTokenLimit,
   }
 }
 
@@ -225,55 +159,44 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Responses APIへLuna medium・store falseで直接送信する', async () => {
-  const originalFetch = globalThis.fetch
+test('Workers AI bindingへGLM 5.3 Flash medium・store falseで送信する', async () => {
   let responseInput
-  globalThis.fetch = async (input, init = {}) => {
-    assert.equal(String(input), 'https://api.openai.com/v1/responses')
-    responseInput = JSON.parse(String(init.body || '{}'))
-    return Response.json({
-      status: 'completed',
-      output: [
-        {
-          type: 'message',
-          content: [
-            {
-              type: 'output_text',
-              text: '[問い合わせフォーム](/contact/)をご利用ください。',
-            },
-          ],
+  let responseOptions
+  let responseModel
+  const response = await handleAiContactPost({
+    request: createRequest({
+      question: 'お問い合わせ先は？',
+      locale: 'ja',
+    }),
+    env: {
+      OPENAI_API_KEY: 'test-openai-key',
+      OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
+      OPENAI_EMBEDDING_DIMENSIONS: '1536',
+      WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+      WORKERS_AI_REASONING_EFFORT: 'medium',
+      SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+      SEARCH_ENABLED: 'false',
+      AI: {
+        async run(model, input, options) {
+          responseModel = model
+          responseInput = input
+          responseOptions = options
+          return createChatCompletion(
+            '[問い合わせフォーム](/contact/)をご利用ください。',
+          )
         },
-      ],
-    })
-  }
-
-  try {
-    const response = await handleAiContactPost({
-      request: createRequest({
-        question: 'お問い合わせ先は？',
-        locale: 'ja',
-      }),
-      env: {
-        OPENAI_API_KEY: 'test-openai-key',
-        OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'medium',
-        OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-        OPENAI_EMBEDDING_DIMENSIONS: '1536',
-        SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
-        SEARCH_ENABLED: 'false',
       },
-    })
+    },
+  })
 
-    assert.equal(response.status, 200)
-    assert.equal(responseInput.model, 'gpt-5.6-luna')
-    assert.deepEqual(responseInput.reasoning, { effort: 'medium' })
-    assert.equal(responseInput.max_output_tokens, 640)
-    assert.equal(responseInput.store, false)
-    assert.match(responseInput.safety_identifier, /^acecore_[0-9a-f]{48}$/u)
-    assert.doesNotMatch(responseInput.safety_identifier, /192\.0\.2\./u)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
+  assert.equal(response.status, 200)
+  assert.equal(responseModel, '@cf/zai-org/glm-5.3-flash')
+  assert.equal(responseInput.reasoning_effort, 'medium')
+  assert.equal(responseInput.max_completion_tokens, 640)
+  assert.equal(responseInput.store, false)
+  assert.match(responseInput.user, /^acecore_[0-9a-f]{48}$/u)
+  assert.doesNotMatch(responseInput.user, /192\.0\.2\./u)
+  assert.equal(responseOptions, undefined)
 })
 
 for (const scenario of [
@@ -515,8 +438,6 @@ test('D1 bindingがない環境ではfail closedにする', async () => {
     }),
     env: {
       OPENAI_API_KEY: 'test-openai-key',
-      OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-      OPENAI_REASONING_EFFORT: 'medium',
       OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
       OPENAI_EMBEDDING_DIMENSIONS: '1536',
       SEARCH_ENABLED: 'false',
@@ -535,9 +456,10 @@ test('生成文が根拠リンクを省略しても上位の公式参照先を�
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: '公式情報です。',
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion('公式情報です。'),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -559,9 +481,7 @@ test('空の生成結果にもlocalized fallbackと公式参照先を返す', as
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: '   ',
-    }),
+    env: createSchoolsGenerationEnv(aiTracker, createChatCompletion('   ')),
   })
 
   assert.equal(response.status, 200)
@@ -582,9 +502,10 @@ test('壊れたMarkdown断片を引用済みと誤認せず有効な参照先を
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: `説明です。壊れた](${url})`,
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion(`説明です。壊れた](${url})`),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -605,9 +526,10 @@ test('取得済みURLを正しく引用した回答には参照先を重複追�
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: `[学習支援](${url})をご確認ください。`,
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion(`[学習支援](${url})をご確認ください。`),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -627,6 +549,7 @@ test('生成上限到達時は部分回答を捨てて固定文と公式参照�
     env: createSchoolsGenerationEnv(aiTracker, {
       choices: [
         {
+          index: 0,
           finish_reason: 'length',
           message: {
             content: '途中で切れた回答',
@@ -668,6 +591,7 @@ test('Acecore根拠がゼロ件で生成上限に達しても公式トップを�
           return {
             choices: [
               {
+                index: 0,
                 finish_reason: 'length',
                 message: {
                   content: '途中で切れた回答',
@@ -1646,7 +1570,9 @@ test('embeddingは1536次元かつ有限値でなければVectorizeへ渡さな�
                   return { data: [invalidEmbedding] }
                 }
                 generationCalls += 1
-                return { response: '[事業一覧](/services/)をご確認ください。' }
+                return createChatCompletion(
+                  '[事業一覧](/services/)をご確認ください。',
+                )
               },
             },
           },
@@ -1813,9 +1739,9 @@ test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばな
         async run(model) {
           aiCalls += 1
           assert.notEqual(model, '@cf/baai/bge-m3')
-          return {
-            response: '[問い合わせフォーム](/contact/)をご利用ください。',
-          }
+          return createChatCompletion(
+            '[問い合わせフォーム](/contact/)をご利用ください。',
+          )
         },
       },
     },
@@ -1972,12 +1898,11 @@ function createTestAi(
       }
 
       tracker.generationInputs.push(input)
-      return {
-        response:
-          typeof generationResponse === 'function'
-            ? generationResponse(input)
-            : generationResponse,
-      }
+      return createChatCompletion(
+        typeof generationResponse === 'function'
+          ? generationResponse(input)
+          : generationResponse,
+      )
     },
   }
 }
@@ -2004,6 +1929,18 @@ function createSchoolsGenerationEnv(aiTracker, generationResult) {
         return generationResult
       },
     },
+  }
+}
+
+function createChatCompletion(content, finishReason = 'stop') {
+  return {
+    choices: [
+      {
+        index: 0,
+        finish_reason: finishReason,
+        message: { content },
+      },
+    ],
   }
 }
 

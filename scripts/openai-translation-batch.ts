@@ -11,11 +11,10 @@ import {
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const API_BASE_URL = 'https://api.openai.com/v1'
-const BATCH_MODEL = 'gpt-5.6-luna'
-const BATCH_ENDPOINT = '/v1/responses'
-const BATCH_METADATA_KEY = 'translation_system'
-const BATCH_METADATA_VALUE = 'acecore-net-v1'
+const API_BASE_URL = 'https://api.cloudflare.com/client/v4'
+const BATCH_MODEL = '@cf/zai-org/glm-5.3-flash'
+const BATCH_REASONING_EFFORT = 'high'
+const MAX_BATCH_PAYLOAD_BYTES = 10 * 1024 * 1024
 const CUSTOM_ID_PREFIX = 'acecore-net:'
 const SOURCE_MARKER_PREFIX = '<!-- openai-translation-source:'
 const SOURCE_MARKER_SUFFIX = ' -->'
@@ -30,16 +29,6 @@ interface JsonRecord {
   [key: string]: JsonValue
 }
 type JsonValue = JsonPrimitive | JsonValue[] | JsonRecord
-type BatchStatus =
-  | 'validating'
-  | 'failed'
-  | 'in_progress'
-  | 'finalizing'
-  | 'completed'
-  | 'expired'
-  | 'cancelling'
-  | 'cancelled'
-
 type ChangeStatus = 'A' | 'C' | 'D' | 'M' | 'R' | string
 type TranslationKind = 'blog' | 'blog-delete' | 'site' | 'site-delete'
 
@@ -59,39 +48,31 @@ interface RequestMetadata {
 }
 
 interface BatchInputLine {
-  custom_id: string
-  method: 'POST'
-  url: typeof BATCH_ENDPOINT
-  body: JsonRecord
-}
-
-interface OpenAiFile {
-  id: string
-}
-
-interface OpenAiBatch {
-  id: string
-  status: BatchStatus
-  output_file_id: string | null
-  metadata: Record<string, string> | null
-  created_at: number
-  completed_at?: number | null
-}
-
-interface OpenAiBatchList {
-  data: OpenAiBatch[]
+  external_reference: string
+  messages: Array<{ role: 'system' | 'user'; content: string }>
+  reasoning_effort: typeof BATCH_REASONING_EFFORT
+  max_completion_tokens: number
+  response_format: JsonRecord
+  store: false
 }
 
 interface BatchOutputLine {
-  custom_id: string
-  response: {
-    status_code: number
-    body: JsonRecord
-  } | null
-  error: {
-    code?: string | null
-    message?: string | null
-  } | null
+  external_reference: string
+  result?: JsonRecord
+  success: boolean
+}
+
+interface CloudflareBatchResult {
+  model?: string
+  request_id?: string
+  responses?: BatchOutputLine[]
+  status?: string
+}
+
+interface CloudflareBatchEnvelope {
+  errors?: Array<{ code?: number; message?: string }>
+  result?: CloudflareBatchResult
+  success: boolean
 }
 
 interface TranslationEntry {
@@ -124,6 +105,7 @@ interface ParsedArgs {
   headSha: string | null
   currentRef: string | null
   processedBatchIds: Set<string>
+  pendingBatchIds: string[]
   prNumber: number | null
 }
 
@@ -183,6 +165,7 @@ function parseArgs(argv: readonly string[]): ParsedArgs {
     headSha: null,
     currentRef: null,
     processedBatchIds: new Set(),
+    pendingBatchIds: [],
     prNumber: null,
   }
 
@@ -209,6 +192,15 @@ function parseArgs(argv: readonly string[]): ParsedArgs {
         .map((value) => value.trim())
         .filter(Boolean)
       parsed.processedBatchIds = new Set(values)
+      continue
+    }
+
+    if (argument.startsWith('--pending-batches=')) {
+      parsed.pendingBatchIds = argument
+        .slice('--pending-batches='.length)
+        .split(',')
+        .map((value) => value.trim())
+        .filter(Boolean)
       continue
     }
 
@@ -825,9 +817,11 @@ function parseSourceMarkers(
 function createResponseFormat(name: string, schema: JsonRecord): JsonRecord {
   return {
     type: 'json_schema',
-    name,
-    strict: true,
-    schema,
+    json_schema: {
+      name,
+      strict: true,
+      schema,
+    },
   }
 }
 
@@ -886,37 +880,45 @@ function createBlogBatchRequest(
   }
 
   return {
-    custom_id: encodeMetadata(metadata),
-    method: 'POST',
-    url: BATCH_ENDPOINT,
-    body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
-      max_output_tokens: 32768,
-      instructions:
-        'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Keep description between 50 and 160 Unicode characters so it can be used as a meta description. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
-      input: JSON.stringify({
-        targetLocale: metadata.locale,
-        source: {
-          title: sourceTitle,
-          description: sourceDescription,
-          body: sourceDocument.body,
-        },
-        current: currentDocument
-          ? {
-              title: getFrontmatterString(currentDocument.frontmatter, 'title'),
-              description: getFrontmatterString(
-                currentDocument.frontmatter,
-                'description',
-              ),
-              body: currentDocument.body,
-            }
-          : null,
-      }),
-      text: {
-        format: createResponseFormat('blog_translation', BLOG_RESPONSE_SCHEMA),
+    external_reference: encodeMetadata(metadata),
+    messages: [
+      {
+        role: 'system',
+        content:
+          'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Keep description between 50 and 160 Unicode characters so it can be used as a meta description. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
       },
-    },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          targetLocale: metadata.locale,
+          source: {
+            title: sourceTitle,
+            description: sourceDescription,
+            body: sourceDocument.body,
+          },
+          current: currentDocument
+            ? {
+                title: getFrontmatterString(
+                  currentDocument.frontmatter,
+                  'title',
+                ),
+                description: getFrontmatterString(
+                  currentDocument.frontmatter,
+                  'description',
+                ),
+                body: currentDocument.body,
+              }
+            : null,
+        }),
+      },
+    ],
+    reasoning_effort: BATCH_REASONING_EFFORT,
+    max_completion_tokens: 32768,
+    response_format: createResponseFormat(
+      'blog_translation',
+      BLOG_RESPONSE_SCHEMA,
+    ),
+    store: false,
   }
 }
 
@@ -934,111 +936,97 @@ function createSiteBatchRequest(
   }
 
   return {
-    custom_id: encodeMetadata(metadata),
-    method: 'POST',
-    url: BATCH_ENDPOINT,
-    body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
-      max_output_tokens: 32768,
-      instructions:
-        'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
-      input: JSON.stringify({
-        targetLocale: metadata.locale,
-        sourcePath: metadata.sourcePath,
-        entries,
-      }),
-      text: {
-        format: createResponseFormat('site_translation', SITE_RESPONSE_SCHEMA),
+    external_reference: encodeMetadata(metadata),
+    messages: [
+      {
+        role: 'system',
+        content:
+          'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
       },
-    },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          targetLocale: metadata.locale,
+          sourcePath: metadata.sourcePath,
+          entries,
+        }),
+      },
+    ],
+    reasoning_effort: BATCH_REASONING_EFFORT,
+    max_completion_tokens: 32768,
+    response_format: createResponseFormat(
+      'site_translation',
+      SITE_RESPONSE_SCHEMA,
+    ),
+    store: false,
   }
 }
 
 function createDeleteBatchRequest(metadata: RequestMetadata): BatchInputLine {
   return {
-    custom_id: encodeMetadata(metadata),
-    method: 'POST',
-    url: BATCH_ENDPOINT,
-    body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
-      instructions: 'Return the requested JSON object without additional text.',
-      input: 'Confirm this translation source deletion.',
-      text: {
-        format: createResponseFormat(
-          'translation_delete',
-          DELETE_RESPONSE_SCHEMA,
-        ),
+    external_reference: encodeMetadata(metadata),
+    messages: [
+      {
+        role: 'system',
+        content: 'Return the requested JSON object without additional text.',
       },
-    },
+      {
+        role: 'user',
+        content: 'Confirm this translation source deletion.',
+      },
+    ],
+    reasoning_effort: BATCH_REASONING_EFFORT,
+    max_completion_tokens: 256,
+    response_format: createResponseFormat(
+      'translation_delete',
+      DELETE_RESPONSE_SCHEMA,
+    ),
+    store: false,
   }
 }
 
-function requireApiKey(): string {
-  const key = process.env.OPENAI_TRANSLATION_API_KEY
-  if (!key) throw new Error('OPENAI_TRANSLATION_API_KEY is required')
-  return key
+function requireCloudflareAccountId(): string {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim()
+  if (!accountId) throw new Error('CLOUDFLARE_ACCOUNT_ID is required')
+  return accountId
 }
 
-async function openAiFetch(
-  pathName: string,
-  init: RequestInit = {},
-): Promise<Response> {
-  const response = await fetch(`${API_BASE_URL}${pathName}`, {
-    ...init,
+function requireCloudflareApiToken(): string {
+  const token = process.env.CLOUDFLARE_WORKERS_AI_API_TOKEN?.trim()
+  if (!token) {
+    throw new Error('CLOUDFLARE_WORKERS_AI_API_TOKEN is required')
+  }
+  return token
+}
+
+function getWorkersAiBatchUrl(): string {
+  return `${API_BASE_URL}/accounts/${requireCloudflareAccountId()}/ai/run/${BATCH_MODEL}?queueRequest=true`
+}
+
+async function workersAiBatchRequest(
+  body: JsonRecord,
+): Promise<CloudflareBatchResult> {
+  const response = await fetch(getWorkersAiBatchUrl(), {
+    method: 'POST',
     headers: {
-      Authorization: `Bearer ${requireApiKey()}`,
-      ...(init.headers ?? {}),
+      Accept: 'application/json',
+      Authorization: `Bearer ${requireCloudflareApiToken()}`,
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify(body),
   })
   if (!response.ok) {
     throw new Error(
-      `OpenAI API ${init.method ?? 'GET'} ${pathName} failed: ${response.status} ${await response.text()}`,
+      `Workers AI Batch API failed: ${response.status} ${await response.text()}`,
     )
   }
-  return response
-}
-
-async function openAiJson<T>(
-  pathName: string,
-  init: RequestInit = {},
-): Promise<T> {
-  const response = await openAiFetch(pathName, init)
-  return (await response.json()) as T
-}
-
-async function uploadBatchInput(jsonl: string): Promise<OpenAiFile> {
-  const form = new FormData()
-  form.set('purpose', 'batch')
-  form.set(
-    'file',
-    new Blob([jsonl], { type: 'application/jsonl' }),
-    'acecore-net-translation.jsonl',
-  )
-  const response = await openAiFetch('/files', { method: 'POST', body: form })
-  return (await response.json()) as OpenAiFile
-}
-
-async function createBatch(
-  inputFileId: string,
-  headSha: string,
-): Promise<OpenAiBatch> {
-  return openAiJson<OpenAiBatch>('/batches', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      input_file_id: inputFileId,
-      endpoint: BATCH_ENDPOINT,
-      completion_window: '24h',
-      metadata: {
-        [BATCH_METADATA_KEY]: BATCH_METADATA_VALUE,
-        repository:
-          process.env.GITHUB_REPOSITORY ?? 'acecore-systems/acecore-net',
-        source_commit: headSha,
-      },
-    }),
-  })
+  const envelope = (await response.json()) as CloudflareBatchEnvelope
+  if (!envelope.success || !envelope.result) {
+    throw new Error(
+      `Workers AI Batch API rejected the request: ${JSON.stringify(envelope.errors ?? [])}`,
+    )
+  }
+  return envelope.result
 }
 
 function sourceAtCurrentRefMatches(
@@ -1151,34 +1139,51 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
     return
   }
 
-  const inputFile = await uploadBatchInput(
-    `${inputs.map((input) => JSON.stringify(input)).join('\n')}\n`,
-  )
-  const batch = await createBatch(inputFile.id, headSha)
+  const requestBody: JsonRecord = { requests: inputs as unknown as JsonValue[] }
+  const requestBytes = Buffer.byteLength(JSON.stringify(requestBody), 'utf8')
+  if (requestBytes >= MAX_BATCH_PAYLOAD_BYTES) {
+    throw new Error(
+      `Workers AI Batch payload must be under 10 MB; received ${requestBytes} bytes`,
+    )
+  }
+  const batch = await workersAiBatchRequest(requestBody)
+  if (batch.status !== 'queued' || !batch.request_id) {
+    throw new Error('Workers AI Batch submission returned no queued request_id')
+  }
   console.log(
-    `Submitted OpenAI translation batch ${batch.id} (${inputs.length} requests).`,
+    `Submitted Workers AI translation batch ${batch.request_id} (${inputs.length} requests).`,
   )
-  writeOutput('batch_id', batch.id)
+  writeOutput('batch_id', batch.request_id)
+  writeOutput('pending_marker_path', writePendingMarker(batch.request_id))
 }
 
 function getResponseText(body: JsonRecord): string {
-  if (typeof body.output_text === 'string') return body.output_text
-  const output = body.output
-  if (!Array.isArray(output)) throw new Error('Responses output is missing')
-  const parts: string[] = []
-  for (const item of output) {
-    if (!isJsonRecord(item) || !Array.isArray(item.content)) continue
-    for (const content of item.content) {
-      if (isJsonRecord(content) && typeof content.text === 'string') {
-        parts.push(content.text)
-      }
-    }
+  if (!Array.isArray(body.choices) || body.choices.length !== 1) {
+    throw new Error('Chat Completions output must contain exactly one choice')
   }
-  if (parts.length === 0) throw new Error('Responses output text is missing')
-  return parts.join('')
+  const choice = body.choices[0]
+  if (
+    !isJsonRecord(choice) ||
+    choice.index !== 0 ||
+    choice.finish_reason !== 'stop' ||
+    !isJsonRecord(choice.message)
+  ) {
+    throw new Error('Chat Completions output is incomplete or malformed')
+  }
+  if (
+    typeof choice.message.refusal === 'string' &&
+    choice.message.refusal.trim()
+  ) {
+    throw new Error('Chat Completions output was refused')
+  }
+  const content = choice.message.content
+  if (typeof content !== 'string' || !content.trim()) {
+    throw new Error('Chat Completions output text is missing')
+  }
+  return content
 }
 
-function parseJsonResponse(body: JsonRecord): JsonRecord {
+export function parseJsonResponse(body: JsonRecord): JsonRecord {
   const parsed = JSON.parse(getResponseText(body)) as unknown
   if (!isJsonRecord(parsed))
     throw new Error('Translation response must be a JSON object')
@@ -1364,45 +1369,19 @@ function applySiteDeletion(metadata: RequestMetadata): boolean {
   return changed
 }
 
-function parseOutputLines(source: string): BatchOutputLine[] {
-  return source
-    .split(/\r?\n/)
-    .filter(Boolean)
-    .map((line) => JSON.parse(line) as BatchOutputLine)
-}
-
-async function listBatches(): Promise<OpenAiBatch[]> {
-  const response = await openAiJson<OpenAiBatchList>('/batches?limit=100')
-  return response.data
-}
-
-async function getBatchOutput(batch: OpenAiBatch): Promise<BatchOutputLine[]> {
-  if (!batch.output_file_id)
-    throw new Error(`Batch ${batch.id} has no output file`)
-  const response = await openAiFetch(
-    `/files/${encodeURIComponent(batch.output_file_id)}/content`,
-  )
-  return parseOutputLines(await response.text())
-}
-
-function isTranslationBatch(batch: OpenAiBatch): boolean {
-  return batch.metadata?.[BATCH_METADATA_KEY] === BATCH_METADATA_VALUE
-}
-
-function selectCompletedBatch(
-  batches: readonly OpenAiBatch[],
+export async function findCompletedPendingBatch(
+  pending: readonly string[],
   processed: ReadonlySet<string>,
-): OpenAiBatch | null {
-  return (
-    [...batches]
-      .filter(
-        (batch) =>
-          isTranslationBatch(batch) &&
-          batch.status === 'completed' &&
-          !processed.has(batch.id),
-      )
-      .sort((left, right) => left.created_at - right.created_at)[0] ?? null
-  )
+  request: (
+    body: JsonRecord,
+  ) => Promise<CloudflareBatchResult> = workersAiBatchRequest,
+): Promise<{ batchId: string; batch: CloudflareBatchResult } | null> {
+  for (const batchId of pending) {
+    if (processed.has(batchId)) continue
+    const batch = await request({ request_id: batchId })
+    if (Array.isArray(batch.responses)) return { batchId, batch }
+  }
+  return null
 }
 
 function makePrBody(
@@ -1419,7 +1398,7 @@ function makePrBody(
     ...[...uniqueMarkers.values()].map(sourceMarker),
     '',
     '## 概要',
-    '- OpenAI Batch（gpt-5.6-luna / reasoning max）で最新の日本語sourceを翻訳しました。',
+    '- Cloudflare Workers AI Batch（GLM 5.3 Flash / reasoning high）で最新の日本語sourceを翻訳しました。',
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',
@@ -1455,6 +1434,17 @@ function writeProcessedMarker(batchId: string): string {
   return outputPath
 }
 
+function writePendingMarker(batchId: string): string {
+  const outputDirectory = process.env.RUNNER_TEMP ?? '.tmp'
+  mkdirSync(outputDirectory, { recursive: true })
+  const outputPath = path.join(
+    outputDirectory,
+    `workers-ai-translation-pending-${batchId}.txt`,
+  )
+  writeFileSync(outputPath, `${batchId}\n`)
+  return outputPath
+}
+
 function writeOutput(key: string, value: string): void {
   if (process.env.GITHUB_OUTPUT) {
     writeFileSync(process.env.GITHUB_OUTPUT, `${key}=${value}\n`, { flag: 'a' })
@@ -1473,12 +1463,14 @@ function writeCollectedOutputs(result: CollectedResult): void {
 
 async function collectBatch(args: ParsedArgs): Promise<void> {
   await closeStaleOpenAiTranslationPullRequests()
-  const batch = selectCompletedBatch(
-    await listBatches(),
+  const completed = await findCompletedPendingBatch(
+    args.pendingBatchIds,
     args.processedBatchIds,
   )
-  if (!batch) {
-    console.log('No unprocessed completed OpenAI translation batches found.')
+  if (!completed) {
+    console.log(
+      'No unprocessed completed Workers AI translation batches found.',
+    )
     writeCollectedOutputs({
       processedBatchId: null,
       hasChanges: false,
@@ -1488,12 +1480,16 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
     return
   }
 
-  const outputs = await getBatchOutput(batch)
+  const { batchId, batch } = completed
+
+  const outputs = batch.responses ?? []
   let hasChanges = false
   const appliedMarkers: RequestMetadata[] = []
   for (const output of outputs) {
-    if (!output.response || output.response.status_code !== 200) continue
-    const metadata = decodeMetadata(output.custom_id)
+    if (!output.success || !isJsonRecord(output.result)) {
+      throw new Error(`Workers AI Batch ${batchId} contains a failed request`)
+    }
+    const metadata = decodeMetadata(output.external_reference)
     if (getCurrentSourceHash(metadata) !== metadata.sourceHash) {
       console.log(
         `Discarded stale translation result for ${metadata.sourcePath}`,
@@ -1501,7 +1497,7 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
       continue
     }
 
-    const response = parseJsonResponse(output.response.body)
+    const response = parseJsonResponse(output.result)
     const changed =
       metadata.kind === 'blog'
         ? applyBlogTranslation(metadata, response)
@@ -1514,17 +1510,17 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
     appliedMarkers.push(metadata)
   }
 
-  const bodyPath = hasChanges ? writePrBody(batch.id, appliedMarkers) : null
+  const bodyPath = hasChanges ? writePrBody(batchId, appliedMarkers) : null
   writeCollectedOutputs({
-    processedBatchId: batch.id,
+    processedBatchId: batchId,
     hasChanges,
     bodyPath,
-    batchId: batch.id,
+    batchId,
   })
   console.log(
     hasChanges
-      ? `Applied current results from ${batch.id}.`
-      : `No current file changes from ${batch.id}.`,
+      ? `Applied current results from ${batchId}.`
+      : `No current file changes from ${batchId}.`,
   )
 }
 
@@ -1587,7 +1583,8 @@ async function closeStaleOpenAiTranslationPullRequests(): Promise<void> {
     if (
       typeof pull.number !== 'number' ||
       typeof pull.head?.ref !== 'string' ||
-      !pull.head.ref.startsWith('translation/openai/')
+      (!pull.head.ref.startsWith('translation/openai/') &&
+        !pull.head.ref.startsWith('translation/workers-ai/'))
     ) {
       continue
     }
@@ -1609,7 +1606,7 @@ async function closeStaleOpenAiTranslationPullRequests(): Promise<void> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ state: 'closed' }),
     })
-    console.log(`Closed stale OpenAI translation PR #${pull.number}.`)
+    console.log(`Closed stale translation PR #${pull.number}.`)
   }
 }
 

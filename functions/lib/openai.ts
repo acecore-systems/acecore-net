@@ -1,42 +1,14 @@
-export const DEFAULT_OPENAI_CHAT_MODEL = 'gpt-5.6-luna'
-export const DEFAULT_OPENAI_REASONING_EFFORT = 'medium'
 export const DEFAULT_OPENAI_EMBEDDING_MODEL = 'text-embedding-3-large'
 export const OPENAI_EMBEDDING_DIMENSIONS = 1536
 
-const OPENAI_RESPONSES_ENDPOINT = 'https://api.openai.com/v1/responses'
 const OPENAI_EMBEDDINGS_ENDPOINT = 'https://api.openai.com/v1/embeddings'
 const OPENAI_REQUEST_TIMEOUT_MS = 30_000
 const MAX_OPENAI_RESPONSE_BYTES = 512 * 1024
 
-export type OpenAiReasoningEffort = 'low' | 'medium' | 'high'
-
 export type OpenAiEnv = {
   OPENAI_API_KEY?: string
-  OPENAI_CHAT_MODEL?: string
-  OPENAI_REASONING_EFFORT?: string
   OPENAI_EMBEDDING_MODEL?: string
   OPENAI_EMBEDDING_DIMENSIONS?: string
-}
-
-type OpenAiResponseOptions = {
-  instructions: string
-  input: string
-  maxOutputTokens: number
-  safetyIdentifier: string
-}
-
-export type OpenAiResponseResult = {
-  text: string
-  hitOutputTokenLimit: boolean
-}
-
-type OpenAiOutputContent = {
-  type?: unknown
-  text?: unknown
-}
-
-type OpenAiOutputItem = {
-  content?: unknown
 }
 
 export class OpenAiProviderError extends Error {
@@ -94,53 +66,6 @@ export async function createOpenAiEmbedding(
   return embedding as number[]
 }
 
-export async function createOpenAiResponse(
-  env: OpenAiEnv,
-  options: OpenAiResponseOptions,
-): Promise<OpenAiResponseResult> {
-  const payload = await requestOpenAiJson(
-    OPENAI_RESPONSES_ENDPOINT,
-    env.OPENAI_API_KEY,
-    {
-      model:
-        normalizeConfigValue(env.OPENAI_CHAT_MODEL) ||
-        DEFAULT_OPENAI_CHAT_MODEL,
-      instructions: options.instructions,
-      input: options.input,
-      reasoning: {
-        effort: normalizeReasoningEffort(env.OPENAI_REASONING_EFFORT),
-      },
-      max_output_tokens: options.maxOutputTokens,
-      safety_identifier: options.safetyIdentifier,
-      store: false,
-    },
-  )
-
-  if (!isJsonObject(payload)) {
-    throw new OpenAiProviderError('invalid_response')
-  }
-
-  if (payload.status === 'incomplete') {
-    const details = payload.incomplete_details
-    if (isJsonObject(details) && details.reason === 'max_output_tokens') {
-      return {
-        text: '',
-        hitOutputTokenLimit: true,
-      }
-    }
-    throw new OpenAiProviderError('incomplete_response')
-  }
-
-  if (payload.status === 'failed' || payload.error) {
-    throw new OpenAiProviderError('provider_rejected')
-  }
-
-  return {
-    text: extractOpenAiOutputText(payload),
-    hitOutputTokenLimit: false,
-  }
-}
-
 export function getOpenAiErrorCode(
   error: unknown,
   fallback = 'provider_error',
@@ -167,13 +92,6 @@ function normalizeEmbeddingModel(value: unknown): string {
     throw new OpenAiProviderError('invalid_embedding_configuration')
   }
   return model
-}
-
-function normalizeReasoningEffort(value: unknown): OpenAiReasoningEffort {
-  const effort = normalizeConfigValue(value).toLowerCase()
-  return effort === 'low' || effort === 'medium' || effort === 'high'
-    ? effort
-    : DEFAULT_OPENAI_REASONING_EFFORT
 }
 
 function normalizeConfigValue(value: unknown): string {
@@ -269,22 +187,6 @@ async function readBoundedJsonResponse(response: Response): Promise<unknown> {
   } catch {
     throw new OpenAiProviderError('invalid_json_response')
   }
-}
-
-function extractOpenAiOutputText(payload: unknown): string {
-  if (!isJsonObject(payload) || !Array.isArray(payload.output)) return ''
-
-  return (payload.output as OpenAiOutputItem[])
-    .flatMap((item) => (Array.isArray(item?.content) ? item.content : []))
-    .filter(
-      (content): content is OpenAiOutputContent =>
-        isJsonObject(content) &&
-        content.type === 'output_text' &&
-        typeof content.text === 'string',
-    )
-    .map((content) => String(content.text))
-    .filter(Boolean)
-    .join('\n')
 }
 
 function isJsonObject(value: unknown): value is Record<string, unknown> {
