@@ -37,7 +37,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             numbers="${{ inputs.pr_number }}"
           elif [ "${{ github.event_name }}" = "push" ]; then
-            numbers="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/pulls?state=open&base=main&per_page=100" --jq '.[] | select(.head.ref | startswith("translation/openai/")) | .number')"
+            numbers="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/pulls?state=open&base=main&per_page=100" --jq '.[] | select(.head.ref | startswith("translation/openai/") or startswith("translation/workers-ai/")) | .number')"
           else
             numbers="$(jq -r '.workflow_run.pull_requests[0].number // empty' "$GITHUB_EVENT_PATH")"
             if [ -z "$numbers" ]; then
