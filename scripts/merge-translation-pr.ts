@@ -74,14 +74,7 @@ interface MergeAutomationOptions {
 
 const GITHUB_API_URL = 'https://api.github.com'
 const FULL_SHA_PATTERN = /^[0-9a-f]{40}$/i
-const TRANSLATION_TITLE_PREFIXES = [
-  '[translation] Workers AI Batch ',
-  '[translation] OpenAI Batch ',
-] as const
-const TRANSLATION_BRANCH_PREFIXES = [
-  'translation/workers-ai/',
-  'translation/openai/',
-] as const
+const OPENAI_TRANSLATION_TITLE_PREFIX = '[translation] OpenAI Batch '
 const OPENAI_TRANSLATION_BOT_LOGIN = 'acecore-translation-bot[bot]'
 const TRANSLATION_CONTENT_PATH_PATTERN =
   /^src\/content\/blog\/(?:en|zh-cn|es|pt|fr|ko|de|ru)\/.+\.md$/u
@@ -456,12 +449,8 @@ export function isEligibleTranslationPullRequest(
     pullRequest.authorLogin === OPENAI_TRANSLATION_BOT_LOGIN &&
     pullRequest.headRepositoryFullName?.toLowerCase() ===
       repository.repository.toLowerCase() &&
-    TRANSLATION_BRANCH_PREFIXES.some((prefix) =>
-      pullRequest.headRef?.startsWith(prefix),
-    ) &&
-    TRANSLATION_TITLE_PREFIXES.some((prefix) =>
-      pullRequest.title.startsWith(prefix),
-    )
+    pullRequest.headRef?.startsWith('translation/openai/') === true &&
+    pullRequest.title.startsWith(OPENAI_TRANSLATION_TITLE_PREFIX)
   )
 }
 
@@ -475,7 +464,7 @@ async function closePullRequest(
     `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/pulls/${pullRequest.number}`,
     { method: 'PATCH', body: { state: 'closed' } },
   )
-  logger.log(`Closed stale translation PR #${pullRequest.number}.`)
+  logger.log(`Closed stale OpenAI translation PR #${pullRequest.number}.`)
 }
 
 export function hasSuccessfulTranslationBuild(

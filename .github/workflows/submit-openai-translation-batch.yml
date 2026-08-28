@@ -1,4 +1,4 @@
-name: Submit Workers AI Translation Batch
+name: Submit OpenAI Translation Batch
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type-check Workers AI translation automation
+      - name: Type-check OpenAI translation automation
         run: npm run typecheck:openai-translation
 
       - name: Wait for follow-up edits to the same source
@@ -51,16 +51,14 @@ jobs:
         run: git fetch origin main:refs/remotes/origin/main --depth=1
 
       - name: Submit current translation requests
-        id: submitter
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_WORKERS_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_API_TOKEN }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$CLOUDFLARE_WORKERS_AI_API_TOKEN" ]; then
-            echo "::warning::CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_WORKERS_AI_API_TOKEN are not configured; no translation Batch was submitted."
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no translation Batch was submitted."
             exit 0
           fi
 
@@ -74,11 +72,3 @@ jobs:
           args+=("--current-ref=origin/main")
 
           node --experimental-strip-types scripts/openai-translation-batch.ts "${args[@]}"
-
-      - name: Preserve pending Workers AI batch ID
-        if: steps.submitter.outputs.batch_id != ''
-        uses: actions/upload-artifact@v7
-        with:
-          name: workers-ai-translation-pending-${{ steps.submitter.outputs.batch_id }}
-          path: ${{ steps.submitter.outputs.pending_marker_path }}
-          retention-days: 30

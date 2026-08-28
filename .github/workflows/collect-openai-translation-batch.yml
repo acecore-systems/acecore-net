@@ -1,4 +1,4 @@
-name: Collect Workers AI Translation Batch
+name: Collect OpenAI Translation Batch
 
 on:
   schedule:
@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type-check Workers AI translation automation
+      - name: Type-check OpenAI translation automation
         run: npm run typecheck:openai-translation
 
       - name: Find processed batches
@@ -38,30 +38,21 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ids="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | sed -n 's/^workers-ai-translation-processed-//p' | paste -sd, - || true)"
-          echo "ids=${ids}" >> "$GITHUB_OUTPUT"
-
-      - name: Find pending batches
-        id: pending
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ids="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | sed -n 's/^workers-ai-translation-pending-//p' | paste -sd, - || true)"
+          ids="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | sed -n 's/^openai-translation-processed-//p' | paste -sd, - || true)"
           echo "ids=${ids}" >> "$GITHUB_OUTPUT"
 
       - name: Collect one completed batch
         id: collector
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_WORKERS_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_API_TOKEN }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$CLOUDFLARE_WORKERS_AI_API_TOKEN" ]; then
-            echo "::warning::CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_WORKERS_AI_API_TOKEN are not configured; no Batch was collected."
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no Batch was collected."
             exit 0
           fi
-          node --experimental-strip-types scripts/openai-translation-batch.ts collect --pending-batches="${{ steps.pending.outputs.ids }}" --processed-batches="${{ steps.processed.outputs.ids }}"
+          node --experimental-strip-types scripts/openai-translation-batch.ts collect --processed-batches="${{ steps.processed.outputs.ids }}"
 
       - name: Format collected translation files
         if: steps.collector.outputs.has_changes == 'true'
@@ -100,7 +91,7 @@ jobs:
           TRANSLATION_BOT_TOKEN: ${{ steps.app-token.outputs.token }}
           BATCH_ID: ${{ steps.collector.outputs.batch_id }}
         run: |
-          branch="translation/workers-ai/${BATCH_ID}"
+          branch="translation/openai/${BATCH_ID}"
           git switch -c "$branch"
           git config user.name "Acecore Translation Bot"
           git config user.email "translation-bot@users.noreply.github.com"
@@ -124,7 +115,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --draft \
-            --title "[translation] Workers AI Batch ${BATCH_ID}" \
+            --title "[translation] OpenAI Batch ${BATCH_ID}" \
             --body-file "$BODY_PATH"
 
       - name: Mark batch as processed
@@ -134,6 +125,6 @@ jobs:
           (steps.collector.outputs.has_changes != 'true' || steps.bot.outputs.ready == 'true')
         uses: actions/upload-artifact@v7
         with:
-          name: workers-ai-translation-processed-${{ steps.collector.outputs.processed_batch_id }}
+          name: openai-translation-processed-${{ steps.collector.outputs.processed_batch_id }}
           path: ${{ steps.collector.outputs.marker_path }}
           retention-days: 30

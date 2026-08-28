@@ -28,7 +28,7 @@ Acecore（エースコア）公式Webサイト。
 - その他のロケールは `/{locale}/blog/...` のパスで配信
 - ブログ記事の翻訳は `src/content/blog/{locale}/` に配置
 - Sveltia CMS では日本語ソース記事、日本語ページ文言、著者、タグを管理
-- 日本語の記事・ページ文言の更新はWorkers AI Batchで8ロケールへ翻訳
+- 日本語の記事・ページ文言の更新はOpenAI Batchで8ロケールへ翻訳
 - UI・固定ページ文字列は日本語ソースを `src/i18n/source/ja/`、翻訳先を `src/i18n/translations/` で管理し、Sveltia CMS の「ページ・サイト文言」からページ/用途別に編集
 
 ## 開発
@@ -107,7 +107,7 @@ src/
 5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページの日本語テキストをページ/用途別に編集
 6. 「告知・キャンペーン」からトップ告知バナーやページ内キャンペーン通知を編集
 7. 著者・タグは「著者」「タグ」から編集
-8. 日本語ソースの更新はWorkers AI Batchで翻訳へ反映
+8. 日本語ソースの更新はOpenAI Batchで翻訳へ反映
 
 #### 本番 CMS の保存と自動公開
 
@@ -160,26 +160,25 @@ author: 'author-id'
 
 ## 翻訳ワークフロー
 
-Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ文言が`main`へ反映されると、Workers AI Batchを使って8ロケールの翻訳を更新します。
+Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ文言が`main`へ反映されると、OpenAI Batchを使って8ロケールの翻訳を更新します。
 
 1. `.github/workflows/submit-openai-translation-batch.yml` が日本語sourceの更新を検出する
-2. 同じsourceへの続けての修正をまとめるため15分待ち、最新の`main`と一致する変更だけをWorkers AI Batchへ投入する
+2. 同じsourceへの続けての修正をまとめるため15分待ち、最新の`main`と一致する変更だけをOpenAI Batchへ投入する
 3. `.github/workflows/collect-openai-translation-batch.yml` が完了済みBatchを15分間隔で回収する
-4. 専用GitHub Appが`translation/workers-ai/{requestId}` branchとDraft PRを作成する
+4. 専用GitHub Appが`translation/openai/{batchId}` branchとDraft PRを作成する
 5. `Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけDraftを解除してGitHubのAuto-mergeを予約する
 6. behindの場合は検証したHEAD SHAを指定して最新の`main`を取り込み、required checkの`Build and Format`が成功した時点でGitHubがsquash mergeする
 
 翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。Batch投入後に同じsourceが再編集された場合は、古い結果と古い翻訳PRを取り込まず破棄します。
 
-### Workers AI Batch workflow
+### OpenAI Batch workflow
 
 - Workflow: `.github/workflows/submit-openai-translation-batch.yml`
 - Workflow: `.github/workflows/collect-openai-translation-batch.yml`
 - Script: `scripts/openai-translation-batch.ts`
-- Model: `@cf/zai-org/glm-5.3-flash`、reasoning effort `high`
+- Model: `gpt-5.6-luna`、reasoning effort `max`
 - Trigger: `src/content/blog/*.md` または `src/i18n/source/ja/**/*.json` の`main`反映時
-- Cloudflare account variable: `CLOUDFLARE_ACCOUNT_ID`
-- API secret: `CLOUDFLARE_WORKERS_AI_API_TOKEN`（Workers AIを実行できる最小権限のtoken）
+- API secret: `OPENAI_TRANSLATION_API_KEY`
 - PR作成用GitHub App secrets: `TRANSLATION_BOT_CLIENT_ID`、`TRANSLATION_BOT_APP_PRIVATE_KEY`
 
 ### 翻訳PRの検証と自動マージ
@@ -187,7 +186,7 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 - Workflow: `.github/workflows/translation-pr-build.yml`
 - Workflow: `.github/workflows/merge-translation-pr.yml`
 - Script: `scripts/merge-translation-pr.ts`
-- 対象は専用Translation Botが同一repositoryの`translation/workers-ai/` branchから作成し、1件以上の有効なsource markerを持つ`[translation] Workers AI Batch ...` PRだけ。移行前に投入済みの旧OpenAI Batch PRだけは互換対象として受け付ける
+- 対象は専用Translation Botが同一repositoryの`translation/openai/` branchから作成し、1件以上の有効なsource markerを持つ`[translation] OpenAI Batch ...` PRだけ
 - 変更できるpathは8ロケールの`src/content/blog/{locale}/*.md`と`src/i18n/translations/{locale}.json`だけ
 - Batch回収時に変更・追加された翻訳ファイルだけをPrettierで整形してからcommitする
 - `Translation PR Build`の成功と現在のsource hashを再確認してからDraftを解除し、GitHubのAuto-mergeをsquashで予約する

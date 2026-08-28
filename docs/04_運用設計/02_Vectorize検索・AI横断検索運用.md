@@ -205,7 +205,7 @@ indexを作り直す場合は、現在のindexを停止・削除する前に別�
 - [text-embedding-3-large](https://developers.openai.com/api/docs/models/text-embedding-3-large)
 - [Embeddings guide](https://developers.openai.com/api/docs/guides/embeddings)
 - [GLM 5.3 Flash](https://developers.cloudflare.com/workers-ai/models/glm-5.3-flash/)
-- [Workers AI Batch REST API](https://developers.cloudflare.com/workers-ai/features/batch-api/rest-api/)
+- [Workers AI](https://developers.cloudflare.com/workers-ai/)
 - [Pages Functions bindings](https://developers.cloudflare.com/pages/functions/bindings/)
 - [Pages Wrangler configuration](https://developers.cloudflare.com/pages/functions/wrangler-configuration/)
 - [D1](https://developers.cloudflare.com/d1/)
