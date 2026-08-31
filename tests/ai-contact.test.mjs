@@ -39,6 +39,20 @@ test('チャット入力欄をiPhoneの自動拡大が起きない16pxで表示�
   )
 })
 
+test('チャットUIはSSEを要求しdeltaを平文表示してcompleteで確定する', () => {
+  const component = readFileSync(
+    new URL('../src/components/AiChatWidget.astro', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(component, /Accept:\s*'text\/event-stream'/u)
+  assert.match(component, /response\.body\.getReader\(\)/u)
+  assert.match(component, /event === 'delta'/u)
+  assert.match(component, /event === 'complete' \|\| event === 'error'/u)
+  assert.match(component, /bubble\.textContent = text/u)
+  assert.match(component, /renderMarkdownText\(bubble, text\)/u)
+})
+
 async function onRequestPost(context) {
   const env = {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
