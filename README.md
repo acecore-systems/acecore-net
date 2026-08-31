@@ -204,6 +204,8 @@ Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／Pre
 
 Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`@cf/zai-org/glm-5.3-flash`（reasoning effort `low`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。OpenAI APIキーはembedding専用のPages Function secretだけに置き、ブラウザへ渡しません。GLM 5.3 Flashは有料またはプリペイドWorkersプランが必要です。
 
+ブラウザは同一originの`/api/ai-chat`へ`Accept: text/event-stream`でPOSTします。生成中のdeltaはリンク化せず平文で逐次表示し、非公開Workerが返すリンク検証・引用補完済みの`complete`イベントだけを最終Markdownとして確定します。入力エラーやモデルを使わない固定案内は従来どおりJSONでも受け取れます。
+
 専門サイトを担当する質問でVectorize、embedding、binding、または根拠が利用できない場合は、詳細を推測せず担当する公式サイトのルートへ案内します。World Foundationはowner repositoryのProduction同期と日本語・英語query smoke testを確認済みのindexへ、Productionだけを接続します。top-level／Previewはbindingを持たず、`WORLD_FOUNDATION_SEARCH_ENABLED=false` を維持します。各接続済みbindingのkill switchとscore下限は個別に設定できます。Acecoreの `SEARCH_ENABLED` はbindingを持たないtop-level／Previewでは `false`、同期とquery smoke testを確認済みのProductionだけ `true` とし、検索モーダルの「関連する内容」とAIチャットのAcecore groundingを同時に制御します。
 
 Cloudflare PagesではD1、Workers AI、OpenAI Embeddingsの設定を対象環境に設定します。Vectorize bindingはProduction環境だけに設定し、Previewには設定しません。
