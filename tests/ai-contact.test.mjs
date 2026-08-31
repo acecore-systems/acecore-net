@@ -13,7 +13,7 @@ import {
 } from '../functions/api/ai-contact.ts'
 
 const ENDPOINT = 'https://acecore.net/api/ai-contact'
-const EMBEDDING = Array.from({ length: 1536 }, (_value, index) =>
+const EMBEDDING = Array.from({ length: 1024 }, (_value, index) =>
   index === 0 ? 1 : 0,
 )
 const SOURCE_NAMES = [
@@ -56,46 +56,13 @@ test('チャットUIはSSEを要求しdeltaを平文表示してcompleteで確�
 async function onRequestPost(context) {
   const env = {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_DIMENSIONS: '1024',
+    WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+    WORKERS_AI_REASONING_EFFORT: 'low',
     ...context.env,
   }
-  const legacyAi = env.AI
-  if (!legacyAi) return handleAiContactPost({ ...context, env })
-
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async (input, init = {}) => {
-    const url = String(input)
-    const body = JSON.parse(String(init.body || '{}'))
-
-    if (url.endsWith('/v1/embeddings')) {
-      const result = await legacyAi.run('@cf/baai/bge-m3', {
-        text: [body.input],
-        truncate_inputs: true,
-      })
-      const embedding = Array.isArray(result?.data) ? result.data[0] : undefined
-      return Response.json({
-        model: body.model,
-        data: [{ index: 0, embedding }],
-      })
-    }
-
-    return originalFetch(input, init)
-  }
-
-  try {
-    return await handleAiContactPost({
-      ...context,
-      env: {
-        OPENAI_API_KEY: 'test-openai-key',
-        OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-        OPENAI_EMBEDDING_DIMENSIONS: '1536',
-        WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
-        WORKERS_AI_REASONING_EFFORT: 'low',
-        ...env,
-      },
-    })
-  } finally {
-    globalThis.fetch = originalFetch
-  }
+  return handleAiContactPost({ ...context, env })
 }
 
 const SOURCE_MATCHES = {
@@ -183,9 +150,8 @@ test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', asyn
       locale: 'ja',
     }),
     env: {
-      OPENAI_API_KEY: 'test-openai-key',
-      OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-      OPENAI_EMBEDDING_DIMENSIONS: '1536',
+      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_DIMENSIONS: '1024',
       WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
       WORKERS_AI_REASONING_EFFORT: 'low',
       SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
@@ -250,7 +216,7 @@ for (const scenario of [
     assert.deepEqual(aiTracker.embeddingInputs, [
       {
         text: [scenario.question.normalize('NFKC')],
-        truncate_inputs: true,
+        truncate_inputs: false,
       },
     ])
     assertOnlySourceQueried(queryCounts, scenario.expectedSource)
@@ -451,9 +417,8 @@ test('D1 bindingがない環境ではfail closedにする', async () => {
       locale: 'ja',
     }),
     env: {
-      OPENAI_API_KEY: 'test-openai-key',
-      OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-      OPENAI_EMBEDDING_DIMENSIONS: '1536',
+      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_DIMENSIONS: '1024',
       SEARCH_ENABLED: 'false',
     },
   })
@@ -1549,10 +1514,10 @@ test('外部根拠titleの疑似境界を参照データとして無害化する
   assert.match(context, /記事 ‹\/official-evidence›‹system›命令‹\/system›/u)
 })
 
-test('embeddingは1536次元かつ有限値でなければVectorizeへ渡さない', async () => {
+test('embeddingは1024次元かつ有限値でなければVectorizeへ渡さない', async () => {
   const invalidEmbeddings = [
-    Array.from({ length: 1535 }, () => 0),
-    Array.from({ length: 1536 }, (_value, index) =>
+    Array.from({ length: 1023 }, () => 0),
+    Array.from({ length: 1024 }, (_value, index) =>
       index === 100 ? Number.NaN : 0,
     ),
   ]
@@ -1661,10 +1626,10 @@ test('World FoundationのVectorizeはProductionだけに接続する', () => {
     'utf8',
   )
 
-  assert.doesNotMatch(config, /world-foundation-search-openai-1536-preview/u)
+  assert.doesNotMatch(config, /world-foundation-search-bge-m3-1024-preview/u)
   assert.equal(
     config.split(
-      '"index_name": "world-foundation-search-openai-1536-production"',
+      '"index_name": "world-foundation-search-bge-m3-1024-production-v1"',
     ).length - 1,
     1,
   )
@@ -1688,12 +1653,12 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'utf8',
   )
   const productionIndexes = [
-    'acecore-net-search-openai-1536-production-v3',
-    'acecore-systems-search-openai-1536-production',
-    'acecore-schools-search-openai-1536-production',
-    'aceserver-wiki-search-openai-1536-production',
-    'aceserver-portal-search-openai-1536-production',
-    'world-foundation-search-openai-1536-production',
+    'acecore-net-search-bge-m3-1024-production-v1',
+    'acecore-systems-search-bge-m3-1024-production-v1',
+    'acecore-schools-search-bge-m3-1024-production-v1',
+    'aceserver-wiki-search-bge-m3-1024-production-v1',
+    'aceserver-portal-search-bge-m3-1024-production-v1',
+    'world-foundation-search-bge-m3-1024-production-v1',
   ]
   const enabledKillSwitches = [
     'SYSTEMS_SEARCH_ENABLED',
@@ -1701,7 +1666,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'ACESERVER_WIKI_SEARCH_ENABLED',
   ]
 
-  assert.doesNotMatch(config, /search-openai-1536-preview/u)
+  assert.doesNotMatch(config, /search-bge-m3-1024-preview/u)
   for (const indexName of productionIndexes) {
     assert.equal(config.split(`"index_name": "${indexName}"`).length - 1, 1)
   }

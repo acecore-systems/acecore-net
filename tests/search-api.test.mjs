@@ -3,7 +3,9 @@ import { test } from 'node:test'
 
 import { onRequestPost } from '../functions/api/search.ts'
 
-const queryVector = Array.from({ length: 1536 }, () => 0.01)
+const queryVector = Array.from({ length: 1024 }, () => 0.01)
+let activeEmbedding = queryVector
+let activeEmbeddingRequest = () => {}
 
 test('同一originの検索だけを埋め込み、locale namespaceで問い合わせる', async () => {
   let embeddingInput
@@ -52,7 +54,7 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
     },
   })
 
-  const response = await withOpenAiEmbedding(
+  const response = await withWorkersAiEmbedding(
     () =>
       onRequestPost({
         request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
@@ -60,7 +62,7 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
       }),
     {
       onRequest(body) {
-        embeddingInput = body.input
+        embeddingInput = body.text[0]
       },
     },
   )
@@ -151,7 +153,7 @@ test('local Vectorize metadataの管理path・多重エンコード・query/hash
     ],
   })
 
-  const response = await withOpenAiEmbedding(() =>
+  const response = await withWorkersAiEmbedding(() =>
     onRequestPost({
       request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
       env,
@@ -172,8 +174,8 @@ test('local Vectorize metadataの管理path・多重エンコード・query/hash
   ])
 })
 
-test('OriginがないrequestはOpenAIを呼ばずに拒否する', async () => {
-  let openAiCalled = false
+test('OriginがないrequestはWorkers AIを呼ばずに拒否する', async () => {
+  let workersAiCalled = false
   const env = createEnv()
   const request = new Request('https://acecore.net/api/search', {
     method: 'POST',
@@ -181,17 +183,17 @@ test('OriginがないrequestはOpenAIを呼ばずに拒否する', async () => {
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await withOpenAiEmbedding(
+  const response = await withWorkersAiEmbedding(
     () => onRequestPost({ request, env }),
     {
       onRequest() {
-        openAiCalled = true
+        workersAiCalled = true
       },
     },
   )
 
   assert.equal(response.status, 403)
-  assert.equal(openAiCalled, false)
+  assert.equal(workersAiCalled, false)
 })
 
 test('短すぎるqueryと未対応localeを拒否する', async () => {
@@ -236,7 +238,7 @@ test('Content-Lengthが上限を超えるbodyを読み込まず413にする', as
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await withOpenAiEmbedding(() =>
+  const response = await withWorkersAiEmbedding(() =>
     onRequestPost({ request, env }),
   )
 
@@ -299,7 +301,7 @@ test('Cloudflare接続IPをhashしたclient keyを自己申告UUIDより優先�
   const request = searchRequest({ query: 'サイト制作', locale: 'ja' })
   request.headers.set('CF-Connecting-IP', '203.0.113.9')
 
-  const response = await withOpenAiEmbedding(() =>
+  const response = await withWorkersAiEmbedding(() =>
     onRequestPost({ request, env }),
   )
 
@@ -316,7 +318,7 @@ test('不正なembeddingを502にし、logへquery本文を残さない', async 
 
   try {
     const env = createEnv()
-    const response = await withOpenAiEmbedding(
+    const response = await withWorkersAiEmbedding(
       () =>
         onRequestPost({
           request: searchRequest({
@@ -359,9 +361,23 @@ function createEnv({
   return {
     SEARCH_ENABLED: 'true',
     SEARCH_MIN_SCORE: '0.50',
-    OPENAI_API_KEY: 'test-openai-key',
-    OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-    OPENAI_EMBEDDING_DIMENSIONS: '1536',
+    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_DIMENSIONS: '1024',
+    AI: {
+      async run(model, input) {
+        assert.equal(model, '@cf/baai/bge-m3')
+        assert.deepEqual(input, {
+          text: input.text,
+          truncate_inputs: false,
+        })
+        activeEmbeddingRequest(input)
+        return {
+          data: [activeEmbedding],
+          shape: [1, 1024],
+          pooling: 'cls',
+        }
+      },
+    },
     SEARCH_RATE_LIMIT_DB: createRateLimitDatabase({
       clientRateLimitSuccess,
       globalRateLimitSuccess,
@@ -369,7 +385,7 @@ function createEnv({
     }),
     SEARCH_INDEX: {
       async query(values, options) {
-        assert.equal(values.length, 1536)
+        assert.equal(values.length, 1024)
         onQuery(values, options)
         return { count: matches.length, matches }
       },
@@ -377,37 +393,20 @@ function createEnv({
   }
 }
 
-async function withOpenAiEmbedding(
+async function withWorkersAiEmbedding(
   callback,
   { embedding = queryVector, onRequest = () => {} } = {},
 ) {
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async (input, init = {}) => {
-    const url = String(input)
-    assert.equal(url, 'https://api.openai.com/v1/embeddings')
-    assert.equal(init.method, 'POST')
-    assert.equal(init.headers.Authorization, 'Bearer test-openai-key')
-
-    const body = JSON.parse(init.body)
-    onRequest(body)
-    assert.deepEqual(body, {
-      model: 'text-embedding-3-large',
-      input: body.input,
-      dimensions: 1536,
-      encoding_format: 'float',
-    })
-
-    return Response.json({
-      object: 'list',
-      data: [{ object: 'embedding', index: 0, embedding }],
-      model: 'text-embedding-3-large',
-    })
-  }
+  const previousEmbedding = activeEmbedding
+  const previousRequest = activeEmbeddingRequest
+  activeEmbedding = embedding
+  activeEmbeddingRequest = onRequest
 
   try {
     return await callback()
   } finally {
-    globalThis.fetch = originalFetch
+    activeEmbedding = previousEmbedding
+    activeEmbeddingRequest = previousRequest
   }
 }
 

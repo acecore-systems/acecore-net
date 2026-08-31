@@ -6,7 +6,9 @@ import {
   onRequestPost,
 } from '../functions/api/network-search.ts'
 
-const queryVector = Array.from({ length: 1536 }, () => 0.01)
+const queryVector = Array.from({ length: 1024 }, () => 0.01)
+let activeEmbedding = queryVector
+let activeEmbeddingRequest = () => {}
 
 test('許可済み公式originだけが自サイトを除く横断Vectorize結果を取得できる', async () => {
   const queriedSources = []
@@ -35,7 +37,7 @@ test('許可済み公式originだけが自サイトを除く横断Vectorize結�
     },
   })
 
-  const response = await withOpenAiEmbedding(() =>
+  const response = await withWorkersAiEmbedding(() =>
     onRequestPost({
       request: networkRequest('https://systems.acecore.net'),
       env,
@@ -85,8 +87,8 @@ test('許可済み公式originだけが自サイトを除く横断Vectorize結�
 })
 
 test('不許可originは埋め込みやVectorizeを呼ばずに拒否する', async () => {
-  let openAiCalled = false
-  const response = await withOpenAiEmbedding(
+  let workersAiCalled = false
+  const response = await withWorkersAiEmbedding(
     () =>
       onRequestPost({
         request: networkRequest('https://example.invalid'),
@@ -94,14 +96,14 @@ test('不許可originは埋め込みやVectorizeを呼ばずに拒否する', as
       }),
     {
       onRequest() {
-        openAiCalled = true
+        workersAiCalled = true
       },
     },
   )
 
   assert.equal(response.status, 403)
   assert.equal(response.headers.get('Access-Control-Allow-Origin'), null)
-  assert.equal(openAiCalled, false)
+  assert.equal(workersAiCalled, false)
 })
 
 test('OPTIONSは許可originだけへ限定CORS応答を返す', async () => {
@@ -171,7 +173,7 @@ test('不正または上限超過requestはD1 rate limitを消費しない', asy
 })
 
 test('encoded・NFKC後に管理pathとなるmetadata URLは横断結果として返さない', async () => {
-  const response = await withOpenAiEmbedding(() =>
+  const response = await withWorkersAiEmbedding(() =>
     onRequestPost({
       request: networkRequest('https://schools.acecore.net'),
       env: createEnv({
@@ -290,9 +292,23 @@ function createEnv({
   onRateLimit = () => {},
 } = {}) {
   return {
-    OPENAI_API_KEY: 'test-openai-key',
-    OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-    OPENAI_EMBEDDING_DIMENSIONS: '1536',
+    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_DIMENSIONS: '1024',
+    AI: {
+      async run(model, input) {
+        assert.equal(model, '@cf/baai/bge-m3')
+        assert.deepEqual(input, {
+          text: input.text,
+          truncate_inputs: false,
+        })
+        activeEmbeddingRequest(input)
+        return {
+          data: [activeEmbedding],
+          shape: [1, 1024],
+          pooling: 'cls',
+        }
+      },
+    },
     SEARCH_ENABLED: 'true',
     SEARCH_MIN_SCORE: '0.50',
     SYSTEMS_SEARCH_ENABLED: 'true',
@@ -302,7 +318,7 @@ function createEnv({
     ACESERVER_WIKI_SEARCH_ENABLED: 'true',
     ACESERVER_WIKI_SEARCH_MIN_SCORE: '0.40',
     ACESERVER_PORTAL_SEARCH_ENABLED: 'true',
-    ACESERVER_PORTAL_SEARCH_MIN_SCORE: '0.45',
+    ACESERVER_PORTAL_SEARCH_MIN_SCORE: '0.50',
     WORLD_FOUNDATION_SEARCH_ENABLED: 'true',
     WORLD_FOUNDATION_SEARCH_MIN_SCORE: '0.40',
     SEARCH_RATE_LIMIT_DB: createRateLimitDatabase(onRateLimit),
@@ -330,7 +346,7 @@ function createEnv({
 function createIndex(source, matchesBySource, onQuery) {
   return {
     async query(values, options) {
-      assert.equal(values.length, 1536)
+      assert.equal(values.length, 1024)
       assert.deepEqual(options, {
         namespace: 'ja',
         topK: 15,
@@ -344,29 +360,20 @@ function createIndex(source, matchesBySource, onQuery) {
   }
 }
 
-async function withOpenAiEmbedding(
+async function withWorkersAiEmbedding(
   callback,
   { embedding = queryVector, onRequest = () => {} } = {},
 ) {
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async (input, init = {}) => {
-    assert.equal(String(input), 'https://api.openai.com/v1/embeddings')
-    assert.equal(init.method, 'POST')
-    assert.equal(init.headers.Authorization, 'Bearer test-openai-key')
-    const body = JSON.parse(init.body)
-    onRequest(body)
-
-    return Response.json({
-      object: 'list',
-      data: [{ object: 'embedding', index: 0, embedding }],
-      model: 'text-embedding-3-large',
-    })
-  }
+  const previousEmbedding = activeEmbedding
+  const previousRequest = activeEmbeddingRequest
+  activeEmbedding = embedding
+  activeEmbeddingRequest = onRequest
 
   try {
     return await callback()
   } finally {
-    globalThis.fetch = originalFetch
+    activeEmbedding = previousEmbedding
+    activeEmbeddingRequest = previousRequest
   }
 }
 
