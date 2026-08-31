@@ -14,12 +14,12 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.ts'
 
-const PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v3'
+const PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v1'
 const PREVIOUS_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
 const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
-const embedding = Array.from({ length: 1536 }, () => 0.01)
+const embedding = Array.from({ length: 1024 }, () => 0.01)
 
 after(async () => {
   await Promise.all(
@@ -29,27 +29,22 @@ after(async () => {
   )
 })
 
-test('embeddingのindex・件数・1536次元を検証する', () => {
+test('Workers AI embeddingの件数・1024次元を検証する', () => {
   assert.deepEqual(
-    extractEmbeddingData({ data: [{ index: 0, embedding }] }, 1),
+    extractEmbeddingData(
+      { data: [embedding], shape: [1, 1024], pooling: 'cls' },
+      1,
+    ),
     [embedding],
   )
-  assert.throws(
-    () => extractEmbeddingData({ data: [{ index: 0, embedding: [0.1] }] }, 1),
-    /1536/,
-  )
+  assert.throws(() => extractEmbeddingData({ data: [[0.1]] }, 1), /1024/)
   assert.throws(
     () =>
       extractEmbeddingData(
-        {
-          data: [
-            { index: 0, embedding },
-            { index: 0, embedding },
-          ],
-        },
+        { data: [embedding, embedding], shape: [1, 1024] },
         2,
       ),
-    /unique indexes/,
+    /invalid embedding shape/,
   )
 })
 
@@ -58,7 +53,7 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
 
   assert.throws(
     () => parseArguments([], environment),
-    /--confirm-production acecore-net-search-openai-1536-production-v3/u,
+    /--confirm-production acecore-net-search-bge-m3-1024-production-v1/u,
   )
   assert.doesNotThrow(() =>
     parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
@@ -68,7 +63,7 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
       parseArguments(['--confirm-production', PREVIOUS_PRODUCTION_INDEX], {
         VECTORIZE_INDEX_NAME: PREVIOUS_PRODUCTION_INDEX,
       }),
-    /--confirm-production acecore-net-search-openai-1536-production-v3/u,
+    /--confirm-production acecore-net-search-bge-m3-1024-production-v1/u,
   )
   assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
   assert.doesNotThrow(() => parseArguments(['--plan'], environment))
@@ -98,23 +93,21 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
       const body = JSON.parse(init.body)
       assert.deepEqual(body, {
-        model: 'text-embedding-3-large',
-        input: [newChunk.text],
-        dimensions: 1536,
-        encoding_format: 'float',
+        text: [newChunk.text],
+        truncate_inputs: false,
       })
-      assert.equal(init.headers.get('Authorization'), 'Bearer openai-key')
-      return openAiEmbeddingResponse([embedding])
+      assert.equal(init.headers.get('Authorization'), 'Bearer token')
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       assert.equal(init.body.has('body'), false)
       const body = await init.body.get('vectors').text()
       const vector = JSON.parse(body.trim())
       assert.equal(vector.id, newChunk.id)
-      assert.equal(vector.values.length, 1536)
+      assert.equal(vector.values.length, 1024)
       remoteIds.add(vector.id)
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
     }
@@ -147,7 +140,6 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    openAiApiKey: 'openai-key',
     indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
@@ -161,7 +153,7 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
   assert.equal(result.verified, true)
   assert.equal(result.queryVerified, true)
   assert.equal(
-    calls.filter(({ url }) => url.endsWith('/v1/embeddings')).length,
+    calls.filter(({ url }) => url.endsWith('/ai/run/@cf/baai/bge-m3')).length,
     1,
   )
   assert.equal(calls.filter(({ url }) => url.endsWith('/query')).length, 1)
@@ -184,8 +176,8 @@ test('newly upserted vectorがquery結果に含まれなければ同期を失敗
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
-      return openAiEmbeddingResponse([embedding])
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       remoteIds.add(canaryChunk.id)
@@ -209,7 +201,6 @@ test('newly upserted vectorがquery結果に含まれなければ同期を失敗
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      openAiApiKey: 'openai-key',
       indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
@@ -235,8 +226,8 @@ test('mutationIdがない成功応答をfail closedする', async () => {
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
-      return openAiEmbeddingResponse([embedding])
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       return cloudflareResponse({})
@@ -248,7 +239,6 @@ test('mutationIdがない成功応答をfail closedする', async () => {
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      openAiApiKey: 'openai-key',
       indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
@@ -390,8 +380,8 @@ test('不存在の承認済みreplacement indexは作成して同期対象にで
       assert.deepEqual(JSON.parse(init.body), {
         name: PRODUCTION_INDEX,
         description:
-          'Acecore site semantic search (OpenAI text-embedding-3-large, 1536 dimensions)',
-        config: { dimensions: 1536, metric: 'cosine' },
+          'Acecore site semantic search (Cloudflare Workers AI BGE-M3, 1024 dimensions)',
+        config: { dimensions: 1024, metric: 'cosine' },
       })
       return indexResponse()
     }
@@ -448,7 +438,7 @@ test('同期先indexを承認済みreplacementだけに制限する', async () =
       indexName: PREVIOUS_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
-    /must be one of: acecore-net-search-openai-1536-production-v3/u,
+    /must be one of: acecore-net-search-bge-m3-1024-production-v1/u,
   )
   await assert.rejects(
     syncVectorize({
@@ -457,7 +447,7 @@ test('同期先indexを承認済みreplacementだけに制限する', async () =
       indexName: RETIRED_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
-    /must be one of: acecore-net-search-openai-1536-production-v3/u,
+    /must be one of: acecore-net-search-bge-m3-1024-production-v1/u,
   )
 })
 
@@ -795,8 +785,8 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
-      return openAiEmbeddingResponse([embedding])
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
@@ -813,7 +803,6 @@ test('mutation完了後のID集合がcorpusへ収束しなければ失敗する'
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      openAiApiKey: 'openai-key',
       indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
@@ -846,8 +835,8 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
-      return openAiEmbeddingResponse([embedding])
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       return cloudflareResponse({ mutationId: 'mutation-upsert' })
@@ -869,7 +858,6 @@ test('mutation完了直後にlistが古くてもbounded retryで収束を確認�
   const result = await syncVectorize({
     accountId: 'account',
     apiToken: 'token',
-    openAiApiKey: 'openai-key',
     indexName: PRODUCTION_INDEX,
     corpusFile,
     fetchImpl,
@@ -1011,8 +999,8 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
         isTruncated: false,
       })
     }
-    if (url.endsWith('/v1/embeddings')) {
-      return openAiEmbeddingResponse([embedding])
+    if (url.endsWith('/ai/run/@cf/baai/bge-m3')) {
+      return workersAiEmbeddingResponse([embedding])
     }
     if (url.endsWith('/upsert')) {
       upsertRequests += 1
@@ -1027,7 +1015,6 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
     syncVectorize({
       accountId: 'account',
       apiToken: 'token',
-      openAiApiKey: 'openai-key',
       indexName: PRODUCTION_INDEX,
       corpusFile,
       fetchImpl,
@@ -1059,7 +1046,7 @@ test('応答消失後の再実行でも既存upsertを再計算せず収束す�
 test('embedding設定が異なるcorpusを拒否する', () => {
   const corpus = createCorpus()
   corpus.embedding.dimensions = 768
-  assert.throws(() => validateCorpus(corpus), /1536/)
+  assert.throws(() => validateCorpus(corpus), /1024/)
 })
 
 function createCorpus({ vectorCount = 1000, sourceCount = 90 } = {}) {
@@ -1092,8 +1079,8 @@ function createCorpus({ vectorCount = 1000, sourceCount = 90 } = {}) {
     schemaVersion: 1,
     version: 'test',
     embedding: {
-      model: 'text-embedding-3-large',
-      dimensions: 1536,
+      model: '@cf/baai/bge-m3',
+      dimensions: 1024,
       metric: 'cosine',
     },
     sourceCount,
@@ -1138,7 +1125,7 @@ async function writeCorpus(corpus) {
 function indexResponse() {
   return cloudflareResponse({
     name: PRODUCTION_INDEX,
-    config: { dimensions: 1536, metric: 'cosine' },
+    config: { dimensions: 1024, metric: 'cosine' },
   })
 }
 
@@ -1157,21 +1144,15 @@ function cloudflareResponse(result, status = 200, headers = {}) {
   )
 }
 
-function openAiEmbeddingResponse(embeddings, status = 200, headers = {}) {
-  return new Response(
-    JSON.stringify({
-      object: 'list',
-      data: embeddings.map((values, index) => ({
-        object: 'embedding',
-        index,
-        embedding: values,
-      })),
-      model: 'text-embedding-3-large',
-    }),
+function workersAiEmbeddingResponse(embeddings, status = 200, headers = {}) {
+  return cloudflareResponse(
     {
-      status,
-      headers: { 'Content-Type': 'application/json', ...headers },
+      data: embeddings,
+      shape: [embeddings.length, 1024],
+      pooling: 'cls',
     },
+    status,
+    headers,
   )
 }
 

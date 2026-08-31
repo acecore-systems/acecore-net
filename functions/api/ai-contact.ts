@@ -10,7 +10,10 @@ import {
   requiresAceserverWikiEvidence,
   type AiContactSourceIntent,
 } from './ai-contact-source-routing.ts'
-import { createOpenAiEmbedding, type OpenAiEnv } from '../lib/openai.ts'
+import {
+  createSearchEmbedding,
+  type SearchEmbeddingEnv,
+} from '../lib/search-embedding.ts'
 import {
   createWorkersAiResponse,
   getWorkersAiErrorCode,
@@ -19,7 +22,7 @@ import {
 } from '../lib/workers-ai.ts'
 
 type Env = FederatedSearchEnv &
-  OpenAiEnv & {
+  SearchEmbeddingEnv & {
     AI?: Ai
     SEARCH_RATE_LIMIT_DB?: D1Database
   } & WorkersAiEnv
@@ -518,7 +521,7 @@ export const onRequestPost = async ({
   const localeSettings = LOCALE_SETTINGS[locale]
   const conversationInput = buildConversationInput(payload)
 
-  if (!env.AI || !env.OPENAI_API_KEY?.trim() || !env.SEARCH_RATE_LIMIT_DB) {
+  if (!env.AI || !env.SEARCH_RATE_LIMIT_DB) {
     return respond(
       { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
       503,
@@ -595,7 +598,7 @@ export const onRequestPost = async ({
         locale,
         {
           env,
-          runEmbedding: (input) => createOpenAiEmbedding(env, input),
+          runEmbedding: (input) => createSearchEmbedding(env, input),
         },
       )
     : {
