@@ -12,7 +12,7 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",
-    "test:cms": "node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node --import ./tests/register-json-module-hooks.mjs tests/cms-blog-freshness-validator.test.mjs && node tests/render-safety.test.mjs && node --experimental-strip-types tests/translation-merge.test.ts",
+    "test:cms": "node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node --test tests/cms-ai-integration.test.mjs && node --import ./tests/register-json-module-hooks.mjs tests/cms-blog-freshness-validator.test.mjs && node tests/render-safety.test.mjs && node --experimental-strip-types tests/translation-merge.test.ts",
     "test:translation-merge": "node --experimental-strip-types --test tests/translation-merge.test.ts",
     "test:openai-translation": "node --experimental-strip-types --test tests/openai-translation-batch.test.ts",
     "test:cms-auth": "node --experimental-strip-types --test tests/sveltia-cms-auth.test.ts",
