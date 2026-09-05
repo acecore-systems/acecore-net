@@ -2,10 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { optimizeImage } from '../utils/image'
+import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
+
 interface Props {
   locale: Locale
 }
+
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 ---
@@ -16,25 +22,80 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   description={t(locale, 'pages.acestudio.description')}
   locale={locale}
 >
-  <Hero title={t(locale, 'pages.acestudio.heroTitle')} locale={locale} />
+  <Hero
+    title={t(locale, 'pages.acestudio.heroTitle')}
+    subtitle={t(locale, 'pages.acestudio.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.acestudio.heroImgAlt'),
+      },
+    ]}
+  />
+
   <CampaignNotice locale={locale} page="acestudio" />
-  <section class="ac-container pb-16 sm:pb-24">
-    <div class="max-w-3xl">
-      <h2 class="ac-section-title">
-        {t(locale, 'pages.acestudio.statusHeading')}
-      </h2>
-      <p class="mt-6 text-lg leading-loose text-slate-600">
-        {t(locale, 'pages.acestudio.statusBody')}
-      </p>
-      <p class="mt-4 leading-loose text-slate-600">
-        {t(locale, 'pages.acestudio.statusNote')}
-      </p>
-      <div class="mt-8 flex flex-wrap items-center gap-6">
+
+  <section class="ac-section">
+    <div class="ac-container max-w-3xl text-center">
+      <div class="text-left">
+        <Breadcrumb items={[{ label: 'AceStudio' }]} locale={locale} />
+      </div>
+
+      <div class="ac-surface bg-white p-8 md:p-12 mb-12">
+        <p
+          class="text-sm font-700 uppercase tracking-widest text-brand-700 mb-4"
+        >
+          {t(locale, 'pages.acestudio.statusEyebrow')}
+        </p>
+        <Icon
+          name="clapperboard"
+          class="text-5xl text-brand-500 mx-auto mb-6"
+        />
+        <h2 class="text-2xl ac-heading mb-6">
+          {t(locale, 'pages.acestudio.statusHeading')}
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+          {t(locale, 'pages.acestudio.statusBody')}
+        </p>
+        <p class="text-slate-500 leading-relaxed">
+          {t(locale, 'pages.acestudio.statusNote')}
+        </p>
+      </div>
+
+      <div class="ac-surface mb-12 bg-slate-50 p-8">
+        <h3 class="font-700 text-lg text-slate-900 mb-4">
+          {t(locale, 'pages.acestudio.newsHeading')}
+        </h3>
+        <p class="text-slate-600 mb-6">
+          {t(locale, 'pages.acestudio.newsBody')}
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href={SITE.social.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ac-btn-outline"
+          >
+            {t(locale, 'pages.acestudio.followX')}<span class="sr-only"
+              >{t(locale, 'common.opensInNewTab')}</span
+            >
+          </a>
+          <a href={u('/blog/')} class="ac-btn-outline">
+            {t(locale, 'pages.acestudio.viewNews')}
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-slate-600 mb-4">
+          {t(locale, 'pages.acestudio.inquiryText')}
+        </p>
         <a href={u('/contact/')} class="ac-btn-primary"
           >{t(locale, 'pages.acestudio.inquiryButton')}</a
-        >
-        <a href={u('/blog/')} class="ac-text-link"
-          >{t(locale, 'pages.acestudio.viewNews')}</a
         >
       </div>
     </div>

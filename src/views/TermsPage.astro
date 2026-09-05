@@ -3,6 +3,7 @@ import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import { optimizeImage } from '../utils/image'
 import { getLocalizedUrl, getTranslationValue, t, type Locale } from '../i18n'
 
 interface Props {
@@ -29,7 +30,17 @@ const sections =
   description={t(contentLocale, 'pages.terms.description')}
   locale={locale}
 >
-  <Hero title={t(contentLocale, 'pages.terms.heroTitle')} />
+  <Hero
+    title={t(contentLocale, 'pages.terms.heroTitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(contentLocale, 'pages.terms.heroImgAlt'),
+      },
+    ]}
+  />
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl">

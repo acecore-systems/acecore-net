@@ -2,6 +2,7 @@
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
+import { SITE } from '../data/site'
 
 interface Props {
   locale?: Locale
@@ -13,6 +14,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const languageSwitcherPath = Astro.props.languageSwitcherPath
 const languageSwitcherUrls = Astro.props.languageSwitcherUrls
 const navLinks = [
+  { href: getLocalizedUrl('/', locale), label: t(locale, 'nav.home') },
   {
     href: getLocalizedUrl('/services/', locale),
     label: t(locale, 'nav.services'),
@@ -20,6 +22,10 @@ const navLinks = [
   { href: getLocalizedUrl('/about/', locale), label: t(locale, 'nav.about') },
   { href: getLocalizedUrl('/blog/', locale), label: t(locale, 'nav.blog') },
 ]
+const storeLink = {
+  href: SITE.social.store,
+  label: t(locale, 'nav.store'),
+}
 const contactLink = {
   href: getLocalizedUrl('/contact/', locale),
   label: t(locale, 'nav.contact'),
@@ -28,7 +34,7 @@ const currentPath = Astro.url.pathname
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 backdrop-blur"
+  class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur"
 >
   <div class="ac-container flex h-16 items-center justify-between">
     <a
@@ -45,28 +51,36 @@ const currentPath = Astro.url.pathname
       {
         navLinks.map((link) => {
           const isCurrent = currentPath === link.href
-          const isSection = currentPath.startsWith(link.href)
 
           return (
             <a
               href={link.href}
               class:list={[
                 'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
-                isSection
-                  ? 'text-brand-700 underline underline-offset-8'
+                isCurrent
+                  ? 'bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
               ]}
-              {...(isCurrent
-                ? { 'aria-current': 'page' }
-                : isSection
-                  ? { 'aria-current': 'location' }
-                  : {})}
+              {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>
             </a>
           )
         })
       }
+      <a
+        href={storeLink.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
+        data-ga-event="external_link_click"
+        data-ga-label="header_store"
+        data-ga-location="header"
+        data-ga-destination={storeLink.href}
+      >
+        <span>{storeLink.label}</span>
+        <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+      </a>
       <button
         data-search-trigger
         class="ac-touch rounded-md text-slate-500 transition-colors hover:bg-slate-50 hover:text-brand-600"
@@ -119,26 +133,21 @@ const currentPath = Astro.url.pathname
     class="hidden border-t border-brand-900/10 bg-white xl:hidden"
     aria-label={t(locale, 'common.mobileNav')}
   >
-    <div class="ac-container flex flex-col gap-2 py-4">
+    <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
       {
         navLinks.map((link) => {
           const isCurrent = currentPath === link.href
-          const isSection = currentPath.startsWith(link.href)
 
           return (
             <a
               href={link.href}
               class:list={[
                 'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
-                isSection
-                  ? 'border-brand-100 text-brand-700 underline underline-offset-8'
+                isCurrent
+                  ? 'border-brand-100 bg-brand-50 text-brand-700'
                   : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
               ]}
-              {...(isCurrent
-                ? { 'aria-current': 'page' }
-                : isSection
-                  ? { 'aria-current': 'location' }
-                  : {})}
+              {...(isCurrent ? { 'aria-current': 'page' } : {})}
             >
               <span>{link.label}</span>
               <span class="inline-flex items-center gap-1 text-slate-400">
@@ -148,6 +157,22 @@ const currentPath = Astro.url.pathname
           )
         })
       }
+      <a
+        href={storeLink.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 text-slate-700 no-underline transition-colors hover:border-slate-200 hover:bg-white hover:text-brand-600"
+        data-ga-event="external_link_click"
+        data-ga-label="mobile_menu_store"
+        data-ga-location="mobile_menu"
+        data-ga-destination={storeLink.href}
+      >
+        <span>{storeLink.label}</span>
+        <span class="inline-flex items-center gap-1 text-slate-400">
+          <Icon name="arrow-right" class="text-sm" />
+          <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+        </span>
+      </a>
       <a href={contactLink.href} class="ac-btn-primary mt-1 w-full">
         {contactLink.label}
       </a>

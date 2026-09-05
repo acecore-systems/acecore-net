@@ -1,64 +1,446 @@
 ---
 import Icon from './Icon.astro'
+import { generateSrcSet, type GenerateSrcSetOptions } from '../utils/image'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
+
 interface Props {
   title: string
-  subtitle?: string
   titleLines?: string[]
+  subtitle?: string
   showCTA?: boolean
+  images?: {
+    src: string
+    alt: string
+    srcsetWidths?: number[]
+    srcsetOptions?: GenerateSrcSetOptions
+    sizes?: string
+  }[]
   locale?: Locale
 }
-const { title, subtitle, titleLines, showCTA = false } = Astro.props
+
+const { title, titleLines, subtitle, showCTA = false, images } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const u = (path: string) => getLocalizedUrl(path, locale)
+const heroImageSizes =
+  '(min-width: 1280px) 36.5rem, (min-width: 1024px) 40vw, calc(100vw - 2.5rem)'
+const heroSrcSetOptions = {
+  aspectRatio: 1,
+  quality: 75,
+} satisfies GenerateSrcSetOptions
+const sliderImages = (images ?? []).map((image) => ({
+  ...image,
+  srcset: generateSrcSet(
+    image.src,
+    image.srcsetWidths,
+    image.srcsetOptions ?? heroSrcSetOptions,
+  ),
+  sizes: image.sizes ?? heroImageSizes,
+}))
+const hasSlider = sliderImages.length > 0
+const firstSliderImage = sliderImages[0]
 ---
 
-<section class:list={['page-heading', { 'page-heading-home': showCTA }]}>
-  <div class:list={['ac-container', { 'home-hero-layout': showCTA }]}>
-    <div class="page-heading-copy">
-      <h1>
+<section
+  class="hero-workshop relative overflow-hidden border-b border-brand-100 bg-white text-slate-950"
+>
+  <div class="absolute inset-0 ac-blueprint-soft opacity-70" aria-hidden="true">
+  </div>
+  <div
+    class="absolute left-0 top-0 h-full w-px bg-brand-200/80"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="relative mx-auto grid min-h-[34rem] w-full max-w-[70rem] items-stretch gap-8 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:px-8 lg:py-0"
+  >
+    <div
+      class="hero-copy relative z-10 flex min-w-0 flex-col justify-center py-4 lg:py-20"
+    >
+      <div class="mb-8 h-px w-28 bg-brand-600" aria-hidden="true"></div>
+      <h1
+        class="max-w-[20rem] text-[1.38rem] font-800 leading-[1.30] text-slate-950 [hyphens:auto] [overflow-wrap:break-word] [word-break:normal] sm:max-w-3xl sm:text-4xl lg:text-[2.65rem] lg:leading-[1.40] xl:text-[2.85rem]"
+      >
         {
           titleLines?.length
             ? titleLines.map((line) => <span class="block">{line}</span>)
             : title
         }
       </h1>
-      {subtitle && <p class="page-heading-description">{subtitle}</p>}
+      {
+        subtitle && (
+          <p class="mt-6 max-w-[20rem] text-base leading-relaxed text-slate-700 [hyphens:auto] [overflow-wrap:break-word] [word-break:normal] sm:max-w-2xl sm:text-lg">
+            {subtitle}
+          </p>
+        )
+      }
       {
         showCTA && (
-          <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <div class="mt-8 flex w-full max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-4">
             <a
               href={u('/services/')}
-              class="ac-btn-primary"
+              class="ac-btn-primary w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
               data-ga-event="cta_click"
               data-ga-label="hero_services"
               data-ga-location="hero"
               data-ga-destination={u('/services/')}
             >
               {t(locale, 'hero.ctaServices')}
-              <Icon name="arrow-right" class="ml-3" />
+              <Icon name="arrow-right" class="text-base" />
             </a>
-            <a href={u('/about/')} class="ac-text-link">
-              {t(locale, 'pages.home.viewAbout')}
+            <a
+              href={u('/contact/')}
+              class="ac-btn-outline w-full max-w-full justify-center gap-2 whitespace-normal text-center sm:w-auto"
+              data-ga-event="cta_click"
+              data-ga-label="hero_contact"
+              data-ga-location="hero"
+              data-ga-destination={u('/contact/')}
+            >
+              {t(locale, 'hero.ctaContact')}
+              <Icon name="arrow-right" class="text-base" />
             </a>
           </div>
         )
       }
     </div>
-    {
-      showCTA && (
-        <div class="home-hero-visual">
-          <img
-            src="/uploads/acecore-generated/home-open-possibilities-1280.webp"
-            srcset="/uploads/acecore-generated/home-open-possibilities-640.webp 640w, /uploads/acecore-generated/home-open-possibilities-1280.webp 1280w"
-            sizes="(min-width: 1024px) 48vw, (min-width: 768px) 46vw, 100vw"
-            width="1280"
-            height="960"
-            alt={t(locale, 'pages.home.heroImageAlt')}
-            fetchpriority="high"
-          />
-        </div>
-      )
-    }
+
+    <div
+      class="relative z-10 min-h-72 min-w-0 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0"
+    >
+      {
+        hasSlider ? (
+          <div
+            class="absolute inset-0"
+            id="hero-slider"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label={t(locale, 'hero.sliderLabel')}
+            data-hero-images={JSON.stringify(sliderImages)}
+          >
+            {firstSliderImage && (
+              <div
+                class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
+                data-index="0"
+              >
+                <img
+                  src={firstSliderImage.src}
+                  srcset={firstSliderImage.srcset}
+                  sizes={firstSliderImage.sizes}
+                  alt={firstSliderImage.alt}
+                  class="h-full w-full object-cover saturate-110"
+                  width="1280"
+                  height="1280"
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                />
+              </div>
+            )}
+            <div class="absolute inset-0 bg-gradient-to-l from-brand-950/28 via-transparent to-transparent" />
+            <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-950/55 to-transparent" />
+            <div
+              id="hero-slide-announce"
+              class="sr-only"
+              aria-live="polite"
+              aria-atomic="true"
+            />
+          </div>
+        ) : (
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-600 to-brand-400" />
+        )
+      }
+      <div
+        class="pointer-events-none absolute inset-6 border border-white/25"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="pointer-events-none absolute bottom-8 left-8 h-px w-24 bg-white/70"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="pointer-events-none absolute bottom-8 left-8 h-10 w-px bg-white/70"
+        aria-hidden="true"
+      >
+      </div>
+      {
+        hasSlider && sliderImages.length > 1 && (
+          <div class="absolute bottom-6 right-6 z-20 flex items-center gap-1">
+            {sliderImages.map((_, i) => (
+              <button
+                class:list={[
+                  'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
+                  i === 0 ? 'bg-transparent' : 'bg-transparent',
+                ]}
+                data-index={i}
+                aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              >
+                <span
+                  class:list={[
+                    'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
+                    i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+                  ]}
+                />
+              </button>
+            ))}
+            <button
+              id="hero-pause"
+              class="ac-touch ml-1 rounded-full bg-transparent text-white/80 transition-colors hover:text-white focus-visible:ring-white"
+              aria-label={t(locale, 'hero.pauseAutoplay')}
+              data-label-pause={t(locale, 'hero.pauseAutoplay')}
+              data-label-resume={t(locale, 'hero.resumeAutoplay')}
+            >
+              <span id="hero-pause-icon-pause">
+                <Icon name="pause" class="text-base" />
+              </span>
+              <span id="hero-pause-icon-play" class="hidden">
+                <Icon name="play" class="text-base" />
+              </span>
+            </button>
+          </div>
+        )
+      }
+    </div>
   </div>
 </section>
+
+<style>
+  .hero-copy {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-copy h1,
+  .hero-copy p,
+  .hero-copy a {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-workshop #hero-slider,
+    .hero-workshop .hero-slide,
+    .hero-workshop img {
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+</style>
+
+<script>
+  const HERO_HYDRATE_DELAY = 2500
+  const SLIDE_INTERVAL = 5000
+  const SWIPE_THRESHOLD = 50
+  let heroTimer: ReturnType<typeof setInterval> | null = null
+  let heroHydrateTimer: ReturnType<typeof setTimeout> | null = null
+
+  function parseHeroImages(slider: HTMLElement) {
+    try {
+      return JSON.parse(slider.dataset.heroImages || '[]') as Array<{
+        src: string
+        srcset?: string
+        sizes?: string
+        alt: string
+      }>
+    } catch {
+      return []
+    }
+  }
+
+  function ensureHeroSlides(slider: HTMLElement) {
+    if (slider.dataset.heroPrepared === 'true') return
+
+    const images = parseHeroImages(slider)
+    if (images.length <= 1) {
+      slider.dataset.heroPrepared = 'true'
+      return
+    }
+
+    const existingIndexes = new Set(
+      Array.from(slider.querySelectorAll<HTMLElement>('.hero-slide')).map(
+        (slide) => slide.dataset.index,
+      ),
+    )
+
+    images.slice(1).forEach((image, offset) => {
+      const index = String(offset + 1)
+      if (existingIndexes.has(index)) return
+
+      const slide = document.createElement('div')
+      slide.className =
+        'hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0'
+      slide.dataset.index = index
+
+      const img = document.createElement('img')
+      img.src = image.src
+      if (image.srcset) img.srcset = image.srcset
+      if (image.sizes) img.sizes = image.sizes
+      img.alt = image.alt
+      img.className = 'h-full w-full object-cover saturate-110'
+      img.width = 1280
+      img.height = 1280
+      img.decoding = 'async'
+      img.fetchPriority = 'low'
+      img.loading = 'lazy'
+
+      slide.appendChild(img)
+      slider.insertBefore(slide, slider.querySelector('#hero-slide-announce'))
+    })
+
+    slider.dataset.heroPrepared = 'true'
+  }
+
+  function scheduleHeroHydration(slider: HTMLElement) {
+    if (slider.dataset.heroHydrationScheduled === 'true') return
+
+    slider.dataset.heroHydrationScheduled = 'true'
+    heroHydrateTimer = setTimeout(
+      () => ensureHeroSlides(slider),
+      HERO_HYDRATE_DELAY,
+    )
+  }
+
+  function initHeroSlider() {
+    if (heroTimer) {
+      clearInterval(heroTimer)
+      heroTimer = null
+    }
+    if (heroHydrateTimer) {
+      clearTimeout(heroHydrateTimer)
+      heroHydrateTimer = null
+    }
+
+    const slider = document.getElementById('hero-slider')
+    if (!(slider instanceof HTMLElement)) return
+    const sliderElement: HTMLElement = slider
+
+    const images = parseHeroImages(sliderElement)
+    if (images.length === 0) return
+
+    scheduleHeroHydration(sliderElement)
+
+    const getSlides = () =>
+      sliderElement.querySelectorAll<HTMLDivElement>('.hero-slide')
+    const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot')
+    const pauseBtn = document.getElementById(
+      'hero-pause',
+    ) as HTMLButtonElement | null
+    const pauseIconPause = document.getElementById(
+      'hero-pause-icon-pause',
+    ) as HTMLElement | null
+    const pauseIconPlay = document.getElementById(
+      'hero-pause-icon-play',
+    ) as HTMLElement | null
+    const total = images.length
+    if (total <= 1) return
+
+    let current = 0
+    let paused = false
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    const announceEl = document.getElementById('hero-slide-announce')
+
+    function goTo(index: number) {
+      ensureHeroSlides(sliderElement)
+      const slides = getSlides()
+      dots[current]?.removeAttribute('aria-current')
+      slides[current].classList.replace('opacity-100', 'opacity-0')
+      const prevSpan = dots[current]?.querySelector('span')
+      prevSpan?.classList.replace('bg-white', 'bg-white/50')
+      prevSpan?.classList.remove('scale-125')
+      current = index
+      dots[current]?.setAttribute('aria-current', 'true')
+      slides[current].classList.replace('opacity-0', 'opacity-100')
+      const nextSpan = dots[current]?.querySelector('span')
+      nextSpan?.classList.replace('bg-white/50', 'bg-white')
+      nextSpan?.classList.add('scale-125')
+      if (announceEl) {
+        const alt = slides[current].querySelector('img')?.alt || ''
+        announceEl.textContent = `${current + 1} / ${total}${alt ? `: ${alt}` : ''}`
+      }
+    }
+
+    function next() {
+      goTo((current + 1) % total)
+    }
+
+    function startAutoPlay() {
+      if (paused || prefersReducedMotion) return
+      stopAutoPlay()
+      heroTimer = setInterval(next, SLIDE_INTERVAL)
+    }
+
+    function stopAutoPlay() {
+      if (heroTimer) {
+        clearInterval(heroTimer)
+        heroTimer = null
+      }
+    }
+
+    function syncPauseIcon(isPaused: boolean) {
+      pauseIconPause?.classList.toggle('hidden', isPaused)
+      pauseIconPlay?.classList.toggle('hidden', !isPaused)
+    }
+
+    function setPaused(value: boolean) {
+      paused = value
+      if (paused) {
+        stopAutoPlay()
+        syncPauseIcon(true)
+        pauseBtn?.setAttribute(
+          'aria-label',
+          pauseBtn?.dataset.labelResume ?? '',
+        )
+      } else {
+        syncPauseIcon(false)
+        pauseBtn?.setAttribute('aria-label', pauseBtn?.dataset.labelPause ?? '')
+        startAutoPlay()
+      }
+    }
+
+    pauseBtn?.addEventListener('click', () => setPaused(!paused))
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        ensureHeroSlides(sliderElement)
+        stopAutoPlay()
+        goTo(Number(dot.dataset.index))
+        startAutoPlay()
+      })
+    })
+
+    // Swipe support
+    let startX = 0
+    const section = sliderElement.closest('section')!
+    section.addEventListener(
+      'touchstart',
+      (e) => {
+        ensureHeroSlides(sliderElement)
+        startX = e.touches[0].clientX
+        stopAutoPlay()
+      },
+      { passive: true },
+    )
+    section.addEventListener(
+      'touchend',
+      (e) => {
+        const diff = startX - e.changedTouches[0].clientX
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+          goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total)
+        }
+        startAutoPlay()
+      },
+      { passive: true },
+    )
+
+    syncPauseIcon(false)
+    startAutoPlay()
+  }
+
+  initHeroSlider()
+  document.addEventListener('astro:after-swap', initHeroSlider)
+</script>

@@ -1,8 +1,16 @@
 {
   "heroTitle": "やりたいことに、力を注げる社会へ。",
   "heroSubtitle": "技術・学び・創造の支援を通じて、個人や組織の負担を減らし、挑戦を後押しします。",
+  "heroImgTeam": "コワーキングスペースで働くチーム",
+  "heroImgMeeting": "ミーティング風景",
   "viewBusinessDetails": "事業一覧を見る",
+  "aboutHeading": "Acecoreについて",
+  "aboutBody1": "技術・学び・創造の支援を通じて、個人や組織の負担を減らし、挑戦を後押しします。",
+  "aboutBody2": "本当にやりたいことに向き合う時間を、不本意な作業や仕組みの制約に奪われないように。Acecoreは、個人や組織の負担を一つずつ減らし、自らの情熱と可能性に力を注げる環境をつくります。",
   "viewAbout": "会社概要を見る",
+  "latestNews": "企業ニュース",
   "viewAllNews": "ニュース・記事一覧を見る",
-  "heroImageAlt": "可能性が広がっていく様子を、青・緑・暖色の曲線で表した抽象ビジュアル"
+  "contactHeading": "Acecoreへのお問い合わせ",
+  "contactBody": "事業に関するご相談、連携のご提案、その他のお問い合わせを共通窓口で受け付けています。",
+  "contactCta": "お問い合わせ"
 }

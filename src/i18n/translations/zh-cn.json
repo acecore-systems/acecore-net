@@ -195,10 +195,18 @@
     "home": {
       "heroTitle": "让每个人都能专注于自己想做的事。",
       "heroSubtitle": "通过技术、学习与创作支持，减轻个人与组织的负担，助力迈出下一步。",
+      "heroImgTeam": "在共享办公空间工作的团队",
+      "heroImgMeeting": "会议场景",
       "viewBusinessDetails": "查看业务列表",
+      "aboutHeading": "关于 Acecore",
+      "aboutBody1": "通过技术、学习与创作支持，减轻个人与组织的负担，助力迈出下一步。",
+      "aboutBody2": "投入真正想做的事情的时间，不应被不情愿的工作或制度限制占据。Acecore逐步减轻个人和组织的负担，让人们能够将精力投入热情与潜能。",
       "viewAbout": "查看公司概要",
+      "latestNews": "企业新闻",
       "viewAllNews": "查看新闻与文章列表",
-      "heroImageAlt": "以蓝色、绿色和暖色曲线表现可能性不断拓展的抽象图形"
+      "contactHeading": "联系 Acecore",
+      "contactBody": "我们通过统一窗口受理业务咨询、合作提案及其他咨询。",
+      "contactCta": "联系我们"
     },
     "notFound": {
       "title": "页面未找到",
@@ -252,9 +260,12 @@
       "seoTitleContext": "公司信息、理念与业务",
       "description": "支持愿望实现的理念与职责. 减轻负担、拓展选择、支持挑战。这些原则贯穿各项业务。",
       "heroTitle": "公司简介",
+      "heroSubtitle": "让每个人都能专注于自己想做的事。",
+      "heroImgAlt": "团队讨论",
       "companyInfoHeading": "法人信息",
       "legalNameLabel": "法人名称",
       "executiveHeading": "管理层介绍",
+      "executiveLead": "为您介绍 Acecore 的管理层。",
       "officerAreasLabel": "负责领域",
       "officerBiographyLabel": "简介",
       "officers": [
@@ -287,24 +298,88 @@
           "bio": "创作绘画与小说，并发布面向 VRChat 的原创 3D 虚拟形象、互动装置和配件。"
         }
       ],
+      "missionLoopEyebrow": "Mission Loop",
+      "missionLoopTitle": "践行理念的三个方向",
+      "missionLoopDesc": "通过技术、学习与创作支持，减轻个人与组织的负担，助力迈出下一步。",
       "philosophyHeading": "理念",
       "philosophyMotto": "让每个人都能专注于自己想做的事。",
       "philosophyBody1": "投入真正想做的事情的时间，不应被不情愿的工作或制度限制占据。Acecore逐步减轻个人和组织的负担，让人们能够将精力投入热情与潜能。",
       "philosophyBody2": "我们也支持减轻负担后迈出的下一步。运用技术、学习所需知识、表达想法：我们尊重每个人的意愿，致力于让人们能够实现自己的愿望。",
+      "collaborationImgAlt": "团队协作工作",
+      "activitiesTitle": "Acecore 的业务与企业活动",
+      "workshopImgAlt": "学习会与工作坊场景",
+      "initiativesHeading": "活动与举措",
+      "communityTitle": "社区活动",
+      "communityDesc": "Aceserver 是 Acecore 运营的 Minecraft 社区。参与方式和活动记录由官方门户管理，企业层面的重要通知则",
+      "ossTitle": "Acecore Systems",
+      "ossDesc": "以技术和系统支持实现与运营。",
+      "regionalTitle": "Acecore Schools",
+      "regionalDesc": "通过学习，拓展自主选择的能力。",
+      "partnershipTitle": "跨业务协作",
+      "partnershipDesc": "涉及多个业务的咨询和联合企划可通过 Acecore 的联系窗口提出。业务概览则",
+      "relatedLinksHeading": "相关链接",
+      "ctaHeading": "与 Acecore 一起迈出下一步",
       "ctaBody": "我们受理跨业务咨询、合作提案，以及不确定应联系哪个窗口的问题。",
       "ctaContact": "联系我们",
+      "ctaServices": "查看业务列表",
       "valueCycle": [
         {
           "title": "减轻负担",
-          "description": "改善非必要的工作与阻碍实现的机制。"
+          "description": "改善非必要的工作与阻碍实现的机制。",
+          "icon": "cpu",
+          "accent": "brand"
         },
         {
           "title": "拓展选择",
-          "description": "通过适合目标的技术与学习，支持自主判断和行动。"
+          "description": "通过适合目标的技术与学习，支持自主判断和行动。",
+          "icon": "palette",
+          "accent": "amber"
         },
         {
           "title": "支持挑战",
-          "description": "将释放的时间与可能性转化为新的尝试与创造。"
+          "description": "将释放的时间与可能性转化为新的尝试与创造。",
+          "icon": "users",
+          "accent": "emerald"
+        }
+      ],
+      "activities": [
+        "Acecore Systems 提供的技术支持",
+        "Acecore Schools 提供的学习支持",
+        "Acecore Design — 构想与筹备中",
+        "Aceserver 社区运营",
+        "Acecore Store 官方在线商店的运营",
+        "跨业务协作与企业信息发布"
+      ],
+      "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Store",
+          "description": "Acecore 的官方在线商店。",
+          "href": "store"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver 门户",
+          "description": "Minecraft 免费公开服务器的官方网站。",
+          "href": "aceserver"
+        },
+        {
+          "icon": "at-sign",
+          "title": "X（原 Twitter）",
+          "description": "发布 Acecore 的最新资讯。",
+          "href": "x"
+        },
+        {
+          "icon": "github",
+          "title": "GitHub",
+          "description": "公开开源项目。",
+          "href": "github"
+        },
+        {
+          "icon": "message-circle",
+          "title": "Aceserver Discord",
+          "description": "这是 Aceserver 社区开展活动的 Discord 服务器。",
+          "href": "discord"
         }
       ]
     },
@@ -314,6 +389,9 @@
       "description": "技术、学习与表达，以各自的职责支持愿望的实现。 委托开发、咨询技术决策，或亲自学习。请根据目标选择服务并确认内容与使用条件。",
       "heroTitle": "业务",
       "heroSubtitle": "技术、学习与表达，以各自的职责支持愿望的实现。",
+      "heroImgAlt": "科技办公室",
+      "eyebrow": "Business Directory",
+      "introBody": "详情、费用、案例及使用方法，请前往各业务的专业网站查看最新信息。",
       "systemsTitle": "Acecore Systems",
       "schoolsTitle": "Acecore Schools",
       "aceserverTitle": "Aceserver",
@@ -323,6 +401,7 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "准备中",
       "acestudioDescription": "正在构想一个让创作者分享活动、拓展表达的空间。提供内容、对象与启动时间仍在筹备。",
+      "contactHeading": "联系 Acecore",
       "contactBody": "我们通过统一联系窗口受理业务咨询、合作提案及其他咨询。",
       "contactCta": "联系我们",
       "designTitle": "Acecore Design",
@@ -340,8 +419,6 @@
       "learningDescription": "涵盖日本高中毕业程度认定考试准备、IT与编程、电脑与手机应用、机器人与创客实践四个领域。根据目标和现状协商内容、顺序及进度；机器人与创客实践的方式和时间需单独商定。",
       "pricingHeading": "费用与使用条件",
       "pricingLead": "详细费用及支持范围请查看各专业网站。学习安排在咨询时确认，社区参与条件及商品价格请查看相应服务网站。",
-      "pageNavLabel": "业务",
-      "communityHeading": "社区与产品",
       "departmentsHeading": "业务部门",
       "offeringsHeading": "主要服务"
     },
@@ -378,13 +455,20 @@
     },
     "acestudio": {
       "title": "AceStudio",
-      "seoTitleContext": "筹备中的业务",
+      "seoTitleContext": "准备中",
       "description": "AceStudio目前正在筹备中。有关服务内容和启动时间的确认信息将在Acecore官方网站发布。",
       "heroTitle": "AceStudio",
+      "heroSubtitle": "筹备中",
+      "heroImgAlt": "复古科技",
+      "statusEyebrow": "Status",
       "statusHeading": "AceStudio正在筹备中",
       "statusBody": "正在构想一个让创作者分享活动、拓展表达的空间。提供内容、对象与启动时间仍在筹备。",
       "statusNote": "确认后的信息将在本页面和企业新闻中公布。",
+      "newsHeading": "Acecore官方动态",
+      "newsBody": "有关AceStudio的正式公告将在Acecore官方网站和X账号发布。",
+      "followX": "查看X",
       "viewNews": "查看企业新闻",
+      "inquiryText": "跨业务合作提案或其他咨询，请联系Acecore。",
       "inquiryButton": "联系我们"
     },
     "pricing": {

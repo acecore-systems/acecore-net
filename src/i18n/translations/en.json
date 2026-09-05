@@ -195,10 +195,18 @@
     "home": {
       "heroTitle": "A society where you can focus on what you want to do.",
       "heroSubtitle": "Through technology, learning and creative support, we reduce burdens on people and organizations and help them take their next step.",
+      "heroImgTeam": "Team working in a coworking space",
+      "heroImgMeeting": "Meeting in progress",
       "viewBusinessDetails": "View business directory",
+      "aboutHeading": "About Acecore",
+      "aboutBody1": "Through technology, learning and creative support, we reduce burdens on people and organizations and help them take their next step.",
+      "aboutBody2": "Time for what truly matters should not be lost to unwanted tasks or restrictive systems. Acecore reduces burdens on people and organizations so they can put their energy into their passions and potential.",
       "viewAbout": "View company overview",
+      "latestNews": "Corporate news",
       "viewAllNews": "View all news and articles",
-      "heroImageAlt": "Abstract curves in blue, green and warm tones expressing expanding possibilities"
+      "contactHeading": "Contact Acecore",
+      "contactBody": "Use our shared contact desk for business inquiries, partnership proposals, and general questions.",
+      "contactCta": "Contact us"
     },
     "notFound": {
       "title": "Page Not Found",
@@ -216,9 +224,12 @@
       "seoTitleContext": "Company Information, Philosophy, and Businesses",
       "description": "Our purpose and roles in supporting your aspirations. Reduce burdens, broaden choices and support the next step. These principles guide the work of each business.",
       "heroTitle": "About Us",
+      "heroSubtitle": "A society where you can focus on what you want to do.",
+      "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
+      "executiveLead": "Meet Acecore's leadership.",
       "officerAreasLabel": "Areas of responsibility",
       "officerBiographyLabel": "Biography",
       "officers": [
@@ -255,24 +266,88 @@
           "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
         }
       ],
+      "missionLoopEyebrow": "Mission Loop",
+      "missionLoopTitle": "Three ways we put our mission into practice",
+      "missionLoopDesc": "Through technology, learning and creative support, we reduce burdens on people and organizations and help them take their next step.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "A society where you can focus on what you want to do.",
       "philosophyBody1": "Time for what truly matters should not be lost to unwanted tasks or restrictive systems. Acecore reduces burdens on people and organizations so they can put their energy into their passions and potential.",
       "philosophyBody2": "We also support the next step that becomes possible when those burdens ease. Using technology, learning what is needed and expressing ideas: we respect individual choices and work toward a society where people can bring their aspirations to life.",
+      "collaborationImgAlt": "Team collaboration",
+      "activitiesTitle": "Acecore's Businesses and Corporate Activities",
+      "workshopImgAlt": "Study group and workshop",
+      "initiativesHeading": "Activities and Initiatives",
+      "communityTitle": "Community Activities",
+      "communityDesc": "Aceserver is a Minecraft community operated by Acecore. Information on how to participate and activity records are managed on the official portal, while important company announcements are",
+      "ossTitle": "Acecore Systems",
+      "ossDesc": "Supporting delivery and operations through technology.",
+      "regionalTitle": "Acecore Schools",
+      "regionalDesc": "Learning that expands your ability to choose.",
+      "partnershipTitle": "Cross-business collaboration",
+      "partnershipDesc": "We accept inquiries spanning multiple businesses and joint project proposals through Acecore's contact desk. For an overview of our businesses,",
+      "relatedLinksHeading": "Related Links",
+      "ctaHeading": "Take the next step with Acecore",
       "ctaBody": "We welcome cross-business inquiries, partnership proposals, and questions when you are unsure which business to contact.",
       "ctaContact": "Contact Us",
+      "ctaServices": "View Businesses",
       "valueCycle": [
         {
           "title": "Reduce burdens",
-          "description": "Improve nonessential tasks and systems that get in the way."
+          "description": "Improve nonessential tasks and systems that get in the way.",
+          "icon": "cpu",
+          "accent": "brand"
         },
         {
           "title": "Broaden choices",
-          "description": "Support independent decisions and action through appropriate technology and learning."
+          "description": "Support independent decisions and action through appropriate technology and learning.",
+          "icon": "palette",
+          "accent": "amber"
         },
         {
           "title": "Support the next step",
-          "description": "Turn the time and possibilities gained into new attempts and creativity."
+          "description": "Turn the time and possibilities gained into new attempts and creativity.",
+          "icon": "users",
+          "accent": "emerald"
+        }
+      ],
+      "activities": [
+        "Technical support from Acecore Systems",
+        "Learning support from Acecore Schools",
+        "Acecore Design — In planning",
+        "Aceserver community management",
+        "Operation of the official online store by Acecore Store",
+        "Cross-business collaboration and corporate information sharing"
+      ],
+      "relatedLinks": [
+        {
+          "icon": "shopping-bag",
+          "title": "Acecore Store",
+          "description": "Acecore's official online store.",
+          "href": "store"
+        },
+        {
+          "icon": "gamepad-2",
+          "title": "Aceserver Portal",
+          "description": "The official site for a free public Minecraft server.",
+          "href": "aceserver"
+        },
+        {
+          "icon": "at-sign",
+          "title": "X (formerly Twitter)",
+          "description": "Stay up to date with the latest Acecore news.",
+          "href": "x"
+        },
+        {
+          "icon": "github",
+          "title": "GitHub",
+          "description": "Our open-source projects are published here.",
+          "href": "github"
+        },
+        {
+          "icon": "message-circle",
+          "title": "Aceserver Discord",
+          "description": "The Discord server where the Aceserver community is active.",
+          "href": "discord"
         }
       ]
     },
@@ -282,6 +357,9 @@
       "description": "Technology, learning and expression: distinct roles that help turn aspirations into reality. Commission development, discuss technical decisions or learn for yourself. Find the service that fits your goal and check its scope and conditions.",
       "heroTitle": "Businesses",
       "heroSubtitle": "Technology, learning and expression: distinct roles that help turn aspirations into reality.",
+      "heroImgAlt": "Technology office",
+      "eyebrow": "Business Directory",
+      "introBody": "For the latest details, pricing, case studies, and usage information, visit the specialist site for each business.",
       "systemsTitle": "Acecore Systems",
       "schoolsTitle": "Acecore Schools",
       "aceserverTitle": "Aceserver",
@@ -291,6 +369,7 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Coming soon",
       "acestudioDescription": "We are exploring a space where creators can share their activities and develop their expression. Scope, audience and launch timing are still in preparation.",
+      "contactHeading": "Contact Acecore",
       "contactBody": "We accept business inquiries, partnership proposals, and other questions through our shared contact desk.",
       "contactCta": "Contact us",
       "designTitle": "Acecore Design",
@@ -308,8 +387,6 @@
       "learningDescription": "Four areas: Japanese high school equivalency preparation, IT and programming, PC and smartphone skills, and robotics and making. Content, sequence and pace fit your starting point and goals. Robotics and making formats and dates are discussed individually.",
       "pricingHeading": "Pricing and conditions",
       "pricingLead": "Check each specialist site for prices and scope. Learning arrangements are confirmed during consultation; community participation conditions and product prices are available on their service sites.",
-      "pageNavLabel": "Businesses",
-      "communityHeading": "Community & products",
       "departmentsHeading": "Business departments",
       "offeringsHeading": "Main services"
     },
@@ -536,13 +613,20 @@
     },
     "acestudio": {
       "title": "AceStudio",
-      "seoTitleContext": "Business in preparation",
+      "seoTitleContext": "Coming soon",
       "description": "AceStudio is in preparation. Confirmed information about its offering and launch timing will be announced on the official Acecore website.",
       "heroTitle": "AceStudio",
+      "heroSubtitle": "In preparation",
+      "heroImgAlt": "Retro technology",
+      "statusEyebrow": "Status",
       "statusHeading": "AceStudio is in preparation",
       "statusBody": "We are exploring a space where creators can share their activities and develop their expression. Scope, audience and launch timing are still in preparation.",
       "statusNote": "Confirmed information will be announced on this page and in Company News.",
+      "newsHeading": "Official updates from Acecore",
+      "newsBody": "Formal AceStudio announcements will be published on the Acecore website and X account.",
+      "followX": "View X",
       "viewNews": "View Company News",
+      "inquiryText": "For cross-business proposals or other inquiries, contact Acecore.",
       "inquiryButton": "Contact Us"
     },
     "pricing": {

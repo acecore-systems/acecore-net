@@ -4,6 +4,9 @@
   "description": "技術・学び・表現。それぞれの役割から、やりたいことの実現を支えます。 開発を任せたい、技術判断を相談したい、自分で学びたい。目的に合うサービスから、内容や利用条件をご確認ください。",
   "heroTitle": "事業",
   "heroSubtitle": "技術・学び・表現。それぞれの役割から、やりたいことの実現を支えます。",
+  "heroImgAlt": "テクノロジーオフィス",
+  "eyebrow": "Business Directory",
+  "introBody": "詳細、料金、事例、利用方法は、各事業を運営する専門サイトで最新情報をご確認ください。",
   "systemsTitle": "Acecore Systems",
   "schoolsTitle": "Acecore Schools",
   "aceserverTitle": "Aceserver",
@@ -13,6 +16,7 @@
   "acestudioTitle": "AceStudio",
   "acestudioStatus": "準備中",
   "acestudioDescription": "クリエイターが活動を共有し、表現を広げられる場を構想しています。提供内容・対象・開始時期は準備中です。",
+  "contactHeading": "Acecoreへのお問い合わせ",
   "contactBody": "事業に関するご相談、連携のご提案、その他のお問い合わせを共通窓口で受け付けています。",
   "contactCta": "お問い合わせ",
   "designTitle": "Acecore Design",
@@ -30,8 +34,6 @@
   "learningDescription": "高卒認定、IT・プログラミング、PC・スマホ活用、ロボット／メイキングの4領域。目的と現在地に合わせて内容・順番・ペースを相談します。ロボット／メイキングは実施方法と時期も個別に相談します。",
   "pricingHeading": "料金・利用条件",
   "pricingLead": "詳しい料金と対応範囲は各専門サイトでご確認ください。学習支援の実施条件は相談時に確認し、コミュニティの参加条件や商品の価格は各サービスの案内先に掲載しています。",
-  "pageNavLabel": "事業",
-  "communityHeading": "コミュニティ・プロダクト",
   "departmentsHeading": "事業部門",
   "offeringsHeading": "主要サービス"
 }

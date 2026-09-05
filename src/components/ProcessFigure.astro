@@ -53,7 +53,12 @@ const cardAccents = {
 } satisfies Record<NonNullable<StepItem['accent']>, Record<string, string>>
 
 const isCard = variant === 'card'
-const cardGridColumns = steps.length >= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'
+const cardGridColumns =
+  steps.length >= 5
+    ? 'lg:grid-cols-5'
+    : steps.length === 3
+      ? 'lg:grid-cols-3'
+      : 'lg:grid-cols-4'
 ---
 
 {

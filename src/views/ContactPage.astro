@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 
@@ -61,17 +64,63 @@ const contactPageLd = {
   <Hero
     title={t(locale, 'pages.contact.heroTitle')}
     subtitle={t(locale, 'pages.contact.heroSubtitle')}
+    images={[
+      {
+        src: optimizeImage(
+          'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp',
+        ),
+        alt: t(locale, 'pages.contact.heroImgAlt'),
+      },
+    ]}
   />
 
   <CampaignNotice locale={locale} page="contact" />
 
-  <section class="pb-16">
-    <div class="ac-container">
+  <section class="ac-section">
+    <div class="ac-container max-w-2xl">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.contact.title') }]}
+        locale={locale}
+      />
+      <section
+        class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
+        aria-labelledby="ai-contact-heading"
+      >
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div class="flex items-start gap-3">
+            <span class="ac-icon-box shrink-0">
+              <Icon name="sparkles" class="text-lg" />
+            </span>
+            <div>
+              <h2 id="ai-contact-heading" class="text-lg ac-heading">
+                {t(locale, 'pages.contact.aiHeading')}
+              </h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">
+                {t(locale, 'pages.contact.aiLead')}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="ac-btn-primary shrink-0"
+            data-ace-chat-open
+            data-ga-event="ai_chat_open_click"
+            data-ga-label="contact_ai_chat"
+            data-ga-location="contact_ai_assist"
+          >
+            <Icon name="bot-message-square" class="text-base" />
+            {t(locale, 'pages.contact.aiSubmit')}
+          </button>
+        </div>
+      </section>
+
       <form
         id="contact-form"
         action="/api/contact"
         method="post"
-        class="max-w-2xl space-y-6"
+        class="space-y-6"
         data-t-sending={t(locale, 'pages.contact.formSending')}
         data-t-success={t(locale, 'pages.contact.formSuccess')}
         data-t-error={t(locale, 'pages.contact.formError')}
@@ -254,21 +303,6 @@ const contactPageLd = {
         >
         </div>
       </form>
-      <div
-        class="mt-8 flex max-w-2xl flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 pt-5 text-sm"
-      >
-        <p class="text-slate-600">{t(locale, 'pages.contact.aiLead')}</p>
-        <button
-          type="button"
-          class="ac-text-link min-h-11"
-          data-ace-chat-open
-          data-ga-event="ai_chat_open_click"
-          data-ga-label="contact_ai_chat"
-          data-ga-location="contact_ai_assist"
-        >
-          {t(locale, 'pages.contact.aiSubmit')}
-        </button>
-      </div>
     </div>
   </section>
 
