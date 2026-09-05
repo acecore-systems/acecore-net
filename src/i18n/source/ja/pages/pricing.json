@@ -1,20 +1,6 @@
 {
-  "title": "料金・ご相談先",
-  "description": "料金や利用条件の最新情報を掲載する各事業の公式サイトをご案内します。",
-  "heroTitle": "料金・ご相談先",
-  "heroSubtitle": "料金情報は、各事業の公式サイトでご確認ください",
-  "heroImgAlt": "見積り資料を確認する作業風景",
-  "eyebrow": "Official Information",
-  "introTitle": "料金情報の正本へご案内します",
-  "introBody": "このページでは金額を重複掲載せず、各事業が管理する最新情報への入口をまとめています。",
   "systemsTitle": "Acecore Systems の料金",
   "systemsBody": "開発、Web制作、デザイン・クリエイティブ制作、運用支援の料金と相談方法はAcecore Systemsでご確認ください。",
   "schoolsTitle": "Acecore Schools の料金",
-  "schoolsBody": "学習支援の料金、対象、相談方法はAcecore Schoolsでご確認ください。",
-  "aceserverTitle": "Aceserver の利用案内",
-  "aceserverBody": "参加方法や利用条件などの最新情報はAceserver公式サイトでご確認ください。",
-  "storeTitle": "Acecore Storeの商品・購入案内",
-  "storeBody": "商品、購入方法、配送・返品に関する最新情報はAcecore Storeでご確認ください。",
-  "contactTitle": "その他のご相談",
-  "contactBody": "事業横断のご相談、連携のご提案、窓口が分からない場合はAcecoreへお問い合わせください。"
+  "schoolsBody": "学習支援の料金、対象、相談方法はAcecore Schoolsでご確認ください。"
 }

@@ -1,0 +1,99 @@
+---
+import Icon from './Icon.astro'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { SITE } from '../data/site'
+import { getSchoolsUrl } from '../utils/schools-url'
+import { getSpecialistUrl } from '../utils/specialist-url'
+
+interface Props {
+  locale: Locale
+  compact?: boolean
+}
+const { locale, compact = false } = Astro.props
+const departments = [
+  {
+    key: 'systems',
+    icon: 'code-xml',
+    href: getSpecialistUrl(SITE.social.systems, locale, '/services/'),
+    tone: 'text-brand-700 bg-brand-50',
+  },
+  {
+    key: 'schools',
+    icon: 'graduation-cap',
+    href: getSchoolsUrl(),
+    tone: 'text-amber-800 bg-amber-50',
+  },
+  {
+    key: 'design',
+    icon: 'palette',
+    href: undefined,
+    tone: 'text-slate-700 bg-slate-100',
+  },
+]
+---
+
+<div class="grid gap-6 lg:grid-cols-3">
+  {
+    departments.map((item) => (
+      <article
+        id={compact ? undefined : item.key}
+        class="ac-card flex h-full scroll-mt-28 flex-col p-6 sm:p-8"
+      >
+        <div class="mb-6 flex items-center justify-between gap-3">
+          <span class:list={['inline-flex rounded-lg p-3', item.tone]}>
+            <Icon name={item.icon} class="text-2xl" />
+          </span>
+          {item.key === 'design' && (
+            <span class="ac-chip text-xs">
+              {t(locale, 'pages.services.designStatus')}
+            </span>
+          )}
+        </div>
+        <h3 class="text-xl ac-heading">
+          {t(locale, `pages.services.${item.key}Title`)}
+        </h3>
+        <p class="mt-3 font-700 text-slate-900">
+          {t(locale, `pages.services.${item.key}Role`)}
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          {t(locale, `pages.services.${item.key}Description`)}
+        </p>
+        <div class="mt-auto pt-6">
+          {compact ? (
+            <a
+              class="ac-link inline-flex items-center gap-2"
+              href={getLocalizedUrl(`/services/#${item.key}`, locale)}
+            >
+              {t(locale, 'pages.services.viewRole')}
+              <Icon name="arrow-right" />
+            </a>
+          ) : item.href ? (
+            <a
+              class="ac-link inline-flex items-center gap-2"
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t(locale, 'pages.services.viewSite')}
+              <Icon name="arrow-up-right" />
+              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            </a>
+          ) : (
+            <>
+              <p class="border-t border-slate-200 pt-4 text-sm leading-relaxed text-slate-600">
+                {t(locale, 'pages.services.designNote')}
+              </p>
+              <a
+                href={getLocalizedUrl('/contact/', locale)}
+                class="ac-link mt-4 inline-flex items-center gap-2"
+              >
+                {t(locale, 'pages.services.contactCta')}
+                <Icon name="arrow-right" />
+              </a>
+            </>
+          )}
+        </div>
+      </article>
+    ))
+  }
+</div>

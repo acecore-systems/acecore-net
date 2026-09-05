@@ -90,6 +90,9 @@ jobs:
       - name: Validate generated SEO metadata
         run: npm run validate:seo
 
+      - name: Validate corporate pages and service directory
+        run: npm run validate:corporate
+
       - name: Validate non-ASCII tag redirects
         run: npm run validate:tag-redirects
 

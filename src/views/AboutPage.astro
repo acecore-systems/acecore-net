@@ -4,8 +4,6 @@ import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
-import ProcessFigure from '../components/ProcessFigure.astro'
-import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
@@ -137,6 +135,46 @@ const aboutPageLd = {
         items={[{ label: t(locale, 'pages.about.title') }]}
         locale={locale}
       />
+      <!-- 理念 -->
+      <h2 class="text-2xl ac-heading mb-6">
+        {t(locale, 'pages.about.philosophyHeading')}
+      </h2>
+      <div class="ac-surface mb-12 bg-brand-50 p-8">
+        <p class="text-xl font-600 text-brand-700 text-center">
+          {t(locale, 'pages.about.philosophyMotto')}
+        </p>
+      </div>
+
+      <p class="text-lg text-slate-600 leading-relaxed mb-4">
+        {t(locale, 'pages.about.philosophyBody1')}
+      </p>
+      <p class="text-lg text-slate-600 leading-relaxed mb-12">
+        {t(locale, 'pages.about.philosophyBody2')}
+      </p>
+
+      <section class="mb-12" aria-labelledby="purpose-action-heading">
+        <p class="ac-eyebrow">{t(locale, 'pages.about.missionLoopEyebrow')}</p>
+        <h2 id="purpose-action-heading" class="text-2xl ac-heading">
+          {t(locale, 'pages.about.missionLoopTitle')}
+        </h2>
+        <p class="mt-3 mb-6 ac-muted">
+          {t(locale, 'pages.about.missionLoopDesc')}
+        </p>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {
+            valueCycle.map((item) => (
+              <article class="ac-card p-6">
+                <Icon name={item.icon} class="mb-4 text-2xl text-brand-600" />
+                <h3 class="text-lg ac-heading">{item.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
       <section
         class="ac-surface mb-12 p-6 sm:p-8"
         aria-labelledby="corporate-information-heading"
@@ -209,32 +247,6 @@ const aboutPageLd = {
           </section>
         )
       }
-      <div class="mb-12">
-        <ProcessFigure
-          variant="card"
-          eyebrow={t(locale, 'pages.about.missionLoopEyebrow')}
-          title={t(locale, 'pages.about.missionLoopTitle')}
-          description={t(locale, 'pages.about.missionLoopDesc')}
-          steps={valueCycle}
-        />
-      </div>
-
-      <!-- 理念 -->
-      <h2 class="text-2xl ac-heading mb-6">
-        {t(locale, 'pages.about.philosophyHeading')}
-      </h2>
-      <div class="ac-surface mb-12 bg-brand-50 p-8">
-        <p class="text-xl font-600 text-brand-700 text-center">
-          {t(locale, 'pages.about.philosophyMotto')}
-        </p>
-      </div>
-
-      <p class="text-lg text-slate-600 leading-relaxed mb-4">
-        {t(locale, 'pages.about.philosophyBody1')}
-      </p>
-      <p class="text-lg text-slate-600 leading-relaxed mb-12">
-        {t(locale, 'pages.about.philosophyBody2')}
-      </p>
 
       <div class="mb-12">
         <img
@@ -258,10 +270,12 @@ const aboutPageLd = {
       </div>
 
       <div class="mb-12">
-        <Checklist
-          title={t(locale, 'pages.about.activitiesTitle')}
-          items={activityChecklist}
-        />
+        <h2 class="mb-4 text-2xl ac-heading">
+          {t(locale, 'pages.about.activitiesTitle')}
+        </h2>
+        <ul class="list-disc space-y-2 pl-5 text-slate-600">
+          {activityChecklist.map((item) => <li>{item.text}</li>)}
+        </ul>
       </div>
 
       <div class="mb-12">

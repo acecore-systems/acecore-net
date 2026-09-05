@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
-import ServiceCard from '../components/ServiceCard.astro'
+import BusinessDepartments from '../components/BusinessDepartments.astro'
+import ServiceOfferings from '../components/ServiceOfferings.astro'
 import { getCollection } from 'astro:content'
 import {
   optimizeImage,
@@ -24,9 +25,6 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
-import { getSpecialistUrl } from '../utils/specialist-url'
-import { SITE } from '../data/site'
 import {
   getAllAuthors,
   findAuthorById,
@@ -35,14 +33,6 @@ import {
 
 interface Props {
   locale: Locale
-}
-
-type BusinessCard = {
-  title: string
-  description: string
-  icon: string
-  href: string
-  tone: 'brand' | 'emerald' | 'amber' | 'slate'
 }
 
 type HeroImage = {
@@ -80,37 +70,6 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const businessCards: BusinessCard[] = [
-  {
-    title: t(locale, 'pages.home.systemsTitle'),
-    description: t(locale, 'pages.home.systemsDescription'),
-    href: getSpecialistUrl(SITE.social.systems, locale, '/services/'),
-    icon: 'code-xml',
-    tone: 'brand',
-  },
-  {
-    title: t(locale, 'pages.home.schoolsTitle'),
-    description: t(locale, 'pages.home.schoolsDescription'),
-    href: getSchoolsUrl(),
-    icon: 'graduation-cap',
-    tone: 'amber',
-  },
-  {
-    title: t(locale, 'pages.home.aceserverTitle'),
-    description: t(locale, 'pages.home.aceserverDescription'),
-    href: getSpecialistUrl(SITE.social.aceserver, locale),
-    icon: 'gamepad-2',
-    tone: 'emerald',
-  },
-  {
-    title: t(locale, 'pages.home.storeTitle'),
-    description: t(locale, 'pages.home.storeDescription'),
-    href: SITE.social.store,
-    icon: 'shopping-bag',
-    tone: 'slate',
-  },
-]
-const aboutBodyParts = t(locale, 'pages.home.aboutBody2').split('{link}')
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
@@ -164,8 +123,12 @@ const webPageLd = {
 >
   <Hero
     title={t(locale, 'pages.home.heroTitle')}
+    titleLines={locale === 'ja'
+      ? t(locale, 'pages.home.heroTitle').split(/(?<=、)/)
+      : undefined}
     subtitle={t(locale, 'pages.home.heroSubtitle')}
     showCTA={true}
+    locale={locale}
     images={homeHeroImages}
   />
 
@@ -183,35 +146,30 @@ const webPageLd = {
           {t(locale, 'pages.home.businessesLead')}
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          businessCards.map((item) => (
-            <ServiceCard
-              icon={item.icon}
-              title={item.title}
-              description={item.description}
-              href={item.href}
-              locale={locale}
-              tone={item.tone}
-            />
-          ))
-        }
+      <BusinessDepartments locale={locale} compact />
+      <div class="mt-12 mb-6">
+        <h2 class="text-2xl ac-heading">
+          {t(locale, 'pages.services.offeringsHeading')}
+        </h2>
+        <p class="mt-3 ac-muted">{t(locale, 'pages.home.offeringsLead')}</p>
       </div>
-      <div
-        class="mt-8 flex flex-col items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white/70 px-5 py-4 sm:flex-row sm:items-center"
-      >
-        <div>
-          <p class="font-700 text-slate-900">
-            {t(locale, 'pages.home.acestudioTitle')}
-          </p>
-          <p class="mt-1 text-sm leading-relaxed text-slate-600">
-            {t(locale, 'pages.home.acestudioNote')}
-          </p>
+      <ServiceOfferings locale={locale} compact />
+      <aside class="mt-6 rounded-lg border border-slate-200 bg-white/70 p-5">
+        <div class="flex flex-wrap items-center gap-3">
+          <h3 class="text-lg ac-heading">
+            {t(locale, 'pages.services.acestudioTitle')}
+          </h3>
+          <span class="ac-chip text-xs"
+            >{t(locale, 'pages.services.acestudioStatus')}</span
+          >
         </div>
-        <a href={u('/acestudio/')} class="ac-link shrink-0">
-          {t(locale, 'pages.home.acestudioTitle')}
-        </a>
-      </div>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.acestudioDescription')}
+        </p>
+        <a href={u('/acestudio/')} class="ac-link mt-3 inline-flex"
+          >{t(locale, 'pages.services.viewPreparation')}</a
+        >
+      </aside>
       <div class="mt-8 text-center">
         <a href={u('/services/')} class="ac-btn-outline"
           >{t(locale, 'pages.home.viewBusinessDetails')}</a
@@ -230,21 +188,7 @@ const webPageLd = {
           {t(locale, 'pages.home.aboutBody1')}
         </p>
         <p class="text-lg leading-relaxed text-white/80 mb-8">
-          {
-            aboutBodyParts.map((part, index) => (
-              <>
-                {part}
-                {index < aboutBodyParts.length - 1 && (
-                  <a
-                    href={getSchoolsUrl()}
-                    class="text-white underline underline-offset-2 hover:text-brand-100"
-                  >
-                    {t(locale, 'pages.home.aboutEducationLink')}
-                  </a>
-                )}
-              </>
-            ))
-          }
+          {t(locale, 'pages.home.aboutBody2')}
         </p>
         <div
           class="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"

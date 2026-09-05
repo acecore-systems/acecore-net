@@ -1097,7 +1097,7 @@ collections:
           - name: 'heroSubtitle'
             label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
-            widget: string
+            widget: text
           - name: 'heroImgTeam'
             label: 'heroImgTeam（ヒーロー）'
             hint: 'heroImgTeam'
@@ -1113,38 +1113,6 @@ collections:
           - name: 'businessesLead'
             label: 'businessesLead（リード）'
             hint: 'businessesLead'
-            widget: text
-          - name: 'systemsTitle'
-            label: 'systemsTitle（タイトル）'
-            hint: 'systemsTitle'
-            widget: string
-          - name: 'systemsDescription'
-            label: 'systemsDescription（説明）'
-            hint: 'systemsDescription'
-            widget: text
-          - name: 'schoolsTitle'
-            label: 'schoolsTitle（タイトル）'
-            hint: 'schoolsTitle'
-            widget: string
-          - name: 'schoolsDescription'
-            label: 'schoolsDescription（説明）'
-            hint: 'schoolsDescription'
-            widget: text
-          - name: 'aceserverTitle'
-            label: 'aceserverTitle（タイトル）'
-            hint: 'aceserverTitle'
-            widget: string
-          - name: 'aceserverDescription'
-            label: 'aceserverDescription（説明）'
-            hint: 'aceserverDescription'
-            widget: text
-          - name: 'acestudioTitle'
-            label: 'acestudioTitle（タイトル）'
-            hint: 'acestudioTitle'
-            widget: string
-          - name: 'acestudioNote'
-            label: 'acestudioNote（補足）'
-            hint: 'acestudioNote'
             widget: text
           - name: 'viewBusinessDetails'
             label: 'viewBusinessDetails'
@@ -1162,10 +1130,6 @@ collections:
             label: 'aboutBody2（本文）'
             hint: 'aboutBody2'
             widget: text
-          - name: 'aboutEducationLink'
-            label: 'aboutEducationLink'
-            hint: 'aboutEducationLink'
-            widget: string
           - name: 'viewAbout'
             label: 'viewAbout'
             hint: 'viewAbout'
@@ -1190,8 +1154,12 @@ collections:
             label: 'contactCta（リンク文言）'
             hint: 'contactCta'
             widget: string
+          - name: 'offeringsLead'
+            label: '主要サービスの説明'
+            hint: 'offeringsLead'
+            widget: text
       - name: 'services'
-        label: 'サービス'
+        label: '事業領域・主要サービス（トップと共通）'
         file: src/i18n/source/ja/pages/services.json
         format: json
         fields:
@@ -1255,6 +1223,14 @@ collections:
             label: 'aceserverDescription（説明）'
             hint: 'aceserverDescription'
             widget: text
+          - name: 'storeTitle'
+            label: 'storeTitle'
+            hint: 'storeTitle'
+            widget: string
+          - name: 'storeDescription'
+            label: 'storeDescription'
+            hint: 'storeDescription'
+            widget: text
           - name: 'acestudioTitle'
             label: 'acestudioTitle（タイトル）'
             hint: 'acestudioTitle'
@@ -1279,43 +1255,99 @@ collections:
             label: 'contactCta（リンク文言）'
             hint: 'contactCta'
             widget: string
+          - name: 'designTitle'
+            label: 'Design 名称'
+            hint: 'designTitle'
+            widget: string
+          - name: 'designDescription'
+            label: 'Design の方向性'
+            hint: 'designDescription'
+            widget: text
+          - name: 'designStatus'
+            label: 'Design 準備状況'
+            hint: 'designStatus'
+            widget: string
+          - name: 'designNote'
+            label: 'Design 相談案内'
+            hint: 'designNote'
+            widget: text
+          - name: 'systemsRole'
+            label: 'Systems の役割'
+            hint: 'systemsRole'
+            widget: string
+          - name: 'schoolsRole'
+            label: 'Schools の役割'
+            hint: 'schoolsRole'
+            widget: string
+          - name: 'designRole'
+            label: 'Design の役割'
+            hint: 'designRole'
+            widget: string
+          - name: 'offeringsHeading'
+            label: '主要サービスの見出し'
+            hint: 'offeringsHeading'
+            widget: string
+          - name: 'offeringsLead'
+            label: '主要サービスの説明'
+            hint: 'offeringsLead'
+            widget: text
+          - name: 'viewRole'
+            label: '役割へのリンク文言'
+            hint: 'viewRole'
+            widget: string
+          - name: 'viewSite'
+            label: '専門サイトへのリンク文言'
+            hint: 'viewSite'
+            widget: string
+          - name: 'viewService'
+            label: 'サービス詳細へのリンク文言'
+            hint: 'viewService'
+            widget: string
+          - name: 'viewPreparation'
+            label: '準備状況へのリンク文言'
+            hint: 'viewPreparation'
+            widget: string
+          - name: 'developmentTitle'
+            label: '受託開発 名称'
+            hint: 'developmentTitle'
+            widget: string
+          - name: 'developmentDescription'
+            label: '受託開発 説明'
+            hint: 'developmentDescription'
+            widget: text
+          - name: 'advisorTitle'
+            label: 'IT顧問 名称'
+            hint: 'advisorTitle'
+            widget: string
+          - name: 'advisorDescription'
+            label: 'IT顧問 説明・対応範囲'
+            hint: 'advisorDescription'
+            widget: text
+          - name: 'learningTitle'
+            label: '学習支援 名称'
+            hint: 'learningTitle'
+            widget: string
+          - name: 'learningDescription'
+            label: '学習支援 説明・実施条件'
+            hint: 'learningDescription'
+            widget: text
+          - name: 'pricingHeading'
+            label: '料金案内の見出し'
+            hint: 'pricingHeading'
+            widget: string
+          - name: 'pricingLead'
+            label: '料金・利用条件の説明'
+            hint: 'pricingLead'
+            widget: text
+          - name: 'pageNavLabel'
+            label: 'ページ内ナビゲーションの読み上げ名'
+            hint: 'pageNavLabel'
+            widget: string
       - name: 'pricing'
-        label: '料金・ご相談先'
+        label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json
         format: json
         fields:
-          - name: 'title'
-            label: 'title（タイトル）'
-            hint: 'title'
-            widget: string
-          - name: 'description'
-            label: 'description（説明）'
-            hint: 'description'
-            widget: text
-          - name: 'heroTitle'
-            label: 'heroTitle（ヒーロー）'
-            hint: 'heroTitle'
-            widget: string
-          - name: 'heroSubtitle'
-            label: 'heroSubtitle（ヒーロー）'
-            hint: 'heroSubtitle'
-            widget: string
-          - name: 'heroImgAlt'
-            label: 'heroImgAlt（ヒーロー）'
-            hint: 'heroImgAlt'
-            widget: string
-          - name: 'eyebrow'
-            label: 'eyebrow'
-            hint: 'eyebrow'
-            widget: string
-          - name: 'introTitle'
-            label: 'introTitle（タイトル）'
-            hint: 'introTitle'
-            widget: string
-          - name: 'introBody'
-            label: 'introBody（本文）'
-            hint: 'introBody'
-            widget: text
           - name: 'systemsTitle'
             label: 'systemsTitle（タイトル）'
             hint: 'systemsTitle'
@@ -1331,22 +1363,6 @@ collections:
           - name: 'schoolsBody'
             label: 'schoolsBody（本文）'
             hint: 'schoolsBody'
-            widget: text
-          - name: 'aceserverTitle'
-            label: 'aceserverTitle（タイトル）'
-            hint: 'aceserverTitle'
-            widget: string
-          - name: 'aceserverBody'
-            label: 'aceserverBody（本文）'
-            hint: 'aceserverBody'
-            widget: text
-          - name: 'contactTitle'
-            label: 'contactTitle（タイトル）'
-            hint: 'contactTitle'
-            widget: string
-          - name: 'contactBody'
-            label: 'contactBody（本文）'
-            hint: 'contactBody'
             widget: text
       - name: 'about'
         label: '会社概要ページ'

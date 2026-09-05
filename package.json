@@ -36,6 +36,7 @@
     "typecheck:deployment-marker": "tsc --project tsconfig.deployment-marker.json",
     "typecheck:vectorize-sync": "tsc --project tsconfig.vectorize-sync.json",
     "validate:content": "node scripts/validate-content.mjs",
+    "validate:corporate": "node scripts/validate-corporate-output.mjs",
     "validate:blog-freshness": "node scripts/validate-blog-freshness.mjs",
     "validate:seo": "node scripts/enrich-sitemap-lastmod.mjs --check && node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",

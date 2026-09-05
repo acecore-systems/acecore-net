@@ -1,9 +1,9 @@
 {
   "title": "会社概要",
   "seoTitleContext": "会社情報・理念・事業",
-  "description": "Acecoreの会社情報、理念、Acecore Systems・Acecore Schools・Aceserver・Acecore Storeの4つの事業をご紹介します。",
+  "description": "やりたいことを支える、私たちの理念と役割。負担を減らし、選択肢を広げ、挑戦を後押しする。この考え方を、それぞれの事業で実践します。",
   "heroTitle": "会社概要",
-  "heroSubtitle": "Acecoreの理念と、4つの事業",
+  "heroSubtitle": "やりたいことを支える、私たちの理念と役割",
   "heroImgAlt": "チームディスカッション",
   "companyInfoHeading": "法人情報",
   "legalNameLabel": "法人名",
@@ -41,13 +41,13 @@
       "bio": "絵と小説を制作し、VRChat向けのオリジナル3Dアバター、ギミック、アクセサリーを公開しています。"
     }
   ],
-  "missionLoopEyebrow": "Mission Loop",
-  "missionLoopTitle": "4つの事業を通じて社会を支える",
-  "missionLoopDesc": "技術、学び、コミュニティ、プロダクトの各領域を、専門の公式サイトで運営しています。",
+  "missionLoopEyebrow": "Purpose in action",
+  "missionLoopTitle": "理念を、日々の支援へ",
+  "missionLoopDesc": "負担を減らし、選択肢を広げ、挑戦を後押しする。この考え方を、それぞれの事業で実践します。",
   "philosophyHeading": "理念",
-  "philosophyMotto": "「技術と学びを、社会の力へ。」",
-  "philosophyBody1": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Storeを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
-  "philosophyBody2": "会社情報と事業全体のご案内はacecore.netに、提供内容・料金・事例・活動記録などの専門情報は各事業の公式サイトに集約しています。",
+  "philosophyMotto": "やりたいことに、力を注げる社会へ。",
+  "philosophyBody1": "本当にやりたいことに向き合う時間を、不本意な作業や仕組みの制約に奪われないように。Acecoreは、個人や組織の負担を一つずつ減らし、自らの情熱と可能性に力を注げる環境をつくります。",
+  "philosophyBody2": "負担を減らした先にある、一歩を踏み出す挑戦も支えます。技術を使う、必要なことを学ぶ、想いを表現する。それぞれの意志を尊重し、やりたいことを形にできる社会を目指します。",
   "collaborationImgAlt": "チームでのコラボレーション作業",
   "activitiesTitle": "Acecoreの事業と企業活動",
   "workshopImgAlt": "勉強会・ワークショップの様子",
@@ -55,9 +55,9 @@
   "communityTitle": "コミュニティ活動",
   "communityDesc": "Aceserverは、Acecoreが運営するMinecraftコミュニティです。参加方法や活動記録は公式ポータルで管理し、企業としての重要なお知らせは",
   "ossTitle": "Acecore Systems",
-  "ossDesc": "開発・制作・運用支援と技術解説はAcecore Systemsが管理し、公開プロジェクトはGitHubで確認できます。",
+  "ossDesc": "システム・Webアプリの受託開発、IT顧問、公開・運用支援を通じて、業務課題の解決と事業の継続を支えます。",
   "regionalTitle": "Acecore Schools",
-  "regionalDesc": "学習支援の対象、進め方、料金、活動記録はAcecore Schools公式サイトに集約しています。",
+  "regionalDesc": "高卒認定、IT・プログラミング、PC・スマホ活用、ロボット／メイキング。本人の目的から、必要な学びと進め方を組み立てます。",
   "partnershipTitle": "事業横断の連携",
   "partnershipDesc": "複数事業にまたがるご相談や共同企画はAcecoreの窓口で受け付けています。事業の概要は",
   "relatedLinksHeading": "関連リンク",
@@ -67,34 +67,22 @@
   "ctaServices": "事業一覧を見る",
   "valueCycle": [
     {
-      "title": "Acecore Systems",
-      "description": "技術で事業と運用を支えます。",
-      "icon": "cpu",
+      "title": "負担を減らす",
+      "description": "本質的でない作業や、実現を妨げる仕組みを見直します。",
+      "icon": "settings",
       "accent": "brand"
     },
     {
-      "title": "Acecore Schools",
-      "description": "目的から学びを組み立てます。",
-      "icon": "palette",
+      "title": "選択肢を広げる",
+      "description": "目的に合う技術と学びで、自ら判断し行動する力を支えます。",
+      "icon": "graduation-cap",
       "accent": "amber"
     },
     {
-      "title": "Aceserver",
-      "description": "Minecraftを通じたコミュニティを運営します。",
-      "icon": "users",
+      "title": "挑戦を後押しする",
+      "description": "生まれた時間や可能性を、次の一歩と創造へつなげます。",
+      "icon": "sparkles",
       "accent": "emerald"
-    },
-    {
-      "title": "Acecore Store",
-      "description": "公式オンラインストアでAcecoreのプロダクトを届けます。",
-      "icon": "shopping-bag",
-      "accent": "slate"
-    },
-    {
-      "title": "Acecore",
-      "description": "4つの事業をつなぎ、会社情報を発信します。",
-      "icon": "repeat-2",
-      "accent": "brand"
     }
   ],
   "activities": [
