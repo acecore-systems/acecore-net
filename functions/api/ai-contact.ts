@@ -20,6 +20,9 @@ import {
   type WorkersAiEnv,
   type WorkersAiResponseResult,
 } from '../lib/workers-ai.ts'
+import corporateCopy from '../../src/i18n/source/ja/common.json' with { type: 'json' }
+import aboutCopy from '../../src/i18n/source/ja/pages/about.json' with { type: 'json' }
+import servicesCopy from '../../src/i18n/source/ja/pages/services.json' with { type: 'json' }
 
 type Env = FederatedSearchEnv &
   SearchEmbeddingEnv & {
@@ -440,10 +443,17 @@ function buildFederatedRoutingContext(
   return `
 Acecore official-site routing context:
 - The selected information owner for this question is ${selectedOwner}. Do not answer the question with evidence owned by another site.
-- 株式会社Acecore (Acecore) is a Japan-based company that supports businesses, learning, and communities through technology and education.
+- Current corporate identity: ${corporateCopy.meta.defaultDescription}
+- Corporate philosophy: ${aboutCopy.philosophyMotto} ${aboutCopy.philosophyBody1} ${aboutCopy.philosophyBody2}
+- The three business departments are distinct from their services and products:
+  - ${servicesCopy.systemsTitle}: ${servicesCopy.systemsRole}
+  - ${servicesCopy.schoolsTitle}: ${servicesCopy.schoolsRole}
+  - ${servicesCopy.designTitle}: ${servicesCopy.designRole} Status: ${servicesCopy.designStatus}. ${servicesCopy.designDescription} ${servicesCopy.designNote}
+- Aceserver, Acecore Store, and AceStudio are services/products, not additional departments. AceStudio status: ${servicesCopy.acestudioStatus}. ${servicesCopy.acestudioDescription}
 - This corporate site is a directory and shared contact point. Do not treat it as the source of specialist pricing, service specifications, case studies, schedules, or participation terms.
 - Route development, websites, infrastructure, and other client technology work to Acecore Systems. Its official site owns the current details and pricing.
 - Route education and learning-support questions to Acecore Schools. Its official site owns the current programs, pricing, eligibility, and consultation information.
+- Route Acecore Design and cross-department creative inquiries to the corporate services overview and shared contact form. Do not invent a Design website, packages, prices, or an available service lineup.
 - Route Minecraft community participation and support questions to Aceserver. Aceserver WIKI owns rules, commands, participation requirements, and operations; the portal owns overview, worlds, stories, videos, and navigation.
 - Route World Foundation proposals, decisions, policies, research, modules, and design records to its own official site.
 - AceStudio is still presented as in preparation. Do not promise features, pricing, availability, release timing, or registration.
@@ -452,7 +462,9 @@ Acecore official-site routing context:
   - Acecore Systems: ${SYSTEMS_ORIGIN}/
   - Acecore Systems pricing: ${SYSTEMS_ORIGIN}/pricing/
   - Acecore Schools: ${schoolsPath}
-  - Acecore Schools pricing: ${schoolsPath}#pricing
+  - Acecore Schools pricing: ${schoolsPath}pricing/
+  - Acecore Design: ${servicesPath}#design
+  - Acecore Store: https://store.acecore.net/
   - Aceserver: ${ACESERVER_ORIGIN}/
   - Aceserver WIKI: ${ACESERVER_WIKI_ORIGIN}/
   - World Foundation: ${WORLD_FOUNDATION_ORIGIN}/

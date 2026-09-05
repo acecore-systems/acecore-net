@@ -27,6 +27,59 @@ const SOURCE_NAMES = [
 
 let requestSequence = 0
 
+test('会社案内の生成に公開ページと同じ理念・3部門・準備状況を渡す', async () => {
+  const about = JSON.parse(
+    readFileSync(
+      new URL('../src/i18n/source/ja/pages/about.json', import.meta.url),
+      'utf8',
+    ),
+  )
+  const services = JSON.parse(
+    readFileSync(
+      new URL('../src/i18n/source/ja/pages/services.json', import.meta.url),
+      'utf8',
+    ),
+  )
+  for (const locale of ['ja', 'en']) {
+    const tracker = createAiTracker()
+    const response = await onRequestPost({
+      request: createRequest({
+        question: 'Acecore Designについて教えて',
+        locale,
+      }),
+      env: {
+        SEARCH_ENABLED: 'true',
+        SEARCH_INDEX: {
+          async query() {
+            return { count: 1, matches: [matchFor('acecore')] }
+          },
+        },
+        AI: createTestAi(tracker),
+      },
+    })
+    assert.equal(response.status, 200)
+    assert.equal(tracker.generationInputs.length, 1)
+    const prompt = tracker.generationInputs[0].messages[0].content
+    for (const copy of [
+      about.philosophyMotto,
+      services.systemsRole,
+      services.schoolsRole,
+      services.designRole,
+      services.designStatus,
+      services.designNote,
+      services.acestudioDescription,
+    ])
+      assert.ok(prompt.includes(copy), `Missing current public copy: ${copy}`)
+    assert.ok(prompt.includes('https://schools.acecore.net/pricing/'))
+    assert.ok(
+      prompt.includes(
+        `https://acecore.net/${locale === 'ja' ? '' : locale + '/'}services/#design`,
+      ),
+    )
+    assert.ok(!prompt.includes('https://schools.acecore.net/#pricing'))
+  }
+})
+
 test('チャット入力欄をiPhoneの自動拡大が起きない16pxで表示する', () => {
   const component = readFileSync(
     new URL('../src/components/AiChatWidget.astro', import.meta.url),

@@ -198,10 +198,7 @@
       "viewBusinessDetails": "View business directory",
       "viewAbout": "View company overview",
       "viewAllNews": "View all news and articles",
-      "heroImageAlt": "Illustrative scene of collaborating through making and learning",
-      "systemsImageAlt": "Illustrative workspace for system development",
-      "schoolsImageAlt": "Illustrative materials for learning programming and making",
-      "designImageAlt": "Illustrative workbench for exploring colors and interface design"
+      "heroImageAlt": "Abstract curves in blue, green and warm tones expressing expanding possibilities"
     },
     "notFound": {
       "title": "Page Not Found",
@@ -312,7 +309,9 @@
       "pricingHeading": "Pricing and conditions",
       "pricingLead": "Check each specialist site for prices and scope. Learning arrangements are confirmed during consultation; community participation conditions and product prices are available on their service sites.",
       "pageNavLabel": "Businesses",
-      "communityHeading": "Community & products"
+      "communityHeading": "Community & products",
+      "departmentsHeading": "Business departments",
+      "offeringsHeading": "Main services"
     },
     "contact": {
       "title": "Contact",

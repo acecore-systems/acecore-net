@@ -198,10 +198,7 @@
       "viewBusinessDetails": "Ver el directorio de negocios",
       "viewAbout": "Ver el perfil de la empresa",
       "viewAllNews": "Ver todas las noticias y artículos",
-      "heroImageAlt": "Imagen ilustrativa de colaboración mediante la creación y el aprendizaje",
-      "systemsImageAlt": "Imagen ilustrativa de un espacio de desarrollo de sistemas",
-      "schoolsImageAlt": "Imagen ilustrativa de materiales para aprender programación y creación",
-      "designImageAlt": "Imagen ilustrativa de una mesa de trabajo para explorar colores y diseño de interfaces"
+      "heroImageAlt": "Curvas abstractas en azul, verde y tonos cálidos que expresan posibilidades en expansión"
     },
     "notFound": {
       "title": "Página no encontrada",
@@ -348,7 +345,9 @@
       "pricingHeading": "Precios y condiciones",
       "pricingLead": "Consulta precios y alcance en cada sitio especializado. Las condiciones de aprendizaje se confirman durante la consulta; las normas de participación y los precios de productos están en sus respectivos sitios.",
       "pageNavLabel": "Negocios",
-      "communityHeading": "Comunidad y productos"
+      "communityHeading": "Comunidad y productos",
+      "departmentsHeading": "Departamentos",
+      "offeringsHeading": "Servicios principales"
     },
     "privacy": {
       "title": "Política de privacidad",

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
+import ServiceOfferings from '../components/ServiceOfferings.astro'
 import Icon from '../components/Icon.astro'
 import { getCollection } from 'astro:content'
 import { SITE } from '../data/site'
@@ -68,7 +69,7 @@ const webPageLd = {
     <div class="ac-container">
       <div class="home-section-heading">
         <h2 id="home-business-heading" class="ac-section-title">
-          {t(locale, 'nav.services')}
+          {t(locale, 'pages.services.departmentsHeading')}
         </h2>
         <a
           href={u('/services/')}
@@ -80,6 +81,12 @@ const webPageLd = {
         </a>
       </div>
       <BusinessDepartments locale={locale} />
+      <section class="home-offerings" aria-labelledby="home-offerings-heading">
+        <h2 id="home-offerings-heading" class="ac-section-title mb-6">
+          {t(locale, 'pages.services.offeringsHeading')}
+        </h2>
+        <ServiceOfferings locale={locale} anchors={false} />
+      </section>
     </div>
   </section>
   {

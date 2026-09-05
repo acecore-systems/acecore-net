@@ -198,10 +198,7 @@
       "viewBusinessDetails": "Geschäftsbereiche ansehen",
       "viewAbout": "Über uns",
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
-      "heroImageAlt": "Symbolbild für Zusammenarbeit durch Gestalten und Lernen",
-      "systemsImageAlt": "Symbolbild eines Arbeitsplatzes für Systementwicklung",
-      "schoolsImageAlt": "Symbolbild von Materialien zum Programmieren und Gestalten",
-      "designImageAlt": "Symbolbild eines Arbeitstisches für Farben und Oberflächengestaltung"
+      "heroImageAlt": "Abstrakte Kurven in Blau, Grün und warmen Tönen als Ausdruck wachsender Möglichkeiten"
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -318,7 +315,9 @@
       "pricingHeading": "Preise und Bedingungen",
       "pricingLead": "Preise und Leistungsumfang findest du auf den jeweiligen Fachwebsites. Lernbedingungen werden im Gespräch bestätigt; Teilnahmebedingungen und Produktpreise stehen auf den zugehörigen Serviceseiten.",
       "pageNavLabel": "Geschäftsbereiche",
-      "communityHeading": "Community und Produkte"
+      "communityHeading": "Community und Produkte",
+      "departmentsHeading": "Geschäftsbereiche",
+      "offeringsHeading": "Unsere Leistungen"
     },
     "contact": {
       "title": "Kontakt",

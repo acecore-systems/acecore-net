@@ -198,10 +198,7 @@
       "viewBusinessDetails": "Voir la liste des activités",
       "viewAbout": "Voir la présentation de l’entreprise",
       "viewAllNews": "Voir toutes les actualités et les articles",
-      "heroImageAlt": "Illustration de la collaboration par la création et l’apprentissage",
-      "systemsImageAlt": "Illustration d’un espace de développement de systèmes",
-      "schoolsImageAlt": "Illustration de supports pour apprendre la programmation et la fabrication",
-      "designImageAlt": "Illustration d’un espace de travail sur les couleurs et les interfaces"
+      "heroImageAlt": "Courbes abstraites bleues, vertes et chaudes évoquant des possibilités qui se déploient"
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -348,7 +345,9 @@
       "pricingHeading": "Tarifs et conditions",
       "pricingLead": "Consultez les tarifs et le périmètre sur chaque site spécialisé. Les modalités d’apprentissage sont confirmées lors de l’entretien ; les règles de participation et les prix des produits figurent sur leurs sites respectifs.",
       "pageNavLabel": "Activités",
-      "communityHeading": "Communauté et produits"
+      "communityHeading": "Communauté et produits",
+      "departmentsHeading": "Départements",
+      "offeringsHeading": "Principaux services"
     },
     "privacy": {
       "title": "Politique de Confidentialité",

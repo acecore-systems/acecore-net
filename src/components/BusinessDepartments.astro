@@ -3,37 +3,31 @@ import Icon from './Icon.astro'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 interface Props {
   locale: Locale
+  overview?: boolean
 }
-const { locale } = Astro.props
+const { locale, overview = false } = Astro.props
 const departments = [
-  { key: 'systems', icon: 'code-2', image: 'home-hero-build-workshop.webp' },
-  {
-    key: 'schools',
-    icon: 'book-open',
-    image: 'education-programming-class.webp',
-  },
-  { key: 'design', icon: 'pen-tool', image: 'design-system-workbench.webp' },
+  { key: 'systems', icon: 'code-2', destination: 'development' },
+  { key: 'schools', icon: 'book-open', destination: 'learning' },
+  { key: 'design', icon: 'pen-tool', destination: 'design-details' },
 ]
 ---
 
 <ul class="department-list">
   {
-    departments.map(({ key, icon, image }) => (
-      <li class={`department department-${key}`}>
+    departments.map(({ key, icon, destination }) => (
+      <li
+        class={`department department-${key}`}
+        id={overview ? key : undefined}
+      >
         <a
-          href={getLocalizedUrl(`/services/#${key}`, locale)}
+          href={
+            overview
+              ? `#${destination}`
+              : getLocalizedUrl(`/services/#${key}`, locale)
+          }
           class="department-link"
         >
-          <div class="department-image">
-            <img
-              src={`/uploads/acecore-generated/${image}`}
-              alt={t(locale, `pages.home.${key}ImageAlt`)}
-              width="1600"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
           <div class="department-copy">
             <Icon name={icon} class="department-icon" />
             <h3>{t(locale, `pages.services.${key}Title`)}</h3>

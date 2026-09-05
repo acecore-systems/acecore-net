@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
+import BusinessDepartments from '../components/BusinessDepartments.astro'
 import Icon from '../components/Icon.astro'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
@@ -28,80 +29,43 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   />
   <CampaignNotice locale={locale} page="services" />
   <div class="ac-container">
-    <nav
-      class="section-nav"
-      aria-label={t(locale, 'pages.services.pageNavLabel')}
-    >
-      {
-        ['systems', 'schools', 'design'].map((key) => (
-          <a href={'#' + key}>{t(locale, `pages.services.${key}Title`)}</a>
-        ))
-      }
-      <a href="#community">{t(locale, 'pages.services.communityHeading')}</a>
-      <a href="#pricing">{t(locale, 'pages.services.pricingHeading')}</a>
-    </nav>
-    <div id="offerings">
-      {
-        (['systems', 'schools'] as const).map((key) => (
-          <section id={key} class="ac-editorial business-section">
-            <div>
-              <h2 class="ac-section-title">
-                {t(locale, `pages.services.${key}Title`)}
-              </h2>
-              <p class="mt-4 leading-relaxed text-slate-600">
-                {t(locale, `pages.services.${key}Role`)}
-              </p>
-            </div>
-            <ServiceOfferings locale={locale} group={key} />
-          </section>
-        ))
-      }
-      <section id="design" class="ac-editorial business-section">
-        <div>
-          <h2 class="ac-section-title">
-            {t(locale, 'pages.services.designTitle')}
-          </h2>
-          <p class="mt-3 text-sm text-slate-500">
-            {t(locale, 'pages.services.designStatus')}
-          </p>
-        </div>
-        <div>
-          <p class="text-lg font-700 text-slate-950">
-            {t(locale, 'pages.services.designRole')}
-          </p>
-          <p class="mt-3 leading-relaxed text-slate-600">
-            {t(locale, 'pages.services.designDescription')}
-          </p>
-          <p class="mt-3 leading-relaxed text-slate-600">
-            {t(locale, 'pages.services.designNote')}
-          </p>
-          <a href={u('/contact/')} class="ac-text-link mt-5 inline-flex"
-            >{t(locale, 'pages.services.contactCta')}</a
-          >
-        </div>
-      </section>
-      <section id="community" class="ac-editorial business-section">
-        <h2 class="ac-section-title">
-          {t(locale, 'pages.services.communityHeading')}
+    <section aria-labelledby="departments-heading" class="pb-10">
+      <div class="home-section-heading">
+        <h2 id="departments-heading" class="ac-section-title">
+          {t(locale, 'pages.services.departmentsHeading')}
         </h2>
-        <div>
-          <ServiceOfferings locale={locale} group="community" />
-          <aside class="service-row border-t border-slate-200">
-            <div class="flex flex-wrap items-center gap-3">
-              <h3 class="text-lg font-700 text-slate-950">
-                <a class="ac-text-link" href={u('/acestudio/')}>AceStudio</a>
-              </h3>
-              <span class="text-xs text-slate-500"
-                >{t(locale, 'pages.services.acestudioStatus')}</span
-              >
-            </div>
-            <p class="mt-3 leading-relaxed text-slate-600">
-              {t(locale, 'pages.services.acestudioDescription')}
-            </p>
-          </aside>
-        </div>
-      </section>
-    </div>
+        <a href="#pricing" class="ac-text-link"
+          >{t(locale, 'pages.services.pricingHeading')}</a
+        >
+      </div>
+      <BusinessDepartments locale={locale} overview />
+    </section>
+    <section
+      id="offerings"
+      class="business-section"
+      aria-labelledby="offerings-heading"
+    >
+      <h2 id="offerings-heading" class="ac-section-title mb-6">
+        {t(locale, 'pages.services.offeringsHeading')}
+      </h2>
+      <ServiceOfferings locale={locale} />
+    </section>
+    <section id="design-details" class="ac-editorial business-section">
+      <h2 class="ac-section-title">
+        {t(locale, 'pages.services.designTitle')}
+      </h2>
+      <div>
+        <p class="leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.designDescription')}
+        </p>
+        <p class="mt-3 leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.designNote')}
+        </p>
+        <a href={u('/contact/')} class="ac-text-link mt-5 inline-flex"
+          >{t(locale, 'pages.services.contactCta')}</a
+        >
+      </div>
+    </section>
     <section id="pricing" class="ac-editorial business-section">
       <h2 class="ac-section-title">
         {t(locale, 'pages.services.pricingHeading')}
@@ -129,7 +93,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               <li>
                 <a
                   href={item.href}
-                  class="department-link py-4 text-brand-600"
+                  class="flex items-center justify-between gap-4 py-4 text-brand-600 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

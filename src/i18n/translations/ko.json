@@ -198,10 +198,7 @@
       "viewBusinessDetails": "사업 목록 보기",
       "viewAbout": "회사 소개 보기",
       "viewAllNews": "뉴스·기사 목록 보기",
-      "heroImageAlt": "만들기와 배움을 통한 협업을 표현한 이미지",
-      "systemsImageAlt": "시스템 개발 작업 환경을 표현한 이미지",
-      "schoolsImageAlt": "프로그래밍과 만들기 학습 교재를 표현한 이미지",
-      "designImageAlt": "색상과 화면 설계를 검토하는 작업대를 표현한 이미지"
+      "heroImageAlt": "파랑, 초록, 따뜻한 색의 곡선으로 가능성의 확장을 표현한 추상 이미지"
     },
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",
@@ -344,7 +341,9 @@
       "pricingHeading": "요금·이용 조건",
       "pricingLead": "상세 요금과 지원 범위는 각 전문 사이트에서 확인하세요. 학습 조건은 상담 시 확인하며 커뮤니티 참여 조건과 상품 가격은 해당 서비스 사이트에서 안내합니다.",
       "pageNavLabel": "사업",
-      "communityHeading": "커뮤니티 · 제품"
+      "communityHeading": "커뮤니티 · 제품",
+      "departmentsHeading": "사업 부문",
+      "offeringsHeading": "주요 서비스"
     },
     "privacy": {
       "title": "개인정보 보호정책",

@@ -208,9 +208,9 @@
   }
   .home-hero-visual {
     min-width: 0;
-    padding: 0.8rem 0 0 0.8rem;
-    border-radius: 44% 0 24% 0;
-    background: #063d91;
+    overflow: hidden;
+    border-radius: 40% 0 20% 0;
+    background: #eeeae1;
   }
   .home-hero-visual img {
     display: block;
@@ -218,7 +218,7 @@
     height: clamp(24rem, 37vw, 31rem);
     object-fit: cover;
     object-position: 56% center;
-    border-radius: 44% 0 24% 0;
+    border-radius: 40% 0 20% 0;
   }
   .home-section-heading {
     display: flex;
@@ -266,26 +266,17 @@
     text-decoration: none;
     color: #08254d;
   }
-  .department-image {
-    overflow: hidden;
-    margin: 0.65rem 0.65rem 0;
-  }
-  .department-image img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    transition: transform 250ms ease;
-  }
   .department-copy {
     position: relative;
     flex: 1;
-    padding: 1.5rem 1.5rem 3.5rem;
+    padding: 2rem 1.5rem 3.5rem;
+    border-top: 3px solid var(--department-color);
   }
   .department-icon {
     display: block;
-    width: 1.65rem;
-    height: 1.65rem;
-    margin-bottom: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1.5rem;
     color: var(--department-color);
   }
   .department-link h3 {
@@ -320,13 +311,34 @@
     text-decoration: underline;
     text-underline-offset: 5px;
   }
-  .department-link:hover .department-image img {
-    transform: scale(1.035);
-  }
+
   .department-link:focus-visible,
   .news-row:focus-visible {
     outline: 2px solid #063d91;
     outline-offset: 4px;
+  }
+  .home-offerings {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .service-offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 3rem;
+  }
+  .service-offerings .service-row {
+    padding-block: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .service-offerings .service-row p {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+  @media (max-width: 767px) {
+    .service-offerings-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
   .home-news {
     background: #faf8f4;
@@ -337,16 +349,6 @@
   .site-footer a:focus-visible {
     outline: 2px solid white;
     outline-offset: 4px;
-  }
-  .business-section:is(#systems, #schools, #design) > div:first-child {
-    border-top: 3px solid #063d91;
-    padding-top: 1.25rem;
-  }
-  .business-section#schools > div:first-child {
-    border-color: #356b4c;
-  }
-  .business-section#design > div:first-child {
-    border-color: #97532c;
   }
   @media (max-width: 767px) {
     .page-heading-home {
@@ -361,7 +363,7 @@
     }
     .home-hero-visual {
       margin-left: 2rem;
-      padding: 0.5rem 0 0 0.5rem;
+      padding: 0;
     }
     .home-hero-visual img {
       height: clamp(12rem, 55vw, 21rem);
@@ -378,16 +380,6 @@
     }
     .department-link {
       flex-direction: row;
-    }
-    .department-image {
-      width: 30%;
-      flex-shrink: 0;
-      margin: 0;
-    }
-    .department-image img {
-      height: 100%;
-      aspect-ratio: auto;
-      object-position: center;
     }
     .department-copy {
       padding: 1.25rem 1rem 2.75rem;
@@ -459,12 +451,6 @@
   .service-row {
     padding-block: 1.5rem;
   }
-  .service-row:first-child {
-    padding-top: 0;
-  }
-  .service-row:last-child {
-    padding-bottom: 0;
-  }
   .contact-line {
     display: flex;
     align-items: center;
@@ -516,12 +502,6 @@
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
-    }
-    .department-image img {
-      transition: none;
-    }
-    .department-link:hover .department-image img {
-      transform: none;
     }
   }
 }

@@ -198,10 +198,7 @@
       "viewBusinessDetails": "查看业务列表",
       "viewAbout": "查看公司概要",
       "viewAllNews": "查看新闻与文章列表",
-      "heroImageAlt": "通过制作与学习开展协作的示意画面",
-      "systemsImageAlt": "表现系统开发工作环境的示意图",
-      "schoolsImageAlt": "表现编程与创作学习材料的示意图",
-      "designImageAlt": "表现配色与界面设计工作台的示意图"
+      "heroImageAlt": "以蓝色、绿色和暖色曲线表现可能性不断拓展的抽象图形"
     },
     "notFound": {
       "title": "页面未找到",
@@ -344,7 +341,9 @@
       "pricingHeading": "费用与使用条件",
       "pricingLead": "详细费用及支持范围请查看各专业网站。学习安排在咨询时确认，社区参与条件及商品价格请查看相应服务网站。",
       "pageNavLabel": "业务",
-      "communityHeading": "社区与产品"
+      "communityHeading": "社区与产品",
+      "departmentsHeading": "业务部门",
+      "offeringsHeading": "主要服务"
     },
     "privacy": {
       "title": "隐私政策",

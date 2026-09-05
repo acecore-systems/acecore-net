@@ -71,6 +71,48 @@ for (const locale of locales) {
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
+  for (const [pageName, page] of [
+    ['home', home],
+    ['services', services],
+  ]) {
+    assert.equal(
+      page('.department-list > li').length,
+      3,
+      `${locale}.${pageName}: expected three business departments`,
+    )
+    assert.ok(
+      page('h2')
+        .toArray()
+        .some(
+          (heading) =>
+            page(heading).text().trim() ===
+            translations.services.offeringsHeading,
+        ),
+      `${locale}.${pageName}: main services heading missing`,
+    )
+    const offerings = page('.service-offerings')
+    assert.equal(
+      offerings.find('article').length,
+      6,
+      `${locale}.${pageName}: missing principal service`,
+    )
+    for (const key of [
+      'development',
+      'advisor',
+      'learning',
+      'acestudio',
+      'aceserver',
+      'store',
+    ]) {
+      assert.ok(
+        offerings
+          .find('h3')
+          .text()
+          .includes(translations.services[`${key}Title`]),
+        `${locale}.${pageName}: missing ${key}`,
+      )
+    }
+  }
   for (const id of [
     'systems',
     'schools',

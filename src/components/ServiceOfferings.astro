@@ -1,14 +1,15 @@
 ---
 import Icon from './Icon.astro'
-import { t, type Locale } from '../i18n'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { SITE } from '../data/site'
 import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
 interface Props {
   locale: Locale
-  group: 'systems' | 'schools' | 'community'
+  group?: 'systems' | 'schools' | 'community'
+  anchors?: boolean
 }
-const { locale, group } = Astro.props
+const { locale, group, anchors = true } = Astro.props
 const offerings = [
   {
     key: 'development',
@@ -30,37 +31,56 @@ const offerings = [
   },
   { key: 'learning', group: 'schools', href: getSchoolsUrl('/learning/') },
   {
+    key: 'acestudio',
+    group: 'community',
+    href: getLocalizedUrl('/acestudio/', locale),
+    internal: true,
+  },
+  {
     key: 'aceserver',
     group: 'community',
     href: getSpecialistUrl(SITE.social.aceserver, locale),
   },
   { key: 'store', group: 'community', href: SITE.social.store },
-].filter((item) => item.group === group)
+].filter((item) => !group || item.group === group)
 ---
 
-<div class="divide-y divide-slate-200">
+<div class:list={['service-offerings', { 'service-offerings-grid': !group }]}>
   {
     offerings.map((item) => (
       <article
         id={
-          ['aceserver', 'store'].includes(item.key)
-            ? item.key + '-service'
-            : item.key
+          !anchors
+            ? undefined
+            : ['aceserver', 'store'].includes(item.key)
+              ? item.key + '-service'
+              : item.key
         }
         class="service-row"
       >
+        {anchors && item.key === 'aceserver' && <span id="community" />}
         <h3 class="text-lg font-700 leading-relaxed text-slate-950">
           <a
             href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={item.internal ? undefined : '_blank'}
+            rel={item.internal ? undefined : 'noopener noreferrer'}
             class="ac-text-link inline-flex items-start gap-3"
           >
             {t(locale, `pages.services.${item.key}Title`)}
-            <Icon name="arrow-up-right" class="mt-1 shrink-0" />
-            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            <Icon
+              name={item.internal ? 'arrow-right' : 'arrow-up-right'}
+              class="mt-1 shrink-0"
+            />
+            {!item.internal && (
+              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            )}
           </a>
         </h3>
+        {item.key === 'acestudio' && (
+          <span class="department-status">
+            {t(locale, 'pages.services.acestudioStatus')}
+          </span>
+        )}
         <p class="mt-3 leading-relaxed text-slate-600">
           {t(locale, `pages.services.${item.key}Description`)}
         </p>
