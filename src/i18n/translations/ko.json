@@ -194,22 +194,10 @@
   "pages": {
     "home": {
       "heroTitle": "하고 싶은 일에 힘을 쏟을 수 있는 사회로.",
-      "heroSubtitle": "Acecore는 기술·학습·창작 지원을 통해 개인과 조직의 부담을 줄이고 도전을 돕습니다. 각자가 자신의 의지로 가능성을 넓힐 수 있는 환경을 만듭니다.",
-      "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
-      "heroImgMeeting": "회의 풍경",
-      "businessesHeading": "Acecore의 사업 영역",
-      "businessesLead": "기술·학습·표현. 각자의 역할을 통해 하고 싶은 일의 실현을 돕습니다.",
+      "heroSubtitle": "기술·학습·창작 지원을 통해 개인과 조직의 부담을 줄이고 도전을 뒷받침합니다.",
       "viewBusinessDetails": "사업 목록 보기",
-      "aboutHeading": "Acecore 소개",
-      "aboutBody1": "불필요한 작업과 실현을 가로막는 구조를 개선합니다. 목적에 맞는 기술과 학습으로 스스로 판단하고 행동하는 힘을 돕습니다.",
-      "aboutBody2": "확보한 시간과 가능성을 다음 걸음과 창작으로 연결합니다.",
       "viewAbout": "회사 소개 보기",
-      "latestNews": "기업 뉴스",
-      "viewAllNews": "뉴스·기사 목록 보기",
-      "contactHeading": "Acecore 문의",
-      "contactBody": "사업 관련 상담, 협력 제안 및 기타 문의를 공통 창구에서 접수합니다.",
-      "contactCta": "문의하기",
-      "offeringsLead": "개발을 맡기거나, 기술 판단을 상담하거나, 직접 배울 수 있습니다. 목적에 맞는 서비스의 내용과 이용 조건을 확인하세요."
+      "viewAllNews": "뉴스·기사 목록 보기"
     },
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",
@@ -263,12 +251,9 @@
       "seoTitleContext": "회사 정보·철학·사업",
       "description": "하고 싶은 일을 지원하는 우리의 이념과 역할. 부담을 줄이고 선택지를 넓히며 도전을 돕습니다. 이 원칙을 각 사업에서 실천합니다.",
       "heroTitle": "회사 소개",
-      "heroSubtitle": "하고 싶은 일을 지원하는 우리의 이념과 역할",
-      "heroImgAlt": "팀 토론",
       "companyInfoHeading": "법인 정보",
       "legalNameLabel": "법인명",
       "executiveHeading": "경영진 소개",
-      "executiveLead": "Acecore의 경영진을 소개합니다.",
       "officerAreasLabel": "담당 영역",
       "officerBiographyLabel": "약력",
       "officers": [
@@ -301,87 +286,24 @@
           "bio": "일러스트와 소설을 제작하며, VRChat용 오리지널 3D 아바타, 기믹, 액세서리를 공개하고 있습니다."
         }
       ],
-      "missionLoopEyebrow": "Purpose in action",
-      "missionLoopTitle": "이념을 일상의 지원으로",
-      "missionLoopDesc": "부담을 줄이고 선택지를 넓히며 도전을 돕습니다. 이 원칙을 각 사업에서 실천합니다.",
       "philosophyHeading": "철학",
       "philosophyMotto": "하고 싶은 일에 힘을 쏟을 수 있는 사회로.",
       "philosophyBody1": "정말 하고 싶은 일에 집중할 시간이 원치 않는 작업이나 제도의 제약에 빼앗기지 않도록. Acecore는 개인과 조직의 부담을 하나씩 줄이고 열정과 가능성에 힘을 쏟을 수 있는 환경을 만듭니다.",
       "philosophyBody2": "부담을 줄인 뒤 내딛는 다음 걸음도 지원합니다. 기술을 활용하고, 필요한 것을 배우고, 생각을 표현하는 일. 각자의 의지를 존중하며 하고 싶은 일을 실현할 수 있는 사회를 지향합니다.",
-      "collaborationImgAlt": "팀 협업 작업",
-      "activitiesTitle": "Acecore의 사업과 기업 활동",
-      "workshopImgAlt": "스터디 모임·워크숍 모습",
-      "initiativesHeading": "활동과 이니셔티브",
-      "communityTitle": "커뮤니티 활동",
-      "communityDesc": "Aceserver는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참여 방법과 활동 기록은 공식 포털에서 관리하며, 기업으로서의 중요한 공지는",
-      "ossTitle": "Acecore Systems",
-      "ossDesc": "시스템·웹 앱 수탁 개발, IT 자문, 공개·운영 지원을 통해 업무 과제를 해결하고 사업의 지속을 돕습니다.",
-      "regionalTitle": "Acecore Schools",
-      "regionalDesc": "일본 고졸 인정시험 준비, IT·프로그래밍, PC·스마트폰 활용, 로봇·메이킹. 학습자의 목적에서 필요한 내용과 진행 방식을 구성합니다.",
-      "partnershipTitle": "사업 간 연계",
-      "partnershipDesc": "여러 사업에 걸친 상담이나 공동 기획은 Acecore의 창구에서 접수합니다. 사업 개요는",
-      "relatedLinksHeading": "관련 링크",
-      "ctaHeading": "Acecore와 함께 다음 한 걸음을",
       "ctaBody": "사업 간 상담, 협력 제안, 담당 창구를 알 수 없는 문의를 접수합니다.",
       "ctaContact": "문의하기",
-      "ctaServices": "사업 목록 보기",
       "valueCycle": [
         {
           "title": "부담 줄이기",
-          "description": "불필요한 작업과 실현을 가로막는 구조를 개선합니다.",
-          "icon": "settings",
-          "accent": "brand"
+          "description": "불필요한 작업과 실현을 가로막는 구조를 개선합니다."
         },
         {
           "title": "선택지 넓히기",
-          "description": "목적에 맞는 기술과 학습으로 스스로 판단하고 행동하는 힘을 돕습니다.",
-          "icon": "graduation-cap",
-          "accent": "amber"
+          "description": "목적에 맞는 기술과 학습으로 스스로 판단하고 행동하는 힘을 돕습니다."
         },
         {
           "title": "도전 지원하기",
-          "description": "확보한 시간과 가능성을 다음 걸음과 창작으로 연결합니다.",
-          "icon": "sparkles",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Acecore Systems의 기술 지원",
-        "Acecore Schools의 학습 지원",
-        "Aceserver 커뮤니티 운영",
-        "Acecore Store의 공식 온라인 스토어 운영",
-        "사업 간 연계와 기업 정보 전달"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "Acecore의 공식 온라인 스토어입니다.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver 포털",
-          "description": "Minecraft 무료 공개 서버의 공식 사이트입니다.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (구 Twitter)",
-          "description": "Acecore의 최신 정보를 전하고 있습니다.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "오픈소스 프로젝트를 공개하고 있습니다.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "Aceserver 커뮤니티가 활동하는 Discord 서버입니다.",
-          "href": "discord"
+          "description": "확보한 시간과 가능성을 다음 걸음과 창작으로 연결합니다."
         }
       ]
     },
@@ -391,14 +313,8 @@
       "description": "기술·학습·표현. 각자의 역할을 통해 하고 싶은 일의 실현을 돕습니다. 개발을 맡기거나, 기술 판단을 상담하거나, 직접 배울 수 있습니다. 목적에 맞는 서비스의 내용과 이용 조건을 확인하세요.",
       "heroTitle": "사업",
       "heroSubtitle": "기술·학습·표현. 각자의 역할을 통해 하고 싶은 일의 실현을 돕습니다.",
-      "heroImgAlt": "테크놀로지 오피스",
-      "eyebrow": "Business",
-      "introTitle": "Acecore의 사업 영역",
-      "introBody": "기술·학습·표현. 각자의 역할을 통해 하고 싶은 일의 실현을 돕습니다.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "시스템·웹 앱 수탁 개발, IT 자문, 공개·운영 지원을 통해 업무 과제를 해결하고 사업의 지속을 돕습니다.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "일본 고졸 인정시험 준비, IT·프로그래밍, PC·스마트폰 활용, 로봇·메이킹. 학습자의 목적에서 필요한 내용과 진행 방식을 구성합니다.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Minecraft를 통해 놀고 교류하며 함께 만드는 커뮤니티를 운영합니다. 참여 방법과 규칙은 공식 포털에서 안내합니다.",
       "storeTitle": "Acecore Store",
@@ -406,7 +322,6 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "준비 중",
       "acestudioDescription": "크리에이터가 활동을 공유하고 표현의 폭을 넓힐 수 있는 공간을 구상하고 있습니다. 제공 내용·대상·시작 시기는 준비 중입니다.",
-      "contactHeading": "Acecore 문의",
       "contactBody": "사업 관련 상담, 제휴 제안 및 기타 문의를 공통 창구에서 접수합니다.",
       "contactCta": "문의하기",
       "designTitle": "Acecore Design",
@@ -416,12 +331,6 @@
       "systemsRole": "기술과 시스템으로 실현과 운영을 지원합니다.",
       "schoolsRole": "학습을 통해 스스로 선택할 수 있는 폭을 넓힙니다.",
       "designRole": "생각과 가치를 전달되는 표현으로 만듭니다.",
-      "offeringsHeading": "주요 서비스",
-      "offeringsLead": "개발을 맡기거나, 기술 판단을 상담하거나, 직접 배울 수 있습니다. 목적에 맞는 서비스의 내용과 이용 조건을 확인하세요.",
-      "viewRole": "역할과 서비스 보기",
-      "viewSite": "전문 사이트 보기",
-      "viewService": "서비스 상세 보기",
-      "viewPreparation": "준비 상황 보기",
       "developmentTitle": "시스템·웹 앱 수탁 개발",
       "developmentDescription": "구상과 업무 과제를 듣고 요구사항 정리·설계·개발·테스트·공개까지 담당합니다. 개발 자체를 맡기고 싶은 분을 위한 서비스입니다.",
       "advisorTitle": "IT 자문 엔지니어",
@@ -430,7 +339,8 @@
       "learningDescription": "일본 고졸 인정시험 준비, IT·프로그래밍, PC·스마트폰 활용, 로봇·메이킹의 4개 영역입니다. 목적과 현재 수준에 맞춰 내용·순서·속도를 상담합니다. 로봇·메이킹의 진행 방식과 시기도 개별 상담합니다.",
       "pricingHeading": "요금·이용 조건",
       "pricingLead": "상세 요금과 지원 범위는 각 전문 사이트에서 확인하세요. 학습 조건은 상담 시 확인하며 커뮤니티 참여 조건과 상품 가격은 해당 서비스 사이트에서 안내합니다.",
-      "pageNavLabel": "사업"
+      "pageNavLabel": "사업",
+      "communityHeading": "커뮤니티 · 제품"
     },
     "privacy": {
       "title": "개인정보 보호정책",
@@ -468,24 +378,15 @@
       "seoTitleContext": "준비 중인 사업",
       "description": "AceStudio는 현재 준비 중입니다. 제공 내용과 시작 시기 등 확정된 정보는 Acecore 공식 사이트에서 안내합니다.",
       "heroTitle": "AceStudio",
-      "heroSubtitle": "준비 중",
-      "heroImgAlt": "레트로 테크놀로지",
-      "statusEyebrow": "Status",
       "statusHeading": "AceStudio는 준비 중입니다",
       "statusBody": "크리에이터가 활동을 공유하고 표현의 폭을 넓힐 수 있는 공간을 구상하고 있습니다. 제공 내용·대상·시작 시기는 준비 중입니다.",
       "statusNote": "확정된 정보는 이 페이지와 기업 뉴스에서 안내하겠습니다.",
-      "newsHeading": "Acecore의 공식 소식",
-      "newsBody": "AceStudio에 관한 공식 발표는 Acecore 공식 사이트와 X 계정에서 안내합니다.",
-      "followX": "X 보기",
       "viewNews": "기업 뉴스 보기",
-      "inquiryText": "사업 간 제안이나 기타 문의는 Acecore로 연락해 주세요.",
       "inquiryButton": "문의하기"
     },
     "pricing": {
       "systemsTitle": "Acecore Systems 요금",
-      "systemsBody": "개발, 웹 제작, 디자인·크리에이티브 제작, 운영 지원의 요금과 상담 방법은 Acecore Systems에서 확인해 주세요.",
-      "schoolsTitle": "Acecore Schools 요금",
-      "schoolsBody": "학습 지원의 요금, 대상, 상담 방법은 Acecore Schools에서 확인해 주세요."
+      "schoolsTitle": "Acecore Schools 요금"
     }
   },
   "pageNames": {

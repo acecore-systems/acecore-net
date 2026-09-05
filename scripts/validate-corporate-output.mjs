@@ -48,7 +48,7 @@ function checkShape(reference, value, scope) {
 
 const cms = parseYaml(await read('public/admin/config.yml'))
 const cmsFiles = cms.collections.flatMap((collection) => collection.files ?? [])
-for (const name of ['home', 'services', 'pricing']) {
+for (const name of pageNames) {
   const file = cmsFiles.find(
     (item) => item.file === `src/i18n/source/ja/pages/${name}.json`,
   )
@@ -143,6 +143,10 @@ for (const locale of locales) {
     `${prefix}/services/`,
     `${prefix}/about/`,
     `${prefix}/acestudio/`,
+    `${prefix}/blog/`,
+    `${prefix}/contact/`,
+    `${prefix}/privacy/`,
+    `${prefix}/terms/`,
   ]) {
     const page = await getPage(path)
     assert.equal(page('h1').length, 1, `${path}: expected one main heading`)
@@ -164,5 +168,5 @@ for (const locale of locales) {
   }
 }
 console.log(
-  'Validated 36 corporate pages, 9 translation sets, CMS fields, service links, anchors and retired pricing output.',
+  'Validated 72 corporate pages, 9 translation sets, CMS fields, service links, anchors and retired pricing output.',
 )

@@ -194,22 +194,10 @@
   "pages": {
     "home": {
       "heroTitle": "Una sociedad donde puedas centrarte en lo que quieres hacer.",
-      "heroSubtitle": "Acecore apoya la tecnología, el aprendizaje y la creatividad para reducir cargas y ayudar a personas y organizaciones a avanzar. Creamos entornos donde cada persona pueda explorar sus posibilidades por decisión propia.",
-      "heroImgTeam": "Equipo trabajando en un espacio de coworking",
-      "heroImgMeeting": "Escena de una reunión",
-      "businessesHeading": "Nuestras áreas de actividad",
-      "businessesLead": "Tecnología, aprendizaje y expresión: funciones distintas para ayudar a hacer realidad tus aspiraciones.",
+      "heroSubtitle": "Con tecnología, aprendizaje y apoyo creativo, reducimos las cargas de personas y organizaciones y las ayudamos a dar el siguiente paso.",
       "viewBusinessDetails": "Ver el directorio de negocios",
-      "aboutHeading": "Acerca de Acecore",
-      "aboutBody1": "Mejorar tareas prescindibles y sistemas que dificultan avanzar. Apoyar decisiones y acciones propias con tecnología y aprendizaje adecuados.",
-      "aboutBody2": "Convertir el tiempo y las posibilidades obtenidos en nuevas iniciativas y creatividad.",
       "viewAbout": "Ver el perfil de la empresa",
-      "latestNews": "Noticias corporativas",
-      "viewAllNews": "Ver todas las noticias y artículos",
-      "contactHeading": "Contactar con Acecore",
-      "contactBody": "En nuestro punto de contacto común atendemos consultas sobre nuestros negocios, propuestas de colaboración y cualquier otro asunto.",
-      "contactCta": "Contactar",
-      "offeringsLead": "Encarga un desarrollo, consulta decisiones técnicas o aprende por tu cuenta. Elige según tu objetivo y revisa el alcance y las condiciones."
+      "viewAllNews": "Ver todas las noticias y artículos"
     },
     "notFound": {
       "title": "Página no encontrada",
@@ -263,12 +251,9 @@
       "seoTitleContext": "Empresa, filosofía y negocios",
       "description": "Nuestro propósito y nuestras funciones al apoyar tus aspiraciones. Reducir cargas, ampliar opciones y apoyar el siguiente paso. Estos principios orientan cada actividad.",
       "heroTitle": "Acerca de nosotros",
-      "heroSubtitle": "Nuestro propósito y nuestras funciones al apoyar tus aspiraciones",
-      "heroImgAlt": "Discusión en equipo",
       "companyInfoHeading": "Información corporativa",
       "legalNameLabel": "Nombre legal",
       "executiveHeading": "Equipo directivo",
-      "executiveLead": "Conozca al equipo directivo de Acecore.",
       "officerAreasLabel": "Áreas de responsabilidad",
       "officerBiographyLabel": "Trayectoria",
       "officers": [
@@ -305,87 +290,24 @@
           "bio": "Crea ilustraciones y novelas, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
         }
       ],
-      "missionLoopEyebrow": "Purpose in action",
-      "missionLoopTitle": "Llevar nuestro propósito a la práctica",
-      "missionLoopDesc": "Reducir cargas, ampliar opciones y apoyar el siguiente paso. Estos principios orientan cada actividad.",
       "philosophyHeading": "Filosofía",
       "philosophyMotto": "Una sociedad donde puedas centrarte en lo que quieres hacer.",
       "philosophyBody1": "El tiempo para lo que importa no debería perderse en tareas indeseadas ni en sistemas restrictivos. Acecore reduce las cargas de personas y organizaciones para que puedan dedicar su energía a sus pasiones y su potencial.",
       "philosophyBody2": "También apoyamos el siguiente paso que se hace posible al aliviar esas cargas. Usar tecnología, aprender lo necesario y expresar ideas: respetamos las decisiones personales y buscamos una sociedad donde las aspiraciones puedan hacerse realidad.",
-      "collaborationImgAlt": "Trabajo colaborativo en equipo",
-      "activitiesTitle": "Negocios y actividades corporativas de Acecore",
-      "workshopImgAlt": "Sesión de estudio y taller",
-      "initiativesHeading": "Actividades e iniciativas",
-      "communityTitle": "Actividades comunitarias",
-      "communityDesc": "Aceserver es una comunidad de Minecraft gestionada por Acecore. La forma de participar y el registro de actividades se gestionan en el portal oficial; en cuanto a los anuncios importantes de la empresa,",
-      "ossTitle": "Acecore Systems",
-      "ossDesc": "Desarrollo de sistemas y aplicaciones web por encargo, asesoría informática y apoyo al lanzamiento y la operación para resolver problemas y mantener la actividad.",
-      "regionalTitle": "Acecore Schools",
-      "regionalDesc": "Preparación para la acreditación japonesa de equivalencia de secundaria superior, informática y programación, ordenadores y móviles, robótica y creación práctica. El aprendizaje parte de tus objetivos.",
-      "partnershipTitle": "Colaboración transversal entre negocios",
-      "partnershipDesc": "Las consultas y los proyectos conjuntos que abarcan varios negocios se atienden a través del contacto de Acecore. En cuanto a la información general de los negocios,",
-      "relatedLinksHeading": "Enlaces relacionados",
-      "ctaHeading": "Dé el siguiente paso con Acecore",
       "ctaBody": "Atendemos consultas que abarcan varios negocios, propuestas de colaboración y consultas para las que no sepa a qué contacto dirigirse.",
       "ctaContact": "Contacto",
-      "ctaServices": "Ver la lista de negocios",
       "valueCycle": [
         {
           "title": "Reducir cargas",
-          "description": "Mejorar tareas prescindibles y sistemas que dificultan avanzar.",
-          "icon": "settings",
-          "accent": "brand"
+          "description": "Mejorar tareas prescindibles y sistemas que dificultan avanzar."
         },
         {
           "title": "Ampliar opciones",
-          "description": "Apoyar decisiones y acciones propias con tecnología y aprendizaje adecuados.",
-          "icon": "graduation-cap",
-          "accent": "amber"
+          "description": "Apoyar decisiones y acciones propias con tecnología y aprendizaje adecuados."
         },
         {
           "title": "Apoyar el siguiente paso",
-          "description": "Convertir el tiempo y las posibilidades obtenidos en nuevas iniciativas y creatividad.",
-          "icon": "sparkles",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Apoyo técnico de Acecore Systems",
-        "Apoyo al aprendizaje de Acecore Schools",
-        "Gestión de la comunidad de Aceserver",
-        "Gestión de la tienda en línea oficial de Acecore Store",
-        "Colaboración transversal entre negocios y difusión de información corporativa"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "La tienda en línea oficial de Acecore.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Portal de Aceserver",
-          "description": "Sitio oficial del servidor público gratuito de Minecraft.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (antes Twitter)",
-          "description": "Publicamos las últimas novedades de Acecore.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Publicamos proyectos de código abierto.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "Es el servidor de Discord en el que está activa la comunidad de Aceserver.",
-          "href": "discord"
+          "description": "Convertir el tiempo y las posibilidades obtenidos en nuevas iniciativas y creatividad."
         }
       ]
     },
@@ -395,14 +317,8 @@
       "description": "Tecnología, aprendizaje y expresión: funciones distintas para ayudar a hacer realidad tus aspiraciones. Encarga un desarrollo, consulta decisiones técnicas o aprende por tu cuenta. Elige según tu objetivo y revisa el alcance y las condiciones.",
       "heroTitle": "Negocios",
       "heroSubtitle": "Tecnología, aprendizaje y expresión: funciones distintas para ayudar a hacer realidad tus aspiraciones.",
-      "heroImgAlt": "Oficina tecnológica",
-      "eyebrow": "Business",
-      "introTitle": "Nuestras áreas de actividad",
-      "introBody": "Tecnología, aprendizaje y expresión: funciones distintas para ayudar a hacer realidad tus aspiraciones.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Desarrollo de sistemas y aplicaciones web por encargo, asesoría informática y apoyo al lanzamiento y la operación para resolver problemas y mantener la actividad.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Preparación para la acreditación japonesa de equivalencia de secundaria superior, informática y programación, ordenadores y móviles, robótica y creación práctica. El aprendizaje parte de tus objetivos.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Una comunidad de Minecraft para jugar, conversar y crear juntos. El portal oficial explica cómo participar y sus normas.",
       "storeTitle": "Acecore Store",
@@ -410,7 +326,6 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En preparación",
       "acestudioDescription": "Exploramos un espacio donde los creadores puedan compartir sus actividades y ampliar su expresión. El contenido, el público y la fecha de inicio están en preparación.",
-      "contactHeading": "Contactar con Acecore",
       "contactBody": "Atendemos consultas sobre nuestros negocios, propuestas de colaboración y cualquier otra solicitud a través de un único punto de contacto.",
       "contactCta": "Contactar",
       "designTitle": "Acecore Design",
@@ -420,12 +335,6 @@
       "systemsRole": "Apoyar la ejecución y la operación mediante tecnología.",
       "schoolsRole": "Aprender para ampliar tu capacidad de elegir.",
       "designRole": "Dar una expresión clara a las ideas y su valor.",
-      "offeringsHeading": "Servicios principales",
-      "offeringsLead": "Encarga un desarrollo, consulta decisiones técnicas o aprende por tu cuenta. Elige según tu objetivo y revisa el alcance y las condiciones.",
-      "viewRole": "Ver funciones y servicios",
-      "viewSite": "Visitar el sitio especializado",
-      "viewService": "Ver detalles del servicio",
-      "viewPreparation": "Ver estado de preparación",
       "developmentTitle": "Desarrollo de sistemas y aplicaciones web",
       "developmentDescription": "Desde tu idea o necesidad de negocio hasta requisitos, diseño, desarrollo, pruebas y lanzamiento. Para quienes desean encargarnos el desarrollo.",
       "advisorTitle": "Ingeniero asesor de TI",
@@ -434,7 +343,8 @@
       "learningDescription": "Cuatro áreas: equivalencia de secundaria superior japonesa, informática y programación, ordenadores y móviles, robótica y creación práctica. Contenido, orden y ritmo se acuerdan según tu punto de partida. El formato y las fechas de robótica se consultan individualmente.",
       "pricingHeading": "Precios y condiciones",
       "pricingLead": "Consulta precios y alcance en cada sitio especializado. Las condiciones de aprendizaje se confirman durante la consulta; las normas de participación y los precios de productos están en sus respectivos sitios.",
-      "pageNavLabel": "Negocios"
+      "pageNavLabel": "Negocios",
+      "communityHeading": "Comunidad y productos"
     },
     "privacy": {
       "title": "Política de privacidad",
@@ -472,24 +382,15 @@
       "seoTitleContext": "Negocio en preparación",
       "description": "AceStudio está en preparación. La información confirmada sobre su oferta y fecha de inicio se publicará en el sitio oficial de Acecore.",
       "heroTitle": "AceStudio",
-      "heroSubtitle": "En preparación",
-      "heroImgAlt": "Tecnología retro",
-      "statusEyebrow": "Status",
       "statusHeading": "AceStudio está en preparación",
       "statusBody": "Exploramos un espacio donde los creadores puedan compartir sus actividades y ampliar su expresión. El contenido, el público y la fecha de inicio están en preparación.",
       "statusNote": "La información confirmada se anunciará en esta página y en las noticias corporativas.",
-      "newsHeading": "Novedades oficiales de Acecore",
-      "newsBody": "Los anuncios oficiales de AceStudio se publicarán en el sitio web y la cuenta de X de Acecore.",
-      "followX": "Ver X",
       "viewNews": "Ver noticias corporativas",
-      "inquiryText": "Para propuestas entre negocios u otras consultas, contacte con Acecore.",
       "inquiryButton": "Contacto"
     },
     "pricing": {
       "systemsTitle": "Precios de Acecore Systems",
-      "systemsBody": "Consulta en Acecore Systems los precios y cómo solicitar una consulta sobre desarrollo, producción web, diseño y producción creativa, y soporte operativo.",
-      "schoolsTitle": "Precios de Acecore Schools",
-      "schoolsBody": "Consulta en Acecore Schools los precios, a quién va dirigido el apoyo educativo y cómo solicitar una consulta."
+      "schoolsTitle": "Precios de Acecore Schools"
     }
   },
   "pageNames": {

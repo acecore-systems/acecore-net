@@ -3,7 +3,6 @@ import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import { optimizeImage } from '../utils/image'
 import { getLocalizedUrl, getTranslationValue, t, type Locale } from '../i18n'
 
 interface Props {
@@ -44,17 +43,7 @@ const acecoreIdRequestLinkLabel =
   description={t(locale, 'pages.privacy.description')}
   locale={locale}
 >
-  <Hero
-    title={t(locale, 'pages.privacy.heroTitle')}
-    images={[
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.privacy.heroImgAlt'),
-      },
-    ]}
-  />
+  <Hero title={t(locale, 'pages.privacy.heroTitle')} />
 
   <section class="ac-section">
     <div class="ac-container max-w-3xl">

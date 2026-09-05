@@ -3,12 +3,9 @@
   "seoTitleContext": "会社情報・理念・事業",
   "description": "やりたいことを支える、私たちの理念と役割。負担を減らし、選択肢を広げ、挑戦を後押しする。この考え方を、それぞれの事業で実践します。",
   "heroTitle": "会社概要",
-  "heroSubtitle": "やりたいことを支える、私たちの理念と役割",
-  "heroImgAlt": "チームディスカッション",
   "companyInfoHeading": "法人情報",
   "legalNameLabel": "法人名",
   "executiveHeading": "役員紹介",
-  "executiveLead": "Acecoreの役員をご紹介します。",
   "officerAreasLabel": "担当領域",
   "officerBiographyLabel": "略歴",
   "officers": [
@@ -41,87 +38,24 @@
       "bio": "絵と小説を制作し、VRChat向けのオリジナル3Dアバター、ギミック、アクセサリーを公開しています。"
     }
   ],
-  "missionLoopEyebrow": "Purpose in action",
-  "missionLoopTitle": "理念を、日々の支援へ",
-  "missionLoopDesc": "負担を減らし、選択肢を広げ、挑戦を後押しする。この考え方を、それぞれの事業で実践します。",
   "philosophyHeading": "理念",
   "philosophyMotto": "やりたいことに、力を注げる社会へ。",
   "philosophyBody1": "本当にやりたいことに向き合う時間を、不本意な作業や仕組みの制約に奪われないように。Acecoreは、個人や組織の負担を一つずつ減らし、自らの情熱と可能性に力を注げる環境をつくります。",
   "philosophyBody2": "負担を減らした先にある、一歩を踏み出す挑戦も支えます。技術を使う、必要なことを学ぶ、想いを表現する。それぞれの意志を尊重し、やりたいことを形にできる社会を目指します。",
-  "collaborationImgAlt": "チームでのコラボレーション作業",
-  "activitiesTitle": "Acecoreの事業と企業活動",
-  "workshopImgAlt": "勉強会・ワークショップの様子",
-  "initiativesHeading": "活動と取り組み",
-  "communityTitle": "コミュニティ活動",
-  "communityDesc": "Aceserverは、Acecoreが運営するMinecraftコミュニティです。参加方法や活動記録は公式ポータルで管理し、企業としての重要なお知らせは",
-  "ossTitle": "Acecore Systems",
-  "ossDesc": "システム・Webアプリの受託開発、IT顧問、公開・運用支援を通じて、業務課題の解決と事業の継続を支えます。",
-  "regionalTitle": "Acecore Schools",
-  "regionalDesc": "高卒認定、IT・プログラミング、PC・スマホ活用、ロボット／メイキング。本人の目的から、必要な学びと進め方を組み立てます。",
-  "partnershipTitle": "事業横断の連携",
-  "partnershipDesc": "複数事業にまたがるご相談や共同企画はAcecoreの窓口で受け付けています。事業の概要は",
-  "relatedLinksHeading": "関連リンク",
-  "ctaHeading": "Acecoreと一緒に、次の一歩を",
   "ctaBody": "事業横断のご相談、連携のご提案、窓口が分からないお問い合わせを受け付けています。",
   "ctaContact": "お問い合わせ",
-  "ctaServices": "事業一覧を見る",
   "valueCycle": [
     {
       "title": "負担を減らす",
-      "description": "本質的でない作業や、実現を妨げる仕組みを見直します。",
-      "icon": "settings",
-      "accent": "brand"
+      "description": "本質的でない作業や、実現を妨げる仕組みを見直します。"
     },
     {
       "title": "選択肢を広げる",
-      "description": "目的に合う技術と学びで、自ら判断し行動する力を支えます。",
-      "icon": "graduation-cap",
-      "accent": "amber"
+      "description": "目的に合う技術と学びで、自ら判断し行動する力を支えます。"
     },
     {
       "title": "挑戦を後押しする",
-      "description": "生まれた時間や可能性を、次の一歩と創造へつなげます。",
-      "icon": "sparkles",
-      "accent": "emerald"
-    }
-  ],
-  "activities": [
-    "Acecore Systemsによる技術支援",
-    "Acecore Schoolsによる学習支援",
-    "Aceserverコミュニティの運営",
-    "Acecore Storeによる公式オンラインストアの運営",
-    "事業横断の連携と企業情報の発信"
-  ],
-  "relatedLinks": [
-    {
-      "icon": "shopping-bag",
-      "title": "Acecore Store",
-      "description": "Acecoreの公式オンラインストアです。",
-      "href": "store"
-    },
-    {
-      "icon": "gamepad-2",
-      "title": "Aceserver ポータル",
-      "description": "マインクラフト無料公開サーバーの公式サイトです。",
-      "href": "aceserver"
-    },
-    {
-      "icon": "at-sign",
-      "title": "X（旧Twitter）",
-      "description": "Acecoreの最新情報を発信しています。",
-      "href": "x"
-    },
-    {
-      "icon": "github",
-      "title": "GitHub",
-      "description": "オープンソースプロジェクトを公開しています。",
-      "href": "github"
-    },
-    {
-      "icon": "message-circle",
-      "title": "Aceserver Discord",
-      "description": "Aceserverのコミュニティが活動するDiscordサーバーです。",
-      "href": "discord"
+      "description": "生まれた時間や可能性を、次の一歩と創造へつなげます。"
     }
   ]
 }

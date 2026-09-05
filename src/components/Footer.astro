@@ -1,140 +1,105 @@
 ---
 import { SITE } from '../data/site'
-import {
-  getLocalizedUrl,
-  getLocaleFromUrl,
-  getTranslationValue,
-  t,
-  type Locale,
-} from '../i18n'
+import { getLocalizedUrl, getLocaleFromUrl, t, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
-
 interface Props {
   locale?: Locale
 }
-
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const currentYear = new Date().getFullYear()
 const u = (path: string) => getLocalizedUrl(path, locale)
-const termsLabel =
-  getTranslationValue<string>(locale, 'footer.terms') ?? t('en', 'footer.terms')
 const siteLinks = [
-  { href: u('/'), label: t(locale, 'nav.home') },
   { href: u('/services/'), label: t(locale, 'nav.services') },
   { href: u('/about/'), label: t(locale, 'nav.about') },
   { href: u('/blog/'), label: t(locale, 'nav.blog') },
   { href: u('/contact/'), label: t(locale, 'nav.contact') },
-  { href: u('/terms/'), label: termsLabel },
-  { href: u('/privacy/'), label: t(locale, 'footer.privacy') },
 ]
-const businessLinks = [
+const related = [
   {
     href: getSpecialistUrl(SITE.social.systems, locale),
     label: 'Acecore Systems',
   },
   { href: getSchoolsUrl(), label: 'Acecore Schools' },
-  {
-    href: getSpecialistUrl(SITE.social.aceserver, locale),
-    label: 'Aceserver',
-  },
+  { href: getSpecialistUrl(SITE.social.aceserver, locale), label: 'Aceserver' },
   { href: SITE.social.store, label: 'Acecore Store' },
+  { href: SITE.social.x, label: 'X' },
+  { href: SITE.social.github, label: 'GitHub' },
 ]
 ---
 
-<footer class="bg-slate-900 text-slate-300">
-  <div class="ac-container py-14">
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
-      <div>
-        <h3 class="mb-3 text-lg font-700 text-white">{SITE.name}</h3>
-        <p class="text-sm leading-relaxed">
-          {t(locale, 'footer.tagline')}<br />
-          {t(locale, 'footer.description')}
-        </p>
-      </div>
-
-      <div>
-        <h3 class="mb-3 text-lg font-700 text-white">
-          {t(locale, 'footer.sitemap')}
-        </h3>
-        <ul class="m-0 list-none p-0 text-sm" role="list">
-          {
-            siteLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="mb-3 text-lg font-700 text-white">
-          {t(locale, 'footer.relatedLinks')}
-        </h3>
-        <ul class="m-0 list-none p-0 text-sm" role="list">
-          {
-            businessLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-                  data-ga-event="external_link_click"
-                  data-ga-label={`footer_${link.label.toLowerCase().replaceAll(' ', '_')}`}
-                  data-ga-location="footer"
-                  data-ga-destination={link.href}
-                >
-                  {link.label}
-                  <span class="sr-only">
-                    {t(locale, 'common.opensInNewTab')}
-                  </span>
-                </a>
-              </li>
-            ))
-          }
-          <li>
+<footer class="border-t border-slate-200 bg-slate-50 text-sm text-slate-600">
+  <div class="ac-container py-10">
+    <div
+      class="flex flex-col justify-between gap-5 md:flex-row md:items-center"
+    >
+      <a
+        href={u('/')}
+        class="inline-flex items-center gap-2 text-lg font-700 text-slate-950 no-underline"
+      >
+        <img src="/favicon.svg" alt="Acecore" width="24" height="24" /><span
+          aria-hidden="true">Acecore</span
+        >
+      </a>
+      <nav
+        aria-label={t(locale, 'footer.sitemap')}
+        class="flex flex-wrap gap-x-6 gap-y-1"
+      >
+        {
+          siteLinks.map((link) => (
             <a
-              href={SITE.social.x}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-              data-ga-event="external_link_click"
-              data-ga-label="footer_x"
-              data-ga-location="footer"
-              data-ga-destination={SITE.social.x}
+              class="inline-flex min-h-11 items-center hover:text-brand-600 hover:underline"
+              href={link.href}
             >
-              X
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              {link.label}
             </a>
-          </li>
-          <li>
-            <a
-              href={SITE.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-              data-ga-event="external_link_click"
-              data-ga-label="footer_github"
-              data-ga-location="footer"
-              data-ga-destination={SITE.social.github}
-            >
-              GitHub
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+          ))
+        }
+      </nav>
     </div>
-
-    <div class="mt-10 border-t border-slate-700 pt-8 text-center text-sm">
-      <p>&copy;{currentYear} {SITE.legalName}</p>
+    <div
+      class="mt-5 flex flex-col gap-3 border-t border-slate-200 pt-5 md:flex-row md:items-start md:gap-8"
+    >
+      <p class="shrink-0 leading-10 text-xs text-slate-500">
+        {t(locale, 'footer.relatedLinks')}
+      </p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1">
+        {
+          related.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-10 items-center hover:text-brand-600 hover:underline"
+                data-ga-event="external_link_click"
+                data-ga-label={`footer_${link.label.toLowerCase().replaceAll(' ', '_')}`}
+                data-ga-location="footer"
+                data-ga-destination={link.href}
+              >
+                {link.label}
+                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div
+      class="mt-5 flex flex-col justify-between gap-4 text-xs text-slate-500 sm:flex-row sm:items-center"
+    >
+      <p>&copy;{new Date().getFullYear()} {SITE.legalName}</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-1">
+        <a
+          href={u('/privacy/')}
+          class="inline-flex min-h-10 items-center hover:underline"
+          >{t(locale, 'footer.privacy')}</a
+        >
+        <a
+          href={u('/terms/')}
+          class="inline-flex min-h-10 items-center hover:underline"
+          >{t(locale, 'footer.terms')}</a
+        >
+      </div>
     </div>
   </div>
 </footer>

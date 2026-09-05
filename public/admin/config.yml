@@ -1098,66 +1098,18 @@ collections:
             label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: text
-          - name: 'heroImgTeam'
-            label: 'heroImgTeam（ヒーロー）'
-            hint: 'heroImgTeam'
-            widget: string
-          - name: 'heroImgMeeting'
-            label: 'heroImgMeeting（ヒーロー）'
-            hint: 'heroImgMeeting'
-            widget: string
-          - name: 'businessesHeading'
-            label: 'businessesHeading（見出し）'
-            hint: 'businessesHeading'
-            widget: string
-          - name: 'businessesLead'
-            label: 'businessesLead（リード）'
-            hint: 'businessesLead'
-            widget: text
           - name: 'viewBusinessDetails'
             label: 'viewBusinessDetails'
             hint: 'viewBusinessDetails'
             widget: string
-          - name: 'aboutHeading'
-            label: 'aboutHeading（見出し）'
-            hint: 'aboutHeading'
-            widget: string
-          - name: 'aboutBody1'
-            label: 'aboutBody1（本文）'
-            hint: 'aboutBody1'
-            widget: text
-          - name: 'aboutBody2'
-            label: 'aboutBody2（本文）'
-            hint: 'aboutBody2'
-            widget: text
           - name: 'viewAbout'
             label: 'viewAbout'
             hint: 'viewAbout'
-            widget: string
-          - name: 'latestNews'
-            label: 'latestNews'
-            hint: 'latestNews'
             widget: string
           - name: 'viewAllNews'
             label: 'viewAllNews'
             hint: 'viewAllNews'
             widget: string
-          - name: 'contactHeading'
-            label: 'contactHeading（見出し）'
-            hint: 'contactHeading'
-            widget: string
-          - name: 'contactBody'
-            label: 'contactBody（本文）'
-            hint: 'contactBody'
-            widget: text
-          - name: 'contactCta'
-            label: 'contactCta（リンク文言）'
-            hint: 'contactCta'
-            widget: string
-          - name: 'offeringsLead'
-            label: '主要サービスの説明'
-            hint: 'offeringsLead'
-            widget: text
       - name: 'services'
         label: '事業領域・主要サービス（トップと共通）'
         file: src/i18n/source/ja/pages/services.json
@@ -1183,38 +1135,14 @@ collections:
             label: 'heroSubtitle（ヒーロー）'
             hint: 'heroSubtitle'
             widget: string
-          - name: 'heroImgAlt'
-            label: 'heroImgAlt（ヒーロー）'
-            hint: 'heroImgAlt'
-            widget: string
-          - name: 'eyebrow'
-            label: 'eyebrow'
-            hint: 'eyebrow'
-            widget: string
-          - name: 'introTitle'
-            label: 'introTitle（タイトル）'
-            hint: 'introTitle'
-            widget: string
-          - name: 'introBody'
-            label: 'introBody（本文）'
-            hint: 'introBody'
-            widget: text
           - name: 'systemsTitle'
             label: 'systemsTitle（タイトル）'
             hint: 'systemsTitle'
             widget: string
-          - name: 'systemsDescription'
-            label: 'systemsDescription（説明）'
-            hint: 'systemsDescription'
-            widget: text
           - name: 'schoolsTitle'
             label: 'schoolsTitle（タイトル）'
             hint: 'schoolsTitle'
             widget: string
-          - name: 'schoolsDescription'
-            label: 'schoolsDescription（説明）'
-            hint: 'schoolsDescription'
-            widget: text
           - name: 'aceserverTitle'
             label: 'aceserverTitle（タイトル）'
             hint: 'aceserverTitle'
@@ -1243,10 +1171,6 @@ collections:
             label: 'acestudioDescription（説明）'
             hint: 'acestudioDescription'
             widget: text
-          - name: 'contactHeading'
-            label: 'contactHeading（見出し）'
-            hint: 'contactHeading'
-            widget: string
           - name: 'contactBody'
             label: 'contactBody（本文）'
             hint: 'contactBody'
@@ -1282,30 +1206,6 @@ collections:
           - name: 'designRole'
             label: 'Design の役割'
             hint: 'designRole'
-            widget: string
-          - name: 'offeringsHeading'
-            label: '主要サービスの見出し'
-            hint: 'offeringsHeading'
-            widget: string
-          - name: 'offeringsLead'
-            label: '主要サービスの説明'
-            hint: 'offeringsLead'
-            widget: text
-          - name: 'viewRole'
-            label: '役割へのリンク文言'
-            hint: 'viewRole'
-            widget: string
-          - name: 'viewSite'
-            label: '専門サイトへのリンク文言'
-            hint: 'viewSite'
-            widget: string
-          - name: 'viewService'
-            label: 'サービス詳細へのリンク文言'
-            hint: 'viewService'
-            widget: string
-          - name: 'viewPreparation'
-            label: '準備状況へのリンク文言'
-            hint: 'viewPreparation'
             widget: string
           - name: 'developmentTitle'
             label: '受託開発 名称'
@@ -1343,6 +1243,10 @@ collections:
             label: 'ページ内ナビゲーションの読み上げ名'
             hint: 'pageNavLabel'
             widget: string
+          - name: 'communityHeading'
+            label: 'コミュニティ・プロダクトの見出し'
+            hint: 'communityHeading'
+            widget: string
       - name: 'pricing'
         label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json
@@ -1352,18 +1256,10 @@ collections:
             label: 'systemsTitle（タイトル）'
             hint: 'systemsTitle'
             widget: string
-          - name: 'systemsBody'
-            label: 'systemsBody（本文）'
-            hint: 'systemsBody'
-            widget: text
           - name: 'schoolsTitle'
             label: 'schoolsTitle（タイトル）'
             hint: 'schoolsTitle'
             widget: string
-          - name: 'schoolsBody'
-            label: 'schoolsBody（本文）'
-            hint: 'schoolsBody'
-            widget: text
       - name: 'about'
         label: '会社概要ページ'
         file: src/i18n/source/ja/pages/about.json
@@ -1385,14 +1281,6 @@ collections:
             label: 'ヒーロー・タイトル'
             hint: 'heroTitle'
             widget: string
-          - name: 'heroSubtitle'
-            label: 'ヒーロー・サブタイトル'
-            hint: 'heroSubtitle'
-            widget: string
-          - name: 'heroImgAlt'
-            label: 'ヒーロー・画像・代替テキスト'
-            hint: 'heroImgAlt'
-            widget: string
           - name: 'companyInfoHeading'
             label: '法人情報・見出し'
             hint: 'companyInfoHeading'
@@ -1405,9 +1293,11 @@ collections:
             label: '役員紹介・見出し'
             hint: 'executiveHeading'
             widget: string
-          - name: 'executiveLead'
-            label: '役員紹介・説明'
-            hint: 'executiveLead'
+          - name: 'officerAreasLabel'
+            label: '役員の担当領域ラベル'
+            widget: string
+          - name: 'officerBiographyLabel'
+            label: '役員の略歴ラベル'
             widget: string
           - name: 'officers'
             label: '役員一覧'
@@ -1438,18 +1328,6 @@ collections:
                 hint: 'officers[].bio'
                 widget: text
                 required: false
-          - name: 'missionLoopEyebrow'
-            label: 'ミッション・ループ・補助見出し'
-            hint: 'missionLoopEyebrow'
-            widget: string
-          - name: 'missionLoopTitle'
-            label: 'ミッション・ループ・タイトル'
-            hint: 'missionLoopTitle'
-            widget: string
-          - name: 'missionLoopDesc'
-            label: 'ミッション・ループ・説明'
-            hint: 'missionLoopDesc'
-            widget: string
           - name: 'valueCycle'
             label: 'ミッションループ項目'
             hint: 'valueCycle'
@@ -1464,19 +1342,6 @@ collections:
                 label: '説明'
                 hint: 'valueCycle[].description'
                 widget: string
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'valueCycle[].icon'
-                widget: string
-              - name: 'accent'
-                label: '色'
-                hint: 'valueCycle[].accent'
-                widget: select
-                options:
-                  - { label: 'ブランド', value: brand }
-                  - { label: 'アンバー', value: amber }
-                  - { label: 'エメラルド', value: emerald }
-                  - { label: 'スレート', value: slate }
           - name: 'philosophyHeading'
             label: '理念・見出し'
             hint: 'philosophyHeading'
@@ -1493,92 +1358,6 @@ collections:
             label: '理念・本文2'
             hint: 'philosophyBody2'
             widget: text
-          - name: 'collaborationImgAlt'
-            label: '連携・画像・代替テキスト'
-            hint: 'collaborationImgAlt'
-            widget: string
-          - name: 'activitiesTitle'
-            label: '活動・タイトル'
-            hint: 'activitiesTitle'
-            widget: string
-          - name: 'activities'
-            label: '活動リスト'
-            hint: 'activities'
-            widget: list
-            field:
-              name: 'activity'
-              label: '活動'
-              widget: string
-          - name: 'workshopImgAlt'
-            label: 'ワークショップ・画像・代替テキスト'
-            hint: 'workshopImgAlt'
-            widget: string
-          - name: 'initiativesHeading'
-            label: '取り組み・見出し'
-            hint: 'initiativesHeading'
-            widget: string
-          - name: 'communityTitle'
-            label: 'コミュニティ・タイトル'
-            hint: 'communityTitle'
-            widget: string
-          - name: 'communityDesc'
-            label: 'コミュニティ・説明'
-            hint: 'communityDesc'
-            widget: string
-          - name: 'ossTitle'
-            label: 'OSS・タイトル'
-            hint: 'ossTitle'
-            widget: string
-          - name: 'ossDesc'
-            label: 'OSS・説明'
-            hint: 'ossDesc'
-            widget: string
-          - name: 'regionalTitle'
-            label: '地域・タイトル'
-            hint: 'regionalTitle'
-            widget: string
-          - name: 'regionalDesc'
-            label: '地域・説明'
-            hint: 'regionalDesc'
-            widget: string
-          - name: 'partnershipTitle'
-            label: 'パートナーシップ・タイトル'
-            hint: 'partnershipTitle'
-            widget: string
-          - name: 'partnershipDesc'
-            label: 'パートナーシップ・説明'
-            hint: 'partnershipDesc'
-            widget: string
-          - name: 'relatedLinksHeading'
-            label: '関連・リンク・見出し'
-            hint: 'relatedLinksHeading'
-            widget: string
-          - name: 'relatedLinks'
-            label: '関連リンクカード'
-            hint: 'relatedLinks'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'relatedLinks[].icon'
-                widget: string
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'relatedLinks[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'relatedLinks[].description'
-                widget: string
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'relatedLinks[].href'
-                widget: string
-          - name: 'ctaHeading'
-            label: 'CTA見出し'
-            hint: 'ctaHeading'
-            widget: string
           - name: 'ctaBody'
             label: 'CTA本文'
             hint: 'ctaBody'
@@ -1586,10 +1365,6 @@ collections:
           - name: 'ctaContact'
             label: 'CTA: お問い合わせ'
             hint: 'ctaContact'
-            widget: string
-          - name: 'ctaServices'
-            label: 'CTA: サービス'
-            hint: 'ctaServices'
             widget: string
       - name: 'contact'
         label: 'お問い合わせ'
@@ -1753,18 +1528,6 @@ collections:
             label: 'ヒーロー・タイトル'
             hint: 'heroTitle'
             widget: string
-          - name: 'heroSubtitle'
-            label: 'ヒーロー・サブタイトル'
-            hint: 'heroSubtitle'
-            widget: string
-          - name: 'heroImgAlt'
-            label: 'ヒーロー・画像・代替テキスト'
-            hint: 'heroImgAlt'
-            widget: string
-          - name: 'statusEyebrow'
-            label: '状態・補助見出し'
-            hint: 'statusEyebrow'
-            widget: string
           - name: 'statusHeading'
             label: '状態・見出し'
             hint: 'statusHeading'
@@ -1777,25 +1540,9 @@ collections:
             label: '状態・注記'
             hint: 'statusNote'
             widget: string
-          - name: 'newsHeading'
-            label: 'ニュース・見出し'
-            hint: 'newsHeading'
-            widget: string
-          - name: 'newsBody'
-            label: 'ニュース・本文'
-            hint: 'newsBody'
-            widget: string
-          - name: 'followX'
-            label: 'フォロー・X'
-            hint: 'followX'
-            widget: string
           - name: 'viewNews'
             label: '企業ニュースを見る'
             hint: 'viewNews'
-            widget: string
-          - name: 'inquiryText'
-            label: '問い合わせ文'
-            hint: 'inquiryText'
             widget: string
           - name: 'inquiryButton'
             label: '問い合わせ・ボタン'

@@ -1,19 +1,7 @@
 {
   "heroTitle": "やりたいことに、力を注げる社会へ。",
-  "heroSubtitle": "Acecoreは、技術・学び・創造の支援を通じて、個人や組織の負担を減らし、挑戦を後押しします。一人ひとりが、自らの意志で可能性を広げられる環境をつくります。",
-  "heroImgTeam": "コワーキングスペースで働くチーム",
-  "heroImgMeeting": "ミーティング風景",
-  "businessesHeading": "Acecoreの事業領域",
-  "businessesLead": "技術・学び・表現。それぞれの役割から、やりたいことの実現を支えます。",
+  "heroSubtitle": "技術・学び・創造の支援を通じて、個人や組織の負担を減らし、挑戦を後押しします。",
   "viewBusinessDetails": "事業一覧を見る",
-  "aboutHeading": "Acecoreについて",
-  "aboutBody1": "本質的でない作業や、実現を妨げる仕組みを見直します。 目的に合う技術と学びで、自ら判断し行動する力を支えます。",
-  "aboutBody2": "生まれた時間や可能性を、次の一歩と創造へつなげます。",
   "viewAbout": "会社概要を見る",
-  "latestNews": "企業ニュース",
-  "viewAllNews": "ニュース・記事一覧を見る",
-  "contactHeading": "Acecoreへのお問い合わせ",
-  "contactBody": "事業に関するご相談、連携のご提案、その他のお問い合わせを共通窓口で受け付けています。",
-  "contactCta": "お問い合わせ",
-  "offeringsLead": "開発を任せたい、技術判断を相談したい、自分で学びたい。目的に合うサービスから、内容や利用条件をご確認ください。"
+  "viewAllNews": "ニュース・記事一覧を見る"
 }
