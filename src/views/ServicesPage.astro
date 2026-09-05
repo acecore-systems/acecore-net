@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import BusinessDepartments from '../components/BusinessDepartments.astro'
+import ServiceOfferings from '../components/ServiceOfferings.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
@@ -16,36 +18,6 @@ interface Props {
 
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
-const businesses = [
-  {
-    title: t(locale, 'pages.services.systemsTitle'),
-    description: t(locale, 'pages.services.systemsDescription'),
-    href: getSpecialistUrl(SITE.social.systems, locale, '/services/'),
-    icon: 'code-xml',
-    tone: 'brand' as const,
-  },
-  {
-    title: t(locale, 'pages.services.schoolsTitle'),
-    description: t(locale, 'pages.services.schoolsDescription'),
-    href: getSchoolsUrl(),
-    icon: 'graduation-cap',
-    tone: 'amber' as const,
-  },
-  {
-    title: t(locale, 'pages.services.aceserverTitle'),
-    description: t(locale, 'pages.services.aceserverDescription'),
-    href: getSpecialistUrl(SITE.social.aceserver, locale),
-    icon: 'gamepad-2',
-    tone: 'emerald' as const,
-  },
-  {
-    title: t(locale, 'pages.services.storeTitle'),
-    description: t(locale, 'pages.services.storeDescription'),
-    href: SITE.social.store,
-    icon: 'shopping-bag',
-    tone: 'slate' as const,
-  },
-]
 ---
 
 <BaseLayout
@@ -79,50 +51,80 @@ const businesses = [
       <div class="ac-section-intro">
         <p class="ac-eyebrow">{t(locale, 'pages.services.eyebrow')}</p>
         <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
-          {t(locale, 'pages.services.introTitle')}
+          {t(locale, 'pages.services.departmentsHeading')}
         </h2>
         <p class="max-w-3xl ac-muted">
           {t(locale, 'pages.services.introBody')}
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {
-          businesses.map((business) => (
-            <ServiceCard
-              icon={business.icon}
-              title={business.title}
-              description={business.description}
-              href={business.href}
-              locale={locale}
-              tone={business.tone}
-            />
-          ))
-        }
-      </div>
-
+      <BusinessDepartments locale={locale} overview />
       <div
-        class="mt-8 rounded-lg border border-slate-200 bg-white p-6 sm:flex sm:items-center sm:justify-between sm:gap-6"
+        id="design-details"
+        class="mt-8 rounded-lg border border-slate-200 bg-white p-6"
       >
-        <div>
-          <div class="flex flex-wrap items-center gap-3">
-            <h2 class="text-lg ac-heading">
-              {t(locale, 'pages.services.acestudioTitle')}
-            </h2>
-            <span class="ac-chip text-xs">
-              {t(locale, 'pages.services.acestudioStatus')}
-            </span>
-          </div>
-          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-            {t(locale, 'pages.services.acestudioDescription')}
-          </p>
-        </div>
-        <a
-          href={u('/acestudio/')}
-          class="ac-link mt-4 inline-flex shrink-0 sm:mt-0"
+        <h3 class="text-lg ac-heading">
+          {t(locale, 'pages.services.designTitle')}
+        </h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.designDescription')}
+        </p>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          {t(locale, 'pages.services.designNote')}
+        </p>
+        <a href={u('/contact/')} class="ac-link mt-4 inline-flex"
+          >{t(locale, 'pages.services.contactCta')}</a
         >
-          {t(locale, 'pages.services.acestudioTitle')}
-        </a>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="offerings"
+    class="ac-section bg-white"
+    aria-labelledby="offerings-heading"
+  >
+    <div class="ac-container">
+      <div class="ac-section-intro">
+        <h2 id="offerings-heading" class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.services.offeringsHeading')}
+        </h2>
+      </div>
+      <ServiceOfferings locale={locale} />
+    </div>
+  </section>
+  <section
+    id="pricing"
+    class="ac-section bg-slate-50"
+    aria-labelledby="pricing-heading"
+  >
+    <div class="ac-container">
+      <div class="ac-section-intro">
+        <h2 id="pricing-heading" class="mb-4 text-2xl ac-heading sm:text-3xl">
+          {t(locale, 'pages.services.pricingHeading')}
+        </h2>
+        <p class="max-w-3xl ac-muted">
+          {t(locale, 'pages.services.pricingLead')}
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ServiceCard
+          title={t(locale, 'pages.pricing.systemsTitle')}
+          description={t(locale, 'pages.services.developmentTitle') +
+            ' / ' +
+            t(locale, 'pages.services.advisorTitle')}
+          icon="code-xml"
+          href={getSpecialistUrl(SITE.social.systems, locale, '/pricing/')}
+          locale={locale}
+        />
+        <ServiceCard
+          title={t(locale, 'pages.pricing.schoolsTitle')}
+          description={t(locale, 'pages.services.learningTitle')}
+          icon="graduation-cap"
+          tone="amber"
+          href={getSchoolsUrl('/pricing/')}
+          locale={locale}
+        />
       </div>
     </div>
   </section>

@@ -1,0 +1,102 @@
+---
+import ServiceCard from './ServiceCard.astro'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { SITE } from '../data/site'
+import { getSchoolsUrl } from '../utils/schools-url'
+import { getSpecialistUrl } from '../utils/specialist-url'
+interface Props {
+  locale: Locale
+  group?: 'systems' | 'schools' | 'community'
+  anchors?: boolean
+}
+const { locale, group, anchors = true } = Astro.props
+const offerings = [
+  {
+    key: 'development',
+    icon: 'code-xml',
+    group: 'systems',
+    href: getSpecialistUrl(
+      SITE.social.systems,
+      locale,
+      '/services/development/',
+    ),
+  },
+  {
+    key: 'advisor',
+    icon: 'messages-square',
+    group: 'systems',
+    href: getSpecialistUrl(
+      SITE.social.systems,
+      locale,
+      '/services/it-advisor/',
+    ),
+  },
+  {
+    key: 'learning',
+    icon: 'graduation-cap',
+    group: 'schools',
+    href: getSchoolsUrl('/learning/'),
+  },
+  {
+    key: 'acestudio',
+    icon: 'palette',
+    group: 'community',
+    href: getLocalizedUrl('/acestudio/', locale),
+    internal: true,
+  },
+  {
+    key: 'aceserver',
+    icon: 'gamepad-2',
+    group: 'community',
+    href: getSpecialistUrl(SITE.social.aceserver, locale),
+  },
+  {
+    key: 'store',
+    icon: 'shopping-bag',
+    group: 'community',
+    href: SITE.social.store,
+  },
+].filter((item) => !group || item.group === group)
+---
+
+<div
+  class="service-offerings grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+>
+  {
+    offerings.map((item) => (
+      <article
+        id={
+          !anchors
+            ? undefined
+            : ['aceserver', 'store'].includes(item.key)
+              ? item.key + '-service'
+              : item.key
+        }
+      >
+        {anchors && item.key === 'aceserver' && <span id="community" />}
+        <ServiceCard
+          title={t(locale, 'pages.services.' + item.key + 'Title')}
+          description={t(locale, 'pages.services.' + item.key + 'Description')}
+          icon={item.icon}
+          tone={
+            item.group === 'systems'
+              ? 'brand'
+              : item.group === 'schools'
+                ? 'amber'
+                : item.key === 'aceserver'
+                  ? 'emerald'
+                  : 'slate'
+          }
+          href={item.href}
+          locale={locale}
+        >
+          {item.key === 'acestudio' && (
+            <span class="ac-chip mb-3 text-xs">
+              {t(locale, 'pages.services.acestudioStatus')}
+            </span>
+          )}
+        </ServiceCard>
+      </article>
+    ))
+  }
+</div>
