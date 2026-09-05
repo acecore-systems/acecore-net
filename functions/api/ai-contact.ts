@@ -20,9 +20,9 @@ import {
   type WorkersAiEnv,
   type WorkersAiResponseResult,
 } from '../lib/workers-ai.ts'
-import corporateCopy from '../../src/i18n/source/ja/common.json' with { type: 'json' }
-import aboutCopy from '../../src/i18n/source/ja/pages/about.json' with { type: 'json' }
-import servicesCopy from '../../src/i18n/source/ja/pages/services.json' with { type: 'json' }
+import corporateCopy from '../../src/i18n/source/ja/common.json'
+import aboutCopy from '../../src/i18n/source/ja/pages/about.json'
+import servicesCopy from '../../src/i18n/source/ja/pages/services.json'
 
 type Env = FederatedSearchEnv &
   SearchEmbeddingEnv & {

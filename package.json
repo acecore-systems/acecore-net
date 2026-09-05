@@ -16,7 +16,7 @@
     "test:translation-merge": "node --experimental-strip-types --test tests/translation-merge.test.ts",
     "test:openai-translation": "node --experimental-strip-types --test tests/openai-translation-batch.test.ts",
     "test:cms-auth": "node --experimental-strip-types --test tests/sveltia-cms-auth.test.ts",
-    "test:ai-chat": "node --experimental-strip-types --test tests/ai-contact.test.mjs",
+    "test:ai-chat": "node --import ./tests/register-json-module-hooks.mjs --experimental-strip-types --test tests/ai-contact.test.mjs",
     "test:contact": "node --experimental-strip-types --test tests/contact-api.test.mjs tests/contact-page-turnstile.test.mjs tests/specialist-url.test.mjs",
     "test:site-config": "node --experimental-strip-types --test --test-isolation=none tests/monetized-blog-path.test.mjs && node --experimental-strip-types --test --test-isolation=none tests/search-modal-spa-style.test.mjs && node --test --test-isolation=none tests/pagefind-headers.test.mjs tests/robots-crawl-boundaries.test.mjs",
     "test:deployment-marker": "node --experimental-strip-types --test tests/deployment-marker.test.ts",
