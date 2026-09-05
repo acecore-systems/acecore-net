@@ -14,32 +14,49 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 ---
 
 <section class:list={['page-heading', { 'page-heading-home': showCTA }]}>
-  <div class="ac-container">
-    <h1>
+  <div class:list={['ac-container', { 'home-hero-layout': showCTA }]}>
+    <div class="page-heading-copy">
+      <h1>
+        {
+          titleLines?.length
+            ? titleLines.map((line) => <span class="block">{line}</span>)
+            : title
+        }
+      </h1>
+      {subtitle && <p class="page-heading-description">{subtitle}</p>}
       {
-        titleLines?.length
-          ? titleLines.map((line) => <span class="block">{line}</span>)
-          : title
+        showCTA && (
+          <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a
+              href={u('/services/')}
+              class="ac-btn-primary"
+              data-ga-event="cta_click"
+              data-ga-label="hero_services"
+              data-ga-location="hero"
+              data-ga-destination={u('/services/')}
+            >
+              {t(locale, 'hero.ctaServices')}
+              <Icon name="arrow-right" class="ml-3" />
+            </a>
+            <a href={u('/about/')} class="ac-text-link">
+              {t(locale, 'pages.home.viewAbout')}
+            </a>
+          </div>
+        )
       }
-    </h1>
-    {subtitle && <p class="page-heading-description">{subtitle}</p>}
+    </div>
     {
       showCTA && (
-        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a
-            href={u('/services/')}
-            class="ac-btn-primary"
-            data-ga-event="cta_click"
-            data-ga-label="hero_services"
-            data-ga-location="hero"
-            data-ga-destination={u('/services/')}
-          >
-            {t(locale, 'hero.ctaServices')}
-            <Icon name="arrow-right" class="ml-3" />
-          </a>
-          <a href={u('/about/')} class="ac-text-link">
-            {t(locale, 'pages.home.viewAbout')}
-          </a>
+        <div class="home-hero-visual">
+          <img
+            src="/uploads/acecore-generated/home-making-together-1280.webp"
+            srcset="/uploads/acecore-generated/home-making-together-640.webp 640w, /uploads/acecore-generated/home-making-together-1280.webp 1280w"
+            sizes="(min-width: 1024px) 48vw, (min-width: 768px) 46vw, 100vw"
+            width="1280"
+            height="960"
+            alt={t(locale, 'pages.home.heroImageAlt')}
+            fetchpriority="high"
+          />
         </div>
       )
     }

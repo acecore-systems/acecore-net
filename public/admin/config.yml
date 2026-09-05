@@ -1090,6 +1090,18 @@ collections:
         file: src/i18n/source/ja/pages/home.json
         format: json
         fields:
+          - name: 'heroImageAlt'
+            label: 'メインビジュアルの代替テキスト'
+            widget: string
+          - name: 'systemsImageAlt'
+            label: 'Systems 画像の代替テキスト'
+            widget: string
+          - name: 'schoolsImageAlt'
+            label: 'Schools 画像の代替テキスト'
+            widget: string
+          - name: 'designImageAlt'
+            label: 'Design 画像の代替テキスト'
+            widget: string
           - name: 'heroTitle'
             label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'

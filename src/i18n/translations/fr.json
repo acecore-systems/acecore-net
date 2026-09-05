@@ -197,7 +197,11 @@
       "heroSubtitle": "Grâce à la technologie, à l’apprentissage et au soutien créatif, nous allégeons les contraintes des personnes et des organisations et les aidons à avancer.",
       "viewBusinessDetails": "Voir la liste des activités",
       "viewAbout": "Voir la présentation de l’entreprise",
-      "viewAllNews": "Voir toutes les actualités et les articles"
+      "viewAllNews": "Voir toutes les actualités et les articles",
+      "heroImageAlt": "Illustration de la collaboration par la création et l’apprentissage",
+      "systemsImageAlt": "Illustration d’un espace de développement de systèmes",
+      "schoolsImageAlt": "Illustration de supports pour apprendre la programmation et la fabrication",
+      "designImageAlt": "Illustration d’un espace de travail sur les couleurs et les interfaces"
     },
     "notFound": {
       "title": "Page non trouvée",

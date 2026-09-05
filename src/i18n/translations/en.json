@@ -197,7 +197,11 @@
       "heroSubtitle": "Through technology, learning and creative support, we reduce burdens on people and organizations and help them take their next step.",
       "viewBusinessDetails": "View business directory",
       "viewAbout": "View company overview",
-      "viewAllNews": "View all news and articles"
+      "viewAllNews": "View all news and articles",
+      "heroImageAlt": "Illustrative scene of collaborating through making and learning",
+      "systemsImageAlt": "Illustrative workspace for system development",
+      "schoolsImageAlt": "Illustrative materials for learning programming and making",
+      "designImageAlt": "Illustrative workbench for exploring colors and interface design"
     },
     "notFound": {
       "title": "Page Not Found",

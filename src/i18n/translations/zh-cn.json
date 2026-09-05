@@ -197,7 +197,11 @@
       "heroSubtitle": "通过技术、学习与创作支持，减轻个人与组织的负担，助力迈出下一步。",
       "viewBusinessDetails": "查看业务列表",
       "viewAbout": "查看公司概要",
-      "viewAllNews": "查看新闻与文章列表"
+      "viewAllNews": "查看新闻与文章列表",
+      "heroImageAlt": "通过制作与学习开展协作的示意画面",
+      "systemsImageAlt": "表现系统开发工作环境的示意图",
+      "schoolsImageAlt": "表现编程与创作学习材料的示意图",
+      "designImageAlt": "表现配色与界面设计工作台的示意图"
     },
     "notFound": {
       "title": "页面未找到",

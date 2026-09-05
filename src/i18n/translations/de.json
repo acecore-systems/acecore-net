@@ -197,7 +197,11 @@
       "heroSubtitle": "Mit Technologie, Lernen und kreativer Unterstützung entlasten wir Menschen und Organisationen und begleiten ihren nächsten Schritt.",
       "viewBusinessDetails": "Geschäftsbereiche ansehen",
       "viewAbout": "Über uns",
-      "viewAllNews": "Alle Nachrichten und Artikel ansehen"
+      "viewAllNews": "Alle Nachrichten und Artikel ansehen",
+      "heroImageAlt": "Symbolbild für Zusammenarbeit durch Gestalten und Lernen",
+      "systemsImageAlt": "Symbolbild eines Arbeitsplatzes für Systementwicklung",
+      "schoolsImageAlt": "Symbolbild von Materialien zum Programmieren und Gestalten",
+      "designImageAlt": "Symbolbild eines Arbeitstisches für Farben und Oberflächengestaltung"
     },
     "notFound": {
       "title": "Seite nicht gefunden",

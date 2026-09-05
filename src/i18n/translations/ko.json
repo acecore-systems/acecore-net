@@ -197,7 +197,11 @@
       "heroSubtitle": "기술·학습·창작 지원을 통해 개인과 조직의 부담을 줄이고 도전을 뒷받침합니다.",
       "viewBusinessDetails": "사업 목록 보기",
       "viewAbout": "회사 소개 보기",
-      "viewAllNews": "뉴스·기사 목록 보기"
+      "viewAllNews": "뉴스·기사 목록 보기",
+      "heroImageAlt": "만들기와 배움을 통한 협업을 표현한 이미지",
+      "systemsImageAlt": "시스템 개발 작업 환경을 표현한 이미지",
+      "schoolsImageAlt": "프로그래밍과 만들기 학습 교재를 표현한 이미지",
+      "designImageAlt": "색상과 화면 설계를 검토하는 작업대를 표현한 이미지"
     },
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",

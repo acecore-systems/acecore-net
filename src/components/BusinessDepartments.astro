@@ -5,26 +5,46 @@ interface Props {
   locale: Locale
 }
 const { locale } = Astro.props
+const departments = [
+  { key: 'systems', icon: 'code-2', image: 'home-hero-build-workshop.webp' },
+  {
+    key: 'schools',
+    icon: 'book-open',
+    image: 'education-programming-class.webp',
+  },
+  { key: 'design', icon: 'pen-tool', image: 'design-system-workbench.webp' },
+]
 ---
 
-<ul class="department-list divide-y divide-slate-200">
+<ul class="department-list">
   {
-    ['systems', 'schools', 'design'].map((key) => (
-      <li>
+    departments.map(({ key, icon, image }) => (
+      <li class={`department department-${key}`}>
         <a
           href={getLocalizedUrl(`/services/#${key}`, locale)}
           class="department-link"
         >
-          <div>
+          <div class="department-image">
+            <img
+              src={`/uploads/acecore-generated/${image}`}
+              alt={t(locale, `pages.home.${key}ImageAlt`)}
+              width="1600"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="department-copy">
+            <Icon name={icon} class="department-icon" />
             <h3>{t(locale, `pages.services.${key}Title`)}</h3>
             <p>{t(locale, `pages.services.${key}Role`)}</p>
             {key === 'design' && (
-              <span class="mt-2 block text-xs text-slate-500">
+              <span class="department-status">
                 {t(locale, 'pages.services.designStatus')}
               </span>
             )}
+            <Icon name="arrow-right" class="department-arrow" />
           </div>
-          <Icon name="arrow-right" class="shrink-0 text-xl text-brand-600" />
         </a>
       </li>
     ))

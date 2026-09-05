@@ -197,7 +197,11 @@
       "heroSubtitle": "Com tecnologia, aprendizagem e apoio criativo, reduzimos a carga de pessoas e organizações e ajudamos a dar o próximo passo.",
       "viewBusinessDetails": "Ver lista de negócios",
       "viewAbout": "Sobre nós",
-      "viewAllNews": "Ver notícias e artigos"
+      "viewAllNews": "Ver notícias e artigos",
+      "heroImageAlt": "Imagem ilustrativa de colaboração por meio da criação e da aprendizagem",
+      "systemsImageAlt": "Imagem ilustrativa de um espaço de desenvolvimento de sistemas",
+      "schoolsImageAlt": "Imagem ilustrativa de materiais para aprender programação e criação",
+      "designImageAlt": "Imagem ilustrativa de uma bancada para explorar cores e design de interfaces"
     },
     "notFound": {
       "title": "Página não encontrada",

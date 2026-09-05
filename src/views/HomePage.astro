@@ -61,27 +61,30 @@ const webPageLd = {
     locale={locale}
   />
   <CampaignNotice locale={locale} page="home" />
-  <section class="ac-section pt-0" aria-labelledby="home-business-heading">
-    <div class="ac-container ac-editorial">
-      <h2 id="home-business-heading" class="ac-section-title">
-        {t(locale, 'nav.services')}
-      </h2>
-      <div>
-        <BusinessDepartments locale={locale} />
+  <section
+    class="ac-section home-business"
+    aria-labelledby="home-business-heading"
+  >
+    <div class="ac-container">
+      <div class="home-section-heading">
+        <h2 id="home-business-heading" class="ac-section-title">
+          {t(locale, 'nav.services')}
+        </h2>
         <a
           href={u('/services/')}
-          class="ac-text-link mt-6 inline-flex items-center gap-3"
+          class="ac-text-link inline-flex items-center gap-3"
         >
           {t(locale, 'pages.home.viewBusinessDetails')}<Icon
             name="arrow-right"
           />
         </a>
       </div>
+      <BusinessDepartments locale={locale} />
     </div>
   </section>
   {
     posts.length > 0 && (
-      <section class="ac-section pt-0" aria-labelledby="home-news-heading">
+      <section class="ac-section home-news" aria-labelledby="home-news-heading">
         <div class="ac-container ac-editorial">
           <h2 id="home-news-heading" class="ac-section-title">
             {t(locale, 'nav.blog')}
