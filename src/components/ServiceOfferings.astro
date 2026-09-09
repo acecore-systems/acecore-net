@@ -1,13 +1,14 @@
 ---
-import Icon from './Icon.astro'
+import ServiceCard from './ServiceCard.astro'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { SITE } from '../data/site'
 import { getSpecialistUrl } from '../utils/specialist-url'
 interface Props {
   locale: Locale
+  group?: 'systems' | 'schools' | 'community'
   anchors?: boolean
 }
-const { locale, anchors = true } = Astro.props
+const { locale, group, anchors = true } = Astro.props
 const offerings = [
   {
     key: 'development',
@@ -48,11 +49,11 @@ const offerings = [
     group: 'community',
     href: SITE.social.store,
   },
-]
+].filter((item) => !group || item.group === group)
 ---
 
 <div
-  class="service-offerings divide-y divide-slate-200 border-y border-slate-200"
+  class="service-offerings grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
 >
   {
     offerings.map((item) => (
@@ -66,37 +67,29 @@ const offerings = [
         }
       >
         {anchors && item.key === 'aceserver' && <span id="community" />}
-        <a
+        <ServiceCard
+          title={t(locale, 'pages.services.' + item.key + 'Title')}
+          description={t(locale, 'pages.services.' + item.key + 'Description')}
+          icon={item.icon}
+          tone={
+            item.group === 'systems'
+              ? 'brand'
+              : item.group === 'schools'
+                ? 'amber'
+                : item.key === 'aceserver'
+                  ? 'emerald'
+                  : 'slate'
+          }
           href={item.href}
-          target={item.internal ? undefined : '_blank'}
-          rel={item.internal ? undefined : 'noopener noreferrer'}
-          class="group grid gap-2 py-5 no-underline transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-500 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_auto] md:items-center md:gap-6"
-          data-ga-event="cta_click"
-          data-ga-label={t(locale, 'pages.services.' + item.key + 'Title')}
-          data-ga-location="service_list"
-          data-ga-destination={item.href}
+          locale={locale}
+          linkLabel={t(locale, 'pages.services.detailsCta')}
         >
-          <div>
-            <h3 class="text-base font-700 text-slate-900 group-hover:text-brand-600">
-              {t(locale, 'pages.services.' + item.key + 'Title')}
-            </h3>
-            {item.key === 'acestudio' && (
-              <span class="mt-1 block text-xs text-slate-500">
-                {t(locale, 'pages.services.acestudioStatus')}
-              </span>
-            )}
-          </div>
-          <p class="text-sm leading-relaxed text-slate-600">
-            {t(locale, 'pages.services.' + item.key + 'Description')}
-          </p>
-          <span class="inline-flex items-center gap-2 text-sm font-600 text-brand-600">
-            {t(locale, 'pages.services.detailsCta')}
-            <Icon name="arrow-right" class="text-sm" />
-            {!item.internal && (
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-            )}
-          </span>
-        </a>
+          {item.key === 'acestudio' && (
+            <span class="ac-chip mb-3 text-xs">
+              {t(locale, 'pages.services.acestudioStatus')}
+            </span>
+          )}
+        </ServiceCard>
       </article>
     ))
   }
