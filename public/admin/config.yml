@@ -1090,22 +1090,6 @@ collections:
         file: src/i18n/source/ja/pages/home.json
         format: json
         fields:
-          - name: 'businessesLead'
-            label: '事業ページへの紹介文'
-            hint: 'businessesLead'
-            widget: text
-          - name: 'systemsSummary'
-            label: 'Systems部門の短い紹介'
-            hint: 'systemsSummary'
-            widget: text
-          - name: 'schoolsSummary'
-            label: 'Schools部門の短い紹介'
-            hint: 'schoolsSummary'
-            widget: text
-          - name: 'designSummary'
-            label: 'Design部門の短い紹介'
-            hint: 'designSummary'
-            widget: text
           - name: 'aboutIntro'
             label: '会社概要ページへの紹介文'
             hint: 'aboutIntro'
@@ -1130,22 +1114,6 @@ collections:
             label: 'viewBusinessDetails'
             hint: 'viewBusinessDetails'
             widget: string
-          - name: 'aboutHeading'
-            label: 'aboutHeading（見出し）'
-            hint: 'aboutHeading'
-            widget: string
-          - name: 'aboutBody1'
-            label: 'aboutBody1（本文）'
-            hint: 'aboutBody1'
-            widget: text
-          - name: 'aboutBody2'
-            label: 'aboutBody2（本文）'
-            hint: 'aboutBody2'
-            widget: text
-          - name: 'aboutEducationLink'
-            label: 'aboutEducationLink'
-            hint: 'aboutEducationLink'
-            widget: string
           - name: 'viewAbout'
             label: 'viewAbout'
             hint: 'viewAbout'
@@ -1158,20 +1126,24 @@ collections:
             label: 'viewAllNews'
             hint: 'viewAllNews'
             widget: string
-          - name: 'contactHeading'
-            label: 'contactHeading（見出し）'
-            hint: 'contactHeading'
-            widget: string
-          - name: 'contactBody'
-            label: 'contactBody（本文）'
-            hint: 'contactBody'
-            widget: text
           - name: 'contactCta'
             label: 'contactCta（リンク文言）'
             hint: 'contactCta'
             widget: string
+          - name: 'directoryHeading'
+            label: 'ページ案内・見出し'
+            widget: text
+          - name: 'directoryLead'
+            label: 'ページ案内・説明'
+            widget: text
+          - name: 'servicesIntro'
+            label: '事業ページへの案内'
+            widget: text
+          - name: 'contactIntro'
+            label: '問い合わせページへの案内'
+            widget: text
       - name: 'services'
-        label: '事業・主要サービス（トップ・会社概要と共通）'
+        label: '事業ページ・部門と主要サービス'
         file: src/i18n/source/ja/pages/services.json
         format: json
         fields:
@@ -1337,10 +1309,6 @@ collections:
         file: src/i18n/source/ja/pages/about.json
         format: json
         fields:
-          - name: 'businessesIntro'
-            label: '事業ページへの案内'
-            hint: 'businessesIntro'
-            widget: text
           - name: 'title'
             label: 'タイトル'
             hint: 'title'
@@ -1418,18 +1386,6 @@ collections:
                 hint: 'officers[].bio'
                 widget: text
                 required: false
-          - name: 'missionLoopEyebrow'
-            label: 'ミッション・ループ・補助見出し'
-            hint: 'missionLoopEyebrow'
-            widget: string
-          - name: 'missionLoopTitle'
-            label: 'ミッション・ループ・タイトル'
-            hint: 'missionLoopTitle'
-            widget: string
-          - name: 'missionLoopDesc'
-            label: 'ミッション・ループ・説明'
-            hint: 'missionLoopDesc'
-            widget: string
           - name: 'philosophyHeading'
             label: '理念・見出し'
             hint: 'philosophyHeading'
@@ -1438,107 +1394,14 @@ collections:
             label: '理念・モットー'
             hint: 'philosophyMotto'
             widget: string
-          - name: 'philosophyBody1'
-            label: '理念・本文1'
-            hint: 'philosophyBody1'
-            widget: text
-          - name: 'philosophyBody2'
-            label: '理念・本文2'
-            hint: 'philosophyBody2'
-            widget: text
           - name: 'collaborationImgAlt'
             label: '連携・画像・代替テキスト'
             hint: 'collaborationImgAlt'
-            widget: string
-          - name: 'activitiesTitle'
-            label: '活動・タイトル'
-            hint: 'activitiesTitle'
             widget: string
           - name: 'workshopImgAlt'
             label: 'ワークショップ・画像・代替テキスト'
             hint: 'workshopImgAlt'
             widget: string
-          - name: 'initiativesHeading'
-            label: '取り組み・見出し'
-            hint: 'initiativesHeading'
-            widget: string
-          - name: 'relatedLinksHeading'
-            label: '関連・リンク・見出し'
-            hint: 'relatedLinksHeading'
-            widget: string
-          - name: 'ctaHeading'
-            label: 'CTA見出し'
-            hint: 'ctaHeading'
-            widget: string
-          - name: 'ctaBody'
-            label: 'CTA本文'
-            hint: 'ctaBody'
-            widget: string
-          - name: 'ctaContact'
-            label: 'CTA: お問い合わせ'
-            hint: 'ctaContact'
-            widget: string
-          - name: 'ctaServices'
-            label: 'CTA: サービス'
-            hint: 'ctaServices'
-            widget: string
-          - name: 'valueCycle'
-            label: 'ミッションループ項目'
-            hint: 'valueCycle'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'valueCycle[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'valueCycle[].description'
-                widget: string
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'valueCycle[].icon'
-                widget: string
-              - name: 'accent'
-                label: '色'
-                hint: 'valueCycle[].accent'
-                widget: select
-                options:
-                  - { label: 'ブランド', value: brand }
-                  - { label: 'アンバー', value: amber }
-                  - { label: 'エメラルド', value: emerald }
-                  - { label: 'スレート', value: slate }
-          - name: 'activities'
-            label: '活動リスト'
-            hint: 'activities'
-            widget: list
-            field:
-              name: 'activity'
-              label: '活動'
-              widget: string
-          - name: 'relatedLinks'
-            label: '関連リンクカード'
-            hint: 'relatedLinks'
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - name: 'icon'
-                label: 'アイコン'
-                hint: 'relatedLinks[].icon'
-                widget: string
-              - name: 'title'
-                label: 'タイトル'
-                hint: 'relatedLinks[].title'
-                widget: string
-              - name: 'description'
-                label: '説明'
-                hint: 'relatedLinks[].description'
-                widget: string
-              - name: 'href'
-                label: 'リンク先'
-                hint: 'relatedLinks[].href'
-                widget: string
           - name: 'establishedLabel'
             label: '設立・ラベル'
             hint: 'establishedLabel'
@@ -1555,6 +1418,9 @@ collections:
             label: '事業内容（登記上の目的）'
             hint: 'businessPurposes'
             widget: list
+          - name: 'corporateContactCta'
+            label: '会社・協業の問い合わせリンク'
+            widget: text
       - name: 'contact'
         label: 'お問い合わせ'
         file: src/i18n/source/ja/pages/contact.json

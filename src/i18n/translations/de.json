@@ -198,21 +198,15 @@
       "heroImgTeam": "Team bei der Arbeit in einem Co-Working-Space",
       "heroImgMeeting": "Besprechungsszene",
       "viewBusinessDetails": "Geschäftsbereiche ansehen",
-      "aboutHeading": "Über Acecore",
-      "aboutBody1": "Die aus dem Community-Management und den bisher durchgeführten Workshops gewonnenen Erkenntnisse fließen in unsere Lernbegleitung und Informationsangebote ein.",
-      "aboutBody2": "Durch die Nutzung von Open Source, regionale Zusammenarbeit und unseren Beitrag zu {link} bauen wir Partnerschaften auf, die Technologie und Menschen miteinander verbinden.",
-      "aboutEducationLink": "Bildungsbereich",
       "viewAbout": "Über uns",
       "latestNews": "Unternehmensnachrichten",
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
-      "contactHeading": "Acecore kontaktieren",
-      "contactBody": "Über unsere zentrale Anlaufstelle nehmen wir Beratungsanfragen zu unseren Geschäftsbereichen, Vorschläge für Kooperationen und sonstige Anfragen entgegen.",
       "contactCta": "Kontakt",
-      "businessesLead": "Lernen Sie unsere drei Abteilungen für Technologie, Lernen und Kreativität kennen. Aufgaben und Angebote finden Sie auf der Seite der Geschäftsbereiche.",
-      "systemsSummary": "Web- und Systementwicklung sowie technische Unterstützung",
-      "schoolsSummary": "Bildung und Lernunterstützung",
-      "designSummary": "Design und kreative Arbeit",
-      "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, seine Führung und seine Philosophie."
+      "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, seine Führung und seine Philosophie.",
+      "directoryHeading": "Finden Sie die passende Information",
+      "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
+      "servicesIntro": "Informieren Sie sich über unsere Abteilungen, Leistungen und Preisübersichten.",
+      "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular."
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -273,81 +267,10 @@
           "bio": "Er erstellt Illustrationen und Romane und veröffentlicht originale 3D-Avatare, Gimmicks und Accessoires für VRChat."
         }
       ],
-      "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Die Geschäftsbereiche von Acecore",
-      "missionLoopDesc": "Hier finden Sie die Abteilungen von Acecore und ihre wichtigsten Dienstleistungen.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "„Technologie und Lernen als Kraft für die Gesellschaft.“",
-      "philosophyBody1": "Acecore ist ein Unternehmen, das über Acecore Systems, Acecore Schools, Aceserver und Acecore Store Geschäftsaktivitäten, Lernen, Communities und Produkte unterstützt.",
-      "philosophyBody2": "Auf acecore.net finden Sie Unternehmensinformationen und einen Überblick über alle Geschäftsbereiche; Fachinformationen wie Leistungen, Preise, Referenzen und Aktivitätsberichte sind auf den offiziellen Websites der jeweiligen Geschäftsbereiche gebündelt.",
       "collaborationImgAlt": "Kollaborative Teamarbeit",
-      "activitiesTitle": "Geschäftsbereiche und Unternehmensaktivitäten von Acecore",
       "workshopImgAlt": "Eindrücke von einer Lernveranstaltung und einem Workshop",
-      "initiativesHeading": "Aktivitäten und Initiativen",
-      "relatedLinksHeading": "Verwandte Links",
-      "ctaHeading": "Machen Sie den nächsten Schritt mit Acecore",
-      "ctaBody": "Wir nehmen bereichsübergreifende Anfragen, Vorschläge zur Zusammenarbeit sowie Anfragen entgegen, bei denen die richtige Anlaufstelle unklar ist.",
-      "ctaContact": "Kontaktieren Sie uns",
-      "ctaServices": "Geschäftsbereiche anzeigen",
-      "valueCycle": [
-        {
-          "title": "Acecore Systems",
-          "description": "Umsetzung und Betrieb durch Technologie unterstützen.",
-          "icon": "cpu",
-          "accent": "brand"
-        },
-        {
-          "title": "Acecore Schools",
-          "description": "Durch Lernen selbstbestimmte Entscheidungen ermöglichen.",
-          "icon": "graduation-cap",
-          "accent": "amber"
-        },
-        {
-          "title": "Acecore Design",
-          "description": "Wir bereiten einen Bereich für visuelle Markenidentität, Informationsvermittlung und nutzerfreundliche Gestaltung vor.",
-          "icon": "palette",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Technische Unterstützung durch Acecore Systems",
-        "Lernunterstützung durch Acecore Schools",
-        "Betrieb der Aceserver-Community",
-        "Betrieb des offiziellen Onlineshops durch Acecore Store",
-        "Bereichsübergreifende Zusammenarbeit und Veröffentlichung von Unternehmensinformationen"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "Der offizielle Onlineshop von Acecore.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver-Portal",
-          "description": "Die offizielle Website des kostenlosen öffentlichen Minecraft-Servers.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (ehemals Twitter)",
-          "description": "Hier finden Sie die neuesten Informationen von Acecore.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Wir veröffentlichen Open-Source-Projekte.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "Der Discord-Server, auf dem die Aceserver-Community aktiv ist.",
-          "href": "discord"
-        }
-      ],
       "establishedLabel": "Gründung",
       "establishedDate": "13. Juli 2026",
       "businessPurposesLabel": "Geschäftstätigkeiten",
@@ -361,22 +284,22 @@
         "Betrieb von Computerkursen",
         "Alle mit den vorgenannten Tätigkeiten verbundenen oder ergänzenden Geschäfte"
       ],
-      "businessesIntro": "Auf der Seite der Geschäftsbereiche finden Sie die Aufgaben jeder Abteilung, ihre Angebote und Links zu Preisen und Bedingungen."
+      "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen"
     },
     "services": {
       "title": "Geschäftsbereiche",
       "seoTitleContext": "Verzeichnis der Geschäftsbereiche",
       "description": "Hier finden Sie die Abteilungen von Acecore und ihre wichtigsten Dienstleistungen.",
       "heroTitle": "Geschäftsbereiche",
-      "heroSubtitle": "Hier finden Sie die offiziellen Anlaufstellen für die jeweiligen Fachbereiche.",
+      "heroSubtitle": "Entdecken Sie unsere Unterstützung und Leistungen sowie die zugehörigen Preisinformationen.",
       "heroImgAlt": "Technologiebüro",
       "eyebrow": "Business Directory",
-      "introTitle": "Die Geschäftsbereiche von Acecore",
+      "introTitle": "Geschäftsbereiche",
       "introBody": "Hier finden Sie die Abteilungen von Acecore und ihre wichtigsten Dienstleistungen.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Umsetzung und Betrieb durch Technologie unterstützen.",
+      "systemsDescription": "Wir unterstützen bei Web- und Systementwicklung, Datenbanken, Infrastruktur, Qualitätssicherung und dem Einsatz von KI.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Durch Lernen selbstbestimmte Entscheidungen ermöglichen.",
+      "schoolsDescription": "Wir bieten Lernunterstützung entsprechend den individuellen Zielen.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Wir betreiben eine Minecraft-Community.",
       "storeTitle": "Acecore Store",
@@ -384,9 +307,9 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "In Vorbereitung",
       "acestudioDescription": "Einen Ort bereitstellen, an dem alle Kreativen ihre Aktivitäten teilen können.",
-      "contactHeading": "Acecore kontaktieren",
-      "contactBody": "Über unsere zentrale Anlaufstelle nehmen wir Beratungsanfragen zu unseren Geschäftsbereichen, Kooperationsvorschläge und sonstige Anfragen entgegen.",
-      "contactCta": "Kontakt",
+      "contactHeading": "Eine Leistung auswählen oder einführen",
+      "contactBody": "Teilen Sie uns Ihren Unterstützungsbedarf mit. Wir führen Sie zur passenden Abteilung und Leistung.",
+      "contactCta": "Zu einer Leistung beraten lassen",
       "designTitle": "Acecore Design",
       "designDescription": "Wir bereiten einen Bereich für visuelle Markenidentität, Informationsvermittlung und nutzerfreundliche Gestaltung vor.",
       "designStatus": "In Planung",

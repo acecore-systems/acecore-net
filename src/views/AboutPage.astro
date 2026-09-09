@@ -3,11 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import Icon from '../components/Icon.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSpecialistUrl } from '../utils/specialist-url'
 
 interface Props {
   locale: Locale
@@ -20,13 +18,6 @@ const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
 
-interface RelatedLink {
-  icon: string
-  title: string
-  description: string
-  href: string
-}
-
 interface Officer {
   name: string
   role?: string
@@ -37,25 +28,6 @@ interface Officer {
 const getList = <T,>(key: string): T[] =>
   getTranslationValue<T[]>(locale, key) ?? []
 
-const socialHrefMap = {
-  aceserver: getSpecialistUrl(SITE.social.aceserver, locale),
-  store: SITE.social.store,
-  x: SITE.social.x,
-  github: SITE.social.github,
-  discord: SITE.social.discord,
-} as const
-
-const resolveRelatedHref = (href: string) =>
-  href in socialHrefMap
-    ? socialHrefMap[href as keyof typeof socialHrefMap]
-    : href
-
-const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
-  (link) => ({
-    ...link,
-    href: resolveRelatedHref(link.href),
-  }),
-)
 const officers = getList<Officer>('pages.about.officers')
 const businessPurposes = getList<string>('pages.about.businessPurposes')
 
@@ -169,6 +141,27 @@ const aboutPageLd = {
           </div>
         </dl>
       </section>
+      <div class="mb-12">
+        <img
+          src={optimizeImage(
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+            { width: 1200, height: 675, quality: 80 },
+          )}
+          srcset={generateSrcSet(
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+            contentImageWidths,
+            contentImageOptions,
+          )}
+          sizes={contentImageSizes}
+          alt={t(locale, 'pages.about.collaborationImgAlt')}
+          class="w-full rounded-lg object-cover aspect-video"
+          width="1200"
+          height="675"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
       {
         officers.length > 0 && (
           <section class="mb-12" aria-labelledby="executive-profile-heading">
@@ -234,46 +227,6 @@ const aboutPageLd = {
         </p>
       </div>
 
-      <p class="text-lg text-slate-600 leading-relaxed mb-4">
-        {t(locale, 'pages.about.philosophyBody1')}
-      </p>
-      <p class="text-lg text-slate-600 leading-relaxed mb-12">
-        {t(locale, 'pages.about.philosophyBody2')}
-      </p>
-
-      <div class="mb-12">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.about.collaborationImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
-
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl ac-heading">
-          {t(locale, 'pages.about.initiativesHeading')}
-        </h2>
-        <p class="mb-5 text-slate-600">
-          {t(locale, 'pages.about.businessesIntro')}
-        </p>
-        <a href={u('/services/')} class="ac-btn-outline"
-          >{t(locale, 'pages.about.ctaServices')}</a
-        >
-      </section>
-
       <div class="mb-12">
         <img
           src={optimizeImage(
@@ -295,48 +248,10 @@ const aboutPageLd = {
         />
       </div>
 
-      <!-- 関連リンク -->
-      <h2 class="text-2xl ac-heading mb-6">
-        {t(locale, 'pages.about.relatedLinksHeading')}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-        {
-          relatedLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-            >
-              <div class="flex items-center gap-3 mb-2">
-                <Icon name={link.icon} class="text-xl text-brand-500" />
-                <h3 class="font-700 text-brand-500">{link.title}</h3>
-              </div>
-              <p class="text-sm text-slate-600">{link.description}</p>
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-            </a>
-          ))
-        }
-      </div>
-
-      <!-- CTA -->
-      <div class="ac-surface bg-slate-50 p-8 text-center">
-        <p class="text-lg font-700 text-slate-800 mb-2">
-          {t(locale, 'pages.about.ctaHeading')}
-        </p>
-        <p class="text-sm text-slate-600 mb-6">
-          {t(locale, 'pages.about.ctaBody')}
-        </p>
-        <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+      <div class="text-center">
+        <a href={u('/contact/')} class="ac-btn-outline"
+          >{t(locale, 'pages.about.corporateContactCta')}</a
         >
-          <a href={u('/contact/')} class="ac-btn-primary"
-            >{t(locale, 'pages.about.ctaContact')}</a
-          >
-          <a href={u('/services/')} class="ac-btn-outline"
-            >{t(locale, 'pages.about.ctaServices')}</a
-          >
-        </div>
       </div>
     </div>
   </section>

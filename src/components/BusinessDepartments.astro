@@ -6,9 +6,8 @@ import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
 interface Props {
   locale: Locale
-  overview?: boolean
 }
-const { locale, overview = false } = Astro.props
+const { locale } = Astro.props
 const departments = [
   {
     key: 'systems',
@@ -26,9 +25,7 @@ const departments = [
     key: 'design',
     icon: 'palette',
     tone: 'emerald' as const,
-    href: overview
-      ? '#design-details'
-      : getLocalizedUrl('/services/#design-details', locale),
+    href: getLocalizedUrl('/contact/', locale),
   },
 ]
 ---
@@ -39,22 +36,22 @@ const departments = [
 >
   {
     departments.map(({ key, icon, tone, href }) => (
-      <li id={overview ? key : undefined}>
+      <li id={key}>
         <ServiceCard
           title={t(locale, 'pages.services.' + key + 'Title')}
-          description={t(
-            locale,
-            overview
-              ? 'pages.services.' + key + 'Description'
-              : 'pages.home.' + key + 'Summary',
-          )}
-          href={overview ? href : getLocalizedUrl('/services/#' + key, locale)}
+          description={
+            t(locale, 'pages.services.' + key + 'Description') +
+            (key === 'design'
+              ? ' ' + t(locale, 'pages.services.designNote')
+              : '')
+          }
+          href={href}
           icon={icon}
           tone={tone}
           locale={locale}
         >
           {key === 'design' && (
-            <span class="ac-chip mb-3 text-xs">
+            <span id="design-details" class="ac-chip mb-3 text-xs">
               {t(locale, 'pages.services.designStatus')}
             </span>
           )}

@@ -198,21 +198,15 @@
       "heroImgTeam": "Equipe trabalhando em espaço de coworking",
       "heroImgMeeting": "Cena de reunião",
       "viewBusinessDetails": "Ver lista de negócios",
-      "aboutHeading": "Sobre a Acecore",
-      "aboutBody1": "Usamos os conhecimentos adquiridos na gestão de comunidades e nos workshops que realizamos até o momento para apoiar a aprendizagem e divulgar informações.",
-      "aboutBody2": "Por meio do uso de código aberto, da colaboração regional e da contribuição para a {link}, construímos parcerias que conectam tecnologia e pessoas.",
-      "aboutEducationLink": "educação",
       "viewAbout": "Sobre nós",
       "latestNews": "Notícias corporativas",
       "viewAllNews": "Ver notícias e artigos",
-      "contactHeading": "Fale com a Acecore",
-      "contactBody": "Nosso canal de contato geral recebe consultas sobre negócios, propostas de parceria e outras dúvidas.",
       "contactCta": "Entre em contato",
-      "businessesLead": "Conheça nossos três departamentos: tecnologia, aprendizagem e criatividade. Veja suas funções e serviços na página de negócios.",
-      "systemsSummary": "Desenvolvimento web e de sistemas e suporte técnico",
-      "schoolsSummary": "Educação e apoio à aprendizagem",
-      "designSummary": "Design e criação",
-      "aboutIntro": "Conheça as informações da empresa, sua diretoria e sua filosofia."
+      "aboutIntro": "Conheça as informações da empresa, sua diretoria e sua filosofia.",
+      "directoryHeading": "Encontre o que procura",
+      "directoryLead": "Escolha a página de acordo com a informação que procura.",
+      "servicesIntro": "Conheça nossos departamentos, serviços disponíveis e onde consultar os preços.",
+      "contactIntro": "Envie suas dúvidas ou solicitações pelo formulário de contato."
     },
     "notFound": {
       "title": "Página não encontrada",
@@ -303,81 +297,10 @@
           "bio": "Cria ilustrações e romances, além de publicar avatares 3D originais, recursos interativos e acessórios para VRChat."
         }
       ],
-      "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Os negócios da Acecore",
-      "missionLoopDesc": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "philosophyHeading": "Filosofia",
       "philosophyMotto": "“Tecnologia e aprendizagem a serviço da sociedade.”",
-      "philosophyBody1": "A Acecore é uma empresa que apoia negócios, aprendizagem, comunidades e produtos por meio de Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
-      "philosophyBody2": "As informações da empresa e uma visão geral de todos os negócios estão em acecore.net; informações especializadas, como serviços oferecidos, preços, estudos de caso e registros de atividades, estão reunidas nos sites oficiais de cada negócio.",
       "collaborationImgAlt": "Trabalho colaborativo em equipe",
-      "activitiesTitle": "Negócios e atividades corporativas da Acecore",
       "workshopImgAlt": "Sessão de estudos e workshop",
-      "initiativesHeading": "Atividades e iniciativas",
-      "relatedLinksHeading": "Links relacionados",
-      "ctaHeading": "Dê o próximo passo com a Acecore",
-      "ctaBody": "Recebemos consultas que envolvam vários negócios, propostas de colaboração e perguntas caso você não saiba qual canal de contato utilizar.",
-      "ctaContact": "Fale conosco",
-      "ctaServices": "Ver a lista de negócios",
-      "valueCycle": [
-        {
-          "title": "Acecore Systems",
-          "description": "Apoiar a realização e a operação por meio da tecnologia.",
-          "icon": "cpu",
-          "accent": "brand"
-        },
-        {
-          "title": "Acecore Schools",
-          "description": "Aprender para ampliar sua capacidade de escolher.",
-          "icon": "graduation-cap",
-          "accent": "amber"
-        },
-        {
-          "title": "Acecore Design",
-          "description": "Estamos preparando uma área voltada à identidade visual, comunicação e design de usabilidade.",
-          "icon": "palette",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Suporte técnico da Acecore Systems",
-        "Apoio à aprendizagem da Acecore Schools",
-        "Gestão da comunidade Aceserver",
-        "Gestão da loja online oficial da Acecore Store",
-        "Colaboração entre negócios e divulgação de informações corporativas"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "A loja online oficial da Acecore.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Portal Aceserver",
-          "description": "É o site oficial do servidor público gratuito de Minecraft.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (antigo Twitter)",
-          "description": "Publicamos as últimas novidades da Acecore.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Publicamos projetos de código aberto.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "É o servidor do Discord onde a comunidade Aceserver atua.",
-          "href": "discord"
-        }
-      ],
       "establishedLabel": "Fundação",
       "establishedDate": "13 de julho de 2026",
       "businessPurposesLabel": "Atividades empresariais",
@@ -391,22 +314,22 @@
         "Administração de cursos de informática",
         "Todas as atividades acessórias ou relacionadas às anteriores"
       ],
-      "businessesIntro": "A página de negócios apresenta as funções de cada departamento, seus serviços e os links para preços e condições."
+      "corporateContactCta": "Consultas sobre a empresa e parcerias"
     },
     "services": {
       "title": "Negócios",
       "seoTitleContext": "Diretório de negócios",
       "description": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "heroTitle": "Negócios",
-      "heroSubtitle": "Reunimos os sites oficiais de cada área de especialização.",
+      "heroSubtitle": "Conheça o apoio e os serviços disponíveis e onde consultar os preços.",
       "heroImgAlt": "Escritório de tecnologia",
       "eyebrow": "Diretório de negócios",
-      "introTitle": "Os negócios da Acecore",
+      "introTitle": "Departamentos",
       "introBody": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Apoiar a realização e a operação por meio da tecnologia.",
+      "systemsDescription": "Oferecemos suporte técnico em desenvolvimento web e de sistemas, bancos de dados, infraestrutura, garantia de qualidade e adoção de IA.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Aprender para ampliar sua capacidade de escolher.",
+      "schoolsDescription": "Oferecemos apoio à aprendizagem de acordo com os objetivos de cada pessoa.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Administramos uma comunidade de Minecraft.",
       "storeTitle": "Acecore Store",
@@ -414,9 +337,9 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Em preparação",
       "acestudioDescription": "Oferecer um espaço onde todos os criadores possam compartilhar suas atividades.",
-      "contactHeading": "Entre em contato com a Acecore",
-      "contactBody": "Nosso canal de contato geral recebe consultas sobre os negócios, propostas de parceria e outras dúvidas.",
-      "contactCta": "Entrar em contato",
+      "contactHeading": "Escolha ou adoção de um serviço",
+      "contactBody": "Conte-nos de que apoio você precisa. Indicaremos o departamento e o serviço adequados.",
+      "contactCta": "Consultar sobre um serviço",
       "designTitle": "Acecore Design",
       "designDescription": "Estamos preparando uma área voltada à identidade visual, comunicação e design de usabilidade.",
       "designStatus": "Em planejamento",

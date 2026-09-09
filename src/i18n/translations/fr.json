@@ -198,21 +198,15 @@
       "heroImgTeam": "Équipe travaillant dans un espace de coworking",
       "heroImgMeeting": "Scène de réunion",
       "viewBusinessDetails": "Voir la liste des activités",
-      "aboutHeading": "À propos d’Acecore",
-      "aboutBody1": "Nous mettons à profit les enseignements tirés de l’animation de communautés et des ateliers organisés jusqu’à présent pour accompagner l’apprentissage et partager des informations.",
-      "aboutBody2": "Grâce à l’utilisation de l’open source, à la collaboration régionale et à notre contribution à l’{link}, nous établissons des partenariats qui relient la technologie et les personnes.",
-      "aboutEducationLink": "éducation",
       "viewAbout": "Voir la présentation de l’entreprise",
       "latestNews": "Actualités de l’entreprise",
       "viewAllNews": "Voir toutes les actualités et les articles",
-      "contactHeading": "Contacter Acecore",
-      "contactBody": "Nous recevons, via notre point de contact unique, toute demande concernant nos activités, proposition de collaboration ou autre question.",
       "contactCta": "Nous contacter",
-      "businessesLead": "Découvrez nos trois départements : technologie, apprentissage et création. Leurs rôles et services sont présentés sur la page des activités.",
-      "systemsSummary": "Développement web et de systèmes, et assistance technique",
-      "schoolsSummary": "Éducation et accompagnement de l’apprentissage",
-      "designSummary": "Design et création",
-      "aboutIntro": "Découvrez les informations sur notre société, ses dirigeants et sa philosophie."
+      "aboutIntro": "Découvrez les informations sur notre société, ses dirigeants et sa philosophie.",
+      "directoryHeading": "Trouvez votre information",
+      "directoryLead": "Choisissez une page selon ce que vous recherchez.",
+      "servicesIntro": "Découvrez nos départements, les services proposés et où consulter les tarifs.",
+      "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -303,81 +297,10 @@
           "bio": "Il crée des illustrations et des romans, et publie des avatars 3D originaux, des mécanismes et des accessoires pour VRChat."
         }
       ],
-      "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Les activités d’Acecore",
-      "missionLoopDesc": "Découvrez les départements d’Acecore et leurs principaux services.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "« La technologie et l’apprentissage au service de la société. »",
-      "philosophyBody1": "Acecore est une entreprise qui soutient les activités, l’apprentissage, la communauté et les produits à travers Acecore Systems, Acecore Schools, Aceserver et Acecore Store.",
-      "philosophyBody2": "Les informations sur l’entreprise et la présentation de l’ensemble de ses activités sont regroupées sur acecore.net ; les informations spécialisées — services proposés, tarifs, réalisations et comptes rendus d’activité — sont centralisées sur le site officiel de chaque activité.",
       "collaborationImgAlt": "Travail collaboratif en équipe",
-      "activitiesTitle": "Activités d’Acecore et initiatives de l’entreprise",
       "workshopImgAlt": "Aperçu d’une session d’étude et d’un atelier",
-      "initiativesHeading": "Activités et initiatives",
-      "relatedLinksHeading": "Liens connexes",
-      "ctaHeading": "Franchissez une nouvelle étape avec Acecore",
-      "ctaBody": "Nous recevons les demandes concernant plusieurs activités, les propositions de collaboration et les demandes de renseignements lorsque vous ne savez pas à qui vous adresser.",
-      "ctaContact": "Nous contacter",
-      "ctaServices": "Voir la liste des activités",
-      "valueCycle": [
-        {
-          "title": "Acecore Systems",
-          "description": "Soutenir la réalisation et l’exploitation par la technologie.",
-          "icon": "cpu",
-          "accent": "brand"
-        },
-        {
-          "title": "Acecore Schools",
-          "description": "Apprendre pour élargir sa capacité de choisir.",
-          "icon": "graduation-cap",
-          "accent": "amber"
-        },
-        {
-          "title": "Acecore Design",
-          "description": "Nous préparons un domaine consacré à l’identité visuelle, à la communication et à la conception de l’ergonomie.",
-          "icon": "palette",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Assistance technique par Acecore Systems",
-        "Accompagnement pédagogique assuré par Acecore Schools",
-        "Gestion de la communauté Aceserver",
-        "Gestion de la boutique en ligne officielle Acecore Store",
-        "Collaboration transversale et diffusion d’informations sur l’entreprise"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "La boutique en ligne officielle d’Acecore.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Portail Aceserver",
-          "description": "Le site officiel du serveur Minecraft public et gratuit.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (anciennement Twitter)",
-          "description": "Retrouvez les dernières actualités d’Acecore.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Nous y publions nos projets open source.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "Le serveur Discord où se réunit la communauté Aceserver.",
-          "href": "discord"
-        }
-      ],
       "establishedLabel": "Constitution",
       "establishedDate": "13 juillet 2026",
       "businessPurposesLabel": "Activités de la société",
@@ -391,22 +314,22 @@
         "Exploitation de cours d’informatique",
         "Toutes activités accessoires ou liées aux activités précitées"
       ],
-      "businessesIntro": "La page des activités présente le rôle de chaque département, ses services et les liens vers les tarifs et conditions."
+      "corporateContactCta": "Questions sur l’entreprise et les partenariats"
     },
     "services": {
       "title": "Activités",
       "seoTitleContext": "Annuaire des activités",
       "description": "Découvrez les départements d’Acecore et leurs principaux services.",
       "heroTitle": "Activités",
-      "heroSubtitle": "Retrouvez les sites officiels correspondant à chaque domaine spécialisé",
+      "heroSubtitle": "Découvrez les accompagnements et services proposés et où consulter leurs tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
-      "introTitle": "Les activités d’Acecore",
+      "introTitle": "Départements",
       "introBody": "Découvrez les départements d’Acecore et leurs principaux services.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Soutenir la réalisation et l’exploitation par la technologie.",
+      "systemsDescription": "Nous assurons un accompagnement technique en développement web et de systèmes, bases de données, infrastructure, assurance qualité et adoption de l’IA.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Apprendre pour élargir sa capacité de choisir.",
+      "schoolsDescription": "Nous proposons un accompagnement pédagogique adapté aux objectifs de chacun.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Nous animons une communauté Minecraft.",
       "storeTitle": "Acecore Store",
@@ -414,9 +337,9 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En préparation",
       "acestudioDescription": "Offrir un espace où tous les créateurs peuvent partager leurs activités.",
-      "contactHeading": "Contacter Acecore",
-      "contactBody": "Notre point de contact unique reçoit vos demandes de conseil concernant nos activités, vos propositions de collaboration et toute autre question.",
-      "contactCta": "Nous contacter",
+      "contactHeading": "Choisir ou mettre en place un service",
+      "contactBody": "Décrivez vos besoins. Nous vous orienterons vers le département et le service adaptés.",
+      "contactCta": "Se renseigner sur un service",
       "designTitle": "Acecore Design",
       "designDescription": "Nous préparons un domaine consacré à l’identité visuelle, à la communication et à la conception de l’ergonomie.",
       "designStatus": "En préparation",

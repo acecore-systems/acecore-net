@@ -72,31 +72,21 @@ for (const locale of locales) {
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
-  for (const [pageName, page] of [
-    ['home', home],
-    ['services', services],
-  ]) {
-    assert.equal(
-      page('.department-list > li').length,
-      3,
-      `${locale}.${pageName}: expected three business departments`,
-    )
-  }
   assert.equal(
-    about('.department-list').length,
-    0,
-    `${locale}.about: department details belong on services`,
+    services('.department-list > li').length,
+    3,
+    `${locale}.services: expected three business departments`,
   )
   for (const [pageName, page] of [
     ['home', home],
     ['about', about],
   ]) {
     assert.equal(
-      page('.service-offerings').length,
+      page('.department-list, .service-offerings').length,
       0,
-      `${locale}.${pageName}: service details belong on services`,
+      `${locale}.${pageName}: departments and services belong on services`,
     )
-    for (const key of ['development', 'advisor']) {
+    for (const key of ['development', 'advisor', 'store']) {
       assert.ok(
         !page('main')
           .text()
@@ -104,22 +94,56 @@ for (const locale of locales) {
         `${locale}.${pageName}: repeated service description`,
       )
     }
-    assert.ok(
-      page(`main a[href="${prefix}/services/"]`).length > 0,
-      `${locale}.${pageName}: missing services entry`,
+    assert.equal(
+      page('main a[href^="https://"]').length,
+      0,
+      `${locale}.${pageName}: specialist directory belongs on services`,
     )
   }
-  for (const [index, key] of ['systems', 'schools', 'design'].entries()) {
-    const card = home('.department-list > li').eq(index)
-    assert.equal(card.find('a').attr('href'), `${prefix}/services/#${key}`)
-    assert.ok(card.text().includes(translations.home[`${key}Summary`]))
-  }
-  for (const path of ['about', 'blog', 'contact']) {
+  assert.deepEqual(
+    home('.home-directory a')
+      .toArray()
+      .map((el) => home(el).attr('href')),
+    ['services', 'about', 'contact'].map((path) => `${prefix}/${path}/`),
+    `${locale}.home: page index must lead to individual pages`,
+  )
+  for (const path of ['services', 'about', 'blog', 'contact']) {
     assert.ok(
       home(`main a[href="${prefix}/${path}/"]`).length > 0,
       `${locale}.home: missing ${path} entry`,
     )
   }
+  assert.equal(
+    about(`main a[href="${prefix}/services/"]`).length,
+    0,
+    `${locale}.about: business promotion must not replace corporate content`,
+  )
+  assert.deepEqual(
+    about('main h2')
+      .toArray()
+      .map((el) => about(el).text().trim()),
+    ['companyInfoHeading', 'executiveHeading', 'philosophyHeading'].map(
+      (key) => translations.about[key],
+    ),
+    `${locale}.about: corporate information, leadership and philosophy only`,
+  )
+  const headings = [home, services, about].map((page) =>
+    page('main h2')
+      .toArray()
+      .map((el) => page(el).text().trim()),
+  )
+  for (let index = 0; index < headings.length; index++) {
+    for (const other of headings.slice(index + 1)) {
+      assert.deepEqual(
+        headings[index].filter((heading) => other.includes(heading)),
+        [],
+        `${locale}: page sections must have distinct purposes`,
+      )
+    }
+  }
+  assert.ok(
+    about('main').text().includes(translations.about.corporateContactCta),
+  )
   const offerings = services('.service-offerings')
   assert.equal(
     offerings.find('article').length,
@@ -170,6 +194,7 @@ for (const locale of locales) {
     'systems',
     'schools',
     'design',
+    'design-details',
     'development',
     'advisor',
     'aceserver-service',
@@ -208,18 +233,6 @@ for (const locale of locales) {
       .length,
     1,
   )
-  for (const element of home('main a[href*="/services/#"]').toArray()) {
-    const destination = new URL(
-      home(element).attr('href'),
-      'https://acecore.net',
-    )
-    assert.equal(destination.pathname, `${prefix}/services/`)
-    assert.equal(
-      services(`[id="${destination.hash.slice(1)}"]`).length,
-      1,
-      `${locale}: broken home anchor ${destination.hash}`,
-    )
-  }
   assert.ok(
     !sitemap.includes(`https://acecore.net${prefix}/pricing/`),
     `${locale}: retired pricing URL in sitemap`,

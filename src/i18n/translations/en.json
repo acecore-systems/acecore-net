@@ -198,21 +198,15 @@
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
       "viewBusinessDetails": "View business directory",
-      "aboutHeading": "About Acecore",
-      "aboutBody1": "We apply insights gained through community management and the workshops we have held to learning support and information sharing.",
-      "aboutBody2": "Through open-source adoption, regional collaboration, and contributions to {link}, we build partnerships that connect technology and people.",
-      "aboutEducationLink": "education",
       "viewAbout": "View company overview",
       "latestNews": "Corporate news",
       "viewAllNews": "View all news and articles",
-      "contactHeading": "Contact Acecore",
-      "contactBody": "Use our shared contact desk for business inquiries, partnership proposals, and general questions.",
       "contactCta": "Contact us",
-      "businessesLead": "Explore our three departments: technology, learning and creativity. Visit the business page for their roles and services.",
-      "systemsSummary": "Web and system development, and technical support",
-      "schoolsSummary": "Education and learning support",
-      "designSummary": "Design and creative work",
-      "aboutIntro": "Learn about our company, leadership and philosophy."
+      "aboutIntro": "Learn about our company, leadership and philosophy.",
+      "directoryHeading": "Find what you need",
+      "directoryLead": "Choose a page for the information you are looking for.",
+      "servicesIntro": "Explore our departments, available services and where to find pricing.",
+      "contactIntro": "Send your questions or requests through our contact form."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -267,81 +261,10 @@
           "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
         }
       ],
-      "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Acecore Businesses",
-      "missionLoopDesc": "Explore Acecore’s business departments and key services.",
       "philosophyHeading": "Philosophy",
       "philosophyMotto": "\"Technology and learning, for society.\"",
-      "philosophyBody1": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
-      "philosophyBody2": "Company information and an overview of all four businesses are available on acecore.net, while specialized information such as offerings, pricing, case studies, and activity records is consolidated on each business's official website.",
       "collaborationImgAlt": "Team collaboration",
-      "activitiesTitle": "Acecore's Businesses and Corporate Activities",
       "workshopImgAlt": "Study group and workshop",
-      "initiativesHeading": "Activities and Initiatives",
-      "relatedLinksHeading": "Related Links",
-      "ctaHeading": "Take the next step with Acecore",
-      "ctaBody": "We welcome cross-business inquiries, partnership proposals, and questions when you are unsure which business to contact.",
-      "ctaContact": "Contact Us",
-      "ctaServices": "View Businesses",
-      "valueCycle": [
-        {
-          "title": "Acecore Systems",
-          "description": "Supporting delivery and operations through technology.",
-          "icon": "cpu",
-          "accent": "brand"
-        },
-        {
-          "title": "Acecore Schools",
-          "description": "Learning that expands your ability to choose.",
-          "icon": "graduation-cap",
-          "accent": "amber"
-        },
-        {
-          "title": "Acecore Design",
-          "description": "We are preparing an area focused on visual identity, communication and usability design.",
-          "icon": "palette",
-          "accent": "emerald"
-        }
-      ],
-      "activities": [
-        "Technical support from Acecore Systems",
-        "Learning support from Acecore Schools",
-        "Aceserver community management",
-        "Operation of the official online store by Acecore Store",
-        "Cross-business collaboration and corporate information sharing"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "Acecore's official online store.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Aceserver Portal",
-          "description": "The official site for a free public Minecraft server.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (formerly Twitter)",
-          "description": "Stay up to date with the latest Acecore news.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Our open-source projects are published here.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "The Discord server where the Aceserver community is active.",
-          "href": "discord"
-        }
-      ],
       "establishedLabel": "Established",
       "establishedDate": "July 13, 2026",
       "businessPurposesLabel": "Business activities",
@@ -355,22 +278,22 @@
         "Operation of computer classes",
         "All activities incidental or related to the foregoing"
       ],
-      "businessesIntro": "Our business page introduces each department’s role, its services, and where to find pricing and terms."
+      "corporateContactCta": "Company and partnership inquiries"
     },
     "services": {
       "title": "Businesses",
       "seoTitleContext": "Business Directory",
       "description": "Explore Acecore’s business departments and key services.",
       "heroTitle": "Businesses",
-      "heroSubtitle": "Official sites for each area of expertise, all in one place",
+      "heroSubtitle": "Explore available support and services, and find pricing information.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
-      "introTitle": "Acecore Businesses",
+      "introTitle": "Business departments",
       "introBody": "Explore Acecore’s business departments and key services.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Supporting delivery and operations through technology.",
+      "systemsDescription": "We provide technical support for web and systems development, databases, infrastructure, quality assurance and AI adoption.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Learning that expands your ability to choose.",
+      "schoolsDescription": "We provide learning support tailored to individual goals.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "We run a Minecraft community.",
       "storeTitle": "Acecore Store",
@@ -378,9 +301,9 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Coming soon",
       "acestudioDescription": "Providing a place where all creators can share their activities.",
-      "contactHeading": "Contact Acecore",
-      "contactBody": "We accept business inquiries, partnership proposals, and other questions through our shared contact desk.",
-      "contactCta": "Contact us",
+      "contactHeading": "Choosing or introducing a service",
+      "contactBody": "Tell us what support you need. We will guide you to the relevant department and service.",
+      "contactCta": "Ask about a service",
       "designTitle": "Acecore Design",
       "designDescription": "We are preparing an area focused on visual identity, communication and usability design.",
       "designStatus": "In planning",
