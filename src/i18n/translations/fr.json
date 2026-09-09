@@ -197,29 +197,16 @@
       "heroSubtitle": "Acecore est une entreprise qui soutient les entreprises, l’apprentissage et les communautés grâce à la technologie et à l’éducation.",
       "heroImgTeam": "Équipe travaillant dans un espace de coworking",
       "heroImgMeeting": "Scène de réunion",
-      "businessesHeading": "Les activités d’Acecore",
-      "businessesLead": "Découvrez les dernières informations sur nos services sur les sites officiels dédiés à chaque domaine d’expertise.",
-      "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Retrouvez sur le site spécialisé nos systèmes métier, applications web, sites web, infrastructures d’exploitation ainsi que nos prestations de design et de création.",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Retrouvez le détail de notre accompagnement pédagogique, nos tarifs et les modalités de consultation sur le site spécialisé.",
-      "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Découvrez comment rejoindre la communauté Minecraft gérée par Acecore et consultez ses dernières actualités.",
-      "storeTitle": "Acecore Store",
-      "storeDescription": "La boutique en ligne officielle d’Acecore. Retrouvez les dernières informations sur les produits, les modalités d’achat, la livraison et les retours.",
-      "acestudioTitle": "AceStudio",
-      "acestudioNote": "Nous communiquerons uniquement les informations confirmées dès que les préparatifs seront terminés.",
       "viewBusinessDetails": "Voir la liste des activités",
-      "aboutHeading": "À propos d’Acecore",
-      "aboutBody1": "Nous mettons à profit les enseignements tirés de l’animation de communautés et des ateliers organisés jusqu’à présent pour accompagner l’apprentissage et partager des informations.",
-      "aboutBody2": "Grâce à l’utilisation de l’open source, à la collaboration régionale et à notre contribution à l’{link}, nous établissons des partenariats qui relient la technologie et les personnes.",
-      "aboutEducationLink": "éducation",
       "viewAbout": "Voir la présentation de l’entreprise",
       "latestNews": "Actualités de l’entreprise",
       "viewAllNews": "Voir toutes les actualités et les articles",
-      "contactHeading": "Contacter Acecore",
-      "contactBody": "Nous recevons, via notre point de contact unique, toute demande concernant nos activités, proposition de collaboration ou autre question.",
-      "contactCta": "Nous contacter"
+      "contactCta": "Nous contacter",
+      "aboutIntro": "Découvrez les informations sur notre société, ses dirigeants et sa philosophie.",
+      "directoryHeading": "Trouvez votre information",
+      "directoryLead": "Choisissez une page selon ce que vous recherchez.",
+      "servicesIntro": "Découvrez nos départements, les services proposés et où consulter les tarifs.",
+      "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -270,10 +257,10 @@
     },
     "about": {
       "title": "À propos",
-      "seoTitleContext": "Informations sur l’entreprise, philosophie et activités",
-      "description": "Découvrez les informations sur l’entreprise, sa philosophie et ses quatre activités : Acecore Systems, Acecore Schools, Aceserver et Acecore Store.",
+      "seoTitleContext": "Informations sur l’entreprise, direction et philosophie",
+      "description": "Découvrez les informations sur Acecore, son équipe dirigeante et sa philosophie.",
       "heroTitle": "À propos",
-      "heroSubtitle": "La philosophie d’Acecore et ses quatre activités",
+      "heroSubtitle": "Informations sur la société, dirigeants et philosophie",
       "heroImgAlt": "Discussion d’équipe",
       "companyInfoHeading": "Informations sur l’entreprise",
       "legalNameLabel": "Dénomination sociale",
@@ -287,22 +274,17 @@
           "role": "Président-directeur général",
           "areas": [
             "Stratégie d’entreprise",
-            "Web et systèmes",
-            "Bases de données et infrastructure",
-            "Assurance qualité",
-            "Utilisation de l’IA"
+            "Département Systems (Web, systèmes, bases de données, infrastructure, assurance qualité et utilisation de l’IA)"
           ],
-          "bio": "Président-directeur général d’Acecore. Avec C#/.NET comme socle, il pilote de bout en bout le web et les systèmes, les bases de données et l’infrastructure, l’assurance qualité ainsi que l’utilisation de l’IA, du cadrage des enjeux métier à la conception, au déploiement et à l’amélioration post-déploiement."
+          "bio": "Président et directeur représentant d’Acecore. Ses spécialités couvrent le Web et les systèmes, les bases de données et l’infrastructure, l’assurance qualité et l’utilisation de l’IA. Au sein du département Systems, il pilote les projets depuis la définition des enjeux jusqu’à la conception et aux améliorations après déploiement, aidant les clients à développer leur activité et à gagner en efficacité."
         },
         {
           "name": "佐藤凌峨",
           "role": "Directeur exécutif et chef de division",
           "areas": [
-            "Gestion de la communauté Aceserver",
-            "Discord",
-            "Développement et exploitation liés à Minecraft"
+            "Exploitation d’Aceserver (développement et exploitation de systèmes propriétaires et gestion de la communauté)"
           ],
-          "bio": "En tant que gardien d’Aceserver, il accompagne la gestion de la communauté Discord ainsi que le développement et l’exploitation liés à Minecraft. Il publie des plugins Java pour Minecraft et des outils d’intégration avec Discord."
+          "bio": "Au sein d’Aceserver, il soutient la communauté Discord, l’infrastructure interne ainsi que le développement et l’exploitation liés à Minecraft. Il publie des plugins Java pour Minecraft et des outils d’intégration Discord. Dans le département Systems, il se consacre principalement au conseil en ingénierie informatique."
         },
         {
           "name": "西田創",
@@ -315,126 +297,62 @@
           "bio": "Il crée des illustrations et des romans, et publie des avatars 3D originaux, des mécanismes et des accessoires pour VRChat."
         }
       ],
-      "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Soutenir la société grâce à quatre activités",
-      "missionLoopDesc": "Nous gérons chacun de ces domaines — technologie, apprentissage, communauté et produits — sur un site officiel dédié.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "« La technologie et l’apprentissage au service de la société. »",
-      "philosophyBody1": "Acecore est une entreprise qui soutient les activités, l’apprentissage, la communauté et les produits à travers Acecore Systems, Acecore Schools, Aceserver et Acecore Store.",
-      "philosophyBody2": "Les informations sur l’entreprise et la présentation de l’ensemble de ses activités sont regroupées sur acecore.net ; les informations spécialisées — services proposés, tarifs, réalisations et comptes rendus d’activité — sont centralisées sur le site officiel de chaque activité.",
       "collaborationImgAlt": "Travail collaboratif en équipe",
-      "activitiesTitle": "Activités d’Acecore et initiatives de l’entreprise",
       "workshopImgAlt": "Aperçu d’une session d’étude et d’un atelier",
-      "initiativesHeading": "Activités et initiatives",
-      "communityTitle": "Activités communautaires",
-      "communityDesc": "Aceserver est une communauté Minecraft gérée par Acecore. Les modalités de participation et les comptes rendus d’activité sont disponibles sur le portail officiel, tandis que les annonces importantes de l’entreprise sont",
-      "ossTitle": "Acecore Systems",
-      "ossDesc": "Acecore Systems gère le développement, la création, l’assistance à l’exploitation et les explications techniques ; les projets publiés sont consultables sur GitHub.",
-      "regionalTitle": "Acecore Schools",
-      "regionalDesc": "Les informations sur les publics concernés par l’accompagnement pédagogique, son déroulement et ses tarifs, ainsi que les comptes rendus d’activité, sont regroupées sur le site officiel d’Acecore Schools.",
-      "partnershipTitle": "Collaboration transversale",
-      "partnershipDesc": "Les demandes concernant plusieurs activités et les projets communs sont pris en charge par le point de contact d’Acecore. Pour consulter la présentation des activités,",
-      "relatedLinksHeading": "Liens connexes",
-      "ctaHeading": "Franchissez une nouvelle étape avec Acecore",
-      "ctaBody": "Nous recevons les demandes concernant plusieurs activités, les propositions de collaboration et les demandes de renseignements lorsque vous ne savez pas à qui vous adresser.",
-      "ctaContact": "Nous contacter",
-      "ctaServices": "Voir la liste des activités",
-      "valueCycle": [
-        {
-          "title": "Acecore Systems",
-          "description": "Nous soutenons les activités et les opérations grâce à la technologie.",
-          "icon": "cpu",
-          "accent": "brand"
-        },
-        {
-          "title": "Acecore Schools",
-          "description": "Nous concevons l’apprentissage à partir des objectifs.",
-          "icon": "palette",
-          "accent": "amber"
-        },
-        {
-          "title": "Aceserver",
-          "description": "Nous animons une communauté autour de Minecraft.",
-          "icon": "users",
-          "accent": "emerald"
-        },
-        {
-          "title": "Acecore Store",
-          "description": "Nous proposons les produits d’Acecore dans la boutique en ligne officielle.",
-          "icon": "shopping-bag",
-          "accent": "slate"
-        },
-        {
-          "title": "Acecore",
-          "description": "Nous faisons le lien entre les quatre activités et diffusons les informations sur l’entreprise.",
-          "icon": "repeat-2",
-          "accent": "brand"
-        }
+      "establishedLabel": "Constitution",
+      "establishedDate": "13 juillet 2026",
+      "businessPurposesLabel": "Activités de la société",
+      "businessPurposes": [
+        "Fourniture de divers services d’information par Internet",
+        "Conception, production, vente, exploitation et gestion de sites web",
+        "Conception, production, vente, exploitation et gestion de sites de commerce électronique",
+        "Conception, développement, vente et maintenance de systèmes informatiques",
+        "Conception, production, vente, exploitation et gestion de logiciels applicatifs",
+        "Exploitation de centres d’apprentissage",
+        "Exploitation de cours d’informatique",
+        "Toutes activités accessoires ou liées aux activités précitées"
       ],
-      "activities": [
-        "Assistance technique par Acecore Systems",
-        "Accompagnement pédagogique assuré par Acecore Schools",
-        "Gestion de la communauté Aceserver",
-        "Gestion de la boutique en ligne officielle Acecore Store",
-        "Collaboration transversale et diffusion d’informations sur l’entreprise"
-      ],
-      "relatedLinks": [
-        {
-          "icon": "shopping-bag",
-          "title": "Acecore Store",
-          "description": "La boutique en ligne officielle d’Acecore.",
-          "href": "store"
-        },
-        {
-          "icon": "gamepad-2",
-          "title": "Portail Aceserver",
-          "description": "Le site officiel du serveur Minecraft public et gratuit.",
-          "href": "aceserver"
-        },
-        {
-          "icon": "at-sign",
-          "title": "X (anciennement Twitter)",
-          "description": "Retrouvez les dernières actualités d’Acecore.",
-          "href": "x"
-        },
-        {
-          "icon": "github",
-          "title": "GitHub",
-          "description": "Nous y publions nos projets open source.",
-          "href": "github"
-        },
-        {
-          "icon": "message-circle",
-          "title": "Aceserver Discord",
-          "description": "Le serveur Discord où se réunit la communauté Aceserver.",
-          "href": "discord"
-        }
-      ]
+      "corporateContactCta": "Questions sur l’entreprise et les partenariats"
     },
     "services": {
       "title": "Activités",
       "seoTitleContext": "Annuaire des activités",
-      "description": "Découvrez les activités d'Acecore et les sites officiels qui présentent les informations spécialisées de chacune d'elles.",
+      "description": "Découvrez les départements d’Acecore et leurs principaux services.",
       "heroTitle": "Activités",
-      "heroSubtitle": "Retrouvez les sites officiels correspondant à chaque domaine spécialisé",
+      "heroSubtitle": "Découvrez les accompagnements et services proposés et où consulter leurs tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
-      "introTitle": "Consultez la source officielle de chaque activité",
-      "introBody": "Consultez le site spécialisé de chaque activité pour y trouver les dernières informations détaillées sur son offre, ses tarifs, ses études de cas et ses modalités d'utilisation.",
+      "introTitle": "Départements",
+      "introBody": "Découvrez les départements d’Acecore et leurs principaux services.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Retrouvez sur le site spécialisé les systèmes métier, les applications web, les sites web, les infrastructures d'exploitation ainsi que les services de design et de création.",
+      "systemsDescription": "Nous assurons un accompagnement technique en développement web et de systèmes, bases de données, infrastructure, assurance qualité et adoption de l’IA.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Découvrez sur le site spécialisé les services d'éducation et de soutien à l'apprentissage, les tarifs et les modalités pour demander conseil.",
+      "schoolsDescription": "Nous proposons un accompagnement pédagogique adapté aux objectifs de chacun.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Découvrez comment rejoindre la communauté Minecraft gérée par Acecore et consultez ses dernières actualités.",
+      "aceserverDescription": "Nous animons une communauté Minecraft.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "La boutique en ligne officielle d'Acecore. Retrouvez les dernières informations sur les produits, les modalités d'achat, la livraison et les retours.",
+      "storeDescription": "La boutique en ligne officielle d’Acecore.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En préparation",
-      "acestudioDescription": "Nous ne communiquerons que les informations confirmées concernant l'offre dès que les préparatifs seront terminés.",
-      "contactHeading": "Contacter Acecore",
-      "contactBody": "Notre point de contact unique reçoit vos demandes de conseil concernant nos activités, vos propositions de collaboration et toute autre question.",
-      "contactCta": "Nous contacter"
+      "acestudioDescription": "Offrir un espace où tous les créateurs peuvent partager leurs activités.",
+      "contactHeading": "Choisir ou mettre en place un service",
+      "contactBody": "Décrivez vos besoins. Nous vous orienterons vers le département et le service adaptés.",
+      "contactCta": "Se renseigner sur un service",
+      "designTitle": "Acecore Design",
+      "designDescription": "Nous préparons un domaine consacré à l’identité visuelle, à la communication et à la conception de l’ergonomie.",
+      "designStatus": "En préparation",
+      "designNote": "Les services précis et l’organisation de leur réalisation sont en cours de définition. Notre contact commun examine les demandes créatives et explique les possibilités actuelles.",
+      "developmentTitle": "Service de développement de systèmes sur mesure",
+      "developmentDescription": "Nous étudions vos besoins, puis proposons et développons le système le mieux adapté.",
+      "advisorTitle": "Service de conseil en ingénierie informatique",
+      "advisorDescription": "Des consultations quotidiennes à la mise en ligne de votre site, nous vous accompagnons pour un forfait mensuel fixe.",
+      "learningTitle": "Un apprentissage selon vos objectifs",
+      "pricingHeading": "Tarifs et conditions",
+      "pricingLead": "Consultez les tarifs et le périmètre sur chaque site spécialisé. Les modalités d’apprentissage sont confirmées lors de l’entretien ; les règles de participation et les prix des produits figurent sur leurs sites respectifs.",
+      "offeringsHeading": "Principaux services",
+      "detailsCta": "En savoir plus"
     },
     "privacy": {
       "title": "Politique de Confidentialité",
@@ -486,24 +404,8 @@
       "inquiryButton": "Nous contacter"
     },
     "pricing": {
-      "title": "Tarifs et contacts",
-      "description": "Découvrez les sites officiels de chaque activité, où sont publiées les informations les plus récentes sur les tarifs et les conditions d'utilisation.",
-      "heroTitle": "Tarifs et contacts",
-      "heroSubtitle": "Pour connaître les tarifs à jour, consultez le site officiel de chaque activité",
-      "heroImgAlt": "Personne consultant des documents de devis",
-      "eyebrow": "Informations officielles",
-      "introTitle": "Nous vous orientons vers la source officielle des tarifs",
-      "introBody": "Pour éviter de publier plusieurs fois les mêmes montants, cette page centralise les accès aux informations les plus récentes gérées par chaque activité.",
       "systemsTitle": "Tarifs d'Acecore Systems",
-      "systemsBody": "Consultez Acecore Systems pour connaître les tarifs et les modalités de consultation concernant le développement, la création web, le design et la production créative, ainsi que l'accompagnement opérationnel.",
-      "schoolsTitle": "Tarifs d'Acecore Schools",
-      "schoolsBody": "Consultez Acecore Schools pour connaître les tarifs, les publics concernés et les modalités de consultation concernant l'accompagnement pédagogique.",
-      "aceserverTitle": "Guide d'utilisation d'Aceserver",
-      "aceserverBody": "Consultez le site officiel d'Aceserver pour connaître les dernières informations sur les modalités de participation et les conditions d'utilisation.",
-      "storeTitle": "Produits et guide d'achat sur Acecore Store",
-      "storeBody": "Pour connaître les dernières informations sur les produits, les modalités d'achat, la livraison et les retours, consultez Acecore Store.",
-      "contactTitle": "Autres demandes",
-      "contactBody": "Contactez Acecore pour toute demande transversale, proposition de collaboration ou si vous ne savez pas à qui vous adresser."
+      "schoolsTitle": "Tarifs d'Acecore Schools"
     }
   },
   "pageNames": {

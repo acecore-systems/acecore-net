@@ -222,25 +222,6 @@ const pageNumbers = buildPageNumbers(1, totalPages)
               </nav>
             )
           }
-
-          <div class="ac-surface mt-12 bg-brand-50 p-6 text-center sm:p-8">
-            <p class="mb-2 text-lg font-700 text-slate-800">
-              {t(locale, 'blog.blogCtaHeading')}
-            </p>
-            <p class="mb-5 text-sm leading-relaxed text-slate-600">
-              {t(locale, 'blog.blogCtaBody')}
-            </p>
-            <div
-              class="flex flex-col items-center justify-center gap-3 sm:flex-row"
-            >
-              <a href={u('/services/')} class="ac-btn-primary"
-                >{t(locale, 'blog.blogCtaServices')}</a
-              >
-              <a href={u('/contact/')} class="ac-btn-outline"
-                >{t(locale, 'blog.blogCtaContact')}</a
-              >
-            </div>
-          </div>
         </div>
         <BlogSidebar allPosts={allRawPosts} locale={locale} />
       </div>

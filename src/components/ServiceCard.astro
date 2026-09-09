@@ -7,6 +7,7 @@ interface Props {
   icon: string
   title: string
   description: string
+  linkLabel?: string
   href?: string
   locale?: Locale
   tone?: 'brand' | 'emerald' | 'amber' | 'slate'
@@ -17,6 +18,7 @@ const {
   title,
   description,
   href,
+  linkLabel,
   locale = 'ja',
   tone = 'brand',
 } = Astro.props
@@ -57,7 +59,15 @@ const iconToneClasses = {
   >
     {title}
   </h3>
+  <slot />
   <p class="text-sm leading-relaxed text-slate-600">{description}</p>
+  {
+    linkLabel && href && (
+      <span class="mt-5 block text-sm font-700 text-brand-600">
+        {linkLabel}
+      </span>
+    )
+  }
   <span
     class="mt-5 inline-flex text-brand-600 transition-transform group-hover:translate-x-1"
     aria-hidden="true"
