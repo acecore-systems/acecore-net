@@ -207,7 +207,12 @@
       "viewAllNews": "查看新闻与文章列表",
       "contactHeading": "联系 Acecore",
       "contactBody": "我们通过统一窗口受理业务咨询、合作提案及其他咨询。",
-      "contactCta": "联系我们"
+      "contactCta": "联系我们",
+      "businessesLead": "了解我们的技术、学习与创意三大业务部门。各部门的职责与服务请参阅业务页面。",
+      "systemsSummary": "网站与系统开发及技术支持",
+      "schoolsSummary": "教育与学习支持",
+      "designSummary": "设计与创意",
+      "aboutIntro": "了解公司的基本信息、管理团队及企业理念。"
     },
     "notFound": {
       "title": "页面未找到",
@@ -258,10 +263,10 @@
     },
     "about": {
       "title": "公司简介",
-      "seoTitleContext": "公司信息、理念与业务",
-      "description": "介绍 Acecore 的公司信息、理念、业务部门与主要服务。",
+      "seoTitleContext": "公司信息、管理团队与理念",
+      "description": "了解 Acecore 的公司基本信息、管理团队介绍以及企业理念。",
       "heroTitle": "公司简介",
-      "heroSubtitle": "Acecore 的理念与业务",
+      "heroSubtitle": "公司信息、管理团队与企业理念",
       "heroImgAlt": "团队讨论",
       "companyInfoHeading": "法人信息",
       "legalNameLabel": "法人名称",
@@ -379,7 +384,8 @@
         "经营学习辅导教室",
         "经营计算机培训教室",
         "与上述各项附带或相关的一切业务"
-      ]
+      ],
+      "businessesIntro": "各业务部门的职责、服务内容以及费用和使用条件的查询入口均汇总在业务页面。"
     },
     "services": {
       "title": "业务",

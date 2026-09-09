@@ -207,7 +207,12 @@
       "viewAllNews": "View all news and articles",
       "contactHeading": "Contact Acecore",
       "contactBody": "Use our shared contact desk for business inquiries, partnership proposals, and general questions.",
-      "contactCta": "Contact us"
+      "contactCta": "Contact us",
+      "businessesLead": "Explore our three departments: technology, learning and creativity. Visit the business page for their roles and services.",
+      "systemsSummary": "Web and system development, and technical support",
+      "schoolsSummary": "Education and learning support",
+      "designSummary": "Design and creative work",
+      "aboutIntro": "Learn about our company, leadership and philosophy."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -222,10 +227,10 @@
     },
     "about": {
       "title": "About Us",
-      "seoTitleContext": "Company Information, Philosophy, and Businesses",
-      "description": "Learn about Acecore, its philosophy, business departments and key services.",
+      "seoTitleContext": "Company information, leadership and philosophy",
+      "description": "Learn about Acecore’s company information, leadership and corporate philosophy.",
       "heroTitle": "About Us",
-      "heroSubtitle": "Acecore’s philosophy and businesses",
+      "heroSubtitle": "Company information, leadership and philosophy",
       "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
@@ -349,7 +354,8 @@
         "Operation of learning centers",
         "Operation of computer classes",
         "All activities incidental or related to the foregoing"
-      ]
+      ],
+      "businessesIntro": "Our business page introduces each department’s role, its services, and where to find pricing and terms."
     },
     "services": {
       "title": "Businesses",

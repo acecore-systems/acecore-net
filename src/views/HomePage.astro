@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
-import ServiceOfferings from '../components/ServiceOfferings.astro'
 import { getCollection } from 'astro:content'
 import {
   optimizeImage,
@@ -25,7 +24,6 @@ import {
   getLocalizedAuthor,
   filterPostsForLocale,
 } from '../utils/blog-i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
 import {
   getAllAuthors,
   findAuthorById,
@@ -71,7 +69,6 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 
-const aboutBodyParts = t(locale, 'pages.home.aboutBody2').split('{link}')
 const homeHeroImages: HeroImage[] = [
   {
     src: optimizeImage(
@@ -141,7 +138,7 @@ const webPageLd = {
           {t(locale, 'pages.services.introTitle')}
         </h2>
         <p class="ac-muted">
-          {t(locale, 'pages.services.introBody')}
+          {t(locale, 'pages.home.businessesLead')}
         </p>
       </div>
       <BusinessDepartments locale={locale} />
@@ -153,45 +150,14 @@ const webPageLd = {
     </div>
   </section>
 
-  <section class="ac-section bg-white" aria-labelledby="home-offerings-heading">
-    <div class="ac-container">
-      <div class="ac-section-intro">
-        <h2
-          id="home-offerings-heading"
-          class="mb-4 text-2xl ac-heading sm:text-3xl"
-        >
-          {t(locale, 'pages.services.offeringsHeading')}
-        </h2>
-      </div>
-      <ServiceOfferings locale={locale} anchors={false} />
-    </div>
-  </section>
-
   <section class="ac-section bg-brand-900 text-white">
     <div class="ac-container">
       <div class="mx-auto max-w-3xl text-center">
         <h2 class="mb-6 text-2xl font-800 leading-tight text-white sm:text-3xl">
           {t(locale, 'pages.home.aboutHeading')}
         </h2>
-        <p class="text-lg leading-relaxed text-white/80 mb-4">
-          {t(locale, 'pages.home.aboutBody1')}
-        </p>
         <p class="text-lg leading-relaxed text-white/80 mb-8">
-          {
-            aboutBodyParts.map((part, index) => (
-              <>
-                {part}
-                {index < aboutBodyParts.length - 1 && (
-                  <a
-                    href={getSchoolsUrl()}
-                    class="text-white underline underline-offset-2 hover:text-brand-100"
-                  >
-                    {t(locale, 'pages.home.aboutEducationLink')}
-                  </a>
-                )}
-              </>
-            ))
-          }
+          {t(locale, 'pages.home.aboutIntro')}
         </p>
         <div
           class="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"

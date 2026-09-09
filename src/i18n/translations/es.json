@@ -207,7 +207,12 @@
       "viewAllNews": "Ver todas las noticias y artículos",
       "contactHeading": "Contactar con Acecore",
       "contactBody": "En nuestro punto de contacto común atendemos consultas sobre nuestros negocios, propuestas de colaboración y cualquier otro asunto.",
-      "contactCta": "Contactar"
+      "contactCta": "Contactar",
+      "businessesLead": "Conozca nuestros tres departamentos: tecnología, aprendizaje y creatividad. Sus funciones y servicios se presentan en la página de negocios.",
+      "systemsSummary": "Desarrollo web y de sistemas, y soporte técnico",
+      "schoolsSummary": "Educación y apoyo al aprendizaje",
+      "designSummary": "Diseño y creatividad",
+      "aboutIntro": "Conozca la información de nuestra empresa, su equipo directivo y su filosofía."
     },
     "notFound": {
       "title": "Página no encontrada",
@@ -258,10 +263,10 @@
     },
     "about": {
       "title": "Acerca de nosotros",
-      "seoTitleContext": "Empresa, filosofía y negocios",
-      "description": "Conozca Acecore, su filosofía, sus departamentos y sus principales servicios.",
+      "seoTitleContext": "Información corporativa, equipo directivo y filosofía",
+      "description": "Conoce la información corporativa, el equipo directivo y la filosofía de Acecore.",
       "heroTitle": "Acerca de nosotros",
-      "heroSubtitle": "La filosofía y los negocios de Acecore",
+      "heroSubtitle": "Información de la empresa, dirección y filosofía",
       "heroImgAlt": "Discusión en equipo",
       "companyInfoHeading": "Información corporativa",
       "legalNameLabel": "Nombre legal",
@@ -385,7 +390,8 @@
         "Gestión de centros de aprendizaje",
         "Gestión de aulas de informática",
         "Todas las actividades accesorias o relacionadas con las anteriores"
-      ]
+      ],
+      "businessesIntro": "La página de negocios reúne las funciones de cada departamento, sus servicios y los enlaces a precios y condiciones."
     },
     "services": {
       "title": "Negocios",

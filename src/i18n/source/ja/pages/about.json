@@ -1,9 +1,9 @@
 {
   "title": "会社概要",
-  "seoTitleContext": "会社情報・理念・事業",
-  "description": "Acecoreの会社情報、理念、事業部門と主要サービスをご紹介します。",
+  "seoTitleContext": "会社情報・役員紹介・理念",
+  "description": "Acecoreの法人情報、役員紹介、企業理念をご紹介します。",
   "heroTitle": "会社概要",
-  "heroSubtitle": "Acecoreの理念と事業",
+  "heroSubtitle": "会社情報・役員紹介・理念",
   "heroImgAlt": "チームディスカッション",
   "companyInfoHeading": "法人情報",
   "legalNameLabel": "法人名",
@@ -121,5 +121,6 @@
     "学習教室の経営",
     "パソコン教室の経営",
     "前各号に附帯又は関連する一切の事業"
-  ]
+  ],
+  "businessesIntro": "各事業部門の役割、提供するサービス、料金・利用条件のご案内は事業ページにまとめています。"
 }

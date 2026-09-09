@@ -207,7 +207,12 @@
       "viewAllNews": "Voir toutes les actualités et les articles",
       "contactHeading": "Contacter Acecore",
       "contactBody": "Nous recevons, via notre point de contact unique, toute demande concernant nos activités, proposition de collaboration ou autre question.",
-      "contactCta": "Nous contacter"
+      "contactCta": "Nous contacter",
+      "businessesLead": "Découvrez nos trois départements : technologie, apprentissage et création. Leurs rôles et services sont présentés sur la page des activités.",
+      "systemsSummary": "Développement web et de systèmes, et assistance technique",
+      "schoolsSummary": "Éducation et accompagnement de l’apprentissage",
+      "designSummary": "Design et création",
+      "aboutIntro": "Découvrez les informations sur notre société, ses dirigeants et sa philosophie."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -258,10 +263,10 @@
     },
     "about": {
       "title": "À propos",
-      "seoTitleContext": "Informations sur l’entreprise, philosophie et activités",
-      "description": "Découvrez Acecore, sa philosophie, ses départements et ses principaux services.",
+      "seoTitleContext": "Informations sur l’entreprise, direction et philosophie",
+      "description": "Découvrez les informations sur Acecore, son équipe dirigeante et sa philosophie.",
       "heroTitle": "À propos",
-      "heroSubtitle": "La philosophie et les activités d’Acecore",
+      "heroSubtitle": "Informations sur la société, dirigeants et philosophie",
       "heroImgAlt": "Discussion d’équipe",
       "companyInfoHeading": "Informations sur l’entreprise",
       "legalNameLabel": "Dénomination sociale",
@@ -385,7 +390,8 @@
         "Exploitation de centres d’apprentissage",
         "Exploitation de cours d’informatique",
         "Toutes activités accessoires ou liées aux activités précitées"
-      ]
+      ],
+      "businessesIntro": "La page des activités présente le rôle de chaque département, ses services et les liens vers les tarifs et conditions."
     },
     "services": {
       "title": "Activités",

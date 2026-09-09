@@ -1090,6 +1090,26 @@ collections:
         file: src/i18n/source/ja/pages/home.json
         format: json
         fields:
+          - name: 'businessesLead'
+            label: '事業ページへの紹介文'
+            hint: 'businessesLead'
+            widget: text
+          - name: 'systemsSummary'
+            label: 'Systems部門の短い紹介'
+            hint: 'systemsSummary'
+            widget: text
+          - name: 'schoolsSummary'
+            label: 'Schools部門の短い紹介'
+            hint: 'schoolsSummary'
+            widget: text
+          - name: 'designSummary'
+            label: 'Design部門の短い紹介'
+            hint: 'designSummary'
+            widget: text
+          - name: 'aboutIntro'
+            label: '会社概要ページへの紹介文'
+            hint: 'aboutIntro'
+            widget: text
           - name: 'heroTitle'
             label: 'heroTitle（ヒーロー）'
             hint: 'heroTitle'
@@ -1317,6 +1337,10 @@ collections:
         file: src/i18n/source/ja/pages/about.json
         format: json
         fields:
+          - name: 'businessesIntro'
+            label: '事業ページへの案内'
+            hint: 'businessesIntro'
+            widget: text
           - name: 'title'
             label: 'タイトル'
             hint: 'title'

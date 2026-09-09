@@ -3,11 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import BusinessDepartments from '../components/BusinessDepartments.astro'
-import ServiceOfferings from '../components/ServiceOfferings.astro'
 import Icon from '../components/Icon.astro'
-import ProcessFigure from '../components/ProcessFigure.astro'
-import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
@@ -23,13 +19,6 @@ const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
-
-interface ValueCycleStep {
-  title: string
-  description: string
-  icon: string
-  accent: string
-}
 
 interface RelatedLink {
   icon: string
@@ -61,10 +50,6 @@ const resolveRelatedHref = (href: string) =>
     ? socialHrefMap[href as keyof typeof socialHrefMap]
     : href
 
-const valueCycle = getList<ValueCycleStep>('pages.about.valueCycle')
-const activityChecklist = getList<string>('pages.about.activities').map(
-  (text) => ({ text }),
-)
 const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
   (link) => ({
     ...link,
@@ -238,15 +223,6 @@ const aboutPageLd = {
           </section>
         )
       }
-      <div class="mb-12">
-        <ProcessFigure
-          variant="card"
-          eyebrow={t(locale, 'pages.about.missionLoopEyebrow')}
-          title={t(locale, 'pages.about.missionLoopTitle')}
-          description={t(locale, 'pages.about.missionLoopDesc')}
-          steps={valueCycle}
-        />
-      </div>
 
       <!-- 理念 -->
       <h2 class="text-2xl ac-heading mb-6">
@@ -286,12 +262,17 @@ const aboutPageLd = {
         />
       </div>
 
-      <div class="mb-12">
-        <Checklist
-          title={t(locale, 'pages.about.activitiesTitle')}
-          items={activityChecklist}
-        />
-      </div>
+      <section class="mb-12">
+        <h2 class="mb-4 text-2xl ac-heading">
+          {t(locale, 'pages.about.initiativesHeading')}
+        </h2>
+        <p class="mb-5 text-slate-600">
+          {t(locale, 'pages.about.businessesIntro')}
+        </p>
+        <a href={u('/services/')} class="ac-btn-outline"
+          >{t(locale, 'pages.about.ctaServices')}</a
+        >
+      </section>
 
       <div class="mb-12">
         <img
@@ -312,23 +293,6 @@ const aboutPageLd = {
           decoding="async"
           loading="lazy"
         />
-      </div>
-
-      <!-- 活動と取り組み -->
-      <h2 class="text-2xl ac-heading mb-6">
-        {t(locale, 'pages.about.initiativesHeading')}
-      </h2>
-      <div class="mb-12">
-        <p class="mb-6 ac-muted">{t(locale, 'pages.services.introBody')}</p>
-        <BusinessDepartments locale={locale} />
-        <h2 class="mt-10 mb-6 text-2xl ac-heading">
-          {t(locale, 'pages.services.offeringsHeading')}
-        </h2>
-        <ServiceOfferings locale={locale} anchors={false} />
-        <p class="mt-6 ac-muted">{t(locale, 'pages.services.pricingLead')}</p>
-        <a href={u('/services/#pricing')} class="ac-link mt-3 inline-flex"
-          >{t(locale, 'pages.services.pricingHeading')}</a
-        >
       </div>
 
       <!-- 関連リンク -->

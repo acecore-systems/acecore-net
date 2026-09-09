@@ -71,49 +71,85 @@ for (const locale of locales) {
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
+  const about = await getPage(`${prefix}/about/`)
   for (const [pageName, page] of [
     ['home', home],
     ['services', services],
-    ['about', await getPage(`${prefix}/about/`)],
   ]) {
     assert.equal(
       page('.department-list > li').length,
       3,
       `${locale}.${pageName}: expected three business departments`,
     )
-    assert.ok(
-      page('h2')
-        .toArray()
-        .some(
-          (heading) =>
-            page(heading).text().trim() ===
-            translations.services.offeringsHeading,
-        ),
-      `${locale}.${pageName}: main services heading missing`,
-    )
-    const offerings = page('.service-offerings')
+  }
+  assert.equal(
+    about('.department-list').length,
+    0,
+    `${locale}.about: department details belong on services`,
+  )
+  for (const [pageName, page] of [
+    ['home', home],
+    ['about', about],
+  ]) {
     assert.equal(
-      offerings.find('article').length,
-      5,
-      `${locale}.${pageName}: missing principal service`,
+      page('.service-offerings').length,
+      0,
+      `${locale}.${pageName}: service details belong on services`,
     )
-    for (const key of [
-      'development',
-      'advisor',
-      'acestudio',
-      'aceserver',
-      'store',
-    ]) {
+    for (const key of ['development', 'advisor']) {
       assert.ok(
-        offerings
-          .find('h3')
+        !page('main')
           .text()
-          .includes(translations.services[`${key}Title`]),
-        `${locale}.${pageName}: missing ${key}`,
+          .includes(translations.services[`${key}Description`]),
+        `${locale}.${pageName}: repeated service description`,
       )
     }
+    assert.ok(
+      page(`main a[href="${prefix}/services/"]`).length > 0,
+      `${locale}.${pageName}: missing services entry`,
+    )
   }
-  const about = await getPage(`${prefix}/about/`)
+  for (const [index, key] of ['systems', 'schools', 'design'].entries()) {
+    const card = home('.department-list > li').eq(index)
+    assert.equal(card.find('a').attr('href'), `${prefix}/services/#${key}`)
+    assert.ok(card.text().includes(translations.home[`${key}Summary`]))
+  }
+  for (const path of ['about', 'blog', 'contact']) {
+    assert.ok(
+      home(`main a[href="${prefix}/${path}/"]`).length > 0,
+      `${locale}.home: missing ${path} entry`,
+    )
+  }
+  const offerings = services('.service-offerings')
+  assert.equal(
+    offerings.find('article').length,
+    5,
+    `${locale}.services: missing principal service`,
+  )
+  assert.ok(
+    services('h2')
+      .toArray()
+      .some(
+        (heading) =>
+          services(heading).text().trim() ===
+          translations.services.offeringsHeading,
+      ),
+  )
+  for (const key of [
+    'development',
+    'advisor',
+    'acestudio',
+    'aceserver',
+    'store',
+  ]) {
+    assert.ok(
+      offerings
+        .find('h3')
+        .text()
+        .includes(translations.services[`${key}Title`]),
+      `${locale}.services: missing ${key}`,
+    )
+  }
   assert.ok(about('main').text().includes(translations.about.establishedDate))
   assert.equal(
     about('#corporate-information-heading').closest('section').find('ol li')
@@ -122,21 +158,12 @@ for (const locale of locales) {
   )
   for (const officer of translations.about.officers)
     assert.ok(about('main').text().includes(officer.bio))
-  assert.deepEqual(
-    home('.service-offerings h3')
-      .toArray()
-      .map((el) => home(el).text().trim()),
-    about('.service-offerings h3')
-      .toArray()
-      .map((el) => about(el).text().trim()),
+  assert.equal(offerings.find('a').length, 5)
+  assert.equal(
+    offerings.text().split(translations.services.detailsCta).length - 1,
+    5,
   )
   for (const page of [home, services, about]) {
-    assert.equal(page('.service-offerings a').length, 5)
-    assert.equal(
-      page('.service-offerings').text().split(translations.services.detailsCta)
-        .length - 1,
-      5,
-    )
     assert.ok(!page('main').text().includes('ここに反映'))
   }
   for (const id of [

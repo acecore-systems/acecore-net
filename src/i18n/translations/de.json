@@ -207,7 +207,12 @@
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
       "contactHeading": "Acecore kontaktieren",
       "contactBody": "Über unsere zentrale Anlaufstelle nehmen wir Beratungsanfragen zu unseren Geschäftsbereichen, Vorschläge für Kooperationen und sonstige Anfragen entgegen.",
-      "contactCta": "Kontakt"
+      "contactCta": "Kontakt",
+      "businessesLead": "Lernen Sie unsere drei Abteilungen für Technologie, Lernen und Kreativität kennen. Aufgaben und Angebote finden Sie auf der Seite der Geschäftsbereiche.",
+      "systemsSummary": "Web- und Systementwicklung sowie technische Unterstützung",
+      "schoolsSummary": "Bildung und Lernunterstützung",
+      "designSummary": "Design und kreative Arbeit",
+      "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, seine Führung und seine Philosophie."
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -228,10 +233,10 @@
     },
     "about": {
       "title": "Über uns",
-      "seoTitleContext": "Unternehmensinformationen, Philosophie und Geschäftsbereiche",
-      "description": "Erfahren Sie mehr über Acecore, seine Philosophie, Abteilungen und wichtigsten Dienstleistungen.",
+      "seoTitleContext": "Unternehmensinformationen, Führung und Philosophie",
+      "description": "Erfahren Sie mehr über Acecore, die Unternehmensführung und die Unternehmensphilosophie.",
       "heroTitle": "Über uns",
-      "heroSubtitle": "Die Philosophie und Geschäftsbereiche von Acecore",
+      "heroSubtitle": "Unternehmensinformationen, Führung und Philosophie",
       "heroImgAlt": "Teamdiskussion",
       "companyInfoHeading": "Unternehmensinformationen",
       "legalNameLabel": "Rechtlicher Name",
@@ -355,7 +360,8 @@
         "Betrieb von Lernzentren",
         "Betrieb von Computerkursen",
         "Alle mit den vorgenannten Tätigkeiten verbundenen oder ergänzenden Geschäfte"
-      ]
+      ],
+      "businessesIntro": "Auf der Seite der Geschäftsbereiche finden Sie die Aufgaben jeder Abteilung, ihre Angebote und Links zu Preisen und Bedingungen."
     },
     "services": {
       "title": "Geschäftsbereiche",

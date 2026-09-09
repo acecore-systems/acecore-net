@@ -207,7 +207,12 @@
       "viewAllNews": "뉴스·기사 목록 보기",
       "contactHeading": "Acecore 문의",
       "contactBody": "사업 관련 상담, 협력 제안 및 기타 문의를 공통 창구에서 접수합니다.",
-      "contactCta": "문의하기"
+      "contactCta": "문의하기",
+      "businessesLead": "기술·학습·창작의 세 사업 부문을 소개합니다. 각 부문의 역할과 서비스는 사업 페이지에서 확인하세요.",
+      "systemsSummary": "Web·시스템 개발과 기술 지원",
+      "schoolsSummary": "교육과 학습 지원",
+      "designSummary": "디자인·크리에이티브",
+      "aboutIntro": "회사의 기본 정보, 임원 소개, 기업 이념을 안내합니다."
     },
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",
@@ -258,10 +263,10 @@
     },
     "about": {
       "title": "회사 소개",
-      "seoTitleContext": "회사 정보·철학·사업",
-      "description": "Acecore의 회사 정보, 이념, 사업 부문과 주요 서비스를 소개합니다.",
+      "seoTitleContext": "회사 정보·임원 소개·이념",
+      "description": "Acecore의 법인 정보, 임원 소개, 기업 이념을 안내합니다.",
       "heroTitle": "회사 소개",
-      "heroSubtitle": "Acecore의 이념과 사업",
+      "heroSubtitle": "회사 정보·임원 소개·기업 이념",
       "heroImgAlt": "팀 토론",
       "companyInfoHeading": "법인 정보",
       "legalNameLabel": "법인명",
@@ -379,7 +384,8 @@
         "학습 교실 운영",
         "컴퓨터 교실 운영",
         "앞의 각 항목에 부수하거나 관련된 일체의 사업"
-      ]
+      ],
+      "businessesIntro": "각 사업 부문의 역할, 제공 서비스, 요금과 이용 조건 안내는 사업 페이지에 모았습니다."
     },
     "services": {
       "title": "사업",

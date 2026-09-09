@@ -42,8 +42,13 @@ const departments = [
       <li id={overview ? key : undefined}>
         <ServiceCard
           title={t(locale, 'pages.services.' + key + 'Title')}
-          description={t(locale, 'pages.services.' + key + 'Description')}
-          href={href}
+          description={t(
+            locale,
+            overview
+              ? 'pages.services.' + key + 'Description'
+              : 'pages.home.' + key + 'Summary',
+          )}
+          href={overview ? href : getLocalizedUrl('/services/#' + key, locale)}
           icon={icon}
           tone={tone}
           locale={locale}

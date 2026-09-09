@@ -13,5 +13,10 @@
   "viewAllNews": "ニュース・記事一覧を見る",
   "contactHeading": "Acecoreへのお問い合わせ",
   "contactBody": "事業に関するご相談、連携のご提案、その他のお問い合わせを共通窓口で受け付けています。",
-  "contactCta": "お問い合わせ"
+  "contactCta": "お問い合わせ",
+  "businessesLead": "技術・学び・創造の3つの事業部門をご紹介します。各部門の役割とサービスは事業ページをご覧ください。",
+  "systemsSummary": "Web・システム開発と技術支援",
+  "schoolsSummary": "教育と学習支援",
+  "designSummary": "デザイン・クリエイティブ",
+  "aboutIntro": "会社の基本情報、役員紹介、私たちの理念をご紹介します。"
 }
