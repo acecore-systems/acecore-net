@@ -197,18 +197,6 @@
       "heroSubtitle": "Acecore 是一家通过技术与教育，为业务、学习和社区提供支持的企业。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgMeeting": "会议场景",
-      "businessesHeading": "Acecore 的业务",
-      "businessesLead": "我们通过各专业领域的官方网站，为您介绍最新的服务内容。",
-      "systemsTitle": "Acecore Systems",
-      "systemsDescription": "业务系统、Web 应用、网站、运营平台以及设计与创意制作等内容，请通过专业网站了解。",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "教育与学习支持的内容、费用及咨询方式，请通过专业网站了解。",
-      "aceserverTitle": "Aceserver",
-      "aceserverDescription": "这里介绍 Acecore 运营的 Minecraft 社区参与指南，并发布最新信息。",
-      "storeTitle": "Acecore Store",
-      "storeDescription": "这是 Acecore 的官方在线商店。我们将介绍商品、购买方式以及配送和退货相关的最新信息。",
-      "acestudioTitle": "AceStudio",
-      "acestudioNote": "我们将在准备就绪后，仅公布已确定的提供内容。",
       "viewBusinessDetails": "查看业务列表",
       "aboutHeading": "关于 Acecore",
       "aboutBody1": "我们将社区运营及迄今开展的工作坊中获得的经验与见解，运用于学习支持和信息分享。",
@@ -271,9 +259,9 @@
     "about": {
       "title": "公司简介",
       "seoTitleContext": "公司信息、理念与业务",
-      "description": "介绍 Acecore 的公司信息、理念，以及 Acecore Systems、Acecore Schools、Aceserver 和 Acecore Store 四项业务。",
+      "description": "介绍 Acecore 的公司信息、理念、业务部门与主要服务。",
       "heroTitle": "公司简介",
-      "heroSubtitle": "Acecore 的理念与四项业务",
+      "heroSubtitle": "Acecore 的理念与业务",
       "heroImgAlt": "团队讨论",
       "companyInfoHeading": "法人信息",
       "legalNameLabel": "法人名称",
@@ -287,22 +275,15 @@
           "role": "代表董事兼社长",
           "areas": [
             "业务战略",
-            "Web 与系统",
-            "DB 与基础设施",
-            "质量保证",
-            "AI 应用"
+            "Systems 部门（Web、系统、数据库、基础设施、质量保证、AI 应用）"
           ],
-          "bio": "Acecore 的代表董事兼社长。以 C#/.NET 为核心，将 Web 与系统、DB 与基础设施、质量保证和 AI 应用，从业务课题梳理、设计到导入后的改进一体化推进。"
+          "bio": "Acecore 代表董事兼总裁。专业领域涵盖 Web 与系统、数据库与基础设施、质量保证及 AI 应用等。在 Systems 部门，从梳理业务课题到设计及上线后的改进，统筹推进各项工作，帮助客户拓展业务并提高效率。"
         },
         {
           "name": "佐藤凌峨",
           "role": "专务董事兼本部长",
-          "areas": [
-            "Aceserver 社区运营",
-            "Discord",
-            "Minecraft 相关开发与运维"
-          ],
-          "bio": "作为 Aceserver 的守门人，协助运营 Discord 社区，以及 Minecraft 相关的开发与运维。公开发布面向 Minecraft 的 Java 插件和支持 Discord 联动的工具。"
+          "areas": ["Aceserver 运营（自主系统的开发与运维、社区管理）"],
+          "bio": "作为 Aceserver 运营团队的一员，支持 Discord 社区运营、内部基础设施建设以及 Minecraft 相关开发与运维。发布面向 Minecraft 的 Java 插件及 Discord 集成工具。在 Systems 部门，主要从事 IT 顾问工程师业务。"
         },
         {
           "name": "西田創",
@@ -312,8 +293,8 @@
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "通过四项业务支持社会",
-      "missionLoopDesc": "Acecore 通过各领域的专门官方网站，分别运营技术、学习、社区和产品相关业务。",
+      "missionLoopTitle": "Acecore 业务",
+      "missionLoopDesc": "为您介绍 Acecore 的业务部门详情及主要服务。",
       "philosophyHeading": "理念",
       "philosophyMotto": "“让技术与学习成为社会的力量。”",
       "philosophyBody1": "Acecore 是一家通过 Acecore Systems、Acecore Schools、Aceserver 和 Acecore Store 支持业务、学习、社区与产品的企业。",
@@ -322,14 +303,6 @@
       "activitiesTitle": "Acecore 的业务与企业活动",
       "workshopImgAlt": "学习会与工作坊场景",
       "initiativesHeading": "活动与举措",
-      "communityTitle": "社区活动",
-      "communityDesc": "Aceserver 是 Acecore 运营的 Minecraft 社区。参与方式和活动记录由官方门户管理，企业层面的重要通知则",
-      "ossTitle": "Acecore Systems",
-      "ossDesc": "开发、制作、运维支持和技术说明由 Acecore Systems 管理，公开项目可在 GitHub 上查看。",
-      "regionalTitle": "Acecore Schools",
-      "regionalDesc": "学习支持的对象、开展方式、费用和活动记录均汇总于 Acecore Schools 官方网站。",
-      "partnershipTitle": "跨业务协作",
-      "partnershipDesc": "涉及多个业务的咨询和联合企划可通过 Acecore 的联系窗口提出。业务概览则",
       "relatedLinksHeading": "相关链接",
       "ctaHeading": "与 Acecore 一起迈出下一步",
       "ctaBody": "我们受理跨业务咨询、合作提案，以及不确定应联系哪个窗口的问题。",
@@ -338,33 +311,21 @@
       "valueCycle": [
         {
           "title": "Acecore Systems",
-          "description": "以技术支撑业务与运营。",
+          "description": "以技术和系统支持实现与运营。",
           "icon": "cpu",
           "accent": "brand"
         },
         {
           "title": "Acecore Schools",
-          "description": "从目标出发构建学习方案。",
-          "icon": "palette",
+          "description": "通过学习，拓展自主选择的能力。",
+          "icon": "graduation-cap",
           "accent": "amber"
         },
         {
-          "title": "Aceserver",
-          "description": "运营以 Minecraft 为纽带的社区。",
-          "icon": "users",
+          "title": "Acecore Design",
+          "description": "正在筹备以品牌视觉、信息传达和易用性设计为职责的领域。",
+          "icon": "palette",
           "accent": "emerald"
-        },
-        {
-          "title": "Acecore Store",
-          "description": "通过官方在线商店提供 Acecore 的产品。",
-          "icon": "shopping-bag",
-          "accent": "slate"
-        },
-        {
-          "title": "Acecore",
-          "description": "连接四项业务，发布公司信息。",
-          "icon": "repeat-2",
-          "accent": "brand"
         }
       ],
       "activities": [
@@ -405,32 +366,58 @@
           "description": "这是 Aceserver 社区开展活动的 Discord 服务器。",
           "href": "discord"
         }
+      ],
+      "establishedLabel": "成立日期",
+      "establishedDate": "2026年7月13日",
+      "businessPurposesLabel": "经营范围",
+      "businessPurposes": [
+        "通过互联网提供各类信息服务",
+        "网站的策划、制作、销售、运营及管理",
+        "电子商务网站的策划、制作、销售、运营及管理",
+        "计算机系统的策划、开发、销售及维护业务",
+        "各类应用软件的策划、制作、销售、运营及管理",
+        "经营学习辅导教室",
+        "经营计算机培训教室",
+        "与上述各项附带或相关的一切业务"
       ]
     },
     "services": {
       "title": "业务",
       "seoTitleContext": "业务介绍",
-      "description": "为您介绍 Acecore 的各项业务，以及提供相关专业信息的官方网站。",
+      "description": "为您介绍 Acecore 的业务部门详情及主要服务，包括系统定制开发、IT 顾问工程师、AceStudio、Minecraft 社区和官方在线商店。各项服务的费用和使用条件请参阅相应官方网站。",
       "heroTitle": "业务",
       "heroSubtitle": "汇总各专业领域的官方信息入口",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
-      "introTitle": "为您提供各业务的权威信息源",
-      "introBody": "详情、费用、案例及使用方法，请前往各业务的专业网站查看最新信息。",
+      "introTitle": "Acecore 业务",
+      "introBody": "为您介绍 Acecore 的业务部门详情及主要服务。",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "业务系统、Web 应用、网站、运维基础设施以及设计与创意制作，详见专业网站。",
+      "systemsDescription": "以技术和系统支持实现与运营。",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "教育与学习支持的内容、费用及咨询方式，请参阅专业网站。",
+      "schoolsDescription": "通过学习，拓展自主选择的能力。",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "这里提供 Acecore 运营的 Minecraft 社区参与指南及最新信息。",
+      "aceserverDescription": "我们运营 Minecraft 社区。",
       "storeTitle": "Acecore Store",
-      "storeDescription": "Acecore 的官方在线商店。这里提供商品、购买方式以及配送和退货相关的最新信息。",
+      "storeDescription": "Acecore 官方在线商店。",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "准备中",
-      "acestudioDescription": "仅在提供内容确定且准备就绪后通知您。",
+      "acestudioDescription": "为所有创作者提供分享自己活动的空间。",
       "contactHeading": "联系 Acecore",
       "contactBody": "我们通过统一联系窗口受理业务咨询、合作提案及其他咨询。",
-      "contactCta": "联系我们"
+      "contactCta": "联系我们",
+      "designTitle": "Acecore Design",
+      "designDescription": "正在筹备以品牌视觉、信息传达和易用性设计为职责的领域。",
+      "designStatus": "构想与筹备中",
+      "designNote": "具体服务与提供体制仍在梳理。制作需求可通过统一咨询窗口了解目前能够支持的范围。",
+      "developmentTitle": "系统定制开发服务",
+      "developmentDescription": "我们倾听您对系统的需求，为您提出并开发最合适的系统方案。",
+      "advisorTitle": "IT 顾问工程师服务",
+      "advisorDescription": "从日常咨询到网站上线，我们以固定月费提供支持。",
+      "learningTitle": "围绕目标安排的学习支持",
+      "pricingHeading": "费用与使用条件",
+      "pricingLead": "详细费用及支持范围请查看各专业网站。学习安排在咨询时确认，社区参与条件及商品价格请查看相应服务网站。",
+      "offeringsHeading": "主要服务",
+      "detailsCta": "了解详情"
     },
     "privacy": {
       "title": "隐私政策",
@@ -482,24 +469,8 @@
       "inquiryButton": "联系我们"
     },
     "pricing": {
-      "title": "费用与咨询入口",
-      "description": "为您提供各业务官方网站入口，查看费用及使用条件的最新信息。",
-      "heroTitle": "费用与咨询入口",
-      "heroSubtitle": "费用信息请前往各业务官方网站查看",
-      "heroImgAlt": "查看报价资料的工作场景",
-      "eyebrow": "Official Information",
-      "introTitle": "带您前往费用信息的官方来源",
-      "introBody": "本页不重复列出金额，仅汇总各业务维护的最新信息入口。",
       "systemsTitle": "Acecore Systems 的费用",
-      "systemsBody": "开发、网站制作、设计与创意制作、运营支持的费用及咨询方式，请前往 Acecore Systems 查看。",
-      "schoolsTitle": "Acecore Schools 的费用",
-      "schoolsBody": "学习支持的费用、适用对象及咨询方式，请前往 Acecore Schools 查看。",
-      "aceserverTitle": "Aceserver 使用指南",
-      "aceserverBody": "参与方式、使用条件等最新信息，请查看 Aceserver 官方网站。",
-      "storeTitle": "Acecore Store 商品与购买指南",
-      "storeBody": "商品、购买方式、配送及退货相关的最新信息，请前往 Acecore Store 查看。",
-      "contactTitle": "其他咨询",
-      "contactBody": "跨业务咨询、合作提案，或不知道咨询窗口时，请联系 Acecore。"
+      "schoolsTitle": "Acecore Schools 的费用"
     }
   },
   "pageNames": {

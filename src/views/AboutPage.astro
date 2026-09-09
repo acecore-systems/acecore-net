@@ -3,13 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import BusinessDepartments from '../components/BusinessDepartments.astro'
+import ServiceOfferings from '../components/ServiceOfferings.astro'
 import Icon from '../components/Icon.astro'
 import ProcessFigure from '../components/ProcessFigure.astro'
 import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
-import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
 
 interface Props {
@@ -71,6 +72,7 @@ const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
   }),
 )
 const officers = getList<Officer>('pages.about.officers')
+const businessPurposes = getList<string>('pages.about.businessPurposes')
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -144,13 +146,40 @@ const aboutPageLd = {
         <h2 id="corporate-information-heading" class="text-2xl ac-heading">
           {t(locale, 'pages.about.companyInfoHeading')}
         </h2>
-        <dl class="mt-5">
+        <dl class="mt-5 space-y-6">
           <div class="border-l-4 border-brand-500 pl-4">
             <dt class="text-sm font-600 text-slate-500">
               {t(locale, 'pages.about.legalNameLabel')}
             </dt>
             <dd class="mt-1 text-xl font-700 text-slate-800">
               {SITE.legalName}
+            </dd>
+          </div>
+          <div class="border-l-4 border-brand-500 pl-4">
+            <dt class="text-sm font-600 text-slate-500">
+              {t(locale, 'pages.about.establishedLabel')}
+            </dt>
+            <dd class="mt-1 text-slate-800">
+              {t(locale, 'pages.about.establishedDate')}
+            </dd>
+          </div>
+          <div class="border-l-4 border-brand-500 pl-4">
+            <dt class="text-sm font-600 text-slate-500">
+              {t(locale, 'pages.about.businessPurposesLabel')}
+            </dt>
+            <dd class="mt-2">
+              <ol class="list-none space-y-2 p-0 text-slate-700">
+                {
+                  businessPurposes.map((purpose, index) => (
+                    <li class="flex gap-2">
+                      <>
+                        <span>({index + 1})</span>
+                        <span>{purpose}</span>
+                      </>
+                    </li>
+                  ))
+                }
+              </ol>
             </dd>
           </div>
         </dl>
@@ -289,68 +318,17 @@ const aboutPageLd = {
       <h2 class="text-2xl ac-heading mb-6">
         {t(locale, 'pages.about.initiativesHeading')}
       </h2>
-      <div class="space-y-6 mb-12">
-        <div class="flex items-start gap-4">
-          <span class="ac-icon-box"><Icon name="users" class="text-xl" /></span>
-          <div>
-            <h3 class="font-700 text-lg mb-1">
-              {t(locale, 'pages.about.communityTitle')}
-            </h3>
-            <p class="text-slate-600">
-              {t(locale, 'pages.about.communityDesc')}
-              <a href={u('/blog/')} class="ac-link">{t(locale, 'nav.blog')}</a>
-            </p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <span class="ac-icon-box"
-            ><Icon name="git-branch" class="text-xl" /></span
-          >
-          <div>
-            <h3 class="font-700 text-lg mb-1">
-              {t(locale, 'pages.about.ossTitle')}
-            </h3>
-            <p class="text-slate-600">
-              {t(locale, 'pages.about.ossDesc')}
-            </p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <span class="ac-icon-box"
-            ><Icon name="map-pin" class="text-xl" /></span
-          >
-          <div>
-            <h3 class="font-700 text-lg mb-1">
-              {t(locale, 'pages.about.regionalTitle')}
-            </h3>
-            <p class="text-slate-600">
-              {t(locale, 'pages.about.regionalDesc')}
-            </p>
-            <a
-              href={getSchoolsUrl()}
-              class="mt-2 inline-flex items-center gap-1 ac-link"
-            >
-              <Icon name="arrow-right" class="text-sm" />
-              {t(locale, 'pageNames.schools')}
-            </a>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <span class="ac-icon-box"
-            ><Icon name="handshake" class="text-xl" /></span
-          >
-          <div>
-            <h3 class="font-700 text-lg mb-1">
-              {t(locale, 'pages.about.partnershipTitle')}
-            </h3>
-            <p class="text-slate-600">
-              {t(locale, 'pages.about.partnershipDesc')}
-              <a href={u('/services/')} class="ac-link"
-                >{t(locale, 'nav.services')}</a
-              >
-            </p>
-          </div>
-        </div>
+      <div class="mb-12">
+        <p class="mb-6 ac-muted">{t(locale, 'pages.services.introBody')}</p>
+        <BusinessDepartments locale={locale} />
+        <h2 class="mt-10 mb-6 text-2xl ac-heading">
+          {t(locale, 'pages.services.offeringsHeading')}
+        </h2>
+        <ServiceOfferings locale={locale} anchors={false} />
+        <p class="mt-6 ac-muted">{t(locale, 'pages.services.pricingLead')}</p>
+        <a href={u('/services/#pricing')} class="ac-link mt-3 inline-flex"
+          >{t(locale, 'pages.services.pricingHeading')}</a
+        >
       </div>
 
       <!-- 関連リンク -->

@@ -1,3 +1,23 @@
+# Pricing is now part of the business directory.
+/pricing /services/#pricing 301
+/pricing/ /services/#pricing 301
+/en/pricing /en/services/#pricing 301
+/en/pricing/ /en/services/#pricing 301
+/zh-cn/pricing /zh-cn/services/#pricing 301
+/zh-cn/pricing/ /zh-cn/services/#pricing 301
+/es/pricing /es/services/#pricing 301
+/es/pricing/ /es/services/#pricing 301
+/pt/pricing /pt/services/#pricing 301
+/pt/pricing/ /pt/services/#pricing 301
+/fr/pricing /fr/services/#pricing 301
+/fr/pricing/ /fr/services/#pricing 301
+/ko/pricing /ko/services/#pricing 301
+/ko/pricing/ /ko/services/#pricing 301
+/de/pricing /de/services/#pricing 301
+/de/pricing/ /de/services/#pricing 301
+/ru/pricing /ru/services/#pricing 301
+/ru/pricing/ /ru/services/#pricing 301
+
 # Specialist content canonical redirects
 # Retired specialist tag redirects
 # Pages Functions tag middleware is authoritative; keep these as fallback rules.

@@ -197,18 +197,6 @@
       "heroSubtitle": "A Acecore é uma empresa que apoia negócios, aprendizagem e comunidades por meio da tecnologia e da educação.",
       "heroImgTeam": "Equipe trabalhando em espaço de coworking",
       "heroImgMeeting": "Cena de reunião",
-      "businessesHeading": "Negócios da Acecore",
-      "businessesLead": "Nos sites oficiais dedicados a cada área de especialização, você encontra as informações mais recentes sobre os serviços.",
-      "systemsTitle": "Acecore Systems",
-      "systemsDescription": "No site especializado, você encontra sistemas empresariais, aplicativos web, sites, infraestrutura operacional e serviços de design e produção criativa.",
-      "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "Consulte no site especializado os serviços de educação e apoio à aprendizagem, os preços e as formas de atendimento.",
-      "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Confira as informações para participar da comunidade Minecraft administrada pela Acecore e as novidades mais recentes.",
-      "storeTitle": "Acecore Store",
-      "storeDescription": "Esta é a loja online oficial da Acecore. Consulte as informações mais recentes sobre produtos, formas de compra, entrega e devoluções.",
-      "acestudioTitle": "AceStudio",
-      "acestudioNote": "Informaremos apenas os detalhes já definidos assim que os preparativos estiverem concluídos.",
       "viewBusinessDetails": "Ver lista de negócios",
       "aboutHeading": "Sobre a Acecore",
       "aboutBody1": "Usamos os conhecimentos adquiridos na gestão de comunidades e nos workshops que realizamos até o momento para apoiar a aprendizagem e divulgar informações.",
@@ -271,9 +259,9 @@
     "about": {
       "title": "Sobre nós",
       "seoTitleContext": "Informações da empresa, filosofia e negócios",
-      "description": "Apresentamos as informações da empresa, sua filosofia e os quatro negócios da Acecore: Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
+      "description": "Conheça a Acecore, sua filosofia, seus departamentos e seus principais serviços.",
       "heroTitle": "Sobre nós",
-      "heroSubtitle": "A filosofia da Acecore e seus quatro negócios",
+      "heroSubtitle": "A filosofia e os negócios da Acecore",
       "heroImgAlt": "Discussão em equipe",
       "companyInfoHeading": "Informações corporativas",
       "legalNameLabel": "Razão social",
@@ -286,23 +274,18 @@
           "name": "西田凱",
           "role": "Diretor representante e presidente",
           "areas": [
-            "Estratégia de negócios",
-            "Web e sistemas",
-            "Bancos de dados e infraestrutura",
-            "Garantia de qualidade",
-            "Adoção de IA"
+            "Estratégia empresarial",
+            "Departamento Systems (Web, sistemas, bancos de dados, infraestrutura, garantia de qualidade e uso de IA)"
           ],
-          "bio": "Presidente e diretor representante da Acecore. Com C#/.NET como base, lidera de forma integrada Web e sistemas, bancos de dados e infraestrutura, garantia de qualidade e adoção de IA, desde a organização dos desafios do negócio até o projeto, a implementação e as melhorias pós-implantação."
+          "bio": "Presidente e diretor representante da Acecore. Suas especialidades abrangem Web e sistemas, bancos de dados e infraestrutura, garantia de qualidade e uso de IA. No departamento Systems, conduz o trabalho desde a definição dos desafios de negócio até o projeto e as melhorias após a implantação, ajudando os clientes a expandir seus negócios e aumentar a eficiência."
         },
         {
           "name": "佐藤凌峨",
           "role": "Diretor executivo e chefe de divisão",
           "areas": [
-            "Gestão da comunidade Aceserver",
-            "Discord",
-            "Desenvolvimento e operação relacionados ao Minecraft"
+            "Operações do Aceserver (desenvolvimento e operação de sistemas próprios e gestão da comunidade)"
           ],
-          "bio": "Como guardião do Aceserver, apoia a gestão da comunidade no Discord e o desenvolvimento e a operação relacionados ao Minecraft. Publica plugins Java para Minecraft e ferramentas de integração com o Discord."
+          "bio": "Na operação do Aceserver, apoia a comunidade do Discord, a infraestrutura interna e o desenvolvimento e as operações relacionados ao Minecraft. Publica plugins Java para Minecraft e ferramentas de integração com o Discord. No departamento Systems, concentra-se no serviço de consultoria de engenharia de TI."
         },
         {
           "name": "西田創",
@@ -316,8 +299,8 @@
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Apoiar a sociedade por meio de quatro negócios",
-      "missionLoopDesc": "A Acecore opera as áreas de tecnologia, aprendizagem, comunidade e produtos por meio de sites oficiais especializados.",
+      "missionLoopTitle": "Os negócios da Acecore",
+      "missionLoopDesc": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "philosophyHeading": "Filosofia",
       "philosophyMotto": "“Tecnologia e aprendizagem a serviço da sociedade.”",
       "philosophyBody1": "A Acecore é uma empresa que apoia negócios, aprendizagem, comunidades e produtos por meio de Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
@@ -326,14 +309,6 @@
       "activitiesTitle": "Negócios e atividades corporativas da Acecore",
       "workshopImgAlt": "Sessão de estudos e workshop",
       "initiativesHeading": "Atividades e iniciativas",
-      "communityTitle": "Atividades comunitárias",
-      "communityDesc": "O Aceserver é uma comunidade de Minecraft administrada pela Acecore. As informações sobre como participar e os registros das atividades são gerenciados no portal oficial, e os comunicados importantes da empresa",
-      "ossTitle": "Acecore Systems",
-      "ossDesc": "A Acecore Systems gerencia o desenvolvimento, a produção, o suporte à operação e o conteúdo técnico; os projetos publicados podem ser consultados no GitHub.",
-      "regionalTitle": "Acecore Schools",
-      "regionalDesc": "O público-alvo, o formato, os preços e os registros das atividades de apoio à aprendizagem estão reunidos no site oficial da Acecore Schools.",
-      "partnershipTitle": "Colaboração entre negócios",
-      "partnershipDesc": "As consultas e propostas de iniciativas conjuntas que envolvam vários negócios são recebidas pelo canal de contato da Acecore. A visão geral dos negócios",
       "relatedLinksHeading": "Links relacionados",
       "ctaHeading": "Dê o próximo passo com a Acecore",
       "ctaBody": "Recebemos consultas que envolvam vários negócios, propostas de colaboração e perguntas caso você não saiba qual canal de contato utilizar.",
@@ -342,33 +317,21 @@
       "valueCycle": [
         {
           "title": "Acecore Systems",
-          "description": "Apoiamos negócios e operações por meio da tecnologia.",
+          "description": "Apoiar a realização e a operação por meio da tecnologia.",
           "icon": "cpu",
           "accent": "brand"
         },
         {
           "title": "Acecore Schools",
-          "description": "Estruturamos a aprendizagem a partir dos objetivos.",
-          "icon": "palette",
+          "description": "Aprender para ampliar sua capacidade de escolher.",
+          "icon": "graduation-cap",
           "accent": "amber"
         },
         {
-          "title": "Aceserver",
-          "description": "Gerimos uma comunidade por meio do Minecraft.",
-          "icon": "users",
+          "title": "Acecore Design",
+          "description": "Estamos preparando uma área voltada à identidade visual, comunicação e design de usabilidade.",
+          "icon": "palette",
           "accent": "emerald"
-        },
-        {
-          "title": "Acecore Store",
-          "description": "Entregamos produtos da Acecore por meio da loja online oficial.",
-          "icon": "shopping-bag",
-          "accent": "slate"
-        },
-        {
-          "title": "Acecore",
-          "description": "Conectamos os quatro negócios e divulgamos informações sobre a empresa.",
-          "icon": "repeat-2",
-          "accent": "brand"
         }
       ],
       "activities": [
@@ -409,32 +372,58 @@
           "description": "É o servidor do Discord onde a comunidade Aceserver atua.",
           "href": "discord"
         }
+      ],
+      "establishedLabel": "Fundação",
+      "establishedDate": "13 de julho de 2026",
+      "businessPurposesLabel": "Atividades empresariais",
+      "businessPurposes": [
+        "Prestação de diversos serviços de informação pela Internet",
+        "Planejamento, produção, venda, operação e gestão de sites",
+        "Planejamento, produção, venda, operação e gestão de sites de comércio eletrônico",
+        "Planejamento, desenvolvimento, venda e manutenção de sistemas de computador",
+        "Planejamento, produção, venda, operação e gestão de softwares aplicativos",
+        "Administração de centros de aprendizagem",
+        "Administração de cursos de informática",
+        "Todas as atividades acessórias ou relacionadas às anteriores"
       ]
     },
     "services": {
       "title": "Negócios",
       "seoTitleContext": "Diretório de negócios",
-      "description": "Apresentamos os negócios da Acecore e os sites oficiais com informações especializadas sobre cada um deles.",
+      "description": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "heroTitle": "Negócios",
       "heroSubtitle": "Reunimos os sites oficiais de cada área de especialização.",
       "heroImgAlt": "Escritório de tecnologia",
       "eyebrow": "Diretório de negócios",
-      "introTitle": "Acesse a fonte oficial de cada negócio",
-      "introBody": "Para conferir as informações mais recentes sobre detalhes, preços, exemplos e formas de utilização, consulte o site especializado de cada negócio.",
+      "introTitle": "Os negócios da Acecore",
+      "introBody": "Apresentamos os departamentos da Acecore e seus principais serviços.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "No site especializado, saiba mais sobre sistemas empresariais, aplicativos web, sites, infraestrutura operacional e serviços de design e produção criativa.",
+      "systemsDescription": "Apoiar a realização e a operação por meio da tecnologia.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "No site especializado, consulte informações sobre educação e apoio à aprendizagem, preços e como solicitar atendimento.",
+      "schoolsDescription": "Aprender para ampliar sua capacidade de escolher.",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "Encontre informações sobre como participar da comunidade Minecraft operada pela Acecore e as novidades mais recentes.",
+      "aceserverDescription": "Administramos uma comunidade de Minecraft.",
       "storeTitle": "Acecore Store",
-      "storeDescription": "Esta é a loja online oficial da Acecore. Consulte as informações mais recentes sobre produtos, como comprar, entrega e devoluções.",
+      "storeDescription": "A loja on-line oficial da Acecore.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Em preparação",
-      "acestudioDescription": "Assim que a preparação estiver concluída, divulgaremos apenas informações confirmadas sobre o que será oferecido.",
+      "acestudioDescription": "Oferecer um espaço onde todos os criadores possam compartilhar suas atividades.",
       "contactHeading": "Entre em contato com a Acecore",
       "contactBody": "Nosso canal de contato geral recebe consultas sobre os negócios, propostas de parceria e outras dúvidas.",
-      "contactCta": "Entrar em contato"
+      "contactCta": "Entrar em contato",
+      "designTitle": "Acecore Design",
+      "designDescription": "Estamos preparando uma área voltada à identidade visual, comunicação e design de usabilidade.",
+      "designStatus": "Em planejamento",
+      "designNote": "Os serviços específicos e a estrutura de atendimento estão sendo definidos. Nosso contato geral recebe consultas de criação e explica o apoio disponível atualmente.",
+      "developmentTitle": "Serviço de desenvolvimento de sistemas sob medida",
+      "developmentDescription": "Ouvimos suas necessidades e propomos e desenvolvemos o sistema mais adequado.",
+      "advisorTitle": "Serviço de consultoria de engenharia de TI",
+      "advisorDescription": "Das consultas diárias à publicação do seu site, oferecemos suporte por uma mensalidade fixa.",
+      "learningTitle": "Aprendizagem conforme seus objetivos",
+      "pricingHeading": "Preços e condições",
+      "pricingLead": "Confira preços e escopo em cada site especializado. As condições de aprendizagem são confirmadas na consulta; regras de participação e preços de produtos estão nos respectivos sites.",
+      "offeringsHeading": "Principais serviços",
+      "detailsCta": "Saiba mais"
     },
     "privacy": {
       "title": "Política de Privacidade",
@@ -486,24 +475,8 @@
       "inquiryButton": "Fale conosco"
     },
     "pricing": {
-      "title": "Preços e canais de contato",
-      "description": "Indicamos os sites oficiais de cada negócio, onde estão disponíveis as informações mais recentes sobre preços e condições de uso.",
-      "heroTitle": "Preços e canais de contato",
-      "heroSubtitle": "Consulte as informações sobre preços no site oficial de cada negócio",
-      "heroImgAlt": "Pessoa conferindo documentos de orçamento",
-      "eyebrow": "Official Information",
-      "introTitle": "Acesse a fonte oficial de preços",
-      "introBody": "Para evitar a duplicação de valores, esta página aponta para as informações mais recentes mantidas por cada negócio.",
       "systemsTitle": "Preços da Acecore Systems",
-      "systemsBody": "Consulte a Acecore Systems para saber os preços e como entrar em contato sobre serviços de desenvolvimento, produção web, design e produção criativa, além de suporte operacional.",
-      "schoolsTitle": "Preços da Acecore Schools",
-      "schoolsBody": "Consulte a Acecore Schools para saber os preços, o público-alvo e como entrar em contato sobre o apoio à aprendizagem.",
-      "aceserverTitle": "Guia de uso do Aceserver",
-      "aceserverBody": "Consulte o site oficial do Aceserver para obter as informações mais recentes sobre como participar e as condições de uso.",
-      "storeTitle": "Produtos e compras da Acecore Store",
-      "storeBody": "Consulte a Acecore Store para obter as informações mais recentes sobre produtos, formas de compra, entrega e devoluções.",
-      "contactTitle": "Outras consultas",
-      "contactBody": "Entre em contato com a Acecore para consultas que envolvam mais de um negócio, propostas de colaboração ou caso não saiba com quem falar."
+      "schoolsTitle": "Preços da Acecore Schools"
     }
   },
   "pageNames": {

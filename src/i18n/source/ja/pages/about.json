@@ -1,9 +1,9 @@
 {
   "title": "会社概要",
   "seoTitleContext": "会社情報・理念・事業",
-  "description": "Acecoreの会社情報、理念、Acecore Systems・Acecore Schools・Aceserver・Acecore Storeの4つの事業をご紹介します。",
+  "description": "Acecoreの会社情報、理念、事業部門と主要サービスをご紹介します。",
   "heroTitle": "会社概要",
-  "heroSubtitle": "Acecoreの理念と、4つの事業",
+  "heroSubtitle": "Acecoreの理念と事業",
   "heroImgAlt": "チームディスカッション",
   "companyInfoHeading": "法人情報",
   "legalNameLabel": "法人名",
@@ -17,22 +17,15 @@
       "role": "代表取締役 社長",
       "areas": [
         "事業戦略",
-        "Web・システム",
-        "DB・インフラ",
-        "品質保証",
-        "AI活用"
+        "system部門(Web・システム・DB・インフラ・品質保証・AI活用)"
       ],
-      "bio": "Acecoreの代表取締役 社長。C#/.NETを軸に、Web・システム、DB・インフラ、品質保証、AI活用を、事業課題の整理から設計・導入後の改善まで一体で推進しています。"
+      "bio": "Acecoreの代表取締役 社長。Web・システム、DB・インフラ、品質保証、AI活用など、専門領域は多岐にわたります。system部門では事業課題の整理から設計・導入後の改善まで一体で推進し、お客様の事業拡大・効率化を実現しています。"
     },
     {
       "name": "佐藤凌峨",
       "role": "専務取締役 本部長",
-      "areas": [
-        "Aceserverコミュニティ運営",
-        "Discord",
-        "Minecraft関連の開発・運用"
-      ],
-      "bio": "Aceserverの門番として、Discordコミュニティの運営とMinecraft関連の開発・運用を支援。Minecraft向けJavaプラグインやDiscord連携を扱うツールを公開しています。"
+      "areas": ["Aceserver運営(独自システムの開発・運用・コミュニティ管理)"],
+      "bio": "Aceserverの運営として、Discordコミュニティの運営と運営の内部インフラ整備、Minecraft関連の開発・運用を支援。Minecraft向けJavaプラグインやDiscord連携を扱うツールを公開しています。system部門では、顧問ITエンジニア事業を中心に活動しています。"
     },
     {
       "name": "西田創",
@@ -42,8 +35,8 @@
     }
   ],
   "missionLoopEyebrow": "Mission Loop",
-  "missionLoopTitle": "4つの事業を通じて社会を支える",
-  "missionLoopDesc": "技術、学び、コミュニティ、プロダクトの各領域を、専門の公式サイトで運営しています。",
+  "missionLoopTitle": "Acecoreの事業",
+  "missionLoopDesc": "Acecoreの事業部門の詳細と主要サービスをご案内しています。",
   "philosophyHeading": "理念",
   "philosophyMotto": "「技術と学びを、社会の力へ。」",
   "philosophyBody1": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Storeを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
@@ -52,14 +45,6 @@
   "activitiesTitle": "Acecoreの事業と企業活動",
   "workshopImgAlt": "勉強会・ワークショップの様子",
   "initiativesHeading": "活動と取り組み",
-  "communityTitle": "コミュニティ活動",
-  "communityDesc": "Aceserverは、Acecoreが運営するMinecraftコミュニティです。参加方法や活動記録は公式ポータルで管理し、企業としての重要なお知らせは",
-  "ossTitle": "Acecore Systems",
-  "ossDesc": "開発・制作・運用支援と技術解説はAcecore Systemsが管理し、公開プロジェクトはGitHubで確認できます。",
-  "regionalTitle": "Acecore Schools",
-  "regionalDesc": "学習支援の対象、進め方、料金、活動記録はAcecore Schools公式サイトに集約しています。",
-  "partnershipTitle": "事業横断の連携",
-  "partnershipDesc": "複数事業にまたがるご相談や共同企画はAcecoreの窓口で受け付けています。事業の概要は",
   "relatedLinksHeading": "関連リンク",
   "ctaHeading": "Acecoreと一緒に、次の一歩を",
   "ctaBody": "事業横断のご相談、連携のご提案、窓口が分からないお問い合わせを受け付けています。",
@@ -68,33 +53,21 @@
   "valueCycle": [
     {
       "title": "Acecore Systems",
-      "description": "技術で事業と運用を支えます。",
+      "description": "技術と仕組みで、実現と運用を支える。",
       "icon": "cpu",
       "accent": "brand"
     },
     {
       "title": "Acecore Schools",
-      "description": "目的から学びを組み立てます。",
-      "icon": "palette",
+      "description": "学びを通じて、自分で選べることを増やす。",
+      "icon": "graduation-cap",
       "accent": "amber"
     },
     {
-      "title": "Aceserver",
-      "description": "Minecraftを通じたコミュニティを運営します。",
-      "icon": "users",
+      "title": "Acecore Design",
+      "description": "ブランドの視覚表現や、情報の伝え方、使いやすさの設計を担う方向で準備しています。",
+      "icon": "palette",
       "accent": "emerald"
-    },
-    {
-      "title": "Acecore Store",
-      "description": "公式オンラインストアでAcecoreのプロダクトを届けます。",
-      "icon": "shopping-bag",
-      "accent": "slate"
-    },
-    {
-      "title": "Acecore",
-      "description": "4つの事業をつなぎ、会社情報を発信します。",
-      "icon": "repeat-2",
-      "accent": "brand"
     }
   ],
   "activities": [
@@ -135,5 +108,18 @@
       "description": "Aceserverのコミュニティが活動するDiscordサーバーです。",
       "href": "discord"
     }
+  ],
+  "establishedLabel": "設立",
+  "establishedDate": "2026年7月13日",
+  "businessPurposesLabel": "事業内容",
+  "businessPurposes": [
+    "インターネットを利用した各種情報提供サービス",
+    "Ｗｅｂサイトの企画、制作、販売、運営及び管理",
+    "ＥＣ（電子商取引）サイトの企画、制作、販売、運営及び管理",
+    "コンピュータシステムの企画、開発、販売及び保守に関する業務",
+    "各種アプリケーションソフトの企画、制作、販売、運営及び管理",
+    "学習教室の経営",
+    "パソコン教室の経営",
+    "前各号に附帯又は関連する一切の事業"
   ]
 }
