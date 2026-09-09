@@ -1403,6 +1403,11 @@ collections:
                 label: '氏名'
                 hint: 'officers[].name'
                 widget: string
+              - name: 'image'
+                label: '画像'
+                hint: 'officers[].image'
+                widget: image
+                required: false
               - name: 'role'
                 label: '役職'
                 hint: 'officers[].role'
