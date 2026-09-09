@@ -5,9 +5,6 @@ import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
-import Icon from '../components/Icon.astro'
-import ProcessFigure from '../components/ProcessFigure.astro'
-import Checklist from '../components/Checklist.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
@@ -23,13 +20,6 @@ const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
 const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
-
-interface ValueCycleStep {
-  title: string
-  description: string
-  icon: string
-  accent: string
-}
 
 interface RelatedLink {
   icon: string
@@ -61,10 +51,6 @@ const resolveRelatedHref = (href: string) =>
     ? socialHrefMap[href as keyof typeof socialHrefMap]
     : href
 
-const valueCycle = getList<ValueCycleStep>('pages.about.valueCycle')
-const activityChecklist = getList<string>('pages.about.activities').map(
-  (text) => ({ text }),
-)
 const relatedLinks = getList<RelatedLink>('pages.about.relatedLinks').map(
   (link) => ({
     ...link,
@@ -238,15 +224,6 @@ const aboutPageLd = {
           </section>
         )
       }
-      <div class="mb-12">
-        <ProcessFigure
-          variant="card"
-          eyebrow={t(locale, 'pages.about.missionLoopEyebrow')}
-          title={t(locale, 'pages.about.missionLoopTitle')}
-          description={t(locale, 'pages.about.missionLoopDesc')}
-          steps={valueCycle}
-        />
-      </div>
 
       <!-- 理念 -->
       <h2 class="text-2xl ac-heading mb-6">
@@ -265,53 +242,48 @@ const aboutPageLd = {
         {t(locale, 'pages.about.philosophyBody2')}
       </p>
 
-      <div class="mb-12">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.about.collaborationImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
+      <div class="mb-12 grid gap-4 sm:grid-cols-2">
+        <div>
+          <img
+            src={optimizeImage(
+              'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+              { width: 1200, height: 675, quality: 80 },
+            )}
+            srcset={generateSrcSet(
+              'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+              contentImageWidths,
+              contentImageOptions,
+            )}
+            sizes={contentImageSizes}
+            alt={t(locale, 'pages.about.collaborationImgAlt')}
+            class="w-full rounded-lg object-cover aspect-video"
+            width="1200"
+            height="675"
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
 
-      <div class="mb-12">
-        <Checklist
-          title={t(locale, 'pages.about.activitiesTitle')}
-          items={activityChecklist}
-        />
-      </div>
-
-      <div class="mb-12">
-        <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
-          srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.about.workshopImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
+        <div>
+          <img
+            src={optimizeImage(
+              'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+              { width: 1200, height: 675, quality: 80 },
+            )}
+            srcset={generateSrcSet(
+              'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+              contentImageWidths,
+              contentImageOptions,
+            )}
+            sizes={contentImageSizes}
+            alt={t(locale, 'pages.about.workshopImgAlt')}
+            class="w-full rounded-lg object-cover aspect-video"
+            width="1200"
+            height="675"
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
       </div>
 
       <!-- 活動と取り組み -->
@@ -321,11 +293,10 @@ const aboutPageLd = {
       <div class="mb-12">
         <p class="mb-6 ac-muted">{t(locale, 'pages.services.introBody')}</p>
         <BusinessDepartments locale={locale} />
-        <h2 class="mt-10 mb-6 text-2xl ac-heading">
+        <h2 class="mt-10 mb-5 text-xl ac-heading">
           {t(locale, 'pages.services.offeringsHeading')}
         </h2>
         <ServiceOfferings locale={locale} anchors={false} />
-        <p class="mt-6 ac-muted">{t(locale, 'pages.services.pricingLead')}</p>
         <a href={u('/services/#pricing')} class="ac-link mt-3 inline-flex"
           >{t(locale, 'pages.services.pricingHeading')}</a
         >
@@ -335,25 +306,23 @@ const aboutPageLd = {
       <h2 class="text-2xl ac-heading mb-6">
         {t(locale, 'pages.about.relatedLinksHeading')}
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+      <ul class="mb-12 flex list-none flex-wrap gap-x-6 gap-y-3 p-0">
         {
           relatedLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="ac-card p-6 no-underline transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-            >
-              <div class="flex items-center gap-3 mb-2">
-                <Icon name={link.icon} class="text-xl text-brand-500" />
-                <h3 class="font-700 text-brand-500">{link.title}</h3>
-              </div>
-              <p class="text-sm text-slate-600">{link.description}</p>
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-            </a>
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ac-link text-sm"
+              >
+                {link.title}
+                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              </a>
+            </li>
           ))
         }
-      </div>
+      </ul>
 
       <!-- CTA -->
       <div class="ac-surface bg-slate-50 p-8 text-center">

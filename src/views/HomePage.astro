@@ -132,38 +132,24 @@ const webPageLd = {
 
   <CampaignNotice locale={locale} page="home" />
 
-  <section
-    class="ac-blueprint-soft border-y border-brand-100 bg-brand-50/70 pt-14 pb-8 sm:pt-16 sm:pb-10 lg:pt-20 lg:pb-10"
-  >
+  <section class="ac-section bg-white">
     <div class="ac-container">
       <div class="ac-section-intro">
         <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
           {t(locale, 'pages.services.introTitle')}
         </h2>
-        <p class="ac-muted">
-          {t(locale, 'pages.services.introBody')}
-        </p>
+        <p class="ac-muted">{t(locale, 'pages.services.introBody')}</p>
       </div>
       <BusinessDepartments locale={locale} />
+      <h2 id="home-offerings-heading" class="mt-12 mb-5 text-xl ac-heading">
+        {t(locale, 'pages.services.offeringsHeading')}
+      </h2>
+      <ServiceOfferings locale={locale} anchors={false} />
       <div class="mt-8 text-center">
-        <a href={u('/services/')} class="ac-btn-outline"
+        <a href={u('/services/')} class="ac-link"
           >{t(locale, 'pages.home.viewBusinessDetails')}</a
         >
       </div>
-    </div>
-  </section>
-
-  <section class="ac-section bg-white" aria-labelledby="home-offerings-heading">
-    <div class="ac-container">
-      <div class="ac-section-intro">
-        <h2
-          id="home-offerings-heading"
-          class="mb-4 text-2xl ac-heading sm:text-3xl"
-        >
-          {t(locale, 'pages.services.offeringsHeading')}
-        </h2>
-      </div>
-      <ServiceOfferings locale={locale} anchors={false} />
     </div>
   </section>
 
