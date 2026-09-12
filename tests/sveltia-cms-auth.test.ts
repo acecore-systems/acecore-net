@@ -233,12 +233,13 @@ test('returns 404 for a route outside the OAuth flow', async () => {
   assert.equal(response.status, 404)
 })
 
-test('Store secret is fresh per request and is used in the GitHub token exchange', async (t) => {
+test('Store-only secret is fresh per request and is used in the GitHub token exchange', async (t) => {
   installNodeTimingSafeEqual(t)
   let secret = 'first-synthetic-store-secret'
   let reads = 0
   const storeEnv = {
     ...env,
+    GITHUB_CLIENT_SECRET: undefined,
     GITHUB_CLIENT_SECRET_STORE: {
       async get() {
         reads++
