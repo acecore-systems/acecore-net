@@ -34,7 +34,30 @@ type SveltiaCmsAuthRuntimeOverrides = {
   readonly GITHUB_HOSTNAME?: string
 }
 
-type SveltiaCmsAuthEnv = SveltiaCmsAuthConfig & SveltiaCmsAuthRuntimeOverrides
+type SveltiaCmsAuthEnv = Omit<
+  SveltiaCmsAuthConfig,
+  'GITHUB_CLIENT_SECRET_STORE'
+> &
+  Partial<Pick<SveltiaCmsAuthConfig, 'GITHUB_CLIENT_SECRET_STORE'>> &
+  SveltiaCmsAuthRuntimeOverrides
+
+const readClientSecret = async (
+  env: SveltiaCmsAuthEnv,
+): Promise<string | undefined> => {
+  if (env.GITHUB_CLIENT_SECRET_STORE === undefined)
+    return env.GITHUB_CLIENT_SECRET
+  try {
+    const value = await env.GITHUB_CLIENT_SECRET_STORE.get()
+    return typeof value === 'string' &&
+      value.length > 0 &&
+      new TextEncoder().encode(value).byteLength <= 1024
+      ? value
+      : undefined
+  } catch {
+    // An unavailable Store must neither fall back nor expose provider details.
+    return undefined
+  }
+}
 
 const escapeRegExp = (value: string): string =>
   value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -135,14 +158,26 @@ const targetOriginForSiteID = (
   const normalizedSiteID = siteID.toLowerCase()
   let siteURL: URL
   try {
-    siteURL = new URL(`https://${normalizedSiteID}`)
+    siteURL = new URL(
+      normalizedSiteID.includes('://')
+        ? normalizedSiteID
+        : `https://${normalizedSiteID}`,
+    )
   } catch {
     return undefined
   }
 
   if (
-    siteURL.host !== normalizedSiteID ||
-    !isAllowedDomain(siteURL.host, allowedDomains)
+    siteURL.username !== '' ||
+    siteURL.password !== '' ||
+    siteURL.search !== '' ||
+    siteURL.hash !== '' ||
+    !['/', '/admin/'].includes(siteURL.pathname) ||
+    (siteURL.protocol !== 'https:' &&
+      !(
+        siteURL.protocol === 'http:' && isLocalDevelopmentHost(siteURL.hostname)
+      )) ||
+    !isAllowedDomain(normalizedSiteID, allowedDomains)
   ) {
     return undefined
   }
@@ -254,7 +289,7 @@ const handleAuth = async (
   }
 
   const clientID = env.GITHUB_CLIENT_ID
-  const clientSecret = env.GITHUB_CLIENT_SECRET
+  const clientSecret = await readClientSecret(env)
   if (!clientID || !clientSecret) {
     return outputError(
       'OAuth app client ID or secret is not configured.',
@@ -310,7 +345,7 @@ const handleCallback = async (
   }
 
   const clientID = env.GITHUB_CLIENT_ID
-  const clientSecret = env.GITHUB_CLIENT_SECRET
+  const clientSecret = await readClientSecret(env)
   if (!clientID || !clientSecret) {
     return outputError(
       'OAuth app client ID or secret is not configured.',

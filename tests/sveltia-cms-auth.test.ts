@@ -232,3 +232,188 @@ test('returns 404 for a route outside the OAuth flow', async () => {
 
   assert.equal(response.status, 404)
 })
+
+test('Store secret is fresh per request and is used in the GitHub token exchange', async (t) => {
+  installNodeTimingSafeEqual(t)
+  let secret = 'first-synthetic-store-secret'
+  let reads = 0
+  const storeEnv = {
+    ...env,
+    GITHUB_CLIENT_SECRET_STORE: {
+      async get() {
+        reads++
+        return secret
+      },
+    },
+  }
+  const login = await worker.fetch(
+    new Request(
+      'https://auth.example/auth?provider=github&site_id=acecore.net',
+    ),
+    storeEnv,
+  )
+  assert.equal(login.status, 302)
+  assert.equal(reads, 1)
+  const state = new URL(login.headers.get('Location')!).searchParams.get(
+    'state',
+  )!
+  const cookie = sessionCookie(login)
+  let exchanged = false
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async (input, init) => {
+    assert.equal(String(input), 'https://github.com/login/oauth/access_token')
+    const payload = JSON.parse(String(init?.body))
+    assert.equal(payload.client_secret, secret)
+    assert.equal(payload.client_id, env.GITHUB_CLIENT_ID)
+    exchanged = true
+    return Response.json({ access_token: 'synthetic-access-token' })
+  }
+  t.after(() => {
+    globalThis.fetch = originalFetch
+  })
+  secret = 'updated-synthetic-store-secret'
+  const callback = await worker.fetch(
+    new Request(`https://auth.example/callback?code=synthetic&state=${state}`, {
+      headers: { Cookie: cookie },
+    }),
+    storeEnv,
+  )
+  assert.match(await callback.text(), /synthetic-access-token/)
+  assert.equal(exchanged, true)
+  assert.equal(reads, 2)
+})
+
+test('Store failure does not use legacy credentials or disclose provider details', async (t) => {
+  installNodeTimingSafeEqual(t)
+  let broken = false
+  let reads = 0
+  let requests = 0
+  const storeEnv = {
+    ...env,
+    GITHUB_CLIENT_SECRET_STORE: {
+      async get() {
+        reads++
+        if (broken) throw new Error('synthetic-private-provider-detail')
+        return 'synthetic-store-secret'
+      },
+    },
+  }
+  const login = await worker.fetch(
+    new Request(
+      'https://auth.example/auth?provider=github&site_id=acecore.net',
+    ),
+    storeEnv,
+  )
+  const state = new URL(login.headers.get('Location')!).searchParams.get(
+    'state',
+  )!
+  broken = true
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async () => {
+    requests++
+    return Response.json({ access_token: 'should-not-happen' })
+  }
+  t.after(() => {
+    globalThis.fetch = originalFetch
+  })
+  const callback = await worker.fetch(
+    new Request(`https://auth.example/callback?code=synthetic&state=${state}`, {
+      headers: { Cookie: sessionCookie(login) },
+    }),
+    storeEnv,
+  )
+  const body = await callback.text()
+  assert.match(body, /MISCONFIGURED_CLIENT/)
+  assert.doesNotMatch(
+    body,
+    /synthetic-private-provider-detail|client-secret|should-not-happen/,
+  )
+  assert.equal(requests, 0)
+  assert.equal(reads, 2)
+  for (const path of [
+    '/unknown',
+    '/auth?provider=github&site_id=attacker.example',
+    '/callback?code=synthetic&state=missing',
+  ]) {
+    await worker.fetch(new Request(`https://auth.example${path}`), storeEnv)
+  }
+  assert.equal(reads, 2)
+  for (const value of ['', 'x'.repeat(1025)]) {
+    const response = await worker.fetch(
+      new Request(
+        'https://auth.example/auth?provider=github&site_id=acecore.net',
+      ),
+      {
+        ...env,
+        GITHUB_CLIENT_SECRET_STORE: {
+          async get() {
+            return value
+          },
+        },
+      },
+    )
+    assert.match(await response.text(), /MISCONFIGURED_CLIENT/)
+  }
+  broken = false
+  assert.equal(
+    (
+      await worker.fetch(
+        new Request(
+          'https://auth.example/auth?provider=github&site_id=acecore.net',
+        ),
+        storeEnv,
+      )
+    ).status,
+    302,
+  )
+})
+
+test('preserves explicitly allowed production CMS URL forms without broadening origin access', async () => {
+  const allowed = [
+    'acecore.net',
+    'https://acecore.net/admin/',
+    'hatt.acecore.net',
+    'https://hatt.acecore.net/admin/',
+    'asv.acecore.net',
+    'https://asv.acecore.net/admin/',
+    'localhost:4321',
+    'http://localhost:4321',
+  ]
+  const sharedEnv = { ...env, ALLOWED_DOMAINS: allowed.join(',') }
+  for (const site of allowed) {
+    const response = await worker.fetch(
+      new Request(
+        `https://auth.example/auth?provider=github&site_id=${encodeURIComponent(site)}`,
+      ),
+      sharedEnv,
+    )
+    assert.equal(response.status, 302, site)
+    const target = String(
+      sessionFromCookie(sessionCookie(response)).targetOrigin,
+    )
+    assert.ok(
+      [
+        'https://acecore.net',
+        'https://hatt.acecore.net',
+        'https://asv.acecore.net',
+        'http://localhost:4321',
+      ].includes(target),
+    )
+  }
+  for (const site of [
+    'https://hatt.acecore.net/other',
+    'http://hatt.acecore.net',
+    'https://hatt.acecore.net/admin/?x=1',
+    'https://user@hatt.acecore.net/admin/',
+    'https://attacker.example/admin/',
+    'https://hatt.acecore.net',
+  ]) {
+    const response = await worker.fetch(
+      new Request(
+        `https://auth.example/auth?provider=github&site_id=${encodeURIComponent(site)}`,
+      ),
+      sharedEnv,
+    )
+    assert.equal(response.status, 400, site)
+  }
+})

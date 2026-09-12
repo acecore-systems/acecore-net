@@ -4,6 +4,14 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-06-05",
   "workers_dev": true,
+  "keep_vars": true,
+  "secrets_store_secrets": [
+    {
+      "binding": "GITHUB_CLIENT_SECRET_STORE",
+      "store_id": "f59c889c0fcc405794a34401fb09240c",
+      "secret_name": "sveltia-cms-auth-github-client-secret",
+    },
+  ],
   "observability": {
     "enabled": true,
   },
