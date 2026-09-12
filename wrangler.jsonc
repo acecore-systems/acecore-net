@@ -45,6 +45,10 @@
   ],
   "services": [
     {
+      "binding": "CONTACT_EMAIL_SERVICE",
+      "service": "acecore-net-contact-email-preview",
+    },
+    {
       "binding": "CMS_AI",
       "service": "cms-ai",
     },
@@ -96,6 +100,10 @@
         },
       ],
       "services": [
+        {
+          "binding": "CONTACT_EMAIL_SERVICE",
+          "service": "acecore-net-contact-email-preview",
+        },
         {
           "binding": "CMS_AI",
           "service": "cms-ai",
@@ -174,6 +182,10 @@
         },
       ],
       "services": [
+        {
+          "binding": "CONTACT_EMAIL_SERVICE",
+          "service": "acecore-net-contact-email-production",
+        },
         {
           "binding": "CMS_AI",
           "service": "cms-ai",

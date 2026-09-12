@@ -54,6 +54,9 @@ jobs:
       - name: Test CMS OAuth Worker
         run: npm run test:cms-auth
 
+      - name: Validate contact email Worker
+        run: npm run test:contact-email && npm run types:contact-email:check && npm run typecheck:contact-email && npm run check:contact-email
+
       - name: Test shared contact routing
         run: npm run test:contact
 
