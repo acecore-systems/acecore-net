@@ -98,8 +98,8 @@ async function validateCmsConfig() {
     path.join(root, 'functions/admin/api/graphql.ts'),
     'utf8',
   )
-  const oauth = await readFile(
-    path.join(root, 'functions/admin/api/_github-oauth.ts'),
+  const editor = await readFile(
+    path.join(root, 'functions/admin/api/_github-editor.ts'),
     'utf8',
   )
   const githubApi = await readFile(
@@ -230,13 +230,19 @@ async function validateCmsConfig() {
     )
   }
   if (
-    !oauth.includes('repository.permissions.push !== true') ||
-    !oauth.includes("path: '/user'") ||
-    !graphql.includes('getGitHubEditor(request, { forceRefresh: true })')
+    !editor.includes('user.permissions.push !== true') ||
+    !editor.includes('getAcecoreGitHubId(request, env)') ||
+    !editor.includes('String(row.id) === id') ||
+    !graphql.includes(
+      'getGitHubEditor(request, env, { forceRefresh: true })',
+    ) ||
+    !config.includes('auth_methods: [pat]') ||
+    config.includes('base_url:') ||
+    !adminInit.includes("token: 'acecore-id-access'")
   ) {
     fail(
       scope,
-      'CMS proxy must freshly validate the GitHub user and repository write access before each mutation',
+      'CMS must authenticate AcecoreID and freshly validate the linked GitHub ID and repository push permission before each mutation',
     )
   }
   if (

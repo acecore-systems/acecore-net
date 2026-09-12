@@ -4,7 +4,13 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { afterEach, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { exportPKCS8, generateKeyPair, jwtVerify } from 'jose'
+import {
+  SignJWT,
+  exportJWK,
+  exportPKCS8,
+  generateKeyPair,
+  jwtVerify,
+} from 'jose'
 
 import {
   clearGitHubAppTokenCacheForTests,
@@ -26,7 +32,6 @@ import {
 } from '../functions/admin/api/_cms-content-validator.ts'
 import { validateCmsBlogFreshness } from '../functions/admin/api/_cms-blog-freshness-validator.ts'
 import { validateProjectedCmsReferences } from '../functions/admin/api/_cms-reference-validator.ts'
-import { clearGitHubEditorCacheForTests } from '../functions/admin/api/_github-oauth.ts'
 import { onRequestPost as handleGraphql } from '../functions/admin/api/graphql.ts'
 import { onRequest as handleGithubRest } from '../functions/admin/api/github/[[path]].ts'
 
@@ -44,6 +49,9 @@ const githubDownloadedPrivateKeyPem = createPrivateKey(appPrivateKeyPem)
   .export({ format: 'pem', type: 'pkcs1' })
   .toString()
 const appEnv = {
+  CMS_ACCESS_AUD: 'cms-audience',
+  CMS_ACCESS_TEAM_DOMAIN: 'https://test.cloudflareaccess.com',
+  CMS_ACCESS_HOSTNAMES: 'example.com',
   CMS_GITHUB_APP_CLIENT_ID: appClientId,
   CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
   CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
@@ -117,14 +125,41 @@ const editor = {
   html_url: 'https://github.com/editor',
   id: 1,
   login: 'editor',
-  name: 'Editor',
+  name: null,
   type: 'User',
 }
+
+const accessCertsUrl = 'https://test.cloudflareaccess.com/cdn-cgi/access/certs'
+const { privateKey: accessKey, publicKey: accessPublicKey } =
+  await generateKeyPair('RS256')
+const accessJwk = {
+  ...(await exportJWK(accessPublicKey)),
+  kid: 'access-key',
+  alg: 'RS256',
+}
+async function signAccessJwt(
+  custom = {
+    'https://acecore.net/claims/subject':
+      '11111111-1111-4111-8111-111111111111',
+    'https://acecore.net/claims/github-id': '1',
+  },
+  audience = 'cms-audience',
+  exp = '5m',
+) {
+  return new SignJWT({ type: 'app', custom })
+    .setProtectedHeader({ alg: 'RS256', kid: 'access-key' })
+    .setIssuer(appEnv.CMS_ACCESS_TEAM_DOMAIN)
+    .setAudience(audience)
+    .setSubject('access-user')
+    .setIssuedAt()
+    .setExpirationTime(exp)
+    .sign(accessKey)
+}
+const accessJwt = await signAccessJwt()
 
 afterEach(() => {
   globalThis.fetch = originalFetch
   clearGitHubAppTokenCacheForTests()
-  clearGitHubEditorCacheForTests()
 })
 
 test('CMS対象pathだけを許可する', () => {
@@ -804,7 +839,7 @@ test('installation tokenの応答scopeが広い場合は拒否する', async () 
   )
 })
 
-test('GitHub OAuth認証がないrequestを拒否する', async () => {
+test('Access認証がないrequestを拒否する', async () => {
   let called = false
   globalThis.fetch = async () => {
     called = true
@@ -818,6 +853,47 @@ test('GitHub OAuth認証がないrequestを拒否する', async () => {
 
   assert.equal(response.status, 401)
   assert.equal(called, false)
+})
+
+test('署名・audience・期限・連携ID・旧bearer経路を検証する', async () => {
+  mockGitHub(async () => {
+    throw new Error('Unexpected operation')
+  })
+  for (const [token, status] of [
+    ['invalid', 401],
+    [await signAccessJwt(undefined, 'other-app'), 401],
+    [await signAccessJwt(undefined, undefined, '-5m'), 401],
+    [await signAccessJwt({}), 403],
+    [
+      await signAccessJwt({
+        'https://acecore.net/claims/subject':
+          '11111111-1111-4111-8111-111111111111',
+        'https://acecore.net/claims/github-id': '2',
+      }),
+      403,
+    ],
+  ]) {
+    const request = new Request('https://example.com/admin/api/github/user', {
+      headers: { 'Cf-Access-Jwt-Assertion': token },
+    })
+    assert.equal(
+      (await handleGithubRest({ env: appEnv, request })).status,
+      status,
+    )
+  }
+  const request = new Request('https://example.com/admin/api/github/user', {
+    headers: { Authorization: 'Bearer old-github-token' },
+  })
+  assert.equal((await handleGithubRest({ env: appEnv, request })).status, 401)
+})
+
+test('cookie認証の保存は別origin・origin欠落を拒否する', async () => {
+  for (const origin of [null, 'https://attacker.example']) {
+    const request = graphqlRequest()
+    if (origin) request.headers.set('Origin', origin)
+    else request.headers.delete('Origin')
+    assert.equal((await handleGraphql({ env: appEnv, request })).status, 403)
+  }
 })
 
 test('repositoryへのpush権限がないGitHub userを拒否する', async () => {
@@ -843,7 +919,11 @@ test('専用GitHub App設定がなければOAuth tokenで保存を代行しな�
   })
 
   const response = await handleGraphql({
-    env: {},
+    env: {
+      CMS_ACCESS_AUD: appEnv.CMS_ACCESS_AUD,
+      CMS_ACCESS_TEAM_DOMAIN: appEnv.CMS_ACCESS_TEAM_DOMAIN,
+      CMS_ACCESS_HOSTNAMES: appEnv.CMS_ACCESS_HOSTNAMES,
+    },
     request: graphqlRequest(),
   })
   const result = await response.json()
@@ -860,13 +940,13 @@ test('mutation直前はcached OAuth認可を使わずpush権限を再確認す�
   globalThis.fetch = async (input, init = {}) => {
     const url = String(input)
 
-    if (url === 'https://api.github.com/user') return jsonResponse(editor)
+    if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
 
-    if (url === repositoryApi) {
+    if (url.startsWith(repositoryApi + '/collaborators?')) {
       repositoryReads += 1
-      return jsonResponse({
-        permissions: { push: repositoryReads === 1 },
-      })
+      return jsonResponse([
+        { ...editor, permissions: { push: repositoryReads === 1 } },
+      ])
     }
 
     if (
@@ -2218,16 +2298,14 @@ function mockGitHub(
     const url = String(input)
     const body = typeof init.body === 'string' ? JSON.parse(init.body) : null
 
-    if (url === 'https://api.github.com/user') {
+    if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
+
+    if (url.startsWith(repositoryApi + '/collaborators?')) {
       assert.equal(
         new Headers(init.headers).get('Authorization'),
-        `Bearer ${oauthToken}`,
+        `Bearer ${appToken}`,
       )
-      return jsonResponse(editor)
-    }
-
-    if (url === repositoryApi) {
-      return jsonResponse({ permissions: { push } })
+      return jsonResponse([{ ...editor, permissions: { push } }])
     }
 
     if (
@@ -2356,9 +2434,12 @@ function graphqlRequest({
     },
   },
 } = {}) {
-  const headers = new Headers({ 'Content-Type': 'application/json' })
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    Origin: 'https://example.com',
+  })
 
-  if (authorization) headers.set('Authorization', authorization)
+  if (authorization) headers.set('Cf-Access-Jwt-Assertion', accessJwt)
 
   return new Request('https://example.com/admin/api/graphql', {
     method: 'POST',
@@ -2377,7 +2458,7 @@ function graphqlRequest({
 }
 
 function authorizationHeaders() {
-  return { Authorization: `Bearer ${oauthToken}` }
+  return { 'Cf-Access-Jwt-Assertion': accessJwt, Origin: 'https://example.com' }
 }
 
 function graphqlReadRequest(query, variables) {

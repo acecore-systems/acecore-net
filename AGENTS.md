@@ -26,7 +26,7 @@
 - 翻訳ファイルは `src/i18n/translations/{locale}.json` に集約されている。日本語 source のキー構造と翻訳側のキー構造を揃える。
 - サイト文言を CMS から編集可能にする場合は `public/admin/config.yml` も更新し、対応する JSON key とフィールド名を揃える。
 - CMS の日時、キャンペーン、告知、募集枠など期間制御が必要な情報は、表示開始と表示終了を CMS から扱える設計にする。
-- このリポジトリの CMS ログインは GitHub 認証型とする。Cloudflare Access を前段に置く場合も、編集者本人とrepositoryへのpush権限の確認は GitHub OAuth Worker を使う。
+- CMSログインはAcecoreIDのみとし、Cloudflare Accessの署名付きJWTから連携GitHub IDを取得する。専用GitHub Appで現在のrepository push権限を照会し、保存直前にも再確認する。メール・ユーザー名一致で代替せず、ブラウザのGitHub bearer tokenを受け付けない。外部設定と既存編集者の連携照合が済むまで本番切替は行わない。
 - CMS のrepository read/write actorは `acecore-net` だけにインストールした専用GitHub Appとし、OAuth tokenを保存actorへ流用しない。App権限はContentsのRead and write、MetadataのRead-onlyだけにする。
 - CMS のpublication branchは `main` にし、同一originのREST / GraphQL proxyがGitHub user、repository権限、書き込みpath、件数、容量、最新HEADを検証して、CMS管理対象だけをexpected-HEAD付きの1 commitで直接保存する。
 - CMS保存前に、現在の`main` treeへ同一mutationの追加・変更・削除を投影し、全言語記事の著者、タグ、ローカル画像参照が投影後にも存在することを同期検証する。

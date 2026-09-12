@@ -18,9 +18,12 @@ import {
 import { validateCmsBlogFreshness } from './_cms-blog-freshness-validator.ts'
 import { validateCmsAdditionContents } from './_cms-content-validator.ts'
 import { validateProjectedCmsReferences } from './_cms-reference-validator.ts'
-import { getGitHubEditor, type GitHubEditor } from './_github-oauth.ts'
 import {
-  type CmsGitHubAppEnv,
+  getGitHubEditor,
+  type GitHubEditor,
+  type CmsEditorEnv,
+} from './_github-editor.ts'
+import {
   GitHubApiError,
   copyGitHubResponse,
   fetchCmsTree,
@@ -63,12 +66,18 @@ const MAX_TOTAL_CONTENT_BYTES = 25 * 1024 * 1024
 const MAX_GRAPHQL_BLOB_SIZE = 10 * 1024 * 1024
 const MAX_AMBIGUOUS_RECOVERY_BYTES = 4 * 1024 * 1024
 
-export const onRequestPost: PagesFunction<CmsGitHubAppEnv> = async ({
+export const onRequestPost: PagesFunction<CmsEditorEnv> = async ({
   request,
   env,
 }) => {
   try {
-    let auth = await getGitHubEditor(request)
+    if (
+      request.headers.get('Origin') !== new URL(request.url).origin ||
+      request.headers.get('Sec-Fetch-Site') === 'cross-site'
+    ) {
+      return json({ message: '同一サイトのCMSから操作してください。' }, 403)
+    }
+    let auth = await getGitHubEditor(request, env)
     const bodyText = await readRequestText(request)
 
     if (bodyText === null) {
@@ -93,8 +102,8 @@ export const onRequestPost: PagesFunction<CmsGitHubAppEnv> = async ({
     }
 
     if (operation.operation === 'mutation') {
-      auth = await getGitHubEditor(request, { forceRefresh: true })
-      const token = await getGitHubAppToken(env, { forceRefresh: true })
+      auth = await getGitHubEditor(request, env, { forceRefresh: true })
+      const token = await getGitHubAppToken(env)
       return await handleCommitMutation({ auth, operation, payload, token })
     }
 

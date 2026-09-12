@@ -2,7 +2,7 @@
 
 /**
  * @typedef {{
- *   init: (options: { config: { backend: { branch: string } } }) => void
+ *   init: (options: { config: { backend: { branch: string } } }) => void | Promise<void>
  * }} SveltiaCms
  */
 
@@ -25,13 +25,36 @@ if (!isSveltiaCms(cmsCandidate)) {
 
 const cms = cmsCandidate
 
-cms.init({
-  config: {
-    backend: {
-      branch: 'main',
-    },
-  },
+void initialize().catch((error) => {
+  const status = document.createElement('p')
+  status.textContent =
+    error instanceof Error
+      ? error.message
+      : 'AcecoreIDのログインを確認してください。'
+  document.body.append(status)
 })
+
+async function initialize() {
+  const response = await fetch('/admin/api/github/user', {
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json' },
+  })
+  if (!response.ok) {
+    throw new Error(
+      'AcecoreIDへのログインと連携GitHubの編集権限を確認してください。',
+    )
+  }
+  // A UI sentinel only. Server endpoints ignore Authorization and verify Access.
+  const signin = btoa(
+    JSON.stringify({ token: 'acecore-id-access', prefs: { language: 'ja' } }),
+  )
+  history.replaceState(
+    null,
+    '',
+    `${location.pathname}${location.search}#/signin/${signin}`,
+  )
+  await cms.init({ config: { backend: { branch: 'main' } } })
+}
 
 const notice = document.createElement('aside')
 const noticeTitle = document.createElement('strong')
