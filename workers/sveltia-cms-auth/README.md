@@ -55,8 +55,9 @@ Storeは許可済みの認証開始とCSRF検証後のcallbackで1回だけ読�
 ### 共有認証の既存設定を保持する
 
 本番はAcecore、Hatt、Aceserver Portalと許可済みpreview/localhostから参照されます。
-`keep_vars: true` でdashboardの既存 `ALLOWED_DOMAINS` と `GITHUB_SCOPE` を保持します。
-リポジトリの初期用 `vars` だけで本番allowlistを置き換えないでください。
+`ALLOWED_DOMAINS` と `GITHUB_SCOPE` はdashboardで管理し、configの `vars` には宣言しません。
+`keep_vars: true` だけではconfigに明記した値の上書きを防げません。宣言を省くことで、
+共有Workerの既存値を保持します。新規Workerでは配信前に許可サイトを設定してください。
 
 本番ではhostname形式と `https://hatt.acecore.net/admin/` のようなURL形式が
 明示的に許可されています。既存allowlistと入力の一致を検証してからoriginへ変換し、

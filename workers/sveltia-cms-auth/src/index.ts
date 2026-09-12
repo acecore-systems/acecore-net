@@ -31,6 +31,8 @@ type OAuthSession = {
  * OAuth secrets are generated from `wrangler.jsonc`'s `secrets.required`.
  */
 type SveltiaCmsAuthRuntimeOverrides = {
+  readonly ALLOWED_DOMAINS?: string
+  readonly GITHUB_SCOPE?: string
   readonly GITHUB_HOSTNAME?: string
 }
 
@@ -271,7 +273,7 @@ const handleAuth = async (
   const requestURL = new URL(request.url)
   const requestedProvider = requestURL.searchParams.get('provider')
   const siteID = requestURL.searchParams.get('site_id')
-  const targetOrigin = targetOriginForSiteID(siteID, env.ALLOWED_DOMAINS)
+  const targetOrigin = targetOriginForSiteID(siteID, env.ALLOWED_DOMAINS || '')
 
   if (requestedProvider !== provider) {
     return outputError(
@@ -324,7 +326,7 @@ const handleCallback = async (
   const state = requestURL.searchParams.get('state')
   const session = readOAuthSession(
     request.headers.get('Cookie'),
-    env.ALLOWED_DOMAINS,
+    env.ALLOWED_DOMAINS || '',
   )
   const targetOrigin = session?.targetOrigin
 
