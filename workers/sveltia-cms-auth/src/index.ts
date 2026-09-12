@@ -28,9 +28,11 @@ type OAuthSession = {
 
 /**
  * `GITHUB_HOSTNAME` is an optional dashboard-only override. The required GitHub
- * OAuth secrets are generated from `wrangler.jsonc`'s `secrets.required`.
+ * OAuth client ID is generated from `wrangler.jsonc`'s `secrets.required`.
+ * The optional legacy secret is used only when no Store binding exists.
  */
 type SveltiaCmsAuthRuntimeOverrides = {
+  readonly GITHUB_CLIENT_SECRET?: string
   readonly ALLOWED_DOMAINS?: string
   readonly GITHUB_SCOPE?: string
   readonly GITHUB_HOSTNAME?: string

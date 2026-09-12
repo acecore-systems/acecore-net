@@ -16,7 +16,7 @@
     "enabled": true,
   },
   "secrets": {
-    "required": ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"],
+    "required": ["GITHUB_CLIENT_ID"],
   },
   // ALLOWED_DOMAINS and GITHUB_SCOPE are managed on the shared Worker.
   // Explicit vars override dashboard values even with keep_vars enabled.
