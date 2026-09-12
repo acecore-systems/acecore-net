@@ -39,7 +39,14 @@
     "validate:blog-freshness": "node scripts/validate-blog-freshness.mjs",
     "validate:seo": "node scripts/enrich-sitemap-lastmod.mjs --check && node scripts/validate-seo.mjs",
     "validate:tag-redirects": "node --experimental-strip-types scripts/validate-tag-redirects.mjs",
-    "validate:legacy-redirects": "node --experimental-strip-types scripts/validate-legacy-redirects.mjs"
+    "validate:legacy-redirects": "node --experimental-strip-types scripts/validate-legacy-redirects.mjs",
+    "test:contact-email": "node --experimental-strip-types --test tests/contact-email.test.ts tests/contact-email-runtime.test.mjs",
+    "types:contact-email": "wrangler types workers/contact-email/worker-configuration.d.ts --config workers/contact-email/wrangler.jsonc --env-interface ContactEmailConfig --include-runtime false",
+    "types:contact-email:check": "npm run types:contact-email -- --check",
+    "typecheck:contact-email": "tsc --project workers/contact-email/tsconfig.json",
+    "check:contact-email": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env preview --dry-run && wrangler deploy --config workers/contact-email/wrangler.jsonc --env production --dry-run",
+    "deploy:contact-email:preview": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env preview --keep-vars",
+    "deploy:contact-email:production": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env production --keep-vars"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.0",

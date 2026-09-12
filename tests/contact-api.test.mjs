@@ -2,8 +2,12 @@ import assert from 'node:assert/strict'
 import { afterEach, test } from 'node:test'
 
 import { onRequestOptions, onRequestPost } from '../functions/api/contact.ts'
+import contactWorker from '../workers/contact-email/src/index.ts'
 
 const originalFetch = globalThis.fetch
+let sendEmail = async () => {
+  throw new Error('Unexpected email')
+}
 
 afterEach(() => {
   globalThis.fetch = originalFetch
@@ -34,7 +38,7 @@ test('Systemsのurlencodedフォームは同じlocaleの完了画面へ戻る', 
   assert.equal(emails[1].html, undefined)
   assert.equal(emails[1].subject, 'Спасибо за обращение в Acecore')
   assert.match(emails[1].text, /Мы получили ваше обращение/)
-  assert.equal(emails[1].reply_to, 'info@acecore.net')
+  assert.equal(emails[1].replyTo, 'info@acecore.net')
 })
 
 test('SystemsのFormData入力エラーも同じlocaleのフォームへ戻る', async () => {
@@ -91,9 +95,7 @@ test('問い合わせ通知は株式会社Acecore名で送信する', async () =
   })
 
   assert.equal(response.status, 201)
-  const emailCall = calls.find((call) =>
-    call.url.includes('/email/sending/send'),
-  )
+  const emailCall = calls.find((call) => call.url === 'email-binding')
   assert.ok(emailCall)
   assert.equal(emailCall.init?.method, 'POST')
 
@@ -200,6 +202,13 @@ test('未許可originをHTMLリダイレクト先には使わない', async () =
 
 function mockSuccessfulContact(hostname) {
   const calls = []
+  sendEmail = async (email) => {
+    calls.push({
+      url: 'email-binding',
+      init: { body: JSON.stringify(email), method: 'POST' },
+    })
+    return { messageId: 'message-id' }
+  }
   globalThis.fetch = async (input, init) => {
     const url = String(input)
     calls.push({ url, init })
@@ -216,7 +225,7 @@ function mockSuccessfulContact(hostname) {
 
 function getEmailPayloads(calls) {
   return calls
-    .filter(({ url }) => url.includes('/email/sending/send'))
+    .filter(({ url }) => url === 'email-binding')
     .map(({ init }) => JSON.parse(init.body))
 }
 
@@ -269,7 +278,15 @@ function jsonContactRequest({ origin, locale, ip }) {
 function contactEnv() {
   return {
     CLOUDFLARE_ACCOUNT_ID: 'account-id',
-    CLOUDFLARE_EMAIL_API_TOKEN: 'email-token',
+    CONTACT_EMAIL_SERVICE: {
+      fetch: (request) =>
+        contactWorker.fetch(request, {
+          CLOUDFLARE_ACCOUNT_ID: 'db9b62f409f463da7acbcc374b8385d0',
+          CONTACT_FROM_EMAIL: 'noreply@acecore.net',
+          CONTACT_TO_EMAIL: 'info@acecore.net',
+          EMAIL: { send: (email) => sendEmail(email) },
+        }),
+    },
     CONTACT_ALLOWED_HOSTNAMES: 'acecore.net,systems.acecore.net',
     TURNSTILE_SECRET_KEY: 'turnstile-secret',
   }

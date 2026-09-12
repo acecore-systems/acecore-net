@@ -1,0 +1,918 @@
+type EmailAddress = {
+  address: string
+  name?: string
+}
+
+export type EmailApiMessage = {
+  to: string | EmailAddress | (string | EmailAddress)[]
+  from: string | EmailAddress
+  subject: string
+  text?: string
+  reply_to?: string | EmailAddress
+  headers?: Record<string, string>
+}
+
+type EmailApiResponse = {
+  success?: boolean
+  errors?: Array<{
+    code?: number
+    message?: string
+  }>
+  result?: {
+    delivered?: string[]
+    permanent_bounces?: string[]
+    queued?: string[]
+  } | null
+}
+
+type Env = {
+  CONTACT_EMAIL_SERVICE?: Pick<Fetcher, 'fetch'>
+  CLOUDFLARE_ACCOUNT_ID?: string
+  CONTACT_FROM_EMAIL?: string
+  CONTACT_TO_EMAIL?: string
+  CONTACT_ALLOWED_HOSTNAMES?: string
+  TURNSTILE_SECRET_KEY?: string
+}
+
+type PagesContext = {
+  request: Request
+  env: Env
+}
+
+type ContactPayload = {
+  locale?: unknown
+  category?: unknown
+  name?: unknown
+  email?: unknown
+  subject?: unknown
+  message?: unknown
+  turnstileToken?: unknown
+  companyWebsite?: unknown
+}
+
+type TurnstileResponse = {
+  success?: boolean
+  hostname?: string
+  'error-codes'?: string[]
+}
+
+type ApiMessageKey =
+  'unavailable' | 'invalid' | 'rateLimited' | 'turnstile' | 'failed'
+
+const SUPPORTED_LOCALES = [
+  'ja',
+  'en',
+  'zh-cn',
+  'es',
+  'pt',
+  'fr',
+  'ko',
+  'de',
+  'ru',
+] as const
+
+type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
+
+type ContactDetails = {
+  locale: SupportedLocale
+  category: string
+  name: string
+  email: string
+  subject: string
+  message: string
+}
+
+type ValidatedContact = ContactDetails & {
+  ok: true
+  turnstileToken: string
+}
+
+type ContactAcknowledgementCopy = {
+  subject: string
+  greeting: (name: string) => string
+  received: string
+  next: string
+  categoryLabel: string
+  subjectLabel: string
+  receivedAtLabel: string
+  emptySubject: string
+  noReply: string
+}
+
+const API_MESSAGES: Record<SupportedLocale, Record<ApiMessageKey, string>> = {
+  ja: {
+    unavailable: 'お問い合わせフォームを一時的に利用できません。',
+    invalid: '入力内容を確認してください。',
+    rateLimited:
+      '短時間に送信できる回数を超えました。少し待ってからお試しください。',
+    turnstile: '送信前の確認に失敗しました。もう一度お試しください。',
+    failed: 'お問い合わせを送信できませんでした。',
+  },
+  en: {
+    unavailable: 'The contact form is temporarily unavailable.',
+    invalid: 'Please check the entered details.',
+    rateLimited: 'Too many submissions. Please wait and try again.',
+    turnstile: 'Verification failed. Please try again.',
+    failed: 'Could not send the contact request.',
+  },
+  'zh-cn': {
+    unavailable: '咨询表单暂时无法使用。',
+    invalid: '请检查输入内容。',
+    rateLimited: '提交次数过多。请稍后再试。',
+    turnstile: '验证失败。请重试。',
+    failed: '无法发送咨询内容。',
+  },
+  es: {
+    unavailable: 'El formulario de contacto no está disponible temporalmente.',
+    invalid: 'Revisa los datos ingresados.',
+    rateLimited: 'Demasiados envíos. Espera e inténtalo de nuevo.',
+    turnstile: 'La verificación falló. Inténtalo de nuevo.',
+    failed: 'No se pudo enviar la consulta.',
+  },
+  pt: {
+    unavailable: 'O formulário de contato está temporariamente indisponível.',
+    invalid: 'Verifique os dados inseridos.',
+    rateLimited: 'Muitos envios. Aguarde e tente novamente.',
+    turnstile: 'A verificação falhou. Tente novamente.',
+    failed: 'Não foi possível enviar a mensagem.',
+  },
+  fr: {
+    unavailable: 'Le formulaire de contact est temporairement indisponible.',
+    invalid: 'Veuillez vérifier les informations saisies.',
+    rateLimited: 'Trop d’envois. Veuillez patienter puis réessayer.',
+    turnstile: 'La vérification a échoué. Veuillez réessayer.',
+    failed: "Impossible d'envoyer la demande.",
+  },
+  ko: {
+    unavailable: '문의 양식을 일시적으로 사용할 수 없습니다.',
+    invalid: '입력 내용을 확인해 주세요.',
+    rateLimited: '너무 많이 전송했습니다. 잠시 후 다시 시도해 주세요.',
+    turnstile: '확인에 실패했습니다. 다시 시도해 주세요.',
+    failed: '문의를 전송할 수 없습니다.',
+  },
+  de: {
+    unavailable: 'Das Kontaktformular ist vorübergehend nicht verfügbar.',
+    invalid: 'Bitte prüfen Sie die eingegebenen Daten.',
+    rateLimited: 'Zu viele Einsendungen. Bitte warten Sie kurz.',
+    turnstile:
+      'Die Überprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut.',
+    failed: 'Die Anfrage konnte nicht gesendet werden.',
+  },
+  ru: {
+    unavailable: 'Форма обратной связи временно недоступна.',
+    invalid: 'Проверьте введенные данные.',
+    rateLimited: 'Слишком много отправок. Попробуйте позже.',
+    turnstile: 'Проверка не пройдена. Попробуйте еще раз.',
+    failed: 'Не удалось отправить запрос.',
+  },
+}
+
+const CONTACT_ACK_COPY: Record<SupportedLocale, ContactAcknowledgementCopy> = {
+  ja: {
+    subject: 'お問い合わせありがとうございました',
+    greeting: (name) => name + ' 様',
+    received: 'お問い合わせを受け付けました。',
+    next: '内容を確認のうえ、必要に応じてご連絡します。',
+    categoryLabel: 'お問い合わせ種別',
+    subjectLabel: '件名',
+    receivedAtLabel: '受付日時',
+    emptySubject: '未入力',
+    noReply: 'このメールはお問い合わせフォームからの自動返信です。',
+  },
+  en: {
+    subject: 'Thank you for contacting Acecore',
+    greeting: (name) => 'Hello ' + name + ',',
+    received: 'We have received your contact request.',
+    next: 'We will review your message and contact you if needed.',
+    categoryLabel: 'Category',
+    subjectLabel: 'Subject',
+    receivedAtLabel: 'Received at',
+    emptySubject: 'Not provided',
+    noReply: 'This is an automated reply from the Acecore contact form.',
+  },
+  'zh-cn': {
+    subject: '感谢您的咨询',
+    greeting: (name) => name + ' 您好：',
+    received: '我们已收到您的咨询。',
+    next: '我们会确认内容，并在需要时与您联系。',
+    categoryLabel: '咨询类型',
+    subjectLabel: '主题',
+    receivedAtLabel: '接收时间',
+    emptySubject: '未填写',
+    noReply: '这是一封来自 Acecore 咨询表单的自动回复邮件。',
+  },
+  es: {
+    subject: 'Gracias por contactar con Acecore',
+    greeting: (name) => 'Hola ' + name + ':',
+    received: 'Hemos recibido tu consulta.',
+    next: 'Revisaremos tu mensaje y nos pondremos en contacto contigo si es necesario.',
+    categoryLabel: 'Categoría',
+    subjectLabel: 'Asunto',
+    receivedAtLabel: 'Recibido el',
+    emptySubject: 'No indicado',
+    noReply:
+      'Este es un mensaje automático del formulario de contacto de Acecore.',
+  },
+  pt: {
+    subject: 'Obrigado por entrar em contato com a Acecore',
+    greeting: (name) => 'Olá, ' + name + ':',
+    received: 'Recebemos sua mensagem.',
+    next: 'Vamos analisar o conteúdo e entraremos em contato se necessário.',
+    categoryLabel: 'Categoria',
+    subjectLabel: 'Assunto',
+    receivedAtLabel: 'Recebido em',
+    emptySubject: 'Não informado',
+    noReply:
+      'Esta é uma resposta automática do formulário de contato da Acecore.',
+  },
+  fr: {
+    subject: 'Merci d’avoir contacté Acecore',
+    greeting: (name) => 'Bonjour ' + name + ',',
+    received: 'Nous avons bien reçu votre demande.',
+    next: 'Nous allons examiner votre message et vous contacter si nécessaire.',
+    categoryLabel: 'Catégorie',
+    subjectLabel: 'Objet',
+    receivedAtLabel: 'Reçu le',
+    emptySubject: 'Non renseigné',
+    noReply:
+      'Ceci est une réponse automatique du formulaire de contact d’Acecore.',
+  },
+  ko: {
+    subject: '문의해 주셔서 감사합니다',
+    greeting: (name) => name + '님, 안녕하세요.',
+    received: '문의가 정상적으로 접수되었습니다.',
+    next: '내용을 확인한 후 필요한 경우 연락드리겠습니다.',
+    categoryLabel: '문의 유형',
+    subjectLabel: '제목',
+    receivedAtLabel: '접수 일시',
+    emptySubject: '입력되지 않음',
+    noReply: '이 메일은 Acecore 문의 양식에서 자동으로 발송되었습니다.',
+  },
+  de: {
+    subject: 'Vielen Dank für Ihre Anfrage an Acecore',
+    greeting: (name) => 'Hallo ' + name + ',',
+    received: 'Wir haben Ihre Anfrage erhalten.',
+    next: 'Wir prüfen Ihre Nachricht und melden uns bei Bedarf bei Ihnen.',
+    categoryLabel: 'Kategorie',
+    subjectLabel: 'Betreff',
+    receivedAtLabel: 'Eingegangen am',
+    emptySubject: 'Nicht angegeben',
+    noReply: 'Dies ist eine automatische Antwort des Acecore-Kontaktformulars.',
+  },
+  ru: {
+    subject: 'Спасибо за обращение в Acecore',
+    greeting: (name) => 'Здравствуйте, ' + name + '!',
+    received: 'Мы получили ваше обращение.',
+    next: 'Мы рассмотрим ваше сообщение и свяжемся с вами при необходимости.',
+    categoryLabel: 'Категория',
+    subjectLabel: 'Тема',
+    receivedAtLabel: 'Получено',
+    emptySubject: 'Не указана',
+    noReply: 'Это автоматический ответ формы обратной связи Acecore.',
+  },
+}
+const SITEVERIFY_ENDPOINT =
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+const DEFAULT_FROM_EMAIL = 'noreply@acecore.net'
+const DEFAULT_TO_EMAIL = 'info@acecore.net'
+const ORGANIZATION_LEGAL_NAME = '株式会社Acecore'
+const MAX_CATEGORY_LENGTH = 80
+const MAX_NAME_LENGTH = 80
+const MAX_EMAIL_LENGTH = 254
+const MAX_SUBJECT_LENGTH = 160
+const MAX_MESSAGE_LENGTH = 4000
+const MAX_REQUEST_BODY_BYTES = 64 * 1024
+const MIN_MESSAGE_MEANINGFUL_LENGTH = 10
+const POST_RATE_WINDOW_MS = 15 * 60 * 1000
+const POST_RATE_MAX_REQUESTS = 4
+const RATE_LIMIT_MAX_BUCKETS = 3000
+const DEFAULT_ALLOWED_HOSTNAMES = [
+  'acecore.net',
+  'www.acecore.net',
+  'acecore-net.pages.dev',
+  'systems.acecore.net',
+  'localhost',
+  '127.0.0.1',
+]
+
+const EMAIL_PATTERN = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/
+const HTML_TAG_PATTERN = /<[^>]{2,}>/
+const REPEATED_CHARACTER_PATTERN = /(.)\1{20,}/u
+const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>()
+
+export const onRequestPost = async ({
+  request,
+  env,
+}: PagesContext): Promise<Response> => {
+  if (!isAllowedRequestOrigin(request, env)) {
+    return errorResponse(request, env, 'ja', 'invalid', 403)
+  }
+
+  if (isRequestBodyTooLarge(request)) {
+    return errorResponse(request, env, 'ja', 'invalid', 413)
+  }
+
+  const payload = await readContactPayload(request)
+  const locale = normalizeLocale(payload?.locale)
+
+  if (!env.CONTACT_EMAIL_SERVICE || !env.TURNSTILE_SECRET_KEY) {
+    return errorResponse(request, env, locale, 'unavailable', 503)
+  }
+
+  const validation = validatePayload(payload)
+
+  if (!validation.ok) {
+    return errorResponse(request, env, locale, validation.messageKey, 400)
+  }
+
+  const rateLimit = checkMemoryRateLimit(
+    getClientFingerprint(request),
+    POST_RATE_MAX_REQUESTS,
+    POST_RATE_WINDOW_MS,
+  )
+
+  if (!rateLimit.allowed) {
+    return errorResponse(request, env, validation.locale, 'rateLimited', 429, {
+      'Retry-After': String(rateLimit.retryAfterSeconds || 60),
+    })
+  }
+
+  const turnstileValid = await verifyTurnstile(
+    env,
+    validation.turnstileToken,
+    getClientIp(request),
+  )
+
+  if (!turnstileValid) {
+    return errorResponse(request, env, validation.locale, 'turnstile', 403)
+  }
+
+  try {
+    const submittedAt = new Date().toISOString()
+    const response = await env.CONTACT_EMAIL_SERVICE.fetch(
+      new Request('https://contact-email.internal/deliver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contact: {
+            locale: validation.locale,
+            category: validation.category,
+            name: validation.name,
+            email: validation.email,
+            subject: validation.subject,
+            message: validation.message,
+          },
+          submittedAt,
+          referer: normalizeSingleLine(request.headers.get('Referer'), 300),
+          userAgent: normalizeSingleLine(
+            request.headers.get('User-Agent'),
+            300,
+          ),
+        }),
+      }),
+    )
+    if (!response.ok) {
+      // Never retry via the previous sender: a delivery may already have occurred.
+      await response.body?.cancel()
+      throw Object.assign(new Error('Contact delivery failed'), {
+        status:
+          response.status === 429 ? 429 : response.status === 503 ? 503 : 500,
+      })
+    }
+    const result = (await readLimitedJson(
+      response,
+      16 * 1024,
+    )) as EmailApiResponse
+    if (!result?.success) throw new Error('Contact delivery failed')
+
+    if (wantsHtmlRedirect(request)) {
+      return Response.redirect(
+        new URL(
+          localizedPath('/contact/thanks/', validation.locale),
+          getHtmlRedirectOrigin(request, env),
+        ).toString(),
+        303,
+      )
+    }
+
+    return jsonResponse(
+      {
+        ok: true,
+        result: result.result || null,
+      },
+      201,
+      getCorsHeaders(request, env),
+    )
+  } catch (error) {
+    console.error('Contact delivery failed')
+    const status = getEmailErrorStatus(error)
+    return errorResponse(request, env, validation.locale, 'failed', status)
+  }
+}
+
+export const onRequestOptions = ({ request, env }: PagesContext): Response =>
+  new Response(null, {
+    status: 204,
+    headers: {
+      ...getCorsHeaders(request, env),
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Accept, Content-Type',
+    },
+  })
+
+async function readContactPayload(
+  request: Request,
+): Promise<ContactPayload | null> {
+  const contentType = request.headers.get('Content-Type') || ''
+
+  if (contentType.includes('application/json')) {
+    const body = (await request.json().catch(() => null)) as Record<
+      string,
+      unknown
+    > | null
+    if (!body || typeof body !== 'object') return null
+    return {
+      locale: body.locale,
+      category: body.category,
+      name: body.name,
+      email: body.email,
+      subject: body.subject,
+      message: body.message,
+      turnstileToken:
+        body.turnstileToken || body['cf-turnstile-response'] || '',
+      companyWebsite: body.companyWebsite || body.company_website || '',
+    }
+  }
+
+  const formData = await request.formData().catch(() => null)
+  if (!formData) return null
+
+  return {
+    locale: formData.get('locale'),
+    category: formData.get('お問い合わせ種別'),
+    name: formData.get('お名前'),
+    email: formData.get('メールアドレス'),
+    subject: formData.get('件名'),
+    message: formData.get('お問い合わせ内容'),
+    turnstileToken: formData.get('cf-turnstile-response'),
+    companyWebsite: formData.get('company_website'),
+  }
+}
+
+export function validatePayload(
+  payload: ContactPayload | null,
+): ValidatedContact | { ok: false; messageKey: ApiMessageKey } {
+  if (!payload || typeof payload !== 'object') {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  if (normalizeSingleLine(payload.companyWebsite, 200)) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  const locale = normalizeLocale(payload.locale)
+  const category = normalizeSingleLine(payload.category, MAX_CATEGORY_LENGTH)
+  const name = normalizeSingleLine(payload.name, MAX_NAME_LENGTH)
+  const email = normalizeEmail(payload.email)
+  const subject = normalizeSingleLine(payload.subject, MAX_SUBJECT_LENGTH)
+  const message = normalizeMessage(payload.message)
+  const turnstileToken = String(payload.turnstileToken || '').trim()
+
+  if (!category || !name || !email || !message || !turnstileToken) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  if (
+    category.length > MAX_CATEGORY_LENGTH ||
+    name.length > MAX_NAME_LENGTH ||
+    email.length > MAX_EMAIL_LENGTH ||
+    subject.length > MAX_SUBJECT_LENGTH ||
+    message.length > MAX_MESSAGE_LENGTH ||
+    turnstileToken.length > 2048
+  ) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  if (!EMAIL_PATTERN.test(email)) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  if (countMeaningfulCharacters(message) < MIN_MESSAGE_MEANINGFUL_LENGTH) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  if (isBlockedText(`${category}\n${name}\n${subject}\n${message}`)) {
+    return { ok: false, messageKey: 'invalid' }
+  }
+
+  return {
+    ok: true,
+    locale,
+    category,
+    name,
+    email,
+    subject,
+    message,
+    turnstileToken,
+  }
+}
+
+export function buildContactEmail(
+  request: Request,
+  env: Env,
+  contact: ContactDetails,
+  submittedAt: string,
+): EmailApiMessage {
+  const fromEmail = getConfigEmail(env.CONTACT_FROM_EMAIL, DEFAULT_FROM_EMAIL)
+  const toEmail = getConfigEmail(env.CONTACT_TO_EMAIL, DEFAULT_TO_EMAIL)
+  const referer = normalizeSingleLine(request.headers.get('Referer'), 300)
+  const userAgent = normalizeSingleLine(request.headers.get('User-Agent'), 300)
+  const subjectSource = contact.subject || contact.category
+  const subject = normalizeSingleLine(
+    `${ORGANIZATION_LEGAL_NAME} お問い合わせ: ${subjectSource}`,
+    200,
+  )
+  const text = [
+    `${ORGANIZATION_LEGAL_NAME}公式サイトからお問い合わせが届きました。`,
+    '',
+    `お問い合わせ種別: ${contact.category}`,
+    `お名前: ${contact.name}`,
+    `メールアドレス: ${contact.email}`,
+    `件名: ${contact.subject || '未入力'}`,
+    `言語: ${contact.locale}`,
+    `送信日時: ${submittedAt}`,
+    referer ? `送信元ページ: ${referer}` : '',
+    userAgent ? `User-Agent: ${userAgent}` : '',
+    '',
+    'お問い合わせ内容:',
+    contact.message,
+  ]
+    .filter((line) => line !== '')
+    .join('\n')
+
+  return {
+    to: toEmail,
+    from: {
+      address: fromEmail,
+      name: ORGANIZATION_LEGAL_NAME,
+    },
+    reply_to: contact.email,
+    subject,
+    text,
+    headers: {
+      'X-Acecore-Contact-Locale': contact.locale,
+    },
+  }
+}
+
+export function buildContactAcknowledgementEmail(
+  env: Env,
+  contact: ContactDetails,
+  submittedAt: string,
+): EmailApiMessage {
+  const fromEmail = getConfigEmail(env.CONTACT_FROM_EMAIL, DEFAULT_FROM_EMAIL)
+  const toEmail = getConfigEmail(env.CONTACT_TO_EMAIL, DEFAULT_TO_EMAIL)
+  const copy = CONTACT_ACK_COPY[contact.locale]
+  const text = [
+    copy.greeting(contact.name),
+    '',
+    copy.received,
+    copy.next,
+    '',
+    copy.categoryLabel + ': ' + contact.category,
+    copy.subjectLabel + ': ' + (contact.subject || copy.emptySubject),
+    copy.receivedAtLabel + ': ' + submittedAt,
+    '',
+    copy.noReply,
+  ].join('\n')
+
+  return {
+    to: contact.email,
+    from: {
+      address: fromEmail,
+      name: 'Acecore',
+    },
+    reply_to: toEmail,
+    subject: copy.subject,
+    text,
+    headers: {
+      'X-Acecore-Contact-Locale': contact.locale,
+      'X-Acecore-Contact-Type': 'acknowledgement',
+    },
+  }
+}
+async function verifyTurnstile(
+  env: Env,
+  token: string,
+  remoteIp: string | null,
+): Promise<boolean> {
+  if (!env.TURNSTILE_SECRET_KEY) return false
+
+  const formData = new FormData()
+  formData.append('secret', env.TURNSTILE_SECRET_KEY)
+  formData.append('response', token)
+  if (remoteIp) formData.append('remoteip', remoteIp)
+
+  try {
+    const response = await fetch(SITEVERIFY_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (!response.ok) return false
+
+    const result = (await response.json()) as TurnstileResponse
+    return Boolean(
+      result.success &&
+      (!result.hostname || isAllowedVerifiedHostname(result.hostname, env)),
+    )
+  } catch (error) {
+    console.error('Turnstile validation failed')
+    return false
+  }
+}
+
+function normalizeLocale(value: unknown): SupportedLocale {
+  const locale = String(value || 'ja')
+    .trim()
+    .toLowerCase()
+    .slice(0, 16)
+
+  return (SUPPORTED_LOCALES as readonly string[]).includes(locale)
+    ? (locale as SupportedLocale)
+    : 'ja'
+}
+
+function normalizeSingleLine(value: unknown, maxLength: number): string {
+  return String(value || '')
+    .replace(/[\u0000-\u001f\u007f]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, maxLength + 1)
+}
+
+function normalizeEmail(value: unknown): string {
+  return normalizeSingleLine(value, MAX_EMAIL_LENGTH).toLowerCase()
+}
+
+function getConfigEmail(value: unknown, fallback: string): string {
+  const email = normalizeEmail(value)
+  return EMAIL_PATTERN.test(email) ? email : fallback
+}
+
+function normalizeMessage(value: unknown): string {
+  return String(value || '')
+    .replace(/\r\n?/g, '\n')
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '')
+    .split('\n')
+    .map((line) => line.trim())
+    .join('\n')
+    .replace(/\n{4,}/g, '\n\n\n')
+    .trim()
+    .slice(0, MAX_MESSAGE_LENGTH + 1)
+}
+
+function countMeaningfulCharacters(value: string): number {
+  return Array.from(value.replace(/[^\p{L}\p{N}]/gu, '')).length
+}
+
+function isBlockedText(value: string): boolean {
+  return HTML_TAG_PATTERN.test(value) || REPEATED_CHARACTER_PATTERN.test(value)
+}
+
+function isRequestBodyTooLarge(request: Request): boolean {
+  const contentLength = Number(request.headers.get('Content-Length') || 0)
+  return (
+    Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BODY_BYTES
+  )
+}
+
+function checkMemoryRateLimit(
+  key: string,
+  maxRequests: number,
+  windowMs: number,
+): { allowed: boolean; retryAfterSeconds?: number } {
+  const now = Date.now()
+
+  if (rateLimitBuckets.size > RATE_LIMIT_MAX_BUCKETS) {
+    for (const [bucketKey, bucket] of rateLimitBuckets) {
+      if (bucket.resetAt <= now) rateLimitBuckets.delete(bucketKey)
+    }
+  }
+
+  const bucket = rateLimitBuckets.get(key)
+  if (!bucket || bucket.resetAt <= now) {
+    rateLimitBuckets.set(key, { count: 1, resetAt: now + windowMs })
+    return { allowed: true }
+  }
+
+  bucket.count += 1
+
+  if (bucket.count > maxRequests) {
+    return {
+      allowed: false,
+      retryAfterSeconds: Math.ceil((bucket.resetAt - now) / 1000),
+    }
+  }
+
+  return { allowed: true }
+}
+
+function isAllowedRequestOrigin(request: Request, env: Env): boolean {
+  const origin = request.headers.get('Origin')
+  if (!origin) return true
+
+  try {
+    const originUrl = new URL(origin)
+    const requestUrl = new URL(request.url)
+    const isLocalDevelopment =
+      (originUrl.hostname === 'localhost' ||
+        originUrl.hostname === '127.0.0.1') &&
+      originUrl.protocol === 'http:'
+
+    if (originUrl.origin === requestUrl.origin) return true
+    if (
+      !isLocalDevelopment &&
+      (originUrl.protocol !== 'https:' || originUrl.port !== '')
+    ) {
+      return false
+    }
+    return isAllowedVerifiedHostname(originUrl.hostname, env)
+  } catch {
+    return false
+  }
+}
+
+function getCorsHeaders(request: Request, env: Env): Record<string, string> {
+  const origin = request.headers.get('Origin')
+  const headers: Record<string, string> = { Vary: 'Origin' }
+  if (!origin || !isAllowedRequestOrigin(request, env)) return headers
+
+  try {
+    headers['Access-Control-Allow-Origin'] = new URL(origin).origin
+  } catch {
+    // An invalid origin is rejected before the response is created.
+  }
+
+  return headers
+}
+
+function isAllowedVerifiedHostname(hostname: string, env: Env): boolean {
+  const normalized = hostname.toLowerCase()
+  return getAllowedHostnames(env).some((allowedHostname) =>
+    matchesAllowedHostname(normalized, allowedHostname),
+  )
+}
+
+function matchesAllowedHostname(
+  hostname: string,
+  allowedHostname: string,
+): boolean {
+  if (hostname === allowedHostname) return true
+  if (allowedHostname === 'localhost' || allowedHostname === '127.0.0.1') {
+    return false
+  }
+  return hostname.endsWith(`.${allowedHostname}`)
+}
+
+function getAllowedHostnames(env: Env): string[] {
+  const configured = String(env.CONTACT_ALLOWED_HOSTNAMES || '')
+    .split(',')
+    .map((host) => host.trim().toLowerCase())
+    .filter(Boolean)
+
+  return configured.length > 0 ? configured : DEFAULT_ALLOWED_HOSTNAMES
+}
+
+function getClientIp(request: Request): string | null {
+  return (
+    request.headers.get('CF-Connecting-IP') ||
+    request.headers.get('X-Forwarded-For')?.split(',')[0]?.trim() ||
+    null
+  )
+}
+
+function getClientFingerprint(request: Request): string {
+  return `${getClientIp(request) || 'unknown'}:${request.headers
+    .get('User-Agent')
+    ?.slice(0, 96)}`
+}
+
+function localizedPath(path: string, locale: SupportedLocale): string {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return locale === 'ja' ? normalizedPath : `/${locale}${normalizedPath}`
+}
+
+function getHtmlRedirectOrigin(request: Request, env: Env): string {
+  const requestOrigin = new URL(request.url).origin
+  const origin = request.headers.get('Origin')
+  if (!origin) return requestOrigin
+
+  try {
+    const originUrl = new URL(origin)
+    if (isAllowedRequestOrigin(request, env)) {
+      return originUrl.origin
+    }
+  } catch {
+    // Fall back to the API origin.
+  }
+
+  return requestOrigin
+}
+
+function wantsHtmlRedirect(request: Request): boolean {
+  const accept = request.headers.get('Accept') || ''
+  return accept.includes('text/html') && !accept.includes('application/json')
+}
+
+function errorResponse(
+  request: Request,
+  env: Env,
+  locale: SupportedLocale,
+  key: ApiMessageKey,
+  status: number,
+  headers: Record<string, string> = {},
+): Response {
+  if (wantsHtmlRedirect(request)) {
+    const url = new URL(
+      localizedPath('/contact/', locale),
+      getHtmlRedirectOrigin(request, env),
+    )
+    url.searchParams.set('contact', 'error')
+    url.hash = 'contact-form'
+    return Response.redirect(url.toString(), 303)
+  }
+
+  return jsonResponse(
+    { ok: false, message: getApiMessage(locale, key) },
+    status,
+    {
+      ...headers,
+      ...getCorsHeaders(request, env),
+    },
+  )
+}
+
+function jsonResponse(
+  body: unknown,
+  status = 200,
+  headers: Record<string, string> = {},
+): Response {
+  return Response.json(body, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store',
+      ...headers,
+    },
+  })
+}
+
+function getApiMessage(locale: SupportedLocale, key: ApiMessageKey): string {
+  return API_MESSAGES[locale][key]
+}
+
+function getEmailErrorStatus(error: unknown): number {
+  const status =
+    error && typeof error === 'object' && 'status' in error
+      ? Number(error.status)
+      : 0
+
+  if (status === 429) return 429
+  if (status === 503) return 503
+  if (status >= 400 && status < 500) {
+    return 503
+  }
+
+  return 500
+}
+
+export async function readLimitedJson(
+  message: Request | Response,
+  limit: number,
+): Promise<unknown> {
+  const reader = message.body?.getReader()
+  if (!reader) throw new Error('Missing body')
+  const chunks: Uint8Array[] = []
+  let length = 0
+  try {
+    for (;;) {
+      const { done, value } = await reader.read()
+      if (done) break
+      length += value.byteLength
+      if (length > limit) {
+        await reader.cancel()
+        throw new Error('Body too large')
+      }
+      chunks.push(value)
+    }
+  } finally {
+    reader.releaseLock()
+  }
+  const bytes = new Uint8Array(length)
+  let offset = 0
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset)
+    offset += chunk.byteLength
+  }
+  return JSON.parse(new TextDecoder().decode(bytes))
+}
