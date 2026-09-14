@@ -102,7 +102,7 @@ src/
 ### Sveltia CMS（推奨）
 
 1. 本番では `https://acecore.net/admin/index.html`、ローカルでは `http://localhost:4321/admin/index.html` にアクセス
-2. 本番編集は GitHub OAuth でサインインする。OAuthは編集者本人とrepositoryへのpush権限の確認に使い、repositoryのread/writeはサイト専用GitHub Appが行う
+2. AcecoreIDでサインインする。Cloudflare Accessの連携GitHub IDを現在のrepository push権限へ照合し、read/writeはサイト専用GitHub Appが行う。切替条件は[移行手順](docs/acecoreid-admin-migration.md)を参照
 3. ローカル確認では `Work with Local Repository` を選び、repo root を指定する
 4. 「ブログ」から日本語ソース記事のみ新規作成・編集
 5. 「ページ・サイト文言」からナビ、フッター、SEO、固定ページの日本語テキストをページ/用途別に編集

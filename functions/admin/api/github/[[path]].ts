@@ -1,7 +1,10 @@
 import { CMS_REPOSITORY } from '../_cms-policy.ts'
-import { getGitHubEditor, type GitHubEditor } from '../_github-oauth.ts'
 import {
-  type CmsGitHubAppEnv,
+  getGitHubEditor,
+  type GitHubEditor,
+  type CmsEditorEnv,
+} from '../_github-editor.ts'
+import {
   GitHubApiError,
   copyGitHubResponse,
   fetchCmsTree,
@@ -14,7 +17,7 @@ const SHA_PATTERN = /^[a-f0-9]{40}$/i
 
 type ReadTarget = { kind: 'tree'; ref: string } | { kind: 'blob'; sha: string }
 
-export const onRequest: PagesFunction<CmsGitHubAppEnv> = async ({
+export const onRequest: PagesFunction<CmsEditorEnv> = async ({
   request,
   env,
 }) => {
@@ -29,7 +32,7 @@ export const onRequest: PagesFunction<CmsGitHubAppEnv> = async ({
   const proxyPath = getProxyPath(request)
 
   try {
-    const auth = await getGitHubEditor(request)
+    const auth = await getGitHubEditor(request, env)
 
     if (proxyPath === 'user') {
       return handleCurrentUser({ auth, method })
@@ -168,7 +171,12 @@ function isCollaboratorCheckPath(proxyPath: string) {
 
 function toErrorResponse(error: unknown) {
   if (error instanceof GitHubApiError) {
-    return json({ message: error.message }, error.status)
+    return json(
+      error.code
+        ? { message: error.message, code: error.code }
+        : { message: error.message },
+      error.status,
+    )
   }
 
   console.error(
