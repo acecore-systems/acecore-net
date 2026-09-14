@@ -4,6 +4,8 @@
 
 ## 本番切替前の条件
 
+2026-09-14追補: Portalの復旧結果を横展開。連携数値IDから現在のGitHubユーザーを解決し、個別のrepository permission応答のID・login一致とwrite/adminを検証する。古いAccess情報は同一サイト限定の「ログイン情報を更新」で再取得でき、未連携時は本人のAcecoreID設定への導線を示す。欠落claimのfull identity補完は同一Access主体・account・IdPを検証し、不正値や不一致を救済しない。GitHub新形式tokenのdotを許容するが、個人token・改行・過大値は拒否する。本番は未切替。
+
 1. AcecoreID PR #56を反映する。AccessのAcecoreID IdPで `https://acecore.net/claims/subject` と `https://acecore.net/claims/github-id` をapp tokenの `custom` へ文字列として伝搬する。
 2. 全既存編集者が本人のGitHubをAcecoreIDに連携し、現在のpush権限で同じ許可結果になることを確認する。共通管理者やHatt entitlementを新たに与えない。
 3. サイトのAccess appをAcecoreIDのみへ設定し、画面と `/admin/api/*` を保護する。専用app audienceを `CMS_ACCESS_AUD`、team URLを `CMS_ACCESS_TEAM_DOMAIN`、本番hostだけをカンマ区切りで `CMS_ACCESS_HOSTNAMES` に設定する。他サイトaudienceを共用しない。previewにはwriter鍵を設定しない。

@@ -230,9 +230,12 @@ async function validateCmsConfig() {
     )
   }
   if (
-    !editor.includes('user.permissions.push !== true') ||
+    !editor.includes(
+      "grant.permission !== 'admin' && grant.permission !== 'write'",
+    ) ||
     !editor.includes('getAcecoreGitHubId(request, env)') ||
-    !editor.includes('String(row.id) === id') ||
+    !editor.includes('String(user.id) !== id') ||
+    !editor.includes('String(grant.user.id) !== id') ||
     !graphql.includes(
       'getGitHubEditor(request, env, { forceRefresh: true })',
     ) ||

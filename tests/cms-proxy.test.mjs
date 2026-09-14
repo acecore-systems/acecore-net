@@ -39,7 +39,7 @@ const originalFetch = globalThis.fetch
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const mainSha = 'a'.repeat(40)
 const oauthToken = 'test-oauth-token'
-const appToken = 'test-installation-token'
+const appToken = 'ghs_test-installation-token'
 const appClientId = 'Iv23acecorecms'
 const appInstallationId = '12345678'
 const { privateKey: appPrivateKey, publicKey: appPublicKey } =
@@ -51,7 +51,7 @@ const githubDownloadedPrivateKeyPem = createPrivateKey(appPrivateKeyPem)
 const appEnv = {
   CMS_ACCESS_AUD: 'cms-audience',
   CMS_ACCESS_TEAM_DOMAIN: 'https://test.cloudflareaccess.com',
-  CMS_ACCESS_HOSTNAMES: 'example.com',
+  CMS_ACCESS_HOSTNAMES: 'acecore.net',
   CMS_GITHUB_APP_CLIENT_ID: appClientId,
   CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
   CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
@@ -150,7 +150,7 @@ async function signAccessJwt(
     .setProtectedHeader({ alg: 'RS256', kid: 'access-key' })
     .setIssuer(appEnv.CMS_ACCESS_TEAM_DOMAIN)
     .setAudience(audience)
-    .setSubject('access-user')
+    .setSubject('22222222-2222-4222-8222-222222222222')
     .setIssuedAt()
     .setExpirationTime(exp)
     .sign(accessKey)
@@ -780,6 +780,40 @@ test('GitHub配布形式の秘密鍵からrepository限定installation tokenを�
   assert.equal(await getGitHubAppToken(appEnv), appToken)
 })
 
+test('旧形式とdotを含む新形式のinstallation tokenを受け入れる', async () => {
+  for (const token of [
+    'ghs_opaque_legacy',
+    'ghs_4419780_' + 'a'.repeat(260) + '.' + 'b'.repeat(260) + '.signature',
+  ]) {
+    globalThis.fetch = async () =>
+      jsonResponse({
+        token,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    assert.equal(await getGitHubAppToken(appEnv, { forceRefresh: true }), token)
+  }
+})
+
+test('個人token・改行・上限超過のinstallation tokenを拒否する', async () => {
+  for (const token of [
+    'ghu_personal',
+    'ghs_x\r\nInjected: true',
+    'ghs_' + 'a'.repeat(4093),
+  ]) {
+    globalThis.fetch = async () =>
+      jsonResponse({
+        token,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    await assert.rejects(
+      getGitHubAppToken(appEnv, { forceRefresh: true }),
+      /installation tokenを発行できません/,
+    )
+  }
+})
+
 test('mutationではcached tokenを使わずlive installation scopeを再確認する', async () => {
   let tokenRequests = 0
 
@@ -863,7 +897,6 @@ test('署名・audience・期限・連携ID・旧bearer経路を検証する', a
     ['invalid', 401],
     [await signAccessJwt(undefined, 'other-app'), 401],
     [await signAccessJwt(undefined, undefined, '-5m'), 401],
-    [await signAccessJwt({}), 403],
     [
       await signAccessJwt({
         'https://acecore.net/claims/subject':
@@ -873,7 +906,7 @@ test('署名・audience・期限・連携ID・旧bearer経路を検証する', a
       403,
     ],
   ]) {
-    const request = new Request('https://example.com/admin/api/github/user', {
+    const request = new Request('https://acecore.net/admin/api/github/user', {
       headers: { 'Cf-Access-Jwt-Assertion': token },
     })
     assert.equal(
@@ -881,10 +914,37 @@ test('署名・audience・期限・連携ID・旧bearer経路を検証する', a
       status,
     )
   }
-  const request = new Request('https://example.com/admin/api/github/user', {
+  const request = new Request('https://acecore.net/admin/api/github/user', {
     headers: { Authorization: 'Bearer old-github-token' },
   })
   assert.equal((await handleGithubRest({ env: appEnv, request })).status, 401)
+})
+
+test('権限応答の数値ID・login不一致を拒否しmaintainのbase writeは維持する', async () => {
+  for (const [user, permission, role, expected] of [
+    [{ ...editor, id: editor.id + 1 }, 'write', 'write', 502],
+    [{ ...editor, login: 'different-user' }, 'write', 'write', 502],
+    [editor, 'write', 'maintain', 200],
+    [editor, 'admin', 'admin', 200],
+    [editor, 'read', 'triage', 403],
+  ]) {
+    mockGitHub(async () => {
+      throw new Error('Unexpected CMS operation')
+    })
+    const baseFetch = globalThis.fetch
+    globalThis.fetch = async (input, init) =>
+      String(input).endsWith('/collaborators/editor/permission')
+        ? jsonResponse({ user, permission, role_name: role })
+        : baseFetch(input, init)
+    const response = await handleGithubRest({
+      env: appEnv,
+      request: new Request('https://acecore.net/admin/api/github/user', {
+        headers: { 'Cf-Access-Jwt-Assertion': await signAccessJwt() },
+      }),
+    })
+    assert.equal(response.status, expected)
+    assert.equal((await response.text()).includes(appToken), false)
+  }
 })
 
 test('cookie認証の保存は別origin・origin欠落を拒否する', async () => {
@@ -933,7 +993,7 @@ test('専用GitHub App設定がなければOAuth tokenで保存を代行しな�
   assert.equal(cmsOperationCalled, false)
 })
 
-test('mutation直前はcached OAuth認可を使わずpush権限を再確認する', async () => {
+test('mutation直前は以前の認可を使わずpush権限を再確認する', async () => {
   let repositoryReads = 0
   let mutationCalled = false
 
@@ -942,11 +1002,16 @@ test('mutation直前はcached OAuth認可を使わずpush権限を再確認す�
 
     if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
 
-    if (url.startsWith(repositoryApi + '/collaborators?')) {
+    if (url === 'https://api.github.com/user/' + editor.id)
+      return jsonResponse(editor)
+
+    if (url.endsWith('/collaborators/editor/permission')) {
       repositoryReads += 1
-      return jsonResponse([
-        { ...editor, permissions: { push: repositoryReads === 1 } },
-      ])
+      return jsonResponse({
+        permission: repositoryReads === 1 ? 'write' : 'read',
+        role_name: repositoryReads === 1 ? 'write' : 'read',
+        user: editor,
+      })
     }
 
     if (
@@ -2256,7 +2321,7 @@ test('Git tree responseからCMS対象外pathを除外する', async () => {
   const response = await handleGithubRest({
     env: appEnv,
     request: new Request(
-      `https://example.com/admin/api/github/api/v3/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/main?recursive=1`,
+      `https://acecore.net/admin/api/github/api/v3/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/main?recursive=1`,
       { headers: authorizationHeaders() },
     ),
   })
@@ -2278,7 +2343,7 @@ test('REST writeを認証前に拒否する', async () => {
 
   const response = await handleGithubRest({
     env: appEnv,
-    request: new Request('https://example.com/admin/api/github/user', {
+    request: new Request('https://acecore.net/admin/api/github/user', {
       method: 'POST',
       headers: authorizationHeaders(),
     }),
@@ -2300,12 +2365,32 @@ function mockGitHub(
 
     if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
 
-    if (url.startsWith(repositoryApi + '/collaborators?')) {
+    const userMatch = url.match(
+      /^https:\/\/api\.github\.com\/user\/([1-9][0-9]*)$/,
+    )
+    if (userMatch) {
       assert.equal(
         new Headers(init.headers).get('Authorization'),
         `Bearer ${appToken}`,
       )
-      return jsonResponse([{ ...editor, permissions: { push } }])
+      const id = Number(userMatch[1])
+      return jsonResponse({
+        ...editor,
+        id,
+        login: id === editor.id ? editor.login : 'editor-' + id,
+      })
+    }
+
+    if (url === repositoryApi + '/collaborators/editor/permission') {
+      return jsonResponse({
+        permission: push ? 'write' : 'read',
+        role_name: push ? 'write' : 'read',
+        user: editor,
+      })
+    }
+
+    if (url.startsWith(repositoryApi + '/collaborators/')) {
+      return jsonResponse({ message: 'Not Found' }, 404)
     }
 
     if (
@@ -2436,12 +2521,12 @@ function graphqlRequest({
 } = {}) {
   const headers = new Headers({
     'Content-Type': 'application/json',
-    Origin: 'https://example.com',
+    Origin: 'https://acecore.net',
   })
 
   if (authorization) headers.set('Cf-Access-Jwt-Assertion', accessJwt)
 
-  return new Request('https://example.com/admin/api/graphql', {
+  return new Request('https://acecore.net/admin/api/graphql', {
     method: 'POST',
     headers,
     body: JSON.stringify({
@@ -2458,11 +2543,11 @@ function graphqlRequest({
 }
 
 function authorizationHeaders() {
-  return { 'Cf-Access-Jwt-Assertion': accessJwt, Origin: 'https://example.com' }
+  return { 'Cf-Access-Jwt-Assertion': accessJwt, Origin: 'https://acecore.net' }
 }
 
 function graphqlReadRequest(query, variables) {
-  return new Request('https://example.com/admin/api/graphql', {
+  return new Request('https://acecore.net/admin/api/graphql', {
     method: 'POST',
     headers: {
       ...authorizationHeaders(),

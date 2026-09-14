@@ -171,7 +171,12 @@ function isCollaboratorCheckPath(proxyPath: string) {
 
 function toErrorResponse(error: unknown) {
   if (error instanceof GitHubApiError) {
-    return json({ message: error.message }, error.status)
+    return json(
+      error.code
+        ? { message: error.message, code: error.code }
+        : { message: error.message },
+      error.status,
+    )
   }
 
   console.error(
