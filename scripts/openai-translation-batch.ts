@@ -12,7 +12,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const API_BASE_URL = 'https://api.openai.com/v1'
-const BATCH_MODEL = 'gpt-5.6-luna'
+const BATCH_MODEL = 'gpt-6-luna'
 const BATCH_ENDPOINT = '/v1/responses'
 const BATCH_METADATA_KEY = 'translation_system'
 const BATCH_METADATA_VALUE = 'acecore-net-v1'
@@ -1419,7 +1419,7 @@ function makePrBody(
     ...[...uniqueMarkers.values()].map(sourceMarker),
     '',
     '## 概要',
-    '- OpenAI Batch（gpt-5.6-luna / reasoning max）で最新の日本語sourceを翻訳しました。',
+    '- OpenAI Batch（gpt-6-luna / reasoning max）で最新の日本語sourceを翻訳しました。',
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',

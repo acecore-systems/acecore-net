@@ -57,6 +57,9 @@ jobs:
       - name: Validate contact email Worker
         run: npm run test:contact-email && npm run types:contact-email:check && npm run typecheck:contact-email && npm run check:contact-email
 
+      - name: Typecheck private AI contact Worker
+        run: npm run typecheck:ai-contact-openai
+
       - name: Test shared contact routing
         run: npm run test:contact
 

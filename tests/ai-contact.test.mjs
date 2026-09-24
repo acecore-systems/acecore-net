@@ -140,7 +140,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', async () => {
+test('Workers AI GLM low・store falseを送信する', async () => {
   let responseInput
   let responseOptions
   let responseModel

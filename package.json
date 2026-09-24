@@ -46,7 +46,10 @@
     "typecheck:contact-email": "tsc --project workers/contact-email/tsconfig.json",
     "check:contact-email": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env preview --dry-run && wrangler deploy --config workers/contact-email/wrangler.jsonc --env production --dry-run",
     "deploy:contact-email:preview": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env preview --keep-vars",
-    "deploy:contact-email:production": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env production --keep-vars"
+    "deploy:contact-email:production": "wrangler deploy --config workers/contact-email/wrangler.jsonc --env production --keep-vars",
+    "typecheck:ai-contact-openai": "tsc --project workers/ai-contact-openai/tsconfig.json",
+    "deploy:ai-contact-openai:preview": "wrangler deploy --config workers/ai-contact-openai/wrangler.jsonc --env preview",
+    "deploy:ai-contact-openai:production": "wrangler deploy --config workers/ai-contact-openai/wrangler.jsonc --env production"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.1",
