@@ -4,7 +4,7 @@ description: '公司简介页面介绍株式会社 Acecore 的法人名称、高
 articleId: d650ce53-8ad0-4996-a573-2ff638646720
 date: 2026-09-25T00:00
 author: gui
-tags: ['お知らせ', '会社情報']
+tags: ['お知らせ']
 ---
 
 在[公司简介](/zh-cn/about/)页面，Acecore 以“株式会社Acecore”作为法人名称，并介绍高管及各自负责的领域。初次了解 Acecore 的访客可以从这里查看各项工作的负责人。

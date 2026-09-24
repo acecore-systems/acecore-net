@@ -4,7 +4,7 @@ description: 'Das Unternehmensprofil stellt den Firmennamen, die Verantwortungsb
 articleId: d650ce53-8ad0-4996-a573-2ff638646720
 date: 2026-09-25T00:00
 author: gui
-tags: ['お知らせ', '会社情報']
+tags: ['お知らせ']
 ---
 
 Im [Unternehmensprofil](/de/about/) ist Kabushiki Kaisha Acecore als juristischer Firmenname angegeben. Dort werden die Führungspersonen und ihre Zuständigkeiten vorgestellt, damit Besucher die Verantwortlichkeiten einordnen können.

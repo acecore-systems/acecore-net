@@ -4,7 +4,7 @@ description: 'La page institutionnelle présente la dénomination juridique d’
 articleId: d650ce53-8ad0-4996-a573-2ff638646720
 date: 2026-09-25T00:00
 author: gui
-tags: ['お知らせ', '会社情報']
+tags: ['お知らせ']
 ---
 
 La [présentation de l’entreprise](/fr/about/) indique la dénomination juridique Kabushiki Kaisha Acecore et présente les dirigeants et leurs domaines de responsabilité. Elle permet de comprendre qui porte chaque activité.

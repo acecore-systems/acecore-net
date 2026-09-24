@@ -4,7 +4,7 @@ description: 'La página corporativa presenta la razón social de Acecore, las r
 articleId: d650ce53-8ad0-4996-a573-2ff638646720
 date: 2026-09-25T00:00
 author: gui
-tags: ['お知らせ', '会社情報']
+tags: ['お知らせ']
 ---
 
 El [perfil de la empresa](/es/about/) muestra la razón social de Kabushiki Kaisha Acecore y presenta al equipo directivo y sus áreas de responsabilidad. Es un punto de partida para conocer quién se ocupa de cada ámbito.

@@ -4,7 +4,7 @@ description: 'The company profile introduces Acecore’s legal name, executive r
 articleId: d650ce53-8ad0-4996-a573-2ff638646720
 date: 2026-09-25T00:00
 author: gui
-tags: ['お知らせ', '会社情報']
+tags: ['お知らせ']
 ---
 
 The [company profile](/en/about/) lists the legal name as Kabushiki Kaisha Acecore and introduces the executives and their areas of responsibility. It offers a starting point for understanding who works on each part of Acecore.
