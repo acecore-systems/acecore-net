@@ -12,7 +12,7 @@
         {
           "binding": "OPENAI_API_KEY_STORE",
           "store_id": "f59c889c0fcc405794a34401fb09240c",
-          "secret_name": "acecore-net-preview-openai-api-key",
+          "secret_name": "acecore-cloudflare-openai-api-key",
         },
       ],
     },
@@ -22,7 +22,7 @@
         {
           "binding": "OPENAI_API_KEY_STORE",
           "store_id": "f59c889c0fcc405794a34401fb09240c",
-          "secret_name": "acecore-net-production-openai-api-key",
+          "secret_name": "acecore-cloudflare-openai-api-key",
         },
       ],
     },
