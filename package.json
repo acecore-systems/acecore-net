@@ -7,7 +7,7 @@
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/write-cms-runtime-config.mjs",
-    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs",
+    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs && node --experimental-strip-types scripts/copy-localized-404.mjs",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
@@ -52,31 +52,31 @@
     "deploy:ai-contact-openai:production": "wrangler deploy --config workers/ai-contact-openai/wrangler.jsonc --env production"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.0",
+    "@astrojs/markdown-remark": "^7.3.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/noto-sans-jp": "^5.3.0",
-    "astro": "^7.3.1",
+    "astro": "^7.3.3",
     "graphql": "^17.0.2",
-    "jose": "^6.2.10",
-    "js-yaml": "^5.4.1",
+    "jose": "^6.2.12",
+    "js-yaml": "^5.4.2",
     "rehype-external-links": "^3.0.0",
     "satori": "^0.33.4",
     "sharp": "^0.35.3",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260903.1",
-    "@iconify-json/lucide": "^1.2.129",
+    "@cloudflare/workers-types": "^5.20260917.1",
+    "@iconify-json/lucide": "^1.2.133",
     "@tailwindcss/postcss": "4.3.3",
     "@types/js-yaml": "^4.0.9",
     "cheerio": "^1.2.0",
     "pagefind": "^1.5.2",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.7",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "4.3.3",
     "typescript": "^7.0.2",
-    "wrangler": "^4.129.0"
+    "wrangler": "^4.134.0"
   },
   "engines": {
     "node": ">=24.18.0"
