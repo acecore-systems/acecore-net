@@ -66,7 +66,10 @@ export default defineConfig({
           !page.includes('/blog/archive/') &&
           !page.includes('/blog/authors/') &&
           !page.includes('/blog/page/') &&
-          !page.includes('/contact/thanks/')
+          !page.includes('/contact/thanks/') &&
+          !/^\/(?:zh-cn|es|pt|fr|ko|de|ru)\/terms\/?$/.test(
+            new URL(page).pathname,
+          )
         )
       },
       i18n: {
