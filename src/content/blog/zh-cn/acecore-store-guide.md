@@ -10,3 +10,7 @@ tags: ['お知らせ']
 在 [Acecore Store](https://store.acecore.net/) 可以浏览服装、包袋、帽子、杂货和贴纸，并按类别、品牌或价格筛选。颜色、尺码、价格和预计送达时间请在商品页面确认。
 
 下单前请阅读[商店使用指南](https://store.acecore.net/guide/)中的购买、配送和退货说明。有关其他业务，请查看 [Acecore 业务介绍](/zh-cn/services/)；Minecraft 社区信息请访问 [Aceserver 门户](https://asv.acecore.net/zh-cn/)。
+
+## 购买者评价与个人页面
+
+商品页面显示已确认购买者的评分和评价。购买者可以使用 AcecoreID 登录并评价已购商品。[商店个人页面](https://store.acecore.net/mypage/)介绍订单状态、配送地址与 Acecore 积分。

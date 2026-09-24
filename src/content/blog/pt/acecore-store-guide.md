@@ -10,3 +10,7 @@ tags: ['お知らせ']
 Na [Acecore Store](https://store.acecore.net/) você encontra roupas, bolsas, bonés, acessórios e adesivos. Filtre o catálogo por categoria, marca ou preço. Confira opções, valores e prazo estimado de entrega em cada produto.
 
 Antes de comprar, leia o [guia da loja](https://store.acecore.net/guide/) sobre pedidos, entregas e devoluções. Saiba mais sobre os [serviços da Acecore](/pt/services/) e a comunidade Minecraft no [portal Aceserver](https://asv.acecore.net/pt/).
+
+## Avaliações de compradores e conta
+
+As páginas de produtos mostram avaliações de compradores verificados. Quem comprou pode entrar com AcecoreID para deixar uma avaliação. A [página da conta](https://store.acecore.net/mypage/) explica o status dos pedidos, os endereços de entrega e os pontos Acecore.
