@@ -5,7 +5,7 @@
   "compatibility_date": "2026-07-27",
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-    "WORKERS_AI_CHAT_MODEL": "@cf/zai-org/glm-5.3-flash",
+    "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
     "WORKERS_AI_REASONING_EFFORT": "low",
     "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
     "SEARCH_EMBEDDING_DIMENSIONS": "1024",
@@ -61,7 +61,7 @@
     "preview": {
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "@cf/zai-org/glm-5.3-flash",
+        "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
         "WORKERS_AI_REASONING_EFFORT": "low",
         "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
@@ -143,7 +143,7 @@
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "@cf/zai-org/glm-5.3-flash",
+        "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
         "WORKERS_AI_REASONING_EFFORT": "low",
         "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
@@ -188,6 +188,10 @@
         {
           "binding": "CONTACT_EMAIL_SERVICE",
           "service": "acecore-net-contact-email-production",
+        },
+        {
+          "binding": "AI_CONTACT_OPENAI_SERVICE",
+          "service": "acecore-net-ai-contact-openai-production",
         },
         {
           "binding": "CMS_AI",
