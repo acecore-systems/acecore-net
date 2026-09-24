@@ -1,4 +1,5 @@
-export const WORKERS_AI_CHAT_MODEL = 'openai/gpt-6-luna' as const
+export const WORKERS_AI_CHAT_MODEL = '@cf/zai-org/glm-5.3-flash' as const
+export const OPENAI_CHAT_MODEL = 'gpt-6-luna' as const
 export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'low' as const
 
 export type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
@@ -7,6 +8,7 @@ export type WorkersAiEnv = {
   AI?: Ai
   WORKERS_AI_CHAT_MODEL?: string
   WORKERS_AI_REASONING_EFFORT?: string
+  OPENAI_API_KEY?: string
 }
 
 type WorkersAiResponseOptions = {
@@ -44,33 +46,59 @@ export async function createWorkersAiResponse(
   env: WorkersAiEnv,
   options: WorkersAiResponseOptions,
 ): Promise<WorkersAiResponseResult> {
-  if (!env.AI) throw new WorkersAiProviderError('unconfigured')
-
-  const configuredModel = normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL)
-  if (configuredModel && configuredModel !== WORKERS_AI_CHAT_MODEL) {
+  const configuredModel =
+    normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL) || WORKERS_AI_CHAT_MODEL
+  if (
+    configuredModel !== WORKERS_AI_CHAT_MODEL &&
+    configuredModel !== OPENAI_CHAT_MODEL
+  ) {
     throw new WorkersAiProviderError('invalid_model_configuration')
   }
 
+  if (configuredModel === WORKERS_AI_CHAT_MODEL && !env.AI)
+    throw new WorkersAiProviderError('unconfigured')
+  if (configuredModel === OPENAI_CHAT_MODEL && !env.OPENAI_API_KEY?.trim())
+    throw new WorkersAiProviderError('unconfigured')
+
   let payload: unknown
   try {
-    payload = await env.AI.run(
-      WORKERS_AI_CHAT_MODEL,
-      {
-        messages: [
-          { role: 'system', content: options.instructions },
-          { role: 'user', content: options.input },
-        ],
-        reasoning_effort: normalizeReasoningEffort(
-          env.WORKERS_AI_REASONING_EFFORT,
-        ),
-        max_completion_tokens: options.maxOutputTokens,
-        user: options.safetyIdentifier,
-        store: false,
-      },
-      {
-        gateway: { id: 'default', collectLog: false },
-      },
-    )
+    const request = {
+      messages: [
+        { role: 'system', content: options.instructions },
+        { role: 'user', content: options.input },
+      ],
+      reasoning_effort: normalizeReasoningEffort(
+        env.WORKERS_AI_REASONING_EFFORT,
+      ),
+      max_completion_tokens: options.maxOutputTokens,
+      user: options.safetyIdentifier,
+      store: false,
+    }
+    if (configuredModel === WORKERS_AI_CHAT_MODEL) {
+      payload = await (
+        env.AI!.run as (model: string, input: unknown) => Promise<unknown>
+      )(WORKERS_AI_CHAT_MODEL, request)
+    } else {
+      const response = await fetch(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${env.OPENAI_API_KEY!.trim()}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ model: OPENAI_CHAT_MODEL, ...request }),
+          signal: AbortSignal.timeout(30_000),
+        },
+      )
+      if (!response.ok) {
+        await response.body?.cancel()
+        throw new Error('openai_request_failed')
+      }
+      const body = await response.text()
+      if (body.length > 512 * 1024) throw new Error('openai_response_too_large')
+      payload = JSON.parse(body)
+    }
   } catch (error) {
     throw new WorkersAiProviderError(
       error instanceof Error && error.name === 'AbortError'

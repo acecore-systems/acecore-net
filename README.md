@@ -199,11 +199,11 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` のCloudflare Pages Functionから、AI binding経由でCloudflare AI Gateway上のOpenAI `openai/gpt-6-luna`を呼び出します。Gatewayのリクエストログ収集は無効で、第三者モデルの利用にはUnified Billingと利用可能なクレジットが必要です。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserver、World Foundationについて、質問と直近の利用者発言をWorkers AI `@cf/baai/bge-m3` の1024次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
+`functions/api/ai-contact.ts` のCloudflare Pages Functionから、`WORKERS_AI_CHAT_MODEL=gpt-6-luna`ならPages secret `OPENAI_API_KEY`でOpenAI APIへ直接接続し、`@cf/zai-org/glm-5.3-flash`ならAI bindingでWorkers AIへ接続します。キー不足や障害時の自動切替はしません。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserver、World Foundationについて、質問と直近の利用者発言をWorkers AI `@cf/baai/bge-m3` の1024次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
 
 Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
-Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、`openai/gpt-6-luna`（reasoning effort `low`、`store: false`、Gatewayログ収集無効）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。検索embeddingも同じCloudflare AI bindingを使い、外部APIへの実行時フォールバックは行いません。GPT-6 Lunaの第三者モデル利用にはAI Gateway Unified Billingと利用可能なクレジットが必要です。
+Acecoreは表示localeと同じnamespace、他サイトは日本語 (`ja`) namespaceから最大3件の公開情報を取得し、選択中の生成モデル（reasoning effort `low`、`store: false`）が表示localeで回答します。Aceserverのルール、コマンド、参加条件、運用情報はWIKIだけを正とし、Portalは概要、ワールド、ストーリー、動画、ナビゲーションの根拠に限定します。回答リンクは固定の公式導線と実際に取得したページだけに制限し、生成文が根拠リンクを省略した場合も上位1件をサーバー側で追記します。生成上限に達した部分回答は表示せず、固定案内と検証済みの公式参照先へ置き換えます。検索embeddingはCloudflare AI bindingを使い、外部APIへの実行時フォールバックは行いません。
 
 ブラウザは同一originの`/api/ai-chat`へ`Accept: text/event-stream`でPOSTします。生成中のdeltaはリンク化せず平文で逐次表示し、非公開Workerが返すリンク検証・引用補完済みの`complete`イベントだけを最終Markdownとして確定します。入力エラーやモデルを使わない固定案内は従来どおりJSONでも受け取れます。
 
@@ -217,7 +217,8 @@ Cloudflare PagesではD1、AI binding、Vectorizeの設定を対象環境に設�
 - Productionの横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`、`WORLD_FOUNDATION_SEARCH_INDEX`
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationはtop-level／Previewを `false`、Productionだけを `true` とする
-- `WORKERS_AI_CHAT_MODEL`: 回答モデル（`openai/gpt-6-luna`固定）
+- `WORKERS_AI_CHAT_MODEL`: 回答モデル（`gpt-6-luna`または`@cf/zai-org/glm-5.3-flash`）
+- `OPENAI_API_KEY`: `gpt-6-luna`を選ぶ場合のPages secret。ブラウザには渡さない
 - `WORKERS_AI_REASONING_EFFORT`: 推論 effort（既定 `low`）
 - `SEARCH_EMBEDDING_MODEL`: embeddingモデル（`@cf/baai/bge-m3`固定）
 - `SEARCH_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1024`固定）
