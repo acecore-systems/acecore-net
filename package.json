@@ -7,7 +7,7 @@
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/write-cms-runtime-config.mjs",
-    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs",
+    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs && node --experimental-strip-types scripts/copy-localized-404.mjs",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
