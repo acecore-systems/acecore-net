@@ -58,7 +58,7 @@ async function onRequestPost(context) {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
     SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
     SEARCH_EMBEDDING_DIMENSIONS: '1024',
-    WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+    WORKERS_AI_CHAT_MODEL: 'openai/gpt-6-luna',
     WORKERS_AI_REASONING_EFFORT: 'low',
     ...context.env,
   }
@@ -140,7 +140,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', async () => {
+test('AI Gateway経由でGPT-6 Luna low・store falseを送信し、gateway loggingを無効にする', async () => {
   let responseInput
   let responseOptions
   let responseModel
@@ -152,7 +152,7 @@ test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', asyn
     env: {
       SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
       SEARCH_EMBEDDING_DIMENSIONS: '1024',
-      WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+      WORKERS_AI_CHAT_MODEL: 'openai/gpt-6-luna',
       WORKERS_AI_REASONING_EFFORT: 'low',
       SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
       SEARCH_ENABLED: 'false',
@@ -170,13 +170,15 @@ test('Workers AI bindingへGLM 5.3 Flash low・store falseで送信する', asyn
   })
 
   assert.equal(response.status, 200)
-  assert.equal(responseModel, '@cf/zai-org/glm-5.3-flash')
+  assert.equal(responseModel, 'openai/gpt-6-luna')
   assert.equal(responseInput.reasoning_effort, 'low')
   assert.equal(responseInput.max_completion_tokens, 640)
   assert.equal(responseInput.store, false)
   assert.match(responseInput.user, /^acecore_[0-9a-f]{48}$/u)
   assert.doesNotMatch(responseInput.user, /192\.0\.2\./u)
-  assert.equal(responseOptions, undefined)
+  assert.deepEqual(responseOptions, {
+    gateway: { id: 'default', collectLog: false },
+  })
 })
 
 for (const scenario of [

@@ -1,4 +1,4 @@
-export const WORKERS_AI_CHAT_MODEL = '@cf/zai-org/glm-5.3-flash' as const
+export const WORKERS_AI_CHAT_MODEL = 'openai/gpt-6-luna' as const
 export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'low' as const
 
 export type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
@@ -53,18 +53,24 @@ export async function createWorkersAiResponse(
 
   let payload: unknown
   try {
-    payload = await env.AI.run(WORKERS_AI_CHAT_MODEL, {
-      messages: [
-        { role: 'system', content: options.instructions },
-        { role: 'user', content: options.input },
-      ],
-      reasoning_effort: normalizeReasoningEffort(
-        env.WORKERS_AI_REASONING_EFFORT,
-      ),
-      max_completion_tokens: options.maxOutputTokens,
-      user: options.safetyIdentifier,
-      store: false,
-    })
+    payload = await env.AI.run(
+      WORKERS_AI_CHAT_MODEL,
+      {
+        messages: [
+          { role: 'system', content: options.instructions },
+          { role: 'user', content: options.input },
+        ],
+        reasoning_effort: normalizeReasoningEffort(
+          env.WORKERS_AI_REASONING_EFFORT,
+        ),
+        max_completion_tokens: options.maxOutputTokens,
+        user: options.safetyIdentifier,
+        store: false,
+      },
+      {
+        gateway: { id: 'default', collectLog: false },
+      },
+    )
   } catch (error) {
     throw new WorkersAiProviderError(
       error instanceof Error && error.name === 'AbortError'
