@@ -8,7 +8,7 @@ export type WorkersAiEnv = {
   AI?: Ai
   WORKERS_AI_CHAT_MODEL?: string
   WORKERS_AI_REASONING_EFFORT?: string
-  OPENAI_API_KEY?: string
+  AI_CONTACT_OPENAI_SERVICE?: Fetcher
 }
 
 type WorkersAiResponseOptions = {
@@ -57,7 +57,7 @@ export async function createWorkersAiResponse(
 
   if (configuredModel === WORKERS_AI_CHAT_MODEL && !env.AI)
     throw new WorkersAiProviderError('unconfigured')
-  if (configuredModel === OPENAI_CHAT_MODEL && !env.OPENAI_API_KEY?.trim())
+  if (configuredModel === OPENAI_CHAT_MODEL && !env.AI_CONTACT_OPENAI_SERVICE)
     throw new WorkersAiProviderError('unconfigured')
 
   let payload: unknown
@@ -79,12 +79,11 @@ export async function createWorkersAiResponse(
         env.AI!.run as (model: string, input: unknown) => Promise<unknown>
       )(WORKERS_AI_CHAT_MODEL, request)
     } else {
-      const response = await fetch(
-        'https://api.openai.com/v1/chat/completions',
+      const response = await env.AI_CONTACT_OPENAI_SERVICE!.fetch(
+        'https://ai-contact.internal/v1/chat',
         {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${env.OPENAI_API_KEY!.trim()}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ model: OPENAI_CHAT_MODEL, ...request }),

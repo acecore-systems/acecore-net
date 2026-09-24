@@ -190,6 +190,10 @@
           "service": "acecore-net-contact-email-production",
         },
         {
+          "binding": "AI_CONTACT_OPENAI_SERVICE",
+          "service": "acecore-net-ai-contact-openai-production",
+        },
+        {
           "binding": "CMS_AI",
           "service": "cms-ai",
         },

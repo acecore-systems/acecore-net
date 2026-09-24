@@ -1,0 +1,30 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "acecore-net-ai-contact-openai",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-24",
+  "workers_dev": false,
+  "preview_urls": false,
+  "env": {
+    "preview": {
+      "name": "acecore-net-ai-contact-openai-preview",
+      "secrets_store_secrets": [
+        {
+          "binding": "OPENAI_API_KEY_STORE",
+          "store_id": "f59c889c0fcc405794a34401fb09240c",
+          "secret_name": "acecore-net-preview-openai-api-key",
+        },
+      ],
+    },
+    "production": {
+      "name": "acecore-net-ai-contact-openai-production",
+      "secrets_store_secrets": [
+        {
+          "binding": "OPENAI_API_KEY_STORE",
+          "store_id": "f59c889c0fcc405794a34401fb09240c",
+          "secret_name": "acecore-net-production-openai-api-key",
+        },
+      ],
+    },
+  },
+}
