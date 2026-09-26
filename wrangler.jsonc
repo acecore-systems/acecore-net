@@ -13,6 +13,7 @@
     "CONTACT_FROM_EMAIL": "noreply@acecore.net",
     "CONTACT_TO_EMAIL": "info@acecore.net",
     "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net,localhost,127.0.0.1",
+    "CRM_CONTACT_INTAKE_ENABLED": "false",
     "SEARCH_ENABLED": "false",
     "SEARCH_MIN_SCORE": "0.50",
     "SYSTEMS_SEARCH_ENABLED": "true",
@@ -69,6 +70,7 @@
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
         "CONTACT_TO_EMAIL": "info@acecore.net",
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
+        "CRM_CONTACT_INTAKE_ENABLED": "false",
         "SEARCH_ENABLED": "false",
         "SEARCH_MIN_SCORE": "0.50",
         "SYSTEMS_SEARCH_ENABLED": "true",
@@ -151,6 +153,7 @@
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
         "CONTACT_TO_EMAIL": "info@acecore.net",
         "CONTACT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,systems.acecore.net",
+        "CRM_CONTACT_INTAKE_ENABLED": "true",
         "SEARCH_ENABLED": "true",
         "CMS_ACCESS_AUD": "d8314ba8196a4b69ca22614ec1a823061424ab26fe3c6d6a86368ea968af6264",
         "CMS_ACCESS_TEAM_DOMAIN": "https://acecore.cloudflareaccess.com",
@@ -202,6 +205,14 @@
           "service": "acecore-chat-worker",
         },
       ],
+      "queues": {
+        "producers": [
+          {
+            "binding": "CRM_CONTACT_QUEUE",
+            "queue": "acecore-crm-contact-intake",
+          },
+        ],
+      },
     },
   },
 }

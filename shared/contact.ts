@@ -27,11 +27,21 @@ type EmailApiResponse = {
 
 type Env = {
   CONTACT_EMAIL_SERVICE?: Pick<Fetcher, 'fetch'>
+  CRM_CONTACT_QUEUE?: Pick<Queue<ContactIntakeMessage>, 'send'>
+  CRM_CONTACT_INTAKE_ENABLED?: string
   CLOUDFLARE_ACCOUNT_ID?: string
   CONTACT_FROM_EMAIL?: string
   CONTACT_TO_EMAIL?: string
   CONTACT_ALLOWED_HOSTNAMES?: string
   TURNSTILE_SECRET_KEY?: string
+}
+
+type ContactIntakeMessage = ContactDetails & {
+  version: 1
+  submissionId: string
+  sourceSite: 'acecore.net' | 'systems.acecore.net'
+  formId: 'contact'
+  submittedAt: string
 }
 
 type PagesContext = {
@@ -40,6 +50,7 @@ type PagesContext = {
 }
 
 type ContactPayload = {
+  submissionId?: unknown
   locale?: unknown
   category?: unknown
   name?: unknown
@@ -84,6 +95,7 @@ type ContactDetails = {
 
 type ValidatedContact = ContactDetails & {
   ok: true
+  submissionId: string
   turnstileToken: string
 }
 
@@ -337,14 +349,20 @@ export const onRequestPost = async ({
     })
   }
 
-  const turnstileValid = await verifyTurnstile(
+  const turnstileHostname = await verifyTurnstile(
     env,
     validation.turnstileToken,
     getClientIp(request),
   )
 
-  if (!turnstileValid) {
+  if (turnstileHostname === false) {
     return errorResponse(request, env, validation.locale, 'turnstile', 403)
+  }
+
+  const intakeEnabled = env.CRM_CONTACT_INTAKE_ENABLED === 'true'
+  const sourceSite = resolveContactSource(request, turnstileHostname)
+  if (intakeEnabled && (!sourceSite || !env.CRM_CONTACT_QUEUE)) {
+    return errorResponse(request, env, validation.locale, 'unavailable', 503)
   }
 
   try {
@@ -384,6 +402,22 @@ export const onRequestPost = async ({
       16 * 1024,
     )) as EmailApiResponse
     if (!result?.success) throw new Error('Contact delivery failed')
+
+    if (intakeEnabled && sourceSite && env.CRM_CONTACT_QUEUE) {
+      await env.CRM_CONTACT_QUEUE.send({
+        version: 1,
+        submissionId: validation.submissionId,
+        sourceSite,
+        formId: 'contact',
+        submittedAt,
+        locale: validation.locale,
+        category: validation.category,
+        name: validation.name,
+        email: validation.email,
+        subject: validation.subject,
+        message: validation.message,
+      })
+    }
 
     if (wantsHtmlRedirect(request)) {
       return Response.redirect(
@@ -432,6 +466,7 @@ async function readContactPayload(
     > | null
     if (!body || typeof body !== 'object') return null
     return {
+      submissionId: body.submissionId || body.submission_id || '',
       locale: body.locale,
       category: body.category,
       name: body.name,
@@ -448,6 +483,7 @@ async function readContactPayload(
   if (!formData) return null
 
   return {
+    submissionId: formData.get('submission_id'),
     locale: formData.get('locale'),
     category: formData.get('お問い合わせ種別'),
     name: formData.get('お名前'),
@@ -477,6 +513,8 @@ export function validatePayload(
   const subject = normalizeSingleLine(payload.subject, MAX_SUBJECT_LENGTH)
   const message = normalizeMessage(payload.message)
   const turnstileToken = String(payload.turnstileToken || '').trim()
+  const submissionId =
+    String(payload.submissionId || '').trim() || crypto.randomUUID()
 
   if (!category || !name || !email || !message || !turnstileToken) {
     return { ok: false, messageKey: 'invalid' }
@@ -488,7 +526,10 @@ export function validatePayload(
     email.length > MAX_EMAIL_LENGTH ||
     subject.length > MAX_SUBJECT_LENGTH ||
     message.length > MAX_MESSAGE_LENGTH ||
-    turnstileToken.length > 2048
+    turnstileToken.length > 2048 ||
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      submissionId,
+    )
   ) {
     return { ok: false, messageKey: 'invalid' }
   }
@@ -507,6 +548,7 @@ export function validatePayload(
 
   return {
     ok: true,
+    submissionId,
     locale,
     category,
     name,
@@ -605,7 +647,7 @@ async function verifyTurnstile(
   env: Env,
   token: string,
   remoteIp: string | null,
-): Promise<boolean> {
+): Promise<string | false> {
   if (!env.TURNSTILE_SECRET_KEY) return false
 
   const formData = new FormData()
@@ -622,13 +664,37 @@ async function verifyTurnstile(
     if (!response.ok) return false
 
     const result = (await response.json()) as TurnstileResponse
-    return Boolean(
-      result.success &&
-      (!result.hostname || isAllowedVerifiedHostname(result.hostname, env)),
-    )
+    return result.success &&
+      result.hostname &&
+      isAllowedVerifiedHostname(result.hostname, env)
+      ? result.hostname.toLowerCase()
+      : false
   } catch (error) {
     console.error('Turnstile validation failed')
     return false
+  }
+}
+
+function resolveContactSource(
+  request: Request,
+  verifiedHostname: string,
+): ContactIntakeMessage['sourceSite'] | null {
+  const sourceSite =
+    verifiedHostname === 'www.acecore.net' ? 'acecore.net' : verifiedHostname
+  if (sourceSite !== 'acecore.net' && sourceSite !== 'systems.acecore.net')
+    return null
+  const origin = request.headers.get('Origin')
+  if (!origin) return null
+  try {
+    const originUrl = new URL(origin)
+    if (originUrl.protocol !== 'https:' || originUrl.port) return null
+    const originSite =
+      originUrl.hostname === 'www.acecore.net'
+        ? 'acecore.net'
+        : originUrl.hostname
+    return originSite === sourceSite ? sourceSite : null
+  } catch {
+    return null
   }
 }
 

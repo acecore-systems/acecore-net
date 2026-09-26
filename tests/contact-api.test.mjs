@@ -83,6 +83,58 @@ test('Acecore同一originのJSON送信は従来どおり201を返す', async () 
   assert.match(response.headers.get('Vary') || '', /\bOrigin\b/)
 })
 
+test('検証済みSystemsフォームだけをCRMキューへ送り、申告されたsourceは信頼しない', async () => {
+  const calls = mockSuccessfulContact('systems.acecore.net')
+  const queued = []
+  const env = {
+    ...contactEnv(),
+    CRM_CONTACT_INTAKE_ENABLED: 'true',
+    CRM_CONTACT_QUEUE: { send: async (message) => queued.push(message) },
+  }
+  const fields = nativeContactFields('ja')
+  fields.push(['submission_id', '00000000-0000-4000-8000-000000000031'])
+  fields.push(['source', 'acecore.net'])
+  const response = await onRequestPost({
+    request: nativeContactRequest({
+      body: new URLSearchParams(fields),
+      origin: 'https://systems.acecore.net',
+      ip: '203.0.113.31',
+    }),
+    env,
+  })
+  assert.equal(response.status, 303)
+  assert.equal(queued.length, 1)
+  assert.equal(queued[0].version, 1)
+  assert.equal(queued[0].sourceSite, 'systems.acecore.net')
+  assert.equal(queued[0].formId, 'contact')
+  assert.equal(queued[0].submissionId, '00000000-0000-4000-8000-000000000031')
+  assert.equal(
+    queued[0].message,
+    'This is a sufficiently long consultation message.',
+  )
+  assert.equal(getEmailPayloads(calls).length, 2)
+})
+
+test('TurnstileのhostnameとOriginが一致しない送信はCRM受付前に拒否する', async () => {
+  const calls = mockSuccessfulContact('acecore.net')
+  const queued = []
+  const response = await onRequestPost({
+    request: jsonContactRequest({
+      origin: 'https://systems.acecore.net',
+      locale: 'ja',
+      ip: '203.0.113.32',
+    }),
+    env: {
+      ...contactEnv(),
+      CRM_CONTACT_INTAKE_ENABLED: 'true',
+      CRM_CONTACT_QUEUE: { send: async (message) => queued.push(message) },
+    },
+  })
+  assert.equal(response.status, 503)
+  assert.equal(queued.length, 0)
+  assert.equal(getEmailPayloads(calls).length, 0)
+})
+
 test('問い合わせ通知は株式会社Acecore名で送信する', async () => {
   const calls = mockSuccessfulContact('acecore.net')
   const response = await onRequestPost({
