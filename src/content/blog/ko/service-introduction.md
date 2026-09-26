@@ -1,9 +1,9 @@
 ---
 title: 'Acecore 사업 안내: 전문 사이트 안내'
-description: 'Acecore의 단체 정보와 Systems, Schools, Aceserver, Acecore Store 각각의 공식 안내처를 소개합니다.'
+description: 'Acecore의 회사 정보와 Systems, Schools, Aceserver, Acecore Store 각각의 공식 안내처를 소개합니다.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-14T19:00
+lastUpdated: 2026-09-26T16:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -13,7 +13,7 @@ callout:
 checklist:
   title: 目的別の案内先
   items:
-    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore：会社情報、方針、事業横断のご相談
     - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
     - text: Acecore Schools：学び方、教育支援、活動記録
     - text: Aceserver：Minecraftコミュニティへの参加と活動
@@ -29,7 +29,7 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore는 단체 전체의 정보와 각 사업으로 이어지는 창구를 모은 코퍼레이트 사이트입니다. 전문적인 설명과 업데이트 정보를 이중으로 관리하지 않기 위해 각 분야의 자세한 내용은 다음 공식 사이트에 모아 제공합니다.
+Acecore는 회사 정보와 각 사업으로 이어지는 창구를 모은 코퍼레이트 사이트입니다. 전문적인 설명과 업데이트 정보를 이중으로 관리하지 않기 위해 각 분야의 자세한 내용은 다음 공식 사이트에 모아 제공합니다.
 
 ## Acecore Systems
 
@@ -49,4 +49,4 @@ Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 
 
 ## Acecore에 문의하기
 
-단체 정보는 [Acecore 소개](/ko/about/), 여러 사업에 걸친 상담이나 협력은 [문의하기](/ko/contact/)에서 확인해 주세요.
+회사 정보는 [Acecore 소개](/ko/about/), 여러 사업에 걸친 상담이나 협력은 [문의하기](/ko/contact/)에서 확인해 주세요.
