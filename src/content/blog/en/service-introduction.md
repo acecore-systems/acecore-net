@@ -1,9 +1,9 @@
 ---
-title: 'Acecore Business Guide: Our Specialist Sites'
-description: 'This page introduces Acecore’s corporate information and the official sites for Systems, Schools, Aceserver, and Acecore Store.'
+title: 'Acecore Business Guide: A Guide to Our Specialist Sites'
+description: 'An overview of Acecore’s corporate information and the official sites for Systems, Schools, Aceserver, and Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T16:00
+lastUpdated: 2026-09-26T17:55
 author: gui
 tags: ['お知らせ']
 callout:
@@ -29,15 +29,15 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore is the corporate site that brings together company information and provides an entry point to each business. To avoid managing specialized explanations and updates in multiple places, detailed information for each field is consolidated on the following official sites.
+Acecore’s corporate website brings together company information and entry points to each of its businesses. To avoid duplicating detailed explanations and updates, information about each area is consolidated on the following official sites.
 
 ## Acecore Systems
 
-Information about IT support, system and web development, design, operational support, pricing, case studies, and technical articles is available at [Acecore Systems](https://systems.acecore.net/en/).
+Information about IT support, system and web development, design, operational support, pricing, case studies, and technical explanations is available at [Acecore Systems](https://systems.acecore.net/en/).
 
 ## Acecore Schools
 
-Information about ways to learn, educational support, consultation methods, and activity records is available at [Acecore Schools](https://schools.acecore.net/).
+Information about ways to learn, educational support, consultation options, and activity records is available at [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
@@ -45,8 +45,8 @@ Information about how to join the Minecraft community, related services, and the
 
 ## Acecore Store
 
-The latest information about products, purchasing, shipping, and returns is available at [Acecore Store](https://store.acecore.net/).
+The latest information about products, how to purchase them, shipping, and returns is available at [Acecore Store](https://store.acecore.net/).
 
 ## Contact Acecore
 
-For company information, see [About us](/en/about/). For cross-business inquiries and collaboration, see [Contact](/en/contact/).
+For company information, see [Company Profile](/en/about/). For inquiries or collaboration across businesses, see [Contact](/en/contact/).

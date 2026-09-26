@@ -1,9 +1,9 @@
 ---
-title: 'Acecore im Überblick: Wegweiser zu den Fachseiten'
-description: 'Hier finden Sie die Unternehmensinformationen von Acecore sowie die offiziellen Anlaufstellen für Systems, Schools, Aceserver und den Acecore Store.'
+title: 'Acecore im Überblick: Wegweiser zu den Fachwebsites'
+description: 'Die Acecore-Website bündelt Unternehmensinformationen und nennt die offiziellen Anlaufstellen für Systems, Schools, Aceserver und Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T16:00
+lastUpdated: 2026-09-26T17:55
 author: gui
 tags: ['お知らせ']
 callout:
@@ -29,24 +29,24 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore ist die Unternehmenswebsite, die Informationen zum Unternehmen und die Einstiege in die einzelnen Geschäftsbereiche bündelt. Damit fachliche Erläuterungen und Aktualisierungen nicht doppelt gepflegt werden müssen, sind die ausführlichen Inhalte zu den jeweiligen Bereichen auf den folgenden offiziellen Websites gebündelt.
+Auf der Unternehmenswebsite von Acecore sind Unternehmensinformationen sowie die Einstiege in die einzelnen Geschäftsbereiche gebündelt. Damit fachliche Erläuterungen und Aktualisierungen nicht doppelt gepflegt werden müssen, finden sich die ausführlichen Inhalte der jeweiligen Bereiche auf den folgenden offiziellen Websites.
 
 ## Acecore Systems
 
-Informationen zu IT-Unterstützung, System- und Webentwicklung, Design, Betriebsunterstützung, Preisen, Referenzprojekten und technischen Erläuterungen finden Sie bei [Acecore Systems](https://systems.acecore.net/de/).
+Informationen zu IT-Unterstützung, System- und Webentwicklung, Design, Unterstützung im laufenden Betrieb, Preisen, Praxisbeispielen und technischen Erläuterungen finden Sie bei [Acecore Systems](https://systems.acecore.net/de/).
 
 ## Acecore Schools
 
-Informationen zu Lernwegen, Bildungsunterstützung, Beratungsmöglichkeiten und Aktivitätsberichten finden Sie bei [Acecore Schools](https://schools.acecore.net/).
+Informationen zu Lernmethoden, Bildungsunterstützung, Beratungsangeboten und Aktivitätsberichten finden Sie bei [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Informationen zur Teilnahme an der Minecraft-Community, zugehörigen Diensten und aktuellen Aktivitäten finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
+Wie Sie der Minecraft-Community beitreten, welche zugehörigen Dienste angeboten werden und welche Aktivitäten aktuell stattfinden, erfahren Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
 
 ## Acecore Store
 
-Aktuelle Informationen zu Produkten, Kaufmöglichkeiten, Versand und Rückgaben finden Sie bei [Acecore Store](https://store.acecore.net/).
+Aktuelle Informationen zu Produkten, Kaufmöglichkeiten sowie Versand und Rückgabe finden Sie im [Acecore Store](https://store.acecore.net/).
 
 ## Kontakt zu Acecore
 
-Informationen zum Unternehmen finden Sie unter [Über uns](/de/about/). Für bereichsübergreifende Anfragen und Kooperationen nutzen Sie bitte [Kontakt](/de/contact/).
+Informationen zum Unternehmen finden Sie unter [Unternehmensprofil](/de/about/). Für bereichsübergreifende Anfragen oder Kooperationen nutzen Sie bitte [Kontakt](/de/contact/).

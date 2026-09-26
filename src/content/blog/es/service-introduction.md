@@ -1,9 +1,9 @@
 ---
-title: 'Guía de actividades de Acecore: sitios especializados'
-description: 'Información corporativa de Acecore y sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
+title: 'Guía de las actividades de Acecore: acceso a sus sitios especializados'
+description: 'Información corporativa de Acecore y enlaces a los sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T16:00
+lastUpdated: 2026-09-26T17:55
 author: gui
 tags: ['お知らせ']
 callout:
@@ -29,24 +29,24 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore es el sitio corporativo que reúne la información general de la empresa y sirve de entrada a cada una de sus actividades. Para evitar mantener por duplicado las explicaciones especializadas y las novedades, la información detallada de cada área se concentra en los siguientes sitios oficiales.
+El sitio corporativo de Acecore reúne la información de la empresa y los enlaces a cada una de sus áreas de actividad. Para evitar mantener duplicadas las explicaciones especializadas y las novedades, la información detallada de cada área se centraliza en los siguientes sitios oficiales.
 
 ## Acecore Systems
 
-El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se presentan en [Acecore Systems](https://systems.acecore.net/es/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/es/).
 
 ## Acecore Schools
 
-Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el registro de actividades se presentan en [Acecore Schools](https://schools.acecore.net/).
+Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el registro de actividades se detallan en [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-La forma de unirse a la comunidad de Minecraft, los servicios relacionados y la información más reciente sobre las actividades se presentan en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
+Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
 
 ## Acecore Store
 
-Los productos, las formas de compra y la información más reciente sobre envíos y devoluciones se presentan en [Acecore Store](https://store.acecore.net/).
+Los productos, cómo comprarlos y la información más reciente sobre envíos y devoluciones se detallan en [Acecore Store](https://store.acecore.net/).
 
 ## Contactar con Acecore
 
-Consulte [Quiénes somos](/es/about/) para conocer la empresa, o [Contacto](/es/contact/) para consultas que abarquen varias áreas de actividad y propuestas de colaboración.
+Consulte [Información de la empresa](/es/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/es/contact/).
