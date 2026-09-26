@@ -1,6 +1,6 @@
 ---
-title: 'Apresentação das atividades da Acecore: conheça os sites especializados'
-description: 'Conheça as informações corporativas da Acecore e os canais oficiais de Systems, Schools, Aceserver e Acecore Store.'
+title: 'Guia das atividades da Acecore: conheça os sites especializados'
+description: 'Conheça as informações corporativas da Acecore e os sites oficiais de Systems, Schools, Aceserver e Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: 2026-09-26T21:30
@@ -30,11 +30,11 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-O site corporativo da Acecore reúne informações sobre a empresa e links para cada área de atuação. Para evitar a duplicação de explicações especializadas e de atualizações, os detalhes de cada área estão concentrados nos seguintes sites oficiais.
+O site corporativo da Acecore reúne informações sobre a empresa e links de acesso a cada área de atuação. Para evitar a gestão duplicada de explicações especializadas e atualizações, os detalhes de cada área estão reunidos nos seguintes sites oficiais.
 
 ## Acecore Systems
 
-Suporte de TI, desenvolvimento de sistemas e de sites, design, suporte operacional, preços, estudos de caso e explicações técnicas estão disponíveis na [Acecore Systems](https://systems.acecore.net/pt/).
+Suporte de TI, desenvolvimento de sistemas e sites, design, suporte operacional, preços, estudos de caso e explicações técnicas estão disponíveis na [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
@@ -42,7 +42,7 @@ Formas de aprendizagem, apoio educacional, maneiras de buscar orientação e reg
 
 ## Aceserver
 
-Informações sobre como participar da comunidade de Minecraft, serviços relacionados e as atualizações mais recentes sobre as atividades estão disponíveis no [portal oficial da Aceserver](https://asv.acecore.net/pt/).
+Informações sobre como participar da comunidade de Minecraft, serviços relacionados e as atualizações mais recentes sobre as atividades estão disponíveis no [portal oficial da Aceserver](https://asv.acecore.net/).
 
 ## Acecore Store
 
@@ -50,4 +50,4 @@ Produtos, formas de compra e informações mais recentes sobre entrega e devolu�
 
 ## Entre em contato com a Acecore
 
-Para informações sobre a empresa, consulte [Informações da empresa](/pt/about/). Para consultas que envolvam diferentes áreas de atuação ou colaborações, consulte [Contato](/pt/contact/).
+Para informações sobre a empresa, consulte [Informações da empresa](/about/). Para consultas que envolvam diferentes áreas de atuação ou colaborações, consulte [Contato](/contact/).

@@ -1,5 +1,5 @@
 ---
-title: 'Guía de las actividades de Acecore: acceso a sus sitios especializados'
+title: 'Guía de las actividades de Acecore: acceso a los sitios especializados'
 description: 'Información corporativa de Acecore y enlaces a los sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
@@ -30,19 +30,19 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-El sitio corporativo de Acecore reúne la información de la empresa y los enlaces a cada una de sus áreas de actividad. Para evitar mantener duplicadas las explicaciones especializadas y las novedades, la información detallada de cada área se centraliza en los siguientes sitios oficiales.
+El sitio web corporativo de Acecore reúne la información de la empresa y los enlaces a cada una de sus áreas de actividad. Para evitar duplicar la gestión de la información especializada y las novedades, los detalles de cada área se centralizan en los siguientes sitios oficiales.
 
 ## Acecore Systems
 
-El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/es/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los ejemplos de proyectos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
-Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el registro de actividades se detallan en [Acecore Schools](https://schools.acecore.net/).
+Las formas de aprendizaje, el apoyo educativo, las vías de consulta y los registros de actividades se detallan en [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
+Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/).
 
 ## Acecore Store
 
@@ -50,4 +50,4 @@ Los productos, cómo comprarlos y la información más reciente sobre envíos y 
 
 ## Contactar con Acecore
 
-Consulte [Información de la empresa](/es/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/es/contact/).
+Consulte [Información de la empresa](/about/) y, para consultas que abarquen varias áreas de actividad o propuestas de colaboración, [Contacto](/contact/).
