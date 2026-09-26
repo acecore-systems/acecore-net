@@ -367,6 +367,22 @@ export const onRequestPost = async ({
 
   try {
     const submittedAt = new Date().toISOString()
+    if (intakeEnabled && sourceSite && env.CRM_CONTACT_QUEUE) {
+      await env.CRM_CONTACT_QUEUE.send({
+        version: 1,
+        submissionId: validation.submissionId,
+        sourceSite,
+        formId: 'contact',
+        submittedAt,
+        locale: validation.locale,
+        category: validation.category,
+        name: validation.name,
+        email: validation.email,
+        subject: validation.subject,
+        message: validation.message,
+      })
+    }
+
     const response = await env.CONTACT_EMAIL_SERVICE.fetch(
       new Request('https://contact-email.internal/deliver', {
         method: 'POST',
@@ -403,22 +419,6 @@ export const onRequestPost = async ({
     )) as EmailApiResponse
     if (!result?.success) throw new Error('Contact delivery failed')
 
-    if (intakeEnabled && sourceSite && env.CRM_CONTACT_QUEUE) {
-      await env.CRM_CONTACT_QUEUE.send({
-        version: 1,
-        submissionId: validation.submissionId,
-        sourceSite,
-        formId: 'contact',
-        submittedAt,
-        locale: validation.locale,
-        category: validation.category,
-        name: validation.name,
-        email: validation.email,
-        subject: validation.subject,
-        message: validation.message,
-      })
-    }
-
     if (wantsHtmlRedirect(request)) {
       return Response.redirect(
         new URL(
@@ -438,9 +438,17 @@ export const onRequestPost = async ({
       getCorsHeaders(request, env),
     )
   } catch (error) {
-    console.error('Contact delivery failed')
+    console.error('Contact submission failed')
     const status = getEmailErrorStatus(error)
-    return errorResponse(request, env, validation.locale, 'failed', status)
+    return errorResponse(
+      request,
+      env,
+      validation.locale,
+      'failed',
+      status,
+      {},
+      validation.submissionId,
+    )
   }
 }
 
@@ -898,6 +906,7 @@ function errorResponse(
   key: ApiMessageKey,
   status: number,
   headers: Record<string, string> = {},
+  submissionId?: string,
 ): Response {
   if (wantsHtmlRedirect(request)) {
     const url = new URL(
@@ -905,6 +914,7 @@ function errorResponse(
       getHtmlRedirectOrigin(request, env),
     )
     url.searchParams.set('contact', 'error')
+    if (submissionId) url.searchParams.set('submission_id', submissionId)
     url.hash = 'contact-form'
     return Response.redirect(url.toString(), 303)
   }

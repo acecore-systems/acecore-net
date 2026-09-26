@@ -115,6 +115,86 @@ test('検証済みSystemsフォームだけをCRMキューへ送り、申告さ�
   assert.equal(getEmailPayloads(calls).length, 2)
 })
 
+test('CRMキューが失敗したときは通知メールを送らない', async () => {
+  const calls = mockSuccessfulContact('acecore.net')
+  const response = await onRequestPost({
+    request: jsonContactRequest({
+      origin: 'https://acecore.net',
+      locale: 'ja',
+      ip: '203.0.113.33',
+    }),
+    env: {
+      ...contactEnv(),
+      CRM_CONTACT_INTAKE_ENABLED: 'true',
+      CRM_CONTACT_QUEUE: {
+        send: async () => {
+          throw new Error('queue unavailable')
+        },
+      },
+    },
+  })
+  assert.equal(response.status, 500)
+  assert.equal(getEmailPayloads(calls).length, 0)
+})
+
+test('通知メール失敗後も同じ受付IDで再送できる', async () => {
+  mockSuccessfulContact('acecore.net')
+  const queued = []
+  const emailService = contactEnv().CONTACT_EMAIL_SERVICE
+  let attempts = 0
+  const env = {
+    ...contactEnv(),
+    CRM_CONTACT_INTAKE_ENABLED: 'true',
+    CRM_CONTACT_QUEUE: { send: async (message) => queued.push(message) },
+    CONTACT_EMAIL_SERVICE: {
+      fetch: (request) =>
+        ++attempts === 1
+          ? Response.json({ success: false }, { status: 503 })
+          : emailService.fetch(request),
+    },
+  }
+  const request = () =>
+    jsonContactRequest({
+      origin: 'https://acecore.net',
+      locale: 'ja',
+      ip: '203.0.113.34',
+      submissionId: '00000000-0000-4000-8000-000000000034',
+    })
+  assert.equal((await onRequestPost({ request: request(), env })).status, 503)
+  assert.equal((await onRequestPost({ request: request(), env })).status, 201)
+  assert.equal(queued.length, 2)
+  assert.equal(queued[0].submissionId, queued[1].submissionId)
+})
+
+test('Systemsの失敗リダイレクトは再送用の受付IDを引き継ぐ', async () => {
+  mockSuccessfulContact('systems.acecore.net')
+  const fields = nativeContactFields('ja')
+  fields.push(['submission_id', '00000000-0000-4000-8000-000000000035'])
+  const response = await onRequestPost({
+    request: nativeContactRequest({
+      body: new URLSearchParams(fields),
+      origin: 'https://systems.acecore.net',
+      ip: '203.0.113.35',
+    }),
+    env: {
+      ...contactEnv(),
+      CRM_CONTACT_INTAKE_ENABLED: 'true',
+      CRM_CONTACT_QUEUE: { send: async () => {} },
+      CONTACT_EMAIL_SERVICE: {
+        fetch: async () => Response.json({ success: false }, { status: 503 }),
+      },
+    },
+  })
+  assert.equal(response.status, 303)
+  const redirect = new URL(response.headers.get('Location'))
+  assert.equal(redirect.origin, 'https://systems.acecore.net')
+  assert.equal(redirect.searchParams.get('contact'), 'error')
+  assert.equal(
+    redirect.searchParams.get('submission_id'),
+    '00000000-0000-4000-8000-000000000035',
+  )
+})
+
 test('TurnstileのhostnameとOriginが一致しない送信はCRM受付前に拒否する', async () => {
   const calls = mockSuccessfulContact('acecore.net')
   const queued = []
@@ -306,7 +386,7 @@ function nativeContactRequest({ body, origin, ip }) {
   })
 }
 
-function jsonContactRequest({ origin, locale, ip }) {
+function jsonContactRequest({ origin, locale, ip, submissionId }) {
   return new Request('https://acecore.net/api/contact', {
     method: 'POST',
     headers: {
@@ -323,6 +403,7 @@ function jsonContactRequest({ origin, locale, ip }) {
       subject: 'Consultation',
       message: 'This is a sufficiently long consultation message.',
       turnstileToken: 'verified-token',
+      ...(submissionId ? { submissionId } : {}),
     }),
   })
 }

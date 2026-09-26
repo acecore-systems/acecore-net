@@ -231,7 +231,7 @@ AIチャットのgrounding、フォールバック、リンク制限は `npm run
 
 フォーム送信は `functions/api/contact.ts` の Cloudflare Pages Function で受け、Cloudflare Email Service の REST API から通知メールを送信します。ブラウザから外部フォームサービスへ直接送信しません。
 
-ProductionではAcecoreとSystemsのフォーム送信をTurnstile hostnameとOriginで識別し、メール送信後に`acecore-crm-contact-intake` Queueへ送ります。CRM側で顧客未特定のWebフォーム案件に登録します。Queueへの投入が失敗した場合はフォームに失敗を返しますが、通知メールが先に送信されている場合があるため、再送前に通知メールとCRM受付を照合します。PreviewではCRM連携を無効にします。
+ProductionではAcecoreとSystemsのフォーム送信をTurnstile hostnameとOriginで識別し、`acecore-crm-contact-intake` Queueへの受付後に通知メールを送ります。CRM側で顧客未特定のWebフォーム案件に登録します。Queue投入に失敗した場合はメールを送らず、フォームに失敗を返します。メール送信に失敗した場合もフォームに失敗を返しますが、CRM受付が先に作成される場合があります。同じ受付IDの再送はCRMで重複登録しません。PreviewではCRM連携を無効にします。
 
 Cloudflare Turnstile はフォーム上に表示し、Pages Function 側で `TURNSTILE_SECRET_KEY` によるサーバーサイド検証を行います。
 
