@@ -1,6 +1,6 @@
 ---
-title: 'Сообщество и образовательные инициативы'
-description: 'Обзор Aceserver, Acecore Schools и открытых проектов Acecore.'
+title: 'Работа с сообществом и образовательные инициативы'
+description: 'О деятельности Acecore в сообществе, поддержке образования и вкладе в открытый код: Aceserver, Acecore Schools и прошедшие мастер-классы.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: 2026-09-26T18:50
@@ -9,24 +9,24 @@ tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
 ---
 
-Acecore ведёт отдельные специализированные сайты для бизнеса, образования и сообщества. Здесь представлен общий обзор и ссылки на официальные источники актуальной информации.
+Acecore развивает бизнес, образовательное направление и сообщество на отдельных профильных сайтах. На этой странице представлен общий обзор деятельности и приведены официальные источники актуальной информации.
 
 ## Aceserver
 
-**Aceserver** — Minecraft-сообщество, которым управляет Acecore. Условия участия, правила и свежие новости опубликованы на [официальном портале Aceserver](https://asv.acecore.net/ru/).
+**Aceserver** — Minecraft-сообщество, которым управляет Acecore. Информация о том, как присоединиться, правила сообщества и последние новости собраны на [официальном портале Aceserver](https://asv.acecore.net/).
 
-Чтобы читать иллюстрированный дневник Альфы по датам, откройте [руководство для новичков](https://asv.acecore.net/ru/stories/alpha-diary-guide/).
+Иллюстрированный дневник Альфа-куна можно читать по датам, начав с [руководства для тех, кто здесь впервые](https://asv.acecore.net/stories/alpha-diary-guide/).
 
 ## Acecore Schools
 
-**Acecore Schools** — образовательное направление Acecore. Темы обучения, форматы, цены и способы консультации представлены на [официальном сайте Acecore Schools](https://schools.acecore.net/).
+**Acecore Schools** — образовательное направление, где обучение выстраивают с учётом целей и текущего уровня. Информация о целевой аудитории, форматах обучения, стоимости и способах консультации представлена на [официальном сайте Acecore Schools](https://schools.acecore.net/).
 
-Прошедший практикум по робототехнике сохранён как [отчёт о мероприятии](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+О ранее проведённом мастер-классе по сборке роботов можно прочитать в [записи о мероприятии](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
 
-## Открытый код и сотрудничество
+## Открытый исходный код и сотрудничество
 
-Открытые проекты Acecore Systems доступны на [GitHub](https://github.com/acecore-systems). Технические услуги и специализированные материалы публикуются на [Acecore Systems](https://systems.acecore.net/ru/).
+Открытые проекты Acecore Systems можно найти на [GitHub](https://github.com/acecore-systems). Информация о технической поддержке и технические материалы собраны на [Acecore Systems](https://systems.acecore.net/).
 
-Открытый проект [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) посвящён распределению и проверке задач в Codex. О проектировании рассказывает [Systems Insights](https://systems.acecore.net/ru/insights/codex-task-routing-design/).
+В опубликованном проекте [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) рассматриваются принципы распределения задач в Codex и их проверки. История проекта изложена в [техническом разборе на Systems](https://systems.acecore.net/insights/codex-task-routing-design/).
 
-По вопросам сотрудничества между направлениями используйте [форму обратной связи](/ru/contact/).
+По вопросам сотрудничества между направлениями и совместных проектов обращайтесь в Acecore через [страницу контактов](/contact/).

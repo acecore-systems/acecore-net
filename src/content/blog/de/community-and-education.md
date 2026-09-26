@@ -1,6 +1,6 @@
 ---
 title: 'Community-Aktivitäten und Bildungsengagement'
-description: 'Ein Überblick über Aceserver, Acecore Schools und die öffentlich zugänglichen Projekte von Acecore.'
+description: 'Einblicke in Acecores Community-Aktivitäten, Bildungsförderung und Open-Source-Beiträge – mit Aceserver, Acecore Schools und früheren Workshops.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: 2026-09-26T18:50
@@ -9,24 +9,24 @@ tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
 ---
 
-Acecore betreibt eigene Fachwebsites für seine Geschäfts-, Bildungs- und Community-Aktivitäten. Diese Seite gibt einen Überblick und verweist auf die jeweils aktuelle offizielle Quelle.
+Acecore betreibt seine Geschäfts-, Bildungs- und Community-Aktivitäten jeweils auf eigenen Fachwebsites. Diese Seite gibt einen Überblick über die Aktivitäten und nennt die offiziellen Anlaufstellen, an denen Sie aktuelle Informationen finden.
 
 ## Aceserver
 
-**Aceserver** ist eine von Acecore betriebene Minecraft-Community. Teilnahme, Regeln und aktuelle Meldungen finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
+**Aceserver** ist eine von Acecore betriebene Minecraft-Community. Informationen zur Teilnahme, zu den Regeln und zu aktuellen Aktivitäten sind im [offiziellen Aceserver-Portal](https://asv.acecore.net/) gebündelt.
 
-Alphas Bildertagebuch können Sie mithilfe des [Einstiegsleitfadens](https://asv.acecore.net/de/stories/alpha-diary-guide/) nach Datum erkunden.
+Über den [Leitfaden für Einsteiger](https://asv.acecore.net/stories/alpha-diary-guide/) können Sie ein Datum auswählen und Alphas Bildertagebuch lesen.
 
 ## Acecore Schools
 
-**Acecore Schools** ist der Bildungsbereich von Acecore. Lernangebote, Formate, Preise und Beratung werden auf der [offiziellen Website von Acecore Schools](https://schools.acecore.net/) gepflegt.
+**Acecore Schools** ist ein Bildungsangebot, das passende Lerninhalte auf Grundlage der jeweiligen Ziele und des aktuellen Lernstands zusammenstellt. Informationen zu Zielgruppen, Lernmethoden, Preisen und Beratungsmöglichkeiten finden Sie auf der [offiziellen Website von Acecore Schools](https://schools.acecore.net/).
 
-Der frühere Robotik-Workshop ist als [Aktivitätsbericht](https://schools.acecore.net/activities/2023-summer-robot-workshop/) dokumentiert.
+Der frühere Workshop zum Roboterbau ist als [Aktivitätsbericht](https://schools.acecore.net/activities/2023-summer-robot-workshop/) dokumentiert.
 
-## Open Source und Partnerschaften
+## Open Source und Zusammenarbeit
 
-Öffentliche Projekte von Acecore Systems finden Sie auf [GitHub](https://github.com/acecore-systems). Technische Leistungen und Fachbeiträge werden auf [Acecore Systems](https://systems.acecore.net/de/) veröffentlicht.
+Die veröffentlichten Projekte von Acecore Systems finden Sie auf [GitHub](https://github.com/acecore-systems). Informationen zu den Angeboten im Bereich technischer Unterstützung sowie technische Erläuterungen sind auf [Acecore Systems](https://systems.acecore.net/) gebündelt.
 
-Das öffentliche Projekt [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) behandelt die Aufteilung und Prüfung von Codex-Arbeit. Der Entwurf ist in [Systems Insights](https://systems.acecore.net/de/insights/codex-task-routing-design/) beschrieben.
+Das veröffentlichte Projekt [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) beschreibt das Konzept zur Aufteilung von Codex-Aufgaben und deren Überprüfung. Die Hintergründe sind in der [technischen Erläuterung von Systems](https://systems.acecore.net/insights/codex-task-routing-design/) zusammengefasst.
 
-Für bereichsübergreifende Kooperationen nutzen Sie bitte das [Kontaktformular](/de/contact/).
+Für bereichsübergreifende Kooperationen und gemeinsame Projekte wenden Sie sich bitte an die [Kontaktseite von Acecore](/contact/).
