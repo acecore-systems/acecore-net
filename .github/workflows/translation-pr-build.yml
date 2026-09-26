@@ -21,6 +21,7 @@ permissions:
 
 jobs:
   build:
+    name: Translation PR Build
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (startsWith(github.event.pull_request.head.ref, 'translation/openai/') &&
