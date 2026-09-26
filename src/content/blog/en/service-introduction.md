@@ -33,7 +33,7 @@ Acecore’s corporate website brings together company information and entry poin
 
 ## Acecore Systems
 
-Information about IT support, system and web development, design, operational support, pricing, case studies, and technical explanations is available at [Acecore Systems](https://systems.acecore.net/).
+Information about IT support, system and web development, design, operational support, pricing, case studies, and technical explanations is available at [Acecore Systems](https://systems.acecore.net/en/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Information about ways to learn, educational support, consultation options, and 
 
 ## Aceserver
 
-Information about how to join the Minecraft community, related services, and the latest activities is available at the [official Aceserver portal](https://asv.acecore.net/).
+Information about how to join the Minecraft community, related services, and the latest activities is available at the [official Aceserver portal](https://asv.acecore.net/en/).
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ The latest information about products, how to purchase them, shipping, and retur
 
 ## Contact Acecore
 
-For company information, see [Company Profile](/about/). For inquiries or collaboration across businesses, see [Contact](/contact/).
+For company information, see [Company Profile](/en/about/). For inquiries or collaboration across businesses, see [Contact](/en/contact/).

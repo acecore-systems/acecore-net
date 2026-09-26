@@ -33,7 +33,7 @@ El sitio corporativo de Acecore reúne la información de la empresa y los enlac
 
 ## Acecore Systems
 
-El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/es/).
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el regist
 
 ## Aceserver
 
-Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/).
+Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ Los productos, cómo comprarlos y la información más reciente sobre envíos y 
 
 ## Contactar con Acecore
 
-Consulte [Información de la empresa](/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/contact/).
+Consulte [Información de la empresa](/es/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/es/contact/).

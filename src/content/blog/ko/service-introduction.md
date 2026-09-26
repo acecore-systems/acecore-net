@@ -33,7 +33,7 @@ Acecore 주식회사의 기업 사이트에서는 회사 정보와 각 사업의
 
 ## Acecore Systems
 
-IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기술 해설은 [Acecore Systems](https://systems.acecore.net/)에서 안내합니다.
+IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기술 해설은 [Acecore Systems](https://systems.acecore.net/ko/)에서 안내합니다.
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ IT 지원, 시스템·웹 개발, 디자인, 운영 지원, 요금, 사례, 기�
 
 ## Aceserver
 
-Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 [Aceserver 공식 포털](https://asv.acecore.net/)에서 안내합니다.
+Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 [Aceserver 공식 포털](https://asv.acecore.net/ko/)에서 안내합니다.
 
 ## Acecore Store
 
@@ -49,4 +49,4 @@ Minecraft 커뮤니티 참여 방법, 관련 서비스, 최신 활동 정보는 
 
 ## Acecore에 문의하기
 
-회사 정보는 [회사 개요](/about/)에서, 여러 사업에 걸친 상담이나 협력은 [문의하기](/contact/)에서 확인해 주세요.
+회사 정보는 [회사 개요](/ko/about/)에서, 여러 사업에 걸친 상담이나 협력은 [문의하기](/ko/contact/)에서 확인해 주세요.

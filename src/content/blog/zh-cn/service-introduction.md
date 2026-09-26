@@ -33,7 +33,7 @@ Acecore 的企业官网汇总了公司信息和各项业务入口。为避免重
 
 ## Acecore Systems
 
-有关 IT 支持、系统与 Web 开发、设计、运维支持、收费标准、案例和技术说明，请访问 [Acecore Systems](https://systems.acecore.net/)。
+有关 IT 支持、系统与 Web 开发、设计、运维支持、收费标准、案例和技术说明，请访问 [Acecore Systems](https://systems.acecore.net/zh-cn/)。
 
 ## Acecore Schools
 
@@ -41,7 +41,7 @@ Acecore 的企业官网汇总了公司信息和各项业务入口。为避免重
 
 ## Aceserver
 
-有关加入 Minecraft 社区的方式、相关服务和活动最新信息，请访问 [Aceserver 官方门户](https://asv.acecore.net/)。
+有关加入 Minecraft 社区的方式、相关服务和活动最新信息，请访问 [Aceserver 官方门户](https://asv.acecore.net/zh-cn/)。
 
 ## Acecore Store
 
