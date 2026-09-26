@@ -16,6 +16,8 @@ const BATCH_MODEL = 'gpt-6-luna'
 const BATCH_ENDPOINT = '/v1/responses'
 const BATCH_METADATA_KEY = 'translation_system'
 const BATCH_METADATA_VALUE = 'acecore-net-v1'
+// OpenAI deletes Batch output files 30 days after completion.
+const BATCH_OUTPUT_RETENTION_SECONDS = 30 * 24 * 60 * 60
 const CUSTOM_ID_PREFIX = 'acecore-net:'
 const SOURCE_MARKER_PREFIX = '<!-- openai-translation-source:'
 const SOURCE_MARKER_SUFFIX = ' -->'
@@ -1389,9 +1391,17 @@ function isTranslationBatch(batch: OpenAiBatch): boolean {
   return batch.metadata?.[BATCH_METADATA_KEY] === BATCH_METADATA_VALUE
 }
 
-function selectCompletedBatch(
+function isBatchOutputExpired(batch: OpenAiBatch, nowSeconds: number): boolean {
+  // A completed Batch normally has completed_at. The 24-hour window gives an
+  // upper bound when that field is unexpectedly absent, avoiding an early skip.
+  const completedAt = batch.completed_at ?? batch.created_at + 24 * 60 * 60
+  return completedAt + BATCH_OUTPUT_RETENTION_SECONDS <= nowSeconds
+}
+
+export function selectCompletedBatch(
   batches: readonly OpenAiBatch[],
   processed: ReadonlySet<string>,
+  nowSeconds: number,
 ): OpenAiBatch | null {
   return (
     [...batches]
@@ -1399,7 +1409,8 @@ function selectCompletedBatch(
         (batch) =>
           isTranslationBatch(batch) &&
           batch.status === 'completed' &&
-          !processed.has(batch.id),
+          !processed.has(batch.id) &&
+          !isBatchOutputExpired(batch, nowSeconds),
       )
       .sort((left, right) => left.created_at - right.created_at)[0] ?? null
   )
@@ -1473,9 +1484,24 @@ function writeCollectedOutputs(result: CollectedResult): void {
 
 async function collectBatch(args: ParsedArgs): Promise<void> {
   await closeStaleOpenAiTranslationPullRequests()
+  const batches = await listBatches()
+  const nowSeconds = Math.floor(Date.now() / 1000)
+  const expiredCount = batches.filter(
+    (batch) =>
+      isTranslationBatch(batch) &&
+      batch.status === 'completed' &&
+      !args.processedBatchIds.has(batch.id) &&
+      isBatchOutputExpired(batch, nowSeconds),
+  ).length
+  if (expiredCount > 0) {
+    console.log(
+      `Ignored ${expiredCount} completed translation batches whose OpenAI output files have expired.`,
+    )
+  }
   const batch = selectCompletedBatch(
-    await listBatches(),
+    batches,
     args.processedBatchIds,
+    nowSeconds,
   )
   if (!batch) {
     console.log('No unprocessed completed OpenAI translation batches found.')
