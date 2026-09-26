@@ -3,7 +3,7 @@ title: 'Atividades comunitárias e iniciativas educacionais'
 description: 'Visão geral do Aceserver, da Acecore Schools e dos projetos públicos da Acecore.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:01
+lastUpdated: 2026-09-26T18:50
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -15,6 +15,8 @@ A Acecore mantém sites especializados para suas atividades empresariais, educac
 
 O **Aceserver** é uma comunidade de Minecraft operada pela Acecore. Participação, regras e novidades são mantidas no [portal oficial do Aceserver](https://asv.acecore.net/pt/).
 
+Para explorar o diário ilustrado de Alpha por data, consulte o [guia para iniciantes](https://asv.acecore.net/pt/stories/alpha-diary-guide/).
+
 ## Acecore Schools
 
 A **Acecore Schools** é a área de educação da Acecore. Áreas de aprendizagem, formatos, preços e consultas estão no [site oficial da Acecore Schools](https://schools.acecore.net/).
@@ -24,5 +26,7 @@ O antigo workshop de robótica é preservado como [registro de atividade](https:
 ## Código aberto e parcerias
 
 Os projetos públicos da Acecore Systems estão disponíveis no [GitHub](https://github.com/acecore-systems). Serviços técnicos e artigos especializados são mantidos na [Acecore Systems](https://systems.acecore.net/pt/).
+
+O projeto público [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) trata da divisão e verificação do trabalho no Codex. O desenho é explicado em [Systems Insights](https://systems.acecore.net/pt/insights/codex-task-routing-design/).
 
 Para parcerias entre diferentes áreas, use o [formulário de contato](/pt/contact/).

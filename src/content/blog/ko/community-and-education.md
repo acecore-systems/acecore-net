@@ -3,7 +3,7 @@ title: '커뮤니티 활동과 교육에 대한 노력'
 description: 'Aceserver, Acecore Schools, Acecore의 공개 프로젝트를 소개합니다.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-07-30T00:01
+lastUpdated: 2026-09-26T18:50
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -15,6 +15,8 @@ Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영�
 
 **Aceserver**는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참가 방법, 규칙, 최신 소식은 [Aceserver 공식 포털](https://asv.acecore.net/ko/)에서 확인할 수 있습니다.
 
+알파의 그림일기를 날짜별로 살펴보려면 [처음 방문하는 분을 위한 안내](https://asv.acecore.net/ko/stories/alpha-diary-guide/)를 참고하세요.
+
 ## Acecore Schools
 
 **Acecore Schools**는 Acecore의 교육 사업입니다. 학습 분야, 진행 방식, 요금, 상담 방법은 [Acecore Schools 공식 사이트](https://schools.acecore.net/)에서 안내합니다.
@@ -24,5 +26,7 @@ Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영�
 ## 오픈 소스와 협력
 
 Acecore Systems의 공개 프로젝트는 [GitHub](https://github.com/acecore-systems)에서 확인할 수 있습니다. 기술 지원과 전문 글은 [Acecore Systems](https://systems.acecore.net/ko/)에서 관리합니다.
+
+공개 프로젝트 [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing)은 Codex 작업 분담과 검증 방식을 다룹니다. 설계 내용은 [Systems 기술 글](https://systems.acecore.net/ko/insights/codex-task-routing-design/)에서 확인할 수 있습니다.
 
 사업 간 협력이나 공동 기획은 [문의 양식](/ko/contact/)을 이용해 주세요.
