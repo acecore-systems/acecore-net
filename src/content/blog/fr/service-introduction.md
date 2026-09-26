@@ -3,8 +3,9 @@ title: 'Présentation des activités d’Acecore : liens vers les sites spécial
 description: 'Découvrez les informations institutionnelles d’Acecore et les sites officiels de Systems, Schools, Aceserver et Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T17:55
+lastUpdated: 2026-09-26T21:30
 author: gui
+image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
