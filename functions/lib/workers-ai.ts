@@ -46,8 +46,7 @@ export async function createWorkersAiResponse(
   env: WorkersAiEnv,
   options: WorkersAiResponseOptions,
 ): Promise<WorkersAiResponseResult> {
-  const configuredModel =
-    normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL) || WORKERS_AI_CHAT_MODEL
+  const configuredModel = normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL)
   if (
     configuredModel !== WORKERS_AI_CHAT_MODEL &&
     configuredModel !== OPENAI_CHAT_MODEL
