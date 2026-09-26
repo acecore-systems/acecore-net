@@ -138,6 +138,7 @@ const contactPageLd = {
         )}
       >
         <input type="hidden" name="locale" value={locale} />
+        <input type="hidden" name="submission_id" value="" />
         <input
           type="text"
           name="company_website"
@@ -518,6 +519,8 @@ const contactPageLd = {
     {
       const form = document.getElementById('contact-form')
       if (form) {
+        const submissionId = form.querySelector('input[name="submission_id"]')
+        if (submissionId) submissionId.value = crypto.randomUUID()
         const feedback = document.getElementById('form-feedback')
         const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
         const successText =
@@ -591,10 +594,12 @@ const contactPageLd = {
                 })
               }
               if (successUrl) {
+                if (submissionId) submissionId.value = crypto.randomUUID()
                 window.location.assign(successUrl)
               } else {
                 showFeedback('success', successText)
                 form.reset()
+                if (submissionId) submissionId.value = crypto.randomUUID()
                 resetTurnstile()
               }
             })
