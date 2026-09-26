@@ -3,7 +3,7 @@ title: 'Acecore 业务指南：前往各专业网站'
 description: '介绍 Acecore 的公司信息，以及 Systems、Schools、Aceserver 和 Acecore Store 各自的官方信息入口与详细内容。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T16:00
+lastUpdated: 2026-09-26T17:55
 author: gui
 tags: ['お知らせ']
 callout:
