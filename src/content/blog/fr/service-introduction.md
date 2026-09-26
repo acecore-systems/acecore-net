@@ -3,7 +3,7 @@ title: 'Présentation des activités d’Acecore : nos sites spécialisés'
 description: 'Présentation des informations institutionnelles d’Acecore et des sites officiels de Systems, Schools, Aceserver et Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-14T19:00
+lastUpdated: 2026-09-26T16:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -13,7 +13,7 @@ callout:
 checklist:
   title: 目的別の案内先
   items:
-    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore：会社情報、方針、事業横断のご相談
     - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
     - text: Acecore Schools：学び方、教育支援、活動記録
     - text: Aceserver：Minecraftコミュニティへの参加と活動
@@ -29,7 +29,7 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecore est le site institutionnel qui rassemble les informations sur l’ensemble de l’organisation et sert de point d’entrée vers chacune de ses activités. Pour éviter de gérer en double les explications spécialisées et les informations actualisées, les détails de chaque domaine sont regroupés sur les sites officiels suivants.
+Acecore est le site institutionnel qui rassemble les informations sur l’ensemble de l’entreprise et sert de point d’entrée vers chacune de ses activités. Pour éviter de gérer en double les explications spécialisées et les informations actualisées, les détails de chaque domaine sont regroupés sur les sites officiels suivants.
 
 ## Acecore Systems
 
@@ -49,4 +49,4 @@ Les produits, les modalités d’achat et les dernières informations concernant
 
 ## Contacter Acecore
 
-Pour les informations sur l’organisation, consultez [À propos](/fr/about/) ; pour toute demande transversale ou proposition de collaboration, consultez [Contact](/fr/contact/).
+Pour les informations sur l’entreprise, consultez [À propos](/fr/about/) ; pour toute demande transversale ou proposition de collaboration, consultez [Contact](/fr/contact/).

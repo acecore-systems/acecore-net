@@ -3,7 +3,7 @@ title: 'Guia das atividades da Acecore: sites especializados'
 description: 'Apresentamos as informações corporativas da Acecore e os canais oficiais de cada uma das áreas: Systems, Schools, Aceserver e Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-14T19:00
+lastUpdated: 2026-09-26T16:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -13,7 +13,7 @@ callout:
 checklist:
   title: 目的別の案内先
   items:
-    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore：会社情報、方針、事業横断のご相談
     - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
     - text: Acecore Schools：学び方、教育支援、活動記録
     - text: Aceserver：Minecraftコミュニティへの参加と活動
@@ -29,7 +29,7 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-A Acecore é o site corporativo que reúne informações sobre toda a organização e serve como porta de entrada para cada uma de suas atividades. Para evitar a duplicação de explicações especializadas e atualizações, as informações detalhadas de cada área estão concentradas nos seguintes sites oficiais.
+A Acecore é o site corporativo que reúne informações sobre a empresa e serve como porta de entrada para cada uma de suas atividades. Para evitar a duplicação de explicações especializadas e atualizações, as informações detalhadas de cada área estão concentradas nos seguintes sites oficiais.
 
 ## Acecore Systems
 
@@ -49,4 +49,4 @@ Produtos e informações mais recentes sobre compras, entrega e devoluções est
 
 ## Entre em contato com a Acecore
 
-Para informações sobre a organização, consulte [Sobre nós](/pt/about/). Para consultas que envolvam várias atividades ou propostas de colaboração, consulte [Contato](/pt/contact/).
+Para informações sobre a empresa, consulte [Sobre nós](/pt/about/). Para consultas que envolvam várias atividades ou propostas de colaboração, consulte [Contato](/pt/contact/).
