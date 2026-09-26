@@ -521,6 +521,11 @@ const contactPageLd = {
       if (form) {
         const submissionId = form.querySelector('input[name="submission_id"]')
         if (submissionId) submissionId.value = crypto.randomUUID()
+        form.addEventListener('input', function (event) {
+          if (submissionId && event.target !== submissionId) {
+            submissionId.value = crypto.randomUUID()
+          }
+        })
         const feedback = document.getElementById('form-feedback')
         const errorText = form.getAttribute('data-t-error') || 'Failed to send.'
         const successText =
