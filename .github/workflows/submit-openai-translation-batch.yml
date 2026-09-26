@@ -48,7 +48,9 @@ jobs:
         run: sleep 900
 
       - name: Fetch current main
-        run: git fetch origin main:refs/remotes/origin/main --depth=1
+        # Checkout fetched the full history. A shallow fetch can reject the
+        # updated tracking ref when main advances during the 15-minute wait.
+        run: git fetch origin main:refs/remotes/origin/main
 
       - name: Submit current translation requests
         env:
