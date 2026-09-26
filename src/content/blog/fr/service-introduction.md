@@ -30,24 +30,24 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Le site institutionnel d’Acecore rassemble les informations sur l’entreprise et sert de point d’entrée vers chacune de ses activités. Afin d’éviter les doublons dans la gestion des explications spécialisées et des informations actualisées, les détails de chaque domaine sont regroupés sur les sites officiels suivants.
+Le site institutionnel d’Acecore rassemble les informations sur l’entreprise et les liens d’accès à chacune de ses activités. Afin d’éviter de gérer en double les explications spécialisées et les informations actualisées, les contenus détaillés propres à chaque domaine sont regroupés sur les sites officiels suivants.
 
 ## Acecore Systems
 
-L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/fr/).
+L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
-Les façons d’apprendre, l’accompagnement éducatif, les modalités de consultation et les comptes rendus des activités sont présentés sur [Acecore Schools](https://schools.acecore.net/).
+Les méthodes d’apprentissage, l’accompagnement éducatif, les modalités de consultation et les comptes rendus des activités sont présentés sur [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Les modalités pour rejoindre la communauté Minecraft, les services associés et les dernières actualités concernant les activités sont présentés sur le [portail officiel d’Aceserver](https://asv.acecore.net/fr/).
+Le [portail officiel d’Aceserver](https://asv.acecore.net/) indique comment rejoindre la communauté Minecraft, présente les services associés et publie les dernières actualités sur ses activités.
 
 ## Acecore Store
 
-Les produits, les modalités d’achat et les dernières informations relatives à la livraison et aux retours sont présentés sur [Acecore Store](https://store.acecore.net/).
+Les produits, les modalités d’achat et les dernières informations sur la livraison et les retours sont présentés sur [Acecore Store](https://store.acecore.net/).
 
 ## Contacter Acecore
 
-Pour les informations sur l’entreprise, consultez [Présentation de l’entreprise](/fr/about/) ; pour les demandes concernant plusieurs activités ou les partenariats, consultez [Contact](/fr/contact/).
+Pour les informations sur l’entreprise, consultez [Présentation de l’entreprise](/fr/about/) ; pour toute demande concernant plusieurs activités ou toute proposition de collaboration, consultez [Contact](/fr/contact/).
