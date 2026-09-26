@@ -3,7 +3,7 @@ title: 'Acecoreの事業案内：専門サイトへのご案内'
 description: 'Acecoreのコーポレート情報と、Systems、Schools、Aceserver、Acecore Storeそれぞれの公式な案内先を紹介します。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-08-04T00:00
+lastUpdated: 2026-09-26T16:00
 author: gui
 tags: ['お知らせ']
 callout:
@@ -13,7 +13,7 @@ callout:
 checklist:
   title: 目的別の案内先
   items:
-    - text: Acecore：団体情報、方針、事業横断のご相談
+    - text: Acecore：会社情報、方針、事業横断のご相談
     - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
     - text: Acecore Schools：学び方、教育支援、活動記録
     - text: Aceserver：Minecraftコミュニティへの参加と活動
@@ -29,7 +29,7 @@ faq:
       answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 ---
 
-Acecoreは、団体全体の情報と各事業への入口をまとめるコーポレートサイトです。専門的な説明や更新情報を二重管理しないため、各分野の詳しい内容は次の公式サイトに集約しています。
+株式会社Acecoreのコーポレートサイトでは、会社情報と各事業への入口をまとめています。専門的な説明や更新情報を二重管理しないため、各分野の詳しい内容は次の公式サイトに集約しています。
 
 ## Acecore Systems
 
@@ -49,4 +49,4 @@ Minecraftコミュニティへの参加方法、関連サービス、活動の�
 
 ## Acecoreへのお問い合わせ
 
-団体情報は[私たちについて](/about/)、事業横断のご相談や連携については[お問い合わせ](/contact/)をご確認ください。
+会社情報は[会社概要](/about/)、事業横断のご相談や連携については[お問い合わせ](/contact/)をご確認ください。
