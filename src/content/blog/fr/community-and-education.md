@@ -1,6 +1,6 @@
 ---
-title: 'Activités communautaires et engagement éducatif'
-description: "Présentation d'Aceserver, d'Acecore Schools et des projets publics d'Acecore."
+title: 'Activités communautaires et engagement en faveur de l’éducation'
+description: 'Découvrez les activités communautaires d’Acecore, son soutien éducatif et ses contributions à l’open source, avec Aceserver, Schools et ses anciens ateliers.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: 2026-09-26T18:50
@@ -9,24 +9,24 @@ tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
 ---
 
-Acecore exploite des sites spécialisés pour ses activités professionnelles, éducatives et communautaires. Cette page en donne une vue d'ensemble et renvoie vers la source officielle pour les informations à jour.
+Acecore gère ses activités professionnelles, éducatives et communautaires sur des sites spécialisés. Cette page présente une vue d’ensemble de ces activités et vous indique où trouver les informations officielles les plus récentes.
 
 ## Aceserver
 
-**Aceserver** est une communauté Minecraft gérée par Acecore. Les modalités de participation, les règles et les actualités sont publiées sur le [portail officiel Aceserver](https://asv.acecore.net/fr/).
+**Aceserver** est une communauté Minecraft gérée par Acecore. Les modalités de participation, les règles et les dernières actualités sont regroupées sur le [portail officiel d’Aceserver](https://asv.acecore.net/).
 
-Pour parcourir le journal illustré d’Alpha par date, consultez le [guide de découverte](https://asv.acecore.net/fr/stories/alpha-diary-guide/).
+Pour lire le journal illustré d’Alpha-kun, choisissez une date dans le [guide pour bien débuter](https://asv.acecore.net/stories/alpha-diary-guide/).
 
 ## Acecore Schools
 
-**Acecore Schools** est l'activité éducative d'Acecore. Les domaines d'apprentissage, les formats, les tarifs et les modalités de consultation sont présentés sur le [site officiel d'Acecore Schools](https://schools.acecore.net/).
+**Acecore Schools** est un service éducatif qui élabore des parcours d’apprentissage adaptés aux objectifs de chacun et à son niveau actuel. Les publics concernés, les modalités d’apprentissage, les tarifs et les modalités de prise de contact sont présentés sur le [site officiel d’Acecore Schools](https://schools.acecore.net/).
 
-L'ancien atelier de robotique est conservé sous la forme d'un [compte rendu d'activité](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+L’atelier de construction de robots organisé précédemment fait l’objet d’un [compte rendu d’activité](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
 
-## Open source et partenariats
+## Open source et collaborations
 
-Les projets publics d'Acecore Systems sont disponibles sur [GitHub](https://github.com/acecore-systems). Les services techniques et les articles spécialisés sont publiés sur [Acecore Systems](https://systems.acecore.net/fr/).
+Les projets publics d’Acecore Systems sont consultables sur [GitHub](https://github.com/acecore-systems). Les informations sur l’assistance technique et les explications techniques sont regroupées sur [Acecore Systems](https://systems.acecore.net/).
 
-Le projet public [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) traite de la répartition et de la vérification du travail dans Codex. Sa conception est détaillée dans [Systems Insights](https://systems.acecore.net/fr/insights/codex-task-routing-design/).
+Le projet public [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) porte sur la conception de la répartition des tâches et de leur vérification dans Codex. Le contexte de cette démarche est récapitulé dans [l’article technique de Systems](https://systems.acecore.net/insights/codex-task-routing-design/).
 
-Pour toute collaboration entre plusieurs activités, utilisez le [formulaire de contact](/fr/contact/).
+Pour toute collaboration transversale ou tout projet commun, veuillez contacter Acecore via sa [page de contact](/contact/).
