@@ -58,7 +58,7 @@ async function onRequestPost(context) {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
     SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
     SEARCH_EMBEDDING_DIMENSIONS: '1024',
-    WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+    WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
     WORKERS_AI_REASONING_EFFORT: 'low',
     ...context.env,
   }
@@ -140,7 +140,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Workers AI GLM low・store falseを送信する', async () => {
+test('Workers AIへlow・store falseを送信する', async () => {
   let responseInput
   let responseOptions
   let responseModel
@@ -152,7 +152,7 @@ test('Workers AI GLM low・store falseを送信する', async () => {
     env: {
       SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
       SEARCH_EMBEDDING_DIMENSIONS: '1024',
-      WORKERS_AI_CHAT_MODEL: '@cf/zai-org/glm-5.3-flash',
+      WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
       WORKERS_AI_REASONING_EFFORT: 'low',
       SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
       SEARCH_ENABLED: 'false',
@@ -170,7 +170,7 @@ test('Workers AI GLM low・store falseを送信する', async () => {
   })
 
   assert.equal(response.status, 200)
-  assert.equal(responseModel, '@cf/zai-org/glm-5.3-flash')
+  assert.equal(responseModel, '@cf/example/chat-model')
   assert.equal(responseInput.reasoning_effort, 'low')
   assert.equal(responseInput.max_completion_tokens, 640)
   assert.equal(responseInput.store, false)

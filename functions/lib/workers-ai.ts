@@ -1,4 +1,3 @@
-export const WORKERS_AI_CHAT_MODEL = '@cf/zai-org/glm-5.3-flash' as const
 export const OPENAI_CHAT_MODEL = 'gpt-6-luna' as const
 export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'low' as const
 
@@ -48,13 +47,13 @@ export async function createWorkersAiResponse(
 ): Promise<WorkersAiResponseResult> {
   const configuredModel = normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL)
   if (
-    configuredModel !== WORKERS_AI_CHAT_MODEL &&
+    !isWorkersAiTextModel(configuredModel) &&
     configuredModel !== OPENAI_CHAT_MODEL
   ) {
     throw new WorkersAiProviderError('invalid_model_configuration')
   }
 
-  if (configuredModel === WORKERS_AI_CHAT_MODEL && !env.AI)
+  if (isWorkersAiTextModel(configuredModel) && !env.AI)
     throw new WorkersAiProviderError('unconfigured')
   if (configuredModel === OPENAI_CHAT_MODEL && !env.AI_CONTACT_OPENAI_SERVICE)
     throw new WorkersAiProviderError('unconfigured')
@@ -73,10 +72,10 @@ export async function createWorkersAiResponse(
       user: options.safetyIdentifier,
       store: false,
     }
-    if (configuredModel === WORKERS_AI_CHAT_MODEL) {
+    if (isWorkersAiTextModel(configuredModel)) {
       payload = await (
         env.AI!.run as (model: string, input: unknown) => Promise<unknown>
-      )(WORKERS_AI_CHAT_MODEL, request)
+      )(configuredModel, request)
     } else {
       const response = await env.AI_CONTACT_OPENAI_SERVICE!.fetch(
         'https://ai-contact.internal/v1/chat',
@@ -163,6 +162,14 @@ function normalizeReasoningEffort(value: unknown): WorkersAiReasoningEffort {
 
 function normalizeConfigValue(value: unknown): string {
   return typeof value === 'string' ? value.trim() : ''
+}
+
+function isWorkersAiTextModel(model: string): boolean {
+  return (
+    model.startsWith('@cf/') &&
+    model.length > 4 &&
+    !model.toLowerCase().includes('/glm')
+  )
 }
 
 function isJsonObject(value: unknown): value is Record<string, unknown> {
