@@ -56,27 +56,27 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/noto-sans-jp": "^5.3.0",
-    "astro": "^7.3.3",
+    "astro": "^7.3.5",
     "graphql": "^17.0.2",
     "jose": "^6.2.12",
     "js-yaml": "^5.4.2",
     "rehype-external-links": "^3.0.0",
-    "satori": "^0.33.4",
+    "satori": "^0.33.5",
     "sharp": "^0.35.3",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260917.1",
-    "@iconify-json/lucide": "^1.2.133",
+    "@cloudflare/workers-types": "^5.20260924.1",
+    "@iconify-json/lucide": "^1.2.136",
     "@tailwindcss/postcss": "4.3.3",
     "@types/js-yaml": "^4.0.9",
     "cheerio": "^1.2.0",
     "pagefind": "^1.5.2",
-    "prettier": "^3.9.7",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.0.1",
     "tailwindcss": "4.3.3",
     "typescript": "^7.0.2",
-    "wrangler": "^4.134.0"
+    "wrangler": "^4.139.0"
   },
   "engines": {
     "node": ">=24.18.0"
