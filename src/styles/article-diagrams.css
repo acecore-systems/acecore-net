@@ -1,0 +1,223 @@
+/* Explanatory figures keep their labels as real text at every viewport size. */
+.article-diagram {
+  --diagram-accent: #246f83;
+  --diagram-soft: #e9f4f5;
+  margin: 2.5em 0;
+  border: 1px solid #cfdee2;
+  border-radius: 12px;
+  padding: clamp(18px, 3vw, 28px);
+  background: #f7faf9;
+  color: #172e3b;
+  line-height: 1.6;
+}
+
+.article-diagram[data-tone='violet'] {
+  --diagram-accent: #68519d;
+  --diagram-soft: #f1ecfa;
+}
+
+.article-diagram[data-tone='amber'] {
+  --diagram-accent: #966115;
+  --diagram-soft: #fbf1df;
+}
+
+.article-diagram[data-tone='green'] {
+  --diagram-accent: #287352;
+  --diagram-soft: #e8f5ed;
+}
+
+.article-diagram > figcaption {
+  margin-bottom: 24px;
+}
+
+.article-diagram > figcaption > strong {
+  display: block;
+  scroll-margin-top: 140px;
+  color: #172e3b;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.article-diagram > figcaption > span {
+  display: block;
+  margin-top: 8px;
+  color: #4b616e;
+  font-size: 0.9rem;
+}
+
+.article-diagram ol.article-diagram__nodes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-diagram[data-count='2'] ol.article-diagram__nodes,
+.article-diagram[data-count='4'] ol.article-diagram__nodes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.article-diagram .article-diagram__nodes > li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  border: 1px solid #c8dade;
+  border-top: 3px solid var(--diagram-accent);
+  border-radius: 7px;
+  padding: 18px;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.article-diagram__symbol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--diagram-accent);
+}
+
+.article-diagram__symbol svg {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+}
+
+.article-diagram__symbol > span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--diagram-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.article-diagram .article-diagram__nodes > li > strong {
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+.article-diagram .article-diagram__nodes > li > span {
+  color: #4b616e;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.article-diagram .article-diagram__nodes > li > img {
+  align-self: center;
+  width: min(100%, 240px);
+  height: auto;
+  border: 0;
+}
+
+.article-diagram[data-layout='flow'] .article-diagram__nodes > li + li::before {
+  content: '→';
+  position: absolute;
+  top: 24px;
+  left: -24px;
+  color: var(--diagram-accent);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.article-diagram[data-layout='compare']
+  .article-diagram__nodes
+  > li:first-child {
+  border-top-color: #a56d22;
+  background: #fffcf5;
+}
+
+.article-diagram[data-layout='compare']
+  .article-diagram__nodes
+  > li:last-child {
+  border-top-color: #287352;
+  background: #f6fcf8;
+}
+
+.article-diagram[data-layout='boundary'] .article-diagram__nodes > li {
+  border-style: dashed;
+  border-top-style: solid;
+}
+
+.article-diagram[data-layout='layers'] ol.article-diagram__nodes {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.article-diagram[data-layout='layers'] .article-diagram__nodes > li {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  border-top-width: 1px;
+  border-left: 4px solid var(--diagram-accent);
+}
+
+.article-diagram[data-layout='layers'] .article-diagram__symbol {
+  grid-row: span 2;
+  align-self: center;
+}
+
+.article-diagram[data-layout='branches']
+  .article-diagram__nodes
+  > li:first-child {
+  grid-column: 1 / -1;
+  background: var(--diagram-soft);
+}
+
+.article-diagram[data-layout='branches'] ol.article-diagram__nodes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.article-diagram[data-layout='branches']
+  .article-diagram__nodes
+  > li
+  + li::before {
+  content: '↓';
+  position: absolute;
+  top: -27px;
+  left: calc(50% - 8px);
+  color: var(--diagram-accent);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .article-diagram ol.article-diagram__nodes,
+  .article-diagram[data-count='2'] ol.article-diagram__nodes,
+  .article-diagram[data-count='4'] ol.article-diagram__nodes {
+    grid-template-columns: 1fr;
+  }
+
+  .article-diagram .article-diagram__nodes > li {
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .article-diagram[data-layout='flow']
+    .article-diagram__nodes
+    > li
+    + li::before {
+    content: '↓';
+    top: -27px;
+    left: calc(50% - 8px);
+  }
+
+  .article-diagram[data-layout='branches']
+    .article-diagram__nodes
+    > li
+    + li::before {
+    content: none;
+  }
+
+  .article-diagram[data-layout='layers'] .article-diagram__nodes > li {
+    grid-template-columns: 60px minmax(0, 1fr);
+  }
+
+  .article-diagram[data-layout='layers'] .article-diagram__symbol {
+    flex-direction: column;
+  }
+}
