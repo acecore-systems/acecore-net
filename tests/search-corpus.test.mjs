@@ -85,3 +85,44 @@ test('noindexページをcorpusへ入れない', async () => {
   assert.equal(corpus.sourceCount, 0)
   assert.equal(corpus.vectorCount, 0)
 })
+
+test('英語canonicalを使う翻訳先ページも検索URLを対象言語に揃える', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'acecore-search-fallback-'))
+  temporaryRoots.push(root)
+  const dist = join(root, 'dist')
+  for (const locale of ['en', 'de']) {
+    const directory = join(dist, locale, 'terms')
+    await mkdir(directory, { recursive: true })
+    await writeFile(
+      join(directory, 'index.html'),
+      `<html lang="${locale}"><head><link rel="canonical" href="https://acecore.net/en/terms/"></head>
+       <main><h1>Acecore ID Terms of Use</h1><p>These public terms describe account registration, use of the service, and how to contact Acecore.</p></main></html>`,
+      'utf8',
+    )
+  }
+  const corpus = await buildSearchCorpus({ distDir: dist, write: false })
+  assert.equal(corpus.sourceCount, 2)
+  assert.equal(new Set(corpus.chunks.map(({ id }) => id)).size, 2)
+  for (const chunk of corpus.chunks) {
+    assert.equal(chunk.metadata.url, `/${chunk.namespace}/terms/`)
+    assert.equal(chunk.metadata.locale, chunk.namespace)
+  }
+})
+
+test('言語が異なるcanonicalでも従来の検索除外先を含めない', async () => {
+  const root = await mkdtemp(
+    join(tmpdir(), 'acecore-search-canonical-exclusion-'),
+  )
+  temporaryRoots.push(root)
+  const dist = join(root, 'dist')
+  const directory = join(dist, 'de', 'example')
+  await mkdir(directory, { recursive: true })
+  await writeFile(
+    join(directory, 'index.html'),
+    '<html lang="de"><head><link rel="canonical" href="https://acecore.net/admin/"></head><main><h1>Excluded page</h1><p>This page has enough text to be indexed but its canonical points to an excluded administration page.</p></main></html>',
+    'utf8',
+  )
+  const corpus = await buildSearchCorpus({ distDir: dist, write: false })
+  assert.equal(corpus.sourceCount, 0)
+  assert.equal(corpus.vectorCount, 0)
+})
