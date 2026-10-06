@@ -126,11 +126,18 @@ export function extractSearchDocument(html, htmlFile, distDir) {
   const $ = load(html)
   const fallbackPath = htmlFileToUrl(htmlFile, distDir)
   const canonicalPath = getCanonicalPath($, fallbackPath)
-  const localizedPath = stripLocalePrefix(canonicalPath)
+  const locale = getLocaleForPath(fallbackPath)
+  const searchPath =
+    getLocaleForPath(canonicalPath) === locale ? canonicalPath : fallbackPath
+  const localizedPath = stripLocalePrefix(searchPath)
 
-  if (shouldExcludePath(localizedPath) || isNoIndexPage($)) return null
+  if (
+    shouldExcludePath(stripLocalePrefix(canonicalPath)) ||
+    shouldExcludePath(localizedPath) ||
+    isNoIndexPage($)
+  )
+    return null
 
-  const locale = getLocale($, canonicalPath)
   const title = normalizeText(
     $('main h1').first().text() ||
       $('meta[property="og:title"]').attr('content') ||
@@ -152,7 +159,7 @@ export function extractSearchDocument(html, htmlFile, distDir) {
   }
 
   return {
-    url: canonicalPath,
+    url: searchPath,
     locale,
     title,
     description,
@@ -335,13 +342,7 @@ function getCanonicalPath($, fallbackPath) {
   }
 }
 
-function getLocale($, urlPath) {
-  const htmlLang = String($('html').attr('lang') || '')
-    .trim()
-    .toLowerCase()
-  const normalizedHtmlLang = htmlLang.startsWith('zh') ? 'zh-cn' : htmlLang
-  if (SUPPORTED_LOCALES.has(normalizedHtmlLang)) return normalizedHtmlLang
-
+function getLocaleForPath(urlPath) {
   const firstSegment = urlPath.split('/').filter(Boolean)[0]?.toLowerCase()
   return SUPPORTED_LOCALES.has(firstSegment) ? firstSegment : 'ja'
 }
