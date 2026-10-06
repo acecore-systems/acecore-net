@@ -3,10 +3,31 @@ title: 'Renovamos o site oficial da Acecore'
 description: 'O site oficial da Acecore agora é um site corporativo focado na empresa, em seus negócios e em notícias.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: 2026-07-30T00:01
+lastUpdated: '2026-10-06T13:52:46+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
-image: /uploads/acecore-generated/blog-website-renewal.webp
+image: '/uploads/acecore-homepage-20261006.webp'
+insightGrid:
+  title: 'Divisão entre informações corporativas, notícias e sites especializados'
+  description: 'O site corporativo reúne informações da empresa; os sites especializados concentram os detalhes de cada área.'
+  variant: inline
+  items:
+    - title: 'Site corporativo da Acecore'
+      description: 'Perfil da empresa, diretório de atividades, notícias e consultas entre áreas.'
+      icon: building
+      tone: brand
+    - title: 'Acecore Systems'
+      description: 'Suporte de TI, desenvolvimento, design, operação e artigos técnicos.'
+      icon: code
+      tone: slate
+    - title: 'Acecore Schools'
+      description: 'Apoio à aprendizagem, informações educacionais e registros de atividades.'
+      icon: book-open
+      tone: amber
+    - title: 'Aceserver'
+      description: 'Orientações para participar da comunidade Minecraft, regras e atividades.'
+      icon: users
+      tone: emerald
 ---
 
 Reorganizamos o site da Acecore como uma página corporativa concisa para consultar a empresa e acessar cada negócio.

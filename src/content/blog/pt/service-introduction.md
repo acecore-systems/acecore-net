@@ -3,31 +3,48 @@ title: 'Apresentação das atividades da Acecore: conheça os sites especializad
 description: 'Conheça as informações corporativas da Acecore e os canais oficiais de Systems, Schools, Aceserver e Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T21:30
+lastUpdated: '2026-10-06T13:52:46+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
-  title: 情報の正本
-  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
-checklist:
-  title: 目的別の案内先
-  items:
-    - text: Acecore：会社情報、方針、事業横断のご相談
-    - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
-    - text: Acecore Schools：学び方、教育支援、活動記録
-    - text: Aceserver：Minecraftコミュニティへの参加と活動
-    - text: Acecore Store：公式オンラインストアの商品、購入方法、配送・返品に関する情報
+  title: 'Fonte oficial de referência'
+  text: 'Cada site especializado é a fonte de referência para informações sobre o escopo de cada área, preços, formas de participação e novidades.'
 faq:
-  title: よくある質問
+  title: 'Perguntas frequentes'
   items:
-    - question: システム開発やWeb制作はどこへ相談すればよいですか？
-      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
-    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
-      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
-    - question: ストアの商品や購入・配送についてはどこで確認できますか？
-      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
+    - question: 'Onde posso consultar sobre desenvolvimento de sistemas ou criação de sites?'
+      answer: 'Consulte as informações sobre serviços e as opções de contato da Acecore Systems.'
+    - question: 'Onde encontro informações sobre educação e a comunidade Minecraft?'
+      answer: 'Para ver as informações mais recentes, acesse os sites oficiais correspondentes: Acecore Schools para educação e Aceserver para a comunidade Minecraft.'
+    - question: 'Onde posso consultar produtos da loja, compras e envio?'
+      answer: 'Consulte a Acecore Store para ver as informações mais recentes sobre produtos, como comprar, envio e devoluções.'
+insightGrid:
+  title: 'Sites oficiais por finalidade'
+  description: 'Consulte cada site oficial para obter detalhes e atualizações de sua área.'
+  variant: inline
+  items:
+    - title: 'Acecore'
+      description: 'Informações da empresa, políticas e consultas entre áreas.'
+      icon: building
+      tone: brand
+    - title: 'Acecore Systems'
+      description: 'Suporte de TI, desenvolvimento, design, operação e artigos técnicos.'
+      icon: code
+      tone: slate
+    - title: 'Acecore Schools'
+      description: 'Opções de aprendizagem, apoio educacional, consultas e atividades.'
+      icon: book-open
+      tone: amber
+    - title: 'Aceserver'
+      description: 'Participação na comunidade Minecraft, regras e informações de atividades.'
+      icon: users
+      tone: emerald
+    - title: 'Acecore Store'
+      description: 'Produtos oficiais, compras, envio e devoluções.'
+      icon: shopping-bag
+      tone: brand
 ---
 
 O site corporativo da Acecore reúne informações sobre a empresa e links para cada área de atuação. Para evitar a duplicação de explicações especializadas e de atualizações, os detalhes de cada área estão concentrados nos seguintes sites oficiais.
