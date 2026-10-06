@@ -3,10 +3,27 @@ title: 'Сообщество и образовательные инициати�
 description: 'Обзор Aceserver, Acecore Schools и открытых проектов Acecore.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: Найти подробности о каждом направлении
+  description: Актуальные сведения и записи об активности доступны на соответствующих официальных сайтах.
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Участие в Minecraft, правила и записи сообщества.
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: Подходы к обучению, образовательная поддержка и прошедшие мастерские.
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: Открытые проекты, технические статьи, поддержка разработки и эксплуатации.
+      icon: code
+      tone: brand
 ---
 
 Acecore ведёт отдельные специализированные сайты для бизнеса, образования и сообщества. Здесь представлен общий обзор и ссылки на официальные источники актуальной информации.

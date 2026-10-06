@@ -3,10 +3,27 @@ title: 'Atividades comunitárias e iniciativas educacionais'
 description: 'Visão geral do Aceserver, da Acecore Schools e dos projetos públicos da Acecore.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: Encontre detalhes para cada atividade
+  description: Consulte cada site oficial para orientações atuais e registros de atividades.
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Participação no Minecraft, regras e registros da comunidade.
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: Formas de aprender, apoio educacional e oficinas anteriores.
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: Projetos públicos, artigos técnicos e apoio ao desenvolvimento e às operações.
+      icon: code
+      tone: brand
 ---
 
 A Acecore mantém sites especializados para suas atividades empresariais, educacionais e comunitárias. Esta página oferece uma visão corporativa e aponta para a fonte oficial das informações atuais.

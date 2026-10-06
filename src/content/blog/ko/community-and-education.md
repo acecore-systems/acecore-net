@@ -3,10 +3,27 @@ title: '커뮤니티 활동과 교육에 대한 노력'
 description: 'Aceserver, Acecore Schools, Acecore의 공개 프로젝트를 소개합니다.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: 활동에 맞는 자세한 안내 찾기
+  description: 최신 안내와 활동 기록은 각 공식 사이트에서 확인할 수 있습니다.
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Minecraft 참가 방법, 규칙, 커뮤니티 기록.
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: 학습 방법, 교육 지원, 과거 체험 활동.
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: 공개 프로젝트, 기술 글, 개발 및 운영 지원.
+      icon: code
+      tone: brand
 ---
 
 Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영합니다. 이 페이지에서는 전체 활동을 소개하고 최신 정보를 관리하는 공식 사이트로 안내합니다.

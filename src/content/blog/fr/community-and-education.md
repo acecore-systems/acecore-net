@@ -3,10 +3,27 @@ title: 'Activités communautaires et engagement éducatif'
 description: "Présentation d'Aceserver, d'Acecore Schools et des projets publics d'Acecore."
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: Trouver les détails de chaque activité
+  description: Consultez chaque site officiel pour les informations actuelles et les comptes rendus d’activités.
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Participation à Minecraft, règles et récits de la communauté.
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: Méthodes d’apprentissage, soutien éducatif et ateliers passés.
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: Projets publics, articles techniques et accompagnement du développement et de l’exploitation.
+      icon: code
+      tone: brand
 ---
 
 Acecore exploite des sites spécialisés pour ses activités professionnelles, éducatives et communautaires. Cette page en donne une vue d'ensemble et renvoie vers la source officielle pour les informations à jour.

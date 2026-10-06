@@ -3,10 +3,27 @@ title: '社区活动与教育实践'
 description: '介绍Aceserver、Acecore Schools以及Acecore的公开项目。'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: 按活动内容查找详细说明
+  description: 最新指南和活动记录可在各官方站点查看。
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Minecraft参与方式、规则和社区记录。
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: 学习方式、教育支持和过去的体验活动。
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: 公开项目、技术文章以及开发与运营支持。
+      icon: code
+      tone: brand
 ---
 
 Acecore分别运营面向业务、教育与社区的专业网站。本页提供整体介绍，并链接到维护最新信息的官方网站。

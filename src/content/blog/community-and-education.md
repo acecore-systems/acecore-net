@@ -3,10 +3,27 @@ title: 'コミュニティ活動と教育への取り組み'
 description: 'Acecoreのコミュニティ活動、教育支援、オープンソースへの貢献について。Aceserver、Schools、過去のワークショップを通じた取り組みを紹介します。'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: 2026-09-26T18:50
+lastUpdated: '2026-10-06T08:52:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
+insightGrid:
+  title: 活動の内容に合わせて、詳しい案内へ
+  description: 最新の案内と活動記録は、それぞれの公式サイトで確認できます。
+  variant: inline
+  items:
+    - title: Aceserver
+      description: Minecraftへの参加、ルール、コミュニティの記録。
+      icon: users
+      tone: emerald
+    - title: Acecore Schools
+      description: 学び方、教育支援、過去の体験活動。
+      icon: book-open
+      tone: amber
+    - title: Acecore Systems / GitHub
+      description: 公開プロジェクト、技術解説、開発・運用支援。
+      icon: code
+      tone: brand
 ---
 
 Acecoreは、事業・学び・コミュニティをそれぞれの専門サイトで運営しています。このページでは活動の全体像と、最新情報を確認できる公式なご案内先を紹介します。
