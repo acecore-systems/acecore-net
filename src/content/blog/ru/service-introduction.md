@@ -3,31 +3,48 @@ title: 'Направления деятельности Acecore: ссылки н
 description: 'Представляем корпоративную информацию Acecore и официальные сайты направлений Systems, Schools, Aceserver и Acecore Store.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: 2026-09-26T21:30
+lastUpdated: '2026-10-06T13:52:46+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
-  title: 情報の正本
-  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
-checklist:
-  title: 目的別の案内先
-  items:
-    - text: Acecore：会社情報、方針、事業横断のご相談
-    - text: Acecore Systems：IT支援、開発、制作、運用、技術解説
-    - text: Acecore Schools：学び方、教育支援、活動記録
-    - text: Aceserver：Minecraftコミュニティへの参加と活動
-    - text: Acecore Store：公式オンラインストアの商品、購入方法、配送・返品に関する情報
+  title: 'Официальный источник информации'
+  text: 'Сведения о направлениях работы, стоимости, способах участия и последних новостях обновляются на соответствующих профильных сайтах, которые служат основным источником.'
 faq:
-  title: よくある質問
+  title: 'Частые вопросы'
   items:
-    - question: システム開発やWeb制作はどこへ相談すればよいですか？
-      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
-    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
-      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
-    - question: ストアの商品や購入・配送についてはどこで確認できますか？
-      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
+    - question: 'Куда обратиться по вопросам разработки систем или создания сайтов?'
+      answer: 'Ознакомьтесь с описанием услуг и контактами Acecore Systems.'
+    - question: 'Где найти информацию об образовании и сообществе Minecraft?'
+      answer: 'Актуальную информацию можно найти на соответствующих официальных сайтах: об образовании — на Acecore Schools, о сообществе Minecraft — на Aceserver.'
+    - question: 'Где узнать о товарах магазина, покупках и доставке?'
+      answer: 'Последнюю информацию о товарах, покупке, доставке и возврате смотрите на Acecore Store.'
+insightGrid:
+  title: 'Официальные сайты по теме обращения'
+  description: 'Подробную информацию и обновления по каждому направлению смотрите на его официальном сайте.'
+  variant: inline
+  items:
+    - title: 'Acecore'
+      description: 'Информация о компании, принципы работы и межотраслевые запросы.'
+      icon: building
+      tone: brand
+    - title: 'Acecore Systems'
+      description: 'IT-поддержка, разработка, дизайн, эксплуатация и технические статьи.'
+      icon: code
+      tone: slate
+    - title: 'Acecore Schools'
+      description: 'Обучение, образовательная поддержка, консультации и отчёты об активности.'
+      icon: book-open
+      tone: amber
+    - title: 'Aceserver'
+      description: 'Участие в сообществе Minecraft, правила и сведения об активностях.'
+      icon: users
+      tone: emerald
+    - title: 'Acecore Store'
+      description: 'Официальные товары, покупки, доставка и возвраты.'
+      icon: shopping-bag
+      tone: brand
 ---
 
 На корпоративном сайте компании Acecore собраны сведения о компании и ссылки на каждое из направлений её деятельности. Чтобы избежать дублирования специализированных описаний и обновлений, подробная информация по каждой сфере размещена на следующих официальных сайтах.
