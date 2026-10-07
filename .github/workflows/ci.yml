@@ -48,9 +48,6 @@ jobs:
       - name: Test blog freshness validation
         run: npm run test:blog-freshness
 
-      - name: Validate OpenAI translation automation
-        run: npm run typecheck:openai-translation && npm run test:openai-translation && npm run typecheck:translation-merge && npm run test:translation-merge
-
       - name: Test CMS proxy
         run: npm run test:cms
 

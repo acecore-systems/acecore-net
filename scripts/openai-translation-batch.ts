@@ -10,10 +10,6 @@ import {
 } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import {
-  reviewBlogTranslation,
-  type TranslationReview,
-} from './blog-translation-review.ts'
 
 const API_BASE_URL = 'https://api.openai.com/v1'
 const BATCH_MODEL = 'gpt-6-luna'
@@ -122,24 +118,6 @@ interface CollectedResult {
   hasChanges: boolean
   bodyPath: string | null
   batchId: string | null
-  needsReview?: boolean
-}
-
-export interface BlogReviewEntry extends TranslationReview {
-  path: string
-  locale: string
-}
-
-interface BlogTranslationOptions {
-  readSource?: (filePath: string) => string
-  writeTranslation?: (filePath: string, content: string) => boolean
-  removePrevious?: (filePath: string) => boolean
-  reviewTranslation?: typeof reviewBlogTranslation
-}
-
-interface BlogTranslationResult {
-  changed: boolean
-  review: BlogReviewEntry | null
 }
 
 interface ParsedArgs {
@@ -1270,22 +1248,12 @@ function writeTranslationFile(filePath: string, content: string): boolean {
   return true
 }
 
-export async function applyBlogTranslation(
+function applyBlogTranslation(
   metadata: RequestMetadata,
   response: JsonRecord,
-  {
-    readSource = (filePath) => readFileSync(filePath, 'utf8'),
-    writeTranslation = writeTranslationFile,
-    removePrevious = (filePath) => {
-      if (!existsSync(filePath)) return false
-      rmSync(filePath)
-      return true
-    },
-    reviewTranslation = reviewBlogTranslation,
-  }: BlogTranslationOptions = {},
-): Promise<BlogTranslationResult> {
+): boolean {
   if (!metadata.locale) throw new Error('Blog translation is missing a locale')
-  const source = readSource(metadata.sourcePath)
+  const source = readFileSync(metadata.sourcePath, 'utf8')
   if (hashSource(source) !== metadata.sourceHash) {
     throw new Error(`Stale source: ${metadata.sourcePath}`)
   }
@@ -1318,27 +1286,21 @@ export async function applyBlogTranslation(
   validateMarkdownTranslation(sourceDocument, translatedDocument)
 
   const targetPath = getBlogTargetPath(metadata.locale, metadata.sourcePath)
-  const translation = `---\n${translatedDocument.frontmatter}\n---\n${translatedDocument.body}`
-  let changed = writeTranslation(targetPath, translation)
+  let changed = writeTranslationFile(
+    targetPath,
+    `---\n${translatedDocument.frontmatter}\n---\n${translatedDocument.body}`,
+  )
   if (metadata.previousPath && metadata.previousPath !== metadata.sourcePath) {
     const previousTargetPath = getBlogTargetPath(
       metadata.locale,
       metadata.previousPath,
     )
-    changed = removePrevious(previousTargetPath) || changed
+    if (existsSync(previousTargetPath)) {
+      rmSync(previousTargetPath)
+      changed = true
+    }
   }
-  if (!changed) return { changed: false, review: null }
-  const reviewableSource = `---\ntitle: ${JSON.stringify(getFrontmatterString(sourceDocument.frontmatter, 'title') ?? '')}\ndescription: ${JSON.stringify(getFrontmatterString(sourceDocument.frontmatter, 'description') ?? '')}\n---\n${sourceDocument.body}`
-  const reviewableTranslation = `---\ntitle: ${JSON.stringify(translated.title)}\ndescription: ${JSON.stringify(translated.description)}\n---\n${translatedDocument.body}`
-  const review = await reviewTranslation({
-    source: reviewableSource,
-    translation: reviewableTranslation,
-    locale: metadata.locale,
-  })
-  return {
-    changed: true,
-    review: { ...review, path: targetPath, locale: metadata.locale },
-  }
+  return changed
 }
 
 function applyBlogDeletion(metadata: RequestMetadata): boolean {
@@ -1454,16 +1416,9 @@ export function selectCompletedBatch(
   )
 }
 
-export function needsTranslationReview(
-  reviews: readonly BlogReviewEntry[],
-): boolean {
-  return reviews.some((review) => review.status !== 'pass')
-}
-
-export function makePrBody(
+function makePrBody(
   batchId: string,
   markers: readonly RequestMetadata[],
-  reviews: readonly BlogReviewEntry[] = [],
 ): string {
   const uniqueMarkers = new Map<string, RequestMetadata>()
   for (const marker of markers) {
@@ -1479,23 +1434,7 @@ export function makePrBody(
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',
-    ...(reviews.length > 0
-      ? [
-          '- 変更したブログ翻訳の意味・言語をDecisions APIで審査しました。本文生成はResponses Batchのままです。',
-          ...reviews.map(
-            (review) =>
-              `- \`${review.path}\` (${review.locale}): ${review.status} / ${review.reason}`,
-          ),
-        ]
-      : []),
-    ...(needsTranslationReview(reviews)
-      ? [
-          '- 要確認または判定不能の訳文を含むため、生成結果をDraft PRとして保留します。自動マージしません。',
-          '- 上記の訳文を確認・修正し、Ready for reviewへ変更してください。その後、既存のsource hash・許可path・CI・HEAD SHA検証を経て進みます。',
-        ]
-      : [
-          '- Translation PR Build と必須CIの成功後にsquashで自動マージされます。',
-        ]),
+    '- Translation PR Build と必須CIの成功後にsquashで自動マージされます。',
     '',
     '## 補足',
     '自動生成された翻訳PRです。',
@@ -1505,7 +1444,6 @@ export function makePrBody(
 function writePrBody(
   batchId: string,
   markers: readonly RequestMetadata[],
-  reviews: readonly BlogReviewEntry[],
 ): string {
   const outputDirectory = process.env.RUNNER_TEMP ?? '.tmp'
   mkdirSync(outputDirectory, { recursive: true })
@@ -1513,7 +1451,7 @@ function writePrBody(
     outputDirectory,
     `openai-translation-${batchId}.md`,
   )
-  writeFileSync(outputPath, makePrBody(batchId, markers, reviews))
+  writeFileSync(outputPath, makePrBody(batchId, markers))
   return outputPath
 }
 
@@ -1539,7 +1477,6 @@ function writeCollectedOutputs(result: CollectedResult): void {
   writeOutput('batch_id', result.batchId ?? '')
   writeOutput('has_changes', result.hasChanges ? 'true' : 'false')
   writeOutput('body_path', result.bodyPath ?? '')
-  writeOutput('needs_review', result.needsReview ? 'true' : 'false')
   if (result.processedBatchId) {
     writeOutput('marker_path', writeProcessedMarker(result.processedBatchId))
   }
@@ -1580,7 +1517,6 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
   const outputs = await getBatchOutput(batch)
   let hasChanges = false
   const appliedMarkers: RequestMetadata[] = []
-  const blogReviews: BlogReviewEntry[] = []
   for (const output of outputs) {
     if (!output.response || output.response.status_code !== 200) continue
     const metadata = decodeMetadata(output.custom_id)
@@ -1592,32 +1528,24 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
     }
 
     const response = parseJsonResponse(output.response.body)
-    let changed: boolean
-    if (metadata.kind === 'blog') {
-      const result = await applyBlogTranslation(metadata, response)
-      changed = result.changed
-      if (result.review) blogReviews.push(result.review)
-    } else {
-      changed =
-        metadata.kind === 'blog-delete'
+    const changed =
+      metadata.kind === 'blog'
+        ? applyBlogTranslation(metadata, response)
+        : metadata.kind === 'blog-delete'
           ? applyBlogDeletion(metadata)
           : metadata.kind === 'site'
             ? applySiteTranslation(metadata, response)
             : applySiteDeletion(metadata)
-    }
     hasChanges = changed || hasChanges
     appliedMarkers.push(metadata)
   }
 
-  const bodyPath = hasChanges
-    ? writePrBody(batch.id, appliedMarkers, blogReviews)
-    : null
+  const bodyPath = hasChanges ? writePrBody(batch.id, appliedMarkers) : null
   writeCollectedOutputs({
     processedBatchId: batch.id,
     hasChanges,
     bodyPath,
     batchId: batch.id,
-    needsReview: needsTranslationReview(blogReviews),
   })
   console.log(
     hasChanges
@@ -1633,7 +1561,6 @@ interface PullRequestResponse {
 interface OpenTranslationPullRequest {
   number?: unknown
   body?: unknown
-  draft?: unknown
   head?: {
     ref?: unknown
   }
@@ -1677,20 +1604,13 @@ export function areOpenAiTranslationMarkersCurrent(
   return markers.length > 0 && markers.every(isCurrentTranslationMarker)
 }
 
-export async function closeStaleOpenAiTranslationPullRequests({
-  request = githubRequest,
-  environment = process.env,
-}: {
-  request?: typeof githubRequest
-  environment?: NodeJS.ProcessEnv
-} = {}): Promise<void> {
-  if (!environment.GITHUB_TOKEN || !environment.GITHUB_REPOSITORY) return
-  const pulls = await request<OpenTranslationPullRequest[]>(
+async function closeStaleOpenAiTranslationPullRequests(): Promise<void> {
+  if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_REPOSITORY) return
+  const pulls = await githubRequest<OpenTranslationPullRequest[]>(
     '/pulls?state=open&per_page=100',
   )
   for (const pull of pulls) {
     if (
-      pull.draft !== false ||
       typeof pull.number !== 'number' ||
       typeof pull.head?.ref !== 'string' ||
       !pull.head.ref.startsWith('translation/openai/')
@@ -1710,7 +1630,7 @@ export async function closeStaleOpenAiTranslationPullRequests({
       continue
     }
 
-    await request<unknown>(`/pulls/${pull.number}`, {
+    await githubRequest<unknown>(`/pulls/${pull.number}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ state: 'closed' }),

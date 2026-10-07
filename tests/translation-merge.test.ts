@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { test } from 'node:test'
-import { hashSource } from '../scripts/openai-translation-batch.ts'
 
 import {
   enablePullRequestAutoMerge,
@@ -367,7 +366,7 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
           title: '[translation] OpenAI Batch batch_stale',
           body: `<!-- openai-translation-source:${staleMarker} -->`,
           user: { login: 'acecore-translation-bot[bot]' },
-          draft: false,
+          draft: true,
           mergeable_state: 'clean',
           node_id: 'PR_kwDORlSgas123',
         }
@@ -398,126 +397,6 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
       options: { method: 'PATCH', body: { state: 'closed' } },
     },
   ])
-})
-
-test('Draftは古いsourceやbehindでも自動close・追従・Ready化・mergeせず人の確認を待つ', async () => {
-  for (const mergeableState of ['clean', 'behind', 'blocked']) {
-    const requests: string[] = []
-    const client: GitHubClient = {
-      async request(path) {
-        requests.push(path)
-        if (requests.length !== 1)
-          throw new Error('Draft must not cause another REST request')
-        return {
-          number: 42,
-          state: 'open',
-          base: { ref: 'main' },
-          head: {
-            ref: 'translation/openai/batch_held',
-            sha: HEAD_SHA,
-            repo: { full_name: REPOSITORY.repository },
-          },
-          title: '[translation] OpenAI Batch batch_held',
-          body: 'No valid source marker',
-          user: { login: 'acecore-translation-bot[bot]' },
-          draft: true,
-          mergeable_state: mergeableState,
-          node_id: 'PR_kwDORlSgas123',
-        }
-      },
-      async graphql() {
-        throw new Error('Draft must not cause a GraphQL request')
-      },
-    }
-    const { logger, logs } = createLogger()
-    await runMergeAutomation(['--pr=42'], {
-      client,
-      environment: { GITHUB_REPOSITORY: REPOSITORY.repository },
-      logger,
-      repository: REPOSITORY,
-    })
-    assert.deepEqual(requests, ['/repos/acecore-systems/acecore-net/pulls/42'])
-    assert.match(logs.join('\n'), /human review/)
-  }
-})
-
-test('人がReadyにしたPRも現在のsource・許可path・成功CI・HEAD SHA固定を経て進む', async () => {
-  const sourcePath = 'src/content/blog/website-renewal.md'
-  const marker = Buffer.from(
-    JSON.stringify({
-      kind: 'blog',
-      sourcePath,
-      sourceHash: hashSource(await readFile(sourcePath, 'utf8')),
-    }),
-  ).toString('base64url')
-  const graphqlCalls: Array<{ query: string; variables?: unknown }> = []
-  const requests: string[] = []
-  const client: GitHubClient = {
-    async request(path) {
-      requests.push(path)
-      if (path.endsWith('/pulls/42'))
-        return {
-          number: 42,
-          state: 'open',
-          base: { ref: 'main' },
-          head: {
-            ref: 'translation/openai/batch_ready',
-            sha: HEAD_SHA,
-            repo: { full_name: REPOSITORY.repository },
-          },
-          title: '[translation] OpenAI Batch batch_ready',
-          body: `<!-- openai-translation-source:${marker} -->`,
-          user: { login: 'acecore-translation-bot[bot]' },
-          draft: false,
-          mergeable_state: 'clean',
-          node_id: 'PR_kwDORlSgas123',
-        }
-      if (path.includes('/files?'))
-        return [{ filename: 'src/content/blog/en/website-renewal.md' }]
-      if (path.includes('/check-runs?'))
-        return {
-          check_runs: [
-            {
-              name: 'Translation PR Build',
-              status: 'completed',
-              conclusion: 'success',
-            },
-          ],
-        }
-      throw new Error(`Unexpected path: ${path}`)
-    },
-    async graphql(query, variables) {
-      graphqlCalls.push({ query, variables })
-      return {
-        enablePullRequestAutoMerge: {
-          pullRequest: {
-            number: 42,
-            merged: false,
-            autoMergeRequest: { mergeMethod: 'SQUASH' },
-          },
-        },
-      }
-    },
-  }
-  const { logger } = createLogger()
-  await runMergeAutomation(['--pr=42'], {
-    client,
-    environment: { GITHUB_REPOSITORY: REPOSITORY.repository },
-    logger,
-    repository: REPOSITORY,
-  })
-  assert.equal(requests.length, 3)
-  assert.equal(graphqlCalls.length, 1)
-  assert.match(graphqlCalls[0]?.query ?? '', /enablePullRequestAutoMerge/)
-  assert.doesNotMatch(
-    graphqlCalls[0]?.query ?? '',
-    /markPullRequestReadyForReview/,
-  )
-  assert.deepEqual(graphqlCalls[0]?.variables, {
-    pullRequestId: 'PR_kwDORlSgas123',
-    expectedHeadOid: HEAD_SHA,
-    commitHeadline: '[translation] OpenAI Batch batch_ready',
-  })
 })
 
 test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する', async () => {

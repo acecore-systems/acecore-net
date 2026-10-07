@@ -109,17 +109,12 @@ jobs:
           BODY_PATH: ${{ steps.collector.outputs.body_path }}
           BRANCH: ${{ steps.commit.outputs.branch }}
           BATCH_ID: ${{ steps.collector.outputs.batch_id }}
-          NEEDS_REVIEW: ${{ steps.collector.outputs.needs_review }}
         run: |
-          draft_args=()
-          if [ "$NEEDS_REVIEW" != "false" ]; then
-            draft_args+=(--draft)
-          fi
           gh pr create \
             --repo "$GITHUB_REPOSITORY" \
             --base main \
             --head "$BRANCH" \
-            "${draft_args[@]}" \
+            --draft \
             --title "[translation] OpenAI Batch ${BATCH_ID}" \
             --body-file "$BODY_PATH"
 

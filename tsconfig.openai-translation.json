@@ -7,9 +7,6 @@
   },
   "include": [
     "scripts/openai-translation-batch.ts",
-    "scripts/evaluate-blog-translations.ts",
-    "tests/openai-translation-batch.test.ts",
-    "tests/blog-translation-review.test.ts",
-    "tests/blog-translation-collection.test.ts"
+    "tests/openai-translation-batch.test.ts"
   ]
 }
