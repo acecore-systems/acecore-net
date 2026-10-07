@@ -727,6 +727,13 @@ export async function runMergeAutomation(
     return
   }
 
+  if (pullRequest.draft) {
+    logger.log(
+      `Pull request #${pullRequest.number} is Draft and requires human review. Skipping.`,
+    )
+    return
+  }
+
   if (!areOpenAiTranslationMarkersCurrent(pullRequest.body)) {
     await closePullRequest(
       pullRequest,
@@ -775,18 +782,6 @@ export async function runMergeAutomation(
       )
     }
     return
-  }
-
-  if (pullRequest.draft) {
-    const markedReady = await markPullRequestReadyForReview(pullRequest, {
-      client: currentClient,
-      logger,
-    })
-    if (!markedReady) {
-      throw new Error(
-        `Could not mark translation PR #${pullRequest.number} ready for review.`,
-      )
-    }
   }
 
   const autoMergeEnabled = await enablePullRequestAutoMerge(pullRequest, {
