@@ -166,17 +166,11 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 1. `.github/workflows/submit-openai-translation-batch.yml` が日本語sourceの更新を検出する
 2. 同じsourceへの続けての修正をまとめるため15分待ち、最新の`main`と一致する変更だけをOpenAI Batchへ投入する
 3. `.github/workflows/collect-openai-translation-batch.yml` が完了済みBatchを15分間隔で回収する
-4. 専用GitHub Appが`translation/openai/{batchId}` branchを作り、全件合格は通常PR、要確認・判定不能はDraft PRとして作成する
-5. 通常PRは`Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけGitHubのAuto-mergeを予約する。Draftは人の確認を待ち、Ready化後も同じ検証を行う
+4. 専用GitHub Appが`translation/openai/{batchId}` branchとDraft PRを作成する
+5. `Translation PR Build`が成功し、source hashが現在の日本語sourceと一致する場合だけDraftを解除してGitHubのAuto-mergeを予約する
 6. behindの場合は検証したHEAD SHAを指定して最新の`main`を取り込み、required checkの`Build and Format`が成功した時点でGitHubがsquash mergeする
 
-翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。Batch投入後に同じsourceが再編集された場合は、古い結果と古い通常翻訳PRを取り込まず破棄します。要確認のDraft PRは保持します。
-
-変更したブログ翻訳だけを、構造・URL・placeholderなどの検査後に[Decisions API](https://developers.openai.com/api/docs/guides/decisions)（gpt-6-luna）で意味と言語を別々の設問として審査します。両方の合格を必要とし、否定・条件・不確実性・主体の反転や内容の欠落、追加した約束を検査します。自然な言い換えは許容します。本文生成は既存Responses Batchのままで、固定ページ/UI・削除処理には追加審査を適用しません。
-
-問題あり、API拒否、不正応答、通信障害、キー未設定、入力合計48,000文字超過は生成結果をDraft PRに保持します。Draftは自動close・Ready化・main追従・mergeしません。人がPR本文の対象訳文を確認・修正してReady for reviewへ変更すると、既存のsource hash・許可path・Bot・Translation PR Build・HEAD SHA検証を経て自動マージへ戻ります。判定は記事×変更localeごとの追加呼出しで、翻訳生成費用の削減ではありません。
-
-`Check Blog Translation Review`の手動実行は、既存の翻訳用API keyで8言語・架空40例を評価します。Batch回収、訳文更新、PR作成、公開は行いません。キー・本文を出力せず、判定・token・latencyのみ保存します。ローカル実行は`OPENAI_TRANSLATION_API_KEY`を設定して`node --experimental-strip-types scripts/evaluate-blog-translations.ts`です。
+翻訳記事は日本語ソースの`articleId`をそのまま引き継ぎます。Batch投入後に同じsourceが再編集された場合は、古い結果と古い翻訳PRを取り込まず破棄します。
 
 ### OpenAI Batch workflow
 
@@ -196,8 +190,7 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 - 対象は専用Translation Botが同一repositoryの`translation/openai/` branchから作成し、1件以上の有効なsource markerを持つ`[translation] OpenAI Batch ...` PRだけ
 - 変更できるpathは8ロケールの`src/content/blog/{locale}/*.md`と`src/i18n/translations/{locale}.json`だけ
 - Batch回収時に変更・追加された翻訳ファイルだけをPrettierで整形してからcommitする
-- 全件合格の翻訳は通常PR、要確認・判定不能の翻訳はDraft PRとして作成する
-- Draftは人の確認まで保持し、通常PRは`Translation PR Build`の成功と現在のsource hashを再確認して、GitHubのAuto-mergeをsquashで予約する
+- `Translation PR Build`の成功と現在のsource hashを再確認してからDraftを解除し、GitHubのAuto-mergeをsquashで予約する
 - 翻訳PRがbehindなら専用GitHub App tokenでGitHubのupdate branch APIを呼び、後続CIを起動して`main`を取り込む。`main`更新時にも未完了の翻訳PRを再評価する
 - required checkとbranch protectionの条件をGitHub側で満たした場合だけmergeし、repositoryの自動削除設定で翻訳branchを削除する
 - repository設定ではAuto-mergeとhead branchの自動削除を有効にしておく
