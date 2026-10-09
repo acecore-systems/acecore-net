@@ -1,9 +1,9 @@
 ---
-title: 'Renovamos el sitio web oficial de Acecore'
-description: 'El sitio oficial de Acecore es ahora un sitio corporativo centrado en la empresa, sus negocios y sus noticias.'
+title: 'Renovación de la web de Acecore: encontrar información de empresa y servicios'
+description: 'La web de Acecore reúne información corporativa, actividades y noticias. Aprende dónde buscar y cómo consultar detalles actuales en los sitios especializados.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -30,7 +30,11 @@ insightGrid:
       tone: emerald
 ---
 
-Renovamos el sitio de Acecore como una página corporativa concisa para consultar la empresa y acceder a cada negocio.
+Renovamos la web de Acecore como sitio corporativo para conocer la empresa y acceder a cada actividad. Tanto si buscas un servicio como información de la empresa o novedades, esta guía explica dónde mirar y cómo se reparten los sitios especializados.
+
+## Buscar información según tu objetivo
+
+Consulta [Acerca de](/es/about/) para el perfil de la empresa, [Servicios](/es/services/) para las actividades y [Noticias](/es/blog/) para las novedades corporativas. Para precios concretos o condiciones de participación, visita el sitio especializado correspondiente. Centrarse en el área necesaria facilita comparar la información general con cada oferta.
 
 ## Responsabilidad clara de la información especializada
 
@@ -47,3 +51,7 @@ Así evitamos mantener los mismos precios y descripciones en varios sitios. Cada
 Las noticias de Acecore incluyen información de la empresa, actividades entre negocios y avisos importantes. Los artículos técnicos, detalles educativos e historias de la comunidad continúan en el sitio especializado correspondiente.
 
 Para consultas entre negocios o propuestas de colaboración, utilice el [formulario de contacto](/es/contact/).
+
+## Un recurso para organizar la información de una web
+
+La [Guía de SEO para principiantes de Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) trata la estructura del sitio, los títulos claros y los enlaces a páginas relacionadas. Es un punto de partida para planificar una web que ayude a encontrar la información necesaria.

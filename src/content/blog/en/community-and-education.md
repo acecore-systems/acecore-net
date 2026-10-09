@@ -1,9 +1,9 @@
 ---
-title: 'Community Activities and Commitment to Education'
-description: "Acecore's community activities, educational support, and open source contributions. Introducing our initiatives through Aceserver, Schools, and past workshops."
+title: 'Acecore Community and Education: Where to Join and Start Learning'
+description: 'Find Aceserver Minecraft activities, Acecore Schools learning support, and public projects, with separate routes for participation and past activity records.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-06T08:52:00+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -26,7 +26,11 @@ insightGrid:
       tone: brand
 ---
 
-Acecore operates specialist sites for its business, learning, and community activities. This page provides a corporate overview and links to the official source for current details.
+Want to play Minecraft with others, discuss how to learn, or explore public projects? Acecore maintains a specialist site for each activity. Choose an entry point that matches your interests and find current participation guidance alongside past activity records.
+
+## Choose participation guidance or activity records
+
+If you want to take part, first check current joining instructions and rules at Aceserver, or the audience and consultation options at Schools. To get a feel for the activities, read the diary or past workshop records. Compare their dates with current official guidance so that a past event is not mistaken for an open invitation.
 
 ## Aceserver
 
@@ -47,3 +51,10 @@ Public Acecore Systems projects are available on [GitHub](https://github.com/ace
 The public [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) project addresses how to assign and verify Codex work. Its design is explained in [Systems Insights](https://systems.acecore.net/en/insights/codex-task-routing-design/).
 
 For cross-business partnerships or joint initiatives, please use Acecore's [contact form](/en/contact/).
+
+## Resources for play and learning at home
+
+- [Official Minecraft game and edition overview](https://www.minecraft.net/ja-jp/about-minecraft): explore game features and supported devices.
+- [Scratch Foundation learning resources](https://www.scratchfoundation.org/learn): find creative activities for home and materials for families and educators.
+
+These are external resources. Check the official sites above for Acecore services and participation conditions.

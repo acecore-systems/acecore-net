@@ -1,9 +1,9 @@
 ---
-title: 'Acecore im Überblick: Wegweiser zu den Fachwebsites'
-description: 'Die Acecore-Website bündelt Unternehmensinformationen und nennt die offiziellen Anlaufstellen für Systems, Schools, Aceserver und Acecore Store.'
+title: 'Acecore-Angebote: Ansprechpartner für IT, Lernen und Minecraft wählen'
+description: 'Finden Sie den richtigen Einstieg für Web und IT-Betrieb, Lernunterstützung, Minecraft und den offiziellen Shop und bereiten Sie Ihre Anfrage vor.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
@@ -47,7 +47,11 @@ insightGrid:
       tone: brand
 ---
 
-Auf der Unternehmenswebsite von Acecore sind Unternehmensinformationen sowie die Einstiege in die einzelnen Geschäftsbereiche gebündelt. Damit fachliche Erläuterungen und Aktualisierungen nicht doppelt gepflegt werden müssen, finden sich die ausführlichen Inhalte der jeweiligen Bereiche auf den folgenden offiziellen Websites.
+Sie möchten über eine Website oder die IT Ihres Unternehmens sprechen, Ihren Lernweg planen oder Minecraft spielen? Die passende Anlaufstelle hängt von Ihrem Ziel ab. Dieser Überblick ordnet die Acecore-Angebote nach Zweck und verlinkt offizielle Seiten mit Details und aktuellen Bedingungen.
+
+## Was Sie vor der Wahl eines Ansprechpartners vorbereiten können
+
+Systems ist der Einstieg für IT und Web, Schools für Lernen, Aceserver für Minecraft und Store für Produkte oder Lieferung. Bei Anfragen zu mehreren Bereichen notieren Sie Ihr Ziel, die aktuelle Schwierigkeit und den gewünschten Zeitraum. Besprechen Sie konkrete Anforderungen und Angebote mit dem zuständigen Fachteam.
 
 ## Acecore Systems
 
@@ -68,3 +72,7 @@ Aktuelle Informationen zu Produkten, Kaufmöglichkeiten sowie Versand und Rückg
 ## Kontakt zu Acecore
 
 Informationen zum Unternehmen finden Sie unter [Unternehmensprofil](/de/about/). Für bereichsübergreifende Anfragen oder Kooperationen nutzen Sie bitte [Kontakt](/de/contact/).
+
+## Eine Ressource zur Vorbereitung einer IT-Anfrage
+
+Zur Einordnung von IT-Betriebsfragen eignen sich die [IPA-Leitlinien zur Informationssicherheit für kleine und mittlere Unternehmen](https://www.ipa.go.jp/security/guide/sme/about.html) auf Japanisch. Sie unterscheiden Grundsätze für die Leitung von praktischen Schritten im Unternehmen und helfen bei der Frage, wo Sie anfangen können.

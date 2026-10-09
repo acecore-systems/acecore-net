@@ -99,6 +99,8 @@ src/
 
 ## ブログ記事の追加
 
+新規記事と改訂は、[企業記事の執筆・参考リンク・公開方針](docs/04_運用設計/03_企業記事の執筆・参考リンク・公開方針.md)に従います。目的別の案内と関連する参考URLをSEO改善の標準施策として扱います。
+
 ### Sveltia CMS（推奨）
 
 1. 本番では `https://acecore.net/admin/index.html`、ローカルでは `http://localhost:4321/admin/index.html` にアクセス

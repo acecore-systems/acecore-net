@@ -1,9 +1,9 @@
 ---
-title: 'Acecore Business Guide: A Guide to Our Specialist Sites'
-description: 'An overview of Acecore’s corporate information and the official sites for Systems, Schools, Aceserver, and Acecore Store.'
+title: 'Acecore Services: Choosing IT, Learning, or Minecraft Support'
+description: 'Find the right place for web and IT operations, learning support, the Minecraft community, and the official store, and prepare the essentials for an inquiry.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
@@ -47,7 +47,11 @@ insightGrid:
       tone: brand
 ---
 
-Acecore’s corporate website brings together company information and entry points to each of its businesses. To avoid duplicating detailed explanations and updates, information about each area is consolidated on the following official sites.
+Want to discuss a website or business IT, plan your learning, or play Minecraft? The right destination depends on your goal. This guide introduces Acecore businesses by purpose and links to official sites for detailed offerings and current conditions.
+
+## What to prepare when choosing a contact
+
+Start with Systems for IT and web inquiries, Schools for learning, Aceserver for Minecraft participation, and Store for products or delivery. For an inquiry involving several businesses, note what you want to achieve, your current difficulty, and your preferred timing. Discuss detailed specifications and estimates with the relevant specialist team.
 
 ## Acecore Systems
 
@@ -68,3 +72,7 @@ The latest information about products, how to purchase them, shipping, and retur
 ## Contact Acecore
 
 For company information, see [Company Profile](/en/about/). For inquiries or collaboration across businesses, see [Contact](/en/contact/).
+
+## A resource for preparing an IT inquiry
+
+To organize IT operations concerns, see the [IPA information security guidelines for small and medium-sized businesses](https://www.ipa.go.jp/security/guide/sme/about.html), in Japanese. They separate guidance for management from practical steps within the organization, helping you consider where to start.

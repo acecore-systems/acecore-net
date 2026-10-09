@@ -1,9 +1,9 @@
 ---
-title: '커뮤니티 활동과 교육에 대한 노력'
-description: 'Aceserver, Acecore Schools, Acecore의 공개 프로젝트를 소개합니다.'
+title: 'Acecore 커뮤니티와 교육 활동: 참여 방법과 배움의 시작'
+description: 'Aceserver Minecraft 커뮤니티, Acecore Schools 학습 지원, 공개 프로젝트를 소개하며 참여 안내와 지난 활동 기록의 확인 경로를 구분합니다.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-06T08:52:00+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -26,7 +26,11 @@ insightGrid:
       tone: brand
 ---
 
-Acecore는 사업, 교육, 커뮤니티 활동별로 전문 사이트를 운영합니다. 이 페이지에서는 전체 활동을 소개하고 최신 정보를 관리하는 공식 사이트로 안내합니다.
+다른 사람과 Minecraft를 즐기거나, 학습 방법을 상담하거나, 공개 프로젝트를 살펴보고 싶으신가요? Acecore는 활동별 전문 사이트에서 정보를 안내합니다. 관심에 맞는 경로를 선택하여 현재 참여 안내와 지난 활동 기록을 찾아보세요.
+
+## 참여 안내와 활동 기록 선택하기
+
+참여를 원한다면 Aceserver의 현재 참여 방법과 규칙, Schools의 대상과 상담 방법부터 확인하세요. 활동 분위기를 알고 싶다면 일기나 지난 워크숍 기록을 읽을 수 있습니다. 지난 행사 기록을 현재 모집 안내로 오해하지 않도록 날짜와 공식 사이트의 최신 정보를 함께 확인하세요.
 
 ## Aceserver
 
@@ -47,3 +51,10 @@ Acecore Systems의 공개 프로젝트는 [GitHub](https://github.com/acecore-sy
 공개 프로젝트 [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing)은 Codex 작업 분담과 검증 방식을 다룹니다. 설계 내용은 [Systems 기술 글](https://systems.acecore.net/ko/insights/codex-task-routing-design/)에서 확인할 수 있습니다.
 
 사업 간 협력이나 공동 기획은 [문의 양식](/ko/contact/)을 이용해 주세요.
+
+## 집에서 놀이와 배움을 경험하는 참고 자료
+
+- [Minecraft 공식 게임 및 에디션 안내](https://www.minecraft.net/ja-jp/about-minecraft): 게임 특징과 지원 기기를 알아볼 때 참고하세요.
+- [Scratch Foundation 학습 자료](https://www.scratchfoundation.org/learn): 가정에서 해볼 창작 활동과 보호자·교육자용 자료를 찾을 수 있습니다.
+
+외부 참고 자료입니다. Acecore의 제공 내용과 참여 조건은 위의 공식 사이트에서 확인하세요.

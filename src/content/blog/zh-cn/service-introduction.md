@@ -1,9 +1,9 @@
 ---
-title: 'Acecore 业务指南：前往各专业网站'
-description: '介绍 Acecore 的公司信息，以及 Systems、Schools、Aceserver 和 Acecore Store 各自的官方信息入口与详细内容。'
+title: 'Acecore业务导航：选择IT、学习支持或Minecraft咨询入口'
+description: '按目的介绍网站制作、IT运维、学习支持、Minecraft社区及官方商店，帮助选择咨询入口并整理咨询前的信息。'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
@@ -47,7 +47,11 @@ insightGrid:
       tone: brand
 ---
 
-Acecore 的企业官网汇总了公司信息和各项业务入口。为避免重复维护专业说明和更新信息，各领域的详细内容均集中发布在以下官方网站。
+想咨询网站或业务IT、规划学习，或参与Minecraft？不同目的对应不同入口。本文按需求介绍Acecore各项业务，并提供查询具体服务和当前条件的官方网站。
+
+## 尚未确定咨询入口时先整理什么
+
+IT与网站问题可从Systems开始，学习问题选择Schools，Minecraft参与选择Aceserver，商品及配送问题选择Store。跨业务咨询时，先记下希望实现的目标、目前的困难及期望时间，有助于整理问题。具体规格和报价请与相应专业窗口沟通。
 
 ## Acecore Systems
 
@@ -68,3 +72,7 @@ Acecore 的企业官网汇总了公司信息和各项业务入口。为避免重
 ## 联系 Acecore
 
 公司信息请查看[公司简介](/zh-cn/about/)，跨业务咨询与合作事宜请查看[联系我们](/zh-cn/contact/)。
+
+## IT咨询前可参考的资料
+
+整理IT运维问题时，可参考[IPA中小企业信息安全对策指南](https://www.ipa.go.jp/security/guide/sme/about.html)（日文）。它区分经营者应了解的原则与组织内部实施对策的步骤，可用于思考从何处开始。

@@ -1,9 +1,9 @@
 ---
-title: 'Présentation des activités d’Acecore : liens vers les sites spécialisés'
-description: 'Découvrez les informations institutionnelles d’Acecore et les sites officiels de Systems, Schools, Aceserver et Acecore Store.'
+title: 'Services Acecore : choisir un interlocuteur en informatique, formation ou Minecraft'
+description: 'Trouvez le bon accès pour le web, l’exploitation informatique, l’apprentissage, Minecraft et la boutique, puis préparez les éléments de votre demande.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
@@ -47,7 +47,11 @@ insightGrid:
       tone: brand
 ---
 
-Le site institutionnel d’Acecore rassemble les informations sur l’entreprise et sert de point d’entrée vers chacune de ses activités. Afin d’éviter les doublons dans la gestion des explications spécialisées et des informations actualisées, les détails de chaque domaine sont regroupés sur les sites officiels suivants.
+Vous souhaitez parler d’un site web ou de l’informatique de votre entreprise, réfléchir à votre apprentissage ou jouer à Minecraft ? Le bon interlocuteur dépend de votre objectif. Ce guide présente les activités d’Acecore par besoin et renvoie vers les sites officiels pour les offres détaillées et les conditions actuelles.
+
+## Que préparer avant de choisir un interlocuteur
+
+Adressez-vous à Systems pour l’informatique et le web, à Schools pour l’apprentissage, à Aceserver pour Minecraft et à Store pour les produits ou la livraison. Pour une demande concernant plusieurs activités, notez votre objectif, la difficulté actuelle et le calendrier souhaité. Discutez des spécifications et des devis avec l’équipe spécialisée concernée.
 
 ## Acecore Systems
 
@@ -68,3 +72,7 @@ Les produits, les modalités d’achat et les dernières informations relatives 
 ## Contacter Acecore
 
 Pour les informations sur l’entreprise, consultez [Présentation de l’entreprise](/fr/about/) ; pour les demandes concernant plusieurs activités ou les partenariats, consultez [Contact](/fr/contact/).
+
+## Une ressource pour préparer une demande informatique
+
+Pour identifier vos besoins d’exploitation informatique, consultez les [directives de sécurité de l’information de l’IPA pour les PME](https://www.ipa.go.jp/security/guide/sme/about.html), en japonais. Elles distinguent les principes destinés aux dirigeants des étapes pratiques internes, pour vous aider à choisir par où commencer.
