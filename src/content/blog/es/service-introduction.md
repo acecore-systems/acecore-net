@@ -1,9 +1,9 @@
 ---
-title: 'Guía de las actividades de Acecore: acceso a sus sitios especializados'
-description: 'Información corporativa de Acecore y enlaces a los sitios oficiales de Systems, Schools, Aceserver y Acecore Store.'
+title: 'Servicios de Acecore: elegir asistencia de TI, aprendizaje o Minecraft'
+description: 'Encuentra el sitio adecuado para web, operaciones de TI, aprendizaje, Minecraft y la tienda oficial, y prepara la información esencial para consultar.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
@@ -47,7 +47,11 @@ insightGrid:
       tone: brand
 ---
 
-El sitio corporativo de Acecore reúne la información de la empresa y los enlaces a cada una de sus áreas de actividad. Para evitar mantener duplicadas las explicaciones especializadas y las novedades, la información detallada de cada área se centraliza en los siguientes sitios oficiales.
+¿Quieres consultar sobre una web o las TI de tu negocio, planificar tu aprendizaje o jugar Minecraft? El destino depende de tu objetivo. Presentamos las actividades de Acecore por finalidad y enlazamos a los sitios oficiales con los servicios y condiciones actuales.
+
+## Qué preparar si aún no sabes a quién consultar
+
+Acude a Systems para TI y web, a Schools para aprendizaje, a Aceserver para participar en Minecraft y a Store para productos o entregas. Si la consulta abarca varias actividades, anota qué quieres lograr, tu dificultad actual y el plazo deseado. Consulta las especificaciones y presupuestos con el equipo especializado correspondiente.
 
 ## Acecore Systems
 
@@ -68,3 +72,7 @@ Los productos, cómo comprarlos y la información más reciente sobre envíos y 
 ## Contactar con Acecore
 
 Consulte [Información de la empresa](/es/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/es/contact/).
+
+## Un recurso para preparar una consulta de TI
+
+Para ordenar problemas de operación de TI, consulta las [directrices de seguridad de la información de IPA para pymes](https://www.ipa.go.jp/security/guide/sme/about.html), en japonés. Separan las orientaciones para la dirección de los pasos prácticos dentro de la organización y ayudan a decidir por dónde empezar.

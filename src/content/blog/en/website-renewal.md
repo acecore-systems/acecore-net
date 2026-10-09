@@ -1,9 +1,9 @@
 ---
-title: 'Acecore Official Website Renewed'
-description: "Acecore's official website is now a focused corporate site for company information, business navigation, and news."
+title: 'Acecore Website Renewal: Finding Company and Business Information'
+description: 'The Acecore site now focuses on company information, business navigation, and news. Learn where to look and how to find current details on specialist sites.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -30,7 +30,11 @@ insightGrid:
       tone: emerald
 ---
 
-We renewed the Acecore website as a concise corporate site for company information and access to each business.
+We renewed the Acecore website as a corporate site for company information and access to each business. Whether you want to learn about the company, find a service, or read activity updates, this guide explains where to look and how the specialist sites fit together.
+
+## Find information by purpose
+
+Use [About](/en/about/) for the company profile, [Services](/en/services/) for the business overview, and [News](/en/blog/) for company updates. For specific pricing or participation conditions, continue to the relevant specialist site. Focusing on the field you need makes it easier to compare company-wide information with individual offerings.
 
 ## Clear ownership for specialist information
 
@@ -47,3 +51,7 @@ This separation avoids maintaining the same pricing and descriptions on multiple
 Acecore News covers company information, cross-business activity, and important announcements. Technical articles, educational details, and community stories continue on the relevant specialist site.
 
 For cross-business inquiries or partnership proposals, please use our [contact form](/en/contact/).
+
+## A resource for organizing website information
+
+The [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) covers site structure, clear titles, and links to related pages. It provides a starting point for planning a site that helps readers reach the information they need.

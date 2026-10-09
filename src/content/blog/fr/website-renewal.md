@@ -1,9 +1,9 @@
 ---
-title: "Le site officiel d'Acecore a été renouvelé"
-description: "Le site officiel d'Acecore est désormais un site d'entreprise centré sur la société, ses activités et ses actualités."
+title: 'Refonte du site Acecore : trouver les informations sur l’entreprise et ses activités'
+description: 'Le site Acecore réunit informations d’entreprise, activités et actualités. Découvrez les bons accès et les détails à jour sur les sites spécialisés.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-06T13:52:46+09:00'
+lastUpdated: '2026-10-09T15:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -30,7 +30,11 @@ insightGrid:
       tone: emerald
 ---
 
-Nous avons réorganisé le site d'Acecore en un site d'entreprise concis pour consulter les informations de la société et accéder à chaque activité.
+Nous avons refondu le site Acecore pour présenter l’entreprise et donner accès à chaque activité. Que vous cherchiez un service, des informations sur l’entreprise ou des nouvelles, ce guide explique où regarder et le rôle des sites spécialisés.
+
+## Trouver les informations selon votre objectif
+
+Consultez [À propos](/fr/about/) pour l’entreprise, [Services](/fr/services/) pour les activités et [Actualités](/fr/blog/) pour les nouvelles de l’entreprise. Pour les tarifs précis ou les conditions de participation, passez au site spécialisé concerné. Cibler le domaine recherché facilite la comparaison des informations générales et des offres particulières.
 
 ## Une responsabilité claire pour les informations spécialisées
 
@@ -47,3 +51,7 @@ Cette séparation évite de gérer les mêmes tarifs et descriptions sur plusieu
 Les actualités Acecore couvrent les informations sur l'entreprise, les activités transversales et les annonces importantes. Les articles techniques, détails pédagogiques et récits communautaires restent publiés sur le site spécialisé concerné.
 
 Pour toute demande transversale ou proposition de partenariat, utilisez le [formulaire de contact](/fr/contact/).
+
+## Une ressource pour organiser les informations d’un site
+
+Le [Guide de démarrage SEO de Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) présente la structure du site, les titres clairs et les liens vers des pages liées. Il constitue un point de départ pour concevoir un site qui aide les lecteurs à trouver les informations nécessaires.
