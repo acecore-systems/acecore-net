@@ -1,6 +1,6 @@
 ---
-title: 'Acecore-Website erneuert: Unternehmens- und Angebotsinformationen finden'
-description: 'Die Acecore-Website bündelt Unternehmensinformationen, Angebote und Nachrichten. Finden Sie passende Einstiege und aktuelle Details auf den Fachseiten.'
+title: 'Relaunch der offiziellen Acecore-Website: Unternehmensinformationen und Geschäftsbereiche finden'
+description: 'Acecore bündelt Unternehmensinformationen, Angebote und Nachrichten. So finden Sie gezielt Informationen und aktuelle Details auf den Fachseiten.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -8,50 +8,50 @@ author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
 insightGrid:
-  title: 'Aufteilung von Unternehmensinformationen, Nachrichten und Fachinformationen'
-  description: 'Die Unternehmenswebsite bündelt übergreifende Informationen; Fachwebsites enthalten die Details der einzelnen Bereiche.'
+  title: '会社情報・企業ニュース・専門案内の分担'
+  description: '会社の横断情報はコーポレートサイトに、各分野の詳しい案内は専門サイトに集約しています。'
   variant: inline
   items:
-    - title: 'Acecore Unternehmenswebsite'
-      description: 'Unternehmensprofil, Geschäftsbereiche, Firmennachrichten und bereichsübergreifende Anfragen.'
+    - title: 'Acecore公式サイト'
+      description: '会社概要、事業一覧、企業ニュース、事業横断のご相談。'
       icon: building
       tone: brand
     - title: 'Acecore Systems'
-      description: 'IT-Unterstützung, Entwicklung, Gestaltung, Betrieb und technische Beiträge.'
+      description: 'IT支援、開発・制作、運用支援、技術解説。'
       icon: code
       tone: slate
     - title: 'Acecore Schools'
-      description: 'Lernunterstützung, Bildungsinformationen und Aktivitätsberichte.'
+      description: '学習支援、教育の案内、活動記録。'
       icon: book-open
       tone: amber
     - title: 'Aceserver'
-      description: 'Hinweise zur Teilnahme an der Minecraft-Community, Regeln und Aktivitätsberichte.'
+      description: 'Minecraftコミュニティの参加案内、ルール、活動記録。'
       icon: users
       tone: emerald
 ---
 
-Wir haben die Acecore-Website als Unternehmensseite mit Informationen zur Firma und Zugängen zu jedem Geschäftsbereich erneuert. Ob Sie ein Angebot, Unternehmensinformationen oder Neuigkeiten suchen: Dieser Überblick erklärt die Einstiege und die Aufgaben der Fachseiten.
+Wir haben die offizielle Acecore-Website erneuert und zu einer Unternehmenswebsite weiterentwickelt, die Unternehmensinformationen und Einstiege zu den einzelnen Geschäftsbereichen bietet. Für alle, die mehr über das Unternehmen erfahren, konkrete Dienstleistungen suchen oder Unternehmensmeldungen lesen möchten, erläutern wir hier, wie Sie die passenden Informationen finden und welche Aufgaben die Fachwebsites übernehmen.
 
-## Informationen nach Zweck finden
+## Informationen nach Anliegen finden
 
-Unter [Über uns](/de/about/) finden Sie das Firmenprofil, unter [Angebote](/de/services/) die Geschäftsbereiche und unter [Nachrichten](/de/blog/) Unternehmensneuigkeiten. Für konkrete Preise oder Teilnahmebedingungen besuchen Sie die jeweilige Fachseite. Die Suche im benötigten Bereich erleichtert den Vergleich allgemeiner Unternehmensinformationen und einzelner Angebote.
+Die Unternehmensübersicht finden Sie unter [Unternehmensprofil](/about/), einen Überblick über die Geschäftsbereiche unter [Geschäftsbereiche](/services/) und Unternehmensneuigkeiten unter [Nachrichten](/blog/). Wenn Sie konkrete Preise oder Teilnahmebedingungen suchen, besuchen Sie die Fachwebsite des jeweiligen Geschäftsbereichs. Indem Sie sich auf den Bereich konzentrieren, der Sie interessiert, können Sie die Informationen zum Gesamtunternehmen leichter mit den konkreten Leistungen vergleichen.
 
-## Klare Zuständigkeit für Fachinformationen
+## Klare Aufgabenverteilung der offiziellen Websites
 
-acecore.net enthält das Unternehmensprofil, das Verzeichnis der Geschäftsbereiche und Unternehmensmeldungen. Ausführliche Informationen werden vom jeweils zuständigen Bereich gepflegt:
+Auf acecore.net finden Sie das Unternehmensprofil, eine Übersicht der Acecore-Geschäftsbereiche und Unternehmensmeldungen. Ausführliche Fachinformationen sind auf die offiziellen Websites ausgelagert, die von den jeweiligen Geschäftsbereichen betreut werden.
 
-- [Acecore Systems](https://systems.acecore.net/de/): Entwicklung, Produktion und Betrieb, Preise, Referenzen und Fachbeiträge
-- [Acecore Schools](https://schools.acecore.net/): Lernunterstützung, Preise, Beratung und Aktivitätsberichte
-- [Aceserver](https://asv.acecore.net/de/): Teilnahme, Regeln und Berichte aus der Minecraft-Community
+- [Acecore Systems](https://systems.acecore.net/): Entwicklung, Umsetzung und Betriebsunterstützung, Preise, Referenzprojekte und technische Erläuterungen
+- [Acecore Schools](https://schools.acecore.net/): Lernunterstützung, Preise, Möglichkeiten zur Beratung und Aktivitätsberichte
+- [Aceserver](https://asv.acecore.net/): Informationen zur Teilnahme an der Minecraft-Community, Regeln und Aktivitätsberichte
 
-Damit werden Preise und Beschreibungen nicht mehrfach gepflegt. Jede Fachwebsite ist die offizielle Quelle ihrer aktuellen Informationen.
+Durch diese Aufteilung müssen Preise und Beschreibungen nicht auf mehreren Websites parallel gepflegt werden. Für aktuelle Informationen ist jeweils die offizielle Website des betreffenden Geschäftsbereichs maßgeblich.
 
 ## Unternehmensmeldungen
 
-Die Acecore-Neuigkeiten umfassen Firmeninformationen, bereichsübergreifende Aktivitäten und wichtige Mitteilungen. Technische, pädagogische und Community-Inhalte erscheinen weiterhin auf der zuständigen Fachwebsite.
+Die Nachrichten auf acecore.net umfassen Informationen zum Unternehmen, bereichsübergreifende Aktivitäten und wichtige Mitteilungen. Technische Erläuterungen, Bildungsinhalte und ausführliche Berichte über die Community veröffentlichen wir weiterhin auf den jeweiligen Fachwebsites.
 
-Für bereichsübergreifende Anfragen oder Partnerschaften nutzen Sie bitte das [Kontaktformular](/de/contact/).
+Anfragen zu bereichsübergreifenden Themen oder Vorschläge zur Zusammenarbeit können Sie über [Kontakt](/contact/) senden.
 
-## Eine Ressource zur Strukturierung einer Website
+## Orientierungshilfe zur Strukturierung von Website-Informationen
 
-Der [SEO-Starterleitfaden von Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) behandelt die Seitenstruktur, klare Titel und Links zu verwandten Seiten. Er bietet einen Einstieg zur Planung einer Website, auf der Leser die benötigten Informationen finden.
+Der [SEO-Starterleitfaden von Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) bietet Anregungen zur Seitenstruktur, zu verständlichen Titeln und zu Links auf verwandte Seiten. Auch bei der Überarbeitung der eigenen Website kann er als Ausgangspunkt dienen, um eine Struktur zu entwickeln, über die Leserinnen und Leser die gesuchten Informationen finden.

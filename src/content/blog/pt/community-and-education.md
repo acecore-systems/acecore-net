@@ -1,6 +1,6 @@
 ---
-title: 'Comunidade e educação da Acecore: como participar e começar a aprender'
-description: 'Conheça a Aceserver, o apoio à aprendizagem da Acecore Schools e os projetos públicos, com caminhos para participar ou consultar atividades anteriores.'
+title: 'Atividades comunitárias e educacionais da Acecore: como participar e por onde começar a aprender'
+description: 'Conheça a comunidade Minecraft Aceserver, o apoio à aprendizagem da Acecore Schools e projetos públicos, com orientações para participar e consultar registros.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -8,53 +8,53 @@ author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
 insightGrid:
-  title: Encontre detalhes para cada atividade
-  description: Consulte cada site oficial para orientações atuais e registros de atividades.
+  title: 活動の内容に合わせて、詳しい案内へ
+  description: 最新の案内と活動記録は、それぞれの公式サイトで確認できます。
   variant: inline
   items:
     - title: Aceserver
-      description: Participação no Minecraft, regras e registros da comunidade.
+      description: Minecraftへの参加、ルール、コミュニティの記録。
       icon: users
       tone: emerald
     - title: Acecore Schools
-      description: Formas de aprender, apoio educacional e oficinas anteriores.
+      description: 学び方、教育支援、過去の体験活動。
       icon: book-open
       tone: amber
     - title: Acecore Systems / GitHub
-      description: Projetos públicos, artigos técnicos e apoio ao desenvolvimento e às operações.
+      description: 公開プロジェクト、技術解説、開発・運用支援。
       icon: code
       tone: brand
 ---
 
-Quer jogar Minecraft com outras pessoas, conversar sobre aprendizagem ou explorar projetos públicos? A Acecore apresenta cada atividade em seu site especializado. Escolha uma entrada conforme seus interesses e encontre orientações atuais de participação e registros de atividades anteriores.
+Quer jogar Minecraft com outras pessoas, conversar sobre como aprender ou conhecer projetos públicos? Na Acecore, cada atividade é apresentada em um site especializado. Veja como escolher um ponto de entrada de acordo com seus interesses e encontrar orientações atuais para participar e registros de atividades anteriores.
 
-## Escolher orientações de participação ou registros de atividades
+## Escolha entre orientações para participar e registros de atividades
 
-Para participar, consulte primeiro as instruções e regras atuais da Aceserver, ou o público e as formas de consulta da Schools. Para conhecer as atividades, leia o diário ou os registros de oficinas anteriores. Compare suas datas com as informações oficiais atuais para não confundir um evento passado com inscrições abertas.
+Se estiver pensando em participar, consulte primeiro as orientações e regras atuais da Aceserver; na Schools, confira o público-alvo e como fazer uma consulta. Para conhecer o ambiente das atividades, você pode começar pelos diários ou pelos registros de oficinas anteriores. Para não confundir eventos passados com inscrições abertas, compare as datas publicadas com as informações mais recentes dos sites oficiais.
 
 ## Aceserver
 
-O **Aceserver** é uma comunidade de Minecraft operada pela Acecore. Participação, regras e novidades são mantidas no [portal oficial do Aceserver](https://asv.acecore.net/pt/).
+O **Aceserver** é uma comunidade de Minecraft administrada pela Acecore. As informações sobre como participar, as regras e as novidades das atividades estão reunidas no [portal oficial da Aceserver](https://asv.acecore.net/).
 
-Para explorar o diário ilustrado de Alpha por data, consulte o [guia para iniciantes](https://asv.acecore.net/pt/stories/alpha-diary-guide/).
+No [guia para iniciantes](https://asv.acecore.net/stories/alpha-diary-guide/), você pode escolher uma data e ler o diário ilustrado de Alpha-kun.
 
 ## Acecore Schools
 
-A **Acecore Schools** é a área de educação da Acecore. Áreas de aprendizagem, formatos, preços e consultas estão no [site oficial da Acecore Schools](https://schools.acecore.net/).
+A **Acecore Schools** é uma iniciativa educacional que organiza o aprendizado necessário com base nos objetivos e no ponto de partida de cada pessoa. Informações sobre o público-alvo, as formas de aprendizagem, os preços e como fazer uma consulta estão no [site oficial da Acecore Schools](https://schools.acecore.net/).
 
-O antigo workshop de robótica é preservado como [registro de atividade](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+Uma atividade prática de construção de robôs realizada anteriormente está publicada como [registro da atividade](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
 
 ## Código aberto e parcerias
 
-Os projetos públicos da Acecore Systems estão disponíveis no [GitHub](https://github.com/acecore-systems). Serviços técnicos e artigos especializados são mantidos na [Acecore Systems](https://systems.acecore.net/pt/).
+Os projetos públicos da Acecore Systems podem ser consultados no [GitHub](https://github.com/acecore-systems). As informações sobre suporte técnico e explicações técnicas estão reunidas na [Acecore Systems](https://systems.acecore.net/).
 
-O projeto público [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) trata da divisão e verificação do trabalho no Codex. O desenho é explicado em [Systems Insights](https://systems.acecore.net/pt/insights/codex-task-routing-design/).
+O projeto público [Codex Task Routing](https://github.com/acecore-systems/codex-task-routing) aborda o desenho da divisão de tarefas e da verificação do trabalho no Codex. O contexto do projeto está reunido na [explicação técnica da Systems](https://systems.acecore.net/insights/codex-task-routing-design/).
 
-Para parcerias entre diferentes áreas, use o [formulário de contato](/pt/contact/).
+Para colaborações entre diferentes áreas de atuação ou projetos conjuntos, entre em contato com a Acecore pelo [canal de contato](/contact/).
 
-## Recursos para brincar e aprender em casa
+## Recursos de referência para brincar e aprender em casa
 
-- [Visão geral oficial do Minecraft e suas edições](https://www.minecraft.net/ja-jp/about-minecraft): características do jogo e dispositivos compatíveis.
-- [Recursos de aprendizagem da Scratch Foundation](https://www.scratchfoundation.org/learn): atividades criativas para casa e materiais para famílias e educadores.
+- [Visão oficial do Minecraft sobre o jogo e suas edições](https://www.minecraft.net/ja-jp/about-minecraft): para conhecer as características do jogo e os dispositivos compatíveis.
+- [Recursos de aprendizagem da Scratch Foundation](https://www.scratchfoundation.org/learn): para encontrar atividades criativas que podem ser experimentadas em casa e materiais para responsáveis e educadores.
 
-São recursos externos. Consulte os sites oficiais acima para os serviços e as condições de participação da Acecore.
+Estes são recursos externos de referência. Para conhecer os serviços oferecidos pela Acecore e as condições de participação, consulte os sites oficiais indicados acima.
