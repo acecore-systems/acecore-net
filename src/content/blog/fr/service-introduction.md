@@ -1,6 +1,6 @@
 ---
-title: 'Services Acecore : choisir un interlocuteur en informatique, formation ou Minecraft'
-description: 'Trouvez le bon accès pour le web, l’exploitation informatique, l’apprentissage, Minecraft et la boutique, puis préparez les éléments de votre demande.'
+title: 'Les activités d’Acecore : choisir le bon interlocuteur pour l’informatique, l’accompagnement éducatif ou Minecraft'
+description: 'Pour le web, l’informatique, l’apprentissage, Minecraft ou la boutique, trouvez le bon interlocuteur et préparez votre demande.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -9,70 +9,70 @@ image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
-  title: 'Référence officielle'
-  text: 'Le périmètre de chaque activité, les tarifs, les modalités de participation et les dernières actualités sont mis à jour sur le site spécialisé correspondant, qui fait foi.'
+  title: 情報の正本
+  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
 faq:
-  title: 'Questions fréquentes'
+  title: よくある質問
   items:
-    - question: 'À qui s’adresser pour le développement de systèmes ou la création de sites web ?'
-      answer: 'Consultez la présentation des services et les moyens de contact d’Acecore Systems.'
-    - question: 'Où trouver des informations sur l’éducation et la communauté Minecraft ?'
-      answer: 'Pour les dernières informations, consultez les sites officiels concernés : Acecore Schools pour l’éducation et Aceserver pour la communauté Minecraft.'
-    - question: 'Où trouver des informations sur les produits de la boutique, les achats et la livraison ?'
-      answer: 'Consultez Acecore Store pour les dernières informations sur les produits, les achats, la livraison et les retours.'
+    - question: システム開発やWeb制作はどこへ相談すればよいですか？
+      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
+    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
+      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 insightGrid:
-  title: 'Sites officiels selon votre besoin'
-  description: 'Consultez chaque site officiel pour les informations détaillées et les mises à jour de son domaine.'
+  title: '目的別の公式案内先'
+  description: '各分野の詳しい内容や更新情報は、それぞれの公式サイトでご確認ください。'
   variant: inline
   items:
     - title: 'Acecore'
-      description: 'Informations sur l’entreprise, orientations et demandes transversales.'
+      description: '会社情報、方針、事業横断のご相談'
       icon: building
       tone: brand
     - title: 'Acecore Systems'
-      description: 'Assistance informatique, développement, conception, exploitation et articles techniques.'
+      description: 'IT支援、開発・制作、運用支援、技術解説'
       icon: code
       tone: slate
     - title: 'Acecore Schools'
-      description: 'Parcours d’apprentissage, accompagnement éducatif, demandes et activités.'
+      description: '学び方、教育支援、相談方法、活動記録'
       icon: book-open
       tone: amber
     - title: 'Aceserver'
-      description: 'Participation à la communauté Minecraft, règles et activités.'
+      description: 'Minecraftコミュニティへの参加、ルール、活動情報'
       icon: users
       tone: emerald
     - title: 'Acecore Store'
-      description: 'Produits officiels, achats, livraison et retours.'
+      description: '公式ストアの商品、購入、配送・返品の案内'
       icon: shopping-bag
       tone: brand
 ---
 
-Vous souhaitez parler d’un site web ou de l’informatique de votre entreprise, réfléchir à votre apprentissage ou jouer à Minecraft ? Le bon interlocuteur dépend de votre objectif. Ce guide présente les activités d’Acecore par besoin et renvoie vers les sites officiels pour les offres détaillées et les conditions actuelles.
+Vous souhaitez demander conseil au sujet d’un site web ou de l’informatique de votre entreprise, réfléchir à votre façon d’apprendre ou jouer à Minecraft ? Le service à contacter dépend de votre objectif. Ce guide présente les activités d’Acecore selon vos besoins et vous oriente vers les sites officiels pour découvrir les services proposés et vérifier les conditions en vigueur.
 
-## Que préparer avant de choisir un interlocuteur
+## Que clarifier lorsque vous ne savez pas à qui vous adresser
 
-Adressez-vous à Systems pour l’informatique et le web, à Schools pour l’apprentissage, à Aceserver pour Minecraft et à Store pour les produits ou la livraison. Pour une demande concernant plusieurs activités, notez votre objectif, la difficulté actuelle et le calendrier souhaité. Discutez des spécifications et des devis avec l’équipe spécialisée concernée.
+Pour les questions liées à l’informatique ou au web, le point d’entrée est Systems ; pour l’apprentissage, Schools ; pour participer à la communauté Minecraft, Aceserver ; et pour les produits ou la livraison, Store. Si votre demande concerne plusieurs activités, commencez par noter ce que vous souhaitez réaliser, les difficultés que vous rencontrez actuellement et le calendrier souhaité. Cela vous aidera à mieux formuler votre demande. Pour les spécifications détaillées ou un devis, veuillez contacter le service spécialisé concerné.
 
 ## Acecore Systems
 
-L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/fr/).
+L’assistance informatique, le développement de systèmes et de sites web, le design, l’accompagnement opérationnel, les tarifs, les études de cas et les explications techniques sont présentés sur [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
-Les façons d’apprendre, l’accompagnement éducatif, les modalités de consultation et les comptes rendus des activités sont présentés sur [Acecore Schools](https://schools.acecore.net/).
+Les façons d’apprendre, l’accompagnement éducatif, les moyens de demander conseil et les comptes rendus d’activités sont présentés sur [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Les modalités pour rejoindre la communauté Minecraft, les services associés et les dernières actualités concernant les activités sont présentés sur le [portail officiel d’Aceserver](https://asv.acecore.net/fr/).
+Les informations sur la manière de rejoindre la communauté Minecraft, les services associés et les dernières actualités sur les activités sont disponibles sur le [portail officiel d’Aceserver](https://asv.acecore.net/).
 
 ## Acecore Store
 
-Les produits, les modalités d’achat et les dernières informations relatives à la livraison et aux retours sont présentés sur [Acecore Store](https://store.acecore.net/).
+Vous trouverez les produits, les modalités d’achat ainsi que les dernières informations sur la livraison et les retours sur [Acecore Store](https://store.acecore.net/).
 
 ## Contacter Acecore
 
-Pour les informations sur l’entreprise, consultez [Présentation de l’entreprise](/fr/about/) ; pour les demandes concernant plusieurs activités ou les partenariats, consultez [Contact](/fr/contact/).
+Pour les informations sur l’entreprise, consultez [Présentation de l’entreprise](/about/) ; pour les demandes concernant plusieurs activités ou les partenariats, consultez [Contact](/contact/).
 
 ## Une ressource pour préparer une demande informatique
 
-Pour identifier vos besoins d’exploitation informatique, consultez les [directives de sécurité de l’information de l’IPA pour les PME](https://www.ipa.go.jp/security/guide/sme/about.html), en japonais. Elles distinguent les principes destinés aux dirigeants des étapes pratiques internes, pour vous aider à choisir par où commencer.
+Si vous souhaitez faire le point sur les difficultés liées à l’exploitation informatique, les [directives de l’IPA sur les mesures de sécurité de l’information destinées aux PME](https://www.ipa.go.jp/security/guide/sme/about.html) peuvent également vous être utiles. Elles distinguent les principes à l’intention des dirigeants des étapes à suivre en interne pour mettre en œuvre les mesures. Vous pouvez vous en servir pour déterminer par quoi commencer dans votre entreprise.

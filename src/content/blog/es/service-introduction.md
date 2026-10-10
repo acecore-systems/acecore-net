@@ -1,6 +1,6 @@
 ---
-title: 'Servicios de Acecore: elegir asistencia de TI, aprendizaje o Minecraft'
-description: 'Encuentra el sitio adecuado para web, operaciones de TI, aprendizaje, Minecraft y la tienda oficial, y prepara la información esencial para consultar.'
+title: 'Guía de servicios de Acecore: dónde consultar sobre TI, aprendizaje o Minecraft'
+description: 'Guía para elegir dónde consultar sobre web, TI, aprendizaje, Minecraft o la tienda oficial, y qué conviene preparar antes de hacerlo.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -9,70 +9,70 @@ image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
-  title: 'Fuente oficial de referencia'
-  text: 'Cada sitio especializado es la fuente de referencia para consultar el alcance de cada área, las tarifas, cómo participar y las últimas novedades.'
+  title: 情報の正本
+  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
 faq:
-  title: 'Preguntas frecuentes'
+  title: よくある質問
   items:
-    - question: '¿Dónde puedo consultar sobre desarrollo de sistemas o creación de sitios web?'
-      answer: 'Consulta la información de servicios y las opciones de contacto de Acecore Systems.'
-    - question: '¿Dónde puedo encontrar información sobre educación y la comunidad de Minecraft?'
-      answer: 'Para consultar las novedades, visita los sitios oficiales correspondientes: Acecore Schools para educación y Aceserver para la comunidad de Minecraft.'
-    - question: '¿Dónde puedo consultar los productos de la tienda, las compras y los envíos?'
-      answer: 'En Acecore Store encontrarás la información más reciente sobre productos, cómo comprar, envíos y devoluciones.'
+    - question: システム開発やWeb制作はどこへ相談すればよいですか？
+      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
+    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
+      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 insightGrid:
-  title: 'Sitios oficiales según el propósito'
-  description: 'Consulta cada sitio oficial para obtener información detallada y actualizada de su ámbito.'
+  title: '目的別の公式案内先'
+  description: '各分野の詳しい内容や更新情報は、それぞれの公式サイトでご確認ください。'
   variant: inline
   items:
     - title: 'Acecore'
-      description: 'Información de la empresa, políticas y consultas entre áreas.'
+      description: '会社情報、方針、事業横断のご相談'
       icon: building
       tone: brand
     - title: 'Acecore Systems'
-      description: 'Soporte de TI, desarrollo, diseño, operaciones y artículos técnicos.'
+      description: 'IT支援、開発・制作、運用支援、技術解説'
       icon: code
       tone: slate
     - title: 'Acecore Schools'
-      description: 'Opciones de aprendizaje, apoyo educativo, consultas y actividades.'
+      description: '学び方、教育支援、相談方法、活動記録'
       icon: book-open
       tone: amber
     - title: 'Aceserver'
-      description: 'Participación en la comunidad de Minecraft, reglas y actividades.'
+      description: 'Minecraftコミュニティへの参加、ルール、活動情報'
       icon: users
       tone: emerald
     - title: 'Acecore Store'
-      description: 'Productos oficiales, compras, envíos y devoluciones.'
+      description: '公式ストアの商品、購入、配送・返品の案内'
       icon: shopping-bag
       tone: brand
 ---
 
-¿Quieres consultar sobre una web o las TI de tu negocio, planificar tu aprendizaje o jugar Minecraft? El destino depende de tu objetivo. Presentamos las actividades de Acecore por finalidad y enlazamos a los sitios oficiales con los servicios y condiciones actuales.
+¿Quieres consultar sobre un sitio web o las TI de tu negocio, pensar cómo aprender o jugar a Minecraft? El destino adecuado depende de tu objetivo. Presentamos los servicios de Acecore por finalidad y te dirigimos a los sitios oficiales, donde puedes consultar los detalles de las prestaciones y las condiciones vigentes.
 
-## Qué preparar si aún no sabes a quién consultar
+## Qué preparar si aún no sabes dónde consultar
 
-Acude a Systems para TI y web, a Schools para aprendizaje, a Aceserver para participar en Minecraft y a Store para productos o entregas. Si la consulta abarca varias actividades, anota qué quieres lograr, tu dificultad actual y el plazo deseado. Consulta las especificaciones y presupuestos con el equipo especializado correspondiente.
+Para consultas sobre TI o web, el punto de partida es Systems; para aprendizaje, Schools; para participar en Minecraft, Aceserver; y para consultar productos o envíos, Store. Si tu consulta abarca varias áreas de actividad, anota primero qué quieres lograr, qué dificultades tienes actualmente y para cuándo lo necesitas. Así te resultará más fácil organizar lo que quieres preguntar. Para conocer especificaciones detalladas o solicitar un presupuesto, ponte en contacto con el equipo especializado correspondiente.
 
 ## Acecore Systems
 
-El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, el apoyo operativo, las tarifas, los casos prácticos y las explicaciones técnicas se detallan en [Acecore Systems](https://systems.acecore.net/es/).
+El soporte de TI, el desarrollo de sistemas y sitios web, el diseño, la asistencia operativa, las tarifas, los casos prácticos y las explicaciones técnicas se describen en [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
-Las formas de aprendizaje, el apoyo educativo, las vías de consulta y el registro de actividades se detallan en [Acecore Schools](https://schools.acecore.net/).
+Las formas de aprender, el apoyo educativo, cómo realizar consultas y los registros de actividades se describen en [Acecore Schools](https://schools.acecore.net/).
 
 ## Aceserver
 
-Cómo unirse a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades se explican en el [portal oficial de Aceserver](https://asv.acecore.net/es/).
+En el [portal oficial de Aceserver](https://asv.acecore.net/) encontrarás cómo unirte a la comunidad de Minecraft, los servicios relacionados y las últimas novedades sobre sus actividades.
 
 ## Acecore Store
 
-Los productos, cómo comprarlos y la información más reciente sobre envíos y devoluciones se detallan en [Acecore Store](https://store.acecore.net/).
+La información más reciente sobre productos, cómo comprarlos, envíos y devoluciones está disponible en [Acecore Store](https://store.acecore.net/).
 
 ## Contactar con Acecore
 
-Consulte [Información de la empresa](/es/about/) y, para consultas sobre varias áreas de actividad o propuestas de colaboración, [Contacto](/es/contact/).
+Consulta la [información de la empresa](/about/) y, para consultas que abarquen varias áreas de actividad o colaboraciones, visita [Contacto](/contact/).
 
 ## Un recurso para preparar una consulta de TI
 
-Para ordenar problemas de operación de TI, consulta las [directrices de seguridad de la información de IPA para pymes](https://www.ipa.go.jp/security/guide/sme/about.html), en japonés. Separan las orientaciones para la dirección de los pasos prácticos dentro de la organización y ayudan a decidir por dónde empezar.
+Si quieres ordenar los problemas de operación de TI, también puede servirte la [Guía de medidas de seguridad de la información para pequeñas y medianas empresas de IPA](https://www.ipa.go.jp/security/guide/sme/about.html). Distingue entre las orientaciones para la dirección y los pasos para avanzar con las medidas dentro de la empresa, y puede ayudarte a decidir por dónde empezar en tu organización.

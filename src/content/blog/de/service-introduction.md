@@ -1,6 +1,6 @@
 ---
-title: 'Acecore-Angebote: Ansprechpartner für IT, Lernen und Minecraft wählen'
-description: 'Finden Sie den richtigen Einstieg für Web und IT-Betrieb, Lernunterstützung, Minecraft und den offiziellen Shop und bereiten Sie Ihre Anfrage vor.'
+title: 'Acecore-Angebote: Die passende Anlaufstelle für IT, Lernunterstützung und Minecraft finden'
+description: 'Finden Sie die passende Anlaufstelle für Web und IT, Lernunterstützung, Minecraft und den offiziellen Store. Tipps helfen bei der Vorbereitung Ihrer Anfrage.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -9,53 +9,53 @@ image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 callout:
   type: info
-  title: 'Maßgebliche Informationsquelle'
-  text: 'Angaben zu Leistungsumfang, Preisen, Teilnahme und Neuigkeiten werden jeweils auf der zuständigen Fachwebsite als maßgebliche Quelle gepflegt.'
+  title: 情報の正本
+  text: 各事業の対応範囲、料金、参加方法、最新情報は、それぞれの専門サイトを正本として更新しています。
 faq:
-  title: 'Häufige Fragen'
+  title: よくある質問
   items:
-    - question: 'An wen kann ich mich für Systementwicklung oder die Erstellung von Websites wenden?'
-      answer: 'Nutzen Sie die Leistungsübersicht und die Kontaktmöglichkeiten von Acecore Systems.'
-    - question: 'Wo finde ich Informationen zu Bildung und zur Minecraft-Community?'
-      answer: 'Aktuelle Informationen finden Sie auf den jeweiligen offiziellen Websites: zu Bildung bei Acecore Schools und zur Minecraft-Community bei Aceserver.'
-    - question: 'Wo finde ich Informationen zu Store-Produkten, Bestellungen und Versand?'
-      answer: 'Aktuelle Informationen zu Produkten, Bestellungen, Versand und Rückgaben finden Sie bei Acecore Store.'
+    - question: システム開発やWeb制作はどこへ相談すればよいですか？
+      answer: Acecore Systemsのサービス案内とお問い合わせをご利用ください。
+    - question: 教育やMinecraftコミュニティの情報はどこで確認できますか？
+      answer: 教育はAcecore Schools、MinecraftコミュニティはAceserverの各公式サイトで最新情報をご確認ください。
+    - question: ストアの商品や購入・配送についてはどこで確認できますか？
+      answer: Acecore Storeで商品、購入方法、配送・返品に関する最新情報をご確認ください。
 insightGrid:
-  title: 'Offizielle Anlaufstellen nach Anliegen'
-  description: 'Ausführliche Informationen und Neuigkeiten finden Sie auf der jeweiligen offiziellen Website.'
+  title: '目的別の公式案内先'
+  description: '各分野の詳しい内容や更新情報は、それぞれの公式サイトでご確認ください。'
   variant: inline
   items:
     - title: 'Acecore'
-      description: 'Unternehmensinformationen, Leitlinien und bereichsübergreifende Anfragen.'
+      description: '会社情報、方針、事業横断のご相談'
       icon: building
       tone: brand
     - title: 'Acecore Systems'
-      description: 'IT-Unterstützung, Entwicklung, Gestaltung, Betrieb und technische Beiträge.'
+      description: 'IT支援、開発・制作、運用支援、技術解説'
       icon: code
       tone: slate
     - title: 'Acecore Schools'
-      description: 'Lernangebote, Bildungsunterstützung, Beratung und Aktivitätsberichte.'
+      description: '学び方、教育支援、相談方法、活動記録'
       icon: book-open
       tone: amber
     - title: 'Aceserver'
-      description: 'Teilnahme an der Minecraft-Community, Regeln und Aktivitäten.'
+      description: 'Minecraftコミュニティへの参加、ルール、活動情報'
       icon: users
       tone: emerald
     - title: 'Acecore Store'
-      description: 'Offizielle Produkte, Bestellungen, Versand und Rücksendungen.'
+      description: '公式ストアの商品、購入、配送・返品の案内'
       icon: shopping-bag
       tone: brand
 ---
 
-Sie möchten über eine Website oder die IT Ihres Unternehmens sprechen, Ihren Lernweg planen oder Minecraft spielen? Die passende Anlaufstelle hängt von Ihrem Ziel ab. Dieser Überblick ordnet die Acecore-Angebote nach Zweck und verlinkt offizielle Seiten mit Details und aktuellen Bedingungen.
+Sie suchen Beratung zu einer Website oder zur IT Ihres Unternehmens, möchten Ihren Lernweg planen oder Minecraft spielen? Je nach Anliegen ist eine andere Anlaufstelle zuständig. Hier stellen wir die Acecore-Angebote nach Zweck vor und verweisen auf die offiziellen Websites, auf denen Sie Details zu den Leistungen und die aktuellen Bedingungen finden.
 
-## Was Sie vor der Wahl eines Ansprechpartners vorbereiten können
+## Was Sie klären können, wenn Sie noch nicht wissen, an wen Sie sich wenden sollen
 
-Systems ist der Einstieg für IT und Web, Schools für Lernen, Aceserver für Minecraft und Store für Produkte oder Lieferung. Bei Anfragen zu mehreren Bereichen notieren Sie Ihr Ziel, die aktuelle Schwierigkeit und den gewünschten Zeitraum. Besprechen Sie konkrete Anforderungen und Angebote mit dem zuständigen Fachteam.
+Systems ist die Anlaufstelle für Fragen zu IT und Web, Schools für Lernfragen, Aceserver für den Beitritt zur Minecraft-Community und Store für Fragen zu Produkten oder Lieferung. Wenn Ihr Anliegen mehrere Geschäftsbereiche betrifft, notieren Sie zunächst Ihr Ziel, Ihre aktuellen Schwierigkeiten und den gewünschten Zeitrahmen. So lässt sich Ihre Anfrage leichter strukturieren. Zu konkreten Spezifikationen und Kostenvoranschlägen beraten Sie die jeweiligen Fachstellen.
 
 ## Acecore Systems
 
-Informationen zu IT-Unterstützung, System- und Webentwicklung, Design, Unterstützung im laufenden Betrieb, Preisen, Praxisbeispielen und technischen Erläuterungen finden Sie bei [Acecore Systems](https://systems.acecore.net/de/).
+Informationen zu IT-Unterstützung, System- und Webentwicklung, Design, Unterstützung im laufenden Betrieb, Preisen, Praxisbeispielen und technischen Erläuterungen finden Sie bei [Acecore Systems](https://systems.acecore.net/).
 
 ## Acecore Schools
 
@@ -63,7 +63,7 @@ Informationen zu Lernmethoden, Bildungsunterstützung, Beratungsangeboten und Ak
 
 ## Aceserver
 
-Wie Sie der Minecraft-Community beitreten, welche zugehörigen Dienste angeboten werden und welche Aktivitäten aktuell stattfinden, erfahren Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/de/).
+Informationen zur Teilnahme an der Minecraft-Community, zu den zugehörigen Diensten und zu aktuellen Aktivitäten finden Sie im [offiziellen Aceserver-Portal](https://asv.acecore.net/).
 
 ## Acecore Store
 
@@ -71,8 +71,8 @@ Aktuelle Informationen zu Produkten, Kaufmöglichkeiten sowie Versand und Rückg
 
 ## Kontakt zu Acecore
 
-Informationen zum Unternehmen finden Sie unter [Unternehmensprofil](/de/about/). Für bereichsübergreifende Anfragen oder Kooperationen nutzen Sie bitte [Kontakt](/de/contact/).
+Informationen zum Unternehmen finden Sie im [Unternehmensprofil](/about/). Für bereichsübergreifende Anfragen oder Kooperationen nutzen Sie bitte [Kontakt](/contact/).
 
 ## Eine Ressource zur Vorbereitung einer IT-Anfrage
 
-Zur Einordnung von IT-Betriebsfragen eignen sich die [IPA-Leitlinien zur Informationssicherheit für kleine und mittlere Unternehmen](https://www.ipa.go.jp/security/guide/sme/about.html) auf Japanisch. Sie unterscheiden Grundsätze für die Leitung von praktischen Schritten im Unternehmen und helfen bei der Frage, wo Sie anfangen können.
+Wenn Sie Herausforderungen im IT-Betrieb einordnen möchten, kann auch der [Leitfaden der IPA zu Informationssicherheitsmaßnahmen für kleine und mittlere Unternehmen](https://www.ipa.go.jp/security/guide/sme/about.html) hilfreich sein. Er unterscheidet zwischen Leitgedanken für Führungskräfte und Schritten zur Umsetzung von Maßnahmen im Unternehmen und hilft dabei, zu überlegen, womit Sie im eigenen Unternehmen beginnen sollten.

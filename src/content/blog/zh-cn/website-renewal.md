@@ -1,6 +1,6 @@
 ---
-title: 'Acecore官网改版：如何查找公司信息与业务指南'
-description: 'Acecore官网集中发布公司信息、业务导航和企业新闻。本文按目的介绍信息入口，以及在专业网站查询最新详情的方法。'
+title: 'Acecore官网改版：如何查找公司信息和业务介绍'
+description: 'Acecore官网现已整合公司信息、业务介绍和企业新闻。本文将说明如何按目的查找所需信息，以及如何通过各专业网站确认最新信息。'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: '2026-10-09T15:00:00+09:00'
@@ -8,50 +8,50 @@ author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
 insightGrid:
-  title: '公司信息、企业新闻与专业指南的分工'
-  description: '公司层面的信息由企业网站发布，各领域的详细指南集中在专业网站。'
+  title: '会社情報・企業ニュース・専門案内の分担'
+  description: '会社の横断情報はコーポレートサイトに、各分野の詳しい案内は専門サイトに集約しています。'
   variant: inline
   items:
-    - title: 'Acecore企业官网'
-      description: '公司介绍、业务目录、企业新闻及跨业务咨询。'
+    - title: 'Acecore公式サイト'
+      description: '会社概要、事業一覧、企業ニュース、事業横断のご相談。'
       icon: building
       tone: brand
     - title: 'Acecore Systems'
-      description: 'IT支持、开发与制作、运维支持及技术说明。'
+      description: 'IT支援、開発・制作、運用支援、技術解説。'
       icon: code
       tone: slate
     - title: 'Acecore Schools'
-      description: '学习支持、教育信息与活动记录。'
+      description: '学習支援、教育の案内、活動記録。'
       icon: book-open
       tone: amber
     - title: 'Aceserver'
-      description: 'Minecraft社区参与指南、规则与活动记录。'
+      description: 'Minecraftコミュニティの参加案内、ルール、活動記録。'
       icon: users
       tone: emerald
 ---
 
-Acecore官网已改版为集中展示公司信息及各项业务入口的企业网站。无论您想了解公司、寻找具体服务，还是阅读活动消息，本文都将说明信息的查找方式及各专业网站的分工。
+Acecore官方网站现已改版为企业网站，集中展示公司信息并提供各项业务入口。无论您想了解公司、寻找具体服务，还是阅读活动通知，本文都将介绍信息的查找方式及各专业网站的分工。
 
 ## 按目的查找信息
 
-公司概况请查看[公司介绍](/zh-cn/about/)，业务入口请查看[业务指南](/zh-cn/services/)，企业更新请查看[新闻](/zh-cn/blog/)。具体价格或参与条件请前往相应专业网站。聚焦所需领域，有助于比较公司整体信息与各项服务内容。
+如需了解公司概况，请查看[公司概况](/zh-cn/about/)；各项业务的整体入口请查看[业务介绍](/zh-cn/services/)；企业动态请查看[新闻](/zh-cn/blog/)。如需查找具体价格或参与条件，请前往各项业务的专业网站。聚焦自己感兴趣的领域，有助于对照公司整体信息与各项服务的具体内容。
 
-## 明确信息的管理主体
+## 明确各官方网站的分工
 
-acecore.net发布公司简介、业务目录和企业新闻。详细信息由负责该业务的官方网站维护：
+acecore.net刊载公司概况、Acecore的业务一览以及企业公告。各业务的专业信息则集中发布在由相应业务团队管理的官方网站上。
 
-- [Acecore Systems](https://systems.acecore.net/zh-cn/)：开发、制作与运维支持、价格、案例和技术文章
-- [Acecore Schools](https://schools.acecore.net/)：学习支持、价格、咨询和活动记录
-- [Aceserver](https://asv.acecore.net/zh-cn/)：Minecraft社区的参加方式、规则和故事
+- [Acecore Systems](https://systems.acecore.net/)：开发、制作与运维支持、价格、案例及技术解读
+- [Acecore Schools](https://schools.acecore.net/)：学习支持、价格、咨询方式及活动记录
+- [Aceserver](https://asv.acecore.net/)：Minecraft社区的参与指南、规则及活动记录
 
-这样可避免在多个网站重复维护相同的价格与说明。各专业网站是其最新信息的官方来源。
+通过这一分工，我们无需在多个网站重复维护相同的价格和说明；各专业网站是相关最新信息的权威来源。
 
-## 企业新闻
+## 发布企业新闻
 
-Acecore新闻发布公司信息、跨业务活动和重要通知。技术文章、教育详情和社区故事将继续在相应的专业网站发布。
+acecore.net的新闻栏目将刊载公司信息、跨业务活动和重要通知。技术解读、教育内容以及社区相关的详细记录，将继续在各专业网站发布。
 
-如需跨业务咨询或提出合作建议，请使用[联系表单](/zh-cn/contact/)。
+如有跨业务咨询需求或合作提案，请通过[联系我们](/zh-cn/contact/)发送。
 
-## 整理网站信息的参考资料
+## 整理网站信息时的参考资料
 
-[Google SEO入门指南](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)介绍网站结构、清晰的标题和相关页面链接等内容。重新规划公司网站时，可将它作为帮助读者找到所需信息的起点。
+[Google 搜索引擎优化（SEO）入门指南](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)是一份可供参考的资料，可帮助您思考网站结构、清晰易懂的标题以及相关页面之间的链接等问题。重新审视自己的网站时，也可将其作为起点，思考如何设计网站结构，让读者能够找到自己想了解的信息。
