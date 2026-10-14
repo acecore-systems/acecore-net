@@ -1477,6 +1477,10 @@ collections:
             label: 'formCategoryServiceAcestudio'
             hint: 'formCategoryServiceAcestudio'
             widget: string
+          - name: 'formCategoryServiceDesign'
+            label: 'Designへのお問い合わせ（構想・準備中）'
+            hint: 'formCategoryServiceDesign'
+            widget: string
           - name: 'formCategoryEstimate'
             label: 'formCategoryEstimate'
             hint: 'formCategoryEstimate'
@@ -1975,22 +1979,6 @@ collections:
           - name: 'semanticPrivacyLink'
             label: '意味検索・プライバシーリンク'
             hint: 'semanticPrivacyLink'
-            widget: string
-          - name: 'blogCtaHeading'
-            label: 'ブログ・CTA・見出し'
-            hint: 'blogCtaHeading'
-            widget: string
-          - name: 'blogCtaBody'
-            label: 'ブログ・CTA・本文'
-            hint: 'blogCtaBody'
-            widget: string
-          - name: 'blogCtaServices'
-            label: 'ブログ・CTA・サービス'
-            hint: 'blogCtaServices'
-            widget: string
-          - name: 'blogCtaContact'
-            label: 'ブログ・CTA・お問い合わせ'
-            hint: 'blogCtaContact'
             widget: string
           - name: 'rssTitle'
             label: 'RSS・タイトル'

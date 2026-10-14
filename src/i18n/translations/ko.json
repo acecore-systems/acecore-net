@@ -146,10 +146,6 @@
     "networkOneResult": "Acecore 관련 사이트의 관련 정보 1건을 찾았습니다",
     "semanticPrivacyNotice": "2자 이상 입력하면 이 사이트와 Acecore 관련 사이트의 관련 정보를 찾기 위해 검색어가 Cloudflare Workers AI로 자동 전송됩니다. 개인정보나 기밀 정보를 입력하지 마세요.",
     "semanticPrivacyLink": "데이터 처리 방법",
-    "blogCtaHeading": "Acecore의 사업 알아보기",
-    "blogCtaBody": "Systems, Schools, Aceserver, Acecore Store의 각 공식 사이트에서 자세한 정보를 안내하고 있습니다.",
-    "blogCtaServices": "사업 목록 보기",
-    "blogCtaContact": "무료 상담하기",
     "rssTitle": "Acecore 뉴스",
     "rssDescription": "Acecore의 기업 정보·사업·활동 소식",
     "pagefindFilterAuthor": "저자",
@@ -252,8 +248,9 @@
       "validationEmail": "유효한 이메일 주소를 입력해 주세요",
       "validationMessage": "의미 있는 내용을 10자 이상 입력해 주세요",
       "aiHeading": "AI로 문의처 확인",
-      "aiLead": "내용에 따라 Acecore Systems, Acecore Schools, Aceserver 또는 공통 창구를 안내합니다.",
-      "aiSubmit": "문의처 확인"
+      "aiLead": "상담 내용에 맞는 담당 서비스나 공통 문의 창구를 안내합니다. Design과 AceStudio는 준비 중입니다.",
+      "aiSubmit": "문의처 확인",
+      "formCategoryServiceDesign": "Acecore Design에 대해 (구상·준비 중)"
     },
     "about": {
       "title": "회사 소개",
@@ -382,19 +379,19 @@
     "acestudio": {
       "title": "AceStudio",
       "seoTitleContext": "준비 중인 사업",
-      "description": "AceStudio는 현재 준비 중입니다. 제공 내용과 시작 시기 등 확정된 정보는 Acecore 공식 사이트에서 안내합니다.",
+      "description": "AceStudio는 크리에이터가 자신의 활동을 공유할 수 있는 공간을 목표로 준비 중입니다. 제공 내용과 시작 시기 등 확정된 정보를 이곳에서 알려 드립니다.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "준비 중",
       "heroImgAlt": "레트로 테크놀로지",
       "statusEyebrow": "Status",
       "statusHeading": "AceStudio는 준비 중입니다",
-      "statusBody": "현재 제공 내용, 대상, 시작 시기를 정리하고 있습니다. 개별 서비스와 요금은 확정된 뒤에만 공개합니다.",
+      "statusBody": "모든 크리에이터가 자신의 활동을 공유할 수 있는 공간을 목표로 합니다. 현재 제공 내용, 대상, 시작 시기를 정리하고 있으며 구체적인 기능과 요금은 미확정입니다.",
       "statusNote": "확정된 정보는 이 페이지와 기업 뉴스에서 안내하겠습니다.",
       "newsHeading": "Acecore의 공식 소식",
       "newsBody": "AceStudio에 관한 공식 발표는 Acecore 공식 사이트와 X 계정에서 안내합니다.",
       "followX": "X 보기",
       "viewNews": "기업 뉴스 보기",
-      "inquiryText": "사업 간 제안이나 기타 문의는 Acecore로 연락해 주세요.",
+      "inquiryText": "AceStudio에 관한 질문이나 제안은 이곳으로 문의해 주세요",
       "inquiryButton": "문의하기"
     },
     "pricing": {

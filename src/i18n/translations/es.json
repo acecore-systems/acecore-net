@@ -146,10 +146,6 @@
     "networkOneResult": "Se encontró 1 resultado relacionado de un sitio de Acecore",
     "semanticPrivacyNotice": "Al introducir al menos dos caracteres, el término de búsqueda se envía automáticamente a Cloudflare Workers AI para buscar información relacionada en este sitio y en los sitios relacionados con Acecore. No introduzca información personal ni confidencial.",
     "semanticPrivacyLink": "Tratamiento de los datos de búsqueda",
-    "blogCtaHeading": "Conozca los negocios de Acecore",
-    "blogCtaBody": "Visite los sitios oficiales de Systems, Schools, Aceserver y Acecore Store para obtener información detallada.",
-    "blogCtaServices": "Ver negocios",
-    "blogCtaContact": "Consulta gratuita",
     "rssTitle": "Noticias de Acecore",
     "rssDescription": "Noticias de la empresa, sus negocios y actividades",
     "pagefindFilterAuthor": "Autor",
@@ -252,8 +248,9 @@
       "validationEmail": "Introduzca un correo electrónico válido",
       "validationMessage": "Introduzca al menos 10 caracteres significativos",
       "aiHeading": "Encuentra el contacto adecuado con IA",
-      "aiLead": "Te dirigiremos a Acecore Systems, Acecore Schools, Aceserver o al punto de contacto común.",
-      "aiSubmit": "Encontrar contacto"
+      "aiLead": "Encuentra el servicio adecuado o nuestro contacto común según tu consulta. Design y AceStudio siguen en preparación.",
+      "aiSubmit": "Encontrar contacto",
+      "formCategoryServiceDesign": "Sobre Acecore Design (en planificación y preparación)"
     },
     "about": {
       "title": "Acerca de nosotros",
@@ -388,19 +385,19 @@
     "acestudio": {
       "title": "AceStudio",
       "seoTitleContext": "Negocio en preparación",
-      "description": "AceStudio está en preparación. La información confirmada sobre su oferta y fecha de inicio se publicará en el sitio oficial de Acecore.",
+      "description": "AceStudio se prepara como un espacio donde los creadores puedan compartir sus actividades. Aquí anunciaremos la oferta y la fecha de inicio cuando estén confirmadas.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "En preparación",
       "heroImgAlt": "Tecnología retro",
       "statusEyebrow": "Status",
       "statusHeading": "AceStudio está en preparación",
-      "statusBody": "Estamos definiendo la oferta, el público y la fecha de inicio. Los servicios y precios se publicarán únicamente después de su confirmación.",
+      "statusBody": "Queremos ofrecer un espacio donde todos los creadores puedan compartir sus actividades. La oferta, el público destinatario y la fecha de inicio siguen en definición; las funciones y tarifas concretas no están confirmadas.",
       "statusNote": "La información confirmada se anunciará en esta página y en las noticias corporativas.",
       "newsHeading": "Novedades oficiales de Acecore",
       "newsBody": "Los anuncios oficiales de AceStudio se publicarán en el sitio web y la cuenta de X de Acecore.",
       "followX": "Ver X",
       "viewNews": "Ver noticias corporativas",
-      "inquiryText": "Para propuestas entre negocios u otras consultas, contacte con Acecore.",
+      "inquiryText": "Para preguntas o propuestas sobre AceStudio",
       "inquiryButton": "Contacto"
     },
     "pricing": {

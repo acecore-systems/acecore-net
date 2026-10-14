@@ -94,8 +94,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         <p class="text-slate-600 mb-4">
           {t(locale, 'pages.acestudio.inquiryText')}
         </p>
-        <a href={u('/contact/')} class="ac-btn-primary"
-          >{t(locale, 'pages.acestudio.inquiryButton')}</a
+        <a
+          href={u('/contact/') +
+            '?category=service&service=acestudio#contact-form'}
+          class="ac-btn-primary">{t(locale, 'pages.acestudio.inquiryButton')}</a
         >
       </div>
     </div>

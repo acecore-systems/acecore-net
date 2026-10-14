@@ -146,10 +146,6 @@
     "networkOneResult": "1 related result from an Acecore site",
     "semanticPrivacyNotice": "After you enter at least two characters, this site and related Acecore sites send your search terms to Cloudflare Workers AI to find related information. Do not enter personal or confidential information.",
     "semanticPrivacyLink": "How search data is handled",
-    "blogCtaHeading": "Explore Acecore's businesses",
-    "blogCtaBody": "Visit the official sites for Systems, Schools, Aceserver, and Acecore Store for detailed information.",
-    "blogCtaServices": "View Businesses",
-    "blogCtaContact": "Free Consultation",
     "rssTitle": "Acecore News",
     "rssDescription": "Company, business and activity updates from Acecore",
     "pagefindFilterAuthor": "Author",
@@ -351,8 +347,9 @@
       "validationEmail": "Please enter a valid email address",
       "validationMessage": "Please enter at least 10 meaningful characters",
       "aiHeading": "Find the right contact with AI",
-      "aiLead": "We will direct you to Acecore Systems, Acecore Schools, Aceserver, or the shared Acecore contact desk.",
-      "aiSubmit": "Find the right contact"
+      "aiLead": "Find the right service or our shared contact point for your inquiry. Design and AceStudio are still in preparation.",
+      "aiSubmit": "Find the right contact",
+      "formCategoryServiceDesign": "About Acecore Design (in planning and preparation)"
     },
     "privacy": {
       "title": "Privacy Policy",
@@ -542,19 +539,19 @@
     "acestudio": {
       "title": "AceStudio",
       "seoTitleContext": "Business in preparation",
-      "description": "AceStudio is in preparation. Confirmed information about its offering and launch timing will be announced on the official Acecore website.",
+      "description": "AceStudio is being prepared as a place where creators can share their activities. Confirmed details about its offering and launch will be announced here.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "In preparation",
       "heroImgAlt": "Retro technology",
       "statusEyebrow": "Status",
       "statusHeading": "AceStudio is in preparation",
-      "statusBody": "We are defining the offering, audience, and launch timing. Individual services and pricing will be published only after they are confirmed.",
+      "statusBody": "We aim to provide a place where all creators can share their activities. The offering, intended audience, and launch timing are still being defined; specific features and fees are not confirmed.",
       "statusNote": "Confirmed information will be announced on this page and in Company News.",
       "newsHeading": "Official updates from Acecore",
       "newsBody": "Formal AceStudio announcements will be published on the Acecore website and X account.",
       "followX": "View X",
       "viewNews": "View Company News",
-      "inquiryText": "For cross-business proposals or other inquiries, contact Acecore.",
+      "inquiryText": "For questions or proposals about AceStudio",
       "inquiryButton": "Contact Us"
     },
     "pricing": {

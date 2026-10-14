@@ -146,10 +146,6 @@
     "networkOneResult": "找到1条来自Acecore相关网站的相关信息",
     "semanticPrivacyNotice": "输入两个或更多字符后，系统会自动将搜索词发送至Cloudflare Workers AI，以查找本站和Acecore相关网站的相关信息。请勿输入个人信息或机密信息。",
     "semanticPrivacyLink": "数据处理说明",
-    "blogCtaHeading": "了解Acecore的业务",
-    "blogCtaBody": "详细信息请访问Systems、Schools、Aceserver和Acecore Store的官方网站。",
-    "blogCtaServices": "查看业务列表",
-    "blogCtaContact": "免费咨询",
     "rssTitle": "Acecore 新闻",
     "rssDescription": "Acecore的企业信息、业务与活动通知",
     "pagefindFilterAuthor": "作者",
@@ -252,8 +248,9 @@
       "validationEmail": "请输入有效的电子邮件地址",
       "validationMessage": "请输入至少10个有效字符",
       "aiHeading": "使用 AI 确认咨询入口",
-      "aiLead": "根据内容引导至 Acecore Systems、Acecore Schools、Aceserver 或统一窗口。",
-      "aiSubmit": "确认咨询入口"
+      "aiLead": "根据咨询内容，为您找到相应服务或统一咨询窗口。Design 和 AceStudio 仍在筹备中。",
+      "aiSubmit": "确认咨询入口",
+      "formCategoryServiceDesign": "关于 Acecore Design（构思与筹备中）"
     },
     "about": {
       "title": "公司简介",
@@ -382,19 +379,19 @@
     "acestudio": {
       "title": "AceStudio",
       "seoTitleContext": "筹备中的业务",
-      "description": "AceStudio目前正在筹备中。有关服务内容和启动时间的确认信息将在Acecore官方网站发布。",
+      "description": "AceStudio 正在筹备成为创作者分享自身活动的空间。服务内容和启动时间等信息确定后，将在此公布。",
       "heroTitle": "AceStudio",
       "heroSubtitle": "筹备中",
       "heroImgAlt": "复古科技",
       "statusEyebrow": "Status",
       "statusHeading": "AceStudio正在筹备中",
-      "statusBody": "我们正在确定服务内容、适用对象和启动时间。具体服务与价格将在确认后发布。",
+      "statusBody": "我们希望为所有创作者提供分享自身活动的空间。目前正在梳理服务内容、适用对象和启动时间，具体功能和费用尚未确定。",
       "statusNote": "确认后的信息将在本页面和企业新闻中公布。",
       "newsHeading": "Acecore官方动态",
       "newsBody": "有关AceStudio的正式公告将在Acecore官方网站和X账号发布。",
       "followX": "查看X",
       "viewNews": "查看企业新闻",
-      "inquiryText": "跨业务合作提案或其他咨询，请联系Acecore。",
+      "inquiryText": "有关 AceStudio 的问题或提案，请通过此处联系我们",
       "inquiryButton": "联系我们"
     },
     "pricing": {

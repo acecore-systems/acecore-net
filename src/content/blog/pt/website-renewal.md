@@ -1,57 +1,28 @@
 ---
-title: 'Renovação do site da Acecore: encontrar informações da empresa e dos negócios'
-description: 'O site da Acecore reúne informações corporativas, negócios e notícias. Veja onde procurar e como consultar detalhes atuais nos sites especializados.'
+title: 'O site da Acecore foi renovado'
+description: 'A Acecore renovou seu site para facilitar o acesso às informações da empresa e às suas atividades. Conheça as mudanças e os temas das notícias corporativas.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-10-15T08:22:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
-insightGrid:
-  title: 'Divisão entre informações corporativas, notícias e sites especializados'
-  description: 'O site corporativo reúne informações da empresa; os sites especializados concentram os detalhes de cada área.'
-  variant: inline
-  items:
-    - title: 'Site corporativo da Acecore'
-      description: 'Perfil da empresa, diretório de atividades, notícias e consultas entre áreas.'
-      icon: building
-      tone: brand
-    - title: 'Acecore Systems'
-      description: 'Suporte de TI, desenvolvimento, design, operação e artigos técnicos.'
-      icon: code
-      tone: slate
-    - title: 'Acecore Schools'
-      description: 'Apoio à aprendizagem, informações educacionais e registros de atividades.'
-      icon: book-open
-      tone: amber
-    - title: 'Aceserver'
-      description: 'Orientações para participar da comunidade Minecraft, regras e atividades.'
-      icon: users
-      tone: emerald
 ---
 
-Renovamos o site da Acecore como site corporativo para conhecer a empresa e acessar cada negócio. Para quem busca um serviço, informações da empresa ou novidades das atividades, este guia explica onde procurar e como os sites especializados se complementam.
+Renovamos o site da Acecore como um espaço de informações corporativas e acesso às nossas atividades. Apresentamos o que foi reorganizado e os comunicados que publicaremos.
 
-## Encontrar informações conforme o objetivo
+## O que mudou
 
-Consulte [Sobre](/pt/about/) para o perfil da empresa, [Serviços](/pt/services/) para os negócios e [Notícias](/pt/blog/) para atualizações corporativas. Para preços específicos ou condições de participação, siga para o site especializado correspondente. Concentrar a busca na área desejada facilita comparar informações gerais e ofertas específicas.
+Definimos onde encontrar informações gerais da empresa e detalhes dos serviços. As informações corporativas e os acessos às atividades ficam aqui; preços, escopo e condições de participação ficam nos sites especializados.
 
-## Responsabilidade clara pelas informações especializadas
+Isso reduz explicações repetidas e facilita o acesso à informação adequada. Consulte os departamentos e serviços atuais na [página de atividades](/pt/services/).
 
-acecore.net publica o perfil corporativo, o diretório de negócios e as notícias da empresa. As informações detalhadas são mantidas pelo negócio responsável:
+## O que publicaremos nas notícias corporativas
 
-- [Acecore Systems](https://systems.acecore.net/pt/): desenvolvimento, produção e operações, preços, trabalhos e artigos técnicos
-- [Acecore Schools](https://schools.acecore.net/): apoio à aprendizagem, preços, consultas e registros de atividades
-- [Aceserver](https://asv.acecore.net/pt/): participação, regras e histórias da comunidade de Minecraft
+Publicaremos atualizações sobre a empresa, atividades entre áreas e comunicados importantes. Artigos técnicos, conteúdos educativos e registros detalhados da comunidade continuarão nos respectivos sites especializados.
 
-Assim, não mantemos os mesmos preços e descrições em vários sites. Cada site especializado é a fonte oficial de suas informações atuais.
+Mudanças no site, como esta renovação, também serão divulgadas nas notícias corporativas.
 
-## Notícias corporativas
+## Um recurso para organizar um site
 
-As notícias da Acecore abrangem informações da empresa, atividades entre negócios e comunicados importantes. Artigos técnicos, detalhes educacionais e histórias da comunidade permanecem no site especializado correspondente.
-
-Para consultas entre negócios ou propostas de parceria, use o [formulário de contato](/pt/contact/).
-
-## Um recurso para organizar informações de um site
-
-O [Guia de SEO para iniciantes do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) aborda a estrutura do site, títulos claros e links para páginas relacionadas. Ele oferece um ponto de partida para planejar um site que leve os leitores às informações necessárias.
+O [Guia de SEO para iniciantes do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) explica a estrutura do site e links para páginas relacionadas.

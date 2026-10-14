@@ -5,9 +5,11 @@ import { SITE } from '../data/site'
 
 interface Props {
   locale?: Locale
+  showFloatingToggle?: boolean
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const { showFloatingToggle = true } = Astro.props
 const contactUrl = getLocalizedUrl('/contact/', locale)
 const [emailUser, emailDomain = ''] = SITE.email.split('@')
 const phoneParts = SITE.phone.split('-')
@@ -115,7 +117,10 @@ const phoneParts = SITE.phone.split('-')
   <button
     type="button"
     id="ace-ai-chat-toggle"
-    class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-white shadow-xl transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+    class:list={[
+      showFloatingToggle ? 'flex' : 'hidden',
+      'h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-white shadow-xl transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2',
+    ]}
     aria-controls="ace-ai-chat-panel"
     aria-expanded="false"
     aria-label={t(locale, 'aiChat.open')}
@@ -139,6 +144,11 @@ const phoneParts = SITE.phone.split('-')
       const submit = document.getElementById('ace-ai-chat-submit')
       const messagesEl = document.getElementById('ace-ai-chat-messages')
       if (!panel || !toggle || !form || !input || !submit || !messagesEl) return
+      const listeners = new AbortController()
+      document.addEventListener('astro:before-swap', () => listeners.abort(), {
+        once: true,
+      })
+      let lastOpener = toggle
 
       const locale = root.dataset.locale || 'ja'
       const loadingText = root.dataset.loading || 'Thinking...'
@@ -434,9 +444,11 @@ const phoneParts = SITE.phone.split('-')
         return finalPayload
       }
 
-      function openChat() {
+      function openChat(opener = toggle) {
+        lastOpener = opener
         panel.classList.remove('hidden')
         toggle.setAttribute('aria-expanded', 'true')
+        lastOpener.setAttribute('aria-expanded', 'true')
         root.classList.add('is-open')
         if (messages.length === 0 && greetingText) {
           addMessage('assistant', greetingText)
@@ -448,7 +460,9 @@ const phoneParts = SITE.phone.split('-')
       function closeChat() {
         panel.classList.add('hidden')
         toggle.setAttribute('aria-expanded', 'false')
+        lastOpener.setAttribute('aria-expanded', 'false')
         root.classList.remove('is-open')
+        lastOpener.focus()
       }
 
       async function sendQuestion(text) {
@@ -509,15 +523,19 @@ const phoneParts = SITE.phone.split('-')
         button.addEventListener('click', closeChat)
       })
 
-      document.addEventListener('click', (event) => {
-        const target = event.target
-        if (!(target instanceof Element)) return
-        const opener = target.closest('[data-ace-chat-open]')
-        if (opener) {
-          event.preventDefault()
-          openChat()
-        }
-      })
+      document.addEventListener(
+        'click',
+        (event) => {
+          const target = event.target
+          if (!(target instanceof Element)) return
+          const opener = target.closest('[data-ace-chat-open]')
+          if (opener) {
+            event.preventDefault()
+            openChat(opener)
+          }
+        },
+        { signal: listeners.signal },
+      )
 
       root.querySelectorAll('[data-ace-chat-prompt]').forEach((button) => {
         button.addEventListener('click', () => {
@@ -539,12 +557,15 @@ const phoneParts = SITE.phone.split('-')
         }
       })
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !panel.classList.contains('hidden')) {
-          closeChat()
-          toggle.focus()
-        }
-      })
+      document.addEventListener(
+        'keydown',
+        (event) => {
+          if (event.key === 'Escape' && !panel.classList.contains('hidden')) {
+            closeChat()
+          }
+        },
+        { signal: listeners.signal },
+      )
 
       root.querySelectorAll('a[href]').forEach((link) => {
         link.addEventListener('click', () => {

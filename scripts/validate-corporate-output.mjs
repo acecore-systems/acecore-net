@@ -6,7 +6,15 @@ import { load as parseYaml } from 'js-yaml'
 const root = new URL('../', import.meta.url)
 const read = (path) => readFile(new URL(path, root), 'utf8')
 const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
-const pageNames = ['home', 'services', 'about', 'acestudio', 'pricing']
+const pageNames = [
+  'home',
+  'services',
+  'about',
+  'acestudio',
+  'pricing',
+  'contact',
+]
+const sourceBlog = JSON.parse(await read('src/i18n/source/ja/blog.json'))
 const source = Object.fromEntries(
   await Promise.all(
     pageNames.map(async (name) => [
@@ -62,16 +70,56 @@ for (const name of pageNames) {
 const sitemap = await read('dist/sitemap-0.xml')
 for (const locale of locales) {
   const prefix = locale === 'ja' ? '' : `/${locale}`
-  const translations =
+  const translated =
     locale === 'ja'
-      ? source
-      : JSON.parse(await read(`src/i18n/translations/${locale}.json`)).pages
+      ? { pages: source, blog: sourceBlog }
+      : JSON.parse(await read(`src/i18n/translations/${locale}.json`))
+  const translations = translated.pages
   for (const name of pageNames)
     checkShape(source[name], translations[name], `${locale}.${name}`)
+  checkShape(sourceBlog, translated.blog, `${locale}.blog`)
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
+  const contact = await getPage(`${prefix}/contact/`)
+  const studio = await getPage(`${prefix}/acestudio/`)
+  assert.equal(
+    services('#design a').attr('href'),
+    `${prefix}/contact/?category=service&service=acecore-design#contact-form`,
+    `${locale}: Design must preserve its inquiry context`,
+  )
+  assert.equal(
+    contact('option[data-service-key="acecore-design"]').text().trim(),
+    translations.contact.formCategoryServiceDesign,
+  )
+  assert.equal(
+    contact('option[data-service-key="acecore-design"]').attr('value'),
+    'Acecore Designについて',
+  )
+  assert.equal(contact('#scroll-to-top').length, 0)
+  assert.ok(contact('#ace-ai-chat-toggle').hasClass('hidden'))
+  assert.equal(
+    contact('[data-ace-chat-open]').attr('aria-controls'),
+    'ace-ai-chat-panel',
+  )
+  assert.equal(services('#scroll-to-top').length, 1)
+  assert.ok(services('#ace-ai-chat-toggle').hasClass('flex'))
+  assert.ok(studio('main').text().includes(translations.acestudio.statusBody))
+  assert.equal(
+    studio(
+      `main a[href="${prefix}/contact/?category=service&service=acestudio#contact-form"]`,
+    ).length,
+    1,
+  )
+  for (const slug of ['service-introduction', 'website-renewal']) {
+    const post = await getPage(`${prefix}/blog/${slug}/`)
+    const newsNavigation = post(
+      `main nav[aria-label="${translated.blog.backToBlog}"]`,
+    )
+    assert.equal(newsNavigation.find(`a[href="${prefix}/blog/"]`).length, 1)
+    assert.equal(post('main .ac-surface[data-pagefind-ignore]').length, 0)
+  }
   assert.equal(
     services('.department-list > li').length,
     3,
@@ -271,5 +319,5 @@ for (const locale of locales) {
   }
 }
 console.log(
-  'Validated 72 corporate pages, 9 translation sets, CMS fields, service links, anchors and retired pricing output.',
+  'Validated 72 corporate pages, 18 news article routes, 9 translation sets, CMS fields, inquiry context, floating controls, service links, anchors and retired pricing output.',
 )

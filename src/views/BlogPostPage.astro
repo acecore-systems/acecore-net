@@ -199,19 +199,6 @@ const faqLd = post.data.faq
   : null
 
 const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
-
-const ctaHeading = {
-  heading: t(locale, 'blog.blogCtaHeading'),
-  body: t(locale, 'blog.blogCtaBody'),
-  primary: {
-    label: t(locale, 'blog.blogCtaServices'),
-    href: u('/services/'),
-  },
-  secondary: {
-    label: t(locale, 'blog.blogCtaContact'),
-    href: u('/contact/'),
-  },
-}
 ---
 
 <BaseLayout
@@ -480,33 +467,15 @@ const ctaHeading = {
           )
         }
 
-        <div
-          class="ac-surface mt-12 bg-brand-50 p-6 text-center sm:p-8"
+        <nav
+          class="mt-12 border-t border-slate-200 pt-6"
+          aria-label={t(locale, 'blog.backToBlog')}
           data-pagefind-ignore
         >
-          <p class="mb-2 text-lg font-700 text-slate-800">
-            {ctaHeading.heading}
-          </p>
-          <p class="mb-5 text-sm leading-relaxed text-slate-600">
-            {ctaHeading.body}
-          </p>
-          <div
-            class="flex flex-col items-center justify-center gap-3 sm:flex-row"
+          <a href={u('/blog/')} class="ac-btn-outline"
+            >{t(locale, 'blog.backToBlog')}</a
           >
-            <a
-              href={isDefaultLocale
-                ? ctaHeading.primary.href
-                : u(ctaHeading.primary.href)}
-              class="ac-btn-primary">{ctaHeading.primary.label}</a
-            >
-            <a
-              href={isDefaultLocale
-                ? ctaHeading.secondary.href
-                : u(ctaHeading.secondary.href)}
-              class="ac-btn-outline">{ctaHeading.secondary.label}</a
-            >
-          </div>
-        </div>
+        </nav>
 
         {
           relatedPosts.length > 0 && (

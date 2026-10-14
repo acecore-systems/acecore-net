@@ -31,6 +31,7 @@
   "validationEmail": "正しいメールアドレスを入力してください",
   "validationMessage": "お問い合わせ内容を10文字以上で入力してください",
   "aiHeading": "問い合わせ先をAIで確認",
-  "aiLead": "ご相談内容に応じて、Acecore Systems、Acecore Schools、Aceserver、または共通窓口をご案内します。",
-  "aiSubmit": "問い合わせ先を確認する"
+  "aiLead": "ご相談内容に応じて、担当サービスや共通窓口をご案内します。DesignとAceStudioは準備中です。",
+  "aiSubmit": "問い合わせ先を確認する",
+  "formCategoryServiceDesign": "Acecore Designについて（構想・準備中）"
 }

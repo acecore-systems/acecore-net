@@ -83,6 +83,26 @@ test('Acecore同一originのJSON送信は従来どおり201を返す', async () 
   assert.match(response.headers.get('Vary') || '', /\bOrigin\b/)
 })
 
+for (const category of ['Acecore Designについて', 'AceStudioについて']) {
+  test(`${category}の種別を通知・確認メールまで維持する`, async () => {
+    const calls = mockSuccessfulContact('acecore.net')
+    const fields = new URLSearchParams(nativeContactFields('ja'))
+    fields.set('お問い合わせ種別', category)
+    const response = await onRequestPost({
+      request: nativeContactRequest({
+        body: fields,
+        origin: 'https://acecore.net',
+        ip: '203.0.113.30',
+      }),
+      env: contactEnv(),
+    })
+    assert.equal(response.status, 303)
+    const emails = getEmailPayloads(calls)
+    assert.equal(emails.length, 2)
+    for (const email of emails) assert.ok(email.text.includes(category))
+  })
+}
+
 test('検証済みSystemsフォームだけをCRMキューへ送り、申告されたsourceは信頼しない', async () => {
   const calls = mockSuccessfulContact('systems.acecore.net')
   const queued = []

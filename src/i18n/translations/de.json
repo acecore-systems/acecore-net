@@ -146,10 +146,6 @@
     "networkOneResult": "Auf einer Acecore-Website wurde 1 verwandtes Ergebnis gefunden",
     "semanticPrivacyNotice": "Ab zwei eingegebenen Zeichen werden Ihre Suchbegriffe automatisch an die Cloudflare Workers AI gesendet, um passende Informationen auf dieser Website und auf verwandten Acecore-Websites zu finden. Geben Sie keine personenbezogenen oder vertraulichen Informationen ein.",
     "semanticPrivacyLink": "Umgang mit Suchdaten",
-    "blogCtaHeading": "Die Geschäftsbereiche von Acecore",
-    "blogCtaBody": "Ausführliche Informationen finden Sie auf den offiziellen Websites von Systems, Schools, Aceserver und Acecore Store.",
-    "blogCtaServices": "Geschäftsbereiche anzeigen",
-    "blogCtaContact": "Kostenlose Beratung",
     "rssTitle": "Acecore-Neuigkeiten",
     "rssDescription": "Neuigkeiten zu Unternehmensinformationen, Geschäftsbereichen und Aktivitäten von Acecore",
     "pagefindFilterAuthor": "Autor",
@@ -357,8 +353,9 @@
       "validationEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
       "validationMessage": "Bitte geben Sie mindestens 10 aussagekräftige Zeichen ein",
       "aiHeading": "Mit KI den richtigen Kontakt finden",
-      "aiLead": "Wir leiten Sie zu Acecore Systems, Acecore Schools, Aceserver oder zur gemeinsamen Anlaufstelle.",
-      "aiSubmit": "Kontakt finden"
+      "aiLead": "Finden Sie den passenden Dienst oder unsere gemeinsame Kontaktstelle für Ihr Anliegen. Design und AceStudio befinden sich noch in Vorbereitung.",
+      "aiSubmit": "Kontakt finden",
+      "formCategoryServiceDesign": "Zu Acecore Design (in Planung und Vorbereitung)"
     },
     "privacy": {
       "title": "Datenschutzerklärung",
@@ -394,19 +391,19 @@
     "acestudio": {
       "title": "AceStudio",
       "seoTitleContext": "Geschäftsbereich in Vorbereitung",
-      "description": "AceStudio befindet sich in Vorbereitung. Bestätigte Informationen zu Angebot und Starttermin werden auf der offiziellen Acecore-Website veröffentlicht.",
+      "description": "AceStudio wird als ein Ort vorbereitet, an dem Kreative ihre Aktivitäten teilen können. Bestätigte Informationen zu Angebot und Start werden hier bekannt gegeben.",
       "heroTitle": "AceStudio",
       "heroSubtitle": "In Vorbereitung",
       "heroImgAlt": "Retro-Technologie",
       "statusEyebrow": "Status",
       "statusHeading": "AceStudio befindet sich in Vorbereitung",
-      "statusBody": "Angebot, Zielgruppe und Starttermin werden derzeit festgelegt. Einzelne Leistungen und Preise werden erst nach ihrer Bestätigung veröffentlicht.",
+      "statusBody": "Wir möchten einen Ort schaffen, an dem alle Kreativen ihre Aktivitäten teilen können. Angebot, Zielgruppe und Starttermin werden noch festgelegt; konkrete Funktionen und Preise sind nicht bestätigt.",
       "statusNote": "Bestätigte Informationen werden auf dieser Seite und in den Unternehmensnachrichten bekannt gegeben.",
       "newsHeading": "Offizielle Neuigkeiten von Acecore",
       "newsBody": "Offizielle Ankündigungen zu AceStudio erscheinen auf der Acecore-Website und dem X-Konto.",
       "followX": "X ansehen",
       "viewNews": "Unternehmensnachrichten ansehen",
-      "inquiryText": "Für bereichsübergreifende Vorschläge oder andere Anfragen kontaktieren Sie Acecore.",
+      "inquiryText": "Für Fragen oder Vorschläge zu AceStudio",
       "inquiryButton": "Kontakt"
     },
     "pricing": {
