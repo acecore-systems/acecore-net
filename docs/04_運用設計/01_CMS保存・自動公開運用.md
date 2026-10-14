@@ -6,7 +6,7 @@
 
 - GitHub repository: `acecore-systems/acecore-net`
 - CMS: Sveltia CMS
-- 編集者認証: GitHub OAuth Worker
+- 編集者認証: AcecoreID / Cloudflare Access（[切替条件](../acecoreid-admin-migration.md)を満たしてから本番反映）
 - repository actor: `acecore-net`専用GitHub App
 - publication branch: `main`
 - 保存API: 同一originの`/admin/api/github/*`と`/admin/api/graphql`
@@ -16,8 +16,8 @@
 
 ## 保存経路
 
-1. 編集者がGitHub OAuth Worker経由でSveltia CMSへログインする。
-2. Pages FunctionsがOAuth tokenでGitHub userと`acecore-net`へのpush権限を確認する。
+1. 編集者がAcecoreID経由でSveltia CMSへログインする。GitHub OAuthを二度実行しない。
+2. Pages FunctionsがAccess署名とAcecoreID連携GitHub数値IDを確認し、専用Appで現在の`acecore-net`のcollaborator一覧を照会してpush権限を確認する。保存直前にも再確認する。
 3. Pages Functionsが専用GitHub Appから`acecore-net`だけに使える短期installation tokenを発行する。
 4. CMSのreadは、許可されたcontentとmediaのtree / blobだけを同一origin proxy経由で返す。
 5. 保存時はrepository、branch `main`、変更path、ファイル数、合計サイズ、編集開始時のHEADに加え、JSON / Markdown schema、画像の実形式、危険なHTMLやURLを同期検証する。SVGとPDFはCMSから保存できない。

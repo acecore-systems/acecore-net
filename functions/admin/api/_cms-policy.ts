@@ -3,6 +3,7 @@ export const CMS_REPOSITORY = {
   name: 'acecore-net',
   branch: 'main',
 } as const
+export const CMS_PRODUCTION_HOSTNAME = 'acecore.net'
 
 const CONTENT_RULES = [
   { prefix: 'src/content/blog/', extension: '.md', recursive: false },

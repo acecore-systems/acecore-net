@@ -5,3 +5,4 @@ node_modules/
 package-lock.json
 functions/cloudflare-env.d.ts
 workers/sveltia-cms-auth/worker-configuration.d.ts
+workers/contact-email/worker-configuration.d.ts

@@ -4,7 +4,13 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { optimizeImage } from '../utils/image'
-import { getLocalizedUrl, getTranslationValue, t, type Locale } from '../i18n'
+import {
+  getAlternateUrls,
+  getLocalizedUrl,
+  getTranslationValue,
+  t,
+  type Locale,
+} from '../i18n'
 
 interface Props {
   locale: Locale
@@ -19,6 +25,13 @@ type LegalSection = {
 const { locale } = Astro.props
 const contentLocale: Locale = locale === 'ja' ? 'ja' : 'en'
 const u = (path: string) => getLocalizedUrl(path, locale)
+const termsAlternateUrls = getAlternateUrls(
+  '/terms/',
+  Astro.site?.origin || 'https://acecore.net',
+).filter(
+  ({ locale: alternateLocale }) =>
+    alternateLocale === 'ja' || alternateLocale === 'en',
+)
 const sections =
   getTranslationValue<LegalSection[]>(contentLocale, 'pages.terms.sections') ??
   []
@@ -29,6 +42,8 @@ const sections =
   titleContext={t(contentLocale, 'pages.terms.seoTitleContext')}
   description={t(contentLocale, 'pages.terms.description')}
   locale={locale}
+  canonicalPath={getLocalizedUrl('/terms/', contentLocale)}
+  alternateUrls={termsAlternateUrls}
 >
   <Hero
     title={t(contentLocale, 'pages.terms.heroTitle')}

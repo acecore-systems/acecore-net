@@ -4,7 +4,13 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { afterEach, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { exportPKCS8, generateKeyPair, jwtVerify } from 'jose'
+import {
+  SignJWT,
+  exportJWK,
+  exportPKCS8,
+  generateKeyPair,
+  jwtVerify,
+} from 'jose'
 
 import {
   clearGitHubAppTokenCacheForTests,
@@ -26,7 +32,6 @@ import {
 } from '../functions/admin/api/_cms-content-validator.ts'
 import { validateCmsBlogFreshness } from '../functions/admin/api/_cms-blog-freshness-validator.ts'
 import { validateProjectedCmsReferences } from '../functions/admin/api/_cms-reference-validator.ts'
-import { clearGitHubEditorCacheForTests } from '../functions/admin/api/_github-oauth.ts'
 import { onRequestPost as handleGraphql } from '../functions/admin/api/graphql.ts'
 import { onRequest as handleGithubRest } from '../functions/admin/api/github/[[path]].ts'
 
@@ -34,7 +39,7 @@ const originalFetch = globalThis.fetch
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const mainSha = 'a'.repeat(40)
 const oauthToken = 'test-oauth-token'
-const appToken = 'test-installation-token'
+const appToken = 'ghs_test-installation-token'
 const appClientId = 'Iv23acecorecms'
 const appInstallationId = '12345678'
 const { privateKey: appPrivateKey, publicKey: appPublicKey } =
@@ -44,6 +49,9 @@ const githubDownloadedPrivateKeyPem = createPrivateKey(appPrivateKeyPem)
   .export({ format: 'pem', type: 'pkcs1' })
   .toString()
 const appEnv = {
+  CMS_ACCESS_AUD: 'cms-audience',
+  CMS_ACCESS_TEAM_DOMAIN: 'https://test.cloudflareaccess.com',
+  CMS_ACCESS_HOSTNAMES: 'acecore.net',
   CMS_GITHUB_APP_CLIENT_ID: appClientId,
   CMS_GITHUB_APP_INSTALLATION_ID: appInstallationId,
   CMS_GITHUB_APP_PRIVATE_KEY: githubDownloadedPrivateKeyPem,
@@ -117,14 +125,41 @@ const editor = {
   html_url: 'https://github.com/editor',
   id: 1,
   login: 'editor',
-  name: 'Editor',
+  name: null,
   type: 'User',
 }
+
+const accessCertsUrl = 'https://test.cloudflareaccess.com/cdn-cgi/access/certs'
+const { privateKey: accessKey, publicKey: accessPublicKey } =
+  await generateKeyPair('RS256')
+const accessJwk = {
+  ...(await exportJWK(accessPublicKey)),
+  kid: 'access-key',
+  alg: 'RS256',
+}
+async function signAccessJwt(
+  custom = {
+    'https://acecore.net/claims/subject':
+      '11111111-1111-4111-8111-111111111111',
+    'https://acecore.net/claims/github-id': '1',
+  },
+  audience = 'cms-audience',
+  exp = '5m',
+) {
+  return new SignJWT({ type: 'app', custom })
+    .setProtectedHeader({ alg: 'RS256', kid: 'access-key' })
+    .setIssuer(appEnv.CMS_ACCESS_TEAM_DOMAIN)
+    .setAudience(audience)
+    .setSubject('22222222-2222-4222-8222-222222222222')
+    .setIssuedAt()
+    .setExpirationTime(exp)
+    .sign(accessKey)
+}
+const accessJwt = await signAccessJwt()
 
 afterEach(() => {
   globalThis.fetch = originalFetch
   clearGitHubAppTokenCacheForTests()
-  clearGitHubEditorCacheForTests()
 })
 
 test('CMS対象pathだけを許可する', () => {
@@ -745,6 +780,40 @@ test('GitHub配布形式の秘密鍵からrepository限定installation tokenを�
   assert.equal(await getGitHubAppToken(appEnv), appToken)
 })
 
+test('旧形式とdotを含む新形式のinstallation tokenを受け入れる', async () => {
+  for (const token of [
+    'ghs_opaque_legacy',
+    'ghs_4419780_' + 'a'.repeat(260) + '.' + 'b'.repeat(260) + '.signature',
+  ]) {
+    globalThis.fetch = async () =>
+      jsonResponse({
+        token,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    assert.equal(await getGitHubAppToken(appEnv, { forceRefresh: true }), token)
+  }
+})
+
+test('個人token・改行・上限超過のinstallation tokenを拒否する', async () => {
+  for (const token of [
+    'ghu_personal',
+    'ghs_x\r\nInjected: true',
+    'ghs_' + 'a'.repeat(4093),
+  ]) {
+    globalThis.fetch = async () =>
+      jsonResponse({
+        token,
+        expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        ...installationTokenScope,
+      })
+    await assert.rejects(
+      getGitHubAppToken(appEnv, { forceRefresh: true }),
+      /installation tokenを発行できません/,
+    )
+  }
+})
+
 test('mutationではcached tokenを使わずlive installation scopeを再確認する', async () => {
   let tokenRequests = 0
 
@@ -804,7 +873,7 @@ test('installation tokenの応答scopeが広い場合は拒否する', async () 
   )
 })
 
-test('GitHub OAuth認証がないrequestを拒否する', async () => {
+test('Access認証がないrequestを拒否する', async () => {
   let called = false
   globalThis.fetch = async () => {
     called = true
@@ -818,6 +887,73 @@ test('GitHub OAuth認証がないrequestを拒否する', async () => {
 
   assert.equal(response.status, 401)
   assert.equal(called, false)
+})
+
+test('署名・audience・期限・連携ID・旧bearer経路を検証する', async () => {
+  mockGitHub(async () => {
+    throw new Error('Unexpected operation')
+  })
+  for (const [token, status] of [
+    ['invalid', 401],
+    [await signAccessJwt(undefined, 'other-app'), 401],
+    [await signAccessJwt(undefined, undefined, '-5m'), 401],
+    [
+      await signAccessJwt({
+        'https://acecore.net/claims/subject':
+          '11111111-1111-4111-8111-111111111111',
+        'https://acecore.net/claims/github-id': '2',
+      }),
+      403,
+    ],
+  ]) {
+    const request = new Request('https://acecore.net/admin/api/github/user', {
+      headers: { 'Cf-Access-Jwt-Assertion': token },
+    })
+    assert.equal(
+      (await handleGithubRest({ env: appEnv, request })).status,
+      status,
+    )
+  }
+  const request = new Request('https://acecore.net/admin/api/github/user', {
+    headers: { Authorization: 'Bearer old-github-token' },
+  })
+  assert.equal((await handleGithubRest({ env: appEnv, request })).status, 401)
+})
+
+test('権限応答の数値ID・login不一致を拒否しmaintainのbase writeは維持する', async () => {
+  for (const [user, permission, role, expected] of [
+    [{ ...editor, id: editor.id + 1 }, 'write', 'write', 502],
+    [{ ...editor, login: 'different-user' }, 'write', 'write', 502],
+    [editor, 'write', 'maintain', 200],
+    [editor, 'admin', 'admin', 200],
+    [editor, 'read', 'triage', 403],
+  ]) {
+    mockGitHub(async () => {
+      throw new Error('Unexpected CMS operation')
+    })
+    const baseFetch = globalThis.fetch
+    globalThis.fetch = async (input, init) =>
+      String(input).endsWith('/collaborators/editor/permission')
+        ? jsonResponse({ user, permission, role_name: role })
+        : baseFetch(input, init)
+    const response = await handleGithubRest({
+      env: appEnv,
+      request: new Request('https://acecore.net/admin/api/github/user', {
+        headers: { 'Cf-Access-Jwt-Assertion': await signAccessJwt() },
+      }),
+    })
+    assert.equal(response.status, expected)
+    assert.equal((await response.text()).includes(appToken), false)
+  }
+})
+
+test('cookie認証の保存は別origin・origin欠落を拒否する', async () => {
+  for (const origin of [null, 'https://attacker.example']) {
+    const request = graphqlRequest()
+    if (origin) request.headers.set('Origin', origin)
+    else request.headers.delete('Origin')
+    assert.equal((await handleGraphql({ env: appEnv, request })).status, 403)
+  }
 })
 
 test('repositoryへのpush権限がないGitHub userを拒否する', async () => {
@@ -843,7 +979,11 @@ test('専用GitHub App設定がなければOAuth tokenで保存を代行しな�
   })
 
   const response = await handleGraphql({
-    env: {},
+    env: {
+      CMS_ACCESS_AUD: appEnv.CMS_ACCESS_AUD,
+      CMS_ACCESS_TEAM_DOMAIN: appEnv.CMS_ACCESS_TEAM_DOMAIN,
+      CMS_ACCESS_HOSTNAMES: appEnv.CMS_ACCESS_HOSTNAMES,
+    },
     request: graphqlRequest(),
   })
   const result = await response.json()
@@ -853,19 +993,24 @@ test('専用GitHub App設定がなければOAuth tokenで保存を代行しな�
   assert.equal(cmsOperationCalled, false)
 })
 
-test('mutation直前はcached OAuth認可を使わずpush権限を再確認する', async () => {
+test('mutation直前は以前の認可を使わずpush権限を再確認する', async () => {
   let repositoryReads = 0
   let mutationCalled = false
 
   globalThis.fetch = async (input, init = {}) => {
     const url = String(input)
 
-    if (url === 'https://api.github.com/user') return jsonResponse(editor)
+    if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
 
-    if (url === repositoryApi) {
+    if (url === 'https://api.github.com/user/' + editor.id)
+      return jsonResponse(editor)
+
+    if (url.endsWith('/collaborators/editor/permission')) {
       repositoryReads += 1
       return jsonResponse({
-        permissions: { push: repositoryReads === 1 },
+        permission: repositoryReads === 1 ? 'write' : 'read',
+        role_name: repositoryReads === 1 ? 'write' : 'read',
+        user: editor,
       })
     }
 
@@ -2176,7 +2321,7 @@ test('Git tree responseからCMS対象外pathを除外する', async () => {
   const response = await handleGithubRest({
     env: appEnv,
     request: new Request(
-      `https://example.com/admin/api/github/api/v3/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/main?recursive=1`,
+      `https://acecore.net/admin/api/github/api/v3/repos/${CMS_REPOSITORY.owner}/${CMS_REPOSITORY.name}/git/trees/main?recursive=1`,
       { headers: authorizationHeaders() },
     ),
   })
@@ -2198,7 +2343,7 @@ test('REST writeを認証前に拒否する', async () => {
 
   const response = await handleGithubRest({
     env: appEnv,
-    request: new Request('https://example.com/admin/api/github/user', {
+    request: new Request('https://acecore.net/admin/api/github/user', {
       method: 'POST',
       headers: authorizationHeaders(),
     }),
@@ -2218,16 +2363,34 @@ function mockGitHub(
     const url = String(input)
     const body = typeof init.body === 'string' ? JSON.parse(init.body) : null
 
-    if (url === 'https://api.github.com/user') {
+    if (url === accessCertsUrl) return jsonResponse({ keys: [accessJwk] })
+
+    const userMatch = url.match(
+      /^https:\/\/api\.github\.com\/user\/([1-9][0-9]*)$/,
+    )
+    if (userMatch) {
       assert.equal(
         new Headers(init.headers).get('Authorization'),
-        `Bearer ${oauthToken}`,
+        `Bearer ${appToken}`,
       )
-      return jsonResponse(editor)
+      const id = Number(userMatch[1])
+      return jsonResponse({
+        ...editor,
+        id,
+        login: id === editor.id ? editor.login : 'editor-' + id,
+      })
     }
 
-    if (url === repositoryApi) {
-      return jsonResponse({ permissions: { push } })
+    if (url === repositoryApi + '/collaborators/editor/permission') {
+      return jsonResponse({
+        permission: push ? 'write' : 'read',
+        role_name: push ? 'write' : 'read',
+        user: editor,
+      })
+    }
+
+    if (url.startsWith(repositoryApi + '/collaborators/')) {
+      return jsonResponse({ message: 'Not Found' }, 404)
     }
 
     if (
@@ -2356,11 +2519,14 @@ function graphqlRequest({
     },
   },
 } = {}) {
-  const headers = new Headers({ 'Content-Type': 'application/json' })
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    Origin: 'https://acecore.net',
+  })
 
-  if (authorization) headers.set('Authorization', authorization)
+  if (authorization) headers.set('Cf-Access-Jwt-Assertion', accessJwt)
 
-  return new Request('https://example.com/admin/api/graphql', {
+  return new Request('https://acecore.net/admin/api/graphql', {
     method: 'POST',
     headers,
     body: JSON.stringify({
@@ -2377,11 +2543,11 @@ function graphqlRequest({
 }
 
 function authorizationHeaders() {
-  return { Authorization: `Bearer ${oauthToken}` }
+  return { 'Cf-Access-Jwt-Assertion': accessJwt, Origin: 'https://acecore.net' }
 }
 
 function graphqlReadRequest(query, variables) {
-  return new Request('https://example.com/admin/api/graphql', {
+  return new Request('https://acecore.net/admin/api/graphql', {
     method: 'POST',
     headers: {
       ...authorizationHeaders(),

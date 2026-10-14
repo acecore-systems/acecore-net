@@ -1,0 +1,52 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "acecore-net-contact-email-preview",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "keep_vars": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
+  "vars": {
+    "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+    "CONTACT_TO_EMAIL": "info@acecore.net",
+  },
+  "env": {
+    "preview": {
+      "name": "acecore-net-contact-email-preview",
+      "vars": {
+        "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+        "CONTACT_TO_EMAIL": "info@acecore.net",
+      },
+      "send_email": [
+        {
+          "name": "EMAIL",
+          "allowed_sender_addresses": ["noreply@acecore.net"],
+        },
+      ],
+    },
+    "production": {
+      "name": "acecore-net-contact-email-production",
+      "vars": {
+        "CONTACT_FROM_EMAIL": "noreply@acecore.net",
+        "CONTACT_TO_EMAIL": "info@acecore.net",
+      },
+      "send_email": [
+        {
+          "name": "EMAIL",
+          "allowed_sender_addresses": ["noreply@acecore.net"],
+        },
+      ],
+    },
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": ["noreply@acecore.net"],
+    },
+  ],
+}
