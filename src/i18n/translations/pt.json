@@ -271,20 +271,20 @@
     "about": {
       "title": "Sobre nós",
       "seoTitleContext": "Informações da empresa, filosofia e negócios",
-      "description": "Apresentamos as informações da empresa, sua filosofia e os quatro negócios da Acecore: Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
+      "description": "Informações sobre a Acecore, sua filosofia e seus quatro negócios: Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
       "heroTitle": "Sobre nós",
       "heroSubtitle": "A filosofia da Acecore e seus quatro negócios",
       "heroImgAlt": "Discussão em equipe",
       "companyInfoHeading": "Informações corporativas",
       "legalNameLabel": "Razão social",
-      "executiveHeading": "Diretoria",
+      "executiveHeading": "Conheça a diretoria",
       "executiveLead": "Conheça a diretoria da Acecore.",
       "officerAreasLabel": "Áreas de atuação",
       "officerBiographyLabel": "Biografia",
       "officers": [
         {
           "name": "西田凱",
-          "role": "Diretor representante e presidente",
+          "role": "Diretor-presidente",
           "areas": [
             "Estratégia de negócios",
             "Web e sistemas",
@@ -292,7 +292,7 @@
             "Garantia de qualidade",
             "Adoção de IA"
           ],
-          "bio": "Presidente e diretor representante da Acecore. Com C#/.NET como base, lidera de forma integrada Web e sistemas, bancos de dados e infraestrutura, garantia de qualidade e adoção de IA, desde a organização dos desafios do negócio até o projeto, a implementação e as melhorias pós-implantação."
+          "bio": "Diretor-presidente da Acecore. Com C#/.NET como base, conduz de forma integrada as áreas de Web e sistemas, bancos de dados e infraestrutura, garantia de qualidade e uso de IA — do mapeamento dos desafios do negócio ao projeto, à implementação e às melhorias após a implantação."
         },
         {
           "name": "佐藤凌峨",
@@ -318,23 +318,23 @@
       ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Apoiar a sociedade por meio de quatro negócios",
-      "missionLoopDesc": "A Acecore opera as áreas de tecnologia, aprendizagem, comunidade e produtos por meio de sites oficiais especializados.",
+      "missionLoopDesc": "A Acecore mantém sites oficiais especializados para cada uma de suas áreas: tecnologia, aprendizagem, comunidade e produtos.",
       "philosophyHeading": "Filosofia",
       "philosophyMotto": "“Tecnologia e aprendizagem a serviço da sociedade.”",
       "philosophyBody1": "A Acecore é uma empresa que apoia negócios, aprendizagem, comunidades e produtos por meio de Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
       "philosophyBody2": "As informações da empresa e uma visão geral de todos os negócios estão em acecore.net; informações especializadas, como serviços oferecidos, preços, estudos de caso e registros de atividades, estão reunidas nos sites oficiais de cada negócio.",
       "collaborationImgAlt": "Trabalho colaborativo em equipe",
       "activitiesTitle": "Negócios e atividades corporativas da Acecore",
-      "workshopImgAlt": "Sessão de estudos e workshop",
+      "workshopImgAlt": "Encontro de estudos e workshop",
       "initiativesHeading": "Atividades e iniciativas",
       "communityTitle": "Atividades comunitárias",
-      "communityDesc": "O Aceserver é uma comunidade de Minecraft administrada pela Acecore. As informações sobre como participar e os registros das atividades são gerenciados no portal oficial, e os comunicados importantes da empresa",
+      "communityDesc": "O Aceserver é uma comunidade de Minecraft administrada pela Acecore. As informações sobre como participar e os registros das atividades estão no portal oficial, enquanto os comunicados importantes da empresa",
       "ossTitle": "Acecore Systems",
       "ossDesc": "A Acecore Systems gerencia o desenvolvimento, a produção, o suporte à operação e o conteúdo técnico; os projetos publicados podem ser consultados no GitHub.",
       "regionalTitle": "Acecore Schools",
       "regionalDesc": "O público-alvo, o formato, os preços e os registros das atividades de apoio à aprendizagem estão reunidos no site oficial da Acecore Schools.",
       "partnershipTitle": "Colaboração entre negócios",
-      "partnershipDesc": "As consultas e propostas de iniciativas conjuntas que envolvam vários negócios são recebidas pelo canal de contato da Acecore. A visão geral dos negócios",
+      "partnershipDesc": "Consultas sobre vários negócios e propostas de iniciativas conjuntas são recebidas pelo canal de contato da Acecore. A visão geral dos negócios",
       "relatedLinksHeading": "Links relacionados",
       "ctaHeading": "Dê o próximo passo com a Acecore",
       "ctaBody": "Recebemos consultas que envolvam vários negócios, propostas de colaboração e perguntas caso você não saiba qual canal de contato utilizar.",
@@ -355,7 +355,7 @@
         },
         {
           "title": "Aceserver",
-          "description": "Gerimos uma comunidade por meio do Minecraft.",
+          "description": "Gerenciamos uma comunidade por meio do Minecraft.",
           "icon": "users",
           "accent": "emerald"
         },
@@ -376,7 +376,7 @@
         "Suporte técnico da Acecore Systems",
         "Apoio à aprendizagem da Acecore Schools",
         "Gestão da comunidade Aceserver",
-        "Gestão da loja online oficial da Acecore Store",
+        "Operação da loja online oficial da Acecore Store",
         "Colaboração entre negócios e divulgação de informações corporativas"
       ],
       "relatedLinks": [
@@ -389,7 +389,7 @@
         {
           "icon": "gamepad-2",
           "title": "Portal Aceserver",
-          "description": "É o site oficial do servidor público gratuito de Minecraft.",
+          "description": "Site oficial do servidor público e gratuito de Minecraft.",
           "href": "aceserver"
         },
         {
@@ -407,7 +407,7 @@
         {
           "icon": "message-circle",
           "title": "Aceserver Discord",
-          "description": "É o servidor do Discord onde a comunidade Aceserver atua.",
+          "description": "Servidor do Discord onde a comunidade Aceserver se reúne.",
           "href": "discord"
         }
       ]

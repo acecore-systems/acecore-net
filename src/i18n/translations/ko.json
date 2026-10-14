@@ -270,16 +270,16 @@
     },
     "about": {
       "title": "회사 소개",
-      "seoTitleContext": "회사 정보·철학·사업",
-      "description": "Acecore의 회사 정보와 철학, Acecore Systems·Acecore Schools·Aceserver·Acecore Store의 네 가지 사업을 소개합니다.",
+      "seoTitleContext": "회사 정보·기업 이념·사업",
+      "description": "Acecore의 회사 정보와 기업 이념, Acecore Systems·Acecore Schools·Aceserver·Acecore Store의 네 가지 사업을 소개합니다.",
       "heroTitle": "회사 소개",
-      "heroSubtitle": "Acecore의 철학과 네 가지 사업",
-      "heroImgAlt": "팀 토론",
+      "heroSubtitle": "Acecore의 기업 이념과 네 가지 사업",
+      "heroImgAlt": "팀 토론 모습",
       "companyInfoHeading": "법인 정보",
       "legalNameLabel": "법인명",
-      "executiveHeading": "경영진 소개",
-      "executiveLead": "Acecore의 경영진을 소개합니다.",
-      "officerAreasLabel": "담당 영역",
+      "executiveHeading": "임원 소개",
+      "executiveLead": "Acecore의 임원을 소개합니다.",
+      "officerAreasLabel": "담당 분야",
       "officerBiographyLabel": "약력",
       "officers": [
         {
@@ -287,53 +287,53 @@
           "role": "대표이사 사장",
           "areas": [
             "사업 전략",
-            "웹 및 시스템",
-            "DB 및 인프라",
+            "웹·시스템",
+            "DB·인프라",
             "품질 보증",
             "AI 활용"
           ],
-          "bio": "Acecore의 대표이사 사장입니다. C#/.NET을 기반으로 사업 과제 정리부터 설계 및 도입 후 개선까지 웹 및 시스템, DB 및 인프라, 품질 보증, AI 활용을 통합적으로 추진합니다."
+          "bio": "Acecore의 대표이사 사장입니다. C#/.NET을 중심으로 사업 과제 정리부터 설계와 도입 후 개선까지 웹·시스템, DB·인프라, 품질 보증, AI 활용을 통합적으로 추진합니다."
         },
         {
           "name": "佐藤凌峨",
-          "role": "전무이사 본부장",
+          "role": "전무이사 겸 본부장",
           "areas": [
             "Aceserver 커뮤니티 운영",
             "Discord",
-            "Minecraft 관련 개발 및 운영"
+            "Minecraft 관련 개발·운영"
           ],
-          "bio": "Aceserver의 문지기로서 Discord 커뮤니티 운영과 Minecraft 관련 개발 및 운영을 지원합니다. Minecraft용 Java 플러그인과 Discord 연동을 다루는 도구를 공개하고 있습니다."
+          "bio": "Aceserver의 문지기로서 Discord 커뮤니티 운영과 Minecraft 관련 개발·운영을 지원합니다. Minecraft용 Java 플러그인과 Discord 연동 도구를 공개하고 있습니다."
         },
         {
           "name": "西田創",
           "image": "/uploads/nishida-sou.jpg",
           "role": "이사",
           "areas": ["크리에이티브 제작", "3D 모델링", "웹 콘텐츠 운영"],
-          "bio": "일러스트와 소설을 제작하며, VRChat용 오리지널 3D 아바타, 기믹, 액세서리를 공개하고 있습니다."
+          "bio": "그림과 소설을 창작하며, VRChat용 오리지널 3D 아바타와 기믹, 액세서리를 공개하고 있습니다."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "네 가지 사업을 통해 사회를 지원합니다",
-      "missionLoopDesc": "기술, 배움, 커뮤니티, 프로덕트 각 분야를 분야별 공식 사이트에서 운영하고 있습니다.",
-      "philosophyHeading": "철학",
+      "missionLoopTitle": "네 가지 사업으로 사회를 뒷받침합니다",
+      "missionLoopDesc": "기술·배움·커뮤니티·제품 각 분야를 전문 공식 사이트를 통해 운영하고 있습니다.",
+      "philosophyHeading": "기업 이념",
       "philosophyMotto": "「기술과 배움을 사회의 힘으로.」",
-      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Store를 통해 사업·배움·커뮤니티·프로덕트를 지원하는 기업입니다.",
-      "philosophyBody2": "회사 정보와 사업 전반에 대한 안내는 acecore.net에, 제공 내용·요금·사례·활동 기록 등의 전문 정보는 각 사업의 공식 사이트에 모아 두었습니다.",
-      "collaborationImgAlt": "팀 협업 작업",
+      "philosophyBody1": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Store를 통해 사업·배움·커뮤니티·제품을 지원하는 기업입니다.",
+      "philosophyBody2": "회사 정보와 사업 전반에 대한 안내는 acecore.net에, 제공 서비스·요금·사례·활동 기록 등의 전문 정보는 각 사업의 공식 사이트에 모아 두었습니다.",
+      "collaborationImgAlt": "팀 협업 현장",
       "activitiesTitle": "Acecore의 사업과 기업 활동",
-      "workshopImgAlt": "스터디 모임·워크숍 모습",
-      "initiativesHeading": "활동과 이니셔티브",
+      "workshopImgAlt": "스터디 모임·워크숍 현장",
+      "initiativesHeading": "활동 및 추진 사항",
       "communityTitle": "커뮤니티 활동",
-      "communityDesc": "Aceserver는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참여 방법과 활동 기록은 공식 포털에서 관리하며, 기업으로서의 중요한 공지는",
+      "communityDesc": "Aceserver는 Acecore가 운영하는 Minecraft 커뮤니티입니다. 참여 방법과 활동 기록은 공식 포털에서 관리하며, 기업으로서의 주요 공지사항은",
       "ossTitle": "Acecore Systems",
-      "ossDesc": "개발·제작·운영 지원 및 기술 해설은 Acecore Systems가 관리하며, 공개 프로젝트는 GitHub에서 확인할 수 있습니다.",
+      "ossDesc": "개발·제작·운영 지원과 기술 해설은 Acecore Systems에서 관리하며, 공개 프로젝트는 GitHub에서 확인할 수 있습니다.",
       "regionalTitle": "Acecore Schools",
       "regionalDesc": "학습 지원 대상·진행 방식·요금·활동 기록은 Acecore Schools 공식 사이트에 모아 두었습니다.",
       "partnershipTitle": "사업 간 연계",
-      "partnershipDesc": "여러 사업에 걸친 상담이나 공동 기획은 Acecore의 창구에서 접수합니다. 사업 개요는",
+      "partnershipDesc": "여러 사업에 걸친 상담이나 공동 기획은 Acecore 문의 창구에서 접수합니다. 사업 개요는",
       "relatedLinksHeading": "관련 링크",
-      "ctaHeading": "Acecore와 함께 다음 한 걸음을",
-      "ctaBody": "사업 간 상담, 협력 제안, 담당 창구를 알 수 없는 문의를 접수합니다.",
+      "ctaHeading": "Acecore와 함께 다음 걸음을 내딛으세요",
+      "ctaBody": "여러 사업을 아우르는 상담, 협업 제안, 담당 창구를 모르는 문의를 접수합니다.",
       "ctaContact": "문의하기",
       "ctaServices": "사업 목록 보기",
       "valueCycle": [
@@ -345,7 +345,7 @@
         },
         {
           "title": "Acecore Schools",
-          "description": "목적에서 출발해 배움을 설계합니다.",
+          "description": "목적에서 출발해 학습을 설계합니다.",
           "icon": "palette",
           "accent": "amber"
         },
@@ -357,13 +357,13 @@
         },
         {
           "title": "Acecore Store",
-          "description": "공식 온라인 스토어를 통해 Acecore의 프로덕트를 제공합니다.",
+          "description": "공식 온라인 스토어를 통해 Acecore 제품을 제공합니다.",
           "icon": "shopping-bag",
           "accent": "slate"
         },
         {
           "title": "Acecore",
-          "description": "네 가지 사업을 연결하고 회사 정보를 전합니다.",
+          "description": "네 가지 사업을 연결하고 회사 정보를 전달합니다.",
           "icon": "repeat-2",
           "accent": "brand"
         }
@@ -373,7 +373,7 @@
         "Acecore Schools의 학습 지원",
         "Aceserver 커뮤니티 운영",
         "Acecore Store의 공식 온라인 스토어 운영",
-        "사업 간 연계와 기업 정보 전달"
+        "사업 간 연계 및 기업 정보 전달"
       ],
       "relatedLinks": [
         {
@@ -390,14 +390,14 @@
         },
         {
           "icon": "at-sign",
-          "title": "X (구 Twitter)",
-          "description": "Acecore의 최신 정보를 전하고 있습니다.",
+          "title": "X(구 Twitter)",
+          "description": "Acecore의 최신 소식을 전합니다.",
           "href": "x"
         },
         {
           "icon": "github",
           "title": "GitHub",
-          "description": "오픈소스 프로젝트를 공개하고 있습니다.",
+          "description": "오픈 소스 프로젝트를 공개하고 있습니다.",
           "href": "github"
         },
         {

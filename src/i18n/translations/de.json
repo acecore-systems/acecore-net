@@ -241,14 +241,14 @@
     "about": {
       "title": "Über uns",
       "seoTitleContext": "Unternehmensinformationen, Philosophie und Geschäftsbereiche",
-      "description": "Wir stellen die Unternehmensinformationen und die Philosophie von Acecore sowie die vier Geschäftsbereiche Acecore Systems, Acecore Schools, Aceserver und Acecore Store vor.",
+      "description": "Informationen zum Unternehmen Acecore, seiner Philosophie und den vier Geschäftsbereichen Acecore Systems, Acecore Schools, Aceserver und Acecore Store.",
       "heroTitle": "Über uns",
-      "heroSubtitle": "Die Philosophie von Acecore und die vier Geschäftsbereiche",
+      "heroSubtitle": "Die Philosophie und die vier Geschäftsbereiche von Acecore",
       "heroImgAlt": "Teamdiskussion",
       "companyInfoHeading": "Unternehmensinformationen",
-      "legalNameLabel": "Rechtlicher Name",
+      "legalNameLabel": "Firmenname",
       "executiveHeading": "Unternehmensleitung",
-      "executiveLead": "Lernen Sie die Leitung von Acecore kennen.",
+      "executiveLead": "Lernen Sie die Führung von Acecore kennen.",
       "officerAreasLabel": "Verantwortungsbereiche",
       "officerBiographyLabel": "Kurzbiografie",
       "officers": [
@@ -260,19 +260,19 @@
             "Web und Systeme",
             "Datenbanken und Infrastruktur",
             "Qualitätssicherung",
-            "KI-Einsatz"
+            "Einsatz von KI"
           ],
-          "bio": "Vertretungsberechtigter Direktor und Präsident von Acecore. Auf Basis von C#/.NET verantwortet er die Bereiche Web und Systeme, Datenbanken und Infrastruktur, Qualitätssicherung sowie KI-Einsatz ganzheitlich – von der Strukturierung geschäftlicher Herausforderungen über die Konzeption und Einführung bis zur Verbesserung nach der Implementierung."
+          "bio": "Als Präsident und vertretungsberechtigter Direktor von Acecore treibt er auf Basis von C#/.NET die Bereiche Web und Systeme, Datenbanken und Infrastruktur, Qualitätssicherung sowie den Einsatz von KI ganzheitlich voran – von der Analyse geschäftlicher Herausforderungen über Konzeption und Einführung bis zur anschließenden Verbesserung."
         },
         {
           "name": "佐藤凌峨",
-          "role": "Geschäftsführender Direktor und Hauptabteilungsleiter",
+          "role": "Geschäftsführender Direktor und Bereichsleiter",
           "areas": [
             "Betrieb der Aceserver-Community",
             "Discord",
-            "Minecraft-Entwicklung und -Betrieb"
+            "Entwicklung und Betrieb rund um Minecraft"
           ],
-          "bio": "Als Hüter von Aceserver unterstützt er den Betrieb der Discord-Community sowie die Minecraft-bezogene Entwicklung und den Betrieb. Er veröffentlicht Java-Plugins für Minecraft und Tools für die Discord-Integration."
+          "bio": "Als Hüter von Aceserver unterstützt er den Betrieb der Discord-Community sowie die Entwicklung und den Betrieb von Angeboten rund um Minecraft. Er veröffentlicht Java-Plugins für Minecraft und Tools zur Discord-Integration."
         },
         {
           "name": "西田創",
@@ -281,30 +281,30 @@
           "areas": [
             "Kreative Produktion",
             "3D-Modellierung",
-            "Web-Content-Management"
+            "Betreuung von Webinhalten"
           ],
-          "bio": "Er erstellt Illustrationen und Romane und veröffentlicht originale 3D-Avatare, Gimmicks und Accessoires für VRChat."
+          "bio": "Er erstellt Illustrationen und schreibt Romane; außerdem veröffentlicht er eigene 3D-Avatare, Gimmicks und Accessoires für VRChat."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
-      "missionLoopTitle": "Gesellschaft durch vier Geschäftsbereiche unterstützen",
-      "missionLoopDesc": "Wir betreiben die einzelnen Bereiche Technologie, Lernen, Community und Produkte über jeweils eigene offizielle Websites.",
+      "missionLoopTitle": "Die Gesellschaft mit vier Geschäftsbereichen unterstützen",
+      "missionLoopDesc": "Die Bereiche Technologie, Lernen, Community und Produkte betreiben wir jeweils auf eigenen offiziellen Websites.",
       "philosophyHeading": "Philosophie",
       "philosophyMotto": "„Technologie und Lernen als Kraft für die Gesellschaft.“",
-      "philosophyBody1": "Acecore ist ein Unternehmen, das über Acecore Systems, Acecore Schools, Aceserver und Acecore Store Geschäftsaktivitäten, Lernen, Communities und Produkte unterstützt.",
-      "philosophyBody2": "Auf acecore.net finden Sie Unternehmensinformationen und einen Überblick über alle Geschäftsbereiche; Fachinformationen wie Leistungen, Preise, Referenzen und Aktivitätsberichte sind auf den offiziellen Websites der jeweiligen Geschäftsbereiche gebündelt.",
-      "collaborationImgAlt": "Kollaborative Teamarbeit",
+      "philosophyBody1": "Acecore ist ein Unternehmen, das mit Acecore Systems, Acecore Schools, Aceserver und Acecore Store Geschäftsaktivitäten, Lernangebote, Communities und Produkte unterstützt.",
+      "philosophyBody2": "Auf acecore.net finden Sie Unternehmensinformationen und einen Überblick über alle Geschäftsbereiche. Fachinformationen zu Leistungen, Preisen, Referenzen und Aktivitätsberichten finden Sie auf den offiziellen Websites der jeweiligen Geschäftsbereiche.",
+      "collaborationImgAlt": "Zusammenarbeit im Team",
       "activitiesTitle": "Geschäftsbereiche und Unternehmensaktivitäten von Acecore",
-      "workshopImgAlt": "Eindrücke von einer Lernveranstaltung und einem Workshop",
+      "workshopImgAlt": "Einblicke in eine Lernveranstaltung und einen Workshop",
       "initiativesHeading": "Aktivitäten und Initiativen",
       "communityTitle": "Community-Aktivitäten",
-      "communityDesc": "Aceserver ist eine von Acecore betriebene Minecraft-Community. Informationen zur Teilnahme und Aktivitätsberichte werden im offiziellen Portal verwaltet; wichtige Unternehmensmitteilungen finden Sie",
+      "communityDesc": "Aceserver ist eine von Acecore betriebene Minecraft-Community. Informationen zur Teilnahme und Aktivitätsberichte finden Sie im offiziellen Portal; wichtige Unternehmensmitteilungen finden Sie",
       "ossTitle": "Acecore Systems",
-      "ossDesc": "Acecore Systems betreut die Bereiche Entwicklung, Produktion, Unterstützung im Betrieb und technische Erläuterungen; veröffentlichte Projekte sind auf GitHub einsehbar.",
+      "ossDesc": "Acecore Systems ist für Entwicklung, Erstellung, Betriebsunterstützung und technische Erläuterungen zuständig; veröffentlichte Projekte finden Sie auf GitHub.",
       "regionalTitle": "Acecore Schools",
-      "regionalDesc": "Informationen zu Zielgruppe, Vorgehensweise, Preisen und Aktivitätsberichten der Lernunterstützung sind auf der offiziellen Website von Acecore Schools gebündelt.",
+      "regionalDesc": "Informationen zu Zielgruppe, Vorgehensweise, Preisen und Aktivitätsberichten der Lernunterstützung finden Sie auf der offiziellen Website von Acecore Schools.",
       "partnershipTitle": "Bereichsübergreifende Zusammenarbeit",
-      "partnershipDesc": "Anfragen und gemeinsame Vorhaben, die mehrere Geschäftsbereiche betreffen, nehmen wir über die Anlaufstelle von Acecore entgegen. Einen Überblick über die Geschäftsbereiche finden Sie",
+      "partnershipDesc": "Anfragen und gemeinsame Vorhaben, die mehrere Geschäftsbereiche betreffen, nimmt die Kontaktstelle von Acecore entgegen. Einen Überblick über die Geschäftsbereiche finden Sie",
       "relatedLinksHeading": "Verwandte Links",
       "ctaHeading": "Machen Sie den nächsten Schritt mit Acecore",
       "ctaBody": "Wir nehmen bereichsübergreifende Anfragen, Vorschläge zur Zusammenarbeit sowie Anfragen entgegen, bei denen die richtige Anlaufstelle unklar ist.",
