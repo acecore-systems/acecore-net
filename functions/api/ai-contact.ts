@@ -11,17 +11,21 @@ import {
   type AiContactSourceIntent,
 } from './ai-contact-source-routing.ts'
 import {
-  createOpenAiEmbedding,
-  createOpenAiResponse,
-  getOpenAiErrorCode,
-  type OpenAiEnv,
-  type OpenAiResponseResult,
-} from '../lib/openai.ts'
+  createSearchEmbedding,
+  type SearchEmbeddingEnv,
+} from '../lib/search-embedding.ts'
+import {
+  createWorkersAiResponse,
+  getWorkersAiErrorCode,
+  type WorkersAiEnv,
+  type WorkersAiResponseResult,
+} from '../lib/workers-ai.ts'
 
 type Env = FederatedSearchEnv &
-  OpenAiEnv & {
+  SearchEmbeddingEnv & {
+    AI?: Ai
     SEARCH_RATE_LIMIT_DB?: D1Database
-  }
+  } & WorkersAiEnv
 
 type PagesContext = {
   request: Request
@@ -517,7 +521,7 @@ export const onRequestPost = async ({
   const localeSettings = LOCALE_SETTINGS[locale]
   const conversationInput = buildConversationInput(payload)
 
-  if (!env.OPENAI_API_KEY?.trim() || !env.SEARCH_RATE_LIMIT_DB) {
+  if (!env.AI || !env.SEARCH_RATE_LIMIT_DB) {
     return respond(
       { ok: false, answer: getLocalizedMessage(locale, 'unconfigured') },
       503,
@@ -594,7 +598,7 @@ export const onRequestPost = async ({
         locale,
         {
           env,
-          runEmbedding: (input) => createOpenAiEmbedding(env, input),
+          runEmbedding: (input) => createSearchEmbedding(env, input),
         },
       )
     : {
@@ -637,16 +641,16 @@ export const onRequestPost = async ({
     groundingContext,
   ].join('\n')
 
-  let result: OpenAiResponseResult
+  let result: WorkersAiResponseResult
   try {
-    result = await createOpenAiResponse(env, {
+    result = await createWorkersAiResponse(env, {
       instructions,
       input: `Visitor locale: ${locale}\nConversation:\n${conversationInput}`,
       maxOutputTokens: 640,
       safetyIdentifier: await createSafetyIdentifier(request),
     })
   } catch (error) {
-    logAiContactError(locale, 'generation', getOpenAiErrorCode(error))
+    logAiContactError(locale, 'generation', getWorkersAiErrorCode(error))
     return respond(
       {
         ok: false,

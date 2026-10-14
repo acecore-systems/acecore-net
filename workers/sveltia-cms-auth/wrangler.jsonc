@@ -4,14 +4,20 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-06-05",
   "workers_dev": true,
+  "keep_vars": true,
+  "secrets_store_secrets": [
+    {
+      "binding": "GITHUB_CLIENT_SECRET_STORE",
+      "store_id": "f59c889c0fcc405794a34401fb09240c",
+      "secret_name": "sveltia-cms-auth-github-client-secret",
+    },
+  ],
   "observability": {
     "enabled": true,
   },
   "secrets": {
-    "required": ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"],
+    "required": ["GITHUB_CLIENT_ID"],
   },
-  "vars": {
-    "ALLOWED_DOMAINS": "acecore.net,*.acecore-net.pages.dev,localhost,localhost:4321,127.0.0.1",
-    "GITHUB_SCOPE": "repo,user",
-  },
+  // ALLOWED_DOMAINS and GITHUB_SCOPE are managed on the shared Worker.
+  // Explicit vars override dashboard values even with keep_vars enabled.
 }

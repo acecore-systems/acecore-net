@@ -8,6 +8,7 @@ import {
   decodeMetadata,
   getSiteFragment,
   hashSource,
+  selectCompletedBatch,
 } from '../scripts/openai-translation-batch.ts'
 
 test('sourceHashは改行コード差を同じ版として扱う', () => {
@@ -26,6 +27,35 @@ test('Batch custom_idは記事・locale・版IDを復元できる', () => {
   const customId = `acecore-net:${Buffer.from(JSON.stringify(metadata)).toString('base64url')}`
 
   assert.deepEqual(decodeMetadata(customId), metadata)
+})
+
+test('出力保存期限が過ぎたBatchを回収対象から除外する', () => {
+  const now = 100 * 24 * 60 * 60
+  const batch = {
+    id: 'batch_expired',
+    status: 'completed' as const,
+    output_file_id: 'file_expired',
+    metadata: { translation_system: 'acecore-net-v1' },
+    created_at: now - 32 * 24 * 60 * 60,
+    completed_at: now - 31 * 24 * 60 * 60,
+  }
+  const current = {
+    ...batch,
+    id: 'batch_current',
+    output_file_id: 'file_current',
+    created_at: now - 2 * 24 * 60 * 60,
+    completed_at: now - 24 * 60 * 60,
+  }
+
+  assert.equal(
+    selectCompletedBatch([batch, current], new Set(), now)?.id,
+    current.id,
+  )
+  assert.equal(selectCompletedBatch([batch], new Set(), now), null)
+  assert.equal(
+    selectCompletedBatch([current], new Set([current.id]), now),
+    null,
+  )
 })
 
 test('ページsourceは対応する翻訳JSONのpages配下だけを更新する', () => {

@@ -1,4 +1,4 @@
-import { OPENAI_EMBEDDING_DIMENSIONS } from '../lib/openai.ts'
+import { SEARCH_EMBEDDING_DIMENSIONS } from '../lib/search-embedding.ts'
 import type { AiContactSourceIntent } from './ai-contact-source-routing.ts'
 
 const SEARCH_TOP_K = 15
@@ -35,7 +35,7 @@ export const FEDERATED_SOURCE_SETTINGS = {
   aceserverPortal: {
     label: 'Aceserver portal',
     origin: 'https://asv.acecore.net',
-    defaultMinScore: 0.45,
+    defaultMinScore: 0.5,
   },
   worldFoundation: {
     label: 'World Foundation official design site',
@@ -408,7 +408,7 @@ function resolveSource(
 function isValidEmbedding(values: unknown): values is number[] {
   return (
     Array.isArray(values) &&
-    values.length === OPENAI_EMBEDDING_DIMENSIONS &&
+    values.length === SEARCH_EMBEDDING_DIMENSIONS &&
     values.every((value) => Number.isFinite(value))
   )
 }

@@ -1,5 +1,9 @@
 # Sveltia CMS Auth Worker
 
+## 移行後の旧コピー整理（2026-09-12）
+
+Storeへの同値移行は完了しています。Store参照に対応する旧Worker Secretは再配信時に要求せず、削除後の復旧にはStore対応版を使用します。Store本体・接続先側のキー・移行対象外の署名鍵やIDは保持します。以下の旧キー保持・移行前への切り戻しは移行当時の記録であり、整理後には適用しません。
+
 Cloudflare Workers OAuth client for Sveltia CMS GitHub authentication.
 
 Worker 本体は TypeScript（`src/index.ts`）です。`worker-configuration.d.ts` は
@@ -36,3 +40,41 @@ Deploy:
 ```powershell
 npx wrangler deploy --config workers/sveltia-cms-auth/wrangler.jsonc
 ```
+
+## Secrets Storeへの移行
+
+コピー元は本番Worker `sveltia-cms-auth` の `GITHUB_CLIENT_SECRET`、宛先は
+Acecoreアカウントの既存Store `f59c889c0fcc405794a34401fb09240c` 内の
+`sveltia-cms-auth-github-client-secret`（scope: `workers`）。新binding名は
+`GITHUB_CLIENT_SECRET_STORE`。`GITHUB_CLIENT_ID` は公開識別子なので対象外です。
+
+2026-09-12に元キーの存在と1024 bytes以内を保護previewで真偽だけ確認しました。
+コピー・本番切替は未実施です。対象と宛先の承認後、同じ値をコピーし、保護preview内で
+旧値との一致だけを確認します。値やProviderの例外をログ・ファイルへ出力しません。
+
+Storeは許可済みの認証開始とCSRF検証後のcallbackで1回だけ読みます。取得失敗や空値は
+`MISCONFIGURED_CLIENT` として処理し、旧キーへfallbackしたりGitHubへ送信したりしません。
+要求をまたぐキャッシュを置かないため、次の要求で変更が反映されます。
+
+### 共有認証の既存設定を保持する
+
+本番はAcecore、Hatt、Aceserver Portalと許可済みpreview/localhostから参照されます。
+`ALLOWED_DOMAINS` と `GITHUB_SCOPE` はdashboardで管理し、configの `vars` には宣言しません。
+`keep_vars: true` だけではconfigに明記した値の上書きを防げません。宣言を省くことで、
+共有Workerの既存値を保持します。新規Workerでは配信前に許可サイトを設定してください。
+
+本番ではhostname形式と `https://hatt.acecore.net/admin/` のようなURL形式が
+明示的に許可されています。既存allowlistと入力の一致を検証してからoriginへ変換し、
+userinfo・query・fragment・不許可path/HTTP originは拒否します。許可リストを自動で広げません。
+
+### 切替・復旧の確認
+
+- 検査済みPRをマージし、上記Worker configから反映します。静的Pagesの配信とは別経路です。
+- 本番の既知versionは `ba7a5a0b-5b20-4c5f-a131-22217e6a7fe3`（2026-09-12確認）。
+  切替直前にも再取得し、変更があれば差分を確認して復旧基点を更新します。
+- 本番は古い単純CSRF cookie、現在のmainはoriginに束縛したJSON cookieです。
+  mainにある認証修正も同時に反映されるため、移行前後の両形式の許可site IDを検証し、
+  切替中の進行中ログインは再開始が必要になる場合があることを切替記録へ残します。
+- 配信versionとStore binding、旧値一致、既存3サイトの認証開始302、不許可originの拒否を確認します。
+  本番のGitHubログインや実コード交換は確認目的で実行しません。合成fixtureでcallbackとopenerの制約を検証します。
+- 失敗時は記録したWorker versionへ戻します。旧Worker SecretとStore項目は、復旧確認前に削除しません。

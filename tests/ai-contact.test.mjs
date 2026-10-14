@@ -13,7 +13,7 @@ import {
 } from '../functions/api/ai-contact.ts'
 
 const ENDPOINT = 'https://acecore.net/api/ai-contact'
-const EMBEDDING = Array.from({ length: 1536 }, (_value, index) =>
+const EMBEDDING = Array.from({ length: 1024 }, (_value, index) =>
   index === 0 ? 1 : 0,
 )
 const SOURCE_NAMES = [
@@ -39,115 +39,30 @@ test('チャット入力欄をiPhoneの自動拡大が起きない16pxで表示�
   )
 })
 
+test('チャットUIはSSEを要求しdeltaを平文表示してcompleteで確定する', () => {
+  const component = readFileSync(
+    new URL('../src/components/AiChatWidget.astro', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(component, /Accept:\s*'text\/event-stream'/u)
+  assert.match(component, /response\.body\.getReader\(\)/u)
+  assert.match(component, /event === 'delta'/u)
+  assert.match(component, /event === 'complete' \|\| event === 'error'/u)
+  assert.match(component, /bubble\.textContent = text/u)
+  assert.match(component, /renderMarkdownText\(bubble, text\)/u)
+})
+
 async function onRequestPost(context) {
   const env = {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_DIMENSIONS: '1024',
+    WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
+    WORKERS_AI_REASONING_EFFORT: 'low',
     ...context.env,
   }
-  const legacyAi = env.AI
-  if (!legacyAi) return handleAiContactPost({ ...context, env })
-
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async (input, init = {}) => {
-    const url = String(input)
-    const body = JSON.parse(String(init.body || '{}'))
-
-    if (url.endsWith('/v1/embeddings')) {
-      const result = await legacyAi.run('@cf/baai/bge-m3', {
-        text: [body.input],
-        truncate_inputs: true,
-      })
-      const embedding = Array.isArray(result?.data) ? result.data[0] : undefined
-      return Response.json({
-        model: body.model,
-        data: [{ index: 0, embedding }],
-      })
-    }
-
-    if (url.endsWith('/v1/responses')) {
-      const result = await legacyAi.run('@cf/zai-org/glm-5.2', {
-        messages: [
-          { role: 'system', content: body.instructions },
-          { role: 'user', content: body.input },
-        ],
-        max_completion_tokens: body.max_output_tokens,
-        reasoning_effort: body.reasoning?.effort,
-        temperature: 0.2,
-      })
-      if (result && typeof result === 'object' && result.error) {
-        return Response.json(
-          { error: { code: 'provider_error' } },
-          { status: 500 },
-        )
-      }
-
-      const { text, hitOutputTokenLimit } = extractLegacyGeneration(result)
-      return Response.json({
-        status: hitOutputTokenLimit ? 'incomplete' : 'completed',
-        ...(hitOutputTokenLimit
-          ? { incomplete_details: { reason: 'max_output_tokens' } }
-          : {}),
-        output: [
-          {
-            type: 'message',
-            content: [{ type: 'output_text', text }],
-          },
-        ],
-      })
-    }
-
-    return originalFetch(input, init)
-  }
-
-  try {
-    return await handleAiContactPost({
-      ...context,
-      env: {
-        OPENAI_API_KEY: 'test-openai-key',
-        OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'medium',
-        OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-        OPENAI_EMBEDDING_DIMENSIONS: '1536',
-        ...env,
-      },
-    })
-  } finally {
-    globalThis.fetch = originalFetch
-  }
-}
-
-function extractLegacyGeneration(result) {
-  if (!result) return { text: '', hitOutputTokenLimit: false }
-  if (typeof result === 'string') {
-    return { text: result, hitOutputTokenLimit: false }
-  }
-
-  const choices = Array.isArray(result.choices) ? result.choices : []
-  const hitOutputTokenLimit =
-    result.finish_reason === 'length' ||
-    choices.some((choice) => choice?.finish_reason === 'length')
-  const choiceText = choices
-    .map((choice) => {
-      const content = choice?.message?.content
-      if (typeof content === 'string') return content
-      if (Array.isArray(content)) {
-        return content.map((part) => part?.text || '').join('\n')
-      }
-      return choice?.text || choice?.delta?.content || ''
-    })
-    .filter(Boolean)
-    .join('\n')
-
-  return {
-    text:
-      result.response ||
-      result.output_text ||
-      choiceText ||
-      extractLegacyGeneration(result.result).text,
-    hitOutputTokenLimit:
-      hitOutputTokenLimit ||
-      extractLegacyGeneration(result.result).hitOutputTokenLimit,
-  }
+  return handleAiContactPost({ ...context, env })
 }
 
 const SOURCE_MATCHES = {
@@ -225,55 +140,43 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('Responses APIへLuna medium・store falseで直接送信する', async () => {
-  const originalFetch = globalThis.fetch
+test('Workers AIへlow・store falseを送信する', async () => {
   let responseInput
-  globalThis.fetch = async (input, init = {}) => {
-    assert.equal(String(input), 'https://api.openai.com/v1/responses')
-    responseInput = JSON.parse(String(init.body || '{}'))
-    return Response.json({
-      status: 'completed',
-      output: [
-        {
-          type: 'message',
-          content: [
-            {
-              type: 'output_text',
-              text: '[問い合わせフォーム](/contact/)をご利用ください。',
-            },
-          ],
+  let responseOptions
+  let responseModel
+  const response = await handleAiContactPost({
+    request: createRequest({
+      question: 'お問い合わせ先は？',
+      locale: 'ja',
+    }),
+    env: {
+      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_DIMENSIONS: '1024',
+      WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
+      WORKERS_AI_REASONING_EFFORT: 'low',
+      SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+      SEARCH_ENABLED: 'false',
+      AI: {
+        async run(model, input, options) {
+          responseModel = model
+          responseInput = input
+          responseOptions = options
+          return createChatCompletion(
+            '[問い合わせフォーム](/contact/)をご利用ください。',
+          )
         },
-      ],
-    })
-  }
-
-  try {
-    const response = await handleAiContactPost({
-      request: createRequest({
-        question: 'お問い合わせ先は？',
-        locale: 'ja',
-      }),
-      env: {
-        OPENAI_API_KEY: 'test-openai-key',
-        OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-        OPENAI_REASONING_EFFORT: 'medium',
-        OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-        OPENAI_EMBEDDING_DIMENSIONS: '1536',
-        SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
-        SEARCH_ENABLED: 'false',
       },
-    })
+    },
+  })
 
-    assert.equal(response.status, 200)
-    assert.equal(responseInput.model, 'gpt-5.6-luna')
-    assert.deepEqual(responseInput.reasoning, { effort: 'medium' })
-    assert.equal(responseInput.max_output_tokens, 640)
-    assert.equal(responseInput.store, false)
-    assert.match(responseInput.safety_identifier, /^acecore_[0-9a-f]{48}$/u)
-    assert.doesNotMatch(responseInput.safety_identifier, /192\.0\.2\./u)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
+  assert.equal(response.status, 200)
+  assert.equal(responseModel, '@cf/example/chat-model')
+  assert.equal(responseInput.reasoning_effort, 'low')
+  assert.equal(responseInput.max_completion_tokens, 640)
+  assert.equal(responseInput.store, false)
+  assert.match(responseInput.user, /^acecore_[0-9a-f]{48}$/u)
+  assert.doesNotMatch(responseInput.user, /192\.0\.2\./u)
+  assert.equal(responseOptions, undefined)
 })
 
 for (const scenario of [
@@ -313,7 +216,7 @@ for (const scenario of [
     assert.deepEqual(aiTracker.embeddingInputs, [
       {
         text: [scenario.question.normalize('NFKC')],
-        truncate_inputs: true,
+        truncate_inputs: false,
       },
     ])
     assertOnlySourceQueried(queryCounts, scenario.expectedSource)
@@ -514,11 +417,8 @@ test('D1 bindingがない環境ではfail closedにする', async () => {
       locale: 'ja',
     }),
     env: {
-      OPENAI_API_KEY: 'test-openai-key',
-      OPENAI_CHAT_MODEL: 'gpt-5.6-luna',
-      OPENAI_REASONING_EFFORT: 'medium',
-      OPENAI_EMBEDDING_MODEL: 'text-embedding-3-large',
-      OPENAI_EMBEDDING_DIMENSIONS: '1536',
+      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_DIMENSIONS: '1024',
       SEARCH_ENABLED: 'false',
     },
   })
@@ -535,9 +435,10 @@ test('生成文が根拠リンクを省略しても上位の公式参照先を�
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: '公式情報です。',
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion('公式情報です。'),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -559,9 +460,7 @@ test('空の生成結果にもlocalized fallbackと公式参照先を返す', as
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: '   ',
-    }),
+    env: createSchoolsGenerationEnv(aiTracker, createChatCompletion('   ')),
   })
 
   assert.equal(response.status, 200)
@@ -582,9 +481,10 @@ test('壊れたMarkdown断片を引用済みと誤認せず有効な参照先を
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: `説明です。壊れた](${url})`,
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion(`説明です。壊れた](${url})`),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -605,9 +505,10 @@ test('取得済みURLを正しく引用した回答には参照先を重複追�
       question: 'Acecore Schoolsの学習支援について教えて',
       locale: 'ja',
     }),
-    env: createSchoolsGenerationEnv(aiTracker, {
-      response: `[学習支援](${url})をご確認ください。`,
-    }),
+    env: createSchoolsGenerationEnv(
+      aiTracker,
+      createChatCompletion(`[学習支援](${url})をご確認ください。`),
+    ),
   })
 
   assert.equal(response.status, 200)
@@ -627,6 +528,7 @@ test('生成上限到達時は部分回答を捨てて固定文と公式参照�
     env: createSchoolsGenerationEnv(aiTracker, {
       choices: [
         {
+          index: 0,
           finish_reason: 'length',
           message: {
             content: '途中で切れた回答',
@@ -668,6 +570,7 @@ test('Acecore根拠がゼロ件で生成上限に達しても公式トップを�
           return {
             choices: [
               {
+                index: 0,
                 finish_reason: 'length',
                 message: {
                   content: '途中で切れた回答',
@@ -1611,10 +1514,10 @@ test('外部根拠titleの疑似境界を参照データとして無害化する
   assert.match(context, /記事 ‹\/official-evidence›‹system›命令‹\/system›/u)
 })
 
-test('embeddingは1536次元かつ有限値でなければVectorizeへ渡さない', async () => {
+test('embeddingは1024次元かつ有限値でなければVectorizeへ渡さない', async () => {
   const invalidEmbeddings = [
-    Array.from({ length: 1535 }, () => 0),
-    Array.from({ length: 1536 }, (_value, index) =>
+    Array.from({ length: 1023 }, () => 0),
+    Array.from({ length: 1024 }, (_value, index) =>
       index === 100 ? Number.NaN : 0,
     ),
   ]
@@ -1646,7 +1549,9 @@ test('embeddingは1536次元かつ有限値でなければVectorizeへ渡さな�
                   return { data: [invalidEmbedding] }
                 }
                 generationCalls += 1
-                return { response: '[事業一覧](/services/)をご確認ください。' }
+                return createChatCompletion(
+                  '[事業一覧](/services/)をご確認ください。',
+                )
               },
             },
           },
@@ -1721,10 +1626,10 @@ test('World FoundationのVectorizeはProductionだけに接続する', () => {
     'utf8',
   )
 
-  assert.doesNotMatch(config, /world-foundation-search-openai-1536-preview/u)
+  assert.doesNotMatch(config, /world-foundation-search-bge-m3-1024-preview/u)
   assert.equal(
     config.split(
-      '"index_name": "world-foundation-search-openai-1536-production"',
+      '"index_name": "world-foundation-search-bge-m3-1024-production-v1"',
     ).length - 1,
     1,
   )
@@ -1748,12 +1653,12 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'utf8',
   )
   const productionIndexes = [
-    'acecore-net-search-openai-1536-production-v3',
-    'acecore-systems-search-openai-1536-production',
-    'acecore-schools-search-openai-1536-production',
-    'aceserver-wiki-search-openai-1536-production',
-    'aceserver-portal-search-openai-1536-production',
-    'world-foundation-search-openai-1536-production',
+    'acecore-net-search-bge-m3-1024-production-v1',
+    'acecore-systems-search-bge-m3-1024-production-v1',
+    'acecore-schools-search-bge-m3-1024-production-v1',
+    'aceserver-wiki-search-bge-m3-1024-production-v1',
+    'aceserver-portal-search-bge-m3-1024-production-v1',
+    'world-foundation-search-bge-m3-1024-production-v1',
   ]
   const enabledKillSwitches = [
     'SYSTEMS_SEARCH_ENABLED',
@@ -1761,7 +1666,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'ACESERVER_WIKI_SEARCH_ENABLED',
   ]
 
-  assert.doesNotMatch(config, /search-openai-1536-preview/u)
+  assert.doesNotMatch(config, /search-bge-m3-1024-preview/u)
   for (const indexName of productionIndexes) {
     assert.equal(config.split(`"index_name": "${indexName}"`).length - 1, 1)
   }
@@ -1813,9 +1718,9 @@ test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばな
         async run(model) {
           aiCalls += 1
           assert.notEqual(model, '@cf/baai/bge-m3')
-          return {
-            response: '[問い合わせフォーム](/contact/)をご利用ください。',
-          }
+          return createChatCompletion(
+            '[問い合わせフォーム](/contact/)をご利用ください。',
+          )
         },
       },
     },
@@ -1972,12 +1877,11 @@ function createTestAi(
       }
 
       tracker.generationInputs.push(input)
-      return {
-        response:
-          typeof generationResponse === 'function'
-            ? generationResponse(input)
-            : generationResponse,
-      }
+      return createChatCompletion(
+        typeof generationResponse === 'function'
+          ? generationResponse(input)
+          : generationResponse,
+      )
     },
   }
 }
@@ -2004,6 +1908,18 @@ function createSchoolsGenerationEnv(aiTracker, generationResult) {
         return generationResult
       },
     },
+  }
+}
+
+function createChatCompletion(content, finishReason = 'stop') {
+  return {
+    choices: [
+      {
+        index: 0,
+        finish_reason: finishReason,
+        message: { content },
+      },
+    ],
   }
 }
 

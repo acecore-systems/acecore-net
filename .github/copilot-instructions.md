@@ -7,7 +7,7 @@
 - Issue URL が渡された場合は、本文とチェックリストを受け入れ条件として扱う。
 - Issue template は `不具合` と `タスク` を基本にし、必要以上に入力項目を増やさない。
 - 多言語対応では日本語ソースを正とし、CMS と翻訳構成を崩さない。
-- CMSログインはGitHub OAuthで編集者本人とrepositoryへのpush権限を確認し、repositoryのread/writeは`acecore-net`専用GitHub Appへ分離する。同一origin proxyはpath、件数、容量、最新HEADを検証し、CMS管理対象だけをexpected-HEAD付きの`cms: ...` 1 commitで`main`へ直接保存する。コード、設定、schema、workflow、翻訳ファイルは従来どおりPRとCIを経由する。
+- CMSログインはAcecoreID / Cloudflare Accessとし、連携GitHub数値IDの現在のpush権限を専用GitHub Appで照合する。read/writeもサイト専用Appだけを使用し、保存直前の権限再確認、same-origin、path、件数、容量、expected HEAD、content-only制約を維持する。コード・設定・schema・workflow・翻訳ファイルはPRとCIを経由する。
 - CMS保存前に、現在の`main` treeへ同一mutationを投影し、全言語記事の著者、タグ、ローカル画像参照が投影後にも存在することを同期検証する。著者、タグ、画像の削除禁止は、参照検証とは別の安全境界として維持する。
 - ブログ記事の`articleId`はCMSが新規作成時に付与する不変UUIDとし、CMS UIではhiddenにする。同一記事の全localeで同じ値を維持し、slug変更では旧pathの削除と同じ保存内で`articleId`を引き継ぐ。
 - CMSでは`date`と`lastUpdated`の暦日時と前後関係を保存前に検証する。既存の`lastUpdated`は削除・巻き戻しできず、本文、`lastUpdated`以外のfrontmatter、または同一保存内のslugを変更する場合は以前より後へ進める。新規記事はCMSが`articleId`を自動付与し、`lastUpdated`は省略できる。

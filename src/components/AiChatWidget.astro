@@ -350,6 +350,90 @@ const phoneParts = SITE.phone.split('-')
         return renderMessage(role, content, options?.isError)
       }
 
+      function updateStreamingMessage(row, text, complete = false) {
+        const bubble = row?.querySelector('.ace-chat-markdown')
+        if (!bubble) return
+        if (complete) {
+          renderMarkdownText(bubble, text)
+        } else {
+          bubble.textContent = text
+        }
+        scrollMessages()
+      }
+
+      async function readChatResponse(response, onDelta) {
+        const contentType = String(response.headers.get('Content-Type') || '')
+          .split(';', 1)[0]
+          .trim()
+          .toLowerCase()
+        if (contentType !== 'text/event-stream') {
+          return response.json().catch(() => null)
+        }
+        if (!response.body) throw new Error(errorText)
+
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+        let finalPayload = null
+
+        function consumeEvent(block) {
+          let event = 'message'
+          const data = []
+          String(block)
+            .split(/\r?\n/u)
+            .forEach((line) => {
+              if (line.startsWith('event:')) {
+                event = line.slice(6).trim()
+              } else if (line.startsWith('data:')) {
+                data.push(line.slice(5).trimStart())
+              }
+            })
+          if (data.length === 0) return
+
+          let payload
+          try {
+            payload = JSON.parse(data.join('\n'))
+          } catch {
+            throw new Error(errorText)
+          }
+          if (event === 'delta') {
+            if (typeof payload?.text !== 'string') throw new Error(errorText)
+            onDelta(payload.text)
+          } else if (event === 'complete' || event === 'error') {
+            finalPayload = payload
+          }
+        }
+
+        function consumeBufferedEvents(flush = false) {
+          while (true) {
+            const boundary = /\r?\n\r?\n/u.exec(buffer)
+            if (!boundary) break
+            consumeEvent(buffer.slice(0, boundary.index))
+            buffer = buffer.slice(boundary.index + boundary[0].length)
+          }
+          if (flush && buffer.trim()) {
+            consumeEvent(buffer)
+            buffer = ''
+          }
+        }
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+            buffer += decoder.decode(value, { stream: true })
+            consumeBufferedEvents()
+          }
+          buffer += decoder.decode()
+          consumeBufferedEvents(true)
+        } finally {
+          reader.releaseLock()
+        }
+
+        if (!finalPayload) throw new Error(errorText)
+        return finalPayload
+      }
+
       function openChat() {
         panel.classList.remove('hidden')
         toggle.setAttribute('aria-expanded', 'true')
@@ -380,10 +464,11 @@ const phoneParts = SITE.phone.split('-')
         submit.disabled = true
 
         try {
+          let streamedAnswer = ''
           const response = await fetch('/api/ai-chat', {
             method: 'POST',
             headers: {
-              Accept: 'application/json',
+              Accept: 'text/event-stream',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -392,12 +477,16 @@ const phoneParts = SITE.phone.split('-')
               question: trimmed,
             }),
           })
-          const payload = await response.json().catch(() => null)
+          const payload = await readChatResponse(response, (delta) => {
+            streamedAnswer += delta
+            updateStreamingMessage(loadingRow, streamedAnswer)
+          })
           if (!response.ok || !payload?.ok) {
             throw new Error(payload?.answer || errorText)
           }
-          loadingRow.remove()
-          addMessage('assistant', payload.answer || errorText)
+          const answer = payload.answer || errorText
+          messages.push({ role: 'assistant', content: answer })
+          updateStreamingMessage(loadingRow, answer, true)
           track('ai_chat_answer')
         } catch (error) {
           loadingRow.remove()

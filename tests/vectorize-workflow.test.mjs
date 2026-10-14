@@ -40,10 +40,10 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    'acecore-net-search-openai-1536-production-v3',
+    'acecore-net-search-bge-m3-1024-production-v1',
   )
-  assert.equal(syncStep.env.OPENAI_API_KEY, '${{ secrets.OPENAI_API_KEY }}')
-  assert.match(syncStep.run, /OPENAI_API_KEY is not configured/)
+  assert.equal(syncStep.env.OPENAI_API_KEY, undefined)
+  assert.doesNotMatch(syncStep.run, /OPENAI_API_KEY/u)
 })
 
 test('Vectorize同期workflowはProduction専用でPreview credentialを参照しない', async () => {
@@ -59,7 +59,7 @@ test('Vectorize同期workflowはProduction専用でPreview credentialを参照�
   assert.doesNotMatch(workflow.jobs['sync-production'].if, /inputs\.target/u)
   assert.doesNotMatch(source, /cloudflare-search-preview/u)
   assert.doesNotMatch(source, /CLOUDFLARE_SEARCH_PREVIEW_API_TOKEN/u)
-  assert.doesNotMatch(source, /acecore-net-search-openai-1536-preview/u)
+  assert.doesNotMatch(source, /acecore-net-search-bge-m3-1024-preview/u)
 })
 
 test('配置待機ゲートを型検査済みのTypeScriptとして実行する', async () => {
@@ -94,14 +94,14 @@ test('全量同期済みreplacementをProduction bindingへ設定する', async 
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v3",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v1",/u,
   )
   assert.doesNotMatch(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production-v2",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v2",/u,
   )
   assert.doesNotMatch(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-openai-1536-production",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production",/u,
   )
 })

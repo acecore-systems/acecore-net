@@ -1,8 +1,8 @@
 import {
-  createOpenAiEmbedding,
-  getOpenAiErrorCode,
-  type OpenAiEnv,
-} from '../lib/openai.ts'
+  createSearchEmbedding,
+  getSearchEmbeddingErrorCode,
+  type SearchEmbeddingEnv,
+} from '../lib/search-embedding.ts'
 import {
   retrieveFederatedRelatedSearch,
   type FederatedSearchEnv,
@@ -60,7 +60,7 @@ type NetworkSearchPayload = {
   locale?: unknown
 }
 
-type NetworkSearchEnv = CloudflareEnv & OpenAiEnv & FederatedSearchEnv
+type NetworkSearchEnv = CloudflareEnv & SearchEmbeddingEnv & FederatedSearchEnv
 
 type Caller = {
   origin: string
@@ -106,7 +106,7 @@ export const onRequestPost: PagesFunction<NetworkSearchEnv> = async ({
       )
     }
 
-    if (!env.OPENAI_API_KEY?.trim() || !env.SEARCH_RATE_LIMIT_DB) {
+    if (!env.AI || !env.SEARCH_RATE_LIMIT_DB) {
       return errorResponse(
         'unavailable',
         503,
@@ -224,7 +224,7 @@ export const onRequestPost: PagesFunction<NetworkSearchEnv> = async ({
       locale,
       {
         env,
-        runEmbedding: (input) => createOpenAiEmbedding(env, input),
+        runEmbedding: (input) => createSearchEmbedding(env, input),
       },
     )
     const results = result.entries.map((entry, index) => ({
@@ -249,7 +249,7 @@ export const onRequestPost: PagesFunction<NetworkSearchEnv> = async ({
       caller?.source || 'acecore',
       'unknown',
       'request',
-      getOpenAiErrorCode(error, 'internal_error'),
+      getSearchEmbeddingErrorCode(error, 'internal_error'),
     )
     return errorResponse(
       'internal_error',

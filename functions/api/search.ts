@@ -1,8 +1,8 @@
 import {
-  createOpenAiEmbedding,
-  getOpenAiErrorCode,
-  type OpenAiEnv,
-} from '../lib/openai.ts'
+  createSearchEmbedding,
+  getSearchEmbeddingErrorCode,
+  type SearchEmbeddingEnv,
+} from '../lib/search-embedding.ts'
 
 const DEFAULT_MIN_SCORE = 0.5
 const MAX_REQUEST_BYTES = 2048
@@ -54,7 +54,7 @@ type SearchResult = {
   rank: number
 }
 
-type SearchEnv = CloudflareEnv & OpenAiEnv
+type SearchEnv = CloudflareEnv & SearchEmbeddingEnv
 
 export const onRequestPost: PagesFunction<SearchEnv> = async ({
   request,
@@ -80,7 +80,7 @@ export const onRequestPost: PagesFunction<SearchEnv> = async ({
 
     if (
       String(env.SEARCH_ENABLED) !== 'true' ||
-      !env.OPENAI_API_KEY?.trim() ||
+      !env.AI ||
       !env.SEARCH_INDEX ||
       !env.SEARCH_RATE_LIMIT_DB
     ) {
@@ -154,9 +154,14 @@ export const onRequestPost: PagesFunction<SearchEnv> = async ({
 
     let embedding: number[]
     try {
-      embedding = await createOpenAiEmbedding(env, query)
+      embedding = await createSearchEmbedding(env, query)
     } catch (error) {
-      logSearchError(requestId, locale, 'embedding', getOpenAiErrorCode(error))
+      logSearchError(
+        requestId,
+        locale,
+        'embedding',
+        getSearchEmbeddingErrorCode(error),
+      )
       return errorResponse('provider_error', 502, requestId, startedAt)
     }
 
