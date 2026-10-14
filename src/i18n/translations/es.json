@@ -274,9 +274,9 @@
       "description": "Presentamos la información corporativa y la filosofía de Acecore, junto con sus cuatro negocios: Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
       "heroTitle": "Acerca de nosotros",
       "heroSubtitle": "La filosofía de Acecore y sus cuatro negocios",
-      "heroImgAlt": "Discusión en equipo",
+      "heroImgAlt": "Conversación en equipo",
       "companyInfoHeading": "Información corporativa",
-      "legalNameLabel": "Nombre legal",
+      "legalNameLabel": "Razón social",
       "executiveHeading": "Equipo directivo",
       "executiveLead": "Conozca al equipo directivo de Acecore.",
       "officerAreasLabel": "Áreas de responsabilidad",
@@ -284,7 +284,7 @@
       "officers": [
         {
           "name": "西田凱",
-          "role": "Director representante y presidente",
+          "role": "Presidente y director representante",
           "areas": [
             "Estrategia empresarial",
             "Web y sistemas",
@@ -292,7 +292,7 @@
             "Aseguramiento de la calidad",
             "Uso de AI"
           ],
-          "bio": "Presidente y director representante de Acecore. Con C#/.NET como eje, impulsa de forma integral las áreas de Web y sistemas, DB e infraestructura, aseguramiento de la calidad y uso de AI, desde la identificación de los retos empresariales hasta el diseño, la implementación y las mejoras posteriores."
+          "bio": "Presidente y director representante de Acecore. Con C#/.NET como eje, impulsa de forma integral las áreas de Web y sistemas, DB e infraestructura, aseguramiento de la calidad y uso de AI, desde el análisis de los retos empresariales hasta el diseño, la implementación y las mejoras posteriores."
         },
         {
           "name": "佐藤凌峨",
@@ -300,7 +300,7 @@
           "areas": [
             "Gestión de la comunidad de Aceserver",
             "Discord",
-            "Desarrollo y operaciones relacionadas con Minecraft"
+            "Desarrollo y operaciones relacionados con Minecraft"
           ],
           "bio": "Como guardián de Aceserver, apoya la gestión de la comunidad de Discord y el desarrollo y las operaciones relacionados con Minecraft. Publica plugins de Java para Minecraft y herramientas de integración con Discord."
         },
@@ -311,35 +311,35 @@
           "areas": [
             "Producción creativa",
             "Modelado 3D",
-            "Gestión de contenidos Web"
+            "Gestión de contenidos web"
           ],
-          "bio": "Crea ilustraciones y novelas, y publica avatares 3D originales, mecanismos y accesorios para VRChat."
+          "bio": "Crea ilustraciones y novelas, y publica avatares 3D originales, elementos interactivos y accesorios para VRChat."
         }
       ],
       "missionLoopEyebrow": "Mission Loop",
       "missionLoopTitle": "Apoyar a la sociedad a través de cuatro negocios",
-      "missionLoopDesc": "Gestionamos las áreas de tecnología, aprendizaje, comunidad y productos a través de sus respectivos sitios oficiales especializados.",
+      "missionLoopDesc": "Gestionamos las áreas de tecnología, aprendizaje, comunidad y productos mediante sitios web oficiales especializados para cada una.",
       "philosophyHeading": "Filosofía",
-      "philosophyMotto": "\"Tecnología y aprendizaje al servicio de la sociedad.\"",
+      "philosophyMotto": "«Tecnología y aprendizaje al servicio de la sociedad»",
       "philosophyBody1": "Acecore es una empresa que apoya los negocios, el aprendizaje, las comunidades y los productos a través de Acecore Systems, Acecore Schools, Aceserver y Acecore Store.",
-      "philosophyBody2": "acecore.net reúne la información de la empresa y una visión general de todos sus negocios, mientras que la información especializada sobre la oferta, los precios, los casos prácticos y el registro de actividades se concentra en el sitio oficial de cada negocio.",
+      "philosophyBody2": "acecore.net reúne la información corporativa y una descripción general de todos los negocios; los detalles sobre la oferta, los precios, los casos prácticos y el registro de actividades se centralizan en el sitio oficial de cada negocio.",
       "collaborationImgAlt": "Trabajo colaborativo en equipo",
       "activitiesTitle": "Negocios y actividades corporativas de Acecore",
       "workshopImgAlt": "Sesión de estudio y taller",
       "initiativesHeading": "Actividades e iniciativas",
       "communityTitle": "Actividades comunitarias",
-      "communityDesc": "Aceserver es una comunidad de Minecraft gestionada por Acecore. La forma de participar y el registro de actividades se gestionan en el portal oficial; en cuanto a los anuncios importantes de la empresa,",
+      "communityDesc": "Aceserver es una comunidad de Minecraft gestionada por Acecore. La información sobre cómo participar y el registro de actividades se gestiona en el portal oficial, mientras que los anuncios importantes de la empresa se publican en",
       "ossTitle": "Acecore Systems",
-      "ossDesc": "Acecore Systems gestiona el desarrollo, la producción, el apoyo operativo y las explicaciones técnicas; los proyectos publicados pueden consultarse en GitHub.",
+      "ossDesc": "Acecore Systems se encarga del desarrollo, la producción, el soporte operativo y la divulgación técnica; los proyectos publicados pueden consultarse en GitHub.",
       "regionalTitle": "Acecore Schools",
-      "regionalDesc": "La información sobre quién puede recibir apoyo educativo, el proceso, las tarifas y el registro de actividades se centraliza en el sitio oficial de Acecore Schools.",
-      "partnershipTitle": "Colaboración transversal entre negocios",
-      "partnershipDesc": "Las consultas y los proyectos conjuntos que abarcan varios negocios se atienden a través del contacto de Acecore. En cuanto a la información general de los negocios,",
+      "regionalDesc": "La información sobre a quién va dirigido el apoyo educativo, la metodología, las tarifas y el registro de actividades se encuentra en el sitio oficial de Acecore Schools.",
+      "partnershipTitle": "Colaboración entre negocios",
+      "partnershipDesc": "Las consultas y propuestas de colaboración que abarcan varios negocios se atienden a través del canal de contacto de Acecore. La información general sobre los negocios está disponible en",
       "relatedLinksHeading": "Enlaces relacionados",
       "ctaHeading": "Dé el siguiente paso con Acecore",
-      "ctaBody": "Atendemos consultas que abarcan varios negocios, propuestas de colaboración y consultas para las que no sepa a qué contacto dirigirse.",
+      "ctaBody": "Atendemos consultas sobre varios negocios, propuestas de colaboración y preguntas para las que no sepa a qué contacto dirigirse.",
       "ctaContact": "Contacto",
-      "ctaServices": "Ver la lista de negocios",
+      "ctaServices": "Ver todos los negocios",
       "valueCycle": [
         {
           "title": "Acecore Systems",
@@ -407,7 +407,7 @@
         {
           "icon": "message-circle",
           "title": "Aceserver Discord",
-          "description": "Es el servidor de Discord en el que está activa la comunidad de Aceserver.",
+          "description": "Servidor de Discord en el que está activa la comunidad de Aceserver.",
           "href": "discord"
         }
       ]

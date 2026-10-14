@@ -266,7 +266,7 @@
             "Discord",
             "Minecraft-related development and operations"
           ],
-          "bio": "As an Aceserver community gatekeeper, he supports Discord community operations and Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord."
+          "bio": "As a gatekeeper for Aceserver, he supports Discord community operations and Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord."
         },
         {
           "name": "西田創",
@@ -292,7 +292,7 @@
       "workshopImgAlt": "Study group and workshop",
       "initiativesHeading": "Activities and Initiatives",
       "communityTitle": "Community Activities",
-      "communityDesc": "Aceserver is a Minecraft community operated by Acecore. Information on how to participate and activity records are managed on the official portal, while important company announcements are",
+      "communityDesc": "Aceserver is a Minecraft community operated by Acecore. Details on how to join and activity records are available on the official portal, while important company announcements can be found on",
       "ossTitle": "Acecore Systems",
       "ossDesc": "Acecore Systems manages development, production, operational support, and technical documentation, while public projects can be found on GitHub.",
       "regionalTitle": "Acecore Schools",
