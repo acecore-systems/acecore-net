@@ -1672,7 +1672,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'utf8',
   )
   const productionIndexes = [
-    'acecore-net-search-bge-m3-1024-production-v1',
+    'acecore-net-search-bge-m3-1024-production-v2',
     'acecore-systems-search-bge-m3-1024-production-v1',
     'acecore-schools-search-bge-m3-1024-production-v1',
     'aceserver-wiki-search-bge-m3-1024-production-v1',

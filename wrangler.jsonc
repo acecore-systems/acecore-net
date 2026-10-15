@@ -120,7 +120,7 @@
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-bge-m3-1024-production-v1",
+          "index_name": "acecore-net-search-bge-m3-1024-production-v2",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",

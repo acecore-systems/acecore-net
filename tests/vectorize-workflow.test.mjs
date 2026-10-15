@@ -40,7 +40,7 @@ test('Production同期workflowから20%超削除を解除できない', async ()
   assert.match(syncStep.run, /--confirm-production "\$VECTORIZE_INDEX_NAME"/u)
   assert.equal(
     syncStep.env.VECTORIZE_INDEX_NAME,
-    'acecore-net-search-bge-m3-1024-production-v1',
+    'acecore-net-search-bge-m3-1024-production-v2',
   )
   assert.equal(syncStep.env.OPENAI_API_KEY, undefined)
   assert.doesNotMatch(syncStep.run, /OPENAI_API_KEY/u)
@@ -89,16 +89,16 @@ test('配置待機ゲートを型検査済みのTypeScriptとして実行する'
   assert.doesNotMatch(source, /wait-for-deployment\.mjs/u)
 })
 
-test('全量同期済みreplacementをProduction bindingへ設定する', async () => {
+test('Production bindingはreplacementだけを参照し旧indexを参照しない', async () => {
   const config = await readFile(pagesConfigPath, 'utf8')
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v1",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v2",/u,
   )
   assert.doesNotMatch(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v2",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v1",/u,
   )
   assert.doesNotMatch(
     config,
