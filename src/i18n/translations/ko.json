@@ -75,7 +75,7 @@
     "pending": "미완료: "
   },
   "footer": {
-    "tagline": "기술과 배움을 사회의 힘으로.",
+    "tagline": "세계를 다음 단계로",
     "description": "Acecore의 회사 정보와 사업, 기업 뉴스를 안내합니다.",
     "sitemap": "사이트맵",
     "relatedLinks": "관련 링크",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "Acecore 주식회사",
-    "defaultDescription": "Acecore는 Acecore Systems, Acecore Schools, Aceserver, Acecore Store를 통해 사업·배움·커뮤니티·제품을 지원하는 기업입니다.",
+    "defaultDescription": "세계를 다음 단계로. Acecore는 기술과 배움을 통해 본질적이지 않은 일에 쓰는 시간을 줄이고, 누구나 하고 싶은 일에 도전할 수 있는 환경을 지향합니다.",
     "shortTitleContext": "공식 사이트",
     "shortDescriptionContext": "Acecore의 회사 정보, 사업 및 기업 뉴스를 안내합니다."
   },
   "pages": {
     "home": {
-      "heroTitle": "기술과 배움을 사회의 힘으로.",
-      "heroSubtitle": "Acecore는 기술과 교육을 통해 사업·학습·커뮤니티를 지원하는 기업입니다.",
+      "heroTitle": "세계를 다음 단계로",
+      "heroSubtitle": "기술과 배움을 통해 본질적이지 않은 일에 쓰는 시간을 줄이고, 누구나 하고 싶은 일에 도전할 수 있는 환경을 지향합니다.",
       "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
       "heroImgMeeting": "회의 풍경",
       "viewBusinessDetails": "사업 목록 보기",
@@ -198,10 +198,10 @@
       "latestNews": "기업 뉴스",
       "viewAllNews": "뉴스·기사 목록 보기",
       "contactCta": "문의하기",
-      "aboutIntro": "회사의 기본 정보, 임원 소개, 기업 이념을 안내합니다.",
+      "aboutIntro": "회사 기본 정보, 경영진 소개와 함께 기업 이념과 비전을 소개합니다.",
       "directoryHeading": "필요한 정보 찾기",
       "directoryLead": "목적에 맞는 페이지를 선택해 주세요.",
-      "servicesIntro": "사업 부문의 역할, 제공 서비스, 요금 확인 방법을 안내합니다.",
+      "servicesIntro": "부담을 줄이고 도전을 뒷받침하는 사업 부문과 서비스, 요금 확인 경로를 안내합니다.",
       "contactIntro": "문의 양식을 통해 상담 요청이나 질문을 보내실 수 있습니다."
     },
     "notFound": {
@@ -255,7 +255,7 @@
     "about": {
       "title": "회사 소개",
       "seoTitleContext": "회사 정보·임원 소개·이념",
-      "description": "Acecore의 법인 정보, 임원 소개, 기업 이념을 안내합니다.",
+      "description": "‘세계를 다음 단계로’를 내건 Acecore의 기업 이념과 비전, 회사 정보, 경영진을 소개합니다.",
       "heroTitle": "회사 소개",
       "heroSubtitle": "회사 정보·임원 소개·기업 이념",
       "heroImgAlt": "팀 토론",
@@ -289,8 +289,23 @@
           "bio": "일러스트와 소설을 제작하며, VRChat용 오리지널 3D 아바타, 기믹, 액세서리를 공개하고 있습니다."
         }
       ],
-      "philosophyHeading": "철학",
-      "philosophyMotto": "「기술과 배움을 사회의 힘으로.」",
+      "philosophyHeading": "기업 이념",
+      "philosophyMotto": "세계를 다음 단계로",
+      "philosophyParagraphs": [
+        "오늘날 개인과 조직이 ‘정말 하고 싶은 일’에만 집중하기는 쉽지 않습니다.",
+        "관행으로 굳어진 원치 않는 업무, 구조적인 제약, 그리고 ‘해야만 한다’는 중압감.",
+        "우리는 이러한 장애물을 사회에서 하나씩 없애며 새로운 사회를 만들어 갑니다.",
+        "본질적이지 않은 일에 쓰는 시간을 줄이고, 누구나 자신의 열정과 가능성에 온 힘을 쏟을 수 있는 자유로운 사회를 실현하는 것.",
+        "우리는 그 자유에서 태어난 창조가 개인의 행복을 넘어 사회 전체의 발전으로 이어진다고 믿습니다."
+      ],
+      "visionHeading": "우리가 지향하는 모습",
+      "visionMotto": "누구나 ‘하고 싶은 일’을 이룰 수 있는 환경을 만든다",
+      "visionParagraphs": [
+        "자신의 삶에 전념할 수 있는 환경이 갖춰졌을 때, 다음으로 필요한 것은 ‘첫걸음을 내딛도록 돕는 힘’입니다.",
+        "자유에서 비롯되는 가능성은 무한합니다. 우리는 개인의 의지가 존중받고, 그 열정이 모여 빛나는 미래를 열어 갑니다.",
+        "단순히 부담을 줄이는 데 그치지 않고 도전을 가로막는 벽을 넘도록 도우며, 누구나 자신의 생각을 실현할 수 있는 사회를 계속 뒷받침합니다.",
+        "여러분이 가진 가능성을 살리고 누구나 빛날 수 있는 사회를 만드는 것이 우리가 지향하는 모습입니다."
+      ],
       "collaborationImgAlt": "팀 협업 작업",
       "workshopImgAlt": "스터디 모임·워크숍 모습",
       "establishedLabel": "설립",
@@ -311,15 +326,15 @@
     "services": {
       "title": "사업",
       "seoTitleContext": "사업 안내",
-      "description": "Acecore의 사업 부문과 주요 서비스를 안내합니다.",
+      "description": "일상의 부담을 줄이고 개개인의 도전을 뒷받침하는 Acecore의 사업 부문과 주요 서비스, 요금 및 이용 조건 확인 경로를 소개합니다.",
       "heroTitle": "사업",
       "heroSubtitle": "제공 가능한 지원과 서비스, 요금 확인 방법을 안내합니다.",
       "heroImgAlt": "테크놀로지 오피스",
       "eyebrow": "Business Directory",
       "introTitle": "사업 부문",
-      "introBody": "Acecore의 사업 부문과 주요 서비스를 안내합니다.",
+      "introBody": "본질적이지 않은 일에 쓰는 시간을 줄이고 누구나 하고 싶은 일에 도전할 수 있는 환경을 향해 나아갑니다. 기술 지원, 개인의 목적에 맞춘 학습 지원, 커뮤니티 운영 등을 통해 개개인의 의지와 가능성을 뒷받침합니다.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Web·시스템 개발, DB·인프라, 품질 보증, AI 활용 등의 기술 지원을 담당합니다.",
+      "systemsDescription": "Web·시스템 개발, 데이터베이스·인프라, 품질 보증, AI 활용 등의 기술 지원과 디자인·크리에이티브 제작을 담당합니다.",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "개인의 목적에 맞춘 학습 지원을 담당합니다.",
       "aceserverTitle": "Aceserver",
@@ -335,7 +350,7 @@
       "designTitle": "Acecore Design",
       "designDescription": "브랜드의 시각적 표현, 정보 전달 방식, 사용성 설계를 담당하는 방향으로 준비하고 있습니다.",
       "designStatus": "구상·준비 중",
-      "designNote": "구체적인 서비스와 제공 체계는 정리 중입니다. 제작 상담은 공통 문의 창구에서 접수하여 현재 지원 가능한 범위를 안내합니다.",
+      "designNote": "Design 부문의 서비스와 제공 체계는 정리 중입니다. 로고·인쇄물·배너 등의 제작 요청은 현재 Acecore Systems에서 접수하고 있습니다. 공통 문의 창구에서 지원 가능한 범위를 안내합니다.",
       "developmentTitle": "맞춤형 시스템 개발 서비스",
       "developmentDescription": "고객에게 필요한 시스템을 상담한 후 가장 적합한 시스템을 제안하고 개발합니다.",
       "advisorTitle": "IT 자문 엔지니어 서비스",

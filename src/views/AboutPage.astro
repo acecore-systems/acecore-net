@@ -31,6 +31,8 @@ const getList = <T,>(key: string): T[] =>
 
 const officers = getList<Officer>('pages.about.officers')
 const businessPurposes = getList<string>('pages.about.businessPurposes')
+const philosophyParagraphs = getList<string>('pages.about.philosophyParagraphs')
+const visionParagraphs = getList<string>('pages.about.visionParagraphs')
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -230,15 +232,34 @@ const aboutPageLd = {
         )
       }
 
-      <!-- 理念 -->
-      <h2 class="text-2xl ac-heading mb-6">
-        {t(locale, 'pages.about.philosophyHeading')}
-      </h2>
-      <div class="ac-surface mb-12 bg-brand-50 p-8">
-        <p class="text-xl font-600 text-brand-700 text-center">
-          {t(locale, 'pages.about.philosophyMotto')}
-        </p>
-      </div>
+      <section class="mb-12" aria-labelledby="corporate-philosophy-heading">
+        <h2 id="corporate-philosophy-heading" class="text-2xl ac-heading mb-6">
+          {t(locale, 'pages.about.philosophyHeading')}
+        </h2>
+        <div class="ac-surface bg-brand-50 p-8">
+          <p class="text-xl font-600 text-brand-700 text-center">
+            {t(locale, 'pages.about.philosophyMotto')}
+          </p>
+          <div
+            class="philosophy-body mt-6 space-y-4 leading-relaxed text-slate-700"
+          >
+            {philosophyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+          <div class="mt-8 border-t border-brand-200 pt-8">
+            <h3 class="text-xl ac-heading">
+              {t(locale, 'pages.about.visionHeading')}
+            </h3>
+            <p class="mt-4 text-lg font-600 text-brand-700">
+              {t(locale, 'pages.about.visionMotto')}
+            </p>
+            <div
+              class="vision-body mt-6 space-y-4 leading-relaxed text-slate-700"
+            >
+              {visionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div class="mb-12">
         <img

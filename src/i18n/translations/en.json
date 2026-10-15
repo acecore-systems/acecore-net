@@ -75,7 +75,7 @@
     "pending": "Pending: "
   },
   "footer": {
-    "tagline": "Technology and learning, for society.",
+    "tagline": "Taking the world to the next stage",
     "description": "Company information, businesses, and news from Acecore.",
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Acecore supports business, learning, community, and products through Acecore Systems, Acecore Schools, Aceserver, and Acecore Store.",
+    "defaultDescription": "Taking the world to the next stage. Through technology and learning, Acecore aims to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Turning technology and learning into a force for society.",
-      "heroSubtitle": "Acecore supports businesses, learning, and communities through technology and education.",
+      "heroTitle": "Taking the world to the next stage",
+      "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
       "viewBusinessDetails": "View business directory",
@@ -198,10 +198,10 @@
       "latestNews": "Corporate news",
       "viewAllNews": "View all news and articles",
       "contactCta": "Contact us",
-      "aboutIntro": "Learn about our company, leadership and philosophy.",
+      "aboutIntro": "Learn about our company, leadership, corporate philosophy, and vision.",
       "directoryHeading": "Find what you need",
       "directoryLead": "Choose a page for the information you are looking for.",
-      "servicesIntro": "Explore our departments, available services and where to find pricing.",
+      "servicesIntro": "Explore the departments and services that help reduce burdens and support new endeavors, along with where to find pricing.",
       "contactIntro": "Send your questions or requests through our contact form."
     },
     "notFound": {
@@ -218,7 +218,7 @@
     "about": {
       "title": "About Us",
       "seoTitleContext": "Company information, leadership and philosophy",
-      "description": "Learn about Acecore’s company information, leadership and corporate philosophy.",
+      "description": "Discover Acecore’s philosophy, “Taking the world to the next stage,” our vision, company information, and leadership.",
       "heroTitle": "About Us",
       "heroSubtitle": "Company information, leadership and philosophy",
       "heroImgAlt": "Team discussion",
@@ -258,8 +258,23 @@
           "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
         }
       ],
-      "philosophyHeading": "Philosophy",
-      "philosophyMotto": "\"Technology and learning, for society.\"",
+      "philosophyHeading": "Corporate Philosophy",
+      "philosophyMotto": "Taking the world to the next stage",
+      "philosophyParagraphs": [
+        "Today, it is not easy for individuals and organizations to focus solely on what they truly want to do.",
+        "Unwanted tasks accepted as routine, structural constraints, and the pressure of things they feel they must do.",
+        "We remove these obstacles from society one by one to create a new society.",
+        "Our purpose is to reduce time spent on what is not essential and create a free society where everyone can devote themselves fully to their passions and potential.",
+        "We believe the creativity born of that freedom leads not only to individual happiness, but also to the development of society as a whole."
+      ],
+      "visionHeading": "Our Vision",
+      "visionMotto": "Creating an environment where everyone can achieve what they want to do",
+      "visionParagraphs": [
+        "Once people have an environment that lets them focus on their own lives, the next thing they need is encouragement to take the first step.",
+        "The possibilities that freedom creates are limitless. We open up a future where individual aspirations are respected and their collective energy shines.",
+        "Beyond reducing burdens, we help people overcome barriers to taking on challenges and continue to support a society where everyone can turn their ideas into reality.",
+        "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
+      ],
       "collaborationImgAlt": "Team collaboration",
       "workshopImgAlt": "Study group and workshop",
       "establishedLabel": "Established",
@@ -280,15 +295,15 @@
     "services": {
       "title": "Businesses",
       "seoTitleContext": "Business Directory",
-      "description": "Explore Acecore’s business departments and key services.",
+      "description": "Explore Acecore’s departments and services that reduce everyday burdens and support new endeavors, with links to pricing and terms of use.",
       "heroTitle": "Businesses",
       "heroSubtitle": "Explore available support and services, and find pricing information.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
       "introTitle": "Business departments",
-      "introBody": "Explore Acecore’s business departments and key services.",
+      "introBody": "Toward an environment where everyone can pursue what they want to do, with less time spent on nonessential tasks. Through technical support, learning support tailored to individual goals, and community operations, we support each person’s aspirations and potential.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "We provide technical support for web and systems development, databases, infrastructure, quality assurance and AI adoption.",
+      "systemsDescription": "We provide technical support for web and systems development, databases, infrastructure, quality assurance and AI adoption, as well as design and creative production.",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "We provide learning support tailored to individual goals.",
       "aceserverTitle": "Aceserver",
@@ -304,7 +319,7 @@
       "designTitle": "Acecore Design",
       "designDescription": "We are preparing an area focused on visual identity, communication and usability design.",
       "designStatus": "In planning",
-      "designNote": "Specific services and the delivery team are being defined. Our shared contact point can discuss creative requests and explain the support currently available.",
+      "designNote": "Services and the delivery structure for the Design department are being defined. Acecore Systems currently accepts requests for logos, print materials, banners and other creative work. Our shared contact point can explain the available scope.",
       "developmentTitle": "Custom System Development Service",
       "developmentDescription": "We listen to your system requirements, then propose and develop the most suitable solution.",
       "advisorTitle": "IT Advisory Engineer Service",

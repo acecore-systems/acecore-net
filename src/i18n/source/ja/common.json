@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecoreは、Acecore Systems、Acecore Schools、Aceserver、Acecore Storeを通じて、事業・学び・コミュニティ・プロダクトを支える企業です。",
+    "defaultDescription": "「世界を次のステージへ」。Acecoreは、テクノロジーと学びを通じて本質的でない時間を減らし、誰もが「やりたいこと」に挑戦できる環境を目指す企業です。",
     "shortTitleContext": "公式サイト",
     "shortDescriptionContext": "Acecoreの会社情報、事業、企業ニュースをご案内します。"
   },
@@ -70,7 +70,7 @@
     "pending": "未完了: "
   },
   "footer": {
-    "tagline": "技術と学びを、社会の力へ。",
+    "tagline": "世界を次のステージへ",
     "description": "Acecoreの会社情報と事業、企業ニュースをご案内します。",
     "sitemap": "サイトマップ",
     "relatedLinks": "関連リンク",

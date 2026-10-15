@@ -15,6 +15,7 @@ const pageNames = [
   'contact',
 ]
 const sourceBlog = JSON.parse(await read('src/i18n/source/ja/blog.json'))
+const sourceCommon = JSON.parse(await read('src/i18n/source/ja/common.json'))
 const source = Object.fromEntries(
   await Promise.all(
     pageNames.map(async (name) => [
@@ -72,16 +73,58 @@ for (const locale of locales) {
   const prefix = locale === 'ja' ? '' : `/${locale}`
   const translated =
     locale === 'ja'
-      ? { pages: source, blog: sourceBlog }
+      ? { ...sourceCommon, pages: source, blog: sourceBlog }
       : JSON.parse(await read(`src/i18n/translations/${locale}.json`))
   const translations = translated.pages
   for (const name of pageNames)
     checkShape(source[name], translations[name], `${locale}.${name}`)
   checkShape(sourceBlog, translated.blog, `${locale}.blog`)
+  checkShape(sourceCommon.meta, translated.meta, `${locale}.meta`)
+  checkShape(sourceCommon.footer, translated.footer, `${locale}.footer`)
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
+  const motto = translations.home.heroTitle
+  assert.equal(
+    translations.about.philosophyMotto,
+    motto,
+    `${locale}: home and corporate philosophy catchphrases must agree`,
+  )
+  assert.equal(
+    translated.footer.tagline,
+    motto,
+    `${locale}: footer and home catchphrases must agree`,
+  )
+  assert.equal(home('main h1').text().trim(), motto)
+  assert.ok(home('footer').text().includes(motto))
+  const philosophy = about('#corporate-philosophy-heading').closest('section')
+  assert.equal(
+    philosophy.children('div').children('p').first().text().trim(),
+    motto,
+  )
+  for (const [selector, paragraphs] of [
+    ['.philosophy-body > p', translations.about.philosophyParagraphs],
+    ['.vision-body > p', translations.about.visionParagraphs],
+  ]) {
+    assert.deepEqual(
+      philosophy
+        .find(selector)
+        .toArray()
+        .map((el) => about(el).text().trim()),
+      paragraphs,
+      `${locale}: philosophy and vision paragraphs must be published in order`,
+    )
+  }
+  assert.equal(
+    philosophy.find('h3').text().trim(),
+    translations.about.visionHeading,
+  )
+  assert.ok(philosophy.text().includes(translations.about.visionMotto))
+  assert.ok(
+    home('meta[name="description"]').attr('content').includes(motto),
+    `${locale}: home metadata must reflect the official catchphrase`,
+  )
   for (const [pageName, page, selector] of [
     ['home', home, '.home-directory a'],
     ['services', services, '.department-list a, .service-offerings a'],
@@ -331,5 +374,5 @@ for (const locale of locales) {
   }
 }
 console.log(
-  'Validated 72 corporate pages, 18 news article routes, 9 translation sets, CMS fields, inquiry context, floating controls, service links, anchors and retired pricing output.',
+  'Validated 72 corporate pages, 18 news article routes, 9 translation sets, CMS fields, philosophy and vision, consistent catchphrases, inquiry context, floating controls, service links, anchors and retired pricing output.',
 )

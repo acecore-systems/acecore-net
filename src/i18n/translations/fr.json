@@ -75,7 +75,7 @@
     "pending": "Non terminé : "
   },
   "footer": {
-    "tagline": "La technologie et l'apprentissage au service de la société.",
+    "tagline": "Faire passer le monde à l’étape suivante",
     "description": "Informations sur l'entreprise, ses activités et les actualités d'Acecore.",
     "sitemap": "Plan du site",
     "relatedLinks": "Liens connexes",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Acecore est une entreprise qui soutient les activités, l'apprentissage, les communautés et les produits grâce à Acecore Systems, Acecore Schools, Aceserver et Acecore Store.",
+    "defaultDescription": "Faire passer le monde à l’étape suivante. Par la technologie et l’apprentissage, Acecore vise à réduire le temps consacré aux tâches non essentielles et à permettre à chacun de poursuivre ses aspirations.",
     "shortTitleContext": "Site officiel",
     "shortDescriptionContext": "Informations sur l'entreprise, ses activités et les actualités d'Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Mettre la technologie et l’apprentissage au service de la société.",
-      "heroSubtitle": "Acecore est une entreprise qui soutient les entreprises, l’apprentissage et les communautés grâce à la technologie et à l’éducation.",
+      "heroTitle": "Faire passer le monde à l’étape suivante",
+      "heroSubtitle": "Par la technologie et l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut poursuivre ses aspirations.",
       "heroImgTeam": "Équipe travaillant dans un espace de coworking",
       "heroImgMeeting": "Scène de réunion",
       "viewBusinessDetails": "Voir la liste des activités",
@@ -198,10 +198,10 @@
       "latestNews": "Actualités de l’entreprise",
       "viewAllNews": "Voir toutes les actualités et les articles",
       "contactCta": "Nous contacter",
-      "aboutIntro": "Découvrez les informations sur notre société, ses dirigeants et sa philosophie.",
+      "aboutIntro": "Découvrez l’entreprise, ses dirigeants, notre philosophie et notre vision.",
       "directoryHeading": "Trouvez votre information",
       "directoryLead": "Choisissez une page selon ce que vous recherchez.",
-      "servicesIntro": "Découvrez nos départements, les services proposés et où consulter les tarifs.",
+      "servicesIntro": "Découvrez les pôles et services qui allègent les contraintes et soutiennent de nouveaux défis, ainsi que les liens vers leurs tarifs.",
       "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact."
     },
     "notFound": {
@@ -255,7 +255,7 @@
     "about": {
       "title": "À propos",
       "seoTitleContext": "Informations sur l’entreprise, direction et philosophie",
-      "description": "Découvrez les informations sur Acecore, son équipe dirigeante et sa philosophie.",
+      "description": "Découvrez la philosophie d’Acecore, « Faire passer le monde à l’étape suivante », notre vision, les informations sur l’entreprise et ses dirigeants.",
       "heroTitle": "À propos",
       "heroSubtitle": "Informations sur la société, dirigeants et philosophie",
       "heroImgAlt": "Discussion d’équipe",
@@ -295,8 +295,23 @@
           "bio": "Il crée des illustrations et des romans, et publie des avatars 3D originaux, des mécanismes et des accessoires pour VRChat."
         }
       ],
-      "philosophyHeading": "Philosophie",
-      "philosophyMotto": "« La technologie et l’apprentissage au service de la société. »",
+      "philosophyHeading": "Philosophie d’entreprise",
+      "philosophyMotto": "Faire passer le monde à l’étape suivante",
+      "philosophyParagraphs": [
+        "Aujourd’hui, il n’est pas facile pour les individus et les organisations de se concentrer uniquement sur ce qu’ils veulent vraiment faire.",
+        "Des tâches subies par habitude, des contraintes structurelles et la pression de ce qu’il faut faire.",
+        "Nous éliminons ces obstacles de la société, un à un, pour créer une nouvelle société.",
+        "Notre but est de réduire le temps consacré à ce qui n’est pas essentiel et de bâtir une société libre où chacun peut se consacrer pleinement à ses passions et à son potentiel.",
+        "Nous croyons que la créativité née de cette liberté contribue au bonheur individuel comme au développement de la société tout entière."
+      ],
+      "visionHeading": "Notre vision",
+      "visionMotto": "Créer un environnement où chacun peut réaliser ce qu’il souhaite faire",
+      "visionParagraphs": [
+        "Lorsque les personnes disposent d’un environnement qui leur permet de se consacrer à leur propre vie, elles ont ensuite besoin d’un soutien pour faire le premier pas.",
+        "Les possibilités nées de la liberté sont infinies. Nous ouvrons la voie à un avenir où les aspirations individuelles sont respectées et où leur énergie collective rayonne.",
+        "Au-delà de l’allègement des contraintes, nous aidons à surmonter les obstacles aux nouveaux défis et continuons de soutenir une société où chacun peut donner forme à ses idées.",
+        "Notre vision est de créer une société où vous pouvez exprimer votre propre potentiel et où chacun peut s’épanouir."
+      ],
       "collaborationImgAlt": "Travail collaboratif en équipe",
       "workshopImgAlt": "Aperçu d’une session d’étude et d’un atelier",
       "establishedLabel": "Constitution",
@@ -317,15 +332,15 @@
     "services": {
       "title": "Activités",
       "seoTitleContext": "Annuaire des activités",
-      "description": "Découvrez les départements d’Acecore et leurs principaux services.",
+      "description": "Découvrez les pôles et services d’Acecore qui allègent les contraintes quotidiennes et soutiennent de nouveaux défis, avec les liens vers les tarifs et conditions d’utilisation.",
       "heroTitle": "Activités",
       "heroSubtitle": "Découvrez les accompagnements et services proposés et où consulter leurs tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
       "introTitle": "Départements",
-      "introBody": "Découvrez les départements d’Acecore et leurs principaux services.",
+      "introBody": "Vers un environnement où chacun peut poursuivre ses aspirations, en consacrant moins de temps aux tâches non essentielles. Par le soutien technique, un accompagnement d’apprentissage adapté aux objectifs de chacun et la gestion de communautés, nous soutenons les aspirations et le potentiel de chaque personne.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Nous assurons un accompagnement technique en développement web et de systèmes, bases de données, infrastructure, assurance qualité et adoption de l’IA.",
+      "systemsDescription": "Nous assurons un accompagnement technique en développement web et de systèmes, bases de données, infrastructure, assurance qualité et IA, ainsi que des prestations de design et de création.",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "Nous proposons un accompagnement pédagogique adapté aux objectifs de chacun.",
       "aceserverTitle": "Aceserver",
@@ -341,7 +356,7 @@
       "designTitle": "Acecore Design",
       "designDescription": "Nous préparons un domaine consacré à l’identité visuelle, à la communication et à la conception de l’ergonomie.",
       "designStatus": "En préparation",
-      "designNote": "Les services précis et l’organisation de leur réalisation sont en cours de définition. Notre contact commun examine les demandes créatives et explique les possibilités actuelles.",
+      "designNote": "Les services et l’organisation du département Design sont en cours de définition. Acecore Systems reçoit déjà les demandes de logos, de supports imprimés, de bannières et d’autres créations. Notre point de contact commun peut préciser les prestations disponibles.",
       "developmentTitle": "Service de développement de systèmes sur mesure",
       "developmentDescription": "Nous étudions vos besoins, puis proposons et développons le système le mieux adapté.",
       "advisorTitle": "Service de conseil en ingénierie informatique",
