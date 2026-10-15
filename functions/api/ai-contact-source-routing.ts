@@ -476,6 +476,9 @@ export function resolveExplicitAiContactSourceIntent(
   // specific Systems development/consulting cues take precedence over generic
   // learning-support phrases such as "machine learning support".
   const normalizedQuery = normalizeRoutingText(query)
+  if (/\b(?:acecore\s+design|acestudio)\b/iu.test(normalizedQuery)) {
+    return 'acecore'
+  }
   if (SCHOOLS_BRAND_PATTERN.test(normalizedQuery)) return 'schools'
   if (shouldSearchSystems(query, locale)) return 'systems'
   if (shouldSearchSchools(query, locale)) return 'schools'

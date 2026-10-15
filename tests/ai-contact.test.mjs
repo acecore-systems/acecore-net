@@ -264,6 +264,25 @@ for (const scenario of [
   })
 }
 
+test('DesignとAceStudioは技術相談や直前のSystems文脈より企業窓口を優先する', () => {
+  for (const question of [
+    'Acecore DesignのWebサイト制作について相談したい',
+    'AceStudioの提供内容と開始時期は？',
+  ]) {
+    const plan = buildAiContactSearchPlan(
+      {
+        messages: [{ role: 'user', content: 'Systemsの開発料金は？' }],
+        question,
+      },
+      'ja',
+      'systems',
+    )
+    assert.equal(plan.sourceIntent, 'acecore')
+    assert.equal(plan.resetSearchContext, true)
+    assert.equal(plan.query, question.normalize('NFKC'))
+  }
+})
+
 test('呼び出し元の既定値より質問中の明示的なサイト指定を優先する', () => {
   const defaultSystemsPlan = buildAiContactSearchPlan(
     { question: '料金と相談方法を教えて' },

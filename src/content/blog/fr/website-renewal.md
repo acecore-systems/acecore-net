@@ -1,57 +1,28 @@
 ---
-title: 'Refonte du site Acecore : trouver les informations sur l’entreprise et ses activités'
-description: 'Le site Acecore réunit informations d’entreprise, activités et actualités. Découvrez les bons accès et les détails à jour sur les sites spécialisés.'
+title: 'Le site Acecore a été renouvelé'
+description: 'Acecore a renouvelé son site pour faciliter l’accès aux informations de l’entreprise et à ses activités. Découvrez les changements et les sujets de nos actualités.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-10-15T08:22:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
-insightGrid:
-  title: 'Rôles des informations d’entreprise, des actualités et des sites spécialisés'
-  description: 'Le site corporate regroupe les informations transversales ; les sites spécialisés détaillent chaque domaine.'
-  variant: inline
-  items:
-    - title: 'Site corporate Acecore'
-      description: 'Présentation de l’entreprise, activités, actualités et demandes transversales.'
-      icon: building
-      tone: brand
-    - title: 'Acecore Systems'
-      description: 'Assistance informatique, développement, conception, exploitation et articles techniques.'
-      icon: code
-      tone: slate
-    - title: 'Acecore Schools'
-      description: 'Accompagnement éducatif, informations sur l’apprentissage et comptes rendus d’activités.'
-      icon: book-open
-      tone: amber
-    - title: 'Aceserver'
-      description: 'Guide de participation à la communauté Minecraft, règles et activités.'
-      icon: users
-      tone: emerald
 ---
 
-Nous avons refondu le site Acecore pour présenter l’entreprise et donner accès à chaque activité. Que vous cherchiez un service, des informations sur l’entreprise ou des nouvelles, ce guide explique où regarder et le rôle des sites spécialisés.
+Nous avons renouvelé le site Acecore pour réunir les informations de l’entreprise et les accès à ses activités. Voici ce que nous avons réorganisé et les annonces que nous publierons.
 
-## Trouver les informations selon votre objectif
+## Ce qui a changé
 
-Consultez [À propos](/fr/about/) pour l’entreprise, [Services](/fr/services/) pour les activités et [Actualités](/fr/blog/) pour les nouvelles de l’entreprise. Pour les tarifs précis ou les conditions de participation, passez au site spécialisé concerné. Cibler le domaine recherché facilite la comparaison des informations générales et des offres particulières.
+Nous avons clarifié la place des informations générales et des détails sur les services. Les informations de l’entreprise et les accès aux activités sont réunis ici ; les tarifs, le périmètre des services et les conditions de participation figurent sur les sites spécialisés.
 
-## Une responsabilité claire pour les informations spécialisées
+Cette organisation réduit les explications répétées et facilite l’accès aux informations recherchées. Consultez la [page des activités](/fr/services/) pour les départements et services actuels.
 
-acecore.net publie le profil de l'entreprise, l'annuaire des activités et les actualités de la société. Les informations détaillées sont maintenues par l'activité concernée :
+## Les sujets des actualités de l’entreprise
 
-- [Acecore Systems](https://systems.acecore.net/fr/) : développement, production et exploitation, tarifs, réalisations et articles techniques
-- [Acecore Schools](https://schools.acecore.net/) : accompagnement pédagogique, tarifs, consultations et comptes rendus d'activité
-- [Aceserver](https://asv.acecore.net/fr/) : participation, règles et récits de la communauté Minecraft
+Nous publions les mises à jour des informations de l’entreprise, les activités transversales et les annonces importantes. Les articles techniques, les contenus pédagogiques et les comptes rendus détaillés de la communauté restent sur les sites spécialisés correspondants.
 
-Cette séparation évite de gérer les mêmes tarifs et descriptions sur plusieurs sites. Chaque site spécialisé constitue la source officielle de ses informations à jour.
+Les changements du site, comme ce renouvellement, seront également annoncés dans les actualités.
 
-## Actualités de l'entreprise
+## Une ressource pour organiser un site
 
-Les actualités Acecore couvrent les informations sur l'entreprise, les activités transversales et les annonces importantes. Les articles techniques, détails pédagogiques et récits communautaires restent publiés sur le site spécialisé concerné.
-
-Pour toute demande transversale ou proposition de partenariat, utilisez le [formulaire de contact](/fr/contact/).
-
-## Une ressource pour organiser les informations d’un site
-
-Le [Guide de démarrage SEO de Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) présente la structure du site, les titres clairs et les liens vers des pages liées. Il constitue un point de départ pour concevoir un site qui aide les lecteurs à trouver les informations nécessaires.
+Le [guide de démarrage SEO de Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) explique la structure d’un site et les liens vers des pages connexes.

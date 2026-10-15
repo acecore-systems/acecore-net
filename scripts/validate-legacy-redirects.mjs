@@ -141,7 +141,20 @@ const retiredTagCases = Object.entries(RETIRED_TAG_DESTINATIONS).flatMap(
       ]
     }),
 )
-const redirectCases = [...legacyCases, ...specialistCases, ...retiredTagCases]
+const pricingCases = specialistLocales.flatMap((locale) => {
+  const prefix = locale ? `/${locale}` : ''
+  const destination = `${prefix}/services/#pricing`
+  return [
+    { path: `${prefix}/pricing`, destination },
+    { path: `${prefix}/pricing/`, destination },
+  ]
+})
+const redirectCases = [
+  ...legacyCases,
+  ...specialistCases,
+  ...retiredTagCases,
+  ...pricingCases,
+]
 const retainedCorporateSlugs = [
   'website-renewal',
   'community-and-education',

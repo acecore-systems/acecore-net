@@ -33,6 +33,7 @@ interface Props {
   canonicalPath?: string
   alternateUrls?: { locale: Locale; url: string }[]
   isErrorPage?: boolean
+  showFloatingActions?: boolean
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
@@ -57,6 +58,7 @@ const {
   canonicalPath,
   alternateUrls,
   isErrorPage = false,
+  showFloatingActions = true,
 } = Astro.props
 
 const isHome = title === t(locale, 'nav.home')
@@ -519,8 +521,8 @@ import { SITE } from '../data/site'
       <slot />
     </main>
     <Footer locale={locale} />
-    <ScrollToTop locale={locale} />
-    <AiChatWidget locale={locale} />
+    {showFloatingActions && <ScrollToTop locale={locale} />}
+    <AiChatWidget locale={locale} showFloatingToggle={showFloatingActions} />
     <SearchModal monetized={isMonetizedPage} />
     {isMonetizedPage && <AdsRuntime />}
     <script>

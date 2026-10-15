@@ -31,6 +31,12 @@ const serviceCategoryOptions = [
     subject: t(locale, 'pages.services.schoolsTitle'),
   },
   {
+    key: 'acecore-design',
+    value: 'Acecore Designについて',
+    label: t(locale, 'pages.contact.formCategoryServiceDesign'),
+    subject: t(locale, 'pages.services.designTitle'),
+  },
+  {
     key: 'aceserver',
     value: 'Aceserverについて',
     label: t(locale, 'pages.contact.formCategoryServiceAceserver'),
@@ -60,6 +66,7 @@ const contactPageLd = {
   description={t(locale, 'pages.contact.description')}
   jsonLd={contactPageLd}
   locale={locale}
+  showFloatingActions={false}
 >
   <Hero
     title={t(locale, 'pages.contact.heroTitle')}
@@ -106,6 +113,8 @@ const contactPageLd = {
             type="button"
             class="ac-btn-primary shrink-0"
             data-ace-chat-open
+            aria-controls="ace-ai-chat-panel"
+            aria-expanded="false"
             data-ga-event="ai_chat_open_click"
             data-ga-label="contact_ai_chat"
             data-ga-location="contact_ai_assist"
@@ -418,7 +427,25 @@ const contactPageLd = {
             serviceOption.dataset.serviceSubject ||
             serviceOption.textContent?.trim() ||
             ''
-          subject.value = template.replace('{service}', serviceName)
+          let generatedSubject = template.replace('{service}', serviceName)
+          let subjectWasEdited = false
+          subject.value = generatedSubject
+          subject.addEventListener('input', function () {
+            subjectWasEdited = true
+          })
+          category.addEventListener('change', function () {
+            if (subjectWasEdited || subject.value !== generatedSubject) return
+            const selectedOption = Array.from(category.options).find(
+              function (option) {
+                return option.value === category.value
+              },
+            )
+            const selectedService = selectedOption?.dataset.serviceSubject
+            generatedSubject = selectedService
+              ? template.replace('{service}', selectedService)
+              : ''
+            subject.value = generatedSubject
+          })
         }
       }
 
