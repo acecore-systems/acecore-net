@@ -82,6 +82,18 @@ for (const locale of locales) {
   const services = await getPage(`${prefix}/services/`)
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
+  for (const [pageName, page, selector] of [
+    ['home', home, '.home-directory a'],
+    ['services', services, '.department-list a, .service-offerings a'],
+  ]) {
+    page(selector).each((_, card) => {
+      assert.equal(
+        page(card).children('span').first().children('svg').length,
+        1,
+        `${locale}.${pageName}: missing card icon for ${page(card).find('h3').text().trim()}`,
+      )
+    })
+  }
   const contact = await getPage(`${prefix}/contact/`)
   const studio = await getPage(`${prefix}/acestudio/`)
   assert.equal(
