@@ -1,6 +1,6 @@
 ---
-title: 'Die Acecore-Website wurde erneuert'
-description: 'Acecore hat seine Unternehmenswebsite erneuert, damit Unternehmensinformationen und Tätigkeitsbereiche leichter zu finden sind. Hier erläutern wir die Änderungen und unsere Nachrichten.'
+title: 'Die offizielle Acecore-Website wurde überarbeitet'
+description: 'Acecore hat die Website überarbeitet, damit Unternehmensinformationen und Geschäftsbereiche leichter zu finden sind. Unternehmensnachrichten erscheinen hier.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
 lastUpdated: '2026-10-15T08:22:00+09:00'
@@ -9,20 +9,20 @@ tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
 ---
 
-Wir haben die Acecore-Website als Unternehmenswebsite mit Unternehmensinformationen und Zugängen zu unseren Tätigkeitsbereichen erneuert. Hier stellen wir die Neuordnung und die künftig veröffentlichten Mitteilungen vor.
+Wir haben die offizielle Acecore-Website als Unternehmenswebsite neu gestaltet. Sie bündelt Unternehmensinformationen und verlinkt auf die Seiten der einzelnen Geschäftsbereiche. Im Folgenden erläutern wir die Änderungen und welche Mitteilungen künftig auf dieser Website erscheinen.
 
 ## Was wir neu geordnet haben
 
-Wir haben die Zuständigkeit für unternehmensweite Informationen und detaillierte Leistungsbeschreibungen geklärt. Unternehmensinformationen und Einstiege finden Sie hier; Preise, Leistungsumfang und Teilnahmebedingungen auf den Fachseiten.
+Wir haben neu geordnet, wo Informationen zum Unternehmen insgesamt und ausführliche Angaben zu den Leistungen der einzelnen Bereiche zu finden sind. Das Unternehmensprofil und die Einstiege in die Geschäftsbereiche sind auf dieser Website gebündelt; Preise, Leistungsumfang und Teilnahmebedingungen finden Sie auf den jeweiligen Fachwebsites.
 
-So vermeiden wir wiederholte Erklärungen und erleichtern den Weg zur passenden Information. Aktuelle Abteilungen und Angebote finden Sie auf der [Seite zu unseren Tätigkeitsbereichen](/de/services/).
+So reduzieren wir doppelte Erläuterungen an mehreren Stellen und erleichtern es Ihnen, zu den passenden Informationen zu gelangen. Unsere aktuellen Geschäftsbereiche und Leistungen finden Sie auf der [Seite zu unseren Geschäftsbereichen](/de/services/).
 
-## Inhalte der Unternehmensnachrichten
+## Was in den Unternehmensnachrichten erscheint
 
-Wir veröffentlichen Änderungen von Unternehmensinformationen, bereichsübergreifende Aktivitäten und wichtige Mitteilungen. Technische Artikel, Bildungsinhalte und ausführliche Community-Berichte erscheinen weiterhin auf den jeweiligen Fachseiten.
+Hier berichten wir über Aktualisierungen der Unternehmensinformationen, bereichsübergreifende Aktivitäten und wichtige Mitteilungen. Technische Erläuterungen, Bildungsinhalte und ausführliche Berichte über die Aktivitäten der Community veröffentlichen wir auf den jeweiligen Fachwebsites.
 
-Auch Änderungen an der Website wie diese Erneuerung werden in den Unternehmensnachrichten angekündigt.
+Auch über Änderungen an der Website wie diese informieren wir in den Unternehmensnachrichten.
 
-## Hilfsmittel für die Struktur einer Website
+## Weiterführende Informationen zur Strukturierung einer Website
 
-[Googles SEO-Startleitfaden](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) erläutert die Seitenstruktur und Links zu verwandten Seiten.
+Der [SEO-Starterleitfaden von Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) bietet Hinweise zur Seitenstruktur und zur Verlinkung mit thematisch verwandten Seiten.

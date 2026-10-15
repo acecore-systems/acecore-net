@@ -1,6 +1,6 @@
 ---
 title: 'Three Things to Prepare Before Contacting Acecore'
-description: 'Clarify your goal, current difficulties, and preferred timing before contacting Acecore, then find the appropriate contact point.'
+description: 'Prepare your goals, current challenges, and preferred timing before contacting Acecore, and learn how to find the right contact.'
 articleId: b20b047e-b8b2-4dc8-880d-1e8a62ed9d5f
 date: 2026-03-10T00:00
 lastUpdated: '2026-10-15T08:22:00+09:00'
@@ -23,6 +23,6 @@ For example, if you want a website, include its intended audience, the informati
 
 The [business page](/en/services/) lists current departments, services, and where to check prices. Use it to reach the relevant specialist team. For matters spanning several areas or if you are unsure where to ask, use the [general contact form](/en/contact/).
 
-## A resource for reviewing IT concerns
+## A resource for organizing IT issues
 
-The [IPA information security guidelines for small and medium-sized businesses](https://www.ipa.go.jp/security/guide/sme/about.html) can help you review IT concerns (in Japanese).
+The [IPA information security guidelines for small and medium-sized businesses](https://www.ipa.go.jp/security/guide/sme/about.html) can help you organize IT issues (in Japanese).

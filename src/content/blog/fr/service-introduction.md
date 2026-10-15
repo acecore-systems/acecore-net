@@ -9,20 +9,20 @@ image: /uploads/acecore-generated/blog-service-introduction.webp
 tags: ['お知らせ']
 ---
 
-Avant de contacter Acecore, précisez ce que vous souhaitez réaliser, les difficultés que vous rencontrez et le calendrier souhaité. Cet article vous aide à préparer cet échange.
+Avant de contacter Acecore, clarifiez ce que vous souhaitez réaliser, les difficultés que vous rencontrez actuellement et le calendrier souhaité : vous pourrez ainsi mieux présenter votre situation. Cet article vous présente les préparatifs à effectuer avant de demander conseil.
 
 ## Trois points à clarifier
 
-1. **Votre objectif** : décrivez brièvement ce que vous souhaitez changer et pour qui.
-2. **Les difficultés actuelles** : expliquez votre fonctionnement et les situations concrètes qui demandent des efforts ou posent problème.
-3. **Le calendrier souhaité** : indiquez les dates de début ou de lancement et les marges de souplesse.
+1. **Ce que vous souhaitez réaliser** : notez brièvement ce que vous souhaitez changer et à qui s’adresse cette initiative.
+2. **Les difficultés actuelles** : décrivez votre façon de procéder aujourd’hui et citez concrètement les situations qui vous demandent des efforts ou vous semblent peu pratiques.
+3. **Le calendrier souhaité** : indiquez les dates souhaitées pour le démarrage ou la mise en ligne, ainsi que la marge de manœuvre dont vous disposez pour adapter le calendrier.
 
-Pour un projet de site web, par exemple, précisez le public visé, les informations à publier et la date de lancement souhaitée. Les spécifications détaillées et le devis seront à discuter avec l’équipe spécialisée sur cette base.
+Par exemple, si vous souhaitez créer un site web, précisez à qui il s’adresse, les informations à y publier et la date de mise en ligne souhaitée. Ces éléments aideront à faire comprendre le contexte de votre demande. Pour les spécifications détaillées et le devis, échangez avec l’équipe spécialisée en vous appuyant sur ces éléments.
 
 ## Trouver le bon interlocuteur
 
-La [page des activités](/fr/services/) présente les départements et services actuels, ainsi que les liens vers les tarifs. Elle vous oriente vers l’équipe spécialisée. Pour une demande concernant plusieurs domaines ou si vous hésitez, utilisez le [formulaire de contact général](/fr/contact/).
+La [page des activités](/fr/services/) récapitule les départements et services actuels, ainsi que les liens vers les tarifs. Consultez ces informations, puis adressez-vous à l’équipe spécialisée concernée. Si votre demande concerne plusieurs domaines ou si vous ne savez pas à qui vous adresser, vous pouvez nous contacter via le [formulaire de contact général](/fr/contact/).
 
-## Une ressource pour examiner les questions informatiques
+## Une ressource pour faire le point sur les enjeux informatiques
 
-Les [recommandations de l’IPA sur la sécurité de l’information pour les PME](https://www.ipa.go.jp/security/guide/sme/about.html) peuvent vous aider dans cette réflexion (en japonais).
+Le [guide de l’IPA sur les mesures de sécurité de l’information pour les PME](https://www.ipa.go.jp/security/guide/sme/about.html) constitue une ressource utile pour faire le point sur les enjeux informatiques.
