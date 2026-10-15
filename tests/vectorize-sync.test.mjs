@@ -14,8 +14,8 @@ import {
   validateCorpus,
 } from '../scripts/sync-vectorize.ts'
 
-const PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v1'
-const PREVIOUS_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production'
+const PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v2'
+const PREVIOUS_PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v1'
 const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const temporaryRoots = []
@@ -53,7 +53,7 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
 
   assert.throws(
     () => parseArguments([], environment),
-    /--confirm-production acecore-net-search-bge-m3-1024-production-v1/u,
+    /--confirm-production acecore-net-search-bge-m3-1024-production-v2/u,
   )
   assert.doesNotThrow(() =>
     parseArguments(['--confirm-production', PRODUCTION_INDEX], environment),
@@ -63,7 +63,7 @@ test('live Production同期は正確なindex名の明示確認を要求する', 
       parseArguments(['--confirm-production', PREVIOUS_PRODUCTION_INDEX], {
         VECTORIZE_INDEX_NAME: PREVIOUS_PRODUCTION_INDEX,
       }),
-    /--confirm-production acecore-net-search-bge-m3-1024-production-v1/u,
+    /--confirm-production acecore-net-search-bge-m3-1024-production-v2/u,
   )
   assert.doesNotThrow(() => parseArguments(['--dry-run'], environment))
   assert.doesNotThrow(() => parseArguments(['--plan'], environment))
@@ -438,7 +438,7 @@ test('同期先indexを承認済みreplacementだけに制限する', async () =
       indexName: PREVIOUS_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
-    /must be one of: acecore-net-search-bge-m3-1024-production-v1/u,
+    /must be one of: acecore-net-search-bge-m3-1024-production-v2/u,
   )
   await assert.rejects(
     syncVectorize({
@@ -447,7 +447,7 @@ test('同期先indexを承認済みreplacementだけに制限する', async () =
       indexName: RETIRED_PRODUCTION_INDEX,
       logger: silentLogger,
     }),
-    /must be one of: acecore-net-search-bge-m3-1024-production-v1/u,
+    /must be one of: acecore-net-search-bge-m3-1024-production-v2/u,
   )
 })
 

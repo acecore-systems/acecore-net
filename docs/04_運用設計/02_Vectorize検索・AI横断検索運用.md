@@ -31,7 +31,7 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 | 質問の担当       | Production Pages binding        | Production index名                                  | namespace  | 情報の責任範囲                                   |
 | ---------------- | ------------------------------- | --------------------------------------------------- | ---------- | ------------------------------------------------ |
-| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-bge-m3-1024-production-v1`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
+| Acecore          | `SEARCH_INDEX`                  | `acecore-net-search-bge-m3-1024-production-v2`      | 表示locale | 会社情報、事業の案内、共通窓口                   |
 | Systems          | `SYSTEMS_SEARCH_INDEX`          | `acecore-systems-search-bge-m3-1024-production-v1`  | `ja`       | 技術サービス                                     |
 | Schools          | `SCHOOLS_SEARCH_INDEX`          | `acecore-schools-search-bge-m3-1024-production-v1`  | `ja`       | 学習サービス                                     |
 | Aceserver WIKI   | `ACESERVER_WIKI_SEARCH_INDEX`   | `aceserver-wiki-search-bge-m3-1024-production-v1`   | `ja`       | ルール、コマンド、参加条件、運用情報             |
@@ -60,13 +60,15 @@ World Foundation owner repositoryでは、公開corpusの生成、Production同�
 | 環境       | Vectorize index                                | namespace                                               |
 | ---------- | ---------------------------------------------- | ------------------------------------------------------- |
 | Preview    | 未接続                                         | 未適用                                                  |
-| Production | `acecore-net-search-bge-m3-1024-production-v1` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
+| Production | `acecore-net-search-bge-m3-1024-production-v2` | `ja`, `en`, `zh-cn`, `es`, `pt`, `fr`, `ko`, `de`, `ru` |
 
 Production indexは `@cf/baai/bge-m3` に合わせて `dimensions: 1024`、`metric: cosine` で作成します。横断検索先も同じmodelと次元を契約とし、実行時フォールバックは設けません。2026-08-31のshadow評価でAcecore公開corpusは現行OpenAI比でTop-1/Top-3が向上、Top-5が同等となり、query embeddingの中央値も短縮したため、新indexへ全量同期してからbindingを切り替えます。旧OpenAI indexは即時rollback用として削除せず保持します。
 
 2026-07-31の監査では、旧 `acecore-net-search-openai-1536-production` は164 vectors、公開corpusとの差分は42 upsert・35 delete（21.3%）でした。大量削除の安全gateに従い、旧indexに対する35件の直接deleteは実行せず、同じ1536次元・cosine設定の `acecore-net-search-openai-1536-production-v2` をreplacementとして作成しました。v2の全量同期、ID集合の完全一致、query canaryがProduction workflowで成功したことを確認して一時的にbindingを切り替え、旧indexを削除しました。2026-08-01に正規名indexを再作成・全量同期して通常同期とbindingを戻し、収束確認後にv2も削除しました。以後の復旧は、別のreplacement indexを新規作成して公開corpusを全量同期する手順とします。top-level／Previewはbindingを持たず `SEARCH_ENABLED=false`、Productionだけを `true` とします。Preview用indexは運用せず、接続・利用しません。
 
 2026-08-14の公開corpusは341 vectorsで、正規名indexの330 vectorsに対して106 upsert・95 delete（28.8%）となり、20%の安全gateがmutation前に停止しました。既存indexへ大量deleteを適用せず、承認済みのreplacement `acecore-net-search-openai-1536-production-v3` を新規作成して341 vectorsを全量upsertしました。同期workflowでID集合の完全一致とquery canaryを確認してからProduction bindingをv3へ切り替え、正規名indexは330 vectorsのままロールバック用に保持します。同期workflowとscriptはv3だけをmutation許可対象に固定します。
+
+2026-10-15の公開corpus `cdf2a67613f9e82bc54c` は345 vectorsで、BGE-M3 v1 indexの386 vectorsに対して132 upsert・173 delete（44.8%）となり、20%の安全gateがmutation前に停止しました。1024次元・cosineのreplacement `acecore-net-search-bge-m3-1024-production-v2` へ、公開build markerと一致する345 vectorsを全量同期しました。削除件数を0に固定し、mutation `00c7f6ab-b021-4605-a5f8-6c2f10e2a53c` の反映、ID集合の完全一致、query canaryの成功を確認しています。本番bindingの切替はこの検証後にレビュー済みPRのマージで行います。旧 `acecore-net-search-bge-m3-1024-production-v1` は386 vectorsのまま保持し、この復旧でmutation・削除しません。
 
 検索API、横断検索、AIチャットのrate limitは、Pagesで正式対応されているD1 bindingを使い、PreviewとProductionで本番D1を共有します。Previewは検索を無効のまま維持し、同じtable内では自サイト検索を `client:` / `global`、横断検索を `network-search:{caller}:client:` / `network-search:global`、AIチャットを `ai-chat:client:` / `ai-chat:global` prefixで分離します。
 
@@ -92,7 +94,7 @@ npm run typecheck:functions
 - 15分ごとのreconciler: 現在公開中のbuild markerを読み、40文字のGit SHAであり、`origin/main` のancestorであることを検証してproduction indexを再同期する。concurrencyで待機中のrunが置換された場合も、次回のreconcilerが公開状態へ収束させる。
 - 手動production: 現在公開中のmain由来corpusをproduction indexへ再同期する。
 
-workflowの同期先は固定名 `acecore-net-search-bge-m3-1024-production-v1` です。1024次元・cosineの新規indexへ公開corpusを全量upsertし、ID集合の完全一致とquery canaryを確認してからProduction bindingを切り替えます。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
+workflowの同期先は固定名 `acecore-net-search-bge-m3-1024-production-v2` です。1024次元・cosineの新規indexへ公開corpusを全量upsertし、ID集合の完全一致とquery canaryを確認してからProduction bindingを切り替えます。同期scriptのallowlistもv2だけを許可し、保持する旧BGE-M3 v1や他サイトのindexは対象にしません。以後のupsertが発生したrunは、mutation完了とID集合の完全一致に加え、今回upsertしたvectorをREST queryして結果にそのIDが含まれることを確認します。
 
 push、schedule、手動実行のいずれも `refs/heads/main` 以外ではjobを実行しません。workflow用のcheckoutは常にprotected `main` を `tooling/` へ固定し、同期scriptもこのcheckoutから実行します。公開対象のsite commitは別の `site/` へcheckoutしてbuildするため、build markerが指す過去のmain commitを復旧同期する場合も、secretを扱う同期ロジックはprotected `main` のものです。
 
@@ -103,7 +105,7 @@ GitHub Actionsには次のGitHub Environmentとenvironment secretが必要です
 
 | GitHub Environment             | environment secrets                      | Cloudflare account token                | 同期先                                         |
 | ------------------------------ | ---------------------------------------- | --------------------------------------- | ---------------------------------------------- |
-| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN` | `acecore-net-vectorize-production-sync` | `acecore-net-search-bge-m3-1024-production-v1` |
+| `cloudflare-search-production` | `CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN` | `acecore-net-vectorize-production-sync` | `acecore-net-search-bge-m3-1024-production-v2` |
 
 EnvironmentのDeployment branches and tagsは `Selected branches and tags` を選び、branch ruleには `main` だけを登録します。workflow側にもmain判定がありますが、Environment側のmain-only protectionをsecret払い出しの独立した必須条件として設定してください。任意refから起動されたworkflowは、そのref上のworkflow定義自体が変更されている可能性があるため、このEnvironment設定なしでは運用を開始しません。
 
@@ -126,7 +128,7 @@ npm run sync:vectorize:dry-run
 credentialを使って現行indexとの差分だけを確認し、mutationしない場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-bge-m3-1024-production-v1'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-bge-m3-1024-production-v2'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
 node --experimental-strip-types scripts/sync-vectorize.ts --plan
@@ -137,10 +139,10 @@ node --experimental-strip-types scripts/sync-vectorize.ts --plan
 Productionへ同期する場合:
 
 ```powershell
-$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-bge-m3-1024-production-v1'
+$env:VECTORIZE_INDEX_NAME = 'acecore-net-search-bge-m3-1024-production-v2'
 $env:CLOUDFLARE_ACCOUNT_ID = '<account-id>'
 $env:CLOUDFLARE_API_TOKEN = '<scoped-token>'
-npm run sync:vectorize
+npm run sync:vectorize -- --confirm-production $env:VECTORIZE_INDEX_NAME
 ```
 
 同期処理は内容ハッシュ付きIDを使うため、同じcorpusを再実行してもembeddingを再作成しません。upsertを先に行い、その後で古いIDを削除します。最後のmutationがquery可能になった後、indexの管理対象ID集合がcorpusと完全一致したことを再取得して確認し、新規upsertがあったrunではそのembeddingを使うquery canaryの上位10件に新規IDが含まれることも確認します。
@@ -175,7 +177,7 @@ npm run sync:vectorize
 4. Workers AI embeddingまたはAcecoreのVectorizeに問題がある場合、`SEARCH_ENABLED` を `"false"` にしてPagesを再deployする。検索UIはPagefindだけを遅延読込して継続する。横断先だけに問題がある場合は、その取得元の `{SOURCE}_SEARCH_ENABLED` だけを `"false"` にする。
 5. 横断APIが失敗しても自サイトのVectorize結果またはPagefindフォールバックが残ることを確認する。AIチャットは根拠を取得できない専門サイトの詳細を生成せず、固定の公式ルートへフォールバックする。
 
-indexを作り直す場合は、現在のindexを停止・削除する前に別のreplacement indexを作成し、公開corpusの全量同期とquery確認を完了してからbindingを切り替えます。今回のAcecore移行では、v2同期workflowの成功を確認した後にbinding切替専用PRを作成し、本番検索の継続応答を確認してから旧indexを削除しました。現在は即時rollback用の旧indexを保持しないため、障害時は `SEARCH_ENABLED` を停止してPagefindへフォールバックし、replacement indexの再作成・同期・検証を経て復旧します。
+indexを作り直す場合は、現在のindexを停止・削除する前に別のreplacement indexを作成し、公開corpusの全量同期とquery確認を完了してから、レビュー済みPRでbindingを切り替えます。今回のBGE-M3 v2への切替では旧BGE-M3 v1を削除せず保持します。旧indexへのbindingの巻き戻しも別のレビュー済み変更で行い、通常同期の対象へは戻しません。障害時は `SEARCH_ENABLED` を停止してPagefindへフォールバックし、replacement indexの同期・検証を経て復旧します。
 
 ## リリース前チェック
 
