@@ -47,16 +47,16 @@
     "open": "Open AI chat",
     "close": "Close AI chat",
     "title": "Ask AI",
-    "lead": "Searches across Acecore's official sites for concise answers grounded in public information.",
-    "greeting": "Ask about Acecore, Acecore Systems, Acecore Schools, Aceserver, or World Foundation. The chat looks for and cites relevant official evidence for Acecore, Systems, Schools, and Aceserver. For World Foundation, it currently directs you to the official site. It does not guess unverified details.",
+    "lead": "We search across Acecore-related official websites and provide concise answers based on publicly available information.",
+    "greeting": "Using public information from Acecore, Acecore Systems, Acecore Schools, and Aceserver, we find official pages relevant to your question and cite them as sources. For World Foundation, we currently direct you to its official website. We won't speculate about details we can't verify.",
     "inputLabel": "Question for AI chat",
     "placeholder": "Type your question...",
     "send": "Send",
     "loading": "Preparing an answer...",
     "error": "AI chat is unavailable. Please use the contact form or LINE.",
-    "quickServices": "Which business site should I visit?",
-    "quickEstimate": "Where should I request an estimate?",
-    "quickSchools": "Where is the Schools information?",
+    "quickServices": "Which business's official website should I visit?",
+    "quickEstimate": "Where can I request a quote?",
+    "quickSchools": "Where can I find official information about Acecore Schools?",
     "contactForm": "Contact form",
     "line": "LINE",
     "email": "Email",
@@ -64,7 +64,7 @@
   },
   "hero": {
     "ctaServices": "View Businesses",
-    "ctaContact": "Free Consultation",
+    "ctaContact": "Get a free consultation",
     "sliderLabel": "Hero image slider",
     "slide": "Slide",
     "pauseAutoplay": "Pause slideshow",
@@ -72,11 +72,11 @@
   },
   "checklist": {
     "done": "Done: ",
-    "pending": "Pending: "
+    "pending": "Incomplete: "
   },
   "footer": {
     "tagline": "Taking the world to the next stage",
-    "description": "Company information, businesses, and news from Acecore.",
+    "description": "Explore information about Acecore, its businesses, and company news.",
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
     "schools": "Acecore Schools",
@@ -183,9 +183,9 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Taking the world to the next stage. Through technology and learning, Acecore aims to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
+    "defaultDescription": "Taking the world to the next stage. Through technology and learning, Acecore works to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
     "shortTitleContext": "Official Site",
-    "shortDescriptionContext": "Company information, businesses, and news from Acecore."
+    "shortDescriptionContext": "Information about Acecore, its businesses, and company news."
   },
   "pages": {
     "home": {
@@ -193,16 +193,16 @@
       "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
-      "viewBusinessDetails": "View business directory",
+      "viewBusinessDetails": "View our businesses",
       "viewAbout": "View company overview",
-      "latestNews": "Corporate news",
+      "latestNews": "Company news",
       "viewAllNews": "View all news and articles",
       "contactCta": "Contact us",
       "aboutIntro": "Learn about our company, leadership, corporate philosophy, and vision.",
-      "directoryHeading": "Find what you need",
-      "directoryLead": "Choose a page for the information you are looking for.",
-      "servicesIntro": "Explore the departments and services that help reduce burdens and support new endeavors, along with where to find pricing.",
-      "contactIntro": "Send your questions or requests through our contact form."
+      "directoryHeading": "Find what you're looking for",
+      "directoryLead": "Choose a page based on what you're looking for.",
+      "servicesIntro": "Explore our business divisions and services that help reduce burdens and support new challenges, and find out where to check pricing.",
+      "contactIntro": "Send us your inquiries or questions using the contact form."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -217,15 +217,15 @@
     },
     "about": {
       "title": "About Us",
-      "seoTitleContext": "Company information, leadership and philosophy",
-      "description": "Discover Acecore’s philosophy, “Taking the world to the next stage,” our vision, company information, and leadership.",
+      "seoTitleContext": "Company Information, Leadership & Philosophy",
+      "description": "Discover Acecore’s philosophy, vision, company information, and leadership, guided by our motto: “Taking the world to the next stage.”",
       "heroTitle": "About Us",
-      "heroSubtitle": "Company information, leadership and philosophy",
+      "heroSubtitle": "Company Information, Leadership & Philosophy",
       "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
-      "executiveLead": "Meet Acecore's leadership.",
+      "executiveLead": "Meet Acecore’s leadership team.",
       "officerAreasLabel": "Areas of responsibility",
       "officerBiographyLabel": "Biography",
       "officers": [
@@ -234,17 +234,17 @@
           "role": "Representative Director and President",
           "areas": [
             "Business strategy",
-            "Systems department (Web, systems, databases, infrastructure, quality assurance and AI adoption)"
+            "Systems department (Web, systems, databases, infrastructure, quality assurance, and AI adoption)"
           ],
-          "bio": "President and Representative Director of Acecore. His expertise spans Web and systems, databases and infrastructure, quality assurance, and AI adoption. In the Systems department, he leads work from clarifying business challenges through design and post-launch improvements, helping customers expand their businesses and improve efficiency."
+          "bio": "Acecore’s President and Representative Director. His areas of expertise span web and systems, databases and infrastructure, quality assurance, and AI adoption. In the Systems department, he oversees the entire process—from identifying business challenges to solution design and post-launch improvements—helping clients grow their businesses and work more efficiently."
         },
         {
           "name": "佐藤凌峨",
           "role": "Senior Managing Director and General Manager",
           "areas": [
-            "Aceserver operations (development and operation of proprietary systems and community management)"
+            "Aceserver operations (development and operation of proprietary systems, and community management)"
           ],
-          "bio": "As part of Aceserver’s operations, he supports the Discord community, internal infrastructure, and Minecraft development and operations. He publishes Java plugins for Minecraft and tools for Discord integration. In the Systems department, he focuses on the IT advisory engineer business."
+          "bio": "As part of the Aceserver team, he supports operations of the Discord community and development of its internal infrastructure, as well as Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools that integrate with Discord. In the Systems department, he focuses primarily on Acecore’s IT advisory services."
         },
         {
           "name": "西田創",
@@ -255,25 +255,25 @@
             "3D modeling",
             "Web content operations"
           ],
-          "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
+          "bio": "He creates illustrations and writes fiction, and publishes original 3D avatars, gimmicks, and accessories for VRChat."
         }
       ],
       "philosophyHeading": "Corporate Philosophy",
       "philosophyMotto": "Taking the world to the next stage",
       "philosophyParagraphs": [
-        "Today, it is not easy for individuals and organizations to focus solely on what they truly want to do.",
-        "Unwanted tasks accepted as routine, structural constraints, and the pressure of things they feel they must do.",
-        "We remove these obstacles from society one by one to create a new society.",
-        "Our purpose is to reduce time spent on what is not essential and create a free society where everyone can devote themselves fully to their passions and potential.",
-        "We believe the creativity born of that freedom leads not only to individual happiness, but also to the development of society as a whole."
+        "In today’s world, it is not easy for individuals and organizations to focus solely on what they truly want to do.",
+        "Routine tasks we would rather not do, structural constraints, and the pressure to do what we “have to.”",
+        "We remove these obstacles from society one by one and create a new society.",
+        "We seek to reduce time spent on what is not essential and build a freer society where everyone can devote themselves fully to their passions and potential.",
+        "We believe that the creativity born of this freedom leads not only to personal happiness but also to the advancement of society as a whole."
       ],
       "visionHeading": "Our Vision",
       "visionMotto": "Creating an environment where everyone can achieve what they want to do",
       "visionParagraphs": [
-        "Once people have an environment that lets them focus on their own lives, the next thing they need is encouragement to take the first step.",
-        "The possibilities that freedom creates are limitless. We open up a future where individual aspirations are respected and their collective energy shines.",
-        "Beyond reducing burdens, we help people overcome barriers to taking on challenges and continue to support a society where everyone can turn their ideas into reality.",
-        "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
+        "Once people have an environment where they can focus on their own lives, what they need next is encouragement to take the first step.",
+        "The possibilities created by freedom are limitless. We are paving the way for a future where individual aspirations are respected and their collective energy shines.",
+        "We do more than reduce burdens: we help people overcome barriers to taking on challenges and continue supporting a society where everyone can turn their ideas into reality.",
+        "Our vision is to create a society where everyone can shine by making the most of their own potential."
       ],
       "collaborationImgAlt": "Team collaboration",
       "workshopImgAlt": "Study group and workshop",
@@ -282,28 +282,28 @@
       "businessPurposesLabel": "Business activities",
       "businessPurposes": [
         "Provision of various information services via the Internet",
-        "Planning, production, sale, operation and management of websites",
-        "Planning, production, sale, operation and management of e-commerce websites",
-        "Planning, development, sale and maintenance of computer systems",
-        "Planning, production, sale, operation and management of application software",
+        "Planning, creation, sale, operation, and management of websites",
+        "Planning, creation, sale, operation, and management of e-commerce websites",
+        "Services related to the planning, development, sale, and maintenance of computer systems",
+        "Planning, development, sale, operation, and management of various software applications",
         "Operation of learning centers",
-        "Operation of computer classes",
-        "All activities incidental or related to the foregoing"
+        "Operation of computer training classes",
+        "All business activities incidental or related to the foregoing"
       ],
       "corporateContactCta": "Company and partnership inquiries"
     },
     "services": {
       "title": "Businesses",
       "seoTitleContext": "Business Directory",
-      "description": "Explore Acecore’s departments and services that reduce everyday burdens and support new endeavors, with links to pricing and terms of use.",
+      "description": "Explore Acecore’s departments and key services that ease everyday burdens and support each person’s next challenge, with links to pricing and terms of use.",
       "heroTitle": "Businesses",
-      "heroSubtitle": "Explore available support and services, and find pricing information.",
+      "heroSubtitle": "Explore the support and services we offer, and find out where to check pricing.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
       "introTitle": "Business departments",
-      "introBody": "Toward an environment where everyone can pursue what they want to do, with less time spent on nonessential tasks. Through technical support, learning support tailored to individual goals, and community operations, we support each person’s aspirations and potential.",
+      "introBody": "We aim to create an environment where everyone has more time to pursue what they want to do. Through technical support, goal-oriented learning, and community management, we help each person build on their motivation and potential.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "We provide technical support for web and systems development, databases, infrastructure, quality assurance and AI adoption, as well as design and creative production.",
+      "systemsDescription": "We provide technical support in web and systems development, databases and infrastructure, quality assurance, and AI adoption, along with design and creative production.",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "We provide learning support tailored to individual goals.",
       "aceserverTitle": "Aceserver",
@@ -312,22 +312,22 @@
       "storeDescription": "Acecore’s official online store.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Coming soon",
-      "acestudioDescription": "Providing a place where all creators can share their activities.",
-      "contactHeading": "Choosing or introducing a service",
-      "contactBody": "Tell us what support you need. We will guide you to the relevant department and service.",
+      "acestudioDescription": "A place for all creators to share their work.",
+      "contactHeading": "Choosing a service or discussing implementation",
+      "contactBody": "Tell us what kind of support you need and what you’re looking for. We’ll connect you with the right department and service.",
       "contactCta": "Ask about a service",
       "designTitle": "Acecore Design",
-      "designDescription": "We are preparing an area focused on visual identity, communication and usability design.",
+      "designDescription": "We are preparing to offer services in brand visuals, information design, and usability.",
       "designStatus": "In planning",
-      "designNote": "Services and the delivery structure for the Design department are being defined. Acecore Systems currently accepts requests for logos, print materials, banners and other creative work. Our shared contact point can explain the available scope.",
+      "designNote": "Services and the delivery structure for the Design department are still being defined. Acecore Systems accepts requests for logos, printed materials, banners, and similar creative work. Contact us through the shared inquiry channel for details on what we can accommodate.",
       "developmentTitle": "Custom System Development Service",
-      "developmentDescription": "We listen to your system requirements, then propose and develop the most suitable solution.",
+      "developmentDescription": "We listen to your requirements, then propose and develop the system best suited to your needs.",
       "advisorTitle": "IT Advisory Engineer Service",
-      "advisorDescription": "From everyday consultations to publishing your website, we support you for a fixed monthly fee.",
-      "learningTitle": "Learning built around your goals",
+      "advisorDescription": "From everyday consultations to publishing your website, we provide support for a fixed monthly fee.",
+      "learningTitle": "Learning support tailored to your goals",
       "pricingHeading": "Pricing and conditions",
-      "pricingLead": "Check each specialist site for prices and scope. Learning arrangements are confirmed during consultation; community participation conditions and product prices are available on their service sites.",
-      "offeringsHeading": "Main services",
+      "pricingLead": "For detailed pricing and service scope, visit each specialist site. Learning support arrangements are confirmed during consultation; community participation terms and product prices are listed on the relevant service pages.",
+      "offeringsHeading": "Key services",
       "detailsCta": "Learn more"
     },
     "contact": {

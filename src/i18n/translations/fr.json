@@ -28,12 +28,12 @@
     "closeMenu": "Fermer le menu",
     "close": "Fermer",
     "scrollToTop": "Retour en haut de la page",
-    "opensInNewTab": "(s'ouvre dans un nouvel onglet)",
+    "opensInNewTab": "(s’ouvre dans un nouvel onglet)",
     "mainNav": "Navigation principale",
     "mobileNav": "Navigation mobile",
-    "breadcrumb": "Fil d'Ariane",
+    "breadcrumb": "Fil d’Ariane",
     "home": "Accueil",
-    "loading": "Chargement...",
+    "loading": "Chargement…",
     "required": "(obligatoire)",
     "closeAd": "Fermer la publicité",
     "youtubeDefaultTitle": "Vidéo YouTube",
@@ -46,16 +46,16 @@
   "aiChat": {
     "open": "Ouvrir le chat IA",
     "close": "Fermer le chat IA",
-    "title": "Poser une question à l'IA",
-    "lead": "Nous parcourons les sites officiels liés à Acecore et répondons brièvement à partir d'informations publiques.",
-    "greeting": "À partir des informations publiques concernant Acecore, Acecore Systems, Acecore Schools et Aceserver, nous recherchons les pages officielles adaptées à votre question et les présentons comme sources. Pour World Foundation, nous vous orientons actuellement vers le site officiel. Nous ne spéculons pas sur les détails que nous ne pouvons pas vérifier.",
+    "title": "Poser une question à l’IA",
+    "lead": "Nous parcourons les sites officiels liés à Acecore et répondons brièvement à partir d’informations publiques.",
+    "greeting": "À partir des informations publiques sur Acecore, Acecore Systems, Acecore Schools et Aceserver, nous recherchons la page officielle qui correspond à votre question et la présentons comme source. Pour World Foundation, nous vous orientons actuellement vers son site officiel. Nous ne spéculons pas sur les détails que nous ne pouvons pas vérifier.",
     "inputLabel": "Question pour le chat IA",
-    "placeholder": "Saisissez votre question...",
+    "placeholder": "Saisissez votre question…",
     "send": "Envoyer",
-    "loading": "Génération de la réponse...",
+    "loading": "Génération de la réponse…",
     "error": "Le chat IA est indisponible. Veuillez utiliser le formulaire de contact ou LINE.",
-    "quickServices": "Selon l'activité, quel site officiel dois-je consulter ?",
-    "quickEstimate": "À qui m'adresser pour un devis ?",
+    "quickServices": "Quel site officiel consulter pour les activités ?",
+    "quickEstimate": "À qui m’adresser pour un devis ?",
     "quickSchools": "Où trouver les informations officielles sur Schools ?",
     "contactForm": "Formulaire de contact",
     "line": "LINE",
@@ -65,10 +65,10 @@
   "hero": {
     "ctaServices": "Voir les activités",
     "ctaContact": "Demander une consultation gratuite",
-    "sliderLabel": "Carrousel d'images principales",
+    "sliderLabel": "Carrousel d’images principales",
     "slide": "Diapositive",
-    "pauseAutoplay": "Mettre en pause le diaporama",
-    "resumeAutoplay": "Reprendre le diaporama"
+    "pauseAutoplay": "Mettre en pause la lecture automatique des diapositives",
+    "resumeAutoplay": "Reprendre la lecture automatique des diapositives"
   },
   "checklist": {
     "done": "Terminé : ",
@@ -76,12 +76,12 @@
   },
   "footer": {
     "tagline": "Faire passer le monde à l’étape suivante",
-    "description": "Informations sur l'entreprise, ses activités et les actualités d'Acecore.",
+    "description": "Découvrez les informations sur l’entreprise Acecore, ses activités et ses actualités.",
     "sitemap": "Plan du site",
     "relatedLinks": "Liens connexes",
     "schools": "Acecore Schools",
     "pricing": "Guide tarifaire",
-    "terms": "Conditions d'utilisation d'Acecore ID",
+    "terms": "Conditions d’utilisation d’Acecore ID",
     "privacy": "Politique de confidentialité"
   },
   "blog": {
@@ -183,26 +183,26 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Faire passer le monde à l’étape suivante. Par la technologie et l’apprentissage, Acecore vise à réduire le temps consacré aux tâches non essentielles et à permettre à chacun de poursuivre ses aspirations.",
+    "defaultDescription": "« Faire passer le monde à l’étape suivante. » Acecore est une entreprise qui, grâce à la technologie et à l’apprentissage, cherche à réduire le temps consacré aux tâches non essentielles et à créer un environnement où chacun peut se lancer dans ce qu’il souhaite faire.",
     "shortTitleContext": "Site officiel",
-    "shortDescriptionContext": "Informations sur l'entreprise, ses activités et les actualités d'Acecore."
+    "shortDescriptionContext": "Découvrez les informations sur l’entreprise Acecore, ses activités et ses actualités."
   },
   "pages": {
     "home": {
-      "heroTitle": "Faire passer le monde à l’étape suivante",
-      "heroSubtitle": "Par la technologie et l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut poursuivre ses aspirations.",
-      "heroImgTeam": "Équipe travaillant dans un espace de coworking",
-      "heroImgMeeting": "Scène de réunion",
-      "viewBusinessDetails": "Voir la liste des activités",
-      "viewAbout": "Voir la présentation de l’entreprise",
+      "heroTitle": "Faire passer le monde à l’étape supérieure",
+      "heroSubtitle": "Grâce à la technologie et à l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut se lancer dans les projets qui lui tiennent à cœur.",
+      "heroImgTeam": "Équipe au travail dans un espace de coworking",
+      "heroImgMeeting": "Réunion en cours",
+      "viewBusinessDetails": "Voir la liste de nos activités",
+      "viewAbout": "Voir la présentation de notre entreprise",
       "latestNews": "Actualités de l’entreprise",
-      "viewAllNews": "Voir toutes les actualités et les articles",
+      "viewAllNews": "Voir toutes les actualités et tous les articles",
       "contactCta": "Nous contacter",
-      "aboutIntro": "Découvrez l’entreprise, ses dirigeants, notre philosophie et notre vision.",
-      "directoryHeading": "Trouvez votre information",
-      "directoryLead": "Choisissez une page selon ce que vous recherchez.",
-      "servicesIntro": "Découvrez les pôles et services qui allègent les contraintes et soutiennent de nouveaux défis, ainsi que les liens vers leurs tarifs.",
-      "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact."
+      "aboutIntro": "Découvrez les informations essentielles sur notre entreprise, nos dirigeants, notre philosophie et notre vision.",
+      "directoryHeading": "Accédez aux informations que vous recherchez",
+      "directoryLead": "Consultez les pages en fonction de vos besoins.",
+      "servicesIntro": "Retrouvez nos pôles d’activité et nos services, qui allègent les contraintes et vous aident à relever de nouveaux défis, ainsi que les pages où consulter leurs tarifs.",
+      "contactIntro": "Envoyez-nous vos demandes ou vos questions via le formulaire de contact."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -253,94 +253,94 @@
       "formCategoryServiceDesign": "À propos d’Acecore Design (en conception et préparation)"
     },
     "about": {
-      "title": "À propos",
-      "seoTitleContext": "Informations sur l’entreprise, direction et philosophie",
-      "description": "Découvrez la philosophie d’Acecore, « Faire passer le monde à l’étape suivante », notre vision, les informations sur l’entreprise et ses dirigeants.",
-      "heroTitle": "À propos",
-      "heroSubtitle": "Informations sur la société, dirigeants et philosophie",
+      "title": "Présentation de l’entreprise",
+      "seoTitleContext": "Informations sur l’entreprise, dirigeants et philosophie",
+      "description": "Découvrez la philosophie et la vision d’Acecore, « Faire passer le monde à l’étape suivante », ainsi que les informations sur l’entreprise et ses dirigeants.",
+      "heroTitle": "Présentation de l’entreprise",
+      "heroSubtitle": "Informations sur l’entreprise, dirigeants et philosophie",
       "heroImgAlt": "Discussion d’équipe",
       "companyInfoHeading": "Informations sur l’entreprise",
       "legalNameLabel": "Dénomination sociale",
       "executiveHeading": "Présentation des dirigeants",
       "executiveLead": "Découvrez les dirigeants d’Acecore.",
       "officerAreasLabel": "Domaines de responsabilité",
-      "officerBiographyLabel": "Parcours",
+      "officerBiographyLabel": "Biographie",
       "officers": [
         {
           "name": "西田凱",
           "role": "Président-directeur général",
           "areas": [
             "Stratégie d’entreprise",
-            "Département Systems (Web, systèmes, bases de données, infrastructure, assurance qualité et utilisation de l’IA)"
+            "Pôle system (Web, systèmes, DB, infrastructure, assurance qualité et utilisation de l’AI)"
           ],
-          "bio": "Président et directeur représentant d’Acecore. Ses spécialités couvrent le Web et les systèmes, les bases de données et l’infrastructure, l’assurance qualité et l’utilisation de l’IA. Au sein du département Systems, il pilote les projets depuis la définition des enjeux jusqu’à la conception et aux améliorations après déploiement, aidant les clients à développer leur activité et à gagner en efficacité."
+          "bio": "Président-directeur général d’Acecore, il intervient dans de nombreux domaines : Web et systèmes, DB et infrastructure, assurance qualité et utilisation de l’AI. Au sein du pôle system, il pilote les projets de bout en bout, de l’analyse des enjeux métier à la conception et aux améliorations après déploiement, afin d’aider les clients à développer leur activité et à gagner en efficacité."
         },
         {
           "name": "佐藤凌峨",
           "role": "Directeur exécutif et chef de division",
           "areas": [
-            "Exploitation d’Aceserver (développement et exploitation de systèmes propriétaires et gestion de la communauté)"
+            "Exploitation d’Aceserver (développement et exploitation de systèmes propriétaires, animation de la communauté)"
           ],
-          "bio": "Au sein d’Aceserver, il soutient la communauté Discord, l’infrastructure interne ainsi que le développement et l’exploitation liés à Minecraft. Il publie des plugins Java pour Minecraft et des outils d’intégration Discord. Dans le département Systems, il se consacre principalement au conseil en ingénierie informatique."
+          "bio": "Dans le cadre de l’exploitation d’Aceserver, il s’occupe de la communauté Discord et de l’infrastructure interne, et contribue au développement et à l’exploitation de projets liés à Minecraft. Il publie des plugins Java pour Minecraft ainsi que des outils d’intégration à Discord. Au sein du pôle system, il se consacre principalement à son activité de conseil en ingénierie IT."
         },
         {
           "name": "西田創",
           "image": "/uploads/nishida-sou.jpg",
           "role": "Administrateur",
           "areas": [
-            "Création artistique",
+            "Production créative",
             "Modélisation 3D",
-            "Gestion de contenus web"
+            "Gestion de contenus Web"
           ],
-          "bio": "Il crée des illustrations et des romans, et publie des avatars 3D originaux, des mécanismes et des accessoires pour VRChat."
+          "bio": "Il crée des illustrations et des romans, et publie des avatars 3D originaux, des éléments interactifs et des accessoires pour VRChat."
         }
       ],
       "philosophyHeading": "Philosophie d’entreprise",
       "philosophyMotto": "Faire passer le monde à l’étape suivante",
       "philosophyParagraphs": [
         "Aujourd’hui, il n’est pas facile pour les individus et les organisations de se concentrer uniquement sur ce qu’ils veulent vraiment faire.",
-        "Des tâches subies par habitude, des contraintes structurelles et la pression de ce qu’il faut faire.",
-        "Nous éliminons ces obstacles de la société, un à un, pour créer une nouvelle société.",
-        "Notre but est de réduire le temps consacré à ce qui n’est pas essentiel et de bâtir une société libre où chacun peut se consacrer pleinement à ses passions et à son potentiel.",
+        "Les tâches indésirables imposées par les habitudes, les contraintes structurelles et la pression du « il faut le faire ».",
+        "Nous éliminons ces obstacles de la société, un à un, pour en créer une nouvelle.",
+        "Réduire le temps consacré à ce qui n’est pas essentiel et bâtir une société libre où chacun peut se consacrer pleinement à ses passions et à son potentiel.",
         "Nous croyons que la créativité née de cette liberté contribue au bonheur individuel comme au développement de la société tout entière."
       ],
       "visionHeading": "Notre vision",
       "visionMotto": "Créer un environnement où chacun peut réaliser ce qu’il souhaite faire",
       "visionParagraphs": [
-        "Lorsque les personnes disposent d’un environnement qui leur permet de se consacrer à leur propre vie, elles ont ensuite besoin d’un soutien pour faire le premier pas.",
-        "Les possibilités nées de la liberté sont infinies. Nous ouvrons la voie à un avenir où les aspirations individuelles sont respectées et où leur énergie collective rayonne.",
-        "Au-delà de l’allègement des contraintes, nous aidons à surmonter les obstacles aux nouveaux défis et continuons de soutenir une société où chacun peut donner forme à ses idées.",
-        "Notre vision est de créer une société où vous pouvez exprimer votre propre potentiel et où chacun peut s’épanouir."
+        "Lorsque chacun dispose d’un environnement qui lui permet de se consacrer pleinement à sa vie, l’étape suivante consiste à l’encourager à faire le premier pas.",
+        "Les possibilités offertes par la liberté sont infinies. Nous ouvrons la voie à un avenir où les aspirations individuelles sont respectées et où leur énergie, réunie, rayonne.",
+        "Nous ne nous contentons pas d’alléger les contraintes : nous aidons chacun à surmonter les obstacles qui freinent ses ambitions et contribuons à bâtir une société où tous peuvent concrétiser leurs aspirations.",
+        "Notre vision est de créer une société où chacun peut mettre pleinement à profit son potentiel et s’épanouir."
       ],
       "collaborationImgAlt": "Travail collaboratif en équipe",
-      "workshopImgAlt": "Aperçu d’une session d’étude et d’un atelier",
-      "establishedLabel": "Constitution",
+      "workshopImgAlt": "Aperçu d’une séance d’étude et d’un atelier",
+      "establishedLabel": "Date de création",
       "establishedDate": "13 juillet 2026",
       "businessPurposesLabel": "Activités de la société",
       "businessPurposes": [
         "Fourniture de divers services d’information par Internet",
-        "Conception, production, vente, exploitation et gestion de sites web",
-        "Conception, production, vente, exploitation et gestion de sites de commerce électronique",
+        "Conception, création, vente, exploitation et gestion de sites web",
+        "Conception, création, vente, exploitation et gestion de sites de commerce électronique",
         "Conception, développement, vente et maintenance de systèmes informatiques",
-        "Conception, production, vente, exploitation et gestion de logiciels applicatifs",
+        "Conception, création, vente, exploitation et gestion de divers logiciels applicatifs",
         "Exploitation de centres d’apprentissage",
-        "Exploitation de cours d’informatique",
-        "Toutes activités accessoires ou liées aux activités précitées"
+        "Exploitation de centres de formation à l’informatique",
+        "Toutes les activités accessoires ou connexes aux activités précitées"
       ],
-      "corporateContactCta": "Questions sur l’entreprise et les partenariats"
+      "corporateContactCta": "Contactez-nous au sujet de l’entreprise ou d’un partenariat."
     },
     "services": {
       "title": "Activités",
       "seoTitleContext": "Annuaire des activités",
-      "description": "Découvrez les pôles et services d’Acecore qui allègent les contraintes quotidiennes et soutiennent de nouveaux défis, avec les liens vers les tarifs et conditions d’utilisation.",
+      "description": "Les pôles et principaux services d’Acecore allègent le quotidien et encouragent chacun à relever des défis. Consultez les tarifs et conditions d’utilisation.",
       "heroTitle": "Activités",
-      "heroSubtitle": "Découvrez les accompagnements et services proposés et où consulter leurs tarifs.",
+      "heroSubtitle": "Découvrez les accompagnements et services proposés, ainsi que les pages où consulter leurs tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
-      "introTitle": "Départements",
-      "introBody": "Vers un environnement où chacun peut poursuivre ses aspirations, en consacrant moins de temps aux tâches non essentielles. Par le soutien technique, un accompagnement d’apprentissage adapté aux objectifs de chacun et la gestion de communautés, nous soutenons les aspirations et le potentiel de chaque personne.",
+      "introTitle": "Pôles d’activité",
+      "introBody": "Nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut se consacrer à ce qu’il souhaite accomplir. Grâce à notre accompagnement technique, à un soutien pédagogique adapté aux objectifs de chacun et à l’animation de communautés, nous soutenons la motivation et le potentiel de tous.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Nous assurons un accompagnement technique en développement web et de systèmes, bases de données, infrastructure, assurance qualité et IA, ainsi que des prestations de design et de création.",
+      "systemsDescription": "Nous apportons un soutien technique pour le développement de sites web et de systèmes, les bases de données, l’infrastructure, l’assurance qualité et l’utilisation de l’IA, ainsi que des prestations de design et de création.",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "Nous proposons un accompagnement pédagogique adapté aux objectifs de chacun.",
       "aceserverTitle": "Aceserver",
@@ -349,21 +349,21 @@
       "storeDescription": "La boutique en ligne officielle d’Acecore.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En préparation",
-      "acestudioDescription": "Offrir un espace où tous les créateurs peuvent partager leurs activités.",
-      "contactHeading": "Choisir ou mettre en place un service",
-      "contactBody": "Décrivez vos besoins. Nous vous orienterons vers le département et le service adaptés.",
-      "contactCta": "Se renseigner sur un service",
+      "acestudioDescription": "Un espace où tous les créateurs peuvent partager leurs activités.",
+      "contactHeading": "Conseils pour choisir et mettre en place un service",
+      "contactBody": "Faites-nous part de l’accompagnement dont vous avez besoin et de vos attentes. Nous vous orienterons vers le pôle ou le service adapté.",
+      "contactCta": "Demander conseil sur un service",
       "designTitle": "Acecore Design",
-      "designDescription": "Nous préparons un domaine consacré à l’identité visuelle, à la communication et à la conception de l’ergonomie.",
-      "designStatus": "En préparation",
-      "designNote": "Les services et l’organisation du département Design sont en cours de définition. Acecore Systems reçoit déjà les demandes de logos, de supports imprimés, de bannières et d’autres créations. Notre point de contact commun peut préciser les prestations disponibles.",
+      "designDescription": "Nous préparons une offre autour de l’identité visuelle des marques, de la communication de l’information et du design ergonomique.",
+      "designStatus": "À l’étude et en préparation",
+      "designNote": "Les services et les modalités de prestation du pôle Design sont en cours de définition. Acecore Systems prend en charge les demandes de création de logos, de supports imprimés, de bannières, etc. Notre point de contact commun vous indiquera les prestations disponibles.",
       "developmentTitle": "Service de développement de systèmes sur mesure",
-      "developmentDescription": "Nous étudions vos besoins, puis proposons et développons le système le mieux adapté.",
+      "developmentDescription": "Après avoir étudié vos besoins, nous vous proposons puis développons le système le mieux adapté.",
       "advisorTitle": "Service de conseil en ingénierie informatique",
-      "advisorDescription": "Des consultations quotidiennes à la mise en ligne de votre site, nous vous accompagnons pour un forfait mensuel fixe.",
-      "learningTitle": "Un apprentissage selon vos objectifs",
+      "advisorDescription": "Nous vous accompagnons des consultations quotidiennes à la mise en ligne de votre site web, moyennant un forfait mensuel fixe.",
+      "learningTitle": "Accompagnement pédagogique adapté à vos objectifs",
       "pricingHeading": "Tarifs et conditions",
-      "pricingLead": "Consultez les tarifs et le périmètre sur chaque site spécialisé. Les modalités d’apprentissage sont confirmées lors de l’entretien ; les règles de participation et les prix des produits figurent sur leurs sites respectifs.",
+      "pricingLead": "Consultez les tarifs détaillés et le périmètre des prestations sur les sites spécialisés. Les conditions de mise en œuvre de l’accompagnement pédagogique seront précisées lors d’un échange ; les conditions de participation aux communautés et les prix des produits figurent sur les pages des services concernés.",
       "offeringsHeading": "Principaux services",
       "detailsCta": "En savoir plus"
     },
