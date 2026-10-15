@@ -75,7 +75,7 @@
     "pending": "未完成："
   },
   "footer": {
-    "tagline": "让技术与学习成为社会的力量。",
+    "tagline": "让世界迈向下一阶段",
     "description": "Acecore的公司信息、业务和企业新闻。",
     "sitemap": "站点地图",
     "relatedLinks": "相关链接",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecore是一家通过Acecore Systems、Acecore Schools、Aceserver和Acecore Store，为业务、学习、社区与产品提供支持的企业。",
+    "defaultDescription": "让世界迈向下一阶段。Acecore通过技术与学习，致力于减少花在非本质事务上的时间，创造让每个人都能挑战自己想做之事的环境。",
     "shortTitleContext": "官方网站",
     "shortDescriptionContext": "Acecore的公司信息、业务和企业新闻。"
   },
   "pages": {
     "home": {
-      "heroTitle": "让技术与学习成为社会的力量。",
-      "heroSubtitle": "Acecore 是一家通过技术与教育，为业务、学习和社区提供支持的企业。",
+      "heroTitle": "让世界迈向下一阶段",
+      "heroSubtitle": "通过技术与学习，我们致力于减少花在非本质事务上的时间，创造让每个人都能挑战自己想做之事的环境。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgMeeting": "会议场景",
       "viewBusinessDetails": "查看业务列表",
@@ -198,10 +198,10 @@
       "latestNews": "企业新闻",
       "viewAllNews": "查看新闻与文章列表",
       "contactCta": "联系我们",
-      "aboutIntro": "了解公司的基本信息、管理团队及企业理念。",
+      "aboutIntro": "了解公司基本信息、管理团队，以及我们的企业理念与愿景。",
       "directoryHeading": "查找所需信息",
       "directoryLead": "根据您的目的，前往相应页面。",
-      "servicesIntro": "了解各业务部门的职责、所提供的服务以及价格查询方式。",
+      "servicesIntro": "汇总帮助减轻负担、支持挑战的业务部门与服务，以及价格信息的查询渠道。",
       "contactIntro": "通过联系表单发送您的咨询或问题。"
     },
     "notFound": {
@@ -255,7 +255,7 @@
     "about": {
       "title": "公司简介",
       "seoTitleContext": "公司信息、管理团队与理念",
-      "description": "了解 Acecore 的公司基本信息、管理团队介绍以及企业理念。",
+      "description": "了解以“让世界迈向下一阶段”为理念的Acecore的企业理念、愿景、公司信息与管理团队。",
       "heroTitle": "公司简介",
       "heroSubtitle": "公司信息、管理团队与企业理念",
       "heroImgAlt": "团队讨论",
@@ -289,8 +289,23 @@
           "bio": "创作绘画与小说，并发布面向 VRChat 的原创 3D 虚拟形象、互动装置和配件。"
         }
       ],
-      "philosophyHeading": "理念",
-      "philosophyMotto": "“让技术与学习成为社会的力量。”",
+      "philosophyHeading": "企业理念",
+      "philosophyMotto": "让世界迈向下一阶段",
+      "philosophyParagraphs": [
+        "在当今社会，个人或组织要只专注于“真正想做的事”，并不容易。",
+        "因惯例而不得不做的工作、结构性的限制，以及“必须去做”的重压。",
+        "我们将这些障碍从社会中逐一消除，创造一个新的社会。",
+        "减少花在非本质事务上的时间，实现一个自由的社会，让每个人都能将全部精力投入自己的热情与潜能。",
+        "我们相信，这份自由孕育的创造力，不仅能带来个人幸福，也能推动整个社会的发展。"
+      ],
+      "visionHeading": "我们的愿景",
+      "visionMotto": "创造让每个人都能实现“想做之事”的环境",
+      "visionParagraphs": [
+        "当人们拥有能够专注于自己人生的环境后，接下来需要的，就是“迈出第一步的支持”。",
+        "自由带来的可能性是无限的。我们将开拓这样的未来：个人意愿得到尊重，汇聚的热情共同绽放光芒。",
+        "我们不仅减轻负担，还帮助人们跨越阻碍挑战的壁垒，持续支持一个人人都能将想法化为现实的社会。",
+        "让你发挥自身潜能，创造一个每个人都能闪耀的社会，这就是我们的愿景。"
+      ],
       "collaborationImgAlt": "团队协作工作",
       "workshopImgAlt": "学习会与工作坊场景",
       "establishedLabel": "成立日期",
@@ -311,13 +326,13 @@
     "services": {
       "title": "业务",
       "seoTitleContext": "业务介绍",
-      "description": "为您介绍 Acecore 的业务部门详情及主要服务，包括系统定制开发、IT 顾问工程师、AceStudio、Minecraft 社区和官方在线商店。各项服务的费用和使用条件请参阅相应官方网站。",
+      "description": "介绍帮助减轻日常负担、支持个人挑战的Acecore业务部门与主要服务，以及价格和使用条件的查询渠道。",
       "heroTitle": "业务",
       "heroSubtitle": "了解可提供的支持与服务，以及价格查询方式。",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
       "introTitle": "业务部门",
-      "introBody": "为您介绍 Acecore 的业务部门详情及主要服务。",
+      "introBody": "减少花在非本质事务上的时间，迈向一个人人都能挑战自己想做之事的环境。通过技术支持、围绕个人目标的学习支持和社区运营等业务，支持每个人的意愿与潜能。",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "负责网站与系统开发、数据库与基础设施、质量保证及 AI 应用等技术支持。",
       "schoolsTitle": "Acecore Schools",

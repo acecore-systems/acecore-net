@@ -75,7 +75,7 @@
     "pending": "Ausstehend: "
   },
   "footer": {
-    "tagline": "Technologie und Lernen für die Gesellschaft.",
+    "tagline": "Die Welt auf die nächste Stufe bringen",
     "description": "Unternehmensinformationen, Geschäftsbereiche und Neuigkeiten von Acecore.",
     "sitemap": "Seitenübersicht",
     "relatedLinks": "Verwandte Links",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Acecore unterstützt Wirtschaft, Lernen, Gemeinschaft und Produkte durch Acecore Systems, Acecore Schools, Aceserver und Acecore Store.",
+    "defaultDescription": "Die Welt auf die nächste Stufe bringen. Mit Technologie und Lernen will Acecore Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
     "shortTitleContext": "Offizielle Website",
     "shortDescriptionContext": "Unternehmensinformationen, Geschäftsbereiche und Neuigkeiten von Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Technologie und Lernen als Kraft für die Gesellschaft.",
-      "heroSubtitle": "Acecore ist ein Unternehmen, das mit Technologie und Bildung Unternehmen, Lernende und Communities unterstützt.",
+      "heroTitle": "Die Welt auf die nächste Stufe bringen",
+      "heroSubtitle": "Mit Technologie und Lernen wollen wir Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
       "heroImgTeam": "Team bei der Arbeit in einem Co-Working-Space",
       "heroImgMeeting": "Besprechungsszene",
       "viewBusinessDetails": "Geschäftsbereiche ansehen",
@@ -198,10 +198,10 @@
       "latestNews": "Unternehmensnachrichten",
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
       "contactCta": "Kontakt",
-      "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, seine Führung und seine Philosophie.",
+      "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, die Unternehmensleitung, unsere Philosophie und unsere Vision.",
       "directoryHeading": "Finden Sie die passende Information",
       "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
-      "servicesIntro": "Informieren Sie sich über unsere Abteilungen, Leistungen und Preisübersichten.",
+      "servicesIntro": "Entdecken Sie die Bereiche und Leistungen, die Belastungen verringern und neue Vorhaben unterstützen, sowie die Anlaufstellen für Preise.",
       "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular."
     },
     "notFound": {
@@ -224,7 +224,7 @@
     "about": {
       "title": "Über uns",
       "seoTitleContext": "Unternehmensinformationen, Führung und Philosophie",
-      "description": "Erfahren Sie mehr über Acecore, die Unternehmensführung und die Unternehmensphilosophie.",
+      "description": "Lernen Sie Acecores Philosophie „Die Welt auf die nächste Stufe bringen“, unsere Vision, die Unternehmensdaten und die Unternehmensleitung kennen.",
       "heroTitle": "Über uns",
       "heroSubtitle": "Unternehmensinformationen, Führung und Philosophie",
       "heroImgAlt": "Teamdiskussion",
@@ -264,8 +264,23 @@
           "bio": "Er erstellt Illustrationen und Romane und veröffentlicht originale 3D-Avatare, Gimmicks und Accessoires für VRChat."
         }
       ],
-      "philosophyHeading": "Philosophie",
-      "philosophyMotto": "„Technologie und Lernen als Kraft für die Gesellschaft.“",
+      "philosophyHeading": "Unternehmensphilosophie",
+      "philosophyMotto": "Die Welt auf die nächste Stufe bringen",
+      "philosophyParagraphs": [
+        "Heute ist es für Menschen und Organisationen nicht leicht, sich ausschließlich auf das zu konzentrieren, was sie wirklich tun möchten.",
+        "Ungeliebte Aufgaben, die aus Gewohnheit erledigt werden, strukturelle Einschränkungen und der Druck dessen, was getan werden muss.",
+        "Wir beseitigen diese Hindernisse in der Gesellschaft eines nach dem anderen und schaffen eine neue Gesellschaft.",
+        "Unser Ziel ist es, die Zeit für Unwesentliches zu reduzieren und eine freie Gesellschaft zu verwirklichen, in der alle ihre ganze Kraft ihren Leidenschaften und ihrem Potenzial widmen können.",
+        "Wir glauben, dass die Kreativität, die aus dieser Freiheit entsteht, sowohl zum persönlichen Glück als auch zur Entwicklung der gesamten Gesellschaft beiträgt."
+      ],
+      "visionHeading": "Unsere Vision",
+      "visionMotto": "Ein Umfeld schaffen, in dem alle das verwirklichen können, was sie tun möchten",
+      "visionParagraphs": [
+        "Sobald ein Umfeld besteht, in dem Menschen sich ihrem eigenen Leben widmen können, brauchen sie als Nächstes Unterstützung für den ersten Schritt.",
+        "Die Möglichkeiten, die aus Freiheit entstehen, sind grenzenlos. Wir eröffnen eine Zukunft, in der persönliche Bestrebungen geachtet werden und ihre gemeinsame Energie strahlt.",
+        "Wir verringern nicht nur Belastungen, sondern helfen auch, Hindernisse für neue Herausforderungen zu überwinden, und unterstützen dauerhaft eine Gesellschaft, in der alle ihre Ideen verwirklichen können.",
+        "Unsere Vision ist eine Gesellschaft, in der Sie Ihr eigenes Potenzial entfalten können und alle die Möglichkeit haben, zu strahlen."
+      ],
       "collaborationImgAlt": "Kollaborative Teamarbeit",
       "workshopImgAlt": "Eindrücke von einer Lernveranstaltung und einem Workshop",
       "establishedLabel": "Gründung",
@@ -286,13 +301,13 @@
     "services": {
       "title": "Geschäftsbereiche",
       "seoTitleContext": "Verzeichnis der Geschäftsbereiche",
-      "description": "Hier finden Sie die Abteilungen von Acecore und ihre wichtigsten Dienstleistungen.",
+      "description": "Entdecken Sie Acecores Bereiche und Leistungen, die alltägliche Belastungen verringern und neue Vorhaben unterstützen, mit Links zu Preisen und Nutzungsbedingungen.",
       "heroTitle": "Geschäftsbereiche",
       "heroSubtitle": "Entdecken Sie unsere Unterstützung und Leistungen sowie die zugehörigen Preisinformationen.",
       "heroImgAlt": "Technologiebüro",
       "eyebrow": "Business Directory",
       "introTitle": "Geschäftsbereiche",
-      "introBody": "Hier finden Sie die Abteilungen von Acecore und ihre wichtigsten Dienstleistungen.",
+      "introBody": "Für ein Umfeld, in dem alle ihre Vorhaben verwirklichen können und weniger Zeit für Unwesentliches aufwenden müssen. Mit technischer Unterstützung, auf persönliche Ziele abgestimmter Lernbegleitung und dem Betrieb von Communitys fördern wir die Bestrebungen und das Potenzial jedes Einzelnen.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Wir unterstützen bei Web- und Systementwicklung, Datenbanken, Infrastruktur, Qualitätssicherung und dem Einsatz von KI.",
       "schoolsTitle": "Acecore Schools",

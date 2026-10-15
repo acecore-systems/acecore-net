@@ -75,7 +75,7 @@
     "pending": "Pendente: "
   },
   "footer": {
-    "tagline": "Tecnologia e aprendizagem a serviço da sociedade.",
+    "tagline": "Levar o mundo à próxima etapa",
     "description": "Informações corporativas, negócios e notícias da Acecore.",
     "sitemap": "Mapa do site",
     "relatedLinks": "Links relacionados",
@@ -183,14 +183,14 @@
   },
   "meta": {
     "siteTitle": "Acecore Corporation",
-    "defaultDescription": "A Acecore apoia empresas, aprendizagem, comunidades e produtos por meio da Acecore Systems, Acecore Schools, Aceserver e Acecore Store.",
+    "defaultDescription": "Levar o mundo à próxima etapa. Por meio da tecnologia e da aprendizagem, a Acecore busca reduzir o tempo gasto em tarefas não essenciais e criar um ambiente onde todos possam realizar suas aspirações.",
     "shortTitleContext": "Site oficial",
     "shortDescriptionContext": "Informações corporativas, negócios e notícias da Acecore."
   },
   "pages": {
     "home": {
-      "heroTitle": "Transformando tecnologia e aprendizagem em valor social.",
-      "heroSubtitle": "A Acecore é uma empresa que apoia negócios, aprendizagem e comunidades por meio da tecnologia e da educação.",
+      "heroTitle": "Levar o mundo à próxima etapa",
+      "heroSubtitle": "Por meio da tecnologia e da aprendizagem, buscamos reduzir o tempo gasto em tarefas não essenciais e criar um ambiente onde todos possam realizar suas aspirações.",
       "heroImgTeam": "Equipe trabalhando em espaço de coworking",
       "heroImgMeeting": "Cena de reunião",
       "viewBusinessDetails": "Ver lista de negócios",
@@ -198,10 +198,10 @@
       "latestNews": "Notícias corporativas",
       "viewAllNews": "Ver notícias e artigos",
       "contactCta": "Entre em contato",
-      "aboutIntro": "Conheça as informações da empresa, sua diretoria e sua filosofia.",
+      "aboutIntro": "Conheça as informações da empresa, a diretoria, nossa filosofia e nossa visão.",
       "directoryHeading": "Encontre o que procura",
       "directoryLead": "Escolha a página de acordo com a informação que procura.",
-      "servicesIntro": "Conheça nossos departamentos, serviços disponíveis e onde consultar os preços.",
+      "servicesIntro": "Conheça as áreas e os serviços que ajudam a aliviar encargos e apoiar novos desafios, além de onde consultar os preços.",
       "contactIntro": "Envie suas dúvidas ou solicitações pelo formulário de contato."
     },
     "notFound": {
@@ -255,7 +255,7 @@
     "about": {
       "title": "Sobre nós",
       "seoTitleContext": "Informações corporativas, liderança e filosofia",
-      "description": "Conheça as informações corporativas, a liderança e a filosofia da Acecore.",
+      "description": "Conheça a filosofia da Acecore, “Levar o mundo à próxima etapa”, nossa visão, as informações da empresa e a diretoria.",
       "heroTitle": "Sobre nós",
       "heroSubtitle": "Informações da empresa, diretoria e filosofia",
       "heroImgAlt": "Discussão em equipe",
@@ -295,8 +295,23 @@
           "bio": "Cria ilustrações e romances, além de publicar avatares 3D originais, recursos interativos e acessórios para VRChat."
         }
       ],
-      "philosophyHeading": "Filosofia",
-      "philosophyMotto": "“Tecnologia e aprendizagem a serviço da sociedade.”",
+      "philosophyHeading": "Filosofia empresarial",
+      "philosophyMotto": "Levar o mundo à próxima etapa",
+      "philosophyParagraphs": [
+        "Hoje, não é fácil para pessoas e organizações se concentrarem apenas no que realmente querem fazer.",
+        "Tarefas indesejadas aceitas por costume, limitações estruturais e a pressão daquilo que se precisa fazer.",
+        "Removemos esses obstáculos da sociedade, um a um, para criar uma nova sociedade.",
+        "Nosso propósito é reduzir o tempo dedicado ao que não é essencial e construir uma sociedade livre, onde todos possam se dedicar plenamente às suas paixões e ao seu potencial.",
+        "Acreditamos que a criatividade nascida dessa liberdade contribui tanto para a felicidade individual quanto para o desenvolvimento da sociedade como um todo."
+      ],
+      "visionHeading": "Nossa visão",
+      "visionMotto": "Criar um ambiente onde todos possam realizar o que desejam fazer",
+      "visionParagraphs": [
+        "Quando as pessoas dispõem de um ambiente que permite se dedicar à própria vida, o próximo passo é oferecer o incentivo para dar o primeiro passo.",
+        "As possibilidades que a liberdade cria são infinitas. Abrimos caminho para um futuro em que as aspirações individuais sejam respeitadas e sua energia coletiva brilhe.",
+        "Além de aliviar encargos, ajudamos as pessoas a superar as barreiras a novos desafios e continuamos apoiando uma sociedade onde todos possam dar forma às suas ideias.",
+        "Nossa visão é criar uma sociedade onde você possa aproveitar seu próprio potencial e onde todos possam brilhar."
+      ],
       "collaborationImgAlt": "Trabalho colaborativo em equipe",
       "workshopImgAlt": "Sessão de estudos e workshop",
       "establishedLabel": "Fundação",
@@ -317,13 +332,13 @@
     "services": {
       "title": "Negócios",
       "seoTitleContext": "Diretório de negócios",
-      "description": "Apresentamos os departamentos da Acecore e seus principais serviços.",
+      "description": "Conheça as áreas e os serviços da Acecore que aliviam os encargos do dia a dia e apoiam novos desafios, com links para preços e condições de uso.",
       "heroTitle": "Negócios",
       "heroSubtitle": "Conheça o apoio e os serviços disponíveis e onde consultar os preços.",
       "heroImgAlt": "Escritório de tecnologia",
       "eyebrow": "Diretório de negócios",
       "introTitle": "Departamentos",
-      "introBody": "Apresentamos os departamentos da Acecore e seus principais serviços.",
+      "introBody": "Rumo a um ambiente onde todos possam realizar suas aspirações, com menos tempo gasto em tarefas não essenciais. Por meio de apoio técnico, aprendizagem adaptada aos objetivos de cada pessoa e gestão de comunidades, apoiamos suas aspirações e seu potencial.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Oferecemos suporte técnico em desenvolvimento web e de sistemas, bancos de dados, infraestrutura, garantia de qualidade e adoção de IA.",
       "schoolsTitle": "Acecore Schools",

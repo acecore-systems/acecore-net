@@ -1395,9 +1395,33 @@ collections:
             hint: 'philosophyHeading'
             widget: string
           - name: 'philosophyMotto'
-            label: '理念・モットー'
+            label: '理念・キャッチコピー'
             hint: 'philosophyMotto'
             widget: string
+          - name: 'philosophyParagraphs'
+            label: '企業理念・本文'
+            hint: 'philosophyParagraphs[]'
+            widget: list
+            field:
+              name: 'paragraph'
+              label: '段落'
+              widget: text
+          - name: 'visionHeading'
+            label: '目指す姿・見出し'
+            hint: 'visionHeading'
+            widget: string
+          - name: 'visionMotto'
+            label: '目指す姿・標語'
+            hint: 'visionMotto'
+            widget: text
+          - name: 'visionParagraphs'
+            label: '目指す姿・本文'
+            hint: 'visionParagraphs[]'
+            widget: list
+            field:
+              name: 'paragraph'
+              label: '段落'
+              widget: text
           - name: 'collaborationImgAlt'
             label: '連携・画像・代替テキスト'
             hint: 'collaborationImgAlt'
