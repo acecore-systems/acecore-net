@@ -365,6 +365,31 @@
       "pricingHeading": "Precios y condiciones",
       "pricingLead": "Consulta precios y alcance en cada sitio especializado. Las condiciones de aprendizaje se confirman durante la consulta; las normas de participación y los precios de productos están en sus respectivos sitios.",
       "offeringsHeading": "Servicios principales",
+      "audience": {
+        "heading": "Empieza por lo que quieres hacer",
+        "lead": "Elige apoyo según tu objetivo: resolver un reto de tu negocio, aprender algo nuevo o usar herramientas digitales a diario.",
+        "aiLabel": "Retrato generado con AI",
+        "disclaimer": "Estos retratos generados con AI ilustran la información. No representan a empleados, estudiantes o clientes reales ni son testimonios.",
+        "sourceLabel": "Acerca de los retratos",
+        "business": {
+          "title": "Haz más sencillo el trabajo diario",
+          "body": "Reduce tareas manuales o da forma a una idea de negocio. Systems te orienta en decisiones técnicas, desarrollo y operaciones.",
+          "imageAlt": "Hombre adulto generado con AI que ilustra el apoyo IT para negocios",
+          "linkLabel": "Ver apoyo técnico"
+        },
+        "learning": {
+          "title": "Convierte la curiosidad en aprendizaje",
+          "body": "Da el siguiente paso en creación o programación. Schools organiza el aprendizaje según tus objetivos y tu punto de partida.",
+          "imageAlt": "Niña generada con AI que ilustra el apoyo al aprendizaje",
+          "linkLabel": "Ver opciones de aprendizaje"
+        },
+        "digital": {
+          "title": "Acerca lo digital a tu vida cotidiana",
+          "body": "Aprende a usar el PC y el teléfono según lo que quieras hacer. Consulta con Schools para practicar a tu propio ritmo.",
+          "imageAlt": "Mujer mayor generada con AI que ilustra el aprendizaje digital cotidiano",
+          "linkLabel": "Ver aprendizaje de PC y teléfono"
+        }
+      },
       "detailsCta": "Más información"
     },
     "privacy": {

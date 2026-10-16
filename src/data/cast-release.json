@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "siteOrigin": "https://acecore.net",
+  "releaseVersion": "v1.0.0",
+  "manifest": {
+    "url": "https://cast.acecore.net/releases/v1.0.0/consumer-manifest.json",
+    "sha256": "59b865f0228629c78e43e592c937e4a371465b64960754cba0b542f752532f0e",
+    "snapshot": "vendor/cast/v1.0.0/consumer-manifest.json"
+  },
+  "catalog": {
+    "url": "https://cast.acecore.net/releases/v1.0.0/public-catalog.json",
+    "sha256": "81a91621c4c221147f8af04de6a1a96a91700bf30ee470c9441cc98dcf627231"
+  },
+  "assets": [
+    {
+      "id": "hatt-ref-001",
+      "subjectId": "hatt",
+      "url": "https://cast.acecore.net/releases/v1.0.0/assets/v001--hatt-ref-001--b2f4bd274dc146cbe69be6927cbf1f6ff79fa43e515cd315e661a54c4d00ba35.webp",
+      "sha256": "b2f4bd274dc146cbe69be6927cbf1f6ff79fa43e515cd315e661a54c4d00ba35",
+      "mimeType": "image/webp",
+      "width": 768,
+      "height": 960
+    },
+    {
+      "id": "acva-000056",
+      "subjectId": "acvc-003",
+      "url": "https://cast.acecore.net/releases/v1.0.0/assets/v001--acva-000056--1d522a4de2f4c68e3ad7e00ff2acfd83d7bfb443b4d65bd1c53fffeb1dc62cc9.webp",
+      "sha256": "1d522a4de2f4c68e3ad7e00ff2acfd83d7bfb443b4d65bd1c53fffeb1dc62cc9",
+      "mimeType": "image/webp",
+      "width": 768,
+      "height": 960
+    },
+    {
+      "id": "acva-000059",
+      "subjectId": "acvc-006",
+      "url": "https://cast.acecore.net/releases/v1.0.0/assets/v001--acva-000059--afc6bf6d194a16d2e380893c3c2a284b5062dca9b8230fea78a019545726fbc1.webp",
+      "sha256": "afc6bf6d194a16d2e380893c3c2a284b5062dca9b8230fea78a019545726fbc1",
+      "mimeType": "image/webp",
+      "width": 768,
+      "height": 960
+    }
+  ]
+}

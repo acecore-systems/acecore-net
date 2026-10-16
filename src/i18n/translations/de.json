@@ -334,6 +334,31 @@
       "pricingHeading": "Preise und Bedingungen",
       "pricingLead": "Preise und Leistungsumfang findest du auf den jeweiligen Fachwebsites. Lernbedingungen werden im Gespräch bestätigt; Teilnahmebedingungen und Produktpreise stehen auf den zugehörigen Serviceseiten.",
       "offeringsHeading": "Unsere Leistungen",
+      "audience": {
+        "heading": "Beginnen Sie mit Ihrem Ziel",
+        "lead": "Ob betriebliche Aufgaben, Lernziele oder digitale Alltagskenntnisse: Wählen Sie die passende Unterstützung nach Ihrem Vorhaben.",
+        "aiLabel": "AI-generiertes Porträt",
+        "disclaimer": "Diese AI-generierten Porträts veranschaulichen die Informationen. Sie zeigen keine tatsächlichen Beschäftigten, Lernenden oder Kunden und sind keine Erfahrungsberichte.",
+        "sourceLabel": "Über die Porträtmotive",
+        "business": {
+          "title": "Den Arbeitsalltag einfacher gestalten",
+          "body": "Manuelle Aufgaben reduzieren oder eine Geschäftsidee umsetzen: Systems unterstützt bei technischen Entscheidungen, Entwicklung und Betrieb.",
+          "imageAlt": "AI-generierter erwachsener Mann als Illustration betrieblicher IT-Unterstützung",
+          "linkLabel": "Technische Unterstützung ansehen"
+        },
+        "learning": {
+          "title": "Aus Neugier weiterlernen",
+          "body": "Gehen Sie beim Gestalten oder Programmieren einen Schritt weiter. Schools richtet das Lernen an Ihren Zielen und Ihrem Ausgangspunkt aus.",
+          "imageAlt": "AI-generiertes Mädchen als Illustration der Lernunterstützung",
+          "linkLabel": "Lernangebote ansehen"
+        },
+        "digital": {
+          "title": "Digitale Geräte im Alltag nutzen",
+          "body": "Lernen Sie PC und Smartphone anhand Ihrer eigenen Vorhaben kennen. Schools berät Sie zum Üben im eigenen Tempo.",
+          "imageAlt": "AI-generierte ältere Frau als Illustration digitalen Lernens im Alltag",
+          "linkLabel": "Lernen mit PC und Smartphone ansehen"
+        }
+      },
       "detailsCta": "Mehr erfahren"
     },
     "contact": {

@@ -365,6 +365,31 @@
       "pricingHeading": "Tarifs et conditions",
       "pricingLead": "Consultez les tarifs et le périmètre sur chaque site spécialisé. Les modalités d’apprentissage sont confirmées lors de l’entretien ; les règles de participation et les prix des produits figurent sur leurs sites respectifs.",
       "offeringsHeading": "Principaux services",
+      "audience": {
+        "heading": "Partez de ce que vous voulez faire",
+        "lead": "Choisissez un accompagnement selon votre objectif : activité professionnelle, apprentissage ou usages numériques du quotidien.",
+        "aiLabel": "Portrait généré par AI",
+        "disclaimer": "Ces portraits générés par AI illustrent les informations. Ils ne représentent ni salariés, apprenants ou clients réels, ni témoignages.",
+        "sourceLabel": "À propos des portraits",
+        "business": {
+          "title": "Simplifier le travail quotidien",
+          "body": "Réduire les tâches manuelles ou concrétiser une idée d'activité : Systems vous accompagne dans les choix techniques, le développement et l'exploitation.",
+          "imageAlt": "Homme adulte généré par AI illustrant l'accompagnement IT des entreprises",
+          "linkLabel": "Découvrir l'accompagnement technique"
+        },
+        "learning": {
+          "title": "Faire grandir la curiosité",
+          "body": "Avancez dans la création ou la programmation. Schools construit l'apprentissage selon vos objectifs et votre point de départ.",
+          "imageAlt": "Fille générée par AI illustrant l'accompagnement à l'apprentissage",
+          "linkLabel": "Découvrir les apprentissages"
+        },
+        "digital": {
+          "title": "Mettre le numérique au service du quotidien",
+          "body": "Apprenez à utiliser un PC ou un smartphone selon vos besoins. Schools vous aide à envisager une pratique à votre rythme.",
+          "imageAlt": "Femme âgée générée par AI illustrant l'apprentissage numérique au quotidien",
+          "linkLabel": "Découvrir les usages PC et smartphone"
+        }
+      },
       "detailsCta": "En savoir plus"
     },
     "privacy": {
