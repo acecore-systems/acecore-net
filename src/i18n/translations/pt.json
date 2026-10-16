@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "Levar o mundo à próxima etapa",
     "description": "Informações corporativas, negócios e notícias da Acecore.",
+    "imageDisclosure": "As imagens ilustrativas que incluem pessoas usam materiais gerados por IA.",
+    "imageCreditLabel": "Sobre as imagens",
     "sitemap": "Mapa do site",
     "relatedLinks": "Links relacionados",
     "schools": "Acecore Schools",
@@ -365,31 +367,6 @@
       "pricingHeading": "Preços e condições de uso",
       "pricingLead": "Consulte os preços e o escopo de atendimento em cada site especializado. As condições para o apoio à aprendizagem são confirmadas durante a consulta; os requisitos para participar das comunidades e os preços dos produtos estão nas páginas de cada serviço.",
       "offeringsHeading": "Principais serviços",
-      "audience": {
-        "heading": "Comece pelo que você quer fazer",
-        "lead": "Dos desafios do seu negócio ao que deseja aprender e ao uso de ferramentas digitais no dia a dia: escolha o suporte de que precisa com base no seu objetivo.",
-        "aiLabel": "Imagem de pessoa gerada por IA",
-        "disclaimer": "Estas imagens de pessoas, geradas por IA, são apenas ilustrativas. Não representam funcionários, alunos ou usuários reais, nem são depoimentos.",
-        "sourceLabel": "Sobre as imagens",
-        "business": {
-          "title": "Simplifique o trabalho diário",
-          "body": "Quer reduzir o trabalho manual do dia a dia ou transformar uma ideia de negócio em realidade? Na Systems, você pode conversar sobre tudo, da escolha de tecnologias ao desenvolvimento e à operação.",
-          "imageAlt": "Imagem gerada por IA de um homem adulto, ilustrando o suporte de TI para empresas",
-          "linkLabel": "Conheça o suporte técnico"
-        },
-        "learning": {
-          "title": "Quero aprender mais a partir do que gosto",
-          "body": "Dê o próximo passo a partir do seu interesse por criação ou programação. Na Schools, pensamos em uma forma de aprender adequada aos seus objetivos e ao seu nível atual.",
-          "imageAlt": "Imagem de uma menina gerada por IA, ilustrando o apoio à aprendizagem",
-          "linkLabel": "Veja opções de aprendizagem"
-        },
-        "digital": {
-          "title": "Faça do digital um aliado no dia a dia",
-          "body": "Aprenda a usar o computador e o celular para fazer o que deseja no dia a dia. Na Schools, você pode praticar no seu próprio ritmo.",
-          "imageAlt": "Imagem de uma mulher idosa gerada por IA, ilustrando o uso de recursos digitais",
-          "linkLabel": "Veja como aprender a usar computador e celular"
-        }
-      },
       "detailsCta": "Saiba mais"
     },
     "privacy": {

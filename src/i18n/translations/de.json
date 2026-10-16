@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "Die Welt auf die nächste Stufe bringen",
     "description": "Unternehmensinformationen, Geschäftsbereiche und Neuigkeiten von Acecore.",
+    "imageDisclosure": "Für illustrative Bilder mit Personen werden KI-generierte Materialien verwendet.",
+    "imageCreditLabel": "Über die Bildmaterialien",
     "sitemap": "Seitenübersicht",
     "relatedLinks": "Verwandte Links",
     "schools": "Acecore Schools",
@@ -334,31 +336,6 @@
       "pricingHeading": "Preise und Nutzungsbedingungen",
       "pricingLead": "Ausführliche Informationen zu Preisen und Leistungsumfang finden Sie auf den jeweiligen Fachseiten. Die Bedingungen für die Lernbegleitung klären wir im Beratungsgespräch; Teilnahmebedingungen für Communities und Produktpreise finden Sie auf den jeweiligen Serviceseiten.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
-      "audience": {
-        "heading": "Wobei können wir Sie unterstützen?",
-        "lead": "Ob geschäftliche Herausforderungen, Lernziele oder digitale Anwendungen im Alltag: Wählen Sie die Unterstützung, die zu Ihrem Ziel passt.",
-        "aiLabel": "KI-generierte Personenbilder",
-        "disclaimer": "Diese KI-generierten Bilder dienen der Veranschaulichung. Sie zeigen keine tatsächlichen Mitarbeitenden, Kursteilnehmenden oder Nutzerinnen und Nutzer und stellen keine Erfahrungsberichte dar.",
-        "sourceLabel": "Informationen zu den Personenbildern",
-        "business": {
-          "title": "Arbeitsabläufe einfacher gestalten",
-          "body": "Möchten Sie manuelle Arbeitsschritte reduzieren oder eine Geschäftsidee verwirklichen? Systems berät Sie von der Wahl passender Technologien bis hin zu Entwicklung und Betrieb.",
-          "imageAlt": "KI-generiertes Bild eines erwachsenen Mannes zur Veranschaulichung der IT-Unterstützung für Unternehmen",
-          "linkLabel": "Technische Unterstützung ansehen"
-        },
-        "learning": {
-          "title": "Mit Ihren Interessen den nächsten Lernschritt gehen",
-          "body": "Möchten Sie Ihre Begeisterung fürs Gestalten oder Programmieren vertiefen? Bei Schools planen wir gemeinsam die nächsten Schritte – passend zu Ihren Zielen und Ihrem aktuellen Kenntnisstand.",
-          "imageAlt": "KI-generiertes Bild eines Mädchens zur Veranschaulichung der Lernbegleitung",
-          "linkLabel": "Lernangebote ansehen"
-        },
-        "digital": {
-          "title": "Digitales, das den Alltag erleichtert",
-          "body": "Lernen Sie, PC und Smartphone für Ihre persönlichen Vorhaben im Alltag zu nutzen. Bei Schools können Sie sich zu passenden Lernangeboten beraten lassen und die Bedienung in Ihrem eigenen Tempo üben.",
-          "imageAlt": "KI-generiertes Bild einer Seniorin zur Veranschaulichung digitaler Kompetenzen im Alltag",
-          "linkLabel": "PC und Smartphone nutzen lernen"
-        }
-      },
       "detailsCta": "Mehr erfahren"
     },
     "contact": {

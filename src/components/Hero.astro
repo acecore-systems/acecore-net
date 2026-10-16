@@ -11,6 +11,9 @@ interface Props {
   images?: {
     src: string
     alt: string
+    width?: number
+    height?: number
+    objectPosition?: string
     srcsetWidths?: number[]
     srcsetOptions?: GenerateSrcSetOptions
     sizes?: string
@@ -127,8 +130,9 @@ const firstSliderImage = sliderImages[0]
                   sizes={firstSliderImage.sizes}
                   alt={firstSliderImage.alt}
                   class="h-full w-full object-cover saturate-110"
-                  width="1280"
-                  height="1280"
+                  style={`object-position: ${firstSliderImage.objectPosition ?? 'center center'};`}
+                  width={firstSliderImage.width ?? 1280}
+                  height={firstSliderImage.height ?? 1280}
                   decoding="async"
                   fetchpriority="high"
                   loading="eager"
@@ -243,6 +247,9 @@ const firstSliderImage = sliderImages[0]
         srcset?: string
         sizes?: string
         alt: string
+        width?: number
+        height?: number
+        objectPosition?: string
       }>
     } catch {
       return []
@@ -279,8 +286,9 @@ const firstSliderImage = sliderImages[0]
       if (image.sizes) img.sizes = image.sizes
       img.alt = image.alt
       img.className = 'h-full w-full object-cover saturate-110'
-      img.width = 1280
-      img.height = 1280
+      img.style.objectPosition = image.objectPosition ?? 'center center'
+      img.width = image.width ?? 1280
+      img.height = image.height ?? 1280
       img.decoding = 'async'
       img.fetchPriority = 'low'
       img.loading = 'lazy'

@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "Taking the world to the next stage",
     "description": "Company information, businesses, and news from Acecore.",
+    "imageDisclosure": "AI-generated materials are used in illustrative images containing people.",
+    "imageCreditLabel": "About the image materials",
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
     "schools": "Acecore Schools",
@@ -328,31 +330,6 @@
       "pricingHeading": "Pricing and conditions",
       "pricingLead": "Check each specialist site for detailed pricing and service scope. We’ll confirm the arrangements for learning support during a consultation; community participation requirements and product prices are listed on the relevant service pages.",
       "offeringsHeading": "Key services",
-      "audience": {
-        "heading": "Start with what you want to do",
-        "lead": "From business challenges and learning goals to everyday digital skills, find the support you need based on what you want to achieve.",
-        "aiLabel": "AI-generated portraits",
-        "disclaimer": "These AI-generated people are for illustrative purposes only. They are not actual employees, learners, or users, and they do not represent real experiences or testimonials.",
-        "sourceLabel": "About the portrait assets",
-        "business": {
-          "title": "Make work systems easier to use",
-          "body": "Want to reduce daily manual tasks or turn a business idea into reality? Systems can help with everything from choosing the right technology to development and operations.",
-          "imageAlt": "AI-generated image of an adult man illustrating business IT support",
-          "linkLabel": "Explore technical support"
-        },
-        "learning": {
-          "title": "Take your interests further",
-          "body": "Take your interest in making or programming to the next step. Schools can help you find a learning path that fits your goals and starting point.",
-          "imageAlt": "AI-generated image of a girl illustrating learning support",
-          "linkLabel": "Explore learning options"
-        },
-        "digital": {
-          "title": "Make digital tools work for everyday life",
-          "body": "Learn to use a computer or smartphone for the things you want to do in everyday life. Ask Schools about learning at your own pace, with hands-on practice.",
-          "imageAlt": "AI-generated image of an older woman illustrating everyday digital skills",
-          "linkLabel": "Explore PC and smartphone learning"
-        }
-      },
       "detailsCta": "Learn more"
     },
     "contact": {

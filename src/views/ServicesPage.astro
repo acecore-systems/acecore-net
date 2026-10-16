@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
-import AudienceSupport from '../components/AudienceSupport.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
@@ -32,10 +32,11 @@ const u = (path: string) => getLocalizedUrl(path, locale)
     subtitle={t(locale, 'pages.services.heroSubtitle')}
     images={[
       {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
+        src: optimizeImage(castScene('home-team')),
         alt: t(locale, 'pages.services.heroImgAlt'),
+        width: castSceneAsset('home-team').width,
+        height: castSceneAsset('home-team').height,
+        srcsetWidths: [castSceneAsset('home-team').width],
       },
     ]}
   />
@@ -77,7 +78,6 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       <ServiceOfferings locale={locale} />
     </div>
   </section>
-  <AudienceSupport locale={locale} />
   <section
     id="pricing"
     class="ac-section bg-slate-50"

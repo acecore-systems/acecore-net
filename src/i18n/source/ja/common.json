@@ -72,6 +72,8 @@
   "footer": {
     "tagline": "世界を次のステージへ",
     "description": "Acecoreの会社情報と事業、企業ニュースをご案内します。",
+    "imageDisclosure": "人物を含むイメージ画像にはAI生成素材を使用しています。",
+    "imageCreditLabel": "画像素材について",
     "sitemap": "サイトマップ",
     "relatedLinks": "関連リンク",
     "schools": "Acecore Schools",

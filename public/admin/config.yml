@@ -1010,6 +1010,14 @@ collections:
                 label: '説明'
                 hint: 'footer.description'
                 widget: string
+              - name: 'imageDisclosure'
+                label: 'AI画像の説明'
+                hint: 'footer.imageDisclosure'
+                widget: string
+              - name: 'imageCreditLabel'
+                label: '画像素材リンクの文言'
+                hint: 'footer.imageCreditLabel'
+                widget: string
               - name: 'sitemap'
                 label: 'サイトマップ'
                 hint: 'footer.sitemap'
@@ -1290,55 +1298,6 @@ collections:
             label: '詳細リンクの文言'
             hint: 'detailsCta'
             widget: string
-          - name: audience
-            label: 目的から選ぶ支援案内
-            widget: object
-            fields:
-              - { name: heading, label: 見出し, widget: string }
-              - { name: lead, label: 説明, widget: text }
-              - { name: aiLabel, label: AI生成表示, widget: string }
-              - { name: disclaimer, label: 人物イメージの説明, widget: text }
-              - {
-                  name: sourceLabel,
-                  label: 素材説明リンクの文言,
-                  widget: string,
-                }
-              - name: business
-                label: 事業のIT支援
-                widget: object
-                fields:
-                  - { name: title, label: 見出し, widget: string }
-                  - { name: body, label: 本文, widget: text }
-                  - {
-                      name: imageAlt,
-                      label: 画像の代替テキスト,
-                      widget: string,
-                    }
-                  - { name: linkLabel, label: リンク文言, widget: string }
-              - name: learning
-                label: 学習支援
-                widget: object
-                fields:
-                  - { name: title, label: 見出し, widget: string }
-                  - { name: body, label: 本文, widget: text }
-                  - {
-                      name: imageAlt,
-                      label: 画像の代替テキスト,
-                      widget: string,
-                    }
-                  - { name: linkLabel, label: リンク文言, widget: string }
-              - name: digital
-                label: 日常のデジタル活用
-                widget: object
-                fields:
-                  - { name: title, label: 見出し, widget: string }
-                  - { name: body, label: 本文, widget: text }
-                  - {
-                      name: imageAlt,
-                      label: 画像の代替テキスト,
-                      widget: string,
-                    }
-                  - { name: linkLabel, label: リンク文言, widget: string }
       - name: 'pricing'
         label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json
