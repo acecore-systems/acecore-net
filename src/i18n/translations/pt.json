@@ -365,6 +365,31 @@
       "pricingHeading": "Preços e condições",
       "pricingLead": "Confira preços e escopo em cada site especializado. As condições de aprendizagem são confirmadas na consulta; regras de participação e preços de produtos estão nos respectivos sites.",
       "offeringsHeading": "Principais serviços",
+      "audience": {
+        "heading": "Comece pelo que deseja fazer",
+        "lead": "Escolha o apoio a partir do seu objetivo: desafios do negócio, novos aprendizados ou ferramentas digitais no dia a dia.",
+        "aiLabel": "Retrato gerado com AI",
+        "disclaimer": "Estes retratos gerados com AI ilustram as informações. Não representam funcionários, alunos ou clientes reais, nem são depoimentos.",
+        "sourceLabel": "Sobre os retratos",
+        "business": {
+          "title": "Simplifique o trabalho diário",
+          "body": "Reduza tarefas manuais ou transforme uma ideia de negócio em realidade. A Systems orienta escolhas técnicas, desenvolvimento e operação.",
+          "imageAlt": "Homem adulto gerado com AI ilustrando apoio IT para negócios",
+          "linkLabel": "Ver apoio técnico"
+        },
+        "learning": {
+          "title": "Transforme curiosidade em aprendizado",
+          "body": "Dê o próximo passo na criação ou programação. A Schools organiza o aprendizado conforme seus objetivos e ponto de partida.",
+          "imageAlt": "Menina gerada com AI ilustrando apoio ao aprendizado",
+          "linkLabel": "Ver opções de aprendizado"
+        },
+        "digital": {
+          "title": "Traga o digital para o cotidiano",
+          "body": "Aprenda a usar o PC e o celular a partir do que deseja fazer. Consulte a Schools para praticar no seu próprio ritmo.",
+          "imageAlt": "Mulher idosa gerada com AI ilustrando aprendizado digital cotidiano",
+          "linkLabel": "Ver aprendizado de PC e celular"
+        }
+      },
       "detailsCta": "Saiba mais"
     },
     "privacy": {

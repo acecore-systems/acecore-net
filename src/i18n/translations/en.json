@@ -328,6 +328,31 @@
       "pricingHeading": "Pricing and conditions",
       "pricingLead": "Check each specialist site for prices and scope. Learning arrangements are confirmed during consultation; community participation conditions and product prices are available on their service sites.",
       "offeringsHeading": "Main services",
+      "audience": {
+        "heading": "Start with what you want to do",
+        "lead": "From business challenges to learning goals and everyday digital skills, choose support around your purpose.",
+        "aiLabel": "AI-generated portrait",
+        "disclaimer": "These AI-generated portraits illustrate the information; they do not depict actual employees, learners or customers, or present testimonials.",
+        "sourceLabel": "About the portrait assets",
+        "business": {
+          "title": "Make everyday work easier",
+          "body": "Reduce manual work or turn a business idea into something useful. Systems helps with technical choices, development and operations.",
+          "imageAlt": "AI-generated adult man illustrating business IT support",
+          "linkLabel": "Explore technical support"
+        },
+        "learning": {
+          "title": "Let curiosity lead to learning",
+          "body": "Take an interest in making or programming a step further. Schools helps shape learning around your goals and starting point.",
+          "imageAlt": "AI-generated girl illustrating learning support",
+          "linkLabel": "Explore learning options"
+        },
+        "digital": {
+          "title": "Make digital tools part of daily life",
+          "body": "Learn PC and smartphone skills around what you want to do. Ask Schools about practising at your own pace.",
+          "imageAlt": "AI-generated senior woman illustrating everyday digital learning",
+          "linkLabel": "Explore PC and smartphone learning"
+        }
+      },
       "detailsCta": "Learn more"
     },
     "contact": {
