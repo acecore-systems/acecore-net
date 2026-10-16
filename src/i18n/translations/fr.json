@@ -365,31 +365,6 @@
       "pricingHeading": "Tarifs et conditions",
       "pricingLead": "Pour connaître les tarifs détaillés et le périmètre des prestations, consultez les sites spécialisés. Les modalités de l’accompagnement pédagogique seront confirmées lors de votre prise de contact ; les conditions de participation aux communautés et les prix des produits figurent sur les pages des services concernés.",
       "offeringsHeading": "Principaux services",
-      "audience": {
-        "heading": "Parlez-nous de vos objectifs",
-        "lead": "Des défis de votre activité aux apprentissages que vous recherchez, en passant par vos usages numériques au quotidien : choisissez l’accompagnement adapté à votre objectif.",
-        "aiLabel": "Portrait généré par IA",
-        "disclaimer": "Ces images de personnes, générées par IA à titre illustratif, ne représentent aucun salarié, apprenant ou utilisateur réel et ne constituent pas des témoignages.",
-        "sourceLabel": "À propos des portraits",
-        "business": {
-          "title": "Des outils de travail plus simples à utiliser",
-          "body": "Vous souhaitez réduire les tâches manuelles ou concrétiser une idée pour votre activité ? Systems vous accompagne du choix des technologies jusqu’au développement et à l’exploitation.",
-          "imageAlt": "Image d’un homme adulte générée par IA pour illustrer l’accompagnement informatique des entreprises",
-          "linkLabel": "Découvrir l’accompagnement technique"
-        },
-        "learning": {
-          "title": "Apprendre à partir de ce qui vous passionne",
-          "body": "Vous aimez créer ou programmer et souhaitez aller plus loin ? Avec Schools, nous définissons un parcours d’apprentissage adapté à vos objectifs et à votre niveau.",
-          "imageAlt": "Image d’une jeune fille générée par IA pour illustrer l’accompagnement à l’apprentissage",
-          "linkLabel": "Découvrir les parcours d’apprentissage"
-        },
-        "digital": {
-          "title": "Le numérique au service de votre quotidien",
-          "body": "Apprenez à utiliser un PC ou un smartphone en partant de vos besoins au quotidien. Avec Schools, vous pouvez vous familiariser avec leurs fonctions à votre rythme.",
-          "imageAlt": "Image générée par IA d’une femme senior illustrant l’apprentissage du numérique au quotidien",
-          "linkLabel": "Découvrir les usages du PC et du smartphone"
-        }
-      },
       "detailsCta": "En savoir plus"
     },
     "privacy": {

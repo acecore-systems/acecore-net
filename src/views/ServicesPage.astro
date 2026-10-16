@@ -5,7 +5,6 @@ import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
-import AudienceSupport from '../components/AudienceSupport.astro'
 import ServiceCard from '../components/ServiceCard.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
@@ -77,7 +76,6 @@ const u = (path: string) => getLocalizedUrl(path, locale)
       <ServiceOfferings locale={locale} />
     </div>
   </section>
-  <AudienceSupport locale={locale} />
   <section
     id="pricing"
     class="ac-section bg-slate-50"

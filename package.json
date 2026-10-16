@@ -6,11 +6,9 @@
   "scripts": {
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/write-cms-runtime-config.mjs && npm run validate:cast && npm run test:cast",
+    "prebuild": "node scripts/write-cms-runtime-config.mjs",
     "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs && node --experimental-strip-types scripts/copy-localized-404.mjs",
     "preview": "astro preview",
-    "validate:cast": "node scripts/validate-cast-release.mjs",
-    "test:cast": "node --test --test-isolation=none tests/cast-release.test.mjs",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",

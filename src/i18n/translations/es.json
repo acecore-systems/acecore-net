@@ -365,31 +365,6 @@
       "pricingHeading": "Precios y condiciones de uso",
       "pricingLead": "Consulta los precios y el alcance de cada servicio en su sitio especializado. Las condiciones de prestación del apoyo educativo se confirman durante la consulta; los requisitos para participar en la comunidad y los precios de los productos se indican en los sitios de cada servicio.",
       "offeringsHeading": "Servicios principales",
-      "audience": {
-        "heading": "¿Qué quieres conseguir?",
-        "lead": "Desde los retos de tu negocio y lo que quieres aprender hasta el uso de herramientas digitales en tu día a día: elige el apoyo que necesitas según tus objetivos.",
-        "aiLabel": "Retrato generado con IA",
-        "disclaimer": "Estas imágenes generadas con IA tienen fines ilustrativos y no representan a empleados, estudiantes o usuarios reales ni corresponden a testimonios.",
-        "sourceLabel": "Acerca de las imágenes de personas",
-        "business": {
-          "title": "Simplifica tus procesos de trabajo",
-          "body": "¿Quieres reducir las tareas manuales o convertir una idea de negocio en realidad? En Systems puedes consultar desde la selección de tecnología hasta el desarrollo y la operación.",
-          "imageAlt": "Imagen generada con IA de un hombre adulto que ilustra el apoyo informático para empresas.",
-          "linkLabel": "Ver apoyo técnico"
-        },
-        "learning": {
-          "title": "Aprende más a partir de lo que te gusta",
-          "body": "Da el siguiente paso en aquello que te interesa, como la creación o la programación. En Schools diseñamos un aprendizaje adaptado a tus objetivos y a tu nivel actual.",
-          "imageAlt": "Imagen de una niña generada con IA que ilustra el apoyo al aprendizaje.",
-          "linkLabel": "Ver opciones de aprendizaje"
-        },
-        "digital": {
-          "title": "Haz de lo digital un aliado en tu vida cotidiana",
-          "body": "Aprende a usar el PC y el teléfono móvil para lo que necesitas en tu día a día. En Schools puedes consultar opciones para practicar a tu propio ritmo.",
-          "imageAlt": "Imagen de una mujer mayor generada con IA que ilustra el aprendizaje digital para la vida cotidiana.",
-          "linkLabel": "Ver cómo aprovechar el PC y el teléfono móvil"
-        }
-      },
       "detailsCta": "Más información"
     },
     "privacy": {
