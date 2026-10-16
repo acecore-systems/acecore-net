@@ -30,7 +30,7 @@
     "scrollToTop": "Voltar ao topo",
     "opensInNewTab": "(abre em nova aba)",
     "mainNav": "Navegação principal",
-    "mobileNav": "Navegação mobile",
+    "mobileNav": "Navegação móvel",
     "breadcrumb": "Caminho de navegação",
     "home": "Início",
     "loading": "Carregando...",
@@ -48,14 +48,14 @@
     "close": "Fechar chat de IA",
     "title": "Perguntar à IA",
     "lead": "Pesquisa nos sites oficiais relacionados à Acecore e responde brevemente com base em informações públicas.",
-    "greeting": "Com base nas informações públicas de Acecore, Acecore Systems, Acecore Schools e Aceserver, o chat encontra e apresenta como referência a página oficial adequada à sua pergunta. Para a World Foundation, atualmente direciona você ao site oficial. Não presume detalhes que não podem ser confirmados.",
+    "greeting": "Com base nas informações públicas da Acecore, Acecore Systems, Acecore Schools e Aceserver, o chat encontra a página oficial mais adequada à sua pergunta e a apresenta como referência. Para a World Foundation, no momento, direciona você ao site oficial. Não especula sobre detalhes que não podem ser confirmados.",
     "inputLabel": "Pergunta para o chat de IA",
     "placeholder": "Digite sua pergunta...",
     "send": "Enviar",
     "loading": "Gerando resposta...",
-    "error": "O chat de IA está indisponível. Use o formulário de contato ou LINE.",
+    "error": "O chat de IA não está disponível. Use o formulário de contato ou o LINE.",
     "quickServices": "Qual site oficial devo consultar para cada negócio?",
-    "quickEstimate": "Onde solicito um orçamento?",
+    "quickEstimate": "Onde devo solicitar um orçamento?",
     "quickSchools": "Onde encontro as informações oficiais da Schools?",
     "contactForm": "Formulário de contato",
     "line": "LINE",
@@ -65,10 +65,10 @@
   "hero": {
     "ctaServices": "Ver negócios",
     "ctaContact": "Solicitar uma consulta gratuita",
-    "sliderLabel": "Carrossel de imagens principais",
+    "sliderLabel": "Carrossel de imagens de destaque",
     "slide": "Slide",
-    "pauseAutoplay": "Pausar reprodução automática",
-    "resumeAutoplay": "Retomar reprodução automática"
+    "pauseAutoplay": "Pausar a reprodução automática dos slides",
+    "resumeAutoplay": "Retomar a reprodução automática dos slides"
   },
   "checklist": {
     "done": "Concluído: ",
@@ -76,8 +76,8 @@
   },
   "footer": {
     "tagline": "Levar o mundo à próxima etapa",
-    "description": "Informações corporativas, negócios e notícias da Acecore.",
-    "imageDisclosure": "As imagens ilustrativas que incluem pessoas usam materiais gerados por IA.",
+    "description": "Informações sobre a empresa, os negócios e as notícias corporativas da Acecore.",
+    "imageDisclosure": "As imagens ilustrativas com pessoas usam materiais gerados por IA.",
     "imageCreditLabel": "Sobre as imagens",
     "sitemap": "Mapa do site",
     "relatedLinks": "Links relacionados",
@@ -185,9 +185,9 @@
   },
   "meta": {
     "siteTitle": "Acecore Corporation",
-    "defaultDescription": "Levar o mundo à próxima etapa. Por meio da tecnologia e da aprendizagem, a Acecore busca reduzir o tempo gasto em tarefas não essenciais e criar um ambiente onde todos possam realizar suas aspirações.",
+    "defaultDescription": "«Levar o mundo à próxima etapa». Por meio da tecnologia e da aprendizagem, a Acecore busca reduzir o tempo dedicado a tarefas não essenciais e criar um ambiente em que todos possam se dedicar ao que desejam fazer.",
     "shortTitleContext": "Site oficial",
-    "shortDescriptionContext": "Informações corporativas, negócios e notícias da Acecore."
+    "shortDescriptionContext": "Informações sobre a empresa, os negócios e as notícias corporativas da Acecore."
   },
   "pages": {
     "home": {
@@ -334,7 +334,7 @@
     "services": {
       "title": "Áreas de atuação",
       "seoTitleContext": "Guia das áreas de atuação",
-      "description": "Conheça as áreas e os principais serviços da Acecore, que reduzem os encargos diários e apoiam novos desafios. Saiba onde consultar preços e condições de uso.",
+      "description": "Conheça as áreas e os principais serviços da Acecore, que aliviam a rotina e apoiam novos desafios. Saiba onde consultar preços e condições de uso.",
       "heroTitle": "Áreas de atuação",
       "heroSubtitle": "Conheça o suporte e os serviços disponíveis e saiba onde consultar os preços.",
       "heroImgAlt": "Escritório de tecnologia",
@@ -358,7 +358,7 @@
       "designTitle": "Acecore Design",
       "designDescription": "Estamos preparando uma área voltada à identidade visual de marcas, à comunicação de informações e ao design de experiências fáceis de usar.",
       "designStatus": "Em fase de planejamento e preparação",
-      "designNote": "Os serviços e a estrutura de atendimento da área de Design ainda estão sendo definidos. A Acecore Systems já aceita pedidos de criação de logotipos, materiais impressos, banners e outros itens. O canal geral de atendimento pode informar quais demandas podemos atender.",
+      "designNote": "Os serviços e a estrutura de atendimento da área de Design ainda estão sendo definidos. A Acecore Systems aceita pedidos de criação de logotipos, materiais impressos, banners e outros itens. O canal geral de atendimento pode informar quais demandas podemos atender.",
       "developmentTitle": "Serviço de desenvolvimento de sistemas sob medida",
       "developmentDescription": "Após entender suas necessidades, propomos e desenvolvemos o sistema mais adequado.",
       "advisorTitle": "Serviço de consultoria em TI",

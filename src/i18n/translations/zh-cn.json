@@ -40,26 +40,26 @@
     "playVideo": "播放 {title}",
     "timeline": "时间线",
     "copyCode": "复制代码",
-    "codeCopied": "已复制！",
+    "codeCopied": "已复制",
     "copyFailed": "复制失败"
   },
   "aiChat": {
     "open": "打开 AI 聊天",
     "close": "关闭 AI 聊天",
     "title": "向 AI 提问",
-    "lead": "我们会检索Acecore相关的官方网站，并根据公开信息简要回答。",
-    "greeting": "我们会从Acecore、Acecore Systems、Acecore Schools、Aceserver的公开信息中，查找与问题相符的官方页面并作为依据展示。关于World Foundation，目前将引导您访问其官方网站。对于无法确认的详细信息，我们不会进行推测。",
+    "lead": "我们会检索 Acecore 相关的官方网站，并根据公开信息简要作答。",
+    "greeting": "我们会根据 Acecore、Acecore Systems、Acecore Schools 和 Aceserver 的公开信息，查找与问题相关的官方页面并提供依据。关于 World Foundation，目前我们会引导您访问其官方网站。对于无法确认的详细信息，我们不会进行推测。",
     "inputLabel": "向 AI 聊天提问",
     "placeholder": "输入问题...",
     "send": "发送",
     "loading": "正在生成回答...",
-    "error": "当前无法使用 AI 聊天。请使用联系表单或 LINE。",
+    "error": "无法使用 AI 聊天。请使用联系表单或 LINE。",
     "quickServices": "应该查看哪个业务的官方网站？",
-    "quickEstimate": "报价应该向哪里咨询？",
-    "quickSchools": "Schools的官方信息在哪里？",
+    "quickEstimate": "应该向哪里咨询报价？",
+    "quickSchools": "Schools 的官方信息在哪里？",
     "contactForm": "联系表单",
     "line": "LINE",
-    "email": "邮件",
+    "email": "电子邮件",
     "phone": "电话"
   },
   "hero": {
@@ -71,13 +71,13 @@
     "resumeAutoplay": "恢复幻灯片自动播放"
   },
   "checklist": {
-    "done": "已完成：",
-    "pending": "未完成："
+    "done": "已完成： ",
+    "pending": "未完成： "
   },
   "footer": {
     "tagline": "让世界迈向下一阶段",
-    "description": "Acecore的公司信息、业务和企业新闻。",
-    "imageDisclosure": "含人物的示意图片使用了 AI 生成素材。",
+    "description": "为您介绍 Acecore 的公司信息、业务及企业新闻。",
+    "imageDisclosure": "含有人物的示意图片使用了 AI 生成素材。",
     "imageCreditLabel": "关于图片素材",
     "sitemap": "站点地图",
     "relatedLinks": "相关链接",
@@ -185,9 +185,9 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "让世界迈向下一阶段。Acecore通过技术与学习，致力于减少花在非本质事务上的时间，创造让每个人都能挑战自己想做之事的环境。",
+    "defaultDescription": "「让世界迈向新阶段」。Acecore 致力于通过技术与学习，减少在非必要事务上耗费的时间，并打造让每个人都能挑战自己想做之事的环境。",
     "shortTitleContext": "官方网站",
-    "shortDescriptionContext": "Acecore的公司信息、业务和企业新闻。"
+    "shortDescriptionContext": "为您介绍 Acecore 的公司信息、业务及企业新闻。"
   },
   "pages": {
     "home": {
@@ -328,24 +328,24 @@
     "services": {
       "title": "业务",
       "seoTitleContext": "业务介绍",
-      "description": "为您介绍Acecore的业务部门与主要服务，以及费用和使用条件的查询渠道，帮助减轻日常负担，并支持每个人迎接挑战。",
+      "description": "为您介绍Acecore的业务部门、主要服务及费用与使用条件的查询方式，帮助减轻日常负担，支持每个人迎接挑战。",
       "heroTitle": "业务",
       "heroSubtitle": "为您介绍可提供的支持与服务，以及费用查询方式。",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
       "introTitle": "业务部门",
-      "introBody": "减少用于非核心事务的时间，打造人人都能挑战自己想做之事的环境。我们通过技术支持、按目标提供的学习支持以及社区运营等，助力每个人发挥积极性与潜能。",
+      "introBody": "减少非核心事务所占用的时间，营造让每个人都能挑战心中所想的环境。通过技术支持、按目标定制的学习支持及社区运营等服务，助力每个人发挥积极性与潜能。",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "提供Web与系统开发、DB与基础设施、质量保证、AI应用等技术支持，并承接设计与创意制作。",
       "schoolsTitle": "Acecore Schools",
       "schoolsDescription": "根据目标提供学习支持。",
       "aceserverTitle": "Aceserver",
-      "aceserverDescription": "我们运营 Minecraft 社区。",
+      "aceserverDescription": "运营 Minecraft 社区。",
       "storeTitle": "Acecore Store",
       "storeDescription": "Acecore官方在线商店。",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "准备中",
-      "acestudioDescription": "为所有创作者提供分享自身活动的空间。",
+      "acestudioDescription": "为所有创作者提供分享自身活动的平台。",
       "contactHeading": "服务选型与导入咨询",
       "contactBody": "请告诉我们您需要的支持和期望，我们将为您介绍相应的部门与服务。",
       "contactCta": "咨询相关服务",
@@ -354,7 +354,7 @@
       "designStatus": "构想与筹备中",
       "designNote": "Design部门的服务内容和交付体系仍在梳理中。标志、印刷品、横幅等制作目前由Acecore Systems受理。具体服务范围可通过统一咨询窗口了解。",
       "developmentTitle": "系统定制开发服务",
-      "developmentDescription": "我们会先了解您的需求，再为您推荐并开发最合适的系统。",
+      "developmentDescription": "在了解客户需求后，为您推荐并开发最合适的系统。",
       "advisorTitle": "IT顾问工程师服务",
       "advisorDescription": "从日常咨询到网站上线，我们均以固定月费提供支持。",
       "learningTitle": "根据目标提供学习支持",
