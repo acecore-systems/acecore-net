@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "세계를 다음 단계로",
     "description": "Acecore의 회사 정보와 사업, 기업 뉴스를 안내합니다.",
+    "imageDisclosure": "인물이 포함된 예시 이미지에는 AI 생성 소재를 사용합니다.",
+    "imageCreditLabel": "이미지 소재 안내",
     "sitemap": "사이트맵",
     "relatedLinks": "관련 링크",
     "schools": "Acecore Schools",

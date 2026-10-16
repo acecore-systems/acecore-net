@@ -6,8 +6,11 @@
   "scripts": {
     "predev": "node scripts/write-cms-runtime-config.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/write-cms-runtime-config.mjs",
-    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs && node --experimental-strip-types scripts/copy-localized-404.mjs",
+    "prebuild": "node scripts/write-cms-runtime-config.mjs && npm run validate:cast-scenes && npm run test:cast-scenes",
+    "build": "astro build && node scripts/enrich-sitemap-lastmod.mjs && pagefind --site dist && node scripts/build-search-corpus.mjs && node scripts/write-build-meta.mjs && node --experimental-strip-types scripts/copy-localized-404.mjs && npm run validate:cast-scenes:build",
+    "validate:cast-scenes": "node scripts/validate-cast-scenes.mjs",
+    "test:cast-scenes": "node --test --test-isolation=none tests/cast-scenes.test.mjs",
+    "validate:cast-scenes:build": "node scripts/validate-cast-scenes-build.mjs",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",

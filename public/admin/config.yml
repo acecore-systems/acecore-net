@@ -1010,6 +1010,14 @@ collections:
                 label: '説明'
                 hint: 'footer.description'
                 widget: string
+              - name: 'imageDisclosure'
+                label: 'AI画像の説明'
+                hint: 'footer.imageDisclosure'
+                widget: string
+              - name: 'imageCreditLabel'
+                label: '画像素材リンクの文言'
+                hint: 'footer.imageCreditLabel'
+                widget: string
               - name: 'sitemap'
                 label: 'サイトマップ'
                 hint: 'footer.sitemap'

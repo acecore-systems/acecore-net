@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
@@ -82,10 +83,12 @@ const aboutPageLd = {
     subtitle={t(locale, 'pages.about.heroSubtitle')}
     images={[
       {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
+        src: optimizeImage(castScene('about-hero')),
         alt: t(locale, 'pages.about.heroImgAlt'),
+        width: castSceneAsset('about-hero').width,
+        height: castSceneAsset('about-hero').height,
+        srcsetWidths: [castSceneAsset('about-hero').width],
+        objectPosition: '0% 50%',
       },
     ]}
     locale={locale}
@@ -146,12 +149,13 @@ const aboutPageLd = {
       </section>
       <div class="mb-12">
         <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
+          src={optimizeImage(castScene('about-collaboration'), {
+            width: 1200,
+            height: 675,
+            quality: 80,
+          })}
           srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&q=80&fm=webp',
+            castScene('about-collaboration'),
             contentImageWidths,
             contentImageOptions,
           )}
@@ -263,12 +267,13 @@ const aboutPageLd = {
 
       <div class="mb-12">
         <img
-          src={optimizeImage(
-            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
-            { width: 1200, height: 675, quality: 80 },
-          )}
+          src={optimizeImage(castScene('about-workshop'), {
+            width: 1200,
+            height: 675,
+            quality: 80,
+          })}
           srcset={generateSrcSet(
-            'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&q=80&fm=webp',
+            castScene('about-workshop'),
             contentImageWidths,
             contentImageOptions,
           )}

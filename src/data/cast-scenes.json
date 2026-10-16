@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "releaseId": "scenes-v1.0.0",
+  "site": "net",
+  "siteOrigin": "https://acecore.net",
+  "catalogUrl": "https://cast.acecore.net/",
+  "manifest": {
+    "url": "https://cast.acecore.net/releases/scenes-v1.0.0/consumer-manifest.json",
+    "sha256": "03e9f60be6c6ed0ec1b7497a4b030d54a37c00af8c68209b9090d2da78bd6bd7",
+    "snapshot": "vendor/cast/scenes-v1.0.0/consumer-manifest.json"
+  },
+  "assets": [
+    {
+      "id": "net--about-collaboration",
+      "localPath": "/images/cast/scenes-v1.0.0/net--about-collaboration--22e132c18a4b75ec79e9b2ffd5883cd0e85b8367a05c8d99694dce134a3e1096.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.0.0/assets/net--about-collaboration--22e132c18a4b75ec79e9b2ffd5883cd0e85b8367a05c8d99694dce134a3e1096.webp",
+      "sha256": "22e132c18a4b75ec79e9b2ffd5883cd0e85b8367a05c8d99694dce134a3e1096",
+      "bytes": 158618,
+      "width": 1672,
+      "height": 941,
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "net--about-hero",
+      "localPath": "/images/cast/scenes-v1.0.0/net--about-hero--a821bbc0eaecca9b49dfc54a73b69b5ed100d0452b607cade36eced17739d8fb.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.0.0/assets/net--about-hero--a821bbc0eaecca9b49dfc54a73b69b5ed100d0452b607cade36eced17739d8fb.webp",
+      "sha256": "a821bbc0eaecca9b49dfc54a73b69b5ed100d0452b607cade36eced17739d8fb",
+      "bytes": 116048,
+      "width": 1915,
+      "height": 821,
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "net--about-workshop",
+      "localPath": "/images/cast/scenes-v1.0.0/net--about-workshop--d9c900d64c35900fb66612b44b456f43750314e3fc6bad94726c0e8e54469744.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.0.0/assets/net--about-workshop--d9c900d64c35900fb66612b44b456f43750314e3fc6bad94726c0e8e54469744.webp",
+      "sha256": "d9c900d64c35900fb66612b44b456f43750314e3fc6bad94726c0e8e54469744",
+      "bytes": 143768,
+      "width": 1672,
+      "height": 941,
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "net--home-meeting",
+      "localPath": "/images/cast/scenes-v1.0.0/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.0.0/assets/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
+      "sha256": "4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2",
+      "bytes": 97410,
+      "width": 1254,
+      "height": 1254,
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "net--home-team",
+      "localPath": "/images/cast/scenes-v1.0.0/net--home-team--6c1522b45d05a243a81eb93967143ca8ce86c3c08fdb664f6470f6c43509c98e.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.0.0/assets/net--home-team--6c1522b45d05a243a81eb93967143ca8ce86c3c08fdb664f6470f6c43509c98e.webp",
+      "sha256": "6c1522b45d05a243a81eb93967143ca8ce86c3c08fdb664f6470f6c43509c98e",
+      "bytes": 221092,
+      "width": 1254,
+      "height": 1254,
+      "mimeType": "image/webp"
+    }
+  ]
+}

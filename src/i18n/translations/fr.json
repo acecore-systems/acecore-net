@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "Faire passer le monde à l’étape suivante",
     "description": "Informations sur l'entreprise, ses activités et les actualités d'Acecore.",
+    "imageDisclosure": "Les images d’illustration représentant des personnes utilisent des contenus générés par IA.",
+    "imageCreditLabel": "À propos des images",
     "sitemap": "Plan du site",
     "relatedLinks": "Liens connexes",
     "schools": "Acecore Schools",

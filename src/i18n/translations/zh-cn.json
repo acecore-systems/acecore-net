@@ -77,6 +77,8 @@
   "footer": {
     "tagline": "让世界迈向下一阶段",
     "description": "Acecore的公司信息、业务和企业新闻。",
+    "imageDisclosure": "含人物的示意图片使用了 AI 生成素材。",
+    "imageCreditLabel": "关于图片素材",
     "sitemap": "站点地图",
     "relatedLinks": "相关链接",
     "schools": "Acecore Schools",
