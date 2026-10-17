@@ -34,7 +34,7 @@ async function inspect(directory) {
       'retired cast section in ' + path.pathname,
     )
     for (const match of html.matchAll(
-      /\/images\/cast\/scenes-v1\.0\.0\/[a-z0-9-]+\.webp/gu,
+      /\/images\/cast\/scenes-v\d+\.\d+\.\d+\/[a-z0-9-]+\.webp/gu,
     )) {
       assert.ok(allowed.has(match[0]), 'unregistered scene in ' + path.pathname)
       seen.add(match[0])
