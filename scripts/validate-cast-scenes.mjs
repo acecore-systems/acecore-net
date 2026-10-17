@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 
-export const releaseVersion = 'scenes-v1.0.0'
+export const releaseVersion = 'scenes-v1.1.0'
 export const releaseBase = 'https://cast.acecore.net/releases/' + releaseVersion
 export const snapshotPath =
   'vendor/cast/' + releaseVersion + '/consumer-manifest.json'

@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "scenes-v1.1.0",
+  "manifestUrl": "https://cast.acecore.net/releases/scenes-v1.1.0/consumer-manifest.json",
+  "permissions": {
+    "namedSiteDisplay": true,
+    "assetDeliveryForNamedSites": true,
+    "publicCatalogListing": false,
+    "thirdPartyReuse": false,
+    "redistribution": false,
+    "sale": false,
+    "training": false
+  },
+  "permittedSites": [
+    "https://acecore.net",
+    "https://systems.acecore.net",
+    "https://schools.acecore.net"
+  ],
+  "assets": [
+    {
+      "id": "net--about-collaboration",
+      "site": "net",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-005",
+        "acvc-006",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/net--about-collaboration--01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c.webp",
+      "sha256": "01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c",
+      "mimeType": "image/webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 177716
+    },
+    {
+      "id": "net--about-hero",
+      "site": "net",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-005",
+        "acvc-006",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/net--about-hero--ef72d88b9cc614f62fbd4dd336b18f26a106e366e9b496b121d147ded788b791.webp",
+      "sha256": "ef72d88b9cc614f62fbd4dd336b18f26a106e366e9b496b121d147ded788b791",
+      "mimeType": "image/webp",
+      "width": 1914,
+      "height": 822,
+      "bytes": 126674
+    },
+    {
+      "id": "net--about-workshop",
+      "site": "net",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-005",
+        "acvc-006",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/net--about-workshop--96175ade015faae6d1c5bb18bd6d3985e8caa0a70c68ff78b8d6b44f6a8e673c.webp",
+      "sha256": "96175ade015faae6d1c5bb18bd6d3985e8caa0a70c68ff78b8d6b44f6a8e673c",
+      "mimeType": "image/webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 169574
+    },
+    {
+      "id": "net--home-meeting",
+      "site": "net",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
+      "sha256": "4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2",
+      "mimeType": "image/webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 97410
+    },
+    {
+      "id": "net--home-team",
+      "site": "net",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-005",
+        "acvc-006",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/net--home-team--690298ea055e9a2a332832eb23ac1386f933a8da793d7a91ca41eeb4705acfc0.webp",
+      "sha256": "690298ea055e9a2a332832eb23ac1386f933a8da793d7a91ca41eeb4705acfc0",
+      "mimeType": "image/webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 244176
+    },
+    {
+      "id": "systems--guide-discovery-workshop",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--guide-discovery-workshop--2c3293fafaae6daecf4c6ac6ff55e8fcd5e44cbb17293d6fbbc90e881b430003.webp",
+      "sha256": "2c3293fafaae6daecf4c6ac6ff55e8fcd5e44cbb17293d6fbbc90e881b430003",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 167656
+    },
+    {
+      "id": "systems--service-development-overview-v2",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-development-overview-v2--254d64cc4f808aef9a8f8cee14564e9c4e9ccb44624dbd694b222088322319e1.webp",
+      "sha256": "254d64cc4f808aef9a8f8cee14564e9c4e9ccb44624dbd694b222088322319e1",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 183266
+    },
+    {
+      "id": "systems--service-development-release",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-development-release--6a3a64dbb574d2ebce422de8ac709d491794418c174336cd035fcef6af7188c5.webp",
+      "sha256": "6a3a64dbb574d2ebce422de8ac709d491794418c174336cd035fcef6af7188c5",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 173844
+    },
+    {
+      "id": "systems--service-it-advisor-operations",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-it-advisor-operations--dcea0fdf969e76aa4fbc621148eb6f8db41f74386c2d0654bc1a4309bd090152.webp",
+      "sha256": "dcea0fdf969e76aa4fbc621148eb6f8db41f74386c2d0654bc1a4309bd090152",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 196416
+    },
+    {
+      "id": "systems--service-it-advisor-overview-v2",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-it-advisor-overview-v2--81cfad4a13ab2f81440e8362190a34d550c47bb2fd175b8acf2399e18a35ac36.webp",
+      "sha256": "81cfad4a13ab2f81440e8362190a34d550c47bb2fd175b8acf2399e18a35ac36",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 155378
+    },
+    {
+      "id": "systems--service-operations-overview",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-005",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-operations-overview--73d6c222f68c848b32d2f73eba71c453c4196e8ed1e5172f952d8bf7a42c5217.webp",
+      "sha256": "73d6c222f68c848b32d2f73eba71c453c4196e8ed1e5172f952d8bf7a42c5217",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 162140
+    },
+    {
+      "id": "systems--service-operations-review",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-005",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-operations-review--7d86d0d0e625ca79be075c1f7f15a5fc5cb62b5cc1780824ac36e34088cf018c.webp",
+      "sha256": "7d86d0d0e625ca79be075c1f7f15a5fc5cb62b5cc1780824ac36e34088cf018c",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 157428
+    },
+    {
+      "id": "systems--service-site-functions-overview",
+      "site": "systems",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-site-functions-overview--094faf665eca4706f43557b9ff9de47d3eb11c40dc4caf39b6032c647c948f2a.webp",
+      "sha256": "094faf665eca4706f43557b9ff9de47d3eb11c40dc4caf39b6032c647c948f2a",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 137566
+    },
+    {
+      "id": "systems--service-site-functions-publish",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-site-functions-publish--126f6225a62f7ae344a10369cf1b6d1a6036247f04e5532aea1e8bd63da84943.webp",
+      "sha256": "126f6225a62f7ae344a10369cf1b6d1a6036247f04e5532aea1e8bd63da84943",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 192826
+    },
+    {
+      "id": "systems--service-site-quality-overview",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-site-quality-overview--1cc87003c9511235d4280b1e3179352a921c75f1a2bd100b60e4b942d1a3a1f1.webp",
+      "sha256": "1cc87003c9511235d4280b1e3179352a921c75f1a2bd100b60e4b942d1a3a1f1",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 154620
+    },
+    {
+      "id": "systems--service-site-quality-verification",
+      "site": "systems",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/systems--service-site-quality-verification--ad942617836dbc1716fc8ddc2a13910cf12b92843b880ace92b4430f163c2ee3.webp",
+      "sha256": "ad942617836dbc1716fc8ddc2a13910cf12b92843b880ace92b4430f163c2ee3",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 174072
+    },
+    {
+      "id": "schools--area-digital",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--area-digital--5120b2531a030a2b1b04aaf0b1d4bfb86840da4bee40e5a90dd7f41d825df235.webp",
+      "sha256": "5120b2531a030a2b1b04aaf0b1d4bfb86840da4bee40e5a90dd7f41d825df235",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 124736
+    },
+    {
+      "id": "schools--area-ged",
+      "site": "schools",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--area-ged--a65a801a9a46f0b34cec42374144dbd906f08f94e0b0345b344083f610ab2771.webp",
+      "sha256": "a65a801a9a46f0b34cec42374144dbd906f08f94e0b0345b344083f610ab2771",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 156938
+    },
+    {
+      "id": "schools--area-making",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--area-making--1aa394e401d44f45fa8a4a837e09450dea87125e86d486f73ffc1e9539ef8078.webp",
+      "sha256": "1aa394e401d44f45fa8a4a837e09450dea87125e86d486f73ffc1e9539ef8078",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 187098
+    },
+    {
+      "id": "schools--area-programming",
+      "site": "schools",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--area-programming--2c266ec0ee1b4e2175dfc52014bf3b5dc62b665671da15a5e699b8903ed17149.webp",
+      "sha256": "2c266ec0ee1b4e2175dfc52014bf3b5dc62b665671da15a5e699b8903ed17149",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 126446
+    },
+    {
+      "id": "schools--hero-about",
+      "site": "schools",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-about--7bd2f83ecae6f38d662a7e932768c2fdc35ed35eb98e7b1a7fddba75636457c7.webp",
+      "sha256": "7bd2f83ecae6f38d662a7e932768c2fdc35ed35eb98e7b1a7fddba75636457c7",
+      "mimeType": "image/webp",
+      "width": 1731,
+      "height": 909,
+      "bytes": 106898
+    },
+    {
+      "id": "schools--hero-city",
+      "site": "schools",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-city--d99c424d1c0040a598b3b709ce8f01d93d078e35cdce4b950576582ac9b47055.webp",
+      "sha256": "d99c424d1c0040a598b3b709ce8f01d93d078e35cdce4b950576582ac9b47055",
+      "mimeType": "image/webp",
+      "width": 1774,
+      "height": 887,
+      "bytes": 88074
+    },
+    {
+      "id": "schools--hero-faq",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-005",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-faq--02998a0d8cde273ce1f1bb5d25caa30ba9ddc639313d92f7c374af5a5cb6a6bc.webp",
+      "sha256": "02998a0d8cde273ce1f1bb5d25caa30ba9ddc639313d92f7c374af5a5cb6a6bc",
+      "mimeType": "image/webp",
+      "width": 1732,
+      "height": 908,
+      "bytes": 114912
+    },
+    {
+      "id": "schools--hero-how-it-works",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-how-it-works--ae363fb74513c9dcd1980a39121707e376c2bb3254b5da85c1435f970fa679ad.webp",
+      "sha256": "ae363fb74513c9dcd1980a39121707e376c2bb3254b5da85c1435f970fa679ad",
+      "mimeType": "image/webp",
+      "width": 1731,
+      "height": 908,
+      "bytes": 89150
+    },
+    {
+      "id": "schools--hero-learning",
+      "site": "schools",
+      "subjectIds": [
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-learning--e8759d115775f77ddfff7bfdeacfd4ba763e362b5ccb3b2602beda478e5193ba.webp",
+      "sha256": "e8759d115775f77ddfff7bfdeacfd4ba763e362b5ccb3b2602beda478e5193ba",
+      "mimeType": "image/webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 101488
+    },
+    {
+      "id": "schools--hero-pricing",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--hero-pricing--3a5f7152973ce79e00f7da2f164ad3198a078b978ff18d4b50f2e91350a3be97.webp",
+      "sha256": "3a5f7152973ce79e00f7da2f164ad3198a078b978ff18d4b50f2e91350a3be97",
+      "mimeType": "image/webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 139734
+    },
+    {
+      "id": "schools--support-call",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-006"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--support-call--7983bc52fe10252b1c5a068c4226273dc0e03956cfff580fb51c245e53682ddf.webp",
+      "sha256": "7983bc52fe10252b1c5a068c4226273dc0e03956cfff580fb51c245e53682ddf",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 142546
+    },
+    {
+      "id": "schools--workshop-robot-summer",
+      "site": "schools",
+      "subjectIds": [
+        "acvc-001",
+        "acvc-003",
+        "acvc-004",
+        "acvc-005",
+        "hatt"
+      ],
+      "url": "https://cast.acecore.net/releases/scenes-v1.1.0/assets/schools--workshop-robot-summer--dd37c62fbfd870a69e3be1dd017690c4d46747b3d727dae4b53b60320b1a90d6.webp",
+      "sha256": "dd37c62fbfd870a69e3be1dd017690c4d46747b3d727dae4b53b60320b1a90d6",
+      "mimeType": "image/webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 205190
+    }
+  ]
+}
