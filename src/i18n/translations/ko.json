@@ -220,39 +220,39 @@
     "contact": {
       "title": "문의하기",
       "seoTitleContext": "사업·협력·공통 문의",
-      "description": "사업 간 상담, 협력 제안, 어느 사업에 문의해야 할지 모르는 질문을 Acecore 공통 창구에서 받습니다.",
+      "description": "사업 전반에 관한 상담과 협력 제안, 문의처를 알기 어려운 경우 Acecore 공통 창구에서 문의를 접수합니다.",
       "heroTitle": "문의하기",
-      "heroSubtitle": "질문, 상담, 의뢰는 여기에서",
+      "heroSubtitle": "질문·상담·요청은 여기에서",
       "heroImgAlt": "커뮤니케이션 이미지",
       "formCategoryLabel": "문의 유형",
       "formCategoryPlaceholder": "선택해 주세요",
-      "formCategoryService": "사업 간 문의 또는 문의처를 모름",
-      "formCategoryServiceSystems": "Acecore Systems에 관하여",
-      "formCategoryServiceEducation": "Acecore Schools에 관하여",
-      "formCategoryServiceAceserver": "Aceserver에 관하여",
-      "formCategoryServiceAcestudio": "AceStudio에 관하여",
-      "formCategoryEstimate": "견적 요청",
+      "formCategoryService": "사업 간 문의·문의처를 모르는 경우",
+      "formCategoryServiceSystems": "Acecore Systems 관련 문의",
+      "formCategoryServiceEducation": "Acecore Schools 관련 문의",
+      "formCategoryServiceAceserver": "Aceserver 관련 문의",
+      "formCategoryServiceAcestudio": "AceStudio 관련 문의",
+      "formCategoryEstimate": "견적 문의",
       "formCategoryPartnership": "파트너십 상담",
-      "formCategoryRecruit": "채용에 관하여",
+      "formCategoryRecruit": "채용 문의",
       "formCategoryOther": "기타",
       "formNameLabel": "이름",
-      "formEmailLabel": "이메일",
+      "formEmailLabel": "이메일 주소",
       "formSubjectLabel": "제목",
       "formMessageLabel": "문의 내용",
       "formSubmit": "보내기",
       "formSending": "전송 중…",
       "formSuccess": "문의가 전송되었습니다. 확인 이메일을 확인해 주세요.",
       "formError": "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.",
-      "formSubmitNote": "제출 후 확인 이메일이 발송됩니다. 받지 못한 경우 스팸 폴더를 확인해 주세요.",
-      "serviceSubjectTemplate": "{service} 문의",
+      "formSubmitNote": "전송 후 확인 이메일이 발송됩니다. 받지 못한 경우 스팸 메일함도 확인해 주세요.",
+      "serviceSubjectTemplate": "{service} 관련 문의",
       "validationCategory": "문의 유형을 선택해 주세요",
       "validationName": "이름을 입력해 주세요",
-      "validationEmail": "유효한 이메일 주소를 입력해 주세요",
-      "validationMessage": "의미 있는 내용을 10자 이상 입력해 주세요",
+      "validationEmail": "올바른 이메일 주소를 입력해 주세요",
+      "validationMessage": "문의 내용을 10자 이상 입력해 주세요",
       "aiHeading": "AI로 문의처 확인",
-      "aiLead": "상담 내용에 맞는 담당 서비스나 공통 문의 창구를 안내합니다. Design과 AceStudio는 준비 중입니다.",
-      "aiSubmit": "문의처 확인",
-      "formCategoryServiceDesign": "Acecore Designs — 디자인·일러스트 제작 / 3D 제작 / 글·음성 콘텐츠 제작"
+      "aiLead": "상담 내용에 따라 담당 서비스나 공통 창구를 안내해 드립니다. Design과 AceStudio는 준비 중입니다.",
+      "aiSubmit": "문의처 확인하기",
+      "formCategoryServiceDesign": "디자인·3D·글·음성 제작 / Acecore Designs 관련 문의"
     },
     "about": {
       "title": "회사 소개",
@@ -328,17 +328,17 @@
     "services": {
       "title": "사업",
       "seoTitleContext": "사업 안내",
-      "description": "일상의 부담을 줄이고 각자의 도전을 뒷받침하는 Acecore의 사업 부문과 주요 서비스, 요금 및 이용 조건을 확인할 수 있는 곳을 소개합니다.",
+      "description": "일상의 부담을 줄이고 한 사람 한 사람의 도전을 뒷받침하는 Acecore의 사업 부문과 주요 서비스, 요금 및 이용 조건을 확인할 수 있는 곳을 소개합니다.",
       "heroTitle": "사업",
-      "heroSubtitle": "제공 가능한 지원과 서비스, 요금 확인 방법을 안내합니다.",
+      "heroSubtitle": "제공 가능한 지원과 서비스, 요금을 확인할 수 있는 곳을 안내합니다.",
       "heroImgAlt": "테크놀로지 오피스",
       "eyebrow": "Business Directory",
       "introTitle": "사업 부문",
-      "introBody": "본질적이지 않은 일에 쓰는 시간을 줄여 누구나 ‘하고 싶은 일’에 도전할 수 있는 환경을 조성합니다. 기술 지원, 목적에 맞춘 학습 지원, 커뮤니티 운영 등을 통해 한 사람 한 사람의 의지와 가능성을 뒷받침합니다.",
+      "introBody": "불필요한 일에 쓰는 시간을 줄이고 누구나 ‘하고 싶은 일’에 도전할 수 있는 환경을 조성합니다. 기술 지원, 목적에 맞춘 학습 지원, 커뮤니티 운영 등을 통해 한 사람 한 사람의 의욕과 가능성을 뒷받침합니다.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "웹·시스템 개발, 데이터베이스·인프라, 품질 보증, AI 활용 등의 기술 지원과 디자인·크리에이티브 제작을 담당합니다.",
+      "systemsDescription": "웹·시스템 개발, DB·인프라, 품질 보증, AI 활용 등의 기술 지원과 디자인·크리에이티브 제작을 담당합니다.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "3D 제작 입문 교육, 개별 기술 지원, 일러스트·글 제작 리뷰, 창작 워크숍도 제공합니다.",
+      "schoolsDescription": "목적에 맞춘 학습 지원뿐 아니라 3D 제작 교육과 기술 지원, 제작물 리뷰, 창작 워크숍을 제공합니다.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Minecraft 커뮤니티를 운영합니다.",
       "storeTitle": "Acecore Store",
@@ -347,19 +347,19 @@
       "acestudioStatus": "준비 중",
       "acestudioDescription": "모든 크리에이터가 자신의 활동을 공유할 수 있는 공간을 제공합니다.",
       "contactHeading": "서비스 선택 및 도입 상담",
-      "contactBody": "필요한 지원과 희망 사항을 알려 주세요. 적합한 부문과 서비스를 안내해 드립니다.",
+      "contactBody": "필요한 지원이나 원하시는 사항을 알려 주세요. 해당 부문과 서비스를 안내해 드립니다.",
       "contactCta": "서비스 상담하기",
       "designTitle": "Acecore Designs",
-      "designDescription": "디자인·일러스트 제작 / 3D 제작 / 글·음성 콘텐츠 제작",
-      "designStatus": "이 서비스 상담하기",
-      "designNote": "Acecore Designs의 캐릭터, 일러스트, 3D, 스토리, 대본, 음성 제작 13개 서비스와 세금 포함 시작 요금을 안내합니다.",
+      "designDescription": "캐릭터·일러스트·3D·글·음성 제작 의뢰를 받고 있습니다.",
+      "designStatus": "제작 상담 접수 중",
+      "designNote": "각 서비스의 상세 내용과 부가세 포함 요금을 안내합니다.",
       "developmentTitle": "시스템 맞춤 개발 서비스",
-      "developmentDescription": "고객이 필요로 하는 시스템에 대해 먼저 이야기를 듣고, 최적의 시스템을 제안하고 개발합니다.",
+      "developmentDescription": "고객이 필요로 하는 시스템에 대해 이야기를 나눈 뒤, 최적의 시스템을 제안하고 개발합니다.",
       "advisorTitle": "IT 자문 엔지니어 서비스",
       "advisorDescription": "일상적인 상담부터 홈페이지 공개까지 월 정액제로 지원합니다.",
       "learningTitle": "목적에 맞춘 학습 지원",
       "pricingHeading": "요금 및 이용 조건",
-      "pricingLead": "상세한 요금과 지원 범위는 각 전문 사이트에서 확인해 주세요. 학습 지원 제공 조건은 상담 시 확인할 수 있으며, 커뮤니티 참여 조건과 상품 가격은 각 서비스 안내 페이지에서 확인할 수 있습니다.",
+      "pricingLead": "자세한 요금과 지원 범위는 각 전문 사이트에서 확인해 주세요. 학습 지원의 제공 조건은 상담 시 확인할 수 있으며, 커뮤니티 참여 조건과 상품 가격은 각 서비스 안내 페이지에서 확인할 수 있습니다.",
       "offeringsHeading": "주요 서비스",
       "detailsCta": "자세히 보기"
     },
@@ -419,22 +419,22 @@
     "designs": {
       "title": "Acecore Designs",
       "seoTitleContext": "디자인·3D·글·음성 제작",
-      "description": "Acecore Designs의 캐릭터, 일러스트, 3D, 스토리, 대본, 음성 제작 13개 서비스와 세금 포함 시작 요금을 안내합니다.",
-      "heroTitle": "전하고 싶은 생각을 작품으로.",
-      "heroLead": "Acecore Designs는 기업·매장, 학교·단체, 개인을 위한 디자인·3D·글·음성 제작을 하나의 창구에서 상담합니다.",
+      "description": "Acecore Designs에서 캐릭터, 일러스트, 3D 모델, 스토리, 대본, 음성 제작을 의뢰하실 수 있습니다. 13개 서비스의 세금 포함 시작 요금과 제공 범위를 안내합니다.",
+      "heroTitle": "전하고 싶은 것을 작품으로.",
+      "heroLead": "기업·매장, 학교·단체, 개인의 다양한 제작을 지원하는 Acecore Designs입니다. 용도에 맞는 디자인·3D·글·음성 제작을 한 곳에서 상담하실 수 있습니다.",
       "catalogHeading": "제작 서비스와 요금",
       "priceLabel": "{price}엔부터 (세금 포함)",
       "consultLabel": "이 서비스 상담하기",
       "conditionsTitle": "견적 안내",
-      "conditionsBody": "표시 금액은 기본 내용에 대한 세금 포함 시작 요금입니다. 용도, 제작 범위, 수정 횟수, 납기, 납품 형식, 이용 조건을 확인해 견적을 제시합니다. 소재비와 추가 제작 비용도 계약 전에 안내합니다.",
+      "conditionsBody": "표시된 금액은 기본 작업에 대한 세금 포함 시작 요금입니다. 용도, 제작 범위, 수정 횟수, 납기, 납품 형식, 이용 조건을 확인한 뒤 견적을 안내합니다. 소재비나 추가 제작 비용도 계약 전에 알려드립니다.",
       "flowTitle": "상담부터 납품까지",
-      "flowBody": "Acecore가 상담을 접수하고 내용과 대응 가능 여부를 확인합니다. 견적과 제작 조건에 합의한 뒤 제작을 시작하여 확인·수정을 거쳐 납품합니다.",
-      "creatorTitle": "제작 담당",
-      "creatorBody": "Hatt가 공개한 캐릭터·3D 작품·소설을 확인할 수 있습니다. 제작 상담과 견적은 Acecore가 담당합니다.",
+      "flowBody": "Acecore가 상담을 접수한 뒤 의뢰 내용과 제작 가능 여부를 확인합니다. 견적 및 제작 조건에 합의하면 제작을 진행하고, 확인과 수정을 거쳐 납품합니다.",
+      "creatorTitle": "제작 담당자",
+      "creatorBody": "Hatt의 캐릭터·3D 작품·소설 등 공개 작품을 살펴보실 수 있습니다. 제작 상담과 견적은 Acecore가 맡습니다.",
       "portfolioLabel": "Hatt의 작품 보기",
-      "schoolsTitle": "교육·제작 지원은 Acecore Schools",
-      "schoolsBody": "3D 제작 입문 교육, 개별 기술 지원, 일러스트·글 제작 리뷰, 창작 워크숍도 제공합니다.",
-      "schoolsLabel": "교육·제작 지원 보기",
+      "schoolsTitle": "교육·제작 지원은 Acecore Schools에서",
+      "schoolsBody": "3D 제작 입문 교육, 개별 기술 지원, 일러스트·글 제작 리뷰, 창작 워크숍도 상담하실 수 있습니다.",
+      "schoolsLabel": "교육·제작 지원 살펴보기",
       "groups": [
         {
           "id": "illustration",
@@ -444,37 +444,37 @@
               "id": "character-design",
               "price": 30000,
               "title": "캐릭터 디자인",
-              "description": "기업·매장, 상품, 게임, 홍보 등의 용도와 이미지에 맞춘 오리지널 캐릭터를 설계합니다."
+              "description": "기업·매장, 상품, 게임, 홍보 등 용도와 이미지에 맞춰 오리지널 캐릭터를 디자인합니다."
             },
             {
               "id": "character-illustration",
               "price": 8000,
               "title": "마스코트·캐릭터 추가 일러스트",
-              "description": "기존 캐릭터의 새 포즈·표정·계절 행사 일러스트 1점을 제작합니다. SNS, 홍보물, 굿즈 등에 활용할 수 있습니다."
+              "description": "기존 캐릭터의 다른 포즈나 표정, 계절·이벤트용 일러스트를 1점 제작합니다. SNS, 판촉물, 굿즈 등에 활용할 수 있습니다."
             },
             {
               "id": "character-sheets",
               "price": 20000,
               "title": "캐릭터 설정화·삼면도",
-              "description": "정면·측면·후면과 배색을 정리하여 3D 제작, 애니메이션, 공동 제작에 사용할 자료를 만듭니다."
+              "description": "정면·측면·후면과 색상 구성을 정리한 설정 자료를 제작합니다. 3D 모델링, 애니메이션, 여러 제작자가 함께하는 작업에 활용할 수 있습니다."
             },
             {
               "id": "cover-illustration",
               "price": 20000,
               "title": "책·책자 표지 일러스트",
-              "description": "책, 전자책, 소식지, 교재에 맞는 표지 일러스트를 제작합니다. 문자 편집은 별도 견적입니다."
+              "description": "책, 전자책, 홍보지, 교재의 기획에 맞춰 표지 일러스트를 제작합니다. 문구 배치 작업은 별도 견적입니다."
             },
             {
               "id": "editorial-cuts",
               "price": 5000,
               "title": "삽화·설명용 그림",
-              "description": "기사, 매뉴얼, 교재, 책자의 내용을 보완하는 작은 일러스트 1점을 제작합니다."
+              "description": "기사, 매뉴얼, 교재, 책자 등의 글과 자료를 보완하는 작은 일러스트를 1점 제작합니다."
             },
             {
               "id": "reaction-images",
               "price": 9000,
               "title": "스티커·리액션 이미지 제작",
-              "description": "캐릭터 표정·동작 3점 세트를 제작합니다. 커뮤니티, 방송, 앱, 캠페인 등에 활용할 수 있습니다."
+              "description": "캐릭터의 표정과 동작을 담은 이미지 3점을 세트로 제작합니다. 커뮤니티, 방송, 앱, 캠페인 등에 활용할 수 있습니다."
             }
           ]
         },
@@ -486,25 +486,25 @@
               "id": "3d-character",
               "price": 180000,
               "title": "오리지널 3D 캐릭터 제작",
-              "description": "영상, 게임, 전시, 가상 공간에 맞는 캐릭터를 입체화합니다. 동작·표정·대응 환경에 따라 견적을 제시합니다."
+              "description": "영상·게임·전시·가상 공간 등에 맞춰 캐릭터를 3D 모델로 제작합니다. 동작·표정·지원 환경에 따라 견적을 안내합니다."
             },
             {
               "id": "3d-object",
               "price": 15000,
               "title": "3D 소품·오브젝트 제작",
-              "description": "소품, 장식품, 전시물 등 3D 모델 1점을 제작합니다. 영상·게임 소재, 가상 전시, 상품 이미지 등에 활용할 수 있습니다."
+              "description": "소품, 장식품, 전시물 등의 3D 모델을 1점 제작합니다. 영상·게임 소재, 가상 전시, 상품 이미지 등에 활용할 수 있습니다."
             },
             {
               "id": "3d-customization",
               "price": 10000,
-              "title": "기존 3D 모델 조정·맞춤 제작",
-              "description": "색·형태·의상·부속품을 용도에 맞게 조정하여 기존 캐릭터 활용과 행사 사양 변경에 대응합니다."
+              "title": "기존 3D 모델 조정·커스터마이징",
+              "description": "색상·형태·의상·부속품 등을 용도에 맞게 조정합니다. 기존 캐릭터를 활용한 파생 작업이나 이벤트용 사양 변경도 가능합니다."
             },
             {
               "id": "3d-effects",
               "price": 20000,
               "title": "3D 연출·기능 제작",
-              "description": "표시 전환, 발광, 효과 등 1개 기능을 제작합니다. 용도와 대응 환경을 사전에 확인합니다."
+              "description": "표시 전환, 발광, 효과 등의 동작이나 연출 기능을 1개 제작합니다. 전시·이벤트 등 사용 목적과 지원 환경은 미리 확인합니다."
             }
           ]
         },
@@ -516,19 +516,19 @@
               "id": "story-writing",
               "price": 15000,
               "title": "오리지널 스토리 제작",
-              "description": "지정한 주제·캐릭터·설정으로 약 4,000자의 일본어 이야기를 작성합니다. 웹 콘텐츠, 책자, 음성 작품 등에 활용할 수 있습니다."
+              "description": "지정된 주제·캐릭터·설정을 바탕으로 약 4,000자 분량의 이야기를 씁니다. 웹 콘텐츠, 책자, 음성 작품 등에 활용할 수 있습니다."
             },
             {
               "id": "script-writing",
               "price": 10000,
               "title": "영상·음성 콘텐츠 대본 제작",
-              "description": "기획에 맞는 약 2,000자의 일본어 대사·내레이션 원고를 작성합니다. 소개 영상, 오디오 드라마 등에 대응합니다."
+              "description": "기획과 전달하고자 하는 내용에 맞춰 약 2,000자 분량의 대사·내레이션 원고를 작성합니다. 소개 영상, 오디오 드라마 등에 대응합니다."
             },
             {
               "id": "voice-recording",
               "price": 5000,
               "title": "내레이션·낭독 녹음",
-              "description": "제공된 일본어 원고 1,000자까지 낭독하여 음성 데이터로 납품합니다. 영상, 교재, 안내 음성, 낭독 콘텐츠 등에 활용할 수 있습니다."
+              "description": "제공하신 원고를 최대 1,000자까지 낭독해 음성 데이터로 납품합니다. 소개 영상, 교재, 안내 음성, 낭독 콘텐츠 등에 활용할 수 있습니다."
             }
           ]
         }

@@ -219,19 +219,19 @@
     },
     "contact": {
       "title": "联系我们",
-      "seoTitleContext": "业务、合作与共用窗口",
-      "description": "Acecore共用联系窗口受理跨业务咨询、合作提案，以及不确定应联系哪项业务的问题。",
+      "seoTitleContext": "业务、合作与统一联系窗口",
+      "description": "Acecore统一联系窗口受理跨业务咨询、合作提案，以及不确定应联系哪个业务或咨询窗口的问题，欢迎随时与我们联系。",
       "heroTitle": "联系我们",
-      "heroSubtitle": "咨询、商谈、委托请从这里开始",
-      "heroImgAlt": "沟通交流图片",
-      "formCategoryLabel": "咨询类型",
+      "heroSubtitle": "如有疑问、咨询或委托需求，请通过此处联系我们",
+      "heroImgAlt": "沟通交流示意图",
+      "formCategoryLabel": "咨询类别",
       "formCategoryPlaceholder": "请选择",
-      "formCategoryService": "跨业务或不确定咨询窗口",
+      "formCategoryService": "跨业务咨询或不确定联系哪个窗口",
       "formCategoryServiceSystems": "关于Acecore Systems",
       "formCategoryServiceEducation": "关于Acecore Schools",
       "formCategoryServiceAceserver": "关于Aceserver",
       "formCategoryServiceAcestudio": "关于AceStudio",
-      "formCategoryEstimate": "报价请求",
+      "formCategoryEstimate": "申请报价",
       "formCategoryPartnership": "合作咨询",
       "formCategoryRecruit": "关于招聘",
       "formCategoryOther": "其他",
@@ -241,18 +241,18 @@
       "formMessageLabel": "咨询内容",
       "formSubmit": "发送",
       "formSending": "发送中…",
-      "formSuccess": "您的咨询已发送。请查看确认邮件。",
+      "formSuccess": "您的咨询已成功发送。请查收确认邮件。",
       "formError": "发送失败。请稍后重试。",
       "formSubmitNote": "提交后将收到确认邮件。如未收到，请检查垃圾邮件文件夹。",
       "serviceSubjectTemplate": "关于{service}",
       "validationCategory": "请选择咨询类别",
       "validationName": "请输入您的姓名",
-      "validationEmail": "请输入有效的电子邮件地址",
-      "validationMessage": "请输入至少10个有效字符",
-      "aiHeading": "使用 AI 确认咨询入口",
-      "aiLead": "根据咨询内容，为您找到相应服务或统一咨询窗口。Design 和 AceStudio 仍在筹备中。",
-      "aiSubmit": "确认咨询入口",
-      "formCategoryServiceDesign": "Acecore Designs — 设计与插画 / 3D制作 / 文字与音频"
+      "validationEmail": "请输入有效的电子邮箱地址",
+      "validationMessage": "请输入至少10个字符的咨询内容",
+      "aiHeading": "使用 AI 查询联系窗口",
+      "aiLead": "我们将根据您的咨询内容，为您介绍相关服务或统一联系窗口。Design 和 AceStudio 目前仍在准备中。",
+      "aiSubmit": "查询联系窗口",
+      "formCategoryServiceDesign": "设计、3D、文案与音频制作 / 关于 Acecore Designs"
     },
     "about": {
       "title": "公司简介",
@@ -328,38 +328,38 @@
     "services": {
       "title": "业务",
       "seoTitleContext": "业务介绍",
-      "description": "为您介绍Acecore的业务部门与主要服务，以及费用和使用条件的查询渠道，帮助减轻日常负担，并支持每个人迎接挑战。",
+      "description": "为您介绍 Acecore 的各业务部门、主要服务，以及费用和使用条件的查询方式，帮助减轻日常负担，并支持每个人迎接挑战。",
       "heroTitle": "业务",
       "heroSubtitle": "为您介绍可提供的支持与服务，以及费用查询方式。",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
       "introTitle": "业务部门",
-      "introBody": "减少用于非核心事务的时间，打造人人都能挑战自己想做之事的环境。我们通过技术支持、按目标提供的学习支持以及社区运营等，助力每个人发挥积极性与潜能。",
+      "introBody": "减少耗费在非核心事务上的时间，营造让每个人都能挑战自己“想做之事”的环境。通过技术支持、契合目标的学习支持及社区运营等，助力每个人发挥积极性与潜能。",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "提供Web与系统开发、DB与基础设施、质量保证、AI应用等技术支持，并承接设计与创意制作。",
+      "systemsDescription": "提供 Web 与系统开发、DB 与基础设施、质量保证、AI 应用等技术支持，并承接设计与创意制作。",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "提供3D入门培训、个人技术支持、插画与文字作品评审以及创作工作坊。",
+      "schoolsDescription": "除根据目标提供学习支持外，还提供 3D 制作培训与技术支持、作品评审及创作工作坊。",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "我们运营 Minecraft 社区。",
       "storeTitle": "Acecore Store",
-      "storeDescription": "Acecore官方在线商店。",
+      "storeDescription": "Acecore 官方在线商店。",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "准备中",
-      "acestudioDescription": "为所有创作者提供分享自身活动的空间。",
+      "acestudioDescription": "为所有创作者提供分享自身创作活动的空间。",
       "contactHeading": "服务选型与导入咨询",
       "contactBody": "请告诉我们您需要的支持和期望，我们将为您介绍相应的部门与服务。",
       "contactCta": "咨询相关服务",
       "designTitle": "Acecore Designs",
-      "designDescription": "设计与插画 / 3D制作 / 文字与音频",
-      "designStatus": "咨询此服务",
-      "designNote": "了解Acecore Designs的13项角色、插画、3D、故事、脚本及音频制作服务和含税起价。",
+      "designDescription": "提供角色、插画、3D、文字与音频制作服务。",
+      "designStatus": "现正受理制作咨询",
+      "designNote": "提供各项服务的具体内容及含税价格说明。",
       "developmentTitle": "系统定制开发服务",
       "developmentDescription": "我们会先了解您的需求，再为您推荐并开发最合适的系统。",
       "advisorTitle": "IT顾问工程师服务",
-      "advisorDescription": "从日常咨询到网站上线，我们均以固定月费提供支持。",
+      "advisorDescription": "从日常咨询到网站上线，我们都提供月费制定额支持。",
       "learningTitle": "根据目标提供学习支持",
       "pricingHeading": "费用与使用条件",
-      "pricingLead": "详细费用与服务范围请查看各专业网站。学习支持的实施条件将在咨询时确认；社区参与条件及商品价格请参阅各项服务的介绍页面。",
+      "pricingLead": "详细费用与服务范围请查看各专业网站。学习支持的实施条件会在咨询时确认；社区参与条件及商品价格则请参阅各服务的说明页面。",
       "offeringsHeading": "主要服务",
       "detailsCta": "了解详情"
     },
@@ -419,62 +419,62 @@
     "designs": {
       "title": "Acecore Designs",
       "seoTitleContext": "设计、3D、文字与音频制作",
-      "description": "了解Acecore Designs的13项角色、插画、3D、故事、脚本及音频制作服务和含税起价。",
-      "heroTitle": "让想法成为作品。",
-      "heroLead": "Acecore Designs为企业、店铺、学校、团体及个人提供设计、3D、文字和音频制作，统一受理咨询。",
+      "description": "Acecore Designs提供13项角色、插画、3D模型、故事、脚本及音频制作服务，介绍各项含税起价与服务内容，欢迎咨询企业、学校、团体及个人项目。",
+      "heroTitle": "让想传达的内容化为作品。",
+      "heroLead": "Acecore Designs为企业、店铺、学校、团体及个人提供制作服务。设计、3D、文字与音频制作均可根据用途，通过同一窗口咨询。",
       "catalogHeading": "制作服务与费用",
       "priceLabel": "{price}日元起（含税）",
-      "consultLabel": "咨询此服务",
+      "consultLabel": "咨询此项服务",
       "conditionsTitle": "关于报价",
-      "conditionsBody": "所列价格为基本内容的含税起价。我们确认用途、制作范围、修改次数、交期、文件格式及使用条件后报价。素材及追加制作等费用会在签约前说明。",
+      "conditionsBody": "所示价格为基本服务内容的含税起价。我们会确认用途、制作范围、修改次数、交付期限、交付格式及使用条件后报价。素材费用及追加制作等费用也会在签约前说明。",
       "flowTitle": "从咨询到交付",
-      "flowBody": "Acecore受理咨询并确认内容及可行性。在报价和制作条件达成一致后开始制作，经确认、修改后交付。",
-      "creatorTitle": "制作人员",
-      "creatorBody": "可查看Hatt公开的角色、3D作品和小说。制作咨询与报价由Acecore受理。",
+      "flowBody": "Acecore受理咨询后，会确认需求及是否能够承接。双方就报价与制作条件达成一致后开始制作，并在确认和修改后交付。",
+      "creatorTitle": "创作者",
+      "creatorBody": "欢迎浏览Hatt公开的角色、3D作品及小说。制作咨询与报价由Acecore受理。",
       "portfolioLabel": "查看Hatt的作品",
-      "schoolsTitle": "培训与制作支持请访问Acecore Schools",
-      "schoolsBody": "提供3D入门培训、个人技术支持、插画与文字作品评审以及创作工作坊。",
-      "schoolsLabel": "查看培训与支持",
+      "schoolsTitle": "培训与制作支持请咨询Acecore Schools",
+      "schoolsBody": "还可咨询3D制作入门培训、个别技术支持、插画与文字作品评审及创作工作坊。",
+      "schoolsLabel": "查看培训与制作支持",
       "groups": [
         {
           "id": "illustration",
-          "title": "设计与插画",
+          "title": "设计与插画制作",
           "services": [
             {
               "id": "character-design",
               "price": 30000,
               "title": "角色设计",
-              "description": "根据企业、店铺、商品、游戏及宣传等用途和形象设计原创角色。"
+              "description": "根据企业、店铺、商品、游戏、宣传等用途及期望形象，设计原创角色。"
             },
             {
               "id": "character-illustration",
               "price": 8000,
               "title": "吉祥物与角色追加插画",
-              "description": "为现有角色制作1张新姿势、表情或季节活动插画，用于社交媒体、宣传品及周边。"
+              "description": "为现有角色绘制1张新姿势、表情或季节、活动主题插画，可用于社交平台、宣传物料及周边商品。"
             },
             {
               "id": "character-sheets",
               "price": 20000,
               "title": "角色设定图与三视图",
-              "description": "整理正面、侧面、背面和配色，供3D化、动画及多人协作制作使用。"
+              "description": "制作包含正面、侧面、背面及配色的设定资料，可用于3D建模、动画制作或多人协作。"
             },
             {
               "id": "cover-illustration",
               "price": 20000,
               "title": "书籍与册子封面插画",
-              "description": "为书籍、电子书、宣传刊物和教材制作封面插画。文字排版另行报价。"
+              "description": "根据书籍、电子书、宣传刊物或教材的策划内容制作封面插画。文字排版另行报价。"
             },
             {
               "id": "editorial-cuts",
               "price": 5000,
               "title": "配图与说明插画",
-              "description": "制作1张小型插画，辅助文章、手册、教材或册子传达内容。"
+              "description": "制作1幅小型插画，为文章、手册、教材、册子等文字或资料内容提供辅助说明。"
             },
             {
               "id": "reaction-images",
               "price": 9000,
-              "title": "贴纸与反应图片制作",
-              "description": "制作一组3张角色表情或动作图片，用于社群、直播、应用及活动。"
+              "title": "表情贴纸与互动图片制作",
+              "description": "成套制作3张角色表情或动作图，可用于社群、直播、应用程序及宣传活动。"
             }
           ]
         },
@@ -486,56 +486,56 @@
               "id": "3d-character",
               "price": 180000,
               "title": "原创3D角色制作",
-              "description": "为视频、游戏、展示及虚拟空间制作3D角色。根据动作、表情和目标环境报价。"
+              "description": "根据视频、游戏、展览或虚拟空间等用途，将角色制作成3D模型。将根据动作、表情及适配环境报价。"
             },
             {
               "id": "3d-object",
               "price": 15000,
               "title": "3D道具与物件制作",
-              "description": "制作1件3D道具、装饰品或展品，用于视频、游戏、虚拟展览或商品展示。"
+              "description": "制作1件小物、装饰品或展示物的3D模型，可用于视频或游戏素材、虚拟展览及商品展示等场景。"
             },
             {
               "id": "3d-customization",
               "price": 10000,
               "title": "现有3D模型调整与定制",
-              "description": "调整颜色、形状、服装或配件，适应现有角色的新用途及活动需求。"
+              "description": "可根据用途调整颜色、形状、服装及配件，也可为现有角色拓展应用场景或改为活动专用版本。"
             },
             {
               "id": "3d-effects",
               "price": 20000,
-              "title": "3D演出与交互功能制作",
-              "description": "制作1项显示切换、发光或特效功能。事先确认用途与支持环境。"
+              "title": "3D演出与互动功能制作",
+              "description": "制作1项显示切换、发光或特效等动态演出功能。将事先确认具体用途及适配环境。"
             }
           ]
         },
         {
           "id": "writing-audio",
-          "title": "文字与音频",
+          "title": "文字与音频内容制作",
           "services": [
             {
               "id": "story-writing",
               "price": 15000,
               "title": "原创故事创作",
-              "description": "依据指定主题、角色和设定撰写约4,000日文字符的故事，用于网页、册子或音频作品。"
+              "description": "根据指定的主题、角色和设定，撰写约4,000字的故事，可用于网页内容、册子或音频作品。"
             },
             {
               "id": "script-writing",
               "price": 10000,
-              "title": "视频与音频脚本制作",
-              "description": "根据企划撰写约2,000日文字符的台词或旁白，用于介绍视频、广播剧等内容。"
+              "title": "视频与音频内容脚本制作",
+              "description": "根据企划及希望传达的内容，撰写约2,000字的台词或旁白稿，可用于介绍视频、音频剧等。"
             },
             {
               "id": "voice-recording",
               "price": 5000,
               "title": "旁白与朗读录制",
-              "description": "朗读客户提供的1,000日文字符以内原稿并交付音频，用于视频、教材、 导览及朗读内容。"
+              "description": "朗读客户提供的1,000字以内稿件，并以音频文件交付。可用于介绍视频、教材、语音导览及朗读内容。"
             }
           ]
         }
       ],
       "schoolOfferings": {
         "3d-training": "3D制作入门培训",
-        "3d-support": "3D制作个人技术支持",
+        "3d-support": "3D制作个别技术支持",
         "creative-review": "插画与文字作品评审",
         "creative-workshop": "创作工作坊"
       }

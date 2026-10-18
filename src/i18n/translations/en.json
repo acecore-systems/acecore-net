@@ -302,72 +302,72 @@
       "heroSubtitle": "Explore the support and services we offer, and find where to check pricing.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
-      "introTitle": "Business departments",
-      "introBody": "We work to create an environment where everyone can pursue what they want to do, with less time spent on nonessential tasks. Through technical support, learning tailored to individual goals, and community management, we support each person’s motivation and potential.",
+      "introTitle": "Business divisions",
+      "introBody": "We aim to create an environment where everyone can pursue what they want to do, spending less time on nonessential matters. Through technical support, learning support tailored to individual goals, and community management, we support each person’s motivation and potential.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, as well as design and creative production.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "We also offer introductory 3D training, individual technical support, illustration and writing reviews, and creative workshops.",
+      "schoolsDescription": "We offer learning support tailored to your goals, as well as 3D production training and technical support, feedback on creative work, and creative workshops.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "We run a Minecraft community.",
       "storeTitle": "Acecore Store",
       "storeDescription": "Acecore’s official online store.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Coming soon",
-      "acestudioDescription": "A place where all creators can share what they do.",
+      "acestudioDescription": "A place where every creator can share their work.",
       "contactHeading": "Advice on choosing and implementing a service",
       "contactBody": "Tell us what support you need and what you have in mind. We’ll point you to the right department and service.",
       "contactCta": "Talk to us about a service",
       "designTitle": "Acecore Designs",
-      "designDescription": "Design and illustration / 3D production / Writing and audio",
-      "designStatus": "Discuss this service",
-      "designNote": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices.",
+      "designDescription": "We accept commissions for character creation, illustration, 3D work, writing, and audio production.",
+      "designStatus": "Now accepting project inquiries",
+      "designNote": "See details and tax-inclusive pricing for each service.",
       "developmentTitle": "Custom System Development Service",
-      "developmentDescription": "After discussing your needs, we propose and develop a system tailored to you.",
+      "developmentDescription": "After learning about your needs, we propose and develop the system that best fits them.",
       "advisorTitle": "IT Advisory Engineer Service",
       "advisorDescription": "From day-to-day consultations to launching your website, we provide support for a fixed monthly fee.",
       "learningTitle": "Learning support tailored to your goals",
       "pricingHeading": "Pricing and conditions",
-      "pricingLead": "Check each specialist site for detailed pricing and service scope. We’ll confirm the arrangements for learning support during a consultation; community participation requirements and product prices are listed on the relevant service pages.",
+      "pricingLead": "Check each specialist site for detailed pricing and service scope. We’ll confirm the terms for learning support during a consultation; community participation requirements and product prices are listed on the relevant service pages.",
       "offeringsHeading": "Key services",
       "detailsCta": "Learn more"
     },
     "contact": {
       "title": "Contact",
-      "seoTitleContext": "Businesses, partnerships and shared contact",
-      "description": "Acecore's shared contact point for cross-business inquiries, partnership proposals, and questions when you are unsure which business to contact.",
+      "seoTitleContext": "Business, partnerships, and general inquiries",
+      "description": "Acecore's shared contact point handles cross-business inquiries, partnership proposals, and questions from those unsure which contact to use.",
       "heroTitle": "Contact",
       "heroSubtitle": "Questions, consultations, and requests — start here",
-      "heroImgAlt": "Communication image",
-      "formCategoryLabel": "Inquiry Type",
+      "heroImgAlt": "Communication",
+      "formCategoryLabel": "Inquiry type",
       "formCategoryPlaceholder": "Please select",
-      "formCategoryService": "Cross-business or unsure where to ask",
+      "formCategoryService": "Cross-business inquiries or unsure where to contact",
       "formCategoryServiceSystems": "About Acecore Systems",
       "formCategoryServiceEducation": "About Acecore Schools",
       "formCategoryServiceAceserver": "About Aceserver",
       "formCategoryServiceAcestudio": "About AceStudio",
-      "formCategoryEstimate": "Estimate request",
+      "formCategoryEstimate": "Request a quote",
       "formCategoryPartnership": "Partnership inquiry",
-      "formCategoryRecruit": "About recruitment",
+      "formCategoryRecruit": "Recruitment",
       "formCategoryOther": "Other",
       "formNameLabel": "Name",
-      "formEmailLabel": "Email",
+      "formEmailLabel": "Email address",
       "formSubjectLabel": "Subject",
       "formMessageLabel": "Message",
       "formSubmit": "Send",
       "formSending": "Sending…",
       "formSuccess": "Your inquiry has been sent. Please check your confirmation email.",
-      "formError": "Failed to send. Please wait and try again.",
+      "formError": "Failed to send. Please wait a while and try again.",
       "formSubmitNote": "You will receive a confirmation email after submission. If you don't receive it, please check your spam folder.",
       "serviceSubjectTemplate": "About {service}",
-      "validationCategory": "Please select a category",
+      "validationCategory": "Please select an inquiry type",
       "validationName": "Please enter your name",
       "validationEmail": "Please enter a valid email address",
-      "validationMessage": "Please enter at least 10 meaningful characters",
+      "validationMessage": "Please enter at least 10 characters",
       "aiHeading": "Find the right contact with AI",
-      "aiLead": "Find the right service or our shared contact point for your inquiry. Design and AceStudio are still in preparation.",
+      "aiLead": "We'll direct you to the right service or our shared contact point based on your inquiry. Design and AceStudio are still in preparation.",
       "aiSubmit": "Find the right contact",
-      "formCategoryServiceDesign": "Acecore Designs — Design and illustration / 3D production / Writing and audio"
+      "formCategoryServiceDesign": "Design, 3D, writing, and audio production / About Acecore Designs"
     },
     "privacy": {
       "title": "Privacy Policy",
@@ -579,17 +579,17 @@
     "designs": {
       "title": "Acecore Designs",
       "seoTitleContext": "Design, 3D, writing and audio production",
-      "description": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices.",
+      "description": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices and service details.",
       "heroTitle": "Turn your ideas into creative work.",
-      "heroLead": "Acecore Designs supports businesses, shops, schools, organizations and individuals with design, 3D, writing and audio production through one contact point.",
+      "heroLead": "Acecore Designs supports businesses, shops, schools, organizations and individuals with design, 3D, writing and audio production—all through one point of contact.",
       "catalogHeading": "Production services and pricing",
       "priceLabel": "From JPY {price} (tax included)",
-      "consultLabel": "Discuss this service",
+      "consultLabel": "Inquire about this service",
       "conditionsTitle": "About estimates",
-      "conditionsBody": "Prices include tax and cover the basic scope described. We confirm intended use, scope, revisions, schedule, file formats and usage terms before quoting. Materials and additional work are quoted before agreement.",
+      "conditionsBody": "Prices shown are tax-inclusive starting prices for the basic scope. We’ll confirm the intended use, scope of work, number of revisions, timeline, delivery format and usage terms before preparing a quote. Costs for materials and any additional work will also be provided before the agreement.",
       "flowTitle": "From inquiry to delivery",
-      "flowBody": "Acecore receives your inquiry and confirms feasibility. Production begins after agreement on the estimate and scope, followed by review, revisions and delivery.",
-      "creatorTitle": "Creative contributor",
+      "flowBody": "Acecore receives your inquiry and confirms whether we can accommodate it. Production begins once the estimate and terms are agreed, followed by review, revisions and delivery.",
+      "creatorTitle": "Creator",
       "creatorBody": "Explore Hatt’s published character designs, 3D work and fiction. Acecore handles project inquiries and estimates.",
       "portfolioLabel": "View Hatt’s work",
       "schoolsTitle": "Training and creative support at Acecore Schools",
@@ -604,37 +604,37 @@
               "id": "character-design",
               "price": 30000,
               "title": "Character design",
-              "description": "Original characters tailored to businesses, shops, products, games and publicity."
+              "description": "We design original characters to match your intended use and vision, for businesses, shops, products, games, promotional materials and more."
             },
             {
               "id": "character-illustration",
               "price": 8000,
               "title": "Additional mascot and character illustrations",
-              "description": "One new pose, expression or seasonal illustration of an existing character for social media, promotional materials or merchandise."
+              "description": "Create one illustration of an existing character in a different pose or expression, or for a season or event. Suitable for social media, promotional materials, merchandise and more."
             },
             {
               "id": "character-sheets",
               "price": 20000,
-              "title": "Character sheets and three-view drawings",
-              "description": "Front, side and back views with colors for 3D production, animation and collaboration."
+              "title": "Character reference sheets and three-view drawings",
+              "description": "Create a reference sheet with front, side and back views and color details. Suitable for 3D production, animation and projects involving multiple creators."
             },
             {
               "id": "cover-illustration",
               "price": 20000,
               "title": "Book and booklet cover illustrations",
-              "description": "Cover artwork for books, e-books, newsletters and teaching materials. Typography is quoted separately."
+              "description": "Cover artwork for books, e-books, newsletters and educational materials. Typography is quoted separately."
             },
             {
               "id": "editorial-cuts",
               "price": 5000,
               "title": "Editorial and explanatory illustrations",
-              "description": "One small illustration to support an article, manual, teaching material or booklet."
+              "description": "Create one small illustration to complement the text or materials in an article, manual, educational resource or booklet."
             },
             {
               "id": "reaction-images",
               "price": 9000,
               "title": "Stickers and reaction images",
-              "description": "A set of three character expressions or actions for communities, streaming, apps and campaigns."
+              "description": "Create a set of three character expressions or actions for communities, livestreams, apps, campaigns and more."
             }
           ]
         },
@@ -646,49 +646,49 @@
               "id": "3d-character",
               "price": 180000,
               "title": "Original 3D character production",
-              "description": "3D characters for video, games, exhibitions and virtual spaces. Motion, expressions and target environments are quoted individually."
+              "description": "Bring a character to life in 3D for video, games, exhibitions, virtual spaces and more. Pricing depends on the required movement, expressions and target environment."
             },
             {
               "id": "3d-object",
               "price": 15000,
               "title": "3D props and objects",
-              "description": "One 3D prop, decorative object or exhibit for video, games, virtual exhibitions or product visualization."
+              "description": "Create one 3D prop, decorative object or exhibit for video, games, virtual exhibitions, product visualization and more."
             },
             {
               "id": "3d-customization",
               "price": 10000,
               "title": "Existing 3D model customization",
-              "description": "Adjust colors, shapes, clothing or accessories for new uses of existing characters and events."
+              "description": "Adjust colors, shapes, clothing, accessories and more to suit the intended use. We can adapt existing characters for new applications or event-specific versions."
             },
             {
               "id": "3d-effects",
               "price": 20000,
               "title": "3D effects and interactive features",
-              "description": "One feature such as visibility switching, lighting or effects. Intended use and supported environments are confirmed in advance."
+              "description": "Create one feature, such as visibility switching, glow or other effects. We confirm the intended use and supported environments in advance."
             }
           ]
         },
         {
           "id": "writing-audio",
-          "title": "Writing and audio",
+          "title": "Writing and audio content production",
           "services": [
             {
               "id": "story-writing",
               "price": 15000,
               "title": "Original story writing",
-              "description": "Approximately 4,000 Japanese characters based on your theme, characters and setting for web content, booklets or audio works."
+              "description": "We write a story of approximately 4,000 Japanese characters based on your specified theme, characters and setting. Suitable for web content, booklets, audio works and more."
             },
             {
               "id": "script-writing",
               "price": 10000,
               "title": "Video and audio script writing",
-              "description": "Approximately 2,000 Japanese characters of dialogue or narration for introductory videos, audio drama and other content."
+              "description": "Create approximately 2,000 Japanese characters of dialogue or narration to suit your concept and message. For introductory videos, audio dramas and more."
             },
             {
               "id": "voice-recording",
               "price": 5000,
               "title": "Narration and reading recordings",
-              "description": "Record up to 1,000 Japanese characters of supplied text and deliver audio for videos, teaching materials, guidance or readings."
+              "description": "Record a reading of up to 1,000 Japanese characters of supplied text and deliver it as an audio file. Suitable for introductory videos, educational materials, announcements, readings and more."
             }
           ]
         }
@@ -696,7 +696,7 @@
       "schoolOfferings": {
         "3d-training": "Introductory 3D training",
         "3d-support": "Individual 3D technical support",
-        "creative-review": "Illustration and writing review",
+        "creative-review": "Illustration and writing reviews",
         "creative-workshop": "Creative workshops"
       }
     }

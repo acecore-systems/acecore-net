@@ -219,40 +219,40 @@
     },
     "contact": {
       "title": "Contacto",
-      "seoTitleContext": "Negocios, alianzas y contacto común",
-      "description": "Punto de contacto común de Acecore para consultas entre negocios, propuestas de colaboración y dudas sobre a qué negocio dirigirse.",
+      "seoTitleContext": "Negocios, alianzas y contacto general",
+      "description": "Acecore recibe, a través de su canal de contacto general, consultas sobre varios negocios, propuestas de colaboración y dudas sobre a quién dirigirse.",
       "heroTitle": "Contacto",
       "heroSubtitle": "Consultas, asesoramiento y solicitudes desde aquí",
       "heroImgAlt": "Imagen de comunicación",
       "formCategoryLabel": "Tipo de consulta",
-      "formCategoryPlaceholder": "Seleccione",
-      "formCategoryService": "Entre negocios o no sé dónde consultar",
+      "formCategoryPlaceholder": "Seleccione una opción",
+      "formCategoryService": "Consultas sobre varios negocios o dudas sobre a quién dirigirse",
       "formCategoryServiceSystems": "Sobre Acecore Systems",
       "formCategoryServiceEducation": "Sobre Acecore Schools",
       "formCategoryServiceAceserver": "Sobre Aceserver",
       "formCategoryServiceAcestudio": "Sobre AceStudio",
       "formCategoryEstimate": "Solicitud de presupuesto",
-      "formCategoryPartnership": "Consulta de alianza",
-      "formCategoryRecruit": "Sobre contratación",
-      "formCategoryOther": "Otro",
+      "formCategoryPartnership": "Consulta sobre alianzas",
+      "formCategoryRecruit": "Sobre empleo",
+      "formCategoryOther": "Otros",
       "formNameLabel": "Nombre",
       "formEmailLabel": "Correo electrónico",
       "formSubjectLabel": "Asunto",
       "formMessageLabel": "Mensaje",
       "formSubmit": "Enviar",
       "formSending": "Enviando…",
-      "formSuccess": "Su consulta ha sido enviada. Revise su correo de confirmación.",
-      "formError": "No se pudo enviar. Espere y vuelva a intentarlo.",
-      "formSubmitNote": "Recibirá un correo de confirmación tras el envío. Si no lo recibe, revise su carpeta de spam.",
+      "formSuccess": "Hemos enviado su consulta. Revise el correo de confirmación.",
+      "formError": "No se pudo enviar. Espere un momento y vuelva a intentarlo.",
+      "formSubmitNote": "Tras enviar el formulario, recibirá un correo de confirmación. Si no lo recibe, revise también la carpeta de correo no deseado.",
       "serviceSubjectTemplate": "Sobre {service}",
-      "validationCategory": "Seleccione una categoría",
+      "validationCategory": "Seleccione un tipo de consulta",
       "validationName": "Introduzca su nombre",
-      "validationEmail": "Introduzca un correo electrónico válido",
-      "validationMessage": "Introduzca al menos 10 caracteres significativos",
-      "aiHeading": "Encuentra el contacto adecuado con IA",
-      "aiLead": "Encuentra el servicio adecuado o nuestro contacto común según tu consulta. Design y AceStudio siguen en preparación.",
-      "aiSubmit": "Encontrar contacto",
-      "formCategoryServiceDesign": "Acecore Designs — Diseño e ilustración / Producción 3D / Textos y audio"
+      "validationEmail": "Introduzca una dirección de correo electrónico válida",
+      "validationMessage": "Escriba al menos 10 caracteres en el contenido de la consulta",
+      "aiHeading": "Encuentre el contacto adecuado con IA",
+      "aiLead": "En función de su consulta, le indicaremos el servicio responsable o el contacto general. Design y AceStudio aún están en fase de preparación.",
+      "aiSubmit": "Buscar el contacto adecuado",
+      "formCategoryServiceDesign": "Diseño, 3D, redacción y producción de audio / sobre Acecore Designs"
     },
     "about": {
       "title": "Acerca de nosotros",
@@ -334,17 +334,17 @@
     "services": {
       "title": "Negocios",
       "seoTitleContext": "Directorio de negocios",
-      "description": "Conozca las áreas y los principales servicios de Acecore, que alivian las cargas diarias y apoyan nuevos retos, y dónde consultar precios y condiciones.",
+      "description": "Conoce las áreas y servicios clave de Acecore, que alivian cargas diarias e impulsan retos personales; descubre dónde consultar precios y condiciones de uso.",
       "heroTitle": "Negocios",
-      "heroSubtitle": "Conoce los servicios y el apoyo que ofrecemos, y dónde consultar sus precios.",
+      "heroSubtitle": "Conoce el apoyo y los servicios que ofrecemos, y dónde consultar sus precios.",
       "heroImgAlt": "Oficina tecnológica",
       "eyebrow": "Directorio de negocios",
       "introTitle": "Áreas de negocio",
-      "introBody": "Creamos un entorno en el que todos puedan dedicar menos tiempo a tareas no esenciales y hacer lo que realmente desean. Mediante apoyo técnico, aprendizaje adaptado a sus objetivos y gestión de comunidades, impulsamos la motivación y el potencial de cada persona.",
+      "introBody": "Queremos crear un entorno en el que se dedique menos tiempo a tareas no esenciales y cada persona pueda atreverse a perseguir lo que desea. Mediante apoyo tecnológico, aprendizaje adaptado a sus objetivos y gestión de comunidades, impulsamos la motivación y el potencial de cada persona.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "Ofrecemos asistencia técnica en desarrollo web y de sistemas, bases de datos e infraestructura, aseguramiento de la calidad y aplicación de IA, además de diseño y producción creativa.",
+      "systemsDescription": "Ofrecemos asistencia técnica en desarrollo web y de sistemas, bases de datos e infraestructura, aseguramiento de la calidad y uso de IA, además de servicios de diseño y producción creativa.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "También ofrecemos formación inicial en 3D, asistencia técnica individual, revisión de ilustraciones y textos, y talleres creativos.",
+      "schoolsDescription": "Además de apoyo al aprendizaje adaptado a cada objetivo, ofrecemos formación y asistencia técnica en creación 3D, revisión de trabajos y talleres creativos.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "Gestionamos una comunidad de Minecraft.",
       "storeTitle": "Acecore Store",
@@ -352,20 +352,20 @@
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "En preparación",
       "acestudioDescription": "Un espacio donde todos los creadores puedan compartir su trabajo.",
-      "contactHeading": "Asesoramiento para elegir o incorporar un servicio",
+      "contactHeading": "Asesoramiento para elegir e implementar un servicio",
       "contactBody": "Cuéntanos qué apoyo necesitas y qué te gustaría conseguir. Te orientaremos hacia el departamento y el servicio adecuados.",
-      "contactCta": "Consultar sobre un servicio",
+      "contactCta": "Consúltanos sobre nuestros servicios",
       "designTitle": "Acecore Designs",
-      "designDescription": "Diseño e ilustración / Producción 3D / Textos y audio",
-      "designStatus": "Consultar este servicio",
-      "designNote": "Consulta 13 servicios de Acecore Designs de personajes, ilustración, 3D, relatos, guiones y audio, con precios iniciales con impuestos.",
+      "designDescription": "Aceptamos encargos de creación de personajes, ilustraciones, contenido 3D, textos y audio.",
+      "designStatus": "Aceptamos consultas sobre proyectos creativos.",
+      "designNote": "Consulta los detalles y los precios con impuestos incluidos de cada servicio.",
       "developmentTitle": "Servicio de desarrollo de sistemas a medida",
-      "developmentDescription": "Escuchamos sus necesidades y le proponemos y desarrollamos el sistema más adecuado.",
+      "developmentDescription": "Escuchamos tus necesidades y te proponemos y desarrollamos el sistema más adecuado.",
       "advisorTitle": "Servicio de asesoría de ingeniería informática",
-      "advisorDescription": "Le ofrecemos asistencia con una tarifa mensual fija, desde las consultas diarias hasta la publicación de su sitio web.",
+      "advisorDescription": "Te ofrecemos soporte con una tarifa mensual fija, desde consultas cotidianas hasta la publicación de tu sitio web.",
       "learningTitle": "Apoyo al aprendizaje adaptado a tus objetivos",
       "pricingHeading": "Precios y condiciones de uso",
-      "pricingLead": "Consulta los precios y el alcance de cada servicio en su sitio especializado. Las condiciones de prestación del apoyo educativo se confirman durante la consulta; los requisitos para participar en la comunidad y los precios de los productos se indican en los sitios de cada servicio.",
+      "pricingLead": "Consulta los precios detallados y el alcance de cada servicio en el sitio especializado correspondiente. Las condiciones para recibir apoyo educativo se confirman durante la consulta; los requisitos para participar en la comunidad y los precios de los productos se indican en la página de cada servicio.",
       "offeringsHeading": "Servicios principales",
       "detailsCta": "Más información"
     },
@@ -425,21 +425,21 @@
     "designs": {
       "title": "Acecore Designs",
       "seoTitleContext": "Diseño, 3D, textos y audio",
-      "description": "Consulta 13 servicios de Acecore Designs de personajes, ilustración, 3D, relatos, guiones y audio, con precios iniciales con impuestos.",
-      "heroTitle": "Convierte tus ideas en obras.",
-      "heroLead": "Acecore Designs ofrece diseño, 3D, textos y audio para empresas, comercios, centros educativos, organizaciones y particulares, con un único punto de contacto.",
+      "description": "Acecore crea personajes, ilustraciones, modelos 3D, historias, guiones y audio. Consulta precios con impuestos incluidos y detalles de 13 servicios.",
+      "heroTitle": "Damos forma a lo que quieres transmitir.",
+      "heroLead": "Acecore Designs apoya proyectos de empresas y comercios, centros educativos, organizaciones y particulares. Consulta diseño, 3D, textos y audio adaptados a tus necesidades en un único punto de contacto.",
       "catalogHeading": "Servicios y precios",
       "priceLabel": "Desde {price} JPY (impuestos incluidos)",
       "consultLabel": "Consultar este servicio",
       "conditionsTitle": "Sobre los presupuestos",
-      "conditionsBody": "Los precios iniciales incluyen impuestos y el alcance básico descrito. Confirmamos el uso, alcance, revisiones, plazos, formatos y condiciones de uso antes de presupuestar. Los materiales y trabajos adicionales se detallan antes del acuerdo.",
+      "conditionsBody": "Los precios indicados son tarifas iniciales, con impuestos incluidos, para el alcance básico. Antes de preparar el presupuesto, confirmaremos el uso previsto, el alcance del trabajo, el número de revisiones, el plazo, el formato de entrega y las condiciones de uso. También te informaremos de los costes de materiales y trabajos adicionales antes de formalizar el acuerdo.",
       "flowTitle": "De la consulta a la entrega",
-      "flowBody": "Acecore recibe la consulta y confirma su viabilidad. La producción comienza tras acordar el presupuesto y las condiciones, seguida de revisión, ajustes y entrega.",
+      "flowBody": "Acecore recibe tu consulta y confirma el contenido y si es posible realizar el trabajo. Una vez acordados el presupuesto y las condiciones de producción, empezamos el proyecto; después lo revisamos, hacemos los ajustes necesarios y lo entregamos.",
       "creatorTitle": "Responsable creativo",
-      "creatorBody": "Consulta los personajes, trabajos 3D y relatos publicados por Hatt. Acecore gestiona las consultas y los presupuestos.",
+      "creatorBody": "Puedes ver las obras publicadas de Hatt, como sus personajes, trabajos 3D y novelas. Acecore atiende las consultas sobre encargos y prepara los presupuestos.",
       "portfolioLabel": "Ver obras de Hatt",
       "schoolsTitle": "Formación y apoyo creativo en Acecore Schools",
-      "schoolsBody": "También ofrecemos formación inicial en 3D, asistencia técnica individual, revisión de ilustraciones y textos, y talleres creativos.",
+      "schoolsBody": "También puedes consultar sobre formación inicial en creación 3D, asistencia técnica individual, revisión de ilustraciones y textos, y talleres creativos.",
       "schoolsLabel": "Ver formación y apoyo",
       "groups": [
         {
@@ -450,37 +450,37 @@
               "id": "character-design",
               "price": 30000,
               "title": "Diseño de personajes",
-              "description": "Personajes originales para empresas, comercios, productos, juegos y comunicación."
+              "description": "Diseñamos personajes originales adaptados a las necesidades y la imagen de empresas, comercios, productos, videojuegos y campañas de comunicación."
             },
             {
               "id": "character-illustration",
               "price": 8000,
               "title": "Ilustraciones adicionales de mascotas y personajes",
-              "description": "Una pose, expresión o ilustración estacional de un personaje existente para redes, promoción o productos."
+              "description": "Creamos una ilustración de un personaje existente en otra pose o expresión, o con temática estacional o de evento. Ideal para redes sociales, materiales promocionales y productos."
             },
             {
               "id": "character-sheets",
               "price": 20000,
-              "title": "Hojas de personaje y vistas ortográficas",
-              "description": "Vistas frontal, lateral y posterior con colores para producción 3D, animación y trabajo en equipo."
+              "title": "Ficha de personaje y vistas ortográficas",
+              "description": "Creamos una hoja de referencia con vistas frontal, lateral y trasera, además de los colores. Útil para modelado 3D, animación o producción en equipo."
             },
             {
               "id": "cover-illustration",
               "price": 20000,
-              "title": "Ilustraciones de portada",
-              "description": "Ilustraciones para libros, publicaciones digitales, boletines y material educativo. La tipografía se presupuesta aparte."
+              "title": "Ilustración de portada para libros y publicaciones",
+              "description": "Creamos ilustraciones de portada adaptadas a libros, libros electrónicos, boletines y materiales educativos. La composición tipográfica se presupuesta aparte."
             },
             {
               "id": "editorial-cuts",
               "price": 5000,
-              "title": "Ilustraciones editoriales y explicativas",
-              "description": "Una ilustración pequeña para acompañar artículos, manuales, material educativo o folletos."
+              "title": "Ilustraciones para textos y material explicativo",
+              "description": "Creamos una ilustración pequeña para complementar artículos, manuales, materiales educativos, folletos y otros textos o documentos."
             },
             {
               "id": "reaction-images",
               "price": 9000,
               "title": "Pegatinas e imágenes de reacción",
-              "description": "Tres expresiones o acciones de un personaje para comunidades, emisiones, aplicaciones o campañas."
+              "description": "Creamos un conjunto de tres expresiones o acciones de un personaje, para comunidades, retransmisiones en directo, aplicaciones y campañas."
             }
           ]
         },
@@ -492,49 +492,49 @@
               "id": "3d-character",
               "price": 180000,
               "title": "Creación de personajes 3D originales",
-              "description": "Personajes 3D para vídeo, juegos, exposiciones y espacios virtuales. Movimiento, expresiones y entorno se presupuestan según el caso."
+              "description": "Modelamos personajes en 3D para vídeos, videojuegos, exposiciones y espacios virtuales. El presupuesto depende del movimiento, las expresiones y el entorno compatible."
             },
             {
               "id": "3d-object",
               "price": 15000,
-              "title": "Creación de objetos 3D",
-              "description": "Un objeto, accesorio o elemento expositivo 3D para vídeo, juegos, exposiciones virtuales o visualización de productos."
+              "title": "Creación de accesorios y objetos 3D",
+              "description": "Creamos un modelo 3D de un objeto, accesorio o pieza de exposición para vídeos, videojuegos, exposiciones virtuales o visualizaciones de productos."
             },
             {
               "id": "3d-customization",
               "price": 10000,
-              "title": "Personalización de modelos 3D existentes",
-              "description": "Ajustes de color, forma, vestuario y accesorios para nuevos usos o eventos."
+              "title": "Ajustes y personalización de modelos 3D existentes",
+              "description": "Ajustamos colores, formas, vestuario y accesorios a las necesidades del proyecto. También adaptamos personajes existentes a nuevos usos o versiones para eventos."
             },
             {
               "id": "3d-effects",
               "price": 20000,
-              "title": "Efectos y funciones 3D",
-              "description": "Una función de visibilidad, iluminación o efectos. Se confirma previamente el uso y el entorno compatible."
+              "title": "Creación de efectos y funciones 3D",
+              "description": "Creamos una función o efecto, como alternar la visibilidad o añadir iluminación. Confirmamos de antemano el uso previsto y el entorno compatible."
             }
           ]
         },
         {
           "id": "writing-audio",
-          "title": "Textos y audio",
+          "title": "Creación de textos y contenidos de audio",
           "services": [
             {
               "id": "story-writing",
               "price": 15000,
-              "title": "Escritura de historias originales",
-              "description": "Un relato de unos 4.000 caracteres japoneses con el tema, personajes y ambientación indicados, para web, publicaciones o audio."
+              "title": "Creación de historias originales",
+              "description": "Escribimos un relato de unos 4.000 caracteres japoneses a partir del tema, los personajes y la ambientación que nos indiques. Puede usarse en la web, publicaciones o producciones de audio."
             },
             {
               "id": "script-writing",
               "price": 10000,
-              "title": "Guiones para vídeo y audio",
-              "description": "Unas 2.000 letras y signos japoneses de diálogo o narración para vídeos de presentación, ficción sonora y otros contenidos."
+              "title": "Guiones para vídeo y contenidos de audio",
+              "description": "Redactamos un guion de unos 2.000 caracteres japoneses, con diálogos o narración, adaptado al proyecto y al mensaje que quieras transmitir. Para vídeos de presentación, dramas sonoros y otros contenidos."
             },
             {
               "id": "voice-recording",
               "price": 5000,
-              "title": "Grabación de narración y lectura",
-              "description": "Grabación de un texto proporcionado de hasta 1.000 caracteres japoneses, para vídeos, material educativo, indicaciones o lecturas."
+              "title": "Grabación de narración y lectura en voz alta",
+              "description": "Grabamos la lectura en voz alta de un texto proporcionado de hasta 1.000 caracteres japoneses y entregamos el archivo de audio. Ideal para vídeos de presentación, materiales educativos, locuciones informativas y contenidos de lectura."
             }
           ]
         }
