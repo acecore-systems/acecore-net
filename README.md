@@ -220,7 +220,7 @@ Cloudflare PagesではD1、AI binding、Vectorizeの設定を対象環境に設�
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationはtop-level／Previewを `false`、Productionだけを `true` とする
 - `WORKERS_AI_CHAT_MODEL`: 回答モデル（現在`gpt-6-luna`、将来は検証済みのGLM以外の`@cf/`文章モデルも選択可能）
-- `OPENAI_API_KEY`: `gpt-6-luna`を選ぶ場合のPages secret。ブラウザには渡さない
+- `AI_CONTACT_OPENAI_SERVICE`: `gpt-6-luna`を選ぶ場合の非公開Workerへのservice binding。Previewは`acecore-net-ai-contact-openai-preview`、Productionは`acecore-net-ai-contact-openai-production`へ接続する。PagesにはOpenAIキーを置かず、各Workerの`OPENAI_API_KEY_STORE`がSecrets Storeから取得する。ブラウザには渡さない
 - `WORKERS_AI_REASONING_EFFORT`: 推論 effort（既定 `low`）
 - `SEARCH_EMBEDDING_MODEL`: embeddingモデル（`@cf/baai/bge-m3`固定）
 - `SEARCH_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1024`固定）

@@ -107,6 +107,10 @@
           "service": "acecore-net-contact-email-preview",
         },
         {
+          "binding": "AI_CONTACT_OPENAI_SERVICE",
+          "service": "acecore-net-ai-contact-openai-preview",
+        },
+        {
           "binding": "CMS_AI",
           "service": "cms-ai",
         },
