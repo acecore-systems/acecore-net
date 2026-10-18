@@ -6,6 +6,7 @@ import commonTemplate from '../../../src/i18n/source/ja/common.json'
 import aboutTemplate from '../../../src/i18n/source/ja/pages/about.json'
 import acestudioTemplate from '../../../src/i18n/source/ja/pages/acestudio.json'
 import contactTemplate from '../../../src/i18n/source/ja/pages/contact.json'
+import designsTemplate from '../../../src/i18n/source/ja/pages/designs.json'
 import homeTemplate from '../../../src/i18n/source/ja/pages/home.json'
 import notFoundTemplate from '../../../src/i18n/source/ja/pages/not-found.json'
 import pricingTemplate from '../../../src/i18n/source/ja/pages/pricing.json'
@@ -56,6 +57,7 @@ const fixedJsonTemplates: Record<string, unknown> = {
   'src/i18n/source/ja/blog.json': blogTemplate,
   'src/i18n/source/ja/pages/home.json': homeTemplate,
   'src/i18n/source/ja/pages/services.json': servicesTemplate,
+  'src/i18n/source/ja/pages/designs.json': designsTemplate,
   'src/i18n/source/ja/pages/pricing.json': pricingTemplate,
   'src/i18n/source/ja/pages/about.json': aboutTemplate,
   'src/i18n/source/ja/pages/contact.json': contactTemplate,

@@ -267,6 +267,8 @@ for (const scenario of [
 test('DesignとAceStudioは技術相談や直前のSystems文脈より企業窓口を優先する', () => {
   for (const question of [
     'Acecore DesignのWebサイト制作について相談したい',
+    'Acecore Designsの3Dキャラクター制作はいくら？',
+    'Acecore Designsのイラストについて相談したい',
     'AceStudioの提供内容と開始時期は？',
   ]) {
     const plan = buildAiContactSearchPlan(
