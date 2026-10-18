@@ -28,7 +28,7 @@ function renderPrefill(
   category.options = [
     ['systems', '業務システム・Webアプリ開発について', 'Acecore Systems'],
     ['education', 'ITスクール / Acecore Schoolsについて', 'Acecore Schools'],
-    ['acecore-design', 'Acecore Designについて', 'Acecore Design'],
+    ['acecore-design', 'Acecore Designsについて', 'Acecore Designs'],
     ['acestudio', 'AceStudioについて', 'AceStudio'],
     ['', 'サービス全般について', ''],
     ['', 'パートナーシップ', ''],
@@ -39,7 +39,13 @@ function renderPrefill(
   const subject = new Input()
   subject.value = subjectValue
   const form = {
-    dataset: { serviceSubjectTemplate: template },
+    dataset: {
+      serviceSubjectTemplate: template,
+      creativeOfferings: JSON.stringify({
+        'acecore-design': { '3d-character': 'オリジナル3Dキャラクター制作' },
+        education: { '3d-training': '3D制作の入門研修' },
+      }),
+    },
     scrollIntoView() {},
   }
   const pageEvents = {}
@@ -64,8 +70,8 @@ function renderPrefill(
 
 test('新しいDesign部門と旧designリンクを混同しない', () => {
   const design = renderPrefill('?category=service&service=acecore-design')
-  assert.equal(design.category.value, 'Acecore Designについて')
-  assert.equal(design.subject.value, 'Acecore Designについて')
+  assert.equal(design.category.value, 'Acecore Designsについて')
+  assert.equal(design.subject.value, 'Acecore Designsについて')
   const legacy = renderPrefill('?category=service&service=design')
   assert.equal(legacy.category.value, '業務システム・Webアプリ開発について')
   assert.equal(legacy.subject.value, 'Acecore Systemsについて')
@@ -111,7 +117,7 @@ test('すでに入力済みの件名を初期選択でも上書きしない', ()
     { subjectValue: '入力済みの相談' },
   )
   assert.equal(subject.value, '入力済みの相談')
-  category.value = 'Acecore Designについて'
+  category.value = 'Acecore Designsについて'
   category.dispatchEvent(new Event('change'))
   assert.equal(subject.value, '入力済みの相談')
 })
@@ -122,4 +128,36 @@ test('未知のserviceを件名へ反映せず共通窓口へ戻す', () => {
   )
   assert.equal(category.value, 'サービス全般について')
   assert.equal(subject.value, '')
+})
+
+test('制作と研修のサービス名を所属部門と合わせて件名へ引き継ぐ', () => {
+  const design = renderPrefill(
+    '?category=service&service=acecore-design&offering=3d-character',
+  )
+  assert.equal(
+    design.subject.value,
+    'Acecore Designs / オリジナル3Dキャラクター制作について',
+  )
+  const schools = renderPrefill(
+    '?category=service&service=education&offering=3d-training',
+  )
+  assert.equal(
+    schools.subject.value,
+    'Acecore Schools / 3D制作の入門研修について',
+  )
+})
+
+test('未知・他部門・prototypeのサービス指定を件名に反映しない', () => {
+  for (const offering of [
+    '<script>alert(1)</script>',
+    '3d-training',
+    '__proto__',
+    'constructor',
+  ]) {
+    const { subject } = renderPrefill(
+      '?category=service&service=acecore-design&offering=' +
+        encodeURIComponent(offering),
+    )
+    assert.equal(subject.value, 'Acecore Designsについて')
+  }
 })

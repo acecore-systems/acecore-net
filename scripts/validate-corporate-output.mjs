@@ -9,6 +9,7 @@ const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const pageNames = [
   'home',
   'services',
+  'designs',
   'about',
   'acestudio',
   'pricing',
@@ -83,6 +84,50 @@ for (const locale of locales) {
   checkShape(sourceCommon.footer, translated.footer, `${locale}.footer`)
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
+  const designs = await getPage(`${prefix}/designs/`)
+  const approvedPrices = {
+    'character-design': 30000,
+    'character-illustration': 8000,
+    'character-sheets': 20000,
+    'cover-illustration': 20000,
+    'editorial-cuts': 5000,
+    'reaction-images': 9000,
+    '3d-character': 180000,
+    '3d-object': 15000,
+    '3d-customization': 10000,
+    '3d-effects': 20000,
+    'story-writing': 15000,
+    'script-writing': 10000,
+    'voice-recording': 5000,
+  }
+  const catalogServices = translations.designs.groups.flatMap(
+    (group) => group.services,
+  )
+  assert.deepEqual(
+    Object.fromEntries(catalogServices.map((item) => [item.id, item.price])),
+    approvedPrices,
+    `${locale}: approved services and prices`,
+  )
+  assert.equal(designs('[data-service-id]').length, 13)
+  for (const item of catalogServices) {
+    const card = designs(`[data-service-id="${item.id}"]`)
+    assert.equal(card.find('h4').text().trim(), item.title)
+    assert.equal(
+      Number(card.find('[data-service-price]').attr('data-service-price')),
+      item.price,
+    )
+    assert.equal(
+      card.find('a').attr('href'),
+      `${prefix}/contact/?category=service&service=acecore-design&offering=${item.id}#contact-form`,
+    )
+  }
+  assert.ok(!designs('main').text().includes('広告・Web用イラスト'))
+  assert.ok(sitemap.includes(`https://acecore.net${prefix}/designs/`))
+  assert.equal(
+    designs('a[href="https://schools.acecore.net/learning/#creative-services"]')
+      .length,
+    1,
+  )
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
   const motto = translations.home.heroTitle
@@ -141,7 +186,7 @@ for (const locale of locales) {
   const studio = await getPage(`${prefix}/acestudio/`)
   assert.equal(
     services('#design a').attr('href'),
-    `${prefix}/contact/?category=service&service=acecore-design#contact-form`,
+    `${prefix}/designs/`,
     `${locale}: Design must preserve its inquiry context`,
   )
   assert.equal(
@@ -150,7 +195,7 @@ for (const locale of locales) {
   )
   assert.equal(
     contact('option[data-service-key="acecore-design"]').attr('value'),
-    'Acecore Designについて',
+    'Acecore Designsについて',
   )
   assert.equal(contact('#scroll-to-top').length, 0)
   assert.ok(contact('#ace-ai-chat-toggle').hasClass('hidden'))
@@ -347,6 +392,7 @@ for (const locale of locales) {
   for (const path of [
     `${prefix}/`,
     `${prefix}/services/`,
+    `${prefix}/designs/`,
     `${prefix}/about/`,
     `${prefix}/acestudio/`,
     `${prefix}/blog/`,
@@ -357,7 +403,7 @@ for (const locale of locales) {
     const page = await getPage(path)
     assert.equal(page('h1').length, 1, `${path}: expected one main heading`)
     assert.ok(
-      !/pages\.(?:home|services|about|acestudio|pricing)\./.test(
+      !/pages\.(?:home|services|designs|about|acestudio|pricing)\./.test(
         page('body').text(),
       ),
       `${path}: untranslated key in rendered page`,

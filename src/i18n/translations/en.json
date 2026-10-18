@@ -307,7 +307,7 @@
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, as well as design and creative production.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "We provide learning support tailored to individual goals.",
+      "schoolsDescription": "We also offer introductory 3D training, individual technical support, illustration and writing reviews, and creative workshops.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "We run a Minecraft community.",
       "storeTitle": "Acecore Store",
@@ -318,10 +318,10 @@
       "contactHeading": "Advice on choosing and implementing a service",
       "contactBody": "Tell us what support you need and what you have in mind. We’ll point you to the right department and service.",
       "contactCta": "Talk to us about a service",
-      "designTitle": "Acecore Design",
-      "designDescription": "We’re developing a Design offering focused on brand identity, information design, and usability.",
-      "designStatus": "In planning",
-      "designNote": "Services and delivery arrangements for the Design department are still being defined. Acecore Systems handles requests for logos, print materials, banners, and similar work. Contact our shared contact point to learn what we can support.",
+      "designTitle": "Acecore Designs",
+      "designDescription": "Design and illustration / 3D production / Writing and audio",
+      "designStatus": "Discuss this service",
+      "designNote": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices.",
       "developmentTitle": "Custom System Development Service",
       "developmentDescription": "After discussing your needs, we propose and develop a system tailored to you.",
       "advisorTitle": "IT Advisory Engineer Service",
@@ -367,7 +367,7 @@
       "aiHeading": "Find the right contact with AI",
       "aiLead": "Find the right service or our shared contact point for your inquiry. Design and AceStudio are still in preparation.",
       "aiSubmit": "Find the right contact",
-      "formCategoryServiceDesign": "About Acecore Design (in planning and preparation)"
+      "formCategoryServiceDesign": "Acecore Designs — Design and illustration / 3D production / Writing and audio"
     },
     "privacy": {
       "title": "Privacy Policy",
@@ -575,6 +575,130 @@
     "pricing": {
       "systemsTitle": "Acecore Systems pricing",
       "schoolsTitle": "Acecore Schools pricing"
+    },
+    "designs": {
+      "title": "Acecore Designs",
+      "seoTitleContext": "Design, 3D, writing and audio production",
+      "description": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices.",
+      "heroTitle": "Turn your ideas into creative work.",
+      "heroLead": "Acecore Designs supports businesses, shops, schools, organizations and individuals with design, 3D, writing and audio production through one contact point.",
+      "catalogHeading": "Production services and pricing",
+      "priceLabel": "From JPY {price} (tax included)",
+      "consultLabel": "Discuss this service",
+      "conditionsTitle": "About estimates",
+      "conditionsBody": "Prices include tax and cover the basic scope described. We confirm intended use, scope, revisions, schedule, file formats and usage terms before quoting. Materials and additional work are quoted before agreement.",
+      "flowTitle": "From inquiry to delivery",
+      "flowBody": "Acecore receives your inquiry and confirms feasibility. Production begins after agreement on the estimate and scope, followed by review, revisions and delivery.",
+      "creatorTitle": "Creative contributor",
+      "creatorBody": "Explore Hatt’s published character designs, 3D work and fiction. Acecore handles project inquiries and estimates.",
+      "portfolioLabel": "View Hatt’s work",
+      "schoolsTitle": "Training and creative support at Acecore Schools",
+      "schoolsBody": "We also offer introductory 3D training, individual technical support, illustration and writing reviews, and creative workshops.",
+      "schoolsLabel": "Explore training and support",
+      "groups": [
+        {
+          "id": "illustration",
+          "title": "Design and illustration",
+          "services": [
+            {
+              "id": "character-design",
+              "price": 30000,
+              "title": "Character design",
+              "description": "Original characters tailored to businesses, shops, products, games and publicity."
+            },
+            {
+              "id": "character-illustration",
+              "price": 8000,
+              "title": "Additional mascot and character illustrations",
+              "description": "One new pose, expression or seasonal illustration of an existing character for social media, promotional materials or merchandise."
+            },
+            {
+              "id": "character-sheets",
+              "price": 20000,
+              "title": "Character sheets and three-view drawings",
+              "description": "Front, side and back views with colors for 3D production, animation and collaboration."
+            },
+            {
+              "id": "cover-illustration",
+              "price": 20000,
+              "title": "Book and booklet cover illustrations",
+              "description": "Cover artwork for books, e-books, newsletters and teaching materials. Typography is quoted separately."
+            },
+            {
+              "id": "editorial-cuts",
+              "price": 5000,
+              "title": "Editorial and explanatory illustrations",
+              "description": "One small illustration to support an article, manual, teaching material or booklet."
+            },
+            {
+              "id": "reaction-images",
+              "price": 9000,
+              "title": "Stickers and reaction images",
+              "description": "A set of three character expressions or actions for communities, streaming, apps and campaigns."
+            }
+          ]
+        },
+        {
+          "id": "3d",
+          "title": "3D production",
+          "services": [
+            {
+              "id": "3d-character",
+              "price": 180000,
+              "title": "Original 3D character production",
+              "description": "3D characters for video, games, exhibitions and virtual spaces. Motion, expressions and target environments are quoted individually."
+            },
+            {
+              "id": "3d-object",
+              "price": 15000,
+              "title": "3D props and objects",
+              "description": "One 3D prop, decorative object or exhibit for video, games, virtual exhibitions or product visualization."
+            },
+            {
+              "id": "3d-customization",
+              "price": 10000,
+              "title": "Existing 3D model customization",
+              "description": "Adjust colors, shapes, clothing or accessories for new uses of existing characters and events."
+            },
+            {
+              "id": "3d-effects",
+              "price": 20000,
+              "title": "3D effects and interactive features",
+              "description": "One feature such as visibility switching, lighting or effects. Intended use and supported environments are confirmed in advance."
+            }
+          ]
+        },
+        {
+          "id": "writing-audio",
+          "title": "Writing and audio",
+          "services": [
+            {
+              "id": "story-writing",
+              "price": 15000,
+              "title": "Original story writing",
+              "description": "Approximately 4,000 Japanese characters based on your theme, characters and setting for web content, booklets or audio works."
+            },
+            {
+              "id": "script-writing",
+              "price": 10000,
+              "title": "Video and audio script writing",
+              "description": "Approximately 2,000 Japanese characters of dialogue or narration for introductory videos, audio drama and other content."
+            },
+            {
+              "id": "voice-recording",
+              "price": 5000,
+              "title": "Narration and reading recordings",
+              "description": "Record up to 1,000 Japanese characters of supplied text and deliver audio for videos, teaching materials, guidance or readings."
+            }
+          ]
+        }
+      ],
+      "schoolOfferings": {
+        "3d-training": "Introductory 3D training",
+        "3d-support": "Individual 3D technical support",
+        "creative-review": "Illustration and writing review",
+        "creative-workshop": "Creative workshops"
+      }
     }
   },
   "pageNames": {

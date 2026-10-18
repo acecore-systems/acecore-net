@@ -83,7 +83,11 @@ test('Acecore同一originのJSON送信は従来どおり201を返す', async () 
   assert.match(response.headers.get('Vary') || '', /\bOrigin\b/)
 })
 
-for (const category of ['Acecore Designについて', 'AceStudioについて']) {
+for (const category of [
+  'Acecore Designについて',
+  'Acecore Designsについて',
+  'AceStudioについて',
+]) {
   test(`${category}の種別を通知・確認メールまで維持する`, async () => {
     const calls = mockSuccessfulContact('acecore.net')
     const fields = new URLSearchParams(nativeContactFields('ja'))

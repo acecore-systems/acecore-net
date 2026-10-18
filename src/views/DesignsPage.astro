@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Icon from '../components/Icon.astro'
+import { t, getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
+import { getSchoolsUrl } from '../utils/schools-url'
+import { SITE } from '../data/site'
+import type catalog from '../i18n/source/ja/pages/designs.json'
+interface Props {
+  locale: Locale
+}
+const { locale } = Astro.props
+const u = (path: string) => getLocalizedUrl(path, locale)
+const copy = getTranslationValue<typeof catalog>(locale, 'pages.designs')!
+const inquiry = (id: string) =>
+  u('/contact/') +
+  '?category=service&service=acecore-design&offering=' +
+  encodeURIComponent(id) +
+  '#contact-form'
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: copy.title,
+  url: SITE.url + u('/designs/'),
+  itemListElement: copy.groups.map((group) => ({
+    '@type': 'OfferCatalog',
+    name: group.title,
+    itemListElement: group.services.map((service) => ({
+      '@type': 'Offer',
+      url: SITE.url + u('/designs/') + '#' + service.id,
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        minPrice: service.price,
+        priceCurrency: 'JPY',
+        valueAddedTaxIncluded: true,
+      },
+      itemOffered: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.description,
+        provider: { '@id': SITE.url + '/#organization' },
+      },
+    })),
+  })),
+}
+---
+
+<BaseLayout
+  title={copy.title}
+  titleContext={copy.seoTitleContext}
+  description={copy.description}
+  locale={locale}
+  jsonLd={schema}
+>
+  <section class="ac-section bg-brand-950 text-white">
+    <div class="ac-container">
+      <p class="mb-4 text-sm font-700 tracking-wide text-brand-200">
+        Acecore Designs
+      </p>
+      <h1 class="max-w-4xl text-3xl font-800 leading-tight sm:text-5xl">
+        {copy.heroTitle}
+      </h1>
+      <p
+        class="mt-6 max-w-3xl text-base leading-relaxed text-brand-100 sm:text-lg"
+      >
+        {copy.heroLead}
+      </p>
+      <a href="#catalog" class="ac-btn-primary mt-7">{copy.catalogHeading}</a>
+    </div>
+  </section>
+  <section
+    id="catalog"
+    class="ac-section bg-slate-50"
+    aria-labelledby="catalog-heading"
+  >
+    <div class="ac-container">
+      <Breadcrumb
+        items={[
+          { label: t(locale, 'pages.services.title'), href: u('/services/') },
+          { label: copy.title },
+        ]}
+        locale={locale}
+      />
+      <h2 id="catalog-heading" class="mb-6 text-2xl ac-heading sm:text-3xl">
+        {copy.catalogHeading}
+      </h2>
+      <nav aria-label={copy.catalogHeading} class="mb-8 flex flex-wrap gap-3">
+        {
+          copy.groups.map((group) => (
+            <a class="ac-chip" href={'#' + group.id}>
+              {group.title}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="ac-card mb-10 p-6">
+        <h3 class="mb-2 text-lg ac-heading">{copy.conditionsTitle}</h3>
+        <p class="ac-muted">{copy.conditionsBody}</p>
+      </div>
+      {
+        copy.groups.map((group, index) => (
+          <section
+            id={group.id}
+            class="mb-12 last:mb-0"
+            aria-labelledby={group.id + '-heading'}
+          >
+            <div class="mb-5 flex items-center gap-3">
+              <Icon
+                name={['palette', 'box', 'book-open'][index]}
+                class="text-2xl text-brand-600"
+              />
+              <h3
+                id={group.id + '-heading'}
+                class="text-xl ac-heading sm:text-2xl"
+              >
+                {group.title}
+              </h3>
+            </div>
+            <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {group.services.map((service) => (
+                <article
+                  id={service.id}
+                  class="ac-card flex flex-col p-6"
+                  data-service-id={service.id}
+                >
+                  <h4 class="mb-3 text-lg ac-heading">{service.title}</h4>
+                  <p class="mb-5 flex-1 text-sm leading-relaxed text-slate-600">
+                    {service.description}
+                  </p>
+                  <p
+                    class="mb-4 text-lg font-800 text-brand-700"
+                    data-service-price={service.price}
+                  >
+                    {t(locale, 'pages.designs.priceLabel', {
+                      price: service.price.toLocaleString('ja-JP'),
+                    })}
+                  </p>
+                  <a
+                    class="ac-btn-secondary"
+                    href={inquiry(service.id)}
+                    aria-label={service.title + ' — ' + copy.consultLabel}
+                  >
+                    {copy.consultLabel}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+  <section class="ac-section bg-white">
+    <div class="ac-container grid gap-8 md:grid-cols-2">
+      <div>
+        <h2 class="mb-4 text-2xl ac-heading">{copy.flowTitle}</h2><p
+          class="ac-muted"
+        >
+          {copy.flowBody}
+        </p>
+      </div>
+      <div>
+        <h2 class="mb-4 text-2xl ac-heading">{copy.creatorTitle}</h2><p
+          class="mb-5 ac-muted"
+        >
+          {copy.creatorBody}
+        </p><a class="ac-btn-secondary" href="https://hatt.acecore.net/"
+          >{copy.portfolioLabel}</a
+        >
+      </div>
+    </div>
+  </section>
+  <section class="ac-section bg-brand-50">
+    <div class="ac-container">
+      <h2 class="mb-4 text-2xl ac-heading">{copy.schoolsTitle}</h2><p
+        class="mb-6 max-w-3xl ac-muted"
+      >
+        {copy.schoolsBody}
+      </p><a
+        class="ac-btn-primary"
+        href={getSchoolsUrl('/learning/') + '#creative-services'}
+        >{copy.schoolsLabel}</a
+      >
+    </div>
+  </section>
+</BaseLayout>

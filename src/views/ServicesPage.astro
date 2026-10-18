@@ -92,7 +92,15 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           {t(locale, 'pages.services.pricingLead')}
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <ServiceCard
+          title={t(locale, 'pages.services.designTitle')}
+          description={t(locale, 'pages.services.designDescription')}
+          icon="palette"
+          tone="emerald"
+          href={u('/designs/') + '#catalog'}
+          locale={locale}
+        />
         <ServiceCard
           title={t(locale, 'pages.pricing.systemsTitle')}
           description={t(locale, 'pages.services.developmentTitle') +

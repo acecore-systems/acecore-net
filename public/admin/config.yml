@@ -1298,6 +1298,68 @@ collections:
             label: '詳細リンクの文言'
             hint: 'detailsCta'
             widget: string
+      - name: designs
+        label: Acecore Designs
+        file: src/i18n/source/ja/pages/designs.json
+        fields:
+          - { name: title, label: 'title', widget: 'text' }
+          - { name: seoTitleContext, label: 'seoTitleContext', widget: 'text' }
+          - { name: description, label: 'description', widget: 'text' }
+          - { name: heroTitle, label: 'heroTitle', widget: 'text' }
+          - { name: heroLead, label: 'heroLead', widget: 'text' }
+          - { name: catalogHeading, label: 'catalogHeading', widget: 'text' }
+          - { name: priceLabel, label: 'priceLabel', widget: 'text' }
+          - { name: consultLabel, label: 'consultLabel', widget: 'text' }
+          - { name: conditionsTitle, label: 'conditionsTitle', widget: 'text' }
+          - { name: conditionsBody, label: 'conditionsBody', widget: 'text' }
+          - { name: flowTitle, label: 'flowTitle', widget: 'text' }
+          - { name: flowBody, label: 'flowBody', widget: 'text' }
+          - { name: creatorTitle, label: 'creatorTitle', widget: 'text' }
+          - { name: creatorBody, label: 'creatorBody', widget: 'text' }
+          - { name: portfolioLabel, label: 'portfolioLabel', widget: 'text' }
+          - { name: schoolsTitle, label: 'schoolsTitle', widget: 'text' }
+          - { name: schoolsBody, label: 'schoolsBody', widget: 'text' }
+          - { name: schoolsLabel, label: 'schoolsLabel', widget: 'text' }
+          - name: groups
+            label: サービス分類
+            widget: list
+            fields:
+              - { name: id, label: ID, widget: string }
+              - { name: title, label: 分類名, widget: string }
+              - name: services
+                label: サービス
+                widget: list
+                fields:
+                  - { name: id, label: ID, widget: string }
+                  - { name: title, label: サービス名, widget: string }
+                  - { name: description, label: 内容, widget: text }
+                  - {
+                      name: price,
+                      label: 税込開始料金,
+                      widget: number,
+                      value_type: int,
+                      min: 0,
+                    }
+          - name: schoolOfferings
+            label: Schools問い合わせサービス名
+            widget: object
+            fields:
+              - { name: 3d-training, label: '3D制作の入門研修', widget: string }
+              - {
+                  name: 3d-support,
+                  label: '3D制作の個別技術サポート',
+                  widget: string,
+                }
+              - {
+                  name: creative-review,
+                  label: 'イラスト・文章の制作レビュー',
+                  widget: string,
+                }
+              - {
+                  name: creative-workshop,
+                  label: '創作ワークショップ',
+                  widget: string,
+                }
       - name: 'pricing'
         label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json
