@@ -97,7 +97,8 @@ async function fetchExcerpt(
   try {
     const response = await fetcher(CATALOG_URL, {
       signal: controller.signal,
-      redirect: 'error',
+      // Workers rejects redirect: 'error'; reject 3xx through response.ok below.
+      redirect: 'manual',
       headers: { Accept: 'application/json' },
     })
     if (
