@@ -2092,7 +2092,7 @@ test('Designs専用カタログを根拠に使い、旧ページの価格を混�
   let calls = 0
   t.mock.method(globalThis, 'fetch', async (url) => {
     calls++
-    assert.equal(url, 'https://designs.acecore.net/catalog.json')
+    assert.equal(url, 'https://acecore-designs.pages.dev/catalog.json')
     return Response.json(catalog)
   })
   for (const scenario of [
