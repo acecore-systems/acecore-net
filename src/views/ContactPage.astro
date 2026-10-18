@@ -6,7 +6,8 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
+import type designsCatalog from '../i18n/source/ja/pages/designs.json'
 
 interface Props {
   locale: Locale
@@ -16,6 +17,18 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
+const creativeCatalog = getTranslationValue<typeof designsCatalog>(
+  locale,
+  'pages.designs',
+)!
+const creativeOfferings = {
+  'acecore-design': Object.fromEntries(
+    creativeCatalog.groups.flatMap((group) =>
+      group.services.map((service) => [service.id, service.title]),
+    ),
+  ),
+  education: creativeCatalog.schoolOfferings,
+}
 
 const serviceCategoryOptions = [
   {
@@ -32,7 +45,7 @@ const serviceCategoryOptions = [
   },
   {
     key: 'acecore-design',
-    value: 'Acecore Designについて',
+    value: 'Acecore Designsについて',
     label: t(locale, 'pages.contact.formCategoryServiceDesign'),
     subject: t(locale, 'pages.services.designTitle'),
   },
@@ -127,6 +140,7 @@ const contactPageLd = {
 
       <form
         id="contact-form"
+        data-creative-offerings={JSON.stringify(creativeOfferings)}
         action="/api/contact"
         method="post"
         class="space-y-6"
@@ -427,7 +441,20 @@ const contactPageLd = {
             serviceOption.dataset.serviceSubject ||
             serviceOption.textContent?.trim() ||
             ''
-          let generatedSubject = template.replace('{service}', serviceName)
+          const requestedOffering = url.searchParams.get('offering') || ''
+          const offeringGroups = JSON.parse(
+            form.dataset.creativeOfferings || '{}',
+          )
+          const offeringGroup = Object.hasOwn(offeringGroups, normalizedService)
+            ? offeringGroups[normalizedService]
+            : {}
+          const offeringName = Object.hasOwn(offeringGroup, requestedOffering)
+            ? offeringGroup[requestedOffering]
+            : ''
+          let generatedSubject = template.replace(
+            '{service}',
+            offeringName ? serviceName + ' / ' + offeringName : serviceName,
+          )
           let subjectWasEdited = false
           subject.value = generatedSubject
           subject.addEventListener('input', function () {
