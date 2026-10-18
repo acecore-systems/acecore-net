@@ -1,3 +1,4 @@
+import designsCatalog from '../../src/i18n/source/ja/pages/designs.json' with { type: 'json' }
 import {
   buildFederatedGroundingContext,
   hasGroundingSource,
@@ -623,7 +624,29 @@ export const onRequestPost = async ({
       answer: deterministicFallback,
     })
   }
-  const groundingContext = buildFederatedGroundingContext(groundingResult)
+  // Search snippets are intentionally short. For a retrieved Designs page,
+  // use the same published catalog as the page so prices cannot be truncated.
+  const catalogUrl = localizedSiteUrl('/designs/', locale)
+  const catalogExcerpt = JSON.stringify({
+    conditions: designsCatalog.conditionsBody,
+    services: designsCatalog.groups.flatMap((group) =>
+      group.services.map(({ title, price, description }) => ({
+        title,
+        startingPriceJPYTaxIncluded: price,
+        description,
+      })),
+    ),
+  }).slice(0, 6000)
+  const groundingContext = buildFederatedGroundingContext({
+    ...groundingResult,
+    entries: groundingResult.entries.map((entry) =>
+      searchPlan.sourceIntent === 'acecore' &&
+      entry.source === 'acecore' &&
+      entry.url === catalogUrl
+        ? { ...entry, excerpt: catalogExcerpt }
+        : entry,
+    ),
+  })
   const instructions = [
     'You are the Acecore official-site network chat assistant.',
     `Answer in ${localeSettings.languageName}. The visitor locale code is ${locale}.`,

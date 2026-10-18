@@ -2060,3 +2060,61 @@ async function captureConsoleErrors(callback) {
     console.error = originalConsoleError
   }
 }
+
+test('取得したDesignsの根拠にはページと同じ全13サービスの税込開始料金を渡す', async () => {
+  const catalog = JSON.parse(
+    readFileSync(
+      new URL('../src/i18n/source/ja/pages/designs.json', import.meta.url),
+      'utf8',
+    ),
+  )
+  for (const scenario of [
+    {
+      question: 'Acecore Designsの挿絵の料金は？',
+      url: '/designs/',
+      expected: true,
+    },
+    { question: 'Acecoreの会社概要は？', url: '/about/', expected: false },
+    {
+      question: 'Acecore Schoolsの料金は？',
+      url: '/designs/',
+      expected: false,
+    },
+  ]) {
+    const tracker = createAiTracker()
+    const env = createFederatedProbeEnv(createSourceCounter(), tracker)
+    env.SEARCH_INDEX = {
+      async query() {
+        return {
+          matches: [
+            {
+              ...SOURCE_MATCHES.acecore,
+              metadata: {
+                ...SOURCE_MATCHES.acecore.metadata,
+                url: scenario.url,
+                excerpt: '短い抜粋には金額がない。',
+              },
+            },
+          ],
+        }
+      },
+    }
+    const response = await onRequestPost({
+      request: createRequest({ question: scenario.question, locale: 'ja' }),
+      env,
+    })
+    assert.equal(response.status, 200)
+    const instructions = JSON.stringify(tracker.generationInputs)
+    assert.equal(
+      instructions.includes('startingPriceJPYTaxIncluded'),
+      scenario.expected,
+    )
+    if (scenario.expected) {
+      for (const service of catalog.groups.flatMap((group) => group.services)) {
+        assert.ok(instructions.includes(service.title))
+        assert.ok(instructions.includes(String(service.price)))
+      }
+      assert.ok(instructions.includes('https://acecore.net/designs/'))
+    }
+  }
+})
