@@ -2061,13 +2061,40 @@ async function captureConsoleErrors(callback) {
   }
 }
 
-test('取得したDesignsの根拠にはページと同じ全13サービスの税込開始料金を渡す', async () => {
-  const catalog = JSON.parse(
-    readFileSync(
-      new URL('../src/i18n/source/ja/pages/designs.json', import.meta.url),
-      'utf8',
-    ),
-  )
+test('Designs専用カタログを根拠に使い、旧ページの価格を混ぜない', async (t) => {
+  const catalog = {
+    schemaVersion: 1,
+    sourceUrl: 'https://designs.acecore.net/',
+    locales: {
+      ja: {
+        conditionsBody: '税込開始料金。正式見積もりは個別相談。',
+        groups: [
+          {
+            services: [
+              {
+                id: 'editorial-cuts',
+                title: '挿絵・説明用カット',
+                price: 5000,
+                description: '1点',
+              },
+              {
+                id: 'voice-recording',
+                title: 'ナレーション・朗読収録',
+                price: 5000,
+                description: '1000字以内',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  }
+  let calls = 0
+  t.mock.method(globalThis, 'fetch', async (url) => {
+    calls++
+    assert.equal(url, 'https://designs.acecore.net/catalog.json')
+    return Response.json(catalog)
+  })
   for (const scenario of [
     {
       question: 'Acecore Designsの挿絵の料金は？',
@@ -2092,29 +2119,39 @@ test('取得したDesignsの根拠にはページと同じ全13サービスの�
               metadata: {
                 ...SOURCE_MATCHES.acecore.metadata,
                 url: scenario.url,
-                excerpt: '短い抜粋には金額がない。',
+                excerpt: 'Retired price 999999円',
               },
             },
           ],
         }
       },
     }
+    const before = calls
     const response = await onRequestPost({
       request: createRequest({ question: scenario.question, locale: 'ja' }),
       env,
     })
     assert.equal(response.status, 200)
     const instructions = JSON.stringify(tracker.generationInputs)
+    assert.equal(calls > before, scenario.expected)
     assert.equal(
       instructions.includes('startingPriceJPYTaxIncluded'),
       scenario.expected,
     )
     if (scenario.expected) {
-      for (const service of catalog.groups.flatMap((group) => group.services)) {
+      for (const service of catalog.locales.ja.groups.flatMap(
+        (group) => group.services,
+      )) {
         assert.ok(instructions.includes(service.title))
         assert.ok(instructions.includes(String(service.price)))
       }
-      assert.ok(instructions.includes('https://acecore.net/designs/'))
+      assert.ok(instructions.includes('https://designs.acecore.net/'))
+      assert.ok(!instructions.includes('999999'))
+      assert.ok(!instructions.includes('https://acecore.net/designs/'))
+      assert.match(
+        (await response.json()).answer,
+        /https:\/\/designs\.acecore\.net\//u,
+      )
     }
   }
 })

@@ -9,7 +9,6 @@ import notFoundPageTranslations from './pages/not-found.json'
 import privacyPageTranslations from './pages/privacy.json'
 import pricingPageTranslations from './pages/pricing.json'
 import servicesPageTranslations from './pages/services.json'
-import designsPageTranslations from './pages/designs.json'
 import termsPageTranslations from './pages/terms.json'
 
 type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
@@ -139,7 +138,6 @@ const jaTranslations = {
     notFound: notFoundPageTranslations,
     about: aboutPageTranslations,
     services: servicesPageTranslations,
-    designs: designsPageTranslations,
     pricing: pricingPageTranslations,
     contact: contactPageTranslations,
     privacy: privacyPageTranslations,

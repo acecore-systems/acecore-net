@@ -250,9 +250,32 @@
       "validationEmail": "유효한 이메일 주소를 입력해 주세요",
       "validationMessage": "의미 있는 내용을 10자 이상 입력해 주세요",
       "aiHeading": "AI로 문의처 확인",
-      "aiLead": "상담 내용에 맞는 담당 서비스나 공통 문의 창구를 안내합니다. Design과 AceStudio는 준비 중입니다.",
+      "aiLead": "상담 내용에 맞는 담당 서비스나 공통 문의 창구를 안내합니다. AceStudio는 준비 중입니다.",
       "aiSubmit": "문의처 확인",
-      "formCategoryServiceDesign": "Acecore Designs — 디자인·일러스트 제작 / 3D 제작 / 글·음성 콘텐츠 제작"
+      "formCategoryServiceDesign": "Acecore Designs — 디자인·일러스트 제작 / 3D 제작 / 글·음성 콘텐츠 제작",
+      "creativeOfferings": {
+        "acecore-design": {
+          "character-design": "캐릭터 디자인",
+          "character-illustration": "마스코트·캐릭터 추가 일러스트",
+          "character-sheets": "캐릭터 설정화·삼면도",
+          "cover-illustration": "책·책자 표지 일러스트",
+          "editorial-cuts": "삽화·설명용 그림",
+          "reaction-images": "스티커·리액션 이미지 제작",
+          "3d-character": "오리지널 3D 캐릭터 제작",
+          "3d-object": "3D 소품·오브젝트 제작",
+          "3d-customization": "기존 3D 모델 조정·맞춤 제작",
+          "3d-effects": "3D 연출·기능 제작",
+          "story-writing": "오리지널 스토리 제작",
+          "script-writing": "영상·음성 콘텐츠 대본 제작",
+          "voice-recording": "내레이션·낭독 녹음"
+        },
+        "education": {
+          "3d-training": "3D 제작 입문 교육",
+          "3d-support": "3D 제작 개별 기술 지원",
+          "creative-review": "일러스트·글 제작 리뷰",
+          "creative-workshop": "창작 워크숍"
+        }
+      }
     },
     "about": {
       "title": "회사 소개",
@@ -415,130 +438,6 @@
     "pricing": {
       "systemsTitle": "Acecore Systems 요금",
       "schoolsTitle": "Acecore Schools 요금"
-    },
-    "designs": {
-      "title": "Acecore Designs",
-      "seoTitleContext": "디자인·3D·글·음성 제작",
-      "description": "Acecore Designs의 캐릭터, 일러스트, 3D, 스토리, 대본, 음성 제작 13개 서비스와 세금 포함 시작 요금을 안내합니다.",
-      "heroTitle": "전하고 싶은 생각을 작품으로.",
-      "heroLead": "Acecore Designs는 기업·매장, 학교·단체, 개인을 위한 디자인·3D·글·음성 제작을 하나의 창구에서 상담합니다.",
-      "catalogHeading": "제작 서비스와 요금",
-      "priceLabel": "{price}엔부터 (세금 포함)",
-      "consultLabel": "이 서비스 상담하기",
-      "conditionsTitle": "견적 안내",
-      "conditionsBody": "표시 금액은 기본 내용에 대한 세금 포함 시작 요금입니다. 용도, 제작 범위, 수정 횟수, 납기, 납품 형식, 이용 조건을 확인해 견적을 제시합니다. 소재비와 추가 제작 비용도 계약 전에 안내합니다.",
-      "flowTitle": "상담부터 납품까지",
-      "flowBody": "Acecore가 상담을 접수하고 내용과 대응 가능 여부를 확인합니다. 견적과 제작 조건에 합의한 뒤 제작을 시작하여 확인·수정을 거쳐 납품합니다.",
-      "creatorTitle": "제작 담당",
-      "creatorBody": "Hatt가 공개한 캐릭터·3D 작품·소설을 확인할 수 있습니다. 제작 상담과 견적은 Acecore가 담당합니다.",
-      "portfolioLabel": "Hatt의 작품 보기",
-      "schoolsTitle": "교육·제작 지원은 Acecore Schools",
-      "schoolsBody": "3D 제작 입문 교육, 개별 기술 지원, 일러스트·글 제작 리뷰, 창작 워크숍도 제공합니다.",
-      "schoolsLabel": "교육·제작 지원 보기",
-      "groups": [
-        {
-          "id": "illustration",
-          "title": "디자인·일러스트 제작",
-          "services": [
-            {
-              "id": "character-design",
-              "price": 30000,
-              "title": "캐릭터 디자인",
-              "description": "기업·매장, 상품, 게임, 홍보 등의 용도와 이미지에 맞춘 오리지널 캐릭터를 설계합니다."
-            },
-            {
-              "id": "character-illustration",
-              "price": 8000,
-              "title": "마스코트·캐릭터 추가 일러스트",
-              "description": "기존 캐릭터의 새 포즈·표정·계절 행사 일러스트 1점을 제작합니다. SNS, 홍보물, 굿즈 등에 활용할 수 있습니다."
-            },
-            {
-              "id": "character-sheets",
-              "price": 20000,
-              "title": "캐릭터 설정화·삼면도",
-              "description": "정면·측면·후면과 배색을 정리하여 3D 제작, 애니메이션, 공동 제작에 사용할 자료를 만듭니다."
-            },
-            {
-              "id": "cover-illustration",
-              "price": 20000,
-              "title": "책·책자 표지 일러스트",
-              "description": "책, 전자책, 소식지, 교재에 맞는 표지 일러스트를 제작합니다. 문자 편집은 별도 견적입니다."
-            },
-            {
-              "id": "editorial-cuts",
-              "price": 5000,
-              "title": "삽화·설명용 그림",
-              "description": "기사, 매뉴얼, 교재, 책자의 내용을 보완하는 작은 일러스트 1점을 제작합니다."
-            },
-            {
-              "id": "reaction-images",
-              "price": 9000,
-              "title": "스티커·리액션 이미지 제작",
-              "description": "캐릭터 표정·동작 3점 세트를 제작합니다. 커뮤니티, 방송, 앱, 캠페인 등에 활용할 수 있습니다."
-            }
-          ]
-        },
-        {
-          "id": "3d",
-          "title": "3D 제작",
-          "services": [
-            {
-              "id": "3d-character",
-              "price": 180000,
-              "title": "오리지널 3D 캐릭터 제작",
-              "description": "영상, 게임, 전시, 가상 공간에 맞는 캐릭터를 입체화합니다. 동작·표정·대응 환경에 따라 견적을 제시합니다."
-            },
-            {
-              "id": "3d-object",
-              "price": 15000,
-              "title": "3D 소품·오브젝트 제작",
-              "description": "소품, 장식품, 전시물 등 3D 모델 1점을 제작합니다. 영상·게임 소재, 가상 전시, 상품 이미지 등에 활용할 수 있습니다."
-            },
-            {
-              "id": "3d-customization",
-              "price": 10000,
-              "title": "기존 3D 모델 조정·맞춤 제작",
-              "description": "색·형태·의상·부속품을 용도에 맞게 조정하여 기존 캐릭터 활용과 행사 사양 변경에 대응합니다."
-            },
-            {
-              "id": "3d-effects",
-              "price": 20000,
-              "title": "3D 연출·기능 제작",
-              "description": "표시 전환, 발광, 효과 등 1개 기능을 제작합니다. 용도와 대응 환경을 사전에 확인합니다."
-            }
-          ]
-        },
-        {
-          "id": "writing-audio",
-          "title": "글·음성 콘텐츠 제작",
-          "services": [
-            {
-              "id": "story-writing",
-              "price": 15000,
-              "title": "오리지널 스토리 제작",
-              "description": "지정한 주제·캐릭터·설정으로 약 4,000자의 일본어 이야기를 작성합니다. 웹 콘텐츠, 책자, 음성 작품 등에 활용할 수 있습니다."
-            },
-            {
-              "id": "script-writing",
-              "price": 10000,
-              "title": "영상·음성 콘텐츠 대본 제작",
-              "description": "기획에 맞는 약 2,000자의 일본어 대사·내레이션 원고를 작성합니다. 소개 영상, 오디오 드라마 등에 대응합니다."
-            },
-            {
-              "id": "voice-recording",
-              "price": 5000,
-              "title": "내레이션·낭독 녹음",
-              "description": "제공된 일본어 원고 1,000자까지 낭독하여 음성 데이터로 납품합니다. 영상, 교재, 안내 음성, 낭독 콘텐츠 등에 활용할 수 있습니다."
-            }
-          ]
-        }
-      ],
-      "schoolOfferings": {
-        "3d-training": "3D 제작 입문 교육",
-        "3d-support": "3D 제작 개별 기술 지원",
-        "creative-review": "일러스트·글 제작 리뷰",
-        "creative-workshop": "창작 워크숍"
-      }
     }
   },
   "pageNames": {

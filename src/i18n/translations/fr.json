@@ -250,9 +250,32 @@
       "validationEmail": "Veuillez entrer une adresse e-mail valide",
       "validationMessage": "Veuillez saisir au moins 10 caractères significatifs",
       "aiHeading": "Trouver le bon contact avec l'IA",
-      "aiLead": "Trouvez le service adapté ou notre contact commun selon votre demande. Design et AceStudio sont encore en préparation.",
+      "aiLead": "Trouvez le service adapté ou notre contact commun selon votre demande. AceStudio est encore en préparation.",
       "aiSubmit": "Trouver le contact",
-      "formCategoryServiceDesign": "Acecore Designs — Design et illustration / Création 3D / Textes et audio"
+      "formCategoryServiceDesign": "Acecore Designs — Design et illustration / Création 3D / Textes et audio",
+      "creativeOfferings": {
+        "acecore-design": {
+          "character-design": "Conception de personnages",
+          "character-illustration": "Illustrations complémentaires de mascottes et personnages",
+          "character-sheets": "Fiches de personnage et vues de référence",
+          "cover-illustration": "Illustrations de couverture",
+          "editorial-cuts": "Illustrations éditoriales et explicatives",
+          "reaction-images": "Autocollants et images de réaction",
+          "3d-character": "Création de personnages 3D originaux",
+          "3d-object": "Création d’objets 3D",
+          "3d-customization": "Personnalisation de modèles 3D existants",
+          "3d-effects": "Effets et fonctions 3D",
+          "story-writing": "Écriture de récits originaux",
+          "script-writing": "Scripts pour vidéo et audio",
+          "voice-recording": "Enregistrement de narration et de lecture"
+        },
+        "education": {
+          "3d-training": "Initiation à la 3D",
+          "3d-support": "Assistance technique individuelle en 3D",
+          "creative-review": "Analyse d’illustrations et de textes",
+          "creative-workshop": "Ateliers créatifs"
+        }
+      }
     },
     "about": {
       "title": "À propos",
@@ -421,130 +444,6 @@
     "pricing": {
       "systemsTitle": "Tarifs d'Acecore Systems",
       "schoolsTitle": "Tarifs d'Acecore Schools"
-    },
-    "designs": {
-      "title": "Acecore Designs",
-      "seoTitleContext": "Design, 3D, textes et audio",
-      "description": "Découvrez 13 services Acecore Designs de personnages, illustration, 3D, récits, scripts et audio, avec tarifs de départ TTC.",
-      "heroTitle": "Donnez forme à vos idées.",
-      "heroLead": "Acecore Designs accompagne entreprises, commerces, écoles, associations et particuliers en design, 3D, textes et audio, avec un interlocuteur unique.",
-      "catalogHeading": "Services et tarifs",
-      "priceLabel": "À partir de {price} JPY TTC",
-      "consultLabel": "Demander ce service",
-      "conditionsTitle": "À propos des devis",
-      "conditionsBody": "Les tarifs de départ TTC couvrent le contenu de base indiqué. Nous précisons usage, périmètre, corrections, délais, formats et conditions d’utilisation avant le devis. Les ressources et travaux supplémentaires sont chiffrés avant accord.",
-      "flowTitle": "De la demande à la livraison",
-      "flowBody": "Acecore reçoit votre demande et en vérifie la faisabilité. La production débute après accord sur le devis et les conditions, puis viennent la validation, les corrections et la livraison.",
-      "creatorTitle": "Créateur",
-      "creatorBody": "Découvrez les personnages, créations 3D et récits publiés par Hatt. Acecore prend en charge les demandes et devis.",
-      "portfolioLabel": "Voir les œuvres de Hatt",
-      "schoolsTitle": "Formation et accompagnement avec Acecore Schools",
-      "schoolsBody": "Nous proposons aussi une initiation à la 3D, une assistance technique individuelle, une analyse d’illustrations et de textes, ainsi que des ateliers créatifs.",
-      "schoolsLabel": "Voir les formations et l’accompagnement",
-      "groups": [
-        {
-          "id": "illustration",
-          "title": "Design et illustration",
-          "services": [
-            {
-              "id": "character-design",
-              "price": 30000,
-              "title": "Conception de personnages",
-              "description": "Personnages originaux adaptés aux entreprises, commerces, produits, jeux et communications."
-            },
-            {
-              "id": "character-illustration",
-              "price": 8000,
-              "title": "Illustrations complémentaires de mascottes et personnages",
-              "description": "Une nouvelle pose, expression ou illustration saisonnière d’un personnage existant pour réseaux sociaux, supports promotionnels ou produits dérivés."
-            },
-            {
-              "id": "character-sheets",
-              "price": 20000,
-              "title": "Fiches de personnage et vues de référence",
-              "description": "Vues de face, de profil et de dos avec couleurs pour la 3D, l’animation et le travail en équipe."
-            },
-            {
-              "id": "cover-illustration",
-              "price": 20000,
-              "title": "Illustrations de couverture",
-              "description": "Illustrations pour livres, livres numériques, bulletins et supports pédagogiques. La composition typographique fait l’objet d’un devis séparé."
-            },
-            {
-              "id": "editorial-cuts",
-              "price": 5000,
-              "title": "Illustrations éditoriales et explicatives",
-              "description": "Une petite illustration accompagnant un article, manuel, support pédagogique ou livret."
-            },
-            {
-              "id": "reaction-images",
-              "price": 9000,
-              "title": "Autocollants et images de réaction",
-              "description": "Trois expressions ou actions d’un personnage pour communautés, diffusions, applications et campagnes."
-            }
-          ]
-        },
-        {
-          "id": "3d",
-          "title": "Création 3D",
-          "services": [
-            {
-              "id": "3d-character",
-              "price": 180000,
-              "title": "Création de personnages 3D originaux",
-              "description": "Personnages 3D pour vidéos, jeux, expositions et espaces virtuels. Mouvements, expressions et environnement sont chiffrés selon le projet."
-            },
-            {
-              "id": "3d-object",
-              "price": 15000,
-              "title": "Création d’objets 3D",
-              "description": "Un accessoire, objet décoratif ou élément d’exposition en 3D pour vidéos, jeux, expositions virtuelles ou visualisation de produits."
-            },
-            {
-              "id": "3d-customization",
-              "price": 10000,
-              "title": "Personnalisation de modèles 3D existants",
-              "description": "Adaptation des couleurs, formes, vêtements et accessoires à de nouveaux usages ou événements."
-            },
-            {
-              "id": "3d-effects",
-              "price": 20000,
-              "title": "Effets et fonctions 3D",
-              "description": "Une fonction de visibilité, éclairage ou effets. L’usage et les environnements compatibles sont confirmés au préalable."
-            }
-          ]
-        },
-        {
-          "id": "writing-audio",
-          "title": "Textes et audio",
-          "services": [
-            {
-              "id": "story-writing",
-              "price": 15000,
-              "title": "Écriture de récits originaux",
-              "description": "Un récit d’environ 4 000 caractères japonais selon le thème, les personnages et le cadre indiqués, pour le web, des livrets ou l’audio."
-            },
-            {
-              "id": "script-writing",
-              "price": 10000,
-              "title": "Scripts pour vidéo et audio",
-              "description": "Environ 2 000 caractères japonais de dialogues ou de narration pour vidéos de présentation, fictions sonores et autres contenus."
-            },
-            {
-              "id": "voice-recording",
-              "price": 5000,
-              "title": "Enregistrement de narration et de lecture",
-              "description": "Lecture d’un texte fourni de 1 000 caractères japonais maximum, livrée en audio pour vidéos, supports pédagogiques, annonces ou lectures."
-            }
-          ]
-        }
-      ],
-      "schoolOfferings": {
-        "3d-training": "Initiation à la 3D",
-        "3d-support": "Assistance technique individuelle en 3D",
-        "creative-review": "Analyse d’illustrations et de textes",
-        "creative-workshop": "Ateliers créatifs"
-      }
     }
   },
   "pageNames": {

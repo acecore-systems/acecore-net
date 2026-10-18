@@ -36,7 +36,6 @@ const CONTENT_FILES = new Set([
   'src/i18n/source/ja/blog.json',
   'src/i18n/source/ja/pages/home.json',
   'src/i18n/source/ja/pages/services.json',
-  'src/i18n/source/ja/pages/designs.json',
   'src/i18n/source/ja/pages/pricing.json',
   'src/i18n/source/ja/pages/about.json',
   'src/i18n/source/ja/pages/contact.json',

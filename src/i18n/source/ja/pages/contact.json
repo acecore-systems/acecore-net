@@ -31,7 +31,30 @@
   "validationEmail": "正しいメールアドレスを入力してください",
   "validationMessage": "お問い合わせ内容を10文字以上で入力してください",
   "aiHeading": "問い合わせ先をAIで確認",
-  "aiLead": "ご相談内容に応じて、担当サービスや共通窓口をご案内します。DesignとAceStudioは準備中です。",
+  "aiLead": "ご相談内容に応じて、担当サービスや共通窓口をご案内します。AceStudioは準備中です。",
   "aiSubmit": "問い合わせ先を確認する",
-  "formCategoryServiceDesign": "デザイン・3D・文章・音声制作 / Acecore Designsについて"
+  "formCategoryServiceDesign": "デザイン・3D・文章・音声制作 / Acecore Designsについて",
+  "creativeOfferings": {
+    "acecore-design": {
+      "character-design": "キャラクターデザイン",
+      "character-illustration": "マスコット・キャラクターの追加イラスト",
+      "character-sheets": "キャラクター設定画・三面図",
+      "cover-illustration": "書籍・冊子の表紙イラスト",
+      "editorial-cuts": "挿絵・説明用カット",
+      "reaction-images": "スタンプ・リアクション画像制作",
+      "3d-character": "オリジナル3Dキャラクター制作",
+      "3d-object": "3D小物・オブジェクト制作",
+      "3d-customization": "既存3Dモデルの調整・カスタマイズ",
+      "3d-effects": "3D演出・ギミック制作",
+      "story-writing": "オリジナルストーリー制作",
+      "script-writing": "動画・音声コンテンツの台本制作",
+      "voice-recording": "ナレーション・朗読収録"
+    },
+    "education": {
+      "3d-training": "3D制作の入門研修",
+      "3d-support": "3D制作の個別技術サポート",
+      "creative-review": "イラスト・文章の制作レビュー",
+      "creative-workshop": "創作ワークショップ"
+    }
+  }
 }

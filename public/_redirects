@@ -1,3 +1,23 @@
+# Acecore Designs moved to its dedicated site
+/designs https://designs.acecore.net/ 301
+/designs/ https://designs.acecore.net/ 301
+/en/designs https://designs.acecore.net/en/ 301
+/en/designs/ https://designs.acecore.net/en/ 301
+/zh-cn/designs https://designs.acecore.net/zh-cn/ 301
+/zh-cn/designs/ https://designs.acecore.net/zh-cn/ 301
+/es/designs https://designs.acecore.net/es/ 301
+/es/designs/ https://designs.acecore.net/es/ 301
+/pt/designs https://designs.acecore.net/pt/ 301
+/pt/designs/ https://designs.acecore.net/pt/ 301
+/fr/designs https://designs.acecore.net/fr/ 301
+/fr/designs/ https://designs.acecore.net/fr/ 301
+/ko/designs https://designs.acecore.net/ko/ 301
+/ko/designs/ https://designs.acecore.net/ko/ 301
+/de/designs https://designs.acecore.net/de/ 301
+/de/designs/ https://designs.acecore.net/de/ 301
+/ru/designs https://designs.acecore.net/ru/ 301
+/ru/designs/ https://designs.acecore.net/ru/ 301
+
 # Pricing is now part of the business directory.
 /pricing /services/#pricing 301
 /pricing/ /services/#pricing 301
