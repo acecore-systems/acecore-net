@@ -1,6 +1,9 @@
 import type { FederatedGroundingResult } from '../api/ai-contact-search.ts'
 
 const ORIGIN = 'https://designs.acecore.net'
+// Use the same Git-backed production deployment's public asset hostname.
+// Same-zone global fetch otherwise routes to the origin instead of Pages.
+const CATALOG_URL = 'https://acecore-designs.pages.dev/catalog.json'
 const MAX_BYTES = 512 * 1024
 const LOCALES = new Set([
   'ja',
@@ -92,7 +95,7 @@ async function fetchExcerpt(
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 4000)
   try {
-    const response = await fetcher(`${ORIGIN}/catalog.json`, {
+    const response = await fetcher(CATALOG_URL, {
       signal: controller.signal,
       redirect: 'error',
       headers: { Accept: 'application/json' },
