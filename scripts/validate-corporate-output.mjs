@@ -5,6 +5,7 @@ import { load as parseYaml } from 'js-yaml'
 
 const root = new URL('../', import.meta.url)
 const read = (path) => readFile(new URL(path, root), 'utf8')
+const searchCorpus = JSON.parse(await read('.vectorize/corpus.json'))
 const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const pageNames = [
   'home',
@@ -85,6 +86,12 @@ for (const locale of locales) {
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   const designs = await getPage(`${prefix}/designs/`)
+  const designsCorpusText = searchCorpus.chunks
+    .filter((chunk) => chunk.metadata.url === `${prefix}/designs/`)
+    .map((chunk) => chunk.text)
+    .join('\n')
+    .normalize('NFKC')
+    .replace(/\s+/g, ' ')
   const approvedPrices = {
     'character-design': 30000,
     'character-illustration': 8000,
@@ -115,6 +122,16 @@ for (const locale of locales) {
     assert.equal(
       Number(card.find('[data-service-price]').attr('data-service-price')),
       item.price,
+    )
+    const spokenPrice = card
+      .find('[data-service-price]')
+      .text()
+      .normalize('NFKC')
+      .replace(/\s+/g, ' ')
+      .trim()
+    assert.ok(
+      designsCorpusText.includes(spokenPrice),
+      `${locale}: ${item.id} name and price must reach AI search`,
     )
     assert.equal(
       card.find('a').attr('href'),
