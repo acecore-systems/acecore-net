@@ -131,6 +131,7 @@ const schema = {
                     class="mb-4 text-lg font-800 text-brand-700"
                     data-service-price={service.price}
                   >
+                    <span class="sr-only">{service.title} — </span>
                     {t(locale, 'pages.designs.priceLabel', {
                       price: service.price.toLocaleString('ja-JP'),
                     })}
