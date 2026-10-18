@@ -1641,6 +1641,36 @@ test('World Foundationのkill switchがfalseなら誤ったbindingがあって�
   })
 })
 
+test('PreviewとProductionは各環境の非公開OpenAI Workerへ接続する', () => {
+  const config = readFileSync(
+    new URL('../wrangler.jsonc', import.meta.url),
+    'utf8',
+  )
+  const preview = config.slice(
+    config.indexOf('"preview": {'),
+    config.indexOf('"production": {'),
+  )
+  const production = config.slice(config.indexOf('"production": {'))
+
+  for (const [environment, block] of [
+    ['preview', preview],
+    ['production', production],
+  ]) {
+    assert.match(block, /"WORKERS_AI_CHAT_MODEL": "gpt-6-luna"/u)
+    assert.match(
+      block,
+      new RegExp(
+        '"binding": "AI_CONTACT_OPENAI_SERVICE",\\s*"service": "acecore-net-ai-contact-openai-' +
+          environment +
+          '"',
+        'u',
+      ),
+    )
+  }
+  assert.doesNotMatch(preview, /acecore-net-ai-contact-openai-production/u)
+  assert.doesNotMatch(production, /acecore-net-ai-contact-openai-preview/u)
+})
+
 test('World FoundationのVectorizeはProductionだけに接続する', () => {
   const config = readFileSync(
     new URL('../wrangler.jsonc', import.meta.url),
