@@ -10,7 +10,6 @@ const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const pageNames = [
   'home',
   'services',
-  'designs',
   'about',
   'acestudio',
   'pricing',
@@ -85,63 +84,25 @@ for (const locale of locales) {
   checkShape(sourceCommon.footer, translated.footer, `${locale}.footer`)
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
-  const designs = await getPage(`${prefix}/designs/`)
-  const designsCorpusText = searchCorpus.chunks
-    .filter((chunk) => chunk.metadata.url === `${prefix}/designs/`)
-    .map((chunk) => chunk.text)
-    .join('\n')
-    .normalize('NFKC')
-    .replace(/\s+/g, ' ')
-  const approvedPrices = {
-    'character-design': 30000,
-    'character-illustration': 8000,
-    'character-sheets': 20000,
-    'cover-illustration': 20000,
-    'editorial-cuts': 5000,
-    'reaction-images': 9000,
-    '3d-character': 180000,
-    '3d-object': 15000,
-    '3d-customization': 10000,
-    '3d-effects': 20000,
-    'story-writing': 15000,
-    'script-writing': 10000,
-    'voice-recording': 5000,
-  }
-  const catalogServices = translations.designs.groups.flatMap(
-    (group) => group.services,
+  assert.ok(!sitemap.includes(`https://acecore.net${prefix}/designs/`))
+  assert.ok(
+    !searchCorpus.chunks.some(
+      (chunk) => chunk.metadata.url === `${prefix}/designs/`,
+    ),
   )
-  assert.deepEqual(
-    Object.fromEntries(catalogServices.map((item) => [item.id, item.price])),
-    approvedPrices,
-    `${locale}: approved services and prices`,
+  await assert.rejects(
+    access(new URL(`dist${prefix}/designs/index.html`, root)),
+    { code: 'ENOENT' },
   )
-  assert.equal(designs('[data-service-id]').length, 13)
-  for (const item of catalogServices) {
-    const card = designs(`[data-service-id="${item.id}"]`)
-    assert.equal(card.find('h4').text().trim(), item.title)
-    assert.equal(
-      Number(card.find('[data-service-price]').attr('data-service-price')),
-      item.price,
-    )
-    const spokenPrice = card
-      .find('[data-service-price]')
-      .text()
-      .normalize('NFKC')
-      .replace(/\s+/g, ' ')
-      .trim()
+  const redirects = await read('dist/_redirects')
+  for (const suffix of ['', '/'])
     assert.ok(
-      designsCorpusText.includes(spokenPrice),
-      `${locale}: ${item.id} name and price must reach AI search`,
+      redirects.includes(
+        `${prefix}/designs${suffix} https://designs.acecore.net${prefix}/ 301`,
+      ),
     )
-    assert.equal(
-      card.find('a').attr('href'),
-      `${prefix}/contact/?category=service&service=acecore-design&offering=${item.id}#contact-form`,
-    )
-  }
-  assert.ok(!designs('main').text().includes('広告・Web用イラスト'))
-  assert.ok(sitemap.includes(`https://acecore.net${prefix}/designs/`))
   assert.equal(
-    designs('a[href="https://schools.acecore.net/learning/#creative-services"]')
+    services(`#pricing a[href="https://designs.acecore.net${prefix}/#catalog"]`)
       .length,
     1,
   )
@@ -201,9 +162,15 @@ for (const locale of locales) {
   }
   const contact = await getPage(`${prefix}/contact/`)
   const studio = await getPage(`${prefix}/acestudio/`)
+  const offeringNames = JSON.parse(
+    contact('[data-creative-offerings]').attr('data-creative-offerings'),
+  )
+  assert.deepEqual(offeringNames, translations.contact.creativeOfferings)
+  assert.equal(Object.keys(offeringNames['acecore-design']).length, 13)
+  assert.equal(Object.keys(offeringNames.education).length, 4)
   assert.equal(
     services('#design a').attr('href'),
-    `${prefix}/designs/`,
+    `https://designs.acecore.net${prefix}/`,
     `${locale}: Design must preserve its inquiry context`,
   )
   assert.equal(
@@ -409,7 +376,6 @@ for (const locale of locales) {
   for (const path of [
     `${prefix}/`,
     `${prefix}/services/`,
-    `${prefix}/designs/`,
     `${prefix}/about/`,
     `${prefix}/acestudio/`,
     `${prefix}/blog/`,

@@ -7,7 +7,7 @@ import Icon from '../components/Icon.astro'
 import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
-import type designsCatalog from '../i18n/source/ja/pages/designs.json'
+import type contactCopy from '../i18n/source/ja/pages/contact.json'
 
 interface Props {
   locale: Locale
@@ -17,18 +17,9 @@ const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contactThanksUrl = u('/contact/thanks/')
-const creativeCatalog = getTranslationValue<typeof designsCatalog>(
-  locale,
-  'pages.designs',
-)!
-const creativeOfferings = {
-  'acecore-design': Object.fromEntries(
-    creativeCatalog.groups.flatMap((group) =>
-      group.services.map((service) => [service.id, service.title]),
-    ),
-  ),
-  education: creativeCatalog.schoolOfferings,
-}
+const creativeOfferings = getTranslationValue<
+  typeof contactCopy.creativeOfferings
+>(locale, 'pages.contact.creativeOfferings')!
 
 const serviceCategoryOptions = [
   {

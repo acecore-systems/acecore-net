@@ -250,9 +250,32 @@
       "validationEmail": "请输入有效的电子邮件地址",
       "validationMessage": "请输入至少10个有效字符",
       "aiHeading": "使用 AI 确认咨询入口",
-      "aiLead": "根据咨询内容，为您找到相应服务或统一咨询窗口。Design 和 AceStudio 仍在筹备中。",
+      "aiLead": "根据咨询内容，为您找到相应服务或统一咨询窗口。AceStudio 仍在筹备中。",
       "aiSubmit": "确认咨询入口",
-      "formCategoryServiceDesign": "Acecore Designs — 设计与插画 / 3D制作 / 文字与音频"
+      "formCategoryServiceDesign": "Acecore Designs — 设计与插画 / 3D制作 / 文字与音频",
+      "creativeOfferings": {
+        "acecore-design": {
+          "character-design": "角色设计",
+          "character-illustration": "吉祥物与角色追加插画",
+          "character-sheets": "角色设定图与三视图",
+          "cover-illustration": "书籍与册子封面插画",
+          "editorial-cuts": "配图与说明插画",
+          "reaction-images": "贴纸与反应图片制作",
+          "3d-character": "原创3D角色制作",
+          "3d-object": "3D道具与物件制作",
+          "3d-customization": "现有3D模型调整与定制",
+          "3d-effects": "3D演出与交互功能制作",
+          "story-writing": "原创故事创作",
+          "script-writing": "视频与音频脚本制作",
+          "voice-recording": "旁白与朗读录制"
+        },
+        "education": {
+          "3d-training": "3D制作入门培训",
+          "3d-support": "3D制作个人技术支持",
+          "creative-review": "插画与文字作品评审",
+          "creative-workshop": "创作工作坊"
+        }
+      }
     },
     "about": {
       "title": "公司简介",
@@ -415,130 +438,6 @@
     "pricing": {
       "systemsTitle": "Acecore Systems 的费用",
       "schoolsTitle": "Acecore Schools 的费用"
-    },
-    "designs": {
-      "title": "Acecore Designs",
-      "seoTitleContext": "设计、3D、文字与音频制作",
-      "description": "了解Acecore Designs的13项角色、插画、3D、故事、脚本及音频制作服务和含税起价。",
-      "heroTitle": "让想法成为作品。",
-      "heroLead": "Acecore Designs为企业、店铺、学校、团体及个人提供设计、3D、文字和音频制作，统一受理咨询。",
-      "catalogHeading": "制作服务与费用",
-      "priceLabel": "{price}日元起（含税）",
-      "consultLabel": "咨询此服务",
-      "conditionsTitle": "关于报价",
-      "conditionsBody": "所列价格为基本内容的含税起价。我们确认用途、制作范围、修改次数、交期、文件格式及使用条件后报价。素材及追加制作等费用会在签约前说明。",
-      "flowTitle": "从咨询到交付",
-      "flowBody": "Acecore受理咨询并确认内容及可行性。在报价和制作条件达成一致后开始制作，经确认、修改后交付。",
-      "creatorTitle": "制作人员",
-      "creatorBody": "可查看Hatt公开的角色、3D作品和小说。制作咨询与报价由Acecore受理。",
-      "portfolioLabel": "查看Hatt的作品",
-      "schoolsTitle": "培训与制作支持请访问Acecore Schools",
-      "schoolsBody": "提供3D入门培训、个人技术支持、插画与文字作品评审以及创作工作坊。",
-      "schoolsLabel": "查看培训与支持",
-      "groups": [
-        {
-          "id": "illustration",
-          "title": "设计与插画",
-          "services": [
-            {
-              "id": "character-design",
-              "price": 30000,
-              "title": "角色设计",
-              "description": "根据企业、店铺、商品、游戏及宣传等用途和形象设计原创角色。"
-            },
-            {
-              "id": "character-illustration",
-              "price": 8000,
-              "title": "吉祥物与角色追加插画",
-              "description": "为现有角色制作1张新姿势、表情或季节活动插画，用于社交媒体、宣传品及周边。"
-            },
-            {
-              "id": "character-sheets",
-              "price": 20000,
-              "title": "角色设定图与三视图",
-              "description": "整理正面、侧面、背面和配色，供3D化、动画及多人协作制作使用。"
-            },
-            {
-              "id": "cover-illustration",
-              "price": 20000,
-              "title": "书籍与册子封面插画",
-              "description": "为书籍、电子书、宣传刊物和教材制作封面插画。文字排版另行报价。"
-            },
-            {
-              "id": "editorial-cuts",
-              "price": 5000,
-              "title": "配图与说明插画",
-              "description": "制作1张小型插画，辅助文章、手册、教材或册子传达内容。"
-            },
-            {
-              "id": "reaction-images",
-              "price": 9000,
-              "title": "贴纸与反应图片制作",
-              "description": "制作一组3张角色表情或动作图片，用于社群、直播、应用及活动。"
-            }
-          ]
-        },
-        {
-          "id": "3d",
-          "title": "3D制作",
-          "services": [
-            {
-              "id": "3d-character",
-              "price": 180000,
-              "title": "原创3D角色制作",
-              "description": "为视频、游戏、展示及虚拟空间制作3D角色。根据动作、表情和目标环境报价。"
-            },
-            {
-              "id": "3d-object",
-              "price": 15000,
-              "title": "3D道具与物件制作",
-              "description": "制作1件3D道具、装饰品或展品，用于视频、游戏、虚拟展览或商品展示。"
-            },
-            {
-              "id": "3d-customization",
-              "price": 10000,
-              "title": "现有3D模型调整与定制",
-              "description": "调整颜色、形状、服装或配件，适应现有角色的新用途及活动需求。"
-            },
-            {
-              "id": "3d-effects",
-              "price": 20000,
-              "title": "3D演出与交互功能制作",
-              "description": "制作1项显示切换、发光或特效功能。事先确认用途与支持环境。"
-            }
-          ]
-        },
-        {
-          "id": "writing-audio",
-          "title": "文字与音频",
-          "services": [
-            {
-              "id": "story-writing",
-              "price": 15000,
-              "title": "原创故事创作",
-              "description": "依据指定主题、角色和设定撰写约4,000日文字符的故事，用于网页、册子或音频作品。"
-            },
-            {
-              "id": "script-writing",
-              "price": 10000,
-              "title": "视频与音频脚本制作",
-              "description": "根据企划撰写约2,000日文字符的台词或旁白，用于介绍视频、广播剧等内容。"
-            },
-            {
-              "id": "voice-recording",
-              "price": 5000,
-              "title": "旁白与朗读录制",
-              "description": "朗读客户提供的1,000日文字符以内原稿并交付音频，用于视频、教材、 导览及朗读内容。"
-            }
-          ]
-        }
-      ],
-      "schoolOfferings": {
-        "3d-training": "3D制作入门培训",
-        "3d-support": "3D制作个人技术支持",
-        "creative-review": "插画与文字作品评审",
-        "creative-workshop": "创作工作坊"
-      }
     }
   },
   "pageNames": {

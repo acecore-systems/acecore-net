@@ -98,7 +98,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           description={t(locale, 'pages.services.designDescription')}
           icon="palette"
           tone="emerald"
-          href={u('/designs/') + '#catalog'}
+          href={getSpecialistUrl(SITE.social.designs, locale, '/#catalog')}
           locale={locale}
         />
         <ServiceCard
