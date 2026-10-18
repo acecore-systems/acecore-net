@@ -1,4 +1,4 @@
-import designsCatalog from '../../src/i18n/source/ja/pages/designs.json' with { type: 'json' }
+import designsCatalog from '../../src/i18n/source/ja/pages/designs.json'
 import {
   buildFederatedGroundingContext,
   hasGroundingSource,
