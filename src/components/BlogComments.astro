@@ -41,9 +41,9 @@ const labelsJson = JSON.stringify(labels).replace(/</g, '\\u003c')
   </div>
 
   <div class="mt-4" data-comments-status role="status" aria-live="polite">
-    <span class="text-sm text-slate-500"
-      >{t(locale, 'blog.commentsLoading')}</span
-    >
+    <span class="text-sm text-slate-500">
+      {t(locale, 'blog.commentsLoading')}
+    </span>
   </div>
 
   <div class="mt-5 space-y-3" data-comments-list></div>
@@ -82,7 +82,8 @@ const labelsJson = JSON.stringify(labels).replace(/</g, '\\u003c')
           maxlength="600"
           class="ac-input resize-y"
           placeholder={t(locale, 'blog.commentsBodyPlaceholder')}
-          required></textarea>
+          required
+        ></textarea>
       </div>
     </div>
 
@@ -96,8 +97,11 @@ const labelsJson = JSON.stringify(labels).replace(/</g, '\\u003c')
       hidden
     />
 
-    <div class="cf-turnstile mt-4" data-comments-turnstile data-theme="light">
-    </div>
+    <div
+      class="cf-turnstile mt-4"
+      data-comments-turnstile
+      data-theme="light"
+    ></div>
 
     <div class="mt-4 flex flex-wrap items-center gap-3">
       <button

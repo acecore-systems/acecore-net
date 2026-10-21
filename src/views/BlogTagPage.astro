@@ -62,30 +62,26 @@ const breadcrumbItems = [
         </h1>
         <p class="max-w-2xl leading-relaxed text-slate-600">
           {t(locale, 'blog.tagDescription', { tag: displayTag })}
-          <span
-            class="ml-2 inline-flex rounded-lg bg-brand-50 px-3 py-1 text-sm font-700 text-brand-600"
-          >
+          <span class="ml-2 inline-flex rounded-lg bg-brand-50 px-3 py-1 text-sm font-700 text-brand-600">
             {t(locale, 'blog.postsCount', { count: localizedPosts.length })}
           </span>
         </p>
       </div>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div class="space-y-6">
-          {
-            localizedPosts.map((post) => (
-              <BlogPostCard
-                post={localizePost(post, allPosts, locale)}
-                locale={locale}
-              />
-            ))
-          }
+          {localizedPosts.map((post) => (
+            <BlogPostCard
+              post={localizePost(post, allPosts, locale)}
+              locale={locale}
+            />
+          ))}
         </div>
         <BlogSidebar allPosts={allPosts} locale={locale} />
       </div>
       <div class="mt-10 text-center">
-        <a href={u('/blog/')} class="ac-btn-outline"
-          >{t(locale, 'blog.backToBlog')}</a
-        >
+        <a href={u('/blog/')} class="ac-btn-outline">
+          {t(locale, 'blog.backToBlog')}
+        </a>
       </div>
     </div>
   </section>

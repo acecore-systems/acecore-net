@@ -49,12 +49,12 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
   })}
   robots="noindex, follow"
   jsonLd={itemListLd}
-  prevPage={currentPage === 2
-    ? u('/blog/')
-    : u(`/blog/page/${currentPage - 1}/`)}
-  nextPage={currentPage < totalPages
-    ? u(`/blog/page/${currentPage + 1}/`)
-    : undefined}
+  prevPage={
+    currentPage === 2 ? u('/blog/') : u(`/blog/page/${currentPage - 1}/`)
+  }
+  nextPage={
+    currentPage < totalPages ? u(`/blog/page/${currentPage + 1}/`) : undefined
+  }
   locale={locale}
   breadcrumbItems={breadcrumbItems.map((item) => ({
     name: item.label,
@@ -67,30 +67,26 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
       <h1 class="mb-8 text-2xl ac-heading sm:text-3xl">
         {t(locale, 'blog.title')}
         <span class="text-base text-slate-400">
-          {
-            t(locale, 'blog.pageOf', {
-              current: currentPage,
-              total: totalPages,
-            })
-          }
+          {t(locale, 'blog.pageOf', {
+            current: currentPage,
+            total: totalPages,
+          })}
         </span>
       </h1>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div>
           <div class="space-y-6">
-            {
-              posts.map((post, i: number) => (
-                <Fragment>
-                  {i > 0 && i % 3 === 0 && (
-                    <AdUnit containerClass="ac-card overflow-hidden p-6" />
-                  )}
-                  <BlogPostCard
-                    post={localizePost(post, allPosts, locale)}
-                    locale={locale}
-                  />
-                </Fragment>
-              ))
-            }
+            {posts.map((post, i: number) => (
+              <Fragment>
+                {i > 0 && i % 3 === 0 && (
+                  <AdUnit containerClass="ac-card overflow-hidden p-6" />
+                )}
+                <BlogPostCard
+                  post={localizePost(post, allPosts, locale)}
+                  locale={locale}
+                />
+              </Fragment>
+            ))}
           </div>
 
           <nav
@@ -98,51 +94,49 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
             aria-label={t(locale, 'blog.pageNav')}
           >
             <a
-              href={currentPage === 2
-                ? u('/blog/')
-                : u(`/blog/page/${currentPage - 1}/`)}
+              href={
+                currentPage === 2
+                  ? u('/blog/')
+                  : u(`/blog/page/${currentPage - 1}/`)
+              }
               class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
             >
               {t(locale, 'blog.prev')}
             </a>
-            {
-              pageNumbers.map((p) =>
-                p === '...' ? (
-                  <span class="px-2 text-slate-400">…</span>
-                ) : p === currentPage ? (
-                  <span
-                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-700 text-white"
-                    aria-current="page"
-                  >
-                    {p}
-                  </span>
-                ) : (
-                  <a
-                    href={p === 1 ? u('/blog/') : u(`/blog/page/${p}/`)}
-                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 px-4 text-sm font-700 text-slate-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
-                  >
-                    {p}
-                  </a>
-                ),
-              )
-            }
-            {
-              currentPage < totalPages ? (
-                <a
-                  href={u(`/blog/page/${currentPage + 1}/`)}
-                  class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
-                >
-                  {t(locale, 'blog.next')}
-                </a>
-              ) : (
+            {pageNumbers.map((p) =>
+              p === '...' ? (
+                <span class="px-2 text-slate-400">…</span>
+              ) : p === currentPage ? (
                 <span
-                  class="inline-flex min-h-11 items-center px-3 text-sm text-slate-300"
-                  aria-disabled="true"
+                  class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-700 text-white"
+                  aria-current="page"
                 >
-                  {t(locale, 'blog.next')}
+                  {p}
                 </span>
-              )
-            }
+              ) : (
+                <a
+                  href={p === 1 ? u('/blog/') : u(`/blog/page/${p}/`)}
+                  class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 px-4 text-sm font-700 text-slate-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
+                >
+                  {p}
+                </a>
+              ),
+            )}
+            {currentPage < totalPages ? (
+              <a
+                href={u(`/blog/page/${currentPage + 1}/`)}
+                class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
+              >
+                {t(locale, 'blog.next')}
+              </a>
+            ) : (
+              <span
+                class="inline-flex min-h-11 items-center px-3 text-sm text-slate-300"
+                aria-disabled="true"
+              >
+                {t(locale, 'blog.next')}
+              </span>
+            )}
           </nav>
         </div>
         <BlogSidebar allPosts={allPosts} locale={locale} />

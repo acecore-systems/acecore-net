@@ -90,17 +90,15 @@ const latestPosts = allPosts
         </a>
       </h3>
       <div class="flex flex-wrap gap-2">
-        {
-          sortedTags.map(([tag, count]) => (
-            <a
-              href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
-              class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
-            >
-              {getLocalizedTagName(tags, tag, locale)}{' '}
-              <span class="text-brand-400">({count})</span>
-            </a>
-          ))
-        }
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={getLocalizedUrl(`/blog/tags/${tag}/`, locale)}
+            class="ac-chip border-brand-100 bg-brand-50 text-brand-600"
+          >
+            {getLocalizedTagName(tags, tag, locale)}{' '}
+            <span class="text-brand-400">({count})</span>
+          </a>
+        ))}
       </div>
     </div>
 
@@ -115,26 +113,24 @@ const latestPosts = allPosts
         </a>
       </h3>
       <ul class="m-0 list-none space-y-1 p-0 text-sm" role="list">
-        {
-          sortedArchive.map(([key, { count, year, month }]) => (
-            <li>
-              <a
-                href={getLocalizedUrl(`/blog/archive/${key}/`, locale)}
-                class="flex min-h-10 items-center justify-between gap-3 rounded-md px-2 -mx-2 text-slate-600 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
-              >
-                <span>
-                  {t(locale, 'blog.yearMonth', {
-                    year: String(year),
-                    month: String(month),
-                  })}
-                </span>
-                <span class="text-xs text-slate-500">
-                  {t(locale, 'blog.nArticles', { count: String(count) })}
-                </span>
-              </a>
-            </li>
-          ))
-        }
+        {sortedArchive.map(([key, { count, year, month }]) => (
+          <li>
+            <a
+              href={getLocalizedUrl(`/blog/archive/${key}/`, locale)}
+              class="flex min-h-10 items-center justify-between gap-3 rounded-md px-2 -mx-2 text-slate-600 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
+            >
+              <span>
+                {t(locale, 'blog.yearMonth', {
+                  year: String(year),
+                  month: String(month),
+                })}
+              </span>
+              <span class="text-xs text-slate-500">
+                {t(locale, 'blog.nArticles', { count: String(count) })}
+              </span>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
 
@@ -144,45 +140,41 @@ const latestPosts = allPosts
         {t(locale, 'blog.authors')}
       </h3>
       <div class="space-y-3">
-        {
-          authors.map((author) => {
-            const localizedAuthor = getLocalizedAuthor(author, locale)
-            const count = authorCounts.get(author.id) ?? 0
-            return (
-              count > 0 && (
-                <a
-                  href={getLocalizedUrl(`/blog/authors/${author.id}/`, locale)}
-                  class="flex min-h-12 items-center gap-3 rounded-lg p-2 -m-2 no-underline transition-colors hover:bg-slate-50"
-                >
-                  {localizedAuthor.avatarImage || localizedAuthor.avatar ? (
-                    <img
-                      src={
-                        localizedAuthor.avatarImage || localizedAuthor.avatar
-                      }
-                      alt={localizedAuthor.name}
-                      class="w-8 h-8 rounded-full object-cover shrink-0"
-                      width="32"
-                      height="32"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-700 shrink-0">
-                      {localizedAuthor.name.charAt(0)}
-                    </div>
-                  )}
-                  <div>
-                    <p class="text-sm font-600 text-slate-800">
-                      {localizedAuthor.name}
-                    </p>
-                    <p class="text-xs text-slate-500">
-                      {t(locale, 'blog.postsCount', { count: String(count) })}
-                    </p>
+        {authors.map((author) => {
+          const localizedAuthor = getLocalizedAuthor(author, locale)
+          const count = authorCounts.get(author.id) ?? 0
+          return (
+            count > 0 && (
+              <a
+                href={getLocalizedUrl(`/blog/authors/${author.id}/`, locale)}
+                class="flex min-h-12 items-center gap-3 rounded-lg p-2 -m-2 no-underline transition-colors hover:bg-slate-50"
+              >
+                {localizedAuthor.avatarImage || localizedAuthor.avatar ? (
+                  <img
+                    src={localizedAuthor.avatarImage || localizedAuthor.avatar}
+                    alt={localizedAuthor.name}
+                    class="w-8 h-8 rounded-full object-cover shrink-0"
+                    width="32"
+                    height="32"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-700 shrink-0">
+                    {localizedAuthor.name.charAt(0)}
                   </div>
-                </a>
-              )
+                )}
+                <div>
+                  <p class="text-sm font-600 text-slate-800">
+                    {localizedAuthor.name}
+                  </p>
+                  <p class="text-xs text-slate-500">
+                    {t(locale, 'blog.postsCount', { count: String(count) })}
+                  </p>
+                </div>
+              </a>
             )
-          })
-        }
+          )
+        })}
       </div>
     </div>
 
@@ -192,24 +184,22 @@ const latestPosts = allPosts
         {t(locale, 'blog.latestPosts')}
       </h3>
       <ul class="m-0 list-none space-y-3 p-0" role="list">
-        {
-          latestPosts.map((post) => (
-            <li>
-              <a
-                href={getLocalizedUrl(`/blog/${getBaseSlug(post.id)}/`, locale)}
-                class="block rounded-md px-2 py-2 -mx-2 text-sm leading-snug text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
-              >
-                {post.data.title}
-              </a>
-              <time
-                datetime={post.data.date.toISOString()}
-                class="text-xs text-slate-500 mt-0.5 block"
-              >
-                {formatDate(post.data.date, locale)}
-              </time>
-            </li>
-          ))
-        }
+        {latestPosts.map((post) => (
+          <li>
+            <a
+              href={getLocalizedUrl(`/blog/${getBaseSlug(post.id)}/`, locale)}
+              class="block rounded-md px-2 py-2 -mx-2 text-sm leading-snug text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-brand-600"
+            >
+              {post.data.title}
+            </a>
+            <time
+              datetime={post.data.date.toISOString()}
+              class="text-xs text-slate-500 mt-0.5 block"
+            >
+              {formatDate(post.data.date, locale)}
+            </time>
+          </li>
+        ))}
       </ul>
     </div>
 

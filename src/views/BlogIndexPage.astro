@@ -105,10 +105,9 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                 {t(locale, 'blog.tagListDescription')}
               </p>
             </div>
-            <span
-              class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600"
-              >{uniqueTagCount}</span
-            >
+            <span class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600">
+              {uniqueTagCount}
+            </span>
           </div>
         </a>
         <a
@@ -124,104 +123,97 @@ const pageNumbers = buildPageNumbers(1, totalPages)
                 {t(locale, 'blog.archiveListDescription')}
               </p>
             </div>
-            <span
-              class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600"
-              >{archiveCount}</span
-            >
+            <span class="inline-flex h-11 min-w-11 items-center justify-center rounded-lg bg-brand-50 px-3 text-xl font-700 text-brand-600">
+              {archiveCount}
+            </span>
           </div>
         </a>
       </div>
-      {
-        sortedTags.length > 0 && (
-          <nav class="mb-10" aria-label={t(locale, 'blog.filtersLabel')}>
-            <p class="mb-3 text-sm font-700 text-slate-900">
-              {t(locale, 'blog.filtersLabel')}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              {sortedTags.slice(0, 12).map(([tag, count]) => (
-                <a
-                  href={u(`/blog/tags/${tag}/`)}
-                  class="ac-chip gap-2 border-brand-100 bg-brand-50 text-brand-600"
-                >
-                  <span>{getLocalizedTagName(tagsData, tag, locale)}</span>
-                  <span class="rounded-md bg-white px-2 py-0.5 text-[0.68rem] font-700 text-brand-500">
-                    {count}
-                  </span>
-                </a>
-              ))}
-              <a href={u('/blog/tags/')} class="ac-chip">
-                {t(locale, 'blog.tagList')}
+      {sortedTags.length > 0 && (
+        <nav class="mb-10" aria-label={t(locale, 'blog.filtersLabel')}>
+          <p class="mb-3 text-sm font-700 text-slate-900">
+            {t(locale, 'blog.filtersLabel')}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {sortedTags.slice(0, 12).map(([tag, count]) => (
+              <a
+                href={u(`/blog/tags/${tag}/`)}
+                class="ac-chip gap-2 border-brand-100 bg-brand-50 text-brand-600"
+              >
+                <span>{getLocalizedTagName(tagsData, tag, locale)}</span>
+                <span class="rounded-md bg-white px-2 py-0.5 text-[0.68rem] font-700 text-brand-500">
+                  {count}
+                </span>
               </a>
-            </div>
-          </nav>
-        )
-      }
+            ))}
+            <a href={u('/blog/tags/')} class="ac-chip">
+              {t(locale, 'blog.tagList')}
+            </a>
+          </div>
+        </nav>
+      )}
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">
         <div>
-          {
-            posts.length === 0 ? (
-              <p class="text-center text-slate-500">
-                {t(locale, 'blog.noPosts')}
-              </p>
-            ) : (
-              <div class="space-y-6">
-                {posts.map((post, i: number) => (
-                  <Fragment>
-                    {i > 0 && i % 3 === 0 && (
-                      <AdUnit containerClass="ac-card overflow-hidden p-3" />
-                    )}
-                    <BlogPostCard
-                      post={localizePost(post, allRawPosts, locale)}
-                      locale={locale}
-                    />
-                  </Fragment>
-                ))}
-              </div>
-            )
-          }
+          {posts.length === 0 ? (
+            <p class="text-center text-slate-500">
+              {t(locale, 'blog.noPosts')}
+            </p>
+          ) : (
+            <div class="space-y-6">
+              {posts.map((post, i: number) => (
+                <Fragment>
+                  {i > 0 && i % 3 === 0 && (
+                    <AdUnit containerClass="ac-card overflow-hidden p-3" />
+                  )}
+                  <BlogPostCard
+                    post={localizePost(post, allRawPosts, locale)}
+                    locale={locale}
+                  />
+                </Fragment>
+              ))}
+            </div>
+          )}
 
-          {
-            totalPages > 1 && (
-              <nav
-                class="mt-10 flex flex-wrap items-center justify-center gap-2"
-                aria-label={t(locale, 'blog.pageNav')}
+          {totalPages > 1 && (
+            <nav
+              class="mt-10 flex flex-wrap items-center justify-center gap-2"
+              aria-label={t(locale, 'blog.pageNav')}
+            >
+              <span
+                class="inline-flex min-h-11 items-center px-3 text-sm text-slate-300"
+                aria-disabled="true"
               >
-                <span
-                  class="inline-flex min-h-11 items-center px-3 text-sm text-slate-300"
-                  aria-disabled="true"
-                >
-                  {t(locale, 'blog.prev')}
-                </span>
-                {pageNumbers.map((p) =>
-                  p === '...' ? (
-                    <span class="px-2 text-slate-400">…</span>
-                  ) : p === 1 ? (
-                    <span
-                      class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-700 text-white"
-                      aria-current="page"
-                    >
-                      {p}
-                    </span>
-                  ) : (
-                    <a
-                      href={u(`/blog/page/${p}/`)}
-                      class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 px-4 text-sm font-700 text-slate-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
-                    >
-                      {p}
-                    </a>
-                  ),
-                )}
-                {totalPages > 1 && (
-                  <a
-                    href={u('/blog/page/2/')}
-                    class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
+                {t(locale, 'blog.prev')}
+              </span>
+              {pageNumbers.map((p) =>
+                p === '...' ? (
+                  <span class="px-2 text-slate-400">…</span>
+                ) : p === 1 ? (
+                  <span
+                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-700 text-white"
+                    aria-current="page"
                   >
-                    {t(locale, 'blog.next')}
+                    {p}
+                  </span>
+                ) : (
+                  <a
+                    href={u(`/blog/page/${p}/`)}
+                    class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 px-4 text-sm font-700 text-slate-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
+                  >
+                    {p}
                   </a>
-                )}
-              </nav>
-            )
-          }
+                ),
+              )}
+              {totalPages > 1 && (
+                <a
+                  href={u('/blog/page/2/')}
+                  class="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-700 text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
+                >
+                  {t(locale, 'blog.next')}
+                </a>
+              )}
+            </nav>
+          )}
         </div>
         <BlogSidebar allPosts={allRawPosts} locale={locale} />
       </div>

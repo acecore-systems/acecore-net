@@ -34,29 +34,25 @@ const departments = [
   class="department-list m-0 grid list-none grid-cols-1 gap-6 p-0 lg:grid-cols-3"
   role="list"
 >
-  {
-    departments.map(({ key, icon, tone, href }) => (
-      <li id={key}>
-        <ServiceCard
-          title={t(locale, 'pages.services.' + key + 'Title')}
-          description={
-            t(locale, 'pages.services.' + key + 'Description') +
-            (key === 'design'
-              ? ' ' + t(locale, 'pages.services.designNote')
-              : '')
-          }
-          href={href}
-          icon={icon}
-          tone={tone}
-          locale={locale}
-        >
-          {key === 'design' && (
-            <span id="design-details" class="ac-chip mb-3 text-xs">
-              {t(locale, 'pages.services.designStatus')}
-            </span>
-          )}
-        </ServiceCard>
-      </li>
-    ))
-  }
+  {departments.map(({ key, icon, tone, href }) => (
+    <li id={key}>
+      <ServiceCard
+        title={t(locale, 'pages.services.' + key + 'Title')}
+        description={
+          t(locale, 'pages.services.' + key + 'Description') +
+          (key === 'design' ? ' ' + t(locale, 'pages.services.designNote') : '')
+        }
+        href={href}
+        icon={icon}
+        tone={tone}
+        locale={locale}
+      >
+        {key === 'design' && (
+          <span id="design-details" class="ac-chip mb-3 text-xs">
+            {t(locale, 'pages.services.designStatus')}
+          </span>
+        )}
+      </ServiceCard>
+    </li>
+  ))}
 </ul>

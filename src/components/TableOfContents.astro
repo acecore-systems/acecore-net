@@ -10,30 +10,28 @@ const { headings } = Astro.props
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 ---
 
-{
-  headings.length > 0 && (
-    <nav
-      aria-label={t(locale, 'blog.tocLabel')}
-      class="max-h-[calc(100vh-6rem)] overflow-y-auto pr-1"
-    >
-      <p class="ac-eyebrow mb-3 text-slate-500">{t(locale, 'blog.toc')}</p>
-      <ul class="space-y-1 text-sm">
-        {headings.map((h) => (
-          <li>
-            <a
-              href={`#${h.slug}`}
-              class="toc-link block rounded-r-md border-l-2 border-transparent py-2 text-slate-500 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600 leading-snug"
-              style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
-              data-slug={h.slug}
-            >
-              {h.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
-}
+{headings.length > 0 && (
+  <nav
+    aria-label={t(locale, 'blog.tocLabel')}
+    class="max-h-[calc(100vh-6rem)] overflow-y-auto pr-1"
+  >
+    <p class="ac-eyebrow mb-3 text-slate-500">{t(locale, 'blog.toc')}</p>
+    <ul class="space-y-1 text-sm">
+      {headings.map((h) => (
+        <li>
+          <a
+            href={`#${h.slug}`}
+            class="toc-link block rounded-r-md border-l-2 border-transparent py-2 text-slate-500 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600 leading-snug"
+            style={`padding-left: ${(h.depth - 2) * 12 + 12}px`}
+            data-slug={h.slug}
+          >
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
 
 <script>
   function initTocHighlight() {

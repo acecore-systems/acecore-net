@@ -43,7 +43,8 @@ const recentPosts = filterPostsForLocale(
         {t(locale, 'pages.notFound.heading')}
       </h1>
       <p class="text-slate-600 mb-8 max-w-md mx-auto">
-        {t(locale, 'pages.notFound.body')}<br />
+        {t(locale, 'pages.notFound.body')}
+        <br />
         {t(locale, 'pages.notFound.searchHint')}
       </p>
 
@@ -54,20 +55,19 @@ const recentPosts = filterPostsForLocale(
         >
           <Icon name="search" class="text-lg" />
           <span>{t(locale, 'pages.notFound.searchPlaceholder')}</span>
-          <kbd
-            class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline"
-            >Ctrl+K</kbd
-          >
+          <kbd class="ml-auto text-xs bg-slate-100 px-2 py-0.5 rounded hidden sm:inline">
+            Ctrl+K
+          </kbd>
         </button>
       </div>
 
       <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <a href={u('/')} class="ac-btn-primary"
-          >{t(locale, 'pages.notFound.goHome')}</a
-        >
-        <a href={u('/blog/')} class="ac-btn-outline"
-          >{t(locale, 'pages.notFound.viewBlog')}</a
-        >
+        <a href={u('/')} class="ac-btn-primary">
+          {t(locale, 'pages.notFound.goHome')}
+        </a>
+        <a href={u('/blog/')} class="ac-btn-outline">
+          {t(locale, 'pages.notFound.viewBlog')}
+        </a>
       </div>
 
       <div class="max-w-2xl mx-auto text-left">
@@ -75,43 +75,41 @@ const recentPosts = filterPostsForLocale(
           {t(locale, 'pages.notFound.latestArticles')}
         </h2>
         <div class="space-y-3">
-          {
-            recentPosts.map((basePost) => {
-              const post = localizePost(basePost, allPosts, locale)
-              const postSlug = getBaseSlug(post.id)
-              const postImage = resolveImageSource(
-                post.data.uploadedImage,
-                post.data.image,
-              )
+          {recentPosts.map((basePost) => {
+            const post = localizePost(basePost, allPosts, locale)
+            const postSlug = getBaseSlug(post.id)
+            const postImage = resolveImageSource(
+              post.data.uploadedImage,
+              post.data.image,
+            )
 
-              return (
-                <a
-                  href={u(`/blog/${postSlug}/`)}
-                  class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group"
-                >
-                  {postImage && (
-                    <img
-                      src={optimizeImage(postImage)}
-                      alt={post.data.title}
-                      class="w-16 h-16 rounded-lg object-cover shrink-0"
-                      width="64"
-                      height="64"
-                      decoding="async"
-                      loading="lazy"
-                    />
-                  )}
-                  <div>
-                    <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">
-                      {post.data.title}
-                    </p>
-                    <p class="text-xs text-slate-500 mt-1">
-                      {formatDate(post.data.date, locale)}
-                    </p>
-                  </div>
-                </a>
-              )
-            })
-          }
+            return (
+              <a
+                href={u(`/blog/${postSlug}/`)}
+                class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors no-underline group"
+              >
+                {postImage && (
+                  <img
+                    src={optimizeImage(postImage)}
+                    alt={post.data.title}
+                    class="w-16 h-16 rounded-lg object-cover shrink-0"
+                    width="64"
+                    height="64"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                )}
+                <div>
+                  <p class="text-sm font-600 text-slate-800 group-hover:text-brand-500 transition-colors">
+                    {post.data.title}
+                  </p>
+                  <p class="text-xs text-slate-500 mt-1">
+                    {formatDate(post.data.date, locale)}
+                  </p>
+                </div>
+              </a>
+            )
+          })}
         </div>
       </div>
     </div>

@@ -47,13 +47,9 @@ const monetized = Astro.props.monetized ?? false
   data-link-services={getLocalizedUrl('/services/', locale)}
   data-link-contact={getLocalizedUrl('/contact/', locale)}
 >
-  <div
-    class="flex min-h-full items-start justify-center px-4 pb-8 pt-14 sm:pt-24"
-  >
+  <div class="flex min-h-full items-start justify-center px-4 pb-8 pt-14 sm:pt-24">
     <div class="w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-xl">
-      <div
-        class="flex items-center justify-between border-b border-slate-200 px-5 py-4"
-      >
+      <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
         <span
           id="search-dialog-title"
           class="flex items-center gap-2 text-sm font-700 text-slate-700"
@@ -112,14 +108,12 @@ const monetized = Astro.props.monetized ?? false
             id="semantic-search-status"
             class="text-xs text-slate-500"
             aria-live="polite"
-          >
-          </p>
+          ></p>
         </div>
         <ol
           id="semantic-search-results"
           class="m-0 max-h-72 list-none divide-y divide-slate-100 overflow-y-auto p-0"
-        >
-        </ol>
+        ></ol>
       </section>
       <section
         id="pagefind-search"
@@ -137,14 +131,12 @@ const monetized = Astro.props.monetized ?? false
             id="pagefind-search-status"
             class="text-xs text-slate-500"
             aria-live="polite"
-          >
-          </p>
+          ></p>
         </div>
         <p
           id="pagefind-search-notice"
           class="mb-3 text-xs leading-relaxed text-slate-500"
-        >
-        </p>
+        ></p>
         <div id="pagefind-search-container"></div>
       </section>
       <section
@@ -163,35 +155,31 @@ const monetized = Astro.props.monetized ?? false
             id="network-search-status"
             class="text-xs text-slate-500"
             aria-live="polite"
-          >
-          </p>
+          ></p>
         </div>
         <ol
           id="network-search-results"
           class="m-0 max-h-64 list-none divide-y divide-slate-100 overflow-y-auto p-0"
-        >
-        </ol>
+        ></ol>
       </section>
-      {
-        monetized && (
-          <div
-            id="search-ad"
-            class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
-            data-ace-ad-container
-            data-ace-ad-state="pending"
-          >
-            <ins
-              class="adsbygoogle"
-              data-ace-ad-slot
-              style="display:block"
-              data-ad-client={SITE.adsenseClientId}
-              data-ad-slot={SITE.adSlotId}
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
-          </div>
-        )
-      }
+      {monetized && (
+        <div
+          id="search-ad"
+          class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
+          data-ace-ad-container
+          data-ace-ad-state="pending"
+        >
+          <ins
+            class="adsbygoogle"
+            data-ace-ad-slot
+            style="display:block"
+            data-ad-client={SITE.adsenseClientId}
+            data-ad-slot={SITE.adSlotId}
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
+        </div>
+      )}
     </div>
   </div>
 </dialog>

@@ -34,17 +34,17 @@ const iconToneClasses = {
 ---
 
 <Tag
-  {...href ? { href } : {}}
-  {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+  {...(href ? { href } : {})}
+  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
   class="ac-card group block h-full p-6 pt-7 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-  {...href
+  {...(href
     ? {
         'data-ga-event': 'cta_click',
         'data-ga-label': title,
         'data-ga-location': 'service_card',
         'data-ga-destination': href,
       }
-    : {}}
+    : {})}
 >
   <span
     class:list={[
@@ -54,29 +54,21 @@ const iconToneClasses = {
   >
     <Icon name={icon} class="text-xl" />
   </span>
-  <h3
-    class="mb-3 text-lg font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600"
-  >
+  <h3 class="mb-3 text-lg font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600">
     {title}
   </h3>
   <slot />
   <p class="text-sm leading-relaxed text-slate-600">{description}</p>
-  {
-    linkLabel && href && (
-      <span class="mt-5 block text-sm font-700 text-brand-600">
-        {linkLabel}
-      </span>
-    )
-  }
+  {linkLabel && href && (
+    <span class="mt-5 block text-sm font-700 text-brand-600">{linkLabel}</span>
+  )}
   <span
     class="mt-5 inline-flex text-brand-600 transition-transform group-hover:translate-x-1"
     aria-hidden="true"
   >
     <Icon name="arrow-right" class="text-base" />
   </span>
-  {
-    isExternal && (
-      <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-    )
-  }
+  {isExternal && (
+    <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+  )}
 </Tag>

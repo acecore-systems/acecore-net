@@ -97,9 +97,7 @@ const contactPageLd = {
         class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
         aria-labelledby="ai-contact-heading"
       >
-        <div
-          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
-        >
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex items-start gap-3">
             <span class="ac-icon-box shrink-0">
               <Icon name="sparkles" class="text-lg" />
@@ -167,9 +165,10 @@ const contactPageLd = {
             class="block text-sm font-600 text-slate-700 mb-2"
           >
             {t(locale, 'pages.contact.formCategoryLabel')}
-            <span class="text-red-500" aria-hidden="true">*</span><span
-              class="sr-only">{t(locale, 'common.required')}</span
-            >
+            <span class="text-red-500" aria-hidden="true">
+              *
+            </span>
+            <span class="sr-only">{t(locale, 'common.required')}</span>
           </label>
           <select
             id="category"
@@ -177,49 +176,47 @@ const contactPageLd = {
             required
             class="ac-input"
           >
-            <option value="" disabled selected
-              >{t(locale, 'pages.contact.formCategoryPlaceholder')}</option
-            >
-            <option value="サービス全般について"
-              >{t(locale, 'pages.contact.formCategoryService')}</option
-            >
-            {
-              serviceCategoryOptions.map((option) => (
-                <option
-                  value={option.value}
-                  data-service-key={option.key}
-                  data-service-subject={option.subject}
-                >
-                  {option.label}
-                </option>
-              ))
-            }
-            <option value="お見積り依頼"
-              >{t(locale, 'pages.contact.formCategoryEstimate')}</option
-            >
-            <option value="パートナーシップ"
-              >{t(locale, 'pages.contact.formCategoryPartnership')}</option
-            >
-            <option value="採用について"
-              >{t(locale, 'pages.contact.formCategoryRecruit')}</option
-            >
-            <option value="その他"
-              >{t(locale, 'pages.contact.formCategoryOther')}</option
-            >
+            <option value="" disabled selected>
+              {t(locale, 'pages.contact.formCategoryPlaceholder')}
+            </option>
+            <option value="サービス全般について">
+              {t(locale, 'pages.contact.formCategoryService')}
+            </option>
+            {serviceCategoryOptions.map((option) => (
+              <option
+                value={option.value}
+                data-service-key={option.key}
+                data-service-subject={option.subject}
+              >
+                {option.label}
+              </option>
+            ))}
+            <option value="お見積り依頼">
+              {t(locale, 'pages.contact.formCategoryEstimate')}
+            </option>
+            <option value="パートナーシップ">
+              {t(locale, 'pages.contact.formCategoryPartnership')}
+            </option>
+            <option value="採用について">
+              {t(locale, 'pages.contact.formCategoryRecruit')}
+            </option>
+            <option value="その他">
+              {t(locale, 'pages.contact.formCategoryOther')}
+            </option>
           </select>
           <p
             class="text-xs text-red-600 mt-1 hidden"
             id="category-error"
             role="alert"
-          >
-          </p>
+          ></p>
         </div>
         <div>
           <label for="name" class="block text-sm font-600 text-slate-700 mb-2">
             {t(locale, 'pages.contact.formNameLabel')}
-            <span class="text-red-500" aria-hidden="true">*</span><span
-              class="sr-only">{t(locale, 'common.required')}</span
-            >
+            <span class="text-red-500" aria-hidden="true">
+              *
+            </span>
+            <span class="sr-only">{t(locale, 'common.required')}</span>
           </label>
           <input
             type="text"
@@ -233,15 +230,15 @@ const contactPageLd = {
             class="text-xs text-red-600 mt-1 hidden"
             id="name-error"
             role="alert"
-          >
-          </p>
+          ></p>
         </div>
         <div>
           <label for="email" class="block text-sm font-600 text-slate-700 mb-2">
             {t(locale, 'pages.contact.formEmailLabel')}
-            <span class="text-red-500" aria-hidden="true">*</span><span
-              class="sr-only">{t(locale, 'common.required')}</span
-            >
+            <span class="text-red-500" aria-hidden="true">
+              *
+            </span>
+            <span class="sr-only">{t(locale, 'common.required')}</span>
           </label>
           <input
             type="email"
@@ -255,8 +252,7 @@ const contactPageLd = {
             class="text-xs text-red-600 mt-1 hidden"
             id="email-error"
             role="alert"
-          >
-          </p>
+          ></p>
         </div>
         <div>
           <label
@@ -273,22 +269,23 @@ const contactPageLd = {
             class="block text-sm font-600 text-slate-700 mb-2"
           >
             {t(locale, 'pages.contact.formMessageLabel')}
-            <span class="text-red-500" aria-hidden="true">*</span><span
-              class="sr-only">{t(locale, 'common.required')}</span
-            >
+            <span class="text-red-500" aria-hidden="true">
+              *
+            </span>
+            <span class="sr-only">{t(locale, 'common.required')}</span>
           </label>
           <textarea
             id="message"
             name="お問い合わせ内容"
             rows="6"
             required
-            class="ac-input resize-y"></textarea>
+            class="ac-input resize-y"
+          ></textarea>
           <p
             class="text-xs text-red-600 mt-1 hidden"
             id="message-error"
             role="alert"
-          >
-          </p>
+          ></p>
         </div>
         <div
           id="turnstile-widget"
@@ -296,8 +293,7 @@ const contactPageLd = {
           data-sitekey={SITE.turnstileSiteKey}
           data-language={locale}
           data-theme="light"
-        >
-        </div>
+        ></div>
         <div>
           <button
             type="submit"
@@ -315,8 +311,7 @@ const contactPageLd = {
           class="hidden rounded-lg p-4 text-sm"
           role="alert"
           aria-live="polite"
-        >
-        </div>
+        ></div>
       </form>
     </div>
   </section>

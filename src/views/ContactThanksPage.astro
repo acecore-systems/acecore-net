@@ -193,13 +193,9 @@ const copy = thanksCopy[locale]
         locale={locale}
       />
 
-      <div
-        class="rounded-lg border border-emerald-100 bg-emerald-50 p-6 sm:p-8"
-      >
+      <div class="rounded-lg border border-emerald-100 bg-emerald-50 p-6 sm:p-8">
         <div class="flex items-start gap-4">
-          <span
-            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-emerald-600 shadow-sm"
-          >
+          <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-emerald-600 shadow-sm">
             <Icon name="circle-check" class="text-2xl" />
           </span>
           <div>
@@ -228,9 +224,15 @@ const copy = thanksCopy[locale]
       </div>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <a href={u('/contact/')} class="ac-btn-outline">{copy.contactAgain}</a>
-        <a href={u('/services/')} class="ac-btn-outline">{copy.servicesCta}</a>
-        <a href={u('/')} class="ac-btn-outline">{copy.homeCta}</a>
+        <a href={u('/contact/')} class="ac-btn-outline">
+          {copy.contactAgain}
+        </a>
+        <a href={u('/services/')} class="ac-btn-outline">
+          {copy.servicesCta}
+        </a>
+        <a href={u('/')} class="ac-btn-outline">
+          {copy.homeCta}
+        </a>
       </div>
     </div>
   </section>

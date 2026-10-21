@@ -24,9 +24,9 @@ const showLabel = Astro.props.showLabel ?? false
     aria-label={localeLabels[locale]}
   >
     <Icon name="globe" class="text-base" />
-    <span class:list={[showLabel ? 'inline' : 'hidden sm:inline', 'text-xs']}
-      >{localeLabels[locale]}</span
-    >
+    <span class:list={[showLabel ? 'inline' : 'hidden sm:inline', 'text-xs']}>
+      {localeLabels[locale]}
+    </span>
     <Icon name="chevron-down" class="text-xs" />
   </button>
   <ul
@@ -34,24 +34,22 @@ const showLabel = Astro.props.showLabel ?? false
     role="listbox"
     aria-label="Language"
   >
-    {
-      locales.map((l) => (
-        <li role="option" aria-selected={l === locale}>
-          <a
-            href={urls?.[l] ?? getLocalizedUrl(currentPath, l)}
-            class:list={[
-              'block min-h-10 px-4 py-2.5 text-sm no-underline transition-colors',
-              l === locale
-                ? 'bg-brand-50 text-brand-600 font-600'
-                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-500',
-            ]}
-            data-locale={l}
-          >
-            {localeLabels[l]}
-          </a>
-        </li>
-      ))
-    }
+    {locales.map((l) => (
+      <li role="option" aria-selected={l === locale}>
+        <a
+          href={urls?.[l] ?? getLocalizedUrl(currentPath, l)}
+          class:list={[
+            'block min-h-10 px-4 py-2.5 text-sm no-underline transition-colors',
+            l === locale
+              ? 'bg-brand-50 text-brand-600 font-600'
+              : 'text-slate-700 hover:bg-slate-50 hover:text-brand-500',
+          ]}
+          data-locale={l}
+        >
+          {localeLabels[l]}
+        </a>
+      </li>
+    ))}
   </ul>
 </div>
 

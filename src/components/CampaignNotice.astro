@@ -147,60 +147,58 @@ const visibleNotices = notices.reduce<VisibleCampaignNotice[]>(
 )
 ---
 
-{
-  visibleNotices.map((notice) => {
-    const classes = toneClasses[notice.tone]
+{visibleNotices.map((notice) => {
+  const classes = toneClasses[notice.tone]
 
-    return (
-      <section
-        class:list={['border-y py-5', classes.wrap]}
-        aria-label={notice.title}
-        data-campaign-id={notice.id}
-        data-publication-window="true"
-        data-publication-starts-at={notice.startsAt}
-        data-publication-ends-at={notice.endsAt}
-        data-pagefind-ignore
-        hidden={!isWithinPublicationWindow(notice.startsAt, notice.endsAt)}
-      >
-        <div class="ac-container flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex min-w-0 items-start gap-3">
-            <span
-              class:list={[
-                'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
-                classes.iconWrap,
-              ]}
-            >
-              <Icon name={notice.icon} class:list={['text-xl', classes.icon]} />
-            </span>
-            <div class="min-w-0">
-              <h2 class="m-0 text-lg font-800 leading-snug text-slate-900">
-                {notice.title}
-              </h2>
-              {notice.body && (
-                <p class="m-0 mt-1 text-sm font-600 leading-relaxed text-slate-600">
-                  {notice.body}
-                </p>
-              )}
-            </div>
+  return (
+    <section
+      class:list={['border-y py-5', classes.wrap]}
+      aria-label={notice.title}
+      data-campaign-id={notice.id}
+      data-publication-window="true"
+      data-publication-starts-at={notice.startsAt}
+      data-publication-ends-at={notice.endsAt}
+      data-pagefind-ignore
+      hidden={!isWithinPublicationWindow(notice.startsAt, notice.endsAt)}
+    >
+      <div class="ac-container flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex min-w-0 items-start gap-3">
+          <span
+            class:list={[
+              'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
+              classes.iconWrap,
+            ]}
+          >
+            <Icon name={notice.icon} class:list={['text-xl', classes.icon]} />
+          </span>
+          <div class="min-w-0">
+            <h2 class="m-0 text-lg font-800 leading-snug text-slate-900">
+              {notice.title}
+            </h2>
+            {notice.body && (
+              <p class="m-0 mt-1 text-sm font-600 leading-relaxed text-slate-600">
+                {notice.body}
+              </p>
+            )}
           </div>
-          {notice.destination && notice.ctaLabel && (
-            <a
-              href={notice.destination}
-              class:list={['shrink-0', classes.cta]}
-              target={notice.isExternal ? '_blank' : undefined}
-              rel={notice.isExternal ? 'noopener noreferrer' : undefined}
-              data-ga-event="campaign_notice_click"
-              data-ga-label={notice.ctaLabel}
-              data-ga-location={notice.placement}
-            >
-              {notice.ctaLabel}
-            </a>
-          )}
         </div>
-      </section>
-    )
-  })
-}
+        {notice.destination && notice.ctaLabel && (
+          <a
+            href={notice.destination}
+            class:list={['shrink-0', classes.cta]}
+            target={notice.isExternal ? '_blank' : undefined}
+            rel={notice.isExternal ? 'noopener noreferrer' : undefined}
+            data-ga-event="campaign_notice_click"
+            data-ga-label={notice.ctaLabel}
+            data-ga-location={notice.placement}
+          >
+            {notice.ctaLabel}
+          </a>
+        )}
+      </div>
+    </section>
+  )
+})}
 
 <script>
   import { initPublicationWindowRuntime } from '../scripts/publication-window'
