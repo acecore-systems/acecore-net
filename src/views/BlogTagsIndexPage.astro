@@ -53,26 +53,24 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
         {t(locale, 'blog.tagListDescription')}
       </p>
       <div class="flex flex-wrap gap-3">
-        {
-          sortedTags.map(([tag, count]) => (
-            <a
-              href={u(`/blog/tags/${tag}/`)}
-              class="ac-chip gap-2 px-4 py-2 text-sm no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
-            >
-              <span class="font-600">
-                {getLocalizedTagName(tags, tag, locale)}
-              </span>
-              <span class="rounded-md bg-white px-2 py-0.5 text-xs font-700 text-brand-600">
-                {count}
-              </span>
-            </a>
-          ))
-        }
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={u(`/blog/tags/${tag}/`)}
+            class="ac-chip gap-2 px-4 py-2 text-sm no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
+          >
+            <span class="font-600">
+              {getLocalizedTagName(tags, tag, locale)}
+            </span>
+            <span class="rounded-md bg-white px-2 py-0.5 text-xs font-700 text-brand-600">
+              {count}
+            </span>
+          </a>
+        ))}
       </div>
       <div class="mt-10 text-center">
-        <a href={u('/blog/')} class="ac-btn-outline"
-          >{t(locale, 'blog.backToBlog')}</a
-        >
+        <a href={u('/blog/')} class="ac-btn-outline">
+          {t(locale, 'blog.backToBlog')}
+        </a>
       </div>
     </div>
   </section>

@@ -61,112 +61,108 @@ const cardGridColumns =
       : 'lg:grid-cols-4'
 ---
 
-{
-  isCard ? (
-    <div class="ac-surface overflow-hidden">
-      <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-5 sm:px-8">
-        {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
-        <div class="max-w-3xl">
-          <h2 class="text-xl sm:text-2xl ac-heading mb-2">{title}</h2>
-          {description && (
-            <p class="text-sm ac-muted leading-relaxed">{description}</p>
-          )}
-        </div>
-      </div>
-      <div
-        class:list={[
-          'grid gap-4 px-6 py-6 sm:grid-cols-2 sm:px-8',
-          cardGridColumns,
-        ]}
-      >
-        {steps.map((step, index) => {
-          const ca = cardAccents[step.accent ?? 'brand']
-          return (
-            <div class="relative">
-              <div
-                class:list={[
-                  'h-full rounded-lg border bg-gradient-to-br px-4 py-4 shadow-sm',
-                  ca.card,
-                ]}
-              >
-                <div class="flex items-center gap-2.5 mb-1.5">
-                  <div
-                    class:list={[
-                      'flex h-7 w-7 items-center justify-center rounded-lg text-sm shrink-0',
-                      ca.icon,
-                    ]}
-                  >
-                    <Icon name={step.icon} />
-                  </div>
-                  <span class:list={['text-xs font-700 uppercase', ca.badge]}>
-                    Step {index + 1}
-                  </span>
-                </div>
-                <p class="text-sm font-700 text-slate-900 mb-0.5">
-                  {step.title}
-                </p>
-                <p class="text-xs leading-relaxed text-slate-600">
-                  {step.description}
-                </p>
-              </div>
-              {index < steps.length - 1 && (
-                <div
-                  class:list={[
-                    'hidden lg:flex absolute right-[-0.55rem] top-1/2 z-10 h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-sm',
-                    ca.arrow,
-                  ]}
-                >
-                  <Icon name="arrow-right" class="text-xs" />
-                </div>
-              )}
-            </div>
-          )
-        })}
+{isCard ? (
+  <div class="ac-surface overflow-hidden">
+    <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-5 sm:px-8">
+      {eyebrow && <p class="ac-eyebrow">{eyebrow}</p>}
+      <div class="max-w-3xl">
+        <h2 class="text-xl sm:text-2xl ac-heading mb-2">{title}</h2>
+        {description && (
+          <p class="text-sm ac-muted leading-relaxed">{description}</p>
+        )}
       </div>
     </div>
-  ) : (
-    <figure class="not-prose my-8" role="group" aria-label={title}>
-      {(eyebrow || title) && (
-        <figcaption class="mb-4">
-          {eyebrow && <p class="ac-eyebrow mb-1">{eyebrow}</p>}
-          <p class="text-base font-700 text-slate-800">{title}</p>
-          {description && (
-            <p class="text-sm text-slate-500 mt-1">{description}</p>
-          )}
-        </figcaption>
-      )}
-      <div class="flex flex-col sm:flex-row gap-0">
-        {steps.map((step, index) => {
-          const accent = accents[step.accent ?? 'brand']
-          return (
-            <div class="flex sm:flex-col items-start sm:items-center sm:flex-1 gap-3 sm:gap-0 sm:text-center">
-              <div class="flex flex-col sm:flex-row items-center shrink-0">
-                {index > 0 && (
-                  <div class="hidden sm:block w-full h-px bg-slate-200 flex-1" />
-                )}
-                {index > 0 && <div class="sm:hidden w-px h-4 bg-slate-200" />}
+    <div
+      class:list={[
+        'grid gap-4 px-6 py-6 sm:grid-cols-2 sm:px-8',
+        cardGridColumns,
+      ]}
+    >
+      {steps.map((step, index) => {
+        const ca = cardAccents[step.accent ?? 'brand']
+        return (
+          <div class="relative">
+            <div
+              class:list={[
+                'h-full rounded-lg border bg-gradient-to-br px-4 py-4 shadow-sm',
+                ca.card,
+              ]}
+            >
+              <div class="flex items-center gap-2.5 mb-1.5">
                 <div
                   class:list={[
-                    'flex h-9 w-9 items-center justify-center rounded-full border text-base shrink-0',
-                    accent,
+                    'flex h-7 w-7 items-center justify-center rounded-lg text-sm shrink-0',
+                    ca.icon,
                   ]}
                 >
                   <Icon name={step.icon} />
                 </div>
-                {index < steps.length - 1 && (
-                  <div class="hidden sm:block w-full h-px bg-slate-200 flex-1" />
-                )}
+                <span class:list={['text-xs font-700 uppercase', ca.badge]}>
+                  Step {index + 1}
+                </span>
               </div>
-              <div class="sm:mt-2 sm:px-2 py-1 sm:py-0">
-                <p class="text-sm font-600 text-slate-800">{step.title}</p>
-                <p class="text-sm leading-relaxed text-slate-500">
-                  {step.description}
-                </p>
-              </div>
+              <p class="text-sm font-700 text-slate-900 mb-0.5">{step.title}</p>
+              <p class="text-xs leading-relaxed text-slate-600">
+                {step.description}
+              </p>
             </div>
-          )
-        })}
-      </div>
-    </figure>
-  )
-}
+            {index < steps.length - 1 && (
+              <div
+                class:list={[
+                  'hidden lg:flex absolute right-[-0.55rem] top-1/2 z-10 h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-sm',
+                  ca.arrow,
+                ]}
+              >
+                <Icon name="arrow-right" class="text-xs" />
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  </div>
+) : (
+  <figure class="not-prose my-8" role="group" aria-label={title}>
+    {(eyebrow || title) && (
+      <figcaption class="mb-4">
+        {eyebrow && <p class="ac-eyebrow mb-1">{eyebrow}</p>}
+        <p class="text-base font-700 text-slate-800">{title}</p>
+        {description && (
+          <p class="text-sm text-slate-500 mt-1">{description}</p>
+        )}
+      </figcaption>
+    )}
+    <div class="flex flex-col sm:flex-row gap-0">
+      {steps.map((step, index) => {
+        const accent = accents[step.accent ?? 'brand']
+        return (
+          <div class="flex sm:flex-col items-start sm:items-center sm:flex-1 gap-3 sm:gap-0 sm:text-center">
+            <div class="flex flex-col sm:flex-row items-center shrink-0">
+              {index > 0 && (
+                <div class="hidden sm:block w-full h-px bg-slate-200 flex-1" />
+              )}
+              {index > 0 && <div class="sm:hidden w-px h-4 bg-slate-200" />}
+              <div
+                class:list={[
+                  'flex h-9 w-9 items-center justify-center rounded-full border text-base shrink-0',
+                  accent,
+                ]}
+              >
+                <Icon name={step.icon} />
+              </div>
+              {index < steps.length - 1 && (
+                <div class="hidden sm:block w-full h-px bg-slate-200 flex-1" />
+              )}
+            </div>
+            <div class="sm:mt-2 sm:px-2 py-1 sm:py-0">
+              <p class="text-sm font-600 text-slate-800">{step.title}</p>
+              <p class="text-sm leading-relaxed text-slate-500">
+                {step.description}
+              </p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  </figure>
+)}

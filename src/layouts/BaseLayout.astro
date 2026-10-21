@@ -193,14 +193,12 @@ import { SITE } from '../data/site'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content={robots} />
     <meta property="og:locale" content={ogLocaleMap[locale]} />
-    {
-      !isErrorPage &&
-        locales
-          .filter((l) => l !== locale)
-          .map((l) => (
-            <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
-          ))
-    }
+    {!isErrorPage &&
+      locales
+        .filter((l) => l !== locale)
+        .map((l) => (
+          <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
+        ))}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content={ogType} />
@@ -217,23 +215,21 @@ import { SITE } from '../data/site'
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
     {author && <meta name="author" content={author} />}
-    {
-      publishedTime && (
-        <meta
-          property="article:published_time"
-          content={publishedTime.toISOString()}
-        />
-      )
-    }
-    {
-      modifiedTime && (
-        <meta
-          property="article:modified_time"
-          content={modifiedTime.toISOString()}
-        />
-      )
-    }
-    {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+    {publishedTime && (
+      <meta
+        property="article:published_time"
+        content={publishedTime.toISOString()}
+      />
+    )}
+    {modifiedTime && (
+      <meta
+        property="article:modified_time"
+        content={modifiedTime.toISOString()}
+      />
+    )}
+    {tags?.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
     {tags?.[0] && <meta property="article:section" content={tags[0]} />}
     {prevPage && <link rel="prev" href={prevPage} />}
     {nextPage && <link rel="next" href={nextPage} />}
@@ -243,56 +239,43 @@ import { SITE } from '../data/site'
       title={t(locale, 'blog.rssTitle')}
       href={locale === defaultLocale ? '/rss.xml' : `/${locale}/rss.xml`}
     />
-    {
-      alternateUrlEntries.map(({ locale: l, url }) => (
-        <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
-      ))
-    }
-    {
-      alternateUrlEntries.length > 0 && (
-        <link
-          rel="alternate"
-          hreflang="x-default"
-          href={
-            alternateUrlEntries.find((a) => a.locale === defaultLocale)?.url
-          }
-        />
-      )
-    }
+    {alternateUrlEntries.map(({ locale: l, url }) => (
+      <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
+    ))}
+    {alternateUrlEntries.length > 0 && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={alternateUrlEntries.find((a) => a.locale === defaultLocale)?.url}
+      />
+    )}
     <link rel="preconnect" href={SITE.url} />
-    {
-      preloadImage && (
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage.src}
+        imagesrcset={preloadImage.srcset}
+        imagesizes={preloadImage.sizes}
+        fetchpriority="high"
+      />
+    )}
+    {isMonetizedPage && (
+      <>
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link
-          rel="preload"
-          as="image"
-          href={preloadImage.src}
-          imagesrcset={preloadImage.srcset}
-          imagesizes={preloadImage.sizes}
-          fetchpriority="high"
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossorigin="anonymous"
         />
-      )
-    }
-    {
-      isMonetizedPage && (
-        <>
-          <link
-            rel="dns-prefetch"
-            href="https://pagead2.googlesyndication.com"
-          />
-          <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
-          <link
-            rel="preconnect"
-            href="https://pagead2.googlesyndication.com"
-            crossorigin="anonymous"
-          />
-          <link
-            rel="preconnect"
-            href="https://googleads.g.doubleclick.net"
-            crossorigin="anonymous"
-          />
-        </>
-      )
-    }
+        <link
+          rel="preconnect"
+          href="https://googleads.g.doubleclick.net"
+          crossorigin="anonymous"
+        />
+      </>
+    )}
     <!-- Google Analytics (GA4) -->
     <script
       is:inline
@@ -380,30 +363,26 @@ import { SITE } from '../data/site'
         },
       })}
     />
-    {
-      !isErrorPage && breadcrumbLd && (
-        <script
-          type="application/ld+json"
-          set:html={serializeJsonForHtml(breadcrumbLd)}
-        />
-      )
-    }
-    {
-      jsonLd &&
-        (Array.isArray(jsonLd) ? (
-          jsonLd.map((ld) => (
-            <script
-              type="application/ld+json"
-              set:html={serializeJsonForHtml(ld)}
-            />
-          ))
-        ) : (
+    {!isErrorPage && breadcrumbLd && (
+      <script
+        type="application/ld+json"
+        set:html={serializeJsonForHtml(breadcrumbLd)}
+      />
+    )}
+    {jsonLd &&
+      (Array.isArray(jsonLd) ? (
+        jsonLd.map((ld) => (
           <script
             type="application/ld+json"
-            set:html={serializeJsonForHtml(jsonLd)}
+            set:html={serializeJsonForHtml(ld)}
           />
         ))
-    }
+      ) : (
+        <script
+          type="application/ld+json"
+          set:html={serializeJsonForHtml(jsonLd)}
+        />
+      ))}
     <ClientRouter />
     <script is:inline>
       ;(function () {
@@ -504,8 +483,9 @@ import { SITE } from '../data/site'
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm"
-      >{t(locale, 'common.skipToContent')}</a
     >
+      {t(locale, 'common.skipToContent')}
+    </a>
     <Header
       locale={locale}
       languageSwitcherPath={languageSwitcherPath}

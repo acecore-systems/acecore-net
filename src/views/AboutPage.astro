@@ -132,16 +132,14 @@ const aboutPageLd = {
             </dt>
             <dd class="mt-2">
               <ol class="list-none space-y-2 p-0 text-slate-700">
-                {
-                  businessPurposes.map((purpose, index) => (
-                    <li class="flex gap-2">
-                      <>
-                        <span>({index + 1})</span>
-                        <span>{purpose}</span>
-                      </>
-                    </li>
-                  ))
-                }
+                {businessPurposes.map((purpose, index) => (
+                  <li class="flex gap-2">
+                    <>
+                      <span>({index + 1})</span>
+                      <span>{purpose}</span>
+                    </>
+                  </li>
+                ))}
               </ol>
             </dd>
           </div>
@@ -169,72 +167,70 @@ const aboutPageLd = {
         />
       </div>
 
-      {
-        officers.length > 0 && (
-          <section class="mb-12" aria-labelledby="executive-profile-heading">
-            <div class="mb-6">
-              <h2 id="executive-profile-heading" class="text-2xl ac-heading">
-                {t(locale, 'pages.about.executiveHeading')}
-              </h2>
-              <p class="mt-2 text-slate-600">
-                {t(locale, 'pages.about.executiveLead')}
-              </p>
-            </div>
-            <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {officers.map((officer) => (
-                <li>
-                  <article class="ac-card h-full p-6">
-                    {officer.image && (
-                      <img
-                        src={officer.image}
-                        alt={officer.name}
-                        width={3096}
-                        height={4128}
-                        loading="lazy"
-                        decoding="async"
-                        class="mb-5 aspect-[4/3] w-full rounded-lg border border-slate-200 object-cover"
-                        style="object-position: center 10%;"
-                      />
+      {officers.length > 0 && (
+        <section class="mb-12" aria-labelledby="executive-profile-heading">
+          <div class="mb-6">
+            <h2 id="executive-profile-heading" class="text-2xl ac-heading">
+              {t(locale, 'pages.about.executiveHeading')}
+            </h2>
+            <p class="mt-2 text-slate-600">
+              {t(locale, 'pages.about.executiveLead')}
+            </p>
+          </div>
+          <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {officers.map((officer) => (
+              <li>
+                <article class="ac-card h-full p-6">
+                  {officer.image && (
+                    <img
+                      src={officer.image}
+                      alt={officer.name}
+                      width={3096}
+                      height={4128}
+                      loading="lazy"
+                      decoding="async"
+                      class="mb-5 aspect-[4/3] w-full rounded-lg border border-slate-200 object-cover"
+                      style="object-position: center 10%;"
+                    />
+                  )}
+                  <header class="text-center">
+                    <h3 class="text-xl ac-heading">{officer.name}</h3>
+                    {officer.role && (
+                      <p class="mt-1 text-sm font-700 text-brand-600">
+                        {officer.role}
+                      </p>
                     )}
-                    <header class="text-center">
-                      <h3 class="text-xl ac-heading">{officer.name}</h3>
-                      {officer.role && (
-                        <p class="mt-1 text-sm font-700 text-brand-600">
-                          {officer.role}
-                        </p>
+                  </header>
+                  {(officer.areas?.length || officer.bio) && (
+                    <dl class="mt-5 space-y-4 border-t border-slate-200 pt-5 text-left">
+                      {officer.areas && officer.areas.length > 0 && (
+                        <div>
+                          <dt class="text-sm font-700 text-slate-500">
+                            {t(locale, 'pages.about.officerAreasLabel')}
+                          </dt>
+                          <dd class="mt-1 leading-relaxed text-slate-700">
+                            {officer.areas.join('・')}
+                          </dd>
+                        </div>
                       )}
-                    </header>
-                    {(officer.areas?.length || officer.bio) && (
-                      <dl class="mt-5 space-y-4 border-t border-slate-200 pt-5 text-left">
-                        {officer.areas && officer.areas.length > 0 && (
-                          <div>
-                            <dt class="text-sm font-700 text-slate-500">
-                              {t(locale, 'pages.about.officerAreasLabel')}
-                            </dt>
-                            <dd class="mt-1 leading-relaxed text-slate-700">
-                              {officer.areas.join('・')}
-                            </dd>
-                          </div>
-                        )}
-                        {officer.bio && (
-                          <div>
-                            <dt class="text-sm font-700 text-slate-500">
-                              {t(locale, 'pages.about.officerBiographyLabel')}
-                            </dt>
-                            <dd class="mt-1 whitespace-pre-line leading-relaxed text-slate-600">
-                              {officer.bio}
-                            </dd>
-                          </div>
-                        )}
-                      </dl>
-                    )}
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-      }
+                      {officer.bio && (
+                        <div>
+                          <dt class="text-sm font-700 text-slate-500">
+                            {t(locale, 'pages.about.officerBiographyLabel')}
+                          </dt>
+                          <dd class="mt-1 whitespace-pre-line leading-relaxed text-slate-600">
+                            {officer.bio}
+                          </dd>
+                        </div>
+                      )}
+                    </dl>
+                  )}
+                </article>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section class="mb-12" aria-labelledby="corporate-philosophy-heading">
         <h2 id="corporate-philosophy-heading" class="text-2xl ac-heading mb-6">
@@ -244,10 +240,10 @@ const aboutPageLd = {
           <p class="text-xl font-600 text-brand-700 text-center">
             {t(locale, 'pages.about.philosophyMotto')}
           </p>
-          <div
-            class="philosophy-body mt-6 space-y-4 leading-relaxed text-slate-700"
-          >
-            {philosophyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+          <div class="philosophy-body mt-6 space-y-4 leading-relaxed text-slate-700">
+            {philosophyParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
           </div>
           <div class="mt-8 border-t border-brand-200 pt-8">
             <h3 class="text-xl ac-heading">
@@ -256,10 +252,10 @@ const aboutPageLd = {
             <p class="mt-4 text-lg font-600 text-brand-700">
               {t(locale, 'pages.about.visionMotto')}
             </p>
-            <div
-              class="vision-body mt-6 space-y-4 leading-relaxed text-slate-700"
-            >
-              {visionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+            <div class="vision-body mt-6 space-y-4 leading-relaxed text-slate-700">
+              {visionParagraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -288,9 +284,9 @@ const aboutPageLd = {
       </div>
 
       <div class="text-center">
-        <a href={u('/contact/')} class="ac-btn-outline"
-          >{t(locale, 'pages.about.corporateContactCta')}</a
-        >
+        <a href={u('/contact/')} class="ac-btn-outline">
+          {t(locale, 'pages.about.corporateContactCta')}
+        </a>
       </div>
     </div>
   </section>

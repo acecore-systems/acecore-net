@@ -76,31 +76,29 @@ const archiveIndexLd = {
         {t(locale, 'blog.archiveListDescription')}
       </p>
       <ul class="m-0 grid list-none gap-4 p-0 sm:grid-cols-2" role="list">
-        {
-          archives.map(([key, { count, year, month }]) => (
-            <li>
-              <a
-                href={u(`/blog/archive/${key}/`)}
-                class="ac-card flex min-h-16 items-center justify-between gap-4 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-              >
-                <span class="font-600 text-slate-800">
-                  {t(locale, 'blog.yearMonth', {
-                    year: String(year),
-                    month: String(month),
-                  })}
-                </span>
-                <span class="inline-flex min-h-9 items-center rounded-lg bg-brand-50 px-3 text-sm font-700 text-brand-600">
-                  {t(locale, 'blog.postsCount', { count })}
-                </span>
-              </a>
-            </li>
-          ))
-        }
+        {archives.map(([key, { count, year, month }]) => (
+          <li>
+            <a
+              href={u(`/blog/archive/${key}/`)}
+              class="ac-card flex min-h-16 items-center justify-between gap-4 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+            >
+              <span class="font-600 text-slate-800">
+                {t(locale, 'blog.yearMonth', {
+                  year: String(year),
+                  month: String(month),
+                })}
+              </span>
+              <span class="inline-flex min-h-9 items-center rounded-lg bg-brand-50 px-3 text-sm font-700 text-brand-600">
+                {t(locale, 'blog.postsCount', { count })}
+              </span>
+            </a>
+          </li>
+        ))}
       </ul>
       <div class="mt-10 text-center">
-        <a href={u('/blog/')} class="ac-btn-outline"
-          >{t(locale, 'blog.backToBlog')}</a
-        >
+        <a href={u('/blog/')} class="ac-btn-outline">
+          {t(locale, 'blog.backToBlog')}
+        </a>
       </div>
     </div>
   </section>

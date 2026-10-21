@@ -52,45 +52,41 @@ const offerings = [
 ].filter((item) => !group || item.group === group)
 ---
 
-<div
-  class="service-offerings grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
->
-  {
-    offerings.map((item) => (
-      <article
-        id={
-          !anchors
-            ? undefined
-            : ['aceserver', 'store'].includes(item.key)
-              ? item.key + '-service'
-              : item.key
+<div class="service-offerings grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+  {offerings.map((item) => (
+    <article
+      id={
+        !anchors
+          ? undefined
+          : ['aceserver', 'store'].includes(item.key)
+            ? item.key + '-service'
+            : item.key
+      }
+    >
+      {anchors && item.key === 'aceserver' && <span id="community" />}
+      <ServiceCard
+        title={t(locale, 'pages.services.' + item.key + 'Title')}
+        description={t(locale, 'pages.services.' + item.key + 'Description')}
+        icon={item.icon}
+        tone={
+          item.group === 'systems'
+            ? 'brand'
+            : item.group === 'schools'
+              ? 'amber'
+              : item.key === 'aceserver'
+                ? 'emerald'
+                : 'slate'
         }
+        href={item.href}
+        locale={locale}
+        linkLabel={t(locale, 'pages.services.detailsCta')}
       >
-        {anchors && item.key === 'aceserver' && <span id="community" />}
-        <ServiceCard
-          title={t(locale, 'pages.services.' + item.key + 'Title')}
-          description={t(locale, 'pages.services.' + item.key + 'Description')}
-          icon={item.icon}
-          tone={
-            item.group === 'systems'
-              ? 'brand'
-              : item.group === 'schools'
-                ? 'amber'
-                : item.key === 'aceserver'
-                  ? 'emerald'
-                  : 'slate'
-          }
-          href={item.href}
-          locale={locale}
-          linkLabel={t(locale, 'pages.services.detailsCta')}
-        >
-          {item.key === 'acestudio' && (
-            <span class="ac-chip mb-3 text-xs">
-              {t(locale, 'pages.services.acestudioStatus')}
-            </span>
-          )}
-        </ServiceCard>
-      </article>
-    ))
-  }
+        {item.key === 'acestudio' && (
+          <span class="ac-chip mb-3 text-xs">
+            {t(locale, 'pages.services.acestudioStatus')}
+          </span>
+        )}
+      </ServiceCard>
+    </article>
+  ))}
 </div>

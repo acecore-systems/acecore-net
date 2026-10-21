@@ -99,63 +99,61 @@ const visibleAnnouncements = announcements
   )
 ---
 
-{
-  visibleAnnouncements.map((announcement) => {
-    const classes = toneClasses[announcement.tone]
+{visibleAnnouncements.map((announcement) => {
+  const classes = toneClasses[announcement.tone]
 
-    return (
-      <aside
-        class:list={['border-b text-sm', classes.wrap]}
-        aria-label={announcement.title || 'Announcement'}
-        data-publication-window="true"
-        data-publication-starts-at={announcement.startsAt}
-        data-publication-ends-at={announcement.endsAt}
-        data-pagefind-ignore
-        hidden={
-          !isWithinPublicationWindow(announcement.startsAt, announcement.endsAt)
-        }
-      >
-        <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex min-w-0 items-start gap-3">
-            <Icon
-              name="megaphone"
-              class:list={['mt-0.5 shrink-0 text-lg', classes.icon]}
-            />
-            <div class="min-w-0">
-              {announcement.title && (
-                <p
-                  class:list={[
-                    'mb-0.5 text-xs font-800 uppercase leading-tight',
-                    classes.title,
-                  ]}
-                >
-                  {announcement.title}
-                </p>
-              )}
-              <p class="m-0 text-sm font-700 leading-relaxed">
-                {announcement.body}
+  return (
+    <aside
+      class:list={['border-b text-sm', classes.wrap]}
+      aria-label={announcement.title || 'Announcement'}
+      data-publication-window="true"
+      data-publication-starts-at={announcement.startsAt}
+      data-publication-ends-at={announcement.endsAt}
+      data-pagefind-ignore
+      hidden={
+        !isWithinPublicationWindow(announcement.startsAt, announcement.endsAt)
+      }
+    >
+      <div class="ac-container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex min-w-0 items-start gap-3">
+          <Icon
+            name="megaphone"
+            class:list={['mt-0.5 shrink-0 text-lg', classes.icon]}
+          />
+          <div class="min-w-0">
+            {announcement.title && (
+              <p
+                class:list={[
+                  'mb-0.5 text-xs font-800 uppercase leading-tight',
+                  classes.title,
+                ]}
+              >
+                {announcement.title}
               </p>
-            </div>
+            )}
+            <p class="m-0 text-sm font-700 leading-relaxed">
+              {announcement.body}
+            </p>
           </div>
-          {announcement.destination && announcement.ctaLabel && (
-            <a
-              href={announcement.destination}
-              class:list={[
-                'inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg px-4 text-xs font-800 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
-                classes.cta,
-              ]}
-              data-ga-event="announcement_click"
-              data-ga-label={announcement.ctaLabel}
-              data-ga-location="announcement_banner"
-            >
-              {announcement.ctaLabel}
-            </a>
-          )}
         </div>
-      </aside>
-    )
-  })
-}
+        {announcement.destination && announcement.ctaLabel && (
+          <a
+            href={announcement.destination}
+            class:list={[
+              'inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg px-4 text-xs font-800 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
+              classes.cta,
+            ]}
+            data-ga-event="announcement_click"
+            data-ga-label={announcement.ctaLabel}
+            data-ga-location="announcement_banner"
+          >
+            {announcement.ctaLabel}
+          </a>
+        )}
+      </div>
+    </aside>
+  )
+})}
 
 <script>
   import { initPublicationWindowRuntime } from '../scripts/publication-window'

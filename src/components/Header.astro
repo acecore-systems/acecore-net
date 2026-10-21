@@ -33,9 +33,7 @@ const contactLink = {
 const currentPath = Astro.url.pathname
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur"
->
+<header class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur">
   <div class="ac-container flex h-16 items-center justify-between">
     <a
       href={getLocalizedUrl('/', locale)}
@@ -48,26 +46,24 @@ const currentPath = Astro.url.pathname
       class="hidden items-center gap-1 xl:flex"
       aria-label={t(locale, 'common.mainNav')}
     >
-      {
-        navLinks.map((link) => {
-          const isCurrent = currentPath === link.href
+      {navLinks.map((link) => {
+        const isCurrent = currentPath === link.href
 
-          return (
-            <a
-              href={link.href}
-              class:list={[
-                'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
-                isCurrent
-                  ? 'bg-brand-50 text-brand-700'
-                  : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
-              ]}
-              {...(isCurrent ? { 'aria-current': 'page' } : {})}
-            >
-              <span>{link.label}</span>
-            </a>
-          )
-        })
-      }
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
+              isCurrent
+                ? 'bg-brand-50 text-brand-700'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
+            ]}
+            {...(isCurrent ? { 'aria-current': 'page' } : {})}
+          >
+            <span>{link.label}</span>
+          </a>
+        )
+      })}
       <a
         href={storeLink.href}
         target="_blank"
@@ -97,7 +93,9 @@ const currentPath = Astro.url.pathname
       <a
         href={contactLink.href}
         class="ac-btn-primary ml-2 min-h-10 px-4 py-2 text-xs"
-        {...currentPath === contactLink.href ? { 'aria-current': 'page' } : {}}
+        {...(currentPath === contactLink.href
+          ? { 'aria-current': 'page' }
+          : {})}
       >
         {contactLink.label}
       </a>
@@ -134,29 +132,27 @@ const currentPath = Astro.url.pathname
     aria-label={t(locale, 'common.mobileNav')}
   >
     <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
-      {
-        navLinks.map((link) => {
-          const isCurrent = currentPath === link.href
+      {navLinks.map((link) => {
+        const isCurrent = currentPath === link.href
 
-          return (
-            <a
-              href={link.href}
-              class:list={[
-                'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
-                isCurrent
-                  ? 'border-brand-100 bg-brand-50 text-brand-700'
-                  : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
-              ]}
-              {...(isCurrent ? { 'aria-current': 'page' } : {})}
-            >
-              <span>{link.label}</span>
-              <span class="inline-flex items-center gap-1 text-slate-400">
-                <Icon name="arrow-right" class="text-sm" />
-              </span>
-            </a>
-          )
-        })
-      }
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
+              isCurrent
+                ? 'border-brand-100 bg-brand-50 text-brand-700'
+                : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
+            ]}
+            {...(isCurrent ? { 'aria-current': 'page' } : {})}
+          >
+            <span>{link.label}</span>
+            <span class="inline-flex items-center gap-1 text-slate-400">
+              <Icon name="arrow-right" class="text-sm" />
+            </span>
+          </a>
+        )
+      })}
       <a
         href={storeLink.href}
         target="_blank"

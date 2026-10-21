@@ -52,7 +52,8 @@ const businessLinks = [
       <div>
         <h3 class="mb-3 text-lg font-700 text-white">{SITE.name}</h3>
         <p class="text-sm leading-relaxed">
-          {t(locale, 'footer.tagline')}<br />
+          {t(locale, 'footer.tagline')}
+          <br />
           {t(locale, 'footer.description')}
         </p>
       </div>
@@ -62,18 +63,16 @@ const businessLinks = [
           {t(locale, 'footer.sitemap')}
         </h3>
         <ul class="m-0 list-none p-0 text-sm" role="list">
-          {
-            siteLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
+          {siteLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -82,27 +81,23 @@ const businessLinks = [
           {t(locale, 'footer.relatedLinks')}
         </h3>
         <ul class="m-0 list-none p-0 text-sm" role="list">
-          {
-            businessLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
-                  data-ga-event="external_link_click"
-                  data-ga-label={`footer_${link.label.toLowerCase().replaceAll(' ', '_')}`}
-                  data-ga-location="footer"
-                  data-ga-destination={link.href}
-                >
-                  {link.label}
-                  <span class="sr-only">
-                    {t(locale, 'common.opensInNewTab')}
-                  </span>
-                </a>
-              </li>
-            ))
-          }
+          {businessLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-10 items-center rounded-md px-2 -mx-2 text-slate-300 no-underline transition-colors hover:bg-white/5 hover:text-white"
+                data-ga-event="external_link_click"
+                data-ga-label={`footer_${link.label.toLowerCase().replaceAll(' ', '_')}`}
+                data-ga-location="footer"
+                data-ga-destination={link.href}
+              >
+                {link.label}
+                <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              </a>
+            </li>
+          ))}
           <li>
             <a
               href={SITE.social.x}
@@ -114,8 +109,7 @@ const businessLinks = [
               data-ga-location="footer"
               data-ga-destination={SITE.social.x}
             >
-              X
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+              X<span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
             </a>
           </li>
           <li>
@@ -138,7 +132,9 @@ const businessLinks = [
     </div>
 
     <div class="mt-10 border-t border-slate-700 pt-8 text-center text-sm">
-      <p>&copy;{currentYear} {SITE.legalName}</p>
+      <p>
+        &copy;{currentYear} {SITE.legalName}
+      </p>
       <p
         class="mt-3 text-xs leading-relaxed text-slate-400"
         data-cast-scene-credit
@@ -147,8 +143,9 @@ const businessLinks = [
         <a
           href="https://cast.acecore.net/"
           class="underline underline-offset-2 hover:text-white"
-          >{t(locale, 'footer.imageCreditLabel')}</a
         >
+          {t(locale, 'footer.imageCreditLabel')}
+        </a>
       </p>
     </div>
   </div>

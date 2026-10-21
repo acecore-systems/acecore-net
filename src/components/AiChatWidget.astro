@@ -32,9 +32,7 @@ const phoneParts = SITE.phone.split('-')
     class="mb-4 hidden w-[calc(100vw-2.5rem)] max-w-[23rem] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl"
     aria-labelledby="ace-ai-chat-title"
   >
-    <header
-      class="flex items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3"
-    >
+    <header class="flex items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3">
       <div class="flex items-start gap-3">
         <span class="ac-icon-box shrink-0 bg-white">
           <Icon name="sparkles" class="text-lg" />
@@ -62,8 +60,7 @@ const phoneParts = SITE.phone.split('-')
       id="ace-ai-chat-messages"
       class="max-h-[min(58vh,28rem)] space-y-3 overflow-y-auto px-4 py-4 text-sm"
       aria-live="polite"
-    >
-    </div>
+    ></div>
 
     <div class="border-t border-slate-200 px-4 py-3">
       <div class="mb-3 flex flex-wrap gap-2">
@@ -87,7 +84,8 @@ const phoneParts = SITE.phone.split('-')
           rows="2"
           maxlength="800"
           class="ac-input min-h-11 flex-1 resize-none text-base"
-          placeholder={t(locale, 'aiChat.placeholder')}></textarea>
+          placeholder={t(locale, 'aiChat.placeholder')}
+        ></textarea>
         <button
           type="submit"
           id="ace-ai-chat-submit"

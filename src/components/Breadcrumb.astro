@@ -30,30 +30,28 @@ const currentPath = Astro.url.pathname
         <span>{t(locale, 'common.home')}</span>
       </a>
     </li>
-    {
-      items.map((item, i) => (
-        <li class="flex items-center gap-1">
-          <Icon name="chevron-right" class="text-xs text-slate-400" />
-          {item.href || i === items.length - 1 ? (
-            <a
-              href={item.href ?? currentPath}
-              aria-current={i === items.length - 1 ? 'page' : undefined}
-              class:list={[
-                'transition-colors',
-                i === items.length - 1
-                  ? 'text-slate-700 font-600 truncate max-w-60 sm:max-w-none'
-                  : 'hover:text-brand-500',
-              ]}
-            >
-              {item.label}
-            </a>
-          ) : (
-            <span class="text-slate-700 font-600 truncate max-w-60 sm:max-w-none">
-              {item.label}
-            </span>
-          )}
-        </li>
-      ))
-    }
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1">
+        <Icon name="chevron-right" class="text-xs text-slate-400" />
+        {item.href || i === items.length - 1 ? (
+          <a
+            href={item.href ?? currentPath}
+            aria-current={i === items.length - 1 ? 'page' : undefined}
+            class:list={[
+              'transition-colors',
+              i === items.length - 1
+                ? 'text-slate-700 font-600 truncate max-w-60 sm:max-w-none'
+                : 'hover:text-brand-500',
+            ]}
+          >
+            {item.label}
+          </a>
+        ) : (
+          <span class="text-slate-700 font-600 truncate max-w-60 sm:max-w-none">
+            {item.label}
+          </span>
+        )}
+      </li>
+    ))}
   </ol>
 </nav>

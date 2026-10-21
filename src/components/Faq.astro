@@ -15,30 +15,26 @@ const { title, items } = Astro.props
 ---
 
 <figure class="not-prose my-8">
-  {
-    title && (
-      <figcaption class="text-base font-700 text-slate-800 mb-3">
-        {title}
-      </figcaption>
-    )
-  }
+  {title && (
+    <figcaption class="text-base font-700 text-slate-800 mb-3">
+      {title}
+    </figcaption>
+  )}
   <div class="space-y-2">
-    {
-      items.map((item) => (
-        <details class="overflow-hidden rounded-lg border border-slate-200">
-          <summary class="flex min-h-12 cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-700 text-slate-800 transition-colors hover:bg-slate-50">
-            <span>{item.question}</span>
-            <Icon
-              name="chevron-down"
-              class="text-slate-500 transition-transform duration-200 faq-chevron shrink-0 ml-2"
-            />
-          </summary>
-          <div class="border-t border-slate-100 px-4 pt-3 pb-4 text-sm leading-relaxed text-slate-600">
-            {item.answer}
-          </div>
-        </details>
-      ))
-    }
+    {items.map((item) => (
+      <details class="overflow-hidden rounded-lg border border-slate-200">
+        <summary class="flex min-h-12 cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-700 text-slate-800 transition-colors hover:bg-slate-50">
+          <span>{item.question}</span>
+          <Icon
+            name="chevron-down"
+            class="text-slate-500 transition-transform duration-200 faq-chevron shrink-0 ml-2"
+          />
+        </summary>
+        <div class="border-t border-slate-100 px-4 pt-3 pb-4 text-sm leading-relaxed text-slate-600">
+          {item.answer}
+        </div>
+      </details>
+    ))}
   </div>
 </figure>
 

@@ -66,30 +66,28 @@ const sections =
       <div class="ac-prose max-w-none" lang={contentLocale}>
         <p>{t(contentLocale, 'pages.terms.lead')}</p>
 
-        {
-          sections.map((section) => (
-            <section>
-              <h2>{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-              {section.items && section.items.length > 0 ? (
-                <ul>
-                  {section.items.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </section>
-          ))
-        }
+        {sections.map((section) => (
+          <section>
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {section.items && section.items.length > 0 ? (
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+          </section>
+        ))}
 
         <h2>{t(contentLocale, 'pages.terms.privacyLinkHeading')}</h2>
         <p>{t(contentLocale, 'pages.terms.privacyLinkBody')}</p>
         <p>
-          <a href={u('/privacy/')}
-            >{t(contentLocale, 'pages.terms.privacyLinkLabel')}</a
-          >
+          <a href={u('/privacy/')}>
+            {t(contentLocale, 'pages.terms.privacyLinkLabel')}
+          </a>
         </p>
 
         <p class="text-sm text-slate-500 mt-12">
