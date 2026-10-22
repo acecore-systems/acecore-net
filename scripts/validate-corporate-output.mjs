@@ -82,6 +82,13 @@ for (const locale of locales) {
   checkShape(sourceBlog, translated.blog, `${locale}.blog`)
   checkShape(sourceCommon.meta, translated.meta, `${locale}.meta`)
   checkShape(sourceCommon.footer, translated.footer, `${locale}.footer`)
+  checkShape(sourceCommon.common, translated.common, `${locale}.common`)
+  checkShape(sourceCommon.nav, translated.nav, `${locale}.nav`)
+  checkShape(
+    sourceCommon.pageNames,
+    translated.pageNames,
+    `${locale}.pageNames`,
+  )
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   assert.ok(!sitemap.includes(`https://acecore.net${prefix}/designs/`))
@@ -148,21 +155,17 @@ for (const locale of locales) {
     home('.home-directory a').first().find('h3').text().trim(),
     translations.home.servicesHeading,
   )
-  for (const [path, label] of [
-    ['services', translations.home.viewBusinessDetails],
-    ['about', translations.home.viewAbout],
-  ])
-    assert.equal(
-      home(`.hero-copy a[href="${prefix}/${path}/"]`).text().trim(),
-      label,
-      `${locale}.home: hero entry to ${path}`,
-    )
+  assert.equal(
+    home('.hero-copy a').length,
+    0,
+    `${locale}: the home directory owns the initial page choices`,
+  )
   assert.equal(
     services('#pricing a').filter((_, el) =>
       services(el).text().includes(translations.services.pricingCta),
     ).length,
     3,
-    `${locale}.services: pricing cards must name their destination`,
+    `${locale}.services: pricing links must name their destination`,
   )
   const motto = translations.home.heroTitle
   assert.equal(
@@ -180,24 +183,18 @@ for (const locale of locales) {
   const philosophy = about('#corporate-philosophy-heading').closest('section')
   assert.equal(
     services('.business-overview').length,
+    0,
+    `${locale}: departments have one overview`,
+  )
+  assert.equal(
+    philosophy.find('figure').length,
     1,
-    `${locale}: business structure must have one explanatory diagram`,
+    `${locale}: one contextual philosophy image`,
   )
-  assert.deepEqual(
-    services('.business-overview a')
-      .toArray()
-      .map((el) => services(el).attr('href')),
-    ['#systems', '#schools', '#design'],
-    `${locale}: business diagram must lead to the three parallel departments`,
+  assert.equal(
+    philosophy.find('figcaption').text().trim(),
+    translations.about.workshopCaption,
   )
-  for (const key of ['collaborationCaption', 'workshopCaption'])
-    assert.ok(
-      philosophy
-        .find('figcaption')
-        .toArray()
-        .some((el) => about(el).text().trim() === translations.about[key]),
-      `${locale}: corporate image context must stay with the philosophy`,
-    )
   assert.equal(
     about('#corporate-information-heading').closest('section').find('figure')
       .length,
@@ -285,6 +282,18 @@ for (const locale of locales) {
     )
     assert.equal(newsNavigation.find(`a[href="${prefix}/blog/"]`).length, 1)
     assert.equal(post('main .ac-surface[data-pagefind-ignore]').length, 0)
+    const continuation = post(
+      'main nav[aria-label="' +
+        translated.blog.postNavLabel +
+        '"] a, main article > section[data-pagefind-ignore] a',
+    )
+      .toArray()
+      .map((el) => post(el).attr('href'))
+    assert.equal(
+      new Set(continuation).size,
+      continuation.length,
+      `${locale}.${slug}: repeated reading destination`,
+    )
   }
   assert.equal(
     services('.department-list > li').length,

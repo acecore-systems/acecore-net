@@ -1,13 +1,13 @@
 {
-  "title": "事業",
+  "title": "事業紹介",
   "seoTitleContext": "事業案内",
-  "description": "日々の負担を減らし、一人ひとりの挑戦を後押しするAcecoreの事業部門と主要サービス、料金・利用条件の確認先をご紹介します。",
-  "heroTitle": "事業",
+  "description": "日々の負担を減らし、一人ひとりの挑戦を後押しするAcecoreの事業部門と主要サービス、料金の目安の確認先をご紹介します。",
+  "heroTitle": "事業紹介",
   "heroSubtitle": "事業部門とサービス、料金の確認先をご案内します。",
   "heroImgAlt": "テクノロジーオフィス",
   "eyebrow": "Business Directory",
   "introTitle": "事業部門",
-  "introBody": "本質的でない時間を減らし、誰もが「やりたいこと」に挑戦できる環境へ。技術支援、目的に合わせた学習支援、コミュニティ運営などを通じて、一人ひとりの意欲と可能性を支えます。",
+  "introBody": "本質的でない時間を減らし、誰もが「やりたいこと」に挑戦できる環境へ。技術支援、目的に合わせた学習支援、クリエイティブ制作などを通じて、一人ひとりの意欲と可能性を支えます。",
   "systemsTitle": "Acecore Systems",
   "systemsDescription": "Web・システム開発、DB・インフラ、品質保証、AI活用などの技術支援と、デザイン・クリエイティブ制作を担います。",
   "schoolsTitle": "Acecore Schools",
@@ -35,9 +35,5 @@
   "pricingLead": "詳しい料金とお引き受けしている内容は各サイトでご確認ください。",
   "offeringsHeading": "主要サービス",
   "detailsCta": "詳しくはこちら",
-  "pricingCta": "料金を確認する",
-  "overviewCaption": "理念を支える3つの事業部門",
-  "systemsRole": "技術による課題解決",
-  "schoolsRole": "目的に合わせた学び",
-  "designRole": "表現を形にする制作"
+  "pricingCta": "料金を確認する"
 }

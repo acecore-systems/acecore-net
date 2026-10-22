@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Inicio",
-    "services": "Negocios",
+    "services": "Nuestros servicios",
     "pricing": "Precios",
     "about": "Acerca de",
     "blog": "Noticias",
@@ -42,7 +42,8 @@
     "copyCode": "Copiar código",
     "codeCopied": "¡Copiado!",
     "copyFailed": "Error al copiar",
-    "pageContents": "En esta página"
+    "pageContents": "En esta página",
+    "chooseLanguage": "Elegir idioma"
   },
   "aiChat": {
     "open": "Abrir chat de IA",
@@ -142,7 +143,7 @@
     "semanticManyResults": "Se encontraron [COUNT] resultados en este sitio",
     "semanticOneResult": "Se encontró 1 resultado en este sitio",
     "pagefindFallbackHeading": "Resultados de búsqueda por palabras clave",
-    "pagefindFallbackNotice": "Se muestran coincidencias por palabras clave porque Vectorize no devolvió un resultado utilizable para este sitio.",
+    "pagefindFallbackNotice": "Se muestran los resultados por palabras clave porque la búsqueda de información relacionada no está disponible.",
     "networkHeading": "Información relacionada de sitios de Acecore",
     "networkLoading": "Buscando en sitios relacionados con Acecore...",
     "networkManyResults": "Se encontraron [COUNT] resultados relacionados de sitios de Acecore",
@@ -216,7 +217,7 @@
       "searchHint": "Verifique la URL o busque a continuación.",
       "searchPlaceholder": "Buscar en el sitio...",
       "goHome": "Ir al inicio",
-      "viewBlog": "Ver blog",
+      "viewBlog": "Ver noticias",
       "latestArticles": "Últimos artículos"
     },
     "contact": {
@@ -355,19 +356,18 @@
         "Todas las actividades accesorias o relacionadas con las anteriores"
       ],
       "corporateContactCta": "Consultas sobre la empresa y colaboraciones",
-      "collaborationCaption": "Escena ilustrativa de personas que comparten tecnología y conocimientos para ampliar las posibilidades.",
       "workshopCaption": "Escena ilustrativa del aprendizaje como apoyo a los retos de cada persona."
     },
     "services": {
-      "title": "Negocios",
+      "title": "Nuestros servicios",
       "seoTitleContext": "Directorio de negocios",
-      "description": "Conozca las áreas y los principales servicios de Acecore, que alivian las cargas diarias y apoyan nuevos retos, y dónde consultar precios y condiciones.",
-      "heroTitle": "Negocios",
+      "description": "Conozca los departamentos, los principales servicios y las referencias de precios de Acecore, que reducen las cargas diarias y apoyan las iniciativas de cada persona.",
+      "heroTitle": "Nuestros servicios",
       "heroSubtitle": "Conozca nuestras áreas, servicios y dónde consultar los precios.",
       "heroImgAlt": "Oficina tecnológica",
       "eyebrow": "Directorio de negocios",
       "introTitle": "Áreas de negocio",
-      "introBody": "Creamos un entorno en el que todos puedan dedicar menos tiempo a tareas no esenciales y hacer lo que realmente desean. Mediante apoyo técnico, aprendizaje adaptado a sus objetivos y gestión de comunidades, impulsamos la motivación y el potencial de cada persona.",
+      "introBody": "Buscamos reducir el tiempo dedicado a tareas no esenciales para que todos puedan emprender lo que desean hacer. Mediante el apoyo técnico, el aprendizaje orientado a objetivos y la producción creativa, impulsamos las aspiraciones y el potencial de cada persona.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Ofrecemos asistencia técnica en desarrollo web y de sistemas, bases de datos e infraestructura, aseguramiento de la calidad y aplicación de IA, además de diseño y producción creativa.",
       "schoolsTitle": "Acecore Schools",
@@ -395,11 +395,7 @@
       "pricingLead": "Consulte cada sitio web para conocer los precios detallados y los trabajos que realizamos.",
       "offeringsHeading": "Servicios principales",
       "detailsCta": "Más información",
-      "pricingCta": "Consultar precios",
-      "overviewCaption": "Tres departamentos que apoyan nuestra filosofía",
-      "systemsRole": "Resolver problemas con tecnología",
-      "schoolsRole": "Aprendizaje según sus objetivos",
-      "designRole": "Dar forma a las ideas creativas"
+      "pricingCta": "Consultar precios"
     },
     "privacy": {
       "title": "Política de privacidad",
@@ -456,7 +452,7 @@
     }
   },
   "pageNames": {
-    "services": "Negocios",
+    "services": "Nuestros servicios",
     "pricing": "Guía de precios",
     "schools": "Acecore Schools",
     "about": "Acerca de",

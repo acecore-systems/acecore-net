@@ -912,6 +912,9 @@ collections:
                 label: 'パンくず'
                 hint: 'common.breadcrumb'
                 widget: string
+              - name: 'chooseLanguage'
+                label: '言語選択・ボタン名'
+                widget: string
               - name: 'pageContents'
                 label: 'ページ内案内・見出し'
                 hint: 'common.pageContents'
@@ -1300,18 +1303,6 @@ collections:
           - name: 'pricingCta'
             label: '料金の確認リンク・文言'
             widget: string
-          - name: 'overviewCaption'
-            label: '事業構成図・見出し'
-            widget: string
-          - name: 'systemsRole'
-            label: '事業構成図・Systemsの役割'
-            widget: string
-          - name: 'schoolsRole'
-            label: '事業構成図・Schoolsの役割'
-            widget: string
-          - name: 'designRole'
-            label: '事業構成図・Designsの役割'
-            widget: string
           - name: 'offeringsHeading'
             label: '主要サービス・見出し'
             hint: 'offeringsHeading'
@@ -1424,9 +1415,6 @@ collections:
             label: '理念・見出し'
             hint: 'philosophyHeading'
             widget: string
-          - name: 'collaborationCaption'
-            label: '協働イメージ・説明'
-            widget: text
           - name: 'workshopCaption'
             label: '学びイメージ・説明'
             widget: text

@@ -137,24 +137,7 @@ const webPageLd = {
     showCTA={false}
     locale={locale}
     images={homeHeroImages}
-  >
-    <a
-      slot="actions"
-      href={u('/services/')}
-      class="ac-btn-primary gap-2 whitespace-normal text-center"
-    >
-      {t(locale, 'pages.home.viewBusinessDetails')}
-      <Icon name="arrow-right" class="shrink-0 text-base" />
-    </a>
-    <a
-      slot="actions"
-      href={u('/about/')}
-      class="ac-btn-outline gap-2 whitespace-normal text-center"
-    >
-      {t(locale, 'pages.home.viewAbout')}
-      <Icon name="arrow-right" class="shrink-0 text-base" />
-    </a>
-  </Hero>
+  />
 
   <CampaignNotice locale={locale} page="home" />
 

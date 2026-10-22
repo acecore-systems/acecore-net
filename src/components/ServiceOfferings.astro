@@ -31,13 +31,6 @@ const offerings = [
     ),
   },
   {
-    key: 'acestudio',
-    icon: 'palette',
-    group: 'community',
-    href: getLocalizedUrl('/acestudio/', locale),
-    internal: true,
-  },
-  {
     key: 'aceserver',
     icon: 'gamepad-2',
     group: 'community',
@@ -48,6 +41,13 @@ const offerings = [
     icon: 'shopping-bag',
     group: 'community',
     href: SITE.social.store,
+  },
+  {
+    key: 'acestudio',
+    icon: 'palette',
+    group: 'community',
+    href: getLocalizedUrl('/acestudio/', locale),
+    internal: true,
   },
 ].filter((item) => !group || item.group === group)
 ---

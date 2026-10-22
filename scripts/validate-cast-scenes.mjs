@@ -264,6 +264,17 @@ export async function validateLocalCastScenes(
   return manifest
 }
 
+export function validateBuiltSceneReferences(html, allowed, scope = 'HTML') {
+  const paths = [
+    ...html.matchAll(
+      /\/images\/cast\/scenes-v\d+\.\d+\.\d+\/[a-z0-9-]+\.webp/gu,
+    ),
+  ].map((match) => match[0])
+  for (const path of paths)
+    assert.ok(allowed.has(path), 'unregistered scene in ' + scope)
+  return paths
+}
+
 export async function loadCastSceneRegistration(root = defaultRoot) {
   const registration = JSON.parse(
     await readFile(new URL('src/data/cast-scenes.json', root), 'utf8'),

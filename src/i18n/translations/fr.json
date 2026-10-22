@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Accueil",
-    "services": "Activités",
+    "services": "Nos services",
     "pricing": "Tarifs",
     "about": "À propos",
     "blog": "Actualités",
@@ -42,7 +42,8 @@
     "copyCode": "Copier le code",
     "codeCopied": "Copié !",
     "copyFailed": "Échec de la copie",
-    "pageContents": "Sur cette page"
+    "pageContents": "Sur cette page",
+    "chooseLanguage": "Choisir la langue"
   },
   "aiChat": {
     "open": "Ouvrir le chat IA",
@@ -142,7 +143,7 @@
     "semanticManyResults": "[COUNT] résultats trouvés sur ce site",
     "semanticOneResult": "1 résultat trouvé sur ce site",
     "pagefindFallbackHeading": "Résultats de recherche par mots-clés",
-    "pagefindFallbackNotice": "Les résultats de recherche par mots-clés sont affichés car Vectorize n'a pas renvoyé de résultat exploitable pour ce site.",
+    "pagefindFallbackNotice": "Les résultats par mots-clés sont affichés car la recherche d’informations connexes est indisponible.",
     "networkHeading": "Informations associées provenant des sites liés à Acecore",
     "networkLoading": "Recherche sur les sites liés à Acecore...",
     "networkManyResults": "[COUNT] résultats trouvés sur les sites liés à Acecore",
@@ -216,7 +217,7 @@
       "searchHint": "Vérifiez l'URL ou recherchez ci-dessous.",
       "searchPlaceholder": "Rechercher sur le site...",
       "goHome": "Retour à l'accueil",
-      "viewBlog": "Voir le blog",
+      "viewBlog": "Voir les actualités",
       "latestArticles": "Derniers articles"
     },
     "contact": {
@@ -355,19 +356,18 @@
         "Toutes activités accessoires ou liées aux activités précitées"
       ],
       "corporateContactCta": "Questions sur l’entreprise et les partenariats",
-      "collaborationCaption": "Scène illustrative de partage des technologies et des savoirs pour ouvrir de nouvelles possibilités.",
       "workshopCaption": "Scène illustrative de l’apprentissage qui aide chacun à relever de nouveaux défis."
     },
     "services": {
-      "title": "Nos activités",
+      "title": "Nos services",
       "seoTitleContext": "Présentation des activités",
-      "description": "Découvrez les pôles et services d’Acecore qui allègent le quotidien et soutiennent vos projets. Consultez les tarifs et conditions d’utilisation.",
-      "heroTitle": "Nos activités",
+      "description": "Découvrez les départements, les principaux services et les indications tarifaires d’Acecore, qui allègent les contraintes quotidiennes et soutiennent les initiatives de chacun.",
+      "heroTitle": "Nos services",
       "heroSubtitle": "Découvrez nos activités, nos services et où consulter les tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
       "introTitle": "Nos pôles d’activité",
-      "introBody": "Nous œuvrons pour un environnement où chacun peut consacrer moins de temps aux tâches non essentielles et se lancer dans ce qui lui tient à cœur. Grâce au soutien technique, à un accompagnement pédagogique adapté aux objectifs de chacun et à l’animation de communautés, nous soutenons la motivation et le potentiel de tous.",
+      "introBody": "Nous voulons réduire le temps consacré aux tâches non essentielles pour permettre à chacun de réaliser ses projets. Grâce à l’accompagnement technique, à l’apprentissage guidé par un objectif et à la création, nous soutenons les aspirations et le potentiel de chacun.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Nous proposons un accompagnement technique couvrant le développement web et de systèmes, les bases de données, l’infrastructure, l’assurance qualité et les usages de l’IA, ainsi que des prestations de design et de création.",
       "schoolsTitle": "Acecore Schools",
@@ -395,11 +395,7 @@
       "pricingLead": "Consultez chaque site pour connaître les tarifs détaillés et les prestations que nous prenons en charge.",
       "offeringsHeading": "Principaux services",
       "detailsCta": "En savoir plus",
-      "pricingCta": "Consulter les tarifs",
-      "overviewCaption": "Trois départements au service de notre philosophie",
-      "systemsRole": "Résoudre les problèmes par la technologie",
-      "schoolsRole": "Apprendre selon ses objectifs",
-      "designRole": "Donner forme aux idées créatives"
+      "pricingCta": "Consulter les tarifs"
     },
     "privacy": {
       "title": "Politique de Confidentialité",
@@ -456,7 +452,7 @@
     }
   },
   "pageNames": {
-    "services": "Activités",
+    "services": "Nos services",
     "pricing": "Guide tarifaire",
     "schools": "Acecore Schools",
     "about": "À propos",

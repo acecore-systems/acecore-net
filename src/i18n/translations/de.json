@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Startseite",
-    "services": "Geschäftsbereiche",
+    "services": "Unsere Leistungen",
     "pricing": "Preise",
     "about": "Über uns",
     "blog": "Neuigkeiten",
@@ -42,7 +42,8 @@
     "copyCode": "Code kopieren",
     "codeCopied": "Kopiert!",
     "copyFailed": "Kopieren fehlgeschlagen",
-    "pageContents": "Auf dieser Seite"
+    "pageContents": "Auf dieser Seite",
+    "chooseLanguage": "Sprache wählen"
   },
   "aiChat": {
     "open": "KI-Chat öffnen",
@@ -142,7 +143,7 @@
     "semanticManyResults": "Auf dieser Website wurden [COUNT] Suchergebnisse gefunden",
     "semanticOneResult": "Auf dieser Website wurde 1 Suchergebnis gefunden",
     "pagefindFallbackHeading": "Ergebnisse der Stichwortsuche",
-    "pagefindFallbackNotice": "Da die Vectorize-Suche auf dieser Website kein verwertbares Ergebnis geliefert hat, werden Stichworttreffer angezeigt.",
+    "pagefindFallbackNotice": "Da die Suche nach verwandten Informationen nicht verfügbar ist, werden Ergebnisse der Stichwortsuche angezeigt.",
     "networkHeading": "Verwandte Informationen von Acecore-Websites",
     "networkLoading": "Nach verwandten Acecore-Websites wird gesucht...",
     "networkManyResults": "Auf Acecore-Websites wurden [COUNT] verwandte Ergebnisse gefunden",
@@ -216,7 +217,7 @@
       "searchHint": "Bitte überprüfen Sie die URL oder suchen Sie unten.",
       "searchPlaceholder": "Diese Seite durchsuchen...",
       "goHome": "Zur Startseite",
-      "viewBlog": "Blog anzeigen",
+      "viewBlog": "Nachrichten ansehen",
       "latestArticles": "Neueste Artikel",
       "message": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
       "heroImgAlt": "404-Landschaft",
@@ -301,19 +302,18 @@
         "Alle mit den vorgenannten Tätigkeiten verbundenen oder ergänzenden Geschäfte"
       ],
       "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen",
-      "collaborationCaption": "Beispielszene: Menschen teilen Technologie und Wissen und eröffnen neue Möglichkeiten.",
       "workshopCaption": "Beispielszene: Lernen unterstützt Menschen dabei, neue Herausforderungen anzugehen."
     },
     "services": {
-      "title": "Geschäftsbereiche",
+      "title": "Unsere Leistungen",
       "seoTitleContext": "Überblick über unsere Geschäftsbereiche",
-      "description": "Acecores Geschäftsbereiche und Leistungen erleichtern den Alltag und fördern individuelle Vorhaben. Preise und Nutzungsbedingungen finden Sie online.",
-      "heroTitle": "Geschäftsbereiche",
+      "description": "Entdecken Sie die Bereiche, wichtigsten Leistungen und Preisangaben von Acecore, die den Alltag erleichtern und persönliche Vorhaben unterstützen.",
+      "heroTitle": "Unsere Leistungen",
       "heroSubtitle": "Entdecken Sie unsere Bereiche, Leistungen und Preisinformationen.",
       "heroImgAlt": "Technologiebüro",
       "eyebrow": "Geschäftsbereiche im Überblick",
       "introTitle": "Geschäftsbereiche",
-      "introBody": "Wir schaffen ein Umfeld, in dem weniger Zeit für Unwesentliches aufgewendet wird und alle ihre Vorhaben angehen können. Mit technischer Unterstützung, zielgerichteter Lernbegleitung und dem Betrieb von Communities fördern wir die Motivation und das Potenzial jedes Einzelnen.",
+      "introBody": "Wir möchten den Zeitaufwand für unwesentliche Aufgaben verringern, damit jeder eigene Vorhaben verfolgen kann. Mit technischer Unterstützung, zielgerichtetem Lernen und kreativer Produktion fördern wir die Ambitionen und das Potenzial jedes Einzelnen.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Wir bieten technische Unterstützung in den Bereichen Web- und Systementwicklung, Datenbanken und Infrastruktur, Qualitätssicherung sowie KI-Einsatz und übernehmen außerdem Design- und Kreativleistungen.",
       "schoolsTitle": "Acecore Schools",
@@ -341,11 +341,7 @@
       "pricingLead": "Detaillierte Preise und Informationen zu den Leistungen, die wir übernehmen, finden Sie auf den jeweiligen Websites.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
       "detailsCta": "Mehr erfahren",
-      "pricingCta": "Preise ansehen",
-      "overviewCaption": "Drei Bereiche im Sinne unserer Philosophie",
-      "systemsRole": "Probleme mit Technologie lösen",
-      "schoolsRole": "Lernen nach Ihren Zielen",
-      "designRole": "Kreative Ideen verwirklichen"
+      "pricingCta": "Preise ansehen"
     },
     "contact": {
       "title": "Kontakt",
@@ -462,7 +458,7 @@
     }
   },
   "pageNames": {
-    "services": "Geschäftsbereiche",
+    "services": "Unsere Leistungen",
     "pricing": "Preisübersicht",
     "schools": "Acecore Schools",
     "about": "Über uns",

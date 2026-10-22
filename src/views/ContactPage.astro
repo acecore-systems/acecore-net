@@ -1,10 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
-import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, getTranslationValue, type Locale } from '../i18n'
 import type contactCopy from '../i18n/source/ja/pages/contact.json'
@@ -72,19 +70,6 @@ const contactPageLd = {
   locale={locale}
   showFloatingActions={false}
 >
-  <Hero
-    title={t(locale, 'pages.contact.heroTitle')}
-    subtitle={t(locale, 'pages.contact.heroSubtitle')}
-    images={[
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(locale, 'pages.contact.heroImgAlt'),
-      },
-    ]}
-  />
-
   <CampaignNotice locale={locale} page="contact" />
 
   <section class="ac-section">
@@ -93,6 +78,12 @@ const contactPageLd = {
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
+      <header class="mb-8 border-l-4 border-brand-500 pl-5">
+        <h1 class="text-3xl ac-heading sm:text-4xl">
+          {t(locale, 'pages.contact.heroTitle')}
+        </h1>
+        <p class="mt-4 ac-muted">{t(locale, 'pages.contact.heroSubtitle')}</p>
+      </header>
       <section
         class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
         aria-labelledby="ai-contact-heading"

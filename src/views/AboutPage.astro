@@ -18,14 +18,8 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
-const contentImageSizes =
-  '(min-width: 1024px) 26rem, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)'
+const contentImageSizes = '(min-width: 768px) 40rem, calc(100vw - 3rem)'
 const philosophyImages = [
-  {
-    stem: 'about-collaboration',
-    alt: 'collaborationImgAlt',
-    caption: 'collaborationCaption',
-  },
   { stem: 'about-workshop', alt: 'workshopImgAlt', caption: 'workshopCaption' },
 ]
 
@@ -269,7 +263,7 @@ const aboutPageLd = {
             </div>
           </div>
         </div>
-        <div class="philosophy-illustrations mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div class="philosophy-illustrations mx-auto mt-8 max-w-[40rem]">
           {philosophyImages.map(({ stem, alt, caption }) => (
             <figure class="overflow-hidden rounded-lg border border-slate-200 bg-white">
               <img

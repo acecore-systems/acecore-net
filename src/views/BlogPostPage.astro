@@ -95,7 +95,9 @@ const { Content, headings } = await render(post)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 const rawAuthor = findAuthorById(authors, post.data.author)
 const author = rawAuthor ? getLocalizedAuthor(rawAuthor, locale) : null
-const authorSkills = author?.skills ?? []
+const authorSummary = author?.bio
+  ?.split(/\n\s*\n|\n/)
+  .find((paragraph) => paragraph.trim())
 const postImage = resolveImageSource(post.data.uploadedImage, post.data.image)
 const relatedImageWidths = [320, 640, 960, 1200]
 const relatedImageOptions = { aspectRatio: 16 / 9, quality: 80 }
@@ -127,7 +129,10 @@ const currentTags = post.data.tags ?? []
 const relatedPosts =
   currentTags.length > 0
     ? basePosts
-        .filter((p) => p.id !== baseSlug)
+        .filter(
+          (p) =>
+            p.id !== baseSlug && p.id !== prevPost?.id && p.id !== nextPost?.id,
+        )
         .map((p) => ({
           post: p,
           score: (p.data.tags ?? []).filter((tag: string) =>
@@ -362,76 +367,34 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
           />
         </div>
 
-        <BlogComments locale={locale} slug={baseSlug} />
-
         {author && (
           <div
-            class="mt-12 border-t border-slate-200 pt-8 lg:hidden"
+            class="mt-8 flex items-start gap-4 rounded-lg border border-slate-200 bg-slate-50 p-5"
             data-pagefind-ignore
           >
-            <div class="flex items-start gap-4">
-              {author.avatarImage || author.avatar ? (
-                <img
-                  src={author.avatarImage || author.avatar}
-                  alt={author.name}
-                  class="w-16 h-16 rounded-full object-cover shrink-0"
-                  width="64"
-                  height="64"
-                  decoding="async"
-                />
-              ) : (
-                <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-700 shrink-0">
-                  {author.name.charAt(0)}
-                </div>
+            {(author.avatarImage || author.avatar) && (
+              <img
+                src={author.avatarImage || author.avatar}
+                alt=""
+                class="h-12 w-12 shrink-0 rounded-full object-cover"
+                width="48"
+                height="48"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div class="min-w-0">
+              <a
+                href={u(`/blog/authors/${post.data.author}/`)}
+                class="ac-link font-700"
+              >
+                {author.name}
+              </a>
+              {authorSummary && (
+                <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                  {authorSummary}
+                </p>
               )}
-              <div>
-                <h3 class="font-700 text-lg text-slate-900">
-                  <a
-                    href={u(`/blog/authors/${post.data.author}/`)}
-                    class="no-underline text-inherit hover:text-brand-500 transition-colors"
-                  >
-                    {author.name}
-                  </a>
-                </h3>
-                {author.bio && (
-                  <p class="text-sm text-slate-600 mt-1 whitespace-pre-line">
-                    {author.bio}
-                  </p>
-                )}
-                {authorSkills.length > 0 && (
-                  <div class="flex flex-wrap gap-1 mt-2">
-                    {authorSkills.map((skill: string) => (
-                      <span class="ac-chip-static">{skill}</span>
-                    ))}
-                  </div>
-                )}
-                {(author.github || author.twitter) && (
-                  <div class="flex items-center gap-3 mt-3">
-                    {author.github && (
-                      <a
-                        href={author.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
-                        aria-label="GitHub"
-                      >
-                        <Icon name="github" class="text-lg" />
-                      </a>
-                    )}
-                    {author.twitter && (
-                      <a
-                        href={author.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
-                        aria-label="X"
-                      >
-                        <Icon name="twitter" class="text-lg" />
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         )}
@@ -549,6 +512,7 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
             )}
           </nav>
         )}
+        <BlogComments locale={locale} slug={baseSlug} />
         <CopyCodeButton locale={locale} />
       </article>
       <aside class="hidden lg:block" aria-label={t(locale, 'blog.sidebar')}>
@@ -556,74 +520,6 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
           {tocHeadings.length > 0 && (
             <div class="xl:hidden">
               <TableOfContents headings={tocHeadings} locale={locale} />
-            </div>
-          )}
-          {author && (
-            <div class="ac-card p-5">
-              <div class="flex items-center gap-3 mb-3">
-                {author.avatarImage || author.avatar ? (
-                  <img
-                    src={author.avatarImage || author.avatar}
-                    alt={author.name}
-                    class="w-12 h-12 rounded-full object-cover shrink-0"
-                    width="48"
-                    height="48"
-                    decoding="async"
-                  />
-                ) : (
-                  <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-700 shrink-0">
-                    {author.name.charAt(0)}
-                  </div>
-                )}
-                <div>
-                  <p class="font-700 text-sm text-slate-900">
-                    <a
-                      href={u(`/blog/authors/${post.data.author}/`)}
-                      class="no-underline text-inherit hover:text-brand-500 transition-colors"
-                    >
-                      {author.name}
-                    </a>
-                  </p>
-                </div>
-              </div>
-              {author.bio && (
-                <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line mb-3">
-                  {author.bio}
-                </p>
-              )}
-              {authorSkills.length > 0 && (
-                <div class="flex flex-wrap gap-1 mb-3">
-                  {authorSkills.map((skill: string) => (
-                    <span class="ac-chip-static">{skill}</span>
-                  ))}
-                </div>
-              )}
-              {(author.github || author.twitter) && (
-                <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
-                  {author.github && (
-                    <a
-                      href={author.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
-                      aria-label="GitHub"
-                    >
-                      <Icon name="github" class="text-base" />
-                    </a>
-                  )}
-                  {author.twitter && (
-                    <a
-                      href={author.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="ac-touch rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
-                      aria-label="X"
-                    >
-                      <Icon name="twitter" class="text-base" />
-                    </a>
-                  )}
-                </div>
-              )}
             </div>
           )}
           <AdUnit

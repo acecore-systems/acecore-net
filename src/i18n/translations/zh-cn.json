@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "首页",
-    "services": "业务",
+    "services": "业务介绍",
     "pricing": "价格",
     "about": "关于我们",
     "blog": "新闻",
@@ -42,7 +42,8 @@
     "copyCode": "复制代码",
     "codeCopied": "已复制！",
     "copyFailed": "复制失败",
-    "pageContents": "本页内容"
+    "pageContents": "本页内容",
+    "chooseLanguage": "选择语言"
   },
   "aiChat": {
     "open": "打开 AI 聊天",
@@ -142,7 +143,7 @@
     "semanticManyResults": "本站找到[COUNT]条搜索结果",
     "semanticOneResult": "本站找到1条搜索结果",
     "pagefindFallbackHeading": "关键词搜索结果",
-    "pagefindFallbackNotice": "由于本站的Vectorize搜索未能返回有效结果，现显示关键词搜索结果。",
+    "pagefindFallbackNotice": "相关信息搜索暂时不可用，现显示关键词搜索结果。",
     "networkHeading": "Acecore相关网站的相关信息",
     "networkLoading": "正在查找Acecore相关网站...",
     "networkManyResults": "找到[COUNT]条来自Acecore相关网站的相关信息",
@@ -216,7 +217,7 @@
       "searchHint": "请确认URL或使用以下方式搜索。",
       "searchPlaceholder": "搜索站内内容...",
       "goHome": "返回首页",
-      "viewBlog": "浏览博客",
+      "viewBlog": "查看新闻",
       "latestArticles": "最新文章"
     },
     "contact": {
@@ -349,19 +350,18 @@
         "与上述各项附带或相关的一切业务"
       ],
       "corporateContactCta": "公司及合作咨询",
-      "collaborationCaption": "汇聚技术与知识、拓展可能性的场景示意。",
       "workshopCaption": "通过学习支持每个人迎接挑战的场景示意。"
     },
     "services": {
-      "title": "业务",
+      "title": "业务介绍",
       "seoTitleContext": "业务介绍",
-      "description": "为您介绍Acecore的业务部门与主要服务，以及费用和使用条件的查询渠道，帮助减轻日常负担，并支持每个人迎接挑战。",
-      "heroTitle": "业务",
+      "description": "介绍Acecore的业务部门、主要服务及参考价格的查询入口，减轻日常负担，支持每个人的挑战。",
+      "heroTitle": "业务介绍",
       "heroSubtitle": "了解我们的业务部门、服务及收费信息查询入口。",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
       "introTitle": "业务部门",
-      "introBody": "减少用于非核心事务的时间，打造人人都能挑战自己想做之事的环境。我们通过技术支持、按目标提供的学习支持以及社区运营等，助力每个人发挥积极性与潜能。",
+      "introBody": "减少非本质性事务占用的时间，让每个人都能挑战自己想做的事。通过技术支持、面向目标的学习支持和创意制作等，支持每个人的意愿与潜能。",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "提供Web与系统开发、DB与基础设施、质量保证、AI应用等技术支持，并承接设计与创意制作。",
       "schoolsTitle": "Acecore Schools",
@@ -389,11 +389,7 @@
       "pricingLead": "详细收费及我们承接的业务内容，请在各网站查看。",
       "offeringsHeading": "主要服务",
       "detailsCta": "了解详情",
-      "pricingCta": "查看收费",
-      "overviewCaption": "践行理念的三个业务部门",
-      "systemsRole": "用技术解决问题",
-      "schoolsRole": "围绕目标开展学习",
-      "designRole": "将创意化为作品"
+      "pricingCta": "查看收费"
     },
     "privacy": {
       "title": "隐私政策",
@@ -450,7 +446,7 @@
     }
   },
   "pageNames": {
-    "services": "业务",
+    "services": "业务介绍",
     "pricing": "费用参考",
     "schools": "Acecore Schools",
     "about": "关于我们",

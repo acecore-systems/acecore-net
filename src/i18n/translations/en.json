@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Home",
-    "services": "Businesses",
+    "services": "Our Services",
     "pricing": "Pricing",
     "about": "About",
     "blog": "News",
@@ -42,7 +42,8 @@
     "copyCode": "Copy code",
     "codeCopied": "Copied!",
     "copyFailed": "Copy failed",
-    "pageContents": "On this page"
+    "pageContents": "On this page",
+    "chooseLanguage": "Choose language"
   },
   "aiChat": {
     "open": "Open AI chat",
@@ -142,7 +143,7 @@
     "semanticManyResults": "[COUNT] results from this site",
     "semanticOneResult": "1 result from this site",
     "pagefindFallbackHeading": "Keyword search results",
-    "pagefindFallbackNotice": "Keyword matches are shown because Vectorize did not return a usable result for this site.",
+    "pagefindFallbackNotice": "Keyword search results are shown because the related-information search is unavailable.",
     "networkHeading": "Related information from Acecore sites",
     "networkLoading": "Searching related Acecore sites...",
     "networkManyResults": "[COUNT] related results from Acecore sites",
@@ -216,7 +217,7 @@
       "searchHint": "Please check the URL or search below.",
       "searchPlaceholder": "Search this site...",
       "goHome": "Go to Home",
-      "viewBlog": "View Blog",
+      "viewBlog": "View News",
       "latestArticles": "Latest Articles"
     },
     "about": {
@@ -295,19 +296,18 @@
         "All activities incidental or related to the foregoing"
       ],
       "corporateContactCta": "Company and partnership inquiries",
-      "collaborationCaption": "An illustrative scene of people sharing technology and knowledge to open up possibilities.",
       "workshopCaption": "An illustrative scene of learning that supports each person in taking on new challenges."
     },
     "services": {
-      "title": "Businesses",
+      "title": "Our Services",
       "seoTitleContext": "Business Directory",
-      "description": "Explore Acecore’s business divisions and key services that ease everyday burdens and support individual ambitions, with links to pricing and terms of use.",
-      "heroTitle": "Businesses",
+      "description": "Explore Acecore’s departments, key services and pricing information, supporting people’s ambitions and reducing everyday burdens.",
+      "heroTitle": "Our Services",
       "heroSubtitle": "Explore our businesses, services, and pricing resources.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
       "introTitle": "Business departments",
-      "introBody": "We work to create an environment where everyone can pursue what they want to do, with less time spent on nonessential tasks. Through technical support, learning tailored to individual goals, and community management, we support each person’s motivation and potential.",
+      "introBody": "We aim to reduce time spent on nonessential tasks so everyone can pursue what they want to do. Through technical support, purpose-led learning and creative production, we support each person’s ambitions and potential.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, as well as design and creative production.",
       "schoolsTitle": "Acecore Schools",
@@ -335,11 +335,7 @@
       "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
       "offeringsHeading": "Key services",
       "detailsCta": "Learn more",
-      "pricingCta": "View pricing",
-      "overviewCaption": "Three departments supporting our philosophy",
-      "systemsRole": "Solving problems with technology",
-      "schoolsRole": "Learning shaped around your goals",
-      "designRole": "Bringing creative ideas to life"
+      "pricingCta": "View pricing"
     },
     "contact": {
       "title": "Contact",
@@ -610,7 +606,7 @@
     }
   },
   "pageNames": {
-    "services": "Businesses",
+    "services": "Our Services",
     "pricing": "Pricing Guide",
     "schools": "Acecore Schools",
     "about": "About",

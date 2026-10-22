@@ -127,8 +127,10 @@ function ensurePagefindOverrideStyle() {
   const style = document.createElement('style')
   style.id = PAGEFIND_OVERRIDE_STYLE_ID
   style.textContent = `
-    #pagefind-search-container .pagefind-ui__form,
-    #pagefind-search-container .pagefind-ui__search-input {
+    #pagefind-search-container .pagefind-ui__search-input,
+    #pagefind-search-container .pagefind-ui__search-clear,
+    #pagefind-search-container .pagefind-ui__filter-panel,
+    #pagefind-search-container .pagefind-ui__form::before {
       display: none !important;
     }
     .pagefind-ui__result-link {
@@ -242,7 +244,6 @@ async function ensurePagefindFallback(dialog: HTMLDialogElement) {
     element: '#pagefind-search-container',
     showSubResults: false,
     showImages: false,
-    showFilters: true,
     translations: {
       placeholder: d.tPlaceholder ?? 'Enter keywords…',
       zero_results: d.tZeroResults ?? 'No results for "[SEARCH_TERM]"',

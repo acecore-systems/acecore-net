@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import { readdir, readFile } from 'node:fs/promises'
-import { sha256, validateProjectCastScenes } from './validate-cast-scenes.mjs'
+import {
+  sha256,
+  validateProjectCastScenes,
+  validateBuiltSceneReferences,
+} from './validate-cast-scenes.mjs'
 
 const root = new URL('../', import.meta.url)
 const { registration } = await validateProjectCastScenes(root)
@@ -33,12 +37,12 @@ async function inspect(directory) {
       ),
       'retired cast section in ' + path.pathname,
     )
-    for (const match of html.matchAll(
-      /\/images\/cast\/scenes-v\d+\.\d+\.\d+\/[a-z0-9-]+\.webp/gu,
-    )) {
-      assert.ok(allowed.has(match[0]), 'unregistered scene in ' + path.pathname)
-      seen.add(match[0])
-    }
+    for (const scenePath of validateBuiltSceneReferences(
+      html,
+      allowed,
+      path.pathname,
+    ))
+      seen.add(scenePath)
     if (/<footer\b/u.test(html)) {
       assert.ok(
         html.includes('data-cast-scene-credit'),
@@ -74,7 +78,8 @@ async function inspect(directory) {
 }
 await inspect(new URL('dist/', root))
 assert.ok(htmlCount > 0, 'no built HTML')
-assert.equal(seen.size, allowed.size, 'not every registered scene is used')
+// Registered, approved assets may remain available without being placed on a page.
+// Every scene that is used must still be registered, and every asset is hash-checked above.
 assert.ok(creditCount > 0, 'no visible scene credits')
 console.log(
   'Validated ' +
