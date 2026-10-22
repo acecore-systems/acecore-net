@@ -7,7 +7,7 @@
   },
   "nav": {
     "home": "ホーム",
-    "services": "事業",
+    "services": "事業紹介",
     "pricing": "料金",
     "about": "会社概要",
     "blog": "ニュース",
@@ -36,7 +36,9 @@
     "timeline": "タイムライン",
     "copyCode": "コードをコピー",
     "codeCopied": "コピーしました",
-    "copyFailed": "コピー失敗"
+    "copyFailed": "コピー失敗",
+    "pageContents": "このページの内容",
+    "chooseLanguage": "言語を選ぶ"
   },
   "aiChat": {
     "open": "AIチャットを開く",
@@ -82,7 +84,7 @@
     "privacy": "プライバシーポリシー"
   },
   "pageNames": {
-    "services": "事業",
+    "services": "事業紹介",
     "pricing": "料金の目安",
     "schools": "Acecore Schools",
     "about": "会社概要",

@@ -17,7 +17,7 @@ const phoneParts = SITE.phone.split('-')
 
 <div
   id="ace-ai-chat"
-  class="fixed bottom-5 right-5 z-[60]"
+  class="fixed bottom-5 right-5 z-[60] flex flex-col items-end"
   data-locale={locale}
   data-loading={t(locale, 'aiChat.loading')}
   data-error={t(locale, 'aiChat.error')}
@@ -29,10 +29,10 @@ const phoneParts = SITE.phone.split('-')
 >
   <section
     id="ace-ai-chat-panel"
-    class="mb-4 hidden w-[calc(100vw-2.5rem)] max-w-[23rem] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl"
+    class="mb-4 hidden max-h-[calc(100dvh-7rem)] w-[calc(100vw-2.5rem)] max-w-[23rem] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl"
     aria-labelledby="ace-ai-chat-title"
   >
-    <header class="flex items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3">
+    <header class="flex shrink-0 items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3">
       <div class="flex items-start gap-3">
         <span class="ac-icon-box shrink-0 bg-white">
           <Icon name="sparkles" class="text-lg" />
@@ -58,11 +58,11 @@ const phoneParts = SITE.phone.split('-')
 
     <div
       id="ace-ai-chat-messages"
-      class="max-h-[min(58vh,28rem)] space-y-3 overflow-y-auto px-4 py-4 text-sm"
+      class="min-h-0 max-h-[min(58vh,28rem)] flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm"
       aria-live="polite"
     ></div>
 
-    <div class="border-t border-slate-200 px-4 py-3">
+    <div class="shrink-0 border-t border-slate-200 px-4 py-3">
       <div class="mb-3 flex flex-wrap gap-2">
         <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
           {t(locale, 'aiChat.quickServices')}
@@ -445,6 +445,7 @@ const phoneParts = SITE.phone.split('-')
       function openChat(opener = toggle) {
         lastOpener = opener
         panel.classList.remove('hidden')
+        panel.classList.add('flex')
         toggle.setAttribute('aria-expanded', 'true')
         lastOpener.setAttribute('aria-expanded', 'true')
         root.classList.add('is-open')
@@ -457,6 +458,7 @@ const phoneParts = SITE.phone.split('-')
 
       function closeChat() {
         panel.classList.add('hidden')
+        panel.classList.remove('flex')
         toggle.setAttribute('aria-expanded', 'false')
         lastOpener.setAttribute('aria-expanded', 'false')
         root.classList.remove('is-open')

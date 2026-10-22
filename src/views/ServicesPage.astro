@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
-import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import PageSectionNav from '../components/PageSectionNav.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
-import ServiceCard from '../components/ServiceCard.astro'
-import { optimizeImage } from '../utils/image'
+import Icon from '../components/Icon.astro'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
@@ -27,20 +25,6 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   description={t(locale, 'pages.services.description')}
   locale={locale}
 >
-  <Hero
-    title={t(locale, 'pages.services.heroTitle')}
-    subtitle={t(locale, 'pages.services.heroSubtitle')}
-    images={[
-      {
-        src: optimizeImage(castScene('home-team')),
-        alt: t(locale, 'pages.services.heroImgAlt'),
-        width: castSceneAsset('home-team').width,
-        height: castSceneAsset('home-team').height,
-        srcsetWidths: [castSceneAsset('home-team').width],
-      },
-    ]}
-  />
-
   <CampaignNotice locale={locale} page="services" />
 
   <section class="ac-section bg-slate-50">
@@ -50,9 +34,34 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         locale={locale}
       />
 
+      <header class="mb-8 max-w-3xl">
+        <h1 class="text-3xl ac-heading sm:text-4xl">
+          {t(locale, 'pages.services.heroTitle')}
+        </h1>
+        <p class="mt-4 ac-muted">{t(locale, 'pages.services.heroSubtitle')}</p>
+      </header>
+
+      <PageSectionNav
+        locale={locale}
+        items={[
+          {
+            href: '#departments',
+            label: t(locale, 'pages.services.introTitle'),
+          },
+          {
+            href: '#offerings',
+            label: t(locale, 'pages.services.offeringsHeading'),
+          },
+          {
+            href: '#pricing',
+            label: t(locale, 'pages.services.pricingHeading'),
+          },
+        ]}
+      />
+
       <div class="ac-section-intro">
         <p class="ac-eyebrow">{t(locale, 'pages.services.eyebrow')}</p>
-        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        <h2 id="departments" class="mb-4 text-2xl ac-heading sm:text-3xl">
           {t(locale, 'pages.services.introTitle')}
         </h2>
         <p class="max-w-3xl ac-muted">
@@ -92,35 +101,40 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           {t(locale, 'pages.services.pricingLead')}
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <ServiceCard
-          title={t(locale, 'pages.services.designTitle')}
-          description={t(locale, 'pages.services.designDescription')}
-          icon="palette"
-          tone="emerald"
-          href={getSpecialistUrl(SITE.social.designs, locale, '/#catalog')}
-          locale={locale}
-        />
-        <ServiceCard
-          title={t(locale, 'pages.pricing.systemsTitle')}
-          description={
-            t(locale, 'pages.services.developmentTitle') +
-            ' / ' +
-            t(locale, 'pages.services.advisorTitle')
-          }
-          icon="code-xml"
-          href={getSpecialistUrl(SITE.social.systems, locale, '/pricing/')}
-          locale={locale}
-        />
-        <ServiceCard
-          title={t(locale, 'pages.pricing.schoolsTitle')}
-          description={t(locale, 'pages.services.learningTitle')}
-          icon="graduation-cap"
-          tone="amber"
-          href={getSchoolsUrl('/pricing/')}
-          locale={locale}
-        />
-      </div>
+      <ul class="flex flex-col divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
+        {[
+          {
+            label: t(locale, 'pages.services.systemsTitle'),
+            href: getSpecialistUrl(SITE.social.systems, locale, '/pricing/'),
+          },
+          {
+            label: t(locale, 'pages.services.schoolsTitle'),
+            href: getSchoolsUrl('/pricing/'),
+          },
+          {
+            label: t(locale, 'pages.services.designTitle'),
+            href: getSpecialistUrl(SITE.social.designs, locale, '/#catalog'),
+          },
+        ].map(({ label, href }) => (
+          <li class="min-w-0 flex-1">
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex h-full items-center justify-between gap-3 p-5 no-underline transition-colors hover:bg-brand-50"
+            >
+              <span>
+                <span class="block font-700 text-slate-900">{label}</span>
+                <span class="mt-1 block text-sm text-brand-600">
+                  {t(locale, 'pages.services.pricingCta')}
+                </span>
+              </span>
+              <Icon name="external-link" class="shrink-0 text-brand-600" />
+              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 

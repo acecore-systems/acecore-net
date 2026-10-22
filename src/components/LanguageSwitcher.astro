@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro'
 import { locales, localeLabels, type Locale } from '../i18n'
-import { getLocalizedUrl, getLocaleFromUrl } from '../i18n'
+import { t, getLocalizedUrl, getLocaleFromUrl } from '../i18n'
 
 interface Props {
   locale?: Locale
@@ -14,14 +14,17 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const currentPath = Astro.props.path ?? Astro.url.pathname
 const urls = Astro.props.urls
 const showLabel = Astro.props.showLabel ?? false
+const listId = showLabel
+  ? 'language-options-mobile'
+  : 'language-options-desktop'
 ---
 
 <div class="relative" data-lang-switcher>
   <button
     class="ac-touch gap-1 rounded-lg px-3 text-sm text-slate-600 transition-colors hover:bg-slate-50 hover:text-brand-600"
     aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-label={localeLabels[locale]}
+    aria-controls={listId}
+    aria-label={`${t(locale, 'common.chooseLanguage')}: ${localeLabels[locale]}`}
   >
     <Icon name="globe" class="text-base" />
     <span class:list={[showLabel ? 'inline' : 'hidden sm:inline', 'text-xs']}>
@@ -30,12 +33,17 @@ const showLabel = Astro.props.showLabel ?? false
     <Icon name="chevron-down" class="text-xs" />
   </button>
   <ul
-    class="absolute right-0 top-full z-50 mt-2 hidden w-44 rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
-    role="listbox"
+    id={listId}
+    class:list={[
+      'z-50 mt-2 hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg',
+      showLabel
+        ? 'relative w-full'
+        : 'absolute right-0 top-full max-h-[calc(100dvh-5rem)] w-44 overflow-y-auto',
+    ]}
     aria-label="Language"
   >
     {locales.map((l) => (
-      <li role="option" aria-selected={l === locale}>
+      <li>
         <a
           href={urls?.[l] ?? getLocalizedUrl(currentPath, l)}
           class:list={[
@@ -45,6 +53,7 @@ const showLabel = Astro.props.showLabel ?? false
               : 'text-slate-700 hover:bg-slate-50 hover:text-brand-500',
           ]}
           data-locale={l}
+          aria-current={l === locale ? 'true' : undefined}
         >
           {localeLabels[l]}
         </a>
@@ -54,7 +63,12 @@ const showLabel = Astro.props.showLabel ?? false
 </div>
 
 <script>
+  let languageListeners: AbortController | undefined
+
   function initLangSwitcher() {
+    languageListeners?.abort()
+    languageListeners = new AbortController()
+    const { signal } = languageListeners
     document
       .querySelectorAll<HTMLElement>('[data-lang-switcher]')
       .forEach((sw) => {
@@ -62,29 +76,46 @@ const showLabel = Astro.props.showLabel ?? false
         const list = sw.querySelector('ul')
         if (!btn || !list) return
 
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation()
-          const expanded = list.classList.toggle('hidden') === false
-          btn.setAttribute('aria-expanded', String(expanded))
-        })
+        btn.addEventListener(
+          'click',
+          (e) => {
+            e.stopPropagation()
+            const expanded = list.classList.toggle('hidden') === false
+            btn.setAttribute('aria-expanded', String(expanded))
+          },
+          { signal },
+        )
 
-        document.addEventListener('click', (e) => {
-          if (!sw.contains(e.target as Node)) {
-            list.classList.add('hidden')
-            btn.setAttribute('aria-expanded', 'false')
-          }
-        })
+        document.addEventListener(
+          'click',
+          (e) => {
+            if (!sw.contains(e.target as Node)) {
+              list.classList.add('hidden')
+              btn.setAttribute('aria-expanded', 'false')
+            }
+          },
+          { signal },
+        )
 
-        sw.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            list.classList.add('hidden')
-            btn.setAttribute('aria-expanded', 'false')
-            btn.focus()
-          }
-        })
+        sw.addEventListener(
+          'keydown',
+          (e) => {
+            if (e.key === 'Escape' && !list.classList.contains('hidden')) {
+              e.preventDefault()
+              e.stopPropagation()
+              list.classList.add('hidden')
+              btn.setAttribute('aria-expanded', 'false')
+              btn.focus()
+            }
+          },
+          { signal },
+        )
       })
   }
 
   initLangSwitcher()
+  document.addEventListener('astro:before-swap', () =>
+    languageListeners?.abort(),
+  )
   document.addEventListener('astro:after-swap', initLangSwitcher)
 </script>

@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Home",
-    "services": "Businesses",
+    "services": "Our Services",
     "pricing": "Pricing",
     "about": "About",
     "blog": "News",
@@ -41,7 +41,9 @@
     "timeline": "Timeline",
     "copyCode": "Copy code",
     "codeCopied": "Copied!",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "pageContents": "On this page",
+    "chooseLanguage": "Choose language"
   },
   "aiChat": {
     "open": "Open AI chat",
@@ -141,7 +143,7 @@
     "semanticManyResults": "[COUNT] results from this site",
     "semanticOneResult": "1 result from this site",
     "pagefindFallbackHeading": "Keyword search results",
-    "pagefindFallbackNotice": "Keyword matches are shown because Vectorize did not return a usable result for this site.",
+    "pagefindFallbackNotice": "Keyword search results are shown because the related-information search is unavailable.",
     "networkHeading": "Related information from Acecore sites",
     "networkLoading": "Searching related Acecore sites...",
     "networkManyResults": "[COUNT] related results from Acecore sites",
@@ -195,7 +197,7 @@
       "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
-      "viewBusinessDetails": "View business directory",
+      "viewBusinessDetails": "Explore our services",
       "viewAbout": "View company overview",
       "latestNews": "Corporate news",
       "viewAllNews": "View all news and articles",
@@ -203,8 +205,9 @@
       "aboutIntro": "Learn about our company, leadership, corporate philosophy, and vision.",
       "directoryHeading": "Find what you need",
       "directoryLead": "Choose a page for the information you are looking for.",
-      "servicesIntro": "Explore the departments and services that help reduce burdens and support new endeavors, along with where to find pricing.",
-      "contactIntro": "Send your questions or requests through our contact form."
+      "servicesIntro": "Discover the services we provide.",
+      "contactIntro": "Send your questions or requests through our contact form.",
+      "servicesHeading": "Our Services"
     },
     "notFound": {
       "title": "Page Not Found",
@@ -214,7 +217,7 @@
       "searchHint": "Please check the URL or search below.",
       "searchPlaceholder": "Search this site...",
       "goHome": "Go to Home",
-      "viewBlog": "View Blog",
+      "viewBlog": "View News",
       "latestArticles": "Latest Articles"
     },
     "about": {
@@ -277,8 +280,8 @@
         "Beyond reducing burdens, we help people overcome barriers to taking on challenges and continue to support a society where everyone can turn their ideas into reality.",
         "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
       ],
-      "collaborationImgAlt": "Team collaboration",
-      "workshopImgAlt": "Study group and workshop",
+      "collaborationImgAlt": "Illustration of four people discussing around a computer",
+      "workshopImgAlt": "Illustration of one person supporting another learning on a computer",
       "establishedLabel": "Established",
       "establishedDate": "July 13, 2026",
       "businessPurposesLabel": "Business activities",
@@ -292,18 +295,19 @@
         "Operation of computer classes",
         "All activities incidental or related to the foregoing"
       ],
-      "corporateContactCta": "Company and partnership inquiries"
+      "corporateContactCta": "Company and partnership inquiries",
+      "workshopCaption": "An illustrative scene of learning that supports each person in taking on new challenges."
     },
     "services": {
-      "title": "Businesses",
+      "title": "Our Services",
       "seoTitleContext": "Business Directory",
-      "description": "Explore Acecore’s business divisions and key services that ease everyday burdens and support individual ambitions, with links to pricing and terms of use.",
-      "heroTitle": "Businesses",
-      "heroSubtitle": "Explore the support and services we offer, and find where to check pricing.",
+      "description": "Explore Acecore’s departments, key services and pricing information, supporting people’s ambitions and reducing everyday burdens.",
+      "heroTitle": "Our Services",
+      "heroSubtitle": "Explore our businesses, services, and pricing resources.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
       "introTitle": "Business departments",
-      "introBody": "We work to create an environment where everyone can pursue what they want to do, with less time spent on nonessential tasks. Through technical support, learning tailored to individual goals, and community management, we support each person’s motivation and potential.",
+      "introBody": "We aim to reduce time spent on nonessential tasks so everyone can pursue what they want to do. Through technical support, purpose-led learning and creative production, we support each person’s ambitions and potential.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, as well as design and creative production.",
       "schoolsTitle": "Acecore Schools",
@@ -327,10 +331,11 @@
       "advisorTitle": "IT Advisory Engineer Service",
       "advisorDescription": "From day-to-day consultations to launching your website, we provide support for a fixed monthly fee.",
       "learningTitle": "Learning support tailored to your goals",
-      "pricingHeading": "Pricing and conditions",
-      "pricingLead": "Check each specialist site for detailed pricing and service scope. We’ll confirm the arrangements for learning support during a consultation; community participation requirements and product prices are listed on the relevant service pages.",
+      "pricingHeading": "Pricing Guide",
+      "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
       "offeringsHeading": "Key services",
-      "detailsCta": "Learn more"
+      "detailsCta": "Learn more",
+      "pricingCta": "View pricing"
     },
     "contact": {
       "title": "Contact",
@@ -601,7 +606,7 @@
     }
   },
   "pageNames": {
-    "services": "Businesses",
+    "services": "Our Services",
     "pricing": "Pricing Guide",
     "schools": "Acecore Schools",
     "about": "About",

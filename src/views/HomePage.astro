@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro'
 import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import ServiceCard from '../components/ServiceCard.astro'
+import Icon from '../components/Icon.astro'
 import { getCollection } from 'astro:content'
 import {
   optimizeImage,
@@ -159,7 +160,7 @@ const webPageLd = {
         aria-labelledby="site-directory-heading"
       >
         <ServiceCard
-          title={t(locale, 'nav.services')}
+          title={t(locale, 'pages.home.servicesHeading')}
           description={t(locale, 'pages.home.servicesIntro')}
           href={u('/services/')}
           linkLabel={t(locale, 'pages.home.viewBusinessDetails')}

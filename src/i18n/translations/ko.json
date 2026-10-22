@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "홈",
-    "services": "사업",
+    "services": "사업 소개",
     "pricing": "요금",
     "about": "회사 소개",
     "blog": "뉴스",
@@ -41,7 +41,9 @@
     "timeline": "타임라인",
     "copyCode": "코드 복사",
     "codeCopied": "복사했습니다",
-    "copyFailed": "복사 실패"
+    "copyFailed": "복사 실패",
+    "pageContents": "이 페이지의 내용",
+    "chooseLanguage": "언어 선택"
   },
   "aiChat": {
     "open": "AI 채팅 열기",
@@ -141,7 +143,7 @@
     "semanticManyResults": "이 사이트에서 검색 결과 [COUNT]건을 찾았습니다",
     "semanticOneResult": "이 사이트에서 검색 결과 1건을 찾았습니다",
     "pagefindFallbackHeading": "키워드 검색 결과",
-    "pagefindFallbackNotice": "이 사이트의 Vectorize 검색에서 유효한 결과를 얻을 수 없어 키워드 검색 결과를 표시하고 있습니다.",
+    "pagefindFallbackNotice": "관련 정보 검색을 이용할 수 없어 키워드 검색 결과를 표시합니다.",
     "networkHeading": "Acecore 관련 사이트의 관련 정보",
     "networkLoading": "Acecore 관련 사이트를 찾는 중...",
     "networkManyResults": "Acecore 관련 사이트의 관련 정보 [COUNT]건을 찾았습니다",
@@ -195,7 +197,7 @@
       "heroSubtitle": "기술과 배움을 통해 본질적이지 않은 일에 쓰는 시간을 줄이고, 누구나 하고 싶은 일에 도전할 수 있는 환경을 지향합니다.",
       "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
       "heroImgMeeting": "회의 풍경",
-      "viewBusinessDetails": "사업 목록 보기",
+      "viewBusinessDetails": "사업 소개 보기",
       "viewAbout": "회사 소개 보기",
       "latestNews": "기업 뉴스",
       "viewAllNews": "뉴스·기사 목록 보기",
@@ -203,8 +205,9 @@
       "aboutIntro": "회사 기본 정보, 경영진 소개와 함께 기업 이념과 비전을 소개합니다.",
       "directoryHeading": "필요한 정보 찾기",
       "directoryLead": "목적에 맞는 페이지를 선택해 주세요.",
-      "servicesIntro": "부담을 줄이고 도전을 뒷받침하는 사업 부문과 서비스, 요금 확인 경로를 안내합니다.",
-      "contactIntro": "문의 양식을 통해 상담 요청이나 질문을 보내실 수 있습니다."
+      "servicesIntro": "당사가 제공하는 서비스를 소개합니다.",
+      "contactIntro": "문의 양식을 통해 상담 요청이나 질문을 보내실 수 있습니다.",
+      "servicesHeading": "사업 소개"
     },
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",
@@ -214,7 +217,7 @@
       "searchHint": "URL을 확인하시거나 아래에서 검색해 주세요.",
       "searchPlaceholder": "사이트 내 검색...",
       "goHome": "홈페이지로 이동",
-      "viewBlog": "블로그 보기",
+      "viewBlog": "뉴스 보기",
       "latestArticles": "최신 기사"
     },
     "contact": {
@@ -331,8 +334,8 @@
         "단순히 부담을 줄이는 데 그치지 않고 도전을 가로막는 벽을 넘도록 도우며, 누구나 자신의 생각을 실현할 수 있는 사회를 계속 뒷받침합니다.",
         "여러분이 가진 가능성을 살리고 누구나 빛날 수 있는 사회를 만드는 것이 우리가 지향하는 모습입니다."
       ],
-      "collaborationImgAlt": "팀 협업 작업",
-      "workshopImgAlt": "스터디 모임·워크숍 모습",
+      "collaborationImgAlt": "PC를 둘러싸고 의논하는 네 사람의 이미지",
+      "workshopImgAlt": "PC 학습을 곁에서 돕는 장면의 이미지",
       "establishedLabel": "설립",
       "establishedDate": "2026년 7월 13일",
       "businessPurposesLabel": "사업 내용",
@@ -346,18 +349,19 @@
         "컴퓨터 교실 운영",
         "앞의 각 항목에 부수하거나 관련된 일체의 사업"
       ],
-      "corporateContactCta": "회사·협업 관련 문의"
+      "corporateContactCta": "회사·협업 관련 문의",
+      "workshopCaption": "학습을 통해 각자의 도전을 뒷받침하는 장면을 표현한 이미지입니다."
     },
     "services": {
-      "title": "사업",
+      "title": "사업 소개",
       "seoTitleContext": "사업 안내",
-      "description": "일상의 부담을 줄이고 각자의 도전을 뒷받침하는 Acecore의 사업 부문과 주요 서비스, 요금 및 이용 조건을 확인할 수 있는 곳을 소개합니다.",
-      "heroTitle": "사업",
-      "heroSubtitle": "제공 가능한 지원과 서비스, 요금 확인 방법을 안내합니다.",
+      "description": "일상의 부담을 줄이고 각자의 도전을 지원하는 Acecore의 사업 부문, 주요 서비스와 요금 안내를 소개합니다.",
+      "heroTitle": "사업 소개",
+      "heroSubtitle": "사업 부문과 서비스, 요금 확인처를 안내합니다.",
       "heroImgAlt": "테크놀로지 오피스",
       "eyebrow": "Business Directory",
       "introTitle": "사업 부문",
-      "introBody": "본질적이지 않은 일에 쓰는 시간을 줄여 누구나 ‘하고 싶은 일’에 도전할 수 있는 환경을 조성합니다. 기술 지원, 목적에 맞춘 학습 지원, 커뮤니티 운영 등을 통해 한 사람 한 사람의 의지와 가능성을 뒷받침합니다.",
+      "introBody": "본질적이지 않은 일에 쓰는 시간을 줄여 누구나 하고 싶은 일에 도전할 수 있는 환경을 지향합니다. 기술 지원, 목적에 맞춘 학습 지원, 창작물 제작 등을 통해 각자의 의욕과 가능성을 뒷받침합니다.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "웹·시스템 개발, 데이터베이스·인프라, 품질 보증, AI 활용 등의 기술 지원과 디자인·크리에이티브 제작을 담당합니다.",
       "schoolsTitle": "Acecore Schools",
@@ -381,10 +385,11 @@
       "advisorTitle": "IT 자문 엔지니어 서비스",
       "advisorDescription": "일상적인 상담부터 홈페이지 공개까지 월 정액제로 지원합니다.",
       "learningTitle": "목적에 맞춘 학습 지원",
-      "pricingHeading": "요금 및 이용 조건",
-      "pricingLead": "상세한 요금과 지원 범위는 각 전문 사이트에서 확인해 주세요. 학습 지원 제공 조건은 상담 시 확인할 수 있으며, 커뮤니티 참여 조건과 상품 가격은 각 서비스 안내 페이지에서 확인할 수 있습니다.",
+      "pricingHeading": "요금 안내",
+      "pricingLead": "자세한 요금과 제공 가능한 서비스 내용은 각 사이트에서 확인해 주세요.",
       "offeringsHeading": "주요 서비스",
-      "detailsCta": "자세히 보기"
+      "detailsCta": "자세히 보기",
+      "pricingCta": "요금 확인하기"
     },
     "privacy": {
       "title": "개인정보 보호정책",
@@ -441,7 +446,7 @@
     }
   },
   "pageNames": {
-    "services": "사업",
+    "services": "사업 소개",
     "pricing": "요금 안내",
     "schools": "Acecore Schools",
     "about": "회사 소개",

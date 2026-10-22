@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Accueil",
-    "services": "Activités",
+    "services": "Nos services",
     "pricing": "Tarifs",
     "about": "À propos",
     "blog": "Actualités",
@@ -41,7 +41,9 @@
     "timeline": "Chronologie",
     "copyCode": "Copier le code",
     "codeCopied": "Copié !",
-    "copyFailed": "Échec de la copie"
+    "copyFailed": "Échec de la copie",
+    "pageContents": "Sur cette page",
+    "chooseLanguage": "Choisir la langue"
   },
   "aiChat": {
     "open": "Ouvrir le chat IA",
@@ -141,7 +143,7 @@
     "semanticManyResults": "[COUNT] résultats trouvés sur ce site",
     "semanticOneResult": "1 résultat trouvé sur ce site",
     "pagefindFallbackHeading": "Résultats de recherche par mots-clés",
-    "pagefindFallbackNotice": "Les résultats de recherche par mots-clés sont affichés car Vectorize n'a pas renvoyé de résultat exploitable pour ce site.",
+    "pagefindFallbackNotice": "Les résultats par mots-clés sont affichés car la recherche d’informations connexes est indisponible.",
     "networkHeading": "Informations associées provenant des sites liés à Acecore",
     "networkLoading": "Recherche sur les sites liés à Acecore...",
     "networkManyResults": "[COUNT] résultats trouvés sur les sites liés à Acecore",
@@ -195,7 +197,7 @@
       "heroSubtitle": "Par la technologie et l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut poursuivre ses aspirations.",
       "heroImgTeam": "Équipe travaillant dans un espace de coworking",
       "heroImgMeeting": "Scène de réunion",
-      "viewBusinessDetails": "Voir la liste des activités",
+      "viewBusinessDetails": "Découvrir nos services",
       "viewAbout": "Voir la présentation de l’entreprise",
       "latestNews": "Actualités de l’entreprise",
       "viewAllNews": "Voir toutes les actualités et les articles",
@@ -203,8 +205,9 @@
       "aboutIntro": "Découvrez l’entreprise, ses dirigeants, notre philosophie et notre vision.",
       "directoryHeading": "Trouvez votre information",
       "directoryLead": "Choisissez une page selon ce que vous recherchez.",
-      "servicesIntro": "Découvrez les pôles et services qui allègent les contraintes et soutiennent de nouveaux défis, ainsi que les liens vers leurs tarifs.",
-      "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact."
+      "servicesIntro": "Découvrez les services que nous proposons.",
+      "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact.",
+      "servicesHeading": "Nos services"
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -214,7 +217,7 @@
       "searchHint": "Vérifiez l'URL ou recherchez ci-dessous.",
       "searchPlaceholder": "Rechercher sur le site...",
       "goHome": "Retour à l'accueil",
-      "viewBlog": "Voir le blog",
+      "viewBlog": "Voir les actualités",
       "latestArticles": "Derniers articles"
     },
     "contact": {
@@ -337,8 +340,8 @@
         "Au-delà de l’allègement des contraintes, nous aidons à surmonter les obstacles aux nouveaux défis et continuons de soutenir une société où chacun peut donner forme à ses idées.",
         "Notre vision est de créer une société où vous pouvez exprimer votre propre potentiel et où chacun peut s’épanouir."
       ],
-      "collaborationImgAlt": "Travail collaboratif en équipe",
-      "workshopImgAlt": "Aperçu d’une session d’étude et d’un atelier",
+      "collaborationImgAlt": "Scène illustrative de quatre personnes échangeant autour d’un ordinateur",
+      "workshopImgAlt": "Scène illustrative d’une personne accompagnant une autre dans son apprentissage sur ordinateur",
       "establishedLabel": "Constitution",
       "establishedDate": "13 juillet 2026",
       "businessPurposesLabel": "Activités de la société",
@@ -352,18 +355,19 @@
         "Exploitation de cours d’informatique",
         "Toutes activités accessoires ou liées aux activités précitées"
       ],
-      "corporateContactCta": "Questions sur l’entreprise et les partenariats"
+      "corporateContactCta": "Questions sur l’entreprise et les partenariats",
+      "workshopCaption": "Scène illustrative de l’apprentissage qui aide chacun à relever de nouveaux défis."
     },
     "services": {
-      "title": "Nos activités",
+      "title": "Nos services",
       "seoTitleContext": "Présentation des activités",
-      "description": "Découvrez les pôles et services d’Acecore qui allègent le quotidien et soutiennent vos projets. Consultez les tarifs et conditions d’utilisation.",
-      "heroTitle": "Nos activités",
-      "heroSubtitle": "Découvrez les services et accompagnements proposés, ainsi que les pages où consulter leurs tarifs.",
+      "description": "Découvrez les départements, les principaux services et les indications tarifaires d’Acecore, qui allègent les contraintes quotidiennes et soutiennent les initiatives de chacun.",
+      "heroTitle": "Nos services",
+      "heroSubtitle": "Découvrez nos activités, nos services et où consulter les tarifs.",
       "heroImgAlt": "Bureau technologique",
       "eyebrow": "Annuaire des activités",
       "introTitle": "Nos pôles d’activité",
-      "introBody": "Nous œuvrons pour un environnement où chacun peut consacrer moins de temps aux tâches non essentielles et se lancer dans ce qui lui tient à cœur. Grâce au soutien technique, à un accompagnement pédagogique adapté aux objectifs de chacun et à l’animation de communautés, nous soutenons la motivation et le potentiel de tous.",
+      "introBody": "Nous voulons réduire le temps consacré aux tâches non essentielles pour permettre à chacun de réaliser ses projets. Grâce à l’accompagnement technique, à l’apprentissage guidé par un objectif et à la création, nous soutenons les aspirations et le potentiel de chacun.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Nous proposons un accompagnement technique couvrant le développement web et de systèmes, les bases de données, l’infrastructure, l’assurance qualité et les usages de l’IA, ainsi que des prestations de design et de création.",
       "schoolsTitle": "Acecore Schools",
@@ -387,10 +391,11 @@
       "advisorTitle": "Service de conseil informatique par un ingénieur",
       "advisorDescription": "Nous vous accompagnons au quotidien, de vos questions à la mise en ligne de votre site web, dans le cadre d’un forfait mensuel fixe.",
       "learningTitle": "Accompagnement pédagogique adapté à vos objectifs",
-      "pricingHeading": "Tarifs et conditions",
-      "pricingLead": "Pour connaître les tarifs détaillés et le périmètre des prestations, consultez les sites spécialisés. Les modalités de l’accompagnement pédagogique seront confirmées lors de votre prise de contact ; les conditions de participation aux communautés et les prix des produits figurent sur les pages des services concernés.",
+      "pricingHeading": "Guide des tarifs",
+      "pricingLead": "Consultez chaque site pour connaître les tarifs détaillés et les prestations que nous prenons en charge.",
       "offeringsHeading": "Principaux services",
-      "detailsCta": "En savoir plus"
+      "detailsCta": "En savoir plus",
+      "pricingCta": "Consulter les tarifs"
     },
     "privacy": {
       "title": "Politique de Confidentialité",
@@ -447,7 +452,7 @@
     }
   },
   "pageNames": {
-    "services": "Activités",
+    "services": "Nos services",
     "pricing": "Guide tarifaire",
     "schools": "Acecore Schools",
     "about": "À propos",

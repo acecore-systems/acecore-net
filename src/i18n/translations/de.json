@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Startseite",
-    "services": "Geschäftsbereiche",
+    "services": "Unsere Leistungen",
     "pricing": "Preise",
     "about": "Über uns",
     "blog": "Neuigkeiten",
@@ -41,7 +41,9 @@
     "timeline": "Zeitleiste",
     "copyCode": "Code kopieren",
     "codeCopied": "Kopiert!",
-    "copyFailed": "Kopieren fehlgeschlagen"
+    "copyFailed": "Kopieren fehlgeschlagen",
+    "pageContents": "Auf dieser Seite",
+    "chooseLanguage": "Sprache wählen"
   },
   "aiChat": {
     "open": "KI-Chat öffnen",
@@ -141,7 +143,7 @@
     "semanticManyResults": "Auf dieser Website wurden [COUNT] Suchergebnisse gefunden",
     "semanticOneResult": "Auf dieser Website wurde 1 Suchergebnis gefunden",
     "pagefindFallbackHeading": "Ergebnisse der Stichwortsuche",
-    "pagefindFallbackNotice": "Da die Vectorize-Suche auf dieser Website kein verwertbares Ergebnis geliefert hat, werden Stichworttreffer angezeigt.",
+    "pagefindFallbackNotice": "Da die Suche nach verwandten Informationen nicht verfügbar ist, werden Ergebnisse der Stichwortsuche angezeigt.",
     "networkHeading": "Verwandte Informationen von Acecore-Websites",
     "networkLoading": "Nach verwandten Acecore-Websites wird gesucht...",
     "networkManyResults": "Auf Acecore-Websites wurden [COUNT] verwandte Ergebnisse gefunden",
@@ -195,7 +197,7 @@
       "heroSubtitle": "Mit Technologie und Lernen wollen wir Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
       "heroImgTeam": "Team bei der Arbeit in einem Co-Working-Space",
       "heroImgMeeting": "Besprechungsszene",
-      "viewBusinessDetails": "Geschäftsbereiche ansehen",
+      "viewBusinessDetails": "Unsere Leistungen ansehen",
       "viewAbout": "Über uns",
       "latestNews": "Unternehmensnachrichten",
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
@@ -203,8 +205,9 @@
       "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, die Unternehmensleitung, unsere Philosophie und unsere Vision.",
       "directoryHeading": "Finden Sie die passende Information",
       "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
-      "servicesIntro": "Entdecken Sie die Bereiche und Leistungen, die Belastungen verringern und neue Vorhaben unterstützen, sowie die Anlaufstellen für Preise.",
-      "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular."
+      "servicesIntro": "Entdecken Sie die Leistungen, die wir anbieten.",
+      "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular.",
+      "servicesHeading": "Unsere Leistungen"
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -214,7 +217,7 @@
       "searchHint": "Bitte überprüfen Sie die URL oder suchen Sie unten.",
       "searchPlaceholder": "Diese Seite durchsuchen...",
       "goHome": "Zur Startseite",
-      "viewBlog": "Blog anzeigen",
+      "viewBlog": "Nachrichten ansehen",
       "latestArticles": "Neueste Artikel",
       "message": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
       "heroImgAlt": "404-Landschaft",
@@ -283,8 +286,8 @@
         "Wir verringern nicht nur Belastungen, sondern helfen auch, Hindernisse für neue Herausforderungen zu überwinden, und unterstützen dauerhaft eine Gesellschaft, in der alle ihre Ideen verwirklichen können.",
         "Unsere Vision ist eine Gesellschaft, in der Sie Ihr eigenes Potenzial entfalten können und alle die Möglichkeit haben, zu strahlen."
       ],
-      "collaborationImgAlt": "Kollaborative Teamarbeit",
-      "workshopImgAlt": "Eindrücke von einer Lernveranstaltung und einem Workshop",
+      "collaborationImgAlt": "Beispielszene mit vier Personen im Gespräch an einem Computer",
+      "workshopImgAlt": "Beispielszene einer Person, die eine andere beim Lernen am Computer unterstützt",
       "establishedLabel": "Gründung",
       "establishedDate": "13. Juli 2026",
       "businessPurposesLabel": "Geschäftstätigkeiten",
@@ -298,18 +301,19 @@
         "Betrieb von Computerkursen",
         "Alle mit den vorgenannten Tätigkeiten verbundenen oder ergänzenden Geschäfte"
       ],
-      "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen"
+      "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen",
+      "workshopCaption": "Beispielszene: Lernen unterstützt Menschen dabei, neue Herausforderungen anzugehen."
     },
     "services": {
-      "title": "Geschäftsbereiche",
+      "title": "Unsere Leistungen",
       "seoTitleContext": "Überblick über unsere Geschäftsbereiche",
-      "description": "Acecores Geschäftsbereiche und Leistungen erleichtern den Alltag und fördern individuelle Vorhaben. Preise und Nutzungsbedingungen finden Sie online.",
-      "heroTitle": "Geschäftsbereiche",
-      "heroSubtitle": "Wir zeigen Ihnen, welche Unterstützung und Leistungen wir anbieten und wo Sie Informationen zu den Preisen finden.",
+      "description": "Entdecken Sie die Bereiche, wichtigsten Leistungen und Preisangaben von Acecore, die den Alltag erleichtern und persönliche Vorhaben unterstützen.",
+      "heroTitle": "Unsere Leistungen",
+      "heroSubtitle": "Entdecken Sie unsere Bereiche, Leistungen und Preisinformationen.",
       "heroImgAlt": "Technologiebüro",
       "eyebrow": "Geschäftsbereiche im Überblick",
       "introTitle": "Geschäftsbereiche",
-      "introBody": "Wir schaffen ein Umfeld, in dem weniger Zeit für Unwesentliches aufgewendet wird und alle ihre Vorhaben angehen können. Mit technischer Unterstützung, zielgerichteter Lernbegleitung und dem Betrieb von Communities fördern wir die Motivation und das Potenzial jedes Einzelnen.",
+      "introBody": "Wir möchten den Zeitaufwand für unwesentliche Aufgaben verringern, damit jeder eigene Vorhaben verfolgen kann. Mit technischer Unterstützung, zielgerichtetem Lernen und kreativer Produktion fördern wir die Ambitionen und das Potenzial jedes Einzelnen.",
       "systemsTitle": "Acecore Systems",
       "systemsDescription": "Wir bieten technische Unterstützung in den Bereichen Web- und Systementwicklung, Datenbanken und Infrastruktur, Qualitätssicherung sowie KI-Einsatz und übernehmen außerdem Design- und Kreativleistungen.",
       "schoolsTitle": "Acecore Schools",
@@ -333,10 +337,11 @@
       "advisorTitle": "IT-Beratung und Betreuung durch Ingenieure",
       "advisorDescription": "Von alltäglichen Fragen bis zur Veröffentlichung Ihrer Website – wir unterstützen Sie zum monatlichen Festpreis.",
       "learningTitle": "Lernbegleitung passend zu Ihren Zielen",
-      "pricingHeading": "Preise und Nutzungsbedingungen",
-      "pricingLead": "Ausführliche Informationen zu Preisen und Leistungsumfang finden Sie auf den jeweiligen Fachseiten. Die Bedingungen für die Lernbegleitung klären wir im Beratungsgespräch; Teilnahmebedingungen für Communities und Produktpreise finden Sie auf den jeweiligen Serviceseiten.",
+      "pricingHeading": "Preisübersicht",
+      "pricingLead": "Detaillierte Preise und Informationen zu den Leistungen, die wir übernehmen, finden Sie auf den jeweiligen Websites.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
-      "detailsCta": "Mehr erfahren"
+      "detailsCta": "Mehr erfahren",
+      "pricingCta": "Preise ansehen"
     },
     "contact": {
       "title": "Kontakt",
@@ -453,7 +458,7 @@
     }
   },
   "pageNames": {
-    "services": "Geschäftsbereiche",
+    "services": "Unsere Leistungen",
     "pricing": "Preisübersicht",
     "schools": "Acecore Schools",
     "about": "Über uns",

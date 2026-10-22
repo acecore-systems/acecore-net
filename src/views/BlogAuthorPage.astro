@@ -86,6 +86,13 @@ const breadcrumbItems = [
               {author.bio}
             </p>
           )}
+          {author?.skills?.length ? (
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {author.skills.map((skill: string) => (
+                <li class="ac-chip-static">{skill}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
       <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10">

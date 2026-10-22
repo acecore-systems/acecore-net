@@ -7,6 +7,7 @@ import {
   validateCastSceneLock,
   validateLocalCastScenes,
   validateProjectCastScenes,
+  validateBuiltSceneReferences,
 } from '../scripts/validate-cast-scenes.mjs'
 
 const root = new URL('../', import.meta.url)
@@ -166,3 +167,20 @@ if (registration.site === 'schools') {
     assert.match(mobile, /\.hero-message\s*\{[^}]*grid-area:\s*2\s*\/\s*1/su)
   })
 }
+
+test('built pages may use an approved subset while unknown scene paths are rejected', () => {
+  const approved = registration.assets[0].localPath
+  const allowed = new Set(registration.assets.map((asset) => asset.localPath))
+  assert.deepEqual(
+    validateBuiltSceneReferences(`<img src="${approved}">`, allowed),
+    [approved],
+  )
+  assert.throws(
+    () =>
+      validateBuiltSceneReferences(
+        '<img src="/images/cast/scenes-v1.0.0/unregistered-scene.webp">',
+        allowed,
+      ),
+    /unregistered scene/u,
+  )
+})

@@ -3,7 +3,7 @@
   "heroSubtitle": "テクノロジーと学びを通じて、本質的でない時間を減らし、誰もが「やりたいこと」に挑戦できる環境を目指します。",
   "heroImgTeam": "コワーキングスペースで働くチーム",
   "heroImgMeeting": "ミーティング風景",
-  "viewBusinessDetails": "事業一覧を見る",
+  "viewBusinessDetails": "事業紹介を見る",
   "viewAbout": "会社概要を見る",
   "latestNews": "企業ニュース",
   "viewAllNews": "ニュース・記事一覧を見る",
@@ -11,6 +11,7 @@
   "aboutIntro": "会社の基本情報、役員紹介と、私たちの企業理念・目指す姿をご紹介します。",
   "directoryHeading": "お探しの情報へ",
   "directoryLead": "目的に合わせて各ページをご覧ください。",
-  "servicesIntro": "負担の軽減や挑戦の後押しにつながる事業部門とサービス、料金の確認先をまとめています。",
-  "contactIntro": "ご相談・ご質問をフォームからお送りいただけます。"
+  "servicesIntro": "当社の提供するサービスのご紹介です",
+  "contactIntro": "ご相談・ご質問をフォームからお送りいただけます。",
+  "servicesHeading": "事業紹介"
 }

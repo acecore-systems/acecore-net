@@ -82,6 +82,13 @@ for (const locale of locales) {
   checkShape(sourceBlog, translated.blog, `${locale}.blog`)
   checkShape(sourceCommon.meta, translated.meta, `${locale}.meta`)
   checkShape(sourceCommon.footer, translated.footer, `${locale}.footer`)
+  checkShape(sourceCommon.common, translated.common, `${locale}.common`)
+  checkShape(sourceCommon.nav, translated.nav, `${locale}.nav`)
+  checkShape(
+    sourceCommon.pageNames,
+    translated.pageNames,
+    `${locale}.pageNames`,
+  )
   const getPage = async (path) => load(await read(`dist${path}index.html`))
   const services = await getPage(`${prefix}/services/`)
   assert.ok(!sitemap.includes(`https://acecore.net${prefix}/designs/`))
@@ -108,6 +115,58 @@ for (const locale of locales) {
   )
   const home = await getPage(`${prefix}/`)
   const about = await getPage(`${prefix}/about/`)
+  assert.equal(
+    translated.common.pageContents?.trim().length > 0,
+    true,
+    `${locale}: missing page navigation label`,
+  )
+  for (const [pageName, page, expectedTargets] of [
+    ['services', services, ['departments', 'offerings', 'pricing']],
+    [
+      'about',
+      about,
+      [
+        'corporate-information-heading',
+        'executive-profile-heading',
+        'corporate-philosophy-heading',
+        'corporate-vision-heading',
+      ],
+    ],
+  ]) {
+    const navigation = page('nav.page-section-nav')
+    assert.equal(navigation.length, 1, `${locale}.${pageName}: page navigation`)
+    assert.equal(navigation.attr('aria-label'), translated.common.pageContents)
+    assert.deepEqual(
+      navigation
+        .find('a')
+        .toArray()
+        .map((el) => page(el).attr('href')),
+      expectedTargets.map((id) => `#${id}`),
+      `${locale}.${pageName}: page navigation destinations`,
+    )
+    for (const id of expectedTargets)
+      assert.equal(
+        page(`[id="${id}"]`).length,
+        1,
+        `${locale}.${pageName}: missing or duplicate page navigation target #${id}`,
+      )
+  }
+  assert.equal(
+    home('.home-directory a').first().find('h3').text().trim(),
+    translations.home.servicesHeading,
+  )
+  assert.equal(
+    home('.hero-copy a').length,
+    0,
+    `${locale}: the home directory owns the initial page choices`,
+  )
+  assert.equal(
+    services('#pricing a').filter((_, el) =>
+      services(el).text().includes(translations.services.pricingCta),
+    ).length,
+    3,
+    `${locale}.services: pricing links must name their destination`,
+  )
   const motto = translations.home.heroTitle
   assert.equal(
     translations.about.philosophyMotto,
@@ -122,6 +181,26 @@ for (const locale of locales) {
   assert.equal(home('main h1').text().trim(), motto)
   assert.ok(home('footer').text().includes(motto))
   const philosophy = about('#corporate-philosophy-heading').closest('section')
+  assert.equal(
+    services('.business-overview').length,
+    0,
+    `${locale}: departments have one overview`,
+  )
+  assert.equal(
+    philosophy.find('figure').length,
+    1,
+    `${locale}: one contextual philosophy image`,
+  )
+  assert.equal(
+    philosophy.find('figcaption').text().trim(),
+    translations.about.workshopCaption,
+  )
+  assert.equal(
+    about('#corporate-information-heading').closest('section').find('figure')
+      .length,
+    0,
+    `${locale}: illustrative scenes must not be presented as corporate records`,
+  )
   assert.equal(
     philosophy.children('div').children('p').first().text().trim(),
     motto,
@@ -203,6 +282,18 @@ for (const locale of locales) {
     )
     assert.equal(newsNavigation.find(`a[href="${prefix}/blog/"]`).length, 1)
     assert.equal(post('main .ac-surface[data-pagefind-ignore]').length, 0)
+    const continuation = post(
+      'main nav[aria-label="' +
+        translated.blog.postNavLabel +
+        '"] a, main article > section[data-pagefind-ignore] a',
+    )
+      .toArray()
+      .map((el) => post(el).attr('href'))
+    assert.equal(
+      new Set(continuation).size,
+      continuation.length,
+      `${locale}.${slug}: repeated reading destination`,
+    )
   }
   assert.equal(
     services('.department-list > li').length,
