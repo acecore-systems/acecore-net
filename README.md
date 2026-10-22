@@ -34,7 +34,7 @@ Acecore（エースコア）公式Webサイト。
 
 ## 開発
 
-Node.js 24.18.0 以上が必要です。使用バージョンは `.node-version`、必要条件は `package.json` の `engines.node` を正とします。
+Node.js 24.22.1 以上が必要です。使用バージョンは `.node-version`、必要条件は `package.json` の `engines.node` を正とします。
 
 ```bash
 npm install
