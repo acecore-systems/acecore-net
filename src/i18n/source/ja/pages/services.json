@@ -3,7 +3,7 @@
   "seoTitleContext": "事業案内",
   "description": "日々の負担を減らし、一人ひとりの挑戦を後押しするAcecoreの事業部門と主要サービス、料金・利用条件の確認先をご紹介します。",
   "heroTitle": "事業",
-  "heroSubtitle": "提供できる支援とサービス、料金の確認先をご紹介します。",
+  "heroSubtitle": "事業部門とサービス、料金の確認先をご案内します。",
   "heroImgAlt": "テクノロジーオフィス",
   "eyebrow": "Business Directory",
   "introTitle": "事業部門",
@@ -31,8 +31,13 @@
   "advisorTitle": "IT顧問エンジニアサービス",
   "advisorDescription": "毎日の相談からホームページの公開まで、月額定額制でサポートします。",
   "learningTitle": "目的に合わせた学習支援",
-  "pricingHeading": "料金・利用条件",
-  "pricingLead": "詳しい料金と対応範囲は各専門サイトでご確認ください。学習支援の実施条件は相談時に確認し、コミュニティの参加条件や商品の価格は各サービスの案内先に掲載しています。",
+  "pricingHeading": "料金の目安",
+  "pricingLead": "詳しい料金とお引き受けしている内容は各サイトでご確認ください。",
   "offeringsHeading": "主要サービス",
-  "detailsCta": "詳しくはこちら"
+  "detailsCta": "詳しくはこちら",
+  "pricingCta": "料金を確認する",
+  "overviewCaption": "理念を支える3つの事業部門",
+  "systemsRole": "技術による課題解決",
+  "schoolsRole": "目的に合わせた学び",
+  "designRole": "表現を形にする制作"
 }

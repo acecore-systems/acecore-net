@@ -91,99 +91,110 @@ const firstSliderImage = sliderImages[0]
           </a>
         </div>
       )}
+      {Astro.slots.has('actions') && (
+        <div class="mt-8 flex w-full max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-4">
+          <slot name="actions" />
+        </div>
+      )}
     </div>
 
-    <div class="relative z-10 min-h-72 min-w-0 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0">
-      {hasSlider ? (
-        <div
-          class="absolute inset-0"
-          id="hero-slider"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label={t(locale, 'hero.sliderLabel')}
-          data-hero-images={JSON.stringify(sliderImages)}
-        >
-          {firstSliderImage && (
-            <div
-              class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
-              data-index="0"
-            >
-              <img
-                src={firstSliderImage.src}
-                srcset={firstSliderImage.srcset}
-                sizes={firstSliderImage.sizes}
-                alt={firstSliderImage.alt}
-                class="h-full w-full object-cover saturate-110"
-                style={`object-position: ${firstSliderImage.objectPosition ?? 'center center'};`}
-                width={firstSliderImage.width ?? 1280}
-                height={firstSliderImage.height ?? 1280}
-                decoding="async"
-                fetchpriority="high"
-                loading="eager"
-              />
-            </div>
-          )}
-          <div class="absolute inset-0 bg-gradient-to-l from-brand-950/28 via-transparent to-transparent" />
-          <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-950/55 to-transparent" />
+    {Astro.slots.has('visual') ? (
+      <div class="relative z-10 flex min-w-0 items-center py-2 lg:py-10">
+        <slot name="visual" />
+      </div>
+    ) : (
+      <div class="relative z-10 min-h-72 min-w-0 overflow-hidden rounded-lg border border-brand-100 bg-brand-900 shadow-[0_24px_60px_rgba(8,37,77,0.18)] lg:-mr-8 lg:min-h-[34rem] lg:rounded-none lg:border-y-0 lg:border-r-0">
+        {hasSlider ? (
           <div
-            id="hero-slide-announce"
-            class="sr-only"
-            aria-live="polite"
-            aria-atomic="true"
-          />
-        </div>
-      ) : (
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-600 to-brand-400" />
-      )}
-      <div
-        class="pointer-events-none absolute inset-6 border border-white/25"
-        aria-hidden="true"
-      ></div>
-      <div
-        class="pointer-events-none absolute bottom-8 left-8 h-px w-24 bg-white/70"
-        aria-hidden="true"
-      ></div>
-      <div
-        class="pointer-events-none absolute bottom-8 left-8 h-10 w-px bg-white/70"
-        aria-hidden="true"
-      ></div>
-      {hasSlider && sliderImages.length > 1 && (
-        <div class="absolute bottom-6 right-6 z-20 flex items-center gap-1">
-          {sliderImages.map((_, i) => (
-            <button
-              class:list={[
-                'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
-                i === 0 ? 'bg-transparent' : 'bg-transparent',
-              ]}
-              data-index={i}
-              aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
-              aria-current={i === 0 ? 'true' : undefined}
-            >
-              <span
-                class:list={[
-                  'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
-                  i === 0 ? 'bg-white scale-125' : 'bg-white/50',
-                ]}
-              />
-            </button>
-          ))}
-          <button
-            id="hero-pause"
-            class="ac-touch ml-1 rounded-full bg-transparent text-white/80 transition-colors hover:text-white focus-visible:ring-white"
-            aria-label={t(locale, 'hero.pauseAutoplay')}
-            data-label-pause={t(locale, 'hero.pauseAutoplay')}
-            data-label-resume={t(locale, 'hero.resumeAutoplay')}
+            class="absolute inset-0"
+            id="hero-slider"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label={t(locale, 'hero.sliderLabel')}
+            data-hero-images={JSON.stringify(sliderImages)}
           >
-            <span id="hero-pause-icon-pause">
-              <Icon name="pause" class="text-base" />
-            </span>
-            <span id="hero-pause-icon-play" class="hidden">
-              <Icon name="play" class="text-base" />
-            </span>
-          </button>
-        </div>
-      )}
-    </div>
+            {firstSliderImage && (
+              <div
+                class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100"
+                data-index="0"
+              >
+                <img
+                  src={firstSliderImage.src}
+                  srcset={firstSliderImage.srcset}
+                  sizes={firstSliderImage.sizes}
+                  alt={firstSliderImage.alt}
+                  class="h-full w-full object-cover saturate-110"
+                  style={`object-position: ${firstSliderImage.objectPosition ?? 'center center'};`}
+                  width={firstSliderImage.width ?? 1280}
+                  height={firstSliderImage.height ?? 1280}
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                />
+              </div>
+            )}
+            <div class="absolute inset-0 bg-gradient-to-l from-brand-950/28 via-transparent to-transparent" />
+            <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-950/55 to-transparent" />
+            <div
+              id="hero-slide-announce"
+              class="sr-only"
+              aria-live="polite"
+              aria-atomic="true"
+            />
+          </div>
+        ) : (
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-600 to-brand-400" />
+        )}
+        <div
+          class="pointer-events-none absolute inset-6 border border-white/25"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="pointer-events-none absolute bottom-8 left-8 h-px w-24 bg-white/70"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="pointer-events-none absolute bottom-8 left-8 h-10 w-px bg-white/70"
+          aria-hidden="true"
+        ></div>
+        {hasSlider && sliderImages.length > 1 && (
+          <div class="absolute bottom-6 right-6 z-20 flex items-center gap-1">
+            {sliderImages.map((_, i) => (
+              <button
+                class:list={[
+                  'hero-dot ac-touch rounded-full cursor-pointer text-white focus-visible:ring-white',
+                  i === 0 ? 'bg-transparent' : 'bg-transparent',
+                ]}
+                data-index={i}
+                aria-label={`${t(locale, 'hero.slide')} ${i + 1}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              >
+                <span
+                  class:list={[
+                    'block w-2.5 h-2.5 rounded-full transition-colors transition-transform',
+                    i === 0 ? 'bg-white scale-125' : 'bg-white/50',
+                  ]}
+                />
+              </button>
+            ))}
+            <button
+              id="hero-pause"
+              class="ac-touch ml-1 rounded-full bg-transparent text-white/80 transition-colors hover:text-white focus-visible:ring-white"
+              aria-label={t(locale, 'hero.pauseAutoplay')}
+              data-label-pause={t(locale, 'hero.pauseAutoplay')}
+              data-label-resume={t(locale, 'hero.resumeAutoplay')}
+            >
+              <span id="hero-pause-icon-pause">
+                <Icon name="pause" class="text-base" />
+              </span>
+              <span id="hero-pause-icon-play" class="hidden">
+                <Icon name="play" class="text-base" />
+              </span>
+            </button>
+          </div>
+        )}
+      </div>
+    )}
   </div>
 </section>
 

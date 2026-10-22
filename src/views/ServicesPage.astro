@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
-import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import PageSectionNav from '../components/PageSectionNav.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
+import BusinessOverview from '../components/BusinessOverview.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
 import ServiceCard from '../components/ServiceCard.astro'
-import { optimizeImage } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
@@ -30,16 +30,10 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   <Hero
     title={t(locale, 'pages.services.heroTitle')}
     subtitle={t(locale, 'pages.services.heroSubtitle')}
-    images={[
-      {
-        src: optimizeImage(castScene('home-team')),
-        alt: t(locale, 'pages.services.heroImgAlt'),
-        width: castSceneAsset('home-team').width,
-        height: castSceneAsset('home-team').height,
-        srcsetWidths: [castSceneAsset('home-team').width],
-      },
-    ]}
-  />
+    locale={locale}
+  >
+    <BusinessOverview slot="visual" locale={locale} />
+  </Hero>
 
   <CampaignNotice locale={locale} page="services" />
 
@@ -50,9 +44,27 @@ const u = (path: string) => getLocalizedUrl(path, locale)
         locale={locale}
       />
 
+      <PageSectionNav
+        locale={locale}
+        items={[
+          {
+            href: '#departments',
+            label: t(locale, 'pages.services.introTitle'),
+          },
+          {
+            href: '#offerings',
+            label: t(locale, 'pages.services.offeringsHeading'),
+          },
+          {
+            href: '#pricing',
+            label: t(locale, 'pages.services.pricingHeading'),
+          },
+        ]}
+      />
+
       <div class="ac-section-intro">
         <p class="ac-eyebrow">{t(locale, 'pages.services.eyebrow')}</p>
-        <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
+        <h2 id="departments" class="mb-4 text-2xl ac-heading sm:text-3xl">
           {t(locale, 'pages.services.introTitle')}
         </h2>
         <p class="max-w-3xl ac-muted">
@@ -100,6 +112,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           tone="emerald"
           href={getSpecialistUrl(SITE.social.designs, locale, '/#catalog')}
           locale={locale}
+          linkLabel={t(locale, 'pages.services.pricingCta')}
         />
         <ServiceCard
           title={t(locale, 'pages.pricing.systemsTitle')}
@@ -111,6 +124,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           icon="code-xml"
           href={getSpecialistUrl(SITE.social.systems, locale, '/pricing/')}
           locale={locale}
+          linkLabel={t(locale, 'pages.services.pricingCta')}
         />
         <ServiceCard
           title={t(locale, 'pages.pricing.schoolsTitle')}
@@ -119,6 +133,7 @@ const u = (path: string) => getLocalizedUrl(path, locale)
           tone="amber"
           href={getSchoolsUrl('/pricing/')}
           locale={locale}
+          linkLabel={t(locale, 'pages.services.pricingCta')}
         />
       </div>
     </div>

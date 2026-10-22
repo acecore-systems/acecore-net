@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro'
 import { castScene, castSceneAsset } from '../data/cast-scenes'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
+import PageSectionNav from '../components/PageSectionNav.astro'
 import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
@@ -17,7 +18,16 @@ const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
 const contentImageWidths = [480, 800, 1200, 1600]
 const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
-const contentImageSizes = '(min-width: 1024px) 56rem, calc(100vw - 3rem)'
+const contentImageSizes =
+  '(min-width: 1024px) 26rem, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)'
+const philosophyImages = [
+  {
+    stem: 'about-collaboration',
+    alt: 'collaborationImgAlt',
+    caption: 'collaborationCaption',
+  },
+  { stem: 'about-workshop', alt: 'workshopImgAlt', caption: 'workshopCaption' },
+]
 
 interface Officer {
   name: string
@@ -102,6 +112,27 @@ const aboutPageLd = {
         items={[{ label: t(locale, 'pages.about.title') }]}
         locale={locale}
       />
+      <PageSectionNav
+        locale={locale}
+        items={[
+          {
+            href: '#corporate-information-heading',
+            label: t(locale, 'pages.about.companyInfoHeading'),
+          },
+          {
+            href: '#executive-profile-heading',
+            label: t(locale, 'pages.about.executiveHeading'),
+          },
+          {
+            href: '#corporate-philosophy-heading',
+            label: t(locale, 'pages.about.philosophyHeading'),
+          },
+          {
+            href: '#corporate-vision-heading',
+            label: t(locale, 'pages.about.visionHeading'),
+          },
+        ]}
+      />
       <section
         class="ac-surface mb-12 p-6 sm:p-8"
         aria-labelledby="corporate-information-heading"
@@ -145,27 +176,6 @@ const aboutPageLd = {
           </div>
         </dl>
       </section>
-      <div class="mb-12">
-        <img
-          src={optimizeImage(castScene('about-collaboration'), {
-            width: 1200,
-            height: 675,
-            quality: 80,
-          })}
-          srcset={generateSrcSet(
-            castScene('about-collaboration'),
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.about.collaborationImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
 
       {officers.length > 0 && (
         <section class="mb-12" aria-labelledby="executive-profile-heading">
@@ -246,7 +256,7 @@ const aboutPageLd = {
             ))}
           </div>
           <div class="mt-8 border-t border-brand-200 pt-8">
-            <h3 class="text-xl ac-heading">
+            <h3 id="corporate-vision-heading" class="text-xl ac-heading">
               {t(locale, 'pages.about.visionHeading')}
             </h3>
             <p class="mt-4 text-lg font-600 text-brand-700">
@@ -259,29 +269,35 @@ const aboutPageLd = {
             </div>
           </div>
         </div>
+        <div class="philosophy-illustrations mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {philosophyImages.map(({ stem, alt, caption }) => (
+            <figure class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+              <img
+                src={optimizeImage(castScene(stem), {
+                  width: 800,
+                  height: 450,
+                  quality: 80,
+                })}
+                srcset={generateSrcSet(
+                  castScene(stem),
+                  contentImageWidths,
+                  contentImageOptions,
+                )}
+                sizes={contentImageSizes}
+                alt={t(locale, `pages.about.${alt}`)}
+                class="aspect-video w-full object-cover"
+                width="800"
+                height="450"
+                decoding="async"
+                loading="lazy"
+              />
+              <figcaption class="p-4 text-sm leading-relaxed text-slate-600">
+                {t(locale, `pages.about.${caption}`)}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
-
-      <div class="mb-12">
-        <img
-          src={optimizeImage(castScene('about-workshop'), {
-            width: 1200,
-            height: 675,
-            quality: 80,
-          })}
-          srcset={generateSrcSet(
-            castScene('about-workshop'),
-            contentImageWidths,
-            contentImageOptions,
-          )}
-          sizes={contentImageSizes}
-          alt={t(locale, 'pages.about.workshopImgAlt')}
-          class="w-full rounded-lg object-cover aspect-video"
-          width="1200"
-          height="675"
-          decoding="async"
-          loading="lazy"
-        />
-      </div>
 
       <div class="text-center">
         <a href={u('/contact/')} class="ac-btn-outline">

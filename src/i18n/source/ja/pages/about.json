@@ -52,8 +52,8 @@
     "ただ負担を減らすだけでなく、挑戦を阻む壁を乗り越える後押しをし、誰もが想いを形にできる社会を支え続けます。",
     "あなた自身が持っている可能性を活かし、誰もが輝ける社会をつくることが私たちの目指す姿です。"
   ],
-  "collaborationImgAlt": "チームでのコラボレーション作業",
-  "workshopImgAlt": "勉強会・ワークショップの様子",
+  "collaborationImgAlt": "PCを囲んで相談する4人のイメージ",
+  "workshopImgAlt": "PCでの学習を隣で支える場面のイメージ",
   "establishedLabel": "設立",
   "establishedDate": "2026年7月13日",
   "businessPurposesLabel": "事業内容",
@@ -67,5 +67,7 @@
     "パソコン教室の経営",
     "前各号に附帯又は関連する一切の事業"
   ],
-  "corporateContactCta": "会社・協業に関するお問い合わせ"
+  "corporateContactCta": "会社・協業に関するお問い合わせ",
+  "collaborationCaption": "技術や知見を持ち寄り、可能性を広げる場面のイメージです。",
+  "workshopCaption": "学びを通じて、一人ひとりの挑戦を後押しする場面のイメージです。"
 }

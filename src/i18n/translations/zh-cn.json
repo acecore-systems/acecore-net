@@ -41,7 +41,8 @@
     "timeline": "时间线",
     "copyCode": "复制代码",
     "codeCopied": "已复制！",
-    "copyFailed": "复制失败"
+    "copyFailed": "复制失败",
+    "pageContents": "本页内容"
   },
   "aiChat": {
     "open": "打开 AI 聊天",
@@ -195,7 +196,7 @@
       "heroSubtitle": "通过技术与学习，我们致力于减少花在非本质事务上的时间，创造让每个人都能挑战自己想做之事的环境。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgMeeting": "会议场景",
-      "viewBusinessDetails": "查看业务列表",
+      "viewBusinessDetails": "查看业务介绍",
       "viewAbout": "查看公司概要",
       "latestNews": "企业新闻",
       "viewAllNews": "查看新闻与文章列表",
@@ -203,8 +204,9 @@
       "aboutIntro": "了解公司基本信息、管理团队，以及我们的企业理念与愿景。",
       "directoryHeading": "查找所需信息",
       "directoryLead": "根据您的目的，前往相应页面。",
-      "servicesIntro": "汇总帮助减轻负担、支持挑战的业务部门与服务，以及价格信息的查询渠道。",
-      "contactIntro": "通过联系表单发送您的咨询或问题。"
+      "servicesIntro": "了解我们提供的服务。",
+      "contactIntro": "通过联系表单发送您的咨询或问题。",
+      "servicesHeading": "业务介绍"
     },
     "notFound": {
       "title": "页面未找到",
@@ -331,8 +333,8 @@
         "我们不仅减轻负担，还帮助人们跨越阻碍挑战的壁垒，持续支持一个人人都能将想法化为现实的社会。",
         "让你发挥自身潜能，创造一个每个人都能闪耀的社会，这就是我们的愿景。"
       ],
-      "collaborationImgAlt": "团队协作工作",
-      "workshopImgAlt": "学习会与工作坊场景",
+      "collaborationImgAlt": "四人围着电脑交流的场景示意",
+      "workshopImgAlt": "在旁协助他人使用电脑学习的场景示意",
       "establishedLabel": "成立日期",
       "establishedDate": "2026年7月13日",
       "businessPurposesLabel": "经营范围",
@@ -346,14 +348,16 @@
         "经营计算机培训教室",
         "与上述各项附带或相关的一切业务"
       ],
-      "corporateContactCta": "公司及合作咨询"
+      "corporateContactCta": "公司及合作咨询",
+      "collaborationCaption": "汇聚技术与知识、拓展可能性的场景示意。",
+      "workshopCaption": "通过学习支持每个人迎接挑战的场景示意。"
     },
     "services": {
       "title": "业务",
       "seoTitleContext": "业务介绍",
       "description": "为您介绍Acecore的业务部门与主要服务，以及费用和使用条件的查询渠道，帮助减轻日常负担，并支持每个人迎接挑战。",
       "heroTitle": "业务",
-      "heroSubtitle": "为您介绍可提供的支持与服务，以及费用查询方式。",
+      "heroSubtitle": "了解我们的业务部门、服务及收费信息查询入口。",
       "heroImgAlt": "科技办公室",
       "eyebrow": "Business Directory",
       "introTitle": "业务部门",
@@ -381,10 +385,15 @@
       "advisorTitle": "IT顾问工程师服务",
       "advisorDescription": "从日常咨询到网站上线，我们均以固定月费提供支持。",
       "learningTitle": "根据目标提供学习支持",
-      "pricingHeading": "费用与使用条件",
-      "pricingLead": "详细费用与服务范围请查看各专业网站。学习支持的实施条件将在咨询时确认；社区参与条件及商品价格请参阅各项服务的介绍页面。",
+      "pricingHeading": "收费参考",
+      "pricingLead": "详细收费及我们承接的业务内容，请在各网站查看。",
       "offeringsHeading": "主要服务",
-      "detailsCta": "了解详情"
+      "detailsCta": "了解详情",
+      "pricingCta": "查看收费",
+      "overviewCaption": "践行理念的三个业务部门",
+      "systemsRole": "用技术解决问题",
+      "schoolsRole": "围绕目标开展学习",
+      "designRole": "将创意化为作品"
     },
     "privacy": {
       "title": "隐私政策",

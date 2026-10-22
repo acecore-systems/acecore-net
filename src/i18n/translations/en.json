@@ -41,7 +41,8 @@
     "timeline": "Timeline",
     "copyCode": "Copy code",
     "codeCopied": "Copied!",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "pageContents": "On this page"
   },
   "aiChat": {
     "open": "Open AI chat",
@@ -195,7 +196,7 @@
       "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
-      "viewBusinessDetails": "View business directory",
+      "viewBusinessDetails": "Explore our services",
       "viewAbout": "View company overview",
       "latestNews": "Corporate news",
       "viewAllNews": "View all news and articles",
@@ -203,8 +204,9 @@
       "aboutIntro": "Learn about our company, leadership, corporate philosophy, and vision.",
       "directoryHeading": "Find what you need",
       "directoryLead": "Choose a page for the information you are looking for.",
-      "servicesIntro": "Explore the departments and services that help reduce burdens and support new endeavors, along with where to find pricing.",
-      "contactIntro": "Send your questions or requests through our contact form."
+      "servicesIntro": "Discover the services we provide.",
+      "contactIntro": "Send your questions or requests through our contact form.",
+      "servicesHeading": "Our Services"
     },
     "notFound": {
       "title": "Page Not Found",
@@ -277,8 +279,8 @@
         "Beyond reducing burdens, we help people overcome barriers to taking on challenges and continue to support a society where everyone can turn their ideas into reality.",
         "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
       ],
-      "collaborationImgAlt": "Team collaboration",
-      "workshopImgAlt": "Study group and workshop",
+      "collaborationImgAlt": "Illustration of four people discussing around a computer",
+      "workshopImgAlt": "Illustration of one person supporting another learning on a computer",
       "establishedLabel": "Established",
       "establishedDate": "July 13, 2026",
       "businessPurposesLabel": "Business activities",
@@ -292,14 +294,16 @@
         "Operation of computer classes",
         "All activities incidental or related to the foregoing"
       ],
-      "corporateContactCta": "Company and partnership inquiries"
+      "corporateContactCta": "Company and partnership inquiries",
+      "collaborationCaption": "An illustrative scene of people sharing technology and knowledge to open up possibilities.",
+      "workshopCaption": "An illustrative scene of learning that supports each person in taking on new challenges."
     },
     "services": {
       "title": "Businesses",
       "seoTitleContext": "Business Directory",
       "description": "Explore Acecore’s business divisions and key services that ease everyday burdens and support individual ambitions, with links to pricing and terms of use.",
       "heroTitle": "Businesses",
-      "heroSubtitle": "Explore the support and services we offer, and find where to check pricing.",
+      "heroSubtitle": "Explore our businesses, services, and pricing resources.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
       "introTitle": "Business departments",
@@ -327,10 +331,15 @@
       "advisorTitle": "IT Advisory Engineer Service",
       "advisorDescription": "From day-to-day consultations to launching your website, we provide support for a fixed monthly fee.",
       "learningTitle": "Learning support tailored to your goals",
-      "pricingHeading": "Pricing and conditions",
-      "pricingLead": "Check each specialist site for detailed pricing and service scope. We’ll confirm the arrangements for learning support during a consultation; community participation requirements and product prices are listed on the relevant service pages.",
+      "pricingHeading": "Pricing Guide",
+      "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
       "offeringsHeading": "Key services",
-      "detailsCta": "Learn more"
+      "detailsCta": "Learn more",
+      "pricingCta": "View pricing",
+      "overviewCaption": "Three departments supporting our philosophy",
+      "systemsRole": "Solving problems with technology",
+      "schoolsRole": "Learning shaped around your goals",
+      "designRole": "Bringing creative ideas to life"
     },
     "contact": {
       "title": "Contact",

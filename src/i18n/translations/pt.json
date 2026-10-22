@@ -41,7 +41,8 @@
     "timeline": "Linha do tempo",
     "copyCode": "Copiar código",
     "codeCopied": "Copiado!",
-    "copyFailed": "Falha ao copiar"
+    "copyFailed": "Falha ao copiar",
+    "pageContents": "Nesta página"
   },
   "aiChat": {
     "open": "Abrir chat de IA",
@@ -195,7 +196,7 @@
       "heroSubtitle": "Por meio da tecnologia e da aprendizagem, buscamos reduzir o tempo gasto em tarefas não essenciais e criar um ambiente onde todos possam realizar suas aspirações.",
       "heroImgTeam": "Equipe trabalhando em espaço de coworking",
       "heroImgMeeting": "Cena de reunião",
-      "viewBusinessDetails": "Ver lista de negócios",
+      "viewBusinessDetails": "Conheça nossos serviços",
       "viewAbout": "Sobre nós",
       "latestNews": "Notícias corporativas",
       "viewAllNews": "Ver notícias e artigos",
@@ -203,8 +204,9 @@
       "aboutIntro": "Conheça as informações da empresa, a diretoria, nossa filosofia e nossa visão.",
       "directoryHeading": "Encontre o que procura",
       "directoryLead": "Escolha a página de acordo com a informação que procura.",
-      "servicesIntro": "Conheça as áreas e os serviços que ajudam a aliviar encargos e apoiar novos desafios, além de onde consultar os preços.",
-      "contactIntro": "Envie suas dúvidas ou solicitações pelo formulário de contato."
+      "servicesIntro": "Conheça os serviços que oferecemos.",
+      "contactIntro": "Envie suas dúvidas ou solicitações pelo formulário de contato.",
+      "servicesHeading": "Nossos serviços"
     },
     "notFound": {
       "title": "Página não encontrada",
@@ -337,8 +339,8 @@
         "Além de aliviar encargos, ajudamos as pessoas a superar as barreiras a novos desafios e continuamos apoiando uma sociedade onde todos possam dar forma às suas ideias.",
         "Nossa visão é criar uma sociedade onde você possa aproveitar seu próprio potencial e onde todos possam brilhar."
       ],
-      "collaborationImgAlt": "Trabalho colaborativo em equipe",
-      "workshopImgAlt": "Sessão de estudos e workshop",
+      "collaborationImgAlt": "Cena ilustrativa de quatro pessoas conversando ao redor de um computador",
+      "workshopImgAlt": "Cena ilustrativa de uma pessoa apoiando outra que aprende no computador",
       "establishedLabel": "Fundação",
       "establishedDate": "13 de julho de 2026",
       "businessPurposesLabel": "Atividades empresariais",
@@ -352,14 +354,16 @@
         "Administração de cursos de informática",
         "Todas as atividades acessórias ou relacionadas às anteriores"
       ],
-      "corporateContactCta": "Consultas sobre a empresa e parcerias"
+      "corporateContactCta": "Consultas sobre a empresa e parcerias",
+      "collaborationCaption": "Cena ilustrativa de pessoas que compartilham tecnologia e conhecimento para ampliar possibilidades.",
+      "workshopCaption": "Cena ilustrativa da aprendizagem como apoio aos desafios de cada pessoa."
     },
     "services": {
       "title": "Áreas de atuação",
       "seoTitleContext": "Guia das áreas de atuação",
       "description": "Conheça as áreas e os principais serviços da Acecore, que reduzem os encargos diários e apoiam novos desafios. Saiba onde consultar preços e condições de uso.",
       "heroTitle": "Áreas de atuação",
-      "heroSubtitle": "Conheça o suporte e os serviços disponíveis e saiba onde consultar os preços.",
+      "heroSubtitle": "Conheça nossas áreas, serviços e onde consultar os preços.",
       "heroImgAlt": "Escritório de tecnologia",
       "eyebrow": "Guia de serviços",
       "introTitle": "Unidades de negócio",
@@ -387,10 +391,15 @@
       "advisorTitle": "Serviço de consultoria em TI",
       "advisorDescription": "Oferecemos suporte por uma mensalidade fixa, desde consultas do dia a dia até a publicação do seu site.",
       "learningTitle": "Apoio à aprendizagem alinhado aos seus objetivos",
-      "pricingHeading": "Preços e condições de uso",
-      "pricingLead": "Consulte os preços e o escopo de atendimento em cada site especializado. As condições para o apoio à aprendizagem são confirmadas durante a consulta; os requisitos para participar das comunidades e os preços dos produtos estão nas páginas de cada serviço.",
+      "pricingHeading": "Guia de preços",
+      "pricingLead": "Consulte cada site para obter os preços detalhados e conhecer os trabalhos que realizamos.",
       "offeringsHeading": "Principais serviços",
-      "detailsCta": "Saiba mais"
+      "detailsCta": "Saiba mais",
+      "pricingCta": "Consultar preços",
+      "overviewCaption": "Três departamentos que apoiam nossa filosofia",
+      "systemsRole": "Resolver problemas com tecnologia",
+      "schoolsRole": "Aprendizagem conforme seus objetivos",
+      "designRole": "Dar forma às ideias criativas"
     },
     "privacy": {
       "title": "Política de Privacidade",

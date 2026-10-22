@@ -41,7 +41,8 @@
     "timeline": "Zeitleiste",
     "copyCode": "Code kopieren",
     "codeCopied": "Kopiert!",
-    "copyFailed": "Kopieren fehlgeschlagen"
+    "copyFailed": "Kopieren fehlgeschlagen",
+    "pageContents": "Auf dieser Seite"
   },
   "aiChat": {
     "open": "KI-Chat öffnen",
@@ -195,7 +196,7 @@
       "heroSubtitle": "Mit Technologie und Lernen wollen wir Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
       "heroImgTeam": "Team bei der Arbeit in einem Co-Working-Space",
       "heroImgMeeting": "Besprechungsszene",
-      "viewBusinessDetails": "Geschäftsbereiche ansehen",
+      "viewBusinessDetails": "Unsere Leistungen ansehen",
       "viewAbout": "Über uns",
       "latestNews": "Unternehmensnachrichten",
       "viewAllNews": "Alle Nachrichten und Artikel ansehen",
@@ -203,8 +204,9 @@
       "aboutIntro": "Erfahren Sie mehr über unser Unternehmen, die Unternehmensleitung, unsere Philosophie und unsere Vision.",
       "directoryHeading": "Finden Sie die passende Information",
       "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
-      "servicesIntro": "Entdecken Sie die Bereiche und Leistungen, die Belastungen verringern und neue Vorhaben unterstützen, sowie die Anlaufstellen für Preise.",
-      "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular."
+      "servicesIntro": "Entdecken Sie die Leistungen, die wir anbieten.",
+      "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular.",
+      "servicesHeading": "Unsere Leistungen"
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -283,8 +285,8 @@
         "Wir verringern nicht nur Belastungen, sondern helfen auch, Hindernisse für neue Herausforderungen zu überwinden, und unterstützen dauerhaft eine Gesellschaft, in der alle ihre Ideen verwirklichen können.",
         "Unsere Vision ist eine Gesellschaft, in der Sie Ihr eigenes Potenzial entfalten können und alle die Möglichkeit haben, zu strahlen."
       ],
-      "collaborationImgAlt": "Kollaborative Teamarbeit",
-      "workshopImgAlt": "Eindrücke von einer Lernveranstaltung und einem Workshop",
+      "collaborationImgAlt": "Beispielszene mit vier Personen im Gespräch an einem Computer",
+      "workshopImgAlt": "Beispielszene einer Person, die eine andere beim Lernen am Computer unterstützt",
       "establishedLabel": "Gründung",
       "establishedDate": "13. Juli 2026",
       "businessPurposesLabel": "Geschäftstätigkeiten",
@@ -298,14 +300,16 @@
         "Betrieb von Computerkursen",
         "Alle mit den vorgenannten Tätigkeiten verbundenen oder ergänzenden Geschäfte"
       ],
-      "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen"
+      "corporateContactCta": "Anfragen zu Unternehmen und Kooperationen",
+      "collaborationCaption": "Beispielszene: Menschen teilen Technologie und Wissen und eröffnen neue Möglichkeiten.",
+      "workshopCaption": "Beispielszene: Lernen unterstützt Menschen dabei, neue Herausforderungen anzugehen."
     },
     "services": {
       "title": "Geschäftsbereiche",
       "seoTitleContext": "Überblick über unsere Geschäftsbereiche",
       "description": "Acecores Geschäftsbereiche und Leistungen erleichtern den Alltag und fördern individuelle Vorhaben. Preise und Nutzungsbedingungen finden Sie online.",
       "heroTitle": "Geschäftsbereiche",
-      "heroSubtitle": "Wir zeigen Ihnen, welche Unterstützung und Leistungen wir anbieten und wo Sie Informationen zu den Preisen finden.",
+      "heroSubtitle": "Entdecken Sie unsere Bereiche, Leistungen und Preisinformationen.",
       "heroImgAlt": "Technologiebüro",
       "eyebrow": "Geschäftsbereiche im Überblick",
       "introTitle": "Geschäftsbereiche",
@@ -333,10 +337,15 @@
       "advisorTitle": "IT-Beratung und Betreuung durch Ingenieure",
       "advisorDescription": "Von alltäglichen Fragen bis zur Veröffentlichung Ihrer Website – wir unterstützen Sie zum monatlichen Festpreis.",
       "learningTitle": "Lernbegleitung passend zu Ihren Zielen",
-      "pricingHeading": "Preise und Nutzungsbedingungen",
-      "pricingLead": "Ausführliche Informationen zu Preisen und Leistungsumfang finden Sie auf den jeweiligen Fachseiten. Die Bedingungen für die Lernbegleitung klären wir im Beratungsgespräch; Teilnahmebedingungen für Communities und Produktpreise finden Sie auf den jeweiligen Serviceseiten.",
+      "pricingHeading": "Preisübersicht",
+      "pricingLead": "Detaillierte Preise und Informationen zu den Leistungen, die wir übernehmen, finden Sie auf den jeweiligen Websites.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
-      "detailsCta": "Mehr erfahren"
+      "detailsCta": "Mehr erfahren",
+      "pricingCta": "Preise ansehen",
+      "overviewCaption": "Drei Bereiche im Sinne unserer Philosophie",
+      "systemsRole": "Probleme mit Technologie lösen",
+      "schoolsRole": "Lernen nach Ihren Zielen",
+      "designRole": "Kreative Ideen verwirklichen"
     },
     "contact": {
       "title": "Kontakt",

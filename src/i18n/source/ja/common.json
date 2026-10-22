@@ -36,7 +36,8 @@
     "timeline": "タイムライン",
     "copyCode": "コードをコピー",
     "codeCopied": "コピーしました",
-    "copyFailed": "コピー失敗"
+    "copyFailed": "コピー失敗",
+    "pageContents": "このページの内容"
   },
   "aiChat": {
     "open": "AIチャットを開く",
