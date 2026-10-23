@@ -1,10 +1,11 @@
 /* Accepted 2026-10-23 editorial design: white, navy, cobalt and real image frames. */
 :root {
-  --ac-ink: #071f3e;
+  --ac-ink: #20252b;
   --ac-blue: #0656d9;
+  --ac-deep: #0446b5;
   --ac-line: #c4cfdb;
   --ac-wash: #eef4fa;
-  --ac-muted: #425469;
+  --ac-muted: #535b64;
   --ac-systems-accent: #0656d9;
   --ac-systems-hover: #0446b5;
   --ac-systems-wash: #eef4ff;
@@ -332,7 +333,7 @@ a:hover .department-link > .ac-arrow-circle {
 }
 .home-company {
   padding-block: 80px;
-  background: var(--ac-ink);
+  background: var(--ac-deep);
   color: white;
 }
 .home-company-layout {
@@ -350,7 +351,7 @@ a:hover .department-link > .ac-arrow-circle {
   margin-top: 12px;
   font-size: 12px;
   line-height: 1.7;
-  color: #b8cadb;
+  color: white;
 }
 .home-company .ac-arrow-link {
   margin-top: 32px;
@@ -966,8 +967,12 @@ a[data-department]:focus-visible,
   padding: 10px 0;
 }
 .site-footer {
-  background: var(--ac-ink);
-  color: #cbd7e3;
+  background: var(--ac-deep);
+  color: white;
+}
+.site-footer :is(p, a, li, small),
+.home-company figcaption {
+  color: white;
 }
 .site-footer > div {
   padding-block: 64px 32px;
@@ -1020,7 +1025,7 @@ a[data-department]:focus-visible,
 .footer-bottom [data-cast-scene-credit] {
   margin: 0;
   max-width: 35rem;
-  color: #c1cfde;
+  color: white;
 }
 
 /* News: image-led editorial rows; all links stay independently operable. */

@@ -21,15 +21,15 @@ const { eyebrow, title, description, items, variant = 'inline' } = Astro.props
 
 const tones = {
   brand: 'text-brand-600',
-  emerald: 'text-emerald-700',
-  amber: 'text-amber-700',
+  emerald: 'text-brand-700',
+  amber: 'text-brand-700',
   slate: 'text-slate-500',
 } satisfies Record<NonNullable<GridItem['tone']>, string>
 
 const cardTones = {
   brand: 'border-brand-200 bg-brand-50 text-brand-700',
-  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-  amber: 'border-amber-200 bg-amber-50 text-amber-700',
+  emerald: 'border-brand-200 bg-brand-50 text-brand-700',
+  amber: 'border-brand-200 bg-brand-50 text-brand-700',
   slate: 'border-slate-200 bg-slate-50 text-slate-600',
 } satisfies Record<NonNullable<GridItem['tone']>, string>
 
