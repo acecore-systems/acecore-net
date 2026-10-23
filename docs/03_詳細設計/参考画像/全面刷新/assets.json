@@ -11,7 +11,8 @@
         "height": 768,
         "sha256": "a4652247eb5efda1ba61d2932efbd507f5cbcecae88211acfee096b509fe27d9"
       },
-      "derivatives": [
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
         {
           "path": "public/images/redesign/20261023/brand-workbench-1280.webp",
           "bytes": 80966,
@@ -43,7 +44,8 @@
         "height": 1086,
         "sha256": "48316f816ebc43ff92e4d5e843470b1e6096b8a905d25411553563b978cc86ee"
       },
-      "derivatives": [
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
         {
           "path": "public/images/redesign/20261023/brand-workbench-mobile-1280.webp",
           "bytes": 154158,
@@ -75,7 +77,8 @@
         "height": 941,
         "sha256": "1c6eec487c635ffd429de1aa153d838d253ece2450fda6aaf7ee1a4161d0ec8f"
       },
-      "derivatives": [
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
         {
           "path": "public/images/redesign/20261023/learning-support-1280.webp",
           "bytes": 60542,
@@ -129,7 +132,8 @@
           "height": 480,
           "sha256": "644f39d0cf47099c2fa84c18f5a22064d5416b5f069ee60b5b5a3f313b61d48a"
         }
-      ]
+      ],
+      "status": "additional-in-use"
     },
     {
       "name": "schools",
@@ -161,7 +165,8 @@
           "height": 480,
           "sha256": "dcfc34785859dd51df69c99cf123b11b03837d02b00de5c5691590c10766680a"
         }
-      ]
+      ],
+      "status": "additional-in-use"
     },
     {
       "name": "designs",
@@ -193,7 +198,8 @@
           "height": 480,
           "sha256": "b19c2c0a52da397768a1d4315a54b0c2962cde55eaf3d4dd2553a3b3e3bea48c"
         }
-      ]
+      ],
+      "status": "additional-in-use"
     },
     {
       "name": "collaboration",
@@ -225,7 +231,8 @@
           "height": 480,
           "sha256": "f65e4710df79ea41026726a34ac940124418e96ebda4eca029e4843e53b5aedf"
         }
-      ]
+      ],
+      "status": "additional-in-use"
     }
   ]
 }

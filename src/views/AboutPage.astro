@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import BrandImage from '../components/BrandImage.astro'
+import { castScene, castSceneAsset } from '../data/cast-scenes'
 import ArrowLink from '../components/ArrowLink.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
@@ -106,6 +106,16 @@ const aboutPageLd = {
       ]}
     />
   </div>
+  <div class="ac-container about-cast-scene">
+    <img
+      src={castScene('about-hero')}
+      alt={t(locale, 'pages.about.heroImgAlt')}
+      width={castSceneAsset('about-hero').width}
+      height={castSceneAsset('about-hero').height}
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
   <section
     class="about-philosophy"
     aria-labelledby="corporate-philosophy-heading"
@@ -139,9 +149,13 @@ const aboutPageLd = {
           </div>
         </div>
         <figure class="philosophy-illustrations">
-          <BrandImage
-            name="learning-support"
+          <img
+            src={castScene('about-workshop')}
             alt={t(locale, 'pages.about.workshopImgAlt')}
+            width={castSceneAsset('about-workshop').width}
+            height={castSceneAsset('about-workshop').height}
+            loading="lazy"
+            decoding="async"
           />
           <figcaption>{t(locale, 'pages.about.workshopCaption')}</figcaption>
         </figure>

@@ -195,8 +195,8 @@
     "home": {
       "heroTitle": "Faire passer le monde à l’étape suivante",
       "heroSubtitle": "Par la technologie et l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut poursuivre ses aspirations.",
-      "heroImgTeam": "Illustration d’un établi reliant technologie, apprentissage et création",
-      "heroImgMeeting": "Illustration de mains apprenant et apportant un soutien",
+      "heroImgTeam": "Équipe travaillant dans un espace de coworking",
+      "heroImgMeeting": "Scène de réunion",
       "viewBusinessDetails": "Découvrir nos services",
       "viewAbout": "Voir la présentation de l’entreprise",
       "latestNews": "Actualités de l’entreprise",
@@ -343,7 +343,7 @@
         "Notre vision est de créer une société où vous pouvez exprimer votre propre potentiel et où chacun peut s’épanouir."
       ],
       "collaborationImgAlt": "Scène illustrative de quatre personnes échangeant autour d’un ordinateur",
-      "workshopImgAlt": "Illustration de mains accompagnant l’apprentissage dans un cahier",
+      "workshopImgAlt": "Scène illustrative d’une personne accompagnant une autre dans son apprentissage sur ordinateur",
       "establishedLabel": "Constitution",
       "establishedDate": "13 juillet 2026",
       "businessPurposesLabel": "Activités de la société",

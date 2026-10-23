@@ -5,6 +5,15 @@
   --ac-line: #c4cfdb;
   --ac-wash: #eef4fa;
   --ac-muted: #425469;
+  --ac-systems-accent: #0656d9;
+  --ac-systems-hover: #0446b5;
+  --ac-systems-wash: #eef4ff;
+  --ac-schools-accent: #087d62;
+  --ac-schools-hover: #065f4b;
+  --ac-schools-wash: #edf8f3;
+  --ac-designs-accent: #7140c4;
+  --ac-designs-hover: #58309c;
+  --ac-designs-wash: #f5f0fc;
 }
 body {
   color: var(--ac-ink);
@@ -244,13 +253,13 @@ a:hover .department-link > .ac-arrow-circle {
   margin-top: 28px;
 }
 .hero-media-wrap {
-  max-width: 1536px;
+  max-width: 792px;
   margin: 0 auto;
   padding-inline: 16px;
 }
 .hero-media {
   position: relative;
-  aspect-ratio: 3/1;
+  aspect-ratio: 1;
   overflow: hidden;
   background: var(--ac-wash);
 }
@@ -261,7 +270,7 @@ a:hover .department-link > .ac-arrow-circle {
   width: 100%;
 }
 .hero-slide img {
-  object-fit: cover;
+  object-fit: contain;
 }
 .hero-controls {
   display: flex;
@@ -517,6 +526,56 @@ a:hover .department-link > .ac-arrow-circle {
   display: flex;
   padding: 24px 0;
 }
+[data-department='systems'] {
+  --department-accent: var(--ac-systems-accent);
+  --department-hover: var(--ac-systems-hover);
+  --department-wash: var(--ac-systems-wash);
+}
+[data-department='schools'] {
+  --department-accent: var(--ac-schools-accent);
+  --department-hover: var(--ac-schools-hover);
+  --department-wash: var(--ac-schools-wash);
+}
+[data-department='designs'] {
+  --department-accent: var(--ac-designs-accent);
+  --department-hover: var(--ac-designs-hover);
+  --department-wash: var(--ac-designs-wash);
+}
+.home-department-row[data-department],
+.department-row[data-department],
+.pricing-destinations li[data-department] {
+  border-top-color: var(--department-accent);
+}
+[data-department] h3 {
+  color: var(--department-accent);
+}
+[data-department] .department-link,
+[data-department] .department-status,
+[data-department] > .ac-arrow-link,
+[data-department] .ac-arrow-circle {
+  color: var(--department-accent);
+}
+[data-department] .ac-arrow-circle {
+  background: var(--department-wash);
+}
+a[data-department]:hover .ac-arrow-circle,
+[data-department] > .ac-arrow-link:hover .ac-arrow-circle {
+  background: var(--department-hover);
+  color: white;
+}
+a[data-department]:focus-visible,
+[data-department] > a:focus-visible {
+  outline-color: var(--department-accent);
+}
+.about-cast-scene {
+  padding-top: 40px;
+}
+.about-cast-scene img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 .philosophy-motto {
   font-size: clamp(32px, 4.4vw, 62px);
   font-weight: 800;
@@ -700,7 +759,7 @@ a:hover .department-link > .ac-arrow-circle {
     margin-top: 24px;
   }
   .hero-media {
-    aspect-ratio: 4/3;
+    aspect-ratio: 1;
   }
   .hero-controls {
     padding-inline: 8px;

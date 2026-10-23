@@ -29,6 +29,7 @@ const departments = [
     <li id={key}>
       <a
         class="department-row"
+        data-department={key === 'design' ? 'designs' : key}
         href={href}
         target="_blank"
         rel="noopener noreferrer"

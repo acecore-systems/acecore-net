@@ -88,19 +88,22 @@ const { locale } = Astro.props
       <ul class="pricing-destinations">
         {[
           {
+            department: 'systems',
             label: t(locale, 'pages.services.systemsTitle'),
             href: getSpecialistUrl(SITE.social.systems, locale, '/pricing/'),
           },
           {
+            department: 'schools',
             label: t(locale, 'pages.services.schoolsTitle'),
             href: getSchoolsUrl('/pricing/'),
           },
           {
+            department: 'designs',
             label: t(locale, 'pages.services.designTitle'),
             href: getSpecialistUrl(SITE.social.designs, locale, '/#catalog'),
           },
-        ].map(({ label, href }) => (
-          <li>
+        ].map(({ department, label, href }) => (
+          <li data-department={department}>
             <ArrowLink href={href} locale={locale} external>
               <span class="block text-xl font-800">{label}</span>
               <span class="mt-2 block text-sm">

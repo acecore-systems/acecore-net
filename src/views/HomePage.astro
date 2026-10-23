@@ -6,7 +6,7 @@ import BrandImage from '../components/BrandImage.astro'
 import ArrowLink from '../components/ArrowLink.astro'
 import ContactBand from '../components/ContactBand.astro'
 import Icon from '../components/Icon.astro'
-import images from '../data/redesign-images.json'
+import { castScene, castSceneAsset } from '../data/cast-scenes'
 import { getCollection } from 'astro:content'
 import {
   t,
@@ -42,17 +42,16 @@ const posts = filterPostsForLocale(
   .slice(0, 3)
   .map((p) => localizePost(p, allPosts, locale))
 const heroImages = [
-  {
-    ...images['brand-workbench'],
-    alt: t(locale, 'pages.home.heroImgTeam'),
-    mobileSrc: images['brand-workbench-mobile'].src,
-    mobileSrcset: images['brand-workbench-mobile'].srcset,
-  },
-  {
-    ...images['learning-support'],
-    alt: t(locale, 'pages.home.heroImgMeeting'),
-  },
-]
+  { stem: 'home-team', alt: 'heroImgTeam' },
+  { stem: 'home-meeting', alt: 'heroImgMeeting' },
+].map(({ stem, alt }) => ({
+  src: castScene(stem),
+  alt: t(locale, 'pages.home.' + alt),
+  width: castSceneAsset(stem).width,
+  height: castSceneAsset(stem).height,
+  srcsetWidths: [castSceneAsset(stem).width],
+  sizes: '(min-width: 792px) 760px, calc(100vw - 32px)',
+}))
 const webPageLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -115,6 +114,7 @@ const webPageLd = {
           <a
             href={u('/services/') + '#' + key}
             class="home-department-row"
+            data-department={key === 'design' ? 'designs' : key}
             data-ga-event="cta_click"
             data-ga-label={t(locale, 'pages.services.' + key + 'Title')}
             data-ga-location="home_business_preview"

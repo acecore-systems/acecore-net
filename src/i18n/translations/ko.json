@@ -195,8 +195,8 @@
     "home": {
       "heroTitle": "세계를 다음 단계로",
       "heroSubtitle": "기술과 배움을 통해 본질적이지 않은 일에 쓰는 시간을 줄이고, 누구나 하고 싶은 일에 도전할 수 있는 환경을 지향합니다.",
-      "heroImgTeam": "기술·학습·창작 도구가 연결된 작업대의 이미지",
-      "heroImgMeeting": "배우는 손과 돕는 손을 보여 주는 이미지",
+      "heroImgTeam": "코워킹 스페이스에서 일하는 팀",
+      "heroImgMeeting": "회의 풍경",
       "viewBusinessDetails": "사업 소개 보기",
       "viewAbout": "회사 소개 보기",
       "latestNews": "기업 뉴스",
@@ -337,7 +337,7 @@
         "여러분이 가진 가능성을 살리고 누구나 빛날 수 있는 사회를 만드는 것이 우리가 지향하는 모습입니다."
       ],
       "collaborationImgAlt": "PC를 둘러싸고 의논하는 네 사람의 이미지",
-      "workshopImgAlt": "노트 학습을 돕는 손의 이미지",
+      "workshopImgAlt": "PC 학습을 곁에서 돕는 장면의 이미지",
       "establishedLabel": "설립",
       "establishedDate": "2026년 7월 13일",
       "businessPurposesLabel": "사업 내용",

@@ -6,6 +6,9 @@ import { load as parseYaml } from 'js-yaml'
 const root = new URL('../', import.meta.url)
 const read = (path) => readFile(new URL(path, root), 'utf8')
 const searchCorpus = JSON.parse(await read('.vectorize/corpus.json'))
+const castRegistration = JSON.parse(await read('src/data/cast-scenes.json'))
+const castPath = (stem) =>
+  castRegistration.assets.find((asset) => asset.id === 'net--' + stem).localPath
 const locales = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
 const pageNames = [
   'home',
@@ -228,14 +231,38 @@ for (const locale of locales) {
   assert.equal(home('.hero-copy a').attr('data-ga-label'), 'hero_services')
   const heroImages = JSON.parse(home('#hero-slider').attr('data-hero-images'))
   assert.equal(heroImages.length, 2, locale + ': preserve two-slide hero')
-  assert.ok(
-    heroImages[0].mobileSrc,
-    locale + ': preserve dedicated mobile framing',
+  assert.equal(heroImages[0].src, castPath('home-team'))
+  assert.equal(heroImages[1].src, castPath('home-meeting'))
+  assert.equal(heroImages[0].alt, translations.home.heroImgTeam)
+  assert.equal(heroImages[1].alt, translations.home.heroImgMeeting)
+  assert.equal(
+    about('.about-cast-scene img').attr('src'),
+    castPath('about-hero'),
+  )
+  assert.equal(
+    about('.about-cast-scene img').attr('alt'),
+    translations.about.heroImgAlt,
+  )
+  assert.equal(philosophy.find('img').attr('src'), castPath('about-workshop'))
+  assert.equal(
+    philosophy.find('img').attr('alt'),
+    translations.about.workshopImgAlt,
   )
   assert.equal(home('#hero-pause').length, 1)
   assert.equal(home('.hero-dot').length, 2)
   for (const key of ['systems', 'schools', 'design']) {
     const department = services('#' + key)
+    const theme = key === 'design' ? 'designs' : key
+    assert.equal(
+      department.find('[data-department]').attr('data-department'),
+      theme,
+    )
+    assert.equal(
+      home('.home-department-row[href$="#' + key + '"]').attr(
+        'data-department',
+      ),
+      theme,
+    )
     assert.equal(
       department.find('img').attr('alt'),
       translations.services[key + 'ImgAlt'],
