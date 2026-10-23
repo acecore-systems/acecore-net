@@ -1,0 +1,52 @@
+/* Approved source: acecore-net/docs/03_詳細設計/07_ブランドカラーと球状グラデーション.md */
+:root {
+  --brand: #0656d9;
+  --school-green: #39a86b;
+  --system-purple: #8950c5;
+  --brand-neutral: #20252b;
+  --brand-text-paint: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    #986000 0%,
+    #b33e71 35%,
+    #8146ae 65%,
+    var(--brand) 100%
+  );
+  --brand-control:
+    linear-gradient(var(--wash), var(--wash)) padding-box,
+    var(--paint) border-box;
+}
+.brand-corporate-name {
+  color: var(--brand);
+}
+.brand-service-name {
+  color: var(--ink-accent);
+}
+:root {
+  --paint:
+    radial-gradient(
+      ellipse 85% 150% at 12% -10%,
+      color-mix(in srgb, var(--brand) 10%, transparent) 0%,
+      transparent 100%
+    ),
+    var(--paint-edge);
+  --paint-edge: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    var(--brand) 0%,
+    color-mix(in srgb, var(--brand) 92%, #00022b) 35%,
+    color-mix(in srgb, var(--brand) 72%, #00022b) 70%,
+    color-mix(in srgb, var(--brand) 42%, #00022b) 100%,
+    color-mix(in srgb, var(--brand) 22%, #00022b) 125%
+  );
+  --sphere-paint:
+    radial-gradient(ellipse 45% 35% at 30% 22%, #ffffff55 0%, #ffffff00 100%),
+    radial-gradient(
+      ellipse 90% 90% at 28% 22%,
+      var(--brand) 0%,
+      var(--brand) 28%,
+      color-mix(in srgb, var(--brand) 78%, #00022b) 52%,
+      color-mix(in srgb, var(--brand) 42%, #00022b) 75%,
+      #00022b 100%
+    );
+  --ink-accent: #00022b;
+  --wash: #f0f1f5;
+}

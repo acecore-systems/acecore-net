@@ -1,20 +1,12 @@
+@import './brand.css';
 /* Accepted 2026-10-23 editorial design: white, navy, cobalt and real image frames. */
 :root {
   --ac-ink: #20252b;
-  --ac-blue: #0656d9;
-  --ac-deep: #0446b5;
+  --ac-blue: var(--brand);
+  --ac-deep: #00022b;
   --ac-line: #c4cfdb;
-  --ac-wash: #eef4fa;
+  --ac-wash: var(--wash);
   --ac-muted: #535b64;
-  --ac-systems-accent: #0656d9;
-  --ac-systems-hover: #0446b5;
-  --ac-systems-wash: #eef4ff;
-  --ac-schools-accent: #087d62;
-  --ac-schools-hover: #065f4b;
-  --ac-schools-wash: #edf8f3;
-  --ac-designs-accent: #7140c4;
-  --ac-designs-hover: #58309c;
-  --ac-designs-wash: #f5f0fc;
 }
 body {
   color: var(--ac-ink);
@@ -31,7 +23,7 @@ body {
   padding-block: clamp(64px, 7.5vw, 112px);
 }
 .ac-heading {
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 .ac-muted {
   color: var(--ac-muted);
@@ -49,7 +41,7 @@ body {
   line-height: 1.35;
 }
 .ac-page-title {
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
   text-wrap: balance;
   font-size: clamp(38px, 6vw, 88px);
   font-weight: 800;
@@ -130,8 +122,15 @@ body {
 }
 .ac-btn-primary,
 .ac-btn-secondary {
-  background: var(--ac-blue);
-  color: white;
+  background: var(--brand-control);
+  border: 3px solid transparent;
+  color: var(--ink-accent);
+}
+.ac-btn-primary:hover,
+.ac-btn-secondary:hover {
+  background:
+    linear-gradient(white, white) padding-box,
+    var(--paint) border-box;
 }
 .ac-btn-outline {
   border: 1px solid var(--ac-blue);
@@ -240,7 +239,7 @@ a:hover .department-link > .ac-arrow-circle {
   padding-bottom: 52px;
 }
 .hero-copy h1 {
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
   font-size: clamp(54px, 6.25vw, 96px);
   font-weight: 800;
   line-height: 1.24;
@@ -313,7 +312,7 @@ a:hover .department-link > .ac-arrow-circle {
   font-size: clamp(23px, 2.3vw, 32px);
   line-height: 1.35;
   font-weight: 800;
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 .home-department-row p {
   margin-top: 12px;
@@ -333,8 +332,10 @@ a:hover .department-link > .ac-arrow-circle {
 }
 .home-company {
   padding-block: 80px;
-  background: var(--ac-deep);
-  color: white;
+  background: white;
+  border-block: 5px solid transparent;
+  border-image: var(--paint-edge) 1;
+  color: var(--brand-neutral);
 }
 .home-company-layout {
   display: grid;
@@ -351,11 +352,11 @@ a:hover .department-link > .ac-arrow-circle {
   margin-top: 12px;
   font-size: 12px;
   line-height: 1.7;
-  color: white;
+  color: var(--brand-neutral);
 }
 .home-company .ac-arrow-link {
   margin-top: 32px;
-  color: white;
+  color: var(--brand-neutral);
 }
 .home-news-row {
   display: flex;
@@ -381,13 +382,13 @@ a:hover .department-link > .ac-arrow-circle {
   font-size: clamp(20px, 2vw, 28px);
   font-weight: 800;
   line-height: 1.6;
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 .home-news-row .ac-arrow-circle {
   color: var(--ac-blue);
 }
 .contact-band {
-  background: var(--ac-blue);
+  background: var(--paint);
   color: white;
 }
 .contact-band-link {
@@ -438,7 +439,7 @@ a:hover .department-link > .ac-arrow-circle {
   font-size: clamp(24px, 2.35vw, 34px);
   line-height: 1.35;
   font-weight: 800;
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 .department-copy p {
   margin-top: 18px;
@@ -528,26 +529,109 @@ a:hover .department-link > .ac-arrow-circle {
   padding: 24px 0;
 }
 [data-department='systems'] {
-  --department-accent: var(--ac-systems-accent);
-  --department-hover: var(--ac-systems-hover);
-  --department-wash: var(--ac-systems-wash);
+  --paint:
+    radial-gradient(
+      ellipse 85% 150% at 12% -10%,
+      color-mix(in srgb, var(--system-purple) 10%, transparent) 0%,
+      transparent 100%
+    ),
+    var(--paint-edge);
+  --paint-edge: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    var(--system-purple) 0%,
+    color-mix(in srgb, var(--system-purple) 92%, var(--brand)) 35%,
+    color-mix(in srgb, var(--system-purple) 65%, var(--brand)) 70%,
+    color-mix(in srgb, var(--system-purple) 20%, var(--brand)) 100%,
+    color-mix(in srgb, var(--system-purple) 0%, var(--brand)) 125%
+  );
+  --sphere-paint:
+    radial-gradient(ellipse 45% 35% at 30% 22%, #ffffff55 0%, #ffffff00 100%),
+    radial-gradient(
+      ellipse 90% 90% at 28% 22%,
+      var(--system-purple) 0%,
+      var(--system-purple) 28%,
+      color-mix(in srgb, var(--system-purple) 78%, var(--brand)) 52%,
+      color-mix(in srgb, var(--system-purple) 42%, var(--brand)) 75%,
+      var(--brand) 100%
+    );
+  --ink-accent: #6334a4;
+  --wash: #f3eefb;
+  --department-accent: var(--ink-accent);
+  --department-hover: var(--ink-accent);
+  --department-wash: var(--wash);
 }
 [data-department='schools'] {
-  --department-accent: var(--ac-schools-accent);
-  --department-hover: var(--ac-schools-hover);
-  --department-wash: var(--ac-schools-wash);
+  --paint:
+    radial-gradient(
+      ellipse 85% 150% at 12% -10%,
+      color-mix(in srgb, var(--school-green) 10%, transparent) 0%,
+      transparent 100%
+    ),
+    var(--paint-edge);
+  --paint-edge: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    var(--school-green) 0%,
+    color-mix(in srgb, var(--school-green) 92%, var(--brand)) 35%,
+    color-mix(in srgb, var(--school-green) 65%, var(--brand)) 70%,
+    color-mix(in srgb, var(--school-green) 20%, var(--brand)) 100%,
+    color-mix(in srgb, var(--school-green) 0%, var(--brand)) 125%
+  );
+  --sphere-paint:
+    radial-gradient(ellipse 45% 35% at 30% 22%, #ffffff55 0%, #ffffff00 100%),
+    radial-gradient(
+      ellipse 90% 90% at 28% 22%,
+      var(--school-green) 0%,
+      var(--school-green) 28%,
+      color-mix(in srgb, var(--school-green) 78%, var(--brand)) 52%,
+      color-mix(in srgb, var(--school-green) 42%, var(--brand)) 75%,
+      var(--brand) 100%
+    );
+  --ink-accent: #176b45;
+  --wash: #edf7f0;
+  --department-accent: var(--ink-accent);
+  --department-hover: var(--ink-accent);
+  --department-wash: var(--wash);
 }
 [data-department='designs'] {
-  --department-accent: var(--ac-designs-accent);
-  --department-hover: var(--ac-designs-hover);
-  --department-wash: var(--ac-designs-wash);
+  --paint:
+    radial-gradient(
+      ellipse 85% 150% at 12% -10%,
+      color-mix(in srgb, #f4d275 10%, transparent) 0%,
+      transparent 100%
+    ),
+    var(--paint-edge);
+  --paint-edge: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    #f4d275 0%,
+    #efa28d 28%,
+    #d780ba 55%,
+    #a373ce 70%,
+    color-mix(in srgb, #9373ce 20%, var(--brand)) 100%,
+    var(--brand) 125%
+  );
+  --sphere-paint:
+    radial-gradient(ellipse 45% 35% at 30% 22%, #ffffff55 0%, #ffffff00 100%),
+    radial-gradient(
+      ellipse 90% 90% at 28% 22%,
+      #f4d275 0%,
+      #efa28d 28%,
+      #d780ba 48%,
+      #8970cf 66%,
+      var(--brand) 100%
+    );
+  --ink-accent: #8146ae;
+  --wash: #f7f2fa;
+  --department-accent: var(--ink-accent);
+  --department-hover: var(--ink-accent);
+  --department-wash: var(--wash);
 }
 .home-department-row[data-department],
 .department-row[data-department],
 .pricing-destinations li[data-department] {
-  border-top-color: var(--department-accent);
+  border-top: 3px solid transparent;
+  border-image: var(--paint-edge) 1;
 }
-[data-department] h3 {
+[data-department]:not([data-department='designs']) h3 {
   color: var(--department-accent);
 }
 [data-department] .department-link,
@@ -892,6 +976,7 @@ a[data-department]:focus-visible,
   height: 88px;
 }
 .site-brand {
+  color: var(--brand);
   font-size: 30px;
   letter-spacing: -0.045em;
   gap: 10px;
@@ -967,12 +1052,20 @@ a[data-department]:focus-visible,
   padding: 10px 0;
 }
 .site-footer {
-  background: var(--ac-deep);
-  color: white;
+  background:
+    linear-gradient(white, white) padding-box,
+    var(--paint) border-box;
+  border-block: 8px solid transparent;
+  color: var(--brand-neutral);
 }
-.site-footer :is(p, a, li, small),
-.home-company figcaption {
-  color: white;
+.site-footer :is(p, a, li, small) {
+  color: var(--brand-neutral);
+}
+.site-footer h3 {
+  color: var(--brand-neutral);
+}
+.site-footer a:hover {
+  color: var(--brand);
 }
 .site-footer > div {
   padding-block: 64px 32px;
@@ -983,12 +1076,12 @@ a[data-department]:focus-visible,
   gap: 56px;
 }
 .footer-grid > div:not(:first-child) {
-  border-left: 1px solid #ffffff35;
+  border-left: 1px solid var(--ac-line);
   padding-left: 40px;
 }
-.footer-wordmark {
+.site-footer .footer-wordmark {
   display: block;
-  color: white;
+  color: var(--brand);
   font-size: clamp(42px, 6vw, 80px);
   font-weight: 800;
   letter-spacing: -0.06em;
@@ -1019,13 +1112,13 @@ a[data-department]:focus-visible,
   align-items: flex-start;
   margin-top: 48px;
   padding-top: 28px;
-  border-top: 1px solid #ffffff40;
+  border-top: 1px solid var(--ac-line);
   font-size: 12px;
 }
 .footer-bottom [data-cast-scene-credit] {
   margin: 0;
   max-width: 35rem;
-  color: white;
+  color: var(--brand-neutral);
 }
 
 /* News: image-led editorial rows; all links stay independently operable. */
@@ -1108,7 +1201,7 @@ a[data-department]:focus-visible,
   font-size: clamp(23px, 2.2vw, 30px);
   font-weight: 800;
   line-height: 1.5;
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 .news-row-copy > p {
   font-size: 15px;
@@ -1135,7 +1228,7 @@ a[data-department]:focus-visible,
   height: 52px;
 }
 .news-row:hover h2 {
-  color: var(--ac-blue);
+  color: var(--brand-neutral);
 }
 .news-sidebar {
   display: block;
@@ -1289,12 +1382,12 @@ a[data-department]:focus-visible,
 .article-body .ac-prose h2 {
   padding-left: 0;
   border-left: 0;
-  color: var(--ac-blue);
+  color: var(--brand-neutral);
   font-size: clamp(25px, 2.3vw, 34px);
   font-weight: 800;
 }
 .article-body .ac-prose h3 {
-  color: var(--ac-ink);
+  color: var(--brand-neutral);
 }
 
 /* A purposeful form surface, preserving the original form and handlers. */
@@ -1424,7 +1517,7 @@ a[data-department]:focus-visible,
 .legal-reading-layout .ac-prose h2 {
   border: 0;
   padding: 0;
-  color: var(--ac-blue);
+  color: var(--brand-neutral);
   font-weight: 800;
   margin-top: 2.6em;
 }
@@ -1605,6 +1698,9 @@ a[data-department]:focus-visible,
   border-radius: 0;
 }
 #ace-ai-chat-toggle {
+  background: var(--brand-control);
+  border: 3px solid transparent;
+  color: var(--ink-accent);
   border-radius: 0;
   box-shadow: 0 6px 24px #071f3e25;
 }
@@ -1931,4 +2027,11 @@ a[data-department]:focus-visible,
   #ace-ai-chat-panel > header {
     padding: 16px;
   }
+}
+
+[data-department='designs'] h3 {
+  background: var(--brand-text-paint);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

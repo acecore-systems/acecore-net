@@ -1,0 +1,443 @@
+<div id="acecore-gray-colorful">
+  <style>
+    #acecore-gray-colorful {
+      --brand: #0656d9;
+      --school-green: #39a86b;
+      --system-purple: #8950c5;
+      color: var(--foreground);
+    }
+    #acecore-gray-colorful .palette-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    #acecore-gray-colorful .palette-label {
+      font-weight: 500;
+    }
+    #acecore-gray-colorful .band {
+      height: 64px;
+      margin: 8px 0;
+      background: var(--paint);
+    }
+    #acecore-gray-colorful .small-label {
+      color: var(--muted-foreground);
+    }
+    #acecore-gray-colorful .official {
+      --paint:
+        radial-gradient(
+          ellipse 85% 150% at 12% -10%,
+          color-mix(in srgb, var(--brand) 10%, transparent) 0%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 110% 160% at -10% 0%,
+          var(--brand) 0%,
+          color-mix(in srgb, var(--brand) 92%, #00022b) 35%,
+          color-mix(in srgb, var(--brand) 72%, #00022b) 70%,
+          color-mix(in srgb, var(--brand) 42%, #00022b) 100%,
+          color-mix(in srgb, var(--brand) 22%, #00022b) 125%
+        );
+      --sphere-paint:
+        radial-gradient(
+          ellipse 45% 35% at 30% 22%,
+          #ffffff55 0%,
+          #ffffff00 100%
+        ),
+        radial-gradient(
+          ellipse 90% 90% at 28% 22%,
+          var(--brand) 0%,
+          var(--brand) 28%,
+          color-mix(in srgb, var(--brand) 78%, #00022b) 52%,
+          color-mix(in srgb, var(--brand) 42%, #00022b) 75%,
+          #00022b 100%
+        );
+      --ink-accent: #00022b;
+      --wash: #f0f1f5;
+    }
+    #acecore-gray-colorful .systems {
+      --paint:
+        radial-gradient(
+          ellipse 85% 150% at 12% -10%,
+          color-mix(in srgb, var(--system-purple) 10%, transparent) 0%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 110% 160% at -10% 0%,
+          var(--system-purple) 0%,
+          color-mix(in srgb, var(--system-purple) 92%, var(--brand)) 35%,
+          color-mix(in srgb, var(--system-purple) 65%, var(--brand)) 70%,
+          color-mix(in srgb, var(--system-purple) 20%, var(--brand)) 100%,
+          color-mix(in srgb, var(--system-purple) 0%, var(--brand)) 125%
+        );
+      --sphere-paint:
+        radial-gradient(
+          ellipse 45% 35% at 30% 22%,
+          #ffffff55 0%,
+          #ffffff00 100%
+        ),
+        radial-gradient(
+          ellipse 90% 90% at 28% 22%,
+          var(--system-purple) 0%,
+          var(--system-purple) 28%,
+          color-mix(in srgb, var(--system-purple) 78%, var(--brand)) 52%,
+          color-mix(in srgb, var(--system-purple) 42%, var(--brand)) 75%,
+          var(--brand) 100%
+        );
+      --ink-accent: #6334a4;
+      --wash: #f3eefb;
+    }
+    #acecore-gray-colorful .schools {
+      --paint:
+        radial-gradient(
+          ellipse 85% 150% at 12% -10%,
+          color-mix(in srgb, var(--school-green) 10%, transparent) 0%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 110% 160% at -10% 0%,
+          var(--school-green) 0%,
+          color-mix(in srgb, var(--school-green) 92%, var(--brand)) 35%,
+          color-mix(in srgb, var(--school-green) 65%, var(--brand)) 70%,
+          color-mix(in srgb, var(--school-green) 20%, var(--brand)) 100%,
+          color-mix(in srgb, var(--school-green) 0%, var(--brand)) 125%
+        );
+      --sphere-paint:
+        radial-gradient(
+          ellipse 45% 35% at 30% 22%,
+          #ffffff55 0%,
+          #ffffff00 100%
+        ),
+        radial-gradient(
+          ellipse 90% 90% at 28% 22%,
+          var(--school-green) 0%,
+          var(--school-green) 28%,
+          color-mix(in srgb, var(--school-green) 78%, var(--brand)) 52%,
+          color-mix(in srgb, var(--school-green) 42%, var(--brand)) 75%,
+          var(--brand) 100%
+        );
+      --ink-accent: #176b45;
+      --wash: #edf7f0;
+    }
+    #acecore-gray-colorful .designs {
+      --paint:
+        radial-gradient(
+          ellipse 85% 150% at 12% -10%,
+          color-mix(in srgb, #f4d275 10%, transparent) 0%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 110% 160% at -10% 0%,
+          #f4d275 0%,
+          #efa28d 28%,
+          #d780ba 55%,
+          #a373ce 70%,
+          color-mix(in srgb, #9373ce 20%, var(--brand)) 100%,
+          var(--brand) 125%
+        );
+      --sphere-paint:
+        radial-gradient(
+          ellipse 45% 35% at 30% 22%,
+          #ffffff55 0%,
+          #ffffff00 100%
+        ),
+        radial-gradient(
+          ellipse 90% 90% at 28% 22%,
+          #f4d275 0%,
+          #efa28d 28%,
+          #d780ba 48%,
+          #8970cf 66%,
+          var(--brand) 100%
+        );
+      --ink-accent: #8146ae;
+      --wash: #f7f2fa;
+    }
+    #acecore-gray-colorful .previews {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    #acecore-gray-colorful .mock {
+      background: var(--paint);
+      color: #20252b;
+      padding: 2px;
+      font-family: Arial, 'Noto Sans JP', sans-serif;
+      overflow: hidden;
+    }
+    #acecore-gray-colorful .mock-header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 16px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      background: #fff;
+      margin-bottom: 2px;
+    }
+    #acecore-gray-colorful .brand-name {
+      color: var(--brand);
+    }
+    #acecore-gray-colorful .service-name {
+      color: var(--ink-accent);
+    }
+    #acecore-gray-colorful .designs .service-name {
+      background: radial-gradient(
+        ellipse 110% 160% at -10% 0%,
+        #986000 0%,
+        #b33e71 35%,
+        #8146ae 65%,
+        var(--brand) 100%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    #acecore-gray-colorful .brand-divider {
+      color: #777d87;
+      font-weight: 400;
+    }
+    #acecore-gray-colorful .center-sample {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--sphere-paint);
+    }
+    #acecore-gray-colorful .sphere-large {
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 14px auto;
+    }
+    #acecore-gray-colorful .mock-label {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 400;
+      color: #676e79;
+    }
+    #acecore-gray-colorful .mock-content {
+      padding: 22px 22px 24px;
+      background: #fff;
+    }
+    #acecore-gray-colorful .mock-kicker {
+      color: var(--ink-accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      margin-bottom: 12px;
+    }
+    #acecore-gray-colorful .mock-title {
+      color: var(--ink-accent);
+      font-size: 24px;
+      line-height: 1.55;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+    #acecore-gray-colorful .mock-description {
+      font-size: 13px;
+      line-height: 1.8;
+      margin: 0 0 20px;
+      color: #555c68;
+    }
+    #acecore-gray-colorful .mock-cta {
+      display: inline-block;
+      padding: 3px;
+      background: var(--paint);
+    }
+    #acecore-gray-colorful .mock-cta span {
+      display: block;
+      background: var(--wash);
+      color: var(--ink-accent);
+      padding: 10px 17px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    #acecore-gray-colorful .mock-bottom {
+      height: 56px;
+      background: var(--paint);
+    }
+    #acecore-gray-colorful .rule {
+      height: 5px;
+      background: var(--paint);
+      margin-bottom: 18px;
+    }
+    #acecore-gray-colorful .mock-tag {
+      background: var(--wash);
+      color: var(--ink-accent);
+      display: inline-block;
+      padding: 5px 9px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+    #acecore-gray-colorful .legend {
+      margin-top: 14px;
+      color: var(--muted-foreground);
+    }
+    @media (max-width: 560px) {
+      #acecore-gray-colorful .previews {
+        grid-template-columns: 1fr;
+      }
+      #acecore-gray-colorful .palette-row {
+        gap: 6px;
+      }
+      #acecore-gray-colorful .band {
+        height: 48px;
+      }
+    }
+  </style>
+  <div class="palette-row" aria-label="4サイトの配色比較">
+    <div class="official">
+      <div class="palette-label">公式</div>
+      <span
+        class="center-sample sphere-large"
+        role="img"
+        aria-label="ロゴ中央の球状グラデーション拡大見本"
+      ></span>
+      <div
+        class="band"
+        role="img"
+        aria-label="青を主役に、左上から右下へ黒の深みが徐々に増す配色"
+      ></div>
+      <div class="text-small small-label">青を強く・黒で深み</div>
+    </div>
+    <div class="systems">
+      <div class="palette-label">Systems</div>
+      <span
+        class="center-sample sphere-large"
+        role="img"
+        aria-label="ロゴ中央の球状グラデーション拡大見本"
+      ></span>
+      <div
+        class="band"
+        role="img"
+        aria-label="左の紫から右下の陰影として見える青へ滑らかにつながる配色"
+      ></div>
+      <div class="text-small small-label">紫が主役・青を陰影に</div>
+    </div>
+    <div class="schools">
+      <div class="palette-label">Schools</div>
+      <span
+        class="center-sample sphere-large"
+        role="img"
+        aria-label="ロゴ中央の球状グラデーション拡大見本"
+      ></span>
+      <div
+        class="band"
+        role="img"
+        aria-label="左の緑から右下の陰影として見える青へ滑らかにつながる配色"
+      ></div>
+      <div class="text-small small-label">緑が主役・青を陰影に</div>
+    </div>
+    <div class="designs">
+      <div class="palette-label">Designs</div>
+      <span
+        class="center-sample sphere-large"
+        role="img"
+        aria-label="ロゴ中央の球状グラデーション拡大見本"
+      ></span>
+      <div
+        class="band"
+        role="img"
+        aria-label="左の黄、橙、ピンク、紫から右下の陰影として見える青へ滑らかにつながる配色"
+      ></div>
+      <div class="text-small small-label">多色が主役・青を陰影に</div>
+    </div>
+  </div>
+  <div class="previews" aria-label="同じ構成に配色を適用した見本">
+    <section class="mock official" aria-label="公式の配色見本">
+      <div class="mock-header">
+        <span class="center-sample" aria-hidden="true"></span
+        ><span class="brand-name">Acecore</span
+        ><span class="mock-label">公式</span>
+      </div>
+      <div class="mock-content">
+        <div class="mock-kicker">ACECORE</div>
+        <h3 class="mock-title">世界を<br />次のステージへ</h3>
+        <div class="rule"></div>
+        <div class="mock-tag">事業紹介</div>
+        <p class="mock-description">当社の提供するサービスのご紹介です。</p>
+        <div class="mock-cta"><span>事業を見る →</span></div>
+      </div>
+      <div class="mock-bottom" aria-hidden="true"></div>
+    </section>
+    <section class="mock systems" aria-label="Systemsの配色見本">
+      <div class="mock-header">
+        <span class="center-sample" aria-hidden="true"></span
+        ><span
+          ><span class="brand-name">Acecore</span>
+          <span class="brand-divider">/</span>
+          <span class="service-name">Systems</span></span
+        >
+      </div>
+      <div class="mock-content">
+        <div class="mock-kicker">SYSTEMS</div>
+        <h3 class="mock-title">仕事を支える<br />仕組みをつくる。</h3>
+        <div class="rule"></div>
+        <div class="mock-tag">業務システム・Web</div>
+        <p class="mock-description">日々の業務に合わせた仕組みづくり。</p>
+        <div class="mock-cta"><span>サービスを見る →</span></div>
+      </div>
+      <div class="mock-bottom" aria-hidden="true"></div>
+    </section>
+    <section class="mock schools" aria-label="Schoolsの配色見本">
+      <div class="mock-header">
+        <span class="center-sample" aria-hidden="true"></span
+        ><span
+          ><span class="brand-name">Acecore</span>
+          <span class="brand-divider">/</span>
+          <span class="service-name">Schools</span></span
+        >
+      </div>
+      <div class="mock-content">
+        <div class="mock-kicker">SCHOOLS</div>
+        <h3 class="mock-title">わかることから、<br />できることへ。</h3>
+        <div class="rule"></div>
+        <div class="mock-tag">学習・創作のサポート</div>
+        <p class="mock-description">一人ひとりの目的に合わせた学び。</p>
+        <div class="mock-cta"><span>学べることを見る →</span></div>
+      </div>
+      <div class="mock-bottom" aria-hidden="true"></div>
+    </section>
+    <section class="mock designs" aria-label="Designsの配色見本">
+      <div class="mock-header">
+        <span class="center-sample" aria-hidden="true"></span
+        ><span
+          ><span class="brand-name">Acecore</span>
+          <span class="brand-divider">/</span>
+          <span class="service-name">Designs</span></span
+        >
+      </div>
+      <div class="mock-content">
+        <div class="mock-kicker">DESIGNS</div>
+        <h3 class="mock-title">アイデアに、<br />さまざまな表現を。</h3>
+        <div class="rule"></div>
+        <div class="mock-tag">デザイン・3D・文章・音声</div>
+        <p class="mock-description">伝えたいことに合わせた制作。</p>
+        <div class="mock-cta"><span>制作内容を見る →</span></div>
+      </div>
+      <div class="mock-bottom" aria-hidden="true"></div>
+    </section>
+  </div>
+  <div class="legend text-small">
+    公式：青を強く、黒を滑らかに混ぜる。事業サイト：テーマ色を主役に、右下へ青の陰影。全4サイトとも左上を起点に右下へ円状に広がる配色。<br />見出し・ラベル・ボタン・枠線・罫線にもテーマを適用。上の丸はロゴ中央の拡大見本、見出し文は仮コピー。
+  </div>
+  <script>
+    ;(() => {
+      const root = document.getElementById('acecore-gray-colorful')
+      const colors = { blue: '#0656d9', green: '#39a86b', purple: '#8950c5' }
+      function render() {
+        root.style.setProperty('--brand', colors.blue)
+        root.style.setProperty('--school-green', colors.green)
+        root.style.setProperty('--system-purple', colors.purple)
+      }
+      render()
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: render })
+        tweak.addColorPicker(colors, 'blue', { label: '共通の青' })
+        tweak.addColorPicker(colors, 'green', { label: 'Schoolsの緑' })
+        tweak.addColorPicker(colors, 'purple', { label: 'Systemsの紫' })
+      }
+    })()
+  </script>
+</div>
