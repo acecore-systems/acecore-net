@@ -174,7 +174,32 @@
         font-size: 0.875rem;
         color: #50565e;
       }
+      .changes {
+        border-top: 1px solid #cfd4dc;
+        margin-top: 40px;
+        padding-top: 24px;
+      }
+      .changes > p {
+        margin-top: 12px;
+        color: #50565e;
+      }
+      .changes h3 {
+        margin: 24px 0 12px;
+        font-size: 1rem;
+      }
+      .change-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        max-width: 760px;
+      }
+      .change-grid .sample {
+        margin-top: 0;
+      }
       @media (min-width: 760px) {
+        .change-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
         .grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -198,6 +223,7 @@
       <p class="review-note">
         確認用のプレビューです。本番への反映前の状態です。
       </p>
+      <a class="link" href="#changes">変更前と見比べる ↓</a>
       <div class="grid">
         <article class="site" id="acecore">
           <div class="site-head">
@@ -280,7 +306,9 @@
         <article class="site" id="systems">
           <div class="site-head">
             <h2 class="systems">Systems</h2>
-            <a class="link" href="https://05a92e5b.acecore-systems.pages.dev/"
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-systems.pages.dev/"
               >Systemsのプレビュー →</a
             >
           </div>
@@ -360,7 +388,9 @@
         <article class="site" id="schools">
           <div class="site-head">
             <h2 class="schools">Schools</h2>
-            <a class="link" href="https://b0ea39a2.acecore-schools.pages.dev/"
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-schools.pages.dev/"
               >Schoolsのプレビュー →</a
             >
           </div>
@@ -440,7 +470,9 @@
         <article class="site" id="designs">
           <div class="site-head">
             <h2 class="designs">Designs</h2>
-            <a class="link" href="https://9d86abdb.acecore-designs.pages.dev/"
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-designs.pages.dev/"
               >Designsのプレビュー →</a
             >
           </div>
@@ -518,9 +550,64 @@
           </figure>
         </article>
       </div>
+      <section class="changes" id="changes" aria-labelledby="changes-heading">
+        <h2 id="changes-heading">変更前と見比べる</h2>
+        <p>
+          外周の光を柔らかくし、穏やかな厚みへ整えました。中央の色と形はそのままです。Systemsのロゴで変更を見比べられます。
+        </p>
+        <h3>明るい背景</h3>
+        <div class="change-grid">
+          <figure class="sample">
+            <figcaption>変更前</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-before-light.svg"
+              alt="変更前のSystemsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+          <figure class="sample">
+            <figcaption>変更後</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-light.svg"
+              alt="変更後のSystemsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+        </div>
+        <h3>濃い背景</h3>
+        <div class="change-grid">
+          <figure class="sample dark">
+            <figcaption>変更前</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-before-dark.svg"
+              alt="変更前のSystemsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+          <figure class="sample dark">
+            <figcaption>変更後</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-dark.svg"
+              alt="変更後のSystemsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+        </div>
+        <a class="link" href="/brand-preview/before-after.png"
+          >変更前・変更後の画像を開く →</a
+        >
+      </section>
       <div class="original">
         <a class="link" href="/brand-preview/logo-comparison.png"
-          >元の比較画像を開く →</a
+          >4サイトの比較画像を開く →</a
         >
         <p>横並びの全体像を、拡大して確認できます。</p>
       </div>
