@@ -38,14 +38,16 @@
     color-mix(in srgb, var(--brand) 22%, #00022b) 125%
   );
   --sphere-paint:
-    radial-gradient(ellipse 45% 35% at 30% 22%, #ffffff55 0%, #ffffff00 100%),
     radial-gradient(
-      ellipse 90% 90% at 28% 22%,
-      var(--brand) 0%,
-      var(--brand) 28%,
-      color-mix(in srgb, var(--brand) 78%, #00022b) 52%,
-      color-mix(in srgb, var(--brand) 42%, #00022b) 75%,
-      #00022b 100%
+      ellipse 79.96% 75.03% at 31.21% 31.21%,
+      color-mix(in srgb, #78a4e8 8%, transparent) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 113.77% 105.18% at 23.71% 20.49%,
+      #2675df 0%,
+      #0656d9 45%,
+      #163b76 100%
     );
   --ink-accent: #00022b;
   --wash: #f0f1f5;
