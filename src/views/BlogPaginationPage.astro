@@ -61,10 +61,10 @@ const pageNumbers = buildPageNumbers(currentPage, totalPages)
     item: item.href,
   }))}
 >
-  <section class="ac-section">
+  <section class="ac-section filtered-news-page">
     <div class="ac-container">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
-      <h1 class="mb-8 text-2xl ac-heading sm:text-3xl">
+      <h1 class="ac-page-title mb-8 text-2xl ac-heading sm:text-3xl">
         {t(locale, 'blog.title')}
         <span class="text-base text-slate-400">
           {t(locale, 'blog.pageOf', {

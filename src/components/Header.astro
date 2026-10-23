@@ -33,17 +33,17 @@ const contactLink = {
 const currentPath = Astro.url.pathname
 ---
 
-<header class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur">
-  <div class="ac-container flex h-16 items-center justify-between">
+<header class="site-header sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur">
+  <div class="header-inner ac-container flex h-16 items-center justify-between">
     <a
       href={getLocalizedUrl('/', locale)}
-      class="ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
+      class="site-brand ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
     >
       <img src="/favicon.svg" alt="Acecore" class="h-8 w-8" />
       <span aria-hidden="true">Acecore</span>
     </a>
     <nav
-      class="hidden items-center gap-1 xl:flex"
+      class="site-desktop-nav hidden items-center gap-1 xl:flex"
       aria-label={t(locale, 'common.mainNav')}
     >
       {navLinks.map((link) => {
@@ -107,7 +107,7 @@ const currentPath = Astro.url.pathname
         {contactLink.label}
       </a>
     </nav>
-    <div class="flex items-center gap-1 xl:hidden">
+    <div class="site-mobile-controls flex items-center gap-1 xl:hidden">
       <button
         data-search-trigger
         class="ac-touch rounded-md text-slate-500 hover:bg-slate-50 hover:text-brand-600"
@@ -138,7 +138,7 @@ const currentPath = Astro.url.pathname
     class="hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-brand-900/10 bg-white xl:hidden"
     aria-label={t(locale, 'common.mobileNav')}
   >
-    <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
+    <div class="ac-container mobile-menu-content flex flex-col gap-2 py-4">
       {navLinks.map((link) => {
         const isExact = currentPath === link.href
         const isCurrent =
@@ -198,7 +198,7 @@ const currentPath = Astro.url.pathname
 </header>
 
 <style is:global>
-  @media (max-width: 1279px) {
+  @media (max-width: 1399px) {
     body:has(#mobile-menu-btn[aria-expanded='true']) #ace-ai-chat,
     body:has(#mobile-menu-btn[aria-expanded='true']) #scroll-to-top {
       display: none !important;
@@ -291,6 +291,17 @@ const currentPath = Astro.url.pathname
       })
   }
 
+  const desktop = matchMedia('(min-width: 1400px)')
+  desktop.addEventListener('change', () => {
+    const menu = document.getElementById('mobile-menu')
+    const button = document.getElementById('mobile-menu-btn')
+    menu?.classList.add('hidden')
+    button?.setAttribute('aria-expanded', 'false')
+    if (button) {
+      button.setAttribute('aria-label', button.dataset.labelOpen || 'Open menu')
+      syncMenuIcon(button, false)
+    }
+  })
   initHeader()
   initHeaderKeyboard()
   initSearchTriggers()

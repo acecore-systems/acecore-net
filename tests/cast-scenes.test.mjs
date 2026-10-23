@@ -141,18 +141,15 @@ test('footer credit is restrained and does not reintroduce a profile section', a
   )
 })
 if (registration.site === 'net') {
-  test('About Hero object-position is preserved for initial and lazy images', async () => {
+  test('Hero preserves responsive sources and object-position for initial and lazy images', async () => {
     const hero = await readFile(
       new URL('src/components/Hero.astro', root),
       'utf8',
     )
-    const about = await readFile(
-      new URL('src/views/AboutPage.astro', root),
-      'utf8',
-    )
     assert.match(hero, /firstSliderImage\.objectPosition/u)
     assert.match(hero, /img\.style\.objectPosition = image\.objectPosition/u)
-    assert.match(about, /objectPosition:\s*['"]0% 50%['"]/u)
+    assert.match(hero, /firstSliderImage\.mobileSrc/u)
+    assert.match(hero, /source\.srcset = image\.mobileSrcset/u)
   })
 }
 if (registration.site === 'schools') {

@@ -21,41 +21,30 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   locale={locale}
 >
   <CampaignNotice locale={locale} page="acestudio" />
-
-  <section class="ac-section">
-    <div class="ac-container max-w-3xl text-center">
-      <div class="text-left">
-        <Breadcrumb items={[{ label: 'AceStudio' }]} locale={locale} />
-      </div>
-
-      <div class="ac-surface bg-white p-6 sm:p-10">
-        <h1 class="mb-5 text-3xl ac-heading sm:text-4xl">
-          {t(locale, 'pages.acestudio.heroTitle')}
-        </h1>
-        <p class="text-sm font-700 uppercase tracking-widest text-brand-700 mb-4">
-          {t(locale, 'pages.acestudio.statusEyebrow')}
-        </p>
-        <Icon
-          name="clapperboard"
-          class="text-5xl text-brand-500 mx-auto mb-6"
-        />
-        <p class="mb-6 text-lg font-700 text-brand-700">
+  <section class="ac-section studio-page">
+    <div class="ac-container">
+      <Breadcrumb items={[{ label: 'AceStudio' }]} locale={locale} />
+      <div class="studio-intro">
+        <div>
+          <h1 class="ac-page-title">
+            {t(locale, 'pages.acestudio.heroTitle')}
+          </h1>
+          <p class="studio-description">
+            {t(locale, 'pages.acestudio.statusBody')}
+          </p>
+          <p class="mt-5 ac-muted">{t(locale, 'pages.acestudio.statusNote')}</p>
+        </div>
+        <p class="studio-status">
           {t(locale, 'pages.services.acestudioStatus')}
         </p>
-        <p class="text-lg text-slate-600 leading-relaxed mb-4">
-          {t(locale, 'pages.acestudio.statusBody')}
-        </p>
-        <p class="text-slate-500 leading-relaxed">
-          {t(locale, 'pages.acestudio.statusNote')}
-        </p>
-        <div class="mt-8 border-t border-slate-200 pt-6">
-          <h2 class="mb-3 text-lg ac-heading">
-            {t(locale, 'pages.acestudio.newsHeading')}
-          </h2>
-          <p class="mb-5 text-sm leading-relaxed text-slate-600">
-            {t(locale, 'pages.acestudio.newsBody')}
-          </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      </div>
+      <section class="studio-updates ac-editorial">
+        <h2 class="ac-section-title">
+          {t(locale, 'pages.acestudio.newsHeading')}
+        </h2>
+        <div>
+          <p class="ac-muted">{t(locale, 'pages.acestudio.newsBody')}</p>
+          <div class="mt-7 flex flex-wrap gap-5">
             <a
               href={SITE.social.x}
               target="_blank"
@@ -63,26 +52,26 @@ const u = (path: string) => getLocalizedUrl(path, locale)
               class="ac-btn-outline"
             >
               {t(locale, 'pages.acestudio.followX')}
+              <Icon name="arrow-up-right" />
               <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
             </a>
             <a href={u('/blog/')} class="ac-btn-outline">
               {t(locale, 'pages.acestudio.viewNews')}
+              <Icon name="arrow-right" />
             </a>
           </div>
         </div>
-      </div>
-
-      <div class="mt-8 text-center">
-        <p class="text-slate-600 mb-4">
-          {t(locale, 'pages.acestudio.inquiryText')}
-        </p>
+      </section>
+      <div class="studio-inquiry">
+        <p>{t(locale, 'pages.acestudio.inquiryText')}</p>
         <a
           href={
             u('/contact/') + '?category=service&service=acestudio#contact-form'
           }
-          class="ac-btn-primary"
+          class="ac-btn-outline"
         >
           {t(locale, 'pages.acestudio.inquiryButton')}
+          <Icon name="arrow-right" />
         </a>
       </div>
     </div>

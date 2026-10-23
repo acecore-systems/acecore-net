@@ -195,8 +195,8 @@
     "home": {
       "heroTitle": "Taking the world to the next stage",
       "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
-      "heroImgTeam": "Team working in a coworking space",
-      "heroImgMeeting": "Meeting in progress",
+      "heroImgTeam": "An illustrative workbench connecting technology, learning and creative tools",
+      "heroImgMeeting": "An illustrative close-up of learning and support",
       "viewBusinessDetails": "Explore our services",
       "viewAbout": "View company overview",
       "latestNews": "Corporate news",
@@ -207,7 +207,9 @@
       "directoryLead": "Choose a page for the information you are looking for.",
       "servicesIntro": "Discover the services we provide.",
       "contactIntro": "Send your questions or requests through our contact form.",
-      "servicesHeading": "Our Services"
+      "servicesHeading": "Our Services",
+      "companyImageAlt": "An illustrative overhead view of hands discussing plans",
+      "companyImageCaption": "An illustrative scene of thinking together and shaping ideas."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -281,7 +283,7 @@
         "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
       ],
       "collaborationImgAlt": "Illustration of four people discussing around a computer",
-      "workshopImgAlt": "Illustration of one person supporting another learning on a computer",
+      "workshopImgAlt": "An illustrative close-up of hands supporting notebook-based learning",
       "establishedLabel": "Established",
       "establishedDate": "July 13, 2026",
       "businessPurposesLabel": "Business activities",
@@ -335,7 +337,11 @@
       "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
       "offeringsHeading": "Key services",
       "detailsCta": "Learn more",
-      "pricingCta": "View pricing"
+      "pricingCta": "View pricing",
+      "systemsImgAlt": "An illustrative development laptop and server",
+      "schoolsImgAlt": "An illustrative notebook for learning 3D creation step by step",
+      "designImgAlt": "An illustrative character sketch, drawing tablet and microphone",
+      "departmentImagesNote": "The images illustrate work and learning in each field."
     },
     "contact": {
       "title": "Contact",

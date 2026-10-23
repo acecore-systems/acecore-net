@@ -66,22 +66,17 @@ const archiveIndexLd = {
     item: item.href,
   }))}
 >
-  <section class="ac-section">
+  <section class="ac-section index-page">
     <div class="ac-container max-w-4xl">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
-      <h1 class="mb-4 break-words text-2xl ac-heading sm:text-3xl">
-        {t(locale, 'blog.archive')}
-      </h1>
+      <h1 class="ac-page-title mb-6">{t(locale, 'blog.archive')}</h1>
       <p class="mb-8 max-w-2xl leading-relaxed text-slate-600">
         {t(locale, 'blog.archiveListDescription')}
       </p>
-      <ul class="m-0 grid list-none gap-4 p-0 sm:grid-cols-2" role="list">
+      <ul class="index-rows m-0 list-none p-0" role="list">
         {archives.map(([key, { count, year, month }]) => (
           <li>
-            <a
-              href={u(`/blog/archive/${key}/`)}
-              class="ac-card flex min-h-16 items-center justify-between gap-4 p-5 no-underline transition-colors hover:border-brand-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-            >
+            <a href={u(`/blog/archive/${key}/`)} class="index-row">
               <span class="font-600 text-slate-800">
                 {t(locale, 'blog.yearMonth', {
                   year: String(year),

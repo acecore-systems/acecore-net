@@ -195,8 +195,8 @@
     "home": {
       "heroTitle": "Faire passer le monde à l’étape suivante",
       "heroSubtitle": "Par la technologie et l’apprentissage, nous voulons réduire le temps consacré aux tâches non essentielles et créer un environnement où chacun peut poursuivre ses aspirations.",
-      "heroImgTeam": "Équipe travaillant dans un espace de coworking",
-      "heroImgMeeting": "Scène de réunion",
+      "heroImgTeam": "Illustration d’un établi reliant technologie, apprentissage et création",
+      "heroImgMeeting": "Illustration de mains apprenant et apportant un soutien",
       "viewBusinessDetails": "Découvrir nos services",
       "viewAbout": "Voir la présentation de l’entreprise",
       "latestNews": "Actualités de l’entreprise",
@@ -207,7 +207,9 @@
       "directoryLead": "Choisissez une page selon ce que vous recherchez.",
       "servicesIntro": "Découvrez les services que nous proposons.",
       "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact.",
-      "servicesHeading": "Nos services"
+      "servicesHeading": "Nos services",
+      "companyImageAlt": "Vue illustrative de mains examinant des plans ensemble",
+      "companyImageCaption": "Scène illustrative de réflexion collective pour donner forme aux idées."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -341,7 +343,7 @@
         "Notre vision est de créer une société où vous pouvez exprimer votre propre potentiel et où chacun peut s’épanouir."
       ],
       "collaborationImgAlt": "Scène illustrative de quatre personnes échangeant autour d’un ordinateur",
-      "workshopImgAlt": "Scène illustrative d’une personne accompagnant une autre dans son apprentissage sur ordinateur",
+      "workshopImgAlt": "Illustration de mains accompagnant l’apprentissage dans un cahier",
       "establishedLabel": "Constitution",
       "establishedDate": "13 juillet 2026",
       "businessPurposesLabel": "Activités de la société",
@@ -395,7 +397,11 @@
       "pricingLead": "Consultez chaque site pour connaître les tarifs détaillés et les prestations que nous prenons en charge.",
       "offeringsHeading": "Principaux services",
       "detailsCta": "En savoir plus",
-      "pricingCta": "Consulter les tarifs"
+      "pricingCta": "Consulter les tarifs",
+      "systemsImgAlt": "Illustration d’un ordinateur de développement et d’un serveur",
+      "schoolsImgAlt": "Illustration d’un cahier pour apprendre la création 3D étape par étape",
+      "designImgAlt": "Illustration de croquis de personnages, d’une tablette graphique et d’un microphone",
+      "departmentImagesNote": "Les images illustrent le travail et l’apprentissage dans chaque domaine."
     },
     "privacy": {
       "title": "Politique de Confidentialité",

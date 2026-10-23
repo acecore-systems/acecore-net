@@ -195,8 +195,8 @@
     "home": {
       "heroTitle": "Die Welt auf die nächste Stufe bringen",
       "heroSubtitle": "Mit Technologie und Lernen wollen wir Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
-      "heroImgTeam": "Team bei der Arbeit in einem Co-Working-Space",
-      "heroImgMeeting": "Besprechungsszene",
+      "heroImgTeam": "Illustrative Werkbank mit Werkzeugen für Technik, Lernen und Gestaltung",
+      "heroImgMeeting": "Illustrative Nahaufnahme von lernenden und unterstützenden Händen",
       "viewBusinessDetails": "Unsere Leistungen ansehen",
       "viewAbout": "Über uns",
       "latestNews": "Unternehmensnachrichten",
@@ -207,7 +207,9 @@
       "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
       "servicesIntro": "Entdecken Sie die Leistungen, die wir anbieten.",
       "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular.",
-      "servicesHeading": "Unsere Leistungen"
+      "servicesHeading": "Unsere Leistungen",
+      "companyImageAlt": "Illustrative Aufsicht auf Hände beim gemeinsamen Besprechen von Plänen",
+      "companyImageCaption": "Eine illustrative Szene des gemeinsamen Denkens und Gestaltens von Ideen."
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -287,7 +289,7 @@
         "Unsere Vision ist eine Gesellschaft, in der Sie Ihr eigenes Potenzial entfalten können und alle die Möglichkeit haben, zu strahlen."
       ],
       "collaborationImgAlt": "Beispielszene mit vier Personen im Gespräch an einem Computer",
-      "workshopImgAlt": "Beispielszene einer Person, die eine andere beim Lernen am Computer unterstützt",
+      "workshopImgAlt": "Illustrative Nahaufnahme von Händen, die das Lernen mit einem Notizbuch unterstützen",
       "establishedLabel": "Gründung",
       "establishedDate": "13. Juli 2026",
       "businessPurposesLabel": "Geschäftstätigkeiten",
@@ -341,7 +343,11 @@
       "pricingLead": "Detaillierte Preise und Informationen zu den Leistungen, die wir übernehmen, finden Sie auf den jeweiligen Websites.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
       "detailsCta": "Mehr erfahren",
-      "pricingCta": "Preise ansehen"
+      "pricingCta": "Preise ansehen",
+      "systemsImgAlt": "Illustration eines Entwicklungs-Laptops und eines Servers",
+      "schoolsImgAlt": "Illustration eines Notizbuchs zum schrittweisen Erlernen der 3D-Gestaltung",
+      "designImgAlt": "Illustration von Charakterskizzen, Grafiktablett und Mikrofon",
+      "departmentImagesNote": "Die Bilder veranschaulichen Arbeit und Lernen in den jeweiligen Bereichen."
     },
     "contact": {
       "title": "Kontakt",

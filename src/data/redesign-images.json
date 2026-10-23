@@ -1,0 +1,44 @@
+{
+  "brand-workbench": {
+    "src": "/images/redesign/20261023/brand-workbench-2048.webp",
+    "width": 2048,
+    "height": 768,
+    "srcset": "/images/redesign/20261023/brand-workbench-640.webp 640w, /images/redesign/20261023/brand-workbench-1280.webp 1280w, /images/redesign/20261023/brand-workbench-2048.webp 2048w"
+  },
+  "brand-workbench-mobile": {
+    "src": "/images/redesign/20261023/brand-workbench-mobile-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/brand-workbench-mobile-640.webp 640w, /images/redesign/20261023/brand-workbench-mobile-1280.webp 1280w, /images/redesign/20261023/brand-workbench-mobile-1448.webp 1448w"
+  },
+  "learning-support": {
+    "src": "/images/redesign/20261023/learning-support-1672.webp",
+    "width": 1672,
+    "height": 941,
+    "srcset": "/images/redesign/20261023/learning-support-640.webp 640w, /images/redesign/20261023/learning-support-1280.webp 1280w, /images/redesign/20261023/learning-support-1672.webp 1672w"
+  },
+  "systems": {
+    "src": "/images/redesign/20261023/systems-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/systems-640.webp 640w, /images/redesign/20261023/systems-1280.webp 1280w, /images/redesign/20261023/systems-1448.webp 1448w"
+  },
+  "schools": {
+    "src": "/images/redesign/20261023/schools-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/schools-640.webp 640w, /images/redesign/20261023/schools-1280.webp 1280w, /images/redesign/20261023/schools-1448.webp 1448w"
+  },
+  "designs": {
+    "src": "/images/redesign/20261023/designs-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/designs-640.webp 640w, /images/redesign/20261023/designs-1280.webp 1280w, /images/redesign/20261023/designs-1448.webp 1448w"
+  },
+  "collaboration": {
+    "src": "/images/redesign/20261023/collaboration-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/collaboration-640.webp 640w, /images/redesign/20261023/collaboration-1280.webp 1280w, /images/redesign/20261023/collaboration-1448.webp 1448w"
+  }
+}

@@ -5,18 +5,16 @@ import Breadcrumb from '../components/Breadcrumb.astro'
 import PageSectionNav from '../components/PageSectionNav.astro'
 import BusinessDepartments from '../components/BusinessDepartments.astro'
 import ServiceOfferings from '../components/ServiceOfferings.astro'
-import Icon from '../components/Icon.astro'
+import ContactBand from '../components/ContactBand.astro'
+import ArrowLink from '../components/ArrowLink.astro'
 import { SITE } from '../data/site'
-import { t, getLocalizedUrl, type Locale } from '../i18n'
+import { t, type Locale } from '../i18n'
 import { getSchoolsUrl } from '../utils/schools-url'
 import { getSpecialistUrl } from '../utils/specialist-url'
-
 interface Props {
   locale: Locale
 }
-
 const { locale } = Astro.props
-const u = (path: string) => getLocalizedUrl(path, locale)
 ---
 
 <BaseLayout
@@ -26,82 +24,68 @@ const u = (path: string) => getLocalizedUrl(path, locale)
   locale={locale}
 >
   <CampaignNotice locale={locale} page="services" />
-
-  <section class="ac-section bg-slate-50">
-    <div class="ac-container">
-      <Breadcrumb
-        items={[{ label: t(locale, 'pages.services.title') }]}
-        locale={locale}
-      />
-
-      <header class="mb-8 max-w-3xl">
-        <h1 class="text-3xl ac-heading sm:text-4xl">
-          {t(locale, 'pages.services.heroTitle')}
-        </h1>
-        <p class="mt-4 ac-muted">{t(locale, 'pages.services.heroSubtitle')}</p>
-      </header>
-
-      <PageSectionNav
-        locale={locale}
-        items={[
-          {
-            href: '#departments',
-            label: t(locale, 'pages.services.introTitle'),
-          },
-          {
-            href: '#offerings',
-            label: t(locale, 'pages.services.offeringsHeading'),
-          },
-          {
-            href: '#pricing',
-            label: t(locale, 'pages.services.pricingHeading'),
-          },
-        ]}
-      />
-
-      <div class="ac-section-intro">
-        <p class="ac-eyebrow">{t(locale, 'pages.services.eyebrow')}</p>
-        <h2 id="departments" class="mb-4 text-2xl ac-heading sm:text-3xl">
+  <div class="ac-container page-top">
+    <Breadcrumb
+      items={[{ label: t(locale, 'pages.services.title') }]}
+      locale={locale}
+    />
+    <header class="page-intro">
+      <h1 class="ac-page-title">{t(locale, 'pages.services.heroTitle')}</h1>
+      <p>{t(locale, 'pages.services.heroSubtitle')}</p>
+    </header>
+    <PageSectionNav
+      locale={locale}
+      items={[
+        { href: '#departments', label: t(locale, 'pages.services.introTitle') },
+        {
+          href: '#offerings',
+          label: t(locale, 'pages.services.offeringsHeading'),
+        },
+        { href: '#pricing', label: t(locale, 'pages.services.pricingHeading') },
+      ]}
+    />
+  </div>
+  <section
+    class="ac-section services-departments"
+    aria-labelledby="departments"
+  >
+    <div class="ac-container ac-editorial">
+      <div class="ac-section-lead">
+        <h2 id="departments" class="ac-section-title">
           {t(locale, 'pages.services.introTitle')}
         </h2>
-        <p class="max-w-3xl ac-muted">
-          {t(locale, 'pages.services.introBody')}
-        </p>
+        <p class="mt-6 ac-muted">{t(locale, 'pages.services.introBody')}</p>
       </div>
-
-      <BusinessDepartments locale={locale} />
+      <div>
+        <BusinessDepartments locale={locale} />
+      </div>
     </div>
   </section>
-
   <section
     id="offerings"
-    class="ac-section bg-white"
+    class="ac-section services-offerings-section"
     aria-labelledby="offerings-heading"
   >
-    <div class="ac-container">
-      <div class="ac-section-intro">
-        <h2 id="offerings-heading" class="mb-4 text-2xl ac-heading sm:text-3xl">
-          {t(locale, 'pages.services.offeringsHeading')}
-        </h2>
-      </div>
+    <div class="ac-container ac-editorial">
+      <h2 id="offerings-heading" class="ac-section-title">
+        {t(locale, 'pages.services.offeringsHeading')}
+      </h2>
       <ServiceOfferings locale={locale} />
     </div>
   </section>
   <section
     id="pricing"
-    class="ac-section bg-slate-50"
+    class="ac-section services-pricing"
     aria-labelledby="pricing-heading"
   >
-    <div class="ac-container">
-      <div class="ac-section-intro">
-        <h2 id="pricing-heading" class="mb-4 text-2xl ac-heading sm:text-3xl">
+    <div class="ac-container ac-editorial">
+      <div>
+        <h2 id="pricing-heading" class="ac-section-title">
           {t(locale, 'pages.services.pricingHeading')}
         </h2>
-        <p class="max-w-3xl ac-muted">
-          {t(locale, 'pages.services.pricingLead')}
-        </p>
+        <p class="mt-6 ac-muted">{t(locale, 'pages.services.pricingLead')}</p>
       </div>
-      <ul class="flex flex-col divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
+      <ul class="pricing-destinations">
         {[
           {
             label: t(locale, 'pages.services.systemsTitle'),
@@ -116,39 +100,22 @@ const u = (path: string) => getLocalizedUrl(path, locale)
             href: getSpecialistUrl(SITE.social.designs, locale, '/#catalog'),
           },
         ].map(({ label, href }) => (
-          <li class="min-w-0 flex-1">
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex h-full items-center justify-between gap-3 p-5 no-underline transition-colors hover:bg-brand-50"
-            >
-              <span>
-                <span class="block font-700 text-slate-900">{label}</span>
-                <span class="mt-1 block text-sm text-brand-600">
-                  {t(locale, 'pages.services.pricingCta')}
-                </span>
+          <li>
+            <ArrowLink href={href} locale={locale} external>
+              <span class="block text-xl font-800">{label}</span>
+              <span class="mt-2 block text-sm">
+                {t(locale, 'pages.services.pricingCta')}
               </span>
-              <Icon name="external-link" class="shrink-0 text-brand-600" />
-              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-            </a>
+            </ArrowLink>
           </li>
         ))}
       </ul>
     </div>
   </section>
-
-  <section class="ac-section bg-white">
-    <div class="ac-container max-w-3xl text-center">
-      <h2 class="mb-4 text-2xl ac-heading sm:text-3xl">
-        {t(locale, 'pages.services.contactHeading')}
-      </h2>
-      <p class="mx-auto mb-7 max-w-2xl ac-muted">
-        {t(locale, 'pages.services.contactBody')}
-      </p>
-      <a href={u('/contact/')} class="ac-btn-primary">
-        {t(locale, 'pages.services.contactCta')}
-      </a>
-    </div>
-  </section>
+  <ContactBand
+    locale={locale}
+    title={t(locale, 'pages.services.contactHeading')}
+    body={t(locale, 'pages.services.contactBody')}
+    label={t(locale, 'pages.services.contactCta')}
+  />
 </BaseLayout>

@@ -43,21 +43,16 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])
     item: item.href,
   }))}
 >
-  <section class="ac-section">
+  <section class="ac-section index-page">
     <div class="ac-container max-w-4xl">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
-      <h1 class="mb-4 break-words text-2xl ac-heading sm:text-3xl">
-        {t(locale, 'blog.tagList')}
-      </h1>
+      <h1 class="ac-page-title mb-6">{t(locale, 'blog.tagList')}</h1>
       <p class="mb-8 max-w-2xl leading-relaxed text-slate-600">
         {t(locale, 'blog.tagListDescription')}
       </p>
-      <div class="flex flex-wrap gap-3">
+      <div class="index-rows">
         {sortedTags.map(([tag, count]) => (
-          <a
-            href={u(`/blog/tags/${tag}/`)}
-            class="ac-chip gap-2 px-4 py-2 text-sm no-underline transition-colors hover:border-brand-200 hover:bg-brand-50"
-          >
+          <a href={u(`/blog/tags/${tag}/`)} class="index-row">
             <span class="font-600">
               {getLocalizedTagName(tags, tag, locale)}
             </span>

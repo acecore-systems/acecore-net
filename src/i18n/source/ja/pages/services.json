@@ -35,5 +35,9 @@
   "pricingLead": "詳しい料金とお引き受けしている内容は各サイトでご確認ください。",
   "offeringsHeading": "主要サービス",
   "detailsCta": "詳しくはこちら",
-  "pricingCta": "料金を確認する"
+  "pricingCta": "料金を確認する",
+  "systemsImgAlt": "開発用PCとサーバーのイメージ",
+  "schoolsImgAlt": "手順ノートで3D制作を学ぶイメージ",
+  "designImgAlt": "キャラクターのラフ、ペンタブとマイクによる制作イメージ",
+  "departmentImagesNote": "掲載画像は、各分野の仕事や学びを表現したイメージです。"
 }

@@ -126,10 +126,10 @@ for (const locale of locales) {
       'about',
       about,
       [
-        'corporate-information-heading',
-        'executive-profile-heading',
         'corporate-philosophy-heading',
         'corporate-vision-heading',
+        'corporate-information-heading',
+        'executive-profile-heading',
       ],
     ],
   ]) {
@@ -152,13 +152,13 @@ for (const locale of locales) {
       )
   }
   assert.equal(
-    home('.home-directory a').first().find('h3').text().trim(),
+    home('.home-business h2').text().trim(),
     translations.home.servicesHeading,
   )
   assert.equal(
     home('.hero-copy a').length,
-    0,
-    `${locale}: the home directory owns the initial page choices`,
+    1,
+    `${locale}: the hero has one business entry`,
   )
   assert.equal(
     services('#pricing a').filter((_, el) =>
@@ -201,10 +201,7 @@ for (const locale of locales) {
     0,
     `${locale}: illustrative scenes must not be presented as corporate records`,
   )
-  assert.equal(
-    philosophy.children('div').children('p').first().text().trim(),
-    motto,
-  )
+  assert.equal(philosophy.find('.philosophy-motto').text().trim(), motto)
   for (const [selector, paragraphs] of [
     ['.philosophy-body > p', translations.about.philosophyParagraphs],
     ['.vision-body > p', translations.about.visionParagraphs],
@@ -227,18 +224,39 @@ for (const locale of locales) {
     home('meta[name="description"]').attr('content').includes(motto),
     `${locale}: home metadata must reflect the official catchphrase`,
   )
-  for (const [pageName, page, selector] of [
-    ['home', home, '.home-directory a'],
-    ['services', services, '.department-list a, .service-offerings a'],
-  ]) {
-    page(selector).each((_, card) => {
-      assert.equal(
-        page(card).children('span').first().children('svg').length,
-        1,
-        `${locale}.${pageName}: missing card icon for ${page(card).find('h3').text().trim()}`,
-      )
-    })
+  assert.equal(home('.hero-copy a').attr('href'), prefix + '/services/')
+  assert.equal(home('.hero-copy a').attr('data-ga-label'), 'hero_services')
+  const heroImages = JSON.parse(home('#hero-slider').attr('data-hero-images'))
+  assert.equal(heroImages.length, 2, locale + ': preserve two-slide hero')
+  assert.ok(
+    heroImages[0].mobileSrc,
+    locale + ': preserve dedicated mobile framing',
+  )
+  assert.equal(home('#hero-pause').length, 1)
+  assert.equal(home('.hero-dot').length, 2)
+  for (const key of ['systems', 'schools', 'design']) {
+    const department = services('#' + key)
+    assert.equal(
+      department.find('img').attr('alt'),
+      translations.services[key + 'ImgAlt'],
+    )
+    assert.ok(
+      department.text().includes(translations.services[key + 'Description']),
+    )
+    assert.ok(
+      department
+        .find('img')
+        .attr('src')
+        .startsWith('/images/redesign/20261023/'),
+    )
   }
+  services('.service-offerings a').each((_, row) => {
+    assert.equal(
+      services(row).children('span').first().children('svg').length,
+      1,
+    )
+    assert.equal(services(row).attr('data-ga-event'), 'cta_click')
+  })
   const contact = await getPage(`${prefix}/contact/`)
   const studio = await getPage(`${prefix}/acestudio/`)
   const offeringNames = JSON.parse(
@@ -285,7 +303,7 @@ for (const locale of locales) {
     const continuation = post(
       'main nav[aria-label="' +
         translated.blog.postNavLabel +
-        '"] a, main article > section[data-pagefind-ignore] a',
+        '"] a, main .article-body > section[data-pagefind-ignore] a',
     )
       .toArray()
       .map((el) => post(el).attr('href'))
@@ -324,12 +342,21 @@ for (const locale of locales) {
     )
   }
   assert.deepEqual(
-    home('.home-directory a')
+    home('.home-department-preview a')
       .toArray()
       .map((el) => home(el).attr('href')),
-    ['services', 'about', 'contact'].map((path) => `${prefix}/${path}/`),
-    `${locale}.home: page index must lead to individual pages`,
+    ['systems', 'schools', 'design'].map((id) => prefix + '/services/#' + id),
+    locale + ': business previews lead to real detail sections',
   )
+  assert.ok(home('main').text().includes(translations.home.servicesIntro))
+  assert.ok(home('main').text().includes(translations.home.aboutIntro))
+  assert.ok(home('main').text().includes(translations.home.contactIntro))
+  assert.equal(home('.contact-band a').attr('data-ga-event'), 'cta_click')
+  assert.equal(
+    home('.contact-band a').attr('data-ga-label'),
+    translated.nav.contact,
+  )
+  assert.equal(home('.contact-band a').attr('data-ga-location'), 'service_card')
   for (const path of ['services', 'about', 'blog', 'contact']) {
     assert.ok(
       home(`main a[href="${prefix}/${path}/"]`).length > 0,
@@ -345,25 +372,11 @@ for (const locale of locales) {
     about('main h2')
       .toArray()
       .map((el) => about(el).text().trim()),
-    ['companyInfoHeading', 'executiveHeading', 'philosophyHeading'].map(
+    ['philosophyHeading', 'companyInfoHeading', 'executiveHeading'].map(
       (key) => translations.about[key],
     ),
-    `${locale}.about: corporate information, leadership and philosophy only`,
+    `${locale}.about: philosophy, corporate information and leadership`,
   )
-  const headings = [home, services, about].map((page) =>
-    page('main h2')
-      .toArray()
-      .map((el) => page(el).text().trim()),
-  )
-  for (let index = 0; index < headings.length; index++) {
-    for (const other of headings.slice(index + 1)) {
-      assert.deepEqual(
-        headings[index].filter((heading) => other.includes(heading)),
-        [],
-        `${locale}: page sections must have distinct purposes`,
-      )
-    }
-  }
   assert.ok(
     about('main').text().includes(translations.about.corporateContactCta),
   )
@@ -494,5 +507,5 @@ for (const locale of locales) {
   }
 }
 console.log(
-  'Validated 72 corporate pages, 18 news article routes, 9 translation sets, CMS fields, philosophy and vision, consistent catchphrases, inquiry context, floating controls, service links, anchors and retired pricing output.',
+  'Validated 72 corporate pages, 18 news article routes, 9 translation sets, CMS fields, complete philosophy and vision, responsive hero controls, image context, inquiry context, analytics, floating controls, service destinations and retired pricing output.',
 )

@@ -66,99 +66,103 @@ const acecoreIdRequestLinkLabel =
   description={t(locale, 'pages.privacy.description')}
   locale={locale}
 >
-  <section class="ac-section">
+  <section class="ac-section legal-page">
     <div class="ac-container max-w-3xl">
       <Breadcrumb
         items={[{ label: t(locale, 'pages.privacy.title') }]}
         locale={locale}
       />
-      <h1 class="mb-8 text-3xl ac-heading sm:text-4xl">
+      <h1 class="ac-page-title legal-title">
         {t(locale, 'pages.privacy.heroTitle')}
       </h1>
-      <LegalContents items={contents} locale={locale} />
-      <div class="ac-prose max-w-none">
-        <h2 id="adHeading">{t(locale, 'pages.privacy.adHeading')}</h2>
-        <p>{t(locale, 'pages.privacy.adBody1')}</p>
-        <p>{t(locale, 'pages.privacy.adBody2')}</p>
-        <p>
-          {t(locale, 'pages.privacy.adBody3')}
-          <a
-            href="https://policies.google.com/technologies/ads?hl=ja"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Google Policies
-            <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-          </a>
-        </p>
-
-        <h2 id="analyticsHeading">
-          {t(locale, 'pages.privacy.analyticsHeading')}
-        </h2>
-        <p>{t(locale, 'pages.privacy.analyticsBody1')}</p>
-        <p>{t(locale, 'pages.privacy.analyticsBody2')}</p>
-        <p>{t(locale, 'pages.privacy.analyticsBody3')}</p>
-
-        <h2 id="searchHeading">{t(locale, 'pages.privacy.searchHeading')}</h2>
-        <p>{t(locale, 'pages.privacy.searchBody1')}</p>
-        <p>{t(locale, 'pages.privacy.searchBody2')}</p>
-
-        {acecoreIdSections.map((section, index) => (
-          <section lang={acecoreIdContentLocale}>
-            <h2 id={`acecore-id-${index + 1}`}>{section.heading}</h2>
-            {section.paragraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-            {section.items && section.items.length > 0 ? (
-              <ul>
-                {section.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            ) : null}
-          </section>
-        ))}
-        {acecoreIdSections.length > 0 ? (
+      <div class="legal-reading-layout">
+        <LegalContents items={contents} locale={locale} />
+        <div class="ac-prose max-w-none">
+          <h2 id="adHeading">{t(locale, 'pages.privacy.adHeading')}</h2>
+          <p>{t(locale, 'pages.privacy.adBody1')}</p>
+          <p>{t(locale, 'pages.privacy.adBody2')}</p>
           <p>
-            <a href={`${u('/contact/')}#contact-form`}>
-              {acecoreIdRequestLinkLabel}
+            {t(locale, 'pages.privacy.adBody3')}
+            <a
+              href="https://policies.google.com/technologies/ads?hl=ja"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Policies
+              <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
             </a>
           </p>
-        ) : null}
 
-        <h2 id="personalInfoHeading">
-          {t(locale, 'pages.privacy.personalInfoHeading')}
-        </h2>
-        <p>{t(locale, 'pages.privacy.personalInfoBody')}</p>
+          <h2 id="analyticsHeading">
+            {t(locale, 'pages.privacy.analyticsHeading')}
+          </h2>
+          <p>{t(locale, 'pages.privacy.analyticsBody1')}</p>
+          <p>{t(locale, 'pages.privacy.analyticsBody2')}</p>
+          <p>{t(locale, 'pages.privacy.analyticsBody3')}</p>
 
-        <h2 id="disclosureHeading">
-          {t(locale, 'pages.privacy.disclosureHeading')}
-        </h2>
-        <p>{t(locale, 'pages.privacy.disclosureBody')}</p>
-        <ul>
-          <li>{t(locale, 'pages.privacy.disclosureItem1')}</li>
-          <li>{t(locale, 'pages.privacy.disclosureItem2')}</li>
-        </ul>
+          <h2 id="searchHeading">{t(locale, 'pages.privacy.searchHeading')}</h2>
+          <p>{t(locale, 'pages.privacy.searchBody1')}</p>
+          <p>{t(locale, 'pages.privacy.searchBody2')}</p>
 
-        <h2 id="disclaimerHeading">
-          {t(locale, 'pages.privacy.disclaimerHeading')}
-        </h2>
-        <p>{t(locale, 'pages.privacy.disclaimerBody')}</p>
+          {acecoreIdSections.map((section, index) => (
+            <section lang={acecoreIdContentLocale}>
+              <h2 id={`acecore-id-${index + 1}`}>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.items && section.items.length > 0 ? (
+                <ul>
+                  {section.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          ))}
+          {acecoreIdSections.length > 0 ? (
+            <p>
+              <a href={`${u('/contact/')}#contact-form`}>
+                {acecoreIdRequestLinkLabel}
+              </a>
+            </p>
+          ) : null}
 
-        <h2 id="copyrightHeading">
-          {t(locale, 'pages.privacy.copyrightHeading')}
-        </h2>
-        <p>{t(locale, 'pages.privacy.copyrightBody')}</p>
+          <h2 id="personalInfoHeading">
+            {t(locale, 'pages.privacy.personalInfoHeading')}
+          </h2>
+          <p>{t(locale, 'pages.privacy.personalInfoBody')}</p>
 
-        <h2 id="contactHeading">{t(locale, 'pages.privacy.contactHeading')}</h2>
-        <p>
-          {t(locale, 'pages.privacy.contactBody')}
-          <a href={u('/contact/')}>{t(locale, 'pages.contact.title')}</a>
-        </p>
+          <h2 id="disclosureHeading">
+            {t(locale, 'pages.privacy.disclosureHeading')}
+          </h2>
+          <p>{t(locale, 'pages.privacy.disclosureBody')}</p>
+          <ul>
+            <li>{t(locale, 'pages.privacy.disclosureItem1')}</li>
+            <li>{t(locale, 'pages.privacy.disclosureItem2')}</li>
+          </ul>
 
-        <p class="text-sm text-slate-500 mt-12">
-          {t(locale, 'pages.privacy.effectiveDate')}
-        </p>
+          <h2 id="disclaimerHeading">
+            {t(locale, 'pages.privacy.disclaimerHeading')}
+          </h2>
+          <p>{t(locale, 'pages.privacy.disclaimerBody')}</p>
+
+          <h2 id="copyrightHeading">
+            {t(locale, 'pages.privacy.copyrightHeading')}
+          </h2>
+          <p>{t(locale, 'pages.privacy.copyrightBody')}</p>
+
+          <h2 id="contactHeading">
+            {t(locale, 'pages.privacy.contactHeading')}
+          </h2>
+          <p>
+            {t(locale, 'pages.privacy.contactBody')}
+            <a href={u('/contact/')}>{t(locale, 'pages.contact.title')}</a>
+          </p>
+
+          <p class="text-sm text-slate-500 mt-12">
+            {t(locale, 'pages.privacy.effectiveDate')}
+          </p>
+        </div>
       </div>
     </div>
   </section>
