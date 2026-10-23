@@ -49,8 +49,8 @@
     "open": "Open AI chat",
     "close": "Close AI chat",
     "title": "Ask AI",
-    "lead": "Searches across Acecore's official sites for concise answers grounded in public information.",
-    "greeting": "Ask about Acecore, Acecore Systems, Acecore Schools, Aceserver, or World Foundation. The chat looks for and cites relevant official evidence for Acecore, Systems, Schools, and Aceserver. For World Foundation, it currently directs you to the official site. It does not guess unverified details.",
+    "lead": "I search across Acecore's official sites and provide concise answers based on public information.",
+    "greeting": "I search across the official sites of Acecore, Acecore Systems, Acecore Schools, and Aceserver to find official pages relevant to your question and cite them as sources. For World Foundation, I currently direct you to its official website. I won't speculate about details I can't verify.",
     "inputLabel": "Question for AI chat",
     "placeholder": "Type your question...",
     "send": "Send",
@@ -58,15 +58,15 @@
     "error": "AI chat is unavailable. Please use the contact form or LINE.",
     "quickServices": "Which business site should I visit?",
     "quickEstimate": "Where should I request an estimate?",
-    "quickSchools": "Where is the Schools information?",
+    "quickSchools": "Where can I find the official information for Schools?",
     "contactForm": "Contact form",
     "line": "LINE",
     "email": "Email",
     "phone": "Phone"
   },
   "hero": {
-    "ctaServices": "View Businesses",
-    "ctaContact": "Free Consultation",
+    "ctaServices": "View Our Services",
+    "ctaContact": "Get a Free Consultation",
     "sliderLabel": "Hero image slider",
     "slide": "Slide",
     "pauseAutoplay": "Pause slideshow",
@@ -79,7 +79,7 @@
   "footer": {
     "tagline": "Taking the world to the next stage",
     "description": "Company information, businesses, and news from Acecore.",
-    "imageDisclosure": "AI-generated materials are used in illustrative images containing people.",
+    "imageDisclosure": "AI-generated assets are used in illustrative images that include people.",
     "imageCreditLabel": "About the image materials",
     "sitemap": "Sitemap",
     "relatedLinks": "Related Links",
@@ -90,7 +90,7 @@
   },
   "blog": {
     "title": "News",
-    "seoTitleContext": "Company, business and activity updates",
+    "seoTitleContext": "Company, business, and activity updates",
     "subtitle": "News and activity reports from Acecore",
     "noPosts": "Articles are coming soon.",
     "tags": "Tags",
@@ -100,7 +100,7 @@
     "latestPosts": "Latest Posts",
     "postsCount": "{count} articles",
     "backToBlog": "Back to news",
-    "prev": "← Prev",
+    "prev": "← Previous",
     "next": "Next →",
     "pageNav": "Page navigation",
     "pageOf": "({current}/{total} pages)",
@@ -147,24 +147,24 @@
     "networkHeading": "Related information from Acecore sites",
     "networkLoading": "Searching related Acecore sites...",
     "networkManyResults": "[COUNT] related results from Acecore sites",
-    "networkOneResult": "1 related result from an Acecore site",
-    "semanticPrivacyNotice": "After you enter at least two characters, this site and related Acecore sites send your search terms to Cloudflare Workers AI to find related information. Do not enter personal or confidential information.",
+    "networkOneResult": "1 related result from an Acecore-related site",
+    "semanticPrivacyNotice": "When you enter at least two characters, your search terms are automatically sent to Cloudflare Workers AI to find related information on this site and Acecore-related sites. Do not enter personal or confidential information.",
     "semanticPrivacyLink": "How search data is handled",
     "rssTitle": "Acecore News",
-    "rssDescription": "Company, business and activity updates from Acecore",
+    "rssDescription": "Company, business, and activity updates from Acecore",
     "pagefindFilterAuthor": "Author",
     "pagefindFilterYear": "Year",
     "pagefindFilterTag": "Tag",
-    "prevPost": "← Previous",
-    "nextPost": "Next →",
+    "prevPost": "← Previous article",
+    "nextPost": "Next article →",
     "heroAlt": "Acecore news image",
     "postNavLabel": "Post navigation",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Author: {author}",
-    "indexDescription": "Company information, business updates, and activity news from Acecore.",
-    "pageDescription": "Acecore news (page {current} of {total}). Company, business, and activity updates.",
-    "tagListDescription": "A list of Acecore news tags.",
-    "archiveListDescription": "A monthly archive of Acecore news.",
+    "indexDescription": "Read news and updates about Acecore, including company information, business operations, and activities.",
+    "pageDescription": "Acecore news (page {current} of {total}). Browse company, business, and activity updates from Acecore.",
+    "tagListDescription": "Explore the tags used to organize Acecore news and find articles on topics that interest you.",
+    "archiveListDescription": "Browse the monthly archive of Acecore news to find articles published in a specific month.",
     "itemListName": "Acecore News",
     "language": "Language",
     "commentsTitle": "Comments",
@@ -172,7 +172,7 @@
     "commentsNameLabel": "Name",
     "commentsNamePlaceholder": "Display name",
     "commentsBodyLabel": "Comment",
-    "commentsBodyPlaceholder": "Share a reaction or useful note",
+    "commentsBodyPlaceholder": "Share your thoughts or add useful information",
     "commentsRule": "Links, email addresses, and promotional text cannot be posted.",
     "commentsSubmit": "Post comment",
     "commentsLoading": "Loading comments...",
@@ -181,20 +181,20 @@
     "commentsPosted": "Comment posted.",
     "commentsError": "Could not post the comment.",
     "commentsValidationName": "Enter your name.",
-    "commentsValidationBody": "Enter at least 8 characters without links.",
+    "commentsValidationBody": "Enter a comment of at least 8 characters. URLs are not allowed.",
     "commentsValidationTurnstile": "Complete verification before sending.",
     "commentsSending": "Sending..."
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Taking the world to the next stage. Through technology and learning, Acecore aims to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
+    "defaultDescription": "“Taking the world to the next stage.” Through technology and learning, Acecore aims to reduce time spent on nonessential activities and create an environment where everyone can pursue what they want to do.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
   "pages": {
     "home": {
       "heroTitle": "Taking the world to the next stage",
-      "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
+      "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they truly want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "Meeting in progress",
       "viewBusinessDetails": "Explore our services",
@@ -204,9 +204,9 @@
       "contactCta": "Contact us",
       "aboutIntro": "Learn about our company, leadership, corporate philosophy, and vision.",
       "directoryHeading": "Find what you need",
-      "directoryLead": "Choose a page for the information you are looking for.",
+      "directoryLead": "Browse the pages that best match what you're looking for.",
       "servicesIntro": "Discover the services we provide.",
-      "contactIntro": "Send your questions or requests through our contact form.",
+      "contactIntro": "Send us your questions or requests through our contact form.",
       "servicesHeading": "Our Services"
     },
     "notFound": {
@@ -222,15 +222,15 @@
     },
     "about": {
       "title": "About Us",
-      "seoTitleContext": "Company information, leadership and philosophy",
+      "seoTitleContext": "Company information, leadership, and corporate philosophy",
       "description": "Discover Acecore’s philosophy, “Taking the world to the next stage,” our vision, company information, and leadership.",
       "heroTitle": "About Us",
-      "heroSubtitle": "Company information, leadership and philosophy",
+      "heroSubtitle": "Company information, leadership, and philosophy",
       "heroImgAlt": "Team discussion",
       "companyInfoHeading": "Corporate Information",
       "legalNameLabel": "Legal name",
       "executiveHeading": "Leadership",
-      "executiveLead": "Meet Acecore's leadership.",
+      "executiveLead": "Meet Acecore’s leadership.",
       "officerAreasLabel": "Areas of responsibility",
       "officerBiographyLabel": "Biography",
       "officers": [
@@ -239,17 +239,17 @@
           "role": "Representative Director and President",
           "areas": [
             "Business strategy",
-            "Systems department (Web, systems, databases, infrastructure, quality assurance and AI adoption)"
+            "Systems department (Web, systems, databases, infrastructure, quality assurance, and AI adoption)"
           ],
-          "bio": "President and Representative Director of Acecore. His expertise spans Web and systems, databases and infrastructure, quality assurance, and AI adoption. In the Systems department, he leads work from clarifying business challenges through design and post-launch improvements, helping customers expand their businesses and improve efficiency."
+          "bio": "President and Representative Director of Acecore. His expertise spans Web and systems, databases and infrastructure, quality assurance, and AI adoption. In the Systems department, he leads initiatives from identifying business challenges through design and post-implementation improvements, helping customers grow their businesses and improve efficiency."
         },
         {
           "name": "佐藤凌峨",
           "role": "Senior Managing Director and General Manager",
           "areas": [
-            "Aceserver operations (development and operation of proprietary systems and community management)"
+            "Aceserver operations (proprietary system development and operation, and community management)"
           ],
-          "bio": "As part of Aceserver’s operations, he supports the Discord community, internal infrastructure, and Minecraft development and operations. He publishes Java plugins for Minecraft and tools for Discord integration. In the Systems department, he focuses on the IT advisory engineer business."
+          "bio": "As part of Aceserver’s operations, he supports the Discord community and internal infrastructure, as well as Minecraft-related development and operations. He publishes Java plugins for Minecraft and tools for Discord integration. In the Systems department, he focuses primarily on IT advisory services."
         },
         {
           "name": "西田創",
@@ -260,14 +260,14 @@
             "3D modeling",
             "Web content operations"
           ],
-          "bio": "He creates illustrations and fiction, and publishes original VRChat 3D avatars, gimmicks, and accessories."
+          "bio": "He creates illustrations and fiction, and publishes original 3D avatars, gimmicks, and accessories for VRChat."
         }
       ],
       "philosophyHeading": "Corporate Philosophy",
       "philosophyMotto": "Taking the world to the next stage",
       "philosophyParagraphs": [
         "Today, it is not easy for individuals and organizations to focus solely on what they truly want to do.",
-        "Unwanted tasks accepted as routine, structural constraints, and the pressure of things they feel they must do.",
+        "Unwanted routine tasks, structural constraints, and the pressure of things they feel they must do.",
         "We remove these obstacles from society one by one to create a new society.",
         "Our purpose is to reduce time spent on what is not essential and create a free society where everyone can devote themselves fully to their passions and potential.",
         "We believe the creativity born of that freedom leads not only to individual happiness, but also to the development of society as a whole."
@@ -281,59 +281,59 @@
         "Our vision is to create a society where you can make the most of your own potential and everyone can shine."
       ],
       "collaborationImgAlt": "Illustration of four people discussing around a computer",
-      "workshopImgAlt": "Illustration of one person supporting another learning on a computer",
+      "workshopImgAlt": "Illustration of one person supporting another as they learn on a computer",
       "establishedLabel": "Established",
       "establishedDate": "July 13, 2026",
       "businessPurposesLabel": "Business activities",
       "businessPurposes": [
         "Provision of various information services via the Internet",
-        "Planning, production, sale, operation and management of websites",
-        "Planning, production, sale, operation and management of e-commerce websites",
-        "Planning, development, sale and maintenance of computer systems",
-        "Planning, production, sale, operation and management of application software",
+        "Planning, production, sale, operation, and management of websites",
+        "Planning, production, sale, operation, and management of e-commerce websites",
+        "Planning, development, sale, and maintenance of computer systems",
+        "Planning, production, sale, operation, and management of application software",
         "Operation of learning centers",
-        "Operation of computer classes",
+        "Operation of computer schools",
         "All activities incidental or related to the foregoing"
       ],
       "corporateContactCta": "Company and partnership inquiries",
-      "workshopCaption": "An illustrative scene of learning that supports each person in taking on new challenges."
+      "workshopCaption": "An illustrative scene of learning that encourages each person to take on new challenges."
     },
     "services": {
       "title": "Our Services",
       "seoTitleContext": "Business Directory",
-      "description": "Explore Acecore’s departments, key services and pricing information, supporting people’s ambitions and reducing everyday burdens.",
+      "description": "Explore Acecore’s business divisions, key services, and where to find pricing information. We help ease everyday burdens and support everyone’s ambitions.",
       "heroTitle": "Our Services",
-      "heroSubtitle": "Explore our businesses, services, and pricing resources.",
+      "heroSubtitle": "Explore our business divisions, services, and where to find pricing information.",
       "heroImgAlt": "Technology office",
       "eyebrow": "Business Directory",
-      "introTitle": "Business departments",
-      "introBody": "We aim to reduce time spent on nonessential tasks so everyone can pursue what they want to do. Through technical support, purpose-led learning and creative production, we support each person’s ambitions and potential.",
+      "introTitle": "Business Divisions",
+      "introBody": "We reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do. Through technical support, goal-oriented learning, and creative production, we support each person’s motivation and potential.",
       "systemsTitle": "Acecore Systems",
-      "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, as well as design and creative production.",
+      "systemsDescription": "We provide technical support for web and systems development, databases and infrastructure, quality assurance, and AI adoption, along with design and creative production.",
       "schoolsTitle": "Acecore Schools",
-      "schoolsDescription": "We also offer introductory 3D training, individual technical support, illustration and writing reviews, and creative workshops.",
+      "schoolsDescription": "Alongside learning support tailored to your goals, we offer 3D production training and technical support, project reviews, and creative workshops.",
       "aceserverTitle": "Aceserver",
       "aceserverDescription": "We run a Minecraft community.",
       "storeTitle": "Acecore Store",
       "storeDescription": "Acecore’s official online store.",
       "acestudioTitle": "AceStudio",
       "acestudioStatus": "Coming soon",
-      "acestudioDescription": "A place where all creators can share what they do.",
-      "contactHeading": "Advice on choosing and implementing a service",
+      "acestudioDescription": "A space where creators can share their work.",
+      "contactHeading": "Advice on Choosing and Implementing a Service",
       "contactBody": "Tell us what support you need and what you have in mind. We’ll point you to the right department and service.",
       "contactCta": "Talk to us about a service",
       "designTitle": "Acecore Designs",
-      "designDescription": "Design and illustration / 3D production / Writing and audio",
-      "designStatus": "Discuss this service",
-      "designNote": "Explore 13 Acecore Designs services for characters, illustration, 3D, stories, scripts and audio, with tax-inclusive starting prices.",
+      "designDescription": "We accept commissions for character art, illustration, 3D, writing, and audio production.",
+      "designStatus": "Accepting project inquiries",
+      "designNote": "Details and tax-inclusive pricing are available for each service.",
       "developmentTitle": "Custom System Development Service",
-      "developmentDescription": "After discussing your needs, we propose and develop a system tailored to you.",
+      "developmentDescription": "We’ll discuss your needs, then recommend and develop the system that best suits them.",
       "advisorTitle": "IT Advisory Engineer Service",
       "advisorDescription": "From day-to-day consultations to launching your website, we provide support for a fixed monthly fee.",
-      "learningTitle": "Learning support tailored to your goals",
+      "learningTitle": "Learning Support Tailored to Your Goals",
       "pricingHeading": "Pricing Guide",
-      "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
-      "offeringsHeading": "Key services",
+      "pricingLead": "Visit each website for detailed pricing and information on the services offered.",
+      "offeringsHeading": "Key Services",
       "detailsCta": "Learn more",
       "pricingCta": "View pricing"
     },
@@ -603,6 +603,17 @@
     "pricing": {
       "systemsTitle": "Acecore Systems pricing",
       "schoolsTitle": "Acecore Schools pricing"
+    },
+    "not-found": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for could not be found. Please check the URL or browse from the homepage.",
+      "heading": "Page Not Found",
+      "body": "The page you’re looking for may have been moved or deleted.",
+      "searchHint": "Check the URL or search and browse below.",
+      "searchPlaceholder": "Search the site...",
+      "goHome": "Go to homepage",
+      "viewBlog": "View news",
+      "latestArticles": "Latest articles"
     }
   },
   "pageNames": {
