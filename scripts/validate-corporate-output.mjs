@@ -312,7 +312,8 @@ for (const locale of locales) {
     'ace-ai-chat-panel',
   )
   assert.equal(services('#scroll-to-top').length, 1)
-  assert.ok(services('#ace-ai-chat-toggle').hasClass('flex'))
+  assert.ok(services('#ace-ai-chat-toggle').hasClass('ac-chat__toggle'))
+  assert.equal(services('#ace-ai-chat-toggle').hasClass('hidden'), false)
   assert.ok(studio('main').text().includes(translations.acestudio.statusBody))
   assert.equal(
     studio(

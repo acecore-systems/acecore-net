@@ -33,9 +33,14 @@ test('チャット入力欄をiPhoneの自動拡大が起きない16pxで表示�
     'utf8',
   )
 
+  assert.match(component, /class="ac-chat__input-row"/u)
+  const styles = readFileSync(
+    new URL('../src/styles/shared-chat.css', import.meta.url),
+    'utf8',
+  )
   assert.match(
-    component,
-    /<textarea[\s\S]*?id="ace-ai-chat-input"[\s\S]*?class="[^"]*\btext-base\b[^"]*"/u,
+    styles,
+    /\.ac-chat__input-row textarea\s*\{[^}]*font-size:\s*16px;/u,
   )
 })
 
