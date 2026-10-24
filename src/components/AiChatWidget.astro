@@ -1,5 +1,6 @@
 ---
-import Icon from './Icon.astro'
+import ChatIcon from './ChatIcon.astro'
+import '../styles/shared-chat.css'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 import { SITE } from '../data/site'
 
@@ -17,7 +18,7 @@ const phoneParts = SITE.phone.split('-')
 
 <div
   id="ace-ai-chat"
-  class="fixed bottom-5 right-5 z-[60] flex flex-col items-end"
+  class="ac-chat"
   data-locale={locale}
   data-loading={t(locale, 'aiChat.loading')}
   data-error={t(locale, 'aiChat.error')}
@@ -29,104 +30,94 @@ const phoneParts = SITE.phone.split('-')
 >
   <section
     id="ace-ai-chat-panel"
-    class="mb-4 hidden max-h-[calc(100dvh-7rem)] w-[calc(100vw-2.5rem)] max-w-[23rem] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl"
+    class="ac-chat__panel hidden"
+    role="dialog"
+    aria-modal="false"
     aria-labelledby="ace-ai-chat-title"
+    aria-describedby="ace-ai-chat-lead"
+    tabindex="-1"
   >
-    <header class="flex shrink-0 items-start justify-between gap-3 border-b border-slate-200 bg-brand-50 px-4 py-3">
-      <div class="flex items-start gap-3">
-        <span class="ac-icon-box shrink-0 bg-white">
-          <Icon name="sparkles" class="text-lg" />
-        </span>
-        <div>
-          <h2 id="ace-ai-chat-title" class="text-sm font-800 text-slate-900">
-            {t(locale, 'aiChat.title')}
-          </h2>
-          <p class="mt-0.5 text-xs leading-relaxed text-slate-600">
-            {t(locale, 'aiChat.lead')}
-          </p>
-        </div>
+    <header class="ac-chat__header">
+      <span class="ac-chat__mark">
+        <ChatIcon name="bot" />
+      </span>
+      <div class="ac-chat__heading">
+        <h2 id="ace-ai-chat-title">{t(locale, 'aiChat.title')}</h2>
+        <p id="ace-ai-chat-lead">{t(locale, 'aiChat.lead')}</p>
       </div>
       <button
         type="button"
-        class="ac-touch shrink-0 rounded-lg text-slate-500 hover:bg-white hover:text-brand-600"
+        class="ac-chat__close"
         data-ace-chat-close
         aria-label={t(locale, 'aiChat.close')}
       >
-        <Icon name="x" class="text-lg" />
+        <ChatIcon name="close" />
       </button>
     </header>
-
     <div
       id="ace-ai-chat-messages"
-      class="min-h-0 max-h-[min(58vh,28rem)] flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm"
+      class="ac-chat__messages"
+      role="log"
       aria-live="polite"
+      aria-relevant="additions text"
     ></div>
-
-    <div class="shrink-0 border-t border-slate-200 px-4 py-3">
-      <div class="mb-3 flex flex-wrap gap-2">
-        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
-          {t(locale, 'aiChat.quickServices')}
+    <div class="ac-chat__prompts">
+      {['quickServices', 'quickEstimate', 'quickSchools'].map((key) => (
+        <button type="button" data-ace-chat-prompt>
+          {t(locale, `aiChat.${key}`)}
         </button>
-        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
-          {t(locale, 'aiChat.quickEstimate')}
-        </button>
-        <button type="button" class="ac-chip text-xs" data-ace-chat-prompt>
-          {t(locale, 'aiChat.quickSchools')}
-        </button>
-      </div>
-
-      <form id="ace-ai-chat-form" class="flex items-end gap-2">
-        <label for="ace-ai-chat-input" class="sr-only">
-          {t(locale, 'aiChat.inputLabel')}
-        </label>
+      ))}
+    </div>
+    <form id="ace-ai-chat-form" class="ac-chat__form">
+      <label for="ace-ai-chat-input" class="sr-only">
+        {t(locale, 'aiChat.inputLabel')}
+      </label>
+      <div class="ac-chat__input-row">
         <textarea
           id="ace-ai-chat-input"
           rows="2"
           maxlength="800"
-          class="ac-input min-h-11 flex-1 resize-none text-base"
           placeholder={t(locale, 'aiChat.placeholder')}
         ></textarea>
         <button
           type="submit"
           id="ace-ai-chat-submit"
-          class="ac-btn-primary min-h-11 w-11 shrink-0 px-0"
+          class="ac-chat__send"
           aria-label={t(locale, 'aiChat.send')}
         >
-          <Icon name="send" class="text-base" />
+          <ChatIcon name="send" />
         </button>
-      </form>
-
-      <div class="mt-3 flex flex-wrap gap-2 text-xs">
-        <a href={contactUrl} class="text-brand-600 hover:underline">
-          {t(locale, 'aiChat.contactForm')}
-        </a>
-        <a
-          href={SITE.line}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-brand-600 hover:underline"
-        >
-          {t(locale, 'aiChat.line')}
-        </a>
       </div>
+    </form>
+    <div class="ac-chat__footer">
+      <nav>
+        <a href={contactUrl}>{t(locale, 'aiChat.contactForm')}</a>
+        <a href={SITE.line} target="_blank" rel="noopener noreferrer">
+          {t(locale, 'aiChat.line')} ↗
+        </a>
+        <a href={getLocalizedUrl('/privacy/', locale)}>
+          {t(locale, 'footer.privacy')}
+        </a>
+      </nav>
     </div>
   </section>
-
   <button
     type="button"
     id="ace-ai-chat-toggle"
-    class:list={[
-      showFloatingToggle ? 'flex' : 'hidden',
-      'h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-white shadow-xl transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2',
-    ]}
+    class:list={['ac-chat__toggle', { hidden: !showFloatingToggle }]}
     aria-controls="ace-ai-chat-panel"
     aria-expanded="false"
+    aria-haspopup="dialog"
     aria-label={t(locale, 'aiChat.open')}
     data-ace-chat-toggle
   >
-    <Icon name="bot-message-square" class="text-2xl" />
+    <ChatIcon name="bot" />
+    <span aria-hidden="true">AI</span>
   </button>
 </div>
+<script>
+  import '../scripts/shared-chat-viewport'
+</script>
 
 <script is:inline>
   ;(() => {
@@ -162,6 +153,7 @@ const phoneParts = SITE.phone.split('-')
         .filter(Boolean)
         .join('')
       const messages = []
+      let busy = false
 
       function track(name, params) {
         if (window.aceTrackEvent) {
@@ -180,16 +172,14 @@ const phoneParts = SITE.phone.split('-')
 
       function renderMessage(role, text, isError) {
         const row = document.createElement('div')
-        row.className =
-          role === 'user' ? 'flex justify-end' : 'flex justify-start'
+        row.className = 'ac-chat__message'
+        row.dataset.role = role
+        if (isError) row.dataset.error = 'true'
 
         const bubble = document.createElement('div')
         bubble.className =
-          role === 'user'
-            ? 'max-w-[85%] whitespace-pre-line rounded-lg bg-brand-500 px-3 py-2 text-white'
-            : isError
-              ? 'max-w-[85%] whitespace-pre-line rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800'
-              : 'ace-chat-markdown max-w-[85%] rounded-lg bg-slate-100 px-3 py-2 text-slate-700'
+          'ac-chat__bubble' +
+          (role === 'assistant' && !isError ? ' ace-chat-markdown' : '')
 
         if (role === 'assistant' && !isError) {
           renderMarkdownText(bubble, text)
@@ -451,6 +441,7 @@ const phoneParts = SITE.phone.split('-')
         root.classList.add('is-open')
         if (messages.length === 0 && greetingText) {
           addMessage('assistant', greetingText)
+          messagesEl.scrollTop = 0
         }
         window.setTimeout(() => input.focus(), 0)
         track('ai_chat_open')
@@ -466,6 +457,7 @@ const phoneParts = SITE.phone.split('-')
       }
 
       async function sendQuestion(text) {
+        if (busy) return
         const trimmed = text.trim()
         if (!trimmed) {
           input.focus()
@@ -475,7 +467,13 @@ const phoneParts = SITE.phone.split('-')
         input.value = ''
         addMessage('user', trimmed)
         const loadingRow = renderMessage('assistant', loadingText, false)
+        busy = true
+        panel.setAttribute('aria-busy', 'true')
         submit.disabled = true
+        input.disabled = true
+        root
+          .querySelectorAll('[data-ace-chat-prompt]')
+          .forEach((button) => (button.disabled = true))
 
         try {
           let streamedAnswer = ''
@@ -506,8 +504,14 @@ const phoneParts = SITE.phone.split('-')
           loadingRow.remove()
           addMessage('assistant', error.message || errorText, { isError: true })
         } finally {
+          busy = false
+          panel.removeAttribute('aria-busy')
           submit.disabled = false
-          input.focus()
+          input.disabled = false
+          root
+            .querySelectorAll('[data-ace-chat-prompt]')
+            .forEach((button) => (button.disabled = false))
+          if (!panel.classList.contains('hidden')) input.focus()
         }
       }
 
@@ -551,7 +555,7 @@ const phoneParts = SITE.phone.split('-')
       })
 
       input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && !event.shiftKey) {
+        if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
           event.preventDefault()
           void sendQuestion(input.value)
         }
@@ -560,7 +564,11 @@ const phoneParts = SITE.phone.split('-')
       document.addEventListener(
         'keydown',
         (event) => {
-          if (event.key === 'Escape' && !panel.classList.contains('hidden')) {
+          if (
+            event.key === 'Escape' &&
+            !event.isComposing &&
+            !panel.classList.contains('hidden')
+          ) {
             closeChat()
           }
         },

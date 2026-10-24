@@ -72,238 +72,249 @@ const contactPageLd = {
 >
   <CampaignNotice locale={locale} page="contact" />
 
-  <section class="ac-section">
-    <div class="ac-container max-w-2xl">
+  <section class="ac-section contact-page">
+    <div class="ac-container">
       <Breadcrumb
         items={[{ label: t(locale, 'pages.contact.title') }]}
         locale={locale}
       />
-      <header class="mb-8 border-l-4 border-brand-500 pl-5">
-        <h1 class="text-3xl ac-heading sm:text-4xl">
-          {t(locale, 'pages.contact.heroTitle')}
-        </h1>
+      <header class="page-intro contact-intro">
+        <h1 class="ac-page-title">{t(locale, 'pages.contact.heroTitle')}</h1>
         <p class="mt-4 ac-muted">{t(locale, 'pages.contact.heroSubtitle')}</p>
       </header>
-      <section
-        class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5"
-        aria-labelledby="ai-contact-heading"
-      >
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-start gap-3">
-            <span class="ac-icon-box shrink-0">
-              <Icon name="sparkles" class="text-lg" />
-            </span>
+
+      <div class="contact-layout">
+        <section class="contact-assist" aria-labelledby="ai-contact-heading">
+          <div class="contact-assist-content">
+            <div class="contact-assist-heading">
+              <span class="ac-icon-box shrink-0">
+                <Icon name="sparkles" class="text-lg" />
+              </span>
+              <div>
+                <h2 id="ai-contact-heading" class="text-lg ac-heading">
+                  {t(locale, 'pages.contact.aiHeading')}
+                </h2>
+                <p class="mt-1 text-sm leading-relaxed text-slate-600">
+                  {t(locale, 'pages.contact.aiLead')}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="ac-btn-primary shrink-0"
+              data-ace-chat-open
+              aria-controls="ace-ai-chat-panel"
+              aria-expanded="false"
+              data-ga-event="ai_chat_open_click"
+              data-ga-label="contact_ai_chat"
+              data-ga-location="contact_ai_assist"
+            >
+              <Icon name="bot-message-square" class="text-base" />
+              {t(locale, 'pages.contact.aiSubmit')}
+            </button>
+          </div>
+        </section>
+        <div class="contact-form-column">
+          <form
+            id="contact-form"
+            data-creative-offerings={JSON.stringify(creativeOfferings)}
+            action="/api/contact"
+            method="post"
+            class="space-y-6"
+            data-t-sending={t(locale, 'pages.contact.formSending')}
+            data-t-success={t(locale, 'pages.contact.formSuccess')}
+            data-t-error={t(locale, 'pages.contact.formError')}
+            data-t-validation-category={t(
+              locale,
+              'pages.contact.validationCategory',
+            )}
+            data-t-validation-name={t(locale, 'pages.contact.validationName')}
+            data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
+            data-t-validation-message={t(
+              locale,
+              'pages.contact.validationMessage',
+            )}
+            data-success-url={contactThanksUrl}
+            data-service-subject-template={t(
+              locale,
+              'pages.contact.serviceSubjectTemplate',
+            )}
+          >
+            <input type="hidden" name="locale" value={locale} />
+            <input type="hidden" name="submission_id" value="" />
+            <input
+              type="text"
+              name="company_website"
+              autocomplete="off"
+              tabindex="-1"
+              class="hidden"
+              aria-hidden="true"
+            />
             <div>
-              <h2 id="ai-contact-heading" class="text-lg ac-heading">
-                {t(locale, 'pages.contact.aiHeading')}
-              </h2>
-              <p class="mt-1 text-sm leading-relaxed text-slate-600">
-                {t(locale, 'pages.contact.aiLead')}
+              <label
+                for="category"
+                class="block text-sm font-600 text-slate-700 mb-2"
+              >
+                {t(locale, 'pages.contact.formCategoryLabel')}
+                <span class="text-red-500" aria-hidden="true">
+                  *
+                </span>
+                <span class="sr-only">{t(locale, 'common.required')}</span>
+              </label>
+              <select
+                id="category"
+                name="お問い合わせ種別"
+                required
+                class="ac-input"
+              >
+                <option value="" disabled selected>
+                  {t(locale, 'pages.contact.formCategoryPlaceholder')}
+                </option>
+                <option value="サービス全般について">
+                  {t(locale, 'pages.contact.formCategoryService')}
+                </option>
+                {serviceCategoryOptions.map((option) => (
+                  <option
+                    value={option.value}
+                    data-service-key={option.key}
+                    data-service-subject={option.subject}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+                <option value="お見積り依頼">
+                  {t(locale, 'pages.contact.formCategoryEstimate')}
+                </option>
+                <option value="パートナーシップ">
+                  {t(locale, 'pages.contact.formCategoryPartnership')}
+                </option>
+                <option value="採用について">
+                  {t(locale, 'pages.contact.formCategoryRecruit')}
+                </option>
+                <option value="その他">
+                  {t(locale, 'pages.contact.formCategoryOther')}
+                </option>
+              </select>
+              <p
+                class="text-xs text-red-600 mt-1 hidden"
+                id="category-error"
+                role="alert"
+              ></p>
+            </div>
+            <div>
+              <label
+                for="name"
+                class="block text-sm font-600 text-slate-700 mb-2"
+              >
+                {t(locale, 'pages.contact.formNameLabel')}
+                <span class="text-red-500" aria-hidden="true">
+                  *
+                </span>
+                <span class="sr-only">{t(locale, 'common.required')}</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="お名前"
+                required
+                autocomplete="name"
+                class="ac-input"
+              />
+              <p
+                class="text-xs text-red-600 mt-1 hidden"
+                id="name-error"
+                role="alert"
+              ></p>
+            </div>
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-600 text-slate-700 mb-2"
+              >
+                {t(locale, 'pages.contact.formEmailLabel')}
+                <span class="text-red-500" aria-hidden="true">
+                  *
+                </span>
+                <span class="sr-only">{t(locale, 'common.required')}</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="メールアドレス"
+                required
+                autocomplete="email"
+                class="ac-input"
+              />
+              <p
+                class="text-xs text-red-600 mt-1 hidden"
+                id="email-error"
+                role="alert"
+              ></p>
+            </div>
+            <div>
+              <label
+                for="subject"
+                class="block text-sm font-600 text-slate-700 mb-2"
+              >
+                {t(locale, 'pages.contact.formSubjectLabel')}
+              </label>
+              <input type="text" id="subject" name="件名" class="ac-input" />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block text-sm font-600 text-slate-700 mb-2"
+              >
+                {t(locale, 'pages.contact.formMessageLabel')}
+                <span class="text-red-500" aria-hidden="true">
+                  *
+                </span>
+                <span class="sr-only">{t(locale, 'common.required')}</span>
+              </label>
+              <textarea
+                id="message"
+                name="お問い合わせ内容"
+                rows="6"
+                required
+                class="ac-input resize-y"
+              ></textarea>
+              <p
+                class="text-xs text-red-600 mt-1 hidden"
+                id="message-error"
+                role="alert"
+              ></p>
+            </div>
+            <div
+              id="turnstile-widget"
+              class="cf-turnstile"
+              data-sitekey={SITE.turnstileSiteKey}
+              data-language={locale}
+              data-theme="light"
+            ></div>
+            <div>
+              <button
+                type="submit"
+                id="contact-submit"
+                class="ac-btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {t(locale, 'pages.contact.formSubmit')}
+              </button>
+              <p class="text-xs text-slate-600 mt-3">
+                {t(locale, 'pages.contact.formSubmitNote')}
               </p>
             </div>
-          </div>
-          <button
-            type="button"
-            class="ac-btn-primary shrink-0"
-            data-ace-chat-open
-            aria-controls="ace-ai-chat-panel"
-            aria-expanded="false"
-            data-ga-event="ai_chat_open_click"
-            data-ga-label="contact_ai_chat"
-            data-ga-location="contact_ai_assist"
-          >
-            <Icon name="bot-message-square" class="text-base" />
-            {t(locale, 'pages.contact.aiSubmit')}
-          </button>
+            <div
+              id="form-feedback"
+              class="hidden rounded-lg p-4 text-sm"
+              role="alert"
+              aria-live="polite"
+            ></div>
+          </form>
+          <a href={u('/privacy/')} class="ac-link mt-6 inline-block text-sm">
+            {t(locale, 'footer.privacy')}
+          </a>
         </div>
-      </section>
-
-      <form
-        id="contact-form"
-        data-creative-offerings={JSON.stringify(creativeOfferings)}
-        action="/api/contact"
-        method="post"
-        class="space-y-6"
-        data-t-sending={t(locale, 'pages.contact.formSending')}
-        data-t-success={t(locale, 'pages.contact.formSuccess')}
-        data-t-error={t(locale, 'pages.contact.formError')}
-        data-t-validation-category={t(
-          locale,
-          'pages.contact.validationCategory',
-        )}
-        data-t-validation-name={t(locale, 'pages.contact.validationName')}
-        data-t-validation-email={t(locale, 'pages.contact.validationEmail')}
-        data-t-validation-message={t(locale, 'pages.contact.validationMessage')}
-        data-success-url={contactThanksUrl}
-        data-service-subject-template={t(
-          locale,
-          'pages.contact.serviceSubjectTemplate',
-        )}
-      >
-        <input type="hidden" name="locale" value={locale} />
-        <input type="hidden" name="submission_id" value="" />
-        <input
-          type="text"
-          name="company_website"
-          autocomplete="off"
-          tabindex="-1"
-          class="hidden"
-          aria-hidden="true"
-        />
-        <div>
-          <label
-            for="category"
-            class="block text-sm font-600 text-slate-700 mb-2"
-          >
-            {t(locale, 'pages.contact.formCategoryLabel')}
-            <span class="text-red-500" aria-hidden="true">
-              *
-            </span>
-            <span class="sr-only">{t(locale, 'common.required')}</span>
-          </label>
-          <select
-            id="category"
-            name="お問い合わせ種別"
-            required
-            class="ac-input"
-          >
-            <option value="" disabled selected>
-              {t(locale, 'pages.contact.formCategoryPlaceholder')}
-            </option>
-            <option value="サービス全般について">
-              {t(locale, 'pages.contact.formCategoryService')}
-            </option>
-            {serviceCategoryOptions.map((option) => (
-              <option
-                value={option.value}
-                data-service-key={option.key}
-                data-service-subject={option.subject}
-              >
-                {option.label}
-              </option>
-            ))}
-            <option value="お見積り依頼">
-              {t(locale, 'pages.contact.formCategoryEstimate')}
-            </option>
-            <option value="パートナーシップ">
-              {t(locale, 'pages.contact.formCategoryPartnership')}
-            </option>
-            <option value="採用について">
-              {t(locale, 'pages.contact.formCategoryRecruit')}
-            </option>
-            <option value="その他">
-              {t(locale, 'pages.contact.formCategoryOther')}
-            </option>
-          </select>
-          <p
-            class="text-xs text-red-600 mt-1 hidden"
-            id="category-error"
-            role="alert"
-          ></p>
-        </div>
-        <div>
-          <label for="name" class="block text-sm font-600 text-slate-700 mb-2">
-            {t(locale, 'pages.contact.formNameLabel')}
-            <span class="text-red-500" aria-hidden="true">
-              *
-            </span>
-            <span class="sr-only">{t(locale, 'common.required')}</span>
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="お名前"
-            required
-            autocomplete="name"
-            class="ac-input"
-          />
-          <p
-            class="text-xs text-red-600 mt-1 hidden"
-            id="name-error"
-            role="alert"
-          ></p>
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-600 text-slate-700 mb-2">
-            {t(locale, 'pages.contact.formEmailLabel')}
-            <span class="text-red-500" aria-hidden="true">
-              *
-            </span>
-            <span class="sr-only">{t(locale, 'common.required')}</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="メールアドレス"
-            required
-            autocomplete="email"
-            class="ac-input"
-          />
-          <p
-            class="text-xs text-red-600 mt-1 hidden"
-            id="email-error"
-            role="alert"
-          ></p>
-        </div>
-        <div>
-          <label
-            for="subject"
-            class="block text-sm font-600 text-slate-700 mb-2"
-          >
-            {t(locale, 'pages.contact.formSubjectLabel')}
-          </label>
-          <input type="text" id="subject" name="件名" class="ac-input" />
-        </div>
-        <div>
-          <label
-            for="message"
-            class="block text-sm font-600 text-slate-700 mb-2"
-          >
-            {t(locale, 'pages.contact.formMessageLabel')}
-            <span class="text-red-500" aria-hidden="true">
-              *
-            </span>
-            <span class="sr-only">{t(locale, 'common.required')}</span>
-          </label>
-          <textarea
-            id="message"
-            name="お問い合わせ内容"
-            rows="6"
-            required
-            class="ac-input resize-y"
-          ></textarea>
-          <p
-            class="text-xs text-red-600 mt-1 hidden"
-            id="message-error"
-            role="alert"
-          ></p>
-        </div>
-        <div
-          id="turnstile-widget"
-          class="cf-turnstile"
-          data-sitekey={SITE.turnstileSiteKey}
-          data-language={locale}
-          data-theme="light"
-        ></div>
-        <div>
-          <button
-            type="submit"
-            id="contact-submit"
-            class="ac-btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {t(locale, 'pages.contact.formSubmit')}
-          </button>
-          <p class="text-xs text-slate-600 mt-3">
-            {t(locale, 'pages.contact.formSubmitNote')}
-          </p>
-        </div>
-        <div
-          id="form-feedback"
-          class="hidden rounded-lg p-4 text-sm"
-          role="alert"
-          aria-live="polite"
-        ></div>
-      </form>
+      </div>
     </div>
   </section>
 

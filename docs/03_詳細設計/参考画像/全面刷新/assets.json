@@ -1,0 +1,238 @@
+{
+  "generator": "Built-in ImageGen",
+  "createdOn": "2026-10-23",
+  "optimization": "Sharp: WebP quality 82, width resize only",
+  "assets": [
+    {
+      "name": "brand-workbench",
+      "source": {
+        "file": "exec-a4ab5e24-3e61-451a-85ab-44f5441c7d1f.png",
+        "width": 2048,
+        "height": 768,
+        "sha256": "a4652247eb5efda1ba61d2932efbd507f5cbcecae88211acfee096b509fe27d9"
+      },
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-1280.webp",
+          "bytes": 80966,
+          "width": 1280,
+          "height": 480,
+          "sha256": "38b6dc2ef94055414d26365049f10d55d7581abe326868b60126187f5e0fb2c6"
+        },
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-2048.webp",
+          "bytes": 148124,
+          "width": 2048,
+          "height": 768,
+          "sha256": "3166b2f5de6d695a16952820df93b4229887f6a7436af98b75880e7850e77056"
+        },
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-640.webp",
+          "bytes": 30356,
+          "width": 640,
+          "height": 240,
+          "sha256": "31db89ae555c7ffff30b803ce58fa8ba19bc252742a233bf4084ad151986b7b6"
+        }
+      ]
+    },
+    {
+      "name": "brand-workbench-mobile",
+      "source": {
+        "file": "exec-52b9d54b-e996-45f3-adf1-0efe85f8d24b.png",
+        "width": 1448,
+        "height": 1086,
+        "sha256": "48316f816ebc43ff92e4d5e843470b1e6096b8a905d25411553563b978cc86ee"
+      },
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-mobile-1280.webp",
+          "bytes": 154158,
+          "width": 1280,
+          "height": 960,
+          "sha256": "d3941cd19483c4c018a1e69a812566cdd59a28fe38c45ba4848a71540311d787"
+        },
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-mobile-1448.webp",
+          "bytes": 182096,
+          "width": 1448,
+          "height": 1086,
+          "sha256": "4dd9bd864cc359765f4f8b7bbc25429be4d0d0c2b74dfa59de128345906c8dde"
+        },
+        {
+          "path": "public/images/redesign/20261023/brand-workbench-mobile-640.webp",
+          "bytes": 59558,
+          "width": 640,
+          "height": 480,
+          "sha256": "2df6363288f3d8d655f41e48fa5fa89c9c64be426de71b86ae964d1b4c836efb"
+        }
+      ]
+    },
+    {
+      "name": "learning-support",
+      "source": {
+        "file": "exec-056d9f94-5145-48ca-9ecb-e032701b5f52.png",
+        "width": 1672,
+        "height": 941,
+        "sha256": "1c6eec487c635ffd429de1aa153d838d253ece2450fda6aaf7ee1a4161d0ec8f"
+      },
+      "status": "withdrawn-replacement",
+      "removedDerivatives": [
+        {
+          "path": "public/images/redesign/20261023/learning-support-1280.webp",
+          "bytes": 60542,
+          "width": 1280,
+          "height": 720,
+          "sha256": "261edbfb81c38c7ffcc1451ee6f8627adfaaf48edb3a0d4af226ddd9c5b13bf6"
+        },
+        {
+          "path": "public/images/redesign/20261023/learning-support-1672.webp",
+          "bytes": 85258,
+          "width": 1672,
+          "height": 941,
+          "sha256": "cd1e6f64b5f3a167dcf1ed37627fa750985a100d9af487a99f5c687b696af9c7"
+        },
+        {
+          "path": "public/images/redesign/20261023/learning-support-640.webp",
+          "bytes": 24284,
+          "width": 640,
+          "height": 360,
+          "sha256": "844610f175219c52b2abbe6899fa6d87a47ecb79a706ace8396fe2011491f009"
+        }
+      ]
+    },
+    {
+      "name": "systems",
+      "source": {
+        "file": "exec-a54d73fa-9aa7-4ba0-9117-14f8a2a286d8.png",
+        "width": 1448,
+        "height": 1086,
+        "sha256": "8a49958435e23862f98de49b1a843504d0903ae963a2f67e79e3e9c3c0cfa26b"
+      },
+      "derivatives": [
+        {
+          "path": "public/images/redesign/20261023/systems-1280.webp",
+          "bytes": 102986,
+          "width": 1280,
+          "height": 960,
+          "sha256": "3d1c427488af8455e2a04b59cf443db9bdc6decc2dc8cde6b66bf66ccc60c001"
+        },
+        {
+          "path": "public/images/redesign/20261023/systems-1448.webp",
+          "bytes": 120746,
+          "width": 1448,
+          "height": 1086,
+          "sha256": "70ac2a075498b7dcad98dab68416fe8f2bb1d6324ccd87e652730fb6cd14bfe7"
+        },
+        {
+          "path": "public/images/redesign/20261023/systems-640.webp",
+          "bytes": 40946,
+          "width": 640,
+          "height": 480,
+          "sha256": "644f39d0cf47099c2fa84c18f5a22064d5416b5f069ee60b5b5a3f313b61d48a"
+        }
+      ],
+      "status": "additional-in-use"
+    },
+    {
+      "name": "schools",
+      "source": {
+        "file": "exec-71d387ae-8e36-4fa8-a105-751836b6bf5a.png",
+        "width": 1448,
+        "height": 1086,
+        "sha256": "f89fec0f815d99206b69af963b43f0d49342cb7d3ccfb72f6d7edd72dbdd688f"
+      },
+      "derivatives": [
+        {
+          "path": "public/images/redesign/20261023/schools-1280.webp",
+          "bytes": 115666,
+          "width": 1280,
+          "height": 960,
+          "sha256": "131278c8b42528cdfbedd75bcfe541e32deeeadf48af877e38a390da14410e51"
+        },
+        {
+          "path": "public/images/redesign/20261023/schools-1448.webp",
+          "bytes": 138162,
+          "width": 1448,
+          "height": 1086,
+          "sha256": "1231ad11a16ed5b4df6cf1f87c6219b2c7ac13ac79509bc5c6c20ce37f1f1a2e"
+        },
+        {
+          "path": "public/images/redesign/20261023/schools-640.webp",
+          "bytes": 38046,
+          "width": 640,
+          "height": 480,
+          "sha256": "dcfc34785859dd51df69c99cf123b11b03837d02b00de5c5691590c10766680a"
+        }
+      ],
+      "status": "additional-in-use"
+    },
+    {
+      "name": "designs",
+      "source": {
+        "file": "exec-c1ac932d-bcf4-41d8-aeeb-eecd810e04a9.png",
+        "width": 1448,
+        "height": 1086,
+        "sha256": "cf33b37a23fb7e1c0710a83a044560710741cdf292229dfed0de17851bb01ab0"
+      },
+      "derivatives": [
+        {
+          "path": "public/images/redesign/20261023/designs-1280.webp",
+          "bytes": 104234,
+          "width": 1280,
+          "height": 960,
+          "sha256": "4a3aaa376d6f1cdd313e2f23f4452349a45dca39a69240b6a5aeb5e9f92cc7df"
+        },
+        {
+          "path": "public/images/redesign/20261023/designs-1448.webp",
+          "bytes": 122678,
+          "width": 1448,
+          "height": 1086,
+          "sha256": "15c428521b58eee4bc6770fec8fb2b4a6a992045e3bfd435abcb4af5f71e1421"
+        },
+        {
+          "path": "public/images/redesign/20261023/designs-640.webp",
+          "bytes": 42512,
+          "width": 640,
+          "height": 480,
+          "sha256": "b19c2c0a52da397768a1d4315a54b0c2962cde55eaf3d4dd2553a3b3e3bea48c"
+        }
+      ],
+      "status": "additional-in-use"
+    },
+    {
+      "name": "collaboration",
+      "source": {
+        "file": "exec-d8ec9fe0-56a5-410d-8940-9b3f9f9d979a.png",
+        "width": 1448,
+        "height": 1086,
+        "sha256": "c2fcec2c98724d8fc0ed38a56eb71d8f260520bd77b626b158c43207f8bf552e"
+      },
+      "derivatives": [
+        {
+          "path": "public/images/redesign/20261023/collaboration-1280.webp",
+          "bytes": 105082,
+          "width": 1280,
+          "height": 960,
+          "sha256": "382734aa86bb5d19042f2efcf3294772b047d8798042aceac5f543fb11108d4b"
+        },
+        {
+          "path": "public/images/redesign/20261023/collaboration-1448.webp",
+          "bytes": 124158,
+          "width": 1448,
+          "height": 1086,
+          "sha256": "68c0a1b8b02fe53f8ae966667b81a691c1a444426f2425483c632b6321f95232"
+        },
+        {
+          "path": "public/images/redesign/20261023/collaboration-640.webp",
+          "bytes": 37608,
+          "width": 640,
+          "height": 480,
+          "sha256": "f65e4710df79ea41026726a34ac940124418e96ebda4eca029e4843e53b5aedf"
+        }
+      ],
+      "status": "additional-in-use"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+---
+import images from '../data/redesign-images.json'
+interface Props {
+  name: keyof typeof images
+  alt: string
+  sizes?: string
+  eager?: boolean
+  class?: string
+}
+const {
+  name,
+  alt,
+  sizes = '(min-width: 1024px) 45vw, 100vw',
+  eager = false,
+} = Astro.props
+const image = images[name]
+---
+
+<img
+  {...image}
+  alt={alt}
+  sizes={sizes}
+  class={Astro.props.class}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding="async"
+/>

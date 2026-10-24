@@ -207,7 +207,9 @@
       "directoryLead": "Wählen Sie die Seite für Ihr Anliegen.",
       "servicesIntro": "Entdecken Sie die Leistungen, die wir anbieten.",
       "contactIntro": "Senden Sie Fragen oder Anfragen über unser Kontaktformular.",
-      "servicesHeading": "Unsere Leistungen"
+      "servicesHeading": "Unsere Leistungen",
+      "companyImageAlt": "Illustrative Aufsicht auf Hände beim gemeinsamen Besprechen von Plänen",
+      "companyImageCaption": "Eine illustrative Szene des gemeinsamen Denkens und Gestaltens von Ideen."
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -341,7 +343,11 @@
       "pricingLead": "Detaillierte Preise und Informationen zu den Leistungen, die wir übernehmen, finden Sie auf den jeweiligen Websites.",
       "offeringsHeading": "Unsere wichtigsten Leistungen",
       "detailsCta": "Mehr erfahren",
-      "pricingCta": "Preise ansehen"
+      "pricingCta": "Preise ansehen",
+      "systemsImgAlt": "Illustration eines Entwicklungs-Laptops und eines Servers",
+      "schoolsImgAlt": "Illustration eines Notizbuchs zum schrittweisen Erlernen der 3D-Gestaltung",
+      "designImgAlt": "Illustration von Charakterskizzen, Grafiktablett und Mikrofon",
+      "departmentImagesNote": "Die Bilder veranschaulichen Arbeit und Lernen in den jeweiligen Bereichen."
     },
     "contact": {
       "title": "Kontakt",

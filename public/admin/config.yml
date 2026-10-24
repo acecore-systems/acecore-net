@@ -1159,6 +1159,13 @@ collections:
           - name: 'contactIntro'
             label: '問い合わせページへの案内'
             widget: text
+          - name: 'companyImageAlt'
+            label: '会社案内画像・代替テキスト'
+            widget: string
+          - name: 'companyImageCaption'
+            label: '会社案内画像・説明'
+            widget: string
+
       - name: 'services'
         label: '事業ページ・部門と主要サービス'
         file: src/i18n/source/ja/pages/services.json
@@ -1311,6 +1318,19 @@ collections:
             label: '詳細リンクの文言'
             hint: 'detailsCta'
             widget: string
+          - name: 'systemsImgAlt'
+            label: 'Systems画像・代替テキスト'
+            widget: string
+          - name: 'schoolsImgAlt'
+            label: 'Schools画像・代替テキスト'
+            widget: string
+          - name: 'designImgAlt'
+            label: 'Designs画像・代替テキスト'
+            widget: string
+          - name: 'departmentImagesNote'
+            label: '事業画像の説明'
+            widget: string
+
       - name: 'pricing'
         label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json

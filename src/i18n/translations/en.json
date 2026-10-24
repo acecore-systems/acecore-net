@@ -207,7 +207,9 @@
       "directoryLead": "Choose a page for the information you are looking for.",
       "servicesIntro": "Discover the services we provide.",
       "contactIntro": "Send your questions or requests through our contact form.",
-      "servicesHeading": "Our Services"
+      "servicesHeading": "Our Services",
+      "companyImageAlt": "An illustrative overhead view of hands discussing plans",
+      "companyImageCaption": "An illustrative scene of thinking together and shaping ideas."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -335,7 +337,11 @@
       "pricingLead": "Please visit each website for detailed pricing and the work we undertake.",
       "offeringsHeading": "Key services",
       "detailsCta": "Learn more",
-      "pricingCta": "View pricing"
+      "pricingCta": "View pricing",
+      "systemsImgAlt": "An illustrative development laptop and server",
+      "schoolsImgAlt": "An illustrative notebook for learning 3D creation step by step",
+      "designImgAlt": "An illustrative character sketch, drawing tablet and microphone",
+      "departmentImagesNote": "The images illustrate work and learning in each field."
     },
     "contact": {
       "title": "Contact",

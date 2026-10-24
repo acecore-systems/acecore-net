@@ -1,11 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
 import { castScene, castSceneAsset } from '../data/cast-scenes'
+import ArrowLink from '../components/ArrowLink.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import PageSectionNav from '../components/PageSectionNav.astro'
-import { optimizeImage, generateSrcSet } from '../utils/image'
 import { SITE } from '../data/site'
 import { t, getTranslationValue, getLocalizedUrl, type Locale } from '../i18n'
 
@@ -16,13 +15,6 @@ interface Props {
 const { locale } = Astro.props
 const u = (path: string) => getLocalizedUrl(path, locale)
 const organizationId = `${SITE.url}/#organization`
-const contentImageWidths = [480, 800, 1200, 1600]
-const contentImageOptions = { aspectRatio: 16 / 9, quality: 80 }
-const contentImageSizes = '(min-width: 768px) 40rem, calc(100vw - 3rem)'
-const philosophyImages = [
-  { stem: 'about-workshop', alt: 'workshopImgAlt', caption: 'workshopCaption' },
-]
-
 interface Officer {
   name: string
   image?: string
@@ -82,222 +74,183 @@ const aboutPageLd = {
   jsonLd={[organizationLd, aboutPageLd]}
   locale={locale}
 >
-  <Hero
-    title={t(locale, 'pages.about.heroTitle')}
-    subtitle={t(locale, 'pages.about.heroSubtitle')}
-    images={[
-      {
-        src: optimizeImage(castScene('about-hero')),
-        alt: t(locale, 'pages.about.heroImgAlt'),
-        width: castSceneAsset('about-hero').width,
-        height: castSceneAsset('about-hero').height,
-        srcsetWidths: [castSceneAsset('about-hero').width],
-        objectPosition: '0% 50%',
-      },
-    ]}
-    locale={locale}
-  />
-
   <CampaignNotice locale={locale} page="about" />
-
-  <section class="ac-section">
-    <div class="ac-container max-w-4xl">
-      <Breadcrumb
-        items={[{ label: t(locale, 'pages.about.title') }]}
-        locale={locale}
-      />
-      <PageSectionNav
-        locale={locale}
-        items={[
-          {
-            href: '#corporate-information-heading',
-            label: t(locale, 'pages.about.companyInfoHeading'),
-          },
-          {
-            href: '#executive-profile-heading',
-            label: t(locale, 'pages.about.executiveHeading'),
-          },
-          {
-            href: '#corporate-philosophy-heading',
-            label: t(locale, 'pages.about.philosophyHeading'),
-          },
-          {
-            href: '#corporate-vision-heading',
-            label: t(locale, 'pages.about.visionHeading'),
-          },
-        ]}
-      />
-      <section
-        class="ac-surface mb-12 p-6 sm:p-8"
-        aria-labelledby="corporate-information-heading"
-      >
-        <h2 id="corporate-information-heading" class="text-2xl ac-heading">
-          {t(locale, 'pages.about.companyInfoHeading')}
-        </h2>
-        <dl class="mt-5 space-y-6">
-          <div class="border-l-4 border-brand-500 pl-4">
-            <dt class="text-sm font-600 text-slate-500">
-              {t(locale, 'pages.about.legalNameLabel')}
-            </dt>
-            <dd class="mt-1 text-xl font-700 text-slate-800">
-              {SITE.legalName}
-            </dd>
+  <div class="ac-container page-top">
+    <Breadcrumb
+      items={[{ label: t(locale, 'pages.about.title') }]}
+      locale={locale}
+    />
+    <header class="page-intro">
+      <h1 class="ac-page-title">{t(locale, 'pages.about.heroTitle')}</h1>
+      <p>{t(locale, 'pages.about.heroSubtitle')}</p>
+    </header>
+    <PageSectionNav
+      locale={locale}
+      items={[
+        {
+          href: '#corporate-philosophy-heading',
+          label: t(locale, 'pages.about.philosophyHeading'),
+        },
+        {
+          href: '#corporate-vision-heading',
+          label: t(locale, 'pages.about.visionHeading'),
+        },
+        {
+          href: '#corporate-information-heading',
+          label: t(locale, 'pages.about.companyInfoHeading'),
+        },
+        {
+          href: '#executive-profile-heading',
+          label: t(locale, 'pages.about.executiveHeading'),
+        },
+      ]}
+    />
+  </div>
+  <div class="ac-container about-cast-scene">
+    <img
+      src={castScene('about-hero')}
+      alt={t(locale, 'pages.about.heroImgAlt')}
+      width={castSceneAsset('about-hero').width}
+      height={castSceneAsset('about-hero').height}
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
+  <section
+    class="about-philosophy"
+    aria-labelledby="corporate-philosophy-heading"
+  >
+    <div class="ac-container ac-editorial ac-section">
+      <h2 id="corporate-philosophy-heading" class="ac-section-title">
+        {t(locale, 'pages.about.philosophyHeading')}
+      </h2>
+      <div>
+        <p class="philosophy-motto">
+          {t(locale, 'pages.about.philosophyMotto')}
+        </p>
+        <div class="philosophy-body">
+          {philosophyParagraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div class="about-vision">
+      <div class="ac-container vision-layout">
+        <div>
+          <h3 id="corporate-vision-heading" class="ac-section-title">
+            {t(locale, 'pages.about.visionHeading')}
+          </h3>
+          <p class="vision-motto">{t(locale, 'pages.about.visionMotto')}</p>
+          <div class="vision-body">
+            {visionParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
           </div>
-          <div class="border-l-4 border-brand-500 pl-4">
-            <dt class="text-sm font-600 text-slate-500">
-              {t(locale, 'pages.about.establishedLabel')}
-            </dt>
-            <dd class="mt-1 text-slate-800">
-              {t(locale, 'pages.about.establishedDate')}
-            </dd>
-          </div>
-          <div class="border-l-4 border-brand-500 pl-4">
-            <dt class="text-sm font-600 text-slate-500">
-              {t(locale, 'pages.about.businessPurposesLabel')}
-            </dt>
-            <dd class="mt-2">
-              <ol class="list-none space-y-2 p-0 text-slate-700">
-                {businessPurposes.map((purpose, index) => (
-                  <li class="flex gap-2">
-                    <>
-                      <span>({index + 1})</span>
-                      <span>{purpose}</span>
-                    </>
-                  </li>
-                ))}
-              </ol>
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      {officers.length > 0 && (
-        <section class="mb-12" aria-labelledby="executive-profile-heading">
-          <div class="mb-6">
-            <h2 id="executive-profile-heading" class="text-2xl ac-heading">
-              {t(locale, 'pages.about.executiveHeading')}
-            </h2>
-            <p class="mt-2 text-slate-600">
-              {t(locale, 'pages.about.executiveLead')}
-            </p>
-          </div>
-          <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {officers.map((officer) => (
-              <li>
-                <article class="ac-card h-full p-6">
+        </div>
+        <figure class="philosophy-illustrations">
+          <img
+            src={castScene('about-workshop')}
+            alt={t(locale, 'pages.about.workshopImgAlt')}
+            width={castSceneAsset('about-workshop').width}
+            height={castSceneAsset('about-workshop').height}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>{t(locale, 'pages.about.workshopCaption')}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section class="ac-section" aria-labelledby="corporate-information-heading">
+    <div class="ac-container ac-editorial">
+      <h2 id="corporate-information-heading" class="ac-section-title">
+        {t(locale, 'pages.about.companyInfoHeading')}
+      </h2>
+      <dl class="corporate-facts">
+        <div>
+          <dt>{t(locale, 'pages.about.legalNameLabel')}</dt>
+          <dd>{SITE.legalName}</dd>
+        </div>
+        <div>
+          <dt>{t(locale, 'pages.about.establishedLabel')}</dt>
+          <dd>{t(locale, 'pages.about.establishedDate')}</dd>
+        </div>
+        <div>
+          <dt>{t(locale, 'pages.about.businessPurposesLabel')}</dt>
+          <dd>
+            <ol>
+              {businessPurposes.map((purpose, index) => (
+                <li>
+                  <span>({index + 1})</span>
+                  <span>{purpose}</span>
+                </li>
+              ))}
+            </ol>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+  {officers.length > 0 && (
+    <section
+      class="ac-section about-officers"
+      aria-labelledby="executive-profile-heading"
+    >
+      <div class="ac-container ac-editorial">
+        <div>
+          <h2 id="executive-profile-heading" class="ac-section-title">
+            {t(locale, 'pages.about.executiveHeading')}
+          </h2>
+          <p class="mt-5 ac-muted">{t(locale, 'pages.about.executiveLead')}</p>
+        </div>
+        <ul class="officer-list">
+          {officers.map((officer) => (
+            <li>
+              <article class="officer-profile">
+                <div class="officer-identity">
                   {officer.image && (
                     <img
                       src={officer.image}
                       alt={officer.name}
-                      width={3096}
-                      height={4128}
+                      width="3096"
+                      height="4128"
                       loading="lazy"
                       decoding="async"
-                      class="mb-5 aspect-[4/3] w-full rounded-lg border border-slate-200 object-cover"
-                      style="object-position: center 10%;"
+                      style="object-position:center 10%;"
                     />
                   )}
-                  <header class="text-center">
-                    <h3 class="text-xl ac-heading">{officer.name}</h3>
-                    {officer.role && (
-                      <p class="mt-1 text-sm font-700 text-brand-600">
-                        {officer.role}
-                      </p>
+                  <h3>{officer.name}</h3>
+                  {officer.role && <p>{officer.role}</p>}
+                </div>
+                {(officer.areas?.length || officer.bio) && (
+                  <dl>
+                    {officer.areas?.length && (
+                      <div>
+                        <dt>{t(locale, 'pages.about.officerAreasLabel')}</dt>
+                        <dd>{officer.areas.join('・')}</dd>
+                      </div>
                     )}
-                  </header>
-                  {(officer.areas?.length || officer.bio) && (
-                    <dl class="mt-5 space-y-4 border-t border-slate-200 pt-5 text-left">
-                      {officer.areas && officer.areas.length > 0 && (
-                        <div>
-                          <dt class="text-sm font-700 text-slate-500">
-                            {t(locale, 'pages.about.officerAreasLabel')}
-                          </dt>
-                          <dd class="mt-1 leading-relaxed text-slate-700">
-                            {officer.areas.join('・')}
-                          </dd>
-                        </div>
-                      )}
-                      {officer.bio && (
-                        <div>
-                          <dt class="text-sm font-700 text-slate-500">
-                            {t(locale, 'pages.about.officerBiographyLabel')}
-                          </dt>
-                          <dd class="mt-1 whitespace-pre-line leading-relaxed text-slate-600">
-                            {officer.bio}
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
-                  )}
-                </article>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section class="mb-12" aria-labelledby="corporate-philosophy-heading">
-        <h2 id="corporate-philosophy-heading" class="text-2xl ac-heading mb-6">
-          {t(locale, 'pages.about.philosophyHeading')}
-        </h2>
-        <div class="ac-surface bg-brand-50 p-8">
-          <p class="text-xl font-600 text-brand-700 text-center">
-            {t(locale, 'pages.about.philosophyMotto')}
-          </p>
-          <div class="philosophy-body mt-6 space-y-4 leading-relaxed text-slate-700">
-            {philosophyParagraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
-          <div class="mt-8 border-t border-brand-200 pt-8">
-            <h3 id="corporate-vision-heading" class="text-xl ac-heading">
-              {t(locale, 'pages.about.visionHeading')}
-            </h3>
-            <p class="mt-4 text-lg font-600 text-brand-700">
-              {t(locale, 'pages.about.visionMotto')}
-            </p>
-            <div class="vision-body mt-6 space-y-4 leading-relaxed text-slate-700">
-              {visionParagraphs.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div class="philosophy-illustrations mx-auto mt-8 max-w-[40rem]">
-          {philosophyImages.map(({ stem, alt, caption }) => (
-            <figure class="overflow-hidden rounded-lg border border-slate-200 bg-white">
-              <img
-                src={optimizeImage(castScene(stem), {
-                  width: 800,
-                  height: 450,
-                  quality: 80,
-                })}
-                srcset={generateSrcSet(
-                  castScene(stem),
-                  contentImageWidths,
-                  contentImageOptions,
+                    {officer.bio && (
+                      <div>
+                        <dt>
+                          {t(locale, 'pages.about.officerBiographyLabel')}
+                        </dt>
+                        <dd class="whitespace-pre-line">{officer.bio}</dd>
+                      </div>
+                    )}
+                  </dl>
                 )}
-                sizes={contentImageSizes}
-                alt={t(locale, `pages.about.${alt}`)}
-                class="aspect-video w-full object-cover"
-                width="800"
-                height="450"
-                decoding="async"
-                loading="lazy"
-              />
-              <figcaption class="p-4 text-sm leading-relaxed text-slate-600">
-                {t(locale, `pages.about.${caption}`)}
-              </figcaption>
-            </figure>
+              </article>
+            </li>
           ))}
-        </div>
-      </section>
-
-      <div class="text-center">
-        <a href={u('/contact/')} class="ac-btn-outline">
-          {t(locale, 'pages.about.corporateContactCta')}
-        </a>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
+  <div class="ac-container pb-20">
+    <ArrowLink href={u('/contact/')} locale={locale}>
+      {t(locale, 'pages.about.corporateContactCta')}
+    </ArrowLink>
+  </div>
 </BaseLayout>

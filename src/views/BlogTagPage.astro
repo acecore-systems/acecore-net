@@ -53,11 +53,11 @@ const breadcrumbItems = [
     })),
   }}
 >
-  <section class="ac-section">
+  <section class="ac-section filtered-news-page">
     <div class="ac-container">
       <Breadcrumb items={breadcrumbItems} locale={locale} />
       <div class="mb-8">
-        <h1 class="mb-3 break-words text-2xl ac-heading sm:text-3xl">
+        <h1 class="ac-page-title mb-3 break-words text-2xl ac-heading sm:text-3xl">
           {t(locale, 'blog.articlesByTag', { tag: displayTag })}
         </h1>
         <p class="max-w-2xl leading-relaxed text-slate-600">

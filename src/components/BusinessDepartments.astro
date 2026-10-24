@@ -1,5 +1,7 @@
 ---
-import ServiceCard from './ServiceCard.astro'
+import BrandName from './BrandName.astro'
+import BrandImage from './BrandImage.astro'
+import Icon from './Icon.astro'
 import { t, type Locale } from '../i18n'
 import { SITE } from '../data/site'
 import { getSchoolsUrl } from '../utils/schools-url'
@@ -11,49 +13,64 @@ const { locale } = Astro.props
 const departments = [
   {
     key: 'systems',
-    icon: 'code-xml',
-    tone: 'brand' as const,
+    image: 'systems' as const,
     href: getSpecialistUrl(SITE.social.systems, locale),
   },
-  {
-    key: 'schools',
-    icon: 'graduation-cap',
-    tone: 'amber' as const,
-    href: getSchoolsUrl(),
-  },
+  { key: 'schools', image: 'schools' as const, href: getSchoolsUrl() },
   {
     key: 'design',
-    icon: 'palette',
-    tone: 'emerald' as const,
+    image: 'designs' as const,
     href: getSpecialistUrl(SITE.social.designs, locale, '/'),
   },
 ]
 ---
 
-<ul
-  class="department-list m-0 grid list-none grid-cols-1 gap-6 p-0 lg:grid-cols-3"
-  role="list"
->
-  {departments.map(({ key, icon, tone, href }) => (
+<ul class="department-list">
+  {departments.map(({ key, image, href }) => (
     <li id={key}>
-      <ServiceCard
-        title={t(locale, 'pages.services.' + key + 'Title')}
-        description={
-          t(locale, 'pages.services.' + key + 'Description') +
-          (key === 'design' ? ' ' + t(locale, 'pages.services.designNote') : '')
-        }
+      <a
+        class="department-row"
+        data-department={key === 'design' ? 'designs' : key}
         href={href}
-        icon={icon}
-        tone={tone}
-        locale={locale}
-        linkLabel={t(locale, 'pages.services.detailsCta')}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-ga-event="cta_click"
+        data-ga-label={t(locale, 'pages.services.' + key + 'Title')}
+        data-ga-location="service_card"
+        data-ga-destination={href}
       >
-        {key === 'design' && (
-          <span id="design-details" class="ac-chip mb-3 text-xs">
-            {t(locale, 'pages.services.designStatus')}
+        <BrandImage
+          name={image}
+          alt={t(locale, 'pages.services.' + key + 'ImgAlt')}
+          sizes="(min-width: 1280px) 340px, (min-width: 768px) 28vw, calc(100vw - 48px)"
+        />
+        <div class="department-copy">
+          <h3>
+            <BrandName name={t(locale, 'pages.services.' + key + 'Title')} />
+          </h3>
+          <p>{t(locale, 'pages.services.' + key + 'Description')}</p>
+          {key === 'design' && (
+            <>
+              <p id="design-details" class="department-status">
+                {t(locale, 'pages.services.designStatus')}
+              </p>
+              <p class="department-note">
+                {t(locale, 'pages.services.designNote')}
+              </p>
+            </>
+          )}
+          <span class="department-link">
+            {t(locale, 'pages.services.detailsCta')}
+            <span class="ac-arrow-circle" aria-hidden="true">
+              <Icon name="arrow-up-right" />
+            </span>
           </span>
-        )}
-      </ServiceCard>
+        </div>
+        <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
+      </a>
     </li>
   ))}
 </ul>
+<p class="mt-5 text-sm ac-muted">
+  {t(locale, 'pages.services.departmentImagesNote')}
+</p>

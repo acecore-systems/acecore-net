@@ -36,12 +36,10 @@ const recentPosts = filterPostsForLocale(
   languageSwitcherPath="/"
   isErrorPage={true}
 >
-  <section class="ac-section">
+  <section class="ac-section error-page">
     <div class="ac-container text-center py-20">
-      <p class="text-6xl font-700 text-brand-500 mb-4">404</p>
-      <h1 class="text-2xl sm:text-3xl font-700 text-slate-800 mb-4">
-        {t(locale, 'pages.notFound.heading')}
-      </h1>
+      <p class="error-number">404</p>
+      <h1 class="error-heading">{t(locale, 'pages.notFound.heading')}</h1>
       <p class="text-slate-600 mb-8 max-w-md mx-auto">
         {t(locale, 'pages.notFound.body')}
         <br />

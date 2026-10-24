@@ -13,5 +13,7 @@
   "directoryLead": "目的に合わせて各ページをご覧ください。",
   "servicesIntro": "当社の提供するサービスのご紹介です",
   "contactIntro": "ご相談・ご質問をフォームからお送りいただけます。",
-  "servicesHeading": "事業紹介"
+  "servicesHeading": "事業紹介",
+  "companyImageAlt": "資料を囲んで一緒に考える手元のイメージ",
+  "companyImageCaption": "共に考え、アイデアを形にする場面のイメージです。"
 }

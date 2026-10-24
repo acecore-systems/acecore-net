@@ -207,7 +207,9 @@
       "directoryLead": "根据您的目的，前往相应页面。",
       "servicesIntro": "了解我们提供的服务。",
       "contactIntro": "通过联系表单发送您的咨询或问题。",
-      "servicesHeading": "业务介绍"
+      "servicesHeading": "业务介绍",
+      "companyImageAlt": "围绕资料共同思考的手部俯视示意图",
+      "companyImageCaption": "共同思考并将创意付诸实践的场景示意图。"
     },
     "notFound": {
       "title": "页面未找到",
@@ -389,7 +391,11 @@
       "pricingLead": "详细收费及我们承接的业务内容，请在各网站查看。",
       "offeringsHeading": "主要服务",
       "detailsCta": "了解详情",
-      "pricingCta": "查看收费"
+      "pricingCta": "查看收费",
+      "systemsImgAlt": "开发电脑与服务器示意图",
+      "schoolsImgAlt": "通过步骤笔记学习3D制作的示意图",
+      "designImgAlt": "角色草图、数位板与麦克风的创作示意图",
+      "departmentImagesNote": "所用图片用于展示各领域的工作与学习场景。"
     },
     "privacy": {
       "title": "隐私政策",

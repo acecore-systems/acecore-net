@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro'
+import { t, type Locale } from '../i18n'
+interface Props {
+  href: string
+  locale: Locale
+  external?: boolean
+  class?: string
+  eventLabel?: string
+  location?: string
+}
+const { href, locale, external = false, eventLabel, location } = Astro.props
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class:list={['ac-arrow-link', Astro.props.class]}
+  data-ga-event={eventLabel ? 'cta_click' : undefined}
+  data-ga-label={eventLabel}
+  data-ga-location={location}
+  data-ga-destination={eventLabel ? href : undefined}
+>
+  <span>
+    <slot />
+  </span>
+  <span class="ac-arrow-circle" aria-hidden="true">
+    <Icon name={external ? 'arrow-up-right' : 'arrow-right'} />
+  </span>
+  {external && <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>}
+</a>

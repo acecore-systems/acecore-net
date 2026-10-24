@@ -5,19 +5,18 @@ interface Props {
 }
 const { word, kind } = Astro.props
 const index = kind === 'corporate' ? (word === 'Acecore' ? 3 : -1) : 0
-const classes =
-  kind === 'corporate'
-    ? 'brand-word brand-word-corporate'
-    : 'brand-word brand-word-' + word.toLowerCase()
 ---
 
-<span class={classes}>
+<span
+  class={kind === 'corporate' ? 'brand-corporate-name' : 'brand-service-name'}
+  data-brand={kind === 'service' ? word.toLowerCase() : undefined}
+>
   {index < 0 ? (
     word
   ) : (
     <>
       {word.slice(0, index)}
-      <span class="brand-initial">{word[index]}</span>
+      <span class="brand-letter">{word[index]}</span>
       {word.slice(index + 1)}
     </>
   )}

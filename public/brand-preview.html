@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="light" />
+    <title>Acecore ロゴの比較</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        color-scheme: light;
+        background: #f5f6f8;
+        color: #20252b;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          'Noto Sans JP',
+          sans-serif;
+        line-height: 1.7;
+      }
+      main {
+        max-width: 1480px;
+        margin-inline: auto;
+        padding: 40px 20px 64px;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.25;
+        letter-spacing: -0.035em;
+      }
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.35;
+      }
+      p {
+        margin: 0;
+      }
+      .intro {
+        max-width: 50rem;
+        color: #50565e;
+      }
+      .review-note {
+        margin-top: 12px;
+        font-size: 0.875rem;
+        color: #50565e;
+      }
+      a {
+        color: #0656d9;
+        text-underline-offset: 0.2em;
+      }
+      a:focus-visible {
+        outline: 3px solid #0656d9;
+        outline-offset: 4px;
+        border-radius: 2px;
+      }
+      .link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding-block: 8px;
+        font-weight: 650;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px 24px;
+        margin-top: 36px;
+      }
+      .site {
+        min-width: 0;
+        border-top: 1px solid #cfd4dc;
+        padding-top: 20px;
+        scroll-margin-top: 24px;
+      }
+      .site-head {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .site-head .link {
+        margin-top: 4px;
+        font-size: 0.9rem;
+      }
+      figure {
+        margin: 0;
+      }
+      .sample {
+        background: #fff;
+        border: 1px solid #e0e4eb;
+        border-radius: 8px;
+        padding: 20px 16px;
+        text-align: center;
+      }
+      .sample + .sample {
+        margin-top: 16px;
+      }
+      figcaption {
+        font-size: 0.875rem;
+        font-weight: 650;
+        margin-bottom: 16px;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .large {
+        width: min(208px, 100%);
+        aspect-ratio: 1;
+        margin-inline: auto;
+      }
+      .sizes {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 24px;
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+      }
+      .sizes li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .sizes span {
+        font-size: 0.75rem;
+        font-variant-numeric: tabular-nums;
+      }
+      .dark {
+        background: #00022b;
+        color: #f3f6ff;
+        border-color: #00022b;
+      }
+      .corporate {
+        color: #20252b;
+      }
+      .corporate .brand-letter {
+        color: #0656d9;
+      }
+      .systems {
+        color: #20252b;
+      }
+      .systems .brand-letter {
+        color: #6334a4;
+      }
+      .schools {
+        color: #20252b;
+      }
+      .schools .brand-letter {
+        color: #176b45;
+      }
+      .designs {
+        color: #20252b;
+      }
+      .designs .brand-letter {
+        display: inline-block;
+        color: #8146ae;
+        background: linear-gradient(
+          110deg,
+          #986000,
+          #b33e71 35%,
+          #8146ae 65%,
+          #0656d9
+        );
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .original {
+        border-top: 1px solid #cfd4dc;
+        margin-top: 40px;
+        padding-top: 24px;
+      }
+      .original p {
+        font-size: 0.875rem;
+        color: #50565e;
+      }
+      .changes {
+        border-top: 1px solid #cfd4dc;
+        margin-top: 40px;
+        padding-top: 24px;
+      }
+      .changes > p {
+        margin-top: 12px;
+        color: #50565e;
+      }
+      .changes h3 {
+        margin: 24px 0 12px;
+        font-size: 1rem;
+      }
+      .change-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        max-width: 760px;
+      }
+      .change-grid .sample {
+        margin-top: 0;
+      }
+      @media (min-width: 760px) {
+        .change-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1180px) {
+        .grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        main {
+          padding-inline: 32px;
+        }
+      }
+
+      .comparison-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+        margin-top: 8px;
+      }
+      .theme-range {
+        border-top: 1px solid #cfd4dc;
+        margin-top: 40px;
+        padding-top: 24px;
+        scroll-margin-top: 24px;
+      }
+      .theme-range > p {
+        margin-top: 12px;
+        color: #50565e;
+      }
+      .range-site {
+        border-bottom: 1px solid #cfd4dc;
+      }
+      .range-site:first-of-type {
+        margin-top: 24px;
+        border-top: 1px solid #cfd4dc;
+      }
+      .range-site > summary {
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 4px;
+        cursor: pointer;
+        list-style: none;
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
+      .range-site > summary::-webkit-details-marker {
+        display: none;
+      }
+      .range-site > summary::after {
+        content: '＋';
+        flex: none;
+        font-weight: 400;
+        color: #50565e;
+      }
+      .range-site[open] > summary::after {
+        content: '−';
+      }
+      .range-site > summary:focus-visible {
+        outline: 3px solid #0656d9;
+        outline-offset: 3px;
+      }
+      .range-site h3 {
+        font-size: 0.9rem;
+        font-weight: 650;
+        margin: 0 0 12px;
+      }
+      .range-site .change-grid {
+        padding-bottom: 24px;
+      }
+      .range-site .large {
+        width: min(176px, 100%);
+      }
+      .theme-background {
+        padding: 0 0 20px;
+        overflow: hidden;
+        background: var(--comparison-theme);
+        border-color: transparent;
+      }
+      .theme-background figcaption {
+        margin: 0 0 20px;
+        padding: 16px;
+        background: #fff;
+        color: #20252b;
+      }
+      .range-site[data-theme='acecore'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #2675df 0%,
+          #07337c 50%,
+          #05245a 100%
+        );
+      }
+      .range-site[data-theme='systems'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #8950c5 0%,
+          #765bd0 50%,
+          #0656d9 100%
+        );
+      }
+      .range-site[data-theme='schools'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #39a86b 0%,
+          #278b91 50%,
+          #0656d9 100%
+        );
+      }
+      .range-site[data-theme='designs'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #e6b847 0%,
+          #e98f85 25%,
+          #d780ba 50%,
+          #8970cf 75%,
+          #0656d9 100%
+        );
+      }
+      .grid .sample.dark {
+        padding: 0 0 20px;
+        overflow: hidden;
+        background: var(--comparison-theme);
+        border-color: transparent;
+      }
+      .grid .sample.dark figcaption {
+        margin: 0 0 20px;
+        padding: 16px;
+        background: #fff;
+        color: #20252b;
+      }
+      .grid .sample.dark .sizes span {
+        color: #20252b;
+        background: #fff;
+        padding: 0 4px;
+        border-radius: 2px;
+      }
+      .site#acecore {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #2675df 0%,
+          #07337c 50%,
+          #05245a 100%
+        );
+      }
+      .site#systems {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #8950c5 0%,
+          #765bd0 50%,
+          #0656d9 100%
+        );
+      }
+      .site#schools {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #39a86b 0%,
+          #278b91 50%,
+          #0656d9 100%
+        );
+      }
+      .site#designs {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #e6b847 0%,
+          #e98f85 25%,
+          #d780ba 50%,
+          #8970cf 75%,
+          #0656d9 100%
+        );
+      }
+    </style>
+  </head>
+  <body data-pagefind-ignore="all">
+    <main>
+      <h1>ロゴの比較</h1>
+      <p class="intro">
+        採用したロゴを、明るい背景とテーマカラー背景で見比べられます。スマホでは1サイトずつ縦に表示します。
+      </p>
+      <p class="review-note">
+        確認用のプレビューです。本番への反映前の状態です。
+      </p>
+      <nav class="comparison-links" aria-label="比較の種類">
+        <a class="link" href="#theme-range">採用版と以前のロゴを比較 ↓</a
+        ><a class="link" href="#changes">以前の質感調整（履歴） ↓</a>
+      </nav>
+      <div class="grid">
+        <article class="site" id="acecore">
+          <div class="site-head">
+            <h2 class="corporate">
+              Ace<span class="brand-letter">c</span>ore 公式
+            </h2>
+            <a class="link" href="/">公式サイトのプレビュー →</a>
+          </div>
+          <figure class="sample">
+            <figcaption>明るい背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/acecore-light.svg"
+              alt="Acecoreロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/acecore-light.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/acecore-light.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/acecore-light.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+          <figure class="sample dark">
+            <figcaption>濃い背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/acecore-dark.svg"
+              alt="Acecoreロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/acecore-dark.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/acecore-dark.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/acecore-dark.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+        </article>
+        <article class="site" id="systems">
+          <div class="site-head">
+            <h2 class="systems"><span class="brand-letter">S</span>ystems</h2>
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-systems.pages.dev/"
+              >Systemsのプレビュー →</a
+            >
+          </div>
+          <figure class="sample">
+            <figcaption>明るい背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-light.svg"
+              alt="Systemsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/systems-light.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/systems-light.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/systems-light.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+          <figure class="sample dark">
+            <figcaption>濃い背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-dark.svg"
+              alt="Systemsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/systems-dark.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/systems-dark.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/systems-dark.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+        </article>
+        <article class="site" id="schools">
+          <div class="site-head">
+            <h2 class="schools"><span class="brand-letter">S</span>chools</h2>
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-schools.pages.dev/"
+              >Schoolsのプレビュー →</a
+            >
+          </div>
+          <figure class="sample">
+            <figcaption>明るい背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/schools-light.svg"
+              alt="Schoolsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/schools-light.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/schools-light.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/schools-light.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+          <figure class="sample dark">
+            <figcaption>濃い背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/schools-dark.svg"
+              alt="Schoolsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/schools-dark.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/schools-dark.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/schools-dark.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+        </article>
+        <article class="site" id="designs">
+          <div class="site-head">
+            <h2 class="designs"><span class="brand-letter">D</span>esigns</h2>
+            <a
+              class="link"
+              href="https://codex-group-design-20261023.acecore-designs.pages.dev/"
+              >Designsのプレビュー →</a
+            >
+          </div>
+          <figure class="sample">
+            <figcaption>明るい背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/designs-light.svg"
+              alt="Designsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/designs-light.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/designs-light.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/designs-light.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+          <figure class="sample dark">
+            <figcaption>濃い背景</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/designs-dark.svg"
+              alt="Designsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+            <ul class="sizes" aria-label="小さい表示サイズ">
+              <li>
+                <img
+                  src="/brand-preview/designs-dark.svg"
+                  alt=""
+                  width="16"
+                  height="16"
+                /><span>16px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/designs-dark.svg"
+                  alt=""
+                  width="32"
+                  height="32"
+                /><span>32px</span>
+              </li>
+              <li>
+                <img
+                  src="/brand-preview/designs-dark.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                /><span>64px</span>
+              </li>
+            </ul>
+          </figure>
+        </article>
+      </div>
+      <section
+        class="theme-range"
+        id="theme-range"
+        aria-labelledby="theme-range-heading"
+      >
+        <h2 id="theme-range-heading">採用したロゴと以前のロゴ</h2>
+        <p>
+          サイト名を選ぶと、中央だけに色を使っていた以前のロゴと、採用した現在のロゴを見比べられます。
+        </p>
+        <p>
+          明背景の上側の弧と右上矢印は公式が黒、各事業はテーマ色です。4サイトのプレビューへ反映しています。明背景の下側の弧と左下の矢印は白基調、中央は公式の青。濃い背景では全体を白無地にしています。文字はAcecoreの2つ目のcと子名の頭文字だけに色を使います。本番への反映前です。
+        </p>
+        <details
+          data-theme="acecore"
+          class="range-site"
+          name="theme-range"
+          open
+        >
+          <summary><span class="corporate">Acecore 公式</span></summary>
+          <h3>明るい背景</h3>
+          <div class="change-grid">
+            <figure class="sample">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/acecore-previous-light.svg"
+                alt="Acecore 公式・以前のロゴ・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample">
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/acecore-whole-light.svg"
+                alt="Acecore 公式・上側は黒、下側は白基調の採用版・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+          <h3>濃い背景・テーマカラー背景</h3>
+          <div class="change-grid">
+            <figure class="sample dark">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/acecore-previous-dark.svg"
+                alt="Acecore 公式・以前のロゴ・濃い背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample theme-background">
+              <figcaption>採用：テーマ背景・白無地</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/acecore-whole-dark.svg"
+                alt="acecore・テーマカラー背景の白無地のロゴ・採用版"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+        </details>
+        <details data-theme="systems" class="range-site" name="theme-range">
+          <summary><span class="systems">Systems</span></summary>
+          <h3>明るい背景</h3>
+          <div class="change-grid">
+            <figure class="sample">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/systems-previous-light.svg"
+                alt="Systems・以前のロゴ・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample">
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/systems-whole-light.svg"
+                alt="Systems・全体をテーマカラーにした採用版・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+          <h3>濃い背景・テーマカラー背景</h3>
+          <div class="change-grid">
+            <figure class="sample dark">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/systems-previous-dark.svg"
+                alt="Systems・以前のロゴ・濃い背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample theme-background">
+              <figcaption>採用：テーマ背景・白無地</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/systems-whole-dark.svg"
+                alt="systems・テーマカラー背景の白無地のロゴ・採用版"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+        </details>
+        <details data-theme="schools" class="range-site" name="theme-range">
+          <summary><span class="schools">Schools</span></summary>
+          <h3>明るい背景</h3>
+          <div class="change-grid">
+            <figure class="sample">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/schools-previous-light.svg"
+                alt="Schools・以前のロゴ・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample">
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/schools-whole-light.svg"
+                alt="Schools・全体をテーマカラーにした採用版・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+          <h3>濃い背景・テーマカラー背景</h3>
+          <div class="change-grid">
+            <figure class="sample dark">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/schools-previous-dark.svg"
+                alt="Schools・以前のロゴ・濃い背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample theme-background">
+              <figcaption>採用：テーマ背景・白無地</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/schools-whole-dark.svg"
+                alt="schools・テーマカラー背景の白無地のロゴ・採用版"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+        </details>
+        <details data-theme="designs" class="range-site" name="theme-range">
+          <summary><span class="designs">Designs</span></summary>
+          <h3>明るい背景</h3>
+          <div class="change-grid">
+            <figure class="sample">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/designs-previous-light.svg"
+                alt="Designs・以前のロゴ・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample">
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/designs-whole-light.svg"
+                alt="Designs・全体をテーマカラーにした採用版・明るい背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+          <h3>濃い背景・テーマカラー背景</h3>
+          <div class="change-grid">
+            <figure class="sample dark">
+              <figcaption>以前：中央だけテーマカラー</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/designs-previous-dark.svg"
+                alt="Designs・以前のロゴ・濃い背景"
+                width="176"
+                height="176"
+              />
+            </figure>
+            <figure class="sample theme-background">
+              <figcaption>採用：テーマ背景・白無地</figcaption>
+              <img
+                class="large"
+                src="/brand-preview/designs-whole-dark.svg"
+                alt="designs・テーマカラー背景の白無地のロゴ・採用版"
+                width="176"
+                height="176"
+              />
+            </figure>
+          </div>
+        </details>
+        <a class="link" href="/brand-preview/whole-theme-comparison.png"
+          >採用ロゴの一覧画像を開く →</a
+        >
+      </section>
+      <section class="changes" id="changes" aria-labelledby="changes-heading">
+        <h2 id="changes-heading">以前の質感調整（履歴）</h2>
+        <p>
+          現在の配色を採用する前の質感調整の履歴です。現在の採用版は上の一覧をご覧ください。
+        </p>
+        <h3>明るい背景</h3>
+        <div class="change-grid">
+          <figure class="sample">
+            <figcaption>変更前</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-before-light.svg"
+              alt="変更前のSystemsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+          <figure class="sample">
+            <figcaption>変更後</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-previous-light.svg"
+              alt="変更後のSystemsロゴ・明るい背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+        </div>
+        <h3>濃い背景</h3>
+        <div class="change-grid">
+          <figure class="sample dark">
+            <figcaption>変更前</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-before-dark.svg"
+              alt="変更前のSystemsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+          <figure class="sample dark">
+            <figcaption>変更後</figcaption>
+            <img
+              class="large"
+              src="/brand-preview/systems-previous-dark.svg"
+              alt="変更後のSystemsロゴ・濃い背景用"
+              width="208"
+              height="208"
+            />
+          </figure>
+        </div>
+        <a class="link" href="/brand-preview/before-after.png"
+          >変更前・変更後の画像を開く →</a
+        >
+      </section>
+      <div class="original">
+        <a class="link" href="/brand-preview/logo-comparison.png"
+          >4サイトの比較画像を開く →</a
+        >
+        <p>横並びの全体像を、拡大して確認できます。</p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -52,7 +52,7 @@ const offerings = [
 ].filter((item) => !group || item.group === group)
 ---
 
-<div class="service-offerings grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+<div class="service-offerings">
   {offerings.map((item) => (
     <article
       id={

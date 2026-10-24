@@ -9,22 +9,34 @@ interface Props {
 const { locale, items } = Astro.props
 ---
 
-<details
-  class="mb-8 rounded-lg border border-slate-200 bg-slate-50 px-5 py-3"
-  data-pagefind-ignore
->
-  <summary class="min-h-11 cursor-pointer py-3 text-sm font-700 text-slate-800">
-    {t(locale, 'common.pageContents')}
-  </summary>
-  <nav aria-label={t(locale, 'common.pageContents')}>
-    <ol class="mb-3 list-decimal space-y-1 pl-5 text-sm">
+<aside class="legal-contents" data-pagefind-ignore>
+  <nav
+    class="legal-desktop-contents"
+    aria-label={t(locale, 'common.pageContents')}
+  >
+    <p>{t(locale, 'common.pageContents')}</p>
+    <ol>
       {items.map(({ id, label, lang }) => (
         <li>
-          <a href={`#${id}`} lang={lang} class="ac-link inline-block py-2">
+          <a href={'#' + id} lang={lang}>
             {label}
           </a>
         </li>
       ))}
     </ol>
   </nav>
-</details>
+  <details class="legal-mobile-contents">
+    <summary>{t(locale, 'common.pageContents')}</summary>
+    <nav aria-label={t(locale, 'common.pageContents')}>
+      <ol>
+        {items.map(({ id, label, lang }) => (
+          <li>
+            <a href={'#' + id} lang={lang}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </details>
+</aside>

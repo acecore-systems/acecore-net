@@ -1,58 +1,93 @@
-/* Logo and color rollout only; layout and typography remain in the existing styles. */
+/* Approved source: acecore-net/docs/03_詳細設計/07_ブランドカラーと球状グラデーション.md */
 :root {
-  --brand-blue: #0656d9;
-  --brand-system: #6334a4;
-  --brand-school: #176b45;
-  --brand-design: #8146ae;
-}
-.brand-word {
-  white-space: nowrap;
-  color: inherit;
-  -webkit-text-fill-color: currentColor;
-}
-.brand-word-corporate > .brand-initial {
-  color: var(--brand-blue);
-  -webkit-text-fill-color: var(--brand-blue);
-}
-.brand-word-systems > .brand-initial {
-  color: var(--brand-system);
-  -webkit-text-fill-color: var(--brand-system);
-}
-.brand-word-schools > .brand-initial {
-  color: var(--brand-school);
-  -webkit-text-fill-color: var(--brand-school);
-}
-.brand-word-designs > .brand-initial {
-  display: inline-block;
-  background: radial-gradient(
+  --brand: #0656d9;
+  --school-green: #39a86b;
+  --system-purple: #8950c5;
+  --brand-neutral: #20252b;
+  --brand-text-paint: radial-gradient(
     ellipse 110% 160% at -10% 0%,
     #986000 0%,
     #b33e71 35%,
     #8146ae 65%,
-    #0656d9 100%
+    var(--brand) 100%
   );
+  --brand-control:
+    linear-gradient(var(--wash), var(--wash)) padding-box,
+    var(--paint) border-box;
+}
+.brand-corporate-name,
+.brand-service-name {
+  color: var(--brand-neutral);
+  -webkit-text-fill-color: var(--brand-neutral);
+  background: none;
+  white-space: nowrap;
+}
+.brand-corporate-name > .brand-letter {
+  color: #0656d9;
+  -webkit-text-fill-color: #0656d9;
+}
+
+:root {
+  --paint:
+    radial-gradient(
+      ellipse 85% 150% at 12% -10%,
+      color-mix(in srgb, var(--brand) 10%, transparent) 0%,
+      transparent 100%
+    ),
+    var(--paint-edge);
+  --paint-edge: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    var(--brand) 0%,
+    color-mix(in srgb, var(--brand) 92%, #00022b) 35%,
+    color-mix(in srgb, var(--brand) 72%, #00022b) 70%,
+    color-mix(in srgb, var(--brand) 42%, #00022b) 100%,
+    color-mix(in srgb, var(--brand) 22%, #00022b) 125%
+  );
+  --logo-paint: #00022b;
+  --logo-pale-paint: radial-gradient(
+    ellipse 101.333% 90.667% at 21.333% 19.2%,
+    #ffffff 0%,
+    #f0f3ff 55%,
+    #e1e7f0 100%
+  );
+  --logo-on-theme: #ffffff;
+  --logo-center: #0656d9;
+  --logo-center-on-theme: #ffffff;
+  --logo-theme-background: radial-gradient(
+    ellipse 120% 135% at 0% 0%,
+    #2675df 0%,
+    #07337c 50%,
+    #05245a 100%
+  );
+  --ink-accent: #00022b;
+  --wash: #f0f1f5;
+}
+
+/* Shared names imported from main: identify the service, not the surrounding site. */
+.brand-service-name[data-brand='systems'] > .brand-letter {
+  color: #6334a4;
+  -webkit-text-fill-color: #6334a4;
+  background: none;
+}
+.brand-service-name[data-brand='schools'] > .brand-letter {
+  color: #176b45;
+  -webkit-text-fill-color: #176b45;
+  background: none;
+}
+.brand-service-name[data-brand='designs'] > .brand-letter {
+  display: inline-block;
+  line-height: 1.4;
+  padding-block: 0.08em;
+  background: var(--brand-text-paint);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-footer {
-  --brand-system: #c2a1e7;
-  --brand-school: #a0dfbb;
-  --brand-design: #d4b9ee;
-}
-.department-list #systems .ac-card > span:first-child {
-  color: #6334a4;
-  background-color: #f7f2fc;
-  border-color: #d8c4ec;
-}
-.department-list #schools .ac-card > span:first-child {
-  color: #176b45;
-  background-color: #edf8f3;
-  border-color: #bbdfca;
-}
-.department-list #design .ac-card > span:first-child {
-  color: #8146ae;
-  background: linear-gradient(115deg, #fff8e8, #fff0f6, #f4effd, #edf4ff);
-  border-color: #d8c4ec;
+@media (forced-colors: active) {
+  .brand-service-name[data-brand] > .brand-letter {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+  }
 }

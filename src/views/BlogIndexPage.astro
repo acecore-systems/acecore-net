@@ -64,23 +64,19 @@ const pageNumbers = buildPageNumbers(1, totalPages)
   nextPage={totalPages > 1 ? u('/blog/page/2/') : undefined}
   locale={locale}
 >
-  <section class="ac-section">
+  <section class="ac-section news-index">
     <div class="ac-container">
       <Breadcrumb
         items={[{ label: t(locale, 'blog.title') }]}
         locale={locale}
       />
-      <header class="mb-8">
-        <h1 class="text-3xl ac-heading sm:text-4xl">
-          {t(locale, 'blog.title')}
-        </h1>
+      <header class="page-intro">
+        <h1 class="ac-page-title">{t(locale, 'blog.title')}</h1>
         <p class="mt-4 max-w-3xl ac-muted">{t(locale, 'blog.subtitle')}</p>
       </header>
       {sortedTags.length > 0 && (
-        <nav class="mb-10" aria-label={t(locale, 'blog.filtersLabel')}>
-          <p class="mb-3 text-sm font-700 text-slate-900">
-            {t(locale, 'blog.filtersLabel')}
-          </p>
+        <nav class="news-filters" aria-label={t(locale, 'blog.filtersLabel')}>
+          <p class="sr-only">{t(locale, 'blog.filtersLabel')}</p>
           <div class="flex flex-wrap gap-2">
             {sortedTags.slice(0, 12).map(([tag, count]) => (
               <a
@@ -102,14 +98,14 @@ const pageNumbers = buildPageNumbers(1, totalPages)
           </div>
         </nav>
       )}
-      <div class="max-w-4xl">
+      <div class="news-index-results">
         <div>
           {posts.length === 0 ? (
             <p class="text-center text-slate-500">
               {t(locale, 'blog.noPosts')}
             </p>
           ) : (
-            <div class="space-y-6">
+            <div class="news-list">
               {posts.map((post, i: number) => (
                 <Fragment>
                   {i > 0 && i % 3 === 0 && (

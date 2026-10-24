@@ -13,7 +13,7 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 {headings.length > 0 && (
   <nav
     aria-label={t(locale, 'blog.tocLabel')}
-    class="max-h-[calc(100vh-6rem)] overflow-y-auto pr-1"
+    class="article-toc-nav max-h-[calc(100dvh-8rem)] overflow-y-auto pr-1"
   >
     <p class="ac-eyebrow mb-3 text-slate-500">{t(locale, 'blog.toc')}</p>
     <ul class="space-y-1 text-sm">
@@ -34,7 +34,9 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 )}
 
 <script>
+  let tocObserver: IntersectionObserver | undefined
   function initTocHighlight() {
+    tocObserver?.disconnect()
     const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link')
     if (!links.length) return
 
@@ -57,7 +59,9 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
         l.classList.toggle('text-slate-500', !isActive)
         l.classList.toggle('border-transparent', !isActive)
         if (isActive) {
-          l.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+          const rail = l.closest('nav')
+          if (rail && rail.scrollHeight > rail.clientHeight)
+            rail.scrollTop = Math.max(0, l.offsetTop - rail.offsetTop - 40)
         }
       })
     }
@@ -74,9 +78,13 @@ const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
       { rootMargin: '0px 0px -70% 0px', threshold: 0 },
     )
 
+    tocObserver = observer
     headingEls.forEach((el) => observer.observe(el))
   }
 
   initTocHighlight()
+  document.addEventListener('astro:before-swap', () =>
+    tocObserver?.disconnect(),
+  )
   document.addEventListener('astro:after-swap', initTocHighlight)
 </script>

@@ -207,7 +207,9 @@
       "directoryLead": "Choisissez une page selon ce que vous recherchez.",
       "servicesIntro": "Découvrez les services que nous proposons.",
       "contactIntro": "Envoyez vos questions ou demandes via notre formulaire de contact.",
-      "servicesHeading": "Nos services"
+      "servicesHeading": "Nos services",
+      "companyImageAlt": "Vue illustrative de mains examinant des plans ensemble",
+      "companyImageCaption": "Scène illustrative de réflexion collective pour donner forme aux idées."
     },
     "notFound": {
       "title": "Page non trouvée",
@@ -395,7 +397,11 @@
       "pricingLead": "Consultez chaque site pour connaître les tarifs détaillés et les prestations que nous prenons en charge.",
       "offeringsHeading": "Principaux services",
       "detailsCta": "En savoir plus",
-      "pricingCta": "Consulter les tarifs"
+      "pricingCta": "Consulter les tarifs",
+      "systemsImgAlt": "Illustration d’un ordinateur de développement et d’un serveur",
+      "schoolsImgAlt": "Illustration d’un cahier pour apprendre la création 3D étape par étape",
+      "designImgAlt": "Illustration de croquis de personnages, d’une tablette graphique et d’un microphone",
+      "departmentImagesNote": "Les images illustrent le travail et l’apprentissage dans chaque domaine."
     },
     "privacy": {
       "title": "Politique de Confidentialité",

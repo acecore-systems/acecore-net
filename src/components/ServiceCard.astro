@@ -3,7 +3,6 @@ import BrandName from './BrandName.astro'
 import Icon from './Icon.astro'
 import { t } from '../i18n/utils'
 import type { Locale } from '../i18n'
-
 interface Props {
   icon: string
   title: string
@@ -13,31 +12,15 @@ interface Props {
   locale?: Locale
   tone?: 'brand' | 'emerald' | 'amber' | 'slate'
 }
-
-const {
-  icon,
-  title,
-  description,
-  href,
-  linkLabel,
-  locale = 'ja',
-  tone = 'brand',
-} = Astro.props
+const { icon, title, description, href, linkLabel, locale = 'ja' } = Astro.props
 const Tag = href ? 'a' : 'div'
-const isExternal = href?.startsWith('http')
-
-const iconToneClasses = {
-  brand: 'border-brand-200 bg-brand-50 text-brand-600',
-  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-  amber: 'border-amber-200 bg-amber-50 text-amber-700',
-  slate: 'border-slate-200 bg-slate-50 text-slate-600',
-} satisfies Record<NonNullable<Props['tone']>, string>
+const external = href?.startsWith('http')
 ---
 
 <Tag
   {...(href ? { href } : {})}
-  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-  class="ac-card group flex h-full flex-col p-6 pt-7 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_38px_rgba(15,35,56,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  class="service-row"
   {...(href
     ? {
         'data-ga-event': 'cta_click',
@@ -47,29 +30,21 @@ const iconToneClasses = {
       }
     : {})}
 >
-  <span
-    class:list={[
-      'mb-5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border text-lg shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)]',
-      iconToneClasses[tone],
-    ]}
-  >
-    <Icon name={icon} class="text-xl" />
+  <span class="service-row-icon" aria-hidden="true">
+    <Icon name={icon} />
   </span>
-  <h3 class="mb-3 text-lg font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600">
-    <BrandName name={title} />
-  </h3>
-  <slot />
-  <p class="text-sm leading-relaxed text-slate-600">{description}</p>
+  <div class="min-w-0 flex-1">
+    <h3>
+      <BrandName name={title} />
+    </h3>
+    <slot />
+    <p>{description}</p>
+    {linkLabel && <span class="service-row-label">{linkLabel}</span>}
+  </div>
   {href && (
-    <span class="mt-auto flex items-center justify-between gap-3 pt-5 text-sm font-700 text-brand-600">
-      {linkLabel && <span>{linkLabel}</span>}
-      <Icon
-        name={isExternal ? 'external-link' : 'arrow-right'}
-        class="ml-auto shrink-0 text-base transition-transform group-hover:translate-x-1"
-      />
+    <span class="ac-arrow-circle" aria-hidden="true">
+      <Icon name={external ? 'arrow-up-right' : 'arrow-right'} />
     </span>
   )}
-  {isExternal && (
-    <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
-  )}
+  {external && <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>}
 </Tag>
