@@ -1,4 +1,5 @@
 ---
+import BrandName from './BrandName.astro'
 import Icon from './Icon.astro'
 import { t } from '../i18n/utils'
 import type { Locale } from '../i18n'
@@ -33,7 +34,9 @@ const external = href?.startsWith('http')
     <Icon name={icon} />
   </span>
   <div class="min-w-0 flex-1">
-    <h3>{title}</h3>
+    <h3>
+      <BrandName name={title} />
+    </h3>
     <slot />
     <p>{description}</p>
     {linkLabel && <span class="service-row-label">{linkLabel}</span>}

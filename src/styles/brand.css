@@ -26,10 +26,7 @@
   color: #0656d9;
   -webkit-text-fill-color: #0656d9;
 }
-.brand-service-name > .brand-letter {
-  color: var(--ink-accent);
-  -webkit-text-fill-color: var(--ink-accent);
-}
+
 :root {
   --paint:
     radial-gradient(
@@ -64,4 +61,33 @@
   );
   --ink-accent: #00022b;
   --wash: #f0f1f5;
+}
+
+/* Shared names imported from main: identify the service, not the surrounding site. */
+.brand-service-name[data-brand='systems'] > .brand-letter {
+  color: #6334a4;
+  -webkit-text-fill-color: #6334a4;
+  background: none;
+}
+.brand-service-name[data-brand='schools'] > .brand-letter {
+  color: #176b45;
+  -webkit-text-fill-color: #176b45;
+  background: none;
+}
+.brand-service-name[data-brand='designs'] > .brand-letter {
+  display: inline-block;
+  line-height: 1.4;
+  padding-block: 0.08em;
+  background: var(--brand-text-paint);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@media (forced-colors: active) {
+  .brand-service-name[data-brand] > .brand-letter {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+  }
 }

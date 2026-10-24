@@ -9,6 +9,7 @@ const index = kind === 'corporate' ? (word === 'Acecore' ? 3 : -1) : 0
 
 <span
   class={kind === 'corporate' ? 'brand-corporate-name' : 'brand-service-name'}
+  data-brand={kind === 'service' ? word.toLowerCase() : undefined}
 >
   {index < 0 ? (
     word

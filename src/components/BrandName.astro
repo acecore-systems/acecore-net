@@ -4,14 +4,29 @@ interface Props {
   name: string
 }
 const { name } = Astro.props
-const prefix = 'Acecore '
+const suffix = name.startsWith('Acecore') ? name.slice(7) : ''
+const service = suffix.match(/^(.*?)(Systems|Schools|Designs)$/)
+const standalone = ['Systems', 'Schools', 'Designs'].includes(name)
 ---
 
-{name.startsWith(prefix) ? (
-  <>
-    <BrandWord word="Acecore" kind="corporate" />{' '}
-    <BrandWord word={name.slice(prefix.length)} kind="service" />
-  </>
-) : (
-  name
-)}
+<span class="brand-name-text">
+  {name === 'Acecore' ? (
+    <BrandWord word="Acecore" kind="corporate" />
+  ) : name.startsWith('Acecore') ? (
+    <>
+      <BrandWord word="Acecore" kind="corporate" />
+      {service ? (
+        <>
+          {service[1]}
+          <BrandWord word={service[2]} kind="service" />
+        </>
+      ) : (
+        suffix
+      )}
+    </>
+  ) : standalone ? (
+    <BrandWord word={name} kind="service" />
+  ) : (
+    name
+  )}
+</span>
