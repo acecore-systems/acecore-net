@@ -1,0 +1,58 @@
+/* Logo and color rollout only; layout and typography remain in the existing styles. */
+:root {
+  --brand-blue: #0656d9;
+  --brand-system: #6334a4;
+  --brand-school: #176b45;
+  --brand-design: #8146ae;
+}
+.brand-word {
+  white-space: nowrap;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+}
+.brand-word-corporate > .brand-initial {
+  color: var(--brand-blue);
+  -webkit-text-fill-color: var(--brand-blue);
+}
+.brand-word-systems > .brand-initial {
+  color: var(--brand-system);
+  -webkit-text-fill-color: var(--brand-system);
+}
+.brand-word-schools > .brand-initial {
+  color: var(--brand-school);
+  -webkit-text-fill-color: var(--brand-school);
+}
+.brand-word-designs > .brand-initial {
+  display: inline-block;
+  background: radial-gradient(
+    ellipse 110% 160% at -10% 0%,
+    #986000 0%,
+    #b33e71 35%,
+    #8146ae 65%,
+    #0656d9 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+footer {
+  --brand-system: #c2a1e7;
+  --brand-school: #a0dfbb;
+  --brand-design: #d4b9ee;
+}
+.department-list #systems .ac-card > span:first-child {
+  color: #6334a4;
+  background-color: #f7f2fc;
+  border-color: #d8c4ec;
+}
+.department-list #schools .ac-card > span:first-child {
+  color: #176b45;
+  background-color: #edf8f3;
+  border-color: #bbdfca;
+}
+.department-list #design .ac-card > span:first-child {
+  color: #8146ae;
+  background: linear-gradient(115deg, #fff8e8, #fff0f6, #f4effd, #edf4ff);
+  border-color: #d8c4ec;
+}
