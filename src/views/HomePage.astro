@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import CampaignNotice from '../components/CampaignNotice.astro'
+import BrandName from '../components/BrandName.astro'
 import BrandImage from '../components/BrandImage.astro'
 import ArrowLink from '../components/ArrowLink.astro'
 import ContactBand from '../components/ContactBand.astro'
@@ -121,7 +122,11 @@ const webPageLd = {
             data-ga-destination={u('/services/') + '#' + key}
           >
             <div>
-              <h3>{t(locale, 'pages.services.' + key + 'Title')}</h3>
+              <h3>
+                <BrandName
+                  name={t(locale, 'pages.services.' + key + 'Title')}
+                />
+              </h3>
               <p>{t(locale, 'pages.services.' + key + 'Description')}</p>
             </div>
             <span class="ac-arrow-circle" aria-hidden="true">

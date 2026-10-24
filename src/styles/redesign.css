@@ -644,7 +644,7 @@ a:hover .department-link > .ac-arrow-circle {
   border-top: 3px solid transparent;
   border-image: var(--paint-edge) 1;
 }
-[data-department]:not([data-department='designs']) h3 {
+[data-department] .brand-service-name {
   color: var(--department-accent);
 }
 [data-department] .department-link,
@@ -1065,10 +1065,9 @@ a[data-department]:focus-visible,
   padding: 10px 0;
 }
 .site-footer {
-  background:
-    linear-gradient(white, white) padding-box,
-    var(--paint) border-box;
-  border-block: 8px solid transparent;
+  position: relative;
+  background: white;
+  border: 0;
   color: var(--brand-neutral);
 }
 .site-footer :is(p, a, li, small) {
@@ -2042,9 +2041,23 @@ a[data-department]:focus-visible,
   }
 }
 
-[data-department='designs'] h3 {
+[data-department='designs'] .brand-service-name {
+  display: inline-block;
+  line-height: 1.4;
+  padding-block: 0.08em;
   background: var(--brand-text-paint);
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--paint-edge);
+  pointer-events: none;
 }

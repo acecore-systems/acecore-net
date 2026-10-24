@@ -1,0 +1,16 @@
+---
+interface Props {
+  name: string
+}
+const { name } = Astro.props
+const prefix = 'Acecore '
+---
+
+{name.startsWith(prefix) ? (
+  <>
+    <span class="brand-corporate-name">Acecore</span>{' '}
+    <span class="brand-service-name">{name.slice(prefix.length)}</span>
+  </>
+) : (
+  name
+)}

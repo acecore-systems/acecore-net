@@ -2,9 +2,9 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
-// OGの既存構図・文字を保持し、濃背景上のロゴだけを正本SVGへ同期する。
+// OGの既存構図・文字を保持し、白い読み面上のロゴだけを正本SVGへ同期する。
 const logo = await readFile(
-  new URL('../public/logo-on-dark.svg', import.meta.url),
+  new URL('../public/logo.svg', import.meta.url),
   'utf8',
 )
 const sourceUrl = new URL('../public/uploads/og-default.svg', import.meta.url)
