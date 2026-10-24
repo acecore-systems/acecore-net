@@ -321,21 +321,72 @@
           #0656d9 100%
         );
       }
+      .grid .sample.dark {
+        padding: 0 0 20px;
+        overflow: hidden;
+        background: var(--comparison-theme);
+        border-color: transparent;
+      }
+      .grid .sample.dark figcaption {
+        margin: 0 0 20px;
+        padding: 16px;
+        background: #fff;
+        color: #20252b;
+      }
+      .grid .sample.dark .sizes span {
+        color: #20252b;
+        background: #fff;
+        padding: 0 4px;
+        border-radius: 2px;
+      }
+      .site#acecore {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #2675df 0%,
+          #0656d9 50%,
+          #17459d 100%
+        );
+      }
+      .site#systems {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #8950c5 0%,
+          #765bd0 50%,
+          #0656d9 100%
+        );
+      }
+      .site#schools {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #39a86b 0%,
+          #278b91 50%,
+          #0656d9 100%
+        );
+      }
+      .site#designs {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #e6b847 0%,
+          #e98f85 25%,
+          #d780ba 50%,
+          #8970cf 75%,
+          #0656d9 100%
+        );
+      }
     </style>
   </head>
   <body data-pagefind-ignore="all">
     <main>
       <h1>ロゴの比較</h1>
       <p class="intro">
-        明るい背景と濃い背景で、外周の陰影と中央の色を見比べられます。スマホでは1サイトずつ縦に表示します。
+        採用したロゴを、明るい背景とテーマカラー背景で見比べられます。スマホでは1サイトずつ縦に表示します。
       </p>
       <p class="review-note">
         確認用のプレビューです。本番への反映前の状態です。
       </p>
       <nav class="comparison-links" aria-label="比較の種類">
-        <a class="link" href="#theme-range"
-          >全体をテーマカラーにした版と比較 ↓</a
-        ><a class="link" href="#changes">変更前と見比べる ↓</a>
+        <a class="link" href="#theme-range">採用版と以前のロゴを比較 ↓</a
+        ><a class="link" href="#changes">以前の質感調整（履歴） ↓</a>
       </nav>
       <div class="grid">
         <article class="site" id="acecore">
@@ -668,12 +719,12 @@
         id="theme-range"
         aria-labelledby="theme-range-heading"
       >
-        <h2 id="theme-range-heading">テーマカラーを使う範囲を比較</h2>
+        <h2 id="theme-range-heading">採用したロゴと以前のロゴ</h2>
         <p>
-          サイト名を選ぶと、中央だけに色を使う現在版と、ロゴ全体への彩色、色背景に白無地ロゴを載せる案を見比べられます。
+          サイト名を選ぶと、中央だけに色を使っていた以前のロゴと、採用した全体彩色・テーマ背景の白無地ロゴを見比べられます。
         </p>
         <p>
-          全体を彩色したロゴは比較用です。採用ロゴや通常のサイト表示は変更していません。
+          全体彩色とテーマ背景の白無地ロゴを採用し、4サイトのプレビューへ反映しています。本番への反映前です。
         </p>
         <details
           data-theme="acecore"
@@ -685,21 +736,21 @@
           <h3>明るい背景</h3>
           <div class="change-grid">
             <figure class="sample">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/acecore-light.svg"
-                alt="Acecore 公式・現在版・明るい背景"
+                src="/brand-preview/acecore-previous-light.svg"
+                alt="Acecore 公式・以前のロゴ・明るい背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample">
-              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
               <img
                 class="large"
                 src="/brand-preview/acecore-whole-light.svg"
-                alt="Acecore 公式・全体をテーマカラーにした比較案・明るい背景"
+                alt="Acecore 公式・全体をテーマカラーにした採用版・明るい背景"
                 width="176"
                 height="176"
               />
@@ -708,21 +759,21 @@
           <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/acecore-dark.svg"
-                alt="Acecore 公式・現在版・濃い背景"
+                src="/brand-preview/acecore-previous-dark.svg"
+                alt="Acecore 公式・以前のロゴ・濃い背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample theme-background">
-              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
+              <figcaption>採用：テーマ背景と白無地ロゴ</figcaption>
               <img
                 class="large"
                 src="/brand-preview/acecore-whole-dark.svg"
-                alt="acecore・テーマカラー背景の白無地ロゴ・比較案"
+                alt="acecore・テーマカラー背景の白無地ロゴ・採用版"
                 width="176"
                 height="176"
               />
@@ -734,21 +785,21 @@
           <h3>明るい背景</h3>
           <div class="change-grid">
             <figure class="sample">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/systems-light.svg"
-                alt="Systems・現在版・明るい背景"
+                src="/brand-preview/systems-previous-light.svg"
+                alt="Systems・以前のロゴ・明るい背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample">
-              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
               <img
                 class="large"
                 src="/brand-preview/systems-whole-light.svg"
-                alt="Systems・全体をテーマカラーにした比較案・明るい背景"
+                alt="Systems・全体をテーマカラーにした採用版・明るい背景"
                 width="176"
                 height="176"
               />
@@ -757,21 +808,21 @@
           <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/systems-dark.svg"
-                alt="Systems・現在版・濃い背景"
+                src="/brand-preview/systems-previous-dark.svg"
+                alt="Systems・以前のロゴ・濃い背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample theme-background">
-              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
+              <figcaption>採用：テーマ背景と白無地ロゴ</figcaption>
               <img
                 class="large"
                 src="/brand-preview/systems-whole-dark.svg"
-                alt="systems・テーマカラー背景の白無地ロゴ・比較案"
+                alt="systems・テーマカラー背景の白無地ロゴ・採用版"
                 width="176"
                 height="176"
               />
@@ -783,21 +834,21 @@
           <h3>明るい背景</h3>
           <div class="change-grid">
             <figure class="sample">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/schools-light.svg"
-                alt="Schools・現在版・明るい背景"
+                src="/brand-preview/schools-previous-light.svg"
+                alt="Schools・以前のロゴ・明るい背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample">
-              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
               <img
                 class="large"
                 src="/brand-preview/schools-whole-light.svg"
-                alt="Schools・全体をテーマカラーにした比較案・明るい背景"
+                alt="Schools・全体をテーマカラーにした採用版・明るい背景"
                 width="176"
                 height="176"
               />
@@ -806,21 +857,21 @@
           <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/schools-dark.svg"
-                alt="Schools・現在版・濃い背景"
+                src="/brand-preview/schools-previous-dark.svg"
+                alt="Schools・以前のロゴ・濃い背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample theme-background">
-              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
+              <figcaption>採用：テーマ背景と白無地ロゴ</figcaption>
               <img
                 class="large"
                 src="/brand-preview/schools-whole-dark.svg"
-                alt="schools・テーマカラー背景の白無地ロゴ・比較案"
+                alt="schools・テーマカラー背景の白無地ロゴ・採用版"
                 width="176"
                 height="176"
               />
@@ -832,21 +883,21 @@
           <h3>明るい背景</h3>
           <div class="change-grid">
             <figure class="sample">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/designs-light.svg"
-                alt="Designs・現在版・明るい背景"
+                src="/brand-preview/designs-previous-light.svg"
+                alt="Designs・以前のロゴ・明るい背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample">
-              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
+              <figcaption>採用：ロゴ全体にテーマカラー</figcaption>
               <img
                 class="large"
                 src="/brand-preview/designs-whole-light.svg"
-                alt="Designs・全体をテーマカラーにした比較案・明るい背景"
+                alt="Designs・全体をテーマカラーにした採用版・明るい背景"
                 width="176"
                 height="176"
               />
@@ -855,21 +906,21 @@
           <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
-              <figcaption>中央だけテーマカラー（現在）</figcaption>
+              <figcaption>以前：中央だけテーマカラー</figcaption>
               <img
                 class="large"
-                src="/brand-preview/designs-dark.svg"
-                alt="Designs・現在版・濃い背景"
+                src="/brand-preview/designs-previous-dark.svg"
+                alt="Designs・以前のロゴ・濃い背景"
                 width="176"
                 height="176"
               />
             </figure>
             <figure class="sample theme-background">
-              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
+              <figcaption>採用：テーマ背景と白無地ロゴ</figcaption>
               <img
                 class="large"
                 src="/brand-preview/designs-whole-dark.svg"
-                alt="designs・テーマカラー背景の白無地ロゴ・比較案"
+                alt="designs・テーマカラー背景の白無地ロゴ・採用版"
                 width="176"
                 height="176"
               />
@@ -881,9 +932,9 @@
         >
       </section>
       <section class="changes" id="changes" aria-labelledby="changes-heading">
-        <h2 id="changes-heading">変更前と見比べる</h2>
+        <h2 id="changes-heading">以前の質感調整（履歴）</h2>
         <p>
-          中央と外周の光を抑え、広く柔らかな色の流れへ整えました。色の構成と形はそのままです。Systemsのロゴで変更を見比べられます。
+          全体彩色を採用する前の質感調整の履歴です。現在の採用版は上の一覧をご覧ください。
         </p>
         <h3>明るい背景</h3>
         <div class="change-grid">
@@ -901,7 +952,7 @@
             <figcaption>変更後</figcaption>
             <img
               class="large"
-              src="/brand-preview/systems-light.svg"
+              src="/brand-preview/systems-previous-light.svg"
               alt="変更後のSystemsロゴ・明るい背景用"
               width="208"
               height="208"
@@ -924,7 +975,7 @@
             <figcaption>変更後</figcaption>
             <img
               class="large"
-              src="/brand-preview/systems-dark.svg"
+              src="/brand-preview/systems-previous-dark.svg"
               alt="変更後のSystemsロゴ・濃い背景用"
               width="208"
               height="208"

@@ -37,18 +37,19 @@
     color-mix(in srgb, var(--brand) 42%, #00022b) 100%,
     color-mix(in srgb, var(--brand) 22%, #00022b) 125%
   );
-  --sphere-paint:
-    radial-gradient(
-      ellipse 79.96% 75.03% at 31.21% 31.21%,
-      color-mix(in srgb, #78a4e8 8%, transparent) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse 113.77% 105.18% at 23.71% 20.49%,
-      #2675df 0%,
-      #0656d9 45%,
-      #163b76 100%
-    );
+  --logo-paint: radial-gradient(
+    ellipse 101.333% 90.667% at 21.333% 19.2%,
+    #2675df 0%,
+    #0656d9 50%,
+    #17459d 100%
+  );
+  --logo-on-theme: #ffffff;
+  --logo-theme-background: radial-gradient(
+    ellipse 120% 135% at 0% 0%,
+    #2675df 0%,
+    #0656d9 50%,
+    #17459d 100%
+  );
   --ink-accent: #00022b;
   --wash: #f0f1f5;
 }
