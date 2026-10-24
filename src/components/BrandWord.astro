@@ -1,0 +1,22 @@
+---
+interface Props {
+  word: string
+  kind: 'corporate' | 'service'
+}
+const { word, kind } = Astro.props
+const index = kind === 'corporate' ? (word === 'Acecore' ? 3 : -1) : 0
+---
+
+<span
+  class={kind === 'corporate' ? 'brand-corporate-name' : 'brand-service-name'}
+>
+  {index < 0 ? (
+    word
+  ) : (
+    <>
+      {word.slice(0, index)}
+      <span class="brand-letter">{word[index]}</span>
+      {word.slice(index + 1)}
+    </>
+  )}
+</span>

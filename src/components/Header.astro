@@ -1,4 +1,5 @@
 ---
+import BrandWord from './BrandWord.astro'
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
@@ -40,7 +41,9 @@ const currentPath = Astro.url.pathname
       class="site-brand ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
     >
       <img src="/logo.svg" alt="Acecore" class="h-8 w-8" />
-      <span aria-hidden="true">Acecore</span>
+      <span aria-hidden="true">
+        <BrandWord word="Acecore" kind="corporate" />
+      </span>
     </a>
     <nav
       class="site-desktop-nav hidden items-center gap-1 xl:flex"

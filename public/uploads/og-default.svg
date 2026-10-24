@@ -61,12 +61,12 @@
     <text
       x="98"
       y="48"
-      fill="#0656d9"
+      fill="#20252b"
       font-family="Noto Sans JP, Yu Gothic, Meiryo, sans-serif"
       font-size="32"
       font-weight="800"
     >
-      Acecore
+      Ace<tspan fill="#0656d9">c</tspan>ore
     </text>
   </g>
 
@@ -74,14 +74,14 @@
     transform="translate(76 214)"
     font-family="Noto Sans JP, Yu Gothic, Meiryo, sans-serif"
   >
-    <text x="0" y="0" fill="#0656d9" font-size="86" font-weight="900">
-      Acecore
+    <text x="0" y="0" fill="#20252b" font-size="86" font-weight="900">
+      Ace<tspan fill="#0656d9">c</tspan>ore
     </text>
     <text x="2" y="72" fill="#20252b" font-size="38" font-weight="800">
       世界を次のステージへ
     </text>
     <text x="4" y="122" fill="#50565e" font-size="24" font-weight="700">
-      <tspan fill="#0656d9">Acecore</tspan> Systems / Schools / Aceserver
+      <tspan fill="#20252b">Ace<tspan fill="#0656d9">c</tspan>ore</tspan> Systems / Schools / Aceserver
     </text>
   </g>
 

@@ -15,13 +15,20 @@
     linear-gradient(var(--wash), var(--wash)) padding-box,
     var(--paint) border-box;
 }
-.brand-corporate-name {
+.brand-corporate-name,
+.brand-service-name {
+  color: var(--brand-neutral);
+  -webkit-text-fill-color: var(--brand-neutral);
+  background: none;
+  white-space: nowrap;
+}
+.brand-corporate-name > .brand-letter {
   color: #0656d9;
   -webkit-text-fill-color: #0656d9;
-  background: none;
 }
-.brand-service-name {
+.brand-service-name > .brand-letter {
   color: var(--ink-accent);
+  -webkit-text-fill-color: var(--ink-accent);
 }
 :root {
   --paint:

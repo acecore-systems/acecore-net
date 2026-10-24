@@ -1,4 +1,5 @@
 ---
+import BrandWord from './BrandWord.astro'
 import { SITE } from '../data/site'
 import {
   getLocalizedUrl,
@@ -51,7 +52,7 @@ const businessLinks = [
     <div class="footer-grid">
       <div>
         <a href={u('/')} class="footer-wordmark">
-          {SITE.name}
+          <BrandWord word={SITE.name} kind="corporate" />
         </a>
         <p class="text-sm leading-relaxed">
           {t(locale, 'footer.tagline')}

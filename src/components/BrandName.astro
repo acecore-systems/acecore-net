@@ -1,4 +1,5 @@
 ---
+import BrandWord from './BrandWord.astro'
 interface Props {
   name: string
 }
@@ -8,8 +9,8 @@ const prefix = 'Acecore '
 
 {name.startsWith(prefix) ? (
   <>
-    <span class="brand-corporate-name">Acecore</span>{' '}
-    <span class="brand-service-name">{name.slice(prefix.length)}</span>
+    <BrandWord word="Acecore" kind="corporate" />{' '}
+    <BrandWord word={name.slice(prefix.length)} kind="service" />
   </>
 ) : (
   name

@@ -644,7 +644,7 @@ a:hover .department-link > .ac-arrow-circle {
   border-top: 3px solid transparent;
   border-image: var(--paint-edge) 1;
 }
-[data-department] .brand-service-name {
+[data-department] .brand-service-name > .brand-letter {
   color: var(--department-accent);
 }
 [data-department] .department-link,
@@ -989,7 +989,7 @@ a[data-department]:focus-visible,
   height: 88px;
 }
 .site-brand {
-  color: var(--brand);
+  color: var(--brand-neutral);
   font-size: 30px;
   letter-spacing: -0.045em;
   gap: 10px;
@@ -1093,7 +1093,7 @@ a[data-department]:focus-visible,
 }
 .site-footer .footer-wordmark {
   display: block;
-  color: var(--brand);
+  color: var(--brand-neutral);
   font-size: clamp(42px, 6vw, 80px);
   font-weight: 800;
   letter-spacing: -0.06em;
@@ -2041,7 +2041,7 @@ a[data-department]:focus-visible,
   }
 }
 
-[data-department='designs'] .brand-service-name {
+[data-department='designs'] .brand-service-name > .brand-letter {
   display: inline-block;
   line-height: 1.4;
   padding-block: 0.08em;
