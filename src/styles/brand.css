@@ -52,6 +52,12 @@
     #0656d9 50%,
     #17459d 100%
   );
+  --logo-pale-paint: radial-gradient(
+    ellipse 101.333% 90.667% at 21.333% 19.2%,
+    #ffffff 0%,
+    #f0f3ff 55%,
+    #e1e7f0 100%
+  );
   --logo-on-theme: #ffffff;
   --logo-center: #0656d9;
   --logo-center-on-theme: #ffffff;
