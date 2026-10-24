@@ -275,6 +275,52 @@
       .range-site .large {
         width: min(176px, 100%);
       }
+      .theme-background {
+        padding: 0 0 20px;
+        overflow: hidden;
+        background: var(--comparison-theme);
+        border-color: transparent;
+      }
+      .theme-background figcaption {
+        margin: 0 0 20px;
+        padding: 16px;
+        background: #fff;
+        color: #20252b;
+      }
+      .range-site[data-theme='acecore'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #2675df 0%,
+          #0656d9 50%,
+          #17459d 100%
+        );
+      }
+      .range-site[data-theme='systems'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #8950c5 0%,
+          #765bd0 50%,
+          #0656d9 100%
+        );
+      }
+      .range-site[data-theme='schools'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #39a86b 0%,
+          #278b91 50%,
+          #0656d9 100%
+        );
+      }
+      .range-site[data-theme='designs'] {
+        --comparison-theme: radial-gradient(
+          ellipse 120% 135% at 0% 0%,
+          #e6b847 0%,
+          #e98f85 25%,
+          #d780ba 50%,
+          #8970cf 75%,
+          #0656d9 100%
+        );
+      }
     </style>
   </head>
   <body data-pagefind-ignore="all">
@@ -624,12 +670,17 @@
       >
         <h2 id="theme-range-heading">テーマカラーを使う範囲を比較</h2>
         <p>
-          サイト名を選ぶと、中央だけに色を使う現在版と、外周にも色を広げた案を見比べられます。
+          サイト名を選ぶと、中央だけに色を使う現在版と、ロゴ全体への彩色、色背景に白無地ロゴを載せる案を見比べられます。
         </p>
         <p>
           全体を彩色したロゴは比較用です。採用ロゴや通常のサイト表示は変更していません。
         </p>
-        <details class="range-site" name="theme-range" open>
+        <details
+          data-theme="acecore"
+          class="range-site"
+          name="theme-range"
+          open
+        >
           <summary><span class="corporate">Acecore 公式</span></summary>
           <h3>明るい背景</h3>
           <div class="change-grid">
@@ -644,7 +695,7 @@
               />
             </figure>
             <figure class="sample">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/acecore-whole-light.svg"
@@ -654,7 +705,7 @@
               />
             </figure>
           </div>
-          <h3>濃い背景</h3>
+          <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
               <figcaption>中央だけテーマカラー（現在）</figcaption>
@@ -666,19 +717,19 @@
                 height="176"
               />
             </figure>
-            <figure class="sample dark">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+            <figure class="sample theme-background">
+              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/acecore-whole-dark.svg"
-                alt="Acecore 公式・全体をテーマカラーにした比較案・濃い背景"
+                alt="acecore・テーマカラー背景の白無地ロゴ・比較案"
                 width="176"
                 height="176"
               />
             </figure>
           </div>
         </details>
-        <details class="range-site" name="theme-range">
+        <details data-theme="systems" class="range-site" name="theme-range">
           <summary><span class="systems">Systems</span></summary>
           <h3>明るい背景</h3>
           <div class="change-grid">
@@ -693,7 +744,7 @@
               />
             </figure>
             <figure class="sample">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/systems-whole-light.svg"
@@ -703,7 +754,7 @@
               />
             </figure>
           </div>
-          <h3>濃い背景</h3>
+          <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
               <figcaption>中央だけテーマカラー（現在）</figcaption>
@@ -715,19 +766,19 @@
                 height="176"
               />
             </figure>
-            <figure class="sample dark">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+            <figure class="sample theme-background">
+              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/systems-whole-dark.svg"
-                alt="Systems・全体をテーマカラーにした比較案・濃い背景"
+                alt="systems・テーマカラー背景の白無地ロゴ・比較案"
                 width="176"
                 height="176"
               />
             </figure>
           </div>
         </details>
-        <details class="range-site" name="theme-range">
+        <details data-theme="schools" class="range-site" name="theme-range">
           <summary><span class="schools">Schools</span></summary>
           <h3>明るい背景</h3>
           <div class="change-grid">
@@ -742,7 +793,7 @@
               />
             </figure>
             <figure class="sample">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/schools-whole-light.svg"
@@ -752,7 +803,7 @@
               />
             </figure>
           </div>
-          <h3>濃い背景</h3>
+          <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
               <figcaption>中央だけテーマカラー（現在）</figcaption>
@@ -764,19 +815,19 @@
                 height="176"
               />
             </figure>
-            <figure class="sample dark">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+            <figure class="sample theme-background">
+              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/schools-whole-dark.svg"
-                alt="Schools・全体をテーマカラーにした比較案・濃い背景"
+                alt="schools・テーマカラー背景の白無地ロゴ・比較案"
                 width="176"
                 height="176"
               />
             </figure>
           </div>
         </details>
-        <details class="range-site" name="theme-range">
+        <details data-theme="designs" class="range-site" name="theme-range">
           <summary><span class="designs">Designs</span></summary>
           <h3>明るい背景</h3>
           <div class="change-grid">
@@ -791,7 +842,7 @@
               />
             </figure>
             <figure class="sample">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+              <figcaption>ロゴ全体にテーマカラー（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/designs-whole-light.svg"
@@ -801,7 +852,7 @@
               />
             </figure>
           </div>
-          <h3>濃い背景</h3>
+          <h3>濃い背景・テーマカラー背景</h3>
           <div class="change-grid">
             <figure class="sample dark">
               <figcaption>中央だけテーマカラー（現在）</figcaption>
@@ -813,12 +864,12 @@
                 height="176"
               />
             </figure>
-            <figure class="sample dark">
-              <figcaption>全体をテーマカラー（比較案）</figcaption>
+            <figure class="sample theme-background">
+              <figcaption>テーマ背景と白無地ロゴ（比較案）</figcaption>
               <img
                 class="large"
                 src="/brand-preview/designs-whole-dark.svg"
-                alt="Designs・全体をテーマカラーにした比較案・濃い背景"
+                alt="designs・テーマカラー背景の白無地ロゴ・比較案"
                 width="176"
                 height="176"
               />
