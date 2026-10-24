@@ -54,6 +54,7 @@
   );
   --logo-on-theme: #ffffff;
   --logo-center: #0656d9;
+  --logo-center-on-theme: #ffffff;
   --logo-theme-background: radial-gradient(
     ellipse 120% 135% at 0% 0%,
     #2675df 0%,
