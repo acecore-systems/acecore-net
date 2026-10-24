@@ -1,4 +1,5 @@
 ---
+import BrandName from './BrandName.astro'
 import Icon from './Icon.astro'
 import { t } from '../i18n/utils'
 import type { Locale } from '../i18n'
@@ -55,7 +56,7 @@ const iconToneClasses = {
     <Icon name={icon} class="text-xl" />
   </span>
   <h3 class="mb-3 text-lg font-800 leading-snug text-slate-950 transition-colors group-hover:text-brand-600">
-    {title}
+    <BrandName name={title} />
   </h3>
   <slot />
   <p class="text-sm leading-relaxed text-slate-600">{description}</p>

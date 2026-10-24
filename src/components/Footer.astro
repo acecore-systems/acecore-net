@@ -1,4 +1,5 @@
 ---
+import BrandName from './BrandName.astro'
 import { SITE } from '../data/site'
 import {
   getLocalizedUrl,
@@ -50,7 +51,9 @@ const businessLinks = [
   <div class="ac-container py-14">
     <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
-        <h3 class="mb-3 text-lg font-700 text-white">{SITE.name}</h3>
+        <h3 class="mb-3 text-lg font-700 text-white">
+          <BrandName name={SITE.name} />
+        </h3>
         <p class="text-sm leading-relaxed">
           {t(locale, 'footer.tagline')}
           <br />
@@ -93,7 +96,7 @@ const businessLinks = [
                 data-ga-location="footer"
                 data-ga-destination={link.href}
               >
-                {link.label}
+                <BrandName name={link.label} />
                 <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
               </a>
             </li>
