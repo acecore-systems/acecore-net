@@ -56,22 +56,22 @@
     "deploy:ai-contact-openai:production": "wrangler deploy --config workers/ai-contact-openai/wrangler.jsonc --env production"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.3",
+    "@astrojs/markdown-remark": "^7.3.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/noto-sans-jp": "^5.3.1",
-    "astro": "^7.4.0",
+    "astro": "^7.4.2",
     "graphql": "^17.0.2",
-    "jose": "^6.2.12",
-    "js-yaml": "^5.4.3",
+    "jose": "^6.2.13",
+    "js-yaml": "^5.5.0",
     "rehype-external-links": "^3.0.0",
-    "satori": "^0.60.0",
+    "satori": "^0.63.2",
     "sharp": "^0.35.5",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261015.1",
-    "@iconify-json/lucide": "^1.2.144",
+    "@cloudflare/workers-types": "^5.20261022.1",
+    "@iconify-json/lucide": "^1.2.147",
     "@tailwindcss/postcss": "4.3.3",
     "@types/js-yaml": "^4.0.9",
     "cheerio": "^1.2.0",
@@ -80,7 +80,7 @@
     "prettier-plugin-astro": "^1.1.1",
     "tailwindcss": "4.3.3",
     "typescript": "^7.0.2",
-    "wrangler": "^4.151.0"
+    "wrangler": "^4.152.0"
   },
   "engines": {
     "node": ">=24.22.1"
