@@ -188,7 +188,7 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Die Welt auf die nächste Stufe bringen. Mit Technologie und Lernen will Acecore Zeit für unwesentliche Aufgaben reduzieren und ein Umfeld schaffen, in dem alle ihre Vorhaben verwirklichen können.",
+    "defaultDescription": "Die Welt auf die nächste Stufe bringen. Acecore schafft mit Technologie und Lernen ein Umfeld, in dem alle ihre Vorhaben verwirklichen können.",
     "shortTitleContext": "Offizielle Website",
     "shortDescriptionContext": "Unternehmensinformationen, Geschäftsbereiche und Neuigkeiten von Acecore."
   },
@@ -479,6 +479,24 @@
       "improvementBody": "Wir überprüfen und verbessern unser Managementsystem für Informationssicherheit kontinuierlich.",
       "contactHeading": "Kontakt",
       "contactBody": "Für Fragen zu dieser Richtlinie nutzen Sie bitte die Kontaktseite.",
+      "contactLink": "Kontakt aufnehmen"
+    },
+    "security-policy": {
+      "title": "Grundprinzipien der Informationssicherheit",
+      "description": "Wir erläutern die grundlegende Informationssicherheitsrichtlinie der Acecore Inc.",
+      "lead": "Die Acecore Inc. schützt unternehmerische Informationswerte – einschließlich der uns von Kunden und Geschäftspartnern anvertrauten Informationen – unter der Verantwortung der Geschäftsführung.",
+      "protectionHeading": "Schutz der Informationswerte",
+      "protectionBody": "Um Vertraulichkeit, Integrität und Verfügbarkeit der Informationswerte zu gewährleisten, legen wir risikoadäquate Ziele fest und setzen die erforderlichen Maßnahmen um.",
+      "complianceHeading": "Einhaltung von Gesetzen und Verträgen",
+      "complianceBody": "Wir halten alle für uns geltenden Gesetze, Verträge und sonstigen Anforderungen zur Informationssicherheit ein.",
+      "managementHeading": "Managementsystem und Schulung",
+      "managementBody": "Wir verwalten Zugriffsrechte auf Informationswerte angemessen, schulen Führungskräfte und Mitarbeitende und überwachen unsere Auftragnehmer.",
+      "continuityHeading": "Geschäftskontinuität und Reaktion auf Vorfälle",
+      "continuityBody": "Wir sichern notwendige Informationswerte und prüfen Wiederherstellungsverfahren. Im Falle eines Informationssicherheitsvorfalls bemühen wir uns, Schäden zu begrenzen, angemessen zu reagieren und ein Wiederauftreten zu verhindern.",
+      "improvementHeading": "Kontinuierliche Verbesserung",
+      "improvementBody": "Wir überprüfen unseren Managementmechanismus für Informationssicherheit und verbessern ihn kontinuierlich.",
+      "contactHeading": "Kontakt",
+      "contactBody": "Bei Fragen zu dieser Richtlinie wenden Sie sich bitte an die unten angegebenen Kontaktstellen.",
       "contactLink": "Kontakt aufnehmen"
     }
   },

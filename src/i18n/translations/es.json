@@ -188,7 +188,7 @@
   },
   "meta": {
     "siteTitle": "株式会社Acecore",
-    "defaultDescription": "Llevar el mundo a la siguiente etapa. Con tecnología y aprendizaje, Acecore busca reducir el tiempo dedicado a tareas no esenciales y crear un entorno donde todos puedan perseguir sus aspiraciones.",
+    "defaultDescription": "«Llevar el mundo a la siguiente etapa». Acecore usa tecnología y aprendizaje para reducir el tiempo no esencial y permitir perseguir tus aspiraciones.",
     "shortTitleContext": "Sitio oficial",
     "shortDescriptionContext": "Información corporativa, negocios y noticias de Acecore."
   },
@@ -474,6 +474,24 @@
       "contactHeading": "Contacto",
       "contactBody": "Para consultas sobre esta política, utilice la página de contacto.",
       "contactLink": "Contactar"
+    },
+    "security-policy": {
+      "title": "Política básica de seguridad de la información",
+      "description": "Le presentamos la política básica de seguridad de la información de Acecore Corporation.",
+      "lead": "Acecore Corporation protege, bajo la responsabilidad de su dirección, los activos de información de negocio, incluida la información que recibe de clientes y socios comerciales.",
+      "protectionHeading": "Protección de los activos de información",
+      "protectionBody": "Para proteger la confidencialidad, la integridad y la disponibilidad de los activos de información, establecemos objetivos según el riesgo y aplicamos las medidas necesarias.",
+      "complianceHeading": "Cumplimiento de leyes y contratos",
+      "complianceBody": "Cumplimos las leyes, los contratos y demás requisitos aplicables a nuestra empresa en materia de seguridad de la información.",
+      "managementHeading": "Sistema de gestión y formación",
+      "managementBody": "Gestionamos adecuadamente los permisos de acceso a los activos de información, formamos a directivos y empleados y gestionamos a los proveedores externos.",
+      "continuityHeading": "Continuidad del negocio y respuesta a incidentes",
+      "continuityBody": "Realizamos copias de seguridad de los activos de información necesarios y verificamos los procedimientos de recuperación. Ante un incidente de seguridad de la información, trabajamos para evitar su propagación, responder y prevenir su reaparición.",
+      "improvementHeading": "Mejora continua",
+      "improvementBody": "Revisamos el mecanismo de gestión de la seguridad de la información y lo mejoramos continuamente.",
+      "contactHeading": "Contacto",
+      "contactBody": "Para consultas sobre esta política, póngase en contacto con nosotros a través de los siguientes canales.",
+      "contactLink": "Contacto"
     }
   },
   "pageNames": {

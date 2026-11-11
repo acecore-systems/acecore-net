@@ -474,6 +474,24 @@
       "contactHeading": "Contato",
       "contactBody": "Para dúvidas sobre esta política, utilize a página de contato.",
       "contactLink": "Entre em contato"
+    },
+    "security-policy": {
+      "title": "Política Básica de Segurança da Informação",
+      "description": "Conheça a política básica de segurança da informação da Acecore e nosso compromisso com a proteção dos ativos de informação.",
+      "lead": "A Acecore protege os ativos de informação de negócio, incluindo informações recebidas de clientes e parceiros, sob a responsabilidade da administração.",
+      "protectionHeading": "Proteção dos ativos de informação",
+      "protectionBody": "Para preservar a confidencialidade, a integridade e a disponibilidade dos ativos de informação, definimos metas adequadas aos riscos e implementamos as medidas necessárias.",
+      "complianceHeading": "Conformidade com leis e contratos",
+      "complianceBody": "Cumprimos as leis, os contratos e demais requisitos aplicáveis à nossa empresa em relação à segurança da informação.",
+      "managementHeading": "Gestão e treinamento",
+      "managementBody": "Gerenciamos adequadamente as permissões de acesso aos ativos de informação, promovemos o treinamento de diretores e funcionários e cuidamos da gestão de prestadores de serviços contratados.",
+      "continuityHeading": "Continuidade do negócio e resposta a incidentes",
+      "continuityBody": "Realizamos backups dos ativos de informação necessários e verificamos os procedimentos de recuperação e, em caso de incidente de segurança da informação, atuamos para prevenir a ampliação dos danos, responder e evitar sua recorrência.",
+      "improvementHeading": "Melhoria contínua",
+      "improvementBody": "Revisamos o sistema de gestão da segurança da informação e o aprimoramos continuamente.",
+      "contactHeading": "Contato",
+      "contactBody": "Para dúvidas sobre esta política, entre em contato pelo canal abaixo.",
+      "contactLink": "Contato"
     }
   },
   "pageNames": {

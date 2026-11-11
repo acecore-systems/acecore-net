@@ -468,6 +468,24 @@
       "contactHeading": "联系我们",
       "contactBody": "有关本方针的问题，请通过以下窗口联系我们。",
       "contactLink": "联系我们"
+    },
+    "security-policy": {
+      "title": "信息安全基本方针",
+      "description": "为您介绍Acecore株式会社关于信息安全的指导方针，包括信息资产保护、合规遵守、管理体制、业务连续性及持续改进等内容。",
+      "lead": "Acecore株式会社在经营者的责任下，保护业务信息资产，包括向客户和合作伙伴接收的信息。",
+      "protectionHeading": "信息资产保护",
+      "protectionBody": "为保障信息资产的机密性、完整性和可用性，公司根据风险设定目标，并采取必要措施。",
+      "complianceHeading": "遵守法律法规与合同",
+      "complianceBody": "公司遵守适用于本公司信息安全的法律法规、合同及其他要求事项。",
+      "managementHeading": "管理体制与教育",
+      "managementBody": "公司妥善管理信息资产访问权限，向董事及员工开展教育培训，并加强对委托方的管理。",
+      "continuityHeading": "业务连续性与事故应对",
+      "continuityBody": "公司做好必要信息资产的备份与恢复流程确认，并在发生信息安全事故时，致力于防止损失扩大、妥善应对并防止再次发生。",
+      "improvementHeading": "持续改进",
+      "improvementBody": "公司审查信息安全管理机制，并持续加以改进。",
+      "contactHeading": "联系我们",
+      "contactBody": "关于本方针的咨询，请通过以下联系窗口与我们联系。",
+      "contactLink": "联系我们"
     }
   },
   "pageNames": {

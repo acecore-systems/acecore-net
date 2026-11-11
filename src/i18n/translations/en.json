@@ -188,7 +188,7 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Taking the world to the next stage. Through technology and learning, Acecore aims to reduce time spent on nonessential tasks and create an environment where everyone can pursue what they want to do.",
+    "defaultDescription": "Acecore is taking the world to the next stage, using technology and learning to reduce nonessential time so everyone can pursue what they want to do.",
     "shortTitleContext": "Official Site",
     "shortDescriptionContext": "Company information, businesses, and news from Acecore."
   },
@@ -628,6 +628,24 @@
       "contactHeading": "Contact",
       "contactBody": "For inquiries about this policy, please use the contact page.",
       "contactLink": "Contact us"
+    },
+    "security-policy": {
+      "title": "Information Security Policy",
+      "description": "Acecore Co., Ltd. presents its basic policy on information security.",
+      "lead": "Acecore Co., Ltd. protects its business information assets, including information entrusted to it by customers and business partners, under the responsibility of its management.",
+      "protectionHeading": "Protection of Information Assets",
+      "protectionBody": "To safeguard the confidentiality, integrity, and availability of information assets, we set risk-based objectives and implement necessary measures.",
+      "complianceHeading": "Compliance with Laws and Contracts",
+      "complianceBody": "We comply with laws, contracts, and other requirements applicable to us regarding information security.",
+      "managementHeading": "Management Structure and Training",
+      "managementBody": "We properly manage access rights to information assets, educate executives and employees, and manage our subcontractors.",
+      "continuityHeading": "Business Continuity and Incident Response",
+      "continuityBody": "We back up necessary information assets and verify recovery procedures. In the event of an information security incident, we work to prevent further damage, respond, and prevent recurrence.",
+      "improvementHeading": "Continuous Improvement",
+      "improvementBody": "We review our information security management framework and continuously improve it.",
+      "contactHeading": "Contact Us",
+      "contactBody": "For inquiries regarding this policy, please contact us through the following contact point.",
+      "contactLink": "Contact Us"
     }
   },
   "pageNames": {

@@ -188,7 +188,7 @@
   },
   "meta": {
     "siteTitle": "Acecore Co., Ltd.",
-    "defaultDescription": "Faire passer le monde à l’étape suivante. Par la technologie et l’apprentissage, Acecore vise à réduire le temps consacré aux tâches non essentielles et à permettre à chacun de poursuivre ses aspirations.",
+    "defaultDescription": "Faire passer le monde à l’étape suivante. Acecore utilise la technologie et l’apprentissage pour réduire le temps non essentiel et libérer vos aspirations.",
     "shortTitleContext": "Site officiel",
     "shortDescriptionContext": "Informations sur l'entreprise, ses activités et les actualités d'Acecore."
   },
@@ -474,6 +474,24 @@
       "contactHeading": "Contact",
       "contactBody": "Pour toute question sur cette politique, veuillez utiliser la page de contact.",
       "contactLink": "Nous contacter"
+    },
+    "security-policy": {
+      "title": "Politique de base en matière de sécurité de l'information",
+      "description": "Découvrez la politique de base de 株式会社Acecore concernant la sécurité de l'information.",
+      "lead": "株式会社Acecore protège, sous la responsabilité de sa direction, ses actifs d'information d'entreprise, y compris les informations confiées par ses clients et ses partenaires commerciaux.",
+      "protectionHeading": "Protection des actifs d'information",
+      "protectionBody": "Afin de garantir la confidentialité, l'intégrité et la disponibilité des actifs d'information, nous définissons des objectifs adaptés aux risques et mettons en œuvre les mesures nécessaires.",
+      "complianceHeading": "Respect des lois et des contrats",
+      "complianceBody": "Nous respectons les lois, les contrats et les autres exigences applicables à notre entreprise en matière de sécurité de l'information.",
+      "managementHeading": "Organisation de gestion et formation",
+      "managementBody": "Nous gérons de manière appropriée les droits d'accès aux actifs d'information, formons nos dirigeants et nos employés, et assurons la gestion de nos sous-traitants.",
+      "continuityHeading": "Continuité d'activité et gestion des incidents",
+      "continuityBody": "Nous procédons à la sauvegarde des actifs d'information nécessaires et vérifions les procédures de restauration. En cas d'incident de sécurité de l'information, nous nous efforçons de limiter l'ampleur des dommages, d'y répondre et d'en prévenir la récurrence.",
+      "improvementHeading": "Amélioration continue",
+      "improvementBody": "Nous révisons le système de gestion de la sécurité de l'information et l'améliorons en continu.",
+      "contactHeading": "Contact",
+      "contactBody": "Pour toute question concernant cette politique, veuillez nous contacter via le guichet ci-dessous.",
+      "contactLink": "Contact"
     }
   },
   "pageNames": {
