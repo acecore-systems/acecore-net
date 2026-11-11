@@ -453,7 +453,7 @@
     },
     "securityPolicy": {
       "title": "信息安全基本方针",
-      "description": "株式会社Acecore的信息安全基本方针。",
+      "description": "株式会社Acecore的信息安全基本方针，介绍信息资产保护、风险应对及持续改进的原则。",
       "lead": "株式会社Acecore在管理层负责下，保护包括客户和合作伙伴托付的信息在内的业务信息资产。",
       "protectionHeading": "保护信息资产",
       "protectionBody": "为保护信息资产的保密性、完整性和可用性，我们根据风险设定目标并采取必要措施。",
