@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "费用参考",
     "terms": "Acecore ID 使用条款",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "securityPolicy": "信息安全基本方针"
   },
   "blog": {
     "title": "新闻",
@@ -449,6 +450,24 @@
     "pricing": {
       "systemsTitle": "Acecore Systems 的费用",
       "schoolsTitle": "Acecore Schools 的费用"
+    },
+    "securityPolicy": {
+      "title": "信息安全基本方针",
+      "description": "株式会社Acecore的信息安全基本方针。",
+      "lead": "株式会社Acecore在管理层负责下，保护包括客户和合作伙伴托付的信息在内的业务信息资产。",
+      "protectionHeading": "保护信息资产",
+      "protectionBody": "为保护信息资产的保密性、完整性和可用性，我们根据风险设定目标并采取必要措施。",
+      "complianceHeading": "遵守法律和合同要求",
+      "complianceBody": "我们遵守有关信息安全的法律及合同要求。",
+      "managementHeading": "管理和教育",
+      "managementBody": "我们适当管理信息资产的访问权限，培训董事和员工，并致力于管理受托方。",
+      "continuityHeading": "业务持续和事件应对",
+      "continuityBody": "我们致力于备份必要的信息资产并确认恢复程序；发生信息安全事件时，努力防止损害扩大、开展应对并防止再次发生。",
+      "improvementHeading": "持续改进",
+      "improvementBody": "我们审视信息安全工作，努力持续改进。",
+      "contactHeading": "联系我们",
+      "contactBody": "有关本方针的问题，请通过以下窗口联系我们。",
+      "contactLink": "联系我们"
     }
   },
   "pageNames": {
@@ -463,7 +482,8 @@
     "tags": "标签",
     "authors": "作者",
     "archive": "归档",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "信息安全基本方针"
   },
   "tags": {
     "技術": "技术",

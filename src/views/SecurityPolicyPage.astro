@@ -1,0 +1,66 @@
+---
+import '../styles/prose.css'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import LegalContents from '../components/LegalContents.astro'
+import { getLocalizedUrl, t, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const sectionKeys = [
+  'protection',
+  'compliance',
+  'management',
+  'continuity',
+  'improvement',
+  'contact',
+]
+---
+
+<BaseLayout
+  title={t(locale, 'pages.securityPolicy.title')}
+  description={t(locale, 'pages.securityPolicy.description')}
+  locale={locale}
+>
+  <section class="ac-section legal-page">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb
+        items={[{ label: t(locale, 'pages.securityPolicy.title') }]}
+        locale={locale}
+      />
+      <h1 class="ac-page-title legal-title">
+        {t(locale, 'pages.securityPolicy.title')}
+      </h1>
+      <div class="legal-reading-layout">
+        <LegalContents
+          locale={locale}
+          items={sectionKeys.map((key) => ({
+            id: key,
+            label: t(locale, `pages.securityPolicy.${key}Heading`),
+          }))}
+        />
+        <div class="ac-prose max-w-none">
+          <p>{t(locale, 'pages.securityPolicy.lead')}</p>
+          {sectionKeys.map((key) => (
+            <section>
+              <h2 id={key}>
+                {t(locale, `pages.securityPolicy.${key}Heading`)}
+              </h2>
+              <p>{t(locale, `pages.securityPolicy.${key}Body`)}</p>
+              {key === 'contact' && (
+                <p>
+                  <a href={getLocalizedUrl('/contact/', locale)}>
+                    {t(locale, 'pages.securityPolicy.contactLink')}
+                  </a>
+                </p>
+              )}
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

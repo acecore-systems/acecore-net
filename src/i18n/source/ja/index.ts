@@ -8,6 +8,7 @@ import homePageTranslations from './pages/home.json'
 import notFoundPageTranslations from './pages/not-found.json'
 import privacyPageTranslations from './pages/privacy.json'
 import pricingPageTranslations from './pages/pricing.json'
+import securityPolicyPageTranslations from './pages/security-policy.json'
 import servicesPageTranslations from './pages/services.json'
 import termsPageTranslations from './pages/terms.json'
 
@@ -141,6 +142,7 @@ const jaTranslations = {
     pricing: pricingPageTranslations,
     contact: contactPageTranslations,
     privacy: privacyPageTranslations,
+    securityPolicy: securityPolicyPageTranslations,
     terms: termsPageTranslations,
     acestudio: acestudioPageTranslations,
   },

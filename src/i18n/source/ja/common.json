@@ -81,7 +81,8 @@
     "schools": "Acecore Schools",
     "pricing": "料金の目安",
     "terms": "Acecore ID 利用規約",
-    "privacy": "プライバシーポリシー"
+    "privacy": "プライバシーポリシー",
+    "securityPolicy": "情報セキュリティ基本方針"
   },
   "pageNames": {
     "services": "事業紹介",
@@ -95,6 +96,7 @@
     "tags": "タグ",
     "authors": "著者",
     "archive": "アーカイブ",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "情報セキュリティ基本方針"
   }
 }
