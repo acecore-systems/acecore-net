@@ -67,7 +67,7 @@ export async function createWorkersAiResponse(
       ],
       reasoning_effort:
         configuredModel === OPENAI_CHAT_MODEL
-          ? 'medium'
+          ? 'low'
           : normalizeReasoningEffort(env.WORKERS_AI_REASONING_EFFORT),
       max_completion_tokens: options.maxOutputTokens,
       user: options.safetyIdentifier,
