@@ -1,5 +1,5 @@
-export const OPENAI_CHAT_MODEL = 'gpt-6-luna' as const
-export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'low' as const
+export const OPENAI_CHAT_MODEL = 'muse-ember-1.0' as const
+export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'medium' as const
 
 export type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
 
@@ -65,9 +65,10 @@ export async function createWorkersAiResponse(
         { role: 'system', content: options.instructions },
         { role: 'user', content: options.input },
       ],
-      reasoning_effort: normalizeReasoningEffort(
-        env.WORKERS_AI_REASONING_EFFORT,
-      ),
+      reasoning_effort:
+        configuredModel === OPENAI_CHAT_MODEL
+          ? 'medium'
+          : normalizeReasoningEffort(env.WORKERS_AI_REASONING_EFFORT),
       max_completion_tokens: options.maxOutputTokens,
       user: options.safetyIdentifier,
       store: false,
@@ -90,10 +91,10 @@ export async function createWorkersAiResponse(
       )
       if (!response.ok) {
         await response.body?.cancel()
-        throw new Error('openai_request_failed')
+        throw new Error('meta_request_failed')
       }
       const body = await response.text()
-      if (body.length > 512 * 1024) throw new Error('openai_response_too_large')
+      if (body.length > 512 * 1024) throw new Error('meta_response_too_large')
       payload = JSON.parse(body)
     }
   } catch (error) {
