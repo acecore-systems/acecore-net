@@ -5,8 +5,8 @@
   "compatibility_date": "2026-07-27",
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-    "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
-    "WORKERS_AI_REASONING_EFFORT": "low",
+    "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+    "WORKERS_AI_REASONING_EFFORT": "medium",
     "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
     "SEARCH_EMBEDDING_DIMENSIONS": "1024",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
@@ -62,8 +62,8 @@
     "preview": {
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
-        "WORKERS_AI_REASONING_EFFORT": "low",
+        "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+        "WORKERS_AI_REASONING_EFFORT": "medium",
         "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
@@ -149,8 +149,8 @@
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "gpt-6-luna",
-        "WORKERS_AI_REASONING_EFFORT": "low",
+        "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+        "WORKERS_AI_REASONING_EFFORT": "medium",
         "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
