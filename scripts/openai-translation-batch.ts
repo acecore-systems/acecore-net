@@ -1,3 +1,9 @@
+import {
+  cleanupProcessedMetaResponses,
+  createGitHubJournalStore,
+  submitMetaTranslations,
+  collectMetaGroup,
+} from './meta-translation-background.ts'
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import {
@@ -12,7 +18,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const API_BASE_URL = 'https://api.openai.com/v1'
-const BATCH_MODEL = 'gpt-6-luna'
+const BATCH_MODEL = 'muse-ember-1.0'
 const BATCH_ENDPOINT = '/v1/responses'
 const BATCH_METADATA_KEY = 'translation_system'
 const BATCH_METADATA_VALUE = 'acecore-net-v1'
@@ -65,10 +71,6 @@ interface BatchInputLine {
   method: 'POST'
   url: typeof BATCH_ENDPOINT
   body: JsonRecord
-}
-
-interface OpenAiFile {
-  id: string
 }
 
 interface OpenAiBatch {
@@ -893,7 +895,7 @@ function createBlogBatchRequest(
     url: BATCH_ENDPOINT,
     body: {
       model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
+      reasoning: { effort: 'medium' },
       max_output_tokens: 32768,
       instructions:
         'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Keep description between 50 and 160 Unicode characters so it can be used as a meta description. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
@@ -941,7 +943,7 @@ function createSiteBatchRequest(
     url: BATCH_ENDPOINT,
     body: {
       model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
+      reasoning: { effort: 'medium' },
       max_output_tokens: 32768,
       instructions:
         'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
@@ -957,6 +959,35 @@ function createSiteBatchRequest(
   }
 }
 
+// A fixed synthetic request using the normal site-translation prompt and schema.
+export function createMetaTranslationProbeInput(): BatchInputLine {
+  const metadata: RequestMetadata = {
+    version: 1,
+    kind: 'site',
+    locale: 'en',
+    sourcePath: 'synthetic-probe',
+    sourceHash: '0'.repeat(64),
+  }
+  const input = createSiteBatchRequest(
+    metadata,
+    {
+      source: { greeting: 'こんにちは' },
+      targetMode: 'merge-root',
+      targetPath: [],
+    },
+    {},
+  )
+  input.body.max_output_tokens = 1024
+  return input
+}
+export function validateMetaTranslationProbeOutput(body: JsonRecord): void {
+  const values = parseSiteTranslations(parseJsonResponse(body), [
+    { id: '/greeting', source: 'こんにちは', current: null },
+  ])
+  if (!values.get('/greeting')?.trim())
+    throw new Error('meta_probe_empty_translation')
+}
+
 function createDeleteBatchRequest(metadata: RequestMetadata): BatchInputLine {
   return {
     custom_id: encodeMetadata(metadata),
@@ -964,7 +995,7 @@ function createDeleteBatchRequest(metadata: RequestMetadata): BatchInputLine {
     url: BATCH_ENDPOINT,
     body: {
       model: BATCH_MODEL,
-      reasoning: { effort: 'max' },
+      reasoning: { effort: 'medium' },
       instructions: 'Return the requested JSON object without additional text.',
       input: 'Confirm this translation source deletion.',
       text: {
@@ -1008,39 +1039,6 @@ async function openAiJson<T>(
 ): Promise<T> {
   const response = await openAiFetch(pathName, init)
   return (await response.json()) as T
-}
-
-async function uploadBatchInput(jsonl: string): Promise<OpenAiFile> {
-  const form = new FormData()
-  form.set('purpose', 'batch')
-  form.set(
-    'file',
-    new Blob([jsonl], { type: 'application/jsonl' }),
-    'acecore-net-translation.jsonl',
-  )
-  const response = await openAiFetch('/files', { method: 'POST', body: form })
-  return (await response.json()) as OpenAiFile
-}
-
-async function createBatch(
-  inputFileId: string,
-  headSha: string,
-): Promise<OpenAiBatch> {
-  return openAiJson<OpenAiBatch>('/batches', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      input_file_id: inputFileId,
-      endpoint: BATCH_ENDPOINT,
-      completion_window: '24h',
-      metadata: {
-        [BATCH_METADATA_KEY]: BATCH_METADATA_VALUE,
-        repository:
-          process.env.GITHUB_REPOSITORY ?? 'acecore-systems/acecore-net',
-        source_commit: headSha,
-      },
-    }),
-  })
 }
 
 function sourceAtCurrentRefMatches(
@@ -1153,14 +1151,15 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
     return
   }
 
-  const inputFile = await uploadBatchInput(
-    `${inputs.map((input) => JSON.stringify(input)).join('\n')}\n`,
-  )
-  const batch = await createBatch(inputFile.id, headSha)
+  const repo = process.env.GITHUB_REPOSITORY ?? ''
+  const token = process.env.GITHUB_TOKEN ?? ''
+  const apiKey = process.env.META_TRANSLATION_API_KEY ?? ''
+  const store = createGitHubJournalStore(repo, token, headSha)
+  const groupId = await submitMetaTranslations(inputs, store, apiKey)
   console.log(
-    `Submitted OpenAI translation batch ${batch.id} (${inputs.length} requests).`,
+    `Submitted Meta background translations ${groupId} (${inputs.length} requests).`,
   )
-  writeOutput('batch_id', batch.id)
+  writeOutput('batch_id', groupId)
 }
 
 function getResponseText(body: JsonRecord): string {
@@ -1430,7 +1429,9 @@ function makePrBody(
     ...[...uniqueMarkers.values()].map(sourceMarker),
     '',
     '## 概要',
-    '- OpenAI Batch（gpt-6-luna / reasoning max）で最新の日本語sourceを翻訳しました。',
+    batchId.startsWith('meta-')
+      ? '- Meta Muse Ember（medium）で最新の日本語sourceを翻訳しました。'
+      : '- OpenAI Batch（gpt-6-luna / reasoning max）の完了結果を反映しました。',
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',
@@ -1482,29 +1483,91 @@ function writeCollectedOutputs(result: CollectedResult): void {
   }
 }
 
+export function selectCurrentTranslationOutputs(
+  outputs: readonly BatchOutputLine[],
+  currentHash: (
+    metadata: RequestMetadata,
+  ) => string | null = getCurrentSourceHash,
+): Array<{ metadata: RequestMetadata; response: JsonRecord }> {
+  const selected: Array<{ metadata: RequestMetadata; response: JsonRecord }> =
+    []
+  for (const output of outputs) {
+    if (!output.response || output.response.status_code !== 200) continue
+    const metadata = decodeMetadata(output.custom_id)
+    if (currentHash(metadata) !== metadata.sourceHash) {
+      console.log(
+        `Discarded stale translation result for ${metadata.sourcePath}`,
+      )
+      continue
+    }
+    selected.push({
+      metadata,
+      response: parseJsonResponse(output.response.body),
+    })
+  }
+  return selected
+}
+
 async function collectBatch(args: ParsedArgs): Promise<void> {
   await closeStaleOpenAiTranslationPullRequests()
-  const batches = await listBatches()
-  const nowSeconds = Math.floor(Date.now() / 1000)
-  const expiredCount = batches.filter(
-    (batch) =>
-      isTranslationBatch(batch) &&
-      batch.status === 'completed' &&
-      !args.processedBatchIds.has(batch.id) &&
-      isBatchOutputExpired(batch, nowSeconds),
-  ).length
-  if (expiredCount > 0) {
-    console.log(
-      `Ignored ${expiredCount} completed translation batches whose OpenAI output files have expired.`,
+  let selected: { id: string; outputs: BatchOutputLine[] } | null = null
+  const metaKey = process.env.META_TRANSLATION_API_KEY
+  if (metaKey) {
+    const headSha = runGit(['rev-parse', 'HEAD'])
+    const store = createGitHubJournalStore(
+      process.env.GITHUB_REPOSITORY ?? '',
+      process.env.GITHUB_TOKEN ?? '',
+      headSha,
     )
+    try {
+      await cleanupProcessedMetaResponses(store, metaKey)
+    } catch {
+      console.error(
+        'Meta processed-response cleanup deferred; IDs remain in the journal.',
+      )
+    }
+    try {
+      const journal = await store.read()
+      const meta = await collectMetaGroup(
+        journal,
+        args.processedBatchIds,
+        metaKey,
+      )
+      if (meta)
+        selected = {
+          id: meta.id,
+          outputs: meta.outputs as unknown as BatchOutputLine[],
+        }
+    } catch {
+      // Provider/journal unavailability must not prevent the independent legacy Batch drain.
+      console.error(
+        'Meta translation collection deferred; journal and response IDs are retained.',
+      )
+    }
   }
-  const batch = selectCompletedBatch(
-    batches,
-    args.processedBatchIds,
-    nowSeconds,
-  )
-  if (!batch) {
-    console.log('No unprocessed completed OpenAI translation batches found.')
+  if (!selected && process.env.OPENAI_TRANSLATION_API_KEY) {
+    const batches = await listBatches()
+    const nowSeconds = Math.floor(Date.now() / 1000)
+    const expiredCount = batches.filter(
+      (item) =>
+        isTranslationBatch(item) &&
+        item.status === 'completed' &&
+        !args.processedBatchIds.has(item.id) &&
+        isBatchOutputExpired(item, nowSeconds),
+    ).length
+    if (expiredCount > 0)
+      console.log(
+        `Ignored ${expiredCount} completed translation batches whose OpenAI output files have expired.`,
+      )
+    const batch = selectCompletedBatch(
+      batches,
+      args.processedBatchIds,
+      nowSeconds,
+    )
+    if (batch) selected = { id: batch.id, outputs: await getBatchOutput(batch) }
+  }
+  if (!selected) {
+    console.log('No unprocessed completed translation jobs found.')
     writeCollectedOutputs({
       processedBatchId: null,
       hasChanges: false,
@@ -1513,21 +1576,13 @@ async function collectBatch(args: ParsedArgs): Promise<void> {
     })
     return
   }
-
-  const outputs = await getBatchOutput(batch)
+  const outputs = selected.outputs
+  const batch = { id: selected.id }
   let hasChanges = false
   const appliedMarkers: RequestMetadata[] = []
-  for (const output of outputs) {
-    if (!output.response || output.response.status_code !== 200) continue
-    const metadata = decodeMetadata(output.custom_id)
-    if (getCurrentSourceHash(metadata) !== metadata.sourceHash) {
-      console.log(
-        `Discarded stale translation result for ${metadata.sourcePath}`,
-      )
-      continue
-    }
-
-    const response = parseJsonResponse(output.response.body)
+  for (const { metadata, response } of selectCurrentTranslationOutputs(
+    outputs,
+  )) {
     const changed =
       metadata.kind === 'blog'
         ? applyBlogTranslation(metadata, response)

@@ -1,4 +1,4 @@
-name: Submit OpenAI Translation Batch
+name: Submit Meta Translation Background Jobs
 
 on:
   push:
@@ -9,6 +9,11 @@ on:
       - src/i18n/source/ja/**/*.json
   workflow_dispatch:
     inputs:
+      probe_only:
+        description: Run one synthetic Meta probe without submitting translations
+        required: false
+        type: boolean
+        default: false
       base_sha:
         description: Optional base SHA for changed-source detection
         required: false
@@ -19,7 +24,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   submit:
@@ -29,7 +34,7 @@ jobs:
       - name: Check out source revision
         uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.head_sha || github.sha }}
+          ref: ${{ inputs.probe_only && github.sha || inputs.head_sha || github.sha }}
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -45,32 +50,65 @@ jobs:
         run: npm run typecheck:openai-translation
 
       - name: Wait for follow-up edits to the same source
+        if: ${{ inputs.probe_only != true }}
         run: sleep 900
 
       - name: Fetch current main
+        if: ${{ inputs.probe_only != true }}
         # Checkout fetched the full history. A shallow fetch can reject the
         # updated tracking ref when main advances during the 15-minute wait.
         run: git fetch origin main:refs/remotes/origin/main
 
-      - name: Submit current translation requests
+      - name: Submit current Meta translation requests
+        if: ${{ inputs.probe_only != true }}
         env:
-          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          INPUT_BASE_SHA: ${{ inputs.base_sha }}
+          INPUT_HEAD_SHA: ${{ inputs.head_sha }}
         run: |
-          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
-            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no translation Batch was submitted."
+          if [ -z "$META_TRANSLATION_API_KEY" ]; then
+            echo "::warning::META_TRANSLATION_API_KEY is not configured; no translation job was submitted."
             exit 0
           fi
 
           args=(submit)
-          if [ -n "${{ inputs.base_sha }}" ]; then
-            args+=("--base=${{ inputs.base_sha }}")
+          if [ -n "$INPUT_BASE_SHA" ]; then
+            args+=("--base=$INPUT_BASE_SHA")
           fi
-          if [ -n "${{ inputs.head_sha }}" ]; then
-            args+=("--head=${{ inputs.head_sha }}")
+          if [ -n "$INPUT_HEAD_SHA" ]; then
+            args+=("--head=$INPUT_HEAD_SHA")
           fi
           args+=("--current-ref=origin/main")
 
           node --experimental-strip-types scripts/openai-translation-batch.ts "${args[@]}"
+
+      - name: Run synthetic Meta translation probe
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.probe_only == true }}
+        timeout-minutes: 5
+        env:
+          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+        run: node --experimental-strip-types scripts/meta-translation-probe.ts
+
+      - name: Preserve synthetic probe receipt
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.probe_only == true }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: meta-translation-probe-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/meta-translation-probe.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Preserve Meta journal snapshot
+        if: ${{ always() && inputs.probe_only != true }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: meta-translation-journal-submit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/meta-translation-journal.json
+            ${{ runner.temp }}/meta-translation-receipts.jsonl
+          if-no-files-found: ignore
+          retention-days: 30
