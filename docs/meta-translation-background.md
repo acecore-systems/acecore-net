@@ -2,9 +2,9 @@
 
 mainへの対象source更新後、従来どおり15分待機して最新sourceを照合し、Meta Responsesの `muse-ember-1.0` / `medium` を background で送信する。入力・出力は `store: true` で Meta 側に一時保存される。JSON schema、出力token上限、sourceHash、翻訳Bot PR とCIは維持する。旧OpenAI Batchは新規送信せず、既存の未回収分を従来のcollectorで回収する。
 
-`translation/meta-journal` branch の `.translation-meta/journal.json` に要求hash、source識別子、送信状態、受理response IDだけを保存する。原文、翻訳本文、APIキーは記録しない。GitHub contents APIの更新SHAで同時実行を調停し、POST前に `dispatching` を保存する。POST応答が消失した場合はID不明として自動再送しない。受理IDはjournalと30日保持のActions artifactに記録する。受理直後のjournal書込失敗時はreceipt artifactから照合し、不明状態を確認してから復旧する。
+`translation/meta-journal` branch の `.translation-meta/journal.json` に要求hash、source識別子、送信状態、受理response IDだけを保存する。原文、翻訳本文、APIキーは記録しない。GitHub contents APIの更新SHAで同時実行を調停し、POST前に `dispatching` を保存する。同一の要求内容はgroupをまたいで同じ送信状態とresponse IDを共有する。POST応答が消失した場合はID不明として自動再送しない。受理IDはjournalと30日保持のActions artifactに記録する。受理直後のjournal書込失敗時はreceipt artifactから照合し、不明状態を確認してから復旧する。
 
-定期collectorは受理IDをGETして全件の終了を確認し、既存のsourceHash検査に合う結果だけを既存の翻訳PR経路へ渡す。PR作成または変更不要の処理済み記録が成功した後にjournalをprocessedにし、Meta側responseを削除する。削除に失敗したIDはjournalに残し、後続collectorで再試行する。unknownや未送信が残るgroupは適用しない。Metaの保存期限は未確認であり、受理後は早めに回収する。
+定期collectorは受理IDをGETして全件の終了を確認し、既存のsourceHash検査に合う結果だけを既存の翻訳PR経路へ渡す。PR作成または変更不要の処理済み記録が成功した後にjournalをprocessedにし、Meta側responseを削除する。同一responseを参照するすべてのgroupの処理完了後に削除を予約し、削除失敗時は同一要求を待機させて後続collectorで再試行する。unknownや未送信が残るgroupは適用しない。Metaの保存期限は未確認であり、受理後は早めに回収する。
 
 GitHub Actionsの `META_TRANSLATION_API_KEY` と `GITHUB_TOKEN` のcontents writeが必要。APIキー自体はjournal、artifact、ログに保存しない。送信元のsourceが更新された結果は適用時のhash照合で破棄する。POST不明状態や失敗groupはjournalと該当run artifactを確認し、プロバイダー状態を照合してから手動復旧する。
 

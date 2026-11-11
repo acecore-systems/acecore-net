@@ -5,6 +5,7 @@ import {
   collectMetaGroup,
   finalizeMetaGroup,
   metaGroupId,
+  metaInputHash,
   metaRequestHash,
   reconcileMetaReceipt,
   submitMetaTranslations,
@@ -205,6 +206,8 @@ test('Meta background送信はmedium・明示保存で実IDをjournalに記録�
   assert.deepEqual((await store.read()).groups[id].entries, [
     {
       customId: 'synthetic:ja:hash',
+      requestKey: metaInputHash(metaInputs[0]),
+      ownerGroupId: id,
       state: 'submitted',
       responseId: 'resp_synthetic',
     },
@@ -626,4 +629,106 @@ test('曖昧なHTTP 408はfailed扱いせず送信不明のまま保持する', 
     (await store.read()).groups[metaGroupId(metaInputs)].entries[0].state,
     'dispatching',
   )
+})
+
+test('別groupの同一要求は共有し、全groupの処理完了まで出力を削除しない', async () => {
+  const store = memoryJournal()
+  const second = { custom_id: 'synthetic:en:hash', body: { input: 'other' } }
+  let posts = 0
+  const submit: typeof fetch = async () =>
+    Response.json({ id: `resp_${++posts}` })
+  const firstId = await submitMetaTranslations(metaInputs, store, 'key', submit)
+  const secondId = await submitMetaTranslations(
+    [...metaInputs, second],
+    store,
+    'key',
+    submit,
+  )
+  assert.equal(posts, 2)
+  const shared = (await store.read()).groups[secondId].entries[0]
+  assert.equal(shared.responseId, 'resp_1')
+  assert.equal(shared.ownerGroupId, firstId)
+  await finalizeMetaGroup(firstId, store)
+  const deleted: string[] = []
+  const remove: typeof fetch = async (url) => {
+    deleted.push(String(url))
+    return new Response(null, { status: 204 })
+  }
+  await cleanupProcessedMetaResponses(store, 'key', remove)
+  assert.equal(deleted.length, 0)
+  await finalizeMetaGroup(secondId, store)
+  await cleanupProcessedMetaResponses(store, 'key', remove)
+  assert.equal(deleted.length, 2)
+  assert.equal(new Set(deleted).size, 2)
+})
+
+test('別groupも不明な送信を再送せずreceipt復旧を共有する', async () => {
+  const store = memoryJournal()
+  let posts = 0
+  const lost: typeof fetch = async () => {
+    posts++
+    throw new Error('lost')
+  }
+  await assert.rejects(submitMetaTranslations(metaInputs, store, 'key', lost))
+  const other = [...metaInputs, { custom_id: 'other', body: {} }]
+  await assert.rejects(
+    submitMetaTranslations(other, store, 'key', async () => {
+      posts++
+      return Response.json({ id: 'resp_other' })
+    }),
+    /meta_unknown_submission/,
+  )
+  assert.equal(posts, 2)
+  const groupId = metaGroupId(metaInputs)
+  await reconcileMetaReceipt(
+    {
+      groupId,
+      customId: metaInputs[0].custom_id,
+      responseId: 'resp_recovered',
+    },
+    store,
+    'key',
+    async () =>
+      Response.json({
+        id: 'resp_recovered',
+        model: 'muse-ember-1.0',
+        metadata: {
+          translation_group: groupId,
+          request_hash: metaRequestHash(metaInputs[0].custom_id),
+        },
+      }),
+  )
+  assert.equal(
+    (await store.read()).groups[metaGroupId(other)].entries[0].responseId,
+    'resp_recovered',
+  )
+})
+
+test('削除失敗中の同一要求は待機し、削除再試行後のみ新規送信する', async () => {
+  const store = memoryJournal()
+  let posts = 0
+  const send: typeof fetch = async () =>
+    Response.json({ id: `resp_${++posts}` })
+  const first = await submitMetaTranslations(metaInputs, store, 'key', send)
+  await finalizeMetaGroup(first, store)
+  await assert.rejects(
+    cleanupProcessedMetaResponses(
+      store,
+      'key',
+      async () => new Response(null, { status: 500 }),
+    ),
+  )
+  const other = [...metaInputs, { custom_id: 'other', body: {} }]
+  await assert.rejects(
+    submitMetaTranslations(other, store, 'key', send),
+    /meta_cleanup_pending/,
+  )
+  assert.equal(posts, 2)
+  await cleanupProcessedMetaResponses(
+    store,
+    'key',
+    async () => new Response(null, { status: 204 }),
+  )
+  await submitMetaTranslations(other, store, 'key', send)
+  assert.equal(posts, 3)
 })

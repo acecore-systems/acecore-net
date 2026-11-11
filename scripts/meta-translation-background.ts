@@ -9,6 +9,9 @@ export interface MetaTranslationInput {
 export interface MetaJournalEntry {
   customId: string
   state: 'queued' | 'dispatching' | 'submitted' | 'failed'
+  requestKey: string
+  ownerGroupId?: string
+  deletingAt?: string
   responseId?: string
   deletedAt?: string
 }
@@ -144,6 +147,9 @@ export function metaBackgroundBody(
 export function metaRequestHash(customId: string): string {
   return createHash('sha256').update(customId).digest('hex')
 }
+export function metaInputHash(input: MetaTranslationInput): string {
+  return createHash('sha256').update(JSON.stringify(input)).digest('hex')
+}
 export function metaGroupId(inputs: readonly MetaTranslationInput[]): string {
   return (
     'meta-' +
@@ -168,6 +174,7 @@ export async function submitMetaTranslations(
         createdAt: new Date().toISOString(),
         entries: inputs.map((input) => ({
           customId: input.custom_id,
+          requestKey: metaInputHash(input),
           state: 'queued',
         })),
       }
@@ -179,9 +186,34 @@ export async function submitMetaTranslations(
       const entry = journal.groups[id]?.entries[index]
       if (!entry || entry.customId !== inputs[index].custom_id)
         throw new Error('journal_input_mismatch')
+      if (entry.requestKey !== metaInputHash(inputs[index]))
+        throw new Error('journal_input_mismatch')
       if (entry.state === 'queued') {
-        entry.state = 'dispatching'
-        reserved = true
+        const matches = Object.values(journal.groups).flatMap((group) =>
+          group.entries.filter(
+            (other) =>
+              other !== entry &&
+              other.requestKey === entry.requestKey &&
+              !other.deletedAt,
+          ),
+        )
+        const active = matches.find(
+          (other) =>
+            other.deletingAt ||
+            other.state === 'dispatching' ||
+            other.state === 'submitted' ||
+            other.state === 'failed',
+        )
+        if (active?.deletingAt) return
+        if (active) {
+          entry.state = active.state
+          entry.ownerGroupId = active.ownerGroupId
+          entry.responseId = active.responseId
+        } else {
+          entry.state = 'dispatching'
+          entry.ownerGroupId = id
+          reserved = true
+        }
       }
     })
     if (!reserved) continue
@@ -222,7 +254,17 @@ export async function submitMetaTranslations(
       ) {
         const state = response.status === 429 ? 'queued' : 'failed'
         await store.mutate((journal) => {
-          journal.groups[id].entries[index].state = state
+          const key = journal.groups[id].entries[index].requestKey
+          for (const group of Object.values(journal.groups))
+            for (const entry of group.entries)
+              if (
+                entry.requestKey === key &&
+                entry.ownerGroupId === id &&
+                entry.state === 'dispatching'
+              ) {
+                entry.state = state
+                if (state === 'queued') entry.ownerGroupId = undefined
+              }
         })
       }
       throw new Error(`meta_submit_${response.status}`)
@@ -256,13 +298,23 @@ export async function submitMetaTranslations(
       const entry = journal.groups[id].entries[index]
       if (entry.state !== 'dispatching')
         throw new Error('journal_state_changed')
-      entry.responseId = responseId
-      entry.state = 'submitted'
+      for (const group of Object.values(journal.groups))
+        for (const target of group.entries)
+          if (
+            target.requestKey === entry.requestKey &&
+            target.ownerGroupId === id &&
+            target.state === 'dispatching'
+          ) {
+            target.responseId = responseId
+            target.state = 'submitted'
+          }
     })
   }
   const final = await store.read()
   if (final.groups[id].entries.some((entry) => entry.state === 'dispatching'))
     throw new Error('meta_unknown_submission')
+  if (final.groups[id].entries.some((entry) => entry.state === 'queued'))
+    throw new Error('meta_cleanup_pending')
   return id
 }
 export async function finalizeMetaGroup(
@@ -328,8 +380,16 @@ export async function reconcileMetaReceipt(
         ))
     )
       throw new Error('meta_receipt_state_mismatch')
-    entry.responseId = receipt.responseId
-    entry.state = 'submitted'
+    for (const otherGroup of Object.values(journal.groups))
+      for (const target of otherGroup.entries)
+        if (
+          target.requestKey === entry.requestKey &&
+          target.ownerGroupId === receipt.groupId &&
+          target.state === 'dispatching'
+        ) {
+          target.responseId = receipt.responseId
+          target.state = 'submitted'
+        }
   })
 }
 
@@ -341,31 +401,57 @@ export async function cleanupProcessedMetaResponses(
 ): Promise<void> {
   if (!apiKey) throw new Error('META_TRANSLATION_API_KEY is required')
   const journal = await store.read()
-  for (const group of Object.values(journal.groups)) {
-    if (!group.processedAt) continue
-    for (let index = 0; index < group.entries.length; index++) {
-      const entry = group.entries[index]
-      if (!entry.responseId || entry.deletedAt) continue
-      if (!/^resp_[A-Za-z0-9_-]+$/.test(entry.responseId))
-        throw new Error('journal_invalid_response_id')
-      const response = await fetchImpl(
-        `${BASE_URL}/responses/${entry.responseId}`,
-        {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${apiKey}` },
-          signal: AbortSignal.timeout(30_000),
-        },
+  const ids = new Set(
+    Object.values(journal.groups).flatMap((group) =>
+      group.entries
+        .filter(
+          (entry) => group.processedAt && entry.responseId && !entry.deletedAt,
+        )
+        .map((entry) => entry.responseId!),
+    ),
+  )
+  for (const responseId of ids) {
+    if (!/^resp_[A-Za-z0-9_-]+$/.test(responseId))
+      throw new Error('journal_invalid_response_id')
+    let eligible = false
+    await store.mutate((latest) => {
+      eligible = false
+      const all = Object.values(latest.groups).flatMap((group) =>
+        group.entries.map((entry) => ({ group, entry })),
       )
-      if (!response.ok && response.status !== 404)
-        throw new Error(`meta_delete_${response.status}`)
-      await store.mutate((latest) => {
-        const current = latest.groups[group.id]
-        const target = current?.entries[index]
-        if (!current?.processedAt || target?.responseId !== entry.responseId)
-          throw new Error('journal_state_changed')
-        target.deletedAt ??= new Date().toISOString()
-      })
-    }
+      const refs = all.filter(
+        ({ entry }) => entry.responseId === responseId && !entry.deletedAt,
+      )
+      if (!refs.length) return
+      const keys = new Set(refs.map(({ entry }) => entry.requestKey))
+      const deleting = refs.some(({ entry }) => entry.deletingAt)
+      if (
+        all.some(
+          ({ group, entry }) =>
+            keys.has(entry.requestKey) &&
+            !group.processedAt &&
+            (!deleting || entry.responseId === responseId),
+        )
+      )
+        return
+      for (const { entry } of refs)
+        entry.deletingAt ??= new Date().toISOString()
+      eligible = true
+    })
+    if (!eligible) continue
+    const response = await fetchImpl(`${BASE_URL}/responses/${responseId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${apiKey}` },
+      signal: AbortSignal.timeout(30_000),
+    })
+    if (!response.ok && response.status !== 404)
+      throw new Error(`meta_delete_${response.status}`)
+    await store.mutate((latest) => {
+      for (const group of Object.values(latest.groups))
+        for (const entry of group.entries)
+          if (entry.responseId === responseId)
+            entry.deletedAt ??= new Date().toISOString()
+    })
   }
 }
 export interface MetaOutput {
@@ -417,7 +503,7 @@ export async function collectMetaGroup(
       if (
         body.id !== entry.responseId ||
         body.model !== 'muse-ember-1.0' ||
-        metadata?.translation_group !== group.id ||
+        metadata?.translation_group !== (entry.ownerGroupId ?? group.id) ||
         metadata?.request_hash !== metaRequestHash(entry.customId)
       )
         throw new Error('meta_poll_mismatch')
