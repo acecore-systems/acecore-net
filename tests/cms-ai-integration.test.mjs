@@ -19,7 +19,7 @@ test('CMS AIは共通会話UIとService Bindingだけをサイトへ組み込む
   assert.match(client, /\/admin\/api\/ai/)
   assert.match(client, /sessionEndpoint/)
   assert.match(client, /reasoningEffort/)
-  for (const effort of ['low', 'medium', 'high', 'max'])
+  for (const effort of ['minimal', 'low', 'medium', 'high', 'xhigh', 'max'])
     assert.ok(client.includes(`<option value="${effort}"`))
   assert.match(
     client,
