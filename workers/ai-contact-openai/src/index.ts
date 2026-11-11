@@ -88,7 +88,7 @@ export default {
         body: JSON.stringify({
           ...parsed,
           model: MODEL,
-          reasoning_effort: 'medium',
+          reasoning_effort: 'low',
         }),
         signal: AbortSignal.timeout(30_000),
       })

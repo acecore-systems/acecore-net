@@ -148,7 +148,7 @@ const SOURCE_MATCHES = {
   },
 }
 
-test('問い合わせの実入口からMetaへmediumで送り、鍵がなければ閉じる', async () => {
+test('問い合わせの経路からMetaへlowで送り、鍵がなければ閉じる', async () => {
   let sent
   const originalFetch = globalThis.fetch
   globalThis.fetch = async (url, init) => {
@@ -178,7 +178,7 @@ test('問い合わせの実入口からMetaへmediumで送り、鍵がなけれ�
     )
     assert.equal(result.text, '回答です')
     assert.equal(sent.model, 'muse-ember-1.0')
-    assert.equal(sent.reasoning_effort, 'medium')
+    assert.equal(sent.reasoning_effort, 'low')
     assert.equal(sent.store, false)
     const old = await contactWorker.fetch(
       new Request('https://ai-contact.internal/v1/chat', {
@@ -194,7 +194,7 @@ test('問い合わせの実入口からMetaへmediumで送り、鍵がなけれ�
     )
     assert.equal(old.status, 200)
     assert.equal(sent.model, 'muse-ember-1.0')
-    assert.equal(sent.reasoning_effort, 'medium')
+    assert.equal(sent.reasoning_effort, 'low')
     const missing = await contactWorker.fetch(
       new Request('https://ai-contact.internal/v1/chat', {
         method: 'POST',
@@ -204,6 +204,47 @@ test('問い合わせの実入口からMetaへmediumで送り、鍵がなけれ�
       {},
     )
     assert.equal(missing.status, 503)
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
+test('問い合わせ通常入口からMetaへlowを送る', async () => {
+  const originalFetch = globalThis.fetch
+  let sent
+  try {
+    globalThis.fetch = async (_url, init) => {
+      sent = JSON.parse(init.body)
+      return Response.json(
+        createChatCompletion(
+          '[問い合わせフォーム](/contact/)をご利用ください。',
+        ),
+      )
+    }
+    const response = await handleAiContactPost({
+      request: createRequest({ question: 'お問い合わせ先は？', locale: 'ja' }),
+      env: {
+        AI: {
+          run: () => {
+            throw new Error('unexpected AI call')
+          },
+        },
+        SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+        SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+        SEARCH_EMBEDDING_DIMENSIONS: '1024',
+        SEARCH_ENABLED: 'false',
+        WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
+        WORKERS_AI_REASONING_EFFORT: 'medium',
+        AI_CONTACT_OPENAI_SERVICE: {
+          fetch: (url, init) =>
+            contactWorker.fetch(new Request(url, init), {
+              META_API_KEY_STORE: { get: async () => 'test-meta-key' },
+            }),
+        },
+      },
+    })
+    assert.equal(response.status, 200)
+    assert.equal(sent.reasoning_effort, 'low')
   } finally {
     globalThis.fetch = originalFetch
   }
