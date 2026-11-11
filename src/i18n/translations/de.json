@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "Preisübersicht",
     "terms": "Nutzungsbedingungen für Acecore ID",
-    "privacy": "Datenschutzerklärung"
+    "privacy": "Datenschutzerklärung",
+    "securityPolicy": "Informationssicherheitsrichtlinie"
   },
   "blog": {
     "title": "Neuigkeiten",
@@ -461,6 +462,24 @@
     "pricing": {
       "systemsTitle": "Preise von Acecore Systems",
       "schoolsTitle": "Preise von Acecore Schools"
+    },
+    "securityPolicy": {
+      "title": "Informationssicherheitsrichtlinie",
+      "description": "Die Informationssicherheitsrichtlinie von Acecore.",
+      "lead": "Acecore Co., Ltd. schützt unter Verantwortung der Geschäftsleitung die Informationswerte des Unternehmens, einschließlich der von Kunden und Geschäftspartnern anvertrauten Informationen.",
+      "protectionHeading": "Schutz der Informationswerte",
+      "protectionBody": "Wir setzen risikogerechte Ziele und ergreifen erforderliche Maßnahmen, um Vertraulichkeit, Integrität und Verfügbarkeit der Informationswerte zu schützen.",
+      "complianceHeading": "Gesetzliche und vertragliche Anforderungen",
+      "complianceBody": "Wir erfüllen die für uns geltenden Gesetze, vertraglichen Verpflichtungen und sonstigen Anforderungen an die Informationssicherheit.",
+      "managementHeading": "Verwaltung und Schulung",
+      "managementBody": "Wir verwalten Zugriffsrechte angemessen, schulen Führungskräfte und Mitarbeitende und kümmern uns um die Steuerung beauftragter Dienstleister.",
+      "continuityHeading": "Geschäftskontinuität und Vorfallreaktion",
+      "continuityBody": "Wir arbeiten an der Sicherung notwendiger Informationswerte und überprüfen die Wiederherstellungsverfahren. Bei Sicherheitsvorfällen bemühen wir uns um Schadensbegrenzung, Reaktion und Vermeidung einer Wiederholung.",
+      "improvementHeading": "Kontinuierliche Verbesserung",
+      "improvementBody": "Wir überprüfen und verbessern unser Managementsystem für Informationssicherheit kontinuierlich.",
+      "contactHeading": "Kontakt",
+      "contactBody": "Für Fragen zu dieser Richtlinie nutzen Sie bitte die Kontaktseite.",
+      "contactLink": "Kontakt aufnehmen"
     }
   },
   "pageNames": {
@@ -475,7 +494,8 @@
     "tags": "Tags",
     "authors": "Autoren",
     "archive": "Archiv",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "Informationssicherheitsrichtlinie"
   },
   "tags": {
     "技術": "Technologie",

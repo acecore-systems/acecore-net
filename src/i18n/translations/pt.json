@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "Guia de preços",
     "terms": "Termos de Uso do Acecore ID",
-    "privacy": "Política de privacidade"
+    "privacy": "Política de privacidade",
+    "securityPolicy": "Política básica de segurança da informação"
   },
   "blog": {
     "title": "Notícias",
@@ -455,6 +456,24 @@
     "pricing": {
       "systemsTitle": "Preços da Acecore Systems",
       "schoolsTitle": "Preços da Acecore Schools"
+    },
+    "securityPolicy": {
+      "title": "Política básica de segurança da informação",
+      "description": "Política de segurança da informação da Acecore.",
+      "lead": "A Acecore Co., Ltd. protege, sob a responsabilidade da administração, os ativos de informação de suas atividades, incluindo informações confiadas por clientes e parceiros comerciais.",
+      "protectionHeading": "Proteção dos ativos de informação",
+      "protectionBody": "Definimos objetivos e adotamos medidas conforme os riscos para proteger a confidencialidade, integridade e disponibilidade dos ativos de informação.",
+      "complianceHeading": "Requisitos legais e contratuais",
+      "complianceBody": "Cumprimos as leis, obrigações contratuais e demais requisitos de segurança da informação aplicáveis à empresa.",
+      "managementHeading": "Gestão e capacitação",
+      "managementBody": "Gerenciamos adequadamente os direitos de acesso, capacitamos dirigentes e funcionários e trabalhamos na gestão de prestadores contratados.",
+      "continuityHeading": "Continuidade e resposta a incidentes",
+      "continuityBody": "Trabalhamos para fazer cópias de segurança dos ativos de informação necessários e verificar os procedimentos de recuperação. Em caso de incidentes, buscamos conter danos, responder e evitar recorrências.",
+      "improvementHeading": "Melhoria contínua",
+      "improvementBody": "Revisamos e melhoramos continuamente nosso sistema de gestão da segurança da informação.",
+      "contactHeading": "Contato",
+      "contactBody": "Para dúvidas sobre esta política, utilize a página de contato.",
+      "contactLink": "Entre em contato"
     }
   },
   "pageNames": {
@@ -469,7 +488,8 @@
     "tags": "Tags",
     "authors": "Autores",
     "archive": "Arquivo",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "Política básica de segurança da informação"
   },
   "tags": {
     "技術": "Tecnologia",

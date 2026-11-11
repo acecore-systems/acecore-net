@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "Pricing Guide",
     "terms": "Acecore ID Terms of Use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "securityPolicy": "Information Security Policy"
   },
   "blog": {
     "title": "News",
@@ -609,6 +610,24 @@
     "pricing": {
       "systemsTitle": "Acecore Systems pricing",
       "schoolsTitle": "Acecore Schools pricing"
+    },
+    "securityPolicy": {
+      "title": "Information Security Policy",
+      "description": "Acecore’s policy on information security.",
+      "lead": "Acecore Co., Ltd. protects its business information assets, including information entrusted to it by customers and business partners, under the responsibility of management.",
+      "protectionHeading": "Protection of information assets",
+      "protectionBody": "We set objectives and work on appropriate measures according to risk to protect the confidentiality, integrity and availability of information assets.",
+      "complianceHeading": "Legal and contractual requirements",
+      "complianceBody": "We comply with the laws, contractual obligations and other requirements applicable to us regarding information security.",
+      "managementHeading": "Management and education",
+      "managementBody": "We manage access rights appropriately, educate officers and employees, and work to manage our contractors.",
+      "continuityHeading": "Business continuity and incident response",
+      "continuityBody": "We work to back up necessary information assets and check recovery procedures. If an information security incident occurs, we strive to contain the damage, respond and prevent recurrence.",
+      "improvementHeading": "Continual improvement",
+      "improvementBody": "We review and continually improve our information security management system.",
+      "contactHeading": "Contact",
+      "contactBody": "For inquiries about this policy, please use the contact page.",
+      "contactLink": "Contact us"
     }
   },
   "pageNames": {
@@ -623,7 +642,8 @@
     "tags": "Tags",
     "authors": "Authors",
     "archive": "Archive",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "Information Security Policy"
   },
   "tags": {
     "技術": "Technology",
