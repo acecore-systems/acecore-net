@@ -41,15 +41,16 @@ jobs:
           ids="$(gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | sed -n 's/^openai-translation-processed-//p' | paste -sd, - || true)"
           echo "ids=${ids}" >> "$GITHUB_OUTPUT"
 
-      - name: Collect one completed batch
+      - name: Collect one completed translation group
         id: collector
         env:
           OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
-            echo "::warning::OPENAI_TRANSLATION_API_KEY is not configured; no Batch was collected."
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ] && [ -z "$META_TRANSLATION_API_KEY" ]; then
+            echo "::warning::Translation provider keys are not configured; nothing was collected."
             exit 0
           fi
           node --experimental-strip-types scripts/openai-translation-batch.ts collect --processed-batches="${{ steps.processed.outputs.ids }}"
@@ -115,7 +116,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --draft \
-            --title "[translation] OpenAI Batch ${BATCH_ID}" \
+            --title "[translation] ${BATCH_ID}" \
             --body-file "$BODY_PATH"
 
       - name: Mark batch as processed
@@ -127,4 +128,26 @@ jobs:
         with:
           name: openai-translation-processed-${{ steps.collector.outputs.processed_batch_id }}
           path: ${{ steps.collector.outputs.marker_path }}
+          retention-days: 30
+
+      - name: Finalize processed Meta journal group
+        if: >-
+          success() &&
+          startsWith(steps.collector.outputs.processed_batch_id, 'meta-') &&
+          (steps.collector.outputs.has_changes != 'true' || steps.commit.outputs.branch != '')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          META_GROUP_ID: ${{ steps.collector.outputs.processed_batch_id }}
+          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+        run: node --experimental-strip-types scripts/finalize-meta-translation.ts "$META_GROUP_ID"
+
+      - name: Preserve Meta journal snapshot
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: meta-translation-journal-collect-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/meta-translation-journal.json
+            ${{ runner.temp }}/meta-translation-receipts.jsonl
+          if-no-files-found: ignore
           retention-days: 30
