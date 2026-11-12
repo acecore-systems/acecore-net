@@ -13,6 +13,8 @@ export const SITE = {
   url: 'https://acecore.net',
   /** 電話番号（国内表記） */
   phone: '0120-987-370',
+  /** 構造化データ用の国番号付き表記（海外からの着信可否を示すものではない） */
+  phoneIntl: '+81-120-987-370',
   /** お問い合わせメールアドレス */
   email: 'info@acecore.net',
   /** LINE 公式アカウント URL */
