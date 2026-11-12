@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import BlogPostCard from '../components/BlogPostCard.astro'
 import { getCollection } from 'astro:content'
-import AdUnit from '../components/AdUnit.astro'
 import { POSTS_PER_PAGE, buildPageNumbers } from '../utils/pagination'
 import { t, getLocalizedUrl, type Locale } from '../i18n'
 import {
@@ -106,16 +105,11 @@ const pageNumbers = buildPageNumbers(1, totalPages)
             </p>
           ) : (
             <div class="news-list">
-              {posts.map((post, i: number) => (
-                <Fragment>
-                  {i > 0 && i % 3 === 0 && (
-                    <AdUnit containerClass="ac-card overflow-hidden p-3" />
-                  )}
-                  <BlogPostCard
-                    post={localizePost(post, allRawPosts, locale)}
-                    locale={locale}
-                  />
-                </Fragment>
+              {posts.map((post) => (
+                <BlogPostCard
+                  post={localizePost(post, allRawPosts, locale)}
+                  locale={locale}
+                />
               ))}
             </div>
           )}

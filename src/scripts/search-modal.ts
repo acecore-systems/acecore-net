@@ -7,7 +7,6 @@ declare global {
   interface Window {
     PagefindUI?: new (options: Record<string, unknown>) => unknown
     aceTrackEvent?: (name: string, params?: Record<string, unknown>) => void
-    aceInitAdSlots?: (root?: ParentNode) => void
   }
 }
 
@@ -95,9 +94,7 @@ let semanticAbortController: AbortController | null = null
 let networkAbortController: AbortController | null = null
 let semanticDebounceTimer = 0
 let searchSequence = 0
-let semanticResultCount = 0
 let networkResultCount = 0
-let searchObserver: MutationObserver | null = null
 let searchLifecycleBound = false
 
 function bindSearchLifecycle() {
@@ -106,8 +103,6 @@ function bindSearchLifecycle() {
   searchLifecycleBound = true
   document.addEventListener('astro:before-swap', () => {
     resetSearchState()
-    searchObserver?.disconnect()
-    searchObserver = null
   })
 }
 
@@ -313,7 +308,6 @@ async function runSemanticSearch(
   )
   const startedAt = performance.now()
   showSemanticLoading(dialog)
-  updateAd()
 
   try {
     const response = await fetch('/api/search', {
@@ -380,7 +374,6 @@ async function runSemanticSearch(
     if (semanticAbortController === controller) {
       semanticAbortController = null
     }
-    updateAd()
   }
 }
 
@@ -448,7 +441,6 @@ function showSemanticLoading(dialog: HTMLDialogElement) {
   const elements = getSemanticElements()
   if (!elements) return
 
-  semanticResultCount = 0
   elements.section.classList.remove('hidden')
   elements.status.textContent =
     dialog.dataset.tSemanticLoading ?? 'Finding related content...'
@@ -459,7 +451,6 @@ function showSemanticEmpty(dialog: HTMLDialogElement) {
   const elements = getSemanticElements()
   if (!elements) return
 
-  semanticResultCount = 0
   elements.section.classList.remove('hidden')
   elements.status.textContent =
     dialog.dataset.tSemanticZeroResults ?? 'No related content'
@@ -473,7 +464,6 @@ function renderSemanticResults(
   const elements = getSemanticElements()
   if (!elements) return
 
-  semanticResultCount = results.length
   elements.section.classList.remove('hidden')
   elements.status.textContent = getResultStatus(
     results.length,
@@ -483,11 +473,9 @@ function renderSemanticResults(
   elements.results.replaceChildren(
     ...results.map((result) => createLocalResultItem(result)),
   )
-  updateAd()
 }
 
 function hideSemanticSearch() {
-  semanticResultCount = 0
   const elements = getSemanticElements()
   if (!elements) return
   elements.section.classList.add('hidden')
@@ -521,7 +509,6 @@ function renderNetworkResults(
   elements.results.replaceChildren(
     ...safeResults.map((result) => createNetworkResultItem(result)),
   )
-  updateAd()
 }
 
 function hideNetworkSearch() {
@@ -557,8 +544,6 @@ async function showPagefindFallback(
     elements.notice.textContent =
       dialog.dataset.tError ?? 'Failed to load search.'
     elements.container.replaceChildren(createSearchFallback(dialog))
-  } finally {
-    updateAd()
   }
 }
 
@@ -866,31 +851,6 @@ function trackResultClick(
   })
 }
 
-function bindSearchObserver() {
-  const container = getPagefindContainer()
-  if (!container || container.dataset.observerBound === 'true') return
-
-  container.dataset.observerBound = 'true'
-  searchObserver?.disconnect()
-  searchObserver = new MutationObserver(() => updateAd())
-  searchObserver.observe(container, { childList: true, subtree: true })
-}
-
-function updateAd() {
-  const ad = document.getElementById('search-ad')
-  if (!ad) return
-
-  const pagefindCount = getPagefindContainer()?.querySelectorAll(
-    '.pagefind-ui__result',
-  ).length
-  if (semanticResultCount > 0 || networkResultCount > 0 || pagefindCount) {
-    ad.classList.remove('hidden')
-    window.aceInitAdSlots?.(ad)
-  } else {
-    ad.classList.add('hidden')
-  }
-}
-
 function createSearchFallback(dialog: HTMLDialogElement) {
   const d = dialog.dataset
   const fallback = document.createElement('div')
@@ -933,7 +893,6 @@ function resetSearchState() {
   hideSemanticSearch()
   hidePagefindSearch()
   hideNetworkSearch()
-  updateAd()
   return searchSequence
 }
 
@@ -1007,7 +966,6 @@ export async function openSearch(query?: string) {
 
   bindDialogChrome(dialog)
   bindResultClickAnalytics(dialog)
-  bindSearchObserver()
   bindSearchInput(input, dialog)
 
   if (!dialog.open) {

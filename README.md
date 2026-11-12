@@ -19,7 +19,8 @@ Acecore（エースコア）公式Webサイト。
 | [Pagefind](https://pagefind.app/)                                                               | 静的全文検索                              |
 | [Sveltia CMS](https://sveltiacms.app/)                                                          | Git ベース CMS（ブログ・ページ文言管理）  |
 | [satori](https://github.com/vercel/satori) + [sharp](https://sharp.pixelplumbing.com/)          | OG 画像の自動生成                         |
-| [Google AdSense](https://adsense.google.com/)                                                   | 広告配信（ブログページ）                  |
+
+企業ニュースの一覧、記事、検索画面には広告を掲載しません。
 
 ## 多言語対応
 

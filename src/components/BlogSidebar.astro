@@ -1,7 +1,6 @@
 ---
 import Icon from './Icon.astro'
 import type { CollectionEntry } from 'astro:content'
-import AdUnit from './AdUnit.astro'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 import {
   isBasePost,
@@ -165,7 +164,5 @@ for (const post of allPosts) {
         })}
       </div>
     </div>
-
-    <AdUnit containerClass="ac-card overflow-hidden p-3" />
   </div>
 </aside>

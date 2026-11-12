@@ -19,7 +19,6 @@ import Checklist from '../components/Checklist.astro'
 import InsightGrid from '../components/InsightGrid.astro'
 import Testimonial from '../components/Testimonial.astro'
 import PullQuote from '../components/PullQuote.astro'
-import AdUnit from '../components/AdUnit.astro'
 import TableOfContents from '../components/TableOfContents.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Icon from '../components/Icon.astro'
@@ -366,7 +365,6 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
               />
             ))}
             {post.data.faq && <Faq {...post.data.faq} />}
-            <AdUnit containerClass="my-6" />
 
             <div class="my-10 border-t border-slate-200 py-6">
               <ShareButtons
@@ -428,59 +426,54 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
                   {t(locale, 'blog.relatedPosts')}
                 </h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {relatedPosts.map((rp, i) => {
+                  {relatedPosts.map((rp) => {
                     const relatedImage = resolveImageSource(
                       rp.data.uploadedImage,
                       rp.data.image,
                     )
 
                     return (
-                      <Fragment>
-                        {i === 2 && (
-                          <AdUnit containerClass="my-1 sm:col-span-2" />
+                      <a
+                        href={u(`/blog/${rp.id}/`)}
+                        class="group flex flex-col rounded-lg border border-slate-200 p-4 no-underline transition-all hover:border-brand-300 hover:shadow-sm"
+                      >
+                        {relatedImage && (
+                          <img
+                            src={optimizeImage(relatedImage, {
+                              width: 800,
+                              height: 400,
+                              quality: 80,
+                            })}
+                            srcset={generateSrcSet(
+                              relatedImage,
+                              relatedImageWidths,
+                              relatedImageOptions,
+                            )}
+                            sizes="(min-width: 640px) 50vw, 100vw"
+                            alt={rp.data.title}
+                            class="mb-3 h-32 w-full rounded-md object-cover"
+                            width="800"
+                            height="400"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         )}
-                        <a
-                          href={u(`/blog/${rp.id}/`)}
-                          class="group flex flex-col rounded-lg border border-slate-200 p-4 no-underline transition-all hover:border-brand-300 hover:shadow-sm"
-                        >
-                          {relatedImage && (
-                            <img
-                              src={optimizeImage(relatedImage, {
-                                width: 800,
-                                height: 400,
-                                quality: 80,
-                              })}
-                              srcset={generateSrcSet(
-                                relatedImage,
-                                relatedImageWidths,
-                                relatedImageOptions,
-                              )}
-                              sizes="(min-width: 640px) 50vw, 100vw"
-                              alt={rp.data.title}
-                              class="mb-3 h-32 w-full rounded-md object-cover"
-                              width="800"
-                              height="400"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          )}
-                          <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
-                            {rp.data.title}
-                          </span>
-                          <span class="text-xs text-slate-600 mt-1">
-                            {formatDate(rp.data.date, locale)}
-                          </span>
-                          {rp.data.tags && (
-                            <div class="mt-3 flex flex-wrap gap-2">
-                              {rp.data.tags.slice(0, 3).map((tag: string) => (
-                                <span class="ac-chip-static">
-                                  {getLocalizedTagName(tagsData, tag, locale)}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </a>
-                      </Fragment>
+                        <span class="text-sm font-700 text-slate-700 group-hover:text-brand-600 transition-colors line-clamp-2">
+                          {rp.data.title}
+                        </span>
+                        <span class="text-xs text-slate-600 mt-1">
+                          {formatDate(rp.data.date, locale)}
+                        </span>
+                        {rp.data.tags && (
+                          <div class="mt-3 flex flex-wrap gap-2">
+                            {rp.data.tags.slice(0, 3).map((tag: string) => (
+                              <span class="ac-chip-static">
+                                {getLocalizedTagName(tagsData, tag, locale)}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </a>
                     )
                   })}
                 </div>
@@ -526,15 +519,6 @@ const jsonLdData = faqLd ? [blogPostingLd, faqLd] : blogPostingLd
             <BlogComments locale={locale} slug={baseSlug} />
             <CopyCodeButton locale={locale} />
           </div>
-          <aside
-            class="article-ad"
-            aria-label={t(locale, 'blog.sidebar')}
-            data-pagefind-ignore
-          >
-            <div class="sticky top-28">
-              <AdUnit adSlot="4541792182" containerClass="overflow-hidden" />
-            </div>
-          </aside>
         </div>
       </article>
     </div>

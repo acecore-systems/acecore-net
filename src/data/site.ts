@@ -19,14 +19,8 @@ export const SITE = {
   email: 'info@acecore.net',
   /** LINE 公式アカウント URL */
   line: 'https://lin.ee/DjIrdqj',
-  /** Google AdSense クライアント ID */
-  adsenseClientId: 'ca-pub-3935803464310919',
   /** Google Analytics 4 測定 ID */
   ga4Id: 'G-G79SGTMYEX',
-  /** AdSense サイドバー広告スロット ID */
-  adSlotId: '3228710511',
-  /** AdSense インライン（記事内）広告スロット ID */
-  inlineAdSlotId: '4541792182',
   /** Cloudflare Turnstile サイトキー（お問い合わせフォーム用） */
   turnstileSiteKey: '0x4AAAAAACrIzSf3oGLj_GwT',
   /** ソーシャルリンク */

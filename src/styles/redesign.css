@@ -1342,7 +1342,7 @@ a[data-department]:focus-visible,
 }
 .article-reading-grid {
   display: grid;
-  grid-template-columns: minmax(0, 200px) minmax(0, 720px) minmax(0, 200px);
+  grid-template-columns: minmax(0, 200px) minmax(0, 720px);
   justify-content: center;
   gap: 32px;
 }
@@ -1362,10 +1362,6 @@ a[data-department]:focus-visible,
   font-size: 13px;
   line-height: 1.8;
   border-radius: 0;
-}
-.article-ad {
-  border-left: 1px solid var(--ac-line);
-  padding-left: 20px;
 }
 .article-mobile-toc {
   display: none;
@@ -1712,8 +1708,7 @@ a[data-department]:focus-visible,
     max-width: 740px;
     margin-inline: auto;
   }
-  .article-toc,
-  .article-ad {
+  .article-toc {
     display: none;
   }
   .article-mobile-toc {

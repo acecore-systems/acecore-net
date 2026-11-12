@@ -3,7 +3,6 @@ import { unified } from '@astrojs/markdown-remark'
 import sitemap from '@astrojs/sitemap'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeOptimizeImages from './src/utils/rehype-optimize-images'
-import rehypeInjectAds from './src/utils/rehype-inject-ads'
 import rehypeLocalizeInternalLinks from './src/utils/rehype-localize-internal-links'
 import { existsSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -120,7 +119,6 @@ export default defineConfig({
         ],
         rehypeLocalizeInternalLinks,
         rehypeOptimizeImages,
-        rehypeInjectAds,
       ],
     }),
   },
