@@ -12,9 +12,9 @@ export const SITE = {
   /** サイトの公開 URL（Cloudflare Pages） */
   url: 'https://acecore.net',
   /** 電話番号（国内表記） */
-  phone: '050-8890-2788',
-  /** 電話番号（国際表記） */
-  phoneIntl: '+81-50-8890-2788',
+  phone: '0120-987-370',
+  /** 構造化データ用の国番号付き表記（海外からの着信可否を示すものではない） */
+  phoneIntl: '+81-120-987-370',
   /** お問い合わせメールアドレス */
   email: 'info@acecore.net',
   /** LINE 公式アカウント URL */
