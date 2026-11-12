@@ -1,15 +1,12 @@
 ---
 import Icon from './Icon.astro'
-import { SITE } from '../data/site'
 import { t, getLocaleFromUrl, getLocalizedUrl, type Locale } from '../i18n'
 
 interface Props {
   locale?: Locale
-  monetized?: boolean
 }
 
 const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
-const monetized = Astro.props.monetized ?? false
 ---
 
 <dialog
@@ -162,24 +159,6 @@ const monetized = Astro.props.monetized ?? false
           class="m-0 max-h-64 list-none divide-y divide-slate-100 overflow-y-auto p-0"
         ></ol>
       </section>
-      {monetized && (
-        <div
-          id="search-ad"
-          class="mt-2 hidden border-t border-slate-100 px-5 pt-4 pb-5"
-          data-ace-ad-container
-          data-ace-ad-state="pending"
-        >
-          <ins
-            class="adsbygoogle"
-            data-ace-ad-slot
-            style="display:block"
-            data-ad-client={SITE.adsenseClientId}
-            data-ad-slot={SITE.adSlotId}
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
-      )}
     </div>
   </div>
 </dialog>
