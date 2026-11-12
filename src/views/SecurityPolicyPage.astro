@@ -50,6 +50,13 @@ const sectionKeys = [
                 {t(locale, `pages.securityPolicy.${key}Heading`)}
               </h2>
               <p>{t(locale, `pages.securityPolicy.${key}Body`)}</p>
+              {key === 'compliance' && (
+                <p>
+                  <a href={getLocalizedUrl('/privacy/', locale)}>
+                    {t(locale, 'footer.privacy')}
+                  </a>
+                </p>
+              )}
               {key === 'contact' && (
                 <p>
                   <a href={getLocalizedUrl('/contact/', locale)}>
