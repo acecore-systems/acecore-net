@@ -1,0 +1,26 @@
+{
+  "systems": {
+    "src": "/images/redesign/20261023/systems-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/systems-640.webp 640w, /images/redesign/20261023/systems-1280.webp 1280w, /images/redesign/20261023/systems-1448.webp 1448w"
+  },
+  "schools": {
+    "src": "/images/redesign/20261023/schools-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/schools-640.webp 640w, /images/redesign/20261023/schools-1280.webp 1280w, /images/redesign/20261023/schools-1448.webp 1448w"
+  },
+  "designs": {
+    "src": "/images/redesign/20261023/designs-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/designs-640.webp 640w, /images/redesign/20261023/designs-1280.webp 1280w, /images/redesign/20261023/designs-1448.webp 1448w"
+  },
+  "collaboration": {
+    "src": "/images/redesign/20261023/collaboration-1448.webp",
+    "width": 1448,
+    "height": 1086,
+    "srcset": "/images/redesign/20261023/collaboration-640.webp 640w, /images/redesign/20261023/collaboration-1280.webp 1280w, /images/redesign/20261023/collaboration-1448.webp 1448w"
+  }
+}

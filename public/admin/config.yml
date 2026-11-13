@@ -912,6 +912,13 @@ collections:
                 label: 'パンくず'
                 hint: 'common.breadcrumb'
                 widget: string
+              - name: 'chooseLanguage'
+                label: '言語選択・ボタン名'
+                widget: string
+              - name: 'pageContents'
+                label: 'ページ内案内・見出し'
+                hint: 'common.pageContents'
+                widget: string
               - name: 'home'
                 label: 'ホーム'
                 hint: 'common.home'
@@ -1146,9 +1153,19 @@ collections:
           - name: 'servicesIntro'
             label: '事業ページへの案内'
             widget: text
+          - name: 'servicesHeading'
+            label: '事業ページへの案内・見出し'
+            widget: string
           - name: 'contactIntro'
             label: '問い合わせページへの案内'
             widget: text
+          - name: 'companyImageAlt'
+            label: '会社案内画像・代替テキスト'
+            widget: string
+          - name: 'companyImageCaption'
+            label: '会社案内画像・説明'
+            widget: string
+
       - name: 'services'
         label: '事業ページ・部門と主要サービス'
         file: src/i18n/source/ja/pages/services.json
@@ -1290,6 +1307,9 @@ collections:
             label: '料金案内・説明'
             hint: 'pricingLead'
             widget: text
+          - name: 'pricingCta'
+            label: '料金の確認リンク・文言'
+            widget: string
           - name: 'offeringsHeading'
             label: '主要サービス・見出し'
             hint: 'offeringsHeading'
@@ -1298,6 +1318,19 @@ collections:
             label: '詳細リンクの文言'
             hint: 'detailsCta'
             widget: string
+          - name: 'systemsImgAlt'
+            label: 'Systems画像・代替テキスト'
+            widget: string
+          - name: 'schoolsImgAlt'
+            label: 'Schools画像・代替テキスト'
+            widget: string
+          - name: 'designImgAlt'
+            label: 'Designs画像・代替テキスト'
+            widget: string
+          - name: 'departmentImagesNote'
+            label: '事業画像の説明'
+            widget: string
+
       - name: 'pricing'
         label: '料金案内（事業ページ内）'
         file: src/i18n/source/ja/pages/pricing.json
@@ -1402,6 +1435,9 @@ collections:
             label: '理念・見出し'
             hint: 'philosophyHeading'
             widget: string
+          - name: 'workshopCaption'
+            label: '学びイメージ・説明'
+            widget: text
           - name: 'philosophyMotto'
             label: '理念・キャッチコピー'
             hint: 'philosophyMotto'

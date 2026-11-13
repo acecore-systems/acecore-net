@@ -53,7 +53,7 @@
   "semanticManyResults": "このサイトの検索結果が [COUNT] 件見つかりました",
   "semanticOneResult": "このサイトの検索結果が 1 件見つかりました",
   "pagefindFallbackHeading": "キーワード検索結果",
-  "pagefindFallbackNotice": "このサイトのVectorize検索で有効な結果を得られないため、キーワード検索を表示しています。",
+  "pagefindFallbackNotice": "関連情報の検索を利用できないため、キーワード検索の結果を表示しています。",
   "networkHeading": "Acecore関連サイトの関連情報",
   "networkLoading": "Acecore関連サイトを探しています...",
   "networkManyResults": "Acecore関連サイトの関連情報が [COUNT] 件見つかりました",

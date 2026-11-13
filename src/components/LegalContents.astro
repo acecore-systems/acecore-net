@@ -1,0 +1,42 @@
+---
+import { t, type Locale } from '../i18n'
+
+interface Props {
+  locale: Locale
+  items: { id: string; label: string; lang?: string }[]
+}
+
+const { locale, items } = Astro.props
+---
+
+<aside class="legal-contents" data-pagefind-ignore>
+  <nav
+    class="legal-desktop-contents"
+    aria-label={t(locale, 'common.pageContents')}
+  >
+    <p>{t(locale, 'common.pageContents')}</p>
+    <ol>
+      {items.map(({ id, label, lang }) => (
+        <li>
+          <a href={'#' + id} lang={lang}>
+            {label}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  <details class="legal-mobile-contents">
+    <summary>{t(locale, 'common.pageContents')}</summary>
+    <nav aria-label={t(locale, 'common.pageContents')}>
+      <ol>
+        {items.map(({ id, label, lang }) => (
+          <li>
+            <a href={'#' + id} lang={lang}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </details>
+</aside>

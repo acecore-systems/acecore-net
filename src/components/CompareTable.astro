@@ -11,13 +11,11 @@ const { title, before, after } = Astro.props
 ---
 
 <figure class="not-prose my-8">
-  {
-    title && (
-      <figcaption class="text-base font-700 text-slate-800 mb-3">
-        {title}
-      </figcaption>
-    )
-  }
+  {title && (
+    <figcaption class="text-base font-700 text-slate-800 mb-3">
+      {title}
+    </figcaption>
+  )}
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div class="rounded-lg border border-slate-200 bg-slate-50 p-5">
       <p class="text-sm font-700 text-slate-500 mb-2 flex items-center gap-1.5">
@@ -25,14 +23,12 @@ const { title, before, after } = Astro.props
         {before.label}
       </p>
       <ul class="space-y-1.5">
-        {
-          before.items.map((item) => (
-            <li class="flex items-start gap-1.5 text-sm leading-relaxed text-slate-600">
-              <Icon name="minus" class="text-slate-300 mt-0.5 shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))
-        }
+        {before.items.map((item) => (
+          <li class="flex items-start gap-1.5 text-sm leading-relaxed text-slate-600">
+            <Icon name="minus" class="text-slate-300 mt-0.5 shrink-0" />
+            <span>{item}</span>
+          </li>
+        ))}
       </ul>
     </div>
     <div class="rounded-lg border border-brand-100 bg-brand-50/80 p-5">
@@ -41,14 +37,12 @@ const { title, before, after } = Astro.props
         {after.label}
       </p>
       <ul class="space-y-1.5">
-        {
-          after.items.map((item) => (
-            <li class="flex items-start gap-1.5 text-sm leading-relaxed text-brand-700">
-              <Icon name="check" class="text-brand-500 mt-0.5 shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))
-        }
+        {after.items.map((item) => (
+          <li class="flex items-start gap-1.5 text-sm leading-relaxed text-brand-700">
+            <Icon name="check" class="text-brand-500 mt-0.5 shrink-0" />
+            <span>{item}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </div>

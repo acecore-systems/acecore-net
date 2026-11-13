@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro'
+import { t, getLocalizedUrl, type Locale } from '../i18n'
+interface Props {
+  locale: Locale
+  title?: string
+  body?: string
+  label?: string
+}
+const {
+  locale,
+  title = t(Astro.props.locale, 'nav.contact'),
+  body = t(Astro.props.locale, 'pages.home.contactIntro'),
+  label = t(Astro.props.locale, 'pages.home.contactCta'),
+} = Astro.props
+---
+
+<section class="contact-band">
+  <a
+    href={getLocalizedUrl('/contact/', locale)}
+    class="ac-container contact-band-link"
+    data-ga-event="cta_click"
+    data-ga-label={t(locale, 'nav.contact')}
+    data-ga-location="service_card"
+    data-ga-destination={getLocalizedUrl('/contact/', locale)}
+  >
+    <h2>{title}</h2>
+    <span class="contact-band-copy">
+      <span>{body}</span>
+      {label && label !== title && (
+        <span class="mt-3 block text-sm font-700">{label}</span>
+      )}
+    </span>
+    <span class="ac-arrow-circle" aria-hidden="true">
+      <Icon name="arrow-right" />
+    </span>
+  </a>
+</section>

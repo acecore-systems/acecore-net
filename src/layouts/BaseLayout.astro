@@ -7,7 +7,6 @@ import {
   type Locale,
 } from '../i18n'
 import { defaultLocale, locales, ogLocaleMap, htmlLangMap } from '../i18n'
-import { isMonetizedBlogPath } from '../utils/monetized-route'
 import { buildSeoDescription, buildSeoTitle } from '../utils/seo-meta'
 import { serializeJsonForHtml } from '../utils/safe-json'
 
@@ -78,10 +77,6 @@ const pageDescription = buildSeoDescription({
 })
 const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site)
 const ogImage = image || new URL('/uploads/og-default.png', Astro.site).href
-const isMonetizedPage = isMonetizedBlogPath(
-  Astro.url.pathname,
-  getLocalizedUrl('/blog/', locale),
-)
 
 const pageNameMap: Record<string, string> = Object.fromEntries(
   Object.entries({
@@ -93,6 +88,7 @@ const pageNameMap: Record<string, string> = Object.fromEntries(
     blog: t(locale, 'pageNames.blog'),
     acestudio: t(locale, 'pageNames.acestudio'),
     privacy: t(locale, 'pageNames.privacy'),
+    'security-policy': t(locale, 'pageNames.security-policy'),
     tags: t(locale, 'pageNames.tags'),
     authors: t(locale, 'pageNames.authors'),
     archive: t(locale, 'pageNames.archive'),
@@ -172,13 +168,13 @@ const alternateUrlEntries = isErrorPage
 
 import { ClientRouter } from 'astro:transitions'
 import '../styles/global.css'
+import '../styles/redesign.css'
 import Header from '../components/Header.astro'
 import AnnouncementBanner from '../components/AnnouncementBanner.astro'
 import Footer from '../components/Footer.astro'
 import SearchModal from '../components/SearchModal.astro'
 import ScrollToTop from '../components/ScrollToTop.astro'
 import AiChatWidget from '../components/AiChatWidget.astro'
-import AdsRuntime from '../components/AdsRuntime.astro'
 import { SITE } from '../data/site'
 ---
 
@@ -193,14 +189,12 @@ import { SITE } from '../data/site'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content={robots} />
     <meta property="og:locale" content={ogLocaleMap[locale]} />
-    {
-      !isErrorPage &&
-        locales
-          .filter((l) => l !== locale)
-          .map((l) => (
-            <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
-          ))
-    }
+    {!isErrorPage &&
+      locales
+        .filter((l) => l !== locale)
+        .map((l) => (
+          <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
+        ))}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content={ogType} />
@@ -217,23 +211,21 @@ import { SITE } from '../data/site'
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
     {author && <meta name="author" content={author} />}
-    {
-      publishedTime && (
-        <meta
-          property="article:published_time"
-          content={publishedTime.toISOString()}
-        />
-      )
-    }
-    {
-      modifiedTime && (
-        <meta
-          property="article:modified_time"
-          content={modifiedTime.toISOString()}
-        />
-      )
-    }
-    {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+    {publishedTime && (
+      <meta
+        property="article:published_time"
+        content={publishedTime.toISOString()}
+      />
+    )}
+    {modifiedTime && (
+      <meta
+        property="article:modified_time"
+        content={modifiedTime.toISOString()}
+      />
+    )}
+    {tags?.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
     {tags?.[0] && <meta property="article:section" content={tags[0]} />}
     {prevPage && <link rel="prev" href={prevPage} />}
     {nextPage && <link rel="next" href={nextPage} />}
@@ -243,56 +235,27 @@ import { SITE } from '../data/site'
       title={t(locale, 'blog.rssTitle')}
       href={locale === defaultLocale ? '/rss.xml' : `/${locale}/rss.xml`}
     />
-    {
-      alternateUrlEntries.map(({ locale: l, url }) => (
-        <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
-      ))
-    }
-    {
-      alternateUrlEntries.length > 0 && (
-        <link
-          rel="alternate"
-          hreflang="x-default"
-          href={
-            alternateUrlEntries.find((a) => a.locale === defaultLocale)?.url
-          }
-        />
-      )
-    }
+    {alternateUrlEntries.map(({ locale: l, url }) => (
+      <link rel="alternate" hreflang={htmlLangMap[l]} href={url} />
+    ))}
+    {alternateUrlEntries.length > 0 && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={alternateUrlEntries.find((a) => a.locale === defaultLocale)?.url}
+      />
+    )}
     <link rel="preconnect" href={SITE.url} />
-    {
-      preloadImage && (
-        <link
-          rel="preload"
-          as="image"
-          href={preloadImage.src}
-          imagesrcset={preloadImage.srcset}
-          imagesizes={preloadImage.sizes}
-          fetchpriority="high"
-        />
-      )
-    }
-    {
-      isMonetizedPage && (
-        <>
-          <link
-            rel="dns-prefetch"
-            href="https://pagead2.googlesyndication.com"
-          />
-          <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
-          <link
-            rel="preconnect"
-            href="https://pagead2.googlesyndication.com"
-            crossorigin="anonymous"
-          />
-          <link
-            rel="preconnect"
-            href="https://googleads.g.doubleclick.net"
-            crossorigin="anonymous"
-          />
-        </>
-      )
-    }
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage.src}
+        imagesrcset={preloadImage.srcset}
+        imagesizes={preloadImage.sizes}
+        fetchpriority="high"
+      />
+    )}
     <!-- Google Analytics (GA4) -->
     <script
       is:inline
@@ -380,30 +343,26 @@ import { SITE } from '../data/site'
         },
       })}
     />
-    {
-      !isErrorPage && breadcrumbLd && (
-        <script
-          type="application/ld+json"
-          set:html={serializeJsonForHtml(breadcrumbLd)}
-        />
-      )
-    }
-    {
-      jsonLd &&
-        (Array.isArray(jsonLd) ? (
-          jsonLd.map((ld) => (
-            <script
-              type="application/ld+json"
-              set:html={serializeJsonForHtml(ld)}
-            />
-          ))
-        ) : (
+    {!isErrorPage && breadcrumbLd && (
+      <script
+        type="application/ld+json"
+        set:html={serializeJsonForHtml(breadcrumbLd)}
+      />
+    )}
+    {jsonLd &&
+      (Array.isArray(jsonLd) ? (
+        jsonLd.map((ld) => (
           <script
             type="application/ld+json"
-            set:html={serializeJsonForHtml(jsonLd)}
+            set:html={serializeJsonForHtml(ld)}
           />
         ))
-    }
+      ) : (
+        <script
+          type="application/ld+json"
+          set:html={serializeJsonForHtml(jsonLd)}
+        />
+      ))}
     <ClientRouter />
     <script is:inline>
       ;(function () {
@@ -504,27 +463,22 @@ import { SITE } from '../data/site'
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:rounded focus:bg-brand-500 focus:text-white focus:px-4 focus:py-2 focus:text-sm"
-      >{t(locale, 'common.skipToContent')}</a
     >
+      {t(locale, 'common.skipToContent')}
+    </a>
     <Header
       locale={locale}
       languageSwitcherPath={languageSwitcherPath}
       languageSwitcherUrls={languageSwitcherUrls}
     />
     <AnnouncementBanner locale={locale} />
-    <main
-      id="main"
-      tabindex="-1"
-      class="flex-1"
-      data-ace-ads-enabled={isMonetizedPage ? 'true' : undefined}
-    >
+    <main id="main" tabindex="-1" class="flex-1">
       <slot />
     </main>
     <Footer locale={locale} />
     {showFloatingActions && <ScrollToTop locale={locale} />}
     <AiChatWidget locale={locale} showFloatingToggle={showFloatingActions} />
-    <SearchModal monetized={isMonetizedPage} />
-    {isMonetizedPage && <AdsRuntime />}
+    <SearchModal />
     <script>
       let searchModalModulePromise: Promise<
         typeof import('../scripts/search-modal')
@@ -583,34 +537,3 @@ import { SITE } from '../data/site'
     </script>
   </body>
 </html>
-
-<style is:global>
-  :where(
-    [data-ace-ad-container][data-ace-ad-state='pending'],
-    [data-ace-ad-container][data-ace-ad-state='requested']
-  ) {
-    border-color: transparent !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    height: 0 !important;
-    margin-block: 0 !important;
-    min-height: 0 !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-  }
-
-  :where(
-    [data-ace-ad-container][data-ace-ad-state='empty'],
-    [data-ace-ad-container][data-ace-ad-state='error']
-  ) {
-    display: none !important;
-  }
-
-  :where(
-      [data-ace-ad-container][data-ace-ad-state='pending'],
-      [data-ace-ad-container][data-ace-ad-state='requested']
-    )
-    .adsbygoogle {
-    min-height: 0 !important;
-  }
-</style>

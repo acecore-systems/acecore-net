@@ -1,4 +1,5 @@
 ---
+import BrandWord from './BrandWord.astro'
 import Icon from './Icon.astro'
 import { t, getLocalizedUrl, getLocaleFromUrl, type Locale } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher.astro'
@@ -33,41 +34,45 @@ const contactLink = {
 const currentPath = Astro.url.pathname
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur"
->
-  <div class="ac-container flex h-16 items-center justify-between">
+<header class="site-header sticky top-0 z-50 border-b border-brand-900/10 bg-white/96 shadow-[0_1px_0_rgba(6,61,145,0.08)] backdrop-blur">
+  <div class="header-inner ac-container flex h-16 items-center justify-between">
     <a
       href={getLocalizedUrl('/', locale)}
-      class="ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
+      class="site-brand ac-touch gap-2 rounded-md pr-3 font-800 text-xl text-slate-950 no-underline transition-colors hover:text-brand-600"
     >
-      <img src="/favicon.svg" alt="Acecore" class="h-8 w-8" />
-      <span aria-hidden="true">Acecore</span>
+      <img src="/logo.svg" alt="Acecore" class="h-8 w-8" />
+      <span aria-hidden="true">
+        <BrandWord word="Acecore" kind="corporate" />
+      </span>
     </a>
     <nav
-      class="hidden items-center gap-1 xl:flex"
+      class="site-desktop-nav hidden items-center gap-1 xl:flex"
       aria-label={t(locale, 'common.mainNav')}
     >
-      {
-        navLinks.map((link) => {
-          const isCurrent = currentPath === link.href
+      {navLinks.map((link) => {
+        const isExact = currentPath === link.href
+        const isCurrent =
+          isExact ||
+          (link.href !== getLocalizedUrl('/', locale) &&
+            currentPath.startsWith(link.href))
 
-          return (
-            <a
-              href={link.href}
-              class:list={[
-                'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
-                isCurrent
-                  ? 'bg-brand-50 text-brand-700'
-                  : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
-              ]}
-              {...(isCurrent ? { 'aria-current': 'page' } : {})}
-            >
-              <span>{link.label}</span>
-            </a>
-          )
-        })
-      }
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'inline-flex min-h-11 items-center rounded-md px-3 text-sm font-800 no-underline transition-colors',
+              isCurrent
+                ? 'bg-brand-50 text-brand-700'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600',
+            ]}
+            {...(isCurrent
+              ? { 'aria-current': isExact ? 'page' : 'location' }
+              : {})}
+          >
+            <span>{link.label}</span>
+          </a>
+        )
+      })}
       <a
         href={storeLink.href}
         target="_blank"
@@ -79,6 +84,7 @@ const currentPath = Astro.url.pathname
         data-ga-destination={storeLink.href}
       >
         <span>{storeLink.label}</span>
+        <Icon name="external-link" class="ml-1 text-xs" />
         <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
       </a>
       <button
@@ -97,12 +103,14 @@ const currentPath = Astro.url.pathname
       <a
         href={contactLink.href}
         class="ac-btn-primary ml-2 min-h-10 px-4 py-2 text-xs"
-        {...currentPath === contactLink.href ? { 'aria-current': 'page' } : {}}
+        {...(currentPath === contactLink.href
+          ? { 'aria-current': 'page' }
+          : {})}
       >
         {contactLink.label}
       </a>
     </nav>
-    <div class="flex items-center gap-1 xl:hidden">
+    <div class="site-mobile-controls flex items-center gap-1 xl:hidden">
       <button
         data-search-trigger
         class="ac-touch rounded-md text-slate-500 hover:bg-slate-50 hover:text-brand-600"
@@ -130,33 +138,37 @@ const currentPath = Astro.url.pathname
   </div>
   <nav
     id="mobile-menu"
-    class="hidden border-t border-brand-900/10 bg-white xl:hidden"
+    class="hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-brand-900/10 bg-white xl:hidden"
     aria-label={t(locale, 'common.mobileNav')}
   >
-    <div class="ac-container ac-blueprint-soft flex flex-col gap-2 py-4">
-      {
-        navLinks.map((link) => {
-          const isCurrent = currentPath === link.href
+    <div class="ac-container mobile-menu-content flex flex-col gap-2 py-4">
+      {navLinks.map((link) => {
+        const isExact = currentPath === link.href
+        const isCurrent =
+          isExact ||
+          (link.href !== getLocalizedUrl('/', locale) &&
+            currentPath.startsWith(link.href))
 
-          return (
-            <a
-              href={link.href}
-              class:list={[
-                'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
-                isCurrent
-                  ? 'border-brand-100 bg-brand-50 text-brand-700'
-                  : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
-              ]}
-              {...(isCurrent ? { 'aria-current': 'page' } : {})}
-            >
-              <span>{link.label}</span>
-              <span class="inline-flex items-center gap-1 text-slate-400">
-                <Icon name="arrow-right" class="text-sm" />
-              </span>
-            </a>
-          )
-        })
-      }
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'flex min-h-11 items-center justify-between rounded-md border border-transparent px-3 text-sm font-800 no-underline transition-colors',
+              isCurrent
+                ? 'border-brand-100 bg-brand-50 text-brand-700'
+                : 'text-slate-700 hover:border-slate-200 hover:bg-white hover:text-brand-600',
+            ]}
+            {...(isCurrent
+              ? { 'aria-current': isExact ? 'page' : 'location' }
+              : {})}
+          >
+            <span>{link.label}</span>
+            <span class="inline-flex items-center gap-1 text-slate-400">
+              <Icon name="arrow-right" class="text-sm" />
+            </span>
+          </a>
+        )
+      })}
       <a
         href={storeLink.href}
         target="_blank"
@@ -169,7 +181,7 @@ const currentPath = Astro.url.pathname
       >
         <span>{storeLink.label}</span>
         <span class="inline-flex items-center gap-1 text-slate-400">
-          <Icon name="arrow-right" class="text-sm" />
+          <Icon name="external-link" class="text-sm" />
           <span class="sr-only">{t(locale, 'common.opensInNewTab')}</span>
         </span>
       </a>
@@ -187,6 +199,15 @@ const currentPath = Astro.url.pathname
     </div>
   </nav>
 </header>
+
+<style is:global>
+  @media (max-width: 1399px) {
+    body:has(#mobile-menu-btn[aria-expanded='true']) #ace-ai-chat,
+    body:has(#mobile-menu-btn[aria-expanded='true']) #scroll-to-top {
+      display: none !important;
+    }
+  }
+</style>
 
 <script>
   function syncMenuIcon(menuBtn: HTMLElement, expanded: boolean) {
@@ -245,7 +266,9 @@ const currentPath = Astro.url.pathname
         menuBtn.focus()
       }
       if (e.key === 'Tab' && !menu.classList.contains('hidden')) {
-        const focusable = menu.querySelectorAll<HTMLElement>('a, button')
+        const focusable = Array.from(
+          menu.querySelectorAll<HTMLElement>('a, button'),
+        ).filter((element) => element.getClientRects().length > 0)
         if (focusable.length === 0) return
         const first = focusable[0]
         const last = focusable[focusable.length - 1]
@@ -271,6 +294,17 @@ const currentPath = Astro.url.pathname
       })
   }
 
+  const desktop = matchMedia('(min-width: 1400px)')
+  desktop.addEventListener('change', () => {
+    const menu = document.getElementById('mobile-menu')
+    const button = document.getElementById('mobile-menu-btn')
+    menu?.classList.add('hidden')
+    button?.setAttribute('aria-expanded', 'false')
+    if (button) {
+      button.setAttribute('aria-label', button.dataset.labelOpen || 'Open menu')
+      syncMenuIcon(button, false)
+    }
+  })
   initHeader()
   initHeaderKeyboard()
   initSearchTriggers()

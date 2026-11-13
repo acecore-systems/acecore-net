@@ -1,0 +1,62 @@
+{
+  "01-home": {
+    "source": "exec-4269ebfc-08d2-44d5-8420-d3ebbf5cccfd.png",
+    "width": 1469,
+    "height": 1071
+  },
+  "02-business": {
+    "source": "exec-1e4f08e1-9700-4dbb-97da-10f4ffeefef7.png",
+    "width": 1135,
+    "height": 1386
+  },
+  "03-home-lower": {
+    "source": "exec-12ad0fe9-940f-4024-a2b3-8abacd61d64c.png",
+    "width": 1003,
+    "height": 1568
+  },
+  "04-about": {
+    "source": "exec-7703b321-83c4-49f4-a3f8-4d2c066e5aa4.png",
+    "width": 1346,
+    "height": 1168
+  },
+  "05-corporate-data": {
+    "source": "exec-13f350a7-da8c-4ada-8c41-78ca8b418261.png",
+    "width": 1209,
+    "height": 1300
+  },
+  "06-news": {
+    "source": "exec-4f16042a-11c2-4182-bd77-b0e407ef8189.png",
+    "width": 1404,
+    "height": 1120
+  },
+  "07-article": {
+    "source": "exec-e79294ab-5df4-416e-ad64-044615833405.png",
+    "width": 1346,
+    "height": 1169
+  },
+  "08-contact": {
+    "source": "exec-47711c73-989e-402e-94f8-226bce508cae.png",
+    "width": 1374,
+    "height": 1145
+  },
+  "09-legal": {
+    "source": "exec-6e15c7b7-ae9b-404b-a6db-edab2e7f3305.png",
+    "width": 1435,
+    "height": 1096
+  },
+  "10-status": {
+    "source": "exec-e1193106-a9d6-4db0-968d-02792842c5ec.png",
+    "width": 1470,
+    "height": 1070
+  },
+  "11-mobile": {
+    "source": "exec-6de27aaf-7796-4663-934e-98f21b1bc90f.png",
+    "width": 853,
+    "height": 1844
+  },
+  "12-interactions": {
+    "source": "exec-09dda13b-85c8-468c-9e0c-34fb7d59622f.png",
+    "width": 1477,
+    "height": 1065
+  }
+}

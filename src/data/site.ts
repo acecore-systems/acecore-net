@@ -12,21 +12,15 @@ export const SITE = {
   /** サイトの公開 URL（Cloudflare Pages） */
   url: 'https://acecore.net',
   /** 電話番号（国内表記） */
-  phone: '050-8890-2788',
-  /** 電話番号（国際表記） */
-  phoneIntl: '+81-50-8890-2788',
+  phone: '0120-987-370',
+  /** 構造化データ用の国番号付き表記（海外からの着信可否を示すものではない） */
+  phoneIntl: '+81-120-987-370',
   /** お問い合わせメールアドレス */
   email: 'info@acecore.net',
   /** LINE 公式アカウント URL */
   line: 'https://lin.ee/DjIrdqj',
-  /** Google AdSense クライアント ID */
-  adsenseClientId: 'ca-pub-3935803464310919',
   /** Google Analytics 4 測定 ID */
   ga4Id: 'G-G79SGTMYEX',
-  /** AdSense サイドバー広告スロット ID */
-  adSlotId: '3228710511',
-  /** AdSense インライン（記事内）広告スロット ID */
-  inlineAdSlotId: '4541792182',
   /** Cloudflare Turnstile サイトキー（お問い合わせフォーム用） */
   turnstileSiteKey: '0x4AAAAAACrIzSf3oGLj_GwT',
   /** ソーシャルリンク */

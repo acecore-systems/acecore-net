@@ -1,9 +1,8 @@
 ---
 import '../styles/prose.css'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
-import { optimizeImage } from '../utils/image'
+import LegalContents from '../components/LegalContents.astro'
 import {
   getAlternateUrls,
   getLocalizedUrl,
@@ -45,31 +44,37 @@ const sections =
   canonicalPath={getLocalizedUrl('/terms/', contentLocale)}
   alternateUrls={termsAlternateUrls}
 >
-  <Hero
-    title={t(contentLocale, 'pages.terms.heroTitle')}
-    images={[
-      {
-        src: optimizeImage(
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&h=600&fit=crop&q=80&fm=webp',
-        ),
-        alt: t(contentLocale, 'pages.terms.heroImgAlt'),
-      },
-    ]}
-  />
-
-  <section class="ac-section">
+  <section class="ac-section legal-page">
     <div class="ac-container max-w-3xl">
       <Breadcrumb
         items={[{ label: t(contentLocale, 'pages.terms.title') }]}
         locale={locale}
       />
-      <div class="ac-prose max-w-none" lang={contentLocale}>
-        <p>{t(contentLocale, 'pages.terms.lead')}</p>
+      <h1 class="ac-page-title legal-title">
+        {t(contentLocale, 'pages.terms.heroTitle')}
+      </h1>
+      <div class="legal-reading-layout">
+        <LegalContents
+          locale={locale}
+          items={[
+            ...sections.map((section, index) => ({
+              id: `terms-${index + 1}`,
+              label: section.heading,
+              lang: contentLocale,
+            })),
+            {
+              id: 'privacy-policy',
+              label: t(contentLocale, 'pages.terms.privacyLinkHeading'),
+              lang: contentLocale,
+            },
+          ]}
+        />
+        <div class="ac-prose max-w-none" lang={contentLocale}>
+          <p>{t(contentLocale, 'pages.terms.lead')}</p>
 
-        {
-          sections.map((section) => (
+          {sections.map((section, index) => (
             <section>
-              <h2>{section.heading}</h2>
+              <h2 id={`terms-${index + 1}`}>{section.heading}</h2>
               {section.paragraphs.map((paragraph) => (
                 <p>{paragraph}</p>
               ))}
@@ -81,20 +86,22 @@ const sections =
                 </ul>
               ) : null}
             </section>
-          ))
-        }
+          ))}
 
-        <h2>{t(contentLocale, 'pages.terms.privacyLinkHeading')}</h2>
-        <p>{t(contentLocale, 'pages.terms.privacyLinkBody')}</p>
-        <p>
-          <a href={u('/privacy/')}
-            >{t(contentLocale, 'pages.terms.privacyLinkLabel')}</a
-          >
-        </p>
+          <h2 id="privacy-policy">
+            {t(contentLocale, 'pages.terms.privacyLinkHeading')}
+          </h2>
+          <p>{t(contentLocale, 'pages.terms.privacyLinkBody')}</p>
+          <p>
+            <a href={u('/privacy/')}>
+              {t(contentLocale, 'pages.terms.privacyLinkLabel')}
+            </a>
+          </p>
 
-        <p class="text-sm text-slate-500 mt-12">
-          {t(contentLocale, 'pages.terms.effectiveDate')}
-        </p>
+          <p class="text-sm text-slate-500 mt-12">
+            {t(contentLocale, 'pages.terms.effectiveDate')}
+          </p>
+        </div>
       </div>
     </div>
   </section>

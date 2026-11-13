@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro'
+import { t, type Locale } from '../i18n'
+interface Props {
+  locale: Locale
+  items: { href: string; label: string }[]
+}
+const { locale, items } = Astro.props
+---
+
+<nav class="page-section-nav" aria-label={t(locale, 'common.pageContents')}>
+  <ul>
+    {items.map(({ href, label }) => (
+      <li>
+        <a href={href}>
+          <span>{label}</span>
+          <Icon name="arrow-down" aria-hidden="true" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

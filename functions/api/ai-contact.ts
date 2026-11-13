@@ -648,7 +648,7 @@ export const onRequestPost = async ({
     'Use only the exact Markdown URLs listed in the static context or retrieved Source links. Never create, guess, or modify a URL.',
     'Do not invent pricing, timelines, contracts, guarantees, or private contact details.',
     'If a request needs a human decision, detailed estimate, formal reply, urgent help, or support beyond the public site context, say the AI cannot decide that and guide the visitor to the best contact option.',
-    `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and Acecore Schools-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:05088902788) only when appropriate.`,
+    `Use the localized ${localeSettings.contactFormLabel} for detailed project consultations and estimates. Mention ${localeSettings.lineLabel} for short consultations and Acecore Schools-related messages. If the conversation appears unresolved or the visitor asks for direct human contact, add a compact direct-contact line with [${localeSettings.emailLabel}](mailto:info@acecore.net) or [${localeSettings.phoneLabel}](tel:0120987370) only when appropriate.`,
     buildFederatedRoutingContext(locale, searchPlan.sourceIntent),
     groundingContext,
   ].join('\n')
@@ -1088,7 +1088,7 @@ function buildAllowedAnswerLinks(
     localizedSiteUrl('/blog/', locale),
     localizedSiteUrl('/contact/', locale),
     'mailto:info@acecore.net',
-    'tel:05088902788',
+    'tel:0120987370',
   ]
 
   for (const href of staticLinks) {

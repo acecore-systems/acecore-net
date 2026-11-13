@@ -511,6 +511,17 @@ test('Vectorizeが主検索で、Pagefindは有効な結果がない時だけ遅
 
     assert.ok(documentMock.getElementById('pagefind-ui-style'))
     assert.ok(documentMock.getElementById('pagefind-ui-override-style'))
+    const fallbackCss = documentMock.getElementById(
+      'pagefind-ui-override-style',
+    ).textContent
+    assert.ok(
+      !/#pagefind-search-container \.pagefind-ui__form\s*[,\{]/u.test(
+        fallbackCss,
+      ),
+      'the Pagefind form contains results and must stay visible',
+    )
+    assert.match(fallbackCss, /\.pagefind-ui__search-input/u)
+
     assert.ok(documentMock.getElementById('pagefind-ui-script'))
   } finally {
     if (originalDocument === undefined) delete globalThis.document
