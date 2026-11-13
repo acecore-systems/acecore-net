@@ -7,6 +7,12 @@
   },
   "include": [
     "scripts/openai-translation-batch.ts",
+    "scripts/openai-batch-submission.ts",
+    "scripts/openai-translation-probe.ts",
+    "scripts/translation-model-policy.ts",
+    "tests/openai-batch-submission.test.ts",
+    "tests/openai-translation-probe.test.ts",
+    "tests/openai-site-freshness.test.ts",
     "scripts/meta-translation-probe.ts",
     "scripts/finalize-meta-translation.ts",
     "scripts/reconcile-meta-translation.ts",
