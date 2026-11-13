@@ -1,4 +1,4 @@
-name: Submit Meta Translation Background Jobs
+name: Submit OpenAI Translation Batches
 
 on:
   push:
@@ -10,10 +10,22 @@ on:
   workflow_dispatch:
     inputs:
       probe_only:
-        description: Run one synthetic Meta probe without submitting translations
+        description: Run one synthetic OpenAI Batch probe without submitting translations
         required: false
         type: boolean
         default: false
+      probe_action:
+        description: Synthetic probe action (submit or collect)
+        required: false
+        type: choice
+        options:
+          - submit
+          - collect
+        default: submit
+      probe_batch_id:
+        description: Batch ID from the probe submit receipt (required for collect)
+        required: false
+        type: string
       base_sha:
         description: Optional base SHA for changed-source detection
         required: false
@@ -59,10 +71,10 @@ jobs:
         # updated tracking ref when main advances during the 15-minute wait.
         run: git fetch origin main:refs/remotes/origin/main
 
-      - name: Submit current Meta translation requests
+      - name: Submit current OpenAI translation requests
         if: ${{ inputs.probe_only != true }}
         env:
-          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
@@ -70,9 +82,9 @@ jobs:
           INPUT_BASE_SHA: ${{ inputs.base_sha }}
           INPUT_HEAD_SHA: ${{ inputs.head_sha }}
         run: |
-          if [ -z "$META_TRANSLATION_API_KEY" ]; then
-            echo "::warning::META_TRANSLATION_API_KEY is not configured; no translation job was submitted."
-            exit 0
+          if [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::error::OPENAI_TRANSLATION_API_KEY is not configured; no translation job was submitted."
+            exit 1
           fi
 
           args=(submit)
@@ -86,29 +98,38 @@ jobs:
 
           node --experimental-strip-types scripts/openai-translation-batch.ts "${args[@]}"
 
-      - name: Run synthetic Meta translation probe
+      - name: Run synthetic OpenAI Batch probe
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.probe_only == true }}
         timeout-minutes: 5
         env:
-          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
-        run: node --experimental-strip-types scripts/meta-translation-probe.ts
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PROBE_ACTION: ${{ inputs.probe_action }}
+          PROBE_BATCH_ID: ${{ inputs.probe_batch_id }}
+        run: node --experimental-strip-types scripts/openai-translation-probe.ts "$PROBE_ACTION"
 
       - name: Preserve synthetic probe receipt
         if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.probe_only == true }}
         uses: actions/upload-artifact@v7
         with:
-          name: meta-translation-probe-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/meta-translation-probe.json
+          name: openai-translation-probe-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/openai-translation-probe.json
+            ${{ runner.temp }}/openai-translation-journal.json
+            ${{ runner.temp }}/openai-translation-receipts.jsonl
           if-no-files-found: ignore
           retention-days: 30
 
-      - name: Preserve Meta journal snapshot
+      - name: Preserve translation journal snapshots
         if: ${{ always() && inputs.probe_only != true }}
         uses: actions/upload-artifact@v7
         with:
-          name: meta-translation-journal-submit-${{ github.run_id }}-${{ github.run_attempt }}
+          name: translation-journal-submit-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/meta-translation-journal.json
             ${{ runner.temp }}/meta-translation-receipts.jsonl
+            ${{ runner.temp }}/openai-translation-journal.json
+            ${{ runner.temp }}/openai-translation-receipts.jsonl
           if-no-files-found: ignore
           retention-days: 30

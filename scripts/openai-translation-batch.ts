@@ -1,7 +1,12 @@
 import {
+  createOpenAiSubmissionStore,
+  excludePendingMetaTranslations,
+  submitOpenAiTranslations,
+} from './openai-batch-submission.ts'
+import { DIRECT_TRANSLATION_ROUTE } from './translation-model-policy.ts'
+import {
   cleanupProcessedMetaResponses,
   createGitHubJournalStore,
-  submitMetaTranslations,
   collectMetaGroup,
 } from './meta-translation-background.ts'
 import { execFileSync } from 'node:child_process'
@@ -994,13 +999,17 @@ export function createSiteBatchRequest(
 }
 
 // A fixed synthetic request using the normal site-translation prompt and schema.
-export function createMetaTranslationProbeInput(): BatchInputLine {
+export function createMetaTranslationProbeInput(
+  sourceHash = '0'.repeat(64),
+): BatchInputLine {
+  if (!/^[a-f0-9]{64}$/.test(sourceHash))
+    throw new Error('invalid_probe_source_hash')
   const metadata: RequestMetadata = {
     version: 1,
     kind: 'site',
     locale: 'en',
     sourcePath: 'synthetic-probe',
-    sourceHash: '0'.repeat(64),
+    sourceHash,
   }
   const input = createSiteBatchRequest(
     metadata,
@@ -1086,6 +1095,33 @@ function sourceAtCurrentRefMatches(
   return current !== null && hashSource(current) === hashSource(expectedSource)
 }
 
+// Campaign requests aggregate multiple source files, so every file in that
+// directory must still match the checked-out revision after the wait.
+export function isCurrentSiteSource(
+  sourcePath: string,
+  deleted: boolean,
+  headSha: string,
+  currentRef: string | null,
+): boolean {
+  if (!currentRef) return true
+  const source = deleted ? null : readFileAtRef(headSha, sourcePath)
+  if (!deleted && source === null) return false
+  if (!sourceAtCurrentRefMatches(sourcePath, source, currentRef)) return false
+  if (isCampaignPath(sourcePath)) {
+    const changes = tryRunGit([
+      'diff',
+      '--name-only',
+      headSha,
+      currentRef,
+      '--',
+      `${SITE_SOURCE_DIR}/campaigns`,
+    ])
+    if (changes === null) throw new Error('current_campaign_comparison_failed')
+    if (changes) return false
+  }
+  return true
+}
+
 async function submitBatch(args: ParsedArgs): Promise<void> {
   const headSha = resolveHeadSha(args.headSha)
   const baseSha =
@@ -1156,6 +1192,15 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
       continue
     }
 
+    if (
+      !isCurrentSiteSource(
+        entry.path,
+        entry.status === 'D',
+        headSha,
+        args.currentRef,
+      )
+    )
+      continue
     const fragment = getSiteFragment(entry.path)
     const sourceHash = hashJson(fragment.source)
     for (const locale of locales) {
@@ -1187,13 +1232,25 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
 
   const repo = process.env.GITHUB_REPOSITORY ?? ''
   const token = process.env.GITHUB_TOKEN ?? ''
-  const apiKey = process.env.META_TRANSLATION_API_KEY ?? ''
-  const store = createGitHubJournalStore(repo, token, headSha)
-  const groupId = await submitMetaTranslations(inputs, store, apiKey)
-  console.log(
-    `Submitted Meta background translations ${groupId} (${inputs.length} requests).`,
+  const available = await excludePendingMetaTranslations(
+    inputs,
+    createGitHubJournalStore(repo, token, headSha),
   )
-  writeOutput('batch_id', groupId)
+  if (available.length !== inputs.length)
+    console.log('Deferred inputs with unprocessed Meta jobs.')
+  if (available.length === 0) return
+  const batchId = await submitOpenAiTranslations(
+    available,
+    DIRECT_TRANSLATION_ROUTE,
+    createOpenAiSubmissionStore(repo, token, headSha),
+    process.env.OPENAI_TRANSLATION_API_KEY ?? '',
+  )
+  if (!batchId) {
+    console.log('All translation inputs already have a reserved submission.')
+    return
+  }
+  console.log(`Submitted OpenAI translation batch ${batchId}.`)
+  writeOutput('batch_id', batchId)
 }
 
 function getResponseText(body: JsonRecord): string {
@@ -1477,7 +1534,7 @@ function makePrBody(
     '## 概要',
     batchId.startsWith('meta-')
       ? '- Meta Muse Ember（medium）で最新の日本語sourceを翻訳しました。'
-      : '- OpenAI Batch（gpt-6-luna / reasoning max）の完了結果を反映しました。',
+      : '- OpenAI Batch の完了結果を反映しました。',
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',
