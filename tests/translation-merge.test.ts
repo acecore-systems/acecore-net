@@ -7,6 +7,7 @@ import {
   hasOnlyAllowedTranslationFiles,
   hasSuccessfulTranslationBuild,
   isEligibleTranslationPullRequest,
+  isPullRequestBehindMain,
   markPullRequestReadyForReview,
   parseArguments,
   parsePullRequest,
@@ -16,6 +17,7 @@ import {
   type RepositoryInfo,
   type TranslationPullRequest,
 } from '../scripts/merge-translation-pr.ts'
+import { hashSource } from '../scripts/openai-translation-batch.ts'
 
 const REPOSITORY: RepositoryInfo = {
   owner: 'acecore-systems',
@@ -126,6 +128,42 @@ test('対象外のPRは翻訳自動マージ対象にしない', () => {
   assert.equal(
     isEligibleTranslationPullRequest(
       createPullRequest({ authorLogin: 'untrusted-user' }),
+      REPOSITORY,
+    ),
+    false,
+  )
+})
+
+test('Metaと現行OpenAIのPR titleはbranch IDと完全一致する場合だけ認める', () => {
+  const metaId = `meta-${'b'.repeat(32)}`
+  for (const [headRef, title] of [
+    [`translation/openai/${metaId}`, `[translation] ${metaId}`],
+    ['translation/openai/batch_example', '[translation] batch_example'],
+  ] as const) {
+    const eligible = createPullRequest({ headRef, title })
+    assert.equal(isEligibleTranslationPullRequest(eligible, REPOSITORY), true)
+    for (const overrides of [
+      { title: `${title} extra` },
+      { title: '[translation] batch_other' },
+      { headRef: `${headRef}/nested` },
+      { authorLogin: 'untrusted-user' },
+      { headRepositoryFullName: 'untrusted-fork/acecore-net' },
+    ]) {
+      assert.equal(
+        isEligibleTranslationPullRequest(
+          { ...eligible, ...overrides },
+          REPOSITORY,
+        ),
+        false,
+      )
+    }
+  }
+  assert.equal(
+    isEligibleTranslationPullRequest(
+      createPullRequest({
+        headRef: 'translation/openai/meta-invalid',
+        title: '[translation] meta-invalid',
+      }),
       REPOSITORY,
     ),
     false,
@@ -313,6 +351,158 @@ test('behindの翻訳PRは検証済みHEAD SHAを固定してmainへ追従させ
   ])
 })
 
+test('mergeable_stateが古くてもAuto-merge予約済みPRを実際のmainへ追従させ新HEADのCIを待つ', async () => {
+  const sourcePath = 'src/content/blog/website-renewal.md'
+  const marker = Buffer.from(
+    JSON.stringify({
+      kind: 'blog',
+      sourcePath,
+      sourceHash: hashSource(await readFile(sourcePath, 'utf8')),
+    }),
+  ).toString('base64url')
+  const mainSha = 'b'.repeat(40)
+  for (const mergeableState of ['clean', 'unknown']) {
+    const requests: Array<{ path: string; options?: unknown }> = []
+    const client: GitHubClient = {
+      async request(path, options) {
+        requests.push({ path, options })
+        if (path.endsWith('/pulls/42'))
+          return {
+            number: 42,
+            state: 'open',
+            base: { ref: 'main' },
+            head: {
+              ref: 'translation/openai/batch_example',
+              sha: HEAD_SHA,
+              repo: { full_name: REPOSITORY.repository },
+            },
+            title: '[translation] batch_example',
+            body: `<!-- openai-translation-source:${marker} -->`,
+            user: { login: 'acecore-translation-bot[bot]' },
+            draft: false,
+            mergeable_state: mergeableState,
+            auto_merge: { merge_method: 'squash' },
+            node_id: 'PR_kwDORlSgas123',
+          }
+        if (path.includes('/files?'))
+          return [{ filename: 'src/i18n/translations/en.json' }]
+        if (path.endsWith('/git/ref/heads/main'))
+          return { object: { sha: mainSha } }
+        if (path.includes('/compare/')) {
+          assert.equal(
+            path,
+            `/repos/${REPOSITORY.repository}/compare/${mainSha}...${HEAD_SHA}?per_page=1`,
+          )
+          return { behind_by: 2 }
+        }
+        if (path.endsWith('/update-branch')) {
+          assert.deepEqual(options, {
+            method: 'PUT',
+            body: { expected_head_sha: HEAD_SHA },
+          })
+          return { message: 'Updating pull request branch.' }
+        }
+        throw new Error(`Must wait for new HEAD checks: ${path}`)
+      },
+      async graphql() {
+        throw new Error('Must not merge or mark ready before new HEAD checks.')
+      },
+    }
+    await runMergeAutomation(['--pr=42'], {
+      client,
+      repository: REPOSITORY,
+      logger: createLogger().logger,
+    })
+    assert.equal(
+      requests.filter(({ path }) => path.endsWith('/update-branch')).length,
+      1,
+    )
+    assert.equal(
+      requests.some(({ path }) => path.includes('/check-runs')),
+      false,
+    )
+  }
+})
+
+test('mainとの比較結果が欠ける場合は推測してマージしない', async () => {
+  const client: GitHubClient = {
+    async request(path) {
+      if (path.endsWith('/git/ref/heads/main'))
+        return { object: { sha: 'b'.repeat(40) } }
+      return { status: 'unknown' }
+    },
+    async graphql() {
+      throw new Error('Must not merge without ancestry.')
+    },
+  }
+  await assert.rejects(
+    isPullRequestBehindMain(createPullRequest(), REPOSITORY, client),
+    /must include behind_by/,
+  )
+})
+
+test('mainへ追従済みでも現在のhead SHAの翻訳buildが未完了ならready化も予約もしない', async () => {
+  const sourcePath = 'src/content/blog/website-renewal.md'
+  const marker = Buffer.from(
+    JSON.stringify({
+      kind: 'blog',
+      sourcePath,
+      sourceHash: hashSource(await readFile(sourcePath, 'utf8')),
+    }),
+  ).toString('base64url')
+  let checkedHead = false
+  const client: GitHubClient = {
+    async request(path, options) {
+      assert.equal(options?.method, undefined)
+      if (path.endsWith('/pulls/42'))
+        return {
+          number: 42,
+          state: 'open',
+          base: { ref: 'main' },
+          head: {
+            ref: 'translation/openai/batch_example',
+            sha: HEAD_SHA,
+            repo: { full_name: REPOSITORY.repository },
+          },
+          title: '[translation] batch_example',
+          body: `<!-- openai-translation-source:${marker} -->`,
+          user: { login: 'acecore-translation-bot[bot]' },
+          draft: true,
+          mergeable_state: 'unknown',
+          auto_merge: null,
+          node_id: 'PR_kwDORlSgas123',
+        }
+      if (path.includes('/files?'))
+        return [{ filename: 'src/i18n/translations/en.json' }]
+      if (path.endsWith('/git/ref/heads/main'))
+        return { object: { sha: 'b'.repeat(40) } }
+      if (path.includes('/compare/')) return { behind_by: 0 }
+      if (path.endsWith(`/commits/${HEAD_SHA}/check-runs?per_page=100`)) {
+        checkedHead = true
+        return {
+          check_runs: [
+            {
+              name: 'Translation PR Build',
+              status: 'in_progress',
+              conclusion: null,
+            },
+          ],
+        }
+      }
+      throw new Error(`Unexpected request: ${path}`)
+    },
+    async graphql() {
+      throw new Error('Current HEAD checks must pass first.')
+    },
+  }
+  await runMergeAutomation(['--pr=42'], {
+    client,
+    repository: REPOSITORY,
+    logger: createLogger().logger,
+  })
+  assert.equal(checkedHead, true)
+})
+
 test('ready化のGraphQL応答が対象PRをreadyと確認できなければ停止する', async () => {
   const client: GitHubClient = {
     async request() {
@@ -399,13 +589,14 @@ test('OpenAI翻訳PRのsourceHashが古ければbuild成功後でも閉じてマ
   ])
 })
 
-test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する', async () => {
+test('成功した翻訳build・通常CI・main更新で翻訳PRを再評価する', async () => {
   const workflow = await readFile(
     '.github/workflows/merge-translation-pr.yml',
     'utf8',
   )
 
   assert.match(workflow, /workflow_run:/u)
+  assert.match(workflow, /workflows:\s+- Translation PR Build\s+- CI/u)
   assert.match(workflow, /push:\s+branches:\s+- main/u)
   assert.match(workflow, /PR_NUMBERS: \$\{\{ steps\.pr\.outputs\.numbers \}\}/u)
   assert.match(workflow, /checks:\s+read/u)
@@ -428,5 +619,25 @@ test('成功した翻訳buildとmain更新の両方で翻訳PRを再評価する
   assert.match(
     workflow,
     /node --experimental-strip-types scripts\/merge-translation-pr\.ts --pr="\$pr_number"/u,
+  )
+})
+
+test('翻訳buildは両providerを受け入れ手動実行でもbot・repo・branch IDを検証する', async () => {
+  const workflow = await readFile(
+    '.github/workflows/translation-pr-build.yml',
+    'utf8',
+  )
+  assert.match(workflow, /\[translation\] meta-/u)
+  assert.match(workflow, /\[translation\] batch_/u)
+  assert.match(workflow, /\.user\.login == "acecore-translation-bot\[bot\]"/u)
+  assert.match(workflow, /\.head\.repo\.full_name \| ascii_downcase/u)
+  assert.match(workflow, /\.title == "\[translation\] \\\(/u)
+  assert.match(
+    workflow,
+    /PR_NUMBER: \$\{\{ github\.event\.pull_request\.number \|\| inputs\.pr_number \}\}/u,
+  )
+  assert.doesNotMatch(
+    workflow,
+    /echo "[^\n]*\$\{\{ github\.event\.pull_request\.(?:title|head\.ref)/u,
   )
 })

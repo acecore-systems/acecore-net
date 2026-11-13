@@ -17,7 +17,7 @@
     "test:blog-freshness": "node --test --test-isolation=none tests/blog-freshness.test.mjs",
     "test:cms": "node --experimental-strip-types --test --test-concurrency=1 --test-isolation=none tests/cms-access-identity.test.mjs tests/cms-admin-init.test.mjs tests/cms-session-refresh.test.mjs && node --import ./tests/register-json-module-hooks.mjs tests/cms-proxy.test.mjs && node --test tests/cms-ai-integration.test.mjs && node --import ./tests/register-json-module-hooks.mjs tests/cms-blog-freshness-validator.test.mjs && node tests/render-safety.test.mjs && node --experimental-strip-types tests/translation-merge.test.ts",
     "test:translation-merge": "node --experimental-strip-types --test tests/translation-merge.test.ts",
-    "test:openai-translation": "node --experimental-strip-types --test tests/openai-translation-batch.test.ts tests/openai-batch-submission.test.ts",
+    "test:openai-translation": "node --experimental-strip-types --test tests/openai-translation-batch.test.ts tests/openai-batch-submission.test.ts tests/meta-journal-store.test.ts tests/recover-meta-security-policy.test.ts",
     "test:cms-auth": "node --experimental-strip-types --test tests/sveltia-cms-auth.test.ts",
     "test:ai-chat": "node --import ./tests/register-json-module-hooks.mjs --experimental-strip-types --test tests/ai-contact.test.mjs tests/designs-catalog.test.mjs tests/designs-catalog-runtime.test.mjs",
     "test:contact": "node --experimental-strip-types --test tests/contact-api.test.mjs tests/contact-page-turnstile.test.mjs tests/contact-prefill.test.mjs tests/specialist-url.test.mjs",
@@ -56,13 +56,13 @@
     "deploy:ai-contact-openai:production": "wrangler deploy --config workers/ai-contact-openai/wrangler.jsonc --env production"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.4",
+    "@astrojs/markdown-remark": "^7.3.6",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/noto-sans-jp": "^5.3.1",
-    "astro": "^7.4.2",
-    "graphql": "^17.0.2",
-    "jose": "^6.2.13",
+    "astro": "^7.4.7",
+    "graphql": "^17.1.0",
+    "jose": "^6.2.16",
     "js-yaml": "^5.5.0",
     "rehype-external-links": "^3.0.0",
     "satori": "^0.63.2",
@@ -70,17 +70,17 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261022.1",
-    "@iconify-json/lucide": "^1.2.147",
-    "@tailwindcss/postcss": "4.3.3",
+    "@cloudflare/workers-types": "^5.20261109.1",
+    "@iconify-json/lucide": "^1.2.152",
+    "@tailwindcss/postcss": "4.3.5",
     "@types/js-yaml": "^4.0.9",
     "cheerio": "^1.2.0",
-    "pagefind": "^1.5.2",
+    "pagefind": "^1.6.0",
     "prettier": "^3.9.10",
-    "prettier-plugin-astro": "^1.1.1",
-    "tailwindcss": "4.3.3",
+    "prettier-plugin-astro": "^1.1.2",
+    "tailwindcss": "4.3.5",
     "typescript": "^7.0.2",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.158.0"
   },
   "engines": {
     "node": ">=24.22.1"

@@ -21,6 +21,13 @@ import {
 } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { getPageTranslationKey } from '../src/i18n/page-translation-keys.ts'
+import {
+  CORPORATE_MOTTO_SOURCE,
+  createSiteTranslationTerms,
+  protectSiteTranslationTerms,
+  restoreSiteTranslationTerms,
+} from './site-translation-terms.ts'
 
 const API_BASE_URL = 'https://api.openai.com/v1'
 const BATCH_ENDPOINT = '/v1/responses'
@@ -465,10 +472,13 @@ export function getSiteFragment(sourcePath: string): SiteFragment {
     /^src\/i18n\/source\/ja\/pages\/([^/]+)\.json$/,
   )
   if (pageMatch?.[1]) {
-    return {
-      source: readJsonFile(sourcePath),
-      targetMode: 'replace-path',
-      targetPath: ['pages', pageMatch[1]],
+    const pageKey = getPageTranslationKey(pageMatch[1])
+    if (pageKey) {
+      return {
+        source: readJsonFile(sourcePath),
+        targetMode: 'replace-path',
+        targetPath: ['pages', pageKey],
+      }
     }
   }
 
@@ -644,7 +654,7 @@ function applySiteFragment(
   return translation
 }
 
-function removeSiteTarget(
+export function removeSiteTarget(
   translation: JsonRecord,
   sourcePath: string,
 ): JsonRecord {
@@ -661,7 +671,14 @@ function removeSiteTarget(
     /^src\/i18n\/source\/ja\/pages\/([^/]+)\.json$/,
   )
   if (pageMatch?.[1]) {
-    deleteByPath(translation, ['pages', pageMatch[1]])
+    // The removed designs page predates the current source registry.
+    const pageKey =
+      getPageTranslationKey(pageMatch[1]) ??
+      (pageMatch[1] === 'designs' ? 'designs' : null)
+    if (!pageKey) {
+      throw new Error(`Unsupported Japanese translation source: ${sourcePath}`)
+    }
+    deleteByPath(translation, ['pages', pageKey])
   }
   return translation
 }
@@ -926,7 +943,22 @@ function createBlogBatchRequest(
   }
 }
 
-function createSiteBatchRequest(
+function getSiteTranslationTerms(
+  entries: readonly TranslationEntry[],
+  currentTranslation: JsonRecord,
+) {
+  if (!entries.some((entry) => entry.source.includes(CORPORATE_MOTTO_SOURCE))) {
+    return []
+  }
+  return createSiteTranslationTerms(
+    getByPath(readJsonFile(`${SITE_SOURCE_DIR}/pages/home.json`), [
+      'heroTitle',
+    ]),
+    getByPath(currentTranslation, ['pages', 'home', 'heroTitle']),
+  )
+}
+
+export function createSiteBatchRequest(
   metadata: RequestMetadata,
   fragment: SiteFragment,
   currentTranslation: JsonRecord,
@@ -938,6 +970,7 @@ function createSiteBatchRequest(
       `${metadata.sourcePath} does not contain translatable strings`,
     )
   }
+  const protectedTerms = getSiteTranslationTerms(entries, currentTranslation)
 
   return {
     custom_id: encodeMetadata(metadata),
@@ -946,11 +979,12 @@ function createSiteBatchRequest(
     body: {
       max_output_tokens: 32768,
       instructions:
-        'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
+        'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /meta/defaultDescription, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Preserve each protectedTerms token in every source entry containing it; the token will be replaced by its text after translation, so count that text toward SEO length limits. Use the current translation as terminology context, but return one translation for every supplied id.',
       input: JSON.stringify({
         targetLocale: metadata.locale,
         sourcePath: metadata.sourcePath,
-        entries,
+        entries: protectSiteTranslationTerms(entries, protectedTerms),
+        ...(protectedTerms.length ? { protectedTerms } : {}),
       }),
       text: {
         format: createResponseFormat('site_translation', SITE_RESPONSE_SCHEMA),
@@ -1331,6 +1365,26 @@ function applyBlogDeletion(metadata: RequestMetadata): boolean {
   return changed
 }
 
+export function translateSiteFragment(
+  fragment: SiteFragment,
+  translation: JsonRecord,
+  response: JsonRecord,
+): JsonRecord {
+  const expectedEntries = listTranslationEntries(
+    fragment.source,
+    getCurrentSiteFragment(translation, fragment),
+  )
+  const translatedSource = translateJsonValue(
+    fragment.source,
+    restoreSiteTranslationTerms(
+      parseSiteTranslations(response, expectedEntries),
+      expectedEntries,
+      getSiteTranslationTerms(expectedEntries, translation),
+    ),
+  )
+  return applySiteFragment(translation, fragment, translatedSource)
+}
+
 function applySiteTranslation(
   metadata: RequestMetadata,
   response: JsonRecord,
@@ -1345,15 +1399,7 @@ function applySiteTranslation(
   if (!isJsonRecord(translation)) {
     throw new Error(`${translationPath} must contain a JSON object`)
   }
-  const expectedEntries = listTranslationEntries(
-    fragment.source,
-    getCurrentSiteFragment(translation, fragment),
-  )
-  const translatedSource = translateJsonValue(
-    fragment.source,
-    parseSiteTranslations(response, expectedEntries),
-  )
-  const next = applySiteFragment(translation, fragment, translatedSource)
+  const next = translateSiteFragment(fragment, translation, response)
   return writeTranslationFile(
     translationPath,
     `${JSON.stringify(next, null, 2)}\n`,

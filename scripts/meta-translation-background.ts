@@ -8,7 +8,7 @@ export interface MetaTranslationInput {
 }
 export interface MetaJournalEntry {
   customId: string
-  state: 'queued' | 'dispatching' | 'submitted' | 'failed'
+  state: 'queued' | 'dispatching' | 'submitted' | 'failed' | 'superseded'
   requestKey: string
   ownerGroupId?: string
   deletingAt?: string
@@ -20,6 +20,17 @@ export interface MetaJournalGroup {
   createdAt: string
   processedAt?: string
   entries: MetaJournalEntry[]
+  superseded?: {
+    reason: 'translations_already_merged'
+    pullRequest: number
+    mergedCommit: string
+    validatedCommit: string
+    sourcePath: string
+    sourceHash: string
+    targetPath: string[]
+    targetHashes: Record<string, string>
+    acceptedResponseStatus: string
+  }
 }
 export interface MetaJournal {
   version: 1
@@ -72,6 +83,9 @@ export function createGitHubJournalStore(
     Authorization: `Bearer ${token}`,
     'X-GitHub-Api-Version': '2022-11-28',
   }
+  // Pin content reads to commits. GitHub can briefly serve an older branch
+  // snapshot after a successful write; never feed that snapshot to a mutator.
+  let writtenCommit: string | undefined
   const readState = async (): Promise<{
     journal: MetaJournal
     sha?: string
@@ -88,8 +102,28 @@ export function createGitHubJournalStore(
       ref = await fetchImpl(`${root}/git/ref/heads/${BRANCH}`, { headers })
     }
     if (!ref.ok) throw new Error(`journal_ref_read_${ref.status}`)
+    const refData = (await ref.json()) as { object?: { sha?: unknown } }
+    const branchCommit = refData.object?.sha
+    if (
+      typeof branchCommit !== 'string' ||
+      !/^[a-f0-9]{40}$/.test(branchCommit)
+    )
+      throw new Error('journal_invalid_ref')
+    let commit = branchCommit
+    if (writtenCommit && branchCommit !== writtenCommit) {
+      const comparison = await fetchImpl(
+        `${root}/compare/${writtenCommit}...${branchCommit}`,
+        { headers },
+      )
+      if (!comparison.ok)
+        throw new Error(`journal_compare_${comparison.status}`)
+      const { status } = (await comparison.json()) as { status?: unknown }
+      if (status === 'behind') commit = writtenCommit
+      else if (status !== 'ahead' && status !== 'identical')
+        throw new Error('journal_history_diverged')
+    }
     const response = await fetchImpl(
-      `${root}/contents/${JOURNAL_PATH}?ref=${encodeURIComponent(BRANCH)}`,
+      `${root}/contents/${JOURNAL_PATH}?ref=${commit}`,
       { headers },
     )
     if (response.status === 404) return { journal: empty() }
@@ -123,6 +157,13 @@ export function createGitHubJournalStore(
           }),
         })
         if (response.ok) {
+          const result = (await response.json()) as {
+            commit?: { sha?: unknown }
+          }
+          const commit = result.commit?.sha
+          if (typeof commit !== 'string' || !/^[a-f0-9]{40}$/.test(commit))
+            throw new Error('journal_write_missing_commit')
+          writtenCommit = commit
           snapshot(journal)
           return journal
         }
@@ -202,7 +243,8 @@ export async function submitMetaTranslations(
             other.deletingAt ||
             other.state === 'dispatching' ||
             other.state === 'submitted' ||
-            other.state === 'failed',
+            other.state === 'failed' ||
+            other.state === 'superseded',
         )
         if (active?.deletingAt) return
         if (active) {
@@ -398,6 +440,7 @@ export async function cleanupProcessedMetaResponses(
   store: JournalStore,
   apiKey: string,
   fetchImpl = fetch,
+  groupIds?: ReadonlySet<string>,
 ): Promise<void> {
   if (!apiKey) throw new Error('META_TRANSLATION_API_KEY is required')
   const journal = await store.read()
@@ -405,7 +448,11 @@ export async function cleanupProcessedMetaResponses(
     Object.values(journal.groups).flatMap((group) =>
       group.entries
         .filter(
-          (entry) => group.processedAt && entry.responseId && !entry.deletedAt,
+          (entry) =>
+            (!groupIds || groupIds.has(group.id)) &&
+            group.processedAt &&
+            entry.responseId &&
+            !entry.deletedAt,
         )
         .map((entry) => entry.responseId!),
     ),
@@ -479,11 +526,16 @@ export async function collectMetaGroup(
     const outputs: MetaOutput[] = []
     let pending = false
     for (const entry of group.entries) {
-      if (entry.state === 'failed') {
+      if (entry.state === 'failed' || entry.state === 'superseded') {
         outputs.push({
           custom_id: entry.customId,
           response: null,
-          error: { code: 'submit_rejected' },
+          error: {
+            code:
+              entry.state === 'superseded'
+                ? 'superseded_by_merged_translation'
+                : 'submit_rejected',
+          },
         })
         continue
       }

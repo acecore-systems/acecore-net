@@ -1,0 +1,66 @@
+name: Recover accepted Meta security policy translation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/recover-meta-security-policy.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: recover-meta-security-policy
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    if: github.repository == 'acecore-systems/acecore-net' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out current main for source and translation verification
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Test journal recovery without provider requests
+        run: node --experimental-strip-types --test tests/meta-journal-store.test.ts tests/recover-meta-security-policy.test.ts
+
+      - name: Download the accepted receipt from the original failed run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh run download 43138470203 \
+            --repo "$GITHUB_REPOSITORY" \
+            --name meta-translation-journal-submit-43138470203-1 \
+            --dir "$RUNNER_TEMP/meta-security-policy-recovery"
+
+      - name: Reconcile the accepted response and record PR 337 supersession
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+        run: |
+          export RECOVERY_CHECKOUT_SHA="$(git rev-parse HEAD)"
+          node --experimental-strip-types scripts/recover-meta-security-policy.ts \
+            "$RUNNER_TEMP/meta-security-policy-recovery/meta-translation-receipts.jsonl"
+
+      - name: Preserve recovery journal snapshot
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: meta-security-policy-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/meta-translation-journal.json
+          if-no-files-found: ignore
+          retention-days: 30

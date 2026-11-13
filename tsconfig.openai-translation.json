@@ -11,6 +11,10 @@
     "scripts/finalize-meta-translation.ts",
     "scripts/reconcile-meta-translation.ts",
     "tests/openai-translation-batch.test.ts",
+    "scripts/recover-meta-security-policy.ts",
+    "tests/meta-journal-store.test.ts",
+    "tests/recover-meta-security-policy.test.ts",
+    "scripts/openai-translation-preflight.ts",
     "tests/openai-batch-submission.test.ts"
   ]
 }
