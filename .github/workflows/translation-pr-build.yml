@@ -18,42 +18,46 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   build:
     name: Translation PR Build
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (startsWith(github.event.pull_request.head.ref, 'translation/openai/') &&
-      startsWith(github.event.pull_request.title, '[translation] OpenAI Batch '))
+      (github.event.pull_request.user.login == 'acecore-translation-bot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'translation/openai/') &&
+      (startsWith(github.event.pull_request.title, '[translation] OpenAI Batch ') ||
+      startsWith(github.event.pull_request.title, '[translation] batch_') ||
+      startsWith(github.event.pull_request.title, '[translation] meta-')))
     runs-on: ubuntu-latest
     steps:
       - name: Resolve pull request metadata
         id: pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            pr_json=$(gh pr view "${{ inputs.pr_number }}" --repo "${{ github.repository }}" --json number,headRefName,headRefOid,title)
-            echo "number=$(echo "$pr_json" | jq -r '.number')" >> "$GITHUB_OUTPUT"
-            echo "head_ref=$(echo "$pr_json" | jq -r '.headRefName')" >> "$GITHUB_OUTPUT"
-            echo "head_sha=$(echo "$pr_json" | jq -r '.headRefOid')" >> "$GITHUB_OUTPUT"
-            echo "title=$(echo "$pr_json" | jq -r '.title')" >> "$GITHUB_OUTPUT"
-          else
-            echo "number=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
-            echo "head_ref=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
-            echo "head_sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
-            echo "title=${{ github.event.pull_request.title }}" >> "$GITHUB_OUTPUT"
+          if [[ ! "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+            echo "A positive pull request number is required."
+            exit 1
           fi
-
-      - name: Stop if manual target is not an eligible translation PR
-        if: >-
-          github.event_name == 'workflow_dispatch' &&
-          (!startsWith(steps.pr.outputs.head_ref, 'translation/openai/') ||
-          !startsWith(steps.pr.outputs.title, '[translation] OpenAI Batch '))
-        run: |
-          echo "The specified PR is not an eligible translation PR."
-          exit 1
+          pr_json=$(gh api "/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")
+          if ! jq -e --arg repo "$GITHUB_REPOSITORY" '
+            (.head.ref | capture("^translation/openai/(?<id>batch_[A-Za-z0-9_-]+|meta-[a-f0-9]{32})$").id) as $id |
+            .state == "open" and .base.ref == "main" and
+            .user.login == "acecore-translation-bot[bot]" and
+            (.head.repo.full_name | ascii_downcase) == ($repo | ascii_downcase) and
+            (.head.sha | test("^[0-9a-f]{40}$")) and
+            (.title == "[translation] \($id)" or
+              (($id | startswith("batch_")) and .title == "[translation] OpenAI Batch \($id)"))
+          ' <<< "$pr_json" > /dev/null; then
+            echo "The specified PR is not an eligible translation PR."
+            exit 1
+          fi
+          echo "number=$(jq -r '.number' <<< "$pr_json")" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$(jq -r '.head.sha' <<< "$pr_json")" >> "$GITHUB_OUTPUT"
 
       - name: Check out pull request head
         uses: actions/checkout@v7

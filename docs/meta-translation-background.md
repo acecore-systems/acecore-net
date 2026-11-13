@@ -15,3 +15,15 @@ GitHub Actionsの `META_TRANSLATION_API_KEY` と `GITHUB_TOKEN` のcontents writ
 Metaへの送信にはgroup IDとrequest hashだけをmetadataとして付ける。受理後のjournal書込が失敗してreceipt artifactにIDが残った場合、取得した `meta-translation-receipts.jsonl` を使い `node --experimental-strip-types scripts/reconcile-meta-translation.ts <receipt-file>` で復旧できる。GitHub repository/token/SHA と Meta key は安全な環境変数から与える。このコマンドはMetaにGETし、返却metadataとjournalのgroup・request hashを照合してからIDを記録する。新しいPOSTは送らない。receiptもIDも存在しない `dispatching` は結果不明なので、自動再送せずprovider側と作業記録を確認する。
 
 明示的な429のみ短いbackoffで最大3回まで再試行し、それでも429なら未送信に戻す。ネットワーク障害・5xxやID不明は送信済みの可能性を残す。providerのgroup内失敗分は旧Batchと同様に適用対象から除外し、正常な結果のみsourceHashを確認する。
+
+## 2026年11月12日のsecurity-policy受付復旧
+
+`meta-b01257981f8143b2013652711f0567bd` は、英語1件の受理後にjournal保存が失敗し、残り7言語が未送信のまま停止した。PR #337（`a12f6846eac8f243ea6848d07ebc1075a69e4800`）で同じ日本語sourceと8言語の `pages.securityPolicy` がすでに統合されているため、追加翻訳を送信せず、この統合内容を根拠として終了させる。
+
+専用の `Recover accepted Meta security policy translation` workflowは、自身のYAMLを変更するmain push、またはmain上での手動実行だけで動く。元のrun `43138470203` のreceipt artifactを固定指定で取得する。現在のmainをcheckoutし、PR #337のcommitが祖先であること、日本語sourceのhashが受理要求と同じであること、正しいtargetPathにある8言語の全キー・本文が統合済みcommitと一致することを検証する。検証中にmainが進んだ場合や、他言語にも未確定送信が見つかった場合は停止する。
+
+処理は既存の英語responseへのGETでmetadataを照合し、受理IDを復旧する。providerが終了状態であれば、未送信7件を `superseded` に変更し、PR番号・統合commit・検証commit・sourceHash・8言語のtarget hash・受理済みresponseの終了状態をjournalへ残す。その後、このgroupのresponseだけを既存の共有参照検査に通してDELETEする。日本語sourceや翻訳本文は変更せず、新しいprovider POSTも送らない。
+
+再実行時は同じ完了記録を確認し、必要な削除だけを再試行する。providerがまだ処理中なら受理IDの復旧だけを行い、7件は未送信のまま保持する。mainが進んだ場合やproviderが未完了の場合は、状態を確認後に失敗jobを再実行できる。根拠の不一致・receipt不一致・GET失敗では未確定要求を送信前状態へ戻さない。
+
+journalの読取りはbranch名ではなくcommit SHAを指定する。保存APIが返したcommitを保持し、branch参照の反映が遅れても自分の保存より古い内容へ戻らない。並行更新は祖先関係とcontents SHAで照合し、履歴が分岐した場合は停止する。

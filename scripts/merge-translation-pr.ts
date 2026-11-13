@@ -74,7 +74,8 @@ interface MergeAutomationOptions {
 
 const GITHUB_API_URL = 'https://api.github.com'
 const FULL_SHA_PATTERN = /^[0-9a-f]{40}$/i
-const OPENAI_TRANSLATION_TITLE_PREFIX = '[translation] OpenAI Batch '
+const TRANSLATION_BRANCH_PATTERN =
+  /^translation\/openai\/(batch_[A-Za-z0-9_-]+|meta-[a-f0-9]{32})$/u
 const OPENAI_TRANSLATION_BOT_LOGIN = 'acecore-translation-bot[bot]'
 const TRANSLATION_CONTENT_PATH_PATTERN =
   /^src\/content\/blog\/(?:en|zh-cn|es|pt|fr|ko|de|ru)\/.+\.md$/u
@@ -443,14 +444,21 @@ export function isEligibleTranslationPullRequest(
   pullRequest: TranslationPullRequest,
   repository: RepositoryInfo,
 ): boolean {
+  const translationId = pullRequest.headRef?.match(
+    TRANSLATION_BRANCH_PATTERN,
+  )?.[1]
+  const hasMatchingTitle =
+    translationId !== undefined &&
+    (pullRequest.title === `[translation] ${translationId}` ||
+      (translationId.startsWith('batch_') &&
+        pullRequest.title === `[translation] OpenAI Batch ${translationId}`))
   return (
     pullRequest.state === 'open' &&
     pullRequest.baseRef === 'main' &&
     pullRequest.authorLogin === OPENAI_TRANSLATION_BOT_LOGIN &&
     pullRequest.headRepositoryFullName?.toLowerCase() ===
       repository.repository.toLowerCase() &&
-    pullRequest.headRef?.startsWith('translation/openai/') === true &&
-    pullRequest.title.startsWith(OPENAI_TRANSLATION_TITLE_PREFIX)
+    hasMatchingTitle
   )
 }
 
@@ -476,6 +484,37 @@ export function hasSuccessfulTranslationBuild(
       checkRun.status === 'completed' &&
       checkRun.conclusion === 'success',
   )
+}
+
+export async function isPullRequestBehindMain(
+  pullRequest: TranslationPullRequest,
+  repository: RepositoryInfo,
+  client: GitHubClient,
+): Promise<boolean> {
+  const repositoryPath = `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}`
+  const ref = getRequiredRecord(
+    await client.request(`${repositoryPath}/git/ref/heads/main`),
+    'GitHub main ref',
+  )
+  const object = getRequiredRecord(ref.object, 'GitHub main ref.object')
+  const mainSha = getRequiredString(object, 'sha', 'GitHub main ref.object')
+  if (!FULL_SHA_PATTERN.test(mainSha)) {
+    throw new Error('GitHub main ref must contain a full commit SHA.')
+  }
+  const comparison = getRequiredRecord(
+    await client.request(
+      `${repositoryPath}/compare/${mainSha}...${pullRequest.headSha}?per_page=1`,
+    ),
+    'GitHub main/head comparison',
+  )
+  if (
+    typeof comparison.behind_by !== 'number' ||
+    !Number.isSafeInteger(comparison.behind_by) ||
+    comparison.behind_by < 0
+  ) {
+    throw new Error('GitHub main/head comparison must include behind_by.')
+  }
+  return comparison.behind_by > 0
 }
 
 function parseAutoMergeResult(value: JsonRecord): AutoMergeResult {
@@ -751,19 +790,11 @@ export async function runMergeAutomation(
     )
   }
 
-  const checkRuns = await getCheckRuns(
-    pullRequest.headSha,
-    currentRepository,
-    currentClient,
-  )
-  if (!hasSuccessfulTranslationBuild(checkRuns)) {
-    logger.log(
-      `Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`,
-    )
-    return
-  }
-
-  if (pullRequest.mergeableState === 'behind') {
+  // GitHub's cached mergeable_state can be unknown or clean after main moves.
+  // Update even an already-enabled auto-merge PR, then wait for its new checks.
+  if (
+    await isPullRequestBehindMain(pullRequest, currentRepository, currentClient)
+  ) {
     const updated = await updatePullRequestBranch(pullRequest, {
       client: currentClient,
       logger,
@@ -774,6 +805,18 @@ export async function runMergeAutomation(
         `Could not update translation PR #${pullRequest.number} with current main.`,
       )
     }
+    return
+  }
+
+  const checkRuns = await getCheckRuns(
+    pullRequest.headSha,
+    currentRepository,
+    currentClient,
+  )
+  if (!hasSuccessfulTranslationBuild(checkRuns)) {
+    logger.log(
+      `Pull request #${pullRequest.number} does not have a successful Translation PR Build check yet.`,
+    )
     return
   }
 

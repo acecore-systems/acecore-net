@@ -20,12 +20,22 @@ import { test } from 'node:test'
 import {
   areOpenAiTranslationMarkersCurrent,
   createMetaTranslationProbeInput,
+  createSiteBatchRequest,
   decodeMetadata,
   getSiteFragment,
   hashSource,
+  removeSiteTarget,
   selectCompletedBatch,
   selectCurrentTranslationOutputs,
+  translateSiteFragment,
 } from '../scripts/openai-translation-batch.ts'
+import {
+  CORPORATE_MOTTO_SOURCE,
+  CORPORATE_MOTTO_TOKEN,
+  createSiteTranslationTerms,
+  protectSiteTranslationTerms,
+  restoreSiteTranslationTerms,
+} from '../scripts/site-translation-terms.ts'
 
 test('sourceHashは改行コード差を同じ版として扱う', () => {
   assert.equal(hashSource('本文\r\n'), hashSource('本文\n'))
@@ -78,6 +88,172 @@ test('ページsourceは対応する翻訳JSONのpages配下だけを更新す�
   assert.deepEqual(
     getSiteFragment('src/i18n/source/ja/pages/home.json').targetPath,
     ['pages', 'home'],
+  )
+})
+
+test('ハイフンを含むページsourceは実際のcamelCaseキーを更新・削除する', () => {
+  for (const [sourceName, pageKey] of [
+    ['security-policy', 'securityPolicy'],
+    ['not-found', 'notFound'],
+  ] as const) {
+    const sourcePath = `src/i18n/source/ja/pages/${sourceName}.json`
+    const fragment = getSiteFragment(sourcePath)
+    assert.deepEqual(fragment.targetPath, ['pages', pageKey])
+    const current = {
+      pages: { [pageKey]: { title: 'old' }, home: { title: 'untouched' } },
+    }
+    const input = createSiteBatchRequest(
+      {
+        version: 1,
+        kind: 'site',
+        locale: 'en',
+        sourcePath,
+        sourceHash: 'a'.repeat(64),
+      },
+      fragment,
+      current,
+    )
+    const entries = JSON.parse(String(input.body.input)).entries as Array<{
+      id: string
+      source: string
+    }>
+    const next = translateSiteFragment(fragment, current, {
+      translations: entries.map(({ id, source }) => ({
+        id,
+        text: `translated ${source}`,
+      })),
+    })
+    const pages = next.pages as Record<string, unknown>
+    assert.equal(Object.hasOwn(pages, sourceName!), false)
+    assert.deepEqual(pages.home, { title: 'untouched' })
+    assert.match((pages[pageKey!] as { title: string }).title, /^translated /)
+    removeSiteTarget(next, sourcePath)
+    assert.equal(Object.hasOwn(pages, pageKey!), false)
+    assert.deepEqual(pages.home, { title: 'untouched' })
+  }
+  assert.throws(
+    () => getSiteFragment('src/i18n/source/ja/pages/unknown-page.json'),
+    /Unsupported Japanese translation source/,
+  )
+  assert.throws(
+    () => getSiteFragment('src/i18n/source/ja/pages/__proto__.json'),
+    /Unsupported Japanese translation source/,
+  )
+  assert.deepEqual(
+    removeSiteTarget(
+      { pages: { designs: {}, home: {} } },
+      'src/i18n/source/ja/pages/designs.json',
+    ),
+    { pages: { home: {} } },
+  )
+})
+
+test('固定の企業モットーをページ別requestから保護し回収後も同じ表現に揃える', () => {
+  const current = JSON.parse(
+    readFileSync('src/i18n/translations/en.json', 'utf8'),
+  )
+  const canonicalMotto = current.pages.home.heroTitle
+  for (const sourceName of ['pages/home', 'pages/about', 'common']) {
+    const sourcePath = `src/i18n/source/ja/${sourceName}.json`
+    const fragment = getSiteFragment(sourcePath)
+    const request = createSiteBatchRequest(
+      {
+        version: 1,
+        kind: 'site',
+        locale: 'en',
+        sourcePath,
+        sourceHash: 'a'.repeat(64),
+      },
+      fragment,
+      current,
+    )
+    const input = JSON.parse(String(request.body.input))
+    assert.equal(input.protectedTerms[0].text, canonicalMotto)
+    assert.ok(
+      input.entries.some((entry: { source: string }) =>
+        entry.source.includes(CORPORATE_MOTTO_TOKEN),
+      ),
+    )
+    assert.ok(
+      input.entries.every(
+        (entry: { source: string }) =>
+          !entry.source.includes(CORPORATE_MOTTO_SOURCE),
+      ),
+    )
+    translateSiteFragment(fragment, current, {
+      translations: input.entries.map(
+        (entry: { id: string; source: string; current: string | null }) => ({
+          id: entry.id,
+          text:
+            entry.id === '/meta/defaultDescription'
+              ? `${CORPORATE_MOTTO_TOKEN}. Newly translated surrounding content remains.`
+              : entry.source === CORPORATE_MOTTO_TOKEN
+                ? 'A different generated motto'
+                : (entry.current ?? entry.source),
+        }),
+      ),
+    })
+  }
+  assert.equal(current.pages.home.heroTitle, canonicalMotto)
+  assert.equal(current.pages.about.philosophyMotto, canonicalMotto)
+  assert.equal(current.footer.tagline, canonicalMotto)
+  assert.equal(
+    current.meta.defaultDescription,
+    `${canonicalMotto}. Newly translated surrounding content remains.`,
+  )
+  assert.equal(JSON.stringify(current).includes(CORPORATE_MOTTO_TOKEN), false)
+})
+
+test('旧出力でモットーが欠けた説明文と未知の保護tokenは採用せず原文の変更は翻訳対象にする', () => {
+  const terms = createSiteTranslationTerms(
+    CORPORATE_MOTTO_SOURCE,
+    'Approved motto',
+  )
+  const entries = [
+    {
+      id: '/description',
+      source: `${CORPORATE_MOTTO_SOURCE}。新しい説明`,
+      current: null,
+    },
+  ]
+  assert.throws(
+    () =>
+      restoreSiteTranslationTerms(
+        new Map([['/description', 'A different motto. New content.']]),
+        entries,
+        terms,
+      ),
+    /must preserve the corporate motto/,
+  )
+  assert.throws(
+    () =>
+      restoreSiteTranslationTerms(
+        new Map([['/description', CORPORATE_MOTTO_TOKEN]]),
+        entries,
+        [],
+      ),
+    /Unresolved corporate motto token/,
+  )
+  const changedSource = '世界の新しい未来へ'
+  const changedTerms = createSiteTranslationTerms(
+    changedSource,
+    'Approved motto',
+  )
+  const changedEntries = [
+    { id: '/heroTitle', source: changedSource, current: 'Approved motto' },
+  ]
+  assert.deepEqual(changedTerms, [])
+  assert.deepEqual(
+    protectSiteTranslationTerms(changedEntries, changedTerms),
+    changedEntries,
+  )
+  assert.equal(
+    restoreSiteTranslationTerms(
+      new Map([['/heroTitle', 'A newly translated motto']]),
+      changedEntries,
+      changedTerms,
+    ).get('/heroTitle'),
+    'A newly translated motto',
   )
 })
 
@@ -355,7 +531,7 @@ test('CAS競合で他runnerが予約した要求は再送しない', async () =>
       }
       stored = proposed
       sha++
-      return Response.json({})
+      return Response.json({ commit: { sha: 'a'.repeat(40) } })
     }
     throw new Error('unexpected request')
   }
