@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "费用参考",
     "terms": "Acecore ID 使用条款",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "securityPolicy": "信息安全基本方针"
   },
   "blog": {
     "title": "新闻",
@@ -193,7 +194,7 @@
   },
   "pages": {
     "home": {
-      "heroTitle": "让世界迈向下一个阶段",
+      "heroTitle": "让世界迈向下一阶段",
       "heroSubtitle": "通过技术与学习，减少耗费在非本质事务上的时间，致力于营造让每个人都能挑战自己“想做的事”的环境。",
       "heroImgTeam": "在共享办公空间工作的团队",
       "heroImgMeeting": "会议场景",
@@ -224,21 +225,21 @@
     },
     "contact": {
       "title": "联系我们",
-      "seoTitleContext": "业务、合作与共用窗口",
-      "description": "Acecore共用联系窗口受理跨业务咨询、合作提案，以及不确定应联系哪项业务的问题。",
+      "seoTitleContext": "业务、合作与统一联系窗口",
+      "description": "Acecore统一联系窗口受理跨业务咨询、合作提案，以及不确定应联系哪个业务部门或服务窗口的问题。欢迎随时联系我们，我们会协助您联系合适的服务团队。",
       "heroTitle": "联系我们",
-      "heroSubtitle": "咨询、商谈、委托请从这里开始",
-      "heroImgAlt": "沟通交流图片",
-      "formCategoryLabel": "咨询类型",
+      "heroSubtitle": "如有疑问、咨询或委托，请从这里联系我们",
+      "heroImgAlt": "沟通交流场景",
+      "formCategoryLabel": "咨询类别",
       "formCategoryPlaceholder": "请选择",
-      "formCategoryService": "跨业务或不确定咨询窗口",
+      "formCategoryService": "跨业务咨询或不确定应联系哪个窗口",
       "formCategoryServiceSystems": "关于Acecore Systems",
       "formCategoryServiceEducation": "关于Acecore Schools",
       "formCategoryServiceAceserver": "关于Aceserver",
       "formCategoryServiceAcestudio": "关于AceStudio",
-      "formCategoryEstimate": "报价请求",
-      "formCategoryPartnership": "合作咨询",
-      "formCategoryRecruit": "关于招聘",
+      "formCategoryEstimate": "申请报价",
+      "formCategoryPartnership": "合作洽谈",
+      "formCategoryRecruit": "招聘相关",
       "formCategoryOther": "其他",
       "formNameLabel": "姓名",
       "formEmailLabel": "电子邮箱",
@@ -246,37 +247,37 @@
       "formMessageLabel": "咨询内容",
       "formSubmit": "发送",
       "formSending": "发送中…",
-      "formSuccess": "您的咨询已发送。请查看确认邮件。",
-      "formError": "发送失败。请稍后重试。",
-      "formSubmitNote": "提交后将收到确认邮件。如未收到，请检查垃圾邮件文件夹。",
+      "formSuccess": "咨询已发送，请查收确认邮件。",
+      "formError": "发送失败，请稍后重试。",
+      "formSubmitNote": "发送后，您将收到确认邮件。如未收到，请同时检查垃圾邮件文件夹。",
       "serviceSubjectTemplate": "关于{service}",
       "validationCategory": "请选择咨询类别",
-      "validationName": "请输入您的姓名",
+      "validationName": "请输入姓名",
       "validationEmail": "请输入有效的电子邮件地址",
-      "validationMessage": "请输入至少10个有效字符",
-      "aiHeading": "使用 AI 确认咨询入口",
-      "aiLead": "根据咨询内容，为您找到相应服务或统一咨询窗口。AceStudio 仍在筹备中。",
-      "aiSubmit": "确认咨询入口",
-      "formCategoryServiceDesign": "Acecore Designs — 设计与插画 / 3D制作 / 文字与音频",
+      "validationMessage": "请输入至少10个字符的咨询内容",
+      "aiHeading": "使用 AI 查询联系窗口",
+      "aiLead": "我们会根据您的咨询内容，为您介绍相关服务或统一联系窗口。AceStudio目前仍在筹备中。",
+      "aiSubmit": "查询联系窗口",
+      "formCategoryServiceDesign": "设计、3D、文字与音频制作 / 关于Acecore Designs",
       "creativeOfferings": {
         "acecore-design": {
           "character-design": "角色设计",
-          "character-illustration": "吉祥物与角色追加插画",
+          "character-illustration": "吉祥物与角色的补充插画",
           "character-sheets": "角色设定图与三视图",
           "cover-illustration": "书籍与册子封面插画",
-          "editorial-cuts": "配图与说明插画",
+          "editorial-cuts": "插图与说明配图",
           "reaction-images": "贴纸与反应图片制作",
           "3d-character": "原创3D角色制作",
-          "3d-object": "3D道具与物件制作",
+          "3d-object": "3D小物件与道具制作",
           "3d-customization": "现有3D模型调整与定制",
-          "3d-effects": "3D演出与交互功能制作",
+          "3d-effects": "3D演出与互动机关制作",
           "story-writing": "原创故事创作",
-          "script-writing": "视频与音频脚本制作",
+          "script-writing": "视频与音频内容脚本制作",
           "voice-recording": "旁白与朗读录制"
         },
         "education": {
           "3d-training": "3D制作入门培训",
-          "3d-support": "3D制作个人技术支持",
+          "3d-support": "3D制作个别技术支持",
           "creative-review": "插画与文字作品评审",
           "creative-workshop": "创作工作坊"
         }
@@ -449,6 +450,24 @@
     "pricing": {
       "systemsTitle": "Acecore Systems 的费用",
       "schoolsTitle": "Acecore Schools 的费用"
+    },
+    "securityPolicy": {
+      "title": "信息安全基本方针",
+      "description": "株式会社Acecore的信息安全基本方针，介绍信息资产保护、风险应对及持续改进的原则。",
+      "lead": "株式会社Acecore将在管理层负责下，按照以下基本方针，致力于保护包括客户和合作伙伴托付的信息在内的业务信息资产。",
+      "protectionHeading": "保护信息资产",
+      "protectionBody": "我们将根据风险设定目标，并致力于采取必要措施，以保护信息资产的保密性、完整性和可用性。我们将明确处理信息的目的和范围，并在共享前确认接收方、共享范围及期限。我们将根据适用的法律法规、合同及业务需要，妥善保存、返还和删除信息。",
+      "complianceHeading": "遵守法律和合同要求",
+      "complianceBody": "我们遵守适用的信息安全法律法规、合同及其他要求。有关个人信息的处理，请参阅我们的隐私政策。",
+      "managementHeading": "管理和教育",
+      "managementBody": "我们将仅授予工作所需的最小访问权限，并在岗位变动、离职或委托结束等情况下审查权限，进行必要的变更或撤销。我们将根据风险，致力于加强身份认证、更新系统及应对漏洞。我们将向公司管理层和工作人员传达本方针及信息处理要求，并开展与其职责相适应的教育培训。委托他方处理信息时，我们将致力于适当选择受托方并进行必要管理，确认信息处理、事故联络以及合同结束时的信息返还、删除等条件。",
+      "continuityHeading": "业务持续和事件应对",
+      "continuityBody": "我们将根据业务影响和风险，致力于备份必要的信息资产、制定恢复程序并检查恢复情况。发生信息安全事故时，我们将致力于初步应对、防止损害扩大以及业务持续和恢复，并按照适用的法律法规及合同，向相关方和有关机构进行必要的联络、通知和报告。我们将调查原因，并致力于防止再次发生。",
+      "improvementHeading": "持续改进",
+      "improvementBody": "我们将定期检查信息安全目标和措施的落实情况，根据风险、业务环境的变化以及事故应对经验等，审查管理机制并持续改进。",
+      "contactHeading": "联系我们",
+      "contactBody": "有关本方针的问题，请通过以下窗口联系我们。",
+      "contactLink": "联系我们"
     }
   },
   "pageNames": {
@@ -463,7 +482,8 @@
     "tags": "标签",
     "authors": "作者",
     "archive": "归档",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "信息安全基本方针"
   },
   "tags": {
     "技術": "技术",

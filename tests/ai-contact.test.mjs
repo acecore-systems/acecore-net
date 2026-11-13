@@ -2,6 +2,9 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import test from 'node:test'
 
+import contactWorker from '../workers/ai-contact-openai/src/index.ts'
+import { createWorkersAiResponse } from '../functions/lib/workers-ai.ts'
+
 import { buildFederatedGroundingContext } from '../functions/api/ai-contact-search.ts'
 import {
   buildAiContactSearchPlan,
@@ -144,6 +147,108 @@ const SOURCE_MATCHES = {
     },
   },
 }
+
+test('問い合わせの経路からMetaへlowで送り、鍵がなければ閉じる', async () => {
+  let sent
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async (url, init) => {
+    assert.equal(url, 'https://api.meta.ai/v1/chat/completions')
+    sent = JSON.parse(init.body)
+    return Response.json(createChatCompletion('回答です'))
+  }
+  try {
+    const service = {
+      fetch: (url, init) =>
+        contactWorker.fetch(new Request(url, init), {
+          META_API_KEY_STORE: { get: async () => 'test-meta-key' },
+        }),
+    }
+    const result = await createWorkersAiResponse(
+      {
+        WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
+        WORKERS_AI_REASONING_EFFORT: 'low',
+        AI_CONTACT_OPENAI_SERVICE: service,
+      },
+      {
+        instructions: '安全な案内',
+        input: '質問',
+        maxOutputTokens: 640,
+        safetyIdentifier: 'acecore_test',
+      },
+    )
+    assert.equal(result.text, '回答です')
+    assert.equal(sent.model, 'muse-ember-1.0')
+    assert.equal(sent.reasoning_effort, 'low')
+    assert.equal(sent.store, false)
+    const old = await contactWorker.fetch(
+      new Request('https://ai-contact.internal/v1/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...sent,
+          model: 'gpt-6-luna',
+          reasoning_effort: 'low',
+        }),
+      }),
+      { META_API_KEY_STORE: { get: async () => 'test-meta-key' } },
+    )
+    assert.equal(old.status, 200)
+    assert.equal(sent.model, 'muse-ember-1.0')
+    assert.equal(sent.reasoning_effort, 'low')
+    const missing = await contactWorker.fetch(
+      new Request('https://ai-contact.internal/v1/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sent),
+      }),
+      {},
+    )
+    assert.equal(missing.status, 503)
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
+test('問い合わせ通常入口からMetaへlowを送る', async () => {
+  const originalFetch = globalThis.fetch
+  let sent
+  try {
+    globalThis.fetch = async (_url, init) => {
+      sent = JSON.parse(init.body)
+      return Response.json(
+        createChatCompletion(
+          '[問い合わせフォーム](/contact/)をご利用ください。',
+        ),
+      )
+    }
+    const response = await handleAiContactPost({
+      request: createRequest({ question: 'お問い合わせ先は？', locale: 'ja' }),
+      env: {
+        AI: {
+          run: () => {
+            throw new Error('unexpected AI call')
+          },
+        },
+        SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
+        SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+        SEARCH_EMBEDDING_DIMENSIONS: '1024',
+        SEARCH_ENABLED: 'false',
+        WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
+        WORKERS_AI_REASONING_EFFORT: 'medium',
+        AI_CONTACT_OPENAI_SERVICE: {
+          fetch: (url, init) =>
+            contactWorker.fetch(new Request(url, init), {
+              META_API_KEY_STORE: { get: async () => 'test-meta-key' },
+            }),
+        },
+      },
+    })
+    assert.equal(response.status, 200)
+    assert.equal(sent.reasoning_effort, 'low')
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
 
 test('Workers AIへlow・store falseを送信する', async () => {
   let responseInput
@@ -1661,7 +1766,7 @@ test('PreviewとProductionは各環境の非公開OpenAI Workerへ接続する',
     ['preview', preview],
     ['production', production],
   ]) {
-    assert.match(block, /"WORKERS_AI_CHAT_MODEL": "gpt-6-luna"/u)
+    assert.match(block, /"WORKERS_AI_CHAT_MODEL": "muse-ember-1.0"/u)
     assert.match(
       block,
       new RegExp(

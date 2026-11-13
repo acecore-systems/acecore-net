@@ -86,7 +86,8 @@
     "schools": "Acecore Schools",
     "pricing": "Pricing Guide",
     "terms": "Acecore ID Terms of Use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "securityPolicy": "Information Security Policy"
   },
   "blog": {
     "title": "News",
@@ -193,7 +194,7 @@
   },
   "pages": {
     "home": {
-      "heroTitle": "Take the world to the next stage",
+      "heroTitle": "Taking the world to the next stage",
       "heroSubtitle": "Through technology and learning, we aim to reduce time spent on nonessential tasks and create an environment where everyone can take on what they want to do.",
       "heroImgTeam": "Team working in a coworking space",
       "heroImgMeeting": "A meeting in progress",
@@ -345,60 +346,60 @@
     },
     "contact": {
       "title": "Contact",
-      "seoTitleContext": "Businesses, partnerships and shared contact",
-      "description": "Acecore's shared contact point for cross-business inquiries, partnership proposals, and questions when you are unsure which business to contact.",
+      "seoTitleContext": "Business inquiries, partnerships, and general contact",
+      "description": "Acecore's shared contact point for cross-business inquiries, partnership proposals, and questions when you're unsure which contact to use.",
       "heroTitle": "Contact",
       "heroSubtitle": "Questions, consultations, and requests — start here",
-      "heroImgAlt": "Communication image",
-      "formCategoryLabel": "Inquiry Type",
-      "formCategoryPlaceholder": "Please select",
-      "formCategoryService": "Cross-business or unsure where to ask",
+      "heroImgAlt": "Communication-themed visual",
+      "formCategoryLabel": "Inquiry type",
+      "formCategoryPlaceholder": "Select an option",
+      "formCategoryService": "Cross-business inquiries or questions when you're not sure who to contact",
       "formCategoryServiceSystems": "About Acecore Systems",
       "formCategoryServiceEducation": "About Acecore Schools",
       "formCategoryServiceAceserver": "About Aceserver",
       "formCategoryServiceAcestudio": "About AceStudio",
-      "formCategoryEstimate": "Estimate request",
+      "formCategoryEstimate": "Request an estimate",
       "formCategoryPartnership": "Partnership inquiry",
-      "formCategoryRecruit": "About recruitment",
+      "formCategoryRecruit": "Careers and recruitment",
       "formCategoryOther": "Other",
       "formNameLabel": "Name",
-      "formEmailLabel": "Email",
+      "formEmailLabel": "Email address",
       "formSubjectLabel": "Subject",
       "formMessageLabel": "Message",
       "formSubmit": "Send",
       "formSending": "Sending…",
       "formSuccess": "Your inquiry has been sent. Please check your confirmation email.",
-      "formError": "Failed to send. Please wait and try again.",
-      "formSubmitNote": "You will receive a confirmation email after submission. If you don't receive it, please check your spam folder.",
+      "formError": "We couldn't send your message. Please wait a moment and try again.",
+      "formSubmitNote": "A confirmation email will be sent after you submit. If it doesn't arrive, please check your spam folder.",
       "serviceSubjectTemplate": "About {service}",
-      "validationCategory": "Please select a category",
+      "validationCategory": "Please select an inquiry type",
       "validationName": "Please enter your name",
       "validationEmail": "Please enter a valid email address",
-      "validationMessage": "Please enter at least 10 meaningful characters",
+      "validationMessage": "Please enter at least 10 characters in your inquiry.",
       "aiHeading": "Find the right contact with AI",
-      "aiLead": "Find the right service or our shared contact point for your inquiry. AceStudio is still in preparation.",
+      "aiLead": "We'll guide you to the right service or our shared contact point based on your inquiry. AceStudio is not yet available.",
       "aiSubmit": "Find the right contact",
-      "formCategoryServiceDesign": "Acecore Designs — Design and illustration / 3D production / Writing and audio",
+      "formCategoryServiceDesign": "Design, 3D, writing, and audio production / About Acecore Designs",
       "creativeOfferings": {
         "acecore-design": {
           "character-design": "Character design",
           "character-illustration": "Additional mascot and character illustrations",
-          "character-sheets": "Character sheets and three-view drawings",
+          "character-sheets": "Character design sheets and three-view drawings",
           "cover-illustration": "Book and booklet cover illustrations",
-          "editorial-cuts": "Editorial and explanatory illustrations",
+          "editorial-cuts": "Spot illustrations and explanatory visuals",
           "reaction-images": "Stickers and reaction images",
-          "3d-character": "Original 3D character production",
+          "3d-character": "Original 3D character creation",
           "3d-object": "3D props and objects",
-          "3d-customization": "Existing 3D model customization",
-          "3d-effects": "3D effects and interactive features",
-          "story-writing": "Original story writing",
+          "3d-customization": "Customization of existing 3D models",
+          "3d-effects": "3D effects and interactive elements",
+          "story-writing": "Original story creation",
           "script-writing": "Video and audio script writing",
-          "voice-recording": "Narration and reading recordings"
+          "voice-recording": "Narration and spoken-word recordings"
         },
         "education": {
-          "3d-training": "Introductory 3D training",
-          "3d-support": "Individual 3D technical support",
-          "creative-review": "Illustration and writing review",
+          "3d-training": "Introductory 3D production training",
+          "3d-support": "One-on-one technical support for 3D production",
+          "creative-review": "Creative feedback on illustrations and writing",
           "creative-workshop": "Creative workshops"
         }
       }
@@ -609,6 +610,24 @@
     "pricing": {
       "systemsTitle": "Acecore Systems pricing",
       "schoolsTitle": "Acecore Schools pricing"
+    },
+    "securityPolicy": {
+      "title": "Information Security Policy",
+      "description": "Acecore’s policy on information security.",
+      "lead": "Under the responsibility of management, Acecore Co., Ltd. is committed to the following policy for protecting its business information assets, including information entrusted to it by customers and business partners.",
+      "protectionHeading": "Protection of information assets",
+      "protectionBody": "We will set risk-based objectives and work on the measures needed to protect the confidentiality, integrity and availability of information assets. We will clarify the purpose and scope of information handling and check the recipient, scope and duration before sharing information. We will store, return and delete information appropriately in accordance with applicable laws, contracts and operational needs.",
+      "complianceHeading": "Legal and contractual requirements",
+      "complianceBody": "We comply with applicable laws, contracts and other requirements concerning information security. Please also see our Privacy Policy for the handling of personal information.",
+      "managementHeading": "Management and education",
+      "managementBody": "We will grant the minimum access rights necessary for work, review them when roles change, employment ends or outsourced engagements end, and make the necessary changes or revocations. We will take a risk-based approach to strengthening authentication, updating systems and addressing vulnerabilities. We will communicate this policy and information-handling practices to officers and personnel and provide training appropriate to their roles. When outsourcing information handling, we will work to select and manage service providers appropriately and confirm conditions for information handling, incident communication, and the return or deletion of information at the end of the contract.",
+      "continuityHeading": "Business continuity and incident response",
+      "continuityBody": "In line with business impact and risks, we will work on backing up necessary information assets, establishing recovery procedures and checking restoration. If an information security incident occurs, we will work on initial response, limiting further harm, and business continuity and recovery. We will make necessary communications, notifications and reports to relevant parties and authorities in accordance with applicable laws and contracts. We will investigate the cause and work to prevent recurrence.",
+      "improvementHeading": "Continual improvement",
+      "improvementBody": "We will periodically review information security objectives and the status of measures, reassess our management arrangements in light of changes in risks and the business environment and experience from incident response, and improve them continually.",
+      "contactHeading": "Contact",
+      "contactBody": "For inquiries about this policy, please use the contact page.",
+      "contactLink": "Contact us"
     }
   },
   "pageNames": {
@@ -623,7 +642,8 @@
     "tags": "Tags",
     "authors": "Authors",
     "archive": "Archive",
-    "page": "ページ"
+    "page": "ページ",
+    "security-policy": "Information Security Policy"
   },
   "tags": {
     "技術": "Technology",
