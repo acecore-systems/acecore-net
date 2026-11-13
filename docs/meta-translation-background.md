@@ -15,6 +15,8 @@ mainへの対象source更新後、従来どおり15分待機して最新source�
 
 共通repoの読取tokenまたはOpenAIキーがなければ、workflowは新規投入前に明示的に失敗する。別モデル・Metaへの自動フォールバックは行わない。checkoutしたtokenはgit設定に残さない。PR用CIはmockテストだけを実行し、core checkout・生成API・本番投入は行わない。
 
+有効化前には `Translation Provider Preflight` を実行する。このworkflowはsecretの有無、固定core commitとカタログdigest、`text.batch` の解決結果、選択モデルへのGETアクセスを検査する。モデル生成・file upload・Batch POST・journal更新は行わない。設定・preflightコードのmain更新時、導入branchへの該当変更時、または手動起動で実行できる。成功してもBatchの生成完了までは証明しない。既存の `probe_only` はMetaへ実際に1件を送る機能なので、この事前確認の代用にはしない。
+
 有効化前に、旧コードのsubmit workflowが終了していることを確認する。新規投入直前に既存Meta journalを読み、未処理groupに同一custom_id（sourceHash・locale・pathを含む）がある要求は除外する。journalを取得できない場合も新規投入を止める。Meta collectorが処理済みにするまで別providerへ二重投入しない。
 
 ### 受付情報と再試行

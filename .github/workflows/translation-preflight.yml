@@ -1,0 +1,63 @@
+name: Translation Provider Preflight
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - feat/ai-model-router-20261113
+    paths:
+      - .github/workflows/translation-preflight.yml
+      - config/ai-model-router.json
+      - scripts/translation-model-policy.ts
+      - scripts/openai-translation-preflight.ts
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Translation Provider Preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Validate configuration without exposing credentials
+        id: router
+        env:
+          AI_MODEL_ROUTER_READ_TOKEN: ${{ secrets.AI_MODEL_ROUTER_READ_TOKEN }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+        run: |
+          missing=0
+          for name in AI_MODEL_ROUTER_READ_TOKEN OPENAI_TRANSLATION_API_KEY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::${name} is required for the translation provider preflight."
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ] || exit 1
+          node --input-type=module -e 'import fs from "node:fs"; const c=JSON.parse(fs.readFileSync("config/ai-model-router.json","utf8")); if(c.repository!=="acecore-systems/ai-model-router" || !/^[a-f0-9]{40}$/.test(c.commit)) process.exit(1); fs.appendFileSync(process.env.GITHUB_OUTPUT, `commit=${c.commit}\n`);'
+
+      - name: Check out pinned private router
+        uses: actions/checkout@v7
+        with:
+          repository: acecore-systems/ai-model-router
+          ref: ${{ steps.router.outputs.commit }}
+          path: .tmp/ai-model-router
+          token: ${{ secrets.AI_MODEL_ROUTER_READ_TOKEN }}
+          persist-credentials: false
+
+      - name: Verify route and model access without generating output
+        env:
+          AI_MODEL_ROUTER_PATH: .tmp/ai-model-router
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+        run: node --experimental-strip-types scripts/openai-translation-preflight.ts
