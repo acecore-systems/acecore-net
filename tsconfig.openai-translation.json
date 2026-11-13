@@ -10,6 +10,9 @@
     "scripts/meta-translation-probe.ts",
     "scripts/finalize-meta-translation.ts",
     "scripts/reconcile-meta-translation.ts",
-    "tests/openai-translation-batch.test.ts"
+    "tests/openai-translation-batch.test.ts",
+    "scripts/recover-meta-security-policy.ts",
+    "tests/meta-journal-store.test.ts",
+    "tests/recover-meta-security-policy.test.ts"
   ]
 }

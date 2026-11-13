@@ -1,3 +1,4 @@
+import { pageTranslationKeys } from '../../page-translation-keys.ts'
 import blogTranslations from './blog.json'
 import commonTranslations from './common.json'
 import legacyTagTranslations from './legacy-tags.json'
@@ -135,16 +136,16 @@ const jaTranslations = {
   ...campaignTranslations,
   blog: blogTranslations,
   pages: {
-    home: homePageTranslations,
-    notFound: notFoundPageTranslations,
-    about: aboutPageTranslations,
-    services: servicesPageTranslations,
-    pricing: pricingPageTranslations,
-    contact: contactPageTranslations,
-    privacy: privacyPageTranslations,
-    securityPolicy: securityPolicyPageTranslations,
-    terms: termsPageTranslations,
-    acestudio: acestudioPageTranslations,
+    [pageTranslationKeys.home]: homePageTranslations,
+    [pageTranslationKeys['not-found']]: notFoundPageTranslations,
+    [pageTranslationKeys.about]: aboutPageTranslations,
+    [pageTranslationKeys.services]: servicesPageTranslations,
+    [pageTranslationKeys.pricing]: pricingPageTranslations,
+    [pageTranslationKeys.contact]: contactPageTranslations,
+    [pageTranslationKeys.privacy]: privacyPageTranslations,
+    [pageTranslationKeys['security-policy']]: securityPolicyPageTranslations,
+    [pageTranslationKeys.terms]: termsPageTranslations,
+    [pageTranslationKeys.acestudio]: acestudioPageTranslations,
   },
   tags: legacyTagTranslations,
 }
