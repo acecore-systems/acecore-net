@@ -7,3 +7,4 @@ dist/
 .serena/
 .tmp-astro-preview*.log
 /public/admin/runtime-config.js
+.tmp/ai-model-router/

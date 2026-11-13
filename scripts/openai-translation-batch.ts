@@ -1,9 +1,14 @@
 import {
   cleanupProcessedMetaResponses,
   createGitHubJournalStore,
-  submitMetaTranslations,
   collectMetaGroup,
 } from './meta-translation-background.ts'
+import {
+  createOpenAiSubmissionStore,
+  excludePendingMetaTranslations,
+  submitOpenAiTranslations,
+} from './openai-batch-submission.ts'
+import { loadTranslationRoute } from './translation-model-policy.ts'
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import {
@@ -18,7 +23,6 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const API_BASE_URL = 'https://api.openai.com/v1'
-const BATCH_MODEL = 'muse-ember-1.0'
 const BATCH_ENDPOINT = '/v1/responses'
 const BATCH_METADATA_KEY = 'translation_system'
 const BATCH_METADATA_VALUE = 'acecore-net-v1'
@@ -894,8 +898,6 @@ function createBlogBatchRequest(
     method: 'POST',
     url: BATCH_ENDPOINT,
     body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'medium' },
       max_output_tokens: 32768,
       instructions:
         'Translate the supplied Japanese Acecore blog content into the requested locale. Return JSON only. Translate title, description, and Markdown body. Keep description between 50 and 160 Unicode characters so it can be used as a meta description. Preserve external URLs, placeholders such as {count}, code fences, image references, factual names, and Markdown structure. Do not include YAML frontmatter.',
@@ -942,8 +944,6 @@ function createSiteBatchRequest(
     method: 'POST',
     url: BATCH_ENDPOINT,
     body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'medium' },
       max_output_tokens: 32768,
       instructions:
         'Translate each Japanese string into the requested locale. Return JSON only. Keep each id unchanged. For SEO metadata ids /description, /indexDescription, /pageDescription, /tagListDescription, and /archiveListDescription, keep the translation between 50 and 160 Unicode characters. Preserve placeholders such as {count}, URLs embedded in a string, product names, route paths, and code-like tokens exactly. Use the current translation as terminology context, but return one translation for every supplied id.',
@@ -994,8 +994,6 @@ function createDeleteBatchRequest(metadata: RequestMetadata): BatchInputLine {
     method: 'POST',
     url: BATCH_ENDPOINT,
     body: {
-      model: BATCH_MODEL,
-      reasoning: { effort: 'medium' },
       instructions: 'Return the requested JSON object without additional text.',
       input: 'Confirm this translation source deletion.',
       text: {
@@ -1153,12 +1151,28 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
 
   const repo = process.env.GITHUB_REPOSITORY ?? ''
   const token = process.env.GITHUB_TOKEN ?? ''
-  const apiKey = process.env.META_TRANSLATION_API_KEY ?? ''
-  const store = createGitHubJournalStore(repo, token, headSha)
-  const groupId = await submitMetaTranslations(inputs, store, apiKey)
-  console.log(
-    `Submitted Meta background translations ${groupId} (${inputs.length} requests).`,
+  const available = await excludePendingMetaTranslations(
+    inputs,
+    createGitHubJournalStore(repo, token, headSha),
   )
+  if (available.length !== inputs.length)
+    console.log('Deferred inputs that still have unprocessed Meta jobs.')
+  if (available.length === 0) return
+  // Resolve once for new submissions. Existing journal receipts retain their
+  // accepted model and policy revision instead of adopting the latest route.
+  const route = await loadTranslationRoute()
+  const store = createOpenAiSubmissionStore(repo, token, headSha)
+  const groupId = await submitOpenAiTranslations(
+    available,
+    route,
+    store,
+    process.env.OPENAI_TRANSLATION_API_KEY ?? '',
+  )
+  if (!groupId) {
+    console.log('All translation inputs already have a reserved submission.')
+    return
+  }
+  console.log(`Submitted OpenAI translation batch ${groupId}.`)
   writeOutput('batch_id', groupId)
 }
 
@@ -1431,7 +1445,7 @@ function makePrBody(
     '## 概要',
     batchId.startsWith('meta-')
       ? '- Meta Muse Ember（medium）で最新の日本語sourceを翻訳しました。'
-      : '- OpenAI Batch（gpt-6-luna / reasoning max）の完了結果を反映しました。',
+      : '- OpenAI Batchの完了結果を反映しました。',
     '- sourceHash が現在の日本語sourceと一致する結果だけを含めています。',
     '',
     '## 確認',

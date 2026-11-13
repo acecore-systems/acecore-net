@@ -115,7 +115,7 @@ test('PRはsource markerを必須とし、sourceHashが異なる場合は古い�
   assert.equal(areOpenAiTranslationMarkersCurrent('markerなし'), false)
 })
 
-test('WorkflowはMetaへ投入し旧Batchを回収しBot PRを作る', async () => {
+test('Workflowは共通用途でBatchへ投入し既存MetaとBatchを回収しBot PRを作る', async () => {
   const submitWorkflow = await readFile(
     '.github/workflows/submit-openai-translation-batch.yml',
     'utf8',
@@ -131,7 +131,10 @@ test('WorkflowはMetaへ投入し旧Batchを回収しBot PRを作る', async () 
   assert.match(submitWorkflow, /inputs\.probe_only && github\.sha/u)
   assert.match(submitWorkflow, /INPUT_BASE_SHA: \$\{\{ inputs\.base_sha \}\}/u)
   assert.doesNotMatch(submitWorkflow, /args\+=\([^\n]*\$\{\{ inputs\./u)
-  assert.doesNotMatch(submitWorkflow, /OPENAI_TRANSLATION_API_KEY/u)
+  assert.match(submitWorkflow, /OPENAI_TRANSLATION_API_KEY/u)
+  assert.match(submitWorkflow, /AI_MODEL_ROUTER_READ_TOKEN/u)
+  assert.match(submitWorkflow, /persist-credentials: false/u)
+  assert.match(submitWorkflow, /config\/ai-model-router\.json/u)
   assert.match(collectWorkflow, /OPENAI_TRANSLATION_API_KEY/u)
   assert.match(submitWorkflow, /sleep 900/u)
   assert.doesNotMatch(submitWorkflow, /cms_only|cms-only/u)

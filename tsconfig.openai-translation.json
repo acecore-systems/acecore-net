@@ -10,6 +10,7 @@
     "scripts/meta-translation-probe.ts",
     "scripts/finalize-meta-translation.ts",
     "scripts/reconcile-meta-translation.ts",
-    "tests/openai-translation-batch.test.ts"
+    "tests/openai-translation-batch.test.ts",
+    "tests/openai-batch-submission.test.ts"
   ]
 }

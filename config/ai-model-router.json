@@ -1,0 +1,11 @@
+{
+  "repository": "acecore-systems/ai-model-router",
+  "commit": "62bc0fbea21392e20417c2412e72a5ac15fba853",
+  "policy_revision": "2026-11-13.1",
+  "feature": {
+    "id": "acecore-net.translation.batch",
+    "profile": "text.batch",
+    "latency": "deferred",
+    "long_input_expected": true
+  }
+}

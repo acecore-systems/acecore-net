@@ -1,4 +1,4 @@
-name: Submit Meta Translation Background Jobs
+name: Submit Policy-selected OpenAI Translation Batch
 
 on:
   push:
@@ -49,6 +49,29 @@ jobs:
       - name: Type-check OpenAI translation automation
         run: npm run typecheck:openai-translation
 
+      - name: Validate shared router and provider configuration
+        id: router
+        if: ${{ inputs.probe_only != true }}
+        env:
+          AI_MODEL_ROUTER_READ_TOKEN: ${{ secrets.AI_MODEL_ROUTER_READ_TOKEN }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+        run: |
+          if [ -z "$AI_MODEL_ROUTER_READ_TOKEN" ] || [ -z "$OPENAI_TRANSLATION_API_KEY" ]; then
+            echo "::error::AI_MODEL_ROUTER_READ_TOKEN and OPENAI_TRANSLATION_API_KEY are required before submitting translations. Existing jobs can still be collected."
+            exit 1
+          fi
+          node --input-type=module -e 'import fs from "node:fs"; const c=JSON.parse(fs.readFileSync("config/ai-model-router.json","utf8")); if(c.repository!=="acecore-systems/ai-model-router" || !/^[a-f0-9]{40}$/.test(c.commit)) process.exit(1); fs.appendFileSync(process.env.GITHUB_OUTPUT, `commit=${c.commit}\n`);'
+
+      - name: Check out pinned private AI model router
+        if: ${{ inputs.probe_only != true }}
+        uses: actions/checkout@v7
+        with:
+          repository: acecore-systems/ai-model-router
+          ref: ${{ steps.router.outputs.commit }}
+          path: .tmp/ai-model-router
+          token: ${{ secrets.AI_MODEL_ROUTER_READ_TOKEN }}
+          persist-credentials: false
+
       - name: Wait for follow-up edits to the same source
         if: ${{ inputs.probe_only != true }}
         run: sleep 900
@@ -59,10 +82,11 @@ jobs:
         # updated tracking ref when main advances during the 15-minute wait.
         run: git fetch origin main:refs/remotes/origin/main
 
-      - name: Submit current Meta translation requests
+      - name: Submit current policy-selected OpenAI Batch
         if: ${{ inputs.probe_only != true }}
         env:
-          META_TRANSLATION_API_KEY: ${{ secrets.META_TRANSLATION_API_KEY }}
+          OPENAI_TRANSLATION_API_KEY: ${{ secrets.OPENAI_TRANSLATION_API_KEY }}
+          AI_MODEL_ROUTER_PATH: .tmp/ai-model-router
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
@@ -70,11 +94,6 @@ jobs:
           INPUT_BASE_SHA: ${{ inputs.base_sha }}
           INPUT_HEAD_SHA: ${{ inputs.head_sha }}
         run: |
-          if [ -z "$META_TRANSLATION_API_KEY" ]; then
-            echo "::warning::META_TRANSLATION_API_KEY is not configured; no translation job was submitted."
-            exit 0
-          fi
-
           args=(submit)
           if [ -n "$INPUT_BASE_SHA" ]; then
             args+=("--base=$INPUT_BASE_SHA")
@@ -102,13 +121,13 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
-      - name: Preserve Meta journal snapshot
+      - name: Preserve OpenAI submission receipt
         if: ${{ always() && inputs.probe_only != true }}
         uses: actions/upload-artifact@v7
         with:
-          name: meta-translation-journal-submit-${{ github.run_id }}-${{ github.run_attempt }}
+          name: openai-translation-journal-submit-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            ${{ runner.temp }}/meta-translation-journal.json
-            ${{ runner.temp }}/meta-translation-receipts.jsonl
+            ${{ runner.temp }}/openai-translation-journal.json
+            ${{ runner.temp }}/openai-translation-receipts.jsonl
           if-no-files-found: ignore
           retention-days: 30
