@@ -6,7 +6,7 @@ date: '2026-11-17T00:00:00+09:00'
 lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
-image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
+image: '/images/cast/scenes-v1.2.1/net--about-workshop--8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2.webp'
 ---
 
 Pour choisir une image destinée à un site, demandez-vous ce que la scène doit transmettre. Acecore Cast présente les images publiées. Acecore Pick affiche une proposition à la fois et indique son usage prévu.

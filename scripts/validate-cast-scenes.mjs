@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 
-export const releaseVersion = 'scenes-v1.2.0'
+export const releaseVersion = 'scenes-v1.2.1'
 export const releaseBase = 'https://cast.acecore.net/releases/' + releaseVersion
 export const snapshotPath =
   'vendor/cast/' + releaseVersion + '/consumer-manifest.json'
@@ -209,7 +209,13 @@ export function validateCastSceneLock(registration, manifestBytes) {
     assert.equal(
       asset.localPath,
       '/images/cast/' +
-        releaseVersion +
+        ([
+          'net--about-workshop',
+          'schools--area-making',
+          'schools--area-digital',
+        ].includes(asset.id)
+          ? releaseVersion
+          : 'scenes-v1.2.0') +
         '/' +
         asset.id +
         '--' +

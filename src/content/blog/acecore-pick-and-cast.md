@@ -6,7 +6,7 @@ date: '2026-11-17T00:00:00+09:00'
 lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
-image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
+image: '/images/cast/scenes-v1.2.1/net--about-workshop--8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2.webp'
 ---
 
 Webサイト用に人物画像を選ぶときは、見た目とあわせて「何を伝える場面か」を考えます。Acecore Castでは掲載画像を見比べられ、Acecore Pickでは用途を示した候補画像を1枚ずつ見られます。

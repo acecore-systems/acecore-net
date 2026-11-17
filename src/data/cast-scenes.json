@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "releaseId": "scenes-v1.2.0",
+  "releaseId": "scenes-v1.2.1",
   "site": "net",
   "siteOrigin": "https://acecore.net",
   "catalogUrl": "https://cast.acecore.net/",
   "manifest": {
-    "url": "https://cast.acecore.net/releases/scenes-v1.2.0/consumer-manifest.json",
-    "sha256": "0ed7eb0bf88cc66289a27dc94a39dbf962a2ba82abd293af82fbfcba114686f7",
-    "snapshot": "vendor/cast/scenes-v1.2.0/consumer-manifest.json"
+    "url": "https://cast.acecore.net/releases/scenes-v1.2.1/consumer-manifest.json",
+    "sha256": "557e5b6ac6decb5c98d70f6ffae5654dc9a653cd1bab12754b7c8ae94787238c",
+    "snapshot": "vendor/cast/scenes-v1.2.1/consumer-manifest.json"
   },
   "assets": [
     {
       "id": "net--about-collaboration",
       "localPath": "/images/cast/scenes-v1.2.0/net--about-collaboration--01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c.webp",
-      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.0/assets/net--about-collaboration--01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.1/assets/net--about-collaboration--01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c.webp",
       "sha256": "01ea6e0c6da7e0eafa499d641664262c507d59fb866fd5eadee88118e184226c",
       "bytes": 177716,
       "width": 1672,
@@ -23,7 +23,7 @@
     {
       "id": "net--about-hero",
       "localPath": "/images/cast/scenes-v1.2.0/net--about-hero--859af4054e82f02489cedf5af480749d71e5f193aba395b91df3e28e867083ca.webp",
-      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.0/assets/net--about-hero--859af4054e82f02489cedf5af480749d71e5f193aba395b91df3e28e867083ca.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.1/assets/net--about-hero--859af4054e82f02489cedf5af480749d71e5f193aba395b91df3e28e867083ca.webp",
       "sha256": "859af4054e82f02489cedf5af480749d71e5f193aba395b91df3e28e867083ca",
       "bytes": 129096,
       "width": 1914,
@@ -32,10 +32,10 @@
     },
     {
       "id": "net--about-workshop",
-      "localPath": "/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp",
-      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.0/assets/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp",
-      "sha256": "6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c",
-      "bytes": 179370,
+      "localPath": "/images/cast/scenes-v1.2.1/net--about-workshop--8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.1/assets/net--about-workshop--8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2.webp",
+      "sha256": "8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2",
+      "bytes": 1345364,
       "width": 1672,
       "height": 941,
       "mimeType": "image/webp"
@@ -43,7 +43,7 @@
     {
       "id": "net--home-meeting",
       "localPath": "/images/cast/scenes-v1.2.0/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
-      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.0/assets/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.1/assets/net--home-meeting--4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2.webp",
       "sha256": "4f44d623c7bccfd542f4b0ba7e722402a1d99ef9a0716410ab9146a6da928cb2",
       "bytes": 97410,
       "width": 1254,
@@ -53,7 +53,7 @@
     {
       "id": "net--home-team",
       "localPath": "/images/cast/scenes-v1.2.0/net--home-team--def8cd5e3e477499b824b4679f101b71f8ca6cebc6d38439ada0cfb9062b0937.webp",
-      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.0/assets/net--home-team--def8cd5e3e477499b824b4679f101b71f8ca6cebc6d38439ada0cfb9062b0937.webp",
+      "sourceUrl": "https://cast.acecore.net/releases/scenes-v1.2.1/assets/net--home-team--def8cd5e3e477499b824b4679f101b71f8ca6cebc6d38439ada0cfb9062b0937.webp",
       "sha256": "def8cd5e3e477499b824b4679f101b71f8ca6cebc6d38439ada0cfb9062b0937",
       "bytes": 225742,
       "width": 1254,
