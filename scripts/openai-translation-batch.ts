@@ -316,7 +316,6 @@ function listChangedEntries(
     .split(/\r?\n/)
     .map(parseChangedEntry)
     .filter((entry): entry is ChangedEntry => entry !== null)
-    .filter((entry) => isTranslationSourcePath(entry.path))
 }
 
 function isBlogPath(filePath: string): boolean {
@@ -1129,7 +1128,12 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
 
   const inputs: BatchInputLine[] = []
   const locales = getTargetLocales()
-  for (const entry of listChangedEntries(baseSha, headSha)) {
+  const changes = listChangedEntries(baseSha, headSha)
+  const writtenPaths = new Set(
+    changes.filter((entry) => entry.status !== 'D').map((entry) => entry.path),
+  )
+  for (const entry of changes) {
+    if (!isTranslationSourcePath(entry.path)) continue
     if (isBlogPath(entry.path)) {
       if (entry.status === 'D') {
         if (!sourceAtCurrentRefMatches(entry.path, null, args.currentRef))
@@ -1154,6 +1158,30 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
       }
       const sourceDocument = splitMarkdownDocument(source)
       if (isTranslationDisabled(sourceDocument.frontmatter)) continue
+
+      // Editorial PRs can ship a complete, reviewed set of translations with
+      // the Japanese source. A partial set still needs the normal Batch path.
+      const reviewedTogether = locales.every((locale) => {
+        const path = getBlogTargetPath(locale, entry.path)
+        if (!writtenPaths.has(path)) return false
+        const target = readFileAtRef(headSha, path)
+        if (
+          !target ||
+          !sourceAtCurrentRefMatches(path, target, args.currentRef)
+        ) {
+          return false
+        }
+        const localized = splitMarkdownDocument(target)
+        return (
+          localized.body.trim().length > 0 &&
+          ['articleId', 'date', 'lastUpdated'].every(
+            (key) =>
+              getFrontmatterString(localized.frontmatter, key) ===
+              getFrontmatterString(sourceDocument.frontmatter, key),
+          )
+        )
+      })
+      if (reviewedTogether) continue
 
       for (const locale of locales) {
         const targetPath = getBlogTargetPath(locale, entry.path)
