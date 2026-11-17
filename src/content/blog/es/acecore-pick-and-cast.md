@@ -3,6 +3,7 @@ title: 'Acecore Pick y Cast: evalúa si cada imagen encaja en su contexto'
 description: 'Explora imágenes del elenco virtual en Acecore Cast y valora en Acecore Pick si cada candidata encaja en el uso previsto.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
+lastUpdated: '2026-11-17T13:23:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -18,4 +19,4 @@ Abre un personaje en [Acecore Cast](https://cast.acecore.net/) para ver imágene
 
 Lee el uso previsto de la tarjeta en [Acecore Pick](https://pick.acecore.net/) y elige a la izquierda o a la derecha según encaje. También puedes omitirla. Mantén pulsado un botón para explicar tu valoración. Por ejemplo: «La expresión es natural, pero cuesta ver el trabajo».
 
-![Icono de Acecore Pick](/uploads/editorial-20261117/pick-icon.png)
+![Pantalla de valoración de Pick en japonés con una pregunta sobre el uso, una imagen candidata y botones para aprobar, rechazar u omitir](/uploads/editorial-20261117/pick-evaluation-example.jpg)
