@@ -3,10 +3,10 @@ title: 'Acecore Pick e Cast: avalie cada imagem para seu uso previsto'
 description: 'Explore imagens do elenco virtual no Acecore Cast e avalie no Acecore Pick se cada candidata se encaixa na finalidade indicada.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T14:08:00+09:00'
+lastUpdated: '2026-11-18T01:05:06+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
-image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
+image: '/images/cast/scenes-v1.2.1/net--about-workshop--8587a8a97f4be7c0e4a7e0525b2d83600cd0b0444cc8e3a4b8a8a9f6e9b7f8f2.webp'
 ---
 
 Ao escolher uma imagem de pessoas para um site, pense no que a cena precisa comunicar. O Acecore Cast reúne imagens publicadas. O Acecore Pick mostra as candidatas uma a uma, com o uso previsto.
