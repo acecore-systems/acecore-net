@@ -3,7 +3,7 @@ title: 'Acecore Pick 与 Cast：逐张判断图片是否符合用途'
 description: '在 Acecore Cast 中浏览虚拟角色的图片，在 Acecore Pick 中评价候选图片是否适合指定的用途。'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T13:23:00+09:00'
+lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -14,6 +14,10 @@ image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a07468
 ## 在 Cast 中比较已展示的图片
 
 打开 [Acecore Cast](https://cast.acecore.net/) 中的角色，可以比较不同角度和表情的图片。人物图是 AI 生成的示意图。使用前请查看目录中的条款和咨询方式。
+
+例如，Hatt 的 7 张公开肖像调整了背景颜色和裁切位置。浏览不同角度的肖像并放大，可观察表情和轮廓的变化。
+
+[查看 Hatt 的肖像](https://cast.acecore.net/#cast/hatt)
 
 ## 在 Pick 中评价场景是否合适
 

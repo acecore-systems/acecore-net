@@ -3,7 +3,7 @@ title: 'Acecore Pick et Cast : évaluer chaque image selon son usage'
 description: 'Parcourez les images de personnages virtuels sur Acecore Cast, puis évaluez sur Acecore Pick si chaque proposition convient à l’usage prévu.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T13:23:00+09:00'
+lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -14,6 +14,10 @@ Pour choisir une image destinée à un site, demandez-vous ce que la scène doit
 ## Comparer les images sur Cast
 
 Ouvrez une fiche dans [Acecore Cast](https://cast.acecore.net/) pour voir différents angles et expressions. Les personnages sont des illustrations générées par IA. Consultez les conditions et le contact du catalogue pour vérifier les usages autorisés.
+
+Nous avons ajusté la couleur de fond et le cadrage des sept portraits publiés de Hatt. Parcourez les différents angles et agrandissez les portraits pour observer les variations d’expression et de contour.
+
+[Voir les portraits de Hatt](https://cast.acecore.net/#cast/hatt)
 
 ## Évaluer une proposition sur Pick
 
