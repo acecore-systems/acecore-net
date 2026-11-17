@@ -18,4 +18,4 @@ Open a cast member in [Acecore Cast](https://cast.acecore.net/) to see published
 
 Read the intended use on the card in [Acecore Pick](https://pick.acecore.net/), then choose left or right to say whether the image fits. You can skip an image. Press and hold a rating button to add a reason. A comment such as “the expression looks natural, but it is hard to see the work” explains what matters for the scene.
 
-![Acecore Pick service icon](/uploads/editorial-20261117/pick-icon.png)
+![The Japanese Pick rating screen with a question about the use case, a candidate image, and buttons to accept, reject, or skip](/uploads/editorial-20261117/pick-evaluation-example.jpg)

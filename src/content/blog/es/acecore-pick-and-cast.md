@@ -18,4 +18,4 @@ Abre un personaje en [Acecore Cast](https://cast.acecore.net/) para ver imágene
 
 Lee el uso previsto de la tarjeta en [Acecore Pick](https://pick.acecore.net/) y elige a la izquierda o a la derecha según encaje. También puedes omitirla. Mantén pulsado un botón para explicar tu valoración. Por ejemplo: «La expresión es natural, pero cuesta ver el trabajo».
 
-![Icono de Acecore Pick](/uploads/editorial-20261117/pick-icon.png)
+![Pantalla de valoración de Pick en japonés con una pregunta sobre el uso, una imagen candidata y botones para aprobar, rechazar u omitir](/uploads/editorial-20261117/pick-evaluation-example.jpg)

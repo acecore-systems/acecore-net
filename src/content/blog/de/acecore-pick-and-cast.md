@@ -18,4 +18,4 @@ image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a07468
 
 Lies den Einsatzzweck auf der Karte in [Acecore Pick](https://pick.acecore.net/) und wähle links oder rechts, ob das Bild passt. Du kannst ein Bild auch überspringen. Halte eine Bewertungsfläche gedrückt, um einen Grund anzugeben, etwa: „Der Ausdruck wirkt natürlich, aber die Tätigkeit ist schwer zu erkennen.“
 
-![Symbol von Acecore Pick](/uploads/editorial-20261117/pick-icon.png)
+![Japanische Bewertungsansicht von Pick mit einer Frage zum Einsatzzweck, einem Bildvorschlag und Schaltflächen zum Annehmen, Ablehnen oder Überspringen](/uploads/editorial-20261117/pick-evaluation-example.jpg)

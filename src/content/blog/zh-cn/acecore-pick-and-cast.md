@@ -18,4 +18,4 @@ image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a07468
 
 在 [Acecore Pick](https://pick.acecore.net/) 阅读卡片上的用途，通过向左或向右操作判断是否合适。也可跳过。长按评价按钮可写下原因，例如「表情自然，但看不清正在做什么」。
 
-![Acecore Pick 服务图标](/uploads/editorial-20261117/pick-icon.png)
+![Pick 日语评价界面显示用途问题、候选图片及符合、不符合和跳过按钮](/uploads/editorial-20261117/pick-evaluation-example.jpg)

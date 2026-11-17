@@ -18,4 +18,4 @@ image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a07468
 
 [Acecore Pick](https://pick.acecore.net/) 카드의 용도를 읽고 왼쪽이나 오른쪽으로 맞는지 선택하세요. 어려우면 건너뛸 수 있습니다. 평가 버튼을 길게 눌러 ‘표정은 자연스럽지만 작업 모습이 잘 보이지 않는다’처럼 이유를 덧붙일 수 있습니다.
 
-![Acecore Pick 서비스 아이콘](/uploads/editorial-20261117/pick-icon.png)
+![용도 질문과 후보 이미지, 적합·부적합·건너뛰기 버튼이 있는 Pick 일본어 평가 화면](/uploads/editorial-20261117/pick-evaluation-example.jpg)
