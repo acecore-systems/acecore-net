@@ -3,7 +3,7 @@ title: 'Сообщество и образование Acecore: как учас�
 description: 'Познакомьтесь с Aceserver, учебной поддержкой Acecore Schools и открытыми проектами; найдите актуальные условия участия и записи прошлых мероприятий.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ insightGrid:
 **Acecore Schools** — образовательное направление Acecore. Темы обучения, форматы, цены и способы консультации представлены на [официальном сайте Acecore Schools](https://schools.acecore.net/).
 
 Прошедший практикум по робототехнике сохранён как [отчёт о мероприятии](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+
+В Schools доступны обучение 3D и творческим навыкам, техническая поддержка при создании работ, разбор работ и мастер-классы. Содержание и цены указаны на [сайте Schools](https://schools.acecore.net/ru/).
+
+В [бета-версии Etore](https://training.schools.acecore.net/) родители и другие взрослые могут попробовать группировать предметы по десять в игре про доставку. Учебные материалы ещё проверяются.
 
 ## Открытый код и сотрудничество
 

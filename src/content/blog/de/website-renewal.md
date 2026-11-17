@@ -3,7 +3,7 @@ title: 'Die Acecore-Website wurde erneuert'
 description: 'Acecore hat seine Unternehmenswebsite erneuert, damit Unternehmensinformationen und Tätigkeitsbereiche leichter zu finden sind. Hier erläutern wir die Änderungen und unsere Nachrichten.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ Wir haben die Acecore-Website als Unternehmenswebsite mit Unternehmensinformatio
 Wir haben die Zuständigkeit für unternehmensweite Informationen und detaillierte Leistungsbeschreibungen geklärt. Unternehmensinformationen und Einstiege finden Sie hier; Preise, Leistungsumfang und Teilnahmebedingungen auf den Fachseiten.
 
 So vermeiden wir wiederholte Erklärungen und erleichtern den Weg zur passenden Information. Aktuelle Abteilungen und Angebote finden Sie auf der [Seite zu unseren Tätigkeitsbereichen](/de/services/).
+
+Im Oktober 2026 haben wir die Links zu den Fachseiten aktualisiert. [Systems](https://systems.acecore.net/de/) bietet IT-Unterstützung, [Schools](https://schools.acecore.net/de/) Lernen und Schulung und [Designs](https://designs.acecore.net/de/) Illustration, 3D, Text und Audio. Details und Kontakte stehen auf der jeweiligen Website.
 
 ## Inhalte der Unternehmensnachrichten
 

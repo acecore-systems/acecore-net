@@ -3,7 +3,7 @@ title: 'Acecore Community and Education: Where to Join and Start Learning'
 description: 'Find Aceserver Minecraft activities, Acecore Schools learning support, and public projects, with separate routes for participation and past activity records.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ To explore Alpha’s diary by date, see the [beginner’s guide](https://asv.ace
 **Acecore Schools** is Acecore's education business, organizing learning around each person's goals and current situation. Current subjects, learning formats, pricing, and consultation details are available on the [official Acecore Schools website](https://schools.acecore.net/).
 
 The past hands-on robotics workshop is preserved as an [activity record](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+
+For 3D and creative work, Schools offers training, technical support during production, work reviews, and workshops. Check the [Schools website](https://schools.acecore.net/en/) for scope and pricing.
+
+The [Etore beta](https://training.schools.acecore.net/) lets adults try grouping by tens in a delivery game. The learning materials are still being reviewed.
 
 ## Open source and partnerships
 

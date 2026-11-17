@@ -3,7 +3,7 @@ title: 'Acecore Community und Bildung: Mitmachen und Lernen beginnen'
 description: 'Entdecken Sie Aceserver, die Lernunterstützung von Acecore Schools und öffentliche Projekte sowie Wege zur Teilnahme und zu früheren Aktivitäten.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ Alphas Bildertagebuch können Sie mithilfe des [Einstiegsleitfadens](https://asv
 **Acecore Schools** ist der Bildungsbereich von Acecore. Lernangebote, Formate, Preise und Beratung werden auf der [offiziellen Website von Acecore Schools](https://schools.acecore.net/) gepflegt.
 
 Der frühere Robotik-Workshop ist als [Aktivitätsbericht](https://schools.acecore.net/activities/2023-summer-robot-workshop/) dokumentiert.
+
+Schools bietet Schulungen in 3D und kreativer Gestaltung, technische Unterstützung während der Arbeit, Feedback zu Werken und Workshops. Inhalte und Preise stehen auf der [Schools-Website](https://schools.acecore.net/de/).
+
+In der [Etore-Beta](https://training.schools.acecore.net/) können Eltern und andere Erwachsene das Bündeln zu Zehnern in einem Lieferspiel ausprobieren. Die Lernmaterialien werden noch geprüft.
 
 ## Open Source und Partnerschaften
 

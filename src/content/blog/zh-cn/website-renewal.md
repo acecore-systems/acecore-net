@@ -3,7 +3,7 @@ title: 'Acecore官方网站已改版'
 description: '为方便查找公司信息和业务入口，Acecore官方网站进行了改版。本文介绍调整内容与企业新闻的发布方向。'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ Acecore官方网站已改版为集中提供公司信息与各项业务入口的�
 我们明确了公司整体信息与各领域详细服务信息的发布位置。公司信息和业务入口集中在本站，价格、服务范围、参与条件等则由专业网站提供。
 
 这样可以减少多处重复说明，帮助读者找到符合目的的信息。当前部门与服务请查看[业务页面](/zh-cn/services/)。
+
+2026 年 10 月，我们更新了各业务专业网站的入口。[Systems](https://systems.acecore.net/zh-cn/) 提供 IT 支持，[Schools](https://schools.acecore.net/zh-cn/) 提供学习和培训，[Designs](https://designs.acecore.net/zh-cn/) 提供插画、3D、写作和音频制作。各网站均提供详细说明及咨询方式。
 
 ## 企业新闻将发布什么
 
