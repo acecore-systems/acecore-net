@@ -3,7 +3,7 @@ title: 'Hemos renovado el sitio web de Acecore'
 description: 'Acecore ha renovado su web para facilitar el acceso a la información de la empresa y a sus actividades. Explicamos los cambios y el contenido de nuestras noticias.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ Hemos renovado el sitio web de Acecore como espacio de información corporativa 
 Hemos aclarado dónde consultar la información general de la empresa y los detalles de los servicios. La información corporativa y los accesos a nuestras actividades se reúnen aquí; los precios, el alcance y las condiciones de participación se consultan en los sitios especializados.
 
 Así reducimos las explicaciones repetidas y facilitamos el acceso a la información pertinente. Los departamentos y servicios actuales figuran en la [página de actividades](/es/services/).
+
+En octubre de 2026 actualizamos los enlaces a nuestras webs especializadas. En [Systems](https://systems.acecore.net/es/) encontrarás asistencia informática, en [Schools](https://schools.acecore.net/es/) aprendizaje y formación, y en [Designs](https://designs.acecore.net/es/) ilustración, 3D, escritura y audio. Cada web ofrece detalles y vías de consulta.
 
 ## Qué publicaremos en las noticias corporativas
 

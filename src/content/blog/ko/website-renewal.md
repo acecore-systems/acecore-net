@@ -3,7 +3,7 @@ title: 'Acecore 공식 사이트를 개편했습니다'
 description: '회사 정보와 사업 안내 경로를 찾기 쉽도록 공식 사이트를 개편했습니다. 변경 내용과 기업 소식의 게재 방침을 안내합니다.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ Acecore 공식 사이트를 회사 정보와 각 사업의 안내 경로를 확�
 회사 전체 정보와 분야별 상세 서비스 정보의 게재 위치를 정리했습니다. 회사 정보와 사업 안내 경로는 이 사이트에 모으고, 요금·제공 범위·참여 조건 등은 전문 사이트에서 확인할 수 있도록 구성했습니다.
 
 여러 곳에 같은 설명을 반복하는 일을 줄이고 목적에 맞는 정보로 이동할 수 있도록 했습니다. 현재 부문과 서비스는 [사업 페이지](/ko/services/)에서 확인하세요.
+
+2026년 10월에 분야별 전문 사이트로 연결되는 안내를 업데이트했습니다. IT 지원은 [Systems](https://systems.acecore.net/ko/), 학습과 연수는 [Schools](https://schools.acecore.net/ko/), 일러스트·3D·글·음성 제작은 [Designs](https://designs.acecore.net/ko/)에서 자세한 내용과 문의처를 확인하세요.
 
 ## 기업 소식에 게재할 내용
 

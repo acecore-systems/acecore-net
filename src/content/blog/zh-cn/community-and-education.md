@@ -3,7 +3,7 @@ title: 'Acecore社区与教育活动：参与方式与学习入口'
 description: '介绍Aceserver Minecraft社区、Acecore Schools学习支持及公开项目，分别指引希望参与活动和阅读过往记录的读者。'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ insightGrid:
 **Acecore Schools**是Acecore的教育业务。学习领域、方式、价格和咨询方法请查看[Acecore Schools官方网站](https://schools.acecore.net/)。
 
 过去举办的机器人体验工作坊已作为[活动记录](https://schools.acecore.net/activities/2023-summer-robot-workshop/)保存。
+
+Schools 为学习 3D 和创作的人提供培训、制作中的技术支持、作品点评和工作坊。内容及费用请见 [Schools 官网](https://schools.acecore.net/zh-cn/)。
+
+在 [Etore 操作测试版](https://training.schools.acecore.net/) 中，家长等成人可以通过送货游戏试用按十个一组思考的算术操作。教材仍在审核中。
 
 ## 开源与合作
 

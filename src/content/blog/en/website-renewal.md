@@ -3,7 +3,7 @@ title: 'The Acecore Website Has Been Renewed'
 description: 'Acecore has renewed its corporate website to make company information and business entry points easier to find. Read about the changes and our company news policy.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ We have renewed the Acecore website as a corporate site for company information 
 We clarified where company-wide information and detailed service information belong. Company information and business entry points are collected here, while prices, service scope, and participation conditions are available on specialist sites.
 
 This reduces repeated explanations and helps readers reach information suited to their purpose. See the [business page](/en/services/) for current departments and services.
+
+In October 2026 we updated the links to our specialist sites. Find IT support at [Systems](https://systems.acecore.net/en/), education and training at [Schools](https://schools.acecore.net/en/), and illustration, 3D, writing, and audio production at [Designs](https://designs.acecore.net/en/).
 
 ## What company news will cover
 

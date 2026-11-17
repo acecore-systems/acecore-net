@@ -3,7 +3,7 @@ title: 'Communauté et éducation chez Acecore : participer et commencer à appr
 description: 'Découvrez Aceserver, le soutien à l’apprentissage d’Acecore Schools et les projets publics, avec des accès aux activités actuelles et aux archives.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ Pour parcourir le journal illustré d’Alpha par date, consultez le [guide de d
 **Acecore Schools** est l'activité éducative d'Acecore. Les domaines d'apprentissage, les formats, les tarifs et les modalités de consultation sont présentés sur le [site officiel d'Acecore Schools](https://schools.acecore.net/).
 
 L'ancien atelier de robotique est conservé sous la forme d'un [compte rendu d'activité](https://schools.acecore.net/activities/2023-summer-robot-workshop/).
+
+Schools propose des formations en 3D et création, de l’aide technique pendant la production, des retours sur les réalisations et des ateliers. Consultez le [site de Schools](https://schools.acecore.net/fr/) pour les prestations et les tarifs.
+
+La [bêta d’Etore](https://training.schools.acecore.net/) permet aux parents et aux autres adultes de tester le regroupement par dix dans un jeu de livraison. Le matériel pédagogique est en cours de vérification.
 
 ## Open source et partenariats
 

@@ -3,7 +3,7 @@ title: 'Le site Acecore a été renouvelé'
 description: 'Acecore a renouvelé son site pour faciliter l’accès aux informations de l’entreprise et à ses activités. Découvrez les changements et les sujets de nos actualités.'
 articleId: 9b30277c-64d5-4de5-b79b-3e5767d0d392
 date: 2026-03-12T00:00
-lastUpdated: '2026-10-15T08:22:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['お知らせ', 'Webサイト']
 image: '/uploads/acecore-homepage-20261006.webp'
@@ -16,6 +16,8 @@ Nous avons renouvelé le site Acecore pour réunir les informations de l’entre
 Nous avons clarifié la place des informations générales et des détails sur les services. Les informations de l’entreprise et les accès aux activités sont réunis ici ; les tarifs, le périmètre des services et les conditions de participation figurent sur les sites spécialisés.
 
 Cette organisation réduit les explications répétées et facilite l’accès aux informations recherchées. Consultez la [page des activités](/fr/services/) pour les départements et services actuels.
+
+En octobre 2026, nous avons actualisé les liens vers les sites spécialisés. Retrouvez l’assistance informatique sur [Systems](https://systems.acecore.net/fr/), les cours et formations sur [Schools](https://schools.acecore.net/fr/), et la production d’illustrations, de 3D, de textes et de contenus audio sur [Designs](https://designs.acecore.net/fr/).
 
 ## Les sujets des actualités de l’entreprise
 

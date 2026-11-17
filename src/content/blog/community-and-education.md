@@ -3,7 +3,7 @@ title: 'Acecoreのコミュニティ・教育活動：参加方法と学びの�
 description: 'MinecraftコミュニティのAceserver、学習支援のAcecore Schools、公開プロジェクトの案内。参加したい人と活動記録を読みたい人に、それぞれの確認先を紹介します。'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ Minecraftで仲間と遊びたい、学び方を相談したい、公開プロ�
 **Acecore Schools**は、目的と現在地から必要な学びを組み立てる教育事業です。対象、学び方、料金、ご相談方法は[Acecore Schools公式サイト](https://schools.acecore.net/)でご案内しています。
 
 過去に実施したロボット工作体験は、[活動記録](https://schools.acecore.net/activities/2023-summer-robot-workshop/)として掲載しています。
+
+3D・創作を学ぶ方には、研修、制作中の技術サポート、作品レビュー、ワークショップの案内があります。扱う内容や料金は[Schools公式サイト](https://schools.acecore.net/)で確認できます。
+
+[エートレの操作ベータ](https://training.schools.acecore.net/)では、まちへ荷物を届けるゲームを通じて、10のまとまりで考える算数の操作を試せます。保護者など大人向けの試作で、教材は確認中です。
 
 ## オープンソースと連携
 

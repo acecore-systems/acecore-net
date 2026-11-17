@@ -3,7 +3,7 @@ title: 'Acecore 커뮤니티와 교육 활동: 참여 방법과 배움의 시작
 description: 'Aceserver Minecraft 커뮤니티, Acecore Schools 학습 지원, 공개 프로젝트를 소개하며 참여 안내와 지난 활동 기록의 확인 경로를 구분합니다.'
 articleId: eaf4e198-62bf-44e4-986d-f9fc7d890d2c
 date: 2026-03-08T00:00
-lastUpdated: '2026-10-09T15:00:00+09:00'
+lastUpdated: '2026-11-17T00:00:00+09:00'
 author: gui
 tags: ['コミュニティ', '教育', 'オープンソース']
 image: /uploads/acecore-generated/blog-schools-online-support.webp
@@ -43,6 +43,10 @@ insightGrid:
 **Acecore Schools**는 Acecore의 교육 사업입니다. 학습 분야, 진행 방식, 요금, 상담 방법은 [Acecore Schools 공식 사이트](https://schools.acecore.net/)에서 안내합니다.
 
 과거 로봇 체험 워크숍은 [활동 기록](https://schools.acecore.net/activities/2023-summer-robot-workshop/)으로 보존하고 있습니다.
+
+Schools는 3D·창작 교육, 제작 중 기술 지원, 작품 리뷰와 워크숍을 안내합니다. 내용과 비용은 [Schools 공식 사이트](https://schools.acecore.net/ko/)에서 확인하세요.
+
+[Etore 조작 베타](https://training.schools.acecore.net/)에서는 보호자 등 성인이 배달 게임을 통해 10개씩 묶어 생각하는 산수 조작을 시험해 볼 수 있습니다. 교재는 검토 중입니다.
 
 ## 오픈 소스와 협력
 
