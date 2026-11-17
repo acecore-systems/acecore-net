@@ -3,6 +3,7 @@ title: 'Acecore Pick e Cast: avalie cada imagem para seu uso previsto'
 description: 'Explore imagens do elenco virtual no Acecore Cast e avalie no Acecore Pick se cada candidata se encaixa na finalidade indicada.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
+lastUpdated: '2026-11-17T13:23:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'

@@ -3,6 +3,7 @@ title: 'Acecore Pick 与 Cast：逐张判断图片是否符合用途'
 description: '在 Acecore Cast 中浏览虚拟角色的图片，在 Acecore Pick 中评价候选图片是否适合指定的用途。'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
+lastUpdated: '2026-11-17T13:23:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
