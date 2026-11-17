@@ -3,7 +3,7 @@ title: 'Acecore Pick and Cast: Review images for their intended use'
 description: 'Browse virtual cast images in Acecore Cast and review whether each candidate suits its intended use in Acecore Pick.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T13:23:00+09:00'
+lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -14,6 +14,10 @@ When choosing a person image for a website, think about what the scene needs to 
 ## Compare images in Cast
 
 Open a cast member in [Acecore Cast](https://cast.acecore.net/) to see published images with different angles and expressions. The people shown are AI-generated illustrations. See the catalogue’s terms and contact details if you need to check permitted uses.
+
+For Hatt’s seven published portraits, we adjusted the background colour and framing. Browse the different angles and enlarge portraits to see changes in expression and outline.
+
+[View Hatt’s portraits](https://cast.acecore.net/#cast/hatt)
 
 ## Review a candidate in Pick
 

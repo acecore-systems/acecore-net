@@ -3,7 +3,7 @@ title: 'Acecore Pick과 Cast: 이미지가 용도에 맞는지 한 장씩 보기
 description: 'Acecore Cast에서 가상 캐스트 이미지를 살펴보고, Acecore Pick에서 후보가 표시된 용도에 맞는지 평가할 수 있습니다.'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T13:23:00+09:00'
+lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -14,6 +14,10 @@ image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a07468
 ## Cast에서 공개 이미지 비교하기
 
 [Acecore Cast](https://cast.acecore.net/)의 캐스트를 열어 각도와 표정이 다른 이미지를 확인하세요. 인물 이미지는 AI로 생성한 예시입니다. 이미지 활용 범위를 알아보려면 카탈로그의 이용 조건과 문의처를 확인하세요.
+
+Hatt의 공개 초상 이미지 7장은 배경색과 프레이밍을 조정했습니다. 각도별 이미지를 살펴보고 확대해 표정과 윤곽의 차이를 확인할 수 있습니다.
+
+[Hatt의 초상 이미지 보기](https://cast.acecore.net/#cast/hatt)
 
 ## Pick에서 장면에 맞는지 평가하기
 

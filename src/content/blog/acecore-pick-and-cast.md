@@ -3,7 +3,7 @@ title: 'Acecore PickとCast｜画像が用途に合うか、1枚ずつ見てみ�
 description: 'Acecore Castでバーチャルキャストの画像を探し、Acecore Pickで候補画像が掲載先の用途に合うかを評価できます。'
 articleId: '08b11c74-608b-559d-a462-b09127d26ec5'
 date: '2026-11-17T00:00:00+09:00'
-lastUpdated: '2026-11-17T13:23:00+09:00'
+lastUpdated: '2026-11-17T14:08:00+09:00'
 author: 'gui'
 tags: ['お知らせ', 'Webサイト']
 image: '/images/cast/scenes-v1.2.0/net--about-workshop--6c12c5a2bd0c9afa75a074684815485bd9e8c435842741835cddca0393e59d4c.webp'
@@ -14,6 +14,10 @@ Webサイト用に人物画像を選ぶときは、見た目とあわせて「�
 ## Castで掲載画像を見比べる
 
 [Acecore Cast](https://cast.acecore.net/)の一覧から気になるキャストを開くと、方向や表情の異なる掲載画像を確認できます。人物画像はAI生成のイメージです。画像の利用範囲を知りたい場合は、カタログにある利用条件と問い合わせ先を確認してください。
+
+たとえばHattの掲載ポートレート7点では、背景色とトリミングを調整しました。角度ごとの画像を見比べたり、拡大して表情や輪郭の違いを確かめたりできます。
+
+[Hattの掲載画像を見る](https://cast.acecore.net/#cast/hatt)
 
 ## Pickで場面に合うかを評価する
 
