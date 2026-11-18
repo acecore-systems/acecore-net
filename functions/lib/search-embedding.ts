@@ -1,8 +1,17 @@
-export const SEARCH_EMBEDDING_MODEL = '@cf/baai/bge-m3'
-export const SEARCH_EMBEDDING_DIMENSIONS = 1024
+import {
+  parseVoyageEmbeddings,
+  VOYAGE_DIMENSIONS,
+  VOYAGE_MODEL,
+  voyageRequest,
+} from './voyage-embedding.ts'
+
+export const SEARCH_EMBEDDING_MODEL = VOYAGE_MODEL
+export const SEARCH_EMBEDDING_DIMENSIONS = VOYAGE_DIMENSIONS
+
+const VOYAGE_SERVICE_URL = 'https://voyage-embeddings.internal/v1/embeddings'
 
 export type SearchEmbeddingEnv = {
-  AI?: Ai
+  VOYAGE_EMBEDDING?: Fetcher
   SEARCH_EMBEDDING_MODEL?: string
   SEARCH_EMBEDDING_DIMENSIONS?: string
 }
@@ -22,13 +31,15 @@ export async function createSearchEmbedding(
   input: string,
 ): Promise<number[]> {
   validateConfiguration(env)
-  if (!env.AI) throw new SearchEmbeddingProviderError('unconfigured')
+  if (!env.VOYAGE_EMBEDDING)
+    throw new SearchEmbeddingProviderError('unconfigured')
 
-  let payload: unknown
+  let response: Response
   try {
-    payload = await env.AI.run(SEARCH_EMBEDDING_MODEL, {
-      text: [input],
-      truncate_inputs: false,
+    response = await env.VOYAGE_EMBEDDING.fetch(VOYAGE_SERVICE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(voyageRequest([input], 'query')),
     })
   } catch (error) {
     throw new SearchEmbeddingProviderError(
@@ -36,35 +47,25 @@ export async function createSearchEmbedding(
     )
   }
 
-  if (!isRecord(payload) || !Array.isArray(payload.data)) {
+  if (!response.ok)
+    throw new SearchEmbeddingProviderError(`http_${response.status}`)
+
+  let payload: unknown
+  try {
+    payload = await response.json()
+  } catch {
     throw new SearchEmbeddingProviderError('invalid_embedding_response')
   }
-  if (payload.data.length !== 1 || !Array.isArray(payload.data[0])) {
-    throw new SearchEmbeddingProviderError('invalid_embedding')
-  }
 
-  const embedding = payload.data[0]
-  if (
-    embedding.length !== SEARCH_EMBEDDING_DIMENSIONS ||
-    !embedding.every(
-      (value): value is number =>
-        typeof value === 'number' && Number.isFinite(value),
+  try {
+    const [embedding] = parseVoyageEmbeddings(payload, 1)
+    if (embedding) return embedding
+  } catch (error) {
+    throw new SearchEmbeddingProviderError(
+      error instanceof Error ? error.message : 'invalid_embedding_response',
     )
-  ) {
-    throw new SearchEmbeddingProviderError('invalid_embedding')
   }
-  if (
-    (payload.pooling !== undefined && payload.pooling !== 'cls') ||
-    (payload.shape !== undefined &&
-      (!Array.isArray(payload.shape) ||
-        payload.shape.length !== 2 ||
-        payload.shape[0] !== 1 ||
-        payload.shape[1] !== SEARCH_EMBEDDING_DIMENSIONS))
-  ) {
-    throw new SearchEmbeddingProviderError('invalid_embedding_contract')
-  }
-
-  return embedding
+  throw new SearchEmbeddingProviderError('invalid_embedding_response')
 }
 
 export function getSearchEmbeddingErrorCode(
@@ -89,8 +90,4 @@ function validateConfiguration(env: SearchEmbeddingEnv): void {
 
 function normalize(value: unknown): string {
   return typeof value === 'string' ? value.trim() : ''
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
 }

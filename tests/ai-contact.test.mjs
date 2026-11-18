@@ -64,8 +64,9 @@ test('チャットUIはSSEを要求しdeltaを平文表示してcompleteで確�
 async function onRequestPost(context) {
   const env = {
     SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
-    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
     SEARCH_EMBEDDING_DIMENSIONS: '1024',
+    VOYAGE_EMBEDDING: createVoyageBinding(),
     WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
     WORKERS_AI_REASONING_EFFORT: 'low',
     ...context.env,
@@ -230,7 +231,7 @@ test('問い合わせ通常入口からMetaへlowを送る', async () => {
           },
         },
         SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase(),
-        SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+        SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
         SEARCH_EMBEDDING_DIMENSIONS: '1024',
         SEARCH_ENABLED: 'false',
         WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
@@ -260,7 +261,7 @@ test('Workers AIへlow・store falseを送信する', async () => {
       locale: 'ja',
     }),
     env: {
-      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
       SEARCH_EMBEDDING_DIMENSIONS: '1024',
       WORKERS_AI_CHAT_MODEL: '@cf/example/chat-model',
       WORKERS_AI_REASONING_EFFORT: 'low',
@@ -325,8 +326,12 @@ for (const scenario of [
     assert.equal(response.status, 200)
     assert.deepEqual(aiTracker.embeddingInputs, [
       {
-        text: [scenario.question.normalize('NFKC')],
-        truncate_inputs: false,
+        model: 'voyage-4-lite',
+        input: [scenario.question.normalize('NFKC')],
+        input_type: 'query',
+        output_dimension: 1024,
+        output_dtype: 'float',
+        truncation: false,
       },
     ])
     assertOnlySourceQueried(queryCounts, scenario.expectedSource)
@@ -415,9 +420,12 @@ test('横断UIでもAcecoreの相対リンクをacecore.netの絶対URLに固定
   const queryCounts = createSourceCounter()
   const aiTracker = createAiTracker()
   const env = createFederatedProbeEnv(queryCounts, aiTracker)
-  env.AI = createTestAi(aiTracker, {
-    generationResponse: '[Acecoreについて](/about/)をご確認ください。',
-  })
+  Object.assign(
+    env,
+    createTestAiBindings(aiTracker, {
+      generationResponse: '[Acecoreについて](/about/)をご確認ください。',
+    }),
+  )
   const response = await onRequestPost({
     request: createRequest(
       {
@@ -522,7 +530,7 @@ test('D1 rate limitの全体上限を超えたrequestをAI呼び出し前に拒�
       locale: 'ja',
     }),
     env: {
-      AI: createTestAi(aiTracker),
+      ...createTestAiBindings(aiTracker),
       SEARCH_RATE_LIMIT_DB: createAlwaysAllowRateLimitDatabase({
         allow(key) {
           return key !== 'ai-chat:global'
@@ -548,7 +556,7 @@ test('D1 bindingがない環境ではfail closedにする', async () => {
       locale: 'ja',
     }),
     env: {
-      SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+      SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
       SEARCH_EMBEDDING_DIMENSIONS: '1024',
       SEARCH_ENABLED: 'false',
     },
@@ -693,11 +701,7 @@ test('Acecore根拠がゼロ件で生成上限に達しても公式トップを�
         },
       },
       AI: {
-        async run(model) {
-          if (model === '@cf/baai/bge-m3') {
-            return { data: [EMBEDDING] }
-          }
-
+        async run() {
           return {
             choices: [
               {
@@ -761,7 +765,7 @@ test(
         ACESERVER_WIKI_SEARCH_INDEX: createGatedIndex('aceserverWiki'),
         ACESERVER_PORTAL_SEARCH_ENABLED: 'true',
         ACESERVER_PORTAL_SEARCH_INDEX: createGatedIndex('aceserverPortal'),
-        AI: createTestAi(aiTracker, {
+        ...createTestAiBindings(aiTracker, {
           generationResponse:
             '[WIKI](https://asv-wiki.acecore.net/article/rules/)と[Portal](https://asv.acecore.net/about/)をご確認ください。',
         }),
@@ -827,7 +831,7 @@ test('Aceserver概要がWIKIだけを引用してもPortalを追記する', asyn
           }
         },
       },
-      AI: createTestAi(aiTracker, {
+      ...createTestAiBindings(aiTracker, {
         generationResponse:
           '[WIKI](https://asv-wiki.acecore.net/article/rules/)に情報があります。',
       }),
@@ -870,7 +874,7 @@ test('AceserverルールがPortalだけを引用してもWIKIを追記する', a
           }
         },
       },
-      AI: createTestAi(aiTracker, {
+      ...createTestAiBindings(aiTracker, {
         generationResponse:
           '[Portal](https://asv.acecore.net/about/)に情報があります。',
       }),
@@ -918,14 +922,14 @@ test('曖昧なfollow-upは直前のSystems意図と検索文脈を引き継ぐ'
           return { count: 1, matches: [matchFor('systems')] }
         },
       },
-      AI: createTestAi(aiTracker),
+      ...createTestAiBindings(aiTracker),
     },
   })
 
   assert.equal(response.status, 200)
   assert.equal(systemsCalls, 1)
   assert.equal(
-    aiTracker.embeddingInputs[0].text[0],
+    aiTracker.embeddingInputs[0].input[0],
     ['Acecore SystemsのWebサイト制作について', 'その内容をもう少し教えて'].join(
       '\n',
     ),
@@ -1251,7 +1255,7 @@ test('明示的にSystemsからSchoolsへ切り替えたら検索queryを現在�
 
   assert.equal(response.status, 200)
   assert.equal(
-    aiTracker.embeddingInputs[0].text[0],
+    aiTracker.embeddingInputs[0].input[0],
     'Acecore Schoolsの高卒認定支援について教えて',
   )
   assertOnlySourceQueried(queryCounts, 'schools')
@@ -1274,7 +1278,7 @@ test('専門sourceがゼロ結果ならLLMを呼ばず固定の公式案内を�
           return { count: 0, matches: [] }
         },
       },
-      AI: createTestAi(aiTracker),
+      ...createTestAiBindings(aiTracker),
     },
   })
 
@@ -1317,7 +1321,7 @@ test('AceserverのルールはPortal根拠だけでは回答せず固定WIKI案�
           }
         },
       },
-      AI: createTestAi(aiTracker),
+      ...createTestAiBindings(aiTracker),
     },
   })
 
@@ -1357,7 +1361,7 @@ test('Aceserverの概要はWIKIがゼロ件でもPortal根拠で回答する', a
           }
         },
       },
-      AI: createTestAi(aiTracker, {
+      ...createTestAiBindings(aiTracker, {
         generationResponse:
           '[Aceserver概要](https://asv.acecore.net/about/)をご確認ください。',
       }),
@@ -1397,7 +1401,7 @@ test('Aceserverの片方が障害でも残ったPortal根拠でfail-softする',
             }
           },
         },
-        AI: createTestAi(aiTracker, {
+        ...createTestAiBindings(aiTracker, {
           generationResponse:
             '[Aceserver概要](https://asv.acecore.net/about/)をご確認ください。',
         }),
@@ -1573,7 +1577,7 @@ test('metadataのlocale・origin・query・hash・多重エンコードした危
           }
         },
       },
-      AI: createTestAi(aiTracker, {
+      ...createTestAiBindings(aiTracker, {
         generationResponse: [
           '[取得済み事例](https://systems.acecore.net/case-studies/verified/)',
           '[推測した事例](https://systems.acecore.net/case-studies/guessed/)',
@@ -1673,12 +1677,14 @@ test('embeddingは1024次元かつ有限値でなければVectorizeへ渡さな�
                 return { count: 0, matches: [] }
               },
             },
+            VOYAGE_EMBEDDING: createVoyageBinding({
+              embedding: invalidEmbedding,
+              onRequest: () => {
+                embeddingCalls += 1
+              },
+            }),
             AI: {
-              async run(model) {
-                if (model === '@cf/baai/bge-m3') {
-                  embeddingCalls += 1
-                  return { data: [invalidEmbedding] }
-                }
+              async run() {
                 generationCalls += 1
                 return createChatCompletion(
                   '[事業一覧](/services/)をご確認ください。',
@@ -1787,10 +1793,13 @@ test('World FoundationのVectorizeはProductionだけに接続する', () => {
     'utf8',
   )
 
-  assert.doesNotMatch(config, /world-foundation-search-bge-m3-1024-preview/u)
+  assert.doesNotMatch(
+    config,
+    /world-foundation-search-voyage-4-lite-1024-preview/u,
+  )
   assert.equal(
     config.split(
-      '"index_name": "world-foundation-search-bge-m3-1024-production-v1"',
+      '"index_name": "world-foundation-search-voyage-4-lite-1024-production-v1"',
     ).length - 1,
     1,
   )
@@ -1814,12 +1823,12 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'utf8',
   )
   const productionIndexes = [
-    'acecore-net-search-bge-m3-1024-production-v2',
-    'acecore-systems-search-bge-m3-1024-production-v1',
-    'acecore-schools-search-bge-m3-1024-production-v1',
-    'aceserver-wiki-search-bge-m3-1024-production-v1',
-    'aceserver-portal-search-bge-m3-1024-production-v1',
-    'world-foundation-search-bge-m3-1024-production-v1',
+    'acecore-net-search-voyage-4-lite-1024-production-v1',
+    'acecore-systems-search-voyage-4-lite-1024-production-v1',
+    'acecore-schools-search-voyage-4-lite-1024-production-v1',
+    'aceserver-wiki-search-voyage-4-lite-1024-production-v1',
+    'aceserver-portal-search-voyage-4-lite-1024-production-v1',
+    'world-foundation-search-voyage-4-lite-1024-production-v1',
   ]
   const enabledKillSwitches = [
     'SYSTEMS_SEARCH_ENABLED',
@@ -1827,7 +1836,12 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
     'ACESERVER_WIKI_SEARCH_ENABLED',
   ]
 
-  assert.doesNotMatch(config, /search-bge-m3-1024-preview/u)
+  assert.doesNotMatch(config, /search-voyage-4-lite-1024-preview/u)
+  assert.equal(config.match(/"binding": "VOYAGE_EMBEDDING"/gu)?.length, 1)
+  assert.match(
+    config,
+    /"production":[\s\S]*"binding": "VOYAGE_EMBEDDING",\s*"service": "acecore-chat-worker",\s*"entrypoint": "VoyageEmbedding"/u,
+  )
   for (const indexName of productionIndexes) {
     assert.equal(config.split(`"index_name": "${indexName}"`).length - 1, 1)
   }
@@ -1860,6 +1874,7 @@ test('Previewを停止しProductionの確認済み検索だけを有効化する
 
 test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばない', async () => {
   let aiCalls = 0
+  let embeddingCalls = 0
   let vectorizeCalls = 0
 
   const response = await onRequestPost({
@@ -1875,10 +1890,14 @@ test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばな
           return { count: 0, matches: [] }
         },
       },
+      VOYAGE_EMBEDDING: createVoyageBinding({
+        onRequest: () => {
+          embeddingCalls += 1
+        },
+      }),
       AI: {
-        async run(model) {
+        async run() {
           aiCalls += 1
-          assert.notEqual(model, '@cf/baai/bge-m3')
           return createChatCompletion(
             '[問い合わせフォーム](/contact/)をご利用ください。',
           )
@@ -1889,6 +1908,7 @@ test('Acecore検索のkill switchがfalseならembeddingとVectorizeを呼ばな
 
   assert.equal(response.status, 200)
   assert.equal(aiCalls, 1)
+  assert.equal(embeddingCalls, 0)
   assert.equal(vectorizeCalls, 0)
 })
 
@@ -2023,26 +2043,42 @@ function createAiTracker() {
   }
 }
 
-function createTestAi(
+function createVoyageBinding({
+  embedding = EMBEDDING,
+  onRequest = () => {},
+} = {}) {
+  return {
+    async fetch(url, init) {
+      assert.equal(url, 'https://voyage-embeddings.internal/v1/embeddings')
+      assert.equal(init.method, 'POST')
+      const body = JSON.parse(init.body)
+      assert.equal(body.input_type, 'query')
+      onRequest(body)
+      return Response.json({
+        model: 'voyage-4-lite',
+        data: [{ index: 0, embedding }],
+      })
+    },
+  }
+}
+
+function createTestAiBindings(
   tracker,
-  {
-    embeddingResponse = { data: [EMBEDDING] },
-    generationResponse = '公式情報です。',
-  } = {},
+  { generationResponse = '公式情報です。' } = {},
 ) {
   return {
-    async run(model, input) {
-      if (model === '@cf/baai/bge-m3') {
-        tracker.embeddingInputs.push(input)
-        return embeddingResponse
-      }
-
-      tracker.generationInputs.push(input)
-      return createChatCompletion(
-        typeof generationResponse === 'function'
-          ? generationResponse(input)
-          : generationResponse,
-      )
+    VOYAGE_EMBEDDING: createVoyageBinding({
+      onRequest: (body) => tracker.embeddingInputs.push(body),
+    }),
+    AI: {
+      async run(_model, input) {
+        tracker.generationInputs.push(input)
+        return createChatCompletion(
+          typeof generationResponse === 'function'
+            ? generationResponse(input)
+            : generationResponse,
+        )
+      },
     },
   }
 }
@@ -2058,13 +2094,11 @@ function createSchoolsGenerationEnv(aiTracker, generationResult) {
         }
       },
     },
+    VOYAGE_EMBEDDING: createVoyageBinding({
+      onRequest: (body) => aiTracker.embeddingInputs.push(body),
+    }),
     AI: {
-      async run(model, input) {
-        if (model === '@cf/baai/bge-m3') {
-          aiTracker.embeddingInputs.push(input)
-          return { data: [EMBEDDING] }
-        }
-
+      async run(_model, input) {
         aiTracker.generationInputs.push(input)
         return generationResult
       },
@@ -2107,7 +2141,7 @@ function createFederatedProbeEnv(queryCounts, aiTracker) {
       'worldFoundation',
       queryCounts,
     ),
-    AI: createTestAi(aiTracker),
+    ...createTestAiBindings(aiTracker),
   }
 }
 

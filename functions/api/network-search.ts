@@ -106,7 +106,7 @@ export const onRequestPost: PagesFunction<NetworkSearchEnv> = async ({
       )
     }
 
-    if (!env.AI || !env.SEARCH_RATE_LIMIT_DB) {
+    if (!env.VOYAGE_EMBEDDING || !env.SEARCH_RATE_LIMIT_DB) {
       return errorResponse(
         'unavailable',
         503,

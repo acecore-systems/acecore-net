@@ -37,7 +37,7 @@ test('許可済み公式originだけが自サイトを除く横断Vectorize結�
     },
   })
 
-  const response = await withWorkersAiEmbedding(() =>
+  const response = await withVoyageEmbedding(() =>
     onRequestPost({
       request: networkRequest('https://systems.acecore.net'),
       env,
@@ -88,7 +88,7 @@ test('許可済み公式originだけが自サイトを除く横断Vectorize結�
 
 test('不許可originは埋め込みやVectorizeを呼ばずに拒否する', async () => {
   let workersAiCalled = false
-  const response = await withWorkersAiEmbedding(
+  const response = await withVoyageEmbedding(
     () =>
       onRequestPost({
         request: networkRequest('https://example.invalid'),
@@ -173,7 +173,7 @@ test('不正または上限超過requestはD1 rate limitを消費しない', asy
 })
 
 test('encoded・NFKC後に管理pathとなるmetadata URLは横断結果として返さない', async () => {
-  const response = await withWorkersAiEmbedding(() =>
+  const response = await withVoyageEmbedding(() =>
     onRequestPost({
       request: networkRequest('https://schools.acecore.net'),
       env: createEnv({
@@ -292,21 +292,30 @@ function createEnv({
   onRateLimit = () => {},
 } = {}) {
   return {
-    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
     SEARCH_EMBEDDING_DIMENSIONS: '1024',
-    AI: {
-      async run(model, input) {
-        assert.equal(model, '@cf/baai/bge-m3')
-        assert.deepEqual(input, {
-          text: input.text,
-          truncate_inputs: false,
+    VOYAGE_EMBEDDING: {
+      async fetch(url, init) {
+        assert.equal(url, 'https://voyage-embeddings.internal/v1/embeddings')
+        assert.equal(init.method, 'POST')
+        assert.equal(
+          new Headers(init.headers).get('Content-Type'),
+          'application/json',
+        )
+        const body = JSON.parse(init.body)
+        assert.deepEqual(body, {
+          model: 'voyage-4-lite',
+          input: body.input,
+          input_type: 'query',
+          output_dimension: 1024,
+          output_dtype: 'float',
+          truncation: false,
         })
-        activeEmbeddingRequest(input)
-        return {
-          data: [activeEmbedding],
-          shape: [1, 1024],
-          pooling: 'cls',
-        }
+        activeEmbeddingRequest(body)
+        return Response.json({
+          model: 'voyage-4-lite',
+          data: [{ index: 0, embedding: activeEmbedding }],
+        })
       },
     },
     SEARCH_ENABLED: 'true',
@@ -360,7 +369,7 @@ function createIndex(source, matchesBySource, onQuery) {
   }
 }
 
-async function withWorkersAiEmbedding(
+async function withVoyageEmbedding(
   callback,
   { embedding = queryVector, onRequest = () => {} } = {},
 ) {
