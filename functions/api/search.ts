@@ -80,7 +80,7 @@ export const onRequestPost: PagesFunction<SearchEnv> = async ({
 
     if (
       String(env.SEARCH_ENABLED) !== 'true' ||
-      !env.AI ||
+      !env.VOYAGE_EMBEDDING ||
       !env.SEARCH_INDEX ||
       !env.SEARCH_RATE_LIMIT_DB
     ) {

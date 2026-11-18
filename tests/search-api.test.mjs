@@ -54,7 +54,7 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
     },
   })
 
-  const response = await withWorkersAiEmbedding(
+  const response = await withVoyageEmbedding(
     () =>
       onRequestPost({
         request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
@@ -62,7 +62,7 @@ test('同一originの検索だけを埋め込み、locale namespaceで問い合�
       }),
     {
       onRequest(body) {
-        embeddingInput = body.text[0]
+        embeddingInput = body.input[0]
       },
     },
   )
@@ -153,7 +153,7 @@ test('local Vectorize metadataの管理path・多重エンコード・query/hash
     ],
   })
 
-  const response = await withWorkersAiEmbedding(() =>
+  const response = await withVoyageEmbedding(() =>
     onRequestPost({
       request: searchRequest({ query: 'Webサイトを作りたい', locale: 'ja' }),
       env,
@@ -174,7 +174,7 @@ test('local Vectorize metadataの管理path・多重エンコード・query/hash
   ])
 })
 
-test('OriginがないrequestはWorkers AIを呼ばずに拒否する', async () => {
+test('OriginがないrequestはVoyageを呼ばずに拒否する', async () => {
   let workersAiCalled = false
   const env = createEnv()
   const request = new Request('https://acecore.net/api/search', {
@@ -183,7 +183,7 @@ test('OriginがないrequestはWorkers AIを呼ばずに拒否する', async () 
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await withWorkersAiEmbedding(
+  const response = await withVoyageEmbedding(
     () => onRequestPost({ request, env }),
     {
       onRequest() {
@@ -238,7 +238,7 @@ test('Content-Lengthが上限を超えるbodyを読み込まず413にする', as
     body: JSON.stringify({ query: '検索', locale: 'ja' }),
   })
 
-  const response = await withWorkersAiEmbedding(() =>
+  const response = await withVoyageEmbedding(() =>
     onRequestPost({ request, env }),
   )
 
@@ -301,7 +301,7 @@ test('Cloudflare接続IPをhashしたclient keyを自己申告UUIDより優先�
   const request = searchRequest({ query: 'サイト制作', locale: 'ja' })
   request.headers.set('CF-Connecting-IP', '203.0.113.9')
 
-  const response = await withWorkersAiEmbedding(() =>
+  const response = await withVoyageEmbedding(() =>
     onRequestPost({ request, env }),
   )
 
@@ -318,7 +318,7 @@ test('不正なembeddingを502にし、logへquery本文を残さない', async 
 
   try {
     const env = createEnv()
-    const response = await withWorkersAiEmbedding(
+    const response = await withVoyageEmbedding(
       () =>
         onRequestPost({
           request: searchRequest({
@@ -361,21 +361,30 @@ function createEnv({
   return {
     SEARCH_ENABLED: 'true',
     SEARCH_MIN_SCORE: '0.50',
-    SEARCH_EMBEDDING_MODEL: '@cf/baai/bge-m3',
+    SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
     SEARCH_EMBEDDING_DIMENSIONS: '1024',
-    AI: {
-      async run(model, input) {
-        assert.equal(model, '@cf/baai/bge-m3')
-        assert.deepEqual(input, {
-          text: input.text,
-          truncate_inputs: false,
+    VOYAGE_EMBEDDING: {
+      async fetch(url, init) {
+        assert.equal(url, 'https://voyage-embeddings.internal/v1/embeddings')
+        assert.equal(init.method, 'POST')
+        assert.equal(
+          new Headers(init.headers).get('Content-Type'),
+          'application/json',
+        )
+        const body = JSON.parse(init.body)
+        assert.deepEqual(body, {
+          model: 'voyage-4-lite',
+          input: body.input,
+          input_type: 'query',
+          output_dimension: 1024,
+          output_dtype: 'float',
+          truncation: false,
         })
-        activeEmbeddingRequest(input)
-        return {
-          data: [activeEmbedding],
-          shape: [1, 1024],
-          pooling: 'cls',
-        }
+        activeEmbeddingRequest(body)
+        return Response.json({
+          model: 'voyage-4-lite',
+          data: [{ index: 0, embedding: activeEmbedding }],
+        })
       },
     },
     SEARCH_RATE_LIMIT_DB: createRateLimitDatabase({
@@ -393,7 +402,7 @@ function createEnv({
   }
 }
 
-async function withWorkersAiEmbedding(
+async function withVoyageEmbedding(
   callback,
   { embedding = queryVector, onRequest = () => {} } = {},
 ) {

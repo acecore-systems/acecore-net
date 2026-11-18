@@ -7,7 +7,7 @@
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
     "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
     "WORKERS_AI_REASONING_EFFORT": "medium",
-    "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
+    "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
     "SEARCH_EMBEDDING_DIMENSIONS": "1024",
     "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev,localhost,127.0.0.1",
     "CONTACT_FROM_EMAIL": "noreply@acecore.net",
@@ -64,7 +64,7 @@
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
         "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
         "WORKERS_AI_REASONING_EFFORT": "medium",
-        "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
+        "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
@@ -124,34 +124,34 @@
       "vectorize": [
         {
           "binding": "SEARCH_INDEX",
-          "index_name": "acecore-net-search-bge-m3-1024-production-v2",
+          "index_name": "acecore-net-search-voyage-4-lite-1024-production-v1",
         },
         {
           "binding": "SYSTEMS_SEARCH_INDEX",
-          "index_name": "acecore-systems-search-bge-m3-1024-production-v1",
+          "index_name": "acecore-systems-search-voyage-4-lite-1024-production-v1",
         },
         {
           "binding": "SCHOOLS_SEARCH_INDEX",
-          "index_name": "acecore-schools-search-bge-m3-1024-production-v1",
+          "index_name": "acecore-schools-search-voyage-4-lite-1024-production-v1",
         },
         {
           "binding": "ACESERVER_WIKI_SEARCH_INDEX",
-          "index_name": "aceserver-wiki-search-bge-m3-1024-production-v1",
+          "index_name": "aceserver-wiki-search-voyage-4-lite-1024-production-v1",
         },
         {
           "binding": "ACESERVER_PORTAL_SEARCH_INDEX",
-          "index_name": "aceserver-portal-search-bge-m3-1024-production-v1",
+          "index_name": "aceserver-portal-search-voyage-4-lite-1024-production-v1",
         },
         {
           "binding": "WORLD_FOUNDATION_SEARCH_INDEX",
-          "index_name": "world-foundation-search-bge-m3-1024-production-v1",
+          "index_name": "world-foundation-search-voyage-4-lite-1024-production-v1",
         },
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
         "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
         "WORKERS_AI_REASONING_EFFORT": "medium",
-        "SEARCH_EMBEDDING_MODEL": "@cf/baai/bge-m3",
+        "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
         "COMMENT_ALLOWED_HOSTNAMES": "acecore.net,www.acecore.net,acecore-net.pages.dev",
         "CONTACT_FROM_EMAIL": "noreply@acecore.net",
@@ -192,6 +192,11 @@
         },
       ],
       "services": [
+        {
+          "binding": "VOYAGE_EMBEDDING",
+          "service": "acecore-chat-worker",
+          "entrypoint": "VoyageEmbedding",
+        },
         {
           "binding": "CONTACT_EMAIL_SERVICE",
           "service": "acecore-net-contact-email-production",

@@ -94,7 +94,7 @@ test('Production bindingはreplacementだけを参照し旧indexを参照しな�
 
   assert.match(
     config,
-    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production-v2",/u,
+    /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-voyage-4-lite-1024-production-v1",/u,
   )
   assert.doesNotMatch(
     config,
