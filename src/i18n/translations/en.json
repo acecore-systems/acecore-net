@@ -101,10 +101,10 @@
     "latestPosts": "Latest Posts",
     "postsCount": "{count} articles",
     "backToBlog": "Back to news",
-    "prev": "← Prev",
+    "prev": "← Previous",
     "next": "Next →",
     "pageNav": "Page navigation",
-    "pageOf": "({current}/{total} pages)",
+    "pageOf": "(page {current} of {total})",
     "pageN": "Page {n}",
     "articlesByTag": "Articles tagged \"{tag}\"",
     "tagDescription": "A list of articles related to the tag \"{tag}\".",
@@ -156,16 +156,16 @@
     "pagefindFilterAuthor": "Author",
     "pagefindFilterYear": "Year",
     "pagefindFilterTag": "Tag",
-    "prevPost": "← Previous",
-    "nextPost": "Next →",
+    "prevPost": "← Previous article",
+    "nextPost": "Next article →",
     "heroAlt": "Acecore news image",
     "postNavLabel": "Post navigation",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Author: {author}",
     "indexDescription": "Company information, business updates, and activity news from Acecore.",
     "pageDescription": "Acecore news (page {current} of {total}). Company, business, and activity updates.",
-    "tagListDescription": "A list of Acecore news tags.",
-    "archiveListDescription": "A monthly archive of Acecore news.",
+    "tagListDescription": "Browse the complete list of tags used in Acecore news.",
+    "archiveListDescription": "Browse the complete monthly archive of Acecore news.",
     "itemListName": "Acecore News",
     "language": "Language",
     "commentsTitle": "Comments",
@@ -173,8 +173,8 @@
     "commentsNameLabel": "Name",
     "commentsNamePlaceholder": "Display name",
     "commentsBodyLabel": "Comment",
-    "commentsBodyPlaceholder": "Share a reaction or useful note",
-    "commentsRule": "Links, email addresses, and promotional text cannot be posted.",
+    "commentsBodyPlaceholder": "Share your thoughts or add a note",
+    "commentsRule": "URLs, email addresses, and promotional text cannot be posted.",
     "commentsSubmit": "Post comment",
     "commentsLoading": "Loading comments...",
     "commentsEmpty": "No comments yet.",
@@ -182,7 +182,7 @@
     "commentsPosted": "Comment posted.",
     "commentsError": "Could not post the comment.",
     "commentsValidationName": "Enter your name.",
-    "commentsValidationBody": "Enter at least 8 characters without links.",
+    "commentsValidationBody": "Enter a comment of at least 8 characters. URLs are not allowed.",
     "commentsValidationTurnstile": "Complete verification before sending.",
     "commentsSending": "Sending..."
   },
@@ -406,95 +406,95 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "seoTitleContext": "Data and analytics policy",
-      "description": "Acecore's Privacy Policy. Information about personal data handling, advertising, analytics, and disclaimers.",
+      "seoTitleContext": "Personal Information and Analytics Practices",
+      "description": "Acecore's Privacy Policy explains how we handle personal information, advertising, analytics, and disclaimers.",
       "heroTitle": "Privacy Policy",
-      "heroImgAlt": "Documents and pen",
+      "heroImgAlt": "Documents and a pen",
       "adHeading": "About Advertising",
       "adBody1": "This site (Acecore) uses Google AdSense, a third-party advertising service.",
       "adBody2": "Advertising providers may use cookies to display ads based on user interests.",
-      "adBody3": "For details on disabling cookies and about Google AdSense, please see the Google Policies and Terms.",
+      "adBody3": "For details on disabling cookies and using Google AdSense, please see Google Policies and Terms.",
       "analyticsHeading": "About Analytics",
-      "analyticsBody1": "This site may use Google Analytics as an access analytics tool.",
-      "analyticsBody2": "Google Analytics uses cookies for traffic data collection, but this data is collected anonymously and does not identify individuals.",
+      "analyticsBody1": "This site may use Google Analytics as an analytics tool.",
+      "analyticsBody2": "Google Analytics uses cookies to collect traffic data. This data is collected anonymously and does not identify individuals.",
       "analyticsBody3": "You can opt out of this data collection by disabling cookies. Please check your browser settings.",
       "searchHeading": "About Site Search and AI Chat",
-      "searchBody1": "For site search, after you enter at least two characters and stop typing for about 400 milliseconds, your search term is first sent to MongoDB Voyage AI, converted into a numeric embedding, and matched against this site's public content indexed in Cloudflare Vectorize. Keyword search (Pagefind) is processed locally in your browser only when no usable Vectorize result is available. At the same time, the same search term is converted into a numeric embedding by MongoDB Voyage AI and matched against public information from related Acecore sites other than this site to provide a lower-priority related-results section. In AI chat, the question you submit and up to eight recent conversation messages are sent to Cloudflare Workers AI. To find evidence for the answer, the text used for the search is sent to MongoDB Voyage AI and converted into a numeric embedding. Based on the intent of your question, public information is retrieved from Cloudflare Vectorize for the relevant official site among Acecore, Acecore Systems, Acecore Schools, Aceserver, and World Foundation and used as evidence for the response. Questions about World Foundation use its production Vectorize search when available and otherwise direct you to its official site. Connected official sites other than this site are searched using their Japanese public information, and the answer is generated in the language currently displayed.",
-      "searchBody2": "Acecore's application does not store or log site-search terms, related-site search terms, AI chat questions, or conversation messages. To prevent abuse of site search, related-site search, and AI chat, a one-way SHA-256 hash of the connecting IP address or a per-browser-session identifier, together with the request count, is stored in Cloudflare D1 as data that expires after 10 minutes and is deleted during subsequent cleanup. The connecting IP address itself is not stored in D1. MongoDB Voyage AI converts search text into numeric embeddings. Public content is indexed in Cloudflare Vectorize. AI processing uses Cloudflare Workers AI, while delivery, search, and rate limiting use Cloudflare services. Do not enter personal or confidential information in either site search or AI chat.",
+      "searchBody1": "For site search, about 400 milliseconds after you enter a search term of at least two characters, the term is automatically sent to MongoDB Voyage AI, converted into a numeric embedding, and matched against this site's public content indexed in Cloudflare Vectorize. Keyword search (Pagefind) is processed in your browser only if no usable results are found. At the same time, the same search term is converted into a numeric embedding by MongoDB Voyage AI and matched against Cloudflare Vectorize to supplement the results with public information from related Acecore sites other than this site. In AI chat, your submitted question and up to eight recent conversation messages are sent to Cloudflare Workers AI. To find evidence for an answer, the search text is sent to MongoDB Voyage AI and converted into a numeric embedding. Depending on the intent of your question, public information is retrieved from Cloudflare Vectorize for the relevant official sites of Acecore, Acecore Systems, Acecore Schools, Aceserver, and World Foundation and used as evidence for the answer. Questions about World Foundation use its public information as evidence when its Production Vectorize search is available; otherwise, you will be directed to its official site. For connected official sites other than this site, Japanese public information is searched and the answer is generated in the language currently displayed.",
+      "searchBody2": "This site's application does not store or log site-search terms, related-site search terms, AI chat questions, or conversation messages. To prevent abuse of site search, related-site search, and AI chat, a one-way SHA-256 hash of the connecting IP address or a per-browser-session identifier, together with the request count, is stored in Cloudflare D1 as data that expires after 10 minutes and is deleted during subsequent cleanup. The connecting IP address itself is not stored in D1. MongoDB Voyage AI converts search text into numeric embeddings. Public content is indexed in Cloudflare Vectorize. AI processing uses Cloudflare Workers AI, while delivery, search, and rate limiting use Cloudflare services. Do not enter personal or confidential information in the search field or AI chat.",
       "acecoreIdSections": [
         {
-          "heading": "Personal information for Acecore ID",
+          "heading": "Personal Information for Acecore ID",
           "paragraphs": [
-            "Acecore ID is an account operated by 株式会社Acecore (\"Acecore\") and used to verify identity and authenticate access to eligible Acecore services. This section describes how we handle information used for Acecore ID registration, authentication, and security."
+            "Acecore ID is an account used to verify identity and authenticate access to eligible services of 株式会社Acecore (\"Acecore\"). This section describes how information is handled in connection with Acecore ID registration, authentication, and security measures."
           ]
         },
         {
-          "heading": "Data controller and request channel",
+          "heading": "Personal Information Controller and Request Channel",
           "paragraphs": [
             "The personal information controller for Acecore ID is 株式会社Acecore (representative: 西田凱).",
-            "To obtain the Company's address or make a request concerning notification of purpose of use, disclosure, correction, or suspension of use of retained personal data, submit a request through Acecore's contact form and state that it concerns Acecore ID personal information. After verifying the registered email address of the account concerned as necessary, we will respond without undue delay in accordance with applicable law.",
-            "We do not charge a fee. Do not submit information beyond what is necessary for identity verification, one-time codes, passkeys, or other secrets through the form."
+            "To obtain the company's address or request notification of the purpose of use, disclosure, correction, suspension of use, or other action concerning retained personal data, use Acecore's contact form and state that your request concerns Acecore ID personal information. After verifying your identity as necessary using the registered email address associated with the request, we will respond without undue delay in accordance with applicable law.",
+            "We do not charge a fee. Do not include information beyond what is necessary for identity verification, one-time codes, passkeys, or secrets in the form."
           ]
         },
         {
-          "heading": "Information we collect",
+          "heading": "Information We Collect",
           "paragraphs": [
             "We handle the following information for registration, authentication, and prevention of misuse."
           ],
           "items": [
             "Email address, email-verification status, account identifier, version of the terms accepted, registration and update timestamps, and account status.",
-            "Passkey credential data, including credential ID, public key, signature counter, and device or transport metadata. Biometric data itself is processed on your device or authenticator and is not collected by Acecore.",
-            "Authentication and session security data, including access time, source IP address, browser or device information, and security or audit records.",
-            "A one-way HMAC value used to verify a registration one-time code, delivery and attempt counts, expiry, and temporary passkey-enrollment data. We do not store a one-time code in plaintext."
+            "Passkey credential data, including credential ID, public key, signature counter, and metadata about supported devices and transport methods. Biometric data itself is processed on your device or authenticator and is not collected by Acecore.",
+            "Authentication and session security information, including access time, source IP address, browser or device information, and records for misuse prevention and auditing.",
+            "A one-way HMAC value used to verify a registration one-time code, sending and attempt counts, expiry, and temporary passkey registration information. We do not store one-time codes in plaintext."
           ]
         },
         {
-          "heading": "Purposes of use",
+          "heading": "Purposes of Use",
           "paragraphs": [
-            "We use this information to create accounts; verify email addresses and passkeys; maintain authenticated sessions; respond to support, deletion, and other requests; investigate and prevent misuse or incidents; and comply with legal obligations.",
-            "We do not sell Acecore ID information or use it to target advertising to account holders."
+            "We use this information to create accounts; verify identity using email addresses and passkeys; maintain login sessions; respond to inquiries, deletion requests, and other requests; investigate and prevent misuse and incidents; and comply with legal obligations.",
+            "We do not sell Acecore ID information or use it to serve advertising to account holders."
           ]
         },
         {
-          "heading": "Service providers and third-party disclosure",
+          "heading": "Service Providers and Third-Party Disclosure",
           "paragraphs": [
-            "Acecore ID uses Cloudflare Workers, D1, Email Sending, Turnstile, rate limiting, and network-protection features as infrastructure for account delivery, email sending, misuse prevention, and secure delivery. Those service components handle information only to the extent necessary to provide those functions.",
-            "Except where required by law, with your consent, or necessary to protect life, body, or property, Acecore does not provide account information to third parties."
+            "Acecore ID uses Cloudflare Workers, D1, Email Sending, Turnstile, rate limiting, and network protection features as infrastructure for providing accounts, sending email, preventing misuse, and delivering services securely. These providers handle information only to the extent necessary to provide those functions.",
+            "Acecore does not provide account information to third parties except where required by law, with your consent, or where necessary to protect a person's life, physical safety, or property."
           ]
         },
         {
-          "heading": "Retention and deletion",
+          "heading": "Retention and Deletion",
           "paragraphs": [
-            "A registration one-time code cannot be used after five minutes, and a temporary passkey-enrollment grant cannot be used after fifteen minutes. These are security expiry periods and do not mean that stored records are physically deleted immediately.",
-            "We retain account information and security or audit records for as long as needed to provide the account, protect security, resolve disputes, or meet legal retention duties. After identity verification, we handle deletion requests within a reasonable scope, except for information that must be retained for legal or security reasons."
+            "A registration one-time code expires five minutes after issuance, and temporary authorization for passkey registration expires after 15 minutes. These expiry periods ensure authentication security and do not mean that stored records are physically deleted immediately.",
+            "We retain account information and misuse prevention and audit records for as long as necessary to provide accounts, maintain security, resolve disputes, or meet legal retention obligations. After verifying your identity through our contact channel, we will handle deletion requests within a reasonable scope, except for information that must be retained for legal or security reasons."
           ]
         },
         {
-          "heading": "Security measures",
+          "heading": "Security Measures",
           "paragraphs": [
-            "We combine HTTPS transport protection, separated secret management, one-way HMAC processing of one-time codes, access control, expiry management, rate limiting, and bot protection to prevent unauthorized registration, authentication, and access. We will explain our safety measures to the extent that doing so does not impair system security when requested by the individual."
+            "We combine HTTPS transport protection, separate management of secrets, one-way HMAC processing of one-time codes, access control, expiry management, rate limiting, and bot protection to help prevent unauthorized registration, authentication, and access. On request, we will provide details of our security measures to the extent that doing so does not compromise system security."
           ]
         },
         {
-          "heading": "Requests for disclosure, correction, or suspension of use",
+          "heading": "Requests for Disclosure, Correction, or Suspension of Use",
           "paragraphs": [
-            "For requests to disclose, correct, delete, or suspend the use of information held for Acecore ID, please contact us through our contact channel. After confirming that you are the individual or an authorized representative, we will respond in accordance with applicable law."
+            "To request disclosure, correction, deletion, or suspension of use of information held for Acecore ID, please contact us through our contact channel. After confirming that you are the individual concerned or an authorized representative, we will respond in accordance with applicable law."
           ]
         }
       ],
-      "acecoreIdRequestLink": "Make a request about Acecore ID personal information",
+      "acecoreIdRequestLink": "Make a Request About Acecore ID Personal Information",
       "personalInfoHeading": "Handling of Personal Information",
-      "personalInfoBody": "When using our contact form, we may ask for personal information such as your name and email address. Personal information collected will only be used to respond to inquiries and for necessary communications, and will not be used for any other purpose.",
+      "personalInfoBody": "When you use our contact form, we may ask for personal information such as your name and email address. We use collected personal information only to respond to inquiries and provide necessary communications, and not for any other purpose.",
       "disclosureHeading": "Disclosure of Personal Information to Third Parties",
-      "disclosureBody": "Personal information collected will not be disclosed to third parties except in the following cases:",
+      "disclosureBody": "We do not disclose collected personal information to third parties except in the following cases:",
       "disclosureItem1": "When the individual has given consent",
       "disclosureItem2": "When disclosure is required by law",
       "disclaimerHeading": "Disclaimer",
       "disclaimerBody": "While we strive to provide accurate information on this site, information may become outdated or contain errors. We accept no liability for any damages arising from the information on this site.",
       "copyrightHeading": "Copyright",
-      "copyrightBody": "The copyright of text, images, and other content published on this site belongs to 株式会社Acecore or their respective rights holders. Unauthorized reproduction or copying is prohibited.",
+      "copyrightBody": "Copyright in the text, images, and other content published on this site belongs to 株式会社Acecore or the respective rights holders. Please do not reproduce or copy content without permission.",
       "contactHeading": "Contact",
-      "contactBody": "For inquiries regarding this policy, please contact us through the contact page.",
+      "contactBody": "For inquiries about this policy, please contact us through the contact page.",
       "effectiveDate": "Effective: January 1, 2025 / Last updated: August 1, 2026 (Acecore ID terms version: 2026-08-01-acecoreid-v1)"
     },
     "terms": {

@@ -156,16 +156,16 @@
     "pagefindFilterAuthor": "Autor",
     "pagefindFilterYear": "Ano",
     "pagefindFilterTag": "Tag",
-    "prevPost": "← Anterior",
-    "nextPost": "Próximo →",
+    "prevPost": "← Artigo anterior",
+    "nextPost": "Próximo artigo →",
     "heroAlt": "Imagem das notícias da Acecore",
     "postNavLabel": "Navegação de artigos",
     "tagPrefix": "Tag: {tag}",
     "authorPrefix": "Autor: {author}",
     "indexDescription": "Notícias sobre a empresa, os negócios e as atividades da Acecore.",
     "pageDescription": "Notícias Acecore (página {current} de {total}). Informações sobre a empresa, seus negócios e atividades.",
-    "tagListDescription": "Lista de tags das notícias da Acecore.",
-    "archiveListDescription": "Arquivo mensal de notícias da Acecore.",
+    "tagListDescription": "Explore a lista de tags das notícias publicadas pela Acecore.",
+    "archiveListDescription": "Confira o arquivo mensal das notícias publicadas pela Acecore.",
     "itemListName": "Notícias Acecore",
     "language": "Idioma",
     "commentsTitle": "Comentários",
@@ -406,34 +406,96 @@
     },
     "privacy": {
       "title": "Política de Privacidade",
-      "seoTitleContext": "Dados e análise",
-      "description": "Política de Privacidade da Acecore. Informações sobre o tratamento de dados pessoais, publicidade, análise e isenções de responsabilidade.",
+      "seoTitleContext": "Tratamento de dados pessoais e análise de acesso",
+      "description": "Política de Privacidade da Acecore. Informações sobre o tratamento de dados pessoais, publicidade, análise de acesso e isenções de responsabilidade.",
       "heroTitle": "Política de Privacidade",
       "heroImgAlt": "Documentos e caneta",
-      "adHeading": "Sobre Publicidade",
+      "adHeading": "Sobre publicidade",
       "adBody1": "Este site (Acecore) utiliza o Google AdSense, um serviço de publicidade de terceiros.",
-      "adBody2": "Os provedores de publicidade podem usar cookies para exibir anúncios baseados nos interesses dos usuários.",
-      "adBody3": "Para detalhes sobre como desativar cookies e sobre o Google AdSense, consulte as Políticas e Termos do Google.",
-      "analyticsHeading": "Sobre Análise",
+      "adBody2": "Os provedores de publicidade podem usar cookies para exibir anúncios com base nos interesses dos usuários.",
+      "adBody3": "Para mais informações sobre como desativar cookies e sobre o Google AdSense, consulte as Políticas e Termos do Google.",
+      "analyticsHeading": "Sobre análise de acesso",
       "analyticsBody1": "Este site pode utilizar o Google Analytics como ferramenta de análise de acesso.",
-      "analyticsBody2": "O Google Analytics usa cookies para coleta de dados de tráfego, mas esses dados são coletados anonimamente e não identificam indivíduos.",
-      "analyticsBody3": "Você pode optar por não participar desta coleta de dados desativando os cookies. Verifique as configurações do seu navegador.",
+      "analyticsBody2": "O Google Analytics usa cookies para coletar dados de tráfego. Esses dados são coletados anonimamente e não identificam indivíduos.",
+      "analyticsBody3": "Você pode impedir essa coleta desativando os cookies. Verifique as configurações do seu navegador.",
       "searchHeading": "Sobre a busca no site e o chat de IA",
-      "searchBody1": "Na busca do site, depois que você digita pelo menos dois caracteres e para de digitar por cerca de 400 milissegundos, o termo é primeiro enviado ao MongoDB Voyage AI, convertido em uma representação numérica e comparado com o conteúdo público deste site indexado no Cloudflare Vectorize. A busca por palavras-chave (Pagefind) é processada localmente no navegador apenas quando não há um resultado utilizável do Vectorize. Ao mesmo tempo, o MongoDB Voyage AI converte o mesmo termo em uma representação numérica, que é comparada com informações públicas de outros sites da Acecore para mostrar uma seção secundária de resultados relacionados. No chat de IA, a pergunta enviada e até as oito mensagens mais recentes da conversa são enviadas ao Cloudflare Workers AI. Para encontrar informações que fundamentem a resposta, o texto usado na busca é enviado ao MongoDB Voyage AI e convertido em uma representação numérica. Conforme a intenção da pergunta, informações públicas são recuperadas do Cloudflare Vectorize do site oficial pertinente entre Acecore, Acecore Systems, Acecore Schools, Aceserver e World Foundation e usadas como base para a resposta. Perguntas sobre a World Foundation usam sua busca Vectorize de produção quando disponível e, caso contrário, direcionam para o site oficial. Nos sites oficiais conectados que não sejam este, a busca utiliza informações públicas em japonês, e a resposta é gerada no idioma exibido no momento.",
-      "searchBody2": "O aplicativo da Acecore não armazena nem registra em logs os termos da busca do site ou de sites relacionados, as perguntas do chat de IA ou as mensagens da conversa. Exclusivamente para evitar o uso indevido da busca do site, da busca de sites relacionados e do chat de IA, são armazenados no Cloudflare D1 o valor resultante do hash unidirecional SHA-256 aplicado ao endereço IP de conexão ou a um identificador específico da sessão do navegador, juntamente com o número de solicitações. Esses dados expiram após 10 minutos e são excluídos durante uma limpeza posterior. O endereço IP de conexão não é armazenado em D1. O MongoDB Voyage AI converte o texto de busca em representações numéricas. O conteúdo público é indexado no Cloudflare Vectorize. O processamento de IA usa o Cloudflare Workers AI, enquanto a entrega, a busca e a limitação de solicitações usam os serviços da Cloudflare. Não insira informações pessoais ou confidenciais na busca nem no chat de IA.",
-      "personalInfoHeading": "Tratamento de Informações Pessoais",
-      "personalInfoBody": "Ao usar nosso formulário de contato, podemos solicitar informações pessoais como nome e endereço de e-mail. As informações pessoais coletadas serão usadas apenas para responder consultas e comunicações necessárias, e não serão usadas para nenhum outro propósito.",
-      "disclosureHeading": "Divulgação de Informações Pessoais a Terceiros",
+      "searchBody1": "Na busca do site, cerca de 400 milissegundos após a entrada de um termo com pelo menos dois caracteres, ele é enviado automaticamente ao MongoDB Voyage AI, convertido em uma representação numérica e comparado com o conteúdo público deste site indexado no Cloudflare Vectorize. Somente quando não há resultados válidos, a busca por palavras-chave (Pagefind) é processada no navegador. Ao mesmo tempo, para consultar informações públicas de outros sites relacionados à Acecore, o mesmo termo é convertido em uma representação numérica pelo MongoDB Voyage AI e comparado com o Cloudflare Vectorize. No chat de IA, a pergunta enviada e até oito interações recentes da conversa são enviadas ao Cloudflare Workers AI. Para encontrar informações que fundamentem a resposta, o texto usado na busca é enviado ao MongoDB Voyage AI e convertido em uma representação numérica para pesquisa. Conforme a intenção da pergunta, informações públicas são buscadas no Cloudflare Vectorize dos sites oficiais relevantes da Acecore, Acecore Systems, Acecore Schools, Aceserver e World Foundation e usadas como base para a resposta. Para perguntas sobre a World Foundation, as informações públicas de seu site são usadas quando a busca no Vectorize de Production está disponível; caso contrário, indicamos o site oficial. Nos demais sites oficiais conectados, a busca utiliza informações públicas em japonês e a resposta é gerada no idioma exibido.",
+      "searchBody2": "O aplicativo deste site não armazena nem registra em logs os termos das buscas no site e em sites relacionados, as perguntas do chat de IA ou o conteúdo das conversas. Para evitar o uso indevido dessas buscas e do chat de IA, o valor resultante do hash unidirecional SHA-256 aplicado ao endereço IP de origem ou a um identificador da sessão do navegador é armazenado no Cloudflare D1 junto com o número de solicitações. Esses dados expiram após 10 minutos e são excluídos durante uma limpeza posterior. O endereço IP de origem em si não é armazenado no D1. O MongoDB Voyage AI é usado para converter o texto de busca em representações numéricas. O conteúdo público é indexado no Cloudflare Vectorize. O processamento de IA utiliza o Cloudflare Workers AI, enquanto a entrega, a busca e a limitação de solicitações utilizam serviços da Cloudflare. Não insira informações pessoais ou confidenciais no campo de busca nem no chat de IA.",
+      "acecoreIdSections": [
+        {
+          "heading": "Informações pessoais relacionadas ao Acecore ID",
+          "paragraphs": [
+            "O Acecore ID é uma conta usada para verificação de identidade e autenticação nos serviços elegíveis da 株式会社Acecore (doravante «Acecore»). Esta seção estabelece o tratamento das informações relacionadas ao cadastro, à autenticação e às medidas de segurança do Acecore ID."
+          ]
+        },
+        {
+          "heading": "Responsável pelo tratamento de informações pessoais e canal para solicitações",
+          "paragraphs": [
+            "A responsável pelo tratamento das informações pessoais relacionadas ao Acecore ID é a 株式会社Acecore (representante: 西田凱).",
+            "Para solicitar informações sobre o endereço da empresa ou sobre os procedimentos para solicitar a notificação das finalidades de uso, a divulgação, a correção ou a suspensão do uso de dados pessoais armazenados, entre em contato pelo formulário da Acecore, indicando «Solicitação sobre informações pessoais do Acecore ID». Após a verificação necessária da identidade por meio do endereço de e-mail cadastrado ao qual a solicitação se refere, responderemos sem demora, de acordo com a legislação aplicável.",
+            "Não cobramos taxas. Não informe no formulário dados além dos necessários para verificar sua identidade, códigos de uso único, passkeys ou informações secretas."
+          ]
+        },
+        {
+          "heading": "Informações coletadas",
+          "paragraphs": [
+            "Para cadastro, autenticação e prevenção de uso indevido, tratamos as seguintes informações:"
+          ],
+          "items": [
+            "Endereço de e-mail, estado de verificação do e-mail, identificador da conta, versão dos termos aceitos, datas e horários de cadastro e atualização e estado da conta.",
+            "Credenciais de passkey (ID da credencial, chave pública, contador de assinaturas e metadados sobre dispositivos compatíveis e métodos de transporte). Os dados biométricos em si são processados no dispositivo ou autenticador do usuário e não são coletados pela Acecore.",
+            "Informações de segurança de autenticação e sessão (datas e horários de uso, endereço IP de origem, informações do navegador ou dispositivo e registros de prevenção de uso indevido e auditoria).",
+            "Valor HMAC unidirecional para verificar o código de uso único de cadastro, número de envios e tentativas, prazo de validade e informações temporárias de registro de passkey. O código de uso único não é armazenado em texto simples."
+          ]
+        },
+        {
+          "heading": "Finalidades de uso",
+          "paragraphs": [
+            "As informações coletadas são usadas para criar contas, verificar a identidade por meio de endereço de e-mail e passkey, manter o estado de login, responder a consultas e solicitações como as de exclusão, investigar e prevenir uso indevido e falhas e cumprir obrigações legais.",
+            "As informações do Acecore ID não são usadas nem vendidas para veiculação de anúncios aos usuários das contas."
+          ]
+        },
+        {
+          "heading": "Prestadores de serviços e fornecimento a terceiros",
+          "paragraphs": [
+            "O Acecore ID utiliza as funções Workers, D1, Email Sending, Turnstile, limitação de solicitações e proteção de rede da Cloudflare como infraestrutura para fornecer contas, enviar e-mails, prevenir uso indevido e garantir a entrega segura. Esses provedores tratam informações somente na medida necessária para fornecer essas funções.",
+            "A Acecore não fornece informações de contas a terceiros, exceto quando previsto em lei, com o consentimento do titular ou quando necessário para proteger a vida, a integridade física ou os bens de uma pessoa."
+          ]
+        },
+        {
+          "heading": "Prazo de armazenamento e exclusão",
+          "paragraphs": [
+            "Os códigos de uso único para cadastro deixam de ser válidos 5 minutos após sua emissão, e as autorizações temporárias para registro de passkey deixam de ser válidas após 15 minutos. Esses prazos de validade existem para garantir a segurança da autenticação e não significam que os registros armazenados sejam fisicamente excluídos de imediato.",
+            "As informações de contas e os registros de prevenção de uso indevido e auditoria são mantidos pelo período necessário para fornecer a conta, garantir a segurança, resolver disputas ou cumprir obrigações legais de armazenamento. As solicitações de exclusão serão atendidas dentro de limites razoáveis após a verificação da identidade pelo canal de contato, exceto quanto às informações que devam ser mantidas por motivos legais ou de segurança."
+          ]
+        },
+        {
+          "heading": "Medidas de segurança",
+          "paragraphs": [
+            "Empregamos uma combinação de proteção das comunicações por HTTPS, gerenciamento separado de informações secretas, HMAC unidirecional para códigos de uso único, controle de acesso, gestão de prazos de validade, limitação de solicitações e medidas contra bots para prevenir cadastros, autenticações e acessos não autorizados. Mediante solicitação do titular, forneceremos detalhes das medidas de segurança na medida em que isso não comprometa a segurança do sistema."
+          ]
+        },
+        {
+          "heading": "Solicitações de divulgação, correção e suspensão de uso",
+          "paragraphs": [
+            "Para solicitar a divulgação, correção, exclusão ou suspensão do uso de informações armazenadas relacionadas ao Acecore ID, entre em contato pelo canal de atendimento. Após confirmarmos que a solicitação foi feita pelo titular ou por um representante autorizado, responderemos de acordo com a legislação aplicável."
+          ]
+        }
+      ],
+      "acecoreIdRequestLink": "Fazer uma solicitação sobre informações pessoais do Acecore ID",
+      "personalInfoHeading": "Tratamento de informações pessoais",
+      "personalInfoBody": "Ao usar nosso formulário de contato, podemos solicitar informações pessoais, como nome e endereço de e-mail. As informações coletadas serão usadas apenas para responder às consultas e realizar as comunicações necessárias, e não para outras finalidades.",
+      "disclosureHeading": "Divulgação de informações pessoais a terceiros",
       "disclosureBody": "As informações pessoais coletadas não serão divulgadas a terceiros, exceto nos seguintes casos:",
-      "disclosureItem1": "Quando o indivíduo deu consentimento",
-      "disclosureItem2": "Quando a divulgação é exigida por lei",
-      "disclaimerHeading": "Isenção de Responsabilidade",
-      "disclaimerBody": "Embora nos esforcemos para fornecer informações precisas neste site, as informações podem ficar desatualizadas ou conter erros. Não aceitamos responsabilidade por quaisquer danos decorrentes das informações deste site.",
-      "copyrightHeading": "Direitos Autorais",
-      "copyrightBody": "Os direitos autorais de textos, imagens e outros conteúdos publicados neste site pertencem à 株式会社Acecore ou seus respectivos titulares. Reprodução ou cópia não autorizada é proibida.",
+      "disclosureItem1": "Quando houver consentimento do titular",
+      "disclosureItem2": "Quando a divulgação for exigida por lei",
+      "disclaimerHeading": "Isenção de responsabilidade",
+      "disclaimerBody": "Embora nos esforcemos para fornecer informações precisas neste site, elas podem ficar desatualizadas ou conter erros. Não nos responsabilizamos por quaisquer danos decorrentes das informações deste site.",
+      "copyrightHeading": "Direitos autorais",
+      "copyrightBody": "Os direitos autorais dos textos, imagens e outros conteúdos publicados neste site pertencem à 株式会社Acecore ou aos respectivos titulares. Não reproduza nem copie esses conteúdos sem autorização.",
       "contactHeading": "Contato",
-      "contactBody": "Para consultas sobre esta política, entre em contato através da página de contato.",
-      "effectiveDate": "Vigência: 1 de janeiro de 2025 / Última atualização: 1 de agosto de 2026 (versão dos termos do Acecore ID: 2026-08-01-acecoreid-v1)"
+      "contactBody": "Para consultas sobre esta política, entre em contato pela página de contato.",
+      "effectiveDate": "Data de estabelecimento: 1 de janeiro de 2025 / Última atualização: 1 de agosto de 2026 (versão dos termos do Acecore ID: 2026-08-01-acecoreid-v1)"
     },
     "acestudio": {
       "title": "AceStudio",
