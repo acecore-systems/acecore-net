@@ -131,6 +131,7 @@ jobs:
           site/.vectorize/corpus.json
 
       - name: Sync production Vectorize index
+        if: vars.NET_BGE_SYNC_ENABLED != 'false'
         working-directory: site
         shell: bash
         env:
@@ -142,5 +143,26 @@ jobs:
             echo "::error::CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN is not configured."
             exit 1
           fi
+          node --experimental-strip-types ../tooling/scripts/sync-vectorize.ts \
+            --confirm-production "$VECTORIZE_INDEX_NAME"
+
+      - name: Sync Voyage production Vectorize index
+        if: vars.NET_VOYAGE_SYNC_ENABLED == 'true'
+        working-directory: site
+        shell: bash
+        env:
+          BUILT_COMMIT: ${{ steps.site.outputs.commit }}
+          CLOUDFLARE_ACCOUNT_ID: db9b62f409f463da7acbcc374b8385d0
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_SEARCH_PRODUCTION_API_TOKEN }}
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+          VECTORIZE_INDEX_NAME: acecore-net-search-voyage-4-lite-1024-production-v1
+        run: |
+          if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${VOYAGE_API_KEY:-}" ]]; then
+            echo "::error::The production Vectorize and Voyage credentials must be configured."
+            exit 1
+          fi
+          node --experimental-strip-types ../tooling/scripts/wait-for-deployment.ts \
+            https://acecore.net/.well-known/acecore-build.json \
+            --assert-current "$BUILT_COMMIT" .vectorize/corpus.json
           node --experimental-strip-types ../tooling/scripts/sync-vectorize.ts \
             --confirm-production "$VECTORIZE_INDEX_NAME"
