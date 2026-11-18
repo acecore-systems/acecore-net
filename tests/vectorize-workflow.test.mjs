@@ -105,3 +105,31 @@ test('Production bindingはreplacementだけを参照し旧indexを参照しな�
     /"binding": "SEARCH_INDEX",\s+"index_name": "acecore-net-search-bge-m3-1024-production",/u,
   )
 })
+
+test('Voyage定期同期も公開corpus確認と同じ削除制限を使う', async () => {
+  const workflow = load(await readFile(workflowPath, 'utf8'))
+  const job = workflow.jobs['sync-production']
+  const bge = job.steps.find(
+    ({ name }) => name === 'Sync production Vectorize index',
+  )
+  const voyage = job.steps.find(
+    ({ name }) => name === 'Sync Voyage production Vectorize index',
+  )
+
+  assert.equal(job.environment.name, 'cloudflare-search-production')
+  assert.equal(bge.if, "vars.NET_BGE_SYNC_ENABLED != 'false'")
+  assert.equal(voyage.if, "vars.NET_VOYAGE_SYNC_ENABLED == 'true'")
+  assert.equal(voyage.env.VOYAGE_API_KEY, '${{ secrets.VOYAGE_API_KEY }}')
+  assert.equal(
+    voyage.env.VECTORIZE_INDEX_NAME,
+    'acecore-net-search-voyage-4-lite-1024-production-v1',
+  )
+  assert.match(
+    voyage.run,
+    /--assert-current "\$BUILT_COMMIT" \.vectorize\/corpus\.json[\s\S]*--confirm-production "\$VECTORIZE_INDEX_NAME"/u,
+  )
+  assert.doesNotMatch(
+    voyage.run,
+    /--(?:allow-large-delete|expected-delete-count|expected-plan-id)/u,
+  )
+})

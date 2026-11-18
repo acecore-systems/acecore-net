@@ -4,6 +4,11 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import {
+  parseVoyageEmbeddings,
+  voyageRequest,
+} from '../functions/lib/voyage-embedding.ts'
+
+import {
   SEARCH_DISTANCE_METRIC,
   SEARCH_EMBEDDING_DIMENSIONS,
   SEARCH_EMBEDDING_MODEL,
@@ -67,6 +72,7 @@ interface ApiClient {
 interface SyncVectorizeOptions {
   accountId?: string
   apiToken?: string
+  voyageApiKey?: string
   indexName?: string
   corpusFile?: string
   dryRun?: boolean
@@ -163,7 +169,12 @@ const MIN_LOCALE_VECTOR_COUNTS: Readonly<LocaleCounts> = Object.freeze({
 })
 const MANAGED_VECTOR_ID_PATTERN = /^v1-[0-9a-f]{48}$/
 const PRODUCTION_INDEX_NAME = 'acecore-net-search-bge-m3-1024-production-v2'
-const ALLOWED_INDEX_NAMES = new Set<string>([PRODUCTION_INDEX_NAME])
+const VOYAGE_INDEX_NAME = 'acecore-net-search-voyage-4-lite-1024-production-v1'
+const VOYAGE_EMBEDDINGS_URL = 'https://ai.mongodb.com/v1/embeddings'
+const ALLOWED_INDEX_NAMES = new Set<string>([
+  PRODUCTION_INDEX_NAME,
+  VOYAGE_INDEX_NAME,
+])
 const SUPPORTED_LOCALES = [
   'ja',
   'en',
@@ -189,6 +200,7 @@ class CloudflareApiError extends Error {
 export async function syncVectorize({
   accountId = process.env.CLOUDFLARE_ACCOUNT_ID,
   apiToken = process.env.CLOUDFLARE_API_TOKEN,
+  voyageApiKey = process.env.VOYAGE_API_KEY,
   indexName = process.env.VECTORIZE_INDEX_NAME,
   corpusFile = DEFAULT_CORPUS_FILE,
   dryRun = false,
@@ -228,6 +240,12 @@ export async function syncVectorize({
     indexName,
   })
   validateIndexName(credentials.indexName, { required: true })
+
+  const useVoyage = credentials.indexName === VOYAGE_INDEX_NAME
+  const voyageKey = voyageApiKey?.trim()
+  if (useVoyage && !planOnly && !voyageKey) {
+    throw new Error('VOYAGE_API_KEY is required for the Voyage index.')
+  }
 
   const client = createCloudflareClient({
     accountId: credentials.accountId,
@@ -310,7 +328,14 @@ export async function syncVectorize({
   let queryCanary: QueryCanary | null = null
   if (chunksToUpsert.length > 0) {
     for (const chunkBatch of batches(chunksToUpsert, EMBEDDING_BATCH_SIZE)) {
-      const embeddings = await createEmbeddings(client, chunkBatch)
+      const embeddings = useVoyage
+        ? await createVoyageEmbeddings(
+            chunkBatch,
+            voyageKey!,
+            fetchImpl,
+            requestTimeoutMs,
+          )
+        : await createEmbeddings(client, chunkBatch)
 
       if (!queryCanary) {
         const canaryChunk = chunkBatch[0]
@@ -1030,7 +1055,9 @@ async function ensureIndex(
     body: JSON.stringify({
       name: indexName,
       description:
-        'Acecore site semantic search (Cloudflare Workers AI BGE-M3, 1024 dimensions)',
+        indexName === VOYAGE_INDEX_NAME
+          ? 'Acecore site semantic search (Voyage 4 Lite, 1024 dimensions)'
+          : 'Acecore site semantic search (Cloudflare Workers AI BGE-M3, 1024 dimensions)',
       config: {
         dimensions: SEARCH_EMBEDDING_DIMENSIONS,
         metric: SEARCH_DISTANCE_METRIC,
@@ -1169,6 +1196,41 @@ async function createEmbeddings(
     }),
   })
   return extractEmbeddingData(payload.result, chunks.length)
+}
+
+async function createVoyageEmbeddings(
+  chunks: readonly CorpusChunk[],
+  apiKey: string,
+  fetchImpl: FetchImplementation,
+  requestTimeoutMs: number,
+): Promise<number[][]> {
+  let response: Response
+  try {
+    response = await fetchImpl(VOYAGE_EMBEDDINGS_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        voyageRequest(
+          chunks.map(({ text }) => text),
+          'document',
+        ),
+      ),
+      redirect: 'error',
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    })
+  } catch {
+    throw new Error('Voyage embeddings request failed.')
+  }
+  if (!response.ok) {
+    await cancelResponseBody(response)
+    throw new Error(`Voyage embeddings returned HTTP ${response.status}.`)
+  }
+
+  const payload = await readJsonResponse(response, 'Voyage embeddings')
+  return parseVoyageEmbeddings(payload, chunks.length)
 }
 
 async function upsertVectors(
@@ -1369,13 +1431,14 @@ export function parseArguments(
     }
   }
 
+  const targetIndex = options.indexName ?? PRODUCTION_INDEX_NAME
   if (
     !options.dryRun &&
     !options.planOnly &&
-    confirmProduction !== PRODUCTION_INDEX_NAME
+    (!ALLOWED_INDEX_NAMES.has(targetIndex) || confirmProduction !== targetIndex)
   ) {
     throw new Error(
-      `Production sync requires --confirm-production ${PRODUCTION_INDEX_NAME}.`,
+      `Production sync requires --confirm-production ${ALLOWED_INDEX_NAMES.has(targetIndex) ? targetIndex : PRODUCTION_INDEX_NAME}.`,
     )
   }
   return options

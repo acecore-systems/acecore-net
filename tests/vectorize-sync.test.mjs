@@ -15,6 +15,7 @@ import {
 } from '../scripts/sync-vectorize.ts'
 
 const PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v2'
+const VOYAGE_INDEX = 'acecore-net-search-voyage-4-lite-1024-production-v1'
 const PREVIOUS_PRODUCTION_INDEX = 'acecore-net-search-bge-m3-1024-production-v1'
 const RETIRED_PRODUCTION_INDEX = 'acecore-net-search-openai-1536-production-v2'
 const LOCALES = ['ja', 'en', 'zh-cn', 'es', 'pt', 'fr', 'ko', 'de', 'ru']
@@ -157,6 +158,100 @@ test('corpusと既存indexの差分だけをupsert・deleteする', async () => 
     1,
   )
   assert.equal(calls.filter(({ url }) => url.endsWith('/query')).length, 1)
+})
+
+test('Voyage同期では公開corpusをdocument形式で埋め込みindex順にupsertする', async () => {
+  const corpus = createCorpus()
+  const corpusFile = await writeCorpus(corpus)
+  const chunks = corpus.chunks.slice(-2)
+  const existing = corpus.chunks.slice(0, -2).map(({ id }) => ({ id }))
+  const secondEmbedding = embedding.map(() => 0.02)
+  const requests = []
+  const fetchImpl = async (input, init = {}) => {
+    const url = String(input)
+    requests.push(url)
+    if (url.endsWith(`/vectorize/v2/indexes/${VOYAGE_INDEX}`)) {
+      return indexResponse()
+    }
+    if (url.includes('/list?')) {
+      return cloudflareResponse({ vectors: existing, isTruncated: false })
+    }
+    if (url === 'https://ai.mongodb.com/v1/embeddings') {
+      assert.equal(
+        new Headers(init.headers).get('Authorization'),
+        'Bearer voyage-key',
+      )
+      assert.equal(init.redirect, 'error')
+      assert.deepEqual(JSON.parse(init.body), {
+        model: 'voyage-4-lite',
+        input: chunks.map(({ text }) => text),
+        input_type: 'document',
+        output_dimension: 1024,
+        output_dtype: 'float',
+        truncation: false,
+      })
+      return Response.json({
+        model: 'voyage-4-lite',
+        data: [
+          { index: 1, embedding: secondEmbedding },
+          { index: 0, embedding },
+        ],
+      })
+    }
+    if (url.endsWith('/upsert')) {
+      const ndjson = await init.body.get('vectors').text()
+      assert.deepEqual(
+        ndjson
+          .trim()
+          .split('\n')
+          .map((line) => JSON.parse(line)),
+        chunks.map(({ id, namespace, metadata }, index) => ({
+          id,
+          values: index === 0 ? embedding : secondEmbedding,
+          namespace,
+          metadata,
+        })),
+      )
+      return cloudflareResponse({ mutationId: 'voyage-upsert' })
+    }
+    throw new Error(`Unexpected request: ${url}`)
+  }
+
+  const options = {
+    accountId: 'account',
+    apiToken: 'token',
+    indexName: VOYAGE_INDEX,
+    corpusFile,
+    waitForMutations: false,
+    verifyAfterMutation: false,
+    fetchImpl,
+    logger: silentLogger,
+  }
+  await assert.rejects(
+    syncVectorize({ ...options, voyageApiKey: '' }),
+    /VOYAGE_API_KEY/u,
+  )
+  assert.equal(requests.length, 0)
+  const result = await syncVectorize({ ...options, voyageApiKey: 'voyage-key' })
+  assert.equal(result.upserted, 2)
+  assert.equal(result.indexName, VOYAGE_INDEX)
+  assert.ok(requests.every((url) => !url.includes('/ai/run/')))
+  assert.throws(() =>
+    parseArguments([
+      '--confirm-production',
+      PRODUCTION_INDEX,
+      '--index',
+      VOYAGE_INDEX,
+    ]),
+  )
+  assert.doesNotThrow(() =>
+    parseArguments([
+      '--confirm-production',
+      VOYAGE_INDEX,
+      '--index',
+      VOYAGE_INDEX,
+    ]),
+  )
 })
 
 test('newly upserted vectorがquery結果に含まれなければ同期を失敗させる', async () => {
