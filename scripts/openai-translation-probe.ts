@@ -8,7 +8,7 @@ import {
   submitOpenAiTranslations,
   type SubmissionStore,
 } from './openai-batch-submission.ts'
-import { DIRECT_TRANSLATION_ROUTE } from './translation-model-policy.ts'
+import { getDirectTranslationRoute } from './translation-model-policy.ts'
 import {
   createMetaTranslationProbeInput,
   decodeMetadata,
@@ -41,7 +41,7 @@ export async function runOpenAiTranslationProbe(
           createHash('sha256').update(runId).digest('hex'),
         ),
       ],
-      DIRECT_TRANSLATION_ROUTE,
+      getDirectTranslationRoute(),
       store,
       apiKey,
       fetchImpl,
@@ -62,6 +62,7 @@ export async function runOpenAiTranslationProbe(
     if (!response.ok) throw new Error(`openai_probe_get_${response.status}`)
     return response
   }
+  const activeRoute = getDirectTranslationRoute()
   const batch = (await (await get(`batches/${batchId}`)).json()) as Record<
     string,
     any
@@ -70,9 +71,8 @@ export async function runOpenAiTranslationProbe(
     batch.id !== batchId ||
     batch.endpoint !== '/v1/responses' ||
     batch.metadata?.translation_system !== 'acecore-net-probe-v1' ||
-    batch.metadata?.ai_model !== DIRECT_TRANSLATION_ROUTE.model ||
-    batch.metadata?.ai_reasoning_effort !==
-      DIRECT_TRANSLATION_ROUTE.reasoningEffort
+    batch.metadata?.ai_model !== activeRoute.model ||
+    batch.metadata?.ai_reasoning_effort !== activeRoute.reasoningEffort
   )
     throw new Error('probe_batch_identity_mismatch')
   if (['validating', 'in_progress', 'finalizing'].includes(batch.status))
@@ -98,7 +98,7 @@ export async function runOpenAiTranslationProbe(
     result.error ||
     result.response?.status_code !== 200 ||
     result.response?.body?.status !== 'completed' ||
-    result.response?.body?.model !== DIRECT_TRANSLATION_ROUTE.model
+    result.response?.body?.model !== activeRoute.model
   )
     throw new Error('probe_output_identity_mismatch')
   const metadata = decodeMetadata(result.custom_id)

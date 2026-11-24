@@ -1,3 +1,5 @@
+import selection from '../config/ai-models.generated.json' with { type: 'json' }
+
 export interface TranslationRoute {
   /** Present only on receipts written by the historical shared-router draft. */
   coreCommit?: string
@@ -11,15 +13,21 @@ export interface TranslationRoute {
   reasoningEffort: string
 }
 
-export const DIRECT_TRANSLATION_ROUTE: TranslationRoute = {
-  policyRevision: '2026-11-14.1',
-  featureId: 'acecore-net.translation.batch',
-  profile: 'text.batch',
-  provider: 'openai',
-  apiKind: 'responses',
-  executionMode: 'provider_batch',
-  model: 'gpt-6.1-terra',
-  reasoningEffort: 'medium',
+// Resolve only when selecting a route for a new OpenAI request.
+export function getDirectTranslationRoute(): TranslationRoute {
+  if (selection?.schema_version !== 1)
+    throw new Error('unsupported_translation_model_selection')
+  const selected = selection.features?.['acecore-net.translation.batch']
+  return validateTranslationRoute({
+    policyRevision: selection.policy_revision,
+    featureId: 'acecore-net.translation.batch',
+    profile: selected?.profile,
+    provider: selected?.provider,
+    apiKind: 'responses',
+    executionMode: selected?.execution_mode,
+    model: selected?.api_model_id,
+    reasoningEffort: 'medium',
+  })
 }
 
 /** Parse both direct receipts and the existing shared-router receipt format. */

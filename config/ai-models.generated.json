@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "policy_revision": "2026-11-18.3",
+  "features": {
+    "acecore-net.translation.batch": {
+      "profile": "text.batch",
+      "provider": "openai",
+      "api_model_id": "gpt-6.1-terra",
+      "execution_mode": "provider_batch"
+    }
+  }
+}
