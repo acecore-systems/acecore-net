@@ -3,7 +3,7 @@ import {
   excludePendingMetaTranslations,
   submitOpenAiTranslations,
 } from './openai-batch-submission.ts'
-import { DIRECT_TRANSLATION_ROUTE } from './translation-model-policy.ts'
+import { getDirectTranslationRoute } from './translation-model-policy.ts'
 import {
   cleanupProcessedMetaResponses,
   createGitHubJournalStore,
@@ -1269,7 +1269,7 @@ async function submitBatch(args: ParsedArgs): Promise<void> {
   if (available.length === 0) return
   const batchId = await submitOpenAiTranslations(
     available,
-    DIRECT_TRANSLATION_ROUTE,
+    getDirectTranslationRoute(),
     createOpenAiSubmissionStore(repo, token, headSha),
     process.env.OPENAI_TRANSLATION_API_KEY ?? '',
   )

@@ -3,7 +3,7 @@ import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import type { JournalStore } from './meta-translation-background.ts'
 import {
-  DIRECT_TRANSLATION_ROUTE,
+  getDirectTranslationRoute,
   validateTranslationRoute,
   type TranslationRoute,
 } from './translation-model-policy.ts'
@@ -309,13 +309,13 @@ export async function submitOpenAiTranslations(
 ): Promise<string | null> {
   if (scope !== 'translation' && scope !== 'probe')
     throw new Error('invalid_translation_batch_scope')
+  const activeRoute = getDirectTranslationRoute()
   const selectedRoute = validateTranslationRoute(route)
   if (
-    selectedRoute.model !== DIRECT_TRANSLATION_ROUTE.model ||
-    selectedRoute.reasoningEffort !==
-      DIRECT_TRANSLATION_ROUTE.reasoningEffort ||
+    selectedRoute.model !== activeRoute.model ||
+    selectedRoute.reasoningEffort !== activeRoute.reasoningEffort ||
     selectedRoute.coreCommit !== undefined ||
-    selectedRoute.policyRevision !== DIRECT_TRANSLATION_ROUTE.policyRevision
+    selectedRoute.policyRevision !== activeRoute.policyRevision
   )
     throw new Error('unsupported_new_translation_route')
   if (!apiKey) throw new Error('OPENAI_TRANSLATION_API_KEY is required')
@@ -409,8 +409,8 @@ export async function submitOpenAiTranslations(
   if (entry.state === 'submitted') return entry.batchId!
   // Preserve historical receipts without submitting a different model/effort.
   if (
-    entry.route.model !== DIRECT_TRANSLATION_ROUTE.model ||
-    entry.route.reasoningEffort !== DIRECT_TRANSLATION_ROUTE.reasoningEffort
+    entry.route.model !== activeRoute.model ||
+    entry.route.reasoningEffort !== activeRoute.reasoningEffort
   )
     throw new Error('legacy_translation_route_requires_reconciliation')
 
