@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "policy_revision": "2026-11-25.1",
+  "policy_revision": "2026-11-25.2",
   "features": {
+    "acecore-net.contact.generation": {
+      "profile": "text.default",
+      "provider": "meta",
+      "api_model_id": "muse-ember-1.0",
+      "execution_mode": "realtime"
+    },
     "acecore-net.translation.batch": {
       "profile": "text.batch",
       "provider": "openai",
