@@ -84,6 +84,54 @@ test('出力保存期限が過ぎたBatchを回収対象から除外する', () 
   )
 })
 
+test('通常回収は現行選定と異なるモデルの完了済みBatchを処理できる', () => {
+  const now = 100 * 24 * 60 * 60
+  const batch = {
+    id: 'batch_legacy',
+    status: 'completed' as const,
+    output_file_id: 'file_legacy',
+    metadata: {
+      translation_system: 'acecore-net-v1',
+      ai_model: 'fixture-previous-model',
+      ai_policy_revision: '2026-11-14.1',
+    },
+    created_at: now - 1000,
+    completed_at: now - 300,
+  }
+  assert.equal(
+    selectCompletedBatch([batch], new Set(), now)?.output_file_id,
+    'file_legacy',
+  )
+  const metadata = {
+    version: 1,
+    kind: 'site',
+    locale: 'en',
+    sourcePath: 'src/i18n/source/ja/pages/home.json',
+    sourceHash: 'a'.repeat(64),
+  }
+  const custom_id = `acecore-net:${Buffer.from(JSON.stringify(metadata)).toString('base64url')}`
+  const translated = {
+    translations: [{ id: '/title', text: 'Existing translation' }],
+  }
+  const collected = selectCurrentTranslationOutputs(
+    [
+      {
+        custom_id,
+        error: null,
+        response: {
+          status_code: 200,
+          body: {
+            model: batch.metadata.ai_model,
+            output_text: JSON.stringify(translated),
+          },
+        },
+      },
+    ],
+    () => metadata.sourceHash,
+  )
+  assert.deepEqual(collected, [{ metadata, response: translated }])
+})
+
 test('ページsourceは対応する翻訳JSONのpages配下だけを更新する', () => {
   assert.deepEqual(
     getSiteFragment('src/i18n/source/ja/pages/home.json').targetPath,

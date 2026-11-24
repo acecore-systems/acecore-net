@@ -1,3 +1,4 @@
+import selection from '../config/ai-models.generated.json' with { type: 'json' }
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { createHash } from 'node:crypto'
@@ -12,16 +13,15 @@ import {
   type TranslationInput,
 } from '../scripts/openai-batch-submission.ts'
 import {
-  DIRECT_TRANSLATION_ROUTE,
+  getDirectTranslationRoute,
   validateTranslationRoute,
-  type TranslationRoute,
 } from '../scripts/translation-model-policy.ts'
 import type {
   JournalStore,
   MetaJournal,
 } from '../scripts/meta-translation-background.ts'
 
-const route: TranslationRoute = { ...DIRECT_TRANSLATION_ROUTE }
+const route = getDirectTranslationRoute()
 const input = (id: string): TranslationInput => ({
   custom_id: `synthetic-${id}`,
   method: 'POST',
@@ -250,7 +250,10 @@ test('指定モデルとeffortを実際のBatch JSONLとmetadataへ適用する'
     ),
     'batch_1',
   )
-  assert.equal(provider.uploads[0][0].body.model, 'gpt-6.1-terra')
+  assert.equal(
+    provider.uploads[0][0].body.model,
+    selection.features['acecore-net.translation.batch'].api_model_id,
+  )
   assert.deepEqual(provider.uploads[0][0].body.reasoning, { effort: 'medium' })
   assert.deepEqual(provider.uploads[0][0].body.text, input('a').body.text)
   assert.equal(provider.batches[0].endpoint, '/v1/responses')
@@ -265,6 +268,60 @@ test('指定モデルとeffortを実際のBatch JSONLとmetadataへ適用する'
     JSON.stringify(journal),
     /private synthetic source|test-key|source_ids/,
   )
+})
+
+test('新規要求は配布後のモデルを使用し、受付済みIDは維持する', async () => {
+  const provider = acceptingProvider()
+  const store = memoryStore()
+  await submitOpenAiTranslations(
+    [input('old')],
+    route,
+    store,
+    'test-key',
+    provider.fetchImpl,
+  )
+  const feature = selection.features['acecore-net.translation.batch']
+  const originalModel = feature.api_model_id
+  const originalRevision = selection.policy_revision
+  feature.api_model_id = 'fixture-new-openai-model'
+  selection.policy_revision = '2099-01-01.1'
+  try {
+    const newRoute = getDirectTranslationRoute()
+    assert.equal(
+      await submitOpenAiTranslations(
+        [input('old')],
+        newRoute,
+        store,
+        'test-key',
+        provider.fetchImpl,
+      ),
+      'batch_1',
+    )
+    await submitOpenAiTranslations(
+      [input('new')],
+      newRoute,
+      store,
+      'test-key',
+      provider.fetchImpl,
+    )
+    assert.equal(provider.uploads.length, 2)
+    assert.equal(provider.uploads[1][0].body.model, feature.api_model_id)
+    assert.deepEqual(provider.uploads[1][0].body.reasoning, {
+      effort: 'medium',
+    })
+    assert.equal(
+      (provider.batches[1].metadata as Record<string, string>)
+        .ai_policy_revision,
+      selection.policy_revision,
+    )
+    assert.equal(
+      Object.values((await store.read()).submissions)[0].route.model,
+      originalModel,
+    )
+  } finally {
+    feature.api_model_id = originalModel
+    selection.policy_revision = originalRevision
+  }
 })
 
 test('同一入力を再実行してもfileとBatchを再作成しない', async () => {
@@ -393,10 +450,14 @@ test('明示429からの再試行は受付時のモデル・設定版を保ちfi
     ),
     /429/,
   )
-  const changed = route
+  const previousPolicyRevision = '2026-11-14.1'
+  await store.mutate((journal) => {
+    Object.values(journal.submissions)[0].route.policyRevision =
+      previousPolicyRevision
+  })
   await submitOpenAiTranslations(
     [input('a')],
-    changed,
+    route,
     store,
     'test-key',
     rateLimited,
@@ -408,7 +469,7 @@ test('明示429からの再試行は受付時のモデル・設定版を保ちfi
   )
   assert.equal(
     (provider.batches[0].metadata as Record<string, string>).ai_policy_revision,
-    route.policyRevision,
+    previousPolicyRevision,
   )
 })
 
