@@ -10,6 +10,8 @@ Acecore公式サイトの検索モーダルは、Acecoreが管理する同じVec
 
 検索UIは自サイトのVectorize結果、または必要時のPagefindフォールバックを確定してから横断APIを呼びます。2〜160文字に正規化できない入力は、どちらのAPIにも送信しません。
 
+本番検索・横断検索・AI相談のVoyageクエリと、Voyage索引への文書同期は、`config/ai-models.generated.json` の `search.embedding` を参照します。各索引はVoyage 4 Lite・1,024次元を前提とし、配布設定が互換条件を満たさない場合は `embedding_policy_incompatible` で送信前に停止します。モデルを切り替える場合は、新しいモデルで文書を再埋め込みした索引を準備してから、呼び出し元と共有Workerの参照先を合わせて切り替えます。公開コーパスの形式・IDとBGE-M3索引向けの同期には既存の契約を使います。
+
 ## 構成
 
 1. `npm run build` がAstroとPagefindを生成する。

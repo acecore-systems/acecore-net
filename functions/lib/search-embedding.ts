@@ -77,6 +77,8 @@ export function getSearchEmbeddingErrorCode(
 }
 
 function validateConfiguration(env: SearchEmbeddingEnv): void {
+  if (!SEARCH_EMBEDDING_MODEL)
+    throw new SearchEmbeddingProviderError('embedding_policy_incompatible')
   const configuredModel = normalize(env.SEARCH_EMBEDDING_MODEL)
   const configuredDimensions = normalize(env.SEARCH_EMBEDDING_DIMENSIONS)
   if (

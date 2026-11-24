@@ -7,6 +7,12 @@
       "provider": "openai",
       "api_model_id": "gpt-6.1-terra",
       "execution_mode": "provider_batch"
+    },
+    "search.embedding": {
+      "profile": "embedding.default",
+      "provider": "mongodb",
+      "api_model_id": "voyage-4-lite",
+      "execution_mode": "realtime"
     }
   }
 }
