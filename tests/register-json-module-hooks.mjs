@@ -4,7 +4,12 @@ import { registerHooks } from 'node:module'
 // Pages Functions bundles attribute-free JSON imports; mirror that behavior in Node tests.
 registerHooks({
   load(url, context, nextLoad) {
-    if (!url.startsWith('file:') || !url.endsWith('.json')) {
+    if (
+      !url.startsWith('file:') ||
+      !url.endsWith('.json') ||
+      context.conditions.includes('require') ||
+      context.importAttributes?.type === 'json'
+    ) {
       return nextLoad(url, context)
     }
 
