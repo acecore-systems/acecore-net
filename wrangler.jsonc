@@ -5,7 +5,7 @@
   "compatibility_date": "2026-07-27",
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-    "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+    "WORKERS_AI_CHAT_MODEL": "central",
     "WORKERS_AI_REASONING_EFFORT": "medium",
     "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
     "SEARCH_EMBEDDING_DIMENSIONS": "1024",
@@ -62,7 +62,7 @@
     "preview": {
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+        "WORKERS_AI_CHAT_MODEL": "central",
         "WORKERS_AI_REASONING_EFFORT": "medium",
         "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",
@@ -149,7 +149,7 @@
       ],
       "vars": {
         "CLOUDFLARE_ACCOUNT_ID": "db9b62f409f463da7acbcc374b8385d0",
-        "WORKERS_AI_CHAT_MODEL": "muse-ember-1.0",
+        "WORKERS_AI_CHAT_MODEL": "central",
         "WORKERS_AI_REASONING_EFFORT": "medium",
         "SEARCH_EMBEDDING_MODEL": "voyage-4-lite",
         "SEARCH_EMBEDDING_DIMENSIONS": "1024",

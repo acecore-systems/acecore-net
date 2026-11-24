@@ -204,7 +204,7 @@ Sveltia CMSまたは通常のGit commitで日本語の記事・固定ページ�
 
 サイト全体に右下の AI チャットを表示し、お問い合わせページでは FAQ の後に AI チャットを開ける導線を配置しています。AI で答えきれない見積りや正式な相談はフォームへ、短い相談や教室関連は LINE に自然につなげます。メール・電話は常時露出せず、問い合わせページ下部の「直接やりとりしたい場合」や AI が必要と判断した場合の案内に限定します。
 
-`functions/api/ai-contact.ts` のCloudflare Pages Functionから、現在は`WORKERS_AI_CHAT_MODEL=gpt-6-luna`で非公開Worker経由のOpenAI APIへ直接接続します。将来、検証済みのGLM以外の`@cf/`文章モデルを明示設定すればAI bindingのWorkers AIへ接続できます。キー不足や障害時の自動切替はしません。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserver、World Foundationについて、質問と直近の利用者発言をWorkers AI `@cf/baai/bge-m3` の1024次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
+`functions/api/ai-contact.ts` のCloudflare Pages Functionから、現在は`WORKERS_AI_CHAT_MODEL=central`で共通配布のMetaモデルを選び、非公開Worker経由でMeta APIへ接続します。将来、検証済みのGLM以外の`@cf/`文章モデルを明示設定すればAI bindingのWorkers AIへ接続できます。キー不足や障害時の自動切替はしません。このAPIはAcecore、Systems、Schoolsの公式originと、各repositoryに対応する管理下Pages Preview originから利用できます。回答生成前に、質問内容からAcecore、Acecore Systems、Acecore Schools、Aceserver、World Foundationの担当を決定します。担当が明示されない質問は呼び出し元サイトを既定とし、質問内で別サイトが明示された場合はその担当を優先します。`functions/api/ai-contact-search.ts` は、現在接続済みのAcecore、Systems、Schools、Aceserver、World Foundationについて、質問と直近の利用者発言をWorkers AI `@cf/baai/bge-m3` の1024次元embeddingへ変換し、対応するVectorize indexだけを検索します。全indexを一律には検索せず、Aceserverだけは1回のembeddingを共有してWIKIとPortalを並列検索します。
 
 Aceserver Portalのcorpus同期はProduction専用です。Netのtop-level／PreviewではPortal bindingを設定せず `ACESERVER_PORTAL_SEARCH_ENABLED=false` とします。ProductionではPortalの同期・query smoke test完了後のbindingと有効なflagを維持します。
 
@@ -222,8 +222,8 @@ Cloudflare PagesではD1、AI binding、Vectorizeの設定を対象環境に設�
 - Productionの横断検索でread-onlyに使用するVectorize bindings: `SYSTEMS_SEARCH_INDEX`、`SCHOOLS_SEARCH_INDEX`、`ACESERVER_WIKI_SEARCH_INDEX`、`ACESERVER_PORTAL_SEARCH_INDEX`、`WORLD_FOUNDATION_SEARCH_INDEX`
 - `SEARCH_ENABLED` / `SEARCH_MIN_SCORE`: Acecore検索とgroundingのkill switch / score下限
 - `{SOURCE}_SEARCH_ENABLED` / `{SOURCE}_SEARCH_MIN_SCORE`: 接続済みの各横断検索先のkill switch / score下限。World Foundationはtop-level／Previewを `false`、Productionだけを `true` とする
-- `WORKERS_AI_CHAT_MODEL`: 回答モデル（現在`gpt-6-luna`、将来は検証済みのGLM以外の`@cf/`文章モデルも選択可能）
-- `AI_CONTACT_OPENAI_SERVICE`: `gpt-6-luna`を選ぶ場合の非公開Workerへのservice binding。Previewは`acecore-net-ai-contact-openai-preview`、Productionは`acecore-net-ai-contact-openai-production`へ接続する。PagesにはOpenAIキーを置かず、各Workerの`OPENAI_API_KEY_STORE`がSecrets Storeから取得する。ブラウザには渡さない
+- `WORKERS_AI_CHAT_MODEL`: `central` は共通配布で選ぶMeta経路。旧設定の `muse-ember-1.0` も移行時に同じ経路へ接続する。検証済みのGLM以外の `@cf/` 文章モデルは明示指定できる。未設定時は生成を無効にする。
+- `AI_CONTACT_OPENAI_SERVICE` は問い合わせ文章生成の非公開Workerへのサービスバインディング。Previewは`acecore-net-ai-contact-openai-preview`、Productionは`acecore-net-ai-contact-openai-production`へ接続する。Workerは`config/ai-models.generated.json` の `acecore-net.contact.generation` からMetaに送るモデルを選び、推論強度 `low` を使う。MetaキーはWorkerの `META_API_KEY_STORE` から取得する。
 - `WORKERS_AI_REASONING_EFFORT`: 推論 effort（既定 `low`）
 - `SEARCH_EMBEDDING_MODEL`: embeddingモデル（`@cf/baai/bge-m3`固定）
 - `SEARCH_EMBEDDING_DIMENSIONS`: Vectorizeと揃える次元数（`1024`固定）

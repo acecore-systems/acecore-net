@@ -1,6 +1,12 @@
-type Env = { META_API_KEY_STORE?: { get(): Promise<string> } }
+import {
+  CONTACT_META_MODEL,
+  LEGACY_CONTACT_META_ROUTE,
+} from '../../../functions/lib/contact-model.ts'
 
-const MODEL = 'muse-ember-1.0'
+type Env = { META_API_KEY_STORE?: { get(): Promise<string> } }
+// Accept existing Pages callers during a Worker-first rollout. These values
+// are service protocol aliases and never determine the upstream model.
+const PAGES_MODEL_ALIASES = new Set([LEGACY_CONTACT_META_ROUTE, 'gpt-6-luna'])
 const MAX_BODY_BYTES = 40_000
 const MAX_RESPONSE_BYTES = 512 * 1024
 
@@ -19,7 +25,9 @@ function isRequest(value: unknown): value is Record<string, unknown> {
         'store',
       ].includes(key),
     ) &&
-    (body.model === MODEL || body.model === 'gpt-6-luna') &&
+    (body.model === CONTACT_META_MODEL ||
+      (typeof body.model === 'string' &&
+        PAGES_MODEL_ALIASES.has(body.model))) &&
     body.store === false &&
     (body.reasoning_effort === 'low' ||
       body.reasoning_effort === 'medium' ||
@@ -87,7 +95,7 @@ export default {
         },
         body: JSON.stringify({
           ...parsed,
-          model: MODEL,
+          model: CONTACT_META_MODEL,
           reasoning_effort: 'low',
         }),
         signal: AbortSignal.timeout(30_000),
