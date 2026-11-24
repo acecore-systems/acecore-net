@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 
 import {
   parseVoyageEmbeddings,
+  requireVoyageEmbeddingModel,
   voyageRequest,
 } from '../functions/lib/voyage-embedding.ts'
 
@@ -217,6 +218,8 @@ export async function syncVectorize({
   randomImpl = Math.random,
   logger = console,
 }: SyncVectorizeOptions = {}): Promise<SyncVectorizeResult> {
+  if (indexName === VOYAGE_INDEX_NAME) requireVoyageEmbeddingModel()
+
   const parsedCorpus: unknown = JSON.parse(await readFile(corpusFile, 'utf8'))
   validateCorpus(parsedCorpus)
   const corpus = parsedCorpus
