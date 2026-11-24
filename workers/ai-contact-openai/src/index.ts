@@ -1,6 +1,22 @@
+import registry from '../../../config/ai-models.generated.json' with { type: 'json' }
+
 type Env = { META_API_KEY_STORE?: { get(): Promise<string> } }
 
-const MODEL = 'muse-ember-1.0'
+const selection = registry.features['acecore-net.contact.generation']
+if (
+  registry.schema_version !== 1 ||
+  selection?.profile !== 'text.default' ||
+  selection.provider !== 'meta' ||
+  selection.execution_mode !== 'realtime' ||
+  typeof selection.api_model_id !== 'string' ||
+  !/^[a-z0-9][a-z0-9._-]*$/u.test(selection.api_model_id)
+) {
+  throw new Error('Invalid contact model policy')
+}
+const MODEL = selection.api_model_id
+// Accept existing Pages callers during a Worker-first rollout. These values
+// are service protocol aliases and never determine the upstream model.
+const PAGES_MODEL_ALIASES = new Set(['muse-ember-1.0', 'gpt-6-luna'])
 const MAX_BODY_BYTES = 40_000
 const MAX_RESPONSE_BYTES = 512 * 1024
 
@@ -19,7 +35,9 @@ function isRequest(value: unknown): value is Record<string, unknown> {
         'store',
       ].includes(key),
     ) &&
-    (body.model === MODEL || body.model === 'gpt-6-luna') &&
+    (body.model === MODEL ||
+      (typeof body.model === 'string' &&
+        PAGES_MODEL_ALIASES.has(body.model))) &&
     body.store === false &&
     (body.reasoning_effort === 'low' ||
       body.reasoning_effort === 'medium' ||
