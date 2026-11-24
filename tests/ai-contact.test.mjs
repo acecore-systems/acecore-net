@@ -196,7 +196,7 @@ test('問い合わせの経路からMetaへlowで送り、鍵がなければ閉�
         body: JSON.stringify({
           ...sent,
           model: 'gpt-6-luna',
-          reasoning_effort: 'low',
+          reasoning_effort: 'high',
         }),
       }),
       { META_API_KEY_STORE: { get: async () => 'test-meta-key' } },
@@ -221,12 +221,20 @@ test('問い合わせの経路からMetaへlowで送り、鍵がなければ閉�
   }
 })
 
-test('配布モデルを変更しても既存Pagesから新しいMetaモデルへlowで送る', async (t) => {
+test('配布モデルを変更するとPagesと上流が同じMetaモデルIDを使う', async (t) => {
   const dir = await mkdtemp(join(tmpdir(), 'contact-model-policy-'))
   const root = pathToFileURL(dir + '/')
   t.after(() => rm(dir, { recursive: true, force: true }))
   const worker = new URL('workers/ai-contact-openai/src/index.ts', root)
   const registryUrl = new URL('config/ai-models.generated.json', root)
+  const functions = new URL('functions/lib/', root)
+  await mkdir(functions, { recursive: true })
+  for (const name of ['contact-model.ts', 'workers-ai.ts']) {
+    await copyFile(
+      new URL('../functions/lib/' + name, import.meta.url),
+      new URL(name, functions),
+    )
+  }
   await mkdir(new URL('.', worker), { recursive: true })
   await mkdir(new URL('.', registryUrl), { recursive: true })
   await copyFile(
@@ -238,6 +246,9 @@ test('配布モデルを変更しても既存Pagesから新しいMetaモデル�
   selection.api_model_id = 'synthetic-contact-model'
   await writeFile(registryUrl, JSON.stringify(alternate))
   const { default: updatedWorker } = await import(worker.href)
+  const { createWorkersAiResponse: updatedPages } = await import(
+    new URL('workers-ai.ts', functions).href
+  )
   const upstream = t.mock.method(globalThis, 'fetch', async (url, init) => {
     assert.equal(url, 'https://api.meta.ai/v1/chat/completions')
     assert.equal(JSON.parse(init.body).model, selection.api_model_id)
@@ -245,26 +256,30 @@ test('配布モデルを変更しても既存Pagesから新しいMetaモデル�
     assert.equal(JSON.parse(init.body).store, false)
     return Response.json(createChatCompletion('合成テスト'))
   })
-  const result = await createWorkersAiResponse(
-    {
-      WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
-      WORKERS_AI_REASONING_EFFORT: 'high',
-      AI_CONTACT_OPENAI_SERVICE: {
-        fetch: (url, init) =>
-          updatedWorker.fetch(new Request(url, init), {
-            META_API_KEY_STORE: { get: async () => 'test-meta-key' },
-          }),
+  for (const route of ['central', 'muse-ember-1.0']) {
+    const result = await updatedPages(
+      {
+        WORKERS_AI_CHAT_MODEL: route,
+        WORKERS_AI_REASONING_EFFORT: 'high',
+        AI_CONTACT_OPENAI_SERVICE: {
+          fetch: (url, init) => {
+            assert.equal(JSON.parse(init.body).model, selection.api_model_id)
+            return updatedWorker.fetch(new Request(url, init), {
+              META_API_KEY_STORE: { get: async () => 'test-meta-key' },
+            })
+          },
+        },
       },
-    },
-    {
-      instructions: '合成テスト',
-      input: '合成の質問',
-      maxOutputTokens: 64,
-      safetyIdentifier: 'acecore_test',
-    },
-  )
-  assert.equal(result.text, '合成テスト')
-  assert.equal(upstream.mock.callCount(), 1)
+      {
+        instructions: '合成テスト',
+        input: '合成の質問',
+        maxOutputTokens: 64,
+        safetyIdentifier: 'acecore_test',
+      },
+    )
+    assert.equal(result.text, '合成テスト')
+  }
+  assert.equal(upstream.mock.callCount(), 2)
 })
 test('問い合わせ通常入口からMetaへlowを送る', async () => {
   const originalFetch = globalThis.fetch
@@ -290,7 +305,7 @@ test('問い合わせ通常入口からMetaへlowを送る', async () => {
         SEARCH_EMBEDDING_MODEL: 'voyage-4-lite',
         SEARCH_EMBEDDING_DIMENSIONS: '1024',
         SEARCH_ENABLED: 'false',
-        WORKERS_AI_CHAT_MODEL: 'muse-ember-1.0',
+        WORKERS_AI_CHAT_MODEL: 'central',
         WORKERS_AI_REASONING_EFFORT: 'medium',
         AI_CONTACT_OPENAI_SERVICE: {
           fetch: (url, init) =>
@@ -1828,7 +1843,7 @@ test('PreviewとProductionは各環境の非公開OpenAI Workerへ接続する',
     ['preview', preview],
     ['production', production],
   ]) {
-    assert.match(block, /"WORKERS_AI_CHAT_MODEL": "muse-ember-1.0"/u)
+    assert.match(block, /"WORKERS_AI_CHAT_MODEL": "central"/u)
     assert.match(
       block,
       new RegExp(

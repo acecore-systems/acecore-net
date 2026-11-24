@@ -1,22 +1,12 @@
-import registry from '../../../config/ai-models.generated.json' with { type: 'json' }
+import {
+  CONTACT_META_MODEL,
+  LEGACY_CONTACT_META_ROUTE,
+} from '../../../functions/lib/contact-model.ts'
 
 type Env = { META_API_KEY_STORE?: { get(): Promise<string> } }
-
-const selection = registry.features['acecore-net.contact.generation']
-if (
-  registry.schema_version !== 1 ||
-  selection?.profile !== 'text.default' ||
-  selection.provider !== 'meta' ||
-  selection.execution_mode !== 'realtime' ||
-  typeof selection.api_model_id !== 'string' ||
-  !/^[a-z0-9][a-z0-9._-]*$/u.test(selection.api_model_id)
-) {
-  throw new Error('Invalid contact model policy')
-}
-const MODEL = selection.api_model_id
 // Accept existing Pages callers during a Worker-first rollout. These values
 // are service protocol aliases and never determine the upstream model.
-const PAGES_MODEL_ALIASES = new Set(['muse-ember-1.0', 'gpt-6-luna'])
+const PAGES_MODEL_ALIASES = new Set([LEGACY_CONTACT_META_ROUTE, 'gpt-6-luna'])
 const MAX_BODY_BYTES = 40_000
 const MAX_RESPONSE_BYTES = 512 * 1024
 
@@ -35,7 +25,7 @@ function isRequest(value: unknown): value is Record<string, unknown> {
         'store',
       ].includes(key),
     ) &&
-    (body.model === MODEL ||
+    (body.model === CONTACT_META_MODEL ||
       (typeof body.model === 'string' &&
         PAGES_MODEL_ALIASES.has(body.model))) &&
     body.store === false &&
@@ -105,7 +95,7 @@ export default {
         },
         body: JSON.stringify({
           ...parsed,
-          model: MODEL,
+          model: CONTACT_META_MODEL,
           reasoning_effort: 'low',
         }),
         signal: AbortSignal.timeout(30_000),

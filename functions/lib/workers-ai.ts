@@ -1,4 +1,8 @@
-export const OPENAI_CHAT_MODEL = 'muse-ember-1.0' as const
+import {
+  CONTACT_META_MODEL,
+  LEGACY_CONTACT_META_ROUTE,
+} from './contact-model.ts'
+
 export const DEFAULT_WORKERS_AI_REASONING_EFFORT = 'medium' as const
 
 export type WorkersAiReasoningEffort = 'low' | 'medium' | 'high'
@@ -46,16 +50,16 @@ export async function createWorkersAiResponse(
   options: WorkersAiResponseOptions,
 ): Promise<WorkersAiResponseResult> {
   const configuredModel = normalizeConfigValue(env.WORKERS_AI_CHAT_MODEL)
-  if (
-    !isWorkersAiTextModel(configuredModel) &&
-    configuredModel !== OPENAI_CHAT_MODEL
-  ) {
+  const useWorkersAi = isWorkersAiTextModel(configuredModel)
+  const useContactMeta =
+    configuredModel === 'central' ||
+    configuredModel === CONTACT_META_MODEL ||
+    configuredModel === LEGACY_CONTACT_META_ROUTE
+  if (!useWorkersAi && !useContactMeta)
     throw new WorkersAiProviderError('invalid_model_configuration')
-  }
 
-  if (isWorkersAiTextModel(configuredModel) && !env.AI)
-    throw new WorkersAiProviderError('unconfigured')
-  if (configuredModel === OPENAI_CHAT_MODEL && !env.AI_CONTACT_OPENAI_SERVICE)
+  if (useWorkersAi && !env.AI) throw new WorkersAiProviderError('unconfigured')
+  if (useContactMeta && !env.AI_CONTACT_OPENAI_SERVICE)
     throw new WorkersAiProviderError('unconfigured')
 
   let payload: unknown
@@ -65,15 +69,14 @@ export async function createWorkersAiResponse(
         { role: 'system', content: options.instructions },
         { role: 'user', content: options.input },
       ],
-      reasoning_effort:
-        configuredModel === OPENAI_CHAT_MODEL
-          ? 'low'
-          : normalizeReasoningEffort(env.WORKERS_AI_REASONING_EFFORT),
+      reasoning_effort: useContactMeta
+        ? 'low'
+        : normalizeReasoningEffort(env.WORKERS_AI_REASONING_EFFORT),
       max_completion_tokens: options.maxOutputTokens,
       user: options.safetyIdentifier,
       store: false,
     }
-    if (isWorkersAiTextModel(configuredModel)) {
+    if (useWorkersAi) {
       payload = await (
         env.AI!.run as (model: string, input: unknown) => Promise<unknown>
       )(configuredModel, request)
@@ -85,7 +88,7 @@ export async function createWorkersAiResponse(
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ model: OPENAI_CHAT_MODEL, ...request }),
+          body: JSON.stringify({ model: CONTACT_META_MODEL, ...request }),
           signal: AbortSignal.timeout(30_000),
         },
       )
