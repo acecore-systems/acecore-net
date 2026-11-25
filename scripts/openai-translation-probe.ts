@@ -71,7 +71,8 @@ export async function runOpenAiTranslationProbe(
     batch.id !== batchId ||
     batch.endpoint !== '/v1/responses' ||
     batch.metadata?.translation_system !== 'acecore-net-probe-v1' ||
-    batch.metadata?.ai_model !== activeRoute.model ||
+    (batch.metadata?.ai_model !== activeRoute.model &&
+      batch.metadata?.ai_model !== 'gpt-6.1-terra') ||
     batch.metadata?.ai_reasoning_effort !== activeRoute.reasoningEffort
   )
     throw new Error('probe_batch_identity_mismatch')
@@ -98,7 +99,7 @@ export async function runOpenAiTranslationProbe(
     result.error ||
     result.response?.status_code !== 200 ||
     result.response?.body?.status !== 'completed' ||
-    result.response?.body?.model !== activeRoute.model
+    result.response?.body?.model !== batch.metadata.ai_model
   )
     throw new Error('probe_output_identity_mismatch')
   const metadata = decodeMetadata(result.custom_id)

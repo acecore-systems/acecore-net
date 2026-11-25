@@ -26,7 +26,7 @@ export function getDirectTranslationRoute(): TranslationRoute {
     apiKind: 'responses',
     executionMode: selected?.execution_mode,
     model: selected?.api_model_id,
-    reasoningEffort: 'medium',
+    reasoningEffort: selected?.reasoning_effort,
   })
 }
 
