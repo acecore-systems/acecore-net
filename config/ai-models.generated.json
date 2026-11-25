@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy_revision": "2026-11-25.2",
+  "policy_revision": "2026-11-25.4",
   "features": {
     "acecore-net.contact.generation": {
       "profile": "text.default",
@@ -11,8 +11,9 @@
     "acecore-net.translation.batch": {
       "profile": "text.batch",
       "provider": "openai",
-      "api_model_id": "gpt-6.1-terra",
-      "execution_mode": "provider_batch"
+      "api_model_id": "gpt-6.2-sol",
+      "execution_mode": "provider_batch",
+      "reasoning_effort": "medium"
     },
     "search.embedding": {
       "profile": "embedding.default",

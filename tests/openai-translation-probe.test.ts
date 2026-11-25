@@ -36,7 +36,7 @@ test('合成送信は通常collector対象外のBatchへ medium と構造出力�
       const form = init!.body as FormData
       assert.equal(form.get('purpose'), 'batch')
       const request = JSON.parse(await (form.get('file') as Blob).text())
-      assert.equal(request.body.model, 'gpt-6.1-terra')
+      assert.equal(request.body.model, 'gpt-6.2-sol')
       assert.equal(request.body.reasoning.effort, 'medium')
       assert.equal(request.body.text.format.type, 'json_schema')
       return Response.json({ id: 'file-probe' })
