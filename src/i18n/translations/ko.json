@@ -10,13 +10,13 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "사이트 리뉴얼 안내",
-    "body": "사이트를 리뉴얼하고 서비스 내용과 제작 사례를 더 보기 쉽게 정리했습니다.",
-    "href": "/blog/website-renewal/",
-    "ctaLabel": "변경 내용 보기",
-    "startsAt": "2026-06-07T00:00",
-    "endsAt": "2026-06-21T23:59",
-    "tone": "brand"
+    "title": "【중요】현재 이메일, 전화 및 문의 양식으로 문의를 접수할 수 없습니다",
+    "body": "당사가 이용하는 이메일 및 전화 서비스에 장애가 발생했습니다. 이용에 불편을 드려 진심으로 죄송합니다.",
+    "href": "/notice/mail-phone-outage/",
+    "ctaLabel": "자세히 보기",
+    "startsAt": null,
+    "endsAt": null,
+    "tone": "danger"
   },
   "announcements": [
     {

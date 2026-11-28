@@ -10,13 +10,13 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Aviso de renovação do site",
-    "body": "Renovamos o site e reorganizamos os serviços e exemplos de projetos para facilitar a consulta.",
-    "href": "/blog/website-renewal/",
-    "ctaLabel": "Ver mudanças",
-    "startsAt": "2026-06-07T00:00",
-    "endsAt": "2026-06-21T23:59",
-    "tone": "brand"
+    "title": "【Importante】No momento, não podemos receber contatos por e-mail, telefone ou formulário de contato",
+    "body": "Isso se deve a uma falha nos serviços de e-mail e telefonia que utilizamos. Pedimos sinceras desculpas pelo transtorno.",
+    "href": "/notice/mail-phone-outage/",
+    "ctaLabel": "Ver detalhes",
+    "startsAt": null,
+    "endsAt": null,
+    "tone": "danger"
   },
   "announcements": [
     {

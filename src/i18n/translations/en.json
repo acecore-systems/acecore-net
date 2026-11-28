@@ -10,13 +10,13 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Site renewal notice",
-    "body": "We have refreshed the website and reorganized our services and project examples to make them easier to browse.",
-    "href": "/blog/website-renewal/",
-    "ctaLabel": "See what's new",
-    "startsAt": "2026-06-07T00:00",
-    "endsAt": "2026-06-21T23:59",
-    "tone": "brand"
+    "title": "Important: We’re currently unable to receive inquiries by email, phone, or through our contact form",
+    "body": "This is due to an outage affecting the email and phone services we use. We sincerely apologize for the inconvenience.",
+    "href": "/notice/mail-phone-outage/",
+    "ctaLabel": "View details",
+    "startsAt": null,
+    "endsAt": null,
+    "tone": "danger"
   },
   "announcements": [
     {
