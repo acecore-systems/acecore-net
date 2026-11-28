@@ -10,13 +10,13 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "网站改版通知",
-    "body": "我们已更新网站，并重新整理服务内容和案例，方便浏览。",
-    "href": "/blog/website-renewal/",
-    "ctaLabel": "查看更新",
-    "startsAt": "2026-06-07T00:00",
-    "endsAt": "2026-06-21T23:59",
-    "tone": "brand"
+    "title": "【重要】我们暂时无法接收通过电子邮件、电话或联系表单发来的咨询",
+    "body": "这是由于我们使用的电子邮件和电话服务发生故障。由此给您带来的不便，我们深表歉意。",
+    "href": "/notice/mail-phone-outage/",
+    "ctaLabel": "查看详情",
+    "startsAt": null,
+    "endsAt": null,
+    "tone": "danger"
   },
   "announcements": [
     {

@@ -10,13 +10,13 @@
   },
   "announcement": {
     "enabled": true,
-    "title": "Hinweis zur Website-Erneuerung",
-    "body": "Wir haben die Website überarbeitet und Leistungen sowie Projektbeispiele übersichtlicher strukturiert.",
-    "href": "/blog/website-renewal/",
-    "ctaLabel": "Änderungen ansehen",
-    "startsAt": "2026-06-07T00:00",
-    "endsAt": "2026-06-21T23:59",
-    "tone": "brand"
+    "title": "Wichtiger Hinweis: Wir sind derzeit weder per E-Mail noch telefonisch oder über das Kontaktformular erreichbar",
+    "body": "Grund dafür ist eine Störung der von uns genutzten E-Mail- und Telefondienste. Wir bitten Sie, die Unannehmlichkeiten zu entschuldigen.",
+    "href": "/notice/mail-phone-outage/",
+    "ctaLabel": "Details ansehen",
+    "startsAt": null,
+    "endsAt": null,
+    "tone": "danger"
   },
   "announcements": [
     {
