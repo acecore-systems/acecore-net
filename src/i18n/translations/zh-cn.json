@@ -121,7 +121,7 @@
     "articlesByAuthor": "{author}的文章列表",
     "authorDescription": "{author}撰写的文章列表。",
     "articlesInMonth": "{label}的文章列表",
-    "monthDescription": "这是在{label}发布的文章列表。",
+    "monthDescription": "{label}发布的文章列表。",
     "nArticles": "（{count}篇）",
     "yearMonth": "{year}年{month}月",
     "sidebar": "侧边栏",
@@ -161,7 +161,7 @@
     "networkOneResult": "找到1条来自Acecore相关网站的相关信息",
     "semanticPrivacyNotice": "输入两个或更多字符后，系统会自动将搜索词发送至MongoDB Voyage AI，以查找本站和Acecore相关网站的相关信息。请勿输入个人信息或机密信息。",
     "semanticPrivacyLink": "数据处理说明",
-    "rssTitle": "Acecore 新闻",
+    "rssTitle": "Acecore新闻",
     "rssDescription": "Acecore的企业信息、业务与活动通知",
     "pagefindFilterAuthor": "作者",
     "pagefindFilterYear": "年份",
@@ -172,10 +172,10 @@
     "postNavLabel": "文章导航",
     "tagPrefix": "标签：{tag}",
     "authorPrefix": "作者：{author}",
-    "indexDescription": "Acecore的公司信息、业务动态、跨业务活动及重要通知。专业技术、教育和社区详情请查看各业务官方网站。",
-    "pageDescription": "Acecore新闻列表（第{current}/{total}页）。刊载企业信息、业务与活动通知。",
-    "tagListDescription": "这是Acecore新闻的标签列表。",
-    "archiveListDescription": "这是Acecore新闻的按月归档列表。",
+    "indexDescription": "浏览Acecore新闻，了解有关企业信息、业务和各项活动的最新消息与通知，查看Acecore发布的相关新闻文章。",
+    "pageDescription": "Acecore新闻文章列表（第{current}/{total}页），刊载有关企业信息、业务和各项活动的新闻与通知。",
+    "tagListDescription": "浏览Acecore新闻的完整标签列表，按标签查找相关文章，了解有关企业信息、业务和各项活动的新闻与通知。",
+    "archiveListDescription": "浏览Acecore新闻的月度归档列表，按月份查找相关文章，了解有关企业信息、业务和各项活动的新闻与通知。",
     "itemListName": "Acecore新闻列表",
     "language": "语言",
     "commentsTitle": "评论",
@@ -410,34 +410,94 @@
     },
     "privacy": {
       "title": "隐私政策",
-      "seoTitleContext": "个人信息与访问分析",
-      "description": "Acecore的隐私政策。关于个人信息处理、广告投放、访问分析和免责声明。",
+      "seoTitleContext": "个人信息与访问分析的处理",
+      "description": "Acecore的隐私政策，介绍个人信息的处理方式、广告投放、访问数据分析以及免责声明等相关内容。",
       "heroTitle": "隐私政策",
       "heroImgAlt": "文件和笔",
       "adHeading": "关于广告投放",
       "adBody1": "本网站（Acecore）使用第三方广告服务「Google AdSense」。",
-      "adBody2": "广告投放商可能会使用Cookie来显示基于用户兴趣的广告。",
-      "adBody3": "关于禁用Cookie的设置和Google AdSense的详细信息，请参阅「Google政策和条款」。",
+      "adBody2": "广告投放商可能会使用Cookie来展示符合用户兴趣的广告。",
+      "adBody3": "有关禁用Cookie的设置和Google AdSense的详情，请参阅「Google政策和条款」。",
       "analyticsHeading": "关于访问分析",
       "analyticsBody1": "本网站可能使用「Google Analytics」作为访问分析工具。",
-      "analyticsBody2": "Google Analytics使用Cookie收集流量数据，但此数据是匿名收集的，不会识别个人身份。",
-      "analyticsBody3": "您可以通过禁用Cookie来拒绝此数据收集。请检查您的浏览器设置。",
-      "searchHeading": "关于站内搜索和 AI 聊天",
-      "searchBody1": "在站内搜索中，当您输入至少两个字符并停止输入约400毫秒后，搜索词会先自动发送至MongoDB Voyage AI，转换为数值向量，并与Cloudflare Vectorize中索引的本站公开内容进行匹配。只有在没有可用的Vectorize结果时，关键词搜索（Pagefind）才会在您的浏览器中本地处理。同时，同一搜索词也会由MongoDB Voyage AI转换为数值向量，并与其他Acecore相关站点的公开信息匹配，以显示优先级较低的相关结果区域。在 AI 聊天中，您提交的问题和最多8条近期对话消息会发送至Cloudflare Workers AI。为了查找回答的依据，系统会将用于搜索的文本发送至MongoDB Voyage AI并转换为数值向量。系统会根据问题意图，从Acecore、Acecore Systems、Acecore Schools、Aceserver或World Foundation中相关官方网站的Cloudflare Vectorize检索公开信息，并将其用作回答依据。有关World Foundation的问题会在其生产环境Vectorize搜索可用时使用该搜索，否则引导您访问其官方网站。对于本站以外且已连接的官方网站，系统会检索其日语公开信息，并使用当前显示的语言生成回答。",
-      "searchBody2": "Acecore应用不会保存或记录站内搜索词、相关站点搜索词、AI聊天问题或对话消息。仅为防止滥用站内搜索、相关站点搜索和AI聊天，系统会将连接IP地址或浏览器会话专用标识符的SHA-256单向哈希值以及请求次数作为10分钟后过期的数据存储在Cloudflare D1中，并在后续清理时删除。连接IP地址本身不会存储在D1中。MongoDB Voyage AI将搜索文本转换为数值向量。公开内容由Cloudflare Vectorize建立索引。AI处理使用Cloudflare Workers AI，内容分发、搜索和请求频率限制使用Cloudflare服务。请勿在搜索或 AI 聊天中输入个人信息或机密信息。",
+      "analyticsBody2": "Google Analytics使用Cookie收集流量数据，但这些数据以匿名方式收集，不会识别个人身份。",
+      "analyticsBody3": "您可以通过禁用Cookie来拒绝收集这些数据。请检查您的浏览器设置。",
+      "searchHeading": "关于站内搜索和AI聊天",
+      "searchBody1": "在站内搜索中，输入两个或以上字符的搜索词约400毫秒后，系统会先将搜索词自动发送至MongoDB Voyage AI，转换为数值向量，再与Cloudflare Vectorize中登记的本站公开内容进行匹配。只有在无法获得有效结果时，才会在浏览器内处理关键词搜索（Pagefind）。同时，为辅助查询本站以外的Acecore相关网站的公开信息，系统会将相同的搜索词通过MongoDB Voyage AI转换为数值向量，并与Cloudflare Vectorize进行匹配。在AI聊天中，您提交的问题和最多8条近期对话会发送至Cloudflare Workers AI。查找回答依据时，系统会将用于搜索的文本发送至MongoDB Voyage AI，转换为搜索用的数值向量。系统会根据问题的意图，从Acecore、Acecore Systems、Acecore Schools、Aceserver、World Foundation相关官方网站的Cloudflare Vectorize中检索公开信息，并将其作为回答依据。对于有关World Foundation的问题，如果Production的Vectorize搜索可用，系统会以该网站的公开信息为依据；如果不可用，则会引导您访问其官方网站。对于本站以外已连接的官方网站，系统会检索日语公开信息，并以当前显示的语言生成回答。",
+      "searchBody2": "本网站的应用程序不会保存或记录站内搜索和相关网站搜索的搜索词、AI聊天的问题或对话内容。为防止滥用站内搜索、相关网站搜索和AI聊天，系统会将来源IP地址或浏览器会话标识符经SHA-256单向哈希处理后的值及请求次数作为10分钟后过期的数据存储在Cloudflare D1中，并在后续清理时删除。来源IP地址本身不会存储在D1中。搜索文本的数值转换使用MongoDB Voyage AI。公开内容登记在Cloudflare Vectorize中。AI处理使用Cloudflare Workers AI，内容分发、搜索和请求频率限制使用Cloudflare的服务。请勿在搜索框或AI聊天中输入个人信息或机密信息。",
+      "acecoreIdSections": [
+        {
+          "heading": "有关Acecore ID的个人信息",
+          "paragraphs": [
+            "Acecore ID是在株式会社Acecore（以下简称「Acecore」）指定服务中进行身份核实和认证的账户。本节规定Acecore ID注册、认证及安全措施所涉及的信息处理方式。"
+          ]
+        },
+        {
+          "heading": "个人信息处理经营者及申请受理窗口",
+          "paragraphs": [
+            "Acecore ID相关个人信息的处理经营者为株式会社Acecore（代表人：西田凱）。",
+            "如需了解本公司的所在地，或申请通知所持有个人数据的利用目的、披露、更正、停止使用等，请通过Acecore的联系表单提出，并注明「有关Acecore ID个人信息的申请」。我们将在使用申请所涉账户的注册邮箱完成必要的身份核实后，依法及时处理。",
+            "我们不收取手续费。请勿在表单中填写超出身份核实所需范围的信息、一次性验证码、通行密钥或秘密信息。"
+          ]
+        },
+        {
+          "heading": "收集的信息",
+          "paragraphs": ["为注册、认证及防止滥用，我们会处理以下信息。"],
+          "items": [
+            "电子邮箱地址、邮箱验证状态、账户标识符、已同意的条款版本、注册和更新时间以及账户状态",
+            "通行密钥的认证信息（认证信息ID、公钥、签名计数器以及有关支持设备和传输方式的元数据）。生物识别信息本身由用户的设备或认证器处理，Acecore不会获取。",
+            "认证和会话安全信息（使用时间、来源IP地址、浏览器或设备信息、防止滥用及审计记录）",
+            "用于验证注册一次性验证码的单向HMAC值、发送及尝试次数、有效期限以及临时通行密钥注册信息。我们不保存一次性验证码的明文。"
+          ]
+        },
+        {
+          "heading": "使用目的",
+          "paragraphs": [
+            "收集的信息用于创建账户、通过电子邮箱地址和通行密钥核实身份、维持登录状态、处理咨询和删除等申请、调查和防止滥用及故障，以及履行法律法规规定的必要义务。",
+            "我们不会为向账户用户投放广告而使用或出售Acecore ID的信息。"
+          ]
+        },
+        {
+          "heading": "受托方与向第三方提供信息",
+          "paragraphs": [
+            "Acecore ID使用Cloudflare的Workers、D1、Email Sending、Turnstile、请求频率限制及网络防护功能，作为提供账户、发送邮件、防止滥用和安全分发的基础设施。这些服务提供商会在提供相关功能所必需的范围内处理信息。",
+            "除依法、经本人同意或为保护人的生命、身体和财产所必需的情况外，Acecore不会向第三方提供账户信息。"
+          ]
+        },
+        {
+          "heading": "保存期限与删除处理",
+          "paragraphs": [
+            "注册用一次性验证码自签发起5分钟后失效，通行密钥注册的临时权限自签发起15分钟后失效。这些期限旨在确保认证安全，并不意味着保存的记录会立即被物理删除。",
+            "账户信息及防止滥用、审计记录将在提供账户、安全保障、处理争议或履行法律规定的保存义务所需的期限内保留。如您希望删除信息，我们将在联系窗口核实您的身份后，在合理范围内处理，但依法或出于安全需要保留的信息除外。"
+          ]
+        },
+        {
+          "heading": "安全管理措施",
+          "paragraphs": [
+            "我们结合使用HTTPS通信保护、秘密信息分离管理、一次性验证码单向HMAC处理、访问控制、期限管理、请求频率限制及机器人防护，努力防止未经授权的注册、认证和访问。应本人要求，我们会在不损害系统安全的范围内说明安全管理措施的详情。"
+          ]
+        },
+        {
+          "heading": "披露、更正及停止使用等申请",
+          "paragraphs": [
+            "如希望披露、更正、删除或停止使用与Acecore ID有关的所持有信息，请联系我们。我们将在确认申请人为本人或合法代理人后，依法处理。"
+          ]
+        }
+      ],
+      "acecoreIdRequestLink": "提交有关Acecore ID个人信息的申请",
       "personalInfoHeading": "关于个人信息处理",
-      "personalInfoBody": "在使用本网站的咨询表单时，我们可能会要求您提供姓名和电子邮箱等个人信息。收集的个人信息仅用于回复咨询和必要的联络，不会用于其他目的。",
-      "disclosureHeading": "个人信息的第三方披露",
-      "disclosureBody": "收集的个人信息除以下情况外，不会向第三方披露。",
-      "disclosureItem1": "获得本人同意的情况",
-      "disclosureItem2": "法律要求披露的情况",
+      "personalInfoBody": "使用本网站的联系表单时，我们可能会要求您提供姓名和电子邮箱地址等个人信息。收集的个人信息仅用于回复咨询和必要的联系，不会用于其他目的。",
+      "disclosureHeading": "向第三方披露个人信息",
+      "disclosureBody": "除以下情况外，我们不会向第三方披露收集的个人信息。",
+      "disclosureItem1": "获得本人同意时",
+      "disclosureItem2": "法律法规要求披露时",
       "disclaimerHeading": "免责声明",
       "disclaimerBody": "本网站尽力提供准确的信息，但信息可能过时或存在错误。对于因本网站信息造成的任何损失，我方概不负责，敬请谅解。",
       "copyrightHeading": "关于版权",
-      "copyrightBody": "本网站刊载的文章、图片及其他内容的版权归株式会社Acecore或各权利持有者所有。未经许可禁止转载或复制。",
+      "copyrightBody": "本网站刊载的文章、图片及其他内容的版权归株式会社Acecore或各权利人所有。请勿未经许可转载或复制。",
       "contactHeading": "联系我们",
-      "contactBody": "关于本政策的咨询，请通过联系页面联系我们。",
-      "effectiveDate": "制定日：2025年1月1日 / 最后更新日：2026年8月1日（Acecore ID 条款版本：2026-08-01-acecoreid-v1）"
+      "contactBody": "有关本政策的咨询，请通过联系页面联系我们。",
+      "effectiveDate": "制定日期：2025年1月1日 ／ 最后更新日期：2026年8月1日（Acecore ID 条款版本：2026-08-01-acecoreid-v1）"
     },
     "acestudio": {
       "title": "AceStudio",
