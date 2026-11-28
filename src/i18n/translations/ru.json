@@ -18,6 +18,16 @@
     "endsAt": "2026-06-21T23:59",
     "tone": "brand"
   },
+  "announcements": [
+    {
+      "enabled": true,
+      "title": "【重要】現在、メール・電話・お問い合わせフォームでのご連絡を受け付けられません",
+      "body": "当社が利用しているメール・電話サービスの障害によるものです。ご迷惑をおかけし、誠に申し訳ございません。",
+      "href": "https://acecore.net/notice/mail-phone-outage/",
+      "ctaLabel": "詳細を見る",
+      "tone": "danger"
+    }
+  ],
   "campaignNotices": [],
   "common": {
     "skipToContent": "Перейти к основному содержимому",

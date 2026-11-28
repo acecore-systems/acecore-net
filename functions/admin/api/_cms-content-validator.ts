@@ -91,7 +91,7 @@ const campaignSchema = z
         'users',
       ])
       .optional(),
-    tone: z.enum(['brand', 'amber', 'emerald', 'slate']),
+    tone: z.enum(['brand', 'amber', 'emerald', 'slate', 'danger']),
     startsAt: z.string().regex(LOCAL_DATETIME_PATTERN).optional(),
     endsAt: z.string().regex(LOCAL_DATETIME_PATTERN).optional(),
     order: z.number().int().optional(),
