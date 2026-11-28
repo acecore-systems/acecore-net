@@ -7,7 +7,7 @@ interface Props {
   locale: Locale
 }
 
-type AnnouncementTone = 'brand' | 'amber' | 'emerald' | 'slate'
+type AnnouncementTone = 'brand' | 'amber' | 'emerald' | 'slate' | 'danger'
 
 type AnnouncementSettings = {
   enabled?: boolean
@@ -66,10 +66,20 @@ const toneClasses: Record<
     title: 'text-slate-700',
     cta: 'bg-slate-800 text-white hover:bg-slate-900',
   },
+  danger: {
+    wrap: 'border-red-300 bg-red-50 text-slate-900',
+    icon: 'text-red-600',
+    title: 'text-red-700',
+    cta: 'bg-red-600 text-white hover:bg-red-700',
+  },
 }
 
 const isAnnouncementTone = (tone?: string): tone is AnnouncementTone =>
-  tone === 'brand' || tone === 'amber' || tone === 'emerald' || tone === 'slate'
+  tone === 'brand' ||
+  tone === 'amber' ||
+  tone === 'emerald' ||
+  tone === 'slate' ||
+  tone === 'danger'
 
 const visibleAnnouncements = announcements
   .map((announcement) => {

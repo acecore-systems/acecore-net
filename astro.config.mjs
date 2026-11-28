@@ -66,6 +66,7 @@ export default defineConfig({
           !page.includes('/blog/authors/') &&
           !page.includes('/blog/page/') &&
           !page.includes('/contact/thanks/') &&
+          !page.includes('/notice/mail-phone-outage/') &&
           !/^\/(?:zh-cn|es|pt|fr|ko|de|ru)\/terms\/?$/.test(
             new URL(page).pathname,
           )

@@ -781,6 +781,7 @@ collections:
           - { label: '🟡 募集・注意', value: amber }
           - { label: '🟢 受付中・成功', value: emerald }
           - { label: '⚪ 控えめ', value: slate }
+          - { label: '🔴 重要・障害', value: danger }
         default: brand
       - name: 'startsAt'
         label: '表示開始日時'

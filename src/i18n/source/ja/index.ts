@@ -13,7 +13,7 @@ import securityPolicyPageTranslations from './pages/security-policy.json'
 import servicesPageTranslations from './pages/services.json'
 import termsPageTranslations from './pages/terms.json'
 
-type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate'
+type CampaignTone = 'brand' | 'amber' | 'emerald' | 'slate' | 'danger'
 type CampaignEntryType = 'announcement' | 'page-notice'
 
 type CampaignEntry = {

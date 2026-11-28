@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro'
+
+// メール基盤の障害中、お問い合わせフォーム上部に出す案内。
+// 文言は翻訳パイプラインに載せず、日本語を全言語で表示する。
+// 復旧後は利用箇所（views/ContactPage.astro）から外し、このファイルを削除する。
+const noticeHref = '/notice/mail-phone-outage/'
+---
+
+<div
+  class="mb-6 rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-slate-900"
+  data-pagefind-ignore
+>
+  <div class="flex items-start gap-3">
+    <Icon
+      name="triangle-exclamation-point"
+      class="mt-0.5 shrink-0 text-lg text-red-600"
+    />
+    <div class="min-w-0">
+      <p class="m-0 font-700 leading-relaxed">
+        現在、メール基盤の障害により、このフォームから送信された内容は当社に届きません。復旧後に改めてご送信ください。
+      </p>
+      <a
+        href={noticeHref}
+        class="mt-2 inline-flex min-h-10 items-center font-700 text-red-700 underline underline-offset-2 hover:text-red-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
+      >
+        詳細はこちら
+      </a>
+    </div>
+  </div>
+</div>

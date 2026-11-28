@@ -1,0 +1,60 @@
+---
+import '../styles/prose.css'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import { locales } from '../i18n'
+
+// 日本語のみの臨時のお知らせ。他言語版・hreflangは作らず、言語切替もこのページへ向ける。
+const title = 'メール・電話・お問い合わせフォームの障害に関するお知らせとお詫び'
+const noticePath = '/notice/mail-phone-outage/'
+const languageSwitcherUrls = Object.fromEntries(
+  locales.map((locale) => [locale, noticePath]),
+)
+---
+
+<BaseLayout
+  title={title}
+  description="当社のメール・電話・お問い合わせフォームの障害に関するお知らせとお詫びです。"
+  robots="noindex, follow"
+  locale="ja"
+  languageSwitcherPath={noticePath}
+  languageSwitcherUrls={languageSwitcherUrls}
+  alternateUrls={[]}
+>
+  <section class="ac-section legal-page">
+    <div class="ac-container max-w-3xl">
+      <Breadcrumb items={[{ label: title }]} locale="ja" />
+      <h1 class="ac-page-title legal-title">{title}</h1>
+      <p class="mt-4 text-sm ac-muted">掲載日: 2026年11月28日</p>
+      <div class="ac-prose max-w-none mt-8">
+        <p>平素よりAcecoreをご利用いただき、誠にありがとうございます。</p>
+        <p>
+          当社がメール・電話に利用している外部サービスで障害が発生しており、現在、当社ではメール・電話でのご連絡を受け付けられない状態です。お問い合わせフォームも同じ仕組みを利用しているため、送信いただいた内容が当社に届きません。
+        </p>
+        <p>
+          お客様には多大なご迷惑とご不便をおかけしておりますことを、深くお詫び申し上げます。
+        </p>
+
+        <h2>影響期間</h2>
+        <ul>
+          <li>発生日時：2026年11月28日 16時20分ごろ</li>
+          <li>復旧見込み：未定（判明次第、このページでお知らせします）</li>
+        </ul>
+
+        <h2>影響範囲</h2>
+        <ul>
+          <li>当社宛てのメール</li>
+          <li>当社の電話</li>
+          <li>お問い合わせフォーム（acecore.net、systems.acecore.net）</li>
+        </ul>
+
+        <h2>お客様へのお願い</h2>
+        <p>
+          障害期間中にお送りいただいたメールやお問い合わせフォームの内容は、当社に届いていない可能性があります。現在、代わりの連絡手段はご用意できておりません。大変お手数ですが、復旧後に改めてご連絡いただけますようお願い申し上げます。
+        </p>
+        <p>復旧しましたら、このページでお知らせいたします。</p>
+        <p>Acecore</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
